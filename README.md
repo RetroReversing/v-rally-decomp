@@ -1,13 +1,13 @@
 # V-Rally Edition 99 - Nintendo 64 matching decompilation
 
-An unfinished matching decompilation of the European revision 0 release (`NVLP`), combining ROM-derived C from Claude Sonnet 5.5 low and GPT-6.1 Sol-directed sessions. Existing original game source was not consulted in those sessions.
+An unfinished matching decompilation of the European revision 0 release (`NVLP`), combining ROM-derived C from Claude Sonnet 5.5 (low effort) and GPT-6.1 Sol-directed sessions. Existing original game source was not consulted in these sessions.
 
 ## Verified checkpoint
 
-- **692 selected C functions / 39,840 matching bytes**, about **7.039% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **692 C and 1,430 assembly functions**.
+- **1,004 selected C functions / 72,604 matching bytes**, about **12.83% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,004 C and 1,118 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no automatic C fallbacks. Reconstruction in the supplied ROM's original byte order also matched.
-- Sonnet supplied the verified 645-function base. Sol supplied 47 additional functions; a shared startup function with different names was counted once by address and target bytes.
+- Claude's latest verified export selected 1,000 C functions. The combined checkpoint retains four previously verified functions absent from that export and adds 312 new functions over the prior 692-function repository state. All 1,004 pass together in the full cartridge rebuild.
 
 This is a partial decompilation. Candidate boundaries, compiler identity, names and types remain provisional. Detected-code coverage is not a percentage of the whole game, and a matching build still uses original assembly for remaining functions.
 
@@ -30,7 +30,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (692 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1004 of 2122 functions in C)
 ```
 
 ## Supported input
