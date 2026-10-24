@@ -1,8 +1,9 @@
 #include "common.h"
 
-void func_8008A270(void *arg0, s32 arg1, s32 arg2)
+void func_8008A270(char *arg0, int arg1, int arg2)
 {
-  int new_var;
-  new_var = (*((s32 *) (((s8 *) arg0) + 0x10))) + (((arg1 & 0xFFFF) * 4) * 5);
-  *((s32 *) (((s8 *) new_var) + 0x10)) = arg2;
+  char *new_var;
+  int i = (arg1 & 0xFFFF) * 5;
+  new_var = (*((char **) (arg0 + 0x10))) + ((i * 2) * 2);
+  *((int *) (new_var + 0x10)) = arg2;
 }
