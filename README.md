@@ -1,13 +1,13 @@
 # V-Rally Edition 99 - Nintendo 64 matching decompilation
 
-An unfinished matching decompilation of the European revision 0 release (`NVLP`), combining ROM-derived C from Claude Sonnet 5.5 (low effort) and GPT-6.1 Sol-directed sessions. Existing original game source was not consulted in these sessions.
+An unfinished matching decompilation of the European revision 0 release (`NVLP`). It began with ROM-derived C from Claude Sonnet 5.5 (low effort) and GPT-6.1 Sol-directed sessions, and now includes a newer user-supplied decompdecomp export. See [NOTICE.md](NOTICE.md) for provenance.
 
 ## Verified checkpoint
 
-- **1,004 selected C functions / 72,604 matching bytes**, about **12.83% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,004 C and 1,118 assembly functions**.
+- **1,392 selected C functions / 138,608 matching bytes**, about **24.49% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,392 C and 730 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no automatic C fallbacks. Reconstruction in the supplied ROM's original byte order also matched.
-- Claude's latest verified export selected 1,000 C functions. The combined checkpoint retains four previously verified functions absent from that export and adds 312 new functions over the prior 692-function repository state. All 1,004 pass together in the full cartridge rebuild.
+- The latest supplied export adds 388 C functions and 66,004 matching bytes over the previous 1,004-function checkpoint. All previously selected C functions are retained; four implementations and the associated compiler/data-placement settings are updated. All 1,392 pass together in the full cartridge rebuild.
 
 This is a partial decompilation. Candidate boundaries, compiler identity, names and types remain provisional. Detected-code coverage is not a percentage of the whole game, and a matching build still uses original assembly for remaining functions.
 
@@ -30,7 +30,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1004 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1392 of 2122 functions in C)
 ```
 
 ## Supported input
