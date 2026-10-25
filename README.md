@@ -1,5 +1,7 @@
 # V-Rally Edition 99 - Nintendo 64 matching decompilation
 
+[![Progress](https://bytematch.dev/RetroReversing/v-rally-decomp.svg)](https://bytematch.dev/RetroReversing/v-rally-decomp)
+
 An unfinished matching decompilation of the European revision 0 release (`NVLP`). It began with ROM-derived C from Claude Sonnet 5.5 (low effort) and GPT-6.1 Sol-directed sessions, and now includes a newer user-supplied decompdecomp export. See [NOTICE.md](NOTICE.md) for provenance.
 
 ## Verified checkpoint
@@ -48,3 +50,36 @@ identical: build/game.z64 matches baserom.z64 byte for byte (1392 of 2122 functi
 Read AGENTS.md. Work on C and headers, preserve targets/compiler settings, and use `build.py check FUNCTION_NAME` in the configured environment for a candidate comparison. Run the full build before accepting an integrated checkpoint. Keep originals, generated files, databases, compilers and local evidence out of Git.
 
 [The AI-assisted N64 tutorial](https://www.retroreversing.com/ai-assisted-n64-decompilation) explains the workflow and model comparisons. See [NOTICE.md](NOTICE.md) for provenance and licensing.
+
+## ByteMatch progress reports
+
+`tools/progress.py` runs the full verified build, assembles the original comparison
+objects, and regenerates `objdiff.json` from `build.json` and the source tree.
+Then run `objdiff-cli report generate -o build/NVLP/report.json` (create
+`build/NVLP` first). Unit names follow the source folders. Assembly-only functions
+compare against an empty object and remain incomplete; their source path records
+the ROM-generated assembly, which is intentionally not published. ByteMatch
+can show the committed C; generated assembly has no public source to display. C names
+already agree with the report symbols, so no rename header is needed. There is
+no separate list of functional, non-matching C, so no `functional.json` is emitted.
+
+At the verified checkpoint, the report records 1,392 completed units and 138,608
+completed code bytes (~24.49%). Its raw object comparison reports 1,387 exact
+function matches: five units have small object-level differences even though the
+full linked cartridge is identical. Completed/linked progress and raw object
+matching are separate measures; neither is a whole-game completion percentage.
+
+The workflow uploads only `NVLP_report`, containing `report.json`, on main pushes
+or manual dispatch. It requires a **dedicated self-hosted runner** labelled
+`bytematch`, with Git and a supported build host (including Rosetta on Apple Silicon).
+CI installs Python, the pinned build dependency, and its pinned objdiff tool. Set repository Actions variable
+`NVLP_ROM_PATH` to an absolute path to your legally supplied ROM **outside** the
+checkout. No secrets or ROM uploads are used. Do not enable pull-request triggers
+on this runner. A hosted runner cannot rebuild this project without game data.
+
+After ByteMatch has read a successful default-branch run, use its source-link
+checker as described in [the source-linking guide](https://bytematch.dev/docs/source-linking):
+
+```sh
+python3 /path/to/ByteMatch/scripts/check-source-links.py RetroReversing/v-rally-decomp --version NVLP
+```

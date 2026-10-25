@@ -1,0 +1,44 @@
+name: ByteMatch progress
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  report:
+    # A dedicated runner keeps the legally supplied ROM outside the checkout.
+    # Never run untrusted pull requests on this runner.
+    runs-on: [self-hosted, bytematch]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@v6
+      - name: Install pinned build and report tools
+        run: |
+          uv venv --clear --python 3.12
+          uv pip install --python .venv/bin/python "decompnet @ git+https://github.com/RetroReversing/decompdecomp.git@72cac6c9df215754aae698283cafc68b3ed26bb3"
+          .venv/bin/python - <<'PYTOOLS'
+          import os
+          from decompnet import toolchains
+          toolchains.ensure('objdiff-cli')
+          with open(os.environ['GITHUB_PATH'], 'a') as stream:
+              stream.write(str(toolchains.binary('objdiff-cli').parent) + '\n')
+          PYTOOLS
+      - name: Prepare ROM and verify the build
+        env:
+          ROM_PATH: ${{ vars.NVLP_ROM_PATH }}
+        run: |
+          test -n "$ROM_PATH" || { echo 'Set repository variable NVLP_ROM_PATH to the runner ROM path'; exit 1; }
+          .venv/bin/python tools/prepare.py "$ROM_PATH"
+          .venv/bin/python tools/progress.py
+      - name: Generate report
+        run: |
+          mkdir -p build/NVLP
+          objdiff-cli report generate -o build/NVLP/report.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NVLP_report
+          path: build/NVLP/report.json
+          if-no-files-found: error
