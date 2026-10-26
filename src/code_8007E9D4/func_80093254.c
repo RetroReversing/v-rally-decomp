@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f32 func_80093254(f32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+f32 _getVol(f32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     f32 var_ft0;
     f32 var_fv1;
     s32 var_a1;

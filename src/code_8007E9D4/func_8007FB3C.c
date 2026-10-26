@@ -16,8 +16,8 @@ typedef s32 M2C_UNK32;
 
 
 s32 func_8007ED48();
-s32 func_8008ACD0();
-s32 func_8008DFC0();
+s32 osCreateThread();
+s32 osStartThread();
 
 s32 func_8007FB3C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 var_s0;
@@ -37,7 +37,7 @@ s32 func_8007FB3C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     var_s1 += var_s1 - ((var_v0 >> 3) * 8);
     var_s0 = func_8007ED48(1, arg1 + 0x1B0, 8);
-    func_8008ACD0(var_s0, var_s2, var_s2, var_s4, var_s0 + var_s1, var_s3);
-    func_8008DFC0(var_s0);
+    osCreateThread(var_s0, var_s2, var_s2, var_s4, var_s0 + var_s1, var_s3);
+    osStartThread(var_s0);
     return var_s0;
 }

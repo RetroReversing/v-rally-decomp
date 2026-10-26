@@ -17,7 +17,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8008E3D0();                            /* extern */
 extern s32 D_800A2500;
 
-void func_8008DC7C(void) {
+void alClose(void) {
     if (D_800A2500 != 0) {
         func_8008E3D0();
         D_800A2500 = 0;

@@ -1,6 +1,6 @@
 #include "common.h"
 
-s32 func_8008F1A0();
+s32 osVirtualToPhysical();
 s32 func_800914E0();
 s32 func_80095960();
 extern char D_800A722C[];
@@ -20,7 +20,7 @@ s32 func_80095990(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         return -1;
     }
     *(vs32 *)0xA4040000 = arg1;
-    *(vs32 *)0xA4040004 = func_8008F1A0(arg2);
+    *(vs32 *)0xA4040004 = osVirtualToPhysical(arg2);
     if (arg0 == 0) {
         *(vs32 *)0xA404000C = arg3 - 1;
     } else {

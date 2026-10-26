@@ -16,8 +16,8 @@ typedef s32 M2C_UNK32;
 
 void *func_80009FE4();                              /* extern */
 M2C_UNK func_8000BA0C(void *);                      /* extern */
-s32 func_8008AC70(u16);                             /* extern */
-s32 func_8008DAF0(u16);                             /* extern */
+s32 coss(u16);                             /* extern */
+s32 sins(u16);                             /* extern */
 
 void func_8000B910(void *arg0, s32 arg1, s32 arg2) {
     s32 var_a0;
@@ -33,8 +33,8 @@ void func_8000B910(void *arg0, s32 arg1, s32 arg2) {
     func_8000BA0C(temp_v0);
     temp_s0 = M2C_FIELD(arg0, u16 *, 0x5C);
     temp_s3 = M2C_FIELD(arg0, u16 *, 0x5E);
-    var_s2 = (s32) (func_8008AC70(temp_s0) << 0x10) >> 0xF;
-    var_a0 = (s32) (func_8008DAF0(temp_s0) << 0x10) >> 0xF;
+    var_s2 = (s32) (coss(temp_s0) << 0x10) >> 0xF;
+    var_a0 = (s32) (sins(temp_s0) << 0x10) >> 0xF;
     if (var_s2 == 0xFFFE) {
         var_s2 = 0x10000;
     }

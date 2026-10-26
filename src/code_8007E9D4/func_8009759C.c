@@ -2,7 +2,7 @@
 
 extern u8 D_800C02AE[];
 
-void func_8009759C(s32 arg0, u8 *arg1) {
+void __osPfsGetOneChannelData(s32 arg0, u8 *arg1) {
     struct { u8 b[6]; } sp;
     u8 *src;
     s32 i;

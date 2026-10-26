@@ -1,7 +1,7 @@
 #include "common.h"
 
-s32 func_8008DCAC();
-s32 func_8008DCCC();
+s32 alLink();
+s32 alUnlink();
 extern u32 D_800A1BA4;
 extern u32 D_800A1BA8;
 extern char D_800A73E0[];
@@ -33,11 +33,11 @@ void func_80087114(void)
         {
           *((void **) (D_800A73E0 + 0x4564)) = temp_s1;
         }
-        func_8008DCCC(var_s0);
+        alUnlink(var_s0);
         temp_a1 = *((void **) (D_800A73E0 + 0x4564 + 4));
         if (temp_a1 != NULL)
         {
-          func_8008DCAC(var_s0, temp_a1);
+          alLink(var_s0, temp_a1);
           var_s0 = temp_s1;
         }
         else

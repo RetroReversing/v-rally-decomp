@@ -1,7 +1,7 @@
 #include "common.h"
 
 extern u16 D_800A1D00[];
-s32 func_8008DAF0(s32 arg0)
+s32 sins(s32 arg0)
 {
   short a1;
   s32 idx;

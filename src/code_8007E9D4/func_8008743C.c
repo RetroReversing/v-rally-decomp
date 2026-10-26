@@ -14,11 +14,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008D6F0(s32, M2C_UNK);                /* extern */
+M2C_UNK osSetThreadPri(s32, M2C_UNK);                /* extern */
 extern M2C_UNK (*D_800A1BA0)();
 extern M2C_UNK D_800AE850;
 
 void func_8008743C(void) {
     D_800A1BA0();
-    func_8008D6F0(M2C_FIELD(&D_800AE850, s32 *, 0x2290), 4);
+    osSetThreadPri(M2C_FIELD(&D_800AE850, s32 *, 0x2290), 4);
 }

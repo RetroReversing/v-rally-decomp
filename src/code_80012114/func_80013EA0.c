@@ -1,6 +1,6 @@
 #include "common.h"
 
-u64 func_8008BA60(void);
+u64 osGetTime(void);
 u64 func_8009A2B0(u64, u64);
 extern char *D_800C7304;
 void func_80013EA0(void)
@@ -12,7 +12,7 @@ void func_80013EA0(void)
   u64 r;
   if ((*((u32 *) (D_800C7304 + 4))) < 4)
   {
-    t = func_8008BA60();
+    t = osGetTime();
     s1 = D_800C7304;
     idx = *((u32 *) (s1 + 4));
     *((u32 *) (s1 + 4)) = idx + 1;

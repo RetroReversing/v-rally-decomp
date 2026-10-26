@@ -12,7 +12,7 @@ typedef struct {
     s8 f;
 } Pack6;
 
-void func_8009750C(s32 arg0) {
+void __osPfsRequestOneChannel(s32 arg0) {
     s32 i;
     Pack6 buf;
     Pack6 *p;

@@ -1,5 +1,7 @@
 #include "common.h"
 
+/* identical to func_8004C0C4 (matched), with its names changed by decompdecomp */
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -13,20 +15,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern unsigned char D_800A03DB;
-
-
-extern char D_800A03DA[];
+extern u8 D_800A03DB;
 
 void func_8004C088(void *arg0) {
     s32 temp_v1;
 
     if ((u8) D_800A03DB >= 2U) {
-        temp_v1 = *(s32 *)((char *)arg0 + 0xC);
+        temp_v1 = M2C_FIELD(arg0, s32 *, 0xC);
         if (!(temp_v1 & 6)) {
-            *(s32 *)((char *)arg0 + 0xC) = (s32) (temp_v1 | 2);
+            M2C_FIELD(arg0, s32 *, 0xC) = (s32) (temp_v1 | 2);
         }
     } else {
-        D_800A03DB = (u8) (D_800A03DB + 1);
+        D_800A03DB += 1;
     }
 }

@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 s32 func_8008188C(M2C_UNK, s32);                    /* extern */
-M2C_UNK func_8008F540();                            /* extern */
+M2C_UNK osWritebackDCacheAll();                            /* extern */
 
 s32 func_80081664(s32 arg0, M2C_UNK arg1) {
     s32 temp_s0;
 
     temp_s0 = func_8008188C(arg1, arg0);
-    func_8008F540();
+    osWritebackDCacheAll();
     return temp_s0;
 }

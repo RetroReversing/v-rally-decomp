@@ -10,7 +10,7 @@ static inline char *inline_fn()
   return ((char *) D_800A2520) + 0x10;
 }
 
-void func_80095C90(void)
+void osYieldThread(void)
 {
   int new_var;
   s32 temp_s0;

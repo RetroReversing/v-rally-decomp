@@ -7,7 +7,7 @@ extern unsigned char D_800C3B9C;
 extern unsigned char D_800C3B9D;
 extern unsigned char D_800C3B9F;
 
-u64 func_8008BA60();
+u64 osGetTime();
 s32 func_80098090();
 s32 func_800980C4();
 
@@ -21,7 +21,7 @@ s32 func_80050DF4(void)
     s32 a3;
     s32 bit;
 
-    func_800980C4((u32)func_8008BA60());
+    func_800980C4((u32)osGetTime());
     rec = *(u8 **)(D_800C02AE + 0x32F2);
     D_800C3BA0 = *(u16 *)(rec + 0x12);
     D_800C3B9E = *(u16 *)(rec + 0xE);

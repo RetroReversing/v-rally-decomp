@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-f64 func_80092FB0(f64 arg0, s32 arg2) {
+f64 _ldexpf(f64 arg0, s32 arg2) {
     f64 var_fa0;
 
     var_fa0 = arg0;

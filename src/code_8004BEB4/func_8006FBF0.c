@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* identical to func_80005120 (matched), with its names changed by decompdecomp */
+
 struct M { int m[16]; };
 void func_8001C2C0(char *a, char *b, char *c);
 void func_8006FBF0(char *arg0) {

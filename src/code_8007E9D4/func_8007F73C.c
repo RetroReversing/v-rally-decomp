@@ -1,6 +1,6 @@
 #include "common.h"
 
-s32 func_8008D090();
+s32 osRecvMesg();
 extern char D_800AE850[];
 s32 func_8007F73C(s32 arg0, s32 arg1)
 {
@@ -8,7 +8,7 @@ s32 func_8007F73C(s32 arg0, s32 arg1)
   s32 *sp10;
   int new_var2;
   new_var2 = 0;
-  func_8008D090(((arg0 + arg1) * 0x5C) + (D_800AE850 + 0x5924), &sp10, 1);
+  osRecvMesg(((arg0 + arg1) * 0x5C) + (D_800AE850 + 0x5924), &sp10, 1);
   if (sp10 == NULL)
   {
     if (arg0)

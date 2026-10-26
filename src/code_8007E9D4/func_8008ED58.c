@@ -18,7 +18,7 @@ M2C_UNK func_800914E0(M2C_UNK *, M2C_UNK *, M2C_UNK); /* extern */
 extern M2C_UNK D_800A6FE0;
 extern M2C_UNK D_800A6FE4;
 
-s32 func_8008ED58(void *arg0, void **arg1) {
+s32 __nextSampleTime(void *arg0, void **arg1) {
     s32 var_s1;
     void *var_a0;
 

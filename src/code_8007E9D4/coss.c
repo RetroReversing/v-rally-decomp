@@ -14,15 +14,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008BD90();                                /* extern */
-M2C_UNK func_8008BDB0(s32);                         /* extern */
-extern void *D_800A3A34;
+s16 sins(s32);                             /* extern */
 
-void func_8008F470(s32 arg0) {
-    s32 temp_v0;
-
-    temp_v0 = func_8008BD90();
-    M2C_FIELD(D_800A3A34, s32 *, 4) = arg0;
-    M2C_FIELD(D_800A3A34, u16 *, 0) = (u16) (M2C_FIELD(D_800A3A34, u16 *, 0) | 0x10);
-    func_8008BDB0(temp_v0);
+s16 coss(s32 arg0) {
+    return sins((arg0 + 0x4000) & 0xFFFF);
 }

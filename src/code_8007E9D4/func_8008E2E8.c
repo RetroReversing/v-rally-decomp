@@ -1,9 +1,9 @@
 #include "common.h"
 
-s32 func_8008DCAC();
-s32 func_8008DCCC();
+s32 alLink();
+s32 alUnlink();
 
-s32 func_8008E2E8(u8 *arg0, void **arg1, s16 arg2)
+s32 _allocatePVoice(u8 *arg0, void **arg1, s16 arg2)
 {
     s32 found = 0;
     void *s0;
@@ -14,8 +14,8 @@ s32 func_8008E2E8(u8 *arg0, void **arg1, s16 arg2)
     }
     if (s0 != NULL) {
         *arg1 = s0;
-        func_8008DCCC(s0);
-        func_8008DCAC(s0, arg0 + 0xC);
+        alUnlink(s0);
+        alLink(s0, arg0 + 0xC);
     } else {
         s0 = *(void **)(arg0 + 0xC);
         while (s0 != NULL) {

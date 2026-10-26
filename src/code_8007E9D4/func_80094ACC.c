@@ -24,7 +24,7 @@ typedef struct S0 {
     s32 unk30;
 } S0;
 
-s32 func_80094ACC(S0 *arg0, s32 arg1, s32 arg2) {
+s32 alResampleParam(S0 *arg0, s32 arg1, s32 arg2) {
     S0 *self = arg0;
     Node *node;
 

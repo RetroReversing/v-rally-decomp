@@ -1,9 +1,9 @@
 #include "common.h"
 
-void *func_8008EBEC();
-s32 func_8008ED0C(void *, s32, s32);
+void *__allocParam();
+s32 _timeToSamples(void *, s32, s32);
 
-void func_8008E590(void *arg0, void *arg1, s32 arg2, s32 arg3)
+void alSynSetVol(void *arg0, void *arg1, s32 arg2, s32 arg3)
 {
     char *obj;
     char *base;
@@ -13,7 +13,7 @@ void func_8008E590(void *arg0, void *arg1, s32 arg2, s32 arg3)
     void (*fn)(void *, s32, void *);
 
     if (*(char **)((char *)arg1 + 8) != NULL) {
-        obj = func_8008EBEC();
+        obj = __allocParam();
         if (obj != NULL) {
             base = *(char **)((char *)arg1 + 8);
             tmp1 = *(s32 *)((char *)arg0 + 0x1C);
@@ -21,7 +21,7 @@ void func_8008E590(void *arg0, void *arg1, s32 arg2, s32 arg3)
             *(s16 *)(obj + 8) = 0xB;
             *(s32 *)(obj + 0xC) = (s16)arg2;
             *(s32 *)(obj + 4) = tmp1 + tmp;
-            *(s32 *)(obj + 0x10) = func_8008ED0C(arg0, arg3, tmp);
+            *(s32 *)(obj + 0x10) = _timeToSamples(arg0, arg3, tmp);
             *(s32 *)obj = 0;
             base2 = *(char **)(*(char **)((char *)arg1 + 8) + 0xC);
             fn = *(void (**)(void *, s32, void *))(base2 + 8);

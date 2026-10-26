@@ -1,6 +1,6 @@
 #include "common.h"
 
-void func_8008C820(s32 *arg0)
+void guMtxIdentF(s32 *arg0)
 {
   s32 i;
   s32 j;

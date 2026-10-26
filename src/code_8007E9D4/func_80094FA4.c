@@ -26,7 +26,7 @@ extern f64 D_800A71F8;
 
 void func_80091D80(void *);
 
-s32 func_80094FA4(S0 *arg0, s32 arg1, s32 *arg2) {
+s32 alFxParamHdl(S0 *arg0, s32 arg1, s32 *arg2) {
     s32 n = arg1 - 2;
     s32 idx = n % 8;
     s32 val;

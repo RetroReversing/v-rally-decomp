@@ -1,6 +1,6 @@
 #include "common.h"
 
-u32 func_8008BAF0(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4)
+u32 alHeapDBAlloc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4)
 {
     u32 start;
     u32 end;

@@ -18,7 +18,7 @@ s32 func_8008BD90();                                /* extern */
 M2C_UNK func_8008BDB0(s32);                         /* extern */
 extern s32 D_800A1CD0;
 
-void func_80094B90(s32 arg0) {
+void __osResetGlobalIntMask(s32 arg0) {
     s32 temp_v0;
 
     temp_v0 = func_8008BD90();

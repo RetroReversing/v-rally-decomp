@@ -30,6 +30,25 @@ class ProgressTest(unittest.TestCase):
             self.assertEqual(units[1]['base_path'], 'build/progress/empty.o')
             self.assertEqual(len(assemble.call_args.args[0]), 3)
 
+    def test_source_alias_header_is_not_included(self):
+        from unittest.mock import MagicMock
+        from tools import source_names
+        symbol = MagicMock()
+        symbol.name = 'ReadableName'
+        symbol.__getitem__.side_effect = {'st_info': {'type': 'STT_FUNC'}, 'st_shndx': 1}.__getitem__
+        elf = MagicMock()
+        elf.get_section_by_name.return_value.iter_symbols.return_value = [symbol]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / 'include').mkdir()
+            (root / 'build/src').mkdir(parents=True)
+            (root / 'build/src/original.o').touch()
+            with patch.object(source_names, 'ELFFile', return_value=elf):
+                source_names.generate(root, [{'name': 'func_80001000', 'c': 'src/original.c'}])
+            text = (root / 'include/bytematch_names.h').read_text()
+            self.assertIn('#define func_80001000 ReadableName', text)
+            self.assertNotIn('#include', text)
+
 
 if __name__ == '__main__':
     unittest.main()

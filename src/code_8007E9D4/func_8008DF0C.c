@@ -17,7 +17,7 @@ typedef s32 M2C_UNK32;
 s32 func_80095960();                                /* extern */
 M2C_UNK func_80095AC0(M2C_UNK);                     /* extern */
 
-void func_8008DF0C(void) {
+void osSpTaskStartGo(void) {
     do {
 
     } while (func_80095960() != 0);

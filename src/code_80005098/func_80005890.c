@@ -6,12 +6,12 @@ extern char D_800AFAE8[];
 extern char D_800B42E4[];
 extern char D_800C02AE[];
 s32 func_8000E20C();
-s32 func_8008F140();
-s32 func_8008F200();
-s32 func_8008F260();
-s32 func_8008F2B0();
-void func_8008F420(f32);
-s32 func_80090E70();
+s32 osViBlack();
+s32 osViSetEvent();
+s32 osViSetMode();
+s32 osViSetSpecialFeatures();
+void osViSetYScale(f32);
+s32 osCreateViManager();
 
 s32 func_80005890(void)
 {
@@ -20,7 +20,7 @@ s32 func_80005890(void)
   Chunk *dst;
 
   func_8000E20C(0x2217);
-  func_80090E70(0xFE);
+  osCreateViManager(0xFE);
   dst = (Chunk *)D_800AFAE8;
   base = D_800A2590;
   src = (Chunk *)(base + 0x730);
@@ -29,11 +29,11 @@ s32 func_80005890(void)
     src++;
     dst++;
   } while (src != (Chunk *)(base + 0x780));
-  func_8008F260(D_800AFAE8);
-  func_8008F420(1.0f);
-  func_8008F140(1);
+  osViSetMode(D_800AFAE8);
+  osViSetYScale(1.0f);
+  osViBlack(1);
   D_800C02AE[0x5BA6] = 4;
-  func_8008F200(D_800B42E4, 0, 1);
-  func_8008F2B0(0x4A);
+  osViSetEvent(D_800B42E4, 0, 1);
+  osViSetSpecialFeatures(0x4A);
   return 1;
 }

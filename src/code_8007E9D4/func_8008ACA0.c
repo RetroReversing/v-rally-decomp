@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK D_800A2510;
 
-void func_8008ACA0(void *arg0, s32 arg1, s32 arg2) {
+void osCreateMesgQueue(void *arg0, s32 arg1, s32 arg2) {
     M2C_FIELD(arg0, M2C_UNK **, 0) = &D_800A2510;
     M2C_FIELD(arg0, M2C_UNK **, 4) = &D_800A2510;
     M2C_FIELD(arg0, s32 *, 8) = 0;

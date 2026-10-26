@@ -3,7 +3,7 @@
 extern f64 D_800A7208;
 extern f64 D_800A7210;
 extern f64 D_800A7218;
-f32 func_80095728(void *arg0, s32 arg1)
+f32 _doModFunc(void *arg0, s32 arg1)
 {
   f32 var_ft0;
   f64 new_var;

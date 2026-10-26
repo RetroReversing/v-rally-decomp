@@ -3,7 +3,7 @@
 s32 func_8008BD90();
 s32 func_8008BDB0();
 extern void *D_800A3A34;
-void func_8008F260(void *arg0)
+void osViSetMode(void *arg0)
 {
   void *new_var3;
   void **new_var2;

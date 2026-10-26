@@ -1,5 +1,6 @@
 #include "common.h"
 
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -13,14 +14,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern int D_800C35C0;
-
-
-s32 func_80005718();
+M2C_UNK func_80005718(s32, s32);                    /* extern */
 extern s32 D_8009B5A4;
-extern char D_800C02AE[];
+extern s32 D_800C35C0;
 
 void func_800425B8(void *arg0) {
-    func_80005718(D_8009B5A4, *(s32 *)((char *)arg0 + 0x178));
-    D_800C35C0 = (s32) (D_800C35C0 + 1);
+    func_80005718(D_8009B5A4, M2C_FIELD(arg0, s32 *, 0x178));
+    D_800C35C0 += 1;
 }

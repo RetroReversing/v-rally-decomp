@@ -3,7 +3,7 @@
 extern s32 D_800A2540;
 extern s32 D_800A2548;
 
-s32 func_8008CFD0(void)
+s32 osPiGetCmdQueue(void)
 {
   s32 temp_v1;
 

@@ -1,6 +1,6 @@
 #include "common.h"
 
-s32 func_80092AFC(char *arg0, s32 arg1, s32 *arg2)
+s32 alEnvmixerParam(char *arg0, s32 arg1, s32 *arg2)
 {
     char *temp_v1 = arg0;
     s32 *temp_a0;

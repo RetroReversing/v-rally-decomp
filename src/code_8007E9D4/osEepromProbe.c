@@ -4,7 +4,7 @@ s32 func_8008D8B4();
 s32 func_8008D920();
 s32 func_8008FA20();
 
-s32 func_8008F570(s32 arg0) {
+s32 osEepromProbe(s32 arg0) {
     u16 sp10;
     s32 s0;
     s32 r;

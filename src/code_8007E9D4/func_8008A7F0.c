@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8008A9AC(M2C_UNK *, s32);              /* extern */
 
-void func_8008A7F0(s32 arg0) {
+void osContGetQuery(s32 arg0) {
     M2C_UNK sp10;
 
     func_8008A9AC(&sp10, arg0);

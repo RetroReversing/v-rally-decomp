@@ -1,6 +1,6 @@
 #include "common.h"
 
-f32 func_8008AB20(f32);
+f32 __cosf(f32);
 extern f32 D_800A1878;
 extern f32 D_800A187C;
 extern s16 D_800A18A4;
@@ -46,6 +46,6 @@ void func_8001F518(void *arg0)
   new_var = *((s32 *) (((char *) arg0) + 0x33C));
   D_800A18C4 = temp_v1;
   D_800A18C8 = new_var;
-  D_800A1878 = func_8008AB20((f32) (((f64) temp_v1) * temp_fs0));
-  D_800A187C = func_8008AB20((f32) (((f64) D_800A18C8) * temp_fs0));
+  D_800A1878 = __cosf((f32) (((f64) temp_v1) * temp_fs0));
+  D_800A187C = __cosf((f32) (((f64) D_800A18C8) * temp_fs0));
 }

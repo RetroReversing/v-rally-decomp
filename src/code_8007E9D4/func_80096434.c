@@ -1,18 +1,18 @@
 #include "common.h"
 
-s32 func_80090D50(void *, s32);
+s32 __osPfsSelectBank(void *, s32);
 s32 func_80096830(s32, s32, s32, s32 *);
 s32 func_80097620(void *, s32 *, s32);
 
-s32 func_80096434(void *arg0)
+s32 __osCheckId(void *arg0)
 {
     s32 buf[8];
     s32 v;
 
     if (*(u8 *)((char *) arg0 + 0x65) != 0) {
-        v = func_80090D50(arg0, 0);
+        v = __osPfsSelectBank(arg0, 0);
         if (v == 2) {
-            v = func_80090D50(arg0, 0);
+            v = __osPfsSelectBank(arg0, 0);
         }
         if (v != 0) {
             return v;

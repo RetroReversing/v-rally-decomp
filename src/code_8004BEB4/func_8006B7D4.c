@@ -13,7 +13,7 @@ s32 func_80084AFC();
 s32 func_80084B50();
 s32 func_80084BF0();
 s32 func_80084DD4();
-s32 func_8008F570();
+s32 osEepromProbe();
 extern s32 D_8009F640;
 extern s8 D_800A16F0;
 extern char D_800A57C0[];
@@ -24,7 +24,7 @@ s32 func_8006B7D4(void) {
     D_8009F640 &= 0xFFFF7FFF;
     func_8002B618(&D_800A57C0, 0);
     func_80084AFC();
-    if (func_8008F570(D_800AE850 + 0x5A38) != 1) {
+    if (osEepromProbe(D_800AE850 + 0x5A38) != 1) {
         func_8006F628();
         return 0;
     }

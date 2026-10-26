@@ -10,7 +10,7 @@ typedef struct A1564
 s32 func_800056FC();
 s32 *func_80006008(s32);
 s32 func_80006014(s32, s32 *);
-s32 func_8008F1A0(s32);
+s32 osVirtualToPhysical(s32);
 void func_8000E9D4(s32 arg0, s32 arg1, A1564 *arg2, u8 *arg3)
 {
   s32 *gfx;
@@ -38,7 +38,7 @@ void func_8000E9D4(s32 arg0, s32 arg1, A1564 *arg2, u8 *arg3)
   d2 = gfx;
   gfx += 2;
   d2[0] = ((arg2->unk4 - 1) & 0xFFF) | 0xFF100000;
-  d2[1] = func_8008F1A0(arg1);
+  d2[1] = osVirtualToPhysical(arg1);
   d3 = gfx;
   gfx += 2;
   d3[0] = 0xF7000000;

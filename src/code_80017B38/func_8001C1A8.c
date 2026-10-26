@@ -1,7 +1,7 @@
 #include "common.h"
 
-void *func_8008C550(f32 *, f32 *, f32 *);
-void func_8008D1C0(f32 *, s32, f32, f32, f32);
+void *guMtxCatF(f32 *, f32 *, f32 *);
+void guRotateF(f32 *, s32, f32, f32, f32);
 void func_8001C1A8(s32 *arg0, f32 *arg1)
 {
   f32 sp18[16];
@@ -14,11 +14,11 @@ void func_8001C1A8(s32 *arg0, f32 *arg1)
   f32 *s2;
   s32 i;
   s32 j;
-  func_8008D1C0(sp18, arg0[0], 1.0f, 0.0f, 0.0f);
-  func_8008D1C0(sp58, arg0[1], 0.0f, 1.0f, 0.0f);
-  func_8008D1C0(sp98, arg0[2], 0.0f, 0.0f, 1.0f);
-  func_8008C550(sp98, sp18, spD8);
-  func_8008C550(spD8, sp58, spD8);
+  guRotateF(sp18, arg0[0], 1.0f, 0.0f, 0.0f);
+  guRotateF(sp58, arg0[1], 0.0f, 1.0f, 0.0f);
+  guRotateF(sp98, arg0[2], 0.0f, 0.0f, 1.0f);
+  guMtxCatF(sp98, sp18, spD8);
+  guMtxCatF(spD8, sp58, spD8);
   s2 = arg1;
   i = 0;
   a2 = sp18;

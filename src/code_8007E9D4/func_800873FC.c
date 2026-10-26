@@ -17,7 +17,7 @@ typedef s32 M2C_UNK32;
 u32 func_8008A590();                                /* extern */
 extern s32 D_800A1BB8;
 
-void func_800873FC(void) {
+void handleAudioUnderrun(void) {
     if (((func_8008A590() >> 2) == 0) && (D_800A1BB8 == 0)) {
         D_800A1BB8 = 0;
     }

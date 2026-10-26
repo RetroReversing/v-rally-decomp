@@ -9,7 +9,7 @@ s32 func_800056FC(s32);
 void *func_80006008(s32);
 s32 func_80006014(s32, void *);
 void *func_8004240C(u32);
-s32 func_8008C870(void *);
+s32 guMtxIdent(void *);
 extern u8 *D_800C35A0;
 extern u8 D_800C8380[];
 
@@ -32,7 +32,7 @@ void func_80010AF4(void) {
             s3 += 1;
             s1 = func_800056FC(*(s32 *)(p + 0x178));
             dl = func_80006008(s1);
-            func_8008C870(s4);
+            guMtxIdent(s4);
             q = dl++;
             q->w0 = 0xDB0E0000;
             q->w1 = *(u16 *)(p + 0x104);

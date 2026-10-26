@@ -1,6 +1,6 @@
 #include "common.h"
 
-void func_8008C778(f32 *arg0, s32 *arg1)
+void guMtxL2F(f32 *arg0, s32 *arg1)
 {
     volatile s32 sp0;
     volatile s32 sp4;

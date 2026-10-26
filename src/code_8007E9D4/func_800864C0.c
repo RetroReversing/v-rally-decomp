@@ -15,11 +15,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80086A94();                            /* extern */
-M2C_UNK func_80086D08(M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK MusSetMasterVolume(M2C_UNK, M2C_UNK);            /* extern */
 extern M2C_UNK (*D_800A1B90)();
 
 void func_800864C0(void) {
     D_800A1B90();
-    func_80086D08(3, 0);
+    MusSetMasterVolume(3, 0);
     func_80086A94();
 }

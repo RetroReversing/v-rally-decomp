@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 
 extern void *D_800A2500;
 
-M2C_UNK *func_8008EBEC(void) {
+M2C_UNK *__allocParam(void) {
     M2C_UNK *temp_v0;
     M2C_UNK *var_v1;
 

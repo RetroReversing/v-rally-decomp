@@ -6,6 +6,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import build
+from tools.source_names import generate
 
 
 def configure():
@@ -40,3 +41,4 @@ if __name__ == '__main__':
     if not build.build():
         sys.exit(1)
     configure()
+    generate(build.ROOT, build.B['functions'])

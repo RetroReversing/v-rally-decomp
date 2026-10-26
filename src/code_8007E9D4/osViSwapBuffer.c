@@ -18,12 +18,11 @@ s32 func_8008BD90();                                /* extern */
 M2C_UNK func_8008BDB0(s32);                         /* extern */
 extern void *D_800A3A34;
 
-void func_8008F200(s32 arg0, s32 arg1, s16 arg2) {
-    s32 temp_a0;
+void osViSwapBuffer(s32 arg0) {
+    s32 temp_v0;
 
-    temp_a0 = func_8008BD90();
-    M2C_FIELD(D_800A3A34, s32 *, 0x10) = arg0;
-    M2C_FIELD(D_800A3A34, s32 *, 0x14) = arg1;
-    M2C_FIELD(D_800A3A34, s16 *, 2) = arg2;
-    func_8008BDB0(temp_a0);
+    temp_v0 = func_8008BD90();
+    M2C_FIELD(D_800A3A34, s32 *, 4) = arg0;
+    M2C_FIELD(D_800A3A34, u16 *, 0) = (u16) (M2C_FIELD(D_800A3A34, u16 *, 0) | 0x10);
+    func_8008BDB0(temp_v0);
 }

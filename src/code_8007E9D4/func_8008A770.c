@@ -1,5 +1,6 @@
 #include "common.h"
 
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -13,28 +14,25 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern unsigned char D_800C3520;
+M2C_UNK __osPackRequestData(M2C_UNK);                     /* extern */
+M2C_UNK osRecvMesg(s32, M2C_UNK, M2C_UNK);       /* extern */
+M2C_UNK func_8008D8B4();                            /* extern */
+M2C_UNK func_8008D920();                            /* extern */
+s32 func_80090DC0(M2C_UNK, M2C_UNK *);              /* extern */
+extern M2C_UNK D_800AFAA0;
+extern u8 D_800C3520;
 
-
-s32 func_8008AA60();
-s32 func_8008D090();
-s32 func_8008D8B4();
-s32 func_8008D920();
-s32 func_80090DC0();
-extern char D_800AE850[];
-extern char D_800C02AE[];
-
-s32 func_8008A770(s32 arg0) {
+s32 osContStartQuery(s32 arg0) {
     s32 temp_v0;
 
     func_8008D8B4();
     if (D_800C3520 != 0) {
-        func_8008AA60(0);
-        func_80090DC0(1, D_800AE850 + 0x1250);
-        func_8008D090(arg0, 0, 1);
+        __osPackRequestData(0);
+        func_80090DC0(1, &D_800AFAA0);
+        osRecvMesg(arg0, 0, 1);
     }
-    temp_v0 = func_80090DC0(0, D_800AE850 + 0x1250);
-    D_800C3520 = 0U;
+    temp_v0 = func_80090DC0(0, &D_800AFAA0);
+    D_800C3520 = 0;
     func_8008D920();
     return temp_v0;
 }

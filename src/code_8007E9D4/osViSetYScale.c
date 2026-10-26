@@ -14,13 +14,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800C02AE;
+s32 func_8008BD90();                                /* extern */
+M2C_UNK func_8008BDB0(s32);                         /* extern */
+extern void *D_800A3A34;
 
-void func_80086D08(s32 arg0, s16 arg1) {
-    if (arg0 & 1) {
-        M2C_FIELD(&D_800C02AE, s16 *, 0x324A) = arg1;
-    }
-    if (arg0 & 2) {
-        M2C_FIELD(&D_800C02AE, s16 *, 0x705E) = arg1;
-    }
+void osViSetYScale(f32 arg0) {
+    s32 temp_v0;
+
+    temp_v0 = func_8008BD90();
+    M2C_FIELD(D_800A3A34, f32 *, 0x24) = arg0;
+    M2C_FIELD(D_800A3A34, u16 *, 0) = (u16) (M2C_FIELD(D_800A3A34, u16 *, 0) | 4);
+    func_8008BDB0(temp_v0);
 }

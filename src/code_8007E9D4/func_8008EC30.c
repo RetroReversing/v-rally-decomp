@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 
 
 
-s32 func_8008DCAC();
-s32 func_8008DCCC();
+s32 alLink();
+s32 alUnlink();
 
-void func_8008EC30(void *arg0) {
+void _collectPVoices(void *arg0) {
     s32 var_s0;
     void *var_s1;
 
@@ -26,8 +26,8 @@ void func_8008EC30(void *arg0) {
     var_s0 = *(s32 *)((char *)var_s1 + 0x14);
     if (var_s0 != 0) {
         do {
-            func_8008DCCC(var_s0);
-            func_8008DCAC(var_s0, var_s1 + 4);
+            alUnlink(var_s0);
+            alLink(var_s0, var_s1 + 4);
             var_s0 = *(s32 *)((char *)var_s1 + 0x14);
         } while (var_s0 != 0);
     }

@@ -3,7 +3,7 @@
 s32 func_8008BD90();
 s32 func_8008BDB0();
 extern char D_800C02AE[];
-void func_8008D5D0(s32 arg0, s32 arg1, s32 arg2)
+void osSetEventMesg(s32 arg0, s32 arg1, s32 arg2)
 {
   s32 temp_a0;
   void *temp_s0;

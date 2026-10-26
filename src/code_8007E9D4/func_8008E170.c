@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 
 s32 func_8008D640(s32);                             /* extern */
 
-void func_8008E170(void *arg0, void *arg1) {
+void alSynAddPlayer(void *arg0, void *arg1) {
     s32 temp_v0;
 
     temp_v0 = func_8008D640(1);

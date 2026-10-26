@@ -1,6 +1,6 @@
 #include "common.h"
 
-s32 func_80096C10(s32 arg0)
+s32 __osContAddressCrc(s32 arg0)
 {
   s32 v1;
   u32 a1;

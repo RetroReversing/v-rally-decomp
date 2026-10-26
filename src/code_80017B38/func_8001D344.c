@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* identical to func_8001D258 (matched), with its names changed by decompdecomp */
+
 void *func_8003FFB4();
 s32 func_8008E118();
 s32 func_80098370();

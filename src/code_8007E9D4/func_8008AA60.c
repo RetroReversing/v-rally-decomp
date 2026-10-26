@@ -7,7 +7,7 @@ typedef struct {
     u8 b[8];
 } Pkt;
 
-void func_8008AA60(u8 arg0)
+void __osPackRequestData(u8 arg0)
 {
     Pkt sp;
     s32 i;

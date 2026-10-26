@@ -5,7 +5,7 @@ extern void *D_800B681C;
 extern void *D_800C7304;
 extern char D_800B5C80[];
 extern s32 (*D_8009BB24)();
-u64 func_8008BA60();
+u64 osGetTime();
 u64 func_8009A2B0();
 static inline int inline_fn(s32 arg0)
 {
@@ -33,7 +33,7 @@ void func_80013FD0(void)
   ((s32 *) next)[0] = 0;
   do
   {
-    ret = func_8008BA60(base);
+    ret = osGetTime(base);
   }
   while (0);
   cur = D_800C7304;

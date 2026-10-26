@@ -15,9 +15,9 @@ typedef s32 M2C_UNK32;
 
 
 
-void *func_8008EBEC();
+void *__allocParam();
 
-void func_8008E6F0(void *arg0, void *arg1) {
+void alSynStopVoice(void *arg0, void *arg1) {
     s32 (*var_v0)(void *, s32, void *);
     s32 var_a1;
     s32 var_v1;
@@ -30,7 +30,7 @@ void func_8008E6F0(void *arg0, void *arg1) {
     var_v0 = M2C_FIELD(var_s0, s32 (**)(void *, s32, void *), 8);
     var_s1 = arg0;
     if (var_v0 != NULL) {
-        var_a2 = func_8008EBEC();
+        var_a2 = __allocParam();
         if (var_a2 != NULL) {
             var_v0 = M2C_FIELD(var_s0, s32 (**)(void *, s32, void *), 8);
             var_v1 = *(s32 *)((char *)var_s1 + 0x1C);

@@ -15,7 +15,7 @@ typedef struct Ring {
 s32 func_8008B624(void *, void *);
 void func_8008B5DC(void *, s32);
 
-void func_8009019C(void) {
+void __osLeoResume(void) {
     Ring *r;
     s32 idx;
 

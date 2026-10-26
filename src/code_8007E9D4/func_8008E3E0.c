@@ -1,7 +1,7 @@
 #include "common.h"
 
-void *func_8008EBEC();
-void func_8008E3E0(void *arg0, void *arg1, s32 arg2)
+void *__allocParam();
+void alSynSetFXMix(void *arg0, void *arg1, s32 arg2)
 {
   s32 var_v1;
   void *var_a0;
@@ -15,7 +15,7 @@ void func_8008E3E0(void *arg0, void *arg1, s32 arg2)
   var_s2 = arg2;
   if (*((void **) (((char *) var_s0) + 8)) != NULL)
   {
-    var_a2 = func_8008EBEC();
+    var_a2 = __allocParam();
     if (var_a2 != NULL)
     {
       var_v1 = *((s32 *) (((char *) var_s1) + 0x1C));

@@ -22,4 +22,4 @@ typedef int s32_bool;
 #define FALSE 0
 #define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))
 
-f32 func_8008AB20(f32);
+f32 __cosf(f32);

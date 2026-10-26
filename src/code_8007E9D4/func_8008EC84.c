@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008DCAC(M2C_UNK, s32);                /* extern */
-M2C_UNK func_8008DCCC(M2C_UNK);                     /* extern */
+M2C_UNK alLink(M2C_UNK, s32);                /* extern */
+M2C_UNK alUnlink(M2C_UNK);                     /* extern */
 
-void func_8008EC84(s32 arg0, M2C_UNK arg1) {
-    func_8008DCCC(arg1);
-    func_8008DCAC(arg1, arg0 + 0x14);
+void _freePVoice(s32 arg0, M2C_UNK arg1) {
+    alUnlink(arg1);
+    alLink(arg1, arg0 + 0x14);
 }

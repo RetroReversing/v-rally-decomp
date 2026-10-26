@@ -17,6 +17,6 @@ typedef s32 M2C_UNK32;
 extern f64 D_800A6FD0;
 extern f64 D_800A6FD8;
 
-s32 func_8008ED0C(void *arg0, s32 arg1) {
+s32 _timeToSamples(void *arg0, s32 arg1) {
     return (s32) (f32) (((f64) ((f32) arg1 * (f32) M2C_FIELD(arg0, s32 *, 0x44)) / D_800A6FD0) + D_800A6FD8) & ~0xF;
 }

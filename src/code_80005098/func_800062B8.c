@@ -1,6 +1,6 @@
 #include "common.h"
 
-s32 func_8008F1A0();
+s32 osVirtualToPhysical();
 
 void func_800062B8(u8 *arg0)
 {
@@ -18,7 +18,7 @@ void func_800062B8(u8 *arg0)
         temp_v0 = (t << 1) | 0x01000000;
         *s1 = temp_a0 | temp_v0;
         s0 &= 0xFFE0;
-        s1[1] = func_8008F1A0(*(s32 *) (arg0 + 0x70) + s0 * 16);
+        s1[1] = osVirtualToPhysical(*(s32 *) (arg0 + 0x70) + s0 * 16);
         s0 += 0x20;
         *(u16 *) (arg0 + 0x7A) = s0;
     }

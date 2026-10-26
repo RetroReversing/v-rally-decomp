@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8008DCCC(void *arg0) {
+void alUnlink(void *arg0) {
     void **temp_v1_2;
     void *temp_v1;
 
