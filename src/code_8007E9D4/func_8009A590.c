@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 f64 func_8009A590(f64 arg0, void *arg2) {
     s32 exp;

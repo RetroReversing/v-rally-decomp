@@ -4053,7 +4053,7 @@ extern OSThread *__osActiveQueue;
 extern OSThread *__osFaultedThread;
 extern OSThread *__osRunQueue;
 
-extern OSTimer *D_800A2530;
+extern OSTimer *__osTimerList;
 extern OSTimer __osBaseTimer;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
@@ -4165,7 +4165,7 @@ int osSetTimer(OSTimer* t, OSTime countdown, OSTime interval, OSMesgQueue* mq, O
 
 
     time = __osInsertTimer(t);
-    if (D_800A2530->next == t) {
+    if (__osTimerList->next == t) {
         __osSetTimerIntr(time);
     }
 

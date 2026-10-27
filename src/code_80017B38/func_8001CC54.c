@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 extern int D_800B65EC;
 extern int D_800B65F0;

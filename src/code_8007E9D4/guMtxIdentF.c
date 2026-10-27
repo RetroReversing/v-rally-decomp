@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 void guMtxIdentF(s32 *arg0)
 {

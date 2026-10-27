@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 void func_800331D8(void *arg0)
 {

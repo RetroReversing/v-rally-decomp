@@ -16,6 +16,17 @@ function. The linker also preserves explicit private-data placement without
 adding section-alignment padding. The retained function code is checked by the
 full cartridge rebuild.
 
+The 27 October 2026 update exports another local app snapshot and integrates 150
+additional C functions, for 1,587 selected functions. All 1,437 earlier C functions
+remain selected. For 56 omitted by the fresh export, the earlier source and header
+context are retained with their previously verified compiler settings. These
+headers use the `checkpoint_` prefix so current context changes do not alter those
+translation units. The previous unused-static-helper removals and explicit
+private-data alignment fix are retained. Six app matches remain assembly because
+the export cannot currently represent them faithfully. The combined checkpoint
+passes the complete cartridge comparison. This snapshot does not establish the
+model or source-access conditions of each new match, so no attribution is inferred.
+
 V-Rally and its original code/data belong to their respective rights holders. This repository grants no blanket license over recovered game code. Supply your own supported ROM. ROMs, extracted binary assets, compiler executables and generated assembly are excluded.
 
 The generated build.py comes from RetroReversing/decompdecomp, a continuation of NDelic's decompdecomp and Sam Wolfs' decomp.wtf, and retains AGPL-3.0 licensing. The license is included under tools/. The preparation helper uses AGPL-3.0-only. Tool licenses do not establish rights to the game itself.

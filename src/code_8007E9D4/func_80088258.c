@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 extern f64 D_800A6D20;
 void *func_80088258(void *arg0, u8 *arg1)

@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 s32 func_80093790(void *a0, void *fn2, void *fn3, s32 n4);
 s32 alHeapDBAlloc(s32, s32, s32, s32, s32);

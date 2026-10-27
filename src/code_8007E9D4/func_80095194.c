@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 /* identical to _loadOutputBuffer in V-RALLY (matched), with its names changed by decompdecomp */
  

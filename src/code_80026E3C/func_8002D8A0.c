@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 void func_8002D830();
 s32 *func_8002D8A0(s16 *arg0, s32 *arg1, s32 *arg2)

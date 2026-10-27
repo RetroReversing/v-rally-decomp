@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 void func_80097F00(u32 size, u8 *a, u8 *b);
 void func_80097F30(u8 *base, u32 n, u32 size, s32 (*cmp)(u8 *, u8 *))

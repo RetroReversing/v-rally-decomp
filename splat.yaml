@@ -16,20 +16,27 @@ options:
   o_as_suffix: true
   use_legacy_include_asm: false
   mips_abi_float_regs: o32
-  symbol_addrs_path: [symbol_addrs.txt]
-  reloc_addrs_path: [reloc_addrs.txt]
+  symbol_addrs_path:
+  - symbol_addrs.txt
+  reloc_addrs_path:
+  - reloc_addrs.txt
   extensions_path: tools/splat_ext
   rodata_string_guesser_level: 2
   data_string_guesser_level: 2
 segments:
-- {name: header, type: header, start: 0}
-- {name: ipl3, type: bin, start: 64}
+- name: header
+  type: header
+  start: 0
+- name: ipl3
+  type: bin
+  start: 64
 - name: entry
   type: code
   start: 4096
   vram: 2147484672
   subsegments:
-  - [4096, hasm]
+  - - 4096
+    - hasm
 - name: main
   type: code
   start: 4176
@@ -37,78 +44,114 @@ segments:
   follows_vram: entry
   bss_size: 833000
   subsegments:
-  - [4176, c, main]
-  - [4192, data]
-  - {type: bss, vram: 2148168672}
+  - - 4176
+    - c
+    - main
+  - - 4192
+    - data
+  - type: bss
+    vram: 2148168672
 - name: code_80005098
   type: code
   start: 23704
   vram: 2147504280
   subsegments:
-  - [23704, c, code_80005098]
-- {type: bin, start: 46144}
+  - - 23704
+    - c
+    - code_80005098
+- type: bin
+  start: 46144
 - name: code_8000B910
   type: code
   start: 50448
   vram: 2147531024
   subsegments:
-  - [50448, c, code_8000B910]
-- {type: bin, start: 55312}
+  - - 50448
+    - c
+    - code_8000B910
+- type: bin
+  start: 55312
 - name: code_8000D9A0
   type: code
   start: 58784
   vram: 2147539360
   subsegments:
-  - [58784, c, code_8000D9A0]
-- {type: bin, start: 73088}
+  - - 58784
+    - c
+    - code_8000D9A0
+- type: bin
+  start: 73088
 - name: code_80012114
   type: code
   start: 77076
   vram: 2147557652
   subsegments:
-  - [77076, c, code_80012114]
-- {type: bin, start: 96064}
+  - - 77076
+    - c
+    - code_80012114
+- type: bin
+  start: 96064
 - name: code_80017B38
   type: code
   start: 100152
   vram: 2147580728
   subsegments:
-  - [100152, c, code_80017B38]
-- {type: bin, start: 127552}
+  - - 100152
+    - c
+    - code_80017B38
+- type: bin
+  start: 127552
 - name: code_8001F46C
   type: code
   start: 131180
   vram: 2147611756
   subsegments:
-  - [131180, c, code_8001F46C]
-- {type: bin, start: 153952}
+  - - 131180
+    - c
+    - code_8001F46C
+- type: bin
+  start: 153952
 - name: code_80026E3C
   type: code
   start: 162364
   vram: 2147642940
   subsegments:
-  - [162364, c, code_80026E3C]
-- {type: bin, start: 310208}
+  - - 162364
+    - c
+    - code_80026E3C
+- type: bin
+  start: 310208
 - name: code_8004BEB4
   type: code
   start: 314036
   vram: 2147794612
   subsegments:
-  - [314036, c, code_8004BEB4]
-- {type: bin, start: 496480}
+  - - 314036
+    - c
+    - code_8004BEB4
+- type: bin
+  start: 496480
 - name: code_8007950C
   type: code
   start: 499980
   vram: 2147980556
   subsegments:
-  - [499980, c, code_8007950C]
-- {type: bin, start: 512672}
+  - - 499980
+    - c
+    - code_8007950C
+- type: bin
+  start: 512672
 - name: code_8007E9D4
   type: code
   start: 521684
   vram: 2148002260
   subsegments:
-  - [521684, c, code_8007E9D4]
-- {type: bin, start: 635680}
-- {type: bin, start: 688096, follows_vram: main}
-- [12582912]
+  - - 521684
+    - c
+    - code_8007E9D4
+- type: bin
+  start: 635680
+- type: bin
+  start: 688096
+  follows_vram: main
+- - 12582912

@@ -1,5 +1,6 @@
 #include "common.h"
 
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -13,20 +14,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern signed char D_800C5E54;
-
-
-s32 func_8000DA84();
-s32 func_8000E2B0();
-s32 osViBlack();
+M2C_UNK func_8000DA84();                            /* extern */
+M2C_UNK func_8000E2B0(s32);                         /* extern */
+M2C_UNK osViBlack(M2C_UNK);                         /* extern */
 extern s32 D_8009B5A4;
 extern s32 D_8009B5A8;
 extern s32 D_8009B5AC;
-extern char D_800C02AE[];
+extern M2C_UNK D_800C02AE;
 
 s32 func_80005948(void) {
     osViBlack(1);
-    D_800C5E54 = 4;
+    M2C_FIELD(&D_800C02AE, s8 *, 0x5BA6) = 4;
     func_8000DA84();
     if (D_8009B5A4 != 0) {
         func_8000E2B0(D_8009B5A4);

@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 extern void *osRecvMesg(void *, void **, s32);
 extern void func_8007F394(void *, void **);

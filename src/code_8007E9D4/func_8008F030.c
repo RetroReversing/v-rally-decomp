@@ -3981,7 +3981,7 @@ extern OSThread *__osActiveQueue;
 extern OSThread *__osFaultedThread;
 extern OSThread *__osRunQueue;
 
-extern OSTimer *D_800A2530;
+extern OSTimer *__osTimerList;
 extern OSTimer __osBaseTimer;
 extern OSTime __osCurrentTime;
 extern u32 __osBaseCounter;
@@ -4013,7 +4013,7 @@ extern u32 __osBaseCounter;
 extern u32 __osViIntrCount;
 extern u32 __osTimerCounter;
 extern OSTimer __osBaseTimer;
-extern OSTimer* D_800A2530;
+extern OSTimer* __osTimerList;
 
 
 OSMesgQueue __osProfTimerQ __attribute__((aligned( 8 ))) ;
@@ -4031,15 +4031,15 @@ OSTime __osInsertTimer(OSTimer* t) {
     OSTime tim;
     u32 savedMask = func_8008BD90();
 
-    timep = D_800A2530->next;
+    timep = __osTimerList->next;
     tim = t->value;
-    for (; timep != D_800A2530 && tim > timep->value; timep = timep->next) {
+    for (; timep != __osTimerList && tim > timep->value; timep = timep->next) {
         tim -= timep->value;
     }
 
     t->value = tim;
 
-    if (timep != D_800A2530) {
+    if (timep != __osTimerList) {
         timep->value -= tim;
     }
 

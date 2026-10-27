@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 extern u8 *D_800ADF00;
 extern u8 D_800AE850[];

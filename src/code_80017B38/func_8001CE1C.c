@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 #ifndef M2C_DEFINES
 #define M2C_DEFINES

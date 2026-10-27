@@ -43,12 +43,14 @@
 #define func_8008ED0C _timeToSamples
 #define func_8008ED58 __nextSampleTime
 #define func_8008EE00 __osDequeueThread
+#define func_8008EE40 __osTimerServicesInit
 #define func_8008EE94 __osTimerInterrupt
 #define func_8008EFD0 __osSetTimerIntr
 #define func_8008F030 __osInsertTimer
 #define func_8009019C __osLeoResume
 #define func_800904B0 osContStartReadData
 #define func_80090538 osContGetReadData
+#define func_800905D4 __osPackReadData
 #define func_800907D0 __osMotorAccess
 #define func_80090B60 osPfsInitPak
 #define func_80090D50 __osPfsSelectBank

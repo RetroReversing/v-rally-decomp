@@ -18,7 +18,7 @@ jobs:
       - name: Install pinned build and report tools
         run: |
           uv venv --clear --python 3.12
-          uv pip install --python .venv/bin/python "decompnet @ git+https://github.com/RetroReversing/decompdecomp.git@2084cdb66947eed55cba580457fc07cbcd5735f3"
+          uv pip install --python .venv/bin/python "decompnet @ git+https://github.com/RetroReversing/decompdecomp.git@89336e7660dc47007a2fac73886f7842993de6f9"
           .venv/bin/python - <<'PYTOOLS'
           import os
           from decompnet import toolchains

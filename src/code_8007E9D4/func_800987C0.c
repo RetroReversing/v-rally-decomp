@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 extern char *D_800ADEF8;
 extern char *D_800ADEFC;

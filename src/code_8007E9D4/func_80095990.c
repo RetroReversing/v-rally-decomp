@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checkpoint_common.h"
 
 s32 osVirtualToPhysical();
 s32 func_800914E0();
