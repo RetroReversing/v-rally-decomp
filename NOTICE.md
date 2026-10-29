@@ -27,6 +27,18 @@ the export cannot currently represent them faithfully. The combined checkpoint
 passes the complete cartridge comparison. This snapshot does not establish the
 model or source-access conditions of each new match, so no attribution is inferred.
 
+The 29 October 2026 update adds 113 verified C functions and 54,932 matching
+bytes from a snapshot of the local app, selecting 1,700 C functions in total.
+All 1,587 earlier C functions remain selected, with their earlier contexts and
+settings preserved. New translation units use isolated `snapshot29_` headers and
+per-function compiler settings. Six app matches remain assembly because their standalone comparison or private-data
+placement cannot be preserved faithfully. The complete cartridge rebuild
+is checked byte for byte. No model or source-access attribution is inferred from
+this snapshot. Readable aliases remain in the symbol table; generated assembly
+paths are normalized to the build manifest so a clean extraction uses the same
+function identities as the committed sources. Source formatting is retained to
+preserve compiler behavior.
+
 V-Rally and its original code/data belong to their respective rights holders. This repository grants no blanket license over recovered game code. Supply your own supported ROM. ROMs, extracted binary assets, compiler executables and generated assembly are excluded.
 
 The generated build.py comes from RetroReversing/decompdecomp, a continuation of NDelic's decompdecomp and Sam Wolfs' decomp.wtf, and retains AGPL-3.0 licensing. The license is included under tools/. The preparation helper uses AGPL-3.0-only. Tool licenses do not establish rights to the game itself.

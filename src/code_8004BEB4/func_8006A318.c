@@ -1,0 +1,37 @@
+#include "snapshot29_0433f7af8f6d.h"
+
+extern s32 D_800C8374,D_800B5B44,D_800AFA64;
+extern u8 D_800A16D4,D_800A16D5;
+extern s8 D_8009BBBC;
+extern s16 D_800A0370,D_800A0372;
+extern u16 D_800A0374,D_800A0376;
+extern u8 *D_8009B5A4,*D_800A1468;
+extern u8 D_800A73E0[];
+void func_8001BAF4();void func_80015C74();void func_80005E3C();
+void func_8006A318(void){
+s32 state=D_800A16D4;
+if(state==1)goto one;
+if(state<2)goto tail;
+if(state!=2)goto tail;
+func_8001BAF4(D_800C8374);
+func_80015C74(D_800A73E0+0x6BD0,0);
+D_8009BBBC=0;
+if(D_800A16D5)func_80005E3C(D_800B5B44);
+D_800A16D4=0;
+D_800A16D5=0;
+goto reset;
+one:
+func_8001BAF4(D_800C8374);
+func_80015C74(D_800A73E0+0x6BD0,0);
+if(D_800A16D5)func_80005E3C(D_800B5B44);
+D_800A16D5=0;
+D_8009BBBC=0;
+reset:
+D_800AFA64=0;
+tail:
+D_800A0370=0;
+D_800A0372=0;
+D_800A0374=*(u16 *)(D_8009B5A4+4);
+D_800A0376=*(u16 *)(D_8009B5A4+6);
+((s8 *)D_800A1468)[0x2BD]=-1;
+}
