@@ -494,3 +494,4 @@ void func_8004A0A0(void)
   func_8000C22C(*((s32 *) (((char *) D_800A0384) + 0x4)), 0xFF, 0xFF, 0xFF, 0xFF);
 }
 
+

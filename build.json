@@ -24,6 +24,33 @@
     "-mips3",
     "-mgp32",
     "-mfp32",
+    "-O2"
+   ],
+   "timeout": 20,
+   "start": 2148104756,
+   "end": 2148104757
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147786912,
+   "end": 2147786913
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
     "-O2",
     "-g3"
    ],
@@ -22686,7 +22713,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148104756,
    "rom": 624180,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_80097A34.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_80097A34.s",
+   "c": "src/code_8007E9D4/func_80097A34.c",
+   "own": {}
   },
   {
    "name": "func_80097B8C",
