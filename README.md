@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,739 selected C functions / 284,180 matching bytes**, about **50.21% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,739 C and 383 assembly functions**.
+- **1,740 selected C functions / 288,044 matching bytes**, about **50.89% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,740 C and 382 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -16,6 +16,10 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 The latest 31 October checkpoint preserves the three trig/matrix helper matches (520 bytes) and adds `func_8006090C`: **883 instructions / 3,532 bytes**, verified through both the app's normal judge and the standalone build. All previously selected C remains intact, and the complete cartridge comparison passes. Its source formatting, isolated header context and unchanged KMC GCC 2.7.2 compiler profile are retained together.
 
 The follow-up adds `func_8004C2B8` (**46 instructions / 184 bytes**) as an exact match. Reordering two independent struct-field stores produced the target instruction order. Its source, isolated header and compiler profile pass the standalone check, and the complete rebuilt cartridge remains byte-identical.
+
+The next exact match is `func_8004A0A0` (**966 instructions / 3,864 bytes**). Its reconstructed C, isolated header and KMC GCC 2.7.2 `-g3` profile are retained together. Reusing an existing local for the masked width recovered the final register allocation. Helper expressions and local lifetimes are reconstruction choices, not evidence of the original source spelling. All earlier selected C is preserved.
+
+At this checkpoint the app has one additional 8-byte match, `sqrtf` at `0x8008DFB0`, which remains assembly in the standalone build. It is excluded from the C coverage above.
 
 This is a partial decompilation. Candidate boundaries, compiler identity, names and types remain provisional. Detected-code coverage is not a percentage of the whole game, and a matching build still uses original assembly for remaining functions.
 
@@ -56,7 +60,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1739 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1740 of 2122 functions in C)
 ```
 
 ## Supported input
