@@ -3021,10 +3021,10 @@
       "name": "code_80017B38/func_8001C2E4",
       "target_path": "build/asm/nonmatchings/code_80017B38/func_8001C2E4.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80017B38/func_8001C2E4.s"
+        "complete": true,
+        "source_path": "src/code_80017B38/func_8001C2E4.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80017B38/func_8001C2E4.o"
     },
     {
       "name": "code_80017B38/func_8001C358",
@@ -15171,10 +15171,10 @@
       "name": "code_8007E9D4/func_800830C8",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_800830C8.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_800830C8.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_800830C8.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_800830C8.o"
     },
     {
       "name": "code_8007E9D4/func_8008328C",
@@ -15675,10 +15675,10 @@
       "name": "code_8007E9D4/func_80086A34",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_80086A34.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_80086A34.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_80086A34.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_80086A34.o"
     },
     {
       "name": "code_8007E9D4/func_80086A94",
@@ -18861,10 +18861,10 @@
       "name": "code_8007E9D4/func_800988C8",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_800988C8.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_800988C8.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_800988C8.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_800988C8.o"
     },
     {
       "name": "code_8007E9D4/func_80098998",

@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,722 selected C functions / 275,288 matching bytes**, about **48.64% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,722 C and 400 assembly functions**.
+- **1,726 selected C functions / 276,160 matching bytes**, about **48.79% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,726 C and 396 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -16,6 +16,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 This is a partial decompilation. Candidate boundaries, compiler identity, names and types remain provisional. Detected-code coverage is not a percentage of the whole game, and a matching build still uses original assembly for remaining functions.
 
 The 31 October 2026 snapshot adds **22 verified C functions and 9,092 matching bytes** while retaining every one of the 1,700 previously committed C functions, including those not currently verified in the app. Seven additional app matches still fail standalone integration and remain assembly in this checkpoint. The new sources use a separate header and their recorded compiler flags.
+
+The later 31 October matching session adds **four byte-exact C functions and 872 matching bytes**: `func_8001C2E4`, `func_800830C8`, `func_80086A34`, and `func_800988C8`. Their source formatting, isolated header, and verified compiler settings are retained. All 1,722 earlier C functions remain selected. Two additional non-matching draft improvements stay in the local app and are not counted here.
 
 ## Build
 
@@ -36,7 +38,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1722 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1726 of 2122 functions in C)
 ```
 
 ## Supported input
@@ -69,7 +71,7 @@ can find readable names that differ from the original report symbols. This
 header is not included by the build. There is
 no separate list of functional, non-matching C, so no `functional.json` is emitted.
 
-The refreshed report records 1,700 completed units (266,196 bytes) and 1,679 raw object matches. The report distinguishes completed/linked progress from raw object matching.
+Reports distinguish completed/linked progress from raw object matching.
 Some linked C units can have small object-level differences even when the full
 cartridge is identical; neither measure is a whole-game completion percentage.
 

@@ -4045,6 +4045,64 @@
     "-mhard-float",
     "-mfp64"
    ]
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math"
+   ],
+   "timeout": 20,
+   "start": 2147599076,
+   "end": 2147599077
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2148020424,
+   "end": 2148020425
+  },
+  {
+   "toolchain": "sn-n64-281",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-O1",
+    "-mgas",
+    "-meb",
+    "-mcpu=VR4300",
+    "-mhard-float",
+    "-mfp64"
+   ],
+   "timeout": 20,
+   "start": 2148035124,
+   "end": 2148035125
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2148108488,
+   "end": 2148108489
   }
  ],
  "gp": 0,
@@ -7376,7 +7434,9 @@
    "seg": "code_80017B38",
    "vram": 2147599076,
    "rom": 118500,
-   "asm": "asm/nonmatchings/code_80017B38/func_8001C2E4.s"
+   "asm": "asm/nonmatchings/code_80017B38/func_8001C2E4.s",
+   "c": "src/code_80017B38/func_8001C2E4.c",
+   "own": {}
   },
   {
    "name": "func_8001C358",
@@ -19052,7 +19112,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148020424,
    "rom": 539848,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_800830C8.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_800830C8.s",
+   "c": "src/code_8007E9D4/func_800830C8.c",
+   "own": {}
   },
   {
    "name": "func_8008328C",
@@ -19526,7 +19588,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148035124,
    "rom": 554548,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_80086A34.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_80086A34.s",
+   "c": "src/code_8007E9D4/func_80086A34.c",
+   "own": {}
   },
   {
    "name": "func_80086A94",
@@ -22616,7 +22680,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148108488,
    "rom": 627912,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_800988C8.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_800988C8.s",
+   "c": "src/code_8007E9D4/func_800988C8.c",
+   "own": {}
   },
   {
    "name": "func_80098998",
