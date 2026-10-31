@@ -37,6 +37,7 @@ static __inline__ s32 read_handle(void)
 
 void func_80076060(void *arg0)
 {
+ s32 draw_one;
   f32 sp28[16];
   s16 temp_a2;
   s32 *var_v0_5;
@@ -268,26 +269,29 @@ void func_80076060(void *arg0)
           var_a0_2 = var_s2;
           temp_s0_5 = var_s4 << 0x10;
           block_52:
+
+ draw_one=1;
           temp_s0_5 = temp_s0_5 >> 0x10;
 
-          func_8000CC04(var_a0_2, temp_v0_2, temp_s0_5, var_s6, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
+          func_8000CC04(var_a0_2, temp_v0_2, temp_s0_5, var_s6, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
           var_a0 = var_s2;
           var_a2 = temp_s0_5;
           var_a3 = var_s6 + 10;
           ;
-          func_8000CC04(var_a0, temp_v0_2, var_a2, var_a3, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x32))) * 40) + 0x44))), 1, 1.0f, 1.0f, 0, 1);
+          func_8000CC04(var_a0, temp_v0_2, var_a2, var_a3, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x32))) * 40) + 0x44))), draw_one, 1.0f, 1.0f, 0, draw_one);
         }
+        draw_one=1;
         var_s4 = 0x128;
-        if ((*((u16 *) (((char *) read_config()) + 0x12))) == 1)
+        if ((*((u16 *) (((char *) read_config()) + 0x12))) == draw_one)
         {
           var_s4 = 0x118;
           var_s6 = 0x7D;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == 1))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == draw_one))
           {
             temp_s0_6 = arg0 + 0x40;
-            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x7D, func_80057918(read_handle(), 0xC1), 1, 1.0f, 1.0f, 0, 1);
+            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x7D, func_80057918(read_handle(), 0xC1), draw_one, 1.0f, 1.0f, 0, draw_one);
             var_v0_5 = func_80057918(read_handle(), 0xD2);
-            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x87, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
+            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x87, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
           }
           else
           {
@@ -297,12 +301,12 @@ void func_80076060(void *arg0)
         else
         {
           var_s6 = 5;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == 1)))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == draw_one)))
           {
             temp_s0_7 = arg0 + 0x40;
             func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 5, func_80057918(read_handle(), 0xC1), (s32) temp_s1_2, 1.0f, 1.0f, 0, (s32) temp_s1_2);
             var_v0_5 = func_80057918(read_handle(), 0xD2);
-            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 0xF, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
+            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 0xF, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
           }
           else
           {
@@ -311,12 +315,12 @@ void func_80076060(void *arg0)
 
             temp_s2 = arg0 + 0x40;
             temp_s0_8 = ((s32) (-(var_s4 << 0x10))) >> 0x10;
-            func_8000CC04(temp_s2, temp_v0_2, temp_s0_8, var_s6, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
+            func_8000CC04(temp_s2, temp_v0_2, temp_s0_8, var_s6, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
             var_a0_3 = temp_s2;
             var_a2_2 = temp_s0_8;
             var_a3_2 = var_s6 + 0xA;
             ;
-            func_8000CC04(var_a0_3, temp_v0_2, var_a2_2, var_a3_2, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x33))) * 40) + 0x44))), 1, 1.0f, 1.0f, 0, 1);
+            func_8000CC04(var_a0_3, temp_v0_2, var_a2_2, var_a3_2, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x33))) * 40) + 0x44))), draw_one, 1.0f, 1.0f, 0, draw_one);
           }
         }
       }

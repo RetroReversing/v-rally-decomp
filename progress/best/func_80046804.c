@@ -1,82 +1,54 @@
+typedef struct { s32 x, y, z, w; } Vec4_80046804;
 extern void (*D_800A0264[])(u8 *, s32, u8 *, s32);
 void func_80046804(u8 **arg0, u8 *arg1)
 {
-  u8 *temp_s2;
-  s32 *new_var;
-  s32 dv[3];
-  s32 pv[3];
-  s32 dd[3];
-  s32 temp_a0;
-  s32 temp_a0_2;
-  s32 temp_a1;
-  s32 temp_a1_2;
-  s32 temp_a1_3;
-  s32 temp_v0;
-  s32 temp_v1;
-  s32 temp_v1_2;
-  u8 *var_s1;
-  s32 var_s0;
-  s32 var_s3;
-  s32 var_v0;
-  s32 var_v0_2;
-  s32 var_v1;
-  s32 pad[4];
-  temp_s2 = *arg0;
-  pv[0] = *((s32 *) ((*((u8 **) (arg1 + 0x80))) + 0x2B8));
-  new_var = &(*((s32 *) temp_s2));
-  pv[2] = *((s32 *) ((*((u8 **) (arg1 + 0x80))) + 0x2C0));
-  var_v0 = 2;
-  dd[0] = pv[0] - (*((s32 *) temp_s2));
-  temp_v1 = dd[0] >> 4;
-  dd[2] = pv[var_v0] - (*((s32 *) (temp_s2 + 0x8)));
-  temp_v0 = dd[2] >> 4;
-  if (((u32) ((temp_v1 * temp_v1) + (temp_v0 * temp_v0))) <= 0xC34F)
-  {
-    var_s3 = 1;
-    var_s3 = *((u16 *) ((*((u8 **) (arg1 + 0x48))) + 0x2E));
-    temp_v1_2 = ((var_s3 * 2) | 1) & 0xFFFF;
-    var_s0 = 0;
-    if (temp_v1_2 > 0)
-    {
-      var_v0 = var_s3 & 0xFFFF;
-      do
-      {
-        var_s3 = var_v0 * 2;
-        var_s0 += 1;
-        var_v0 = var_s3 & 0xFFFF;
-      }
-      while (var_s0 < temp_v1_2);
-    }
-    temp_a1_3 = (var_s3 & 0xFFFF) * 2;
-    dv[0] = pv[0] - (*new_var);
-    dv[1] = pv[1] - (*((s32 *) (temp_s2 + 0x4)));
-    dv[2] = pv[2] - (*((s32 *) (temp_s2 + 0x8)));
-    if (((dv[0] * (*((s32 *) (temp_s2 + 0xC)))) + (dv[2] * (*((s32 *) (temp_s2 + 0x14))))) < 0)
-    {
-      var_s1 = temp_s2 + 0x1C;
-      if (((*((u16 *) (temp_s2 + 0x1A))) & temp_a1_3) == (temp_a1_3 & 0xFFFF))
-      {
-        var_s0 = 0;
-        temp_a1 = *((u16 *) (temp_s2 + 0x18));
-        if (temp_a1 > 0)
-        {
-          do
-          {
-            ((void (*)(u8 *, s32, u8 *, s32)) D_800A0264[*((u16 *) var_s1)])(var_s1 + 8, *((u16 *) (var_s1 + 2)), arg1, 0);
-            var_s0 += 1;
-            var_s1 += (*((s32 *) (var_s1 + 4))) + 8;
-          }
-          while (var_s0 < (*((u16 *) (temp_s2 + 0x18))));
+    Vec4_80046804 dv;
+    Vec4_80046804 pos;
+    Vec4_80046804 dd;
+    s32 unused[2];
+    s32 *p;
+    s32 bit;
+    u16 bit2;
+    s32 t;
+    s32 i;
+    s32 n;
+    u8 *e;
+
+    p = (s32 *)*arg0;
+    pos.x = *(s32 *)(*(u8 **)(arg1 + 0x80) + 0x2B8);
+    pos.z = *(s32 *)(*(u8 **)(arg1 + 0x80) + 0x2C0);
+    dd.x = pos.x - p[0];
+    dd.z = pos.z - p[2];
+    if ((u32)((dd.x >> 4) * (dd.x >> 4) + (dd.z >> 4) * (dd.z >> 4)) < 50000) {
+        bit = 1;
+        n = (u16)(*(u16 *)(*(u8 **)(arg1 + 0x48) + 0x2E) * 2 | 1);
+        i = 0;
+        if (n > 0) {
+            do {
+                bit = (bit & 0xFFFF) << 1;
+                i++;
+            } while (i < n);
         }
-      }
-      var_v1 = ~temp_a1_3;
-      var_v0_2 = (*((u16 *) (temp_s2 + 0x1A))) | var_s3;
+        dv.x = pos.x - p[0];
+        dv.y = pos.y - p[1];
+        dv.z = pos.z - p[2];
+        t = (bit & 0xFFFF) << 1;
+        bit2 = t;
+        if (dv.x * p[3] + dv.z * p[5] < 0) {
+            e = (u8 *)p + 0x1C;
+            if ((*(u16 *)((u8 *)p + 0x1A) & t) == bit2) {
+                i = 0;
+                if (i < *(u16 *)((u8 *)p + 0x18)) {
+loop:
+                    D_800A0264[*(u16 *)e](e + 8, *(u16 *)(e + 2), arg1, 0);
+                    i++;
+                    e += *(s32 *)(e + 4) + 8;
+                    if (i < *(u16 *)((u8 *)p + 0x18)) goto loop;
+                }
+            }
+            *(u16 *)((u8 *)p + 0x1A) = (*(u16 *)((u8 *)p + 0x1A) | bit) & ~bit2;
+        } else {
+            *(u16 *)((u8 *)p + 0x1A) = (*(u16 *)((u8 *)p + 0x1A) | bit2) & ~bit;
+        }
     }
-    else
-    {
-      var_v1 = ~var_s3;
-      var_v0_2 = (*((u16 *) (temp_s2 + 0x1A))) | temp_a1_3;
-    }
-    *((u16 *) (temp_s2 + 0x1A)) = var_v0_2 & var_v1;
-  }
 }

@@ -131,7 +131,10 @@ loop_4:
     temp_v0_4 = F(arg0,u16,0x88) - 1;
     if (var_s5 != temp_v0_4) {
         var_s4_2 = var_s5;
-        var_t1_2 = var_s4_2 & 0xFFFF;
+        temp_a0_2 = var_s4_2 & 0xFFFF;
+    temp_s2 = temp_a0_2;
+    temp_v1_2 = temp_s2;
+    var_t1_2 = temp_v1_2;
         temp_s2 = var_s5 + 1;
         if (temp_v0_4 >= var_t1_2) {
             do {

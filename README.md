@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,751 selected C functions / 295,968 matching bytes**, about **52.29% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,751 C and 371 assembly functions**.
+- **1,754 selected C functions / 304,204 matching bytes**, about **53.75% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,754 C and 368 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -58,6 +58,18 @@ standalone build use different selection histories; the verified standalone tota
 the build's authority. Future progress commits include the whole app snapshot, not just the
 last function discussed. This is an explicit snapshot, not continuous automatic synchronization.
 
+### Additional exact match — 31 October 2026
+
+`func_8005A790` now matches all **775 instructions / 3,100 bytes**, verified by the app's
+linked-byte judge and independently by `build.py check`. Repairs corrected a missing call
+argument, unified aliased global accesses, used typed object fields for scheduling, and
+separated a matrix-result temporary. The compiler remains KMC GCC 2.7.2 with
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+
+The portable progress snapshot records **1,756 matches and 344 best drafts**. The app and
+standalone build retain different earlier selections; `func_80082EB8` and `func_80098560`
+are newly retained in that snapshot but have not been added to the standalone C selection.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -77,7 +89,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1751 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1754 of 2122 functions in C)
 ```
 
 ## Supported input

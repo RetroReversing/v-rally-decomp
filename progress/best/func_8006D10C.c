@@ -15,7 +15,7 @@ void func_8006D10C(void)
   s32 j;
   s32 k;
   s32 n;
-  s32 t;
+  unsigned short t;
   int new_var;
   s32 q;
   s32 r;
@@ -165,7 +165,8 @@ void func_8006D10C(void)
         {
           out[(j & 255) + 1] &= 254;
         }
-        new_var = j & 255;
+        t = j & 255;
+    new_var = t;
         if (r & 512)
         {
           out[new_var + 1] |= 2;

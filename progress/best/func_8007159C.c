@@ -30,6 +30,7 @@ void func_8007159C(void)
   u8 *p = A(__repair_cached_pointer, 16) + (H(D_800C3508, 2) * 20);
   u8 choice = p[14];
   s32 selected;
+  u8 *new_var;
   s32 i;
   if (choice <= 33)
   {
@@ -46,7 +47,8 @@ void func_8007159C(void)
         }
         if (D_800A1468[0x2be] == 0)
         {
-          func_80061740(D_800D0648[U(D_800C35A0, 32)]);
+          new_var = D_800C35A0;
+          func_80061740(D_800D0648[U(new_var, 32)]);
           D_800B0548 = selected;
         }
       }
@@ -66,17 +68,21 @@ void func_8007159C(void)
       u32 temp = D_800A1468[0x2be];
       if (temp == 0)
       {
-        i = 0;
+        ;
         if (temp < U(&blob, 20))
         {
           do
           {
-            func_8004D08C(D_800D05D8, 0 & 255, H(D_800A14D0, 0), (s16) (U(D_800A14D0, 2) + ((0 & 255) * D_800A14D0[8])), (f32) (((f64) F((0, D_800A14D0), 4)) - D_800A5D10), F(D_800A14D0, 4), ((u8 *) (&blob))[0x2bc + (0 & 255)], 255);
+            func_8004D08C(D_800D05D8, 0 & 255, H(D_800A14D0, 0), (s16) (U(D_800A14D0, 2) + ((0 & ((0, 255))) * D_800A14D0[8])), (f32) (((f64) F((0, D_800A14D0), 4)) - D_800A5D10), F(D_800A14D0, 4), ((u8 *) (&blob))[0x2bc + (0 & 255)], 255);
             i++;
+            if (!D_800B0548)
+            {
+            }
           }
-          while (((u32) (i & 255)) < U(&blob, 20));
+          while (((u32) (0 & 255)) < U(&blob, 20));
         }
       }
     }
   }
 }
+

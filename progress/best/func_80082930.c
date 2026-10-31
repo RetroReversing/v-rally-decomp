@@ -114,45 +114,41 @@ s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
       if ((w - d) >= chunk)
       {
         u8 *dst = (w + D_800AE850) + 0x8AE8;
-        u8 *src = (d + D_800AE850) + 0x8AE8;
-        if ((!(((u32) dst) & 3)) && (!(((u32) src) & 3)))
+        if ((!(((u32) dst) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
           u32 bytes = words * 4;
           u32 cnt;
+          u8 *src = (d + D_800AE850) + 0x8AE8;
           u32 *to = (u32 *) dst;
           u32 *from = (u32 *) src;
           u32 *end = (u32 *) (src + bytes);
           if ((((u32) to) < ((u32) end)) & (((u32) from) < ((u32) to)))
           {
-            chunk = bytes >> 2;
             from = end;
-            cnt = chunk;
+            cnt = bytes >> 2;
             to = (u32 *) (dst + bytes);
-            while (cnt)
+            for (; cnt; cnt--)
             {
               *(--to) = *(--from);
-              cnt--;
             }
-
           }
           else
           {
-            cnt = chunk;
-            while (cnt)
+            u32 *s3 = (u32 *) src;
+            u32 c3 = bytes >> 2;
+            while (c3)
             {
-              *(to++) = *(from++);
-              cnt--;
+              *(to++) = *(s3++);
+              c3--;
             }
-
           }
           w += words * 4;
           d += words * 4;
           ;
-          src = (d + D_800AE850) + 0x8AE8;
           chunk &= 3;
         }
-        func_8008E13C((w + D_800AE850) + 0x8AE8, src, chunk);
+        func_8008E13C((w + D_800AE850) + 0x8AE8, (d + D_800AE850) + 0x8AE8, chunk);
         w += chunk;
         d += chunk;
       }

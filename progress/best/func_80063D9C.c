@@ -66,7 +66,8 @@ s32 func_80063D9C(s32 arg0)
       }
       count = next;
       base = D_800D0634;
-      off = (p2->index * 708) + ((s32) base);
+      off = p2->index * 708;
+      off = off + ((s32) base);
       n = *((u16 *) (((u8 *) off) + 0x14));
       new_var = base;
       ent = (u8 *) (off2 + ((s32) new_var));
@@ -76,8 +77,7 @@ s32 func_80063D9C(s32 arg0)
   count = 1;
   if (((s8) found) != (-count))
   {
-    ;
-    *((s16 *) (((u8 *) (*((Obj **) (((u8 *) (&D_800C02AE)) + 0x32F2)))) + 0x22)) = (s8) found;
+ do { ; *((s16 *) (((u8 *) (*((Obj **) (((u8 *) (&D_800C02AE)) + 0x32F2)))) + 0x22)) = (s8) found; } while (0);
     func_8005946C(arg0, (u16) ((s8) found));
   }
   return 0;

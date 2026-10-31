@@ -18,7 +18,8 @@
     "src/code_8004BEB4/func_80053F44.c": "eb932528639cf2ce4813e3f59805e57c42e3ffdd1dd03b3c3797e171a0401502",
     "src/code_80026E3C/func_8003E4A8.c": "8bec56547888be400f0af4ea884cd1bac87dcc799001e0ff00278a2543112feb",
     "src/code_8007E9D4/func_8009912C.c": "7384b9df839d4f8533b1506a75beecb1520ca12854983aa9b1e5bf87163ac11f",
-    "src/code_80017B38/func_800197A4.c": "bbcecf6df8379391e10f34a20af75787b942bbed52ca76176e595ee8e9a7eaf3"
+    "src/code_80017B38/func_800197A4.c": "bbcecf6df8379391e10f34a20af75787b942bbed52ca76176e595ee8e9a7eaf3",
+    "src/code_8004BEB4/func_8005A790.c": "17fb22ff428d74d8e05042616cd43e2739fa240cbe8add294a4a8c9d5619f98d"
   },
   "accepted": [
     "__osCheckPackId",
@@ -38,7 +39,8 @@
     "func_8008DFB0",
     "func_8008F810",
     "func_80097A34",
-    "func_8009912C"
+    "func_8009912C",
+    "func_8005A790"
   ],
   "skipped": [],
   "verified_build": true,

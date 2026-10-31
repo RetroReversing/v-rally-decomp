@@ -31,6 +31,7 @@ typedef struct
 extern Rating D_800B0D80[];
 void func_8006874C(s8 selected)
 {
+  s16 new_var;
   Style saved;
   char text[8];
   Style *style;
@@ -38,7 +39,6 @@ void func_8006874C(s8 selected)
   s16 y;
   u8 shown;
   u8 i;
-  u8 *p;
   u8 *unit;
   s32 value;
   f32 average;
@@ -85,18 +85,18 @@ void func_8006874C(s8 selected)
 
       }
       func_80059618(style, *((u8 *) (((u8 *) style) + 11)), *((u8 *) (((u8 *) style) + 12)), *((u8 *) (((u8 *) style) + 13)), *((u8 *) (((u8 *) style) + 14)));
-      p = list + (i * 40);
-      func_80098290(text, p);
+      unit = list + (i * 40);
+      func_80098290(text, unit);
       func_800596F4(style, (s16) x, (s16) y, text);
-      if ((*((u16 *) (((u8 *) p) + 12))) == 0)
+      if ((*((u16 *) (((u8 *) unit) + 12))) == 0)
       {
-        value = *((u16 *) (((u8 *) p) + 14));
+        value = *((u16 *) (((u8 *) unit) + 14));
         func_80099DF8(text, D_800A5704, value);
         unit = D_800A5708;
       }
       else
       {
-        value = ((*((u16 *) (((u8 *) p) + 14))) * 100) / 160;
+        value = ((*((u16 *) (((u8 *) unit) + 14))) * 100) / 160;
         func_80099DF8(text, D_800A5704, value);
         unit = D_800A570C;
       }
@@ -126,8 +126,9 @@ void func_8006874C(s8 selected)
   {
     void *str;
     str = func_80057918(D_800C8328, 341);
+    new_var = y;
     shown += 1;
-    func_800596F4(style, (s16) x, (s16) y, str);
+    func_800596F4(style, (s16) x, (s16) new_var, str);
     y += 14;
   }
 

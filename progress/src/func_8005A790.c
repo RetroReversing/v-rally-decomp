@@ -1,3 +1,5 @@
+typedef struct { char pad[0x14]; void *commands; } CommandObject;
+typedef struct { char pad[0x178]; s32 field; } ViewObject;
 extern u32 D_800B6880;
 extern s8 D_800C81FF;
 extern void *D_800C35A0;
@@ -33,7 +35,7 @@ s32 func_800061FC();
 s32 func_8000E8B8();
 s32 func_8000E8FC();
 s32 func_8000F49C();
-void func_800131C0(void);
+void func_800131C0(s32);
 s32 func_80013E60();
 s32 func_80015780();
 s32 func_8001BD1C();
@@ -171,8 +173,8 @@ void func_8005A790(void)
   {
     if (D_800B6880 == 6)
     {
-      D_800C81FF = (s8) (((__repair_record_D_800C35A0*)D_800C35A0)->field_E);
-      ((__repair_record_D_800C35A0*)D_800C35A0)->field_E = 1U;
+      D_800C81FF = (s8) (*((u16 *) ((char *)D_800C35A0 + 14)));
+      *((u16 *) ((char *)D_800C35A0 + 14)) = 1U;
       return;
     }
     temp_s5 = func_8007F4E4(6, 2, 1);
@@ -206,16 +208,16 @@ void func_8005A790(void)
     D_800C5D2C = func_80041FF4(1, &D_800A528C);
     D_800C5D30 = func_80041FF4(0, &D_800A5294);
     temp_v0 = func_8004240C(4);
-    view = *((void **) (((char *) temp_v0) + 0x178));
+    view = ((ViewObject *)temp_v0)->field;
     D_800C7F84 = temp_v0;
     D_800AFA88 = view;
     temp_v0_2 = func_8004240C(1);
-    view = *((void **) (((char *) temp_v0_2) + 0x178));
+    view = ((ViewObject *)temp_v0_2)->field;
     D_800C7F84 = temp_v0_2;
     D_800D05D8 = view;
     temp_v0_3 = func_8004240C(1);
-    buffer = *((void **) (((char *) temp_v0_3) + 0x178));
-    view = (void *) buffer;
+    var_v0 = ((ViewObject *)temp_v0_3)->field;
+    view = (void *) var_v0;
     D_800C7F84 = temp_v0_3;
     D_800ADF80 = view;
     if (D_800C3558 != 0)
@@ -302,26 +304,26 @@ void func_8005A790(void)
               while (((u32) (var_v1 & 0xFF)) < 8U);
               if (var_a0_2 & 0xFF)
               {
+                temp_v1 = *((u32 *)temp_a3);
                 var_a0_3 = 0;
-                if ((((u32) (*((u32 *) (((char *) temp_a3) + 4)))) < inline_fn(*((u32 *) (((char *) temp_a3) + 0)))) && (((u32) (*((u32 *) (((char *) temp_a3) + 8)))) < ((u32) D_800B6600)))
+                if ((((u32) (*((u32 *) (((char *) temp_a3) + 4)))) < temp_v1) && (((u32) (*((u32 *) (((char *) temp_a3) + 8)))) < temp_v1))
                 {
-                  var_a0_3 = ((u32) (*((u32 *) (((char *) temp_a3) + 0xC)))) < ((u32) D_800B6600);
+                  var_a0_3 = ((u32) (*((u32 *) (((char *) temp_a3) + 0xC)))) < temp_v1;
                 }
-                var_v0_3 = var_a0_3 & 0xFF;
-                if ((((__repair_record_D_800C35A0*)D_800C35A0)->field_E) == 2)
+
+                if ((*((u16 *) ((char *)D_800C35A0 + 14))) == 2)
                 {
+                  temp_v0_15 = *((u32 *) (((char *) temp_a3) + 4));
                   temp_v1 = *((u32 *) (((char *) temp_a3) + 8));
-                  var_v0_3 = var_a0_3 & 0xFF;
-                  if (temp_v1 < ((u32) (*((u32 *) (((char *) temp_a3) + 4)))))
+                  if (temp_v1 < (u32)temp_v0_15)
                   {
                     if (((u32) (*((u32 *) (((char *) temp_a3) + 0xC)))) < temp_v1)
                     {
                       var_a0_3 = 1;
                     }
-                    var_v0_3 = var_a0_3 & 0xFF;
                   }
                 }
-                if (var_v0_3 != 0)
+                if (var_a0_3 != 0)
                 {
                   temp_v0_4 = ((__repair_record_D_800C35A0*)D_800C35A0)->field_38;
                   if (temp_v0_4 == 0)
@@ -372,7 +374,7 @@ void func_8005A790(void)
           if (temp_a0_4 == 0)
         {
           func_8006F0E0(((__repair_record_D_800C35A0*)D_800C35A0)->field_32);
-          if ((((__repair_record_D_800C35A0*)D_800C35A0)->field_E) == temp_s0)
+          if ((*((u16 *) ((char *)D_800C35A0 + 14))) == temp_s0)
           {
             func_8006F0E0(((__repair_record_D_800C35A0*)D_800C35A0)->field_33);
           }
@@ -419,7 +421,7 @@ void func_8005A790(void)
       osSetThreadPri(D_800B0AE0, 6);
       temp_v0_6 = func_8004240C(0);
       D_800C7F84 = temp_v0_6;
-      func_8000E8B8(*((s32 *) (((char *) temp_v0_6) + 0x178)));
+      func_8000E8B8(((ViewObject *)temp_v0_6)->field);
       func_80005500(*((void **) (((char *) D_800C7F84) + 0x178)), D_8009B5A4);
       if ((*((s8 *) (((char *) D_800A1468) + 0x2BD))) == 1)
       {
@@ -433,8 +435,8 @@ void func_8005A790(void)
       else
       {
         temp_v0_13 = func_800056FC(*((void **) (((char *) D_800C7F84) + 0x178)));
-        temp_s0_2 = *((void **) (((char *) temp_v0_13) + 0x14));
-        *((void **) (((char *) temp_v0_13) + 0x14)) = (void *) (temp_s0_2 + 8);
+        temp_s0_2 = ((CommandObject *)temp_v0_13)->commands;
+        ((CommandObject *)temp_v0_13)->commands = (void *) (temp_s0_2 + 8);
         buffer = D_8009B5A8;
         *((s32 *) (((char *) temp_s0_2) + 0)) = (s32) ((((*((s16 *) (((char *) buffer) + 4))) - 1) & 0xFFF) | 0xFF100000);
         *((s32 *) (((char *) temp_s0_2) + 4)) = func_80005C48(buffer);
@@ -442,19 +444,19 @@ void func_8005A790(void)
       temp_v0_8 = func_8004240C(2);
       D_800C7F84 = temp_v0_8;
       var_s2 = 0;
-      func_8000E8B8(*((s32 *) (((char *) temp_v0_8) + 0x178)));
+      func_8000E8B8(((ViewObject *)temp_v0_8)->field);
       func_80005500(*((void **) (((char *) D_800C7F84) + 0x178)), D_8009B5A4);
       temp_v0_9 = func_8004240C(3);
       D_800C7F84 = temp_v0_9;
-      func_8000E8B8(*((s32 *) (((char *) temp_v0_9) + 0x178)));
+      func_8000E8B8(((ViewObject *)temp_v0_9)->field);
       temp_v0_10 = func_8004240C(4);
-      new_var = *((s32 *) (((char *) temp_v0_10) + 0x178));
+      new_var = ((ViewObject *)temp_v0_10)->field;
       D_800C7F84 = temp_v0_10;
       func_8000E8B8(new_var);
       func_80005500(*((void **) (((char *) D_800C7F84) + 0x178)), D_8009B5A4);
       temp_v0_11 = func_8004240C(1);
       D_800C7F84 = temp_v0_11;
-      func_8000E8B8(*((s32 *) (((char *) temp_v0_11) + 0x178)));
+      func_8000E8B8(((ViewObject *)temp_v0_11)->field);
       func_80005500(*((void **) (((char *) D_800C7F84) + 0x178)), D_8009B5A4);
       temp_v0_12 = func_8001BD1C();
       guMtxIdent(temp_v0_12);
@@ -463,10 +465,10 @@ void func_8005A790(void)
       *((s32 *) (((char *) temp_v0_14) + 0)) = 0xDA380003;
       *((s32 *) (((char *) temp_v0_14) + 4)) = temp_v0_12;
       func_80006014(temp_v0_13, temp_v0_14 + 8);
-      var_v0_3 = func_8001BD1C();
+      temp_v0_12 = func_8001BD1C();
       guOrthoF(&sp20, (f32) (*((s16 *) (((char *) D_800ADF80) + 8))), (f32) (*((s16 *) (((char *) D_800ADF80) + 0xC))), (f32) (*((s16 *) (((char *) D_800ADF80) + 0xE))), (f32) (*((s16 *) (((char *) D_800ADF80) + 0xA))), -1.0f, 10.0f, 1.0f);
-      guMtxF2L(&sp20, var_v0_3);
-      func_800061FC(temp_v0_13, var_v0_3);
+      guMtxF2L(&sp20, temp_v0_12);
+      func_800061FC(temp_v0_13, temp_v0_12);
       func_8005B6A8();
       func_8000F49C(D_800AFA88);
       loop_77:
@@ -497,7 +499,7 @@ void func_8005A790(void)
       D_800C7F84 = temp_v0_16;
       if ((((__repair_record_D_800C35A0*)D_800C35A0)->field_2C) & 2)
       {
-        func_800131C0();
+        func_800131C0(((ViewObject *)temp_v0_16)->field);
       }
       if (func_80013E60() < 0x78)
       {
