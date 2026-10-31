@@ -39,6 +39,15 @@ paths are normalized to the build manifest so a clean extraction uses the same
 function identities as the committed sources. Source formatting is retained to
 preserve compiler behavior.
 
+The 31 October 2026 app snapshot adds 22 independently verified C functions and
+9,092 matching bytes, selecting 1,722 C functions. All 1,700 earlier C functions
+and their compiler settings remain unchanged. New sources use the isolated
+`snapshot31_verified.h` header and per-function
+compiler settings. Duplicate non-target function bodies in three app drafts are
+replaced by declarations, retaining line counts; their target functions are reverified.
+Seven other app matches are not accepted by the standalone
+comparison and remain assembly. No model or source-access attribution is inferred.
+
 V-Rally and its original code/data belong to their respective rights holders. This repository grants no blanket license over recovered game code. Supply your own supported ROM. ROMs, extracted binary assets, compiler executables and generated assembly are excluded.
 
 The generated build.py comes from RetroReversing/decompdecomp, a continuation of NDelic's decompdecomp and Sam Wolfs' decomp.wtf, and retains AGPL-3.0 licensing. The license is included under tools/. The preparation helper uses AGPL-3.0-only. Tool licenses do not establish rights to the game itself.
