@@ -1,0 +1,53 @@
+void func_8002DB18();
+s16 *func_8002DE00(s16 *arg0, s16 *arg1)
+{
+  s16 sp10[16];
+  s16 sp30[16];
+  s16 sp50[16];
+  s16 sp70[16];
+  s16 *var_s6;
+  s16 s5;
+  s16 s2;
+  s16 s3;
+  s16 s1;
+  s16 s0;
+  s16 last;
+  var_s6 = arg1;
+  s2 = arg0[0];
+  s5 = func_8002D2E4(s2);
+  s2 = func_8002D348(arg0[0]);
+  s3 = func_8002D2E4(arg0[1]);
+  s1 = func_8002D348(arg0[1]);
+  s0 = func_8002D2E4(arg0[2]);
+  last = func_8002D348(arg0[2]);
+  sp10[0] = s3;
+  sp10[1] = 0;
+  { s16 positive = s1; s1 = -s1; sp10[2] = positive; }
+  sp10[3] = 0;
+  sp10[4] = 0x1000;
+  sp10[5] = 0;
+  sp10[6] = s1;
+  sp10[7] = 0;
+  sp10[8] = s3;
+  sp30[0] = 0x1000;
+  sp30[1] = 0;
+  sp30[2] = 0;
+  sp30[3] = 0;
+  sp30[4] = s5;
+  sp30[5] = -s2;
+  sp30[6] = 0;
+  sp30[7] = s2;
+  sp30[8] = s5;
+  sp50[0] = s0;
+  sp50[1] = -last;
+  sp50[2] = 0;
+  sp50[3] = last;
+  sp50[4] = s0;
+  sp50[5] = 0;
+  sp50[6] = 0;
+  sp50[7] = 0;
+  sp50[8] = 0x1000;
+  func_8002DB18(sp10, sp30, sp70);
+  func_8002DB18(sp70, sp50, var_s6);
+  return var_s6;
+}

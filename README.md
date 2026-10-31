@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,741 selected C functions / 288,052 matching bytes**, about **50.89% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,741 C and 381 assembly functions**.
+- **1,751 selected C functions / 295,968 matching bytes**, about **52.29% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,751 C and 371 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -41,6 +41,23 @@ The app's saved matched count can therefore exceed what a fresh export rebuilds 
 
 The latest verified sync adds **two C functions / 668 matching bytes**: `func_80085C58` and `__osCheckPackId` (exported as `func_80096104`). All earlier C is retained. The app reports **50.0%** using its eligible-code denominator; the standalone figure above uses all detected candidate-code bytes. The complete cartridge remains byte-identical.
 
+### Complete app progress snapshot — 31 October 2026
+
+The latest complete sync adds **five C functions / 5,376 verified bytes**: `func_80022BE8`,
+`func_80026ED4` (820 instructions), `func_8003035C`, `func_8003E4A8`, and `func_80053F44`.
+All previously selected C is retained. A recount also corrects the older summary: the previous
+checkout selected 1,746 C functions / 290,592 bytes, rather than the stale 1,741-function figure.
+Each addition passed its standalone compiler/link check,
+and the complete original cartridge rebuilt byte for byte. Objdiff metadata and per-function
+compiler profiles are updated together.
+
+[`progress/`](progress/README.md) is a portable snapshot of the complete decompdecomp PAL project:
+**1,751 recorded matches and 349 saved best attempts**, with names, headers, notes, symbols and
+compiler settings. Best attempts are drafts, not additional matching C. The saved project and
+standalone build use different selection histories; the verified standalone totals above remain
+the build's authority. Future progress commits include the whole app snapshot, not just the
+last function discussed. This is an explicit snapshot, not continuous automatic synchronization.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -60,7 +77,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1741 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1751 of 2122 functions in C)
 ```
 
 ## Supported input

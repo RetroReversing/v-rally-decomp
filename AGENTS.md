@@ -15,3 +15,14 @@
 - Apply app changes through its normal verification paths. Recheck the final saved state: a file refresh can reopen functions, and stale matched records can fail export under different compiler flags. Never write the live app database directly.
 - Verify changed functions independently and the complete cartridge before accepting repository C. Update the build manifest, generated objdiff metadata and documented counts. Commit and push authorized progress, then confirm the local and remote commits agree.
 - Report any remaining app/repository differences explicitly. Do not claim continuous automatic synchronization; these checks are required whenever updating progress.
+
+## User preference: commit all app progress
+
+When asked to commit V-Rally progress, synchronize ALL current progress from the linked
+`v-rally` decompdecomp project, including verified source, names, headers and compiler profiles;
+never limit the sync to the most recently discussed function. Preserve newer drafts as progress
+without counting them as matched C. Preserve all earlier verified repository C, report integration
+exceptions, and pass the complete cartridge comparison before committing selected C.
+
+Include a fresh portable `progress/` snapshot on every progress commit, so best drafts,
+notes, symbols and headers are retained alongside independently verified standalone C.
