@@ -26,3 +26,6 @@ exceptions, and pass the complete cartridge comparison before committing selecte
 
 Include a fresh portable `progress/` snapshot on every progress commit, so best drafts,
 notes, symbols and headers are retained alongside independently verified standalone C.
+
+Always push V-Rally progress commits to `origin/main` after verification. A request to
+commit V-Rally progress includes authorization to push; do not ask again.
