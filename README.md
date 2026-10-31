@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,726 selected C functions / 276,160 matching bytes**, about **48.79% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,726 C and 396 assembly functions**.
+- **1,732 selected C functions / 279,276 matching bytes**, about **49.34% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,732 C and 390 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -18,6 +18,18 @@ This is a partial decompilation. Candidate boundaries, compiler identity, names 
 The 31 October 2026 snapshot adds **22 verified C functions and 9,092 matching bytes** while retaining every one of the 1,700 previously committed C functions, including those not currently verified in the app. Seven additional app matches still fail standalone integration and remain assembly in this checkpoint. The new sources use a separate header and their recorded compiler flags.
 
 The later 31 October matching session adds **four byte-exact C functions and 872 matching bytes**: `func_8001C2E4`, `func_800830C8`, `func_80086A34`, and `func_800988C8`. Their source formatting, isolated header, and verified compiler settings are retained. All 1,722 earlier C functions remain selected. Two additional non-matching draft improvements stay in the local app and are not counted here.
+
+The follow-up export audit recovers **six previously excluded app matches / 3,116 bytes** into the standalone build. Five require the recorded KMC profile without `-g3`; `osCreateViManager` also needs an explicit eight-byte storage gap so its private BSS addresses agree with the original. All earlier C remains selected.
+
+### Export audit
+
+The fresh app export fell back to assembly for 57 entries. Independent compiler/link checks explain every case:
+
+- **52 compiler-profile mismatches:** the same app C and header match when `-g3` is omitted. Of these, 47 already had verified C preserved in this repository; the other five are now integrated. Debug options change the resulting instruction stream with this period toolchain, so compiler settings must be retained per function.
+- **4 translation units with extra function bodies:** their target function matches, but exporting all the bodies would overlap other functions. The repository already contains verified versions with unused bodies replaced by declarations.
+- **1 private-data layout mismatch:** `osCreateViManager` has correct instructions, but the initial BSS offsets require two different section bases. An explicit eight-byte gap after its thread storage and an adjusted stack alignment make every BSS reference use the same verified base. The gap is a reconstruction choice, not a claim about the original source declaration.
+
+The app's saved matched count can therefore exceed what a fresh export rebuilds as C. Preserve the source, header context and compiler profile that passed verification together, and recheck a match when any of them changes. The combined checkpoint below passes the full cartridge comparison.
 
 ## Build
 
@@ -38,7 +50,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1726 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1732 of 2122 functions in C)
 ```
 
 ## Supported input
