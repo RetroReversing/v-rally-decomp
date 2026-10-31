@@ -1,4 +1,4 @@
-static inline static static static int __repair_inline_sum(int left, int right)
+static inline static static static static int __repair_inline_sum(int left, int right)
 {
   return left + right;
 }
@@ -9,7 +9,7 @@ typedef struct
   s32 a;
   s32 pad;
 } Slot;
-static inline static static u8 *inline_fn(u8 *arg0)
+static inline static static static u8 *inline_fn(u8 *arg0)
 {
   return arg0 + 0x8C;
 }
@@ -60,8 +60,9 @@ void func_8002B7D4(u8 *arg0)
   __repair_v1_1 = *((s16 *) (__repair_v1_1 + 4));
   v0 = a0 + v0;
   v0 = *((s16 *) (v0 + 4));
+  a1 = __repair_v1_1 - v0;
   ;
-  sl[3].a = __repair_v1_1 - v0;
+  sl[3].a = a1;
   v0 = *((s32 *) (t0 + 0x54));
   v0 = a0 + v0;
   v0 = *((s16 *) v0);
@@ -80,3 +81,4 @@ void func_8002B7D4(u8 *arg0)
   new_var = (s32 *) ((*((u8 **) (arg0 + 0x60))) + 0x17C);
   *new_var = v0 / v1;
 }
+

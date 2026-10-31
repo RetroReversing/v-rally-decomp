@@ -42,7 +42,8 @@ void func_800783A8(void)
   {
     do
     {
-      temp_s1 = var_s3 & 0xFF;
+      var_a3 = var_s3 & 0xFF;
+    temp_s1 = var_a3;
       var_a0 = func_80078338(temp_s1, var_a1);
       if ((*((void **) ((D_800C02AE + 0x7CF6) + ((var_a0 & 0xFF) * 0x18)))) != 0)
       {
