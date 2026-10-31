@@ -30,8 +30,6 @@ s32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);
 typedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; s32 value, value2, value3, value4; } VRALParam;
 typedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;
 
-s16 func_8002D2E4(s32);
-s16 func_8002D348(s32);
 
 /* func_8001BE68 is declared locally until callers agree on its return type. */
 

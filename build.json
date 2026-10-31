@@ -9898,14 +9898,18 @@
    "seg": "code_80026E3C",
    "vram": 2147668708,
    "rom": 188132,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8002D2E4.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8002D2E4.s",
+   "c": "src/code_80026E3C/func_8002D2E4.c",
+   "own": {}
   },
   {
    "name": "func_8002D348",
    "seg": "code_80026E3C",
    "vram": 2147668808,
    "rom": 188232,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8002D348.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8002D348.s",
+   "c": "src/code_80026E3C/func_8002D348.c",
+   "own": {}
   },
   {
    "name": "func_8002D3AC",
@@ -10126,7 +10130,9 @@
    "seg": "code_80026E3C",
    "vram": 2147672392,
    "rom": 191816,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8002E148.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8002E148.s",
+   "c": "src/code_80026E3C/func_8002E148.c",
+   "own": {}
   },
   {
    "name": "func_8002E288",
