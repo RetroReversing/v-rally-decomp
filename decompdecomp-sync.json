@@ -2,10 +2,12 @@
   "format": 1,
   "owned": {
     "src/code_8007E9D4/func_80085C58.c": "6da3d970b5ea406d6149d24cfb28de7f01a3a9b13b825ab080c66730321b54fc",
-    "src/code_8007E9D4/func_80096104.c": "3c03e65644a17d434b107d2ed67da7319faddd2525b7cbece0f3f14cdbc092c6"
+    "src/code_8007E9D4/func_80096104.c": "3c03e65644a17d434b107d2ed67da7319faddd2525b7cbece0f3f14cdbc092c6",
+    "src/code_8004BEB4/func_8006090C.c": "2194cbae21b8d6540b1baab4b0f71ac4429343ccbbbb328fa4ea2ec118215718"
   },
   "accepted": [
     "__osCheckPackId",
+    "func_8006090C",
     "func_80085C58"
   ],
   "skipped": [],

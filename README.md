@@ -6,12 +6,14 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,734 selected C functions / 279,944 matching bytes**, about **49.46% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,734 C and 388 assembly functions**.
+- **1,738 selected C functions / 283,996 matching bytes**, about **50.18% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,738 C and 384 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
 
+
+The latest 31 October checkpoint preserves the three trig/matrix helper matches (520 bytes) and adds `func_8006090C`: **883 instructions / 3,532 bytes**, verified through both the app's normal judge and the standalone build. All previously selected C remains intact, and the complete cartridge comparison passes. Its source formatting, isolated header context and unchanged KMC GCC 2.7.2 compiler profile are retained together.
 
 This is a partial decompilation. Candidate boundaries, compiler identity, names and types remain provisional. Detected-code coverage is not a percentage of the whole game, and a matching build still uses original assembly for remaining functions.
 
