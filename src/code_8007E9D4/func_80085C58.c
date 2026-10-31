@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_0433f7af8f6d1c74c1d3.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern s32 func_800863B0(s32, s32);
 extern s32 osMotorInit(void *, void *, s32);

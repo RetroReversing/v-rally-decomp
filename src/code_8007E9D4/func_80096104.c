@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_0433f7af8f6d1c74c1d3.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #define sp18 banks[0]
 #define sp1A banks[1]
