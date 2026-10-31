@@ -7,18 +7,26 @@
     "src/code_8004BEB4/func_8004C2B8.c": "3cce9f54ce4d580c427e97dd842b48b52b33bff98a366464fa76a230f3ecf068",
     "src/code_80026E3C/func_8004A0A0.c": "26cb5909dff90f9a4e13341eaa3907e057d62def8b19ed2fb9df557901b3352c",
     "src/code_8007E9D4/func_8008DFB0.c": "77ec6849c79c8f9f653b8fa99eca5d6395de2301459842a36a27c02933960079",
-    "src/code_8007E9D4/func_80097A34.c": "d132e92303fdaa6f56c0009b4f0f06b62494a472e5df46a83ac1d4ddc9fce93b"
+    "src/code_8007E9D4/func_80097A34.c": "d132e92303fdaa6f56c0009b4f0f06b62494a472e5df46a83ac1d4ddc9fce93b",
+    "src/code_8007E9D4/func_8008F810.c": "7e3c9396e442afe0e219f2f40d3c8885691b38b53a7ef23519e4a7c956a838aa",
+    "src/code_8004BEB4/func_80053784.c": "cf44f18eaaa85e958e061da0d75ebbac15c0050b33ea589f4053f30a8c4a36ce",
+    "src/code_80026E3C/func_8003DDBC.c": "538e22455505d9dc2c1af279c13952f22de62fec268ff5542c87297e63b324b5",
+    "src/code_80026E3C/func_80049F18.c": "48c7c1b848bd9e872eb7afde6543f6dd53d98c04ab099d8a2ab59148a9928fdc"
   },
   "accepted": [
     "__osCheckPackId",
+    "func_8003DDBC",
+    "func_80049F18",
     "func_8004A0A0",
     "func_8004C2B8",
+    "func_80053784",
     "func_8006090C",
     "func_80085C58",
     "func_8008DFB0",
+    "func_8008F810",
     "func_80097A34"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 1742
+  "matched_app": 1749
 }
