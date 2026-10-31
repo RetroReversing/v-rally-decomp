@@ -1,0 +1,14 @@
+{
+  "format": 1,
+  "owned": {
+    "src/code_8007E9D4/func_80085C58.c": "760053e91eec2c5bb9a4a064e78c3a3b685863b11df6f8fa67b6db298d993a17",
+    "src/code_8007E9D4/func_80096104.c": "ad3b8f3a3b902049a2b29969e0dec69d29534171c41227f176f2b0040e73e7aa"
+  },
+  "accepted": [
+    "__osCheckPackId",
+    "func_80085C58"
+  ],
+  "skipped": [],
+  "verified_build": true,
+  "matched_app": 1734
+}

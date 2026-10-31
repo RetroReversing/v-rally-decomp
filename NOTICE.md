@@ -55,3 +55,5 @@ The subsequent export audit integrates six previously excluded app matches (3,11
 V-Rally and its original code/data belong to their respective rights holders. This repository grants no blanket license over recovered game code. Supply your own supported ROM. ROMs, extracted binary assets, compiler executables and generated assembly are excluded.
 
 The generated build.py comes from RetroReversing/decompdecomp, a continuation of NDelic's decompdecomp and Sam Wolfs' decomp.wtf, and retains AGPL-3.0 licensing. The license is included under tools/. The preparation helper uses AGPL-3.0-only. Tool licenses do not establish rights to the game itself.
+
+The latest 31 October verified app sync adds `func_80085C58` and `__osCheckPackId`, preserving their matched source formatting and isolated header context. The complete cartridge comparison passes with 1,734 selected C functions; no original game data is included. Individual model attribution is not established by this snapshot.
