@@ -5337,7 +5337,7 @@ s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int file_size_in_pages, int
 s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __OSInodeUnit *last_page);
 
 s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank);
-s32 func_80096830(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
+s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
 s32 func_80096A10(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
 void __osContGetInitData(u8 *pattern, OSContStatus *data);
 void __osPackRequestData(u8 cmd);
@@ -5415,7 +5415,7 @@ s32 osPfsChecker(OSPfs* pfs) {
     ret =  corrupted_init(pfs, &cache) ; if (ret != 0) return ret ;
 
     for (j = 0; j < pfs->dir_size; j++) {
-        ret =  func_80096830(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir) ; if (ret != 0) return ret ;
+        ret =  __osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir) ; if (ret != 0) return ret ;
 
 
         if (tmp_dir.company_code != 0 || tmp_dir.game_code != 0) {
@@ -5460,7 +5460,7 @@ s32 osPfsChecker(OSPfs* pfs) {
 
     }
     for (j = 0; j < pfs->dir_size; j++) {
-        ret =  func_80096830(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir) ; if (ret != 0) return ret ;
+        ret =  __osContRamRead(pfs->queue, pfs->channel, pfs->dir_table + j, (u8*)&tmp_dir) ; if (ret != 0) return ret ;
 
         if (tmp_dir.company_code != 0 && tmp_dir.game_code != 0 &&
             tmp_dir.start_page.ipage >= (u16)pfs->inode_start_page) {

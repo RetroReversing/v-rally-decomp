@@ -1,5 +1,5 @@
 s32 __osPfsSelectBank(void *, s32);
-s32 func_80096830(s32, s32, s32, s32 *);
+s32 __osContRamRead(s32, s32, s32, s32 *);
 s32 func_80097620(void *, s32 *, s32);
 
 s32 __osCheckId(void *arg0)
@@ -16,12 +16,12 @@ s32 __osCheckId(void *arg0)
             return v;
         }
     }
-    v = func_80096830(*(s32 *)((char *) arg0 + 4), *(s32 *)((char *) arg0 + 8), 1, buf);
+    v = __osContRamRead(*(s32 *)((char *) arg0 + 4), *(s32 *)((char *) arg0 + 8), 1, buf);
     if (v != 0) {
         if (v != 2) {
             return v;
         }
-        v = func_80096830(*(s32 *)((char *) arg0 + 4), *(s32 *)((char *) arg0 + 8), 1, buf);
+        v = __osContRamRead(*(s32 *)((char *) arg0 + 4), *(s32 *)((char *) arg0 + 8), 1, buf);
         if (v != 0) {
             return v;
         }

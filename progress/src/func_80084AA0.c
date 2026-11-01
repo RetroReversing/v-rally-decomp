@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800859A0(M2C_UNK);                     /* extern */
+M2C_UNK contInitControllers(M2C_UNK);                     /* extern */
 M2C_UNK func_800860B4();                            /* extern */
 extern void *D_800A1B70;
 extern M2C_UNK D_800AE850;
@@ -20,6 +20,6 @@ extern M2C_UNK D_800AE850;
 void func_80084AA0(void) {
     M2C_FIELD(&D_800AE850, s8 *, 0x11F0) = 0;
     M2C_FIELD(D_800A1B70, s32 *, 4) = 0;
-    func_800859A0(4);
+    contInitControllers(4);
     func_800860B4();
 }

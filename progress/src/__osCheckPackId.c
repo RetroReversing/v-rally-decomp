@@ -17,7 +17,7 @@ static inline static static static void checksum(u16 *p, u16 *sum, u16 *inv)
 }
 
 s32 __osPfsSelectBank(void *, s32);
-s32 func_80096830(s32, s32, u16, u16 *);
+s32 __osContRamRead(s32, s32, u16, u16 *);
 s32 func_80096A10(s32, s32, u16, u16 *, s32);
 s32 __osCheckPackId(void *arg0, u16 *arg1)
 {
@@ -47,7 +47,7 @@ s32 __osCheckPackId(void *arg0, u16 *arg1)
     sp1C = 4;
     sp1E = new_var2;
     loop_3:
-    var_v0 = func_80096830(*((s32 *) (((s8 *) arg0) + 4)), *((s32 *) (((s8 *) arg0) + 8)), *var_s0, arg1);
+    var_v0 = __osContRamRead(*((s32 *) (((s8 *) arg0) + 4)), *((s32 *) (((s8 *) arg0) + 8)), *var_s0, arg1);
 
 
     var_a1 = arg1;

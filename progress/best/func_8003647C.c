@@ -1,100 +1,75 @@
-#define sp10 vec[0]
-#define sp12 vec[1]
-#define sp14 vec[2]
-#define sp18 rot[0]
-#define sp1A rot[1]
-#define sp1C rot[2]
-extern s32 func_8002D2C8();
-extern void func_8002E148();
-extern void func_8002E514();
-extern s32 func_80098090();
-extern void *D_800C811C;
-extern char D_800C02AE[];
-void func_8003647C(u16 *arg0, u8 arg1)
-{
-  s16 vec[4];
-  s16 rot[4];
-  s32 sp20[7];
-  s32 *matrix;
-  void *new_var;
-  f32 var_fs0;
-  f32 var_fs1;
-  u16 *var_s2;
-  void *var_s0;
-  void *temp_v1;
-  s32 temp_a0;
-  s32 temp_a0_2;
-  s32 temp_ret;
-  s32 temp_ret_2;
-  s32 temp_ret_3;
-  s32 temp_s1;
-  s32 var_s1;
-  s32 var_v0;
-  s32 var_v0_2;
-  var_s0 = *((void **) (D_800C02AE + 0x7CD6));
-  temp_v1 = (arg1 * 0xC) + ((char *) D_800C811C);
-  var_fs1 = (f32) ((s16) ((s32) ((*((f32 *) (((char *) temp_v1) + 0x18))) - (*((f32 *) (((char *) var_s0) + 0x118))))));
-  var_fs0 = (f32) ((s16) ((s32) ((*((f32 *) (((char *) temp_v1) + 0x20))) - (*((f32 *) (((char *) var_s0) + 0x120))))));
-  var_v0 = __builtin_abs((s32) var_fs1);
-  if (var_v0 < 0x3E9)
-  {
-    var_v0_2 = __builtin_abs((s32) var_fs0);
-    if (var_v0_2 < 0x3E9)
-    {
-      goto ok;
-    }
-  }
-  var_fs0 = 0.0f;
-  var_fs1 = 0.0f;
-  ok:
-  var_fs1 += 4.0f;
+typedef struct {
+    s16 x, y, z;
+    s16 px, py, pz;
+    u8 decay;
+    u8 pad[7];
+} Particle;
 
-  var_fs0 += 2.0f;
-  temp_ret = func_8002D2C8((s32) ((*((f32 *) (((char *) var_s0) + 0xE0))) * 4096.0f), (s32) ((*((f32 *) (((char *) var_s0) + 0xD8))) * (-4096.0f)));
-  temp_ret = (-temp_ret) - 0x200;
-  sp18 = 0;
-  sp1C = 0;
-  sp14 = 0;
-  temp_s1 = *((s32 *) (((char *) D_800C811C) + 8));
-  var_s1 = temp_s1;
-  if ((var_s1--) == 0)
-  {
-    return;
-  }
-  matrix = sp20;
-  var_s0 = (char *)(var_s2); var_s0 += (s32)(4);
-  do
-  {
-    if ((*((s16 *) (((char *) (var_s2 + 4)) - 6))) == 0x3E9)
-    {
-      temp_ret_2 = func_80098090();
-      sp10 = (temp_ret_2 % 4095) + 0x200;
-      temp_ret_3 = func_80098090(temp_ret_2 / 4095);
-      temp_a0 = temp_ret_3 / 511;
-      sp12 = (temp_a0 * 0x1FF) - temp_ret_3;
-      temp_a0_2 = func_80098090(temp_a0);
-      sp1A = temp_ret + (temp_a0_2 % 1023);
-      func_8002E148(&sp18, matrix, temp_a0_2 / 1023);
-      func_8002E514(matrix, &sp10, var_s2);
+typedef struct {
+    f32 x, y, z;
+} Pos12;
+
+typedef struct {
+    u8 pad0[8];
+    s32 count;
+    u8 pad1[0xC];
+    Pos12 pos[1];
+} SmokeTable;
+
+typedef struct {
+    u8 pad[0xD8];
+    f32 vx;
+    f32 pad2;
+    f32 vz;
+    u8 pad3[0x34];
+    f32 x;
+    f32 y;
+    f32 z;
+} Car;
+
+extern s32 func_8002D2C8(s32, s32);
+extern void func_8002E148(s16 *, s32 *);
+extern void func_8002E514(s32 *, s16 *, Particle *);
+extern s32 func_80098090(void);
+extern SmokeTable *D_800C811C;
+extern Car *D_800C7F84;
+
+void func_8003647C(Particle *p, u8 idx)
+{
+    s16 vec[4];
+    s16 rot[4];
+    s32 mtx[8];
+    f32 dx, dz;
+    s32 angle;
+    s32 n;
+    s32 r;
+
+    dx = (s16)(s32)(D_800C811C->pos[idx].x - D_800C7F84->x);
+    dz = (s16)(s32)(D_800C811C->pos[idx].z - D_800C7F84->z);
+    if (abs((s32)dx) > 1000 || abs((s32)dz) > 1000) {
+        dx = dz = 0.0f;
     }
-    *((u16 *) (((char *) (var_s2 + 4)) - 2)) = *var_s2;
-    *((u16 *) (((char *) (var_s2 + 4)) + 2)) = *((u16 *) (((char *) (var_s2 + 4)) - 4));
-    *var_s2 = (u16) ((s32) (((f32) ((s16) (*var_s2))) + var_fs1));
-    temp_a0 = var_s1;
-    {
-      f32 z = (f32) (*((s16 *) (((char *) (var_s2 + 4)) - 4)));
-      s32 age = *((u16 *) (((char *) (var_s2 + 4)) - 6));
-      s32 decay = *((u8 *) (((char *) (var_s2 + 4)) + 4));
-      var_s1--;
-      age += 0x41;
-      *((s16 *) (((char *) (var_s2 + 4)) - 6)) = age;
-      z += var_fs0;
-      var_s2 = (u16 *) (((char *) var_s2) + 0x14);
-      *((s16 *) (var_s2 + 4)) = (s16) ((*((u16 *) (((char *) (var_s2 + 4)) - 6))) - decay);
-      new_var = var_s0;
-      *((s16 *) (((char *) new_var) - 4)) = (s32) z;
+    dx += 4.0f;
+    dz += 2.0f;
+    angle = -func_8002D2C8((s32)(D_800C7F84->vz * 4096.0f), (s32)(D_800C7F84->vx * -4096.0f)) - 0x200;
+    rot[0] = 0;
+    rot[2] = 0;
+    vec[2] = 0;
+    n = D_800C811C->count;
+    while (n-- != 0) {
+        if (p->y == 1001) {
+            vec[0] = func_80098090() % 4095 + 0x200;
+            vec[1] = -(func_80098090() % 511);
+            rot[1] = angle + func_80098090() % 1023;
+            func_8002E148(rot, mtx);
+            func_8002E514(mtx, vec, p);
+        }
+        p->px = p->x;
+        p->pz = p->z;
+        p->x = p->x + dx;
+        p->z = p->z + dz;
+        p->y += 0x41;
+        p->py = p->y - p->decay;
+        p++;
     }
-    var_s0 = ((char *) var_s0) + 0x14;
-  }
-  while (temp_a0 != 0);
 }

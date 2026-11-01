@@ -1,56 +1,94 @@
-#define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
-extern u8 D_800AE850[],D_800C02AE[];extern void func_80041564(void);extern void func_80098290(void *,void *);
-#define STATE D_800C35A0
-extern u8 *D_800C35A0;
-extern u8 D_800C7F90[],D_800C7F94[],D_800C7F98[],D_800C7F9C[],D_800C7FA2[],D_800C7FA4[];
-#define REC(off,t) F(D_800C7F90,t,off+i*24)
-void func_800746C0(void){
-u8 *car=F(F(D_800AE850,u8 *,0x73F0),u8 *,0);u8 *meta,*stats; s32 *times,*values;u8 i; u32 j; s32 diff;
-func_80041564();
-switch(F(STATE,u16,14)){
-case 1:
-i=0;meta=F(car,u8 *,0x6c);times=F(meta,s32 *,0x24);values=F(meta,s32 *,0x28);
-do {
-j=i;
-F(D_800C7FA4,u8 *,j*24)=car;
-func_80098290(D_800C7F90+j*24,STATE+(F(STATE,u8,0x32)*40+0x44));
-F(D_800C7F9C,s32,j*24)=values[j];F(D_800C7F94,s32,j*24)=times[j];
-F(D_800C7FA2,u8,j*24)=F(STATE,u16,0x4e + F(STATE,u8,0x32)*40); stats=F(F(car,u8 *,0x6c),u8 *,0x14);
-diff=F(D_800C7F94,s32,j*24)-F(stats,s32,(F(STATE,u16,0x22)<<6)+0x2c);if(diff<0)diff=-diff;
-F(D_800C7F98,s32,j*24)=diff;i++;
-if(F(D_800C7F94,s32,j*24)==15000){
-F(D_800C7F94,s32,j*24)=0;F(D_800C7F9C,s32,j*24)=0;F(D_800C7F98,s32,j*24)=0;
-}
-}while(i<6);
-break;
-case 2:
-i=0;meta=F(car,u8 *,0x6c);times=F(meta,s32 *,0x24);values=F(meta,s32 *,0x28);
-do {
-F(D_800C7FA4,u8 *,i*24)=car;
-func_80098290(D_800C7F90+i*24,STATE+(F(STATE,u8,0x32)*40+0x44));
-F(D_800C7F9C,s32,i*24)=values[i];F((unsigned)D_800C7F94,s32,i*24)=times[i];
-F(D_800C7FA2,u8,i*24)=F(STATE,u16,0x4e + F(STATE,u8,0x32)*40);
-stats=F(F(car,u8 *,0x6c),u8 *,0x14);
-diff=F(D_800C7F94,s32,i*24)-F(stats,s32,(F(STATE,u16,0x22)<<6)+0x2c);if(diff<0)diff=-diff;
-F(D_800C7F98,s32,i*24)=diff;F(D_800C02AE,u8,0x7ce2 + 0x72)=F(stats,u8,(F(STATE,u16,0x22)<<6)+0x30);
-if(F(D_800C7F94,s32,i*24)==15000){F(D_800C7F94,s32,i*24)=0;F(D_800C7F9C,s32,i*24)=0;F(D_800C7F98,s32,i*24)=0;}
-i += 1;
-}while(i<3);
-if(F(STATE,u16,0x1a))car=F(car,u8 *,4);car=F(car,u8 *,4);
-i=3;meta=F(car,u8 *,0x6c);times=F(meta,s32 *,0x24);values=F(meta,s32 *,0x28);
-do {
-F(D_800C7FA4,u8 *,i*24)=car;
-func_80098290(D_800C7F90+i*24,STATE+(F(STATE,u8,0x33)*40+0x44));
-F(D_800C7F9C,s32,i*24)=values[i-3];F(D_800C7F94,s32,i*24)=times[i-3];
-F(D_800C7FA2,u8,i*24)=F(STATE,u16,0x4e + F(STATE,u8,0x33)*40);
-stats=F(F(car,u8 *,0x6c),u8 *,0x14);
-diff=F(D_800C7F94,s32,i*24)-F(stats,s32,(F(STATE,u16,0x22)<<6)+0x2c);if(diff<0)diff=-diff;
-F(D_800C7F98,s32,i*24)=diff;
-if(F(D_800C7F94,s32,i*24)==15000){F((short)D_800C7F94,s32,i*24)=0;F(D_800C7F9C,s32,i*24)=0;F(D_800C7F98,s32,i*24)=0;}
-++i;
-}while(i<6);
-break;default:return;
-}
-func_80098290(D_800C7F90+i*24,stats+((F(STATE,u16,0x22)<<6)+0x2c)+6);
-F(D_800C7FA4,u8 *,i*24)=car;F(D_800C7F94,s32,i*24)=F(stats,s32,(F(STATE,u16,0x22)<<6)+0x2c);F(D_800C7F9C,s32,i*24)=F(stats,u8,(F(STATE,u16,0x22)<<6)+0x36);F(D_800C7FA2,u8,i*24)=F(stats,u8,(F(STATE,u16,0x22)<<6)+0x30);
+typedef struct RRec { s32 time; u8 c4; u8 pad5; char name[4]; u8 cA; char padB[0x40 - 0xB]; } RRec;
+typedef struct RData { char pad0[0x2C]; RRec recs[8]; s32 vals[8]; } RData;
+typedef struct RRes { char pad0[0x14]; RData *data; char pad18[0x24 - 0x18]; s32 *times; s32 *vals; } RRes;
+typedef struct RCar { char pad0[4]; struct RCar *next; char pad8[0x6C - 8]; RRes *res; } RCar;
+typedef struct REntry { char name[4]; s32 total; s32 diff; s32 rate; u8 pos; u8 idx; u8 b; u8 pad; RCar *obj; } REntry;
+typedef struct RName { char name[10]; u16 v; char pad[0x28 - 12]; } RName;
+typedef struct RCfg { char pad0[0xE]; u16 mode; char pad10[0x1A - 0x10]; u16 flag1A; char pad1C[0x22 - 0x1C]; u16 sel; char pad24[0x32 - 0x24]; u8 order[0x12]; RName names[4]; } RCfg;
+
+extern void func_80041564(void);
+extern void func_80098290(char *, char *);
+extern RCar **D_800B5C40;
+extern RCfg *D_800C35A0;
+extern REntry D_800C7F90[7];
+
+void func_800746C0(void) {
+    RCar *car;
+    s32 *times;
+    s32 *vals;
+    RData *data;
+    u8 i;
+
+    car = *D_800B5C40;
+    func_80041564();
+    switch (D_800C35A0->mode) {
+    case 1:
+        i = 0;
+        times = car->res->times;
+        vals = car->res->vals;
+        do {
+            D_800C7F90[i].obj = car;
+            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
+            D_800C7F90[i].rate = vals[i];
+            D_800C7F90[i].total = times[i];
+            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            data = car->res->data;
+            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
+            if (D_800C7F90[i].total == 15000) {
+                D_800C7F90[i].total = 0;
+                D_800C7F90[i].rate = 0;
+                D_800C7F90[i].diff = 0;
+            }
+            i++;
+        } while (i < 6);
+        break;
+    case 2:
+        i = 0;
+        times = car->res->times;
+        vals = car->res->vals;
+        do {
+            D_800C7F90[i].obj = car;
+            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
+            D_800C7F90[i].rate = vals[i];
+            D_800C7F90[i].total = times[i];
+            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            data = car->res->data;
+            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
+            D_800C7F90[4].b = data->recs[D_800C35A0->sel].c4;
+            if (D_800C7F90[i].total == 15000) {
+                D_800C7F90[i].total = 0;
+                D_800C7F90[i].rate = 0;
+                D_800C7F90[i].diff = 0;
+            }
+            i++;
+        } while (i < 3);
+        if (D_800C35A0->flag1A) car = car->next;
+        car = car->next;
+        i = 3;
+        times = car->res->times;
+        vals = car->res->vals;
+        do {
+            D_800C7F90[i].obj = car;
+            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[1]].name);
+            D_800C7F90[i].rate = vals[i - 3];
+            D_800C7F90[i].total = times[i - 3];
+            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[1]].v;
+            data = car->res->data;
+            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
+            if (D_800C7F90[i].total == 15000) {
+                D_800C7F90[i].total = 0;
+                D_800C7F90[i].rate = 0;
+                D_800C7F90[i].diff = 0;
+            }
+            i++;
+        } while (i < 6);
+        break;
+    default:
+        return;
+    }
+    func_80098290(D_800C7F90[i].name, data->recs[D_800C35A0->sel].name);
+    D_800C7F90[i].obj = car;
+    D_800C7F90[i].total = data->recs[D_800C35A0->sel].time;
+    D_800C7F90[i].rate = data->recs[D_800C35A0->sel].cA;
+    D_800C7F90[i].b = data->recs[D_800C35A0->sel].c4;
 }

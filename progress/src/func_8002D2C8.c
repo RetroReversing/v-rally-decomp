@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80097B8C();                            /* extern */
+M2C_UNK atan2_angle4096();                            /* extern */
 
 void func_8002D2C8(void) {
-    func_80097B8C();
+    atan2_angle4096();
 }

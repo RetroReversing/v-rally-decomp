@@ -15,7 +15,7 @@ typedef struct S_osPfsInitPak_arg1
 } S_osPfsInitPak_arg1;
 s32 __osPfsSelectBank(void *, s32);
 s32 func_800937B0(void);
-s32 func_80096830(s32, s32, s32, u8 *);
+s32 __osContRamRead(s32, s32, s32, u8 *);
 s32 func_80096A10(s32, s32, u16, u8 *, s32);
 static inline static u16 inline_fn(u16 *arg0)
 {
@@ -57,7 +57,7 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
     {
       return v;
     }
-    if (v = func_80096830(p->unk_04, p->unk_08, 0, a))
+    if (v = __osContRamRead(p->unk_04, p->unk_08, 0, a))
     {
       return v;
     }
@@ -71,7 +71,7 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
     {
       return v;
     }
-    if (v = func_80096830(p->unk_04, p->unk_08, 0, b))
+    if (v = __osContRamRead(p->unk_04, p->unk_08, 0, b))
     {
       return v;
     }
@@ -93,7 +93,7 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
         {
           return v;
         }
-        if (v = func_80096830(p->unk_04, p->unk_08, 0, a))
+        if (v = __osContRamRead(p->unk_04, p->unk_08, 0, a))
         {
           return v;
         }
@@ -164,7 +164,7 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
     }
   }
 
-  if (v = func_80096830(p->unk_04, p->unk_08, 1, a))
+  if (v = __osContRamRead(p->unk_04, p->unk_08, 1, a))
   {
     return v;
   }

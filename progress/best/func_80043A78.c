@@ -1,292 +1,243 @@
-extern int D_800B6880;
-s32 func_8001FEE8();
-s32 func_80022374();
-s32 func_800347A4();
-s32 func_80042F40();
-s32 func_80085778();
-extern s32 D_800A1234;
-extern char D_800A4DFC[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
-typedef struct 
+typedef struct Pad {
+    s8 x;
+    u8 b1;
+    s8 b2;
+    u8 b3;
+    u8 b4;
+    u8 b5;
+} Pad;
+typedef struct Ctl {
+    u8 pad00[0x20];
+    s32 state;
+    u32 timer;
+} Ctl;
+typedef struct Trk {
+    u8 pad00[0x4C];
+    s32 x4C;
+} Trk;
+typedef struct Body {
+    u8 pad00[0x58];
+    u32 x58;
+    u8 pad5C[0x150 - 0x5C];
+    Trk *p150;
+    u8 pad154[0x578 - 0x154];
+    s32 x578;
+} Body;
+typedef struct Info {
+    u8 pad00[8];
+    s32 x8;
+    u8 pad0C[4];
+    s32 x10;
+} Info;
+typedef struct X8C {
+    u8 pad00[0x28];
+    Trk *trk;
+} X8C;
+typedef struct Car {
+    u8 pad00[4];
+    struct Car *next;
+    u8 pad08[0x14 - 0x8];
+    s32 flags;
+    u8 pad18[0x48 - 0x18];
+    s32 *player;
+    u8 pad4C[0x60 - 0x4C];
+    Body *body;
+    u8 pad64[0x6C - 0x64];
+    Info *info;
+    Ctl *ctl;
+    u8 pad74[0x8C - 0x74];
+    X8C *x8C;
+} Car;
+typedef struct Snd {
+    u8 pad00[4];
+    struct Snd *next;
+    u8 pad08[0x24 - 0x8];
+    Car *car;
+    u8 data[4];
+} Snd;
+typedef struct Slot44 {
+    u8 pad00[0xA];
+    s16 hA;
+    u8 pad0C[0x44 - 0xC];
+} Slot44;
+typedef struct Game {
+    u8 pad00[0xE];
+    u16 players;
+    u8 pad10[0x1E - 0x10];
+    u16 state;
+} Game;
+extern Game *D_800C35A0;
+extern Snd **D_800B5B4C;
+extern Car **D_800B5C40;
+extern s32 D_800B6880;
+extern Slot44 *D_800A1234;
+extern u8 D_800A4DFC[];
+extern s32 func_8001FEE8(Car *, Ctl *);
+extern void func_80022374(u8 *, u8 *, s32);
+extern void func_800347A4(Car *, Pad *);
+extern void func_80042F40(void);
+extern void func_80085778(s32, s32);
+
+void func_80043A78(Car *car, Pad *pad)
 {
-  s8 x;
-  u8 b1;
-  u8 b2;
-  u8 b3;
-  u8 b4;
-  u8 b5;
-} Input43;
-void func_80043A78(void *arg0, Input43 *arg1)
-{
-  s16 var_a3;
-  s32 *var_s1;
-  u32 *timer;
-  s32 temp_a0;
-  s32 temp_a2;
-  s32 temp_v1;
-  s32 temp_v1_3;
-  s32 temp_v1_4;
-  s32 temp_v1_6;
-  s32 var_v0_2;
-  s32 var_v0_3;
-  s32 var_v0_4;
-  s32 var_v0_5;
-  s32 var_v1_2;
-  u16 temp_v0;
-  u32 var_a1;
-  u32 temp_s6;
-  u32 temp_v1_2;
-  u32 temp_v1_5;
-  s32 var_v0;
-  char var_v1;
-  u32 temp_v1_8;
-  void *temp_a1;
-  void *temp_s4;
-  void *temp_v1_7;
-  void *var_a0;
-  temp_a1 = *((void **) (((char *) arg0) + 0x70));
-  var_v0_2 = 0;
-  temp_s4 = *((void **) (((char *) (*((void **) (((char *) arg0) + 0x8C)))) + 0x28));
-  temp_s6 = *((u32 *) (((char *) (*((void **) (((char *) arg0) + 0x60)))) + 0x58));
-  var_s1 = temp_a1 + 0x20;
-  if (!((*var_s1) & 0x20))
-  {
-    timer = temp_a1 + 0x24;
-    var_v0_2 = func_8001FEE8(arg0, temp_a1);
-    if (!((*((s32 *) (((char *) arg0) + 0x14))) & 0x80))
-    {
-      if ((*(*((s32 **) (((char *) arg0) + 0x48)))) < 4)
-      {
-        var_a0 = *(*((void ***) (D_800AE850 + 0x72FC)));
-        if (var_a0 != NULL)
-        {
-          loop_4:
-          if ((*((s32 *) (((char *) var_a0) + 0x24))) != arg0)
-          {
-            var_a0 = *((void **) (((char *) var_a0) + 4));
-            if (var_a0 != NULL)
-            {
-              goto loop_4;
-            }
-          }
+    Ctl *ctl;
+    s32 *st;
+    u32 *timer;
+    Trk *trk;
+    u32 pos;
+    s32 speed;
+    s32 v;
+    s32 d;
+    u32 q;
+    s32 r;
+    Snd *s;
+    Car *n;
+    s16 cnt;
+    s16 k;
+    s32 all;
+    u8 t;
 
-        }
-        func_80022374(var_a0 + 0x28, &D_800A4DFC, 2);
-      }
-      *((s32 *) (((char *) arg0) + 0x14)) = (s32) ((*((s32 *) (((char *) arg0) + 0x14))) | 0x80);
-      temp_v1_4 = *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x6C)))) + 8));
-      *timer = 0xFAU;
-      if (temp_v1_4 == 2)
-      {
-        var_v0_2 = 0xEE;
-        goto block_12;
-      }
-      if (temp_v1_4 == 3)
-      {
-        var_v0_2 = 0xE1;
-        goto block_12;
-      }
-      var_v0_2 = 0xD2;
-      if (temp_v1_4 == 4)
-      {
-        block_12:
-        *timer = var_v0_2;
-
-      }
-      *((void **) (((char *) (*((void **) (((char *) arg0) + 0x60)))) + 0x150)) = temp_s4;
-      *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x60)))) + 0x578)) = 0x1B58;
-    }
-    temp_v1_2 = *timer;
-    if (temp_v1_2 != 0)
-    {
-      if (temp_v1_2 >= 0xC8U)
-      {
-        if (temp_v1_2 == 0xC8)
-        {
-          *timer = 0xCU;
-          temp_v1_3 = *var_s1;
-          *var_s1 = (s32) (temp_v1_3 | 1);
-          var_v0_2 = temp_v1_3 | 5;
-          if (temp_s6 >= ((u32) ((*((s32 *) (((char *) temp_s4) + 0x4C))) - 1)))
-          {
-            var_v0_2 = temp_v1_3 | 3;
-          }
-          goto block_36;
-        }
-        func_800347A4(arg0, arg1);
-      }
-      else
-      {
-        if ((*var_s1) & 4)
-        {
-          arg1->x = 0x7F;
-        }
-        if ((*var_s1) & 2)
-        {
-          arg1->x = -0x7F;
-        }
-        arg1->b4 = 0;
-        temp_v1_4 = *var_s1;
-        var_v0_2 = temp_v1_4 | 1;
-        if (!(temp_v1_4 & 8))
-        {
-          if (temp_v1_4 & 0x10)
-          {
-            var_v0_3 = (*((s32 *) (((char *) temp_s4) + 0x4C))) - temp_s6;
-            if (var_v0_3 < 0)
-            {
-              var_v0_3 = -var_v0_3;
-            }
-            temp_v1_5 = 4 - var_v0_3;
-            if (temp_v1_5 != 0)
-            {
-              var_v0_2 = ((u32) (var_v0_2 + 0x1B)) / temp_v1_5;
-              var_v1 = var_v0_2;
-            }
-            else
-            {
-              var_v1 = 0;
-            }
-            if (arg1->x > 0)
-            {
-              arg1->x = (s8) var_v1;
-            }
-            else
-            {
-              arg1->x = -var_v1;
-            }
-            arg1->b4 = 0xFF;
-            if (var_v0_2 >= 0x79)
-            {
-              var_v0_2 = (*var_s1) & (~0x10);
-              goto block_36;
-            }
-          }
-        }
-        else
-        {
-          block_36:
-          *var_s1 = var_v0_2;
-
-        }
-      }
-      *timer = (u32) ((*timer) - 1);
-    }
-    else
-    {
-      temp_v1_6 = *var_s1;
-      var_v0_4 = temp_v1_6 | 0x20;
-      if (!(temp_v1_6 & 8))
-      {
-        if (!(temp_v1_6 & 4))
-        {
-          var_v0_5 = temp_v1_6 | 4;
-          var_v1_2 = -3;
-        }
-        else
-        {
-          var_v0_5 = temp_v1_6 | 2;
-          var_v1_2 = -5;
-        }
-        *var_s1 = (s32) (var_v0_5 & var_v1_2);
-        *timer = 0x32U;
-        var_v0_4 = (*var_s1) | 8;
-      }
-      *var_s1 = var_v0_4;
-    }
-    if ((*var_s1) & 0x20)
-    {
-      goto block_47;
-    }
-  }
-  else
-  {
-    block_47:
-    if ((*(*((s32 **) (((char *) arg0) + 0x48)))) < 4)
-    {
-      arg1->b1 = 0U;
-      arg1->b5 = 0;
-      *((s8 *) (&arg1->b2)) = -1;
-      arg1->b3 = (u8) arg1->b1;
-      temp_v0 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x1E));
-      if ((temp_v0 != 0) & (temp_v0 != 5))
-      {
-        { char *__repair_store_address = (char *)D_800A1234; __repair_store_address += ((*(*((s32 **) (((char *) arg0) + 0x48)))) * 0x44); *(s16 *)(__repair_store_address + 0xA) = 2; }
-        var_a0 = *(*((void ***) (D_800AE850 + 0x73F0)));
-        var_a1 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));
-        var_a3 = 0;
-        if (var_a0 != NULL)
-        {
-          do
-          {
-            if ((*(*((s32 **) (((char *) var_a0) + 0x48)))) < 4)
-            {
-              temp_v1_7 = *((void **) (((char *) var_a0) + 0x70));
-              temp_a2 = *((s32 *) (((char *) var_a0) + 0x14));
-              var_s1 = temp_v1_7 + 0x20;
-              if (temp_a2 & 0x100)
-              {
-                if ((*((s32 *) (((char *) temp_v1_7) + 0x20))) & 0x20)
-                {
-                  var_a1 -= 1;
+    ctl = car->ctl;
+    speed = 0;
+    trk = car->x8C->trk;
+    pos = car->body->x58;
+    st = &ctl->state;
+    if (!(*st & 0x20)) {
+        timer = &ctl->timer;
+        speed = func_8001FEE8(car, ctl);
+        if (!(car->flags & 0x80)) {
+            if (*car->player < 4) {
+                for (s = *D_800B5B4C; s != NULL; s = s->next) {
+                    if (s->car == car) {
+                        break;
+                    }
                 }
-              }
-              else
-                if (((((u32) (var_v0_2 + 5)) < 0xBU) && ((*((s32 *) (((char *) (*((void **) (((char *) var_a0) + 0x6C)))) + 0x10))) == 0)) && (temp_a2 & 0x200))
-              {
-                var_a3 += 1;
-                var_a1 -= 1;
-              }
+                func_80022374(s->data, D_800A4DFC, 2);
             }
-            var_a0 = *((void **) (((char *) var_a0) + 4));
-          }
-          while (var_a0 != NULL);
-        }
-        if (((var_a1 << 0x10) == 0) && (var_a3 != (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))))
-        {
-          goto block_70;
-        }
-      }
-      else
-      {
-        temp_a0 = *(*((s32 **) (((char *) arg0) + 0x48)));
-        if (temp_a0 < 4)
-        {
-          *((s16 *) (((char *) (D_800A1234 + (temp_a0 * 0x44))) + 0xA)) = 2;
-        }
-        var_a0 = *(*((void ***) (D_800AE850 + 0x73F0)));
-        var_a1 = 1;
-        if (var_a0 != NULL)
-        {
-          do
-          {
-            if ((*(*((s32 **) (((char *) var_a0) + 0x48)))) < 4)
-            {
-              var_a1 &= -(((*((s32 *) (((char *) var_a0) + 0x14))) & 0x100) != 0);
+            car->flags |= 0x80;
+            d = car->info->x8;
+            *timer = 250;
+            if (d == 2) {
+                *timer = 238;
+            } else if (d == 3) {
+                *timer = 225;
+            } else if (d == 4) {
+                *timer = 210;
             }
-            var_a0 = *((void **) (((char *) var_a0) + 4));
-          }
-          while (var_a0 != NULL);
+            car->body->p150 = trk;
+            car->body->x578 = 7000;
         }
-        if ((var_a1 << 0x10) != 0)
-        {
-          block_70:
-          *((s32 *) (D_800AE850 + 0x8030)) = 0;
-
-          func_80042F40();
-          func_80085778(0, 0x1000);
-          func_80085778(0, 0x8000);
+        if (*timer != 0) {
+            if (*timer >= 200) {
+                if (*timer == 200) {
+                    *timer = 12;
+                    v = *st;
+                    *st = v | 1;
+                    if (pos < trk->x4C - 1) {
+                        *st = v | 5;
+                    } else {
+                        *st = v | 3;
+                    }
+                } else {
+                    func_800347A4(car, pad);
+                }
+            } else {
+                if (*st & 4) {
+                    pad->x = 127;
+                }
+                if (*st & 2) {
+                    pad->x = -127;
+                }
+                pad->b4 = 0;
+                v = *st;
+                if (v & 8) {
+                    *st = v | 1;
+                } else if (v & 0x10) {
+                    q = 4 - abs(trk->x4C - pos);
+                    if (q != 0) {
+                        t = (u32)(speed + 27) / q;
+                    } else {
+                        t = 0;
+                    }
+                    if (pad->x > 0) {
+                        pad->x = t;
+                    } else {
+                        pad->x = -t;
+                    }
+                    pad->b4 = 0xFF;
+                    if (speed >= 0x79) {
+                        *st &= ~0x10;
+                    }
+                }
+            }
+            (*timer)--;
+        } else {
+            v = *st;
+            if (v & 8) {
+                *st = v | 0x20;
+            } else {
+                if (!(v & 4)) {
+                    *st = (v | 4) & ~2;
+                } else {
+                    *st = (v | 2) & ~4;
+                }
+                *timer = 50;
+                *st |= 8;
+            }
         }
-      }
+        if (!(*st & 0x20)) {
+            goto end;
+        }
     }
-
-  }
-  if ((*var_s1) & 1)
-  {
-    arg1->b1 = (u8) (arg1->b1 | 0x10);
-  }
-  temp_v1_8 = (arg1->b2 | (~arg1->b1)) | 0x10;
-  arg1->b2 = temp_v1_8;
-  arg1->b3 = (u8) (arg1->b1 & temp_v1_8);
+    if (*car->player < 4) {
+        pad->b1 = 0;
+        pad->b5 = 0;
+        pad->b2 = 0xFF;
+        pad->b3 = pad->b1;
+        if (D_800C35A0->state != 0 & D_800C35A0->state != 5) {
+            D_800A1234[*car->player].hA = 2;
+            cnt = D_800C35A0->players;
+            k = 0;
+            for (n = *D_800B5C40; n != NULL; n = n->next) {
+                if (*n->player < 4) {
+                    st = &n->ctl->state;
+                    if (n->flags & 0x100) {
+                        if (n->ctl->state & 0x20) {
+                            cnt--;
+                        }
+                    } else if (speed >= -5 && speed <= 5 && n->info->x10 == 0 && (n->flags & 0x200)) {
+                        k++;
+                        cnt--;
+                    }
+                }
+            }
+            if (cnt == 0 && k != D_800C35A0->players) {
+                goto finish;
+            }
+        } else {
+            if (*car->player < 4) {
+                D_800A1234[*car->player].hA = 2;
+            }
+            all = 1;
+            for (n = *D_800B5C40; n != NULL; n = n->next) {
+                if (*n->player < 4) {
+                    all &= -((n->flags & 0x100) != 0);
+                }
+            }
+            if ((s16)all) {
+            finish:
+                D_800B6880 = 0;
+                func_80042F40();
+                func_80085778(0, 0x1000);
+                func_80085778(0, 0x8000);
+            }
+        }
+    }
+end:
+    if (*st & 1) {
+        pad->b1 |= 0x10;
+    }
+    t = pad->b2 | ~pad->b1 | 0x10;
+    pad->b2 = t;
+    pad->b3 = pad->b1 & t;
 }

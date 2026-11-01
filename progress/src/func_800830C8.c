@@ -1,7 +1,7 @@
 #define v i
-extern s32 func_80082930(s32, s32, s32, s32);
-extern s32 func_80083C28(s32 *, s32, s32, void *, void *, s32 *, s32 *);
-extern void func_800842C0(s32);
+extern s32 inflate_codes(s32, s32, s32, s32);
+extern s32 huft_build(s32 *, s32, s32, void *, void *, s32 *, s32 *);
+extern void huft_free(s32);
 extern u8 D_800A1A6C[];
 extern u8 D_800A1AAC[];
 extern u8 D_800A1AEC[];
@@ -43,7 +43,7 @@ s32 func_800830C8(void)
 
     s1 = (s32 *) (D_800C02AE + 0x3102);
     *s1 = 7;
-    v = func_80083C28(a, 0x120, 0x101, D_800A1A6C, D_800A1AAC, s1 - 2, s1);
+    v = huft_build(a, 0x120, 0x101, D_800A1A6C, D_800A1AAC, s1 - 2, s1);
     i = v;
     if (i)
     {
@@ -59,15 +59,15 @@ s32 func_800830C8(void)
     new_var = D_800C02AE + 0x3106;
     ;
     *((s32 *) new_var) = 5;
-    v = func_80083C28(a, 0x1e, 0, D_800A1AEC, D_800A1B28, ((s32 *)new_var) - 2, (s32 *)new_var);
+    v = huft_build(a, 0x1e, 0, D_800A1AEC, D_800A1B28, ((s32 *)new_var) - 2, (s32 *)new_var);
     if (v >= 2)
     {
-      func_800842C0(*((s32 *) (D_800C02AE + 0x30FA)));
+      huft_free(*((s32 *) (D_800C02AE + 0x30FA)));
       *((s32 *) (D_800C02AE + 0x30FA)) = 0;
       return v;
     }
   }
-  v = func_80082930(*((s32 *) (D_800C02AE + 0x30FA)), *((s32 *) (D_800C02AE + 0x30FE)), *((s32 *) (D_800C02AE + 0x3102)), *((s32 *) (D_800C02AE + 0x3106)));
+  v = inflate_codes(*((s32 *) (D_800C02AE + 0x30FA)), *((s32 *) (D_800C02AE + 0x30FE)), *((s32 *) (D_800C02AE + 0x3102)), *((s32 *) (D_800C02AE + 0x3106)));
   return v != 0;
 }
 

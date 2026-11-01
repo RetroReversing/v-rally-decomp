@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,767 selected C functions / 317,156 matching bytes**, about **56.04% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,767 C and 355 assembly functions**.
+- **1,802 selected C functions / 342,960 matching bytes**, about **60.60% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,802 C and 320 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -104,6 +104,23 @@ in the **1,767-C-function standalone checkpoint** until its own standalone integ
 complete-image verification. The portable snapshot records **1,768 app matches and 332 drafts**.
 No app progress is omitted from the snapshot; this is a deliberate distinction between saved
 app evidence and the separately verified standalone source selection.
+
+### Complete app progress sync — 1 November 2026
+
+This checkpoint adds **35 verified C functions / 25,804 matching bytes**:
+`func_800122A4`, `func_80017B38`, `func_80018C04`, `func_80019F9C`, `func_80023B7C`, `func_80031F2C`, `func_800344F0`, `func_80035C4C`, `func_800370E8`, `func_8003B310`, `func_8003E1BC`, `func_80043150`, `func_800475E4`, `func_8005073C`, `func_80051994`, `func_800526E4`, `func_800545E4`, `func_80063790`, `func_80067AC4`, `func_8006874C`, `func_8006C3E4`, `func_8006CE1C`, `func_8006E8A0`, `func_8007F278`, `func_8008328C`, `func_800839C4`, `func_800859A0`, `func_80085D90`, `func_80086854`, `func_8008A31C`, `func_8008D31C`, `func_800911B0`, `func_80092BD0`, `func_80096830`, `func_80097B8C`. All earlier selected C is retained. Each addition
+passed its independent compiler/link check, and the complete original 12,582,912-byte
+cartridge rebuilt byte for byte. Objdiff source links and compiler profiles are updated together.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,804 matches
+and 296 best drafts**, alongside current names, 20,735 notes, headers, symbols and
+compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
+and compiler profiles were compared with the live app after saving.
+
+Two app matches, `func_800869B8` and `func_80087DE4`, are preserved in the
+portable snapshot but remain assembly in the standalone build: their current candidates
+emit extra bodies or need declaration cleanup. Thus the app snapshot has 1,804 matches
+while the verified standalone selection has 1,802 C functions and 320 assembly functions.
 
 ## Build
 

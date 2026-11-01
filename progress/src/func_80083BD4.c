@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800842C0(s32);                         /* extern */
+M2C_UNK huft_free(s32);                         /* extern */
 extern M2C_UNK D_800C02AE;
 
 s32 func_80083BD4(void) {
     if (M2C_FIELD(&D_800C02AE, s32 *, 0x30FA) != 0) {
-        func_800842C0(M2C_FIELD(&D_800C02AE, s32 *, 0x30FE));
-        func_800842C0(M2C_FIELD(&D_800C02AE, s32 *, 0x30FA));
+        huft_free(M2C_FIELD(&D_800C02AE, s32 *, 0x30FE));
+        huft_free(M2C_FIELD(&D_800C02AE, s32 *, 0x30FA));
         M2C_FIELD(&D_800C02AE, s32 *, 0x30FA) = 0;
         M2C_FIELD(&D_800C02AE, s32 *, 0x30FE) = 0;
     }

@@ -1,6 +1,6 @@
 s32 __osPfsSelectBank(void *, s32);
 s32 func_80091600(void *, void *, s32);
-s32 func_80096830(s32, s32, s32, void *);
+s32 __osContRamRead(s32, s32, s32, void *);
 s32 func_80096A10(s32, s32, s32, void *, s32);
 extern s32 D_800A3B30;
 extern u8 D_800A3B34;
@@ -100,7 +100,7 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
   {
     do
     {
-      var_v1 = func_80096830(*((s32 *) (((char *) arg0) + 4)), *((s32 *) (((char *) arg0) + 8)), (((*((s32 *) (((char *) arg0) + 0x54))) + temp_s3) + var_s0) & 0xFFFF, temp_s1);
+      var_v1 = __osContRamRead(*((s32 *) (((char *) arg0) + 4)), *((s32 *) (((char *) arg0) + 8)), (((*((s32 *) (((char *) arg0) + 0x54))) + temp_s3) + var_s0) & 0xFFFF, temp_s1);
     }
     while (0);
   }
@@ -135,7 +135,7 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
           {
             temp_a3 = var_s1;
             var_s1 += 0x20;
-            func_80096830(*((s32 *) (inline_fn(arg0) + 4)), *((s32 *) (((char *) arg0) + 8)), (((*((s32 *) (((char *) arg0) + 0x58))) + (idx * 8)) + var_s0_2) & 0xFFFF, temp_a3);
+            __osContRamRead(*((s32 *) (inline_fn(arg0) + 4)), *((s32 *) (((char *) arg0) + 8)), (((*((s32 *) (((char *) arg0) + 0x58))) + (idx * 8)) + var_s0_2) & 0xFFFF, temp_a3);
             var_s0_2 += 1;
           }
           while (var_s0_2 < 8);

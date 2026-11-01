@@ -1,17 +1,17 @@
 extern char *D_800C35A0,*D_800B615C;extern int D_800C81D0;
 int func_8001FEDC(void *);int func_8002D2C8(int,int);int func_80033DB8(void *,int,int,void *);void func_80033E34(void *,int,void *);
 void func_80034134(void *,void *);void func_800344F0(void *,void *);void func_80033F20(void *,void *,void *);void func_80033C30(void *,void *);
-#define W(p,o) (*(int *)((char *)(p)+(o)))
-#define P(p,o) (*(char **)((char *)(p)+(o)))
-#define H(p,o) (*(s16 *)((char *)(p)+(o)))
-#define U(p,o) (*(u16 *)((char *)(p)+(o)))
+#define W(p,o) (((struct { char pad[o]; int v; } *)(p))->v)
+#define P(p,o) (((struct { char pad[o]; char *v; } *)(p))->v)
+#define H(p,o) (((struct { char pad[o]; s16 v; } *)(p))->v)
+#define U(p,o) (((struct { char pad[o]; u16 v; } *)(p))->v)
 void func_800347A4(void *obj,s8 *out) {
  struct { int data[56]; int plan[8]; } workspace;
 #define data workspace.data
 #define plan workspace.plan
  int angle,raw,limit,forced,progress,target,state,timer,phase,steer,speed,step;
  int i,index,nearest,delta,denom,other,heading;
- out[4]=0;out[5]=0;out[1]=0;out[0]=0;
+ out[4]=0; out[5]=0; out[1]=0; out[0]=0;
  angle=func_8002D2C8(H(P(obj,0x5c),0x50),H(P(obj,0x5c),0x44));
  data[0]=W(P(obj,0x58),12);data[1]=W(P(obj,0x58),16);data[2]=W(P(obj,0x58),20);
  progress=W(P(obj,0x8c),0x2c);D_800B615C=obj;D_800C81D0=progress;raw=W(P(obj,0x60),0x2c);
@@ -28,10 +28,10 @@ target=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);
  func_80034134(&data[8],obj);func_800344F0(plan,obj);step=3;index=0;nearest=65000;
  for(i=0;i<data[41];i++)if(data[29+data[42+i]]<nearest){index=i;nearest=data[29+data[42+i]];}
  if(plan[6]>=2) {
-  if(data[41]) {other=data[33+data[42+index]]*10;if(nearest<3000){steer=other-progress+(other<501?390:-390);step=2;}}
+  if(data[41]) {other=data[33+data[42+index]]*10;if(nearest<3000){steer=other-progress+(other>=501?-390:390);step=2;}}
  }else if(data[41]) {
   other=data[33+data[42+index]]*10;delta=speed-data[25+data[42+index]];
-  if(delta>1000){step=delta/150;if(data[29+data[42+index]]<step*100)if(other<501)steer=other-progress+300;else steer=other-progress-300;}
+  if(delta>1000){step=delta/150;if(data[29+data[42+index]]<step*100)if(other>=501)steer=other-progress-300;else steer=other-progress+300;}
   else step=3;
  }
  if(step>8)step=8;

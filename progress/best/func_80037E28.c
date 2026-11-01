@@ -66,7 +66,7 @@ extern u8 D_800C35C8;
 extern Snd *D_800C81D4;
 extern Cam *D_800C7F84;
 extern u8 D_800B6818;
-static inline static f32 inline_fn(s32 arg0)
+static inline static static f32 inline_fn(s32 arg0)
 {
   return (f32) (120 - arg0);
 }
@@ -146,9 +146,9 @@ void func_80037E28(void)
       {
         f = 12000.0f;
       }
-        mode = D_800C35A0->mode;
+        ;
         f = (100.0f - (f * 0.008333334f)) * 0.01f;
-        if ((mode == 6) || (mode == 7))
+        if ((D_800C35A0->mode == 6) || (D_800C35A0->mode == 7))
       {
         D_800C35E4 = 0.0f;
         if (D_800C35C8 != 0xFF)
@@ -161,7 +161,7 @@ void func_80037E28(void)
         new_var = kind;
         if (new_var != 1)
         {
-          if (((mode == 5) && (D_800B6818 == 0)) || ((D_800C35A0->players == 2) && ((mode == 5) || ((mode != 0) & (mode < 5)))))
+          if (((D_800C35A0->mode == 5) && (D_800B6818 == 0)) || ((D_800C35A0->players == 2) && ((D_800C35A0->mode == 5) || ((D_800C35A0->mode != 0) & (D_800C35A0->mode < 5)))))
           {
             f = 0.0f;
           }
@@ -185,7 +185,7 @@ void func_80037E28(void)
           }
           if (D_800C35C8 != 0xFF)
           {
-            if (mode || spd)
+            if (D_800C35A0->mode || spd)
             {
               func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
             }

@@ -5425,7 +5425,7 @@ s32 __osPfsDeclearPage(OSPfs *pfs, __OSInode *inode, int file_size_in_pages, int
 s32 __osPfsReleasePages(OSPfs *pfs, __OSInode *inode, u8 start_page, u8 bank, __OSInodeUnit *last_page);
 
 s32 __osBlockSum(OSPfs *pfs, u8 page_no, u16 *sum, u8 bank);
-s32 func_80096830(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
+s32 __osContRamRead(OSMesgQueue *mq, int channel, u16 address, u8 *buffer);
 s32 __osContRamWrite(OSMesgQueue *mq, int channel, u16 address, u8 *buffer, int force);
 void __osContGetInitData(u8 *pattern, OSContStatus *data);
 void __osPackRequestData(u8 cmd);
@@ -5531,7 +5531,7 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
         return ret;
     }
 
-    ret = func_80096830(mq, channel, (( 0x8000  ) / 32 )  , temp);
+    ret = __osContRamRead(mq, channel, (( 0x8000  ) / 32 )  , temp);
 
     if (ret == 2 ) {
         ret = 0x4  ;
@@ -5552,7 +5552,7 @@ s32 osMotorInit(OSMesgQueue* mq, OSPfs* pfs, int channel) {
         return ret;
     }
 
-    ret = func_80096830(mq, channel, (( 0x8000  ) / 32 )  , temp);
+    ret = __osContRamRead(mq, channel, (( 0x8000  ) / 32 )  , temp);
     if (ret == 2 ) {
         ret = 0x4  ;
     }

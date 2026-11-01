@@ -1,65 +1,51 @@
-extern s32 func_8006B924(void *, s32);
-extern u8 D_800C35A0[];
-extern s32 D_800C3750[][4];
-typedef struct 
-{
-  u8 pad[0x15A];
-  u16 v;
-} Table;
-extern Table D_800C7124;
-extern u8 D_800ADF40[];
-static inline static static u8 *inline_fn(u8 *arg0, u8 arg1)
-{
-  return arg0 + (arg1 * 4);
-}
+typedef struct Item {
+    s32 x;
+    u8 pad[0xC];
+} Item;
+typedef struct Group {
+    Item item[4];
+} Group;
+typedef struct Game {
+    u8 pad00[0x20];
+    u16 sel;
+} Game;
+typedef struct Tbl {
+    u8 pad[0x15A];
+    u16 v;
+} Tbl;
+extern Game *D_800C35A0;
+extern Group D_800C3750[];
+extern s32 D_800ADF40[];
+extern u8 D_800C7124[];
+extern u8 func_8006B924(Item *);
 
-void func_8006C640(s32 arg0, s32 arg1)
+void func_8006C640(void)
 {
-  int __repair_literal;
-  u8 idx = *((u8 *) ((*((u8 **) D_800C35A0)) + 0x21));
-  s32 step = idx << 6;
-  s32 stride = idx * 3;
-  s32 *value = (s32 *) inline_fn(D_800ADF40, idx);
-  u8 i = 0;
-  s32 j;
-  int new_var;
-  do
-  {
-    s32 off;
-    u8 *base = (u8 *) D_800C3750;
-    j = i;
-    __repair_literal = 0x10;
-    off = j * __repair_literal;
-    new_var = (idx * 4) + j;
-    arg1 = func_8006B924((base + off) + step, arg1);
-    if ((arg1 & 0xFF) == 5)
-    {
-      ((Table *) (((u8 *) (&D_800C7124)) + ((stride + j) * 2)))->v = 0xFFFF;
-    }
-    else
-    {
-      s32 d;
- do { d = (*value) - D_800C3750[new_var][0]; } while (0);
-      if (d >= 0)
-      {
-        if (d >= 0x4000)
-        {
-          d = 0x3FFE;
+    u8 idx;
+    u8 i;
+    u8 r;
+    s32 d;
+
+    idx = D_800C35A0->sel;
+    for (i = 0; i < 3; i++) {
+        r = func_8006B924(&D_800C3750[idx].item[i]);
+        if (r == 5) {
+            ((Tbl *)(D_800C7124 + (idx * 3 + i) * 2))->v = 0xFFFF;
+        } else {
+            d = D_800ADF40[idx] - D_800C3750[idx].item[i].x;
+            if (d >= 0) {
+                if (d >= 0x4000) {
+                    d = 0x3FFE;
+                }
+                d &= ~1;
+            } else {
+                d = -d;
+                if (d >= 0x4000) {
+                    d = 0x3FFE;
+                }
+                d |= 1;
+            }
+            ((Tbl *)(D_800C7124 + (idx * 3 + i) * 2))->v = d | (r << 14);
         }
-        d &= ~1;
-      }
-      else
-      {
-        d = -d;
-        if (d >= 0x4000)
-        {
-          d = 0x3FFE;
-        }
-        d |= 1;
-      }
-      ((Table *) (((u8 *) (&D_800C7124)) + ((stride + (i & 0xFF)) * 2)))->v = (s16) (d | ((arg1 & 0xFF) << 14));
     }
-    i++;
-  }
-  while (((u32) (i & 0xFF)) < 3);
 }

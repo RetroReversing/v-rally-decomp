@@ -1,115 +1,69 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef struct { s32 state; s32 pos; s32 out; s32 c; s32 d; s32 vol; s32 timer; } Snd;
+typedef struct { s32 start; s32 p4; s32 base; s32 k; s32 tbl[1]; } Curve;
+typedef struct { u8 pad[0xC]; s32 thr; s32 thr2; u8 p14[4]; s32 damp; } Cfg;
+typedef struct { u8 pad[4]; s32 flags; s32 cnt; } Inp;
+typedef struct Node {
+  u8 pad0[4];
+  struct Node *next;
+  u8 pad8[0x40];
+  Cfg *cfg;
+  Snd *snd;
+  Inp *inp;
+  u8 pad54[0x24];
+  Curve *curve;
+} Node;
 
+void func_80024584(Node **list)
+{
+  Node *n;
+  Snd *s;
+  Curve *c;
+  s32 pos;
+  s32 sq;
+  s32 i;
+  s32 frac;
+  s32 v;
+  s32 m;
+  s32 *tb;
+  s32 *p;
 
-
-
-
-void func_80024584(void **arg0) {
-    s32 var_a0;
-    s32 var_a1;
-    s32 var_a2;
-    s32 var_t1;
-    s32 var_t3;
-    s32 var_t4;
-    s32 var_t5;
-    s32 var_t6;
-    s32 var_t7;
-    s32 var_v0;
-    void *var_a3;
-    void *var_t0;
-    void *var_t2;
-    void *var_v1;
-
-    var_t0 = *arg0;
-    if (var_t0 != NULL) {
-        var_t7 = 0x19;
-        var_t3 = 1;
-        var_t6 = 2;
-        var_t5 = 0x400;
-        var_t4 = 0x100;
-        do {
-            var_a3 = *(void * *)((char *)var_t0 + 0x4C);
-            var_t2 = *(void * *)((char *)var_t0 + 0x78);
-            var_v0 = *(s32 *)((char *)var_a3 + 0);
-            var_t1 = *(s32 *)((char *)var_a3 + 4);
-            var_a1 = var_t2 + 0x10;
-            if (var_v0 == 0) {
-                var_v1 = *(void * *)((char *)var_t0 + 0x48);
-                var_v0 = *(s32 *)((char *)var_v1 + 0xC);
-                if ((var_v0 > 0) || ((var_v0 = *(s32 *)((char *)var_t0 + 0x50), var_v0 = *(s32 *)((char *)var_v0 + 4), var_v0 &= 2, (var_v0 != 0)) && (var_v0 = *(s32 *)((char *)var_v1 + 0x10), (var_v0 > 0)))) {
-                    *(s32 *)((char *)var_a3 + 0x18) = 0x19;
-                    *(s32 *)((char *)var_a3 + 0) = 1;
-                }
-                var_v0 = *(s32 *)((char *)var_a3 + 0);
-            }
-            if (var_v0 == 1) {
-                var_v0 = *(s32 *)((char *)var_a3 + 0x18);
-                var_v0 -= 1;
-                *(s32 *)((char *)var_a3 + 0x18) = var_v0;
-                if (var_v0 == 0) {
-                    *(s32 *)((char *)var_a3 + 0) = 2;
-                    var_v0 = *(s32 *)((char *)var_t2 + 0);
-                    *(s32 *)((char *)var_a3 + 4) = var_v0;
-                }
-            }
-            var_a2 = var_t1 * var_t1; var_v0 = *(s32 *)((char *)var_t2 + 0xC); var_a2 = var_a2 >> 0xA; var_a2 *= var_v0;
-            var_v0 = var_t1 >> 0xA;
-            var_a0 = var_v0 << 0xA;
-            var_v0 *= 4;
-            var_v0 += var_a1;
-            var_a1 = *(s32 *)((char *)var_v0 + 0);
-            var_a0 = var_t1 - var_a0;
-            var_v1 = 0x400 - var_a0; var_v1 = (void *) ((s32) var_v1 * var_a1); var_v0 = *(s32 *)((char *)var_v0 + 4); var_a0 *= var_v0;
-            var_v0 = *(s32 *)((char *)var_t2 + 8);
-            var_a1 = *(s32 *)((char *)var_t0 + 0x50);
-            var_a2 += var_v0;
-            var_v0 = *(s32 *)((char *)var_a1 + 4);
-            var_v1 += var_a0;
-            var_v0 &= 2;
-            var_t1 = (s32) (var_v1 + var_a2);
-            if (var_v0 != 0) {
-                var_v0 = (s32) *(void * *)((char *)var_t0 + 0x48);
-                var_v1 = *(void * *)((char *)var_v0 + 0x10); } else {
-                var_v0 = *(s32 *)((char *)var_a1 + 8);
-                var_v0 = var_v0 < 6;
-                var_v1 = NULL;
-                if (var_v0 == 0) {
-                    var_v0 = (s32) *(void * *)((char *)var_t0 + 0x4C);
-                    *(s32 *)((char *)var_v0 + 8) = 0;
-                } else {
-                    var_v0 = (s32) *(void * *)((char *)var_t0 + 0x48);
-                    var_v1 = *(void * *)((char *)var_v0 + 0xC);
-                }
-            }
-            var_v0 = (s32) *(void * *)((char *)var_t0 + 0x48);
-            var_v1 = (void *) ((s32) var_v1 * var_t1);
-            var_a0 = *(s32 *)((char *)var_v0 + 0x18);
-            var_v0 = var_a0 * 2;
-            var_v0 = var_a0 * 3;
-            var_v0 = var_a0 * 0x18;
-            var_v0 = var_a0 * 0x19;
-            var_v0 = var_v0 >> 7;
-            var_v0 = 0x100 - var_v0;
-            var_v1 = (void *) ((s32) var_v1 >> 8);
-            var_v1 -= var_a2;
-            var_v1 = (void *) ((s32) var_v1 >> 0xA); var_v0 *= (s32) var_v1; var_v1 = *(void * *)((char *)var_a3 + 0x14);
-            var_v0 *= (s32) var_v1;
-            *(s32 *)((char *)var_a3 + 0xC) = var_t1;
-            *(s32 *)((char *)var_a3 + 0x10) = var_a2;
-            var_v0 = var_v0 >> 0xC;
-            *(s32 *)((char *)var_a3 + 8) = var_v0;
-            var_t0 = *(void * *)((char *)var_t0 + 4);
-        } while (var_t0 != NULL);
-    }
+  n = *list;
+  if (n != NULL) {
+    do {
+      s = n->snd;
+      c = n->curve;
+      pos = s->pos;
+      tb = c->tbl;
+      if (s->state == 0) {
+        if (n->cfg->thr > 0 || ((n->inp->flags & 2) && n->cfg->thr2 > 0)) {
+          s->timer = 25;
+          s->state = 1;
+        }
+      }
+      if (s->state == 1) {
+        if (--s->timer == 0) {
+          s->state = 2;
+          s->pos = c->start;
+        }
+      }
+      sq = pos * pos; sq >>= 10; sq *= c->k;
+      frac = pos - ((pos >> 10) << 10);
+      v = (0x400 - frac) * tb[pos >> 10] + frac * tb[(pos >> 10) + 1];
+      sq = c->base + sq;
+      pos = v + sq;
+      if (n->inp->flags & 2) {
+        i = n->cfg->thr2; } else if (n->inp->cnt >= 6) {
+        i = 0;
+        n->snd->out = 0;
+      } else {
+        i = n->cfg->thr;
+      }
+      i *= pos;
+      m = ((0x100 - ((n->cfg->damp * 25) >> 7)) * (((i >> 8) - sq) >> 10)) * s->vol;
+      s->c = pos;
+      s->d = sq;
+      s->out = m >> 12;
+      n = n->next;
+    } while (n != NULL);
+  }
 }
