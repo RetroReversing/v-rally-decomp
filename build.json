@@ -28,6 +28,34 @@
     "-g3"
    ],
    "timeout": 20,
+   "start": 2147726944,
+   "end": 2147726945
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147703556,
+   "end": 2147703557
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
    "start": 2147916296,
    "end": 2147916297
   },
@@ -11258,7 +11286,9 @@
    "seg": "code_80026E3C",
    "vram": 2147703556,
    "rom": 222980,
-   "asm": "asm/nonmatchings/code_80026E3C/func_80035B04.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_80035B04.s",
+   "c": "src/code_80026E3C/func_80035B04.c",
+   "own": {}
   },
   {
    "name": "func_80035C4C",
@@ -11763,7 +11793,9 @@
    "seg": "code_80026E3C",
    "vram": 2147726944,
    "rom": 246368,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8003B660.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8003B660.s",
+   "c": "src/code_80026E3C/func_8003B660.c",
+   "own": {}
   },
   {
    "name": "func_8003B7BC",

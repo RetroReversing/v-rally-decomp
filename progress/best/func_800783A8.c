@@ -84,8 +84,8 @@ void func_800783A8(void)
       }
       ENTS[slot].ptr = node;
       func_80098290(ENTS[slot].name, G + ((G + n)[0x32] * 40 + 0x44));
-      ENTS[slot].idx = n;
       ENTS[slot].b12 = *(u16 *)(G + (G + n)[0x32] * 40 + 0x4E);
+      ENTS[slot].idx = n;
       ENTS[slot].time = st->best[*(u16 *)(G + 0x20)][n];
       sum = 0;
       cnt = 0;

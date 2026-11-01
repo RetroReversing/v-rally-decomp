@@ -66,7 +66,7 @@ extern u8 D_800C35C8;
 extern Snd *D_800C81D4;
 extern Cam *D_800C7F84;
 extern u8 D_800B6818;
-static inline f32 inline_fn(s32 arg0)
+static inline static f32 inline_fn(s32 arg0)
 {
   return (f32) (120 - arg0);
 }
@@ -85,6 +85,7 @@ void func_80037E28(void)
   f32 t;
   f32 fu;
   f64 dv;
+  int new_var2;
   f64 big;
   s32 rpm;
   s32 kind;
@@ -227,7 +228,7 @@ void func_80037E28(void)
       else
         if (rpm < 5500)
       {
-        k = ((rpm - 4000) * 40) / 1500;
+        k = (new_var2 = ((rpm - 4000) * 40) / 1500);
         func_80086D90(&snd[0], (inline_fn(k) * f) * (*pv));
         k = k + (spd + 30);
         func_80086D90(snd1, (U2F(k) * f) * (*pv));

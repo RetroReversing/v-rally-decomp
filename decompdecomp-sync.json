@@ -30,7 +30,9 @@
     "src/code_8004BEB4/func_80069A08.c": "a6cda71875fe6438d56d51f448938e292429a9b4e64cd897403b7d000663f424",
     "src/code_80026E3C/func_80034134.c": "60ec74941331df6d7b5b266a2f1d76dc3781fdafbcf86234ddcf19d7fadbc224",
     "src/code_80012114/func_800131C0.c": "0633cec5c4a87e264352dabce5d018b026f6218b96eb7cde9d94b90f88d9f086",
-    "src/code_80026E3C/func_8003946C.c": "5c05709b91e2ae2fef9b0177821a63340c5abb55fb96871bad3c2e50b35f221d"
+    "src/code_80026E3C/func_8003946C.c": "5c05709b91e2ae2fef9b0177821a63340c5abb55fb96871bad3c2e50b35f221d",
+    "src/code_80026E3C/func_80035B04.c": "7faf764d56cd165667372e205957eca82636f78d4b8876d16adb8d34bc532e48",
+    "src/code_80026E3C/func_8003B660.c": "fad3ad5046030b5b9450396e6d1907c062908d2b830b7c23756c415319ba13fe"
   },
   "accepted": [
     "__osCheckPackId",
@@ -42,7 +44,9 @@
     "func_8002DE00",
     "func_8003035C",
     "func_80034134",
+    "func_80035B04",
     "func_8003946C",
+    "func_8003B660",
     "func_8003DDBC",
     "func_8003E4A8",
     "func_80046804",
@@ -64,7 +68,12 @@
     "func_80098560",
     "func_8009912C"
   ],
-  "skipped": [],
+  "skipped": [
+    {
+      "function": "func_800911B0",
+      "reason": "Matched after the verified standalone build snapshot; exact app source and compiler evidence preserved in progress/. Still assembly in the standalone selection pending its own integration and full-image verification."
+    }
+  ],
   "verified_build": true,
-  "matched_app": 1766
+  "matched_app": 1768
 }

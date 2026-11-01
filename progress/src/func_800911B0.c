@@ -51,6 +51,6 @@ void func_800911B0(void) {
     prev = D_800A3A30;
     D_800A3A30 = cur;
     D_800A3A34 = prev;
-    D_A4400000 = ctrl;
+    (*(volatile u32 *)0xA4400000) = ctrl;
     __builtin_memcpy(prev, cur, sizeof(Obj));
 }

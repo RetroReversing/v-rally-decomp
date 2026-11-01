@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793523413.284364,
- "revision": 1160,
+ "saved_at": 1793524181.4804428,
+ "revision": 1174,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -3884,7 +3884,7 @@
   },
   "func_80028E94": {
    "vram": 2147651220,
-   "best_score": 20331,
+   "best_score": 20301,
    "best_by": "permuter"
   },
   "func_80029AA8": {
@@ -4549,8 +4549,8 @@
   },
   "func_80035B04": {
    "vram": 2147703556,
-   "best_score": 20,
-   "best_by": "claude-haiku-12"
+   "matched_by": "claude-opus-1",
+   "readable": false
   },
   "func_80035C4C": {
    "vram": 2147703884,
@@ -4629,7 +4629,7 @@
   },
   "func_80037E28": {
    "vram": 2147712552,
-   "best_score": 820,
+   "best_score": 815,
    "best_by": "permuter"
   },
   "func_80038644": {
@@ -7564,8 +7564,8 @@
   },
   "func_80063FFC": {
    "vram": 2147893244,
-   "best_score": 340,
-   "best_by": "restored"
+   "best_score": 240,
+   "best_by": "permuter"
   },
   "func_8006425C": {
    "vram": 2147893852,
@@ -8684,8 +8684,8 @@
   },
   "func_800783A8": {
    "vram": 2147976104,
-   "best_score": 1065,
-   "best_by": "claude-opus-1"
+   "best_score": 735,
+   "best_by": "autopilot"
   },
   "func_80078724": {
    "vram": 2147976996,
@@ -10859,8 +10859,8 @@
   },
   "func_800911B0": {
    "vram": 2148078000,
-   "best_score": 300,
-   "best_by": "cursor-cli-grok-4.7-low-1"
+   "matched_by": "autopilot",
+   "readable": false
   },
   "func_800914C0": {
    "vram": 2148078784,
@@ -128543,6 +128543,56 @@
    "function": "func_80021064",
    "text": "Cannot get to 0 with current tooling: target dispatches two switches through ROM jump tables D_800A4908/D_800A4928, while any C switch with this case density compiles to a local .rodata jump table that the judge reports as unmapped (.rodata+0x20) \u2014 rewriting as if-chains would change the instruction stream (jr via table). Best stays 12889. Structural hints for whoever continues: frame 0xA0 vs ours 0xB0 (target locals: s16[3] at sp18 and sp20, spills sp44 snapshot, sp4C z, sp54 velocity, sp5C hoisted 0x84210843 magic for %31, sp6C i*20); case 2 of second switch calls func_8002E514(obj->5C+0x40, sp18, sp18) in place. trigger non-volatile = 13266 (worse).",
    "by": "claude-opus-2"
+  },
+  {
+   "function": "func_8006786C",
+   "text": "Released because its agent stopped (stopped by you); its attempts are kept.",
+   "by": "claude-opus-1"
+  },
+  {
+   "function": "func_800376C8",
+   "text": "Released because its agent stopped (stopped by you); its attempts are kept.",
+   "by": "claude-opus-2"
+  },
+  {
+   "function": null,
+   "text": "Iterative search: 0 matches, 0 bytes, 128 attempts (separate budget).",
+   "by": "autopilot"
+  },
+  {
+   "function": "func_800635A0",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "claude-opus-1"
+  },
+  {
+   "function": "func_800869B8",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "claude-opus-2"
+  },
+  {
+   "function": "func_80087DE4",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "claude-opus-2"
+  },
+  {
+   "function": "func_8008B5DC",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "claude-opus-2"
+  },
+  {
+   "function": "func_800911B0",
+   "text": "Autopilot matched with iterative local repairs",
+   "by": "autopilot"
+  },
+  {
+   "function": null,
+   "text": "Iterative search: 1 matches, 776 bytes, 128 attempts (separate budget).",
+   "by": "autopilot"
+  },
+  {
+   "function": "func_800635A0",
+   "text": "Released because its agent stopped (stopped by you); its attempts are kept.",
+   "by": "claude-opus-1"
   }
  ],
  "set_aside": [
@@ -129720,6 +129770,94 @@
     "target_sha256": "33e01234abf48cc7c4571a0d151b1b4d200d312b9b6bc361a311a36b3a09c6f7",
     "relocations_sha256": "0ee73c1c731ae48e82afc5c135a4ef5460d38db296a554df808ecc1715533626",
     "vram": 2147696948,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_80035B04": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "2700de0295cae97f8f3c3fc9487ee27c723ed905bc9ae5a3e68835bf6722d79d",
+    "recorded_at": 1793523438.9760509,
+    "attempt_id": 221266,
+    "source_sha256": "f3007a3b7fea58cca0949407dbd9214d2d7c88bc406c22ce953dd0c7163430e0",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "97858a6d26dc4972fd416510508393f7a48b73cd10dc2bcd984b89aed7b46213",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "v64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "3105b50bdc2a53fb509822b4bc5abfcbe37aeb9f81041623aa53133cded4adaa",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "3d13987c0c55177c11d53205d51ba8ac4e0152e5cb3b89d940bf09c60b270f72",
+    "relocations_sha256": "232da383a5953e34a4551e5f58e90b203c58ad6322b008cb7fee06353a2dd285",
+    "vram": 2147703556,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -130948,6 +131086,94 @@
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
+   "func_800911B0": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "2700de0295cae97f8f3c3fc9487ee27c723ed905bc9ae5a3e68835bf6722d79d",
+    "recorded_at": 1793524107.84009,
+    "attempt_id": 221508,
+    "source_sha256": "28c88c1ff2c990f864c70fe5f3da30cc0dde865033966d3ed694b737fd2d2c85",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "97858a6d26dc4972fd416510508393f7a48b73cd10dc2bcd984b89aed7b46213",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "v64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "3105b50bdc2a53fb509822b4bc5abfcbe37aeb9f81041623aa53133cded4adaa",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "99b48fb0888a989b105fdc31c84b5badc6b34a4752046c15cf2dec93235ebdf4",
+    "relocations_sha256": "908067875b0612a18c94e739a0b0b394981bf9605370c065671d4eded757b61c",
+    "vram": 2148078000,
+    "unit": "code_8007E9D4",
+    "mode": "rom"
+   },
    "func_80098560": {
     "format": 1,
     "verdict": "exact",
@@ -131132,6 +131358,7 @@
    "066b097494e8c0d93ef5a2252f9f1054015979b6385509a38eaa2860a9ec91ab": "void func_8002DB18();\ns16 *func_8002DE00(s16 *arg0, s16 *arg1)\n{\n  s16 sp10[16];\n  s16 sp30[16];\n  s16 sp50[16];\n  s16 sp70[16];\n  s16 *var_s6;\n  s16 s5;\n  s16 s2;\n  s16 s3;\n  s16 s1;\n  s16 s0;\n  s16 last;\n  var_s6 = arg1;\n  s2 = arg0[0];\n  s5 = func_8002D2E4(s2);\n  s2 = func_8002D348(arg0[0]);\n  s3 = func_8002D2E4(arg0[1]);\n  s1 = func_8002D348(arg0[1]);\n  s0 = func_8002D2E4(arg0[2]);\n  last = func_8002D348(arg0[2]);\n  sp10[0] = s3;\n  sp10[1] = 0;\n  {\n    s16 positive = s1;\n    ;\n    sp10[2] = positive;\n  }\n  sp10[3] = 0;\n  sp10[4] = 0x1000;\n  sp10[5] = 0;\n  sp10[6] = -s1;\n  sp10[7] = 0;\n  sp10[8] = s3;\n  sp30[0] = 0x1000;\n  sp30[1] = 0;\n  sp30[2] = 0;\n  sp30[3] = 0;\n  sp30[4] = s5;\n  sp30[5] = -s2;\n  sp30[6] = 0;\n  sp30[7] = s2;\n  sp30[8] = s5;\n  sp50[0] = s0;\n  sp50[1] = -last;\n  sp50[2] = 0;\n  sp50[3] = last;\n  sp50[4] = s0;\n  sp50[5] = 0;\n  sp50[6] = 0;\n  sp50[7] = 0;\n  sp50[8] = 0x1000;\n  func_8002DB18(sp10, sp30, sp70);\n  func_8002DB18(sp70, sp50, var_s6);\n  return var_s6;\n}\n\n",
    "2421f67f9e7a0b5ef09243ccccc4488d8b8669ebf5758fa3ca2e6dcac26e5173": "typedef struct { u16 x; u16 y; u16 z; } V303;\ntypedef struct { s16 x; s16 y; s16 z; s16 pad; } SV303;\ntypedef struct\n{\n  u8 pad[0x4C];\n  s32 base;\n  u32 pad50;\n  V303 *table;\n  u8 pad58[0x32];\n  u16 stride;\n} O303;\ns32 func_8002D2A0(s32);\ns32 func_8003035C(O303 *o, s32 row, V303 *pos)\n{\n  SV303 a;\n  SV303 b;\n  SV303 c;\n  s32 n;\n  s32 d;\n  s32 e;\n  n = row * o->stride + o->base;\n  c.x = o->table[n - 2].x - o->table[n].x;\n  c.z = o->table[n - 2].z - o->table[n].z;\n  a.x = pos->x - o->table[n].x;\n  a.z = pos->z - o->table[n].z;\n  if (c.x * a.x + c.z * a.z > 0)\n  {\n    a.x = o->table[n - 2].x - o->table[n].x;\n    a.z = o->table[n - 2].z - o->table[n].z;\n    b.x = pos->x - o->table[n].x;\n    b.z = pos->z - o->table[n].z;\n    d = func_8002D2A0(a.x * a.x + a.z * a.z);\n    e = func_8002D2A0(b.x * b.x + b.z * b.z);\n    d = e * 1000 / d;\n    d = 500 - d / 2;\n  }\n  else\n  {\n    a.x = o->table[n + 2].x - o->table[n].x;\n    a.z = o->table[n + 2].z - o->table[n].z;\n    b.x = pos->x - o->table[n].x;\n    b.z = pos->z - o->table[n].z;\n    d = func_8002D2A0(a.x * a.x + a.z * a.z);\n    e = func_8002D2A0(b.x * b.x + b.z * b.z);\n    d = e * 1000 / d;\n    d = d / 2 + 500;\n  }\n  return d;\n}",
    "ff4ac6fb3aa7562800e5fd71d793b2ec3c1a89d2c51c5c4bf58d273f6ccf804a": "typedef struct { s16 vx, vy, vz, pad; } SVec;\ntypedef struct { s32 vx, vy, vz, pad; } LVec;\ns32 func_8001FEDC();\ns32 func_8002D2A0();\ns32 func_8002E778();\nextern char D_800AE850[];\n\ntypedef struct Car {\n    char pad0[4];\n    struct Car *next;\n    char pad8[0x50];\n    char *pos;      /* 0x58 */\n    char pad5C[4];\n    char *info;     /* 0x60 */\n    char pad64[0x1C];\n    char *body;     /* 0x80 */\n    char pad84[8];\n    s32 *team;     /* 0x8C */\n} Car;\n\ntypedef struct {\n    s32 count;\n    s32 id[4];\n    s32 v14[4];\n    s32 v24[4];\n    s32 v34[4];\n    s32 v44[4];\n    s32 v54[4];\n    s32 v64[4];\n    Car *car[4];\n    s32 n84;\n    s32 a88[4];\n    s32 n98;\n    s32 a9C[4];\n    s32 aAC[4];\n} Out;\n\n#define W(p, o) (*(s32 *)((char *)(p) + (o)))\n\nvoid func_80034134(Out *out, Car *self)\n{\n    SVec a, b, c, d;\n    LVec v;\n    Car *car;\n    s32 myRank;\n    s32 myVal;\n    s32 myTeam;\n    s32 i;\n    s32 cross1, cross2, dot;\n\n    car = **(Car ***)(D_800AE850 + 0x73F0);\n    myRank = W(self->info, 0x17C);\n    myVal = W(self->info, 0x14);\n    i = 0;\n    myTeam = *self->team;\n    out->n84 = 0;\n    out->n98 = 0;\n    out->count = 0;\n    while (car != NULL) {\n        if (car != self) {\n            out->id[i] = *car->team;\n            out->v14[i] = W(car->info, 0x14);\n            out->v24[i] = W(car->info, 0x28);\n            out->v34[i] = W(car->info, 0x30);\n            if (out->id[i] == myTeam || out->id[i] == W(myTeam, 0x5C)) {\n            a.vx = W(self->body, 0x2B8) - W(self->body, 0x2CC);\n            a.vz = W(self->body, 0x2C0) - W(self->body, 0x2D4);\n            b.vx = W(self->body, 0x240) - W(self->body, 0x254);\n            b.vz = W(self->body, 0x248) - W(self->body, 0x25C);\n            c.vx = W(car->body, 0x254) - W(self->body, 0x2CC);\n            c.vz = W(car->body, 0x25C) - W(self->body, 0x2D4);\n            d.vx = W(car->body, 0x2CC) - W(self->body, 0x254);\n            d.vz = W(car->body, 0x2D4) - W(self->body, 0x25C);\n            cross1 = a.vx * c.vz - a.vz * c.vx;\n            cross2 = b.vx * d.vz - b.vz * d.vx;\n            dot = a.vx * c.vx + a.vz * c.vz;\n            if (out->v24[i] >= myVal || out->id[i] == W(myTeam, 0x5C)) {\n            out->v44[i] = func_8001FEDC(car);\n            out->v64[i] = W(car->info, 0x17C);\n            out->car[i] = car;\n            v.vx = W(self->pos, 0xC) - W(car->pos, 0xC);\n            v.vz = W(self->pos, 0x14) - W(car->pos, 0x14);\n            func_8002E778(&v, &v);\n            out->v54[i] = func_8002D2A0(v.vx + v.vz);\n            if (((cross1 < 0) & (cross2 < 0)) && out->v64[i] < myRank + 20 && myRank - 20 < out->v64[i]) {\n                out->a88[out->n84] = i;\n                out->n84++;\n            }\n            if (((0 < cross1) & (cross2 < 0)) && out->v64[i] < myRank + 25 && myRank - 25 < out->v64[i]) {\n                out->a9C[out->n98] = i;\n                if (dot < 0) {\n                    out->aAC[out->n98] = 0;\n                } else {\n                    out->aAC[out->n98] = 1;\n                }\n                out->n98++;\n            }\n            i++;\n            out->count++;\n            }\n            }\n        }\n        car = car->next;\n    }\n}\n",
+   "f3007a3b7fea58cca0949407dbd9214d2d7c88bc406c22ce953dd0c7163430e0": "typedef struct {\n    s16 x;\n    s16 y;\n    s16 z;\n    s8 side;\n    s8 pad;\n} Item8;\n\nextern char D_800C02AE[];\nu64 osGetTime(void);\ns32 func_80098090();\nvoid func_800980C4(u32);\n\nvoid func_80035B04(Item8 *p) {\n    u32 n;\n    u32 t;\n    s32 r;\n\n    n = *(u32 *)(*(char **)(D_800C02AE + 0x7E6E) + 8);\n    func_800980C4((u32)osGetTime());\n    r = n;\n    n--;\n    if (r != 0) {\n        do {\n            if (n < (*(u32 *)(*(char **)(D_800C02AE + 0x7E6E) + 8) >> 1)) {\n                p->side = 0;\n            } else {\n                p->side = 1;\n            }\n            p->x = func_80098090() % 8191;\n            p->y = func_80098090() % 2047;\n            p->z = func_80098090() % 8191;\n            p++;\n            t = n;\n            n--;\n        } while (t != 0);\n    }\n}\n",
    "14728032d11af47b7469b3406e11ef7d1f9304404933cb8ebf25be2301239945": "#define G D_800C35A0\n#define P D_800C7F84\n#define H(p,o) (*(s16 *)((u8*)(p)+(o)))\n#define U(p,o) (*(u16 *)((u8*)(p)+(o)))\n#define W(p,o) (*(s32 *)((u8*)(p)+(o)))\n#define B(p,o) (*((u8*)(p)+(o)))\n#define A(p,o) (*(u8 **)((u8*)(p)+(o)))\ntypedef struct { u8 pad0[6]; u16 w; } Img;\ntypedef struct { u8 pad0[4]; Img **imgs; } Spr;\ntypedef struct {\n  u8 pad0[0xc];\n  s16 xc;\n  s16 xe;\n  u8 pad10[0x7a - 0x10];\n  s16 x7a;\n  u8 pad7c[0x9c - 0x7c];\n  s16 x9c;\n  s16 x9e;\n  s32 flags;\n  Spr *spr;\n  u8 *owner;\n} Obj;\nextern u8 *D_800C35A0;\nextern u8 *D_800C7F84;\nextern u8 *func_8004240C(s32);\nextern Obj *func_80040260(s32, s32, s32, u16, void *, s32);\nextern Spr *func_80034FF0(void *, s32);\nextern void func_8003B980(void);\nvoid func_8003946C(s32 a, u8 *b, s32 c)\n{\n  u8 *g = G;\n  u8 *p;\n  u8 *q;\n  u8 *r;\n  Spr *s;\n  Obj *o;\n  s32 x;\n  s32 y;\n  s32 z;\n  s32 sum;\n  s32 off;\n  s32 n;\n  u32 i;\n  char *row;\n  char *lrow;\n  if (U(g, 0x1e) != 7)\n  {\n    if (U(g, 0xe) == 1)\n    {\n      row = (char *) g;\n      row += B(g, 0x32) * 40;\n      if (row[0x48] & 2)\n      {\n        r = func_8004240C(1);\n        x = H(A(r, 0x178), 0xc);\n        y = H(A(r, 0x178), 0xe);\n        P = r;\n        o = func_80040260(a, 0, 0, (u16) c, func_8003B980, 1);\n        o->x9c = x - 63;\n        o->x9e = y - 42;\n        s = func_80034FF0(b + 0x4c, 0);\n        o->spr = s;\n        o->xc = -(s->imgs[0]->w >> 1);\n        o->xe = -3;\n        o->flags |= 0x20;\n        o->owner = P;\n      }\n    }\n    else\n    {\n      i = 1;\n      if (U(g, 0xe) == 2)\n      {\n        n = 1;\n        do\n        {\n          lrow = (char *) G;\n          lrow += B(((u8 *) G) + i, 0x31) * 40;\n          if (lrow[0x48] & 2)\n          {\n            p = func_8004240C(n);\n            q = A(p, 0x178);\n            off = 0;\n            P = p;\n            x = H(q, 0xc);\n            z = H(q, 8);\n            sum = H(q, 0xa) + H(q, 0xe);\n            if (!(U(G, 0x12) & 1))\n            {\n              x -= 16;\n              off = (-(W(p, 0xc) == 1)) & 20;\n            }\n            o = func_80040260(a, 0, 0, (u16) c, func_8003B980, 1);\n            o->spr = func_80034FF0(b + 0x4c, 0);\n            o->x9c = (u16)(z + x) - 35 + off;\n            o->x9e = sum - 32;\n            o->xc = -(o->spr->imgs[0]->w >> 1);\n            o->xe = -2;\n            o->flags |= 0x20;\n            o->owner = P;\n            o->x7a = 1;\n          }\n          i++;\n          n += 2;\n        }\n        while (U(g, 0xe) >= i);\n      }\n    }\n  }\n}",
    "20a08f7466339fb10be79171e145df79d8254b635ebb910c3c5c2a1e18a9d8a4": "typedef struct { char pad[0x14]; s32 flags; char pad18[0x54]; char *def; } Node; /* def at 0x6C */\ntypedef struct { char pad[0x24]; Node *node; } Link;\ntypedef struct {\n    char pad0[0x78];\n    u16 idx;      /* 0x78 */\n    s16 digit;    /* 0x7A */\n    char pad7C[4];\n    s32 flags;    /* 0x80 */\n    char pad84[0x10];\n    u8 blink;     /* 0x94 */\n    char pad95;\n    s16 last;     /* 0x96 */\n    char pad98[0x10];\n    Link *link;   /* 0xA8 */\n} Obj;\n\nvoid func_8003A6D4(Obj *, u8 *);\nvoid func_8003AB38(u32, u8 *, s32);\nextern s32 D_8009D534;\nextern u8 D_8009D544;\nextern u8 D_8009FE00[];\nextern u32 D_800AFA6C;\n\nvoid func_8003B660(Obj *o)\n{\n    u8 col[4];\n    Node *n;\n    s32 c;\n\n    n = o->link->node;\n    if (n != NULL) {\n        c = **(s32 **)(n->def + 0x24);\n        o->flags &= ~4;\n        if (c == D_8009D534) {\n            o->flags |= 4;\n        } else {\n            if (!(n->flags & 0x10) && o->last != c) {\n                o->blink = 100;\n            }\n            o->last = c;\n            if (o->idx == 0) {\n                if (D_8009D544 == 0) {\n                    func_8003AB38((u32)(c * 2) / 3, D_8009FE00, c);\n                } else {\n                    func_8003AB38(c, D_8009FE00, c);\n                }\n            }\n            if (o->blink != 0 && !((D_800AFA6C >> 3) & 1)) {\n                if (o->flags & 4) {\n                    o->flags &= ~4;\n                } else {\n                    o->flags |= 4;\n                }\n            }\n        }\n    }\n    col[0] = 200;\n    col[1] = 200;\n    col[2] = 10;\n    col[3] = 255;\n    func_8003A6D4(o, col);\n    o->digit = D_8009FE00[o->idx] - 48;\n}\n",
    "c9786e83abaa4472844cb56235984ac1dfdc020bf67b63de9381d3a38430b428": "extern int D_800C7F84;\ns32 func_8003C968();\ns32 func_8003CD18();\ns32 func_8003D780();\ns32 func_8003D8F4();\ns32 func_8003D9C8();\ns32 func_8003E1BC();\ns32 func_8003E3E0();\ns32 func_8003E4A8();\ns32 func_8004240C();\nextern void *D_800C35A0;\nstatic inline static static static static static static static char *inline_fn(s32 arg0)\n{\n  return (char *) (D_800C35A0 + arg0);\n}\n\nstatic inline static static char *inline_fn2(char *arg0, int arg1)\n{\n  return arg0 + arg1;\n}\n\nvoid func_8003DDBC(s32 arg0, s32 arg1)\n{\n  int new_var5;\n  s32 temp_a2;\n  s32 temp_s0;\n  s32 var_s0;\n  s32 var_s3;\n  void *new_var3;\n  int new_var7;\n  u16 temp_s5;\n  int new_var;\n  u16 temp_v1;\n  void *temp_s4;\n  char *new_var6;\n  void *new_var4;\n  void *new_var2;\n  s32 temp_v0;\n  temp_s4 = D_800C35A0;\n  if ((*((u16 *) inline_fn2((char *) temp_s4, 0x1E))) != 7)\n  {\n    temp_s5 = *((u16 *) inline_fn2((char *) temp_s4, 0xE));\n    if (temp_s5 != 0)\n    {\n      var_s3 = (temp_s5 | 1) & 1;\n      var_s0 = (u16) var_s3;\n      do\n      {\n        temp_v0 = func_8004240C(((var_s0 - 1) * 2) | 1);\n        temp_v1 = *((u16 *) inline_fn2((char *) temp_s4, 0x1E));\n        D_800C7F84 = temp_v0;\n        if (temp_v1 == 0)\n        {\n          if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(var_s0), 0x31))) * 0x28), 0x48))) & 4)\n          {\n            do\n            {\n            }\n            while (0);\n            goto block_7;\n          }\n          goto block_8;\n        }\n        new_var2 = inline_fn2(D_800C35A0, (4 * (*((u8 *) inline_fn2(inline_fn(var_s0), 0x31)))) * 10);\n        if ((*((u8 *) inline_fn2((char *) new_var2, 0x48))) & 1)\n        {\n          block_7:\n          func_8003D780(arg0, arg1, var_s0);\n\n          block_8:\n          temp_a2 = var_s3 & 0xFFFF;\n\n          new_var7 = (8 * (*((u8 *) inline_fn2(inline_fn(temp_a2), 0x31)))) * 5;\n          if ((*((u8 *) inline_fn2((char *) inline_fn2(D_800C35A0, new_var7), 0x48))) & 1)\n          {\n            func_8003D8F4(arg0, arg1, temp_a2);\n          }\n        }\n        temp_s0 = var_s3;\n        temp_s0 = temp_s0 & 0xFFFF;\n        new_var4 = temp_s4;\n        new_var6 = inline_fn(temp_s0);\n        new_var3 = inline_fn2(D_800C35A0, (*((u8 *) inline_fn2(new_var6, 0x31))) * 0x28);\n        new_var5 = 4;\n        if ((*((u8 *) inline_fn2((char *) new_var3, 0x48))) & new_var5)\n        {\n          func_8003D9C8(arg0, arg1, temp_s0);\n        }\n        if ((*((u8 *) inline_fn2((char *) inline_fn2(D_800C35A0, (*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))) * 0x28), 0x48))) & 1)\n        {\n          func_8003CD18(arg0, arg1, temp_s0);\n        }\n        new_var = 0x31;\n        if ((*((u8 *) inline_fn2((char *) (D_800C35A0 - (-((*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))) * 0x28))), 0x48))) & 4)\n        {\n          func_8003E4A8(arg0, arg1, temp_s0);\n        }\n        if ((*((u8 *) inline_fn2(inline_fn(10 * (4 * (*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))))), 0x48))) & 1)\n        {\n          func_8003E3E0(arg0, arg1, temp_s0);\n        }\n        if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(temp_s0), new_var))) * 0x28), 0x48))) & 4)\n        {\n          func_8003E1BC(arg0, arg1, temp_s0);\n        }\n        temp_v1 = *((u16 *) inline_fn2((char *) new_var4, 0x1E));\n        if ((temp_v1 != 5) & (temp_v1 != 0))\n        {\n          func_8003C968(arg0, arg1, temp_s0);\n        }\n        var_s3 += 1;\n        var_s0 = (s32) ((u16) var_s3);\n      }\n      while (temp_s5 >= ((u32) (var_s3 & 0xFFFF)));\n    }\n  }\n}\n\n",
@@ -131146,6 +131373,7 @@
    "82858b9b4ee8237c496a715f7d82c8f7d48170fec659739043d55e71f8e2bf8a": "extern s32 D_800A5E24;\ns32 func_800056FC(s32);\nvoid *func_80006008(s32);\ns32 func_80006014(s32, s32);\ns32 func_800061FC(s32, s32);\ns32 func_8000C22C(s32, s32, s32, s32, s32);\ns32 func_8000C244();\ns32 func_8000C9B0(void *, void *, s32, f32, s32);\ns32 func_8000CC04(void *, s32, s16, s16, void *, s32, f32, f32, s32, s32);\ns32 func_8001BD1C();\ns32 *func_80057918(s32, s32);\ns32 func_80073108(s32, s16, s32, s32, s32);\ns32 func_80073320(s32, s32, s32, s32, s32);\ns32 func_80073B64(void *, s32);\ns32 func_80074BF8(void *, s32);\ns32 func_800754D4(void *, s32);\ns32 func_80084BF0(s32);\ns32 func_80085778(s32, s32);\ns32 guMtxF2L(s32 *, s32);\ns32 guMtxIdent(void *);\nvoid guOrthoF(void *, f32, f32, f32, f32, f32, f32, f32);\nextern s32 D_8009D538;\nextern u32 D_800A1740;\nextern u8 D_800A17E8;\nextern s32 D_800A5E1C;\nextern char D_800AE850[];\nextern char D_800C02AE[];\nstatic __inline__ char *read_config(void)\n{\n  return *((char **) (D_800C02AE + 0x32F2));\n}\n\nstatic __inline__ s32 read_handle(void)\n{\n  return *((s32 *) (D_800C02AE + 0x807A));\n}\n\nvoid func_80076060(void *arg0)\n{\n u16 saved_field;\n void * context_flag;\n s32 first_dl;\n s16 padding;\n s16 coordinate;\n  s32 draw_one;\n  f32 sp28[16];\n  s32 *var_v0_5;\n  s16 temp_s0_12;\n  s16 temp_s0_13;\n  s16 temp_s0_14;\n  s16 temp_s0_15;\n  s16 temp_s0_9;\n  s16 var_a2_3;\n  s16 var_a3;\n  s16 var_a3_2;\n  s16 var_a3_4;\n  s16 var_s6;\n  s16 fixed_draw_y;\n  s32 temp_s0_10;\n  s32 temp_s0_11;\n  s32 temp_s0_2;\n  s32 temp_s0_5;\n  s32 temp_s0_8;\n  s32 temp_s2_2;\n  s32 temp_s2_3;\n  s32 temp_v0;\n  s32 temp_v0_2;\n  u16 var_a1;\n  s32 var_a1_2;\n  s32 var_a2;\n  s32 var_a2_2;\n  s16 var_a3_3;\n  s16 var_a3_5;\n  s32 var_s0;\n  s32 var_s0_2;\n  s32 var_v0;\n  s32 var_v0_2;\n  s8 var_v0_3;\n  s8 var_v0_4;\n  u16 temp_s1;\n  u16 temp_s1_2;\n  u16 temp_v0_4;\n  u16 temp_v0_5;\n  s32 temp_v0_6;\n  u16 temp_v0_7;\n  void *temp_s0;\n  void *temp_s0_3;\n  void *temp_s0_4;\n  void *temp_s0_6;\n  void *temp_s0_7;\n  void *temp_s1_3;\n  void *temp_s2;\n  void *temp_s5;\n  void *temp_v0_3;\n  void *var_a0;\n  void *var_a0_2;\n  void *var_a0_3;\n  temp_v0 = ((u32) D_800A1740) < 5U;\n  D_800A1740 += 1;\n  if (temp_v0 == 0)\n  {\n    temp_s0 = D_800C02AE + 0x80D2;\n    guMtxIdent(temp_s0);\n    temp_v0_2 = func_800056FC(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)));\n    temp_v0_3 = func_80006008(temp_v0_2);\n    *((s32 *) (((char *) temp_v0_3) + 0x0)) = 0xDA380003;\n    *((s32 *) (((char *) temp_v0_3) + 0x4)) = temp_s0;\n    func_80006014(temp_v0_2, temp_v0_3 + 8);\n    temp_s0_2 = func_8001BD1C();\n    guOrthoF(&sp28, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);\n    guMtxF2L(&sp28, temp_s0_2);\n    func_800061FC(temp_v0_2, temp_s0_2);\n    func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);\n    if (D_8009D538 & 1)\n    {\n      if ((*((s32 *) (((char *) arg0) + 0x3C))) == 2)\n      {\n        D_8009D538 &= ~1;\n      }\n      var_s0 = func_80084BF0(0);\n      func_80085778(0, var_s0);\n      if ((*((u16 *) (((char *) read_config()) + 0xE))) == 2)\n      {\n        var_s0 |= func_80084BF0(1);\n        func_80085778(1, func_80084BF0(1));\n      }\n      temp_v0_4 = *((u16 *) (((char *) read_config()) + 0x1E));\n      if ((temp_v0_4 != 0) & (temp_v0_4 < 5U))\n      {\n        if ((*((s32 *) (D_800AE850 + 0x8030))) == 2)\n        {\n          if ((*((s32 *) (((char *) arg0) + 0x48))) != 0)\n          {\n            var_s0 = 0x1000;\n          }\n        }\n      }\n      var_v0_2 = var_s0 & 0x8000;\n      if (var_s0 & 0x1000)\n      {\n        if ((*((s32 *) (((char *) arg0) + 0x48))) != 0)\n        {\n          if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n          {\n            *((u8 *) (D_800C02AE + 0x8076)) = 1;\n          }\n          else\n          {\n            *((u8 *) (D_800C02AE + 0x8076)) = 3;\n          }\n          *((s32 *) (((char *) arg0) + 0x48)) = 0;\n        }\n        else\n        {\n          temp_v0_5 = *((u16 *) (((char *) read_config()) + 0x1E));\n          if ((((temp_v0_5 == 0) | (temp_v0_5 >= 5U)) != 0) || ((*((s32 *) (D_800AE850 + 0x8030))) != 2))\n          {\n            if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n            {\n              *((u8 *) (D_800C02AE + 0x8076)) = 1;\n            }\n            else\n            {\n              if (func_80084BF0(0) & 0x1000)\n              {\n                *((u8 *) (D_800C02AE + 0x8076)) = 1;\n              }\n              if (func_80084BF0(1) & 0x1000)\n              {\n                *((u8 *) (D_800C02AE + 0x8076)) = 2;\n              }\n            }\n          }\n        }\n        *((s32 *) (((char *) arg0) + 0x3C)) = 1;\n      }\n      if ((var_s0 & 0x8000) || (D_800A1740 == 0x1D4C))\n      {\n        func_80085778(0, var_s0);\n        *((s32 *) (((char *) arg0) + 0x3C)) = 2;\n      }\n    }\n    if ((*((s32 *) (((char *) arg0) + 0x3C))) == 0)\n    {\n      temp_v0_6 = *((u16 *) (((char *) read_config()) + 0x1E));\n      switch (temp_v0_6)\n      {\n        case 0:\n          if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n        {\n          func_80074BF8(arg0, temp_v0_2);\n        }\n        else\n        {\n          func_800754D4(arg0, temp_v0_2);\n        }\n          break;\n\n        case 1:\n\n        case 2:\n\n        case 3:\n\n        case 4:\n\n        case 5:\n          func_80073B64(arg0, temp_v0_2);\n          break;\n\n      }\n\n    }\n    else\n    {\n      if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n      {\n        if ((((u32) (*((s32 *) (D_800AE850 + 0x121C)))) >> 3) & 1)\n        {\n          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, 0x104, 5, func_80057918(read_handle(), 0xC1), 1);\n          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, 0x113, 0xF, read_config() + (((*((u8 *) (((char *) read_config()) + 0x32))) * 0x28) + 0x44), 1);\n        }\n      }\n      else\n        if ((((u32) (*((s32 *) (D_800AE850 + 0x121C)))) >> 3) & 1)\n      {\n        coordinate = 0x1E;\n        if ((*((u16 *) (((char *) read_config()) + 0x12))) == 1)\n        {\n          coordinate = 0x118;\n          var_s6 = 5;\n          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == 1))\n          {\n            temp_s0_3 = arg0 + 0x40;\n            func_8000CC04(temp_s0_3, temp_v0_2, -0x118, 5, func_80057918(read_handle(), 0xC1), 1, 1.0f, 1.0f, 0, 1);\n            var_v0_5 = func_80057918(read_handle(), 0xD2);\n            func_8000CC04(temp_s0_3, temp_v0_2, -0x118, 0xF, var_v0_5, 1, 1.0f, 1.0f, 0, 1);\n          }\n          else\n            {\n            var_v0_5 = func_80057918(read_handle(), 0xC1);\nif (var_v0_5){\n            context_flag = (void *)(arg0 + 0x40);}else{\n            context_flag = (void *)(arg0 + 0x40);}\n            var_a0_2 = ((void *)context_flag); first_dl=temp_v0_2;\n            {s32 x;void *secondctx;s32 seconddl,secondx;s16 secondy;x=(s32)coordinate;x=-(s16)x;func_8000CC04(var_a0_2,first_dl,x,var_s6,var_v0_5,1,1.0f,1.0f,0,1);secondctx=((void *)context_flag);seconddl=temp_v0_2;secondx=x;secondy=var_s6+10;func_8000CC04(secondctx,seconddl,secondx,secondy,read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44),1,1.0f,1.0f,0,1);}\n          }\n        }\n        else\n          if (var_s6 = 5, ((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1 == 1)))\n        {\n          temp_s0_4 = arg0 + 0x40;\n          func_8000CC04(temp_s0_4, temp_v0_2, 0x1E, 5, func_80057918(read_handle(), 0xC1), (s32) temp_s1, 1.0f, 1.0f, 0, (s32) temp_s1);\n          var_v0_5 = func_80057918(read_handle(), 0xD2);\n          func_8000CC04(temp_s0_4, temp_v0_2, 0x1E, 0xF, var_v0_5, 1, 1.0f, 1.0f, 0, 1);\n        }\n        else\n        {\n          var_v0_5 = func_80057918(read_handle(), 0xC1);\nif (var_v0_5){\n          context_flag = (void *)(arg0 + 0x40);}else{\n          context_flag = (void *)(arg0 + 0x40);}\n          var_a0_2 = ((void *)context_flag); first_dl=temp_v0_2;\n          {s32 x;void *secondctx;s32 seconddl,secondx;s16 secondy;x=(s32)coordinate;x=(s16)x;func_8000CC04(var_a0_2,first_dl,x,var_s6,var_v0_5,1,1.0f,1.0f,0,1);secondctx=((void *)context_flag);seconddl=temp_v0_2;secondx=x;secondy=var_s6+10;func_8000CC04(secondctx,seconddl,secondx,secondy,read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44),1,1.0f,1.0f,0,1);}\n        }\n        context_flag = (void *)(1);\n        coordinate = 0x128;\n        if ((*((u16 *) (((char *) read_config()) + 0x12))) == ((s32)context_flag))\n        {\n          coordinate = 0x118;\n          var_s6 = 0x7D;\n          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == ((s32)context_flag)))\n          {\n            temp_s0_6 = arg0 + 0x40;\n            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x7D, func_80057918(read_handle(), 0xC1), ((s32)context_flag), 1.0f, 1.0f, 0, ((s32)context_flag));\n            var_v0_5 = func_80057918(read_handle(), 0xD2);\n            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x87, var_v0_5, ((s32)context_flag), 1.0f, 1.0f, 0, ((s32)context_flag));\n          }\n          else\n          {\n            goto block_60;\n          }\n        }\n        else\n        {\n          var_s6 = 5;\n          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == ((s32)context_flag))))\n          {\nsaved_field=temp_s1_2;\n            temp_s0_7 = arg0 + 0x40;\n            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 5, func_80057918(read_handle(), 0xC1), (s32)saved_field, 1.0f, 1.0f, 0, (s32)saved_field);\n            var_v0_5 = func_80057918(read_handle(), 0xD2);\n            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 0xF, var_v0_5, (s32)saved_field, 1.0f, 1.0f, 0, (s32)saved_field);\n          }\n          else\n          {\n            block_60:\n            var_v0_5 = func_80057918(read_handle(), 0xC1);\n\n            temp_s2 = arg0 + 0x40;\n            temp_s0_8 = ((s32) (-(((s32)coordinate) << 0x10))) >> 0x10;\n            func_8000CC04(temp_s2, temp_v0_2, temp_s0_8, var_s6, var_v0_5, 1, 1.0f, 1.0f, 0, 1);\n            var_a0_3 = temp_s2;\n            var_a2_2 = temp_s0_8;\n            var_a3_2 = var_s6 + 0xA;\n            ;\n            func_8000CC04(var_a0_3, temp_v0_2, var_a2_2, var_a3_2, (s32 *) (read_config() + (((*((u8 *) (read_config() + 0x33))) * 40) + 0x44)), 1, 1.0f, 1.0f, 0, 1);\n          }\n        }\n      }\n      temp_v0_7 = *((u16 *) (((char *) read_config()) + 0x1E));\n      if (((temp_v0_7 != 0) & (temp_v0_7 < 5U)) && ((*((s32 *) (D_800AE850 + 0x8030))) == 2))\n      {\n        if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n        {\n          var_a3_3 = (D_800A17E8 + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0xF;\n        }\n        else\n        {\n          var_a3_3 = (D_800A17E8 + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0x23;\n        }\n        coordinate = 0x140 - var_a3_3;\n        var_s6 = 0xDC;\n        if ((*((u16 *) (((char *) read_config()) + 0xE))) == 2)\n        {\n          var_a1 = ((s16)coordinate) & 0xFFFF;\n          var_a3_3 -= 0x23;\n          func_80073320(temp_v0_2, var_a1, var_s6, var_a3_3 & 0xFFFF, 0x11);\n        }\n        else\n        {\n          var_a1 = ((s16)coordinate) & 0xFFFF;\n          func_80073320(temp_v0_2, var_a1, var_s6, var_a3_3 & 0xFFFF, 0x11);\n        }\n        var_s6 -= 2;\n        func_80073108(temp_v0_2, ((s16)coordinate), (s16) var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 0);\n        var_s6 += 2;\n        temp_s0_9 = ((s16)coordinate) + D_800A17E8;\n        var_v0_5 = func_80057918(read_handle(), 0xD7);\n        var_a2_3 = temp_s0_9;\n        var_a3_4 = var_s6;\n        func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, var_a2_3, var_a3_4, var_v0_5, 1);\n      }\n      else\n      {\n\n        if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)\n        {\n          temp_s0_10 = func_8000C9B0(arg0 + 0x40, &D_800A5E1C, 1, 1.0f, 1);\n          temp_s2_2 = func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);\n          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_10) + (D_800A17E8 + 5)) + temp_s2_2)) + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0xF;\n        }\n        else\n        {\n          temp_s0_11 = func_8000C9B0(arg0 + 0x40, &D_800A5E1C, 1, 1.0f, 1);\n          temp_s2_3 = func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);\n          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_11) + (D_800A17E8 + 5)) + temp_s2_3)) + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0x19;\n        }\n        coordinate = 0x140 - var_a3_5;\n        var_s6 = 0xDC;\n        if ((*((u16 *) (((char *) read_config()) + 0xE))) == 2)\n        {\n          var_a3_5 -= 0x23;\n          var_a1_2 = ((u16)coordinate) & 0xFFFF;\n          func_80073320(temp_v0_2, var_a1_2, var_s6, var_a3_5 & 0xFFFF, 0x11);\n        }\n        else\n        {\n          var_a1_2 = ((u16)coordinate) & 0xFFFF;\n          func_80073320(temp_v0_2, var_a1_2, var_s6, var_a3_5 & 0xFFFF, 0x11);\n        }\n        func_80073108(temp_v0_2, ((u16)coordinate), var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 3);\n        padding=D_800A17E8;\n        var_s6+=2;\n        coordinate = (s16)(((u16)coordinate)+padding);\n        if ((*((s32 *) (D_800C02AE + 0x32AA))) == 3)\n        {\n          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, ((s16)coordinate), (s16) var_s6, &D_800A5E24, 1);\n        }\n        else\n        {\n          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, ((s16)coordinate), var_s6, &D_800A5E1C, 1);\n        }\n        temp_s5 = arg0 + 0x40;\n        temp_s0_12 = ((s16)coordinate) + func_8000C9B0(temp_s5, &D_800A5E1C, 1, 1.0f, 1);\n        var_s6 -= 2;\n        fixed_draw_y = var_s6;\n        func_80073108(temp_v0_2, temp_s0_12, fixed_draw_y, *((s32 *) (D_800C02AE + 0x103B6)), 2);\n        temp_s0_13 = temp_s0_12 + D_800A17E8;\n        var_s6 += 2;\n        func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, temp_s0_13, (s16) var_s6, func_80057918(read_handle(), 0xD3), 1);\n        temp_s0_14 = temp_s0_13 + func_8000C9B0(temp_s5, func_80057918(read_handle(), 0xD3), 1, 1.0f, 1);\n        func_80073108(temp_v0_2, temp_s0_14, fixed_draw_y, *((s32 *) (D_800C02AE + 0x103B6)), 0);\n        temp_s0_15 = temp_s0_14 + D_800A17E8;\n        var_v0_5 = func_80057918(read_handle(), 0xD7);\n        var_a2_3 = temp_s0_15;\n        var_a3_4 = var_s6;\n        func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, var_a2_3, var_a3_4, var_v0_5, 1);\n      }\n    }\n  }\n}\n\n",
    "b60dee8e8e1847fe1ba83e4c7b5f16143b47f4dff519ef14851bc24a8000311c": "s32 func_80082094(void);\nvoid func_800821A4(u8 *, s32, s32);\ntypedef struct {\n    u8 *ptr;\n    s32 cnt;\n    u8 pad[0x74];\n    u32 wp;\n    u32 bb;\n    u32 bk;\n} InflState;\nextern InflState D_800C333C;\nextern u8 D_800AE850[];\n\n#define NEXTBYTE() (--D_800C333C.cnt >= 0 ? *D_800C333C.ptr++ : func_80082094())\n#define NEEDBITS(n) while (k < (n)) { c = NEXTBYTE(); if (c == -1) return 1; b |= (u32)c << k; k += 8; }\n#define DUMPBITS(n) { b >>= (n); k -= (n); }\n\ns32 func_80082EB8(void) {\n    u32 n;\n    u32 w;\n    u32 b;\n    u32 k;\n    s32 c;\n\n    b = D_800C333C.bb;\n    k = D_800C333C.bk;\n    w = D_800C333C.wp;\n    n = k & 7;\n    DUMPBITS(n);\n    NEEDBITS(16);\n    n = b & 0xffff;\n    DUMPBITS(16);\n    NEEDBITS(16);\n    if (n != ((~b) & 0xffff)) return 1;\n    DUMPBITS(16);\n    while (n--) {\n        NEEDBITS(8);\n        (D_800AE850 + 0x8AE8)[w++] = (u8)b;\n        if (w == 0x8000) {\n            func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);\n            w = 0;\n        }\n        DUMPBITS(8);\n    }\n    D_800C333C.wp = w;\n    D_800C333C.bb = b;\n    D_800C333C.bk = k;\n    return 0;\n}\n",
    "243f452c448b938d19b7f71c1cb06f146358c377e3f721aa809e039d0c4cdf07": "extern void func_8008D8B4(void);\nextern void func_8008D920(void);\nextern void func_8008F978(u8, u8 *);\nextern s32 func_8008FA20(s32, u8 *);\nextern s32 func_80090DC0(s32, void *);\nextern s32 osRecvMesg(s32, void *, s32);\nextern u8 D_800C02AE[];\nextern u8 D_800AE850[];\ntypedef struct { u8 b[12]; } Blk12;\n\ns32 func_8008F810(s32 mq, u8 ch, u8 *data)\n{\n    s32 ret = 0;\n    u16 type;\n    u8 *pif = D_800AE850 + 0x8660;\n    Blk12 reply;\n    u8 status[4];\n\n    func_8008D8B4();\n    ret = func_8008FA20(mq, status);\n    type = *(u16 *)status & 0xC000;\n    if (ret == 0) {\n        switch (type) {\n        case 0x8000:\n            if (ch >= 0x40) {\n                ret = -1;\n            }\n            break;\n        case 0xC000:\n            break;\n        default:\n            ret = 8;\n            break;\n        }\n    }\n    if (ret != 0) {\n        func_8008D920();\n        return ret;\n    }\n    while (status[2] & 0x80) {\n        func_8008FA20(mq, status);\n    }\n    func_8008F978(ch, data);\n    ret = func_80090DC0(1, D_800AE850 + 0x8660);\n    osRecvMesg(mq, 0, 1);\n    ret = func_80090DC0(0, D_800AE850 + 0x8660);\n    D_800C02AE[0x3272] = 5;\n    osRecvMesg(mq, 0, 1);\n    pif += 4;\n    reply = *(Blk12 *)pif;\n    ret = (reply.b[1] & 0xC0) >> 4;\n    func_8008D920();\n    return ret;\n}\n",
+   "28c88c1ff2c990f864c70fe5f3da30cc0dde865033966d3ed694b737fd2d2c85": "typedef struct {\n    u16 flags; u16 pad; s32 buffer; struct Mode *mode; s32 control; u8 pad10[16];\n    u32 xscale; f32 yfactor; u16 origin; u16 pad2a; u32 yscale;\n} Obj;\ntypedef struct Mode {\n    u32 unk0, unk4, width, burst, vsync, hsync, leap, hvideo, xscale, unk24;\n    struct { u32 origin, yscale, vvideo, vburst, vintr; } f[2];\n} Mode;\nextern Obj *D_800A3A34, *D_800A3A30;\nextern s32 D_800A258C;\nextern volatile u32 D_A4400000;\nextern s32 osVirtualToPhysical(s32);\nvoid func_800911B0(void) {\n    Obj *prev;\n    Obj *cur;\n    Mode *mode;\n    s32 field, origin, hvideo, vvideo, ctrl;\n    u32 scaled;\n    cur = D_800A3A34;\n    field = (*(volatile u32 *)0xA4400010) & 1;\n    mode = cur->mode;\n    origin = osVirtualToPhysical(cur->buffer) + mode->f[field].origin;\n    if (cur->flags & 2) cur->xscale |= mode->xscale & ~0xFFFu;\n    else cur->xscale = mode->xscale;\n    if (cur->flags & 4) {\n        scaled = (u32)(cur->yfactor * (f32)(mode->f[field].yscale & 0xFFF));\n        cur->yscale = scaled;\n        cur->yscale = scaled | (mode->f[field].yscale & ~0xFFFu);\n    } else cur->yscale = mode->f[field].yscale;\n    hvideo = mode->hvideo;\n    vvideo = mode->f[field].vvideo - (D_800A258C << 16) + D_800A258C;\n    hvideo &= -((cur->flags & 0x20) == 0);\n    if (cur->flags & 0x40) { cur->yscale = 0; origin = osVirtualToPhysical(cur->buffer); }\n    if (cur->flags & 0x80) {\n        cur->yscale = ((u32)cur->origin << 16) & 0x03FF0000;\n        origin = osVirtualToPhysical(cur->buffer);\n    }\n    *(volatile u32 *)0xA4400004 = origin;\n    *(volatile u32 *)0xA4400008 = mode->width;\n    *(volatile u32 *)0xA4400014 = mode->burst;\n    *(volatile u32 *)0xA4400018 = mode->vsync;\n    *(volatile u32 *)0xA440001C = mode->hsync;\n    *(volatile u32 *)0xA4400020 = mode->leap;\n    *(volatile u32 *)0xA4400024 = hvideo;\n    *(volatile u32 *)0xA4400028 = vvideo;\n    *(volatile u32 *)0xA440002C = mode->f[field].vburst;\n    *(volatile u32 *)0xA440000C = mode->f[field].vintr;\n    *(volatile u32 *)0xA4400030 = cur->xscale;\n    *(volatile u32 *)0xA4400034 = cur->yscale;\n    ctrl = cur->control;\n    prev = D_800A3A30;\n    D_800A3A30 = cur;\n    D_800A3A34 = prev;\n    (*(volatile u32 *)0xA4400000) = ctrl;\n    __builtin_memcpy(prev, cur, sizeof(Obj));\n}\n",
    "a810d3d00eda33eef697102e15274d3e2c3a575ca13cae4e71f82cd6b595ed6f": "char *func_80098560(char *dst, char *src, u32 n)\n{\n    char *d = dst;\n    u32 w;\n    u32 x;\n\n    if (((u32)(src - dst)) & 3) {\nbytes:\n        while (n-- != 0) {\n            if ((*d++ = *src++) == 0) {\n                return dst;\n            }\n        }\n        return dst;\n    }\n    w = n >> 2;\n    if ((u32)d & 3) {\n        do {\n            if (n-- == 0) {\n                return dst;\n            }\n            if ((*d++ = *src++) == 0) {\n                return dst;\n            }\n        } while ((u32)d & 3);\n        w = n >> 2;\n    }\n    while (w-- != 0) {\n        x = *(u32 *)src;\n        src += 4;\n        if (!(x & 0xFF000000)) {\n            *d = 0;\n            return dst;\n        }\n        if (!(x & 0xFF0000)) {\n            *(u16 *)d = x >> 16;\n            return dst;\n        }\n        if (!(x & 0xFF00)) {\n            x >>= 16;\n            *(u16 *)d = x;\n            d[2] = 0;\n            return dst;\n        }\n        *(u32 *)d = x;\n        d += 4;\n        if (!(x & 0xFF)) {\n            return dst;\n        }\n    }\n    n &= 3;\n    goto bytes;\n}\n",
    "ff235dc2f70bf19d6f5ace408b4657b09db42ab78fc5958c232737d72996524a": "extern char D_800A73E0[], D_800AE850[], D_800A3D50[], D_800A3D64[], D_800A3E10[], D_800A3D76, jtbl_800A72C0[];\nint func_8008E118(char *);\nvoid *func_8008E13C(void *,void *,int);\nint func_800987C0(int);\nchar *func_80098884(u32,int);\nchar *func_800988C8(u64,int);\nchar *func_80098E88(double,int,int *,int *);\nchar *func_80098B7C(double,int,int *,int *);\nchar *func_80098F34(double,int,char *);\nvoid func_80098290(char *,char *);\nextern int D_800ADEF0; extern char *D_800ADEF8, *D_800ADF00; extern char D_800ADF04;\n#define CNT D_800ADEF0\n#define OUT D_800ADEF8\n#define DIG D_800ADF00\n#define ALT D_800ADF04\n#define PUT(c) (--CNT == 0 ? func_800987C0(c) : (*OUT++=(c)))\n#define ARG(t,n) (*(t *)((ap=(char *)(((u32)ap+(n)-1)&-(n))+(n))-(n)))\nint func_8009912C(int unused, const char *fmt, char *ap) {\n char c; int len;\n char *str;\n int prec, flags, fprec, width, prefix, total=0;\n int issigned, base, isfloat, dec, sign, dec2, sign2, i;\nchar *digits, *p;\n u32 val; u64 wide; double f; double gf;\n for (;;) {\n  if ((c=*fmt++)!='%') {\n   if (!(signed char)c) { ALT=0; return total; }\n   if (D_800A3E10[(u8)c]&0x80) { PUT(c); total++; c=*fmt++; }\n   PUT(c); total++; continue;\n  }\n  flags=0; ALT=0;\n flag_loop:\n  switch (c=*fmt++) {\n   case '-': flags|=1; goto flag_loop;\n   case '+': flags|=2; goto flag_loop;\n   case '0': flags|=4; goto flag_loop;\n   case ' ': flags|=8; goto flag_loop;\n   case '#': ALT=1; goto flag_loop;\n  }\n  if ((signed char)c=='*') { width=ARG(int,4); if(width<0) { flags|=1; width=-width; } c=*fmt++; }\n  else { width=0; while(D_800A3E10[(u8)c]&8) { width=width*10+((signed char)c-48); c=*fmt++; } }\n  prec=0; fprec=6;\n  if ((signed char)c=='.') {\n   if ((c=*fmt++)=='*') { prec=ARG(int,4); c=*fmt++; }\n   else { while(D_800A3E10[(u8)c]&8) { prec=prec*10+((signed char)c-48); c=*fmt++; } }\n   fprec=prec;\n  }\n  isfloat=0; issigned=0; DIG=D_800A3D50; base=10;\n convert:\n  switch ((signed char)c) {\n  case 'd': case 'i': issigned=1; goto integer;\n  case 'o': base=8; goto clearflags;\n  case 'X': DIG=D_800A3D64;\n  case 'x': base=16;\n clearflags: flags&=~10; goto integer;\n  case 'u': goto integer;\n  case 'c': str=D_800AE850+0x86A0; *str=ARG(int,4); len=1; goto emit;\n  case 's': str=ARG(char *,4); if (!str) str=jtbl_800A72C0; len=func_8008E118(str); if(prec!=0 && prec<len) len=prec; goto emit;\n  case 'f':\n   f=ARG(double,8); digits=func_80098E88(f,fprec,&dec,&sign); if(sign) flags|=0x100;\n   str=D_800AE850+0x86A1; p=str;\n   if (dec==0x7fffffff) func_80098290(str,digits);\n   else if(dec<=0) {\n    *p++='0'; *p++='.'; i=0;\n    while(dec) { *p++='0'; i++; dec++; if(i==fprec) break; }\n    while(i!=fprec) { *p++=*digits++; i++; }\n    *p=0;\n   } else {\n    if(dec+fprec<40) {\n     func_8008E13C(p,digits,dec); digits+=dec; p+=dec;\n     if(fprec) { *p++='.'; func_8008E13C(p,digits,fprec); }\n     else if(ALT) *p++='.';\n     p[fprec]=0;\n    } else if(dec+fprec<255) {\n     __builtin_memcpy(p,digits,40);\n     if(dec<=40) p+=dec; else { p+=40; i=dec-40; do { *p++='0'; } while(--i); }\n     if(fprec) { *p++='.'; i=fprec; do { *p++='0'; } while(--i); } else if(ALT) *p++='.';\n     *p=0;\n    } else { fprec=20; c='e'; goto exponential; }\n   }\n   len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'e': case 'E':\n   f=ARG(double,8);\n exponential:\n   { char *s=func_80098B7C(f,fprec,&dec2,&sign2); str=D_800AE850+0x86A1; if(sign2) flags|=0x100;\n     if(dec2==0x7fffffff) func_80098290(str,s); else { D_800A3D76=c; func_80098A1C((u8 *)s,fprec,dec2-1,(s8 *)str); D_800A3D76='e'; }\n   } len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'g': case 'G':\n   gf=ARG(double,8); if(gf<0.0) { flags|=0x100; gf=-gf; }\n   D_800A3D76=c-2; str=func_80098F34(gf,fprec,D_800AE850+0x86A1); D_800A3D76='e';\n   len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'n': *ARG(int *,4)=total; continue;\n  case 'p': flags=0; prec=8; DIG=D_800A3D64; base=16; goto integer;\n  case 'h': flags|=0x40; c=*fmt++; goto convert;\n  case 'l': if ((c=*fmt++)=='l') { flags|=0x20; c=*fmt++; } goto convert;\n  case 'L': flags|=0x80; c=*fmt++; goto convert;\n  default: PUT(c); total++; continue;\n  }\n integer:\n  if(prec) flags&=~4;\n  if(flags&0x20) { wide=ARG(u64,8); if(issigned) if((s64)wide<0) { wide=-wide; flags|=0x100; } str=func_800988C8(wide,base); }\n  else { val=ARG(u32,4); if(flags&0x40) { if(issigned) val=(s16)val; else val=(u16)val; }\n   if(issigned) if((s32)val<0) { val=-val; flags|=0x100; } str=func_80098884(val,base);\n  }\n  len=(D_800AE850+0x87A0)-str;\n pad:\n  prefix=0;\n  if(ALT && base!=10 && !issigned && *str!='0') { prefix=1; if(base==16) prefix=2; }\n  if((flags&5)==4) prec=width;\n  if(prec) {\n   if(flags&0x10A) {\n    prec--;\n    if(isfloat) {\n     width--; total++;\n     if(flags&0x100) { PUT('-'); }\n     else if(--CNT==0) func_800987C0((flags&2)?'+':' '); else *OUT++=(flags&2)?'+':' ';\n     flags&=~0x10A;\n    }\n   }\n   prec-=prefix;\n   while(len<prec) {\n    if(isfloat) { PUT('0'); width--; total++; prec--; }\n    else { *--str='0'; len++; }\n   }\n  }\n  if(prefix) { if(prefix==2) *--str=DIG[16]; *--str='0'; len+=prefix; }\n  if(flags&0x10A) { len++; --str; if(flags&0x100) *str='-'; else *str=(flags&2)?'+':' '; }\n emit:\n  if(!(flags&1)) { while(len<width) { PUT(' '); width--; total++; } }\n  width-=len; total+=len;\n  while(len-- !=0) { PUT(*str++); }\n  while(width>0) { PUT(' '); width--; total++; }\n }\n}\n\n"
   },

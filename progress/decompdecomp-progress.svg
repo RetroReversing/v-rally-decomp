@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
-<title id="title">1,766 / 2,084 functions matched (84.7%)</title>
+<title id="title">1,768 / 2,084 functions matched (84.8%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="450" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">n64</text>
-<text x="20" y="59" font-size="16">1,766 / 2,084 functions matched (84.7%)</text>
+<text x="20" y="59" font-size="16">1,768 / 2,084 functions matched (84.8%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="677.927" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="678.695" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 1,766</text>
+<text x="36" y="118" font-size="13">Matched: 1,768</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 318</text>
+<text x="236" y="118" font-size="13">Attempt: 316</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
@@ -2147,8 +2147,8 @@
 <g><title>func_80035A10: {&#x27;matched&#x27;: 1}</title>
 <rect x="710.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80035B04: {&#x27;attempt&#x27;: 1}</title>
-<rect x="720.000" y="240" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80035B04: {&#x27;matched&#x27;: 1}</title>
+<rect x="720.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80035C4C: {&#x27;attempt&#x27;: 1}</title>
 <rect x="730.000" y="240" width="8.000" height="8" fill="#bf8700"/>
@@ -5963,8 +5963,8 @@
 <g><title>viMgrMain: {&#x27;matched&#x27;: 1}</title>
 <rect x="630.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_800911B0: {&#x27;attempt&#x27;: 1}</title>
-<rect x="640.000" y="400" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_800911B0: {&#x27;matched&#x27;: 1}</title>
+<rect x="640.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_800914C0: {&#x27;matched&#x27;: 1}</title>
 <rect x="650.000" y="400" width="8.000" height="8" fill="#238636"/>
