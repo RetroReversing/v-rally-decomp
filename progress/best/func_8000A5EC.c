@@ -49,8 +49,8 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   type = im->type;
   if (type == 16)
   {
-    *((u16 *) (inline_fn23(o) + 0x52)) = 0;
     new_var2 = inline_fn2(im, 4);
+    *((u16 *) (inline_fn23(o) + 0x52)) = 0;
     *inline_fn23(inline_fn23(o) + 0x54) = 2;
     *inline_fn23(inline_fn23(o) + 0x55) = 0;
     *((u16 *) (inline_fn23(o) + 0x50)) = new_var2;

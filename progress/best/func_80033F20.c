@@ -1,4 +1,5 @@
 extern s32 D_800D065C;
+extern u8 D_800C02AE[];
 extern s32 D_800B6164;
 extern s32 D_8009EB80;
 extern u8 D_8009EB90[];
@@ -57,8 +58,8 @@ void func_80033F20(A *a, B *b, C *c)
   slew = *((s32 *) (((u8 *) state) + 0x57C));
   t = *((s32 *) (((u8 *) motion) + 0x170));
   mode = *((s32 *) (((u8 *) motion) + 0x160));
-  new_var4 = 1800;
   rev = *((s32 *) (((u8 *) motion) + 0x164));
+  new_var4 = 1800;
   new_var3 = *((s32 *) (((u8 *) cfg) + 0x34));
   if (t)
   {
@@ -85,7 +86,7 @@ void func_80033F20(A *a, B *b, C *c)
         x = *((u16 *) (p + 24));
       }
     }
-    lim = *((s32 *) ((D_8009EB90 - 16) + (D_8009EB80 * 24)));
+    lim = *((s32 *) (D_8009EB90 + (D_8009EB80 * 24)));
     new_var2 = x;
     if (new_var2 < lim)
     {
@@ -95,13 +96,9 @@ void func_80033F20(A *a, B *b, C *c)
     {
       x = cap;
     }
-    D_800D065C = x;
+    *(s32 *)((D_800C02AE + 0x10000) + 0x3AE) = x;
     D_800B6164 = b->limit;
-    delta = speed;
-    if (delta < 0)
-    {
-      delta = -delta;
-    }
+    delta = (speed < 0) ? -speed : speed;
     delta = x - delta;
     if (speed < new_var4)
     {
@@ -129,7 +126,7 @@ void func_80033F20(A *a, B *b, C *c)
     }
     goto done;
     special:
-    delta = (new_var = (rev != 3) ? (-2000) : (0)) - speed;
+    delta = (new_var = ((u32)(rev ^ 3) < 1) ? 0 : (-2000)) - speed;
 
     if (delta > 255)
     {

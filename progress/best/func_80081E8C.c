@@ -21,10 +21,10 @@ u32 func_80081E8C(u8 *dst, u32 len)
     {
       if (*size <= 0)
       {
-        func_80081040(*(s32 *) (D_800AE850 + 0x8AB0) + size[5] + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
+        func_80081040(D_800B7300 + size[5] + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
         *size = 8192;
         size[5] += 8192;
-        *ptr = size[-2];
+        size[-1] = size[-2];
       }
       n = rem;
       if (n >= (u32) *size)

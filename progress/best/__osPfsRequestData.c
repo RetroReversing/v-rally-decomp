@@ -1,30 +1,24 @@
-extern u8 D_800B60E0;
-extern char D_800C02AE[];
+/* Same-name source lead: __osPfsRequestData in marioparty; donor defaults. Destination verification required. */
+void __osPfsRequestData(u8 cmd) {
+    u8* ptr = (u8*)&__osPfsPifRam;
+    __OSContRequesFormat requestformat;
+    int i;
 
-typedef struct { u8 b[8]; } Pkt;
+    __osContLastCmd = cmd;
+    __osPfsPifRam.pifstatus = 1 ;
+    requestformat.dummy = 0xff ;
+    requestformat.txsize = 1 ;
+    requestformat.rxsize = 3 ;
+    requestformat.cmd = cmd;
+    requestformat.typeh = 0xff ;
+    requestformat.typel = 0xff ;
+    requestformat.status = 0xff ;
+    requestformat.dummy1 = 0xff ;
 
-void __osPfsRequestData(s8 arg0) {
-    Pkt sp;
-    register s32 var_a2;
-    Pkt *var_a3;
-
-    sp.b[0] = 0;
-    var_a2 = 0;
-    var_a3 = (Pkt *)(D_800C02AE + 0x7E82 + sp.b[0] - sp.b[0]);
-    *(s32 *)(D_800C02AE + 0x7EBE) = 1;
-    *(D_800C02AE + 0x3272) = arg0;
-    sp.b[0] = 0xFF;
-    sp.b[1] = 1;
-    sp.b[2] = 3;
-    sp.b[3] = arg0;
-    sp.b[4] = 0xFF;
-    sp.b[5] = 0xFF;
-    sp.b[6] = 0xFF;
-    sp.b[7] = 0xFF;
-    while (var_a2 < D_800B60E0) {
-        *var_a3 = sp;
-        var_a2++;
-        var_a3++;
+    for (i = 0; i < __osMaxControllers; i++) {
+        *((__OSContRequesFormat*)ptr) = requestformat;
+        ptr += sizeof(__OSContRequesFormat);
     }
-    *(u8 *)var_a3 = 0xFE;
+
+    *ptr = 0xfe ;
 }

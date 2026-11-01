@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Node
 {
   struct Node *next;
@@ -89,12 +91,12 @@ void func_8005A100(void)
   n = D_800A1468->cnt2;
   if (n != 0)
   {
-    p = D_800A1468->list2;
+    Node *r = D_800A1468->list2;
     while (n--)
     {
-      q = p;
-      p = p->next;
-      func_8007EE9C(q);
+      Node *t = r;
+      r = t->next;
+      func_8007EE9C(t);
     }
 
     D_800A1468->cnt2 = 0;
@@ -103,12 +105,12 @@ void func_8005A100(void)
   n = D_800A1468->cnt3;
   if (n != 0)
   {
-    p = D_800A1468->list3;
+    Node *r = D_800A1468->list3;
     while (n--)
     {
-      q = p;
-      p = p->next;
-      func_8007EE9C(q);
+      Node *t = r;
+      r = t->next;
+      func_8007EE9C(t);
     }
 
     D_800A1468->cnt3 = 0;
@@ -119,3 +121,4 @@ void func_8005A100(void)
   func_80059FB4();
   func_8005A0A8();
 }
+

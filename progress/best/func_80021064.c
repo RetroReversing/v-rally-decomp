@@ -1,3 +1,4 @@
+typedef struct VR210Manager { char *contacts; u16 threshold; u8 flags[4]; u8 pad0a[10]; u16 capacity; u8 pad16[2]; u16 head; } VR210Manager;
 #define W(p,o) (*(int *)((char *)(p)+(o)))
 #define P(p,o) (*(char **)((char *)(p)+(o)))
 #define H(p,o) (*(s16 *)((char *)(p)+(o)))
@@ -28,7 +29,7 @@ void func_80021064(void *list)
   s16 c[3];
   char *obj;
   int new_var3;
-  char *manager;
+  VR210Manager *manager;
   char *snapshot;
   char *particle;
   char *contact;
@@ -44,7 +45,9 @@ void func_80021064(void *list)
   int j;
   long v;
   int extra;
-  volatile int trigger;
+  int trigger;
+  int wx, wy, wz;
+  unsigned five;
   int world[3];
   func_8002FD68();
   obj = P(list, 0);
@@ -55,7 +58,7 @@ void func_80021064(void *list)
       for (; obj; obj = P(obj, 4))
       {
         snapshot = P(obj, 0x38) + 12;
-        manager = P(P(obj, 0x38), 0);
+        manager = (VR210Manager *)P(P(obj, 0x38), 0);
         velocity = W(P(obj, 0x58), 0);
         for (i = D_800AFA6C & 1; i < 4; i += 2)
         {
@@ -70,40 +73,17 @@ void func_80021064(void *list)
           y = W(P(obj, 0x80), 4) + 30;
           switch (type)
           {
-            case 4:
-              effect = 3;
-              break;
-
-            case 5:
-              effect = (D_8009EB80 == 7) ? (1) : (4);
-              break;
-
-            case 6:
-              effect = (D_8009EB80 == 3) ? (4) : (1);
-              break;
-
-            case 7:
-
-            case 8:
-
-            case 9:
-
-            case 10:
-
-            case 11:
-              effect = 2;
-              break;
-
-            default:
-              goto special;
-
+            case 7: effect = 3; break;
+            case 6: effect = (D_8009EB80 == 7) ? 1 : 4; break;
+            case 4: case 8: effect = (D_8009EB80 == 3) ? 4 : 1; break;
+            case 9: effect = 2; break;
+            case 5: case 10: case 11: default: goto special;
           }
-
           if ((velocity > 1000) && (D_800AFA6C & 2))
           {
             func_800980C4(osGetTime());
-            a[0] = (a[1] = (a[2] = 0));
-            particle = func_8002EB34(manager, effect, a);
+            b[0] = 0; b[1] = 0; b[2] = 0;
+            particle = func_8002EB34(manager, effect, b);
             new_var2 = func_80098090();
             H(particle, 6) = y;
             H(particle, 4) = (x + (new_var2 % 31)) - 15;
@@ -112,8 +92,8 @@ void func_80021064(void *list)
           special:
           if ((((U(D_800C35A0, 0x1e) == 0) && (U(D_800C35A0, 0xe) == 1)) && ((U(D_800C811C, 4) == 3) & (type == 2))) && (((u32) (v + 100)) > 200))
           {
-            a[0] = (a[1] = (a[2] = 0));
-            particle = func_8002EB34(manager, effect, a);
+            b[0] = 0; b[1] = 0; b[2] = 0;
+            particle = func_8002EB34(manager, effect, b);
             H(particle, 4) = x;
             H(particle, 6) = y;
             H(particle, 8) = z;
@@ -124,92 +104,62 @@ void func_80021064(void *list)
           {
             continue;
           }
-          trigger = 0;
           switch (type)
           {
-            case 2:
-              effect = (D_8009EB80 == 7) ? (1) : (4);
-              a[0] = (a[1] = 0);
-              a[2] = -256;
-              func_8002E514(P(obj, 0x5c) + 0x40, a, a);
-              trigger = 1;
-              break;
-
-            case 3:
-              effect = (D_8009EB80 == 3) ? (4) : (1);
-              break;
-
-            case 4:
-              effect = 1;
-              break;
-
-            case 5:
-              effect = 3;
-              break;
-
             case 6:
-              effect = 2;
-              break;
-
-            case 7:
-              effect = 1;
-              continue;
-
-            case 8:
-              effect = 0;
-              break;
-
-            default:
-              continue;
-
+              effect = (D_8009EB80 == 7) ? 1 : 4;
+              a[0] = 0; a[1] = 0; a[2] = -256;
+              func_8002E514(P(obj, 0x5c) + 0x40, a, a);
+              goto velocity_scale;
+            case 4: effect = (D_8009EB80 == 3) ? 4 : 1; break;
+            case 5: case 8: effect = 1; break;
+            case 7: effect = 3; break;
+            case 9: effect = 2; break;
+            case 10: effect = 1; continue;
+            case 2: case 3: case 11: effect = 0; break;
+            default: continue;
           }
-
-          if (trigger && (v > 0))
+          goto zero_velocity;
+velocity_scale:
+          if (v > 0)
           {
             func_8002D3AC(a, a, 0, v, b);
+            goto emit_particle;
           }
-          else
-          {
-            b[0] = (b[1] = (b[2] = 0));
-          }
+zero_velocity:
+          b[0] = 0; b[1] = 0; b[2] = 0;
+emit_particle:
           particle = func_8002EB34(manager, effect, b);
           H(particle, 4) = x;
           H(particle, 6) = y;
           H(particle, 8) = z;
         }
 
-        flags = manager;
-        for (i = 0; i < 4; i++, flags++)
+        for (i = 0, five = 0; i < 4; i++, five += 5)
         {
+
           if (W(P(obj, 0x80), 0x310 + (i * 4)) >= 0)
           {
-            if (B(flags, 6))
-            {
-              B(flags, 6) = 0;
-            }
-            continue;
+            goto clear_flag;
           }
           type = W(P(obj, 0x80), 0x320 + (i * 4));
           v = W(P(obj, 0x64), 0x1dc + (i * 4));
-          W(P(obj, 0x68), 8 + (i * 4)) = (type == 2) ? ((v < 0) ? (-v) : (v)) : (0);
-          trigger = type == 4;
-          trigger = (type == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && trigger);
-          if ((((!trigger) && (W(P(obj, 0x48), 0) < 4)) && ((func_8001FEE8(obj) + 1) > 76)) && ((D_8009EB80 != 3) & (D_8009EB80 != 7)))
+          if (type == 2) {
+            W(P(obj, 0x68), 8 + i * 4) = v < 0 ? -v : v;
+          } else {
+            W(P(obj, 0x68), 8 + i * 4) = 0;
+          }
+          if ((((!((W(P(obj, 0x80), 0x320 + i * 4) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && (W(P(obj, 0x80), 0x320 + i * 4) == 4)))) && (W(P(obj, 0x48), 0) < 4)) && (func_8001FEE8(obj) >= 76)) && ((D_8009EB80 != 3) & (D_8009EB80 != 7)))
           {
             func_8002FBD4(obj, 65, 2);
           }
           if (((u32) (v + 2000)) > 4000)
           {
-            if (!trigger)
+            if (!((W(P(obj, 0x80), 0x320 + i * 4) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && (W(P(obj, 0x80), 0x320 + i * 4) == 4))))
             {
-              if (B(flags, 6))
-              {
-                B(flags, 6) = 0;
-              }
-              continue;
+              goto clear_flag;
             }
-            contact = P(manager, 0) + (U(manager, 0x18) * 36);
-            new_var3 = (0x12c + (i * 40)) + 20;
+            contact = manager->contacts + (manager->head * 36);
             {
               a[0] = W(P(obj, 0x64), (0x8c + (i * 40)) + (0 * 4));
               a[1] = W(P(obj, 0x64), (0x8c + (i * 40)) + (1 * 4));
@@ -217,73 +167,76 @@ void func_80021064(void *list)
             }
             func_8002E514(P(obj, 0x5c) + 0x40, a, b);
             {
-              world[0] = (W(contact, 0 * 4) = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0]);
-              world[1] = W(P(obj, 0x5c), 0x54 + (1 * 4)) + b[1];
-              W(contact, 1 * 4) = world[1];
-              world[2] = W(P(obj, 0x5c), 0x54 + (2 * 4)) + b[2];
+              wx = (W(contact, 0 * 4) = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0]);
+              wy = W(P(obj, 0x5c), 0x54 + (1 * 4)) + b[1];
+              W(contact, 1 * 4) = wy;
+              wz = W(P(obj, 0x5c), 0x54 + (2 * 4)) + b[2];
+              W(contact, 2 * 4) = wz;
             }
-            H(contact, 0x12) = W(P(obj, 0x64), 0x12c + (i * 40)) - world[0];
-            H(contact, 0x14) = W(P(obj, 0x64), 0x130 + (i * 40)) - world[1];
-            H(contact, 0x16) = W(P(obj, 0x64), 0x134 + (i * 40)) - world[2];
+            new_var3 = five * 2;
+            H(contact, 0x12) = W(P(obj, 0x64), 0x12c + new_var3 * 4) - wx;
+            H(contact, 0x14) = W(P(obj, 0x64), 0x130 + new_var3 * 4) - wy;
+            H(contact, 0x16) = W(P(obj, 0x64), 0x134 + new_var3 * 4) - wz;
+            new_var3 += 5;
+            new_var3 *= 4;
             {
-              a[0] = W(P(obj, 0x64), ((0x8c + (i * 40)) + 20) + (0 * 4));
-              a[1] = W(P(obj, 0x64), ((0x8c + (i * 40)) + 20) + (1 * 4));
-              a[2] = W(P(obj, 0x64), ((0x8c + (i * 40)) + 20) + (2 * 4));
+              a[0] = W(P(obj, 0x64), 0x8c + new_var3 + 0 * 4);
+              a[1] = W(P(obj, 0x64), 0x8c + new_var3 + 1 * 4);
+              a[2] = W(P(obj, 0x64), 0x8c + new_var3 + 2 * 4);
             }
-            W(contact, 2 * 4) = world[2];
             func_8002E514(P(obj, 0x5c) + 0x40, a, c);
             {
               H(contact, 12 + (0 * 2)) = c[0] - b[0];
-              H(contact, 24 + (0 * 2)) = W(P(obj, 0x64), new_var3 + (0 * 4)) - world[0];
               H(contact, 12 + (1 * 2)) = c[1] - b[1];
               H(contact, 12 + (2 * 2)) = c[2] - b[2];
-              H(contact, 24 + (1 * 2)) = W(P(obj, 0x64), new_var3 + (1 * 4)) - world[1];
-              H(contact, 24 + (2 * 2)) = W(P(obj, 0x64), new_var3 + (2 * 4)) - world[2];
+              H(contact, 24 + (0 * 2)) = W(P(obj, 0x64), 0x12c + new_var3 + 0 * 4) - wx;
+              H(contact, 24 + (1 * 2)) = W(P(obj, 0x64), 0x12c + new_var3 + 1 * 4) - wy;
+              H(contact, 24 + (2 * 2)) = W(P(obj, 0x64), 0x12c + new_var3 + 2 * 4) - wz;
             }
             W(contact, 32) |= 1;
-            B(flags, 6) = 1;
-            new_var = 1 * 2;
-            {
-              world[2] = H(contact, 24 + (2 * 2)) - H(contact, 12 + (2 * 2));
-              y = new_var;
-              world[0] = H(contact, 24 + (0 * 2)) - H(contact, 12 + (0 * 2));
-              world[1] = H(contact, 24 + y) - H(contact, 12 + y);
-            }
+            manager->flags[i] = 1;
+            world[0] = H(contact, 24) - H(contact, 12);
+            world[1] = H(contact, 26) - H(contact, 14);
+            world[2] = H(contact, 28) - H(contact, 16);
             func_8002E778(world, world);
-            world[0] += world[1] + world[2];
-            trigger = U(manager, 4) < world[0];
+            world[0] = world[0] + (world[1] + world[2]);
+            trigger = manager->threshold < world[0];
           }
           else
           {
-            trigger = B(flags, 6);
+            trigger = manager->flags[i];
           }
           if (trigger)
           {
-            B(flags, 6) = 0;
-            U(manager, 0x18)++;
-            if (U(manager, 0x18) == U(manager, 0x14))
+            manager->flags[i] = 0;
+            manager->head++;
+            if (manager->head == manager->capacity)
             {
-              U(manager, 0x18) = 0;
+              manager->head = 0;
             }
           }
+          goto next_flag;
+clear_flag:
+          if (manager->flags[i]) manager->flags[i] = 0;
+next_flag:;
         }
 
         for (i = 0; i < 4; i++)
         {
-          if (!B(manager, 6 + i))
+          if (!manager->flags[i])
           {
             for (n = 0; n < 2; n++)
             {
               {
-                a[0] = W(P(obj, 0x64), ((0x8c + (i * 40)) + (n * 20)) + (0 * 4));
-                a[1] = W(P(obj, 0x64), ((0x8c + (i * 40)) + (n * 20)) + (1 * 4));
-                a[2] = W(P(obj, 0x64), ((0x8c + (i * 40)) + (n * 20)) + (2 * 4));
+                a[0] = ((s32 *)P(obj, 0x64))[0x23 + i * 10 + n * 5 + 0];
+                a[1] = ((s32 *)P(obj, 0x64))[0x23 + i * 10 + n * 5 + 1];
+                a[2] = ((s32 *)P(obj, 0x64))[0x23 + i * 10 + n * 5 + 2];
               }
               func_8002E514(P(obj, 0x5c) + 0x40, a, b);
               {
-                W(P(obj, 0x64), ((0x12c + (i * 40)) + (n * 20)) + (0 * 4)) = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0];
-                W(P(obj, 0x64), ((0x12c + (i * 40)) + (n * 20)) + (1 * 4)) = W(P(obj, 0x5c), 0x54 + (1 * 4)) + b[1];
-                W(P(obj, 0x64), ((0x12c + (i * 40)) + (n * 20)) + (2 * 4)) = W(P(obj, 0x5c), 0x54 + (2 * 4)) + b[2];
+                ((s32 *)P(obj, 0x64))[0x4b + i * 10 + n * 5 + 0] = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0];
+                ((s32 *)P(obj, 0x64))[0x4b + i * 10 + n * 5 + 1] = W(P(obj, 0x5c), 0x54 + (1 * 4)) + b[1];
+                ((s32 *)P(obj, 0x64))[0x4b + i * 10 + n * 5 + 2] = W(P(obj, 0x5c), 0x54 + (2 * 4)) + b[2];
               }
             }
 
@@ -309,8 +262,12 @@ void func_80021064(void *list)
         {
           v = W(P(obj, 0x64), 0x1dc + (i * 4));
           type = W(P(obj, 0x80), 0x320 + (i * 4));
-          W(P(obj, 0x68), 8 + (i * 4)) = (type == 2) ? ((v < 0) ? (-v) : (v)) : (0);
-          if ((((u32) (v + 2000)) > 4000) && (type == 2))
+          if (type == 2) {
+            W(P(obj, 0x68), 8 + i * 4) = v < 0 ? -v : v;
+          } else {
+            W(P(obj, 0x68), 8 + i * 4) = 0;
+          }
+          if ((((u32) (v + 2000)) > 4000) && (W(P(obj, 0x80), 0x320 + i * 4) == 2))
           {
             func_8002FBD4(obj, 130, 2);
           }

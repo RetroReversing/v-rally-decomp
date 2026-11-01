@@ -4,7 +4,6 @@ typedef struct
   u16 count;
   u8 rest[0x2AE];
 } Entry;
-extern Entry *D_800D0634;
 extern u8 D_800C02AE[];
 void func_8006C024(s32, s32);
 void func_8006BA44(s32, s32);
@@ -15,33 +14,20 @@ void func_8006C780(void);
 void func_8006F8E0(void)
 {
   s32 outer = 0;
-  s32 *new_var;
   s32 inner;
   do
   {
     s32 index = outer & 0xff;
     inner = 0;
-    if (D_800D0634[index].count != 0)
+    if ((*(Entry **)(D_800C02AE + 0x10386))[index].count != 0)
     {
       unsigned short v1;
-      s32 v0;
       s32 base;
       do
       {
         func_8006C024(index, inner & 0xff);
-        new_var = &v0;
         v1 = index;
-        base = *((s32 *) (D_800C02AE + 0x10386));
-        inner = v1;
-        v0 = inner << 1;
-        v0 = (*new_var) + inner;
-        v0 = (*new_var) << 2;
-        v0 = (*new_var) - inner;
-        v0 = (*new_var) << 4;
-        v0 = v0 + inner;
-        v0 = v0 << 2;
-        v0 = v0 + base;
-        v1 = *((u16 *) (v0 + 0x14));
+        v1 = ((Entry *) (*((s32 *) (D_800C02AE + 0x10386))))[v1].count;
         inner++;
       }
       while (((u32) (inner & 0xff)) < ((u32) v1));

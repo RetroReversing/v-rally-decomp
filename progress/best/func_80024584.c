@@ -24,8 +24,8 @@ void func_80024584(Node **list)
   s32 frac;
   s32 v;
   s32 m;
+  s32 w;
   s32 *tb;
-  s32 *p;
 
   n = *list;
   if (n != NULL) {
@@ -59,7 +59,8 @@ void func_80024584(Node **list)
         i = n->cfg->thr;
       }
       i *= pos;
-      m = ((0x100 - ((n->cfg->damp * 25) >> 7)) * (((i >> 8) - sq) >> 10)) * s->vol;
+      w = ((i >> 8) - sq) >> 10;
+      m = ((0x100 - ((n->cfg->damp * 25) >> 7)) * w) * s->vol;
       s->c = pos;
       s->d = sq;
       s->out = m >> 12;

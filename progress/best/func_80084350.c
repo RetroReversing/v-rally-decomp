@@ -1,4 +1,4 @@
-#define D_800B7300 (*(s32 *)(&D_800AE850+0x8AB0))
+#define D_800B7300 (*(s32 *)(&D_800AE850+0x18AB0))
 #define sp32 (sp28+10)
 #define sp34 (sp28+12)
 #define sp38 (sp28+16)

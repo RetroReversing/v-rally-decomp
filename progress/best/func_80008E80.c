@@ -18,22 +18,20 @@ extern s32 osVirtualToPhysical(void *);
 extern void func_80008C8C(void *, s32);
 void func_80008E80(O *o, E *in, s32 n, u16 *out)
 {
-  volatile char pad[8];
   s32 remaining = n;
   s32 new_var;
   s32 i;
   s32 j;
   u16 start;
+  volatile char pad[8];
   new_var = n;
   j = 0;
   if (new_var > 0)
   {
-    u16 *p = out;
     do
     {
-      *p = 0xffff;
+      out[j] = 0xffff;
       j++;
-      p++;
     }
     while (j < new_var);
   }

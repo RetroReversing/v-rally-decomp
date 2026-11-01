@@ -101,7 +101,7 @@ void func_80073B64(void *raw0, void *arg1)
   s32 temp_s0;
   s32 temp_s0_5;
   s32 temp_s1;
-  s32 temp_s2;
+  u16 temp_s2;
   u16 temp_s2_3;
   s32 temp_v1;
   s32 var_a1;
@@ -112,7 +112,8 @@ void func_80073B64(void *raw0, void *arg1)
   float scale;
   int new_var;
   u32 temp_s2_2;
-  u32 temp_v0_2;
+  s32 header_width;
+  u16 temp_v0_2;
   void *temp_v0;
   void *var_s2;
   s16 second_icon_y;
@@ -137,16 +138,16 @@ void func_80073B64(void *raw0, void *arg1)
   func_80099DF8(&sp40, &D_800A5D50);
   sp10E = 0;
   new_var = func_8000C9B0(raw0 + 0x40, &sp40, 1, 1.0f, 1);
-  temp_s1 = D_800A17EA;
-  temp_s1 += D_800A17E9;
-  temp_s1 += new_var;
-  sp114 = temp_s1 & 0xFFFF;
+  header_width = D_800A17EA;
+  header_width += D_800A17E9;
+  header_width += new_var;
+  sp114 = header_width & 0xFFFF;
   temp_v0_2 = ((u32) sp114) >> 1;
+  temp_s0_2 = 0xA0 - temp_v0_2;
   temp_v0_2 += 0xA0;
-  temp_s0_2 = 0x140 - temp_v0_2;
   func_800735D0(raw0, temp_s0_2);
   func_8000C22C(((__repair_field_40 *) raw0)->value, 0xDC, 0xDC, 0x80, 0xFF);
-  func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x46, (unsigned short) (temp_s1 + 0xD), 0x11);
+  func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x46, (unsigned short) (header_width + 0xD), 0x11);
   var_fp = 0x5A;
   sp106 = temp_s0_2;
   func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) (temp_s0_2 + 2), 0x48, func_80057918(*((s32 *) (D_800C8200 + 0x128)), 0xCF), 1);
@@ -159,12 +160,12 @@ void func_80073B64(void *raw0, void *arg1)
       var_v0 = sp10E * 2;
       if ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5)
       {
-        temp_s1 = func_8000C9B0(raw0 + 0x40, func_80057918(*((s32 *) (D_800C8210 + 0x118)), 0xD1), 1, 1.0f, 1);
-        temp_s2 = temp_s1;
+        header_width = func_8000C9B0(raw0 + 0x40, func_80057918(*((s32 *) (D_800C8210 + 0x118)), 0xD1), 1, 1.0f, 1);
+        temp_s2 = header_width;
         func_8000C22C(((__repair_field_40 *) raw0)->value, 0xDC, 0xDC, 0x80, 0xFF);
         temp_s2 = ((u32) (temp_s2 & 0xFFFF)) >> 1;
         temp_s0_3 = var_fp + 0x1B;
-        func_8007347C(arg1, (0x97 - temp_s2) & 0xFFFF, (temp_s0_3 - 2) & 0xFFFF, (temp_s1 + 0xF) & 0xFFFF, 0x11);
+        func_8007347C(arg1, (0x97 - temp_s2) & 0xFFFF, (temp_s0_3 - 2) & 0xFFFF, (header_width + 0xF) & 0xFFFF, 0x11);
         var_fp = temp_s0_3;
         var_fp = var_fp + 0x12;
         func_8000C244(((__repair_field_40 *) raw0)->value, arg1, 0xA0 - temp_s2, (s16) temp_s0_3, func_80057918(*((s32 *) (D_800C8220 + 0x108)), 0xD1), 1);
