@@ -67,7 +67,8 @@
     "src/code_8007E9D4/func_80092BD0.c": "deac04918653f1076810d3fe2d60d36edcdc44ddffad36e7e7b003ed24c8ac7f",
     "src/code_80026E3C/func_80043150.c": "770dfe9277e476f8628e2d1fa480d8472ef36629c884ff987b04a293ae723319",
     "src/code_8004BEB4/func_8006CE1C.c": "0ccc9aebc9b028a3ea72460fb194318a568e8cd2579e4cb663e5effd06cae62f",
-    "src/code_8007E9D4/func_8008A31C.c": "2b0e96c29589ab4284622695fffd356f682d047c6e1adaf75da2cb8ecbdb468e"
+    "src/code_8007E9D4/func_8008A31C.c": "2b0e96c29589ab4284622695fffd356f682d047c6e1adaf75da2cb8ecbdb468e",
+    "src/code_8000D9A0/func_8000F660.c": "69d369c53f02cf2d0f32ebd2caa0f14e5bed8ea0dfed5b9175655215c670ee22"
   },
   "accepted": [
     "__osCheckPackId",
@@ -75,6 +76,7 @@
     "_pullSubFrame",
     "atan2_angle4096",
     "contInitControllers",
+    "func_8000F660",
     "func_800122A4",
     "func_800131C0",
     "func_80017B38",
@@ -149,5 +151,5 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1804
+  "matched_app": 1805
 }

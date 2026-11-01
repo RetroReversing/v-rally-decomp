@@ -1482,10 +1482,10 @@
       "name": "code_8000D9A0/func_8000F660",
       "target_path": "build/asm/nonmatchings/code_8000D9A0/func_8000F660.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8000D9A0/func_8000F660.s"
+        "complete": true,
+        "source_path": "src/code_8000D9A0/func_8000F660.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8000D9A0/func_8000F660.o"
     },
     {
       "name": "code_8000D9A0/func_80010128",

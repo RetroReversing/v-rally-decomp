@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Game { u8 pad0[0xE]; u16 e; u8 pad10[0xE]; u16 mode; u8 pad20[0xC]; u16 flags; } Game;
 extern s32 *D_800C8048;
 extern Game *D_800C35A0;
@@ -175,9 +177,9 @@ void func_8000F660(void)
   D_800B65F0 = 0;
   D_800B65F4 = 0x46;
   initial_mode = *((u16 *) (((char *) D_800C35A0) + 0x1E));
-  *(s32 *)0x800C7040 = temp_v0;
+  *(s32 *)0x800B7040 = temp_v0;
   D_800C34F4 = 0;
-  *(s32 *)(D_800C02AE + 0x684E) = 0;
+  D_800B6AFC = 0;
   if (initial_mode == 7)
   {
     func_80050F08();

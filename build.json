@@ -24,6 +24,20 @@
     "-mips3",
     "-mgp32",
     "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147546720,
+   "end": 2147546721
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
     "-O2"
    ],
    "timeout": 20,
@@ -7003,7 +7017,9 @@
    "seg": "code_8000D9A0",
    "vram": 2147546720,
    "rom": 66144,
-   "asm": "asm/nonmatchings/code_8000D9A0/func_8000F660.s"
+   "asm": "asm/nonmatchings/code_8000D9A0/func_8000F660.s",
+   "c": "src/code_8000D9A0/func_8000F660.c",
+   "own": {}
   },
   {
    "name": "func_80010128",
