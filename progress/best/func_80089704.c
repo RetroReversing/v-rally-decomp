@@ -30,6 +30,7 @@ void func_80089704(s32 pptr, s32 wptr) {
     s32 b;
     u8 *p;
     f64 scale;
+    u8 unused[8];
     MusWave *wave;
 
     ptr = (MusPtrBank *)pptr;
@@ -38,8 +39,11 @@ void func_80089704(s32 pptr, s32 wptr) {
     ptr->flags |= 0x80000000;
     func_8008989C((s32 *)&ptr->basenote, pptr, 3);
     func_8008989C((s32 *)ptr->wave_list, pptr, ptr->count);
+    i = 0;
+    if (ptr->count > 0) {
     scale = D_800A6DB8;
-    for (i = 0, off = 0; i < ptr->count; i++, off += 4) {
+    off = 0;
+    do {
         p = ptr->detune + off;
         b = *p;
         if (b & 0x80) c = (b & 0xFF) - 0x100; else c = b & 0xFF;
@@ -59,6 +63,9 @@ void func_80089704(s32 pptr, s32 wptr) {
             if (wave->type == 0)
                 wave->book += pptr;
         }
+        i++;
+        off += 4;
+    } while (i < ptr->count);
     }
     osWritebackDCacheAll();
 }

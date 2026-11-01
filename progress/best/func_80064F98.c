@@ -81,13 +81,12 @@ void func_80064F98(void)
       }
       else
       {
-        s32 h;
         s32 c;
+        s32 h;
         func_80097E30(buf, 0, 15);
         h = D_800A56CC;
         c = D_800A56CE;
-        *((s16 *) buf) = h;
-        buf[2] = c;
+ do { *((s16 *) buf) = h; buf[2] = c; } while (0);
         func_80052E94(t - first, buf + 2);
         func_800980D0(text, D_800A56D0);
         func_800596F4(w2, w2->x, w2->y + ((i - 1) * 22), text);
@@ -127,7 +126,8 @@ void func_80064F98(void)
         s32 c;
         func_80097E30(buf, 0, 15);
         h = D_800A56CC;
- do { c = D_800A56CE; *((s16 *) buf) = h; buf[2] = c; } while (0);
+        c = D_800A56CE;
+ do { *((s16 *) buf) = h; buf[2] = c; } while (0);
         func_80052E94(t - first, buf + 2);
         func_800980D0(text, D_800A56D0);
         func_800596F4(w2, w2->x, w2->y + ((i - 1) * 22), text);

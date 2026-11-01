@@ -1,5 +1,6 @@
 #define R D_800C35A0
 #define H(p) (*(u16*)(p))
+#define VH(p) (*(volatile u16*)(p))
 #define W(p) (*(u32*)(p))
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
@@ -25,19 +26,19 @@ void func_8006E394(void)
   }
 
   s = D_800C02AE + 0x6E64;
-  x = *((volatile u16 *) s);
+  x = H(s);
   D_800AE850[0x7FCA] = (x >> 14) & 1;
   if (D_800AE850[0x7FCA])
   {
     D_800AE850[0x7FC8] = (x >> 13) & 1;
     D_800AE850[0x7FC9] = x >> 15;
     H(R + 14) = (x >> 8) & 3;
-    R[0x32] = (H(s) >> 4) & 15;
+    R[0x32] = (VH(s) >> 4) & 15;
     used[R[0x32]] = 1;
     H((R + (R[0x32] * 40)) + 0x4e) = D_800C02AE[0x701e] & 15;
     if (H(R + 14) >= 2)
     {
-      R[0x33] = *((volatile u16 *) s);
+      R[0x33] = *((volatile u16 *) s) & 15;
       used[R[0x33]] = 1;
       H((R + (R[0x33] * 40)) + 0x4e) = D_800C02AE[0x701e] >> 4;
     }
