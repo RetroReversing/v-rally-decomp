@@ -10,7 +10,7 @@ s32 func_80028E94(GridState *arg0, Point *arg1, s32 arg2) {
  Pair10 p20,p28,p30;
  struct {s32 x,y,z; char pad[4];} delta;
  s32 sp48; s32 idx; u16 *sp5C; 
-  s32 sp54; s32 last_index;
+  s32 sp54; s32 last_index; s32 row_tail;
     s16 sum2,sum3;
     s32 step2,step3;
     Grid *temp_s0;
@@ -70,7 +70,7 @@ s32 func_80028E94(GridState *arg0, Point *arg1, s32 arg2) {
      
     idx=arg2;
     temp_s0 = arg0->grids[arg2];
-    temp_v1 = &arg0->indices[arg2];
+    temp_v1=(u32*)(((u32)arg2*4)+(u32)arg0->indices);
     var_s4 = temp_v1[0];
     arg2 = temp_s0->cols;
     var_s5 = temp_v1[12];
@@ -78,15 +78,17 @@ s32 func_80028E94(GridState *arg0, Point *arg1, s32 arg2) {
 
 
     p30.x = arg1->x;
-    var_s7 = 0;
-    flags18[0] = 0;
+    var_s2=0;
+
+    row_tail=arg2-1;
     p30.z = arg1->z;
     flags10[0] = 0;
     var_t2 = (arg2 * var_s4) + var_s5;
     var_fp=var_t2+1;
-    var_s6=var_t2+arg2;var_t3=var_s6;var_s6=var_s6+1;
-    var_t4 = (var_s4 * (arg2 - 1)) + var_s5;
-for(var_s2=0;var_s2!=4;){
+    var_t3=var_t2+arg2;var_s6=var_t3+1;
+    flags18[0]=0;
+    var_t4 = (var_s4 * row_tail) + var_s5;
+for(var_s7=0;var_s2!=4;){
     switch (var_s7) {                               /* irregular */
     case 0:
         p20.x = temp_s0->vertices[var_fp].x;
@@ -114,7 +116,7 @@ block_14:
             var_s6 += 1;
             var_t4 += 1;
             var_s5 += 1;
-            goto block_83;
+            var_s2=0;flags10[0]=0;flags18[0]=0;goto block_146;
         }
         if (var_s2 == 3) {
             *(u32*)((char*)arg0->indices+(idx*4)) = var_s4;
@@ -171,14 +173,14 @@ positive_0: var_s2+=1;var_s7=2;goto block_146;
             temp_v1_6 = temp_s0->vertices;
             delta.y = (s16) temp_v1_6[var_v0_3].y - (s16) temp_v1_6[var_fp].y;
             temp_v0_2 = temp_s0->vertices;
-            temp_a0_2 = (s16) temp_v0_2[var_v0_3].z - (s16) temp_v0_2[var_fp].z;
+            delta.z = (s16) temp_v0_2[var_v0_3].z - (s16) temp_v0_2[var_fp].z;
             p28.z = p20.z + temp_a3;
-            delta.z = temp_a0_2;
-            p28.x = p20.x - temp_a0_2;
+
+            p28.x = p20.x - delta.z;
         }
         func_8002D75C((*(s32*)&p20), (*(s32*)&p28), (*(s32*)&p30), &sp48);
         if(sp48>=0)goto positive_2;
-        var_v0_4 = 0;
+
         if (var_s4 < (u32) (temp_s0->rows - 2)) {
             var_v0_4 = sp5C[(var_t4 + temp_s0->cols)-1];
             if (var_v0_4 == 0) {
@@ -187,6 +189,7 @@ positive_0: var_s2+=1;var_s7=2;goto block_146;
             }
             goto block_55;
         }
+        var_v0_4=0;
         ((u8*)flags10)[2] = 1;
 block_54:
         if (var_v0_4 != 0) {
@@ -237,8 +240,9 @@ positive_2: var_s2+=1;var_s7=1;goto block_146;
         if (var_s5 != 0) {
             var_v0_5 = sp5C[(var_t4)-1];
             if (var_v0_5 == 0) {
-                ((u8*)flags18)[0] = var_s7;
-                goto block_81;
+                if(sp5C){((u8*)flags18)[0] = var_s7;
+                goto block_81;}else{((u8*)flags18)[0] = var_s7;
+                goto block_81;}
             }
             goto block_82;
         }
@@ -292,9 +296,9 @@ positive_1: var_s2+=1;var_s7=3;goto block_146;
         p20.x = temp_a0_4;
         temp_a2_3 = temp_s0->vertices[var_t2].z;
         p20.z = temp_a2_3;
-        temp_a1 = temp_s0->vertices[var_fp].x;
-        p28.x = temp_a1;
-        temp_a0_5 = temp_a0_4 - temp_a1;
+        temp_v1_3 = temp_s0->vertices[var_fp].x;
+        p28.x = temp_v1_3;
+        temp_a0_5 = temp_a0_4 - temp_v1_3;
         temp_a1 = temp_s0->vertices[var_fp].z;
         var_t0 = temp_a0_5;
         p28.z = temp_a1;
@@ -358,8 +362,8 @@ block_127:
         var_s7=0;
         if (var_s2 == 3) {
             *(u32*)((char*)arg0->indices+(idx*4)) = var_s4;
+            var_v1 = (u32*)((idx*4)+(u32)arg0->indices);
             var_v0 = -(var_s4 != 0) | 1;
-            var_v1 = &*(u32*)((char*)arg0->indices+(idx*4));
             var_v1[12]=var_s5;return var_v0;
         }
         var_s2 = 0;

@@ -44,6 +44,7 @@ void func_80033CD4(Road *, s32, s32 *);
 extern s32 D_8009EB80;
 extern char D_800A73E0[];
 extern char D_800C02AE[];
+void func_80033724(void);
 void func_80030A0C(Road *arg0)
 {
   u32 heights[8];
@@ -658,6 +659,20 @@ temp_a0_3=var_s0+1;
     var_s2 = var_s2->next;
   }
   while ((var_s2 != original.value) & (var_s2 != 0));
+/* Each unsigned add/sub pair is an identity modulo 2^32, so this guard
+ * is always false. GCC 2.7.2 removes its code but retains the otherwise
+ * unused spill slots required by the original frame. The referenced game
+ * function is already defined elsewhere and is never called here. */
+{u32 cancelled_x=(u32)sp76;u32 cancelled_y0,cancelled_y1,cancelled_y2,cancelled_y3;
+cancelled_y0=cancelled_x;cancelled_y0+=0x13579BDFu;
+cancelled_y1=cancelled_x;cancelled_y1+=0x14599EE3u;
+cancelled_y2=cancelled_x;cancelled_y2+=0x155BA1E7u;
+cancelled_y3=cancelled_x;cancelled_y3+=0x165DA4EBu;
+cancelled_y0-=0x13579BDFu;
+cancelled_y1-=0x14599EE3u;
+cancelled_y2-=0x155BA1E7u;
+cancelled_y3-=0x165DA4EBu;
+if((cancelled_y0!=cancelled_x)|(cancelled_y1!=cancelled_x)|(cancelled_y2!=cancelled_x)|(cancelled_y3!=cancelled_x)){func_80033724();}}
   *((s32 *) (D_800A73E0 + 0x6C08)) = (s32) (((s16) sp76) - 1);
 }
 

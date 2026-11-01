@@ -93,7 +93,8 @@ void func_8006BA44(s32 arg0, unsigned int arg1)
   temp_fs1 = ((f64) temp_s5) * D_800A57F8;
   do
   {
-    temp_fv1 = temp_fs1 + (((f64) (var_s4 & 0xFF)) * D_800A5800);
+    temp_s0 = var_s4 & 0xFF;
+    temp_fv1 = temp_fs1 + (((f64) (temp_s0)) * D_800A5800);
     if (temp_fs0 > temp_fv1)
     {
       var_a0 = (s32) temp_fv1;
