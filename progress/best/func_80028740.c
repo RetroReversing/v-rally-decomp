@@ -47,7 +47,7 @@ void func_80028740(Grid *start)
   volatile unsigned long new_var4;
   Grid *new_var3;
   Vertex v;
-  int world[5];
+  int world[1];
   Grid *p;
   Grid *g;
   int flip = 0;

@@ -15,7 +15,7 @@ void func_8006EE3C(u8 arg0)
   void *temp_t0;
   void *dest;
   u16 value;
-  temp_a0 = arg0 & 0xFF;
+  temp_a0 = arg0;
   temp_t0 = (temp_a0 * 0xE) + (D_800C02AE + 0x6E26);
   temp_a2 = D_800C35A0;
   temp_a3 = temp_a0 * 0x28;
@@ -33,11 +33,11 @@ void func_8006EE3C(u8 arg0)
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x44)) = (s8) (((unsigned long long) ((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xA) & 0x1F)) + 0x41);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x45)) = (s8) (((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 5) & 0x1F) + 0x41);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x46)) = (s8) (((*((u8 *) (((char *) temp_t0) + 1))) & 0x1F) + 0x41);
-  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x47)) = 0;
   value = *((u16 *) (((char *) temp_t0) + 2));
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x47)) = 0;
   temp_a0_2 = D_800C35A0;
   temp_a0_2 += temp_a3;
-  *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) ((value >> 0xC) + ((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xF) * 0x10));
+  *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) ((value >> 0xC) + (((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xF) * 0x10);
   temp_a2_2 = *((u8 *) (((char *) temp_t0) + 5));
   value = *((u16 *) (((char *) temp_t0) + 2));
   *((s8 *) (((char *) temp_a0_2) + 0x54)) = (s8) (temp_a2_2 & 3);
@@ -52,7 +52,6 @@ void func_8006EE3C(u8 arg0)
   *((s16 *) (((char *) temp_a1) + 0x66)) = (s16) (((((u32) (temp_a0_3 & 0xE00)) >> 9) * 0xA) - 0x14);
   temp_a2_2 = *((u8 *) (((char *) temp_t0) + 6));
   *((s8 *) (((char *) temp_a1) + 0x58)) = (s8) (temp_a2_2 & 3);
-  ;
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x59)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5A)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5B)) = temp_a2_2 >> 6;
@@ -62,4 +61,3 @@ void func_8006EE3C(u8 arg0)
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5E)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5F)) = (s8) (temp_a2_2 >> 6);
 }
-

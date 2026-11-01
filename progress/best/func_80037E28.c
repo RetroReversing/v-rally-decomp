@@ -66,7 +66,7 @@ extern u8 D_800C35C8;
 extern Snd *D_800C81D4;
 extern Cam *D_800C7F84;
 extern u8 D_800B6818;
-static inline static static static f32 inline_fn(s32 arg0)
+static inline static static static static f32 inline_fn(s32 arg0)
 {
   return (f32) (120 - arg0);
 }
@@ -76,10 +76,10 @@ void func_80037E28(void)
   Car *car;
   Audio *audio;
   Snd *snd;
-  
   Snd *snd1;
   f32 *vols;
   f32 *pv;
+  u16 new_var;
   f32 f;
   f32 g;
   f32 t;
@@ -186,7 +186,7 @@ void func_80037E28(void)
           }
           if (D_800C35C8 != 0xFF)
           {
-            if (D_800C35A0->mode || spd)
+            if ((new_var = D_800C35A0->mode) || spd)
             {
               func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
             }

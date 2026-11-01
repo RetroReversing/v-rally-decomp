@@ -29,9 +29,9 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
     *out = ret;
     *flag = 0;
     res->f14 = 0;
+    e = list;
     done = 0;
     called = 0;
-    e = list;
     for (c = 0; c < count; c++, e++) {
         if (!(e->mask & mask)) {
             continue;

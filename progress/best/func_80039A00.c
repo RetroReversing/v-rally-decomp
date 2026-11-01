@@ -21,13 +21,15 @@ void func_8003CC98();
 void func_80039A00(s32 ctx, s32 menu)
 {
     GState *g = D_800C35A0;
-    u32 i, count;
+    u32 i;
+    s32 yy, ww, hh;
+    u32 count;
     s32 off;
-    s32 base;
+    s32 x;
     Node *node;
     Rect *r;
     Obj *obj, *obj2;
-    s32 x, y, w, ix, yy, hh, ww, by;
+    s32 y, w, ix, by;
     s16 px, py;
 
     if (g->mode == 7)
@@ -37,7 +39,7 @@ void func_80039A00(s32 ctx, s32 menu)
     count = g->count;
     if (count == 0)
         return;
-    base = menu + 0x4C;
+#define base (menu + 0x4C)
     do {
         node = func_8004240C(((i - 1) * 2) | 1);
         r = node->rect;
@@ -54,7 +56,7 @@ void func_80039A00(s32 ctx, s32 menu)
         case 1:
             if (g->mode == 0) {
                 if (D_800ADFE0 >= 2) {
-                    if (g->entries[g->sel[1]].flags & 1) {
+                    if (!(g->entries[g->sel[1]].flags & 1)) goto flags4; {
                         px = w - 0x47;
                         py = y + 0x11;
                         obj = func_80040260(ctx, px, py, 5, func_8003CC50, 1);
@@ -70,9 +72,9 @@ void func_80039A00(s32 ctx, s32 menu)
                     }
                 }
                 g = D_800C35A0;
-                if (g->entries[g->sel[1]].flags & 1) {
+                {s32 index=((volatile GState*)g)->sel[1]; index=index*5; index <<=3; g=(GState*)((u8*)g+index); if(g->entries[0].flags & 1) {
                     py = y + 7;
-                    obj = func_80040260(ctx, ww - 0x4D, py, 5, NULL, 1);
+                    obj = func_80040260(ctx, (u16)ww + (u16)-0x4D, py, 5, NULL, 1);
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj = func_80040260(ctx, w - 0x74, py, 5, NULL, 1);
                     obj->unkA4 = func_80034FF0(base, 0);
@@ -80,9 +82,10 @@ void func_80039A00(s32 ctx, s32 menu)
                     obj = func_80040260(ctx, x + 0x32, py, 5, NULL, 1);
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj->unk7A = 1;
-                }
+                }}
+flags4:
                 g = D_800C35A0;
-                if (g->entries[g->sel[1]].flags & 4) {
+                {s32 index=((volatile GState*)g)->sel[1]; index=index*5; index <<=3; g=(GState*)((u8*)g+index); if(g->entries[0].flags & 4) {
                     by = yy + hh;
                     obj = func_80040260(ctx, ix, by - 0x12, 5, func_8003B884, 1);
                     obj->unkA4 = func_80034FF0(base, 0);
@@ -93,7 +96,7 @@ void func_80039A00(s32 ctx, s32 menu)
                     obj2->unk7A = 4;
                     obj2->unkA8 = D_800C7F84;
                     obj->unk8C = obj2;
-                }
+                }}
             } else {
                 if (g->entries[g->sel[1]].flags & 1) {
                     if (D_800ADFE1) {
@@ -114,7 +117,7 @@ void func_80039A00(s32 ctx, s32 menu)
                         obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
                         obj->unkA8 = D_800C7F84;
                     }
-                    py = yy + hh - 0x17;
+                    py = (u16)(yy + hh) + (u16)-0x17;
                     obj = func_80040260(ctx, ix + 0xA, py, 5, func_8003B614, 1);
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj->unk7A = 1;
@@ -145,7 +148,7 @@ void func_80039A00(s32 ctx, s32 menu)
                 } else {
                     if (g->entries[g->sel[i]].flags & 1) {
                         off = (node->kind == 3) ? 14 : 0;
-                        if (node->kind == 3) {
+                        switch(node->kind){case 3:{
                             if (D_800ADFE1) {
                                 s32 sx = ix + ww;
                                 py = y + 0x11;
@@ -153,14 +156,14 @@ void func_80039A00(s32 ctx, s32 menu)
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unk7A = 5;
                                 obj->unkA8 = D_800C7F84;
-                                obj = func_80040260(ctx, sx - 0x2F, py, 5, func_8003CC98, 1);
+                                obj = func_80040260(ctx, (u16)sx + (u16)-0x2F, py, 5, func_8003CC98, 1);
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unkA8 = D_800C7F84;
                             }
                             obj = func_80040260(ctx, ix + ww - 0x5E, y + 7, 5, NULL, 1);
                             obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
                             obj->unk7A = 1;
-                        } else {
+                        }break;default:{
                             if (D_800ADFE1) {
                                 py = y + 0x11;
                                 obj = func_80040260(ctx, ix, py, 5, func_8003CC98, 1);
@@ -174,7 +177,7 @@ void func_80039A00(s32 ctx, s32 menu)
                             obj = func_80040260(ctx, ix, y + 7, 5, NULL, 1);
                             obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
                             obj->unk7A = 1;
-                        }
+                        }break;}
                     }
                 }
             } else {
@@ -198,7 +201,7 @@ void func_80039A00(s32 ctx, s32 menu)
                         if (node->kind == 3)
                             ix = x + 6;
                         if (D_800ADFE1) {
-                            py = hh - 0x1D;
+                            py = (u16)hh + (u16)-0x1D;
                             obj = func_80040260(ctx, ix, py, 5, func_8003CC98, 1);
                             obj->unkA4 = func_80034FF0(base, 0);
                             obj->unk7A = 5;

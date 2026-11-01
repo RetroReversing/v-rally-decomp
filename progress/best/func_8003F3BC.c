@@ -58,7 +58,6 @@ void func_8003F3BC(s32 arg0, s32 arg1)
       x = r->x;
       y = r->y;
       switch (n) {
-case 0: break;
 
       case 1:
         dy = 0x4C;
@@ -80,10 +79,9 @@ case 0: break;
       if (CARFLAG(i)) {
         s1 = func_80040260(arg0, x, y + 10, 8, func_8003F05C, 1);
         s1->pack = func_80034FF0(arg1 + 0x4C, 0);
-        s1->alpha = 0xB4;
         s1->mode = 2;
         s1->node = D_800C7F84;
-s1->alpha = 0xB4;
+        s1->alpha = 0xB4;
       }
       s0 = func_80040260(arg0, x, r->y + dy, 8, func_8003EFF8, 1);
       s0->pack = func_80034FF0(arg1 + 0x4C, 0);

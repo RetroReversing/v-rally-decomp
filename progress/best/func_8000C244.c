@@ -51,8 +51,10 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
   {
     return 0;
   }
-  c = ctx;
-#define ctx c
+  {
+  Font *f = font;
+#define font f
+#define c ctx
   if (mode == 0)
   {
     dec = 1;
@@ -128,4 +130,5 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
     x += font->spacing;
   }
   return x - x0 - font->spacing;
+  }
 }

@@ -1,78 +1,111 @@
-extern void *D_800C3508;
-extern void *D_800C35A0;
-extern void *D_800A1468;
-extern s32 func_800407D0(void);
-extern s32 func_800595EC(void *, void *);
+#define SLOT_STATE (D_800C3508->teams[team].slots[arg1].obj->state)
+typedef struct 
+{
+  s32 pad0;
+  struct 
+  {
+    u8 pad[0x2C];
+    s32 state;
+  } *obj;
+  s32 pad8;
+} Slot;
+typedef struct 
+{
+  u8 pad[8];
+  Slot *slots;
+  u8 pad2[8];
+} Team;
+typedef struct 
+{
+  u8 pad[3];
+  u8 cur;
+  u8 pad4[0xC];
+  Team *teams;
+} League;
+extern League *D_800C3508;
+extern u8 *D_800C35A0;
+extern u8 *D_800A1468;
+extern void func_800407D0(void);
+extern void func_800595EC(void *);
 extern s32 func_8005A388(s32, s32);
-extern s32 func_8006F0E0(u8, void *);
-extern s32 func_8007A688(void);
-extern s32 D_800A5FB8;
-extern s32 D_800A5FC4;
-extern s32 D_800A5FD0;
-extern s32 func_800635A0;
-extern s32 func_80063790;
-extern s32 func_8006556C;
-extern s32 func_80065860;
-extern s32 func_80070C34;
-extern s32 func_8007159C;
-extern s32 func_8007A29C;
-extern s32 func_8007A9A8;
-extern s32 func_8007AA94;
+extern void func_8006F0E0(u8, u8 *);
+extern void func_8007A688(void);
+extern u8 D_800A5FB8[];
+extern u8 D_800A5FC4[];
+extern u8 D_800A5FD0[];
+extern void func_800635A0(void);
+extern void func_80063790(void);
+extern void func_8006556C(void);
+extern void func_80065860(void);
+extern void func_80070C34(void);
+extern void func_8007159C(void);
+extern void func_8007A29C(void);
+extern void func_8007A9A8(void);
+extern void func_8007AA94(void);
 s32 func_8007AD68(s32 arg0, s32 arg1)
 {
-  char *entry;
-  s8 temp_v1;
-  s8 new_var;
-  s32 mode;
-  u8 temp_s1;
-  *(((s8 *) D_800A1468) + 0x245) = 0;
+  char *__repair_addr;
+  u8 team;
+  int new_var;
+  u8 *new_var2;
+  s8 idx;
+  D_800A1468[0x245] = 0;
   func_8007A688();
-  entry = ((char *) D_800C35A0) + ((*(((u8 *) (((char *) D_800C35A0) + (*(((s8 *) D_800A1468) + 0x228)))) + 0x32)) * 0x28);
-  *((s16 *) (entry + 0x4E)) = (s16) (*(((u8 *) D_800A1468) + 0x237));
-  func_8006F0E0(*(((u8 *) D_800A1468) + 0x228), D_800A1468);
-  temp_v1 = *(((s8 *) D_800A1468) + 0x228);
-  temp_s1 = *(((u8 *) D_800C3508) + 3);
-  if (temp_v1 < ((*((u16 *) (((char *) D_800C35A0) + 0xE))) - 1))
+  __repair_addr = (char *) ((D_800C35A0 + ((D_800C35A0 + ((s8) D_800A1468[0x228]))[0x32] * 0x28)) + 0x4E);
+  *((s16 *) __repair_addr) = D_800A1468[0x237];
+  func_8006F0E0(D_800A1468[0x228], D_800A1468);
+  team = D_800C3508->cur;
+  if (((s8) D_800A1468[0x228]) < ((*((u16 *) (D_800C35A0 + 0xE))) - 1))
   {
-    new_var = (s8) (temp_v1 + 1);
-    *(((s8 *) D_800A1468) + 0x228) = new_var;
-    func_8005A388(arg0, arg1);
-    *(((s32 *) D_800A1468) + 0xA2) = (s32) (&func_8007A29C);
-    *(((s32 *) D_800A1468) + 0xA3) = (s32) (&func_8007A9A8);
-    *(((s32 *) D_800A1468) + 0xA4) = (s32) (&func_8007AA94);
-    mode = *((u16 *) (((char *) D_800C35A0) + 0x1E));
-    switch (mode)
+    if (func_80065860)
     {
-      case 1:
+      D_800A1468[0x228]++;
+      func_8005A388(arg0, arg1);
+    }
+    else
+    {
+      D_800A1468[0x228]++;
+      func_8005A388(arg0, arg1);
+    }
+    {
+      u8 *s = D_800A1468;
+      u8 *g = D_800C35A0;
+      *((void **) (s + 0x288)) = func_8007A29C;
+      *((void **) (s + 0x28C)) = func_8007A9A8;
+      *((void **) (s + 0x290)) = func_8007AA94;
+      switch (*((u16 *) (g + 0x1E)))
+      {
+        case 1:
 
-      case 2:
+        case 2:
 
-      case 3:
+        case 3:
 
-      case 4:
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 5;
-        break;
+        case 4:
+          SLOT_STATE = 5;
+          break;
 
-      case 0:
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 5;
-        break;
+        case 0:
+          SLOT_STATE = 5;
+          break;
 
-      case 5:
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 7;
-        break;
+        case 5:
+          SLOT_STATE = 7;
+          break;
 
-      default:
-        return 0;
+        default:
+          return 0;
+
+      }
 
     }
-
   }
   else
   {
-    *(((s8 *) D_800A1468) + 0x228) = 0;
-    *(((s8 *) D_800A1468) + 0x22B) = -1;
-    mode = *((u16 *) (((char *) D_800C35A0) + 0x1E));
-    switch (mode)
+    new_var = 0x228;
+    D_800A1468[new_var] = 0;
+    ((s8 *) D_800A1468)[0x22B] = -1;
+    switch (*((u16 *) (D_800C35A0 + 0x1E)))
     {
       case 1:
 
@@ -81,47 +114,34 @@ s32 func_8007AD68(s32 arg0, s32 arg1)
       case 3:
 
       case 4:
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 2;
-        *(((s32 *) D_800A1468) + 0xA2) = (s32) (&func_8006556C);
-        *(((s32 *) D_800A1468) + 0xA3) = (s32) (&func_80065860);
+        SLOT_STATE = 2;
+        func_800595EC(D_800A5FB8);
+        *((void **) (D_800A1468 + 0x288)) = func_8006556C;
+        *((void **) (D_800A1468 + 0x28C)) = func_80065860;
         break;
-        func_800595EC(&D_800A5FC4, D_800A1468);
 
       case 0:
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 2;
-        func_800595EC(&D_800A5FB8, D_800A1468);
-        *(((s32 *) D_800A1468) + 0xA2) = (s32) (&func_800635A0);
-        *(((s32 *) D_800A1468) + 0xA3) = (s32) (&func_80063790);
+        SLOT_STATE = 2;
+        func_800595EC(D_800A5FC4);
+        new_var2 = D_800A1468 + 0x288;
+        *((void **) new_var2) = func_800635A0;
+        *((void **) (D_800A1468 + 0x28C)) = func_80063790;
         break;
 
       case 5:
-        if (D_800A1468 || arg1)
-      {
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 3;
-        func_800595EC(&D_800A5FD0, D_800A1468);
-        *(((s32 *) D_800A1468) + 0xA2) = (s32) (&func_80070C34);
-        *(((s32 *) D_800A1468) + 0xA3) = (s32) (&func_8007159C);
+        SLOT_STATE = 3;
+        func_800595EC(D_800A5FD0);
+        *((void **) (D_800A1468 + 0x288)) = func_80070C34;
+        *((void **) (D_800A1468 + 0x28C)) = func_8007159C;
         func_800407D0();
         break;
-      }
-      else
-      {
-        *((s32 *) (((char *) (*((void **) (((char *) ((arg1 * 0xC) + (*((s32 *) (((char *) ((temp_s1 * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 8))))) + 4)))) + 0x2C)) = 3;
-        func_800595EC(&D_800A5FD0, D_800A1468);
-        *(((s32 *) D_800A1468) + 0xA2) = (s32) (&func_80070C34);
-        *(((s32 *) D_800A1468) + 0xA3) = (s32) (&func_8007159C);
-        func_800407D0();
-        break;
-      }
 
       default:
-        if (1)
-      {
         return 0;
-      }
 
     }
 
   }
   return 0;
 }
+

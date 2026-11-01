@@ -40,7 +40,7 @@ void func_8007950C(s32 arg0)
   char sp100[0x20];
   volatile s16 sp11E;
   volatile s32 sp124;
-  char *sp12C;
+#define sp12C sp40
   s32 *var_a1_3;
   s32 *var_a1_4;
   s32 *var_a2_2;
@@ -101,7 +101,6 @@ void func_8007950C(s32 arg0)
   var_s7 = 0x5A;
   func_80099DF8(&sp100, &D_800A5F14, nm);
   }
-  sp12C = sp40;
   func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xFF, 0xFF, 0xFF, 0xFF);
   func_80099DF8(&sp40, &D_800A5EB8);
   temp_s0_2 = func_8000C9B0(D_800C02AE + 0x7F5E, &sp40, 1, 1.0f, 1);

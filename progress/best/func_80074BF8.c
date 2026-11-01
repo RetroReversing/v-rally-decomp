@@ -68,7 +68,7 @@ void func_80074BF8(void *arg0, void *arg1)
   s32 temp_s0_9;
   s32 temp_s1;
   s32 temp_s1_2;
-  unsigned char temp_s1_3;
+  u16 temp_s1_3;
   s32 temp_v0_2;
   s32 var_s6;
   s32 var_v0;

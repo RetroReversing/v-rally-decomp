@@ -1,12 +1,11 @@
-#define I(p,o) (*(s32 *)((u8 *)(p)+(o)))
-#define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
-#define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))
 #define B(p,o) (*(u8 *)((u8 *)(p)+(o)))
 #define P(p,o) (*(void **)((u8 *)(p)+(o)))
+#define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
+#define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))
 void func_8004C7F0(void *);
 void func_8004D31C();
-void *func_800592AC(s8);
-void *func_800592D0(s32);
+u8 *func_800592AC(s8);
+u8 *func_800592D0(s32);
 void func_8005937C(s32, u8);
 void func_8005BB5C();
 void func_8005BC60();
@@ -14,144 +13,118 @@ void func_80069974(u8, void *);
 void func_8007EE9C(void *);
 void func_80081540(void *);
 void func_8008A0D8(void *, s32, s32);
-extern void *D_800A1468;
-extern void D_800A5F7C;
-extern void D_800A5F8C;
-extern u8 D_800C02AE[];
-extern void *D_800C3508;
-extern void *D_800C35A0;
-extern void *D_800D0658;
+extern u8 *D_800A1468;
+extern u8 D_800A5F7C[];
+extern u8 D_800A5F8C[];
+extern u8 *D_800C3508;
+extern u8 *D_800C35A0;
+extern u8 *D_800D0658;
 void func_8007A29C(void)
 {
-  int __repair_literal;
-  void *sp14;
-  void *sp24;
-  void *sp1C;
-  void *sp2C;
-  void *temp_s2;
-  void *var_s0;
-  void *new_var4;
-  void *new_var2;
-  int new_var;
-  void *var_s2;
-  s16 var_v0;
-  void *temp_a1;
-  s8 temp_v0;
-  s8 temp_v0_4;
-  s8 var_fp;
-  s8 var_s4;
-  u16 var_s5;
-  u8 *temp_s6;
-  u8 *temp_v0_3;
-  u8 temp_a0;
-  u8 temp_s7;
-  u8 temp_v1;
-  void *temp_s0;
-  void *temp_v0_2;
-  void *temp_v0_5;
-  void *new_var3;
+  u8 *tbl;
+  u8 *ent;
+  u8 *ctx;
+  u8 *cnt;
+  u8 *base;
+  u8 *node;
+  u8 *prev;
+  u8 *p;
+  u8 *q;
+  u8 *arr;
+  u8 m;
+  u8 *r;
+  u16 off;
+  s8 i;
+  s8 j;
+  s32 n;
+  s32 pad;
+  u8 t;
+  s32 v;
   func_8004D31C();
-  var_fp = 0;
   func_8005BC60();
   func_8005BB5C();
-  B(D_800A1468, 0x22B) = (u8) B(D_800A1468, 0x228);
-  new_var2 = D_800A1468;
-  temp_v1 = B(D_800C35A0 + (B(D_800C35A0 + ((s8) B(new_var2, 0x228)), 0x32) * 0x28), 0x4F);
-  B(D_800A1468, 0x237) = temp_v1;
-  new_var = temp_v1 & 0xFF;
-  B(D_800A1468, 0x238) = (u8) H((new_var * 0x2C4) + D_800D0658, 0x14);
-  sp24 = new_var2 + 0x23D;
-  sp1C = P(D_800C3508, 0x10) + (SH(D_800C3508, 0x2) * 0x14);
-  func_80081540(&D_800A5F7C);
-  sp14 = D_800D0658;
-  sp2C = new_var2 + 0x241;
-  B(new_var2, 0x23E) = 8;
-  B(new_var2, 0x243) = 0xC;
-  B(new_var2, 0x23D) = 4;
-  B(new_var2, 0x23F) = 4;
-  B(new_var2, 0x240) = 4;
-  B(new_var2, 0x241) = 0;
-  B(new_var2, 0x242) = 4;
-  B(new_var2, 0x244) = 0x10;
+  i = 0;
+  B(D_800A1468, 0x22B) = B(D_800A1468, 0x228);
+  t = B(D_800C35A0 + B(D_800C35A0 + (s8)B(D_800A1468, 0x228), 0x32) * 0x28, 0x4F);
+  B(D_800A1468, 0x237) = t;
+  ctx = D_800C3508;
+  ent = P(ctx, 0x10) + SH(ctx, 2) * 0x14;
+  B(D_800A1468, 0x238) = H(D_800D0658 + t * 0x2C4, 0x14);
+  base = D_800A1468;
+  cnt = base + 0x23D;
+  tbl = D_800D0658;
+  q = base + 0x241;
+  B(base, 0x23E) = 8;
+  B(base, 0x243) = 0xC;
+  B(base, 0x23D) = 4;
+  B(base, 0x23F) = 4;
+  B(base, 0x240) = 4;
+  B(base, 0x241) = 0;
+  B(base, 0x242) = 4;
+  B(base, 0x244) = 0x10;
   do
   {
-    temp_v0_2 = func_800592AC(var_fp);
-    var_s0 = P(temp_v0_2, 0x28);
-    var_s4 = 0;
-    temp_v0_3 = sp24 + var_fp;
-    temp_s7 = *temp_v0_3;
-    var_s5 = H(var_s0, 0x8);
-    var_s2 = NULL;
-    __repair_literal = 0;
-    if (((s32) temp_s7) > __repair_literal)
+    p = func_800592AC(i);
+    node = P(p, 0x28);
+    j = 0;
+    n = cnt[i];
+    off = H(node, 8);
+    prev = 0;
+    if (n > 0)
     {
-      temp_s6 = sp2C + var_fp;
+      r = cnt + i;
       do
       {
-        B(var_s0, 0x22) = (s8) ((*temp_s6) + var_s4);
-        if (!(H(((((s8) (*temp_s6)) + var_s4) * 0x2C4) + sp14, 0x10) & 8))
+        B(node, 0x22) = q[i] + j;
+        if (H(tbl + ((s8)q[i] + j) * 0x2C4, 0x10) & 8)
         {
-          H(var_s0, 0x8) = var_s5;
-          var_s5 += 0x14;
-          var_s2 = var_s0;
-          var_s0 = P(var_s0, 0x0);
-        }
-        else
-        {
-          if (var_s2 == NULL)
+          if (prev == 0)
           {
-            temp_s2 = var_s0;
-            var_s0 = (P(temp_v0_2, 0x28) = P(var_s0, 0x0));
-            var_s2 = NULL;
-            func_8007EE9C(temp_s2);
+            prev = node;
+            node = P(node, 0);
+            P(p, 0x28) = node;
+            func_8007EE9C(prev);
+            prev = 0;
           }
           else
           {
-            P(var_s2, 0) = P(var_s0, 0x0);
-            func_8007EE9C(var_s0);
-            var_s0 = P(var_s2, 0);
+            P(prev, 0) = P(node, 0);
+            func_8007EE9C(node);
+            node = P(prev, 0);
           }
-          *temp_v0_3 -= 1;
-          B(temp_v0_2, 0x4C) = (u8) (B(temp_v0_2, 0x4C) - 1);
+          *r -= 1;
+          B(p, 0x4C) -= 1;
         }
-        temp_s7 = var_s4 + 1;
-        temp_v0_4 = temp_s7;
-        var_s4 = temp_v0_4;
-      }
-      while (temp_v0_4 < ((s32) temp_s7));
+        else
+        {
+          H(node, 8) = off;
+          off += 0x14;
+          prev = node;
+          node = P(node, 0);
+        }
+        j++;
+      } while (j < n);
     }
-    if (B(sp24 + var_fp, 0) == 0)
+    if (cnt[i] == 0)
     {
-      ;
-      B(func_800592AC(var_fp), 0x41) = 0;
-      func_8008A0D8(D_800C3508, (B((SH(D_800C3508, 0x2) * 0x14) + P(D_800C3508, 0x10), 0xD) + var_fp) & 0xFFFF, 0);
-      if (B(new_var2, 0x238) == var_fp)
+      B(func_800592AC(i), 0x41) = 0;
+      func_8008A0D8(D_800C3508, (B(P(D_800C3508, 0x10) + SH(D_800C3508, 2) * 0x14, 0xD) + i) & 0xFFFF, 0);
+      if (B(D_800A1468, 0x238) == i)
       {
-        temp_s0 = D_800C35A0;
-        new_var4 = temp_s0;
-        H(D_800C35A0 + (B(new_var4 + ((s8) B(new_var2, 0x228)), 0x32) * 0x28), 0x4E) = 4;
-        B(new_var2, 0x238) = (u8) H(D_800D0658, 0xB24);
+        H(D_800C35A0 + B(D_800C35A0 + (s8)B(D_800A1468, 0x228), 0x32) * 0x28, 0x4E) = 4;
+        B(D_800A1468, 0x238) = H(D_800D0658, 0xB24);
       }
     }
-    func_8005937C(B(sp1C, 0xD) + var_fp, B(sp24 + var_fp, 0));
-    temp_v0 = var_fp + 1;
-    var_fp = temp_v0;
-  }
-  while (temp_v0 < 4);
-  temp_a1 = P(D_800C3508, 0x10);
-  temp_a0 = B(new_var3, 0x238);
-  var_s4 = 0;
-  temp_v0_5 = (SH(D_800C3508, 0x2) * 0x14) + temp_a1;
-  B(temp_v0_5, 0xE) = (s8) (B(temp_v0_5, 0xD) + temp_a0);
-  func_80069974(temp_a0, temp_a1);
-  B(new_var2, 0x2BD) = 1;
-  func_8004C7F0(&(*((void *) 0x800a5f7c)));
-  temp_s0 = func_800592D0(0x38);
-  var_v0 = 0x98;
-  if (((s8) B(new_var2, 0x228)) == var_s4)
-  {
-    var_v0 = 3;
-  }
-  B(temp_s0, 0x4) = var_v0;
+    func_8005937C(B(ent, 0xD) + i, cnt[i]);
+    i++;
+  } while (i < 4);
+  arr = P(D_800C3508, 0x10);
+  m = B(D_800A1468, 0x238);
+  B(arr + SH(D_800C3508, 2) * 0x14, 0xE) = B(arr + SH(D_800C3508, 2) * 0x14, 0xD) + m;
+  func_80069974(m, arr);
+  B(D_800A1468, 0x2BD) = 1;
+  func_80081540(D_800A5F7C);
+  func_8004C7F0(D_800A5F8C);
+  p = func_800592D0(0x38);
+  H(p, 4) = (*(s8 *)(D_800A1468 + 0x228) == 0) ? 3 : 0x98;
 }
-

@@ -7,7 +7,6 @@ extern void func_8008A0D8(void *, s32, s32);
 s32 func_80068D9C(s32 arg0)
 {
   u8 *rec;
-  
   u8 *obj;
   u8 v;
   obj = D_800A1468;
@@ -18,13 +17,12 @@ s32 func_80068D9C(s32 arg0)
     obj = *((u8 **) (obj + 0xC));
     rec[0x48] = v & 0xEF;
     obj = obj + 4;
-    obj = obj;
     func_8008A0D8(*((void **) (D_800C02AE + 0x325A)), 0x17, 1);
     rec = func_800592AC(6);
     rec[0xF] = obj[0xB];
     rec[0x10] = obj[0xC];
     rec[0x11] = obj[0xD];
-    func_800592F4(arg0, arg0);
+    func_800592F4(arg0, 0);
   }
   else
   {
@@ -32,4 +30,3 @@ s32 func_80068D9C(s32 arg0)
   }
   return 0;
 }
-

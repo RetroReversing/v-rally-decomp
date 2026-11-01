@@ -67,7 +67,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
   xend = x + extent;
   top = (*((u16 *) (((u8 *) arg0) + 12))) - 8;
   boxheight = 32;
-  func_8004C1B4(D_800ADF80, (u16) x, (u16) top, x, (u16) (top + boxheight), (u16) xend, (u16) (top + boxheight), (u16) xend, (u16) top);
+  func_8004C1B4(D_800ADF80, (u16) x, (u16) top, (u16) x, (u16) (top + boxheight), (u16) xend, (u16) (top + boxheight), (u16) xend, (u16) top);
   if (!(arg1 & 255))
   {
     gap = (*((u16 *) (((u8 *) D_800A14D0) + 0))) - xend;

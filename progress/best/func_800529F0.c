@@ -30,10 +30,10 @@ void func_800529F0(void)
   ChCfg *cfg;
   ChRec *rec;
   ChTable *t;
+  u32 sum;
   u32 i;
   u32 j;
   u32 m;
-  u32 sum;
   u32 rank;
   u32 pts;
   u8 *new_var;
@@ -46,14 +46,16 @@ void func_800529F0(void)
     new_var = &D_800C81FC;
     for (i = 0; i < 4; i++)
     {
-      sum = 0;
-      for (j = 0; j < rec->n; j++)
+      u32 k;
+      u32 s;
+      s = 0;
+      for (k = 0; k < rec->n; k++)
       {
-        sum += t->laps[j][i];
+        s += t->laps[k][i];
       }
 
-      t->sums[cfg->idx][i] = sum;
-      t->total[i] += sum;
+      t->sums[cfg->idx][i] = s;
+      t->total[i] += s;
     }
 
     for (m = 0; m < 4; m++)

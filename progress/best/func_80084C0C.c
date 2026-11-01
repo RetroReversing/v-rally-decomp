@@ -1,6 +1,7 @@
 extern u8 *D_800A1B70;
 s8 func_80084C0C(s32 arg0, s32 arg1)
 {
+  s32 pad[2];
   signed char *e;
   signed char a2;
   int a1;

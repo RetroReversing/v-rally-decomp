@@ -1,7 +1,7 @@
 typedef struct Pos {
     u8 pad00[8];
-    s16 x8;
     s16 xA;
+    s16 x8;
     s16 xC;
     s16 xE;
 } Pos;

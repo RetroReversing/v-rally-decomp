@@ -2,10 +2,6 @@
 #define CFG25 ((Cfg *)(*(void **)(D_800C02AE + 0x325A)))
 typedef struct 
 {
-  unsigned char b[0x2A0];
-} Obj;
-typedef struct 
-{
   unsigned char b[0x2E];
 } Cfg;
 typedef struct 
@@ -26,32 +22,28 @@ extern void func_80066384(void);
 extern void func_80066470(void);
 s32 func_80065C04(s32 a0, s32 a1, void *a2)
 {
-  unsigned long new_var2;
   s16 ver;
-  unsigned char *p;
-  int new_var;
+  unsigned char *q;
   ver = D_800A1468->b[0x23c];
   *((u16 *) (CFG32->b + 0x22)) = 0;
   *((s16 *) (CFG32->b + 0x1e)) = ver;
   if ((((*((u16 *) (CFG32->b + 0x2c))) & 0x100) == 0) && ((*((s16 *) (CFG25->b + 2))) == 2))
   {
-    p = CFG32->b + 0x44;
-    ;
-    a2 = D_800AE850 + 0x7F28;
+    unsigned char *end;
+    q = D_800AE850 + 0x7F28;
+    a2 = CFG32->b + 0x44;
+    end = (unsigned char *) a2 + 0xa0;
+    do
     {
-      unsigned char *end = p + 0xa0;
-      do
+      typedef struct 
       {
-        typedef struct 
-        {
-          u32 w[4];
-        } Quad;
-        *((Quad *) a2) = *((Quad *) p);
-        p = p + 16;
-        a2 = ((u8 *) a2) + 16;
-      }
-      while (p != end);
+        u32 w[4];
+      } Quad;
+      *((Quad *) q) = *((Quad *) a2);
+      a2 = (u8 *) a2 + 16;
+      q = q + 16;
     }
+    while ((unsigned char *) a2 != end);
     D_800A1468->b[0x245] = 0;
     func_8005A388(a0, a1);
     *((void (**)(void)) (D_800A1468->b + 0x288)) = func_8006603C;
@@ -61,7 +53,6 @@ s32 func_80065C04(s32 a0, s32 a1, void *a2)
     if (D_800A14D0)
     {
       func_8007EE9C(D_800A14D0);
-      a2 = ((u8 *) a2) + 16;
       D_800A14D0 = 0;
     }
     *((s16 *) (CFG32->b + 0x20)) = 0;

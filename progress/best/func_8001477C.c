@@ -29,9 +29,6 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
   {
     dy = -dy;
   }
-  red = r0;
-  green = g0;
-  blue = b0;
   if (dx >= dy)
   {
     dr = (r1 - red) / dx;
@@ -90,8 +87,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     eadd2 = 2 * dx;
     err = eadd2 - dy;
     eadd = 2 * (dx - dy);
-    new_var = green;
-    func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((new_var << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
+    func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
     red = r0 + dr;
     green = g0 + dg;
     blue = b0 + db;
