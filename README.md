@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,843 selected C functions / 377,396 matching bytes**, about **66.68% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,843 C and 279 assembly functions**.
+- **1,847 selected C functions / 382,036 matching bytes**, about **67.50% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,847 C and 275 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -242,6 +242,26 @@ in `decompdecomp-sync.json`; the additional
 new match arrived after the verified build capture. These saved sources remain assembly
 in the standalone checkpoint until independently integrated.
 
+### Exact reconstruction of `func_80039A00` — 1 November 2026
+
+`func_80039A00` now matches all **741 instructions / 2,964 bytes** through the app's
+ordinary linked-byte judge and an independent standalone comparison. The complete
+12,582,912-byte cartridge also rebuilds byte for byte. Its function-only profile uses
+KMC GCC 2.7.2 with `-G0 -mips3 -mgp32 -mfp32 -O2`, without a debug flag; `-g3` changes
+this compiler/assembler's scheduling. Matching choices include unsigned-halfword
+arithmetic, a single-case switch, and explicit selector scaling with qualification
+of existing byte reads. These reconstruct the original machine code, not the original
+source spelling; names and types remain provisional. No original game source was consulted.
+
+The same sync integrates `func_80052CF4`, `func_8005F5C4` and `func_80068D9C`: **four
+additional C functions / 4,640 matching bytes** in total, retaining all earlier C.
+The refreshed portable snapshot holds **1,850 matches and 250 best drafts**, with
+names, notes, headers, symbols and compiler profiles captured at its saved timestamp.
+`func_800869B8` and `func_80087DE4` remain snapshot-only because their current candidates
+emit extra bodies. The newer `func_8003CD18` match arrived after the build capture and
+is also retained in the snapshot, pending standalone integration. Agents remain active;
+this is a verified checkpoint, not continuous synchronization.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -261,7 +281,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1843 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1847 of 2122 functions in C)
 ```
 
 ## Supported input

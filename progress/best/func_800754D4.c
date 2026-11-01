@@ -38,9 +38,8 @@ void func_800754D4(void *arg0, void *arg1)
   char sp40[0x78];
   char spB8[0x18];
   char spD0[0x18];
-  char spE8[0x10];
+  char spE8[24];
   u16 sp106;
-  s32 * volatile sp10C;
   void *sp114;
   s32 *temp_s5_2;
   s32 var_a2;
@@ -55,6 +54,7 @@ void func_800754D4(void *arg0, void *arg1)
   s32 temp_s0_12;
   s32 temp_s0_13;
   s32 temp_s0_2;
+  
   s32 temp_s0_6;
   s32 temp_s0_7;
   s32 temp_s1;
@@ -105,7 +105,6 @@ void func_800754D4(void *arg0, void *arg1)
   temp_v0_2 = arg0 + 0x40;
   sp106 = 0x28;
   var_s7 = 0;
-  sp10C = &spD0;
   sp114 = temp_v0_2;
   temp_s3 = func_8000C9B0(temp_v0_2, &sp40, 1, 1.0f, 1);
   temp_s1 = 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1);
@@ -219,17 +218,17 @@ void func_800754D4(void *arg0, void *arg1)
 
         if (temp_a2_2 < 3U)
         {
-          func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 + 1, &spB8, sp10C, temp_v0_2);
+          func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 + 1, &spB8, &spD0, temp_v0_2);
         }
         else
         {
           if (arg1 || sp114)
           {
-            func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 - 2, &spB8, sp10C, temp_v0_2);
+            func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 - 2, &spB8, &spD0, temp_v0_2);
           }
           else
           {
-            func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 - 2, &spB8, sp10C, temp_v0_2);
+            func_80099DF8(&sp40, &D_800A5DFC, temp_a2_2 - 2, &spB8, &spD0, temp_v0_2);
           }
         }
         var_s0 = var_s7 & 0xFFFF;
@@ -250,11 +249,11 @@ void func_800754D4(void *arg0, void *arg1)
         }
         if (temp_s1_5 < 3U)
         {
-          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 + 1, &spB8, sp10C, temp_v0_2);
+          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 + 1, &spB8, &spD0, temp_v0_2);
         }
         else
         {
-          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, sp10C, temp_v0_2);
+          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, &spD0, temp_v0_2);
         }
 
 
@@ -282,13 +281,12 @@ void func_800754D4(void *arg0, void *arg1)
     }
     sp106 += 0xF;
     func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
-    var_s7 += 1;
     if (var_s0 == 2)
     {
       sp106 = 0xA0;
     }
   }
-  while (((u32) (var_s7 & 0xFFFF)) < 7U);
+  while (((u32) (++var_s7 & 0xFFFF)) < 7U);
   temp_s3_3 = arg0 + 0x40;
   temp_s0_12 = func_8000C9B0(temp_s3_3, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0xD3), 1, 1.0f, 1);
   temp_s0_13 = ((D_800A17E8 + temp_s0_12) + (D_800A17E8 + 5)) + func_8000C9B0(temp_s3_3, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0xD7), 1, 1.0f, 1);

@@ -22,7 +22,7 @@ void *func_80080674(void *arg0, u32 arg1)
   Node *s1;
   u32 a1;
   Node *a0;
- do { for (;;) { Node *head = D_800A19E0; if (head == 0) { break; } if (head == s0) { break; } if (D_800A19E4 < s2) { break; } if (func_80080EA0(head) < (s2 + 0x14)) { break; } s0 = D_800A19E0; } s2 = (s2 + 3) & (~3); } while (0);
+  while (1) { Node *head = D_800A19E0; if (head == 0) break; if (head == s0) break; if (D_800A19E4 < s2) break; if (func_80080EA0(head) - 0x14 < s2) break; s0 = D_800A19E0; } s2 = (s2 + 3) & ~3;
   a0 = (Node *) (((u8 *) s0) - 0x14);
   if (s2 == 0)
   {

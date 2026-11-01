@@ -1,6 +1,4 @@
 #define CFG(o) (*(u16 *)(*(char **)(D_800C02AE+0x32F2)+(o)))
-#define sp106 (*(s16 *)&slots[3])
-#define sp10E (slots[7])
 void *func_80006008(void *);
 void func_80006014(void *, void *);
 void func_80006298(void *);
@@ -74,7 +72,8 @@ void func_80073B64(void *raw0, void *arg1)
   char spB8[0x18];
   char spD0[0x18];
   char spE8[0x18];
-  u16 slots[8];
+  s16 sp106;
+  u16 sp10E;
   s32 sp114;
   char *sp11C;
   u16 start_x;
@@ -91,7 +90,6 @@ void func_80073B64(void *raw0, void *arg1)
   s32 temp_s0_2;
   u16 temp_s0_3;
   s16 temp_s0_4;
-  s16 temp_s1_4;
   u16 temp_s1_5;
   u16 temp_s1_6;
   s16 temp_s1_7;
@@ -245,7 +243,7 @@ void func_80073B64(void *raw0, void *arg1)
       func_80073108(arg1, temp_s1, temp_s3, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) ((D_800C02AE + 0x7CF4) + (temp_s2 * 0x18)))));
     }
     temp_s0_4 = ++var_fp;
-    temp_s1_4 = temp_s1 + D_800A17EA;
+    temp_s1 = temp_s1 + D_800A17EA;
     if (temp_s2 == 0)
     {
       goto row_zero;
@@ -256,15 +254,14 @@ void func_80073B64(void *raw0, void *arg1)
     }
     if ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5)
     {
-      temp_s2_3 = ((s32) (0x140 - ((((D_800A17E9 + 0xFFF1) + D_800A17EA) + func_8000C9B0(raw0 + 0x40, &D_800A5DA0, 1, 1.0f, 1)) & 0xFFFF))) / 2;
-      temp_s2_2 = temp_s2_3 & 0xFFFF;
-      temp_s1_6 = temp_s2_2;
-      temp_s4 = temp_s1_6;
+      temp_s2 = ((D_800A17E9 + 0xFFF1) + D_800A17EA) + func_8000C9B0(raw0 + 0x40, &D_800A5DA0, 1, 1.0f, 1);
+      temp_s2 = ((s32)(0x140 - (temp_s2 & 0xFFFF))) / 2;
+      temp_s4 = temp_s2 & 0xFFFF;
       func_8000C244(((__repair_field_40 *) raw0)->value, arg1, temp_s4, temp_s0_4, sp11C, 1);
       second_icon_y = --var_fp;
-      if (((u32) (temp_s1_4 & 0xFFFF)) < 0x141U)
+      if (((u32) (temp_s1 & 0xFFFF)) < 0x141U)
       {
-        func_80073108(arg1, (s16) (temp_s2_3 + (D_800A17E9 + 0xFFF1)), second_icon_y, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) (D_800C02AE + 0x7D54))));
+        func_80073108(arg1, (s16) (temp_s2 + (D_800A17E9 + 0xFFF1)), second_icon_y, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) (D_800C02AE + 0x7D54))));
       }
       temp_s0_4 = ++var_fp;
       temp_s0_5 = 0xF;
@@ -281,7 +278,7 @@ void func_80073B64(void *raw0, void *arg1)
       s16 second_x;
       s16 second_y;
       local_y = (s16) temp_s0_4;
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_4, local_y, spB8, 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1, local_y, spB8, 1);
       func_8000CC04(raw0 + 0x40, arg1, sp114 >> 16, local_y, &spE8, 1, 1.0f, 1.0f, 0, 1);
       goto row_done;
     }
@@ -298,7 +295,7 @@ void func_80073B64(void *raw0, void *arg1)
       local_y = (s16) temp_s0_4;
       {
       }
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_4, local_y, sp11C, 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1, local_y, sp11C, 1);
       func_8000CC04(raw0 + 0x40, arg1, sp114 >> 16, local_y, &spE8, 1, 1.0f, 1.0f, 0, 1);
       goto row_done;
     }
@@ -310,11 +307,12 @@ void func_80073B64(void *raw0, void *arg1)
     ;
     ;
     ;
-    temp_a0 = ((__repair_field_40 *) raw0)->value;
+    
     ;
     {
     }
-    func_8000C22C((sp10E += 1, temp_a0), 0xFF, 0xFF, 0xFF, 0xFF);
+    func_8000C22C(((__repair_field_40 *) raw0)->value, 0xFF, 0xFF, 0xFF, 0xFF);
+    sp10E += 1;
     var_fp += 0xF;
   }
   while (sp10E < 5U);

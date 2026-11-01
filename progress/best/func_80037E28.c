@@ -117,11 +117,11 @@ void func_80037E28(void)
   {
     return;
   }
-  vols = &D_800C35E4;
   big = D_800A4AC8;
+  vols = &D_800C35E4;
+  pv = (f32 *)((char *)vols + 4);
   do
   {
-    pv = &vols[1];
     audio = car->audio;
     rpm = car->eng->rpm;
     snd = audio->snd;
@@ -151,7 +151,7 @@ void func_80037E28(void)
         f = (100.0f - (f * 0.008333334f)) * 0.01f;
         if ((D_800C35A0->mode == 6) || (D_800C35A0->mode == 7))
       {
-        D_800C35E4 = 0.0f;
+        *vols = 0.0f;
         if (D_800C35C8 != 0xFF)
         {
           func_80086D90(&D_800C81D4[D_800C35C8], 0);
@@ -167,7 +167,7 @@ void func_80037E28(void)
             f = 0.0f;
           }
         }
-        if (k == 1)
+        if (kind == 1)
         {
           g = func_8001FEE8(car);
           if (g < 0.0f)

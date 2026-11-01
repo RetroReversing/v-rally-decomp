@@ -108,7 +108,11 @@
     "src/code_8007E9D4/func_8008276C.c": "f719bdf680cd48c6cef2feef4fb3d8fd02cab9301573a17568285a2fced7cd36",
     "src/code_8007E9D4/func_80088008.c": "f0f392fd2e8e50dae2b5ed47e4dddc77e9af1b963813c5a05acde8511e469d58",
     "src/code_8004BEB4/func_8004E224.c": "2a03b928657d4ad5da2aca24e9447846af2205396ca93c3bac0b3411ec69f92e",
-    "src/code_8007E9D4/func_80086138.c": "5a45f213d4ccd916f71826acc8e897b220e822f2574fb081ddf7270f9c0b45d7"
+    "src/code_8007E9D4/func_80086138.c": "5a45f213d4ccd916f71826acc8e897b220e822f2574fb081ddf7270f9c0b45d7",
+    "src/code_80026E3C/func_80039A00.c": "96ab58d8d268ee776e85256e9ea14ea0800709ccaebd986e1d9d9bd29307cfe9",
+    "src/code_8004BEB4/func_8005F5C4.c": "2836098487f5057942043a9ea6ce83004143e0a05bf7fba40b115537cfd22ad8",
+    "src/code_8004BEB4/func_80052CF4.c": "1ea005eb6c5e9f24a5288fa640d86a2bc2976bb9587fdc1e530312adc87a1d08",
+    "src/code_8004BEB4/func_80068D9C.c": "151270442b6b18681b56132e23285327c8f1e788b7296ecb1a4bf55823b95a7b"
   },
   "accepted": [
     "MusInitialize",
@@ -147,6 +151,7 @@
     "func_80035C4C",
     "func_800370E8",
     "func_8003946C",
+    "func_80039A00",
     "func_8003B310",
     "func_8003B660",
     "func_8003C968",
@@ -171,6 +176,7 @@
     "func_800516BC",
     "func_80051994",
     "func_800526E4",
+    "func_80052CF4",
     "func_80053784",
     "func_80053F44",
     "func_800540A0",
@@ -180,6 +186,7 @@
     "func_80059618",
     "func_8005A790",
     "func_8005D4A4",
+    "func_8005F5C4",
     "func_8006090C",
     "func_80063790",
     "func_800643F0",
@@ -187,6 +194,7 @@
     "func_80067474",
     "func_80067AC4",
     "func_8006874C",
+    "func_80068D9C",
     "func_80069A08",
     "func_8006C3E4",
     "func_8006C640",
@@ -231,5 +239,5 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1846
+  "matched_app": 1850
 }

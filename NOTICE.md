@@ -61,3 +61,11 @@ The latest 31 October verified app sync adds `func_80085C58` and `__osCheckPackI
 The following matching checkpoint preserves the three trig/matrix helpers and adds `func_8006090C` (883 instructions / 3,532 bytes). This function was reconstructed with AI assistance from the existing ROM-derived draft and the original machine code; no original game source was consulted during this matching work. Its ordinary compiler/link checks and complete cartridge comparison pass using the recorded KMC GCC 2.7.2 profile. The repository now selects 1,738 C functions; 384 entries still use original assembly. Source names, types and layouts remain provisional even where the generated instructions match exactly.
 
 The 1 November 2026 checkpoint includes a ROM-derived exact reconstruction of `func_80076060` (845 instructions / 3,380 bytes), verified independently, by the live app's ordinary linked-byte judge, and in the complete cartridge rebuild. The final source uses local draw-pair blocks and explicitly staged arguments; these are matching reconstruction choices, not recovered original source spelling. Other current verified app updates and the complete portable progress snapshot are retained alongside it. No ROM or generated game data is included.
+
+A later 1 November 2026 ROM-based matching session reconstructs `func_80039A00`
+(741 instructions / 2,964 bytes) from the existing draft, target instructions and
+pinned-compiler feedback, without consulting original game source. Its C is accepted
+by the ordinary live app judge and standalone comparison; the complete normalized
+cartridge also matches. The recorded function-only compiler profile omits debug flags.
+Three other current app matches and a fresh portable snapshot are synchronized alongside
+it; no model or source-access attribution is inferred for those other matches.

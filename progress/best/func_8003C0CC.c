@@ -3,7 +3,11 @@ void func_8003BEBC(void);
 void *func_80034FF0(s32, s32);
 void *func_80040260(s32, s32, s32, s32, void *, s32);
 void *func_8004240C(s32);
-static inline static static static f32 inline_fn(u16 *arg0)
+static inline f32 inline_fn(u16 *arg0)
+{
+  return (f32) (*arg0);
+}
+static inline f32 inline_fns(s16 *arg0)
 {
   return (f32) (*arg0);
 }
@@ -41,7 +45,7 @@ void func_8003C0CC(s32 arg0, s32 arg1)
     *((u32 *) (var_s0 + 0x80)) |= 4;
     temp_v0_3 = func_80034FF0(var_s1 + 0x4C, 0);
     temp_ft0 = 1024.0f;
-    temp_ft0 = temp_ft0 / inline_fn((s16 *) (var_s0 + 0x98));
+    temp_ft0 = temp_ft0 / inline_fns((s16 *) (var_s0 + 0x98));
     *((u8 **) (var_s0 + 0xA4)) = temp_v0_3;
     temp_v1_3 = *(*((u8 ***) (temp_v0_3 + 4)));
     temp_v1_2 = -((temp_ft0 * inline_fn((u16 *) (temp_v1_3 + 6))) * 0.5f);

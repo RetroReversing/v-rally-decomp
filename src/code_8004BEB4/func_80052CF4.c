@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   s32 w[4];
@@ -23,7 +25,7 @@ void func_80052CF4(S52 *a, P32 *b)
   a->w[4] = 0;
   for (i = 0; i < 4; i++)
   {
-    b[i] = *((P32 *) ((D_800C35A0 + (D_800C35A0[i + 0x32] * 40)) + 0x44));
+    b[i] = *((P32 *) ((D_800C35A0 + (*(D_800C35A0 + i + 0x32) * 40)) + 0x44));
   }
 
   do
@@ -47,4 +49,5 @@ void func_80052CF4(S52 *a, P32 *b)
   }
   while (changed);
 }
+
 
