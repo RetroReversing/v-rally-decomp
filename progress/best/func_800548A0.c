@@ -1,149 +1,114 @@
-extern char *D_800C35A0;
-extern char *D_800D0634;
-extern u16 D_800D061E;
-extern s32 D_800C3B80;
-extern s8 D_800C3B84;
-extern s8 D_800C3B85;
-extern s8 D_800C3B8B;
-extern s8 D_800C3B8C;
-extern s8 D_800C3B8A;
+typedef struct {
+  u32 score;
+  u8 b4;
+  u8 b5;
+  char name[4];
+  u8 laps;
+  u8 bB;
+  u8 flag;
+  u8 pad[3];
+} Item;
+typedef struct {
+  Item item[4];
+} Sub;
+typedef struct {
+  u8 pad0[0x14];
+  u16 cnt;
+  u8 pad16[0x2C - 0x16];
+  Sub sub[(0x2C4 - 0x2C) / 0x40];
+  u8 pad[0x2C4 - 0x2C - ((0x2C4 - 0x2C) / 0x40) * 0x40];
+} Rec;
 extern char D_800C02AE[];
-s32 func_800535F4(void *);
-s32 func_80098180(void *, void *);
-s32 func_80098290();
+#define G (*(u8 **)(D_800C02AE + 0x32F2))
+typedef struct { Rec *p; } RP;
+#define RECS (((RP *)(D_800C02AE + 0x10386))->p)
+typedef struct { u16 n; } NR;
+#define NRECS (((NR *)(D_800C02AE + 0x10370))->n)
+#define ITEMS ((Item *)(D_800C02AE + 0x38A2))
+s32 func_800535F4(Item *);
+s32 func_80098180(char *, char *);
+s32 func_80098290(char *, void *);
 void func_800548A0(void)
 {
-  char *__repair_addr;
-  s32 sp10[8];
-  s16 sp30[4];
-  u8 sp3F;
-  s32 *sp44;
-  char *s7;
-  char *fp;
-  s32 *s5;
-  s32 s0;
-  int s3;
-  s32 s4;
-  u8 a3;
-  s32 s1;
-  s32 s2;
-  s32 a2;
-  s32 v0;
-  s32 v1;
-  s32 temp_v1_2;
-  s32 temp_v0;
-  s32 temp_s0_2;
-  s32 var_s1_2;
-  s32 var_s2;
-  void *temp_a0;
-  s32 *temp_s0_3;
-  sp3F = 0;
-  sp44 = sp10;
-  do
-  {
-    s0 = sp3F << 2;
-    func_80098290(&sp30, D_800C35A0 + ((sp3F * 0x28) + 0x44));
-    s7 = D_800D0634;
-    v1 = s0 + ((s32) sp44);
-    *((s32 *) v1) = 0;
-    *((s32 *) (v1 + 0x10)) = 0;
-    s3 = 1;
-    a3 = 0;
-    if (D_800D061E == 0)
-    {
-      goto outer_done;
+char *__repair_addr;
+
+  u32 tot[8];
+  char name[8];
+  u8 i;
+  u32 *t;
+  u32 *pt;
+  Rec *rec;
+  Item *e;
+  u16 *cp;
+  u8 j;
+  u8 k;
+  u8 m;
+  u8 ok;
+  s32 srch;
+  u8 c;
+  u8 good;
+
+  i = 0;
+  t = tot;
+  for (; i < 4; i++) {
+    func_80098290(name, (u8 *)G + (i * 40 + 0x44));
+    rec = RECS;
+    t[i] = 0;
+    t[i + 4] = 0;
+    ok = 1;
+    j = 0;
+    if (NRECS != 0) {
+      pt = &t[i];
+      cp = &rec->cnt;
+      do {
+        c = *cp != 0;
+        k = 0;
+        if (ok & c) {
+          do {
+            ok = 0;
+            srch = 1;
+            m = 0;
+            do {
+              if (rec->sub[k].item[m].flag == 1 && func_80098180(name, rec->sub[k].item[m].name) == 0) {
+                pt[0] += rec->sub[k].item[m].score;
+                ok = 1;
+                pt[4] += rec->sub[k].item[m].laps;
+                srch = 0;
+                break;
+              }
+              m++;
+              c = m < 3;
+            } while (srch & c);
+            k++;
+            c = k < *cp;
+          } while (ok & c);
+        }
+        cp = (u16 *)((u8 *)cp + sizeof(Rec));
+        rec++;
+        j++;
+        c = j < NRECS;
+      } while (ok & c);
     }
-    s5 = (s32 *) v1;
-    fp = s7 + 0x14;
-    do
-    {
-      v0 = *((u16 *) fp);
-      v0 = ((u32) v0) > 0U;
-      v0 = s3 & v0;
-      s3 = 0;
-      if (v0 == 0)
-      {
-        goto row_advance;
-      }
-      s4 = 0;
-      do
-      {
-        a2 = 1;
-        s1 = 0;
-        temp_s0_2 = s4 & 0xFF;
-    s2 = (temp_s0_2) << 6;
-        v0 = 0;
-        inner_loop:
-        temp_v1_2 = v0 * 0x10;
-
-        temp_a0 = (s7 + temp_v1_2) + s2;
-        if ((*((u8 *) (((char *) temp_a0) + 0x38))) != 1)
-        {
-          s1 += 1;
-          goto inner_continue;
-        }
-        temp_v0 = func_80098180(&sp30, (((char *) temp_a0) + 0x2C) + 6);
-        if (temp_v0 == 0)
-        {
-          *s5 += *((s32 *) (((char *) temp_a0) + 0x2C));
-          s3 = 1;
-          s5[4] += *((u8 *) (((char *) temp_a0) + 0x36));
-        }
-        else
-        {
-          s1 += 1;
-          inner_continue:
-          v0 = s1 & 0xFF;
-
-          if (a2 & (((u32) (s1 & 0xFF)) < 3U))
-          {
-            goto inner_loop;
-          }
-        }
-        s4 += 1;
-        v0 = s4 & 0xFF;
-      }
-      while (s3 & (v0 < ((u32) (*((u16 *) fp)))));
-      row_advance:
-      fp += 0x2C4;
-
-      s7 += 0x2C4;
-      a3 += 1;
-    }
-    while (s3 & (((u32) (a3 & 0xFF)) < ((u32) D_800D061E)));
-    outer_done:
-    var_s2 = 1;
-
-    if (s3 & 0xFF)
-    {
-      var_s1_2 = 0;
-      do
-      {
-        temp_s0_2 = (var_s1_2 & 0xFF) * 0x10;
-        var_s1_2 += 1;
-        if (func_80098180(&sp30, (D_800C02AE + 0x38A8) + temp_s0_2) == 0)
-        {
-          var_s2 &= -((*((s32 *) ((D_800C02AE + 0x38A2) + temp_s0_2))) != sp44[sp3F]);
+    if (ok) {
+      good = 1;
+      for (m = 0; m < 3; m++) {
+        if (func_80098180(name, ITEMS[m].name) == 0) {
+          c = -(ITEMS[m].score != t[i]);
+          good &= c;
         }
       }
-      while (((u32) (var_s1_2 & 0xFF)) < 3U);
-      if (var_s2 & 0xFF)
-      {
-        temp_s0_3 = &sp44[sp3F];
-        temp_a0 = D_800C35A0 + sp3F;
-        D_800C3B8B = 0;
-        D_800C3B80 = *temp_s0_3;
-        __repair_addr = (char *) ((D_800C35A0 + (((u8 *) temp_a0)[0x32] * 0x28)) + 0x4E);
-        D_800C3B84 = (s8) (*((u16 *) __repair_addr));
-        D_800C3B85 = (s8) (*((u16 *) (D_800C35A0 + 0x16)));
-        func_80098290((D_800C02AE + 0x38D2) + (var_s1_2 = 6), D_800C35A0 + ((((u8 *) temp_a0)[0x32] * 0x28) + 0x44), D_800C35A0);
-        D_800C3B8C = 1;
-        s3 = 0x38D2;
-        D_800C3B8A = (s8) (temp_s0_3[4] / 50);
-        func_800535F4((D_800C02AE + s3) - 0x30);
+      if (good) {
+        ITEMS[3].score = t[i];
+__repair_addr = (char *)(G + (G + i)[0x32] * 40 + 0x4E);
+
+        ITEMS[3].b4 = *(u16 *)(__repair_addr);
+        ITEMS[3].b5 = *(u16 *)(G + 0x16);
+        func_80098290(ITEMS[3].name, (u8 *)G + (G[i + 0x32] * 40 + 0x44));
+        ITEMS[3].laps = t[i + 4] / 50;
+        ITEMS[3].bB = 0;
+        ITEMS[3].flag = 1;
+        func_800535F4(ITEMS);
       }
     }
-    sp3F += 1;
   }
-  while (sp3F < 4U);
 }

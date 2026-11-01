@@ -24,10 +24,10 @@ void func_80077054(void)
   u8 *flag;
   s32 first;
   u8 *slots;
-  u8 i;
   Slot16 *src;
   Slot16 *dst;
   Slot16 *end;
+  u8 *mode;
   u16 modeByte;
   if ((*((u16 *) (D_800C35A0 + 0x1E))) != 8)
   {
@@ -81,15 +81,15 @@ void func_80077054(void)
   }
   while (src != end);
   dst->a = src->a;
-  slots = D_800C02AE + 0x7F4F;
-  modeByte = *slots;
+  mode = D_800C02AE + 0x7F4F;
+  modeByte = *mode;
   *((u16 *) (D_800C35A0 + 0x1E)) = modeByte;
   if (modeByte == 5)
   {
     func_80035438(*((s32 *) (D_800C02AE + 0x7F4A)));
   }
   *((u16 *) (D_800C35A0 + 0xE)) = *((u8 *) (D_800C02AE + 0x7F51));
-  if ((*slots) == 8)
+  if ((*mode) == 8)
   {
     *((s32 *) (D_800AE850 + 0x8030)) = 5;
     func_80053A78();

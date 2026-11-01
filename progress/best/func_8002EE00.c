@@ -1,252 +1,134 @@
-void *func_80006008();
-s32 func_80006014();
-s32 func_800061FC();
-s32 func_800075BC();
-s32 func_80010BFC();
-s32 func_80019C90();
-s32 func_8001BD1C();
-s32 guMtxIdentF();
+typedef struct { u32 w0, w1; } Gfx;
+typedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;
+typedef struct { char pad[0x38]; char mtx[0xE0]; f32 x, y, z; } Camera; /* x at 0x118 */
+typedef struct { char pad[4]; u16 mode; } Config;
+typedef struct { char pad[6]; u16 w; u16 h; } Tex;
+typedef struct { char pad[4]; Tex **tex; } Model;
+typedef struct {
+    u16 active;      /* 0x00 */
+    char pad2[2];
+    u16 c4, c6, c8;  /* 0x04 */
+    char padA[8];
+    u16 texIdx;      /* 0x12 */
+    char pad14[4];
+    u16 size;        /* 0x18 */
+    char pad1A[4];
+    u8 alpha;        /* 0x1E */
+    u8 pad1F;
+    Model *model;    /* 0x20 */
+} Entry;
+typedef struct { char pad[0x54]; s32 x, y, z; } Pos;
+typedef struct { char pad[0x5C]; Pos *pos; } Obj;
+typedef struct { s8 a; s8 b; s16 c; s16 d; u16 e; u16 f; u16 g; } Draw;
+
+Gfx *func_80006008(DLBuf *);
+void func_80006014(DLBuf *, Gfx *);
+void *func_8001BD1C(void);
+void guMtxIdentF(f32 (*)[4]);
+void func_80010BFC(void *, void *, f32 (*)[4]);
+void func_800061FC(DLBuf *, void *);
+void func_800075BC(DLBuf *, Tex *, s32);
+void func_80019C90(DLBuf *, void *, Draw *, u16, u16);
 extern char D_8009EAB0[];
-extern f64 D_800A4A50;
-extern f64 D_800A4A58;
-extern char D_800A73E0[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
-void func_8002EE00(void *arg0, u16 *arg1, u32 arg2, s32 arg3, s32 arg4, u8 arg5)
+extern Config *D_800C811C;
+extern Camera *D_800C7F84;
+extern u16 D_800ADFC6[3];
+extern const f64 D_800A4A50;
+extern const f64 D_800A4A58;
+extern s32 D_800AFA8C;
+
+#define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
+
+void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice)
 {
-  f32 sp18[16];
-  struct 
-  {
-    s8 a;
-    s8 b;
-    s16 c;
-    s16 d;
-    u16 e;
-    u16 f;
-    u16 g;
-  } draw;
-  u8 sp6F;
-  f32 temp_ft0;
-  f64 temp_fs0;
-  s32 temp_s1;
-  s32 var_a0;
-  s32 var_a0_2;
-  s32 var_fp;
-  s32 var_s3_2;
-  s32 var_s6;
-  s32 var_v0;
-  s32 var_v0_2;
-  s32 var_v0_3;
-  s32 var_v0_4;
-  s32 var_v1;
-  s32 var_v1_2;
-  s32 var_v1_3;
-  s32 var_v1_4;
-  char *var_s2;
-  u16 temp_v1;
-  s32 var_s3;
-  void *temp_a0;
-  void *temp_a2;
-  void *temp_a2_2;
-  f64 new_var;
-  void *temp_a2_3;
-  void *temp_a3;
-  void *temp_s5;
-  void *temp_v0;
-  void *temp_v0_2;
-  void *var_a1;
-  void *var_a2;
-  void *var_a2_2;
-  void *var_s0;
-  var_s2 = arg1;
-  var_s3 = arg2;
-  var_s6 = 0;
-  var_fp = 0;
-  sp6F = arg5;
-  if (arg5 != 0)
-  {
-    var_s3 = ((u32) var_s3) >> 1;
-  }
-  if ((var_s3--) != 0)
-  {
-    temp_s5 = D_800A73E0 + 0x6BE6;
-    temp_fs0 = D_800A4A50;
-    var_s0 = var_s2 + 0x20;
-    loop_4:
-    if ((*((u16 *) var_s2)) != 0)
-    {
-      var_v0 = var_s6 & 0xFF;
-      if (!(var_fp & 0xFF))
-      {
-        {
-          u32 *dl;
-          u32 *p;
-          s32 r;
-          s32 g;
-          s32 b;
-          dl = func_80006008(arg3);
-          temp_a0 = *((void **) (D_800C02AE + 0x7E6E));
-          p = dl;
-          dl += 2;
-          p[0] = 0xDE000000;
-          p[1] = (u32) D_8009EAB0;
-          var_fp = 1;
-          temp_v1 = *((u16 *) (((char *) temp_a0) + 4));
-          if (temp_v1 != 1)
-          {
-            if (temp_v1 == 2)
-            {
-              p = dl;
-              dl += 2;
-              p[0] = 0xFA000000;
-              p[1] = -1;
-              p = dl;
-              dl += 2;
-              p[0] = 0xFB000000;
-              r = (*((u16 *) temp_s5)) * 2;
-              if (r >= 256)
-              {
-                if (var_s2)
-                {
-                  r = 255;
-                }
-                else
-                {
-                  r = 255;
-                }
-              }
-              g = (*((u16 *) (((char *) temp_s5) + 2))) * 2;
-              if (g >= 256)
-              {
-                g = 255;
-              }
-              b = (*((u16 *) (((char *) temp_s5) + 4))) * 2;
-              if (b >= 256)
-              {
-                b = 255;
-              }
-              p[1] = (((r << 24) | ((g & 255) << 16)) | ((b & 255) << 8)) | (*((u8 *) (((char *) var_s0) + (-2))));
-            }
-            else
-            {
-              goto plain_color;
-            }
-          }
-          else
-          {
-            p = dl;
-            dl += 2;
-            p[0] = 0xFA000000;
-            p[1] = -1;
-            p = dl;
-            dl += 2;
-            p[0] = 0xFB000000;
-            r = (*((u16 *) temp_s5)) * 2;
-            if (r >= 256)
-            {
-              r = 255;
-            }
-            g = (*((u16 *) (((char *) temp_s5) + 2))) * 2;
-            if (g >= 256)
-            {
-              g = 255;
-            }
-            b = (*((u16 *) (((char *) temp_s5) + 4))) * 2;
-            if (b >= 256)
-            {
-              b = 255;
-            }
-            p[1] = (((r << 24) | ((g & 255) << 16)) | ((b & 255) << 8)) | (*((u8 *) (((char *) var_s0) + (-2))));
-            plain_color:
-            p = dl;
+    f32 mf[4][4];
+    Draw draw;
+    Gfx *dl;
+    Gfx *p;
+    void *m;
+    u8 done;
+    u8 started;
+    s32 r, g, b;
+    u32 c;
+    s32 d;
+    s32 dy, dz;
+    f32 x;
 
-            dl = (dl += 2);
-            p[0] = 0xFB000000;
-            p[1] = (*((u8 *) (((char *) var_s0) + (-2)))) | (~255);
-            p = dl;
-            p[0] = 0xFA000000;
-            p[1] = -1;
-          }
-          func_80006014(arg3, dl, dl);
-        }
-        var_v0 = var_s6 & 0xFF;
-      }
-      if (var_v0 == 0)
-      {
-        var_s6 = 1;
-        temp_s1 = func_8001BD1C();
-        guMtxIdentF(sp18);
-        temp_a0 = *((void **) (((char *) arg0) + 0x5C));
-        temp_ft0 = (f32) (*((s32 *) (((char *) temp_a0) + 0x54)));
-        var_v0_2 = (s32) (temp_ft0 - (*((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x118))));
-        new_var = D_800A4A58;
-        if (var_v0_2 < 0)
-        {
-          var_v0_2 = -var_v0_2;
-        }
-        if (((f64) var_v0_2) < temp_fs0)
-        {
-          var_v0_3 = (s32) (((f32) (*((s32 *) (((char *) temp_a0) + 0x58)))) - (*((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x11C))));
-          if (var_v0_3 < 0)
-          {
-            var_v0_3 = -var_v0_3;
-          }
-          if (((f64) var_v0_3) < new_var)
-          {
-            var_v0_4 = (s32) (((f32) (*((s32 *) (((char *) temp_a0) + 0x5C)))) - (*((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x120))));
-            if (var_v0_4 < 0)
-            {
-              var_v0_4 = -var_v0_4;
-            }
-            if (((f64) var_v0_4) < temp_fs0)
-            {
-              sp18[12] = temp_ft0;
-              sp18[13] = (f32) (*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x5C)))) + 0x58)));
-              sp18[14] = (f32) (*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x5C)))) + 0x5C)));
-              func_80010BFC(temp_s1, (*((void **) (D_800C02AE + 0x7CD6))) + 0x38, &sp18);
-              func_800061FC(arg3, temp_s1);
-              goto block_35;
-            }
-          }
-        }
-      }
-      else
-      {
-        block_35:
-        if (var_s6 == 1)
-        {
-          *((s32 *) (D_800AE850 + 0x123C)) = (s32) ((*((s32 *) (D_800AE850 + 0x123C))) + 1);
-          func_800075BC(arg3, *(((*((u16 *) (((char *) var_s0) + (-0xE)))) * 4) + (*((void ***) (((char *) (*((void **) (((char *) var_s0) + 0)))) + 4)))), 0);
-          draw.a = 3;
-          draw.b = 0;
-          draw.c = (*((u16 *) (((char *) var_s0) + (-8)))) * 2;
-          draw.d = (*((u16 *) (((char *) var_s0) + (-8)))) * 2;
-          draw.e = *((u16 *) (((char *) var_s0) + (-0x1C)));
-          draw.f = *((u16 *) (((char *) var_s0) + (-0x1A)));
-          draw.g = *((u16 *) (((char *) var_s0) + (-0x18)));
-          temp_v0_2 = *(*((void ***) (((char *) (*((void **) (((char *) var_s0) + 0)))) + 4)));
-          func_80019C90(arg3, (*((void **) (D_800C02AE + 0x7CD6))) + 0x38, &draw, *((u16 *) (((char *) temp_v0_2) + 6)), (s32) (*((u16 *) (((char *) temp_v0_2) + 8))));
-        }
-
-        goto block_37;
-      }
+    done = 0;
+    started = 0;
+    if (twice) {
+        count = (u32)count >> 1;
     }
-    else
-    {
-      block_37:
-      var_s0 += 0x24;
-
-      var_s2 += 0x24;
-      if (sp6F != 0)
-      {
-        var_s0 += 0x24;
-        var_s2 += 0x24;
-      }
-      if ((var_s3--) != 0)
-      {
-        goto loop_4;
-      }
+    while (count--) {
+        if (e->active != 0) {
+            if (!started) {
+                dl = func_80006008(buf);
+                started = 1;
+                GCMD(dl++, 0xDE000000, (u32)D_8009EAB0);
+                switch (D_800C811C->mode) {
+                case 2:
+                    GCMD(dl++, 0xFA000000, -1);
+                    p = dl++;
+                    p->w0 = 0xFB000000;
+                    r = D_800ADFC6[0] * 2;
+                    if (r >= 256) r = 255;
+                    r <<= 24;
+                    g = D_800ADFC6[1] * 2;
+                    if (g >= 256) g = 255;
+                    b = D_800ADFC6[2] * 2;
+                    if (b >= 256) b = 255;
+                    p->w1 = r | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | e->alpha;
+                    break;
+                case 1:
+                    GCMD(dl++, 0xFA000000, -1);
+                    p = dl++;
+                    p->w0 = 0xFB000000;
+                    r = D_800ADFC6[0] * 2;
+                    if (r >= 256) r = 255;
+                    r <<= 24;
+                    g = D_800ADFC6[1] * 2;
+                    if (g >= 256) g = 255;
+                    c = r | ((g & 0xFF) << 16);
+                    b = D_800ADFC6[2] * 2;
+                    if (b >= 256) b = 255;
+                    p->w1 = c | ((b & 0xFF) << 8) | e->alpha;
+                default:
+                    GCMD(dl++, 0xFB000000, e->alpha | 0xFFFFFF00);
+                    GCMD(dl++, 0xFA000000, -1);
+                    break;
+                }
+                func_80006014(buf, dl);
+            }
+            if (!done) {
+                done = 1;
+                m = func_8001BD1C();
+                guMtxIdentF(mf);
+                x = obj->pos->x;
+                if (!(abs((s32)(x - D_800C7F84->x)) < D_800A4A50)) return;
+                if (!(abs((s32)((f32)obj->pos->y - D_800C7F84->y)) < D_800A4A58)) return;
+                if (!(abs((s32)((f32)obj->pos->z - D_800C7F84->z)) < D_800A4A50)) return;
+                mf[3][0] = x;
+                mf[3][1] = obj->pos->y;
+                mf[3][2] = obj->pos->z;
+                func_80010BFC(m, D_800C7F84->mtx, mf);
+                func_800061FC(buf, m);
+            }
+            if (done == 1) {
+                D_800AFA8C++;
+                func_800075BC(buf, e->model->tex[e->texIdx], 0);
+                draw.a = 3;
+                draw.b = 0;
+                draw.c = e->size * 2;
+                draw.d = e->size * 2;
+                draw.e = e->c4;
+                draw.f = e->c6;
+                draw.g = e->c8;
+                func_80019C90(buf, D_800C7F84->mtx, &draw, e->model->tex[0]->w, e->model->tex[0]->h);
+            }
+        }
+        e++;
+        if (twice) {
+            e++;
+        }
     }
-
-  }
 }

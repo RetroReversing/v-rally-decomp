@@ -1,48 +1,75 @@
-#define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
-void *func_8007EAA0(s32,s32);
-void *func_800592D0(s8,void*,s32);
-void *func_800592AC(u16);
-s32 func_80057918(s32,u16);
-s16 func_8000C9B0(void*,s32,u8,s32,s32);
-extern u8 *D_800A1468;
+typedef struct Node {
+    struct Node *next;
+    u16 a;
+    u16 b;
+    u8 n;
+    s8 k;
+    u8 flag;
+} Node;
+typedef struct { char pad[0xD]; u8 base; char pad2[6]; } Ent;
+typedef struct { s16 pad0; s16 idx; char pad4[0xC]; Ent *tab; } Ctx;
+typedef struct { char pad[4]; u16 id; s16 pad6; s16 w; s8 sel; char padB[5]; s32 v; } Item;
+typedef struct { char pad[8]; u16 id; s16 padA; s16 w; s8 sel; char padF[5]; s32 v; } Seg;
+typedef struct { char pad[0x18]; Node *head; Node *tail; s32 count; char pad24[0xAC]; u8 pair[0x14][2]; } Mgr;
+
+void *func_8007EAA0(s32, s32);
+Item *func_800592D0(s8);
+Seg *func_800592AC(u16);
+s32 func_80057918(s32, u16);
+s16 func_8000C9B0(void *, s32, u8, s32, s32);
+extern Mgr *D_800A1468;
 extern u8 D_800C02AE[];
-void func_80057D5C(s32 arg0,s32 arg1,u8 arg2,s8 arg3) {
-u8 *node,*ctx,*item,*p,*tab,*tail;
-s16 hi,lo,v,w;
-s8 i;
-s32 id;
-node=func_8007EAA0(1,12);
-ctx=F(D_800C02AE,u8*,0x325A);
-lo=240;
-F(node,u16,4)=arg0-F(F(ctx,u8*,16)+F(ctx,s16,2)*20,u8,13);
-hi=0;
-F(node,u8,8)=arg2; F(node,s8,9)=arg3;
-F(node,u16,6)=arg1-F(F(ctx,u8*,16)+F(ctx,s16,2)*20,u8,13);
-item=func_800592D0(arg3,ctx,(s32)F(ctx,u8*,16));
-i=0;
-if(F(node,u8,8)) do {
-id=func_80057918(F(D_800C02AE,s32,0x807A),F(item,u16,4));
-tab=D_800A1468; p=tab+F(item,s8,10)*2;
-v=func_8000C9B0(tab+F(p,u8,0xD0)*4+0xE4,id,F(p,u8,0xD1),F(item,s32,16),0);
-if(hi<v)hi=v;
-w=F(item,s16,8); if(w<lo)lo=w;
-i++;
-}while(i<F(node,u8,8));
-p=func_800592AC(F(node,u16,4));
-id=func_80057918(F(D_800C02AE,s32,0x807A),F(p,u16,8));
-tab=D_800A1468; ctx=tab+F(p,s8,14)*2;
-v=func_8000C9B0(tab+F(ctx,u8,0xD0)*4+0xE4,id,F(ctx,u8,0xD1),F(p,s32,20),0);
-if(hi<v)hi=v;
-if(F(p,s16,12)<lo)lo=F(item,u16,8);
-p=func_800592AC(F(node,u16,6));
-id=func_80057918(F(D_800C02AE,s32,0x807A),F(p,u16,8));
-tab=D_800A1468; ctx=tab+F(p,s8,14)*2;
-v=func_8000C9B0(tab+F(ctx,u8,0xD0)*4+0xE4,id,F(ctx,u8,0xD1),F(p,s32,20),0);
-if(hi<v)hi=v;
-if(F(p,s16,12)<lo)lo=F(item,u16,8);
-F(node,u8,10)=0;
-tail=F(D_800A1468,u8*,28);
-if(!tail)F(D_800A1468,u8*,24)=node;else F(tail,u8*,0)=node;
-F(D_800A1468,u8*,28)=node;
-F(D_800A1468,s32,32)++;
+extern s32 D_800C8328;
+#define CTX (*(Ctx **)(D_800C02AE + 0x325A))
+#define TABP(m, s) ((u8 *)(m) + ((m)->pair[s][0] * 4 + 0xE4))
+
+void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
+{
+    Node *node;
+    Item *item;
+    Seg *seg;
+    Mgr *m;
+    s16 hi, lo, v;
+    s8 i;
+    s32 id;
+
+    node = func_8007EAA0(1, 12);
+    lo = 240;
+    node->a = arg0 - CTX->tab[CTX->idx].base;
+    hi = 0;
+    node->b = arg1 - CTX->tab[CTX->idx].base;
+    node->n = arg2;
+    node->k = arg3;
+    item = func_800592D0(arg3);
+    for (i = 0; i < node->n; i++) {
+        id = func_80057918(D_800C8328, item->id);
+        m = D_800A1468;
+        v = func_8000C9B0(TABP(m, item->sel), id, m->pair[item->sel][1], item->v, 0);
+        if (hi < v) hi = v;
+        if (item->w < lo) lo = item->w;
+    }
+    seg = func_800592AC(node->a);
+    id = func_80057918(D_800C8328, seg->id);
+    m = D_800A1468;
+    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
+    if (hi < v) hi = v;
+    if (seg->w < lo) lo = item->w;
+    seg = func_800592AC(node->b);
+    id = func_80057918(D_800C8328, seg->id);
+    m = D_800A1468;
+    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
+    if (hi < v) hi = v;
+    if (seg->w < lo) lo = item->w;
+    if (hi > lo) {
+        node->flag = 0;
+    } else {
+        node->flag = 0;
+    }
+    if (D_800A1468->tail != NULL) {
+        D_800A1468->tail->next = node;
+    } else {
+        D_800A1468->head = node;
+    }
+    D_800A1468->tail = node;
+    D_800A1468->count++;
 }

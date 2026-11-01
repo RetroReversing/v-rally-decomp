@@ -35,7 +35,7 @@ s32 func_80028E94(GridState *arg0, Point *arg1, s32 arg2) {
     s32 var_a2_2;
     s32 var_a2_4;
     s32 temp_a0_2;
-    s32 temp_a0_3;
+    
     s32 temp_a0_5;
     s32 temp_a3;
     s32 temp_v0_5;
@@ -193,10 +193,10 @@ var_s7=2;var_s2=0;goto block_146;
             temp_v1_6 = temp_s0->vertices;
             delta.y = (s16) temp_v1_6[var_v0_3].y - (s16) temp_v1_6[var_fp].y;
             temp_v0_2 = temp_s0->vertices;
-            temp_a0_3 = (s16) temp_v0_2[var_v0_3].z - (s16) temp_v0_2[var_fp].z;
+            temp_a0_2 = (s16) temp_v0_2[var_v0_3].z - (s16) temp_v0_2[var_fp].z;
             p28.z = p20.z + temp_a3;
-            delta.z = temp_a0_3;
-            p28.x = p20.x - temp_a0_3;
+            delta.z = temp_a0_2;
+            p28.x = p20.x - temp_a0_2;
         }
         sp60 = var_t2;
         sp64 = var_t3;

@@ -26,7 +26,8 @@ void func_80059618(s8 *arg0, u8 arg1, u8 arg2, s32 arg3, u8 arg4) {
 
     temp_v0 = D_800A1468 + (M2C_FIELD(arg0, s8 *, 0xA) * 2);
     var_s0 = M2C_FIELD(temp_v0, u8 *, 0xD0);
-    temp_a0 = var_s0 & 0xFF;
+    temp_a0_2 = var_s0 & 0xFF;
+    temp_a0 = temp_a0_2;
     temp_t0 = D_800A1468;
     if (temp_a0 < (temp_a0 + M2C_FIELD(temp_v0, u8 *, 0xD1))) {
         var_v0 = temp_a0 * 4;

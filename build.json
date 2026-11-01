@@ -28,6 +28,62 @@
     "-g3"
    ],
    "timeout": 20,
+   "start": 2147916296,
+   "end": 2147916297
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147718252,
+   "end": 2147718253
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147696948,
+   "end": 2147696949
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147561920,
+   "end": 2147561921
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
    "start": 2148107616,
    "end": 2148107617
   },
@@ -6716,7 +6772,9 @@
    "seg": "code_80012114",
    "vram": 2147561920,
    "rom": 81344,
-   "asm": "asm/nonmatchings/code_80012114/func_800131C0.s"
+   "asm": "asm/nonmatchings/code_80012114/func_800131C0.s",
+   "c": "src/code_80012114/func_800131C0.c",
+   "own": {}
   },
   {
    "name": "func_80013E60",
@@ -11127,7 +11185,9 @@
    "seg": "code_80026E3C",
    "vram": 2147696948,
    "rom": 216372,
-   "asm": "asm/nonmatchings/code_80026E3C/func_80034134.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_80034134.s",
+   "c": "src/code_80026E3C/func_80034134.c",
+   "own": {}
   },
   {
    "name": "func_800344F0",
@@ -11513,7 +11573,9 @@
    "seg": "code_80026E3C",
    "vram": 2147718252,
    "rom": 237676,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8003946C.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8003946C.s",
+   "c": "src/code_80026E3C/func_8003946C.c",
+   "own": {}
   },
   {
    "name": "func_8003970C",
@@ -17217,7 +17279,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147916296,
    "rom": 435720,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_80069A08.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_80069A08.s",
+   "c": "src/code_8004BEB4/func_80069A08.c",
+   "own": {}
   },
   {
    "name": "func_8006A1FC",

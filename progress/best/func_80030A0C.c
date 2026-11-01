@@ -136,7 +136,7 @@ s16 phase_i;
     temp_s6 = var_s2->stats;
     flags = &var_s2->flags;
     negative = &temp_s6->b;
-    var_s2->index = sp76;
+    var_s2->index = sp76++;
     temp_s6->field1a = 0;
     sp84 = temp_s6->samples;
     var_s2->stats->field18 = 0;
@@ -145,7 +145,7 @@ s16 phase_i;
     temp_v1 = var_s2->count;
     temp_v0 = temp_v1 >> 1;
     phase_i = (s16) temp_v0;
-    sp76 += 1;
+
     if (((s32) temp_v0) < (temp_v1 - 2))
     {
       do
@@ -260,14 +260,12 @@ if(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp
       do
       {
         func_80033CD4((Road *) var_s2, var_s1, &p30[0]);
-        temp_v0_3 = var_s0 + 1;
+
         if (((var_s1 == 0) | (var_s1 == temp_s3)) != 0)
         {
-          var_s0 = temp_v0_3;
+
           sp6C = p30[1];
-          temp_v0_4 = (((s32) (temp_v0_3 << 0x10)) >> 0xE) + (s32)sp8C;
-          *((s32 *) (((char *) temp_v0_4) + 0x10)) = 0;
-          *((s32 *) (((char *) temp_v0_4) + 0x0)) = 0;
+temp_v0_4=(void*)((((s32)((var_s0++ + 1)<<16))>>14)+(s32)sp8C);*((s32*)((char*)temp_v0_4+16))=0;*((s32*)temp_v0_4)=0;
         }
         else
         {
@@ -275,7 +273,7 @@ if(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp
           temp_v1_4 = var_s0 << 0x10;
           if (temp_a0_3 > 0)
           {
-            temp_v1_5 = (temp_v1_4 >> 0xE) + (s32)sp8C;
+            temp_v1_4>>=14;temp_v1_5=temp_v1_4+(s32)sp8C;
             *((s32 *) (((char *) temp_v1_5) + 0x10)) = (s32) ((*((s32 *) (((char *) temp_v1_5) + 0x10))) + temp_a0_3);
           }
           else
@@ -663,3 +661,5 @@ temp_a0_3=var_s0+1;
   *((s32 *) (D_800A73E0 + 0x6C08)) = (s32) (((s16) sp76) - 1);
 }
 
+
+/* Revalidated after the local macOS toolchain signing repair. */

@@ -5,20 +5,35 @@
 #define W(p,o) (*(s32 *)((u8*)(p)+(o)))
 #define B(p,o) (*((u8*)(p)+(o)))
 #define A(p,o) (*(u8 **)((u8*)(p)+(o)))
+typedef struct { u8 pad0[6]; u16 w; } Img;
+typedef struct { u8 pad0[4]; Img **imgs; } Spr;
+typedef struct {
+  u8 pad0[0xc];
+  s16 xc;
+  s16 xe;
+  u8 pad10[0x7a - 0x10];
+  s16 x7a;
+  u8 pad7c[0x9c - 0x7c];
+  s16 x9c;
+  s16 x9e;
+  s32 flags;
+  Spr *spr;
+  u8 *owner;
+} Obj;
 extern u8 *D_800C35A0;
 extern u8 *D_800C7F84;
 extern u8 *func_8004240C(s32);
-extern u8 *func_80040260(s32, s32, s32, u16, void *, s32);
-extern u8 *func_80034FF0(void *, s32);
+extern Obj *func_80040260(s32, s32, s32, u16, void *, s32);
+extern Spr *func_80034FF0(void *, s32);
 extern void func_8003B980(void);
 void func_8003946C(s32 a, u8 *b, s32 c)
 {
-  int new_var;
   u8 *g = G;
   u8 *p;
   u8 *q;
   u8 *r;
-  u8 *o;
+  Spr *s;
+  Obj *o;
   s32 x;
   s32 y;
   s32 z;
@@ -36,19 +51,19 @@ void func_8003946C(s32 a, u8 *b, s32 c)
       row += B(g, 0x32) * 40;
       if (row[0x48] & 2)
       {
-        q = A(func_8004240C(1), 0x178);
-        x = H(q, 0xc);
-        y = H(q, 0xe);
-        P = (u8 *) 0;
+        r = func_8004240C(1);
+        x = H(A(r, 0x178), 0xc);
+        y = H(A(r, 0x178), 0xe);
+        P = r;
         o = func_80040260(a, 0, 0, (u16) c, func_8003B980, 1);
-        H(o, 0x9c) = x - 63;
-        H(o, 0x9e) = y - 42;
-        r = func_80034FF0(b + 0x4c, 0);
-        A(o, 0xa4) = r;
-        H(o, 0xe) = -3;
-        W(o, 0xa0) |= 0x20;
-        A(o, 0xa8) = P;
-        H(o, 0xc) = -(U(A(A(r, 4), 0), 6) >> 1);
+        o->x9c = x - 63;
+        o->x9e = y - 42;
+        s = func_80034FF0(b + 0x4c, 0);
+        o->spr = s;
+        o->xc = -(s->imgs[0]->w >> 1);
+        o->xe = -3;
+        o->flags |= 0x20;
+        o->owner = P;
       }
     }
     else
@@ -68,24 +83,22 @@ void func_8003946C(s32 a, u8 *b, s32 c)
             off = 0;
             P = p;
             x = H(q, 0xc);
-            new_var = 1;
             z = H(q, 8);
             sum = H(q, 0xa) + H(q, 0xe);
-            if (!(U(G, 0x12) & new_var))
+            if (!(U(G, 0x12) & 1))
             {
               x -= 16;
-              off = (-(W(p, 0xc) == new_var)) & 20;
+              off = (-(W(p, 0xc) == 1)) & 20;
             }
             o = func_80040260(a, 0, 0, (u16) c, func_8003B980, 1);
-            r = func_80034FF0(b + 0x4c, 0);
-            A(o, 0xa4) = r;
-            H(o, 0x9c) = ((z + x) + off) - 35;
-            H(o, 0x9e) = sum - 32;
-            H(o, 0xe) = -2;
-            W(o, 0xa0) |= 0x20;
-            A(o, 0xa8) = P;
-            H(o, 0x7a) = 1;
-            H(o, 0xc) = -(U(A(A(A(o, 0xa4), 4), 0), 6) >> 1);
+            o->spr = func_80034FF0(b + 0x4c, 0);
+            o->x9c = (u16)(z + x) - 35 + off;
+            o->x9e = sum - 32;
+            o->xc = -(o->spr->imgs[0]->w >> 1);
+            o->xe = -2;
+            o->flags |= 0x20;
+            o->owner = P;
+            o->x7a = 1;
           }
           i++;
           n += 2;

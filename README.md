@@ -6,8 +6,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,761 selected C functions / 309,584 matching bytes**, about **54.70% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,761 C and 361 assembly functions**.
+- **1,765 selected C functions / 316,480 matching bytes**, about **55.92% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,765 C and 357 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -73,6 +73,18 @@ are newly retained in that snapshot but have not been added to the standalone C 
 The 1 November 2026 checkpoint adds **7 C functions / 6,816 matching bytes** and updates an existing match while retaining all earlier C. `func_80076060` is now an exact **845-instruction / 3,380-byte** match in the live app and standalone build. Separate local draw-pair blocks and staged second-call arguments resolved its final register allocation. The complete original cartridge comparison passed before publishing these source files. The portable `progress/` snapshot includes all current app matches, drafts, names, headers and compiler settings.
 
 The selected-byte summary is now calculated from original function-symbol sizes, correcting a **1,436-byte** overstatement in the previous summary.
+
+### Complete app progress sync — 1 November 2026
+
+This checkpoint adds **4 verified C functions / 6,896 matching bytes**:
+`func_800131C0`, `func_80034134`, `func_8003946C`, `func_80069A08`. All earlier selected C is retained. Each addition
+passed its independent compiler/link check, and the complete original 12,582,912-byte
+cartridge rebuilt byte for byte. Objdiff source links and compiler profiles are updated together.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,766 matches
+and 334 best drafts**, alongside current names, 20,672 notes, headers, symbols and
+compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
+and compiler profiles were compared with the live app after saving.
 
 ## Build
 

@@ -1,354 +1,312 @@
-extern float D_800C35E8;
-extern float D_800C35E4;
-extern unsigned char D_800C35C8;
-extern int D_800C81D4;
-extern unsigned char D_800B6818;
-extern float D_800C35E0;
-s32 func_8001FEE8();
-void *func_8004240C();
-s32 func_80086AD8();
-s32 func_80086B34();
-s32 func_80086D34();
-s32 func_80086D90();
-s32 func_80086E8C(void *, f32);
+#define U2F(x) (dv = (x), (x) < 0 ? dv += big : 0, (f32)dv)
+typedef struct 
+{
+  s32 a;
+  s32 b;
+  s32 c;
+} Snd;
+typedef struct 
+{
+  char pad[0x20];
+  s32 flags;
+} Cam;
+typedef struct 
+{
+  char pad[0xE];
+  u16 players;
+  char pad10[0xE];
+  u16 mode;
+} State;
+typedef struct 
+{
+  s32 type;
+  s32 rpm;
+} Engine;
+typedef struct 
+{
+  Snd *snd;
+  s32 last;
+  s32 w[5];
+  s32 load;
+} Audio;
+typedef struct Car
+{
+  char pad0[4];
+  struct Car *next;
+  char pad8[0x40];
+  s32 *speed;
+  Engine *eng;
+  s32 *surface;
+  char pad54[0x14];
+  Audio *audio;
+  char pad6C[0x14];
+  char *wheels;
+  char pad84[8];
+  u8 *ctrl;
+  char pad90[4];
+  s32 *kind;
+} Car;
+s32 func_8001FEE8(Car *);
+Cam *func_8004240C(s32);
+void func_80086AD8(Snd *, s32);
+void func_80086B34(Snd *);
+s32 func_80086D34(Snd *);
+void func_80086D90(Snd *, s32);
+void func_80086E8C(Snd *, f32);
 extern s32 D_8009F640;
-extern f64 D_800A4AC8;
-extern f64 D_800A4AD0;
-extern f64 D_800A4AD8;
-extern unsigned char D_800AE850[];
-extern char D_800C02AE[];
-static inline static static static static static static static static static char *inline_fn(void *arg0)
+extern const f64 D_800A4AC8;
+extern const f64 D_800A4AD0;
+extern const f64 D_800A4AD8;
+extern char D_800AE850[];
+extern State *D_800C35A0;
+extern f32 D_800C35E4;
+extern f32 D_800C35E8;
+extern f32 D_800C35E0;
+extern u8 D_800C35C8;
+extern Snd *D_800C81D4;
+extern Cam *D_800C7F84;
+extern u8 D_800B6818;
+static inline f32 inline_fn(s32 arg0)
 {
-  return (char *) arg0;
-}
-
-static inline static static static static static static s32 inline_fn2()
-{
-  return (s32) D_800C35E4;
-}
-
-static inline static static static static static char *inline_fn23(void *arg0)
-{
-  return inline_fn(arg0) + 4;
-}
-
-static inline static static static static float inline_fn234(void *arg0)
-{
-  return (*((f32 *) inline_fn23(arg0))) * 80.0f;
+  return (f32) (120 - arg0);
 }
 
 void func_80037E28(void)
 {
-  f32 temp_fs0;
-  f32 var_fs1;
-  f32 var_fs1_2;
-  f32 var_fv0;
-  f64 var_fv1;
-  f32 var_fv1_2;
-  int new_var5;
-  f64 temp_fs2;
-  f64 var_fv1_3;
-  int new_var;
-  s32 temp_a0_2;
-  s32 temp_a1;
-  int new_var4;
-  s32 temp_s0_2;
-  s32 temp_s0_3;
-  s32 temp_s4;
-  s32 temp_s5;
-  s32 temp_s6;
-  s32 temp_v0_3;
-  s32 temp_v1_3;
-  s32 temp_v1_4;
-  s32 var_a0_3;
-  s32 var_a1;
-  unsigned int new_var6;
-  u8 var_v0;
-  s32 var_v0_2;
-  char *new_var7;
-  s32 var_v0_3;
-  u16 temp_v1;
-  u32 temp_v0_2;
-  u32 temp_v1_2;
-  u32 var_s0_2;
-  u8 var_s1;
-  void *temp_a0;
-  void *temp_a2;
-  void *temp_s0;
-  void *temp_s0_4;
-  void *temp_s0_5;
-  void *temp_s1;
-  void *temp_s1_2;
-  char *new_var3;
-  void *temp_s2;
-  void *temp_s7;
-  void *temp_v0;
-  void *var_a0;
-  void *var_a0_2;
-  void ***new_var2;
-  void *var_s0;
-  void *var_s3;
-  var_v0 = 0;
+  Car *car;
+  Audio *audio;
+  Snd *snd;
+  s32 new_var;
+  Snd *snd1;
+  f32 *vols;
+  f32 *pv;
+  f32 f;
+  f32 g;
+  f32 t;
+  f32 fu;
+  f64 dv;
+  f64 big;
+  s32 rpm;
+  s32 kind;
+  s32 spd;
+  s32 k;
+  s32 u;
+  u32 sum;
+  u16 mode;
+  u8 ok;
+  u8 gear;
+  u8 i;
+  ok = 0;
   if (!(D_8009F640 & 1))
   {
-    var_v0 = 1;
+    ok = 1;
   }
   else
-    if ((*((u16 *) (inline_fn(*((void **) (D_800C02AE + 0x32f2))) + 0xe))) == 2)
+    if ((D_800C35A0->players == 2) && (!(D_8009F640 & 2)))
   {
-    if (!(D_8009F640 & 2))
-    {
-      var_v0 = 1;
-    }
+    ok = 1;
   }
-  if (var_v0 != 0)
+  if (!ok)
   {
-    new_var2 = (void ***) (D_800AE850 + 0x73F0);
-    var_s3 = *(*new_var2);
-    new_var7 = (char *) D_800C02AE;
-    if (var_s3 != NULL)
+    return;
+  }
+  car = *(*((Car ***) (D_800AE850 + 0x73F0)));
+  if (car == NULL)
+  {
+    return;
+  }
+  vols = &D_800C35E4;
+  big = D_800A4AC8;
+  do
+  {
+    pv = &vols[1];
+    audio = car->audio;
+    rpm = car->eng->rpm;
+    snd = audio->snd;
+    kind = (*car).kind[1];
+    spd = car->speed[3] / 5;
+    switch (car->eng->type)
     {
-      temp_fs2 = D_800A4AC8;
-      temp_a2 = new_var7;
-      temp_a2 += (s32) 0x3336;
-      do
+      case 0:
+        break;
+
+      case 1:
+        if (((kind == 1) && (!(D_8009F640 & 4))) && func_80086D34(&snd[4]))
       {
-        temp_s0 = *((void **) (inline_fn(var_s3) + 0x4C));
-        temp_a0 = (void *) temp_s0;
-        temp_s7 = *((void **) (inline_fn(var_s3) + 0x68));
-        temp_s4 = *((s32 *) inline_fn23(temp_a0));
-        temp_s2 = *((void **) (inline_fn(temp_s7) + 0));
-        temp_a0_2 = *((s32 *) (inline_fn(temp_a0) + 0));
-        temp_s5 = *((s32 *) inline_fn23(*((void **) (inline_fn(var_s3) + 0x94))));
-        temp_s6 = (*((s32 *) (inline_fn(*((void **) (inline_fn(var_s3) + 0x48))) + 0xC))) / 5;
-        switch (temp_a0_2)
+        D_8009F640 |= 4;
+        func_80086B34(&snd[4]);
+        func_80086D90(&snd[4], D_800C35E8 * 150.0f);
+      }
+        break;
+
+      case 2:
+        f = audio->load;
+        if (f > 12000.0f)
+      {
+        f = 12000.0f;
+      }
+        mode = D_800C35A0->mode;
+        f = (100.0f - (f * 0.008333334f)) * 0.01f;
+        if ((mode == 6) || (mode == 7))
+      {
+        D_800C35E4 = 0.0f;
+        if (D_800C35C8 != 0xFF)
         {
-          case 0:
-            break;
-
-          case 1:
-            if (temp_s5 == 1)
+          func_80086D90(&D_800C81D4[D_800C35C8], 0);
+        }
+      }
+      else
+      {
+        new_var = kind;
+        if (new_var != 1)
+        {
+          if (((mode == 5) && (D_800B6818 == 0)) || ((D_800C35A0->players == 2) && ((mode == 5) || ((mode != 0) & (mode < 5)))))
           {
-            temp_s0 = temp_s2 + 0x30;
-            if ((!(D_8009F640 & 4)) && (func_80086D34(temp_s0) != 0))
-            {
-              D_8009F640 |= 4;
-              func_80086B34(temp_s0);
-              var_fv1 = D_800C35E8 * 150.0f;
- do { var_a0 = temp_s0; } while (0);
-              block_74:
-              func_80086D90(var_a0, (s32) var_fv1);
-
-            }
+            f = 0.0f;
           }
-            break;
-
-          case 2:
-            new_var3 = inline_fn(temp_s7) + 0x1C;
-            var_fs1 = (f32) (*((s32 *) new_var3));
-            if (var_fs1 > 12000.0f)
+        }
+        if (new_var == 1)
+        {
+          g = func_8001FEE8(car);
+          if (g < 0.0f)
           {
-            var_fs1 = 12000.0f;
+            g = -g;
           }
-            temp_v1 = *((u16 *) (inline_fn(*((void **) (D_800C02AE + 0x32F2))) + 0x1E));
-            var_fs1_2 = (100.0f - (var_fs1 * 0.008333334f)) * 0.01f;
-            if (((u32) (temp_v1 - 6)) < 2U)
+          if (g > 100.0f)
           {
-            D_800C35E4 = 0.0f;
-            var_a1 = 0;
-            if (D_800C35C8 != 0xFF)
-            {
-              var_a0_2 = D_800C81D4 + (D_800C35C8 * 0xC);
-              goto block_36;
-            }
+            g = 100.0f;
           }
-          else
+          D_800C35E4 = D_800C35E0 * ((1.0f - (g * 0.004f)) * 112.0f);
+          D_800C7F84 = func_8004240C(1);
+          if (D_800C7F84->flags & 0x880000)
           {
-            temp_v1_2 = temp_v1 & 0xFFFF;
-            if (temp_s5 != 1)
+            D_800C35E4 *= 0.6666667f;
+          }
+          if (D_800C35C8 != 0xFF)
+          {
+            if (mode || spd)
             {
-              if (((temp_v1_2 == 5) && (D_800B6818 == 0)) || (((*((u16 *) (inline_fn(*((void **) (D_800C02AE + 0x32F2))) + 0xE))) == temp_a0_2) && ((temp_v1_2 == 5) || ((temp_v1_2 != 0) & (temp_v1_2 < 5U)))))
-              {
-                var_fs1_2 = 0.0f;
-              }
-              if (temp_s5 == 1)
-              {
-                goto block_28;
-              }
+              func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
             }
             else
             {
-              block_28:
-              var_fv1_2 = (f32) func_8001FEE8(var_s3);
-
-              if (var_fv1_2 < 0.0f)
-              {
-                var_fv1_2 = -var_fv1_2;
-              }
-              if (var_fv1_2 > 100.0f)
-              {
-                var_fv1_2 = 100.0f;
-              }
-              new_var4 = 0xFF;
-              D_800C35E4 = (f32) (D_800C35E0 * ((1.0f - (var_fv1_2 * 0.004f)) * 112.0f));
-              temp_v0 = (*((void **) (D_800C02AE + 0x7CD6)) = func_8004240C(1));
-              if ((*((s32 *) (inline_fn(temp_v0) + 0x20))) & 0x880000)
-              {
-                D_800C35E4 = (f32) (D_800C35E4 * 0.6666667f);
-              }
-              if (D_800C35C8 != new_var4)
-              {
-                var_a0_2 = D_800C81D4 + (D_800C35C8 * 0xC);
-                var_a1 = inline_fn2();
-                block_36:
-                func_80086D90(var_a0_2, var_a1);
-
-              }
+              func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
             }
           }
-            if (temp_s5 != 2)
-          {
-            new_var = func_80086D34(temp_s2) != 0;
-            if ((func_80086D34(temp_s2 + 0x30) != 0) && ((((*((u16 *) (inline_fn(*((void **) (D_800C02AE + 0x32F2))) + 0xE))) != 2) | (temp_s5 == 1)) != 0))
-            {
-              var_s0 = temp_s2 + 0xC;
-              if (new_var)
-              {
-                func_80086B34(temp_s2);
-                var_s0 = temp_s2 + 0xC;
-              }
-              if (func_80086D34(var_s0) != 0)
-              {
-                func_80086B34(var_s0);
-              }
-            }
-            if ((*((s32 *) inline_fn23(temp_s2))) != 0)
-            {
-              temp_fs0 = (f32) ((((f64) (temp_s4 * 0xC)) * D_800A4AD0) - D_800A4AD8);
-              func_80086E8C(temp_s2, temp_fs0);
-              temp_s1 = temp_s2 + 0xC;
-              func_80086E8C(temp_s1, temp_fs0);
-              if (temp_s4 < 0xFA0)
-              {
-                func_80086D90(temp_s2, (s32) (var_fs1_2 * ((*((f32 *) inline_fn23(temp_a2))) * 120.0f)));
-                var_v0_2 = temp_s6 + 0x1E;
-                goto block_52;
-              }
-              if (temp_s4 < 0x157C)
-              {
-                temp_v1_3 = temp_s4 - 0xFA0;
-                temp_s0_2 = (temp_v1_3 * 0x28) / 1500;
-                func_80086D90(temp_s2, (s32) ((((f32) (0x78 - temp_s0_2)) * var_fs1_2) * (*((f32 *) inline_fn23(temp_a2)))));
-                temp_s0_3 = temp_s0_2 + (temp_s6 + 0x1E);
-                var_fv1_3 = (f64) temp_s0_3;
-                if (temp_s0_3 < 0)
-                {
-                  var_fv1_3 += temp_fs2;
-                }
-              }
-              else
-              {
-                func_80086D90(temp_s2, (s32) (var_fs1_2 * inline_fn234(temp_a2)));
-                var_v0_2 = temp_s6 + 0x50;
-                block_52:
-                var_fv1_3 = (f64) var_v0_2;
-
-                if (new_var5 = var_v0_2 < 0)
-                {
-                  var_fv1_3 += temp_fs2;
-                }
-              }
-              func_80086D90(temp_s1, (s32) ((((f32) var_fv1_3) * var_fs1_2) * (*((f32 *) inline_fn23(temp_a2)))));
-              if (temp_s5 == 1)
-              {
-                var_s1 = *((u8 *) (inline_fn(*((void **) (inline_fn(var_s3) + 0x8C))) + 0x337));
-                temp_v0_2 = var_s1 & new_var4;
-                if (temp_v0_2 != 0)
-                {
-                  if (temp_v0_2 >= 3U)
-                  {
-                    var_s1 = 2;
-                  }
-                  new_var6 = 0;
-                  temp_s0_4 = temp_s2 + 0x3C;
-                  if (func_80086D34(temp_s0_4) != new_var6)
-                  {
-                    func_80086B34(temp_s0_4);
-                    func_80086D90(temp_s0_4, (s32) (((f32) (var_s1 & new_var4)) * (D_800C35E8 * 56.0f)));
-                  }
-                }
-                temp_v0_3 = *(*((s32 **) (inline_fn(var_s3) + 0x50)));
-                temp_s0_5 = temp_s2 + 0x24;
-                if (temp_v0_3 != (*((s32 *) inline_fn23(temp_s7))))
-                {
-                  *((s32 *) inline_fn23(temp_s7)) = temp_v0_3;
-                  func_80086B34(temp_s0_5);
-                  func_80086D90(temp_s0_5, (s32) (*((f32 *) inline_fn23(temp_a2))));
-                  func_80086D90(temp_s2, (s32) inline_fn234(temp_a2));
-                  func_80086D90(temp_s2 + 0xC, (s32) inline_fn234(temp_a2));
-                }
-                var_s0_2 = new_var6;
-                var_a0_3 = 0;
-                temp_a1 = *((s32 *) (inline_fn(var_s3) + 0x80));
-                var_v0_3 = new_var6 & new_var4;
-                do
-                {
-                  temp_v1_4 = var_v0_3 * 4;
-                  var_a0_3 += 1;
-                  if ((*((s32 *) (((char *) (temp_v1_4 + temp_a1)) + 0x310))) < 0)
-                  {
-                    var_s0_2 += *((s32 *) (inline_fn(temp_v1_4 + (*((void **) (inline_fn(var_s3) + 0x68)))) + 8));
-                  }
-                  var_v0_3 = var_a0_3 & new_var4;
-                }
-                while (((u32) (var_a0_3 & 0xFF)) < 4U);
-                if (var_s0_2 >= 0x7D1U)
-                {
-                  temp_s1_2 = temp_s2 + 0x18;
-                  if (func_80086D34(temp_s1_2) != 0)
-                  {
-                    func_80086B34(temp_s1_2);
-                  }
-                  if (var_s0_2 > 8000U)
-                  {
-                    var_fv1 = D_800C35E8 * 140.0f;
-                    goto block_73;
-                  }
-                  if (var_s0_2 >= 0x1771U)
-                  {
-                    var_fv1 = D_800C35E8 * 120.0f;
-                    block_73:
-                    var_a0 = temp_s1_2;
-
-                    {
-                      func_80086D90(var_a0, (s32) var_fv1);
-                      break;
-                    }
-                  }
-                  if (var_s0_2 >= 0xFA1U)
-                  {
-                    var_fv0 = D_800C35E8 * 100.0f;
-                  }
-                  else
-                  {
-                    var_fv0 = D_800C35E8 * 80.0f;
-                  }
-                  func_80086D90(temp_s1_2, (s32) var_fv0);
-                }
-                else
-                {
-                  func_80086AD8(temp_s2 - (-0x18));
-                }
-              }
-            }
-          }
-            break;
-
         }
-
-        var_s3 = *((void **) inline_fn23(var_s3));
       }
-      while (var_s3 != NULL);
+        if (kind == 2)
+      {
+        break;
+      }
+        if (func_80086D34(&snd[4]) && ((D_800C35A0->players != 2) | (kind == 1)))
+      {
+        if (func_80086D34(&snd[0]))
+        {
+          func_80086B34(&snd[0]);
+        }
+        if (func_80086D34(&snd[1]))
+        {
+          func_80086B34(&snd[1]);
+        }
+      }
+        if (snd[0].b == 0)
+      {
+        break;
+      }
+        t = ((rpm * 12) * D_800A4AD0) - D_800A4AD8;
+        func_80086E8C(&snd[0], t);
+        snd1 = &snd[1];
+        func_80086E8C(snd1, t);
+        if (rpm < 4000)
+      {
+        func_80086D90(&snd[0], f * ((*pv) * 120.0f));
+        u = spd + 30;
+        func_80086D90(snd1, (U2F(u) * f) * (*pv));
+      }
+      else
+        if (rpm < 5500)
+      {
+        k = ((rpm - 4000) * 40) / 1500;
+        func_80086D90(&snd[0], (inline_fn(k) * f) * (*pv));
+        k = k + (spd + 30);
+        func_80086D90(snd1, (U2F(k) * f) * (*pv));
+      }
+      else
+      {
+        func_80086D90(&snd[0], f * ((*pv) * 80.0f));
+        u = spd + 80;
+        func_80086D90(snd1, (U2F(u) * f) * (*pv));
+      }
+        if (kind != 1)
+      {
+        break;
+      }
+        gear = car->ctrl[0x337];
+        if (gear != 0)
+      {
+        if (gear >= 3)
+        {
+          gear = 2;
+        }
+        if (func_80086D34(&snd[5]))
+        {
+          func_80086B34(&snd[5]);
+          func_80086D90(&snd[5], ((f32) gear) * (D_800C35E8 * 56.0f));
+        }
+      }
+        if (audio->last != (*car->surface))
+      {
+        audio->last = *car->surface;
+        func_80086B34(&snd[3]);
+        func_80086D90(&snd[3], *pv);
+        func_80086D90(&snd[0], (*pv) * 80.0f);
+        func_80086D90(&snd[1], (*pv) * 80.0f);
+      }
+        sum = 0;
+        for (i = 0; i < 4; i++)
+      {
+        if ((*((s32 *) ((car->wheels + (i * 4)) + 0x310))) < 0)
+        {
+          sum += car->audio->w[i];
+        }
+      }
+
+        if (sum > 2000)
+      {
+        if (func_80086D34(&snd[2]))
+        {
+          func_80086B34(&snd[2]);
+        }
+        if (sum > 8000)
+        {
+          func_80086D90(&snd[2], D_800C35E8 * 140.0f);
+        }
+        else
+          if (sum > 6000)
+        {
+          func_80086D90(&snd[2], D_800C35E8 * 120.0f);
+        }
+        else
+          if (sum > 4000)
+        {
+          func_80086D90(&snd[2], D_800C35E8 * 100.0f);
+        }
+        else
+        {
+          func_80086D90(&snd[2], D_800C35E8 * 80.0f);
+        }
+      }
+      else
+      {
+        func_80086AD8(&snd[2], 1);
+      }
+        break;
+
     }
+
+    car = car->next;
   }
+  while (car != NULL);
 }
+

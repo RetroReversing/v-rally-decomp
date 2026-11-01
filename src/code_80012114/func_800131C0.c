@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 static inline s32 part_y(u32 y){return y|0xF6000000;}
 extern char D_800B56F0[];
 extern char D_800C7420[];
@@ -39,6 +41,8 @@ void guOrthoF(void *, f32, f32, f32, f32, f32, f32, f32);
 s32 func_80099DF8();
 u64 func_8009A2B0(u64, u64) __attribute__((const));
 u64 func_8009A310(double) __attribute__((const));
+static inline s16 __normghost(s32 x){x=(u32)x<<16;x=(s32)x>>16;return x;}
+static inline s32 __firstsetter(void *p,s32 h){h=(s16)h;func_800131B4(p,h,190);return h;}
 extern s32 D_8009B960;
 extern s32 D_8009BB28;
 extern s32 D_8009BB48;
@@ -70,7 +74,8 @@ void func_800131C0(void)
   short var_s3;
   s32 __repair_var_s3_1;
 
-  s32 var_s6;
+s16 saved_height;
+s32 var_s6;
   char *temp_v0_15;
   void *new_var;
   char *temp_v0_4;
@@ -144,7 +149,7 @@ u32 loop0_fill,loop0_rect,loop0_sync,loop1_fill,loop1_rect,loop1_sync;
 char *text_buffer;
   spD4 = func_800056FC();
   var_s3 = 0;
-new_var=func_80006008(spD4);spCE=0;var_s6=0;temp_v0=new_var;
+new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
   temp_s7 = *((u32 *) (((char *) D_800B681C) + 4));
   D_800C351C = 0U;
   var_s2 = 0;
@@ -196,8 +201,7 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;temp_v0=new_var;
       if (((s16) temp_s0_3) >= 0x141)
       {
         var_s3 = 0x140;
-      }temp_a0=(s16)var_s3;
-      func_800131B4(var_s4,temp_a0,0xBE);
+      }temp_a0=__firstsetter(var_s4,var_s3);
       var_s4 += 8;
       if(var_s2){func_800131B4(var_s4, temp_s1_3, 0xC0);}else{func_800131B4(var_s4, temp_s1_3, 0xC0);}
       func_800131B4(var_s5,temp_a0,0xC5);
@@ -205,7 +209,7 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;temp_v0=new_var;
       var_s5 += 8;
       temp_v0_3 = var_s6 + (s32)D_800B681C;
       var_s2 += 1;
-{u64 quotient=func_8009A2B0(*((u64 *) (((char *) temp_v0_3) - (-0x50))), 250);temp_a1_3=(u32)quotient+40;if((u32)(quotient>>32)){var_s6=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}else{var_s6=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}}
+{u64 quotient=func_8009A2B0(*((u64 *) (((char *) temp_v0_3) - (-0x50))), 250);temp_a1_3=(u32)quotient+40;if((u32)(quotient>>32)){saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}else{saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}}
       var_s5 += 8;
     }
     while (var_s2 < temp_s7);
@@ -214,9 +218,9 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;temp_v0=new_var;
   {
     D_800D066C = (u32) ((s16) ((u16) spCE));
   }
-  if ((((u32) D_800C351C) < ((u32) ((s16) var_s6))) & (((s16) var_s6) < 0x140))
+  if ((((u32) D_800C351C) < ((u32) ((s16) saved_height))) & (((s16) saved_height) < 0x140))
   {
-    D_800C351C = (u32) ((s16) var_s6);
+    D_800C351C = (u32) ((s16) saved_height);
   }
   if (D_800D066C != 0)
   {
@@ -456,7 +460,7 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
       temp_v1_2 = *((s32 *)rect_y0);
       rect_y0 += 0x10;
       var_a3 += 0x10;
-      *((s32 *)var_a0) = ((temp_v0_7 & 0x3FF) << 14) | ((temp_v1_2 & 0x3FF) << 2);
+      *((s32 *)var_a0) = ((__normghost(temp_v0_7) & 0x3FF) << 14) | ((__normghost(temp_v1_2) & 0x3FF) << 2);
       var_a0 += 8;
       *((s32 *) ((char *)var_a0 - 4)) = loop0_sync;
       *((s32 *)var_a0) = 0;
@@ -495,7 +499,7 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
       temp_v0_11 = *((s32 *)var_a2);
       var_a2 += 0x10;
       var_a1_2 += 0x10;
-      temp_v0_6&=1023; temp_v0_6<<=14; temp_v0_11&=1023; temp_v0_11<<=2; temp_v0_11|=loop1_rect; *((s32 *)((char *)var_a0-4))=temp_v0_6|temp_v0_11;
+      temp_v0_6=__normghost(temp_v0_6);temp_v0_6&=1023; temp_v0_6<<=14; temp_v0_11=__normghost(temp_v0_11);temp_v0_11&=1023; temp_v0_11<<=2; temp_v0_11|=loop1_rect; *((s32 *)((char *)var_a0-4))=temp_v0_6|temp_v0_11;
       temp_v1_4 = *((s32 *)var_t0_2);
       var_t0_2 += 0x10;
       *((s32 *)var_a0) = (((*((s32 *)var_a3)) & 0x3FF) << 14) | ((temp_v1_4 & 0x3FF) << 2);
@@ -513,7 +517,7 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
       temp_v0_13 = *((s32 *)var_t2);
       var_t2 += 0x10;
       var_t1_2 += 0x10;
-      temp_v1_5&=1023; temp_v1_5<<=14; temp_v0_13&=1023; temp_v0_13<<=2; temp_v0_13|=loop1_rect; *((s32 *)((char *)var_a0-4))=temp_v1_5|temp_v0_13;
+      temp_v1_5=__normghost(temp_v1_5);temp_v1_5&=1023; temp_v1_5<<=14; temp_v0_13=__normghost(temp_v0_13);temp_v0_13&=1023; temp_v0_13<<=2; temp_v0_13|=loop1_rect; *((s32 *)((char *)var_a0-4))=temp_v1_5|temp_v0_13;
       temp_v0_14 = *((s32 *)var_t3);
       temp_v1_6 = *((s32 *)var_t4);
       var_t4 += 0x10;
@@ -576,3 +580,4 @@ text_buffer=sp20;
     func_8000C244(*((s32 *) (((char *) D_800A0384) + 4)), spD4, 0x14, 0x40, &sp20, 0);
   }
 }
+
