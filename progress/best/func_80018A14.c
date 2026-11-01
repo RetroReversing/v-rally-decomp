@@ -11,6 +11,7 @@ extern void *D_800C6ED8;
 void *func_80018A14(void *arg0, u8 *arg1, u8 *arg2)
 {
   s32 i;
+  f32 new_var;
   s32 *e;
   u8 *rec;
   u32 t;
@@ -31,8 +32,9 @@ void *func_80018A14(void *arg0, u8 *arg1, u8 *arg2)
     e[11] += D_800B56EC;
     e[4] = ((s32) (((f32) e[4]) * D_8009CEC0[0])) - 0x1F4;
     e[6] = ((s32) (((f32) e[6]) * D_8009CEC0[0])) + 0x1F4;
+    new_var = (f32) e[7];
     e[5] = (s32) (((f32) e[5]) * D_8009CEC0[1]);
-    e[7] = (s32) (((f32) e[7]) * D_8009CEC0[1]);
+    e[7] = (s32) (new_var * D_8009CEC0[1]);
     e[8] = ((s32) (((f32) e[8]) * D_8009CEC0[2])) - 0x1F4;
     e[9] = ((s32) (((f32) e[9]) * D_8009CEC0[2])) + 0x1F4;
     func_80015460(e[11], e[10]);
@@ -48,3 +50,4 @@ void *func_80018A14(void *arg0, u8 *arg1, u8 *arg2)
   D_800C6ED8 = s3;
   return s3;
 }
+

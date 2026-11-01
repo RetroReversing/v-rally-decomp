@@ -32,19 +32,18 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
   void *temp_v0;
   void *temp_v0_2;
   void *temp_v0_3;
-  void *var_fp;
-  var_fp = (char *) D_800C02AE;
-  var_fp += (s32) 0x32F2;
+  temp_v0 = (char *) D_800C02AE;
+  temp_v0 += (s32) 0x32F2;
   temp_v0 = *((void **) (D_800C02AE + 0x32F2));
-  var_fp = (void *) temp_v0;
+  temp_v0 = (void *) temp_v0;
   var_s7 = arg2;
-  temp_a2 = *((u16 *) (((char *) var_fp) + 0x1E));
+  temp_a2 = *((u16 *) (((char *) temp_v0) + 0x1E));
   var_s3 = arg0;
   if ((temp_a2 != 7) && ((temp_a2 != 0) & (temp_a2 != 5)))
   {
     temp_v0_2 = func_80034FF0(arg1 + 0x4C, 0, temp_a2);
     func_80055738(temp_v0_2);
-    temp_t1 = *((u16 *) (((char *) var_fp) + 0xE));
+    temp_t1 = *((u16 *) (((char *) temp_v0) + 0xE));
     new_var2 = temp_t1 != 0;
     sp24 = (u32) temp_t1;
     var_s5 = 1;
@@ -58,7 +57,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
         temp_v0 = func_8004240C(var_s4);
         temp_v0_2 = *((void **) (((char *) temp_v0) + 0x178));
         new_var = (char *) temp_v0_2;
-        temp_v1 = *((u16 *) (((char *) var_fp) + 0xE));
+        temp_v1 = *((u16 *) (((char *) temp_v0) + 0xE));
         D_800C7F84 = temp_v0;
         temp_a3 = *((s16 *) (new_var + 8));
         var_s1 = *((s16 *) (new_var + 0xC));
@@ -113,3 +112,4 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
     }
   }
 }
+

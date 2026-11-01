@@ -15,7 +15,7 @@ typedef struct
   s32 w[5];
 } Args5;
 extern s32 func_80081040(s32 *, s32, s32, s32, Args5);
-extern s32 func_800864F8(s32 *);
+extern s32 MusInitialize(s32 *);
 extern s32 MusSetMasterVolume(s32, s32);
 extern s32 func_80089980(void);
 s32 func_80037AA4(s32 arg0, s32 arg1)
@@ -100,7 +100,7 @@ s32 func_80037AA4(s32 arg0, s32 arg1)
     *((((u8 *) D_800C81D4) + (i * 12)) + 8) = 0;
   }
 
-  i = func_800864F8(sp);
+  i = MusInitialize(sp);
   MusSetMasterVolume(3, (s32) (D_800C35D8 * 32767.0f));
   func_80089980();
   return i;

@@ -1,3 +1,8 @@
+static inline static static s32 __repair_inline(s32 a)
+{
+  return a;
+}
+
 extern u8 D_800C02AE;
 s32 func_80034FF0(void *, s32);
 void *func_80040260(s32, s16, s16, s32, void *, s32);
@@ -23,7 +28,6 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   s16 temp_s2_2;
   s16 temp_s3;
   s32 var_s3;
-  void *temp_s1;
   s32 temp_s2;
   s32 temp_s6_2;
   s32 temp_v0_3;
@@ -40,7 +44,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   mgr = D_800C7F84;
   owner = *((void **) (((char *) mgr) + 0x178));
   temp_v0 = (void *) owner;
-  temp_fp = *((s16 *) (((char *) temp_v0) + 8));
+  temp_fp = __repair_inline(*((s16 *) (((char *) temp_v0) + 8)));
   temp_v1 = *((u16 *) (((char *) D_800C35A0) + 0x1E));
   sp1C = (*((s16 *) (((char *) temp_v0) + 0xA))) + 6;
   var_s3 = temp_fp + 0x14;
@@ -56,19 +60,19 @@ void func_8003E6D8(s32 arg0, s32 arg1)
         if ((*((u8 *) (((char *) __repair_addr) + 0x48))) & 1)
         {
           temp_s4 = func_80040260(arg0, (s16) var_s3, (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_s1, 0);
+          result = func_80034FF0(temp_a0, 0);
           owner = D_800C7F84;
           *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
           *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
           *((void **) (((char *) temp_s4) + 0xA8)) = owner;
           temp_s4 = func_80040260(arg0, (s16) (temp_fp + 0x1C), (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_s1, 0);
+          result = func_80034FF0(temp_a0, 0);
           owner = D_800C7F84;
           *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
           *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
           *((void **) (((char *) temp_s4) + 0xA8)) = owner;
           temp_s4 = func_80040260(arg0, (s16) (temp_fp + 0x24), (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_s1, 0);
+          result = func_80034FF0(temp_a0, 0);
           owner = D_800C7F84;
           *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
           *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
@@ -79,28 +83,28 @@ void func_8003E6D8(s32 arg0, s32 arg1)
       else
       {
         var_s1 = 0;
-        if ((*((u8 *) (((char *) (D_800C35A0 + ((*((u8 *) (((char *) D_800C35A0) + 0x32))) * 0x28))) + 0x48))) & 4)
+        if ((*((u8 *) (((char *) (D_800C35A0 - (-((*((u8 *) (((char *) D_800C35A0) + 0x32))) * 0x28)))) + 0x48))) & 4)
         {
           do
           {
             temp_s0 = sp1C + (((s16) var_s1) * 0xB);
             var_s1 += 1;
             temp_s4 = func_80040260(arg0, 0x1C, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_s1, 0);
+            result = func_80034FF0(temp_a0, 0);
             owner = D_800C7F84;
             *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
             *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
             *((u16 *) (((char *) temp_s4) + 0x76)) = var_s1;
             *((void **) (((char *) temp_s4) + 0xA8)) = owner;
             temp_s4 = func_80040260(arg0, 0x24, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_s1, 0);
+            result = func_80034FF0(temp_a0, 0);
             owner = D_800C7F84;
             *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
             *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
             *((u16 *) (((char *) temp_s4) + 0x76)) = var_s1;
             *((void **) (((char *) temp_s4) + 0xA8)) = owner;
             temp_s4 = func_80040260(arg0, 0x2C, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_s1, 0);
+            result = func_80034FF0(temp_a0, 0);
             owner = D_800C7F84;
             *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
             *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
@@ -192,7 +196,11 @@ void func_8003E6D8(s32 arg0, s32 arg1)
         }
         sp2C += 2;
         arg1 += 1;
-        temp_t0 = sp24 + 1;
+        {
+          u32 __repair_value;
+          __repair_value = sp24 + 1;
+          temp_t0 = __repair_value;
+        }
         sp24 = temp_t0;
       }
       while (temp_t0 < 3U);
@@ -202,3 +210,4 @@ void func_8003E6D8(s32 arg0, s32 arg1)
 
   }
 }
+

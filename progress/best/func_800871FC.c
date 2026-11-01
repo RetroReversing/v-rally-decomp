@@ -52,7 +52,6 @@ s32 func_800871FC(Arg0 *a, Arg1 *b)
   u8 *new_var5;
   int new_var;
   s16 count;
-  s32 minCount;
   s32 phys;
   s32 wrote;
   s32 *slot;
@@ -74,8 +73,7 @@ s32 func_800871FC(Arg0 *a, Arg1 *b)
   {
     a->size = (s16) (*new_var2);
   }
-  idx = D_800A1BAC % 3;
-  slot = &D_800AE850[(0x2278 / 4) + idx];
+  slot = &D_800AE850[(0x2278 / 4) + D_800A1BAC % 3];
   wrote = alAudioFrame(*slot, samples, phys, a->size);
   if (samples[0] == 0)
   {

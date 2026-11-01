@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
-<title id="title">1,807 / 2,084 functions matched (86.7%)</title>
+<title id="title">1,819 / 2,084 functions matched (87.3%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="450" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">n64</text>
-<text x="20" y="59" font-size="16">1,807 / 2,084 functions matched (86.7%)</text>
+<text x="20" y="59" font-size="16">1,819 / 2,084 functions matched (87.3%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="693.666" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="698.273" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 1,807</text>
+<text x="36" y="118" font-size="13">Matched: 1,819</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 277</text>
+<text x="236" y="118" font-size="13">Attempt: 265</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
@@ -773,8 +773,8 @@
 <g><title>func_80016170: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="190" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80016204: {&#x27;attempt&#x27;: 1}</title>
-<rect x="140.000" y="190" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80016204: {&#x27;matched&#x27;: 1}</title>
+<rect x="140.000" y="190" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80016354: {&#x27;matched&#x27;: 1}</title>
 <rect x="150.000" y="190" width="8.000" height="8" fill="#238636"/>
@@ -1811,8 +1811,8 @@
 <g><title>func_8002C044: {&#x27;attempt&#x27;: 1}</title>
 <rect x="390.000" y="230" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>func_8002C6EC: {&#x27;attempt&#x27;: 1}</title>
-<rect x="400.000" y="230" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8002C6EC: {&#x27;matched&#x27;: 1}</title>
+<rect x="400.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8002D270: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="230" width="8.000" height="8" fill="#238636"/>
@@ -2051,8 +2051,8 @@
 <g><title>func_800308EC: {&#x27;matched&#x27;: 1}</title>
 <rect x="390.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80030A0C: {&#x27;attempt&#x27;: 1}</title>
-<rect x="400.000" y="240" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80030A0C: {&#x27;matched&#x27;: 1}</title>
+<rect x="400.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_800316C4: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="240" width="8.000" height="8" fill="#238636"/>
@@ -2138,8 +2138,8 @@
 <g><title>func_80035460: {&#x27;matched&#x27;: 1}</title>
 <rect x="680.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_800354F4: {&#x27;attempt&#x27;: 1}</title>
-<rect x="690.000" y="240" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_800354F4: {&#x27;matched&#x27;: 1}</title>
+<rect x="690.000" y="240" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80035684: {&#x27;attempt&#x27;: 1}</title>
 <rect x="700.000" y="240" width="8.000" height="8" fill="#bf8700"/>
@@ -2378,8 +2378,8 @@
 <g><title>func_8003C8A4: {&#x27;matched&#x27;: 1}</title>
 <rect x="680.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8003C968: {&#x27;attempt&#x27;: 1}</title>
-<rect x="690.000" y="250" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8003C968: {&#x27;matched&#x27;: 1}</title>
+<rect x="690.000" y="250" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8003CB8C: {&#x27;matched&#x27;: 1}</title>
 <rect x="700.000" y="250" width="8.000" height="8" fill="#238636"/>
@@ -2480,8 +2480,8 @@
 <g><title>func_8003FF20: {&#x27;matched&#x27;: 1}</title>
 <rect x="220.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8003FFB4: {&#x27;attempt&#x27;: 1}</title>
-<rect x="230.000" y="260" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8003FFB4: {&#x27;matched&#x27;: 1}</title>
+<rect x="230.000" y="260" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80040084: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="260" width="8.000" height="8" fill="#238636"/>
@@ -2954,8 +2954,8 @@
 <g><title>func_8004D784: {&#x27;matched&#x27;: 1}</title>
 <rect x="200.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8004D7D4: {&#x27;attempt&#x27;: 1}</title>
-<rect x="210.000" y="280" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8004D7D4: {&#x27;matched&#x27;: 1}</title>
+<rect x="210.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8004DB30: {&#x27;matched&#x27;: 1}</title>
 <rect x="220.000" y="280" width="8.000" height="8" fill="#238636"/>
@@ -2993,8 +2993,8 @@
 <g><title>func_8004ED08: {&#x27;matched&#x27;: 1}</title>
 <rect x="330.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8004EF40: {&#x27;attempt&#x27;: 1}</title>
-<rect x="340.000" y="280" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8004EF40: {&#x27;matched&#x27;: 1}</title>
+<rect x="340.000" y="280" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8004F27C: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="280" width="8.000" height="8" fill="#238636"/>
@@ -3467,8 +3467,8 @@
 <g><title>func_800595EC: {&#x27;matched&#x27;: 1}</title>
 <rect x="310.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80059618: {&#x27;attempt&#x27;: 1}</title>
-<rect x="320.000" y="300" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80059618: {&#x27;matched&#x27;: 1}</title>
+<rect x="320.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_800596F4: {&#x27;matched&#x27;: 1}</title>
 <rect x="330.000" y="300" width="8.000" height="8" fill="#238636"/>
@@ -4346,8 +4346,8 @@
 <g><title>func_8006CE1C: {&#x27;matched&#x27;: 1}</title>
 <rect x="40.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8006CF7C: {&#x27;attempt&#x27;: 1}</title>
-<rect x="50.000" y="340" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8006CF7C: {&#x27;matched&#x27;: 1}</title>
+<rect x="50.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8006D10C: {&#x27;attempt&#x27;: 1}</title>
 <rect x="60.000" y="340" width="8.000" height="8" fill="#bf8700"/>
@@ -5228,8 +5228,8 @@
 <g><title>func_800864C0: {&#x27;matched&#x27;: 1}</title>
 <rect x="580.000" y="370" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_800864F8: {&#x27;attempt&#x27;: 1}</title>
-<rect x="590.000" y="370" width="8.000" height="8" fill="#bf8700"/>
+<g><title>MusInitialize: {&#x27;matched&#x27;: 1}</title>
+<rect x="590.000" y="370" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80086854: {&#x27;matched&#x27;: 1}</title>
 <rect x="600.000" y="370" width="8.000" height="8" fill="#238636"/>
@@ -5651,8 +5651,8 @@
 <g><title>osInvalICache: {&#x27;aside&#x27;: 1}</title>
 <rect x="390.000" y="390" width="8.000" height="8" fill="#b54747"/>
 </g>
-<g><title>guLookAtReflectF: {&#x27;attempt&#x27;: 1}</title>
-<rect x="400.000" y="390" width="8.000" height="8" fill="#bf8700"/>
+<g><title>guLookAtReflectF: {&#x27;matched&#x27;: 1}</title>
+<rect x="400.000" y="390" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8008C478: {&#x27;matched&#x27;: 1}</title>
 <rect x="410.000" y="390" width="8.000" height="8" fill="#238636"/>

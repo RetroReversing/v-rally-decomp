@@ -1,8 +1,27 @@
-#define SEL D_800C35A0
-#define H(off) (*(u16 *)(SEL+(off)))
-#define TAB(i) (*(s32 *)(D_800C02AE+0x10386+(i)*4))
-extern u8 D_800C02AE[];
+typedef struct Info { u16 h[7]; } Info;
+typedef struct Stage {
+  u8 pad0[0x15];
+  u8 first;
+  u8 pad16[0x236];
+  Info info[8];
+  u8 pad2BC[8];
+} Stage;
+typedef struct Sel {
+  u8 pad0[0x1E];
+  u16 mode;
+  u16 course;
+  u16 stage;
+  u8 pad24[0xA];
+  u8 car;
+} Sel;
+typedef struct CarInfo { u8 a, b, c, pad; f32 speed; u8 pad8[0x14]; } CarInfo;
+typedef struct Item { u8 pad[4]; u16 val; } Item;
+typedef struct Hdr { u8 pad[2]; s16 type; } Hdr;
 extern u8 D_800AE850[];
+extern Sel *D_800C35A0;
+extern Hdr *D_800C3508;
+extern Stage *D_800D0634[];
+extern u8 D_800C832C[];
 extern u8 D_800A1530[];
 extern u8 D_800A1548[];
 extern u16 D_800A1504[];
@@ -14,94 +33,80 @@ extern u16 D_800A152A;
 extern u16 D_800A152C;
 extern s8 *D_800A1468;
 extern u8 D_800A14D5;
-extern s32 D_800A14DC;
+extern u32 D_800A14DC;
 void func_800584D4(void);
-u8 *func_800592D0(s32);
+Item *func_800592D0(s32);
 void func_8005A05C(s32);
-s32 func_800602F4(s32, u16);
-extern u8 *D_800C35A0;
+u8 func_800602F4(Info *);
+
 void func_800603B4(void)
 {
-  s32 n;
-  s32 mask;
-  int new_var;
-  s32 i;
-  s32 base;
-  u16 a;
-  unsigned int b;
+  u8 n;
+  u8 i;
+  u16 mode;
+  u16 course;
+  Sel *sel;
+  Stage *base0;
+  u8 *st;
   u8 *p;
-  f32 f;
-  a = H(0x22);
-  n = func_800602F4((TAB(H(0x1E)) + (H(0x20) * 0x2C4)) + (new_var = (a * 14) + 0x24C), a);
+  Item *it;
+
+  n = func_800602F4(&D_800D0634[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);
   func_800584D4();
-  D_800A14DC = 0;
   D_800A1468[0x233] = -1;
-  *((u16 *) (func_800592D0(5) + 4)) = D_800A1504[D_800A1530[n & 255]];
-  *((u16 *) (func_800592D0(13) + 4)) = D_800A150C[D_800AE850[0x1300 + (SEL[0x2E] * 28)]];
-  *((u16 *) (func_800592D0(9) + 4)) = D_800A1514[D_800AE850[0x1301 + (SEL[0x2E] * 28)]];
-  *((u16 *) (func_800592D0(7) + 4)) = D_800A1520[D_800AE850[0x1302 + (SEL[0x2E] * 28)]];
-  p = func_800592D0(11);
-  f = *((f32 *) ((D_800AE850 + 0x1304) + (SEL[0x2E] * 28)));
-  if (f <= 118.0f)
+  func_800592D0(5)->val = D_800A1504[D_800A1530[n]];
+  func_800592D0(13)->val = D_800A150C[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].a];
+  func_800592D0(9)->val = D_800A1514[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].b];
+  func_800592D0(7)->val = D_800A1520[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].c];
+  it = func_800592D0(11);
   {
-    *((u16 *) (p + 4)) = D_800A1528;
+    f32 f = ((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].speed;
+    if (f <= 118.0f)
+      it->val = D_800A1528;
+    else if (f <= 132.0f)
+      it->val = D_800A152A;
+    else
+      it->val = D_800A152C;
   }
-  else
-    if (f <= 132.0f)
-  {
-    *((u16 *) (p + 4)) = D_800A152A;
-  }
-  else
-  {
-    *((u16 *) (p + 4)) = D_800A152C;
-  }
-  a = H(0x1E);
-  if (((((u32) (a - 1)) < 2) || (((u32) (a - 3)) < 2)) || (((b = H(0x20)) < 8) && ((mask = 1 << H(0x22), (D_800C02AE[0x807E + b] & mask) != mask))))
-  {
+
+  mode = D_800C35A0->mode;
+  if ((u32)(mode - 1) < 2 || (u32)(mode - 3) < 2 ||
+      (D_800C35A0->course < 8 &&
+       (D_800C832C[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage)))
     D_800A14D5 = 1;
-  }
   else
-  {
     D_800A14D5 = 0;
-  }
-  i = 0;
-  a = H(0x1E);
-  do
+
+  sel = D_800C35A0;
+  D_800A14DC = 0;
+  mode = sel->mode;
+  base0 = D_800D0634[0];
+  for (i = 0; i < 3; i++)
   {
-    if (a == 5)
+    if (mode == 5)
     {
-      b = H(0x20);
-      if (b < 8)
+      course = sel->course;
+      if (course < 8)
       {
-        base = (b * 0x2C4) + TAB(0);
-        goto common;
+        st = (u8 *)&base0[course];
+        p = st + (i * 16 + (sel->stage << 6));
       }
-      base = D_800A1548[b];
-      base = (base * 0x2C4) + TAB(0);
-      p = (u8 *) (base + (((i & 255) * 16) + ((((*((u8 *) (base + 0x15))) + H(0x22)) - 2) << 6)));
+      else
+      {
+        st = (u8 *)&base0[D_800A1548[course]];
+        p = st + (i * 16 + ((((Stage *)st)->first + (sel->stage - 2)) << 6));
+      }
     }
     else
     {
-      base = (H(0x20) * 0x2C4) + TAB(a);
-      common:
-      p = (u8 *) (base + (((i & 255) * 16) + (H(0x22) << 6)));
-
+      st = (u8 *)&(*(Stage **)((u8 *)D_800D0634 + mode * 4))[sel->course];
+      p = st + (i * 16 + (sel->stage << 6));
     }
-    do
-    {
-      D_800A14DC += *((s32 *) (p + 0x2C));
-    }
-    while (0);
-    i++;
+    D_800A14DC += *(s32 *)(p + 0x2C);
   }
-  while (((u32) (i & 255)) < 3);
-  if ((H(0x1E) != 5) || (D_800A14D5 == 0))
-  {
+  if (D_800C35A0->mode != 5 || D_800A14D5 == 0)
     D_800A14DC /= 3;
-  }
-  if (((*((s16 *) ((*((u8 **) (D_800C02AE + 0x325A))) + 2))) == 4) && (H(0x22) == 0))
-  {
+  if (D_800C3508->type == 4 && D_800C35A0->stage == 0)
     func_8005A05C(1);
-  }
   D_800A1468[0x22B] = -1;
 }

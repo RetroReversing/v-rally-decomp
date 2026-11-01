@@ -45,18 +45,18 @@ extern s32 D_8009EB80;
 extern char D_800A73E0[];
 extern char D_800C02AE[];
 void func_80033724(void);
+struct VolCount{char pad[136];volatile u16 count;};union VolRoad{Road road;};
+typedef union{Road *ptr;u32 bits;} RootBits;
 void func_80030A0C(Road *arg0)
 {
   u32 heights[8];
   s32 p30[4];
   s32 p40[4];
   s32 p50[4];
-  struct 
-  {
-    char pre[4];
-    Road * volatile value;
-  } original;
-  s32 sp6C;
+
+int new_var4;
+  u16 second_count;
+s32 sp6C;
   u16 sp76;
   u16 sp7E;
   int new_var;
@@ -94,6 +94,7 @@ void func_80030A0C(Road *arg0)
   s32 var_a0_7;
   s32 var_a1;
   u32 *new_var3;
+
   u32 var_a1_2;
   s32 var_a1_3;
   s32 var_a1_4;
@@ -127,8 +128,8 @@ void func_80030A0C(Road *arg0)
   u16 *flags;
   s16 *negative;
 s16 phase_i;
-  original.value = arg0;
-  var_s2 = original.value;
+
+  var_s2=(Road*)((RootBits)arg0).bits;
   sp6C = 0;
   sp76 = 0;
   sp8C = (char *) heights;
@@ -180,12 +181,14 @@ if(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp
       while ((s16)var_v0 < (var_s2->count - 2));
     }
     temp_a0 = var_s2->next;
+
+new_var4=1;
     if (temp_a0 != 0)
     {
-      temp_v1_10 = temp_a0->count;
+      second_count = ((volatile Road*)temp_a0)->count;
       var_s1 = 1;
       var_v0_2 = 1;
-      temp_v0_2 = 1;
+      temp_v0_2 = 1;var_v0=1;
       goto second_test;
       second_body:
       {
@@ -212,24 +215,19 @@ if(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp
         {
           temp_s6->a = (u16) (temp_s6->a + var_s0);
         }
-        temp_v1_9 = var_s1 + 1;
-        temp_v0_2 = temp_v1_9;
-        var_s1 = temp_v0_2;
-        temp_a0 = var_s2->next;
-        temp_v1_10 = temp_a0->count;
-        var_v0_2 = temp_v0_2;
+var_v0=var_s1+1;var_s1=var_v0;temp_a0=var_s2->next;{s32 load_once;for(load_once=1;load_once;load_once=0){second_count=temp_a0->count;}}{s32 count_once;for(count_once=1;count_once;count_once=0){var_v0=(s16)var_v0;}}var_v0_2=var_v0;
       }
 
       second_test:
-      if (((s16) temp_v0_2) < ((s32) (((u32) temp_v1_10) >> 1)))
+      second_count=(u32)second_count>>1;if(var_v0<second_count)
       {
         goto second_body;
-      }
+      }{u32 alive_x=second_count;s16 alive_y=alive_x;alive_y+=0x13579bdfu;alive_y-=0x13579bdfu;if(alive_y!=alive_x){func_80033724();}}
 
     }
     var_a1 = (s16) (*negative);
     temp_v1_2 = (*((Stats **) (D_800C02AE + 0x7CD2)))->fall * 0x578;
-    var_a0_2 = ((temp_v1_2 < 0) ? (temp_v1_2 + 0xFFF) : (temp_v1_2)) >> 12;
+{if(temp_v1_2>=0)var_v0=temp_v1_2;else var_v0=temp_v1_2+4095;{u32 identity_x=(u32)temp_v1_2;u32 identity_y=identity_x;identity_y+=0x13579bdfu;identity_y-=0x13579bdfu;var_v0=(s32)((u32)var_v0+(identity_y-identity_x));}var_a0_2=var_v0>>12;}
     if (var_a0_2 < var_a1)
     {
       var_v0_4 = (*flags) | 8;
@@ -266,7 +264,7 @@ if(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp
         {
 
           sp6C = p30[1];
-temp_v0_4=(void*)((((s32)((var_s0++ + 1)<<16))>>14)+(s32)sp8C);*((s32*)((char*)temp_v0_4+16))=0;*((s32*)temp_v0_4)=0;
+{s32 once;var_v0=var_s0+1;var_s0=var_v0;for(once=1;once;once=0){{s32 loaded_base=(s32)((RootBits)(Road*)sp8C).bits;temp_v0_4=(void*)((((s32)(var_v0<<16))>>14)+loaded_base);}*((s32*)((char*)temp_v0_4+16))=0;*((s32*)temp_v0_4)=0;}}
         }
         else
         {
@@ -311,10 +309,11 @@ temp_v0_4=(void*)((((s32)((var_s0++ + 1)<<16))>>14)+(s32)sp8C);*((s32*)((char*)t
     if (temp_v0_5 != 0)
     {
 temp_v1_3=temp_v0_5->count;temp_v1_3-=1;temp_v1_3+=(s32)((u32)temp_v1_3>>31);temp_s3=temp_v1_3>>1;
+temp_a0_3=var_s0+1;
 var_s1=0;
       if (temp_s3 > 0)
       {
-temp_a0_3=var_s0+1;
+
         temp_s0_3 = (((s32) (temp_a0_3 << 0x10)) >> 0xE) + (s32)sp8C;
         do
         {
@@ -658,22 +657,13 @@ temp_a0_3=var_s0+1;
     }
     var_s2 = var_s2->next;
   }
-  while ((var_s2 != original.value) & (var_s2 != 0));
+  while ((var_s2 != arg0) & (var_s2 != 0));
 /* Each unsigned add/sub pair is an identity modulo 2^32, so this guard
  * is always false. GCC 2.7.2 removes its code but retains the otherwise
  * unused spill slots required by the original frame. The referenced game
  * function is already defined elsewhere and is never called here. */
-{u32 cancelled_x=(u32)sp76;u32 cancelled_y0,cancelled_y1,cancelled_y2,cancelled_y3;
-cancelled_y0=cancelled_x;cancelled_y0+=0x13579BDFu;
-cancelled_y1=cancelled_x;cancelled_y1+=0x14599EE3u;
-cancelled_y2=cancelled_x;cancelled_y2+=0x155BA1E7u;
-cancelled_y3=cancelled_x;cancelled_y3+=0x165DA4EBu;
-cancelled_y0-=0x13579BDFu;
-cancelled_y1-=0x14599EE3u;
-cancelled_y2-=0x155BA1E7u;
-cancelled_y3-=0x165DA4EBu;
-if((cancelled_y0!=cancelled_x)|(cancelled_y1!=cancelled_x)|(cancelled_y2!=cancelled_x)|(cancelled_y3!=cancelled_x)){func_80033724();}}
-  *((s32 *) (D_800A73E0 + 0x6C08)) = (s32) (((s16) sp76) - 1);
+{u32 cancelled_x=(u32)sp76;u32 cancelled_y0;cancelled_y0=cancelled_x;cancelled_y0+=0x13579bdfu;cancelled_y0-=0x13579bdfu;if((cancelled_y0!=cancelled_x)){func_80033724();}}
+var_v0=(s16)sp76-1;{u32 final_x=(u32)var_v0;u32 final_y=final_x;final_y+=1u;final_y-=1u;var_v0=(s32)((u32)var_v0+(final_y-final_x));}*((s32*)(D_800A73E0+0x6C08))=var_v0;
 }
 
 

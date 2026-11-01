@@ -122,8 +122,8 @@ void func_8002B970(u8 *arg0, u8 *arg1)
   I(P(arg1, 0x34), 0x168) = 0;
   I(P(arg1, 0x34), 0x154) = 0;
   I(P(arg1, 0x34), 0x16C) = 0x1F4;
-  P(P(arg1, 0x34), 0x150) = new_var3;
   I(P(arg1, 0x34), 0x164) = 0;
+  P(P(arg1, 0x34), 0x150) = new_var3;
   I(P(arg1, 0x60), 0x160) = 0;
   I(P(arg1, 0x60), 0x158) = 0;
   I(P(arg1, 0x60), 0x164) = 0;
@@ -134,3 +134,4 @@ void func_8002B970(u8 *arg0, u8 *arg1)
   I(P(arg1, 0x60), 0x178) = 0;
   I(P(arg1, 0x60), 0x174) = 0;
 }
+

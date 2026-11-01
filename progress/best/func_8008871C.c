@@ -12,12 +12,11 @@ extern void func_80089538(void *);
 extern void alSynSetFXMix(void *, s32, s32);
 extern void alSynSetVol(void *, s32, s32, void *);
 extern void alSynStopVoice(void *, s32);
-void func_8008871C(Obj *o, s32 n)
+unsigned int func_8008871C(Obj *o, s32 n)
 {
-int __repair_literal;
-
+  int __repair_literal;
   u8 *p;
-  u8 kind;
+  int kind;
   u16 len;
   s32 idx;
   void *env;
@@ -127,8 +126,7 @@ int __repair_literal;
     u8 *q = (*((u8 **) (o->b + 0x7c))) + (kind * 4);
     *((u16 *) (o->b + 0xa6)) = q[0];
     o->b[0xb5] = ((*((u8 **) (o->b + 0x7c))) + (kind * 4))[2] >> 1;
-__repair_literal = 4;
-
+    __repair_literal = 4;
     func_80087988(o, (*((s32 *) (((u8 *) (*((void **) (o->b + 0x70)))) + 0x10))) + (((*((u8 **) (o->b + 0x7c))) + (kind * __repair_literal))[1] * 7));
     kind = q[3];
   }
@@ -152,7 +150,7 @@ __repair_literal = 4;
       func_80088AA4(o, n);
     }
   }
-  *((f32 *) (o->b + 0x28)) = ((f32) kind) + (*((f32 *) ((((u8 *) env) + 0x28) + ((*((u16 *) (o->b + 0xa6))) * 4))));
+  *((f32 *) (o->b + 0x28)) = ((f32) kind) + (*((f32 *) ((((u8 *) (*((void **) (o->b + 0x74)))) + 0x28) + ((*((u16 *) (o->b + 0xa6))) * 4))));
   if (o->b[0xc2] != o->b[0xc4])
   {
     short a = o->b[0xc3];
@@ -179,4 +177,8 @@ __repair_literal = 4;
   ;
   ;
   ;
+  ;
+  ;
+  ;
 }
+

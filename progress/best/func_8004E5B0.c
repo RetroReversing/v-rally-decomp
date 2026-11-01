@@ -114,10 +114,10 @@ int func_8004E5B0(char *a, u16 *b)
 
       case 17:
         b[1] = 2;
-        b[0] = 1;
         if ((D_8009EB80 == 5) || (D_8009EB80 == 1))
       {
         b[0] = 0;
+        b[0] = 1;
       }
         if (D_8009EB80 == 6)
       {
@@ -342,3 +342,4 @@ int func_8004E5B0(char *a, u16 *b)
   }
   return special;
 }
+

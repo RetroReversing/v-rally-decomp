@@ -58,7 +58,8 @@ void func_8004DC50(void *arg0, s32 arg2)
       new_var = var_a3;
       do
       {
-        temp_v0_2 = ((var_s5 & 0xFFFF) * 8) + sp14;
+        temp_a1 = var_s5 & 0xFFFF;
+    temp_v0_2 = ((temp_a1) * 8) + sp14;
         temp_a0 = *((s16 *) (((char *) temp_v0_2) + 4));
         if (temp_a0 == 0)
         {
@@ -92,7 +93,8 @@ void func_8004DC50(void *arg0, s32 arg2)
                       var_v1 = 2;
                       var_v1 = var_v0_2 * var_v1;
                       var_a0 += 1;
-                      var_v0_2 = var_v1 & 0xFFFF;
+                      new_var = var_v1 & 0xFFFF;
+    var_v0_2 = new_var;
                     }
                     while (((u32) (var_a0 & 0xFFFF)) < temp_a1);
                   }

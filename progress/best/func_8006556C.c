@@ -25,6 +25,7 @@ extern void func_80061740(Blob);
 void func_8006556C(void)
 {
   Blob blob;
+  long new_var;
   s32 i;
   s32 a;
   s32 b;
@@ -33,7 +34,6 @@ void func_8006556C(void)
   s16 sel;
   u8 *p;
   u8 *q;
-
   func_8005BC60();
   func_8005BB5C();
   {
@@ -47,12 +47,12 @@ void func_8006556C(void)
     sel = H(c, 2);
     if (sel == 2)
     {
-      A(c, 0x10)[2 * 20 + 0xE] = D_800C35A0[0x21] + 9;
+      A(c, 0x10)[(2 * 20) + 0xE] = D_800C35A0[0x21] + 9;
     }
     else
     {
       u8 *e = A(c, 0x10);
-      e[sel * 20 + 0xE] = D_800C35A0[0x21] + 4;
+      e[(sel * 20) + 0xE] = 4 + D_800C35A0[0x21];
       func_80062304(e, sel);
     }
   }
@@ -63,15 +63,16 @@ void func_8006556C(void)
   D_800AFA58 = U(D_800C35A0, 0x20);
   do
   {
+    new_var = (u16) a;
     if (H(D_800C3508, 2) == 2)
     {
       func_8005937C(b, U(D_800D0634[D_800A161C[(u32) a]], 0x14));
     }
     else
     {
-      func_8005937C(a, U(D_800D0634[D_800A161C[(u16) a]], 0x14));
+      func_8005937C(a, U(D_800D0634[D_800A161C[new_var]], 0x14));
     }
-    if (i != 0 && (U(D_800C35A0, 0x2a) & (0x1000 << (i - 1))) != (0x1000 << (i - 1)))
+    if ((i != 0) && ((U(D_800C35A0, 0x2a) & (0x1000 << (i - 1))) != (0x1000 << (i - 1))))
     {
       func_8008A0D8(D_800C3508, b, 0);
       func_8008A0D8(D_800C3508, a, 0);
@@ -91,10 +92,10 @@ void func_8006556C(void)
           q[0x41] = 0;
           q -= 2;
         }
-        while (--k >= 0);
+        while ((--k) >= 0);
       }
     }
-    func_8008A1CC(D_800C3508, (H(D_800C3508, 2) == 2) ? b : a, 16, func_80065C04);
+    func_8008A1CC(D_800C3508, (H(D_800C3508, 2) == 2) ? (b) : (a), 16, func_80065C04);
     a++;
     i++;
     b++;
@@ -107,3 +108,4 @@ void func_8006556C(void)
   blob = *D_800D0634[D_800A1468[0x23c]];
   func_80061740(blob);
 }
+

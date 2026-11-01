@@ -68,7 +68,7 @@ void func_8006A438(void)
   char *temp_s6_9;
   char *temp_v0;
   char *temp_v0_2;
-  unsigned short new_var2;
+  int new_var2;
   char *temp_v0_3;
   char *temp_v0_4;
   char *temp_v0_6;
@@ -83,29 +83,25 @@ void func_8006A438(void)
     s32 v0;
     s32 a3;
     s32 t4;
+    u16 *pAC = &D_800A16AC;
+#define D_800A16AC (*pAC)
     a1 = D_800AFA64;
     a2 = U(a1, 0x88);
-    v0 = 0x55555556;
-    a2 = a2 << 1;
-    t4 = (s32) ((((s64) a2) * ((s64) v0)) >> 32);
-    a2 = t4 - (a2 >> 31);
-    v0 = U(a1, 0x8A);
-    v0 = (s32) ((((s64) a2) * ((s64) v0)) & 0xFFFFFFFF);
+    a2 = (a2 << 1) / 3;
+    v0 = a2 * U(a1, 0x8A);
     a3 = W(a1, 0x4C);
-    temp_a3 = a3;
-    temp_a2 = a2;
     temp_a0 = (v0 + a3) * 6;
-    F(&D_800A16B4, 0x0) = (f32) (H(P(D_800AFA64, 0x54) + temp_a0, 0) + W(D_800AFA64, 0x24));
-    D_800A16B8 = (f32) ((H(P(D_800AFA64, 0x54) + temp_a0, 0x2) + W(D_800AFA64, 0x28)) - 0x12C);
-    D_800A16BC = (f32) (H(P(D_800AFA64, 0x54) + temp_a0, 0x4) + W(D_800AFA64, 0x2C));
-    temp_lo = (temp_a2 + 1) * U(D_800AFA64, 0x8A);
-    temp_a0_2 = (temp_lo + temp_a3) * 6;
-    F(&D_800A16C0, 0x0) = (f32) (H(P(D_800AFA64, 0x54) + temp_a0_2, 0) + W(D_800AFA64, 0x24));
-    D_800A16C4 = (f32) ((H(P(D_800AFA64, 0x54) + temp_a0_2, 0x2) + W(D_800AFA64, 0x28)) - 0x12C);
-    D_800A16C8 = (f32) (H(P(D_800AFA64, 0x54) + temp_a0_2, 0x4) + W(D_800AFA64, 0x2C));
+    F(&D_800A16B4, 0x0) = (f32) (H(P(a1, 0x54) + temp_a0, 0) + W(a1, 0x24));
+    D_800A16B8 = (f32) ((H(P(a1, 0x54) + temp_a0, 0x2) + W(a1, 0x28)) - 0x12C);
+    D_800A16BC = (f32) (H(P(a1, 0x54) + temp_a0, 0x4) + W(a1, 0x2C));
+    temp_a0 = ((a2 + 1) * U(a1, 0x8A) + a3) * 6;
+    F(&D_800A16C0, 0x0) = (f32) (H(P(a1, 0x54) + temp_a0, 0) + W(a1, 0x24));
+    D_800A16C4 = (f32) ((H(P(a1, 0x54) + temp_a0, 0x2) + W(a1, 0x28)) - 0x12C);
+    D_800A16C8 = (f32) (H(P(a1, 0x54) + temp_a0, 0x4) + W(a1, 0x2C));
     temp_v0 = func_8004240C(3);
+    temp_a3 = W(temp_v0, 0x178);
     D_800C7F84 = temp_v0;
-    temp_s7 = func_800056FC(W(temp_v0, 0x178));
+    temp_s7 = func_800056FC(temp_a3);
     temp_v0_2 = func_8004240C(3);
     D_800C7F84 = temp_v0_2;
     *((Triple *) (temp_v0_2 + 0x118)) = D_800A1694;
@@ -127,6 +123,9 @@ void func_8006A438(void)
     F(D_800C7F84, 0x114) = 1.0f;
     cursor = func_80006008(temp_s7);
     {
+      char *tex = D_8009B5A8;
+#define D_8009B5A8 tex
+    {
       char *cmd = cursor;
       cursor += 8;
       V(cmd, 0) = 0xE7000000;
@@ -145,6 +144,7 @@ void func_8006A438(void)
       V(cmd, 4) = D_800B706C - 0x80000000;
     }
     new_var2 = D_800B706C - 0x80000000;
+
     {
       char *cmd = cursor;
       cursor += 8;
@@ -176,6 +176,9 @@ void func_8006A438(void)
       V(cmd, 0) = ((H(D_8009B5A8, 4) - 1) & 0xFFF) | 0xFF100000;
       V(cmd, 4) = osVirtualToPhysical(func_80005C48(D_8009B5A8));
     }
+    }
+#undef D_8009B5A8
+    {
     {
       char *cmd = cursor;
       cursor += 8;
@@ -194,6 +197,9 @@ void func_8006A438(void)
       V(cmd, 0) = ((((H(D_8009B5A8, 4) - 1) & 0x3FF) << 14) | (((D_800A16B2 - 1) & 0x3FF) << 2)) | 0xF6000000;
       V(cmd, 4) = ((D_800A16AC & 0x3FF) << 14) | ((D_800A16AE & 0x3FF) << 2);
     }
+    }
+#undef D_8009B5A8
+#undef D_800A16AC
     func_80006014(temp_s7);
     temp_s0 = func_8004240C(3);
     func_80010A6C(func_8004240C(3), &D_800A16AC);
@@ -206,7 +212,7 @@ void func_8006A438(void)
       char *cmd = cursor;
       cursor += 8;
       V(cmd, 0) = 0xDB0E0000;
-      V(cmd, 4) = W(temp_s0, 0x104);
+      V(cmd, 4) = U(temp_s0, 0x104);
     }
     {
       char *cmd = cursor;
@@ -234,8 +240,9 @@ void func_8006A438(void)
     }
     func_80006014(temp_v0_5, cursor);
     temp_v0_6 = func_8004240C(3);
+    temp_a3 = W(temp_v0_6, 0x178);
     D_800C7F84 = temp_v0_6;
-    temp_s7 = func_800056FC(W(temp_v0_6, 0x178));
+    temp_s7 = func_800056FC(temp_a3);
     temp_v0_7 = func_8004240C(1);
     D_800C7F84 = temp_v0_7;
     D_800C7F84 = func_8004240C(3);

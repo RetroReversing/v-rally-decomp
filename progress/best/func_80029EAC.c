@@ -23,7 +23,7 @@ typedef union
   } p;
   int word;
 } Pair;
-void func_8002D724(int *);
+void func_8002D724(char *a, int *);
 void func_8002D740(int *, int *, int *);
 void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
@@ -42,13 +42,11 @@ void func_80029EAC(char *a, Vertex *point, int index)
   int normal[4];
   Matrix mat;
   Matrix inv;
-  
   struct 
   {
     s16 x;
     s16 y;
     s16 z;
-    s16 pad;
   } delta;
   int sign;
   int row;
@@ -65,9 +63,8 @@ void func_80029EAC(char *a, Vertex *point, int index)
   char *record;
   Vertex *v;
   g = P(P(a, 140), index * 4);
-  indices = P(a, 96) + (index * 4);
-  row = W(indices, 0);
-  col = W(indices, 48);
+  row = W(P(a, 96) + (index * 4), 0);
+  col = W(P(a, 96) + (index * 4), 48);
   base = (U(g, 138) * row) + col;
   right = base + 1;
   down = base + U(g, 138);
@@ -95,8 +92,8 @@ void func_80029EAC(char *a, Vertex *point, int index)
   b[2] = ((Vertex *) P(g, 84))[tmp].z - ((Vertex *) P(g, 84))[base].z;
   if (((((unsigned) (index - 4)) < 2) | (index == 10)) || (index == 11))
   {
-    int shifts[6];
-    func_8002D724(c);
+    int shifts[4];
+    func_8002D724(a, c);
     slot = (index == 4) * 2;
     if (index == 5)
     {
@@ -127,9 +124,10 @@ void func_80029EAC(char *a, Vertex *point, int index)
     }
     right = -normal[0];
     v = (Vertex *) P(g, 84);
+    row = v[base].y;
     if (normal[1])
     {
-      height = (((((right * ((s16) r.p.x)) - (normal[2] * ((s16) r.p.z))) + (v[base].x * normal[0])) + (v[base].y * normal[1])) + (v[base].z * normal[2])) / normal[1];
+      height = (((((right * ((s16) r.p.x)) - (normal[2] * ((s16) r.p.z))) + (v[base].x * normal[0])) + (row * normal[1])) + (v[base].z * normal[2])) / normal[1];
     }
     W(P(a, 140), (slot * 20) + 176) = point->x;
     W(P(a, 140), (slot * 20) + 180) = height;
@@ -166,3 +164,4 @@ void func_80029EAC(char *a, Vertex *point, int index)
     W(P(a, 140), 820)++;
   }
 }
+

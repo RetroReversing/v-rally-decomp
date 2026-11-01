@@ -152,8 +152,9 @@ void func_8001AAB4(Parent *arg0)
       H(off + inline_fn(arg0), 0x90) = 0;
     }
     if (p->start)
-    {
-      func_8007EE9C(p->start);
+    {/*__repair_call_balance*/if(__repair_off_1){
+      func_8007EE9C(p->start);}else{
+      func_8007EE9C(p->start);}
     }
     p = (Cursor *) (((u8 *) p) + 4);
     __repair_off_1 += 4;

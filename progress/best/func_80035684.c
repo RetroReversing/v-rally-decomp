@@ -40,9 +40,10 @@ extern s32 func_8003678C;
 void func_80035684(void *arg0)
 {
   s32 temp_v1;
+  int new_var;
   u32 temp_v1_2;
-  u32 temp_v1_3;
   u32 var_v0;
+  u32 temp_v1_3;
   void *temp_v0;
   void *temp_v0_2;
   temp_v0 = func_8007EAA0(1, 0x44);
@@ -57,6 +58,7 @@ void func_80035684(void *arg0)
   D_800C811C->f24 = (f32) (*((f32 *) (((char *) temp_v0_2) + 0x118)));
   D_800C811C->f24 = (f32) (*((f32 *) (((char *) temp_v0_2) + 0x11C)));
   D_800C811C->f2c = (f32) (*((f32 *) (((char *) temp_v0_2) + 0x120)));
+  new_var = 3;
   D_800C7F84 = temp_v0_2;
   D_800C34D0 = 0;
   switch (temp_v1)
@@ -109,8 +111,11 @@ void func_80035684(void *arg0)
       temp_v1_3 = *((u32 *) (((char *) arg0) + 0x174));
       D_800C811C->n = temp_v1_3;
       var_v0 = temp_v1_3 >> 1;
- do { } while (0);
-      if ((((u32) (D_800C7926 - 1)) < 2U) || ((var_v0 = temp_v1_3 >> 2, D_800C7926 == 3)))
+      do
+    {
+    }
+    while (0);
+      if ((((u32) (D_800C7926 - 1)) < 2U) || ((var_v0 = temp_v1_3 >> 2, D_800C7926 == new_var)))
     {
       D_800C811C->n = var_v0;
     }
@@ -123,7 +128,7 @@ void func_80035684(void *arg0)
       D_800C811C->p = func_8007EAA0(1, D_800C811C->n * 8);
       if ((*((u16 *) (((char *) D_800C35A0) + 0xE))) == 2)
     {
-      D_800C811C->q = func_8007EAA0(1, D_800C811C->n * 8);
+      D_800C811C->q = func_8007EAA0(1, ((unsigned long) D_800C811C->n) * 8);
       func_80035B04(D_800C811C->p);
       func_80035B04(D_800C811C->q);
       return;
@@ -141,3 +146,4 @@ void func_80035684(void *arg0)
   }
 
 }
+

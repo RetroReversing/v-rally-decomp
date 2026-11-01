@@ -144,8 +144,8 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
             if ((*p) == quote)
           {
             buf[len] = 0;
-            p++;
             break;
+            p++;
           }
           buf[len] = *(p++);
           len++;
@@ -165,3 +165,4 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
   }
   return 1;
 }
+

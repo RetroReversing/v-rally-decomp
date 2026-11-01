@@ -37,7 +37,6 @@ void *func_80098B7C(f64 arg0, s32 arg2, s32 *arg3, s32 *arg4)
   s32 var_v0;
   s32 var_v1;
   s32 var_v1_2;
-  char *var_s0;
   char *var_s0_2;
   var_fa0 = arg0;
   var_s3 = arg2;
@@ -55,16 +54,16 @@ void *func_80098B7C(f64 arg0, s32 arg2, s32 *arg3, s32 *arg4)
   switch (temp_v0)
   {
     case 0x0:
-      var_s0 = D_800A73E0 + 0x6B28;
+      var_s0_2 = D_800A73E0 + 0x6B28;
       var_v1 = 0;
       __repair_literal = 0;
       if (var_s3 > __repair_literal)
     {
       do
       {
-        *((s8 *) var_s0) = 0x30;
+        *((s8 *) var_s0_2) = 0x30;
         var_v1 += 1;
-        var_s0 += 1;
+        var_s0_2 += 1;
       }
       while (var_v1 < var_s3);
     }
@@ -168,3 +167,4 @@ void *func_80098B7C(f64 arg0, s32 arg2, s32 *arg3, s32 *arg4)
   }
 
 }
+

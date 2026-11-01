@@ -40,7 +40,7 @@ extern u8 D_800A4C48[];
 extern u8 D_800A4C50[];
 extern u8 D_800A4C58[];
 extern u8 D_800A4C60[];
-static inline static static static static static static int inline_fn(u8 arg0, int arg1)
+static inline static static static static static static static int inline_fn(u8 arg0, int arg1)
 {
   return arg0 != arg1;
 }
@@ -72,6 +72,7 @@ void func_80040CF4(u8 arg0)
   s16 temp_s4;
   void *new_var3;
   unsigned int temp_s5;
+  u8 new_var5;
   u8 *new_var2;
   s16 temp_s5_2;
   s32 temp_s0_2;
@@ -96,6 +97,7 @@ void func_80040CF4(u8 arg0)
   temp_s5 = (s16) D_8009FFDC;
   sp37 = temp_t0;
   sp3F = temp_t0 - 1;
+  new_var5 = sp3F;
   temp_s0 = D_8009FFDE << 0x10;
   new_var = (sp37 * 2) | 1;
   temp_s3 = (s16) D_8009FFDE;
@@ -104,7 +106,7 @@ void func_80040CF4(u8 arg0)
     r.x = (temp_v0 = temp_fp);
     r.w = temp_s5;
     r.h = temp_s3;
-    temp_v0 = sp3F * 0x14;
+    temp_v0 = new_var5 * 0x14;
     r.y = (u16) sp2C;
     temp_v0_2 = func_80042078(&r, 5, *((u16 *) (((u8 *) D_8009FF38) + temp_v0)), *((u16 *) (((u8 *) D_8009FF3A) + temp_v0)), 2);
     func_800424A4(temp_v0_2, D_800A4C30);
@@ -117,7 +119,7 @@ void func_80040CF4(u8 arg0)
       sp2C = (s32) D_8009FFDA;
       r.w = temp_s5;
       r.h = temp_s3;
-      temp_s0_2 = sp3F * 0x14;
+      temp_s0_2 = new_var5 * 0x14;
       r.y = (u16) sp2C;
       temp_v0_3 = (*((Item **) (D_800C02AE + 0x7CD6)) = func_80042078(&r, 0, *((u16 *) (((u8 *) D_8009FF3C) + temp_s0_2)), *((u16 *) (((u8 *) D_8009FF3E) + temp_s0_2)), 2));
       func_800424A4(temp_v0_3, D_800A4C38);
@@ -138,7 +140,7 @@ void func_80040CF4(u8 arg0)
       r.x = temp_s4;
       r.w = temp_s5_2;
       r.h = temp_s3_2;
-      temp_s1_2 = sp3F * 0x14;
+      temp_s1_2 = new_var5 * 0x14;
       r.y = (u16) sp2C;
       temp_v0_10 = &r;
       temp_v0_5 = func_80042078(temp_v0_10, 0, *((u16 *) (((u8 *) D_8009FF3C) + temp_s1_2)), *((u16 *) (((u8 *) D_8009FF3E) + temp_s1_2)), (s32) sp37);
@@ -166,7 +168,7 @@ void func_80040CF4(u8 arg0)
       r.x = temp_fp;
       r.w = temp_s4;
       r.h = temp_s3;
-      temp_s0_4 = sp3F * 0x14;
+      temp_s0_4 = new_var5 * 0x14;
       r.y = (u16) sp2C;
       *((Item **) (D_800C02AE + 0x7CD6)) = (temp_v0_8 = func_80042078(temp_v0_10, 0, *((u16 *) (((u8 *) D_8009FF3C) + temp_s0_4)), *((u16 *) (((u8 *) D_8009FF3E) + temp_s0_4)), (s32) sp37));
       func_800424A4(temp_v0_8, D_800A4C38);
@@ -194,7 +196,7 @@ void func_80040CF4(u8 arg0)
   if (inline_fn(sp37, 0) && (sp27 == 0))
   {
     *((PackedRect *) temp_v0_10) = *((PackedRect *) (&D_8009FFD8));
-    temp_v0_12 = sp3F * 0x14;
+    temp_v0_12 = new_var5 * 0x14;
     temp_v0_13 = func_80042078(temp_v0_10, 5, *((u16 *) (((u8 *) D_8009FF44) + temp_v0_12)), *((u16 *) (((u8 *) D_8009FF46) + temp_v0_12)), 2);
     func_800424A4(temp_v0_13, D_800A4C58);
     do
@@ -208,9 +210,10 @@ void func_80040CF4(u8 arg0)
       r.x = ((u16) r.x) + 0x18;
       r.w = ((u16) r.w) - new_var4;
     }
-    temp_v0_14 = sp3F * 0x14;
+    temp_v0_14 = new_var5 * 0x14;
     temp_v0_15 = func_80042078(temp_v0_10, 0, *((u16 *) (((u8 *) D_8009FF48) + temp_v0_14)), *((u16 *) (((u8 *) D_8009FF4A) + temp_v0_14)), 2);
     func_800424A4(temp_v0_15, D_800A4C60);
     temp_v0_15->id = (sp37 * 2) + 2;
   }
 }
+

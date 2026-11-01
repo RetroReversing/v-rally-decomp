@@ -27,7 +27,6 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4)
   s32 s3;
   s8 s4;
   s32 s5;
-  s32 t0;
   u8 idx;
   s32 v;
   u8 *a0;
@@ -56,7 +55,14 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4)
   s3 = func_8008E118(arg1);
   if ((s3 == 0) | (s3 >= 0xA1))
   {
-    func_8008E3A0(D_800A3F28, s3);
+    if (s5)
+    {
+      func_8008E3A0(D_800A3F28, s3);
+    }
+    else
+    {
+      func_8008E3A0(D_800A3F28, s3);
+    }
   }
   if (s0 < s3)
   {
@@ -66,21 +72,21 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4)
     {
       idx = (*a0) - 0x20;
       new_var = -0x80;
-      t0 = 0;
+      s3 = 0;
       if (((u8) idx) != 0)
       {
         idx = (u8) idx;
         if ((((u8) arg2) != 0) & (s1->glyphs[idx].code == new_var))
         {
-          t0 = 0;
+          s3 = 0;
           do
           {
             v = s2 + 1;
             s2 = v & (-((v & 0xFF) != ((u8) arg2)));
             s1 = arg0[s2 & 0xFF];
-            t0++;
+            s3++;
           }
-          while ((s1->glyphs[idx].code == (-0x80)) & ((t0 & 0xFF) != ((u8) arg2)));
+          while ((s1->glyphs[idx].code == (-0x80)) & ((s3 & 0xFF) != ((u8) arg2)));
         }
         g = &s1->glyphs[idx];
         if (g->code != (-0x80))
@@ -89,7 +95,16 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4)
           s0 = (s0 - s4) + (g->k6 + s5);
           fv0 = (f32) s0;
           s5 = g->k8;
- do { fv0 = fv0 + fv1; do { s0 = (s32) fv0; } while (0); } while (0);
+          do
+          {
+            fv0 = fv0 + fv1;
+            do
+            {
+              s0 = (s32) fv0;
+            }
+            while (0);
+          }
+          while (0);
         }
       }
       else
@@ -105,3 +120,4 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4)
   }
   return (s0 - s1->adv) + s5;
 }
+

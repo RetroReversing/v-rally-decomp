@@ -57,8 +57,7 @@ void func_8002B7D4(u8 *arg0)
   sl[2].a = s0;
   v0 = *((s32 *) (t0 + 0x54));
   __repair_v1_1 = __repair_v1_1 + v0;
-  __repair_v1_1 = *((s16 *) (__repair_v1_1 + 4));
-  v0 = a0 + v0;
+  __repair_v1_1 = *((s16 *) (__repair_v1_1 + 4));{ s32 __repair_value; __repair_value = a0 + v0; v0 = __repair_value; }
   v0 = *((s16 *) (v0 + 4));
   a1 = __repair_v1_1 - v0;
   ;

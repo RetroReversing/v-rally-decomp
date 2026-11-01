@@ -1,3 +1,27 @@
-extern u8 D_800C02AE[],D_800AE850[];
-s32 func_80077FA8(s32 arg0) {s32 i=0, rank=4;u8 *base=D_800AE850+0x6dac+4*(*(u16 *)(*(u8 **)(D_800C02AE+0x32f2)+0x1e));u32 value=*(u32 *)(base+((arg0&255)<<5));do {if(value<*(u32 *)(base+((i&255)<<5))) rank--;i++;}while((u32)(i&255)<4);return (rank-1)&255;}
-void func_8006F3C0(void) {u32 a1,v0,v1;vu16 *a0=(vu16 *)(D_800C02AE+0x6e5e);a1=*(u32 *)(D_800C02AE+0x6e76);v0=0xf0ffffff;*(u16 *)(D_800C02AE+0x6e60)=0;*(u16 *)(D_800C02AE+0x6e62)=0;a1&=v0;v0=*a0;a1|=0x04000000;v0&=0xff44;v0|=0x44;v1=(v0|0x2000)&0x2044;*a0=v0;v0&=0x7fff;*(u32 *)(D_800C02AE+0x6e76)=a1;*a0=v0;*a0=v1;}
+extern u8 D_800C02AE[];
+extern u8 D_800AE850[];
+s32 func_80077FA8(s32 arg0);
+void func_8006F3C0(void)
+{
+  u32 a1;
+  u32 v0;
+    u32 __repair_v0_1;
+  u32 v1;
+  vu16 *a0 = (vu16 *) (D_800C02AE + 0x6e5e);
+  a1 = *((u32 *) (D_800C02AE + 0x6e76));
+  v0 = 0xf0ffffff;
+  *((u16 *) (D_800C02AE + 0x6e60)) = 0;
+  *((u16 *) (D_800C02AE + 0x6e62)) = 0;
+  a1 &= v0;
+  __repair_v0_1 = *a0;
+  a1 |= 0x04000000;
+  __repair_v0_1 &= 0xff44;
+  __repair_v0_1 |= 0x44;
+  v1 = __repair_v0_1 | 0x2000;
+  *a0 = __repair_v0_1;
+  __repair_v0_1 &= 0x7fff;
+  *((u32 *) (D_800C02AE + 0x6e76)) = a1;
+  *a0 = __repair_v0_1;
+  *a0 = v1;
+}
+

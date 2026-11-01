@@ -26,6 +26,7 @@ extern void func_8004D08C(s32, s32, s16, s16, f32, f32, s32, s32);
 void func_8007159C(void)
 {
   u8 *__repair_cached_pointer = D_800C3508;
+  volatile char new_var2;
   Blob blob;
   u8 *p = A(__repair_cached_pointer, 16) + (H(D_800C3508, 2) * 20);
   u8 choice = p[14];
@@ -37,8 +38,9 @@ void func_8007159C(void)
     if (D_800A1468[0x245] == 0)
     {
       selected = choice - p[13];
+      new_var2 = selected;
       U(D_800C35A0, 32) = selected;
-      func_8005937C(choice, U(&D_800D0648[selected], 20));
+      func_8005937C(choice, U(&D_800D0648[new_var2], 20));
       if (selected != D_800B0548)
       {
         if (*D_800A11B0)
@@ -49,7 +51,7 @@ void func_8007159C(void)
         {
           new_var = D_800C35A0;
           func_80061740(D_800D0648[U(new_var, 32)]);
-          D_800B0548 = selected;
+          ;
         }
       }
     }
@@ -75,7 +77,7 @@ void func_8007159C(void)
           {
             func_8004D08C(D_800D05D8, 0 & 255, H(D_800A14D0, 0), (s16) (U(D_800A14D0, 2) + ((0 & ((0, 255))) * D_800A14D0[8])), (f32) (((f64) F((0, D_800A14D0), 4)) - D_800A5D10), F(D_800A14D0, 4), ((u8 *) (&blob))[0x2bc + (0 & 255)], 255);
             i++;
-            if (!D_800B0548)
+            if (!selected)
             {
             }
           }

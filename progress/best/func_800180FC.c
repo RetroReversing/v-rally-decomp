@@ -12,7 +12,7 @@ extern f32 D_8009CEC0[];
 extern u8 D_800A73E0[];
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
-static inline static static s32 inline_fn(s32 arg0)
+static inline static static static static s32 inline_fn(s32 arg0)
 {
   return (s32) (arg0 + (*((s32 *) (D_800AE850 + 0x6E9C))));
 }
@@ -51,6 +51,7 @@ void *func_800180FC(void *arg0)
   void *temp_v1_6;
   void *var_a0;
   void *var_a0_2;
+  s8 *new_var5;
   void *var_a0_3;
   void *var_a0_4;
   void *var_a1;
@@ -162,10 +163,11 @@ void *func_800180FC(void *arg0)
       }
       temp_a0 = *((u16 *) (((s8 *) (*((void **) (D_800C02AE + 0x7CD2)))) + 0x10));
       *((u16 *) (((s8 *) (*((void **) (D_800C02AE + 0x7CD2)))) + 0x10)) = (u16) var_s3;
+      temp_s4 = (s32) (*((u16 *) (((s8 *) header) + 4)));
       D_8009C230 = ((s8 *) temp_s6) + ((var_s3 & 0xFFFF) * 0x94);
       *((s32 *) (D_800C02AE + 0x3262)) = (s32) temp_a0;
       var_s3 = 0;
-      if (((s32) (*((u16 *) (((s8 *) header) + 4)))) > 0)
+      if (temp_s4 > 0)
       {
         var_a0_3 = temp_s6;
         do
@@ -307,16 +309,18 @@ void *func_800180FC(void *arg0)
     if (((s32) (*((u16 *) (((s8 *) header) + 4)))) > 0)
     {
       var_s0_3 = temp_s6;
+      new_var5 = (s8 *) header;
       do
       {
         func_800307C8(var_s0_3);
         var_s3 += 1;
         var_s0_3 = ((s8 *) var_s0_3) + 0x94;
       }
-      while (var_s3 < ((s32) (*((u16 *) (((s8 *) header) + 4)))));
+      while (var_s3 < ((s32) (*((u16 *) (new_var5 + 4)))));
     }
     func_80030A0C(D_8009C230);
     func_80033370(D_8009C230);
   }
   return arg0;
 }
+

@@ -35,16 +35,13 @@ s32 func_80086F40(u32 a, s32 b)
 {
   s32 end;
   s32 chunk;
-  s32 new_var;
   s32 t;
   s32 start;
   s32 sum;
   void *data;
   s32 n;
-  Packet *p;
   Node *walker;
   Node *old;
-  Node *node;
   if ((*((u32 *) (D_800C02AE + 0x339A))) & 1)
   {
     return osVirtualToPhysical((void *) a);
@@ -55,11 +52,10 @@ s32 func_80086F40(u32 a, s32 b)
   if (walker != 0)
   {
     chunk = SIZE;
-    new_var = chunk;
     while (walker != 0)
     {
       start = walker->start;
-      sum = start + new_var;
+      sum = start + chunk;
       if (a < ((u32) start))
       {
         break;
@@ -72,47 +68,43 @@ s32 func_80086F40(u32 a, s32 b)
       }
       walker = walker->next;
     }
-
   }
-  node = FREE;
-  if (node == 0)
+  walker = FREE;
+  if (walker == 0)
   {
     return osVirtualToPhysical(HEAD);
   }
-  FREE = node->next;
-  alUnlink(node);
+  FREE = walker->next;
+  alUnlink(walker);
   if (old != 0)
   {
-    alLink(node, old);
+    alLink(walker, old);
     t = a & 1;
   }
   else
   {
-    old = HEAD;
-    if (old != 0)
+    if (HEAD != 0)
     {
-      HEAD = node;
-      walker = old;
-      node->next = walker;
-      node->prev = 0;
-      walker->prev = node;
+      old = HEAD;
+      HEAD = walker;
+      walker->next = old;
+      walker->prev = 0;
+      old->prev = walker;
     }
     else
     {
-      HEAD = node;
-      node->next = 0;
-      node->prev = 0;
+      HEAD = walker;
+      walker->next = 0;
+      walker->prev = 0;
     }
     t = a & 1;
   }
   a -= t;
-  node->start = a;
-  chunk = D_800A1BA4;
-  node->phys = chunk;
-  data = node->data;
+  walker->start = a;
+  walker->phys = D_800A1BA4;
+  data = walker->data;
   n = D_800A1BA8;
   D_800A1BA8 = n + 1;
-  ;
-  func_80081040(a, data, SIZE, (&TABLE[n])->first, (&TABLE[n])->rest);
+  func_80081040(a, data, SIZE, TABLE[n].first, TABLE[n].rest);
   return osVirtualToPhysical(data) + t;
 }

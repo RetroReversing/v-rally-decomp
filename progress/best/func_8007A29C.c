@@ -101,9 +101,8 @@ void func_8007A29C(void)
           if (var_s2 == NULL)
           {
             temp_s2 = var_s0;
-            var_s0 = P(var_s0, 0x0);
+            var_s0 = (P(temp_v0_2, 0x28) = P(var_s0, 0x0));
             var_s2 = NULL;
-            P(temp_v0_2, 0x28) = var_s0;
             func_8007EE9C(temp_s2);
           }
           else
@@ -155,3 +154,4 @@ void func_8007A29C(void)
   }
   B(temp_s0, 0x4) = var_v0;
 }
+

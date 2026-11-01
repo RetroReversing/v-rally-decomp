@@ -1,3 +1,4 @@
+static __inline__ int __repair_inline(s32 a, s32 b) { return a < b; }
 s32 __osPfsSelectBank(void *, s32);
 s32 func_80091600(void *, void *, s32);
 s32 __osContRamRead(s32, s32, s32, void *);
@@ -39,7 +40,7 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
   u8 idx;
   u8 mode;
   s32 fp_mode;
-  s32 pad[4];
+  
   idx = arg3;
   mode = arg2;
   if (((!mode) && (idx == D_800A3B34)) && ((*((s32 *) (((char *) arg0) + 8))) == D_800A3B30))
@@ -72,7 +73,7 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
     var_a0 = 0;
     temp_a2 = (0x80 - var_s5) * 2;
     var_v1_2 = 0;
-    if (temp_a2 > 0)
+    if (__repair_inline(0, temp_a2))
     {
       do
       {
@@ -117,7 +118,7 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
         var_a1_2 += (s32) arg1;
         temp_a2_2 = (0x80 - var_s5) * 2;
         var_a0_2 = 0;
-        if (temp_a2_2 > 0)
+        if (__repair_inline(0, temp_a2_2))
         {
           do
           {
@@ -142,10 +143,9 @@ s32 __osPfsRWInode(void *arg0, void *arg1, u32 arg2, u32 arg3)
           var_a2 = (var_s5 * 2) + arg1;
           var_a0 = 0;
           temp_v1 = var_s5;
-          temp_v1 = 0x80 - temp_v1;
-          temp_v1 = temp_v1 * 2;
+          temp_v1 = 0x80 - temp_v1;{ s32 __repair_value; __repair_value = temp_v1 * 2; temp_v1 = __repair_value; }
           var_a1_3 = 0;
-          if (temp_v1 > 0)
+          if (__repair_inline(0, temp_v1))
           {
             do
             {

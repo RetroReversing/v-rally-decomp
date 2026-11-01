@@ -13,6 +13,7 @@ extern void D_800A4C28;
 extern u8 D_800C02AE[];
 void func_800407D0(void)
 {
+  s16 new_var2;
   s32 sp10[4];
   s32 sp20;
   s32 pad[4];
@@ -29,7 +30,6 @@ void func_800407D0(void)
   s32 var_v1_3;
   u16 *temp_fp;
   u16 *var_a0_2;
-  volatile unsigned int new_var2;
   u16 *var_a0_3;
   u32 temp_s2;
   u32 temp_s6;
@@ -39,6 +39,7 @@ void func_800407D0(void)
   u32 temp_s0_2;
   int new_var4;
   u32 temp_s0_3;
+  u16 *new_var5;
   s32 *new_var;
   u32 var_v1;
   u32 var_v1_2;
@@ -74,16 +75,15 @@ void func_800407D0(void)
     {
       new_var4 = 0xFFFF;
       temp_s3 = P(temp_s3, 0x78);
-      var_s1 = 0;
+      var_s1 = (var_s1 = 0);
       if (temp_s2 != 0)
       {
-        var_a0 = 0 & 0xFFFF;
         do
         {
           var_s1 += 1;
-          new_var2 = var_s1;
+          var_s2 = var_s1;
           (&sp10[0])[var_a0] = (s32) H((H(P(D_800C02AE, 0x32F2) + (B(P(D_800C02AE, 0x32F2) + var_a0, 0x32) * 0x28), 0x4E) * 0x2C4) + temp_s3, 0x14);
-          var_a0 = new_var2 & 0xFFFF;
+          var_a0 = var_s2 & 0xFFFF;
         }
         while (((u32) (var_s1 & new_var4)) < temp_s2);
       }
@@ -117,14 +117,16 @@ void func_800407D0(void)
                   do
                   {
                     var_v1 += 1;
-                    var_a2 &= -((*var_a0_2) != temp_hi);
+                    new_var5 = var_a0_2;
+                    var_a2 &= -((*new_var5) != temp_hi);
                     var_a0_2 += 1;
                   }
                   while (var_v1 < temp_s0_2);
                 }
+                new_var2 = (s16) temp_hi;
                 if ((var_a2 != 0) && (!(H((temp_hi * 0x2C4) + temp_s3, 0x10) & 8)))
                 {
-                  temp_fp[temp_s0_2] = (s16) temp_hi;
+                  temp_fp[temp_s0_2] = new_var2;
                   var_s2 = 1;
                   func_80053C28(B(P(D_800C02AE, 0x32F2) + temp_s0_2, 0x32), temp_hi & 0xFF, var_a2, temp_s0_2);
                 }
@@ -143,8 +145,16 @@ void func_800407D0(void)
             {
               sp10[1] = 0;
             }
+              if (var_v1_3)
+            {
               var_s2_2 = 0;
               temp_s0_3 = var_s1 & 0xFFFF;
+            }
+            else
+            {
+              var_s2_2 = 0;
+              temp_s0_3 = var_s1 & 0xFFFF;
+            }
               do
             {
               temp_hi_2 = func_80098090() % temp_s6;
@@ -166,14 +176,14 @@ void func_800407D0(void)
                 }
                 if ((var_a2_2 != 0) && (!(H((temp_hi_2 * 0x2C4) + temp_s3, 0x10) & 8)))
                 {
-                  var_s2_2 = 1;
+                  var_s2_2 = (var_s4 = 1);
                   temp_fp[temp_s0_3] = new_var3;
-                  var_s4 += 1;
                   func_80053C28(B(P(D_800C02AE, 0x32F2) + temp_s0_3, 0x32), temp_hi_2 & 0xFF, var_a2_2, temp_s0_3);
                 }
               }
             }
             while (var_s2_2 == 0);
+              var_a0 = 0 & 0xFFFF;
 
             case 3:
 
@@ -186,7 +196,6 @@ void func_800407D0(void)
         }
         while (((u32) (var_s1 & new_var4)) < 4U);
       }
-      var_s1 = 0;
       var_v1_3 = 0 & new_var4;
       do
       {
@@ -198,5 +207,4 @@ void func_800407D0(void)
     }
   }
 }
-
 

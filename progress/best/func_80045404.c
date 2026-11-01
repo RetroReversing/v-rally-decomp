@@ -73,7 +73,14 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
   }
   if (D_8009D544 == 0)
   {
-    I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);
+    if (var_t1)
+    {
+      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);
+    }
+    else
+    {
+      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);
+    }
   }
   else
   {

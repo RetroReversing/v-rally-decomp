@@ -1,23 +1,40 @@
-extern char D_800A0130[];
-extern char D_800C02AE[];
-extern s32 D_800C7F84;
-s32 func_8004240C(s32, s32, s32);
-void *func_8002255C(void *, void *);
-s32 func_800223B4(s32, s32, s32, void *, s32);
 typedef struct { char pad[8]; void (*cb)(s32, void *); s32 a, b; } Entry;
-s32 func_80041F24(void *arg0, s32 arg1) {
-    s32 a3, a0, v, result;
-    u16 a2;
-    Entry *entry;
-    a3 = *(s32 *)((char *)arg0 + 0x90);
-    a0 = a3;
-    a2 = *(u16 *)(*(char **)(D_800C02AE + 0x32F2) + 0xE);
-    if ((a0 & 255) == 3) a0 = (a2 * 2) | 1;
-    else if (a0 & 255) a0 = ((arg1 & 255) * 2) - a3;
-    v = func_8004240C(a0 & 255, a2, a3);
-    D_800C7F84 = v;
-    entry = func_8002255C(D_800A0130, (char *)arg0 + 0x98);
-    result = func_800223B4(v + 0x28, entry->a, entry->b, entry, *(s32 *)((char *)arg0 + 0x174));
-    if (entry->cb) entry->cb(result, arg0);
-    return result;
+typedef struct {
+  u8 pad[0x90];
+  s32 slot;
+  u8 pad94[4];
+  u8 name[0x174 - 0x98];
+  s32 extra;
+} Obj41;
+extern char D_800A0130[];
+extern u8 *D_800C35A0;
+extern u8 *D_800C7F84;
+u8 *func_8004240C(s32);
+Entry *func_8002255C(void *, void *);
+s32 func_800223B4(void *, s32, s32, Entry *, s32);
+
+s32 func_80041F24(Obj41 *arg0, u8 player)
+{
+  u8 idx;
+  u8 *node;
+  Entry *entry;
+  s32 result;
+
+  u16 mode;
+
+  idx = arg0->slot;
+  mode = *(u16 *)(D_800C35A0 + 0xE);
+  if (idx == 3) {
+    idx = (mode * 2) | 1;
+  } else if (idx != 0) {
+    idx = player * 2 - arg0->slot;
+  }
+  node = func_8004240C(idx);
+  D_800C7F84 = node;
+  entry = func_8002255C(D_800A0130, arg0->name);
+  result = func_800223B4(node + 0x28, entry->a, entry->b, entry, arg0->extra);
+  if (entry->cb) {
+    entry->cb(result, arg0);
+  }
+  return result;
 }

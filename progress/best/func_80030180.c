@@ -27,8 +27,7 @@ __repair_addr = (char *)(base + a3);
         d0 = *(u16 *)(base + a1) - *(u16 *)(__repair_addr);
     } else {
         base = *(u8 **)(arg0 + 0x54);
-        a1 = v1 * 6;
-        a3 = a0 * 6;
+a3 = a0 * 6; a1 = v1 * 6;
         d0 = *(u16 *)(base + a1) - *(u16 *)(base + a3);
         t1 -= 500;
     }

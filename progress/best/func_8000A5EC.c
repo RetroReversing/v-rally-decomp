@@ -14,17 +14,17 @@ typedef struct
   u32 x;
   u32 *items;
 } Img;
-static inline u16 *inline_fn(void *arg0)
+static inline static u16 *inline_fn(void *arg0)
 {
   return (u16 *) (((u8 *) arg0) + 0x52);
 }
 
-static inline static static static u16 inline_fn2(Img *arg0, int arg1)
+static inline static static static static u16 inline_fn2(Img *arg0, int arg1)
 {
   return arg0->w >> arg1;
 }
 
-static inline static static static u8 *inline_fn23(void *arg0)
+static inline static static static static u8 *inline_fn23(void *arg0)
 {
   return (u8 *) arg0;
 }
@@ -110,7 +110,7 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   *((s16 *) (inline_fn23(o) + 0x32)) = (v << 2) - 1;
 
   v = im->size;
- ;
+  ;
   *((s16 *) (inline_fn23(o) + 0x34)) = (v << 2) - 1;
   finish:
   *((s16 *) (((u8 *) o) + 0x42)) = 0x400;
@@ -138,7 +138,8 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   new_var3 = ((u8 *) o) + 0x10;
   *((u32 *) (((u8 *) o) + 0x38)) = v;
   *((u32 *) new_var3) = 0x30;
-  x = idx << 2;
+  x = idx;
+  x = x << 2;
   v = *((u32 *) (x + ((int) im->tab)));
   *((u16 *) (((u8 *) o) + 0x18)) = 0x100;
   *((u32 *) (((u8 *) o) + 0x14)) = v;
@@ -159,3 +160,4 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   }
   osWritebackDCache(o, 96);
 }
+

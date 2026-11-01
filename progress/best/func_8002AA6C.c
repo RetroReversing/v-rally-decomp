@@ -1,6 +1,6 @@
 extern char D_8009CEE0[];
 extern u8 D_8009CEE8;
-static inline int inline_fn(s32 arg0)
+static inline static int inline_fn(s32 arg0)
 {
   return arg0 + 1;
 }
@@ -81,7 +81,7 @@ s32 func_8002AA6C(char *src, char *end)
           {
             q++;
             p++;
-            if ((*p) != (n = *q))
+            if ((n = *q) != (*p))
             {
               break;
             }
@@ -111,3 +111,4 @@ s32 func_8002AA6C(char *src, char *end)
 
   return 0;
 }
+

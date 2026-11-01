@@ -66,7 +66,7 @@ extern u8 D_800C35C8;
 extern Snd *D_800C81D4;
 extern Cam *D_800C7F84;
 extern u8 D_800B6818;
-static inline static static f32 inline_fn(s32 arg0)
+static inline static static static f32 inline_fn(s32 arg0)
 {
   return (f32) (120 - arg0);
 }
@@ -76,7 +76,7 @@ void func_80037E28(void)
   Car *car;
   Audio *audio;
   Snd *snd;
-  s32 new_var;
+  
   Snd *snd1;
   f32 *vols;
   f32 *pv;
@@ -94,6 +94,7 @@ void func_80037E28(void)
   s32 u;
   u32 sum;
   u16 mode;
+  int new_var3;
   u8 ok;
   u8 gear;
   u8 i;
@@ -158,15 +159,15 @@ void func_80037E28(void)
       }
       else
       {
-        new_var = kind;
-        if (new_var != 1)
+        k = kind;
+        if (k != 1)
         {
           if (((D_800C35A0->mode == 5) && (D_800B6818 == 0)) || ((D_800C35A0->players == 2) && ((D_800C35A0->mode == 5) || ((D_800C35A0->mode != 0) & (D_800C35A0->mode < 5)))))
           {
             f = 0.0f;
           }
         }
-        if (new_var == 1)
+        if (k == 1)
         {
           g = func_8001FEE8(car);
           if (g < 0.0f)
@@ -230,7 +231,8 @@ void func_80037E28(void)
       {
         k = (new_var2 = ((rpm - 4000) * 40) / 1500);
         func_80086D90(&snd[0], (inline_fn(k) * f) * (*pv));
-        k = k + (spd + 30);
+        new_var3 = spd + 30;
+        k = k + new_var3;
         func_80086D90(snd1, (U2F(k) * f) * (*pv));
       }
       else

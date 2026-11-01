@@ -76,7 +76,8 @@ void func_80028740(Grid *start)
   {
     rows = g->rows;
     rows = rows - 1;
-    cols = g->cols - 1;
+    cols = g->cols;
+    cols = cols - 1;
     i = rows;
     n = cols * i;
     {
@@ -234,3 +235,4 @@ void func_80028740(Grid *start)
   }
   while ((g != start) & (g != 0));
 }
+

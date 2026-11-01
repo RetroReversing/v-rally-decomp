@@ -8,7 +8,7 @@ extern f64 D_800A58B0;
 extern f64 D_800A58B8;
 s32 func_8006B9E0(u8, u8);
 s32 func_8006B924(void *, int);
-void func_8006DDD8(void)
+long func_8006DDD8(void)
 {
   char *__repair_addr;
   u8 *p = D_800C35A0;
@@ -24,10 +24,12 @@ void func_8006DDD8(void)
   s32 code;
   s32 stride;
   f64 b;
+  int new_var;
   idx = (u8) func_8006B9E0(p[0x21], p[0x23]);
   twice = idx * 2;
   b = ((f64) ((s32) idx)) * D_800A58B0;
   stride = (*((u8 **) (D_800C02AE + 0x32f2)))[0x23] * 64;
+  new_var = 0x40;
   i = 0;
   do
   {
@@ -89,7 +91,8 @@ void func_8006DDD8(void)
             break;
 
           case 1:
-            tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf;
+            off = (tab[(u8) x] | 0x10) & 0xdf;
+            tab[(u8) x] = off;
             break;
 
           case 2:
@@ -104,7 +107,7 @@ void func_8006DDD8(void)
 
         if (delta & 1)
         {
-          tab[(u8) x] |= 0x40;
+          tab[(u8) x] |= new_var;
         }
         else
         {
@@ -165,3 +168,4 @@ void func_8006DDD8(void)
   }
   while (((((((((i & 255) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) < 3);
 }
+

@@ -1,4 +1,4 @@
-static inline static static static static static char inline_fn(char *arg0)
+static inline static static static static static static static char inline_fn(char *arg0)
 {
   return *arg0;
 }
@@ -12,6 +12,7 @@ char *func_8002B180(char *p, char *end)
   char new_var;
   s32 ws;
   s32 cr;
+  char new_var5;
   s32 hash = 0x23;
   int new_var3;
   char *new_var4;
@@ -42,6 +43,8 @@ char *func_8002B180(char *p, char *end)
   loop_1b8:
   ;
 
+  ;
+  ;
   ;
   ;
   ;
@@ -82,20 +85,21 @@ char *func_8002B180(char *p, char *end)
   {
     goto block_260;
   }
-  new_var2 = p[1];
+  new_var5 = p[1];
+  new_var2 = new_var5;
   v = new_var4 < end;
   if (v == 0)
   {
     goto block_260;
   }
-  if (p[1] != c)
+  if (new_var5 != c)
   {
     goto block_260;
   }
   block_218:
-  c = inline_fn(p);
+  ;
 
-  if (c == 0xD)
+  if (inline_fn(p) == 0xD)
   {
     goto block_240;
   }
@@ -103,6 +107,8 @@ char *func_8002B180(char *p, char *end)
   loop_228:
   ;
 
+  ;
+  ;
   if ((p < end) == 0)
   {
     goto block_240;
@@ -168,3 +174,4 @@ char *func_8002B180(char *p, char *end)
   }
   goto loop_190;
 }
+

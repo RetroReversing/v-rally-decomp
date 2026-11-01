@@ -7,7 +7,7 @@ extern u8 *D_800C35A0;
 void func_8006F0E0(u8);
 void func_8006F4A8(u8);
 void func_8006F75C(void);
-static inline static u8 inline_fn(u8 *arg0, s8 arg1)
+static inline static static static u8 inline_fn(u8 *arg0, s8 arg1)
 {
   return arg0[(s8) arg1];
 }
@@ -18,6 +18,7 @@ void func_80066B88(void)
   u8 b[4];
   s32 changed;
   s8 k;
+  s8 new_var2;
   s8 i;
   s8 j;
   s8 idx;
@@ -41,12 +42,15 @@ void func_80066B88(void)
       {
         b[(s8) i] = 0;
       }
-      j = 0;
+      if (1)
+      {
+        j = 0;
+      }
       do
       {
         if (p[(s8) j] == ((s8) i))
         {
-          a[p[(s8) j]] = 0;
+ do { a[p[(s8) j]] = 0; } while (0);
         }
         j++;
       }
@@ -67,13 +71,16 @@ void func_80066B88(void)
         {
           break;
         }
+        changed++;
+        changed--;
       }
 
       n = (u8) i;
       idx = k;
+      new_var2 = (s8) idx;
       if (i == 4)
       {
-        s8 *x = p + ((s8) idx);
+        s8 *x = p + new_var2;
         func_8006F4A8(*((u8 *) x));
         q[(*x) * 40] = 0x50;
         q[((*x) * 40) + 1] = 0x4C;
@@ -90,8 +97,8 @@ void func_80066B88(void)
         }
 
         {
-          u8 t = p[(s8) idx];
-          p[(s8) idx] = n;
+          u8 t = p[new_var2];
+          p[new_var2] = n;
           p[(s8) i] = t;
         }
       }

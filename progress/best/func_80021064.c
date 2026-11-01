@@ -26,7 +26,6 @@ void func_80021064(void *list)
   int new_var2;
   s16 b[3];
   s16 c[3];
-  int sq[3];
   char *obj;
   int new_var3;
   char *manager;
@@ -218,8 +217,7 @@ void func_80021064(void *list)
             }
             func_8002E514(P(obj, 0x5c) + 0x40, a, b);
             {
-              world[0] = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0];
-              W(contact, 0 * 4) = world[0];
+              world[0] = (W(contact, 0 * 4) = W(P(obj, 0x5c), 0x54 + (0 * 4)) + b[0]);
               world[1] = W(P(obj, 0x5c), 0x54 + (1 * 4)) + b[1];
               W(contact, 1 * 4) = world[1];
               world[2] = W(P(obj, 0x5c), 0x54 + (2 * 4)) + b[2];
@@ -246,13 +244,14 @@ void func_80021064(void *list)
             B(flags, 6) = 1;
             new_var = 1 * 2;
             {
-              sq[2] = H(contact, 24 + (2 * 2)) - H(contact, 12 + (2 * 2));
-              sq[0] = H(contact, 24 + (0 * 2)) - H(contact, 12 + (0 * 2));
-              sq[1] = H(contact, 24 + new_var) - H(contact, 12 + new_var);
+              world[2] = H(contact, 24 + (2 * 2)) - H(contact, 12 + (2 * 2));
+              y = new_var;
+              world[0] = H(contact, 24 + (0 * 2)) - H(contact, 12 + (0 * 2));
+              world[1] = H(contact, 24 + y) - H(contact, 12 + y);
             }
-            func_8002E778(sq, sq);
-            sq[0] += sq[1] + sq[2];
-            trigger = U(manager, 4) < sq[0];
+            func_8002E778(world, world);
+            world[0] += world[1] + world[2];
+            trigger = U(manager, 4) < world[0];
           }
           else
           {
@@ -322,3 +321,4 @@ void func_80021064(void *list)
 
   }
 }
+

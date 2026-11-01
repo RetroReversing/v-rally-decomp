@@ -1,4 +1,9 @@
 extern u8 D_800C02AE[];
+static inline u8 inline_fn(u8 arg0)
+{
+  return arg0;
+}
+
 void func_80020098(u8 *arg0, u8 arg1)
 {
   u8 i;
@@ -25,7 +30,7 @@ void func_80020098(u8 *arg0, u8 arg1)
         arg0 = (D_800C02AE + 0x5BAA) + (arg1 * 0x81);
         new_var = ((j * (cur - prev)) / 10) + prev;
         val = new_var;
-        arg0[k] = val;
+        arg0[k] = inline_fn(val);
         j = val;
         if (j >= 0x80)
         {
@@ -43,3 +48,4 @@ void func_80020098(u8 *arg0, u8 arg1)
   }
   D_800C02AE[0x5C2A + (arg1 * 0x81)] = cur;
 }
+

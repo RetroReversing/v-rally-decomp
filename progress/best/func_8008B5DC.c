@@ -10,11 +10,11 @@ typedef struct Q
 } Q;
 void func_8008B5DC(Q *head, Q *item)
 {
-  Q *prev = head;
   Q *new_var2;
   s32 new_var;
   Q *cur = head->next;
   s32 key = item->priority;
+  cur = cur;
   new_var = cur->priority;
   if (new_var >= key)
   {
@@ -22,12 +22,20 @@ void func_8008B5DC(Q *head, Q *item)
     new_var2 = cur;
     do
     {
-      prev = new_var2;
-      cur = prev->next;
+      if (cur)
+      {
+        cur = new_var2;
+        cur = cur->next;
+      }
+      else
+      {
+        cur = new_var2;
+        cur = cur->next;
+      }
     }
-    while (new_var >= key);
+    while (new_var >= item->priority);
   }
-  item->next = prev->next;
+  item->next = cur->next;
   cur->next = item;
   item->queue = head;
 }

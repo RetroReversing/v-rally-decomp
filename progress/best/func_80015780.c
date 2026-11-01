@@ -29,7 +29,7 @@ extern s32 D_800AE850;
 extern s32 D_800C02AE;
 extern s32 func_80015E4C;
 extern s32 func_8001B880;
-static inline int inline_fn(unsigned short arg0)
+static inline static int inline_fn(unsigned short arg0)
 {
   return arg0 != 0;
 }
@@ -78,9 +78,9 @@ void func_80015780(s32 arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, s32 arg5)
         do
         {
           *((s8 *) (((char *) (&D_800C02AE)) + 0x7678)) = 0;
-          goto block_15;
         }
         while (0);
+        goto block_15;
       }
       if ((*((u16 *) (((char *) (*((void **) (((char *) (&D_800C02AE)) + 0x32F2)))) + 0xE))) == 1)
       {
@@ -174,3 +174,4 @@ void func_80015780(s32 arg0, s32 arg1, s32 arg2, u32 arg3, s32 arg4, s32 arg5)
   D_800A187C = __cosf((f32) (((f64) D_800A18C8) * temp_fs0));
   D_8009BBB6 = 0xA;
 }
+

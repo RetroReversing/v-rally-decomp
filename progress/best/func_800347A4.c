@@ -18,9 +18,9 @@ void func_800347A4(void *obj,s8 *out) {
  speed=func_8001FEDC(obj);state=W(P(obj,0x60),0x160);timer=W(P(obj,0x60),0x158);steer=W(P(obj,0x60),0x168);phase=W(P(obj,0x60),0x164);
 target=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);
  if(state!=3) {
-  if((u32)(speed+199)>=399) { timer=0; goto state_done; }
-  if(W(obj,0x14)&16) { timer=0; goto state_done; }
+  if((u32)(speed+199)<399 && !(W(obj,0x14)&16)) {
   timer++;if((u32)timer>=51){timer=0;phase=0;state=3;}
+  } else timer=0;
  }
  state_done:
  progress=func_80033DB8(obj,progress,raw,&data[4]);

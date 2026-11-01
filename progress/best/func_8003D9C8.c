@@ -19,6 +19,7 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
   s16 new_var;
   void *event = D_800C35A0;
   void *v = P(root, 0x178);
+  s32 *new_var2;
   void *item;
   s32 y = H(v, 10);
   s32 x = H(v, 8);
@@ -35,8 +36,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
     {
       void *__repair_cached_pointer = D_800C7F84;
       y = (y + height) - 18;
+      new_var2 = &func_8003B310;
       arg2--;
-      func_8003A9AC(arg0, x + 77, y, &func_8003B310, arg1, (u16) arg2, 0);
+      func_8003A9AC(arg0, x + 77, y, new_var2, arg1, (u16) arg2, 0);
       item = func_80040260(arg0, (s16) (U(P(__repair_cached_pointer, 0x178), 8) + 68), (s16) y, 2, &func_8003B008, 0);
       W(item, 0xa4) = func_80034FF0(arg1 + 76);
       H(item, 0x76) = arg2;
@@ -74,7 +76,7 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
       v = P(D_800C7F84, 0x178);
       y = (H(v, 10) + H(v, 14)) - 18;
       arg2--;
-      func_8003A9AC(arg0, x + 57, y, &func_8003B310, arg1, (u16) arg2, 0);
+      func_8003A9AC(arg0, x + 57, y, new_var2, arg1, (u16) arg2, 0);
       item = func_80040260(arg0, (s16) (x + 46), (s16) y, 2, &func_8003B008, 0);
       tx = func_80034FF0(arg1 + 76, 0);
       W(item, 0xa4) = tx;
@@ -83,10 +85,10 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
     else
     {
       xx = x + 49;
-      y = base + 10;
+      ;
       new_var = (s16) y;
       index &= 65535;
-      func_8003A9AC(arg0, xx, y, &func_8003B240, arg1, (u16) index, 0);
+      func_8003A9AC(arg0, xx, base + 10, &func_8003B240, arg1, (u16) index, 0);
       x = (s16) (x + 40);
       item = func_80040260(arg0, x, new_var, 2, &func_8003AE84, 0);
       ;
@@ -99,10 +101,10 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
       item = func_80040260(arg0, x, (s16) base, 2, &func_8003AF74, 0);
       W(item, 0xa4) = func_80034FF0(arg1 + 76, 0);
     }
-      P(item, 0xa8) = D_800C7F84;
-      P(item, 0xa8) = D_800C7F84;
+      P(item, 0xa8) = (P(item, 0xa8) = D_800C7F84);
       break;
 
   }
 
 }
+

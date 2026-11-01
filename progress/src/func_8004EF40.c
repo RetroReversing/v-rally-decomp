@@ -44,6 +44,7 @@ void func_8004EF40(Node *arg0)
   Node *var_s0;
   Node *var_s1;
   var_s4 = 0;
+
   if (arg0->unk58 != 0)
   {
     var_s1 = arg0;
@@ -55,7 +56,7 @@ void func_8004EF40(Node *arg0)
   bp = b;
   one = 1;
   six = 6;
-  loop_4:
+  do {
   var_s0 = var_s1->unk58;
 
   temp_v0 = func_8004E5B0(var_s1, &a[0]);
@@ -82,8 +83,8 @@ void func_8004EF40(Node *arg0)
             {
               a[0] = one;
               b[0] = one;
-              b[1] = one;
               a[1] = 2;
+              b[1] = one;
             }
             else
             {
@@ -106,11 +107,9 @@ void func_8004EF40(Node *arg0)
         else
           if (((a[3] == 0) && (b[3] != 0)) && (a[1] == b[1]))
         {
-          temp_v0_3 = a[0];
-          if (temp_v0_3 != 2)
+          if (a[0] != 2)
           {
-            temp_a0_4 = temp_v0_3 + 1;
-            a[0] = temp_a0_4;
+            a[0] = a[0] + 1;
           }
           block_21:
           temp_v0_2 = var_s1->unk5C;
@@ -128,21 +127,15 @@ void func_8004EF40(Node *arg0)
       {
         var_s0 = var_s0->unk58;
       }
-      var_v0 = var_s0->unk8A;
-      var_v1 = var_s0->unk88 - 4;
-      goto block_31;
+      var_t0 = ((u32)(var_s0->unk88 - 4) * var_s0->unk8A) + var_s0->unk4C;
     }
-    if (a[3] == 0)
+    else if (a[3] == 0)
     {
       var_t0 = var_s0->unk4C + (((var_s0->unk88 / 3) & 0xFFFF) * var_s0->unk8A);
     }
     else
     {
-      var_v0 = var_s0->unk8A;
-      var_v1 = ((u16) var_s0->unk88) >> 2;
-      block_31:
-      var_t0 = (var_v1 * var_v0) + var_s0->unk4C;
-
+      var_t0 = ((u32)(var_s0->unk88 >> 2) * var_s0->unk8A) + var_s0->unk4C;
     }
     temp_v1 = temp_s3->unk5C;
     if (temp_v1 != NULL)
@@ -192,8 +185,5 @@ void func_8004EF40(Node *arg0)
   {
     var_s1 = temp_v0_4;
   }
-  if ((var_s1 != arg0) && (var_s1->unk5C != 0))
-  {
-    goto loop_4;
-  }
+  } while ((var_s1 != arg0) && (var_s1->unk5C != 0));
 }

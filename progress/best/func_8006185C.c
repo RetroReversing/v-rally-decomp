@@ -45,6 +45,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
   u32 w;
   u8 i;
   u8 count;
+  u32 new_var;
   u8 *node;
   font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) arg0) + 8)));
   table = D_800A1468 + ((*((s8 *) (((u8 *) arg0) + 14))) * 2);
@@ -53,7 +54,14 @@ void func_8006185C(u8 *arg0, s32 arg1)
   offset = (anchor = *((s16 *) (((u8 *) arg0) + 10)));
   if (anchor < 0)
   {
-    offset = (-offset) - result;
+    if (x)
+    {
+      offset = (-offset) - result;
+    }
+    else
+    {
+      offset = (-offset) - result;
+    }
   }
   x = offset - 12;
   xend = x + extent;
@@ -68,12 +76,13 @@ void func_8006185C(u8 *arg0, s32 arg1)
     CV(h, ((f64) (*((f32 *) (((u8 *) D_800A14D0) + 4)))) * D_800A5600, D_800A5608);
     height = h;
     y = (*((u16 *) (((u8 *) D_800A14D0) + 2))) + ((*((u8 *) (((u8 *) D_800A14D0) + 8))) * (*((u16 *) (((u8 *) (*((u8 **) (((u8 *) D_800C02AE) + 0x32F2)))) + 34))));
-    CV(c, ((f64) ((u16) y)) + (((f64) ((u16) height)) * D_800A5610), D_800A5618);
+    CV(c, (double) (((f64) ((u16) y)) + (((f64) ((u16) height)) * D_800A5610)), D_800A5618);
     func_8004C100(D_800ADF80, (u16) (x + extent), (u16) (top + (boxheight >> 1)), (u16) ((gap + (x + extent)) - 4), (u16) c);
     func_8004C1B4(D_800ADF80, (u16) ((*((u16 *) (((u8 *) D_800A14D0) + 0))) - 3), (u16) (y - 3), (u16) ((*((u16 *) (((u8 *) D_800A14D0) + 0))) - 3), (u16) ((y + height) + 2), (u16) (((*((u16 *) (((u8 *) D_800A14D0) + 0))) + width) + 2), (u16) ((y + height) + 2), (u16) (((*((u16 *) (((u8 *) D_800A14D0) + 0))) + width) + 2), (u16) (y - 3));
   }
   else
   {
+    new_var = h;
     gap = 356 - xend;
     i = 0;
     count = *((u8 *) (((u8 *) arg0) + 77));
@@ -94,8 +103,8 @@ void func_8006185C(u8 *arg0, s32 arg1)
       }
       while (i < count);
     }
-    CV(h, ((f64) (*((f32 *) (((u8 *) node) + 20)))) * D_800A5620, D_800A5628);
-    height = h;
+    CV(new_var, ((f64) (*((f32 *) (((u8 *) node) + 20)))) * D_800A5620, D_800A5628);
+    height = new_var;
     if ((*((u8 *) (((u8 *) D_800A1468) + 0x238))) == 0)
     {
       y = ((*((u8 *) (((u8 *) D_800A1468) + 0x239))) * 20) + 280;
@@ -103,7 +112,14 @@ void func_8006185C(u8 *arg0, s32 arg1)
     else
       if ((*((u8 *) (((u8 *) D_800A1468) + 0x238))) == 1)
     {
-      y = ((*((u8 *) (((u8 *) D_800A1468) + 0x239))) * 20) + 260;
+      if (x || boxheight)
+      {
+        y = ((*((u8 *) (((u8 *) D_800A1468) + 0x239))) * 20) + 260;
+      }
+      else
+      {
+        y = ((*((u8 *) (((u8 *) D_800A1468) + 0x239))) * 20) + 260;
+      }
     }
     else
     {
