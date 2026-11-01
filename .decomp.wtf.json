@@ -1,0 +1,21 @@
+{
+  "platform": "n64",
+  "scope": "program",
+  "game": {
+    "what": "your own V-Rally Europe (PAL) ROM",
+    "path": "baserom.z64",
+    "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+    "help": "Use the Europe PAL release. Newer decompdecomp versions restore and verify the bundled progress automatically."
+  },
+  "setup": [
+    [
+      "python3",
+      "build.py",
+      "targets"
+    ],
+    [
+      "python3",
+      "build.py"
+    ]
+  ]
+}

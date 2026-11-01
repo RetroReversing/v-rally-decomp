@@ -1,3 +1,17 @@
+## Continue in decompdecomp
+
+In a current decompdecomp build, choose **Continue a public decomp**, enter this
+repository URL, then supply your own **Europe (PAL)** ROM. The app detects the
+bundled `progress/` save and restores its sources, best drafts, names, notes,
+headers and compiler profiles, verifying saved matches against your ROM.
+No ROM, compiler installation or database is included in this repository.
+Accept any required proprietary compiler terms in the app before installing them.
+
+For older app versions, clone the repository and choose **Open a saved project**
+with the local `progress/` folder and your ROM. The root `.decomp.wtf.json` also
+describes the standalone build for public-decomp importers, but restoring
+`progress/` is the way to retain saved drafts and app metadata.
+
 # V-Rally Edition 99 - Nintendo 64 matching decompilation
 
 [![Progress](https://bytematch.dev/RetroReversing/v-rally-decomp.svg)](https://bytematch.dev/RetroReversing/v-rally-decomp)
