@@ -1,17 +1,17 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
-<title id="title">1,756 / 2,084 functions matched (84.3%)</title>
+<title id="title">1,761 / 2,084 functions matched (84.5%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="450" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">n64</text>
-<text x="20" y="59" font-size="16">1,756 / 2,084 functions matched (84.3%)</text>
+<text x="20" y="59" font-size="16">1,761 / 2,084 functions matched (84.5%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="674.088" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="676.008" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 1,756</text>
+<text x="36" y="118" font-size="13">Matched: 1,761</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 328</text>
+<text x="236" y="118" font-size="13">Attempt: 323</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
 <text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
@@ -1733,8 +1733,8 @@
 <g><title>func_80028300: {&#x27;matched&#x27;: 1}</title>
 <rect x="130.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80028394: {&#x27;attempt&#x27;: 1}</title>
-<rect x="140.000" y="230" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80028394: {&#x27;matched&#x27;: 1}</title>
+<rect x="140.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80028740: {&#x27;attempt&#x27;: 1}</title>
 <rect x="150.000" y="230" width="8.000" height="8" fill="#bf8700"/>
@@ -1889,8 +1889,8 @@
 <g><title>func_8002DD90: {&#x27;matched&#x27;: 1}</title>
 <rect x="650.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8002DE00: {&#x27;attempt&#x27;: 1}</title>
-<rect x="660.000" y="230" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_8002DE00: {&#x27;matched&#x27;: 1}</title>
+<rect x="660.000" y="230" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_8002DF40: {&#x27;matched&#x27;: 1}</title>
 <rect x="670.000" y="230" width="8.000" height="8" fill="#238636"/>
@@ -2723,8 +2723,8 @@
 <g><title>func_80046720: {&#x27;matched&#x27;: 1}</title>
 <rect x="230.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80046804: {&#x27;attempt&#x27;: 1}</title>
-<rect x="240.000" y="270" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80046804: {&#x27;matched&#x27;: 1}</title>
+<rect x="240.000" y="270" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_800469E0: {&#x27;matched&#x27;: 1}</title>
 <rect x="250.000" y="270" width="8.000" height="8" fill="#238636"/>
@@ -4478,8 +4478,8 @@
 <g><title>func_80070BC8: {&#x27;matched&#x27;: 1}</title>
 <rect x="480.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80070C34: {&#x27;attempt&#x27;: 1}</title>
-<rect x="490.000" y="340" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80070C34: {&#x27;matched&#x27;: 1}</title>
+<rect x="490.000" y="340" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80070FB0: {&#x27;matched&#x27;: 1}</title>
 <rect x="500.000" y="340" width="8.000" height="8" fill="#238636"/>
@@ -4595,8 +4595,8 @@
 <g><title>func_800754D4: {&#x27;attempt&#x27;: 1}</title>
 <rect x="70.000" y="350" width="8.000" height="8" fill="#bf8700"/>
 </g>
-<g><title>func_80076060: {&#x27;attempt&#x27;: 1}</title>
-<rect x="80.000" y="350" width="8.000" height="8" fill="#bf8700"/>
+<g><title>func_80076060: {&#x27;matched&#x27;: 1}</title>
+<rect x="80.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80076D94: {&#x27;matched&#x27;: 1}</title>
 <rect x="90.000" y="350" width="8.000" height="8" fill="#238636"/>

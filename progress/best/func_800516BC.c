@@ -21,7 +21,7 @@ void func_800516BC(void)
   u8 new_var3;
   s32 *new_var2;
   s32 *t0;
-  s32 ta0;
+  
   s32 ta1;
   s0 = 0;
   if ((*((u16 *) (D_800C35A0 + 0x1E))) != 7)
@@ -87,12 +87,12 @@ void func_800516BC(void)
   D_800A123C = 0;
   do
   {
-    ta0 = a2[2];
+    a0 = a2[2];
     ta1 = a2[3];
     new_var4 = 0;
     ((s32 *) D_800C35A0)[new_var4] = a2[new_var4];
     ((s32 *) D_800C35A0)[1] = a2[1];
-    ((s32 *) D_800C35A0)[2] = ta0;
+    ((s32 *) D_800C35A0)[2] = a0;
     a3[3] = ta1;
     a3 += 4;
   }
@@ -101,7 +101,7 @@ void func_800516BC(void)
   *a3 = *a2;
   D_800C02AE[0x7E72] = 0;
   *((s16 *) (((u8 *) D_800C35A0) + 0xE)) = 1;
-  s0 = ta0;
+  s0 = a0;
   func_8007EA64(s0, ta1, a2, new_var2);
   a2 += 4;
   *((s16 *) (((u8 *) D_800C35A0) + 0x12)) = (s16) D_800C02AE[0x38F2];

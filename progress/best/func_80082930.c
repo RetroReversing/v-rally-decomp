@@ -21,18 +21,23 @@ extern u8 D_800A19F0[];
 s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
 {
   u32 b;
+  int new_var2;
   u32 k;
   u32 w;
   u32 e;
   u32 n;
   u32 d;
+  int new_var3;
   u32 ml;
+  u8 *new_var;
   u32 md;
   Huft *t;
   b = *((u32 *) (D_800C02AE + 0x310E));
   k = *((u32 *) (D_800C02AE + 0x3112));
   w = *((u32 *) (D_800C02AE + 0x310A));
   ml = MASK(bl);
+  new_var3 = 0x3112;
+  new_var = D_800C02AE + new_var3;
   md = MASK(bd);
   for (;;)
   {
@@ -114,10 +119,11 @@ s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
       if ((w - d) >= chunk)
       {
         u8 *dst = (w + D_800AE850) + 0x8AE8;
+        new_var2 = 4;
         if ((!(((u32) dst) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
-          u32 bytes = words * 4;
+          u32 bytes = words * new_var2;
           u32 cnt;
           u8 *src = (d + D_800AE850) + 0x8AE8;
           u32 *to = (u32 *) dst;
@@ -132,6 +138,7 @@ s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
             {
               *(--to) = *(--from);
             }
+
           }
           else
           {
@@ -142,11 +149,22 @@ s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
               *(to++) = *(s3++);
               c3--;
             }
+
           }
-          w += words * 4;
-          d += words * 4;
-          ;
-          chunk &= 3;
+          if (bytes)
+          {
+            w += words * 4;
+            d += words * 4;
+            ;
+            chunk &= 3;
+          }
+          else
+          {
+            w += words * 4;
+            d += words * 4;
+            ;
+            chunk &= 3;
+          }
         }
         func_8008E13C((w + D_800AE850) + 0x8AE8, (d + D_800AE850) + 0x8AE8, chunk);
         w += chunk;
@@ -177,6 +195,7 @@ s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
 
   *((u32 *) (D_800C02AE + 0x310A)) = w;
   *((u32 *) (D_800C02AE + 0x310E)) = b;
-  *((u32 *) (D_800C02AE + 0x3112)) = k;
+  *((u32 *) new_var) = k;
   return 0;
 }
+

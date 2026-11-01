@@ -15,6 +15,7 @@ void func_80020428(void *arg0)
   s32 temp_v1_3;
   s32 var_a0;
   s32 var_a0_2;
+  int new_var2;
   s32 var_a1;
   s32 var_a1_2;
   s32 var_a1_3;
@@ -37,9 +38,13 @@ void func_80020428(void *arg0)
   temp_v1 = *((u16 *) ((*((void **) (D_800C02AE + 0x32F2))) + 0xE));
   if (temp_v1 == 2)
   {
+    if (1)
+    {
+    }
     goto block_10;
   }
-  if (temp_v1 >= 3)
+  new_var2 = 3;
+  if (temp_v1 >= new_var2)
   {
     goto block_7;
   }
@@ -74,7 +79,7 @@ void func_80020428(void *arg0)
 
   *((void **) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 0x14)) = temp_s1;
   *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 4)) = 0;
-  *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 8)) = 1;
+  *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 8)) = 1 & 0xFFFFFFFF;
   *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 0xC)) = 0;
   *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 0x10)) = D_800ADFE4;
   *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 0x20)) = 0;
@@ -124,7 +129,7 @@ void func_80020428(void *arg0)
   var_a0 = 1;
   goto block_25;
   block_24:
-  var_a0 = 3;
+  var_a0 = new_var2;
 
   var_v0_2 = var_a0;
   block_26:
@@ -150,7 +155,7 @@ void func_80020428(void *arg0)
   var_a1_5 = *((s32 **) ((char *) (*((void **) (((char *) arg0) + 0x40)))));
 
   temp_a2 = 0;
-  if ((*((u16 *) ((*((void **) (D_800C02AE + 0x32F2))) + 0x1E))) == 0)
+  if ((*((u16 *) (0x1E + (*((void **) (D_800C02AE + 0x32F2)))))) == 0)
   {
     goto loop_32;
   }
@@ -182,3 +187,4 @@ void func_80020428(void *arg0)
   return;
 
 }
+

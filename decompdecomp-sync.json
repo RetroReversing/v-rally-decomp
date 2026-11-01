@@ -19,30 +19,44 @@
     "src/code_80026E3C/func_8003E4A8.c": "8bec56547888be400f0af4ea884cd1bac87dcc799001e0ff00278a2543112feb",
     "src/code_8007E9D4/func_8009912C.c": "7384b9df839d4f8533b1506a75beecb1520ca12854983aa9b1e5bf87163ac11f",
     "src/code_80017B38/func_800197A4.c": "bbcecf6df8379391e10f34a20af75787b942bbed52ca76176e595ee8e9a7eaf3",
-    "src/code_8004BEB4/func_8005A790.c": "17fb22ff428d74d8e05042616cd43e2739fa240cbe8add294a4a8c9d5619f98d"
+    "src/code_8004BEB4/func_8005A790.c": "40445b644c475300180f8289c087bb753f1ff7e739fcd216ff2d1560ab853040",
+    "src/code_8007E9D4/func_80098560.c": "863798650516446518975852ccd0f42b4f45abeccf95c8b67ab8e5ec1e0af96a",
+    "src/code_80026E3C/func_80046804.c": "f47863ce88640845b61dbb53df4b25fde693c2c09893c66a81bc08f39061fddb",
+    "src/code_80026E3C/func_8002DE00.c": "c9b697d1acc942cbec22a4871aaf809a9a5824776c69d5b10c1580d468a89a20",
+    "src/code_8007E9D4/func_80082EB8.c": "43938cf0bb794e2279e0f0937873792e4cb2dcd5da3ce84d5185cdf95d844028",
+    "src/code_80026E3C/func_80028394.c": "05264374df4bb55aec60992c8a86360f46025ff6696b406e4634627b1fbec762",
+    "src/code_8004BEB4/func_80076060.c": "354f5ce096aa3114fcc366f1370ec50bb6e941330c1698c297dfa218d2c97e68",
+    "src/code_8004BEB4/func_80070C34.c": "aa42e094d913466aad2d0915db01d741a4cb94992ee15a87da4f1f83e3c06597"
   },
   "accepted": [
     "__osCheckPackId",
     "func_800197A4",
     "func_80022BE8",
     "func_80026ED4",
+    "func_80028394",
+    "func_8002DE00",
     "func_8003035C",
     "func_8003DDBC",
     "func_8003E4A8",
+    "func_80046804",
     "func_80049F18",
     "func_8004A0A0",
     "func_8004C2B8",
     "func_80053784",
     "func_80053F44",
+    "func_8005A790",
     "func_8006090C",
+    "func_80070C34",
+    "func_80076060",
+    "func_80082EB8",
     "func_80085C58",
     "func_8008DFB0",
     "func_8008F810",
     "func_80097A34",
-    "func_8009912C",
-    "func_8005A790"
+    "func_80098560",
+    "func_8009912C"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 1753
+  "matched_app": 1761
 }

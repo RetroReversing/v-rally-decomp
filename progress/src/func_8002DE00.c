@@ -22,11 +22,15 @@ s16 *func_8002DE00(s16 *arg0, s16 *arg1)
   last = func_8002D348(arg0[2]);
   sp10[0] = s3;
   sp10[1] = 0;
-  { s16 positive = s1; s1 = -s1; sp10[2] = positive; }
+  {
+    s16 positive = s1;
+    ;
+    sp10[2] = positive;
+  }
   sp10[3] = 0;
   sp10[4] = 0x1000;
   sp10[5] = 0;
-  sp10[6] = s1;
+  sp10[6] = -s1;
   sp10[7] = 0;
   sp10[8] = s3;
   sp30[0] = 0x1000;
@@ -51,3 +55,4 @@ s16 *func_8002DE00(s16 *arg0, s16 *arg1)
   func_8002DB18(sp70, sp50, var_s6);
   return var_s6;
 }
+

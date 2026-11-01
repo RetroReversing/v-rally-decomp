@@ -16,11 +16,12 @@ extern Obj3CD18 *D_800C7F84;
 
 #define BTN_A(X, Y, CB) \
     b = func_80040260(arg0, X, Y, 2, CB, 0); \
-    b->xA4 = func_80034FF0((u8 *)arg1 + 0x4C, 0); \
+    name = (u8 *)arg1 + 0x4C; \
+    b->xA4 = func_80034FF0(name, 0); \
     b->xA8 = D_800C7F84;
 #define BTN_B(X, Y, CB) \
     b = func_80040260(arg0, X, Y, 2, CB, 0); \
-    b->xA4 = func_80034FF0((u8 *)arg1 + 0x4C, 0); \
+    b->xA4 = func_80034FF0(name, 0); \
     b->x7A = 15; \
     b->xA8 = D_800C7F84;
 #define BTN_C(X, Y, CB) \
@@ -40,9 +41,14 @@ void func_8003CD18(void *arg0, void *arg1, u16 arg2)
     s32 h;
     u16 xr;
     s16 y;
-    u16 xs;
+    u8 *name;
+    u8 *pc;
 
-    if (D_800C35A0->x1E == 7 || D_800ADFE0 < 2) {
+    if (D_800C35A0->x1E == 7) {
+        return;
+    }
+    pc = &D_800ADFE0;
+    if (*pc < 2) {
         return;
     }
     obj = func_8004240C(((arg2 - 1) * 2) | 1);
@@ -80,17 +86,18 @@ void func_8003CD18(void *arg0, void *arg1, u16 arg2)
                 BTN_B(x + 7, y, func_8003CC50)
                 BTN_C(x + 14, y, func_8003CC50)
             } else if (obj->type == 3) {
-                xs = x + w - 0x32;
                 if (D_800ADFE1) {
+                    xr = x + w;
                     y = top + 0x10;
-                    BTN_A(xs, y, func_8003CB8C)
-                    BTN_B(xs + 7, y, func_8003CC50)
-                    BTN_C(xs + 14, y, func_8003CC50)
+                    BTN_A(xr - 0x32, y, func_8003CB8C)
+                    BTN_B(xr - 0x32 + 7, y, func_8003CC50)
+                    BTN_C(xr - 0x32 + 14, y, func_8003CC50)
                 } else {
+                    xr = x + w;
                     y = top + 0x10;
-                    BTN_A(xs, y, func_8003CC0C)
-                    BTN_B(xs + 7, y, 0)
-                    BTN_C(xs + 14, y, 0)
+                    BTN_A(xr - 0x32, y, func_8003CC0C)
+                    BTN_B(xr - 0x32 + 7, y, 0)
+                    BTN_C(xr - 0x32 + 14, y, 0)
                 }
             } else if (D_800ADFE1) {
                 y = top + 0x10;
@@ -107,17 +114,17 @@ void func_8003CD18(void *arg0, void *arg1, u16 arg2)
             if (obj->type == 1) {
                 y0 = top + 8;
             }
-            xs = x - 0x14;
+            xr = x;
             if (D_800ADFE1) {
                 y = y0 + h - 0x15;
-                BTN_A(xs, y, func_8003CB8C)
-                BTN_B(xs + 7, y, func_8003CC50)
-                BTN_C(xs + 14, y, func_8003CC50)
+                BTN_A(left, y, func_8003CB8C)
+                BTN_B(xr - 0x14 + 7, y, func_8003CC50)
+                BTN_C(xr - 0x14 + 14, y, func_8003CC50)
             } else {
                 y = y0 + h - 0x15;
-                BTN_A(xs, y, func_8003CC0C)
-                BTN_B(xs + 7, y, 0)
-                BTN_C(xs + 14, y, 0)
+                BTN_A(left, y, func_8003CC0C)
+                BTN_B(xr - 0x14 + 7, y, 0)
+                BTN_C(xr - 0x14 + 14, y, 0)
             }
         } else {
             if (obj->type == 3) {
@@ -139,7 +146,7 @@ void func_8003CD18(void *arg0, void *arg1, u16 arg2)
     default:
         return;
     }
-    b->xA4 = func_80034FF0((u8 *)arg1 + 0x4C, 0);
+    b->xA4 = func_80034FF0(name, 0);
     b->xA8 = D_800C7F84;
-    b->x7A = D_800ADFE0 - 1;
+    b->x7A = *pc - 1;
 }

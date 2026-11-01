@@ -537,3 +537,4 @@ void func_8005A790(void)
     func_80089B80();
   }
 }
+

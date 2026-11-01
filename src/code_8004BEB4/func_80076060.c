@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern s32 D_800A5E24;
 s32 func_800056FC(s32);
 void *func_80006008(s32);
@@ -37,17 +39,19 @@ static __inline__ s32 read_handle(void)
 
 void func_80076060(void *arg0)
 {
- s32 draw_one;
+ u16 saved_field;
+ void * context_flag;
+ s32 first_dl;
+ s16 padding;
+ s16 coordinate;
+  s32 draw_one;
   f32 sp28[16];
-  s16 temp_a2;
   s32 *var_v0_5;
   s16 temp_s0_12;
   s16 temp_s0_13;
   s16 temp_s0_14;
   s16 temp_s0_15;
   s16 temp_s0_9;
-  s16 temp_s4;
-  u16 temp_s4_2;
   s16 var_a2_3;
   s16 var_a3;
   s16 var_a3_2;
@@ -71,7 +75,6 @@ void func_80076060(void *arg0)
   s16 var_a3_5;
   s32 var_s0;
   s32 var_s0_2;
-  s32 var_s4;
   s32 var_v0;
   s32 var_v0_2;
   s8 var_v0_3;
@@ -94,7 +97,6 @@ void func_80076060(void *arg0)
   void *var_a0;
   void *var_a0_2;
   void *var_a0_3;
-  void *var_s2;
   temp_v0 = ((u32) D_800A1740) < 5U;
   D_800A1740 += 1;
   if (temp_v0 == 0)
@@ -224,10 +226,10 @@ void func_80076060(void *arg0)
       else
         if ((((u32) (*((s32 *) (D_800AE850 + 0x121C)))) >> 3) & 1)
       {
-        var_s4 = 0x1E;
+        coordinate = 0x1E;
         if ((*((u16 *) (((char *) read_config()) + 0x12))) == 1)
         {
-          var_s4 = 0x118;
+          coordinate = 0x118;
           var_s6 = 5;
           if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == 1))
           {
@@ -237,21 +239,13 @@ void func_80076060(void *arg0)
             func_8000CC04(temp_s0_3, temp_v0_2, -0x118, 0xF, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
           }
           else
-            if (D_800A1740)
-          {
+            {
             var_v0_5 = func_80057918(read_handle(), 0xC1);
-            var_s2 = arg0 + 0x40;
-            var_a0_2 = var_s2;
-            temp_s0_5 = -(var_s4 << 0x10);
-            goto block_52;
-          }
-          else
-          {
-            var_v0_5 = func_80057918(read_handle(), 0xC1);
-            var_s2 = arg0 + 0x40;
-            var_a0_2 = var_s2;
-            temp_s0_5 = -(var_s4 << 0x10);
-            goto block_52;
+if (var_v0_5){
+            context_flag = (void *)(arg0 + 0x40);}else{
+            context_flag = (void *)(arg0 + 0x40);}
+            var_a0_2 = ((void *)context_flag); first_dl=temp_v0_2;
+            {s32 x;void *secondctx;s32 seconddl,secondx;s16 secondy;x=(s32)coordinate;x=-(s16)x;func_8000CC04(var_a0_2,first_dl,x,var_s6,var_v0_5,1,1.0f,1.0f,0,1);secondctx=((void *)context_flag);seconddl=temp_v0_2;secondx=x;secondy=var_s6+10;func_8000CC04(secondctx,seconddl,secondx,secondy,read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44),1,1.0f,1.0f,0,1);}
           }
         }
         else
@@ -265,33 +259,24 @@ void func_80076060(void *arg0)
         else
         {
           var_v0_5 = func_80057918(read_handle(), 0xC1);
-          var_s2 = arg0 + 0x40;
-          var_a0_2 = var_s2;
-          temp_s0_5 = var_s4 << 0x10;
-          block_52:
-
- draw_one=1;
-          temp_s0_5 = temp_s0_5 >> 0x10;
-
-          func_8000CC04(var_a0_2, temp_v0_2, temp_s0_5, var_s6, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
-          var_a0 = var_s2;
-          var_a2 = temp_s0_5;
-          var_a3 = var_s6 + 10;
-          ;
-          func_8000CC04(var_a0, temp_v0_2, var_a2, var_a3, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x32))) * 40) + 0x44))), draw_one, 1.0f, 1.0f, 0, draw_one);
+if (var_v0_5){
+          context_flag = (void *)(arg0 + 0x40);}else{
+          context_flag = (void *)(arg0 + 0x40);}
+          var_a0_2 = ((void *)context_flag); first_dl=temp_v0_2;
+          {s32 x;void *secondctx;s32 seconddl,secondx;s16 secondy;x=(s32)coordinate;x=(s16)x;func_8000CC04(var_a0_2,first_dl,x,var_s6,var_v0_5,1,1.0f,1.0f,0,1);secondctx=((void *)context_flag);seconddl=temp_v0_2;secondx=x;secondy=var_s6+10;func_8000CC04(secondctx,seconddl,secondx,secondy,read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44),1,1.0f,1.0f,0,1);}
         }
-        draw_one=1;
-        var_s4 = 0x128;
-        if ((*((u16 *) (((char *) read_config()) + 0x12))) == draw_one)
+        context_flag = (void *)(1);
+        coordinate = 0x128;
+        if ((*((u16 *) (((char *) read_config()) + 0x12))) == ((s32)context_flag))
         {
-          var_s4 = 0x118;
+          coordinate = 0x118;
           var_s6 = 0x7D;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == draw_one))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == ((s32)context_flag)))
           {
             temp_s0_6 = arg0 + 0x40;
-            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x7D, func_80057918(read_handle(), 0xC1), draw_one, 1.0f, 1.0f, 0, draw_one);
+            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x7D, func_80057918(read_handle(), 0xC1), ((s32)context_flag), 1.0f, 1.0f, 0, ((s32)context_flag));
             var_v0_5 = func_80057918(read_handle(), 0xD2);
-            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x87, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
+            func_8000CC04(temp_s0_6, temp_v0_2, -0x118, 0x87, var_v0_5, ((s32)context_flag), 1.0f, 1.0f, 0, ((s32)context_flag));
           }
           else
           {
@@ -301,12 +286,13 @@ void func_80076060(void *arg0)
         else
         {
           var_s6 = 5;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == draw_one)))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == ((s32)context_flag))))
           {
+saved_field=temp_s1_2;
             temp_s0_7 = arg0 + 0x40;
-            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 5, func_80057918(read_handle(), 0xC1), (s32) temp_s1_2, 1.0f, 1.0f, 0, (s32) temp_s1_2);
+            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 5, func_80057918(read_handle(), 0xC1), (s32)saved_field, 1.0f, 1.0f, 0, (s32)saved_field);
             var_v0_5 = func_80057918(read_handle(), 0xD2);
-            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 0xF, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
+            func_8000CC04(temp_s0_7, temp_v0_2, -0x128, 0xF, var_v0_5, (s32)saved_field, 1.0f, 1.0f, 0, (s32)saved_field);
           }
           else
           {
@@ -314,13 +300,13 @@ void func_80076060(void *arg0)
             var_v0_5 = func_80057918(read_handle(), 0xC1);
 
             temp_s2 = arg0 + 0x40;
-            temp_s0_8 = ((s32) (-(var_s4 << 0x10))) >> 0x10;
-            func_8000CC04(temp_s2, temp_v0_2, temp_s0_8, var_s6, var_v0_5, draw_one, 1.0f, 1.0f, 0, draw_one);
+            temp_s0_8 = ((s32) (-(((s32)coordinate) << 0x10))) >> 0x10;
+            func_8000CC04(temp_s2, temp_v0_2, temp_s0_8, var_s6, var_v0_5, 1, 1.0f, 1.0f, 0, 1);
             var_a0_3 = temp_s2;
             var_a2_2 = temp_s0_8;
             var_a3_2 = var_s6 + 0xA;
             ;
-            func_8000CC04(var_a0_3, temp_v0_2, var_a2_2, var_a3_2, ((s32 *) (read_config() + (((*((u8 *) (read_config() + 0x33))) * 40) + 0x44))), draw_one, 1.0f, 1.0f, 0, draw_one);
+            func_8000CC04(var_a0_3, temp_v0_2, var_a2_2, var_a3_2, (s32 *) (read_config() + (((*((u8 *) (read_config() + 0x33))) * 40) + 0x44)), 1, 1.0f, 1.0f, 0, 1);
           }
         }
       }
@@ -335,23 +321,23 @@ void func_80076060(void *arg0)
         {
           var_a3_3 = (D_800A17E8 + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0x23;
         }
-        temp_s4 = 0x140 - var_a3_3;
+        coordinate = 0x140 - var_a3_3;
         var_s6 = 0xDC;
         if ((*((u16 *) (((char *) read_config()) + 0xE))) == 2)
         {
-          var_a1 = temp_s4 & 0xFFFF;
+          var_a1 = ((s16)coordinate) & 0xFFFF;
           var_a3_3 -= 0x23;
           func_80073320(temp_v0_2, var_a1, var_s6, var_a3_3 & 0xFFFF, 0x11);
         }
         else
         {
-          var_a1 = temp_s4 & 0xFFFF;
+          var_a1 = ((s16)coordinate) & 0xFFFF;
           func_80073320(temp_v0_2, var_a1, var_s6, var_a3_3 & 0xFFFF, 0x11);
         }
         var_s6 -= 2;
-        func_80073108(temp_v0_2, temp_s4, (s16)var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 0);
+        func_80073108(temp_v0_2, ((s16)coordinate), (s16) var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 0);
         var_s6 += 2;
-        temp_s0_9 = temp_s4 + D_800A17E8;
+        temp_s0_9 = ((s16)coordinate) + D_800A17E8;
         var_v0_5 = func_80057918(read_handle(), 0xD7);
         var_a2_3 = temp_s0_9;
         var_a3_4 = var_s6;
@@ -359,46 +345,46 @@ void func_80076060(void *arg0)
       }
       else
       {
-        temp_s1_3 = arg0 + 0x40;
+
         if ((*((u16 *) (((char *) read_config()) + 0xE))) == 1)
         {
-          temp_s0_10 = func_8000C9B0(temp_s1_3, &D_800A5E1C, 1, 1.0f, 1);
-          temp_s2_2 = func_8000C9B0(temp_s1_3, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);
-          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_10) + (D_800A17E8 + 5)) + temp_s2_2)) + func_8000C9B0(temp_s1_3, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0xF;
+          temp_s0_10 = func_8000C9B0(arg0 + 0x40, &D_800A5E1C, 1, 1.0f, 1);
+          temp_s2_2 = func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);
+          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_10) + (D_800A17E8 + 5)) + temp_s2_2)) + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0xF;
         }
         else
         {
-          temp_s0_11 = func_8000C9B0(temp_s1_3, &D_800A5E1C, 1, 1.0f, 1);
-          temp_s2_3 = func_8000C9B0(temp_s1_3, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);
-          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_11) + (D_800A17E8 + 5)) + temp_s2_3)) + func_8000C9B0(temp_s1_3, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0x19;
+          temp_s0_11 = func_8000C9B0(arg0 + 0x40, &D_800A5E1C, 1, 1.0f, 1);
+          temp_s2_3 = func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xE2), 1, 1.0f, 1);
+          var_a3_5 = ((D_800A17E8 + (((D_800A17E8 + temp_s0_11) + (D_800A17E8 + 5)) + temp_s2_3)) + func_8000C9B0(arg0 + 0x40, func_80057918(read_handle(), 0xD7), 1, 1.0f, 1)) + 0x19;
         }
-        temp_s4_2 = 0x140 - var_a3_5;
+        coordinate = 0x140 - var_a3_5;
         var_s6 = 0xDC;
         if ((*((u16 *) (((char *) read_config()) + 0xE))) == 2)
         {
           var_a3_5 -= 0x23;
-          var_a1_2 = temp_s4_2 & 0xFFFF;
+          var_a1_2 = ((u16)coordinate) & 0xFFFF;
           func_80073320(temp_v0_2, var_a1_2, var_s6, var_a3_5 & 0xFFFF, 0x11);
         }
         else
         {
-          var_a1_2 = temp_s4_2 & 0xFFFF;
+          var_a1_2 = ((u16)coordinate) & 0xFFFF;
           func_80073320(temp_v0_2, var_a1_2, var_s6, var_a3_5 & 0xFFFF, 0x11);
         }
-        func_80073108(temp_v0_2, temp_s4_2, var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 3);
-        var_s6 += 2;
-        temp_a2 = D_800A17E8;
-        temp_a2 = temp_s4_2 + temp_a2;
+        func_80073108(temp_v0_2, ((u16)coordinate), var_s6, *((s32 *) (D_800C02AE + 0x103B6)), 3);
+        padding=D_800A17E8;
+        var_s6+=2;
+        coordinate = (s16)(((u16)coordinate)+padding);
         if ((*((s32 *) (D_800C02AE + 0x32AA))) == 3)
         {
-          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, temp_a2, (s16) var_s6, &D_800A5E24, 1);
+          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, ((s16)coordinate), (s16) var_s6, &D_800A5E24, 1);
         }
         else
         {
-          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, temp_a2, var_s6, &D_800A5E1C, 1);
+          func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), temp_v0_2, ((s16)coordinate), var_s6, &D_800A5E1C, 1);
         }
         temp_s5 = arg0 + 0x40;
-        temp_s0_12 = temp_a2 + func_8000C9B0(temp_s5, &D_800A5E1C, 1, 1.0f, 1);
+        temp_s0_12 = ((s16)coordinate) + func_8000C9B0(temp_s5, &D_800A5E1C, 1, 1.0f, 1);
         var_s6 -= 2;
         fixed_draw_y = var_s6;
         func_80073108(temp_v0_2, temp_s0_12, fixed_draw_y, *((s32 *) (D_800C02AE + 0x103B6)), 2);
@@ -416,4 +402,5 @@ void func_80076060(void *arg0)
     }
   }
 }
+
 

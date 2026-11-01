@@ -22,7 +22,6 @@ void func_80070C34(void)
 {
   int __repair_literal;
   CarRecord record;
-  s32 pad[1];
   s32 s3;
   s32 s0;
   s32 s7 = 3;
@@ -51,12 +50,11 @@ void func_80070C34(void)
     {
       if ((*((s16 *) (D_800C3508 + 2))) == s7)
       {
-        new_var = (((char *) (*((u8 **) (D_800C02AE + 0x1039a)))) + s4) + 0x14;
-        func_8005937C(s2, *((u16 *) new_var));
+        func_8005937C(s2, *(u16 *)((u8 *)&(*((CarRecord **) (D_800C02AE + 0x1039a)))[s0] + 0x14));
       }
       else
       {
-        func_8005937C(s1, *((u16 *) ((((char *) (*((u8 **) (D_800C02AE + 0x1039a)))) + s4) + 0x14)));
+        func_8005937C(s1, *(u16 *)((u8 *)&(*((CarRecord **) (D_800C02AE + 0x1039a)))[s0] + 0x14));
       }
       if ((*((s16 *) (D_800C3508 + 2))) == 2)
       {

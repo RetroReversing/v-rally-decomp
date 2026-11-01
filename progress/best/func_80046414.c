@@ -12,7 +12,7 @@ void func_8003F2CC(u8 *arg0) {
  *(s16 *)(arg0+0x70)=-(*(u16 *)(*(u8 **)(tbl+mask)+6)>>1);
  }
 }
-void func_80038AE4(s32);
+void func_80038AE4(s32 a, s32);
 void func_80046414(s32 a, s32 b) {
  s32 v;
  if(b==1) {
@@ -27,7 +27,7 @@ void func_80046414(s32 a, s32 b) {
  else return;
  } else if(a==6) { if(b!=8) return; v=0x12; }
  else { if(a!=3) return; v=0; }
- func_80038AE4(v);
+ func_80038AE4(a, v);
 }
 s32 func_800415A8(s32 arg0,s32 arg1) {
  s32 cur=arg0; u16 *p;
