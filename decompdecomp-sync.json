@@ -112,7 +112,13 @@
     "src/code_80026E3C/func_80039A00.c": "96ab58d8d268ee776e85256e9ea14ea0800709ccaebd986e1d9d9bd29307cfe9",
     "src/code_8004BEB4/func_8005F5C4.c": "2836098487f5057942043a9ea6ce83004143e0a05bf7fba40b115537cfd22ad8",
     "src/code_8004BEB4/func_80052CF4.c": "1ea005eb6c5e9f24a5288fa640d86a2bc2976bb9587fdc1e530312adc87a1d08",
-    "src/code_8004BEB4/func_80068D9C.c": "151270442b6b18681b56132e23285327c8f1e788b7296ecb1a4bf55823b95a7b"
+    "src/code_8004BEB4/func_80068D9C.c": "151270442b6b18681b56132e23285327c8f1e788b7296ecb1a4bf55823b95a7b",
+    "src/code_80026E3C/func_800376C8.c": "e92940da5785b0b69f9441203fae07832c89e9d2d3c8cffd52b6acb2caa90421",
+    "src/code_8004BEB4/func_80050048.c": "26aed3c6f8b565a556685934a83fe294b4e6e93497adf96dff5c3b812ef06525",
+    "src/code_8004BEB4/func_80062E68.c": "4cb512aade56dbce9c75b18c4b73f705f2fb655bf8a2a6a7000266fb71fce1b6",
+    "src/code_80026E3C/func_8003CD18.c": "39729aa1777ce48448dc71b696a8287da052626cde67cf16ed7b02d20dbdaae9",
+    "src/code_80026E3C/func_80027E8C.c": "2a205755785bacac9f08ee2aa1b64ff6624469e699f0f96acd48678a0bb74f26",
+    "src/code_8007E9D4/func_80087594.c": "a0722da716c370883ac04d027730a6b44d1993bc6e3a3ab29d19983fde1de4d1"
   },
   "accepted": [
     "MusInitialize",
@@ -136,6 +142,7 @@
     "func_80022BE8",
     "func_80023B7C",
     "func_80026ED4",
+    "func_80027E8C",
     "func_80028394",
     "func_80028E94",
     "func_8002C6EC",
@@ -150,11 +157,13 @@
     "func_80035B04",
     "func_80035C4C",
     "func_800370E8",
+    "func_800376C8",
     "func_8003946C",
     "func_80039A00",
     "func_8003B310",
     "func_8003B660",
     "func_8003C968",
+    "func_8003CD18",
     "func_8003DDBC",
     "func_8003E1BC",
     "func_8003E4A8",
@@ -172,6 +181,7 @@
     "func_8004D7D4",
     "func_8004E224",
     "func_8004EF40",
+    "func_80050048",
     "func_8005073C",
     "func_800516BC",
     "func_80051994",
@@ -188,6 +198,7 @@
     "func_8005D4A4",
     "func_8005F5C4",
     "func_8006090C",
+    "func_80062E68",
     "func_80063790",
     "func_800643F0",
     "func_80064F98",
@@ -214,6 +225,7 @@
     "func_80085D90",
     "func_80086138",
     "func_80086854",
+    "func_80087594",
     "func_80088008",
     "func_8008871C",
     "func_8008A31C",
@@ -239,5 +251,5 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1850
+  "matched_app": 1855
 }

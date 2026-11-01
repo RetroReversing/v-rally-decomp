@@ -99,8 +99,7 @@ void func_80044908(Car *car)
   cp = oldCp;
   if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)
   {
-    new_var = car->p48;
-    if (((*new_var) < 4) && (!(car->flags & 0x100)))
+    if (((*car->p48) < 4) && (!(car->flags & 0x100)))
     {
       trk = car->ref->track;
       lap->checkpoint = trk->checkpoint;

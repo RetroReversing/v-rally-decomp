@@ -74,8 +74,8 @@ void func_8004DC50(void *arg0, s32 arg2)
               if ((*((u16 *) (((char *) var_s0) + 0))) == 1)
               {
                 func_8004D4D8(arg0, temp_s1);
-                var_a3 = 1;
                 var_a2 = 0;
+                var_a3 = 1;
                 *((s16 *) (((char *) var_s0) + 8)) = 0;
                 *((s16 *) (((char *) var_s0) + 0xA)) = (s16) (*((u8 *) (((char *) (&D_800AE850)) + 0x87A2)));
                 var_v0 = 0 & 0xFFFF;

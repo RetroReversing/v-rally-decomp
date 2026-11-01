@@ -75,10 +75,8 @@ void func_80073B64(void *raw0, void *arg1)
   s16 sp106;
   u16 sp10E;
   s32 sp114;
-  char *sp11C;
   u16 start_x;
   u16 format_index;
-  s32 entry_index;
   s32 tail_y;
   s32 var_a1_2;
   s32 var_a1_3;
@@ -89,7 +87,6 @@ void func_80073B64(void *raw0, void *arg1)
   s32 var_a3;
   s32 temp_s0_2;
   u16 temp_s0_3;
-  s16 temp_s0_4;
   u16 temp_s1_5;
   u16 temp_s1_6;
   s16 temp_s1_7;
@@ -143,7 +140,6 @@ void func_80073B64(void *raw0, void *arg1)
   temp_s1 = D_800A17EA;
   temp_s1 += D_800A17E9;
   temp_s1 += new_var;
-  sp11C = sp40;
   sp114 = temp_s1 & 0xFFFF;
   temp_v0_2 = ((u32) sp114) >> 1;
   temp_v0_2 += 0xA0;
@@ -158,10 +154,9 @@ void func_80073B64(void *raw0, void *arg1)
   sp114 = ((u32) (-((s32) temp_v0_2))) << 16;
   do
   {
-    entry_index = sp10E;
-    if (entry_index == 4)
+    if (sp10E == 4)
     {
-      var_v0 = entry_index * 2;
+      var_v0 = sp10E * 2;
       if ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5)
       {
         temp_s1 = func_8000C9B0(raw0 + 0x40, func_80057918(*((s32 *) (D_800C8210 + 0x118)), 0xD1), 1, 1.0f, 1);
@@ -174,21 +169,19 @@ void func_80073B64(void *raw0, void *arg1)
         var_fp = var_fp + 0x12;
         func_8000C244(((__repair_field_40 *) raw0)->value, arg1, 0xA0 - temp_s2, (s16) temp_s0_3, func_80057918(*((s32 *) (D_800C8220 + 0x108)), 0xD1), 1);
         func_8000C22C(((__repair_field_40 *) raw0)->value, 255, 255, 255, 255);
-        entry_index = sp10E;
-        var_v0 = entry_index * 2;
+        var_v0 = sp10E * 2;
       }
     }
     else
     {
-      if ((D_800C7F94[entry_index].a == (*((s32 *) (D_800C02AE + 0x7D46)))) && ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5))
+      if ((D_800C7F94[sp10E].a == (*((s32 *) (D_800C02AE + 0x7D46)))) && ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5))
       {
         func_8000C22C(((__repair_field_40 *) raw0)->value, 220, 220, 16, 255);
       }
-      entry_index = sp10E;
-      var_v0 = entry_index * 2;
+      var_v0 = sp10E * 2;
     }
     start_x = sp106;
-    temp_a0 = D_800C7F94[entry_index].a;
+    temp_a0 = D_800C7F94[sp10E].a;
     if (temp_a0 != 0)
     {
       func_80052E94(temp_a0, &spB8);
@@ -234,7 +227,7 @@ void func_80073B64(void *raw0, void *arg1)
     temp_s2 = sp10E;
     if (temp_s2 != 4)
     {
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) start_x, (s16) var_fp, sp11C, 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) start_x, (s16) var_fp, sp40, 1);
     }
     temp_s1 = (u16) (start_x + D_800A17E9);
     temp_s3 = --var_fp;
@@ -242,7 +235,7 @@ void func_80073B64(void *raw0, void *arg1)
     {
       func_80073108(arg1, temp_s1, temp_s3, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) ((D_800C02AE + 0x7CF4) + (temp_s2 * 0x18)))));
     }
-    temp_s0_4 = ++var_fp;
+    ++var_fp;
     temp_s1 = temp_s1 + D_800A17EA;
     if (temp_s2 == 0)
     {
@@ -257,16 +250,16 @@ void func_80073B64(void *raw0, void *arg1)
       temp_s2 = ((D_800A17E9 + 0xFFF1) + D_800A17EA) + func_8000C9B0(raw0 + 0x40, &D_800A5DA0, 1, 1.0f, 1);
       temp_s2 = ((s32)(0x140 - (temp_s2 & 0xFFFF))) / 2;
       temp_s4 = temp_s2 & 0xFFFF;
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, temp_s4, temp_s0_4, sp11C, 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, temp_s4, ((s16)var_fp), sp40, 1);
       second_icon_y = --var_fp;
       if (((u32) (temp_s1 & 0xFFFF)) < 0x141U)
       {
         func_80073108(arg1, (s16) (temp_s2 + (D_800A17E9 + 0xFFF1)), second_icon_y, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) (D_800C02AE + 0x7D54))));
       }
-      temp_s0_4 = ++var_fp;
+      ++var_fp;
       temp_s0_5 = 0xF;
-      func_80099DF8(sp11C, &D_800A5DB4, (u32) (&spB8), &spE8);
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, ((temp_s4 - temp_s0_5) + D_800A17E9) + D_800A17EA, temp_s0_4, sp11C, 1);
+      func_80099DF8(sp40, &D_800A5DB4, (u32) (&spB8), &spE8);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, ((temp_s4 - temp_s0_5) + D_800A17E9) + D_800A17EA, ((s16)var_fp), sp40, 1);
     }
     goto row_done;
     row_zero:
@@ -277,7 +270,7 @@ void func_80073B64(void *raw0, void *arg1)
       void *second_dl;
       s16 second_x;
       s16 second_y;
-      local_y = (s16) temp_s0_4;
+      local_y = (s16) ((s16)var_fp);
       func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1, local_y, spB8, 1);
       func_8000CC04(raw0 + 0x40, arg1, sp114 >> 16, local_y, &spE8, 1, 1.0f, 1.0f, 0, 1);
       goto row_done;
@@ -292,10 +285,10 @@ void func_80073B64(void *raw0, void *arg1)
       s16 second_x;
       s16 second_y;
       func_80099DF8(&sp40, &D_800A5DBC, (u32) (&spB8), &spD0);
-      local_y = (s16) temp_s0_4;
+      local_y = (s16) ((s16)var_fp);
       {
       }
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1, local_y, sp11C, 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1, local_y, sp40, 1);
       func_8000CC04(raw0 + 0x40, arg1, sp114 >> 16, local_y, &spE8, 1, 1.0f, 1.0f, 0, 1);
       goto row_done;
     }
@@ -341,8 +334,8 @@ void func_80073B64(void *raw0, void *arg1)
   func_80073108(arg1, var_s0_2, temp_s3, *((s32 *) (D_800C02AE + 0x103B6)), 2);
   temp_s1_6 = var_s0_2 + D_800A17E8;
   tail_y = (temp_s3 + 2) & 0x1FFFF;
-  temp_s0_4 = tail_y;
-  func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_6, temp_s0_4, func_80057918(*((s32 *) (D_800C8220 + 0x108)), 0xD3), 1);
+  var_fp = tail_y;
+  func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_6, ((s16)var_fp), func_80057918(*((s32 *) (D_800C8220 + 0x108)), 0xD3), 1);
   temp_s1_7 = temp_s1_6 + func_8000C9B0(raw0 + 0x40, func_80057918(*((s32 *) (D_800C8230 + 0xF8)), 0xD3), 1, 1.0f, 1);
   func_80073108(arg1, temp_s1_7, (s16) (tail_y - 2), *((s32 *) (D_800C02AE + 0x103B6)), 0);
   temp_s1_8 = temp_s1_7 + D_800A17E8;
@@ -351,14 +344,14 @@ void func_80073B64(void *raw0, void *arg1)
     var_a1_4 = 0xDF;
     do
     {
-      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_8, temp_s0_4, func_80057918(*((s32 *) (D_800C8200 + 0x128)), var_a1_4), 1);
+      func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_8, ((s16)var_fp), func_80057918(*((s32 *) (D_800C8200 + 0x128)), var_a1_4), 1);
     }
     while (0);
   }
   else
   {
     var_a1_4 = 0xD4;
-    func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_8, temp_s0_4, func_80057918(*((s32 *) (D_800C8210 + 0x118)), var_a1_4), 1);
+    func_8000C244(((__repair_field_40 *) raw0)->value, arg1, (s16) temp_s1_8, ((s16)var_fp), func_80057918(*((s32 *) (D_800C8210 + 0x118)), var_a1_4), 1);
   }
 }
 

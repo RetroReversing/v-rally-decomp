@@ -25,7 +25,8 @@ void func_800485F8(s32 arg0, s32 arg1, Arg2 *arg2, Arg3 *arg3)
     g = func_80006008(h);
     g[0].w0 = 0xE7000000; g[0].w1 = 0;
     g[1].w0 = 0xE3000A01; g[1].w1 = 0x300000; g += 2;
-    b = D_800C7F84->box;
+    arg3 = D_800C7F84;
+    b = arg3->box;
     g->w0 = 0xED000000 | (((s32)(b->x0 * 4.0f) & 0xFFF) << 12) | ((s32)(b->y0 * 4.0f) & 0xFFF);
     b = D_800C7F84->box;
     g->w1 = (((s32)(b->x1 * 4.0f) & 0xFFF) << 12) | ((s32)(b->y1 * 4.0f) & 0xFFF);

@@ -2,6 +2,7 @@
 #define sp32 (sp28+10)
 #define sp34 (sp28+12)
 #define sp38 (sp28+16)
+#define PKT (*(Pkt6 *)((&D_800AE850) + 0x2358))
 extern u32 D_800C3338;
 extern u32 D_800C333C;
 extern s32 D_800C3340;
@@ -10,9 +11,9 @@ extern u8 D_800C02AE;
 extern u8 D_800AE850;
 typedef struct 
 {
-  s32 w[5];
-} Args843;
-extern void func_80081040(s32, s32, s32, s32, Args843);
+  s32 w[6];
+} Pkt6;
+extern void func_80081040(s32, s32, s32, Pkt6);
 extern void func_80081E8C(void *, s32);
 extern s16 func_800822D4(void *);
 extern s32 func_800822E8(void *);
@@ -27,7 +28,6 @@ s32 func_80084350(s32 arg0)
   u8 sp28[0x16];
   s32 *base = (s32 *) ((&D_800C02AE) + 0x30A2);
   s32 t = *base;
-  u8 *new_var2;
   s32 rem;
   s32 n;
   s32 i;
@@ -36,7 +36,7 @@ s32 func_80084350(s32 arg0)
   int new_var;
   if (t < 0x2001)
   {
-    func_80081040(D_800B7300, D_800C3338, *base, *((s32 *) ((&D_800AE850) + 0x2358)), *((Args843 *) ((&D_800AE850) + 0x235C)));
+    func_80081040(D_800B7300, D_800C3338, *base, PKT);
     D_800C3340 = *base;
     D_800C333C = (D_800C3338 + (*base)) - 0x16;
     if (D_800C333C >= D_800C3338)
@@ -64,7 +64,7 @@ s32 func_80084350(s32 arg0)
     rem = t % 0x2000;
     if (rem >= 0x13)
     {
-      func_80081040((D_800B7300 + t) - rem, D_800C3338, rem, *((s32 *) ((&D_800AE850) + 0x2358)), *((Args843 *) ((&D_800AE850) + 0x235C)));
+      func_80081040((D_800B7300 + t) - rem, D_800C3338, rem, PKT);
       D_800C3340 = rem;
       D_800C3354 = (*base) - rem;
       D_800C333C = (D_800C3338 + rem) - 0x16;
@@ -101,8 +101,7 @@ s32 func_80084350(s32 arg0)
       {
         s32 *q = (s32 *) ((&D_800C02AE) + 0x30A6);
         *q -= 0x2000;
-        new_var2 = (&D_800AE850) + 0x235C;
-        func_80081040(D_800B7300 + (*q), *((s32 *) (((u8 *) ((s32 *) ((&D_800C02AE) + 0x30A6))) - 0x1c)), 0x2000, *((s32 *) ((&D_800AE850) + 0x2358)), *((Args843 *) new_var2));
+        func_80081040(D_800B7300 + (*q), *((s32 *) (((u8 *) ((s32 *) ((&D_800C02AE) + 0x30A6))) - 0x1c)), 0x2000, PKT);
         *((s32 *) (((&D_800C02AE) + 0x30A6) - 0x18)) = (*((s32 *) (((&D_800C02AE) + 0x30A6) - 0x1c))) + 0x1fff;
         p = (s32 *) (((&D_800C02AE) + 0x30A6) - 0x18);
         if (((u32) p[0]) >= ((u32) p[-1]))

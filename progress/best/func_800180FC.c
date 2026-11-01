@@ -77,8 +77,7 @@ Track *func_800180FC(Track *t0)
       if (segs[i].f.b0 && &segs[i] != &segs[D_800C7F80->cur]) break;
     }
     D_800C3510 = i;
-    D_8009C230 = &segs[D_800C7F80->cur];
-  } else {
+    D_8009C230 = &segs[D_800C7F80->cur]; } else {
     for (i = 0; i < t->n; i++) {
       D_8009C230 = &segs[i];
       if (segs[i].f.b0 && &segs[i] != &segs[D_800C7F80->cur]) break;

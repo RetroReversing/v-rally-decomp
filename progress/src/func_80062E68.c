@@ -50,9 +50,9 @@ void func_80062E68(void)
   Sp *u;
   s32 *new_var;
   Sp *s;
+  unsigned char i;
   s32 v;
   s32 n;
-  unsigned char i;
   s = func_800592D0(0x10);
   func_80097E30(&sp18, 0, 0xF);
   n = 0;
@@ -77,8 +77,8 @@ void func_80062E68(void)
     v = *new_var;
     func_80097E30(&sp18, 0, 0xF);
     func_80052E94(v, &sp18);
-    func_800596F4(s, s->x, s->y + ((n & 0xFF) * 0x16), &sp18);
-    if ((n & 0xFF) == 0)
+    func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);
+    if (i == 0)
     {
       first = v;
     }
@@ -95,13 +95,13 @@ void func_80062E68(void)
       {
         func_80052E94(v - first, &sp1A);
         func_800980D0(bp, D_800A5690);
-        func_800596F4(u, *new_var2, u->y + (((n & 0xFF) - 1) * 0x16), bp);
+        func_800596F4(u, *new_var2, u->y + (((i) - 1) * 0x16), bp);
       }
       else
       {
         func_80052E94(v - first, &sp1A);
         func_800980D0(bp, D_800A5690);
-        func_800596F4(u, *new_var2, u->y + ((((unsigned int) (n & 0xFF)) - 1) * 0x16), bp);
+        func_800596F4(u, *new_var2, u->y + ((((unsigned int) i) - 1) * 0x16), bp);
       }
     }
     n++;

@@ -21,10 +21,11 @@ void func_80020428(void *arg0)
   s32 var_a1_3;
   int var_v0_2;
   s32 temp_a2;
+    s32 __repair_temp_a2_1;
   s32 temp_v0;
   s32 temp_v1;
   void *temp_s1;
-  void *temp_v1_2;
+  
   unsigned char *bp;
   temp_s1 = func_80041564();
   if ((*((u16 *) ((*((void **) (D_800C02AE + 0x32F2))) + 0x1E))) != 0)
@@ -92,10 +93,10 @@ void func_80020428(void *arg0)
   {
     *((s32 **) (((char *) (*((void **) (((char *) arg0) + 0x40)))) + 0x18)) = func_8007EAA0(1, temp_v0 * 4);
   }
-  temp_v1_2 = *((void **) (((char *) arg0) + 0x40));
-  var_a1_4 = *((s32 **) (((char *) temp_v1_2) + 0x24));
+  temp_s1 = *((void **) (((char *) arg0) + 0x40));
+  var_a1_4 = *((s32 **) (((char *) temp_s1) + 0x24));
   temp_a2 = *((u16 *) ((*((void **) (D_800C02AE + 0x32F2))) + 0xE));
-  var_a1_5 = *((s32 **) (((char *) temp_v1_2) + 0x28));
+  var_a1_5 = *((s32 **) (((char *) temp_s1) + 0x28));
   var_a0 = 0;
   new_var = &D_800ADFE0;
   if (temp_a2 == 2)
@@ -154,7 +155,7 @@ void func_80020428(void *arg0)
   block_28:
   var_a1_5 = *((s32 **) ((char *) (*((void **) (((char *) arg0) + 0x40)))));
 
-  temp_a2 = 0;
+  __repair_temp_a2_1 = 0;
   if ((*((u16 *) (0x1E + (*((void **) (D_800C02AE + 0x32F2)))))) == 0)
   {
     goto loop_32;
@@ -167,9 +168,9 @@ void func_80020428(void *arg0)
   loop_30:
   *var_a1_5 = 0;
 
-  temp_a2++;
+  __repair_temp_a2_1++;
   var_a1_5++;
-  if (temp_a2 < ((u32) (bp[0] + 1)))
+  if (__repair_temp_a2_1 < ((u32) (bp[0] + 1)))
   {
     goto loop_30;
   }
@@ -177,9 +178,9 @@ void func_80020428(void *arg0)
   loop_32:
   *var_a1_5 = 0;
 
-  temp_a2++;
+  __repair_temp_a2_1++;
   var_a1_5++;
-  if (temp_a2 < 4U)
+  if (__repair_temp_a2_1 < 4U)
   {
     goto loop_32;
   }

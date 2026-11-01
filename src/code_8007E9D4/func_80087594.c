@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern s32 D_800B0AE0;
 typedef struct AudioConfig875 {s32 pad[4]; void *loader; s32 heap; s32 freq;} AudioConfig875;
 extern s32 D_800AB964;
@@ -83,18 +85,19 @@ void func_80087594(AudioConfig875 *arg0, M2C_UNK arg1, void *arg2, s32 arg3, s32
     alInit(D_800AE850 + 0x2304, arg0);
     M2C_FIELD(D_800AB94C, s32 *, 4) = 0;
     M2C_FIELD(D_800AB94C, s32 *, 0) = 0;
-    temp_v0 = (unsigned short)(arg3 - 1);
+    temp_v0 = arg3 - 1;
     var_s1 = 0;
-    if ((short)temp_v0 != 0) {
+    if (temp_v0 != 0) {
+        u32 n = temp_v0;
         var_s2 = 0x14;
         var_s0 = 0;
         do {
             alLink(D_800AB94C + var_s2, D_800AB94C + var_s0);
             var_s2 += 0x14;
             var_s1 += 1;
-            M2C_FIELD((var_s0 + (char *)D_800AB94C), void **, 0x10) = alHeapDBAlloc(0, 0, arg0->heap, 1, arg4);
+            *(void **)(var_s0 + 0x10 + (char *)D_800AB94C) = alHeapDBAlloc(0, 0, arg0->heap, 1, arg4);
             var_s0 += 0x14;
-        } while (var_s1 < temp_v0);
+        } while (var_s1 < n);
     }
     M2C_FIELD(((var_s1 * 0x14) + D_800AB94C), void **, 0x10) = alHeapDBAlloc(0, 0, arg0->heap, 1, arg4);
     var_s0_2 = (void **)(D_800AE850 + 0x2278);
@@ -105,14 +108,15 @@ void func_80087594(AudioConfig875 *arg0, M2C_UNK arg1, void *arg2, s32 arg3, s32
         var_s0_2++;
     } while (var_s1 < 3U);
     var_s1 = 0;
-    var_s0_2 = D_800AE850 + 0x2284;
+    var_s2 = 0x60;
     D_800AB964 = (s32) M2C_FIELD(arg2, s32 *, 8);
+    var_s0_2 = D_800AE850 + 0x2284;
     do {
-        register temp_v0_2 = alHeapDBAlloc(0, 0, arg0->heap, 1, 0x60);
+        temp_v0_2 = alHeapDBAlloc(0, 0, arg0->heap, 1, var_s2);
         *var_s0_2 = temp_v0_2;
         M2C_FIELD(temp_v0_2, s16 *, 0x58) = 0;
-        size = D_800AB960 * 4;
         temp_v1_2 = *var_s0_2;
+        size = D_800AB960 * 4;
         M2C_FIELD(temp_v1_2, void **, 0x5C) = temp_v1_2;
         var_s1 += 1;
         M2C_FIELD(*var_s0_2, void **, 0) = alHeapDBAlloc(0, 0, arg0->heap, 1, size);
@@ -123,3 +127,4 @@ void func_80087594(AudioConfig875 *arg0, M2C_UNK arg1, void *arg2, s32 arg3, s32
     }
     D_800A1BB0 = 1;
 }
+

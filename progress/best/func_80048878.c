@@ -17,8 +17,7 @@ void func_80048878(void *arg0, void *arg1)
   s2 = arg0;
   ;
   v = *((s32 *) (((u8 *) arg1) + 0x14));
-  a3 = *((u16 *) (((u8 *) arg1) + 0x10));
-  a3 += v;
+  a3 = v + *((u16 *) (((u8 *) arg1) + 0x10));
   v = a3;
   if (((s16) v) < 0)
   {

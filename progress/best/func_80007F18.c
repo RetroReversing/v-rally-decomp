@@ -1,52 +1,64 @@
-typedef struct {u32 w0,w1;} Gfx;
-Gfx *func_80007F18(Gfx *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11, u32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16){
-Gfx *p,*q,*r,*t; s32 line,dxt,count;u32 tileword,sizeword;
-s32 base = arg1;
-arg1 = base;
-switch(arg3){
-case 1:
-p=arg0++;q=arg0++;r=arg0++;t=arg0++;
-p->w0=0xFD000000|((arg2&7)<<21)|0x100000;
-p->w1=arg1+arg7*arg4;
-q->w0=0xF5000000|((arg2&7)<<21)|0x100000;
-q->w1=((arg12&3)<<18)|(((arg14&15)<<14)|0x07000000)|((arg16&15)<<10)|((arg11&3)<<8)|((arg13&15)<<4)|(arg15&15);
-r->w0=0xE6000000;r->w1=0;
-t->w0=0xF3000000; line=arg4/8;dxt=line>0?line+2047:2048;count=((arg4*arg9+1)>>1)-1;if(count>=2048)count=2047;
-t->w1=((count&4095)<<12)|0x07000000|((line>0?dxt/line:dxt)&4095);
-p=arg0++;q=arg0++;r=arg0++;
-p->w0=0xE7000000;p->w1=0; tileword=((arg2&7)<<21);sizeword=(((arg4+7)>>3)&511)<<9;sizeword|=0xF5000000|0x80000;
-goto tail;
-case 2:
-p=arg0++;q=arg0++;r=arg0++;t=arg0++;
-p->w0=0xFD000000|((arg2&7)<<21)|0x100000;
-p->w1=arg1+arg7*arg4*2;
-q->w0=0xF5000000|((arg2&7)<<21)|0x100000;
-q->w1=((arg12&3)<<18)|(((arg14&15)<<14)|0x07000000)|((arg16&15)<<10)|((arg11&3)<<8)|((arg13&15)<<4)|(arg15&15);
-r->w0=0xE6000000;r->w1=0;
-t->w0=0xF3000000;
-line=arg4/4;dxt=line>0?line+2047:2048;count=arg4*arg9-1;if(count>=2048)count=2047;
-t->w1=((count&4095)<<12)|0x07000000|((line>0?dxt/line:dxt)&4095);
-p=arg0++;q=arg0++;r=arg0++;
-p->w0=0xE7000000;p->w1=0;
-tileword=((arg2&7)<<21);sizeword=(((arg4*2+7)>>3)&511)<<9;sizeword|=0xF5000000|0x100000;
-goto tail;
-case 3:
-p=arg0++;q=arg0++;r=arg0++;t=arg0++;
-p->w0=0xFD000000|((arg2&7)<<21)|0x180000;
-p->w1=arg1+arg7*arg4*4;
-q->w0=0xF5000000|((arg2&7)<<21)|0x180000;
-q->w1=((arg12&3)<<18)|(((arg14&15)<<14)|0x07000000)|((arg16&15)<<10)|((arg11&3)<<8)|((arg13&15)<<4)|(arg15&15);
-r->w0=0xE6000000;r->w1=0;
-t->w0=0xF3000000;
-line=arg4>>1;dxt=line>0?line+2047:2048;count=arg4*arg9-1;if(count>=2048)count=2047;
-t->w1=((count&4095)<<12)|0x07000000|((line>0?dxt/line:dxt)&4095);
-p=arg0++;q=arg0++;r=arg0++;
-p->w0=0xE7000000;p->w1=0;
-tileword=((arg2&7)<<21);sizeword=(((arg4*2+7)>>3)&511)<<9;sizeword|=0xF5000000|0x180000;
-goto tail;
-default:return arg0;
+#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((1 << (w)) - 1)) << (s)))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+#define TXL2WORDS(txls, b_txl) MAX(1, ((txls) * (b_txl) / 8))
+#define CALC_DXT(width, b_txl) (((1 << 11) + TXL2WORDS(width, b_txl) - 1) / TXL2WORDS(width, b_txl))
+#define TXL2WORDS_4b(txls) MAX(1, ((txls) / 16))
+#define gDPSetTextureImage(pkt, f, s, w, i) { Gfx *_g = (Gfx *)(pkt); _g->w0 = _SHIFTL(0xFD, 24, 8) | _SHIFTL(f, 21, 3) | _SHIFTL(s, 19, 2) | _SHIFTL((w) - 1, 0, 12); _g->w1 = (u32)(i); }
+#define gDPSetTile(pkt, fmt, siz, line, tmem, tile, palette, cmt, maskt, shiftt, cms, masks, shifts) { Gfx *_g = (Gfx *)(pkt);   _g->w0 = _SHIFTL(0xF5, 24, 8) | _SHIFTL(fmt, 21, 3) | _SHIFTL(siz, 19, 2) | _SHIFTL(line, 9, 9) | _SHIFTL(tmem, 0, 9);   _g->w1 = _SHIFTL(tile, 24, 3) | _SHIFTL(palette, 20, 4) | _SHIFTL(cmt, 18, 2) | _SHIFTL(maskt, 14, 4) | _SHIFTL(shiftt, 10, 4) | _SHIFTL(cms, 8, 2) | _SHIFTL(masks, 4, 4) | _SHIFTL(shifts, 0, 4); }
+#define gDPNoParam(pkt, cmd) { Gfx *_g = (Gfx *)(pkt); _g->w0 = _SHIFTL(cmd, 24, 8); _g->w1 = 0; }
+#define gDPLoadSync(pkt) gDPNoParam(pkt, 0xE6)
+#define gDPPipeSync(pkt) gDPNoParam(pkt, 0xE7)
+#define gDPLoadBlock(pkt, tile, uls, ult, lrs, dxt) { Gfx *_g = (Gfx *)(pkt);   _g->w0 = _SHIFTL(0xF3, 24, 8) | _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12);   _g->w1 = _SHIFTL(tile, 24, 3) | _SHIFTL(MIN(lrs, 0x7FF), 12, 12) | _SHIFTL(dxt, 0, 12); }
+#define gDPSetTileSize(pkt, t, uls, ult, lrs, lrt) { Gfx *_g = (Gfx *)(pkt);   _g->w0 = _SHIFTL(0xF2, 24, 8) | _SHIFTL(uls, 12, 12) | _SHIFTL(ult, 0, 12);   _g->w1 = _SHIFTL(t, 24, 3) | _SHIFTL(lrs, 12, 12) | _SHIFTL(lrt, 0, 12); }
+typedef struct 
+{
+  u32 w0;
+  u32 w1;
+} Gfx;
+Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 a6, s32 row, s32 a8, s32 height, s32 pal, s32 cms, s32 cmt, s32 masks, s32 maskt, s32 shifts, s32 shiftt)
+{
+  switch (siz)
+  {
+    case 1:
+      gDPSetTextureImage(gfx++, fmt, 2, 1, timg + (row * width));
+      gDPSetTile(gfx++, fmt, 2, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPLoadSync(gfx++);
+      gDPLoadBlock(gfx++, 7, 0, 0, (((width * height) + 1) >> 1) - 1, CALC_DXT(width, 1));
+      gDPPipeSync(gfx++);
+      gDPSetTile(gfx++, fmt, 1, ((width * 1) + 7) >> 3, 0, 0, pal, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPSetTileSize(gfx++, 0, 0, 0, (width - 1) << 2, (height - 1) << 2);
+      break;
+
+    case 2:
+      gDPSetTextureImage(gfx++, fmt, 2, 1, timg + ((row * width) * 2));
+      gDPSetTile(gfx++, fmt, 2, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPLoadSync(gfx++);
+      gDPLoadBlock(gfx++, 7, 0, 0, (width * height) - 1, CALC_DXT(width, 2));
+      gDPPipeSync(gfx++);
+      gDPSetTile(gfx++, fmt, 2, ((width * 2) + 7) >> 3, 0, 0, pal, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPSetTileSize(gfx++, 0, 0, 0, (width - 1) << 2, (height - 1) << 2);
+      break;
+
+    case 3:
+      gDPSetTextureImage(gfx++, fmt, 3, 1, timg + ((row * width) * 4));
+      gDPSetTile(gfx++, fmt, 3, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPLoadSync(gfx++);
+      gDPLoadBlock(gfx++, 7, 0, 0, (width * height) - 1, CALC_DXT(width, 4));
+      gDPPipeSync(gfx++);
+      gDPSetTile(gfx++, fmt, 3, ((width * 2) + 7) >> 3, 0, 0, pal, cmt, maskt, shiftt, cms, masks, shifts);
+      gDPSetTileSize(gfx++, 0, 0, 0, (width - 1) << 2, (height - 1) << 2);
+      break;
+
+  }
+
+  if (siz || shiftt)
+  {
+    return gfx;
+  }
+  else
+  {
+    return gfx;
+  }
 }
-tail:
-q->w1=((arg10&15)<<20)|((arg12&3)<<18)|((arg14&15)<<14)|((arg16&15)<<10)|((arg11&3)<<8)|((arg13&15)<<4)|(arg15&15);
-q->w0=tileword|sizeword;r->w0=0xF2000000;r->w1=((((arg4-1)*4)&4095)<<12)|(((arg9-1)*4)&4095);return arg0;
-}
+

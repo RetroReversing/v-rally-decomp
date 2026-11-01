@@ -23,14 +23,11 @@ void func_80027E8C(void *arg0, s32 arg1, s8 *arg2)
     arg2[1] |= 0x80;
   }
   if (s2 & 1) {
-    arg2[1] = 0;
-    arg2[4] = func_80027D24(arg2[4], 255);
-  } else {
+    arg2[4] = func_80027D24(arg2[4], 255); } else {
     arg2[4] = func_80027D24(arg2[4], 0);
   }
   if (s2 & 2) {
-    arg2[5] = func_80027D7C(arg2[5], 255);
-  } else {
+    arg2[5] = func_80027D7C(arg2[5], 255); } else {
     arg2[5] = func_80027D7C(arg2[5], 0);
   }
   *(s32 *)(D_800C02AE + 0x8062 + arg1 * 4) = func_8001FEE8(arg0);

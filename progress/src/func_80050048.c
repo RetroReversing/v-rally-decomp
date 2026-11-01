@@ -7,37 +7,38 @@ extern void func_8004F57C(void *);
 #define EV (*(Event **)(D_800C02AE + 0x32F2))
 #define ENT(s, n) ((Entry *)((u8 *)(s) + (n) * 0x44))
 s32 func_80050048(s32 arg0) {
+char *__repair_addr;
+
     State *s = D_800A1234;
-    Entry *q = ENT(s, s->idx);
+    u8 i = s->idx;
+    Entry *q = ENT(s, i);
     u8 j;
     if (q->status != 1) {
         if (EV->b == 0 && EV->a != 0 && EV->e == 2) {
-            s->idx++;
+            s->idx = i + 1;
             if (s->idx == s->max) s->idx = 0;
         }
         return 0;
     }
     if (q->flags & 8) {
-        j = 0;
         if (EV->b == 0 && EV->a == 0) {
-            if (EV->a < s->max) do {
+            for (j = 0; j < s->max; j++) {
                 Entry *p = ENT(s, j);
                 p->status = 1;
                 p->flags &= ~8;
-                j++;
-            } while (j < s->max);
+            }
         } else {
-            do {
+            for (j = 0; j < 4; j++) {
                 Entry *p = ENT(s, j);
                 p->status = 1;
                 p->flags &= ~8;
-                j++;
-            } while (j < 4);
+            }
         }
     }
     if (q->count == 0 && !(q->flags & 0x200)) func_8004F57C(s);
-    q->buf[q->count] = arg0;
-    q->count++;
+    { u32 *b = q->buf; u16 c = q->count;
+__repair_addr = (char *)((u8 *)b + c * 4);
+ *(u32 *)(__repair_addr) = arg0; } q->count++;
     if (q->len < q->count) q->len++;
     if (s->limit - 1 < q->count) {
         if (q->flags & 0x10) {

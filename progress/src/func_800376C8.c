@@ -54,6 +54,7 @@ void func_800376C8(s32 arg0, Obj *p)
   u16 ix;
   u16 iy;
   u16 t;
+  u16 k;
   f32 r;
   guMtxIdentF(m);
   func_80010BFC(0, ((u8 *) p) + 0x38, m);
@@ -63,10 +64,11 @@ void func_800376C8(s32 arg0, Obj *p)
     s3 = *D_800C60D4;
     base = func_80005C48(D_8009B5AC);
     new_var2 = (f32) p->view->w;
-    ix = (u32) (((x + 1.0f) * new_var2) * 0.5f);
+    ix = (u32) (((x + 1.0f) * ((f32) p->view->w)) * 0.5f);
     iy = (u32) ((y + 1.0f) * (((f32) p->view->h) * 0.5f));
     t = 160 - iy;
-    if ((base[(u16) (ix + (((u16) t) * p->view->w))] > 0xfffa) & (((u16) t) < 160))
+    k = ix + (((u16) t) * p->view->w);
+    if ((base[k] > 0xfffa) & (((u16) t) < 160))
     {
       Node *n = *((Node **) (((u8 *) s3) + 12));
       Cam *cam = *((Cam **) (((u8 *) n) + 0x1c));

@@ -35,10 +35,10 @@ void func_8003D9C8(s32 arg0, s32 arg1, int arg2)
       if (!U(event, 30))
     {
       void *__repair_cached_pointer = D_800C7F84;
-      y = (y + height) - 18;
+      ;
       new_var2 = &func_8003B310;
       arg2--;
-      func_8003A9AC(arg0, x + 77, y, new_var2, arg1, (u16) arg2, 0);
+      func_8003A9AC(arg0, x + 77, (y + height) - 18, new_var2, arg1, (u16) arg2, 0);
       item = func_80040260(arg0, (s16) (U(P(__repair_cached_pointer, 0x178), 8) + 68), (s16) y, 2, &func_8003B008, 0);
       W(item, 0xa4) = func_80034FF0(arg1 + 76);
       H(item, 0x76) = arg2;

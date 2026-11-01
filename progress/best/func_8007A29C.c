@@ -21,8 +21,8 @@ extern u8 *D_800C35A0;
 extern u8 *D_800D0658;
 void func_8007A29C(void)
 {
-  u8 *tbl;
   u8 *ent;
+  u8 *tbl;
   u8 *ctx;
   u8 *cnt;
   u8 *base;
@@ -37,7 +37,7 @@ void func_8007A29C(void)
   s8 i;
   s8 j;
   s32 n;
-  s32 pad;
+  s32 pad[2];
   u8 t;
   s32 v;
   func_8004D31C();

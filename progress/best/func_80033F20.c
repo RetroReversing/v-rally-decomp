@@ -53,13 +53,13 @@ void func_80033F20(A *a, B *b, C *c)
   void *state = a->ctx;
   void *motion = a->motion;
   void *cfg = a->gate;
-  new_var3 = *((s32 *) (((u8 *) cfg) + 0x34));
-  slew = *((s32 *) (((u8 *) state) + 0x57C));
   cap = *((s32 *) (((u8 *) state) + 0x578));
+  slew = *((s32 *) (((u8 *) state) + 0x57C));
   t = *((s32 *) (((u8 *) motion) + 0x170));
   mode = *((s32 *) (((u8 *) motion) + 0x160));
   new_var4 = 1800;
   rev = *((s32 *) (((u8 *) motion) + 0x164));
+  new_var3 = *((s32 *) (((u8 *) cfg) + 0x34));
   if (t)
   {
     slew = 255;
@@ -133,7 +133,7 @@ void func_80033F20(A *a, B *b, C *c)
 
     if (delta > 255)
     {
-      delta = -1;
+      delta = 255;
     }
     else
       if (delta < (-255))
