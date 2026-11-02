@@ -128,8 +128,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     Q *q;
     s32 alpha;
     u32 bright = 0;
-    Ctx *gfx;
     Ctx *ctx;
+    Ctx *gfx;
     Gfx *g;
     Gfx *_g;
     Shd *shd;
@@ -213,12 +213,14 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     pos = obj->unk5C;
     bb = q->unk8 + 4;
     func_80010BFC(0, fp, pos);
-    obj->unk88->unk80 = isBoundingBoxVisible(fp, bb, gGame->unk178);
-    if ((gGame->unk24 == obj || obj->unk88->unk80 == 0) && (gGame->unk20 & 8)) return;
+    {
+        s32 vis = isBoundingBoxVisible(fp, bb, gGame->unk178);
+        obj->unk88->unk80 = vis;
+    }
+    if (((*(Game **)0x800C7F84)->unk24 == obj || obj->unk88->unk80 == 0) && ((*(Game **)0x800C7F84)->unk20 & 8)) return;
     gfx->unk78 = 0;
-    ctx = gfx;
-#define ctx gfx
     type = obj->unk48->unk0;
+    ctx = gfx;
     flags = type == 7;
     if (D_8009FF30 == 2) flags |= 2;
     if (obj->unk6C->unk30 > 4410000 || obj->unk48->unk0 != 7) {
@@ -226,7 +228,10 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     } else {
         alpha = (0xFF - (4410000 - obj->unk6C->unk30) * 0xFF) / 4410000;
     }
-    for (i = 1; i < 12; i++) {
+    {
+        s32 n;
+        for (n = 1; n < 12; n++) {
+        }
     }
     shd = obj->unk88->unk68;
     g = func_80006008(ctx);
@@ -289,9 +294,12 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         bright = 0;
         for (i = 0; i < 12; i++) {
             p = obj->unk8C->parts[i];
-            bright += p->unk6C[obj->unk60[i] * (p->unk8A - 1) + obj->unk60[i + 12]];
+            t = obj->unk60[i] * (p->unk8A - 1);
+            bright += p->unk6C[t + obj->unk60[i + 12]];
         }
-        bright = (bright / 12 - 80) * 255 / 100;
+        bright /= 12;
+        bright -= 80;
+        bright = bright * 255 / 100;
         if (bright >= 0x100) bright = 0xFF;
     } else {
         if (func_8007BA1C(obj) == 0xFF) {
@@ -335,7 +343,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
             func_80010BFC(m, fp, pos);
             for (j = 0; j < 4; j++) {
                 for (k = 0; k < 4; k++) {
-                    gMtx72B0[j][k] = fp[2].m[j][k];
+                    (*(MtxF *)(D_800AE850 + 0x72B0)).m[j][k] = fp[2].m[j][k];
                 }
             }
         }

@@ -56,7 +56,7 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     f32 v0x, v0y, z, v1x, v1y, v2x, v2y, v3x, v3y;
     f32 ox, oy;
     GfxState *gs;
-    s32 cur;
+    register s32 cur;
     s32 len;
     s32 kern;
     s32 base;
@@ -84,8 +84,8 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     if (x < 0) {
         s32 w;
         s32 nx = x;
-        fixed = 1;
         w = func_8000C9B0(fonts, str, nfonts, sx, mode);
+        fixed = 1;
         ox = (s16)-nx;
         oy = y;
         x = -nx - w;
@@ -110,11 +110,12 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
         func_8008E3A0(D_800A3F28, len);
     }
     for (i = 0; i < len; i++) {
-        c = str[i] - 0x20;
+        c = str[i];
+        c -= 0x20;
         n = 0;
         if (c != 0) {
             while ((font->glyphs[c].code == -0x80) & ((n & 0xFF) != nfonts)) {
-                cur = (cur + 1) & -(((cur + 1) & 0xFF) != nfonts);
+                if (((cur + 1) & 0xFF) == nfonts) cur = 0; else cur++;
                 font = fonts[cur & 0xFF];
                 LOAD_TEX(font)
                 n++;

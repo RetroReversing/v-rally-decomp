@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 #define MASK(x) (*(u16 *)(D_800A19F0+(x)*2))
 #define NEED(x) while(k<(x)){s32 c;if(--*(s32 *)(D_800C02AE+0x3092)>=0)c=*(*(u8 **)((s32 *)(D_800C02AE+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;b|=(u32)c<<k;k+=8;}
 #define DUMP(x) b>>=(x);k-=(x)
@@ -43,7 +45,7 @@ static inline void wcopy(u32 *to, u32 *from, u32 len)
     }
   }
 }
-s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
+s32 func_80082930(Huft *tl, Huft *td, u32 bl, u32 bd)
 {
   u32 b;
   int new_var2;
@@ -144,6 +146,7 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
       if ((w - d) >= chunk)
       {
         u32 *to = (u32 *) ((w + D_800AE850) + 0x8AE8);
+        u8 *src0;
         if ((!(((u32) to) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
@@ -171,10 +174,13 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
           }
           w += words * 4;
           d += words * 4;
-          chunk &= 3;
           to = (u32 *) ((w + D_800AE850) + 0x8AE8);
+          src0 = (d + D_800AE850) + 0x8AE8;
+          chunk &= 3;
         }
-        func_8008E13C(to, (d + D_800AE850) + 0x8AE8, chunk);
+        else
+          src0 = (d + D_800AE850) + 0x8AE8;
+        func_8008E13C(to, src0, chunk);
         w += chunk;
         d += chunk;
       }
@@ -206,4 +212,5 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
   *((u32 *) new_var) = k;
   return 0;
 }
+
 

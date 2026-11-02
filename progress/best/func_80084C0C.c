@@ -5,6 +5,7 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
   signed char *e;
   signed char a2;
   int a1;
+  int val;
   s32 a0;
   s32 v1;
   u8 *tbl;
@@ -16,11 +17,11 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
       return 0;
     }
     idx = arg0;
-    a1 = *((signed char *) ((D_800A1B70 + (idx * 6)) + 0x1E));
+    val = *((signed char *) ((D_800A1B70 + (idx * 6)) + 0x1E));
     e = (signed char *) (D_800A1B70 + (idx * 20));
-    a2 = a1;
+    a2 = val;
     v1 = e[0x5F] + e[0x60];
-    if (a1 >= v1)
+    if (val >= v1)
     {
       a1 = e[0x5C];
       a0 = v1;
@@ -28,7 +29,7 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
     else
     {
       v1 = e[0x5F] + e[0x5E];
-      if (v1 < a1)
+      if (v1 < val)
       {
         return 0;
       }
@@ -40,9 +41,9 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
   {
     tbl = D_800A1B70;
     idx = arg0;
-    a1 = (a2 = *((signed char *) ((tbl + (idx * 6)) + 0x1F)));
+    val = (a2 = *((signed char *) ((tbl + (idx * 6)) + 0x1F)));
  do { e = (signed char *) (tbl + (idx * 20)); v1 = e[0x64] + e[0x65]; } while (0);
-    if (a1 >= v1)
+    if (val >= v1)
     {
       a1 = e[0x61];
       a0 = v1;
@@ -50,7 +51,7 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
     else
     {
       v1 = e[0x64] + e[0x63];
-      if (v1 < a1)
+      if (v1 < val)
       {
         return 0;
       }

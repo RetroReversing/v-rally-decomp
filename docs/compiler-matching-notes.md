@@ -24,6 +24,27 @@ Both isolated edits look worse to a greedy score-only search. A useful automatic
 
 The accepted implementation is in [func_8004E094.c](../src/code_8004BEB4/func_8004E094.c).
 
+## Branch-local tail pointers in `inflate_codes`
+
+An existing app agent matched the 354-instruction / 1,416-byte decoder during the same window. The change introduces a fresh `src0` local, assigns it after advancing the aligned word-copy pointers, assigns it separately in the unaligned branch, and passes that local to the final byte-copy call. The residual `chunk &= 3` follows both updated pointer calculations.
+
+That reproduces the target's argument-address setup before its final ANDI. Initializing the extra pointer eagerly before the word-copy branch did not reproduce the target in our separate trial. Keep the value's lifetime at the branch join where it is needed; moving an equivalent address calculation earlier can change scheduling and allocation. The accepted standalone symbol remains `func_80082930`; the app records the readable name `inflate_codes`.
+
+## Pair the helper return contract with its comparison use
+
+Another existing app agent matched the 135-instruction / 540-byte `func_80057B40`. Its accepted source changes the local declaration of `func_8000C9B0` from an `s16` return to `s32`, and writes both max comparisons as `r > max` instead of `max < r`.
+
+Replaying the four combinations with the same source context and original compiler profile showed an interaction:
+
+| Controlled trial | Score | Exact linked bytes |
+| --- | ---: | --- |
+| Starting draft | 60 | No |
+| Corrected helper return width alone | 60 | No |
+| Comparison spelling alone | 80 | No |
+| Both changes | 0 | Yes |
+
+A prototype repair can make a source-shape variant productive even when neither isolated trial improves the score. Test these small combinations against the actual caller and target; equivalent comparison spellings and narrower declarations are not interchangeable build inputs for this compiler.
+
 ## Volatile state updates: keep the mask and stores together
 
 `func_8006F3C0` is 25 instructions / 100 bytes. The earlier draft truncated the final value to eight bits. The successful candidate preserves the `0x2044` mask and the verified placement of the local mask operation relative to the volatile halfword stores. Simplifying the expression or reordering stores by semantic intuition is not enough: compile and compare the resulting bytes.
