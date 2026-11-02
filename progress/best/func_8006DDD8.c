@@ -31,7 +31,7 @@ long func_8006DDD8(void)
   b = ((f64) ((s32) idx)) * D_800A58B0;
   stride = (*((u8 **) (D_800C02AE + 0x32f2)))[0x23] * 64;
   new_var = 0x40;
-loop:
+  loop:
   {
     {
       f64 value = b + (((f64) (i & 255)) * D_800A58B8);
@@ -62,8 +62,14 @@ loop:
     }
     else
     {
-      
-      delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
+      if (code)
+      {
+        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
+      }
+      else
+      {
+        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
+      }
       if (delta >= 0)
       {
         if (delta >= 1024)
@@ -90,8 +96,7 @@ loop:
             break;
 
           case 1:
-            off = (tab[(u8) x] | 0x10) & 0xdf;
-            tab[(u8) x] = off;
+            off = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);
             break;
 
           case 2:
@@ -165,6 +170,10 @@ loop:
     }
     i++;
   }
-  if ((u32)(i & 255) < 3) goto loop;
+
+  if (((u32) (i & 255)) < 3)
+  {
+    goto loop;
+  }
 }
 

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern u8 D_800C02AE[];
 extern u8 D_800AE850[];
 s32 func_80077FA8(s32 arg0);
@@ -19,9 +21,11 @@ void func_8006F3C0(void)
   __repair_v0_1 |= 0x44;
   v1 = __repair_v0_1 | 0x2000;
   *a0 = __repair_v0_1;
+  v1 &= 0x2044;
   __repair_v0_1 &= 0x7fff;
   *((u32 *) (D_800C02AE + 0x6e76)) = a1;
   *a0 = __repair_v0_1;
-  *((u16 *) (D_800C02AE + 0x6e5e)) = (unsigned char) v1;
+  *((u16 *) (D_800C02AE + 0x6e5e)) = v1;
 }
+
 

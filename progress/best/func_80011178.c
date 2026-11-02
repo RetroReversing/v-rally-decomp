@@ -64,7 +64,7 @@ void func_80011178(Cam *cam) {
     CamData *cd;
     s32 i;
     s32 ang;
-    s16 r;
+    s32 r;
     s32 s1;
     s32 s0;
     s32 diff;
@@ -105,6 +105,7 @@ void func_80011178(Cam *cam) {
     }
     tp = &D_8009BEE0;
     ent = *tp; ent += cam->mode;
+    tp=(CamEntry**)((u32)tp^(u32)cam); tp=(CamEntry**)((u32)tp^(u32)cam);
     cd = &D_800C7F84->cd;
     if (D_800C7F84->flags & 0x100) {
         if (!(D_800C7F84->flags & 0x200)) {
@@ -177,9 +178,9 @@ void func_80011178(Cam *cam) {
         p2[1] = car->obj->m[6];
         func_8002D75C(*(s32 *)p0, *(s32 *)p1, *(s32 *)p2, &sgn);
         if (sgn < 0) {
-            cd->D0 = 0x800 - r;
+            cd->D0 = 0x800 - (s16)r;
         } else {
-            cd->D0 = r;
+            cd->D0 = (s16)r;
         }
         cd->F8 = car->obj->m[1];
         cd->FC = car->obj->m[4];
@@ -243,9 +244,9 @@ void func_80011178(Cam *cam) {
         p2[1] = car->obj->m[6];
         func_8002D75C(*(s32 *)p0, *(s32 *)p1, *(s32 *)p2, &sgn);
         if (sgn < 0) {
-            cd->D0 = 0x800 - r;
+            cd->D0 = 0x800 - (s16)r;
         } else {
-            cd->D0 = r;
+            cd->D0 = (s16)r;
         }
         cd->F8 = car->obj->m[1];
         cd->FC = car->obj->m[4];
