@@ -56,14 +56,14 @@ void func_80039134(s32 arg0, s32 arg1)
       D_800C7F84 = t1;
       cx = r1->unkC;
       cy = r1->unkE;
-      x = cx - 0x66;
-      y = cy - 0x54;
-      o = func_80040260(arg0, x, y, 5, 0, mode);
+      y = cx - 0x66;
+      x = cy - 0x54;
+      o = func_80040260(arg0, y, x, 5, 0, mode);
       o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
       o->unk7A = 0xC;
       o->unkA0 = 2;
-      o->unk93 = 0x64;
       o->unkA8 = D_800C7F84;
+      o->unk93 = 0x64;
       func_8003C6D8(arg0, arg1, 0);
       o = func_80040260(arg0, x, y, 5, func_8003BADC, mode);
       o->unk78 = 0;
@@ -73,11 +73,11 @@ void func_80039134(s32 arg0, s32 arg1)
     }
     break;
   case 2:
-    k = 1;
-    for (i = 1; i <= *(u16 *)(D_800C35A0 + 0xE); i++, k += 2)
+    for (i = 1, k = 1; i <= *(u16 *)(D_800C35A0 + 0xE); i++, k += 2)
     {
       g = D_800C35A0;
-      if (g[g[i + 0x31] * 0x28 + 0x48] & 2)
+      g += (g + i)[0x31] * 0x28;
+      if (g[0x48] & 2)
       {
         t = func_8004240C(k);
         r = *(Rect **)(t + 0x178);
@@ -90,7 +90,7 @@ void func_80039134(s32 arg0, s32 arg1)
           sx -= 0x10;
           add = -(*(s32 *)(t + 0xC) == 1) & 0x14;
         }
-        x = sx - 0x39 + add;
+        x = (u16)(sx - 0x39) + add;
         y = sy - 0x38;
         o = func_80040260(arg0, x, y, 5, func_8003BA58, 1);
         o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);

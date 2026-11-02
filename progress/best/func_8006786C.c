@@ -107,10 +107,11 @@ s32 func_8006786C(void)
     {
       Obj *p0;
       Obj *p1;
-      p1 = (p0 = D_800A1468);
-      D_800A1468->unk245 = 0;
+      p0 = D_800A1468;
+      p0->unk245 = 0;
+      p1 = D_800A1468;
       ret = 0;
-      D_800A1468->unk288 = func_80066E20;
+      p0->unk288 = func_80066E20;
       p0->unk28C = func_80066EBC;
       p1->unk24D = 0;
       return ret;

@@ -6,7 +6,9 @@ typedef struct { u8 pad[0x14]; u32 *p; } G;
 typedef struct { u8 pad[2]; u16 w; u16 h; s16 x; s16 y; s16 z; } R;
 
 s32 func_80019C90(G *arg0, u8 *arg1, R *arg2, u16 arg3, u16 arg4) {
-    volatile f32 sp38; volatile f32 sp3C; volatile f32 sp40;
+    f32 sv[3];
+#define sp38 sv[0]
+#define sp40 sv[2]
     s32 s1; u32 a2; u32 a1; u8 v1;
     u32 *a3;
     u32 *dl_ptr;

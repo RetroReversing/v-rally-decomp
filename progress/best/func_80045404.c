@@ -147,10 +147,10 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
           while (var_v1_2 != 0);
           var_a0_4 = var_t0 + 0x10;
         }
-        var_a2_3 = var_a0_4;
         new_var = (u32) var_t0;
         if ((((u32) temp_a3) < ((u32) var_a0_4)) & (new_var < ((u32) temp_a3)))
         {
+          var_a2_3 = var_a0_4;
           var_v1_3 = temp_a3 + 0x10;
           var_a0_5 = 4;
           do
@@ -164,13 +164,13 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
         }
         else
         {
-          var_a2_4 = var_t0;
+          var_a2_3 = var_t0;
           var_v1_4 = temp_a3;
           var_a0_6 = 4;
           do
           {
-            temp_v0_2 = I(var_a2_4, 0);
-            var_a2_4 += 4;
+            temp_v0_2 = I(var_a2_3, 0);
+            var_a2_3 += 4;
             var_a0_6 -= 1;
             I(var_v1_4, 0) = temp_v0_2;
             var_v1_4 += 4;

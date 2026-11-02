@@ -112,7 +112,8 @@ void func_80012638(void *arg0)
           var_s1 = var_a2;
         }
         temp_v0_5 = *((void **) (((char *) var_a2) + 0x7C));
-        if ((*((void **) (((char *) temp_v0_5) + 0x24))) != temp_v0_5)
+        temp_v1_2 = *((void **) (((char *) temp_v0_5) + 0x24));
+        if (temp_v0_5 != temp_v1_2)
         {
           var_a1 = *((void **) (((char *) var_a1) + 0x24));
           if (var_a1 != NULL)
@@ -141,7 +142,7 @@ void func_80012638(void *arg0)
         if (var_s1 == temp_t4)
         {
           temp_a0 = *((s32 *) (((char *) (*((void **) (((char *) temp_s3) + 0x60)))) + 0x28));
-          if (((u32) ((*((u16 *) (((char *) var_s1) + 0x88))) - temp_a0)) < 10U)
+          if (((u32) ((*((u16 *) (((char *) var_a2) + 0x88))) - temp_a0)) < 10U)
           {
             temp_v0_7 = *((void **) (((char *) var_s1) + 0x5C));
             if (temp_v0_7 != NULL)
@@ -218,3 +219,4 @@ void func_80012638(void *arg0)
   }
   func_80042290(*((void **) (D_800C02AE + 0x7CD6)));
 }
+

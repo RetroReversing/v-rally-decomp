@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,905 selected C functions / 426,912 matching bytes**, about **75.43% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,905 C and 217 assembly functions**.
+- **1,943 selected C functions / 451,816 matching bytes**, about **79.83% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,943 C and 179 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -372,6 +372,22 @@ The earlier verified `func_80086A34` remains selected as C while the app retains
 draft. No previously selected C was removed. The snapshot is a point-in-time save;
 other agents can continue working after it.
 
+### Complete progress sync after func_800754D4 — 2 November 2026
+
+This checkpoint adds **38 verified C functions / 24,904 matching bytes**:
+`func_800051B4`, `func_80006B4C`, `func_800070CC`, `func_80008E80`, `func_80009164`, `func_8000C244`, `func_80015168`, `func_80015534`, `func_80015C74`, `func_80016910`, `func_80018900`, `func_8001AAB4`, `func_8001AF54`, `func_8001CB88`, `func_8001D07C`, `func_8001FFC4`, `func_80024584`, `func_8002AA18`, `func_8003647C`, `func_8003C354`, `func_8003D8F4`, `func_8003E3E0`, `func_8003F834`, `func_80048394`, `func_800485F8`, `func_80049E28`, `func_8004C98C`, `func_8004F89C`, `func_80050FC4`, `func_80056AB8`, `func_8006556C`, `func_80065C04`, `func_80069734`, `func_8007159C`, `func_80077724`, `func_800783A8`, `func_8007BDC4`, `func_8008910C`. All earlier selected C is retained. Each addition
+passed its independent compiler/link check, and the complete original 12,582,912-byte
+cartridge rebuilt byte for byte. Objdiff source links and compiler profiles are updated together.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,946 matches
+and 154 best drafts**, alongside current names, 25,298 notes, headers, symbols and
+compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
+and compiler profiles were compared with the live app after saving.
+
+Standalone integration exceptions retained in the portable snapshot:
+`func_8005D0B0` has non-contiguous constant pools; `func_800869B8` and `func_80087DE4`
+still emit extra function bodies. They remain assembly in the verified cartridge build.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -391,7 +407,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1905 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1943 of 2122 functions in C)
 ```
 
 ## Supported input

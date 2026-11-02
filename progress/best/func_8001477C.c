@@ -4,23 +4,25 @@ extern void func_80014564(s32, s32, s16, s32);
 void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u8 g1, u8 b1)
 {
   s32 color;
-  s32 eadd2;
-  u8 dr;
-  s32 step;
-  u8 db;
-  u8 dg;
-  u8 red;
-  u8 green;
-  u8 blue;
   s32 dx;
-  u8 new_var;
   s32 dy;
   s32 err;
   s32 eadd;
+  s32 eadd2;
+  s32 step;
   s32 swap;
+  u8 red;
+  u8 green;
+  u8 blue;
+  u8 dr;
+  u8 dg;
+  u8 db;
   color = func_80005C48(D_8009B5A8);
   dx = x1 - x0;
   dy = y1 - y0;
+  red = r0;
+  green = g0;
+  blue = b0;
   if (dx < 0)
   {
     dx = -dx;
@@ -67,7 +69,6 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       green += dg;
       blue += db;
     }
-
   }
   else
   {
@@ -96,7 +97,6 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       if (err >= 0)
       {
         err += eadd;
- do { } while (0);
         x0 += step;
       }
       else
@@ -108,6 +108,5 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       green += dg;
       blue += db;
     }
-
   }
 }

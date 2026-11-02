@@ -53,6 +53,7 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
   s32 result;
   s32 t;
   s32 d;
+  s32 d2;
   s16 dx;
   s16 dy;
   s16 dz;
@@ -63,8 +64,8 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
 
   result = 0;
   first = 1;
-  setup = 0;
   loaded = 0;
+  setup = 0;
   *(u16 *) ((u8 *) arg4 + 0x78) = 0;
   guMtxIdentF(tr.mat);
   if (count--)
@@ -84,7 +85,7 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           first = 0;
           if (!setup)
           {
-            setup = 1;
+            
             g = func_80006008(arg4);
             if (D_8009FF30 == 5)
             {
@@ -114,6 +115,7 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
               _g->w1 = (D_800C02AE[0x6C26] << 24) | (D_800C02AE[0x6C26] << 16) | (D_800C02AE[0x6C26] << 8) | D_800C02AE[0x6C28];
             }
             func_80006014(arg4, g);
+            setup = 1;
           }
           t = func_8001BD1C();
           tr.mat[3][0] = obj->x;
@@ -126,16 +128,16 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           tr.offset[1] = 0;
           tr.offset[2] = 0;
           cam = *(u8 **) (D_800C02AE + 0x7CD6);
-          d = *(f32 *) (cam + 0x118) - (f32) obj->x;
-          if (d < 0)
-            d = -d;
+          d2 = *(f32 *) (cam + 0x118) - (f32) obj->x;
+          if (d2 < 0)
+            d2 = -d2;
           result = 0;
-          if (d < 6001)
+          if (d2 < 6001)
           {
-            d = *(f32 *) (cam + 0x120) - (f32) obj->z;
-            if (d < 0)
-              d = -d;
-            if (d < 6001)
+            d2 = *(f32 *) (cam + 0x120) - (f32) obj->z;
+            if (d2 < 0)
+              d2 = -d2;
+            if (d2 < 6001)
             {
               result = func_80010BFC(t, cam + 0x38, &tr);
               if (result == 1)

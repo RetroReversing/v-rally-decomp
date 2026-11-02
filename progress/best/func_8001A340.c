@@ -24,7 +24,7 @@ typedef struct { char pad[0x24]; void *player; char pad28[0x150]; s32 vis; } Cam
 typedef struct { char pad[0x8C]; struct { char pad[0x28]; Transform *transform; } *body; } Actor;
 typedef struct { u16 count; u16 pad; Actor *items[1]; } ActorList;
 
-#define gCmd(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (u32)(b); }
+#define gCmd(pkt, a, b) { u32 *_g = (u32 *)(pkt); _g[0] = (a); _g[1] = (u32)(b); }
 
 Gfx *func_80006008(Render *);
 void func_80006014(Render *, Gfx *);
@@ -68,7 +68,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   Matrix mtx;
   void *m;
   Gfx *gfx;
-  u32 sel;
+  u8 sel;
   s32 i;
   s16 v;
   s32 idx;
@@ -83,7 +83,10 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   m = func_8001BD1C();
   func_8002DFF4(&mtx, &obj->transform->matrix);
   func_80010BFC(m, arg3, &mtx);
-  gfx = func_80006008(r);
+  {
+  Gfx *start = func_80006008(r);
+  gfx = start;
+  }
   D_8009CBBC = 0;
   sel = D_800C7926 & -(D_800C792E & 1);
   switch (lod) {
@@ -142,7 +145,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
           }
           gCmd(gfx++, 0xDE000000, obj->lists->list[idx]);
         }
-        if (obj->lists->objects[idx] != NULL && (ent->a >= 0) & near) {
+        if (obj->lists->objects[idx] != NULL && ((u32)~ent->a >> 31) & near) {
           gCmd(gfx++, 0xE7000000, 0);
           gCmd(gfx++, 0xD9FFFFFF, 0x210405);
           gCmd(gfx++, 0xE200001C, 0xC8113078);

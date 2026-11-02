@@ -5,7 +5,7 @@ void func_8006F3C0(void)
 {
   u32 a1;
   u32 v0;
-    u32 __repair_v0_1;
+  u32 __repair_v0_1;
   u32 v1;
   vu16 *a0 = (vu16 *) (D_800C02AE + 0x6e5e);
   a1 = *((u32 *) (D_800C02AE + 0x6e76));
@@ -22,6 +22,6 @@ void func_8006F3C0(void)
   __repair_v0_1 &= 0x7fff;
   *((u32 *) (D_800C02AE + 0x6e76)) = a1;
   *a0 = __repair_v0_1;
-  *((u16 *) (D_800C02AE + 0x6e5e)) = v1;
+  *((u16 *) (D_800C02AE + 0x6e5e)) = (unsigned char) v1;
 }
 
