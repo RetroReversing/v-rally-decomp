@@ -173,35 +173,28 @@ void func_8006D564(s32 arg0)
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
         p = (u8 *)D_800D0634[1];
-        p = (u8 *)GROUP(p, j);
-        func_8006DD04((Group *)p);
+        func_8006DD04(GROUP(p, j));
         func_8006D10C();
     }
     for (j = 0; j < 5; j++) {
         D_800C35A0->mode = 2;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        p = (u8 *)D_800D0634[2];
-        p = (u8 *)GROUP(p, j);
-        func_8006DD04((Group *)p);
+        func_8006DD04(GROUP(D_800D0634[2], j));
         func_8006D10C();
     }
     for (j = 0; j < 6; j++) {
         D_800C35A0->mode = 3;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        p = (u8 *)D_800D0634[3];
-        p = (u8 *)GROUP(p, j);
-        func_8006DD04((Group *)p);
+        func_8006DD04(GROUP(D_800D0634[3], j));
         func_8006D10C();
     }
     for (j = 0; j < 3; j++) {
         D_800C35A0->mode = 4;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        p = (u8 *)D_800D0634[4];
-        p = (u8 *)GROUP(p, j);
-        func_8006DD04((Group *)p);
+        func_8006DD04(GROUP(D_800D0634[4], j));
         func_8006D10C();
     }
     for (i = 0; i < 12; i++) {

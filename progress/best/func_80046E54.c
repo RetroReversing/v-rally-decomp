@@ -70,22 +70,19 @@ void func_80046E54(Stat *s)
   i = 0;
   D_800ADFDE = 0;
   D_800B55E0 = s[2].v;
-  p = D_800B6FF2;
   do
   {
-    v = s[3].v;
-    *p = v;
+    v = s[i + 3].v;
+    D_800B6FF2[i] = v;
     if (D_800C35A0->diff == 0)
     {
-      *p = (inline_fn(v) / 50) + v;
+      D_800B6FF2[i] = ((((u8) v) * D_800B55E0) / 50) + v;
     }
     if (D_800C35A0->diff == 1)
     {
-      *p = (*p) + (((*p) * D_800B55E0) / 100);
+      D_800B6FF2[i] = D_800B6FF2[i] + ((D_800B6FF2[i] * D_800B55E0) / 100);
     }
-    p++;
     i++;
-    s++;
   }
   while (i < 5);
   if ((D_800C35A0->state != 0) & (D_800C35A0->state < 5))

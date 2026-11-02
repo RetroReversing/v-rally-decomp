@@ -1,9 +1,44 @@
-typedef struct Tex3 {u16 h0,h2,type,width,height;u8 a,b;u32 c;u8 **pal,**image;u32 x,y;} Tex3;
-typedef struct {u8 count,pad[3];Tex3 **tex;} Pack3;
-typedef struct { s16 x, y, w, h; } Rect;
-typedef struct { u8 pad[8]; Rect r; } RectHolder;
-typedef struct { u8 pad[0x178]; RectHolder *rh; } Node;
-typedef struct {
+#define CARFLAG(i) ((D_800C35A0 + (D_800C35A0 + (i))[0x31] * 40)[0x48] & 8)
+typedef struct Tex3
+{
+  u16 h0;
+  u16 h2;
+  u16 type;
+  u16 width;
+  u16 height;
+  u8 a;
+  u8 b;
+  u32 c;
+  u8 **pal;
+  u8 **image;
+  u32 x;
+  u32 y;
+} Tex3;
+typedef struct 
+{
+  u8 count;
+  u8 pad[3];
+  Tex3 **tex;
+} Pack3;
+typedef struct 
+{
+  s16 x;
+  s16 y;
+  s16 w;
+  s16 h;
+} Rect;
+typedef struct 
+{
+  u8 pad[8];
+  Rect r;
+} RectHolder;
+typedef struct 
+{
+  u8 pad[0x178];
+  RectHolder *rh;
+} Node;
+typedef struct 
+{
   u8 pad0[0x70];
   s16 ox;
   s16 oy;
@@ -26,9 +61,6 @@ Spr *func_80040260(s32 arg0, s16 arg1, s16 arg2, s16 arg3, void *arg4, s32 arg5)
 Node *func_8004240C(s32 arg0);
 void func_8003F05C();
 void func_8003EFF8();
-
-#define CARFLAG(i) ((D_800C35A0 + (D_800C35A0 + (i))[0x31] * 40)[0x48] & 8)
-
 void func_8003F3BC(s32 arg0, s32 arg1)
 {
   Rect *r;
@@ -43,40 +75,48 @@ void func_8003F3BC(s32 arg0, s32 arg1)
   s32 hw;
   s32 hh;
   s32 few;
-
   dy = 0;
   s1 = NULL;
-  if (*(u16 *)(D_800C35A0 + 0x1E) == 7 && *(u16 *)(D_800C35A0 + 0xE) < 3) {
+  if (((*((u16 *) (D_800C35A0 + 0x1E))) == 7) && ((*((u16 *) (D_800C35A0 + 0xE))) < 3))
+  {
     return;
   }
   n = D_800C35A0[0xF];
   few = n < 3;
-  if (few) {
-    for (i = 1; i <= n; i++) {
+  {
+    for (i = 1; i <= n; i++)
+    {
       D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);
       r = &D_800C7F84->rh->r;
       x = r->x;
       y = r->y;
-      switch (n) {
+      switch (n)
+      {
+        case 1:
+          dy = 0x4C;
+          x = r->w / 2;
+          y = (r->h / 5) - 16;
+          break;
 
-      case 1:
-        dy = 0x4C;
-        x = r->w / 2;
-        y = r->h / 5 - 16;
-        break;
-      case 2:
-        if (*(u16 *)(D_800C35A0 + 0x12) & 1) {
+        case 2:
+          if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
+        {
           dy = 0x20;
           x += r->w / 2;
-          y = y + r->h / 3 - 20;
-        } else {
+          y = (y + (r->h / 3)) - 20;
+        }
+        else
+        {
           dy = 0x5C;
           x += r->w / 2;
-          y = y + r->h / 5 + 12;
+          y = (y + (r->h / 5)) + 12;
         }
-        break;
+          break;
+
       }
-      if (CARFLAG(i)) {
+
+      if (CARFLAG(i))
+      {
         s1 = func_80040260(arg0, x, y + 10, 8, func_8003F05C, 1);
         s1->pack = func_80034FF0(arg1 + 0x4C, 0);
         s1->mode = 2;
@@ -90,32 +130,46 @@ void func_8003F3BC(s32 arg0, s32 arg1)
       t = s0->pack->tex[s0->frame];
       hw = t->width >> 1;
       hh = t->height >> 1;
-      if (n < 2) {
+      if (n < 2)
+      {
         s0->ox = -hw;
         s0->oy = -hh;
-        if (CARFLAG(i)) {
+        if (CARFLAG(i))
+        {
           s1->oy = -(s0->pack->tex[s1->frame]->height >> 1);
         }
-      } else if (few) {
-        if (*(u16 *)(D_800C35A0 + 0x12) & 1) {
+      }
+      else
+        if (few)
+      {
+        if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
+        {
           s0->sx = 0x480;
           s0->sy = 0x480;
-          if (CARFLAG(i)) {
+          if (CARFLAG(i))
+          {
             s1->sx = 0x480;
             s1->sy = 0x480;
           }
-          s0->ox = hw / 4 - hw;
-        } else {
+          s0->ox = (hw / 4) - hw;
+        }
+        else
+        {
           s0->ox = -(s0->pack->tex[0]->width >> 1);
         }
         s0->oy = -(s0->pack->tex[0]->height >> 1);
-        if (CARFLAG(i)) {
+        if (CARFLAG(i))
+        {
           s1->oy = -(s0->pack->tex[0]->height >> 1);
         }
-      } else {
+      }
+      else
+      {
         s0->sx = 0x800;
         s0->sy = 0x800;
       }
     }
+
   }
 }
+

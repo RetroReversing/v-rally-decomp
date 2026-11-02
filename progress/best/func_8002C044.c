@@ -7,6 +7,8 @@ typedef struct
   s16 y;
   s16 z;
 } Vec;
+typedef struct { s32 v[3]; s32 pad[2]; } E20;
+typedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;
 extern char *D_800B5C40;
 void func_8002D8A0(void *, void *, void *);
 int func_80028E94(void *, void *, int);
@@ -45,16 +47,16 @@ void func_8002C044(char *a)
   int oldcol;
   int *new_var5;
   int oldresult;
-  for (i = 0; i < 12; i++, dst += 20, src += 20, off += 20)
+  for (i = 0; i < 12; i++)
   {
-    func_8002D8A0(P(a, 0x5c) + 64, P(a, 0x80) + src, P(a, 0x80) + dst);
-    b = (P(a, 0x80) + off) + 256;
-    c = (P(a, 0x80) + off) + 496;
+    func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
     {
+      E20 *bb = (E20 *) (P(a, 0x80) + i * 20 + 256);
+      E20 *cc = (E20 *) (P(a, 0x80) + i * 20 + 496);
       char *trans = P(a, 0x58);
-      W(c, 0) = W(b, 0) + W(trans, 12);
-      W(c, 4) = W(b, 4) + W(trans, 16);
-      W(c, 8) = W(b, 8) + W(trans, 20);
+      cc->v[0] = bb->v[0] + W(trans, 12);
+      cc->v[1] = bb->v[1] + W(trans, 16);
+      cc->v[2] = bb->v[2] + W(trans, 20);
     }
   }
 
@@ -194,8 +196,10 @@ void func_8002C044(char *a)
           W(P(a, 96), i * 4) = W(P(a, 96), k);
           P(P(a, 140), i * 4) = P(P(a, 140), k);
         }
+        func_80029AA8(a, q, &pos, i);
       }
-      func_80029AA8(a, q, &pos, i);
+      else
+        func_80029AA8(a, q, &pos, i);
     }
     else
       if (result < 0)

@@ -42,7 +42,7 @@ s32 func_80009964(RState *arg0, u8 force)
   if ((arg0->f.cb != arg0->f.b) | (force == 1))
   {
     arg0->f.cb = arg0->f.b;
-    if (!arg0->f.b)
+    if ((u8)arg0->f.b == 0)
       CMD(arg0, 0xE3001201, 0)
     else
       CMD(arg0, 0xE3001201, 0x2000)
@@ -74,7 +74,7 @@ s32 func_80009964(RState *arg0, u8 force)
   if ((arg0->f.ce != arg0->f.e) | (force == 1))
   {
     arg0->f.ce = arg0->f.e;
-    if (!arg0->f.e)
+    if ((u8)arg0->f.e == 0)
       CMD(arg0, 0xD9DFFFFF, 0)
     else
       CMD(arg0, 0xD9FFFFFF, 0x200000)

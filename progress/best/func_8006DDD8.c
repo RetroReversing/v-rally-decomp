@@ -11,11 +11,12 @@ s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {
   char *__repair_addr;
+  f64 bound = D_800A58A8;
   u8 *p = D_800C35A0;
   u8 *tab = D_800C7125;
+  s32 i = 0;
   u8 *base = D_800D0634 + (p[0x21] * 0x2c4);
   u32 idx;
-  s32 i;
   u32 x;
   s32 raw;
   u32 twice;
@@ -30,11 +31,9 @@ long func_8006DDD8(void)
   b = ((f64) ((s32) idx)) * D_800A58B0;
   stride = (*((u8 **) (D_800C02AE + 0x32f2)))[0x23] * 64;
   new_var = 0x40;
-  i = 0;
-  do
+loop:
   {
     {
-      f64 bound = D_800A58A8;
       f64 value = b + (((f64) (i & 255)) * D_800A58B8);
       if (!(bound <= value))
       {
@@ -46,7 +45,7 @@ long func_8006DDD8(void)
       }
       x = raw;
     }
-    off = ((((i & 255) * 3) + (idx * 9)) * 4) - (((u8) x) * 8);
+    off = (((idx * 9) + ((i & 255) * 3)) * 4) - (((u8) x) * 8);
     code = func_8006B924((base + (stride + 0x2c)) + ((i & 255) * 16), i & 255);
     if (((u8) code) == 5)
     {
@@ -63,8 +62,8 @@ long func_8006DDD8(void)
     }
     else
     {
-      __repair_addr = (char *) (((base + stride) + 0x2c) + (i * 16));
-      delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) __repair_addr));
+      
+      delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
       if (delta >= 0)
       {
         if (delta >= 1024)
@@ -166,6 +165,6 @@ long func_8006DDD8(void)
     }
     i++;
   }
-  while (((((((((i & 255) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) & 0xFFFFu) < 3);
+  if ((u32)(i & 255) < 3) goto loop;
 }
 

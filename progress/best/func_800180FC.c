@@ -68,8 +68,8 @@ Track *func_800180FC(Track *t0)
 {
   Seg *segs;
   Track *t;
-  char *c;
   Seg *s;
+  Seg *q;
   s32 i;
   s32 j;
   s32 n;
@@ -149,9 +149,11 @@ Track *func_800180FC(Track *t0)
     D_800C3510 = old;
     for (i = 0; i < t->n; i++)
     {
-      Seg *tmp = segs[i].s5C;
-      segs[i].s5C = segs[i].s58;
-      segs[i].s58 = tmp;
+      Seg *tmp;
+      s = &segs[i];
+      tmp = s->s5C;
+      s->s5C = s->s58;
+      s->s58 = tmp;
     }
 
   }
@@ -162,6 +164,7 @@ Track *func_800180FC(Track *t0)
     segs[D_800C3510].f.b4 = 0;
     segs[D_800C7F80->cur].f.b1 = 0;
     segs[D_800C7F80->cur].f.b0 = 1;
+    segs[D_800C7F80->cur].f.b4 = 1;
   }
   else
   {
@@ -172,8 +175,8 @@ Track *func_800180FC(Track *t0)
     segs[D_800C7F80->cur].f.b1 = 0;
     segs[D_800C7F80->cur].f.b0 = 1;
     segs[D_800C7F80->cur].f.b2 = 1;
+    segs[D_800C7F80->cur].f.b4 = 1;
   }
-  segs[D_800C7F80->cur].f.b4 = 1;
   if (D_800A73E0[0x6C01] == 0)
   {
     segs[D_800C7F80->cur].f.b2 = 1;
@@ -187,6 +190,7 @@ Track *func_800180FC(Track *t0)
   {
     if (segs[i].cmds)
     {
+      char *c;
  do { segs[i].cmds += D_800B56EC; func_80015460(segs[i].cmds, segs[i].count50); c = segs[i].cmds; } while (0);
       if (c)
       {
@@ -239,9 +243,9 @@ Track *func_800180FC(Track *t0)
   }
 
   func_80028740(D_8009C230);
-  for (i = 0, s = segs; i < t->n; i++, s++)
+  for (i = 0, q = segs; i < t->n; i++, q++)
   {
-    func_800307C8(s);
+    func_800307C8(q);
   }
 
   func_80030A0C(D_8009C230);

@@ -1,4 +1,4 @@
-typedef struct
+typedef struct 
 {
   u32 w0;
   u32 w1;
@@ -42,7 +42,6 @@ extern u8 D_8009EB40[];
 extern s32 D_8009FF30;
 extern f64 D_800A4A60;
 extern u8 D_800C02AE[];
-
 void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
 {
   Xform tr;
@@ -61,12 +60,11 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
   Gfx *g;
   u16 id;
   f64 lim;
-
   result = 0;
   first = 1;
   loaded = 0;
   setup = 0;
-  *(u16 *) ((u8 *) arg4 + 0x78) = 0;
+  *((u16 *) (((u8 *) arg4) + 0x78)) = 0;
   guMtxIdentF(tr.mat);
   if (count--)
   {
@@ -77,15 +75,15 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
       {
         if (!loaded)
         {
-          func_800075BC(arg4, size, 0);
           loaded = 1;
+          func_800075BC(arg4, size, 0);
         }
         if (first)
         {
           first = 0;
           if (!setup)
           {
-            
+            setup = 1;
             g = func_80006008(arg4);
             if (D_8009FF30 == 5)
             {
@@ -107,15 +105,14 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
             {
               Gfx *_g = g++;
               _g->w0 = 0xFA000000;
-              _g->w1 = (D_800C02AE[0x6C27] << 24) | (D_800C02AE[0x6C27] << 16) | (D_800C02AE[0x6C27] << 8);
+              _g->w1 = ((D_800C02AE[0x6C27] << 24) | (D_800C02AE[0x6C27] << 16)) | (D_800C02AE[0x6C27] << 8);
             }
             {
               Gfx *_g = g++;
               _g->w0 = 0xFB000000;
-              _g->w1 = (D_800C02AE[0x6C26] << 24) | (D_800C02AE[0x6C26] << 16) | (D_800C02AE[0x6C26] << 8) | D_800C02AE[0x6C28];
+              _g->w1 = (((D_800C02AE[0x6C26] << 24) | (D_800C02AE[0x6C26] << 16)) | (D_800C02AE[0x6C26] << 8)) | D_800C02AE[0x6C28];
             }
             func_80006014(arg4, g);
-            setup = 1;
           }
           t = func_8001BD1C();
           tr.mat[3][0] = obj->x;
@@ -127,16 +124,20 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           tr.offset[0] = 0;
           tr.offset[1] = 0;
           tr.offset[2] = 0;
-          cam = *(u8 **) (D_800C02AE + 0x7CD6);
-          d2 = *(f32 *) (cam + 0x118) - (f32) obj->x;
+          cam = *((u8 **) (D_800C02AE + 0x7CD6));
+          d2 = (*((f32 *) (cam + 0x118))) - ((f32) obj->x);
           if (d2 < 0)
+          {
             d2 = -d2;
+          }
           result = 0;
           if (d2 < 6001)
           {
-            d2 = *(f32 *) (cam + 0x120) - (f32) obj->z;
+            d2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);
             if (d2 < 0)
+            {
               d2 = -d2;
+            }
             if (d2 < 6001)
             {
               result = func_80010BFC(t, cam + 0x38, &tr);
@@ -155,11 +156,14 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           delta[1] = dy;
           dz = obj->z - tr.origin[2];
           delta[2] = dz;
-          if ((f64) abs(dx) < lim && (f64) abs(dy) < lim && (f64) abs(dz) < lim)
+          if (((((f64) abs(dx)) < lim) && (((f64) abs(dy)) < lim)) && (((f64) abs(dz)) < lim))
           {
-            d = obj->y - *(s32 *) (*(u8 **) ((u8 *) arg0 + 0x5C) + 0x58);
+            d = obj->y;
+            d = d - (*((s32 *) ((*((u8 **) (((u8 *) arg0) + 0x5C))) + 0x58)));
             if (d < 0)
+            {
               d = -d;
+            }
             if (d < 160)
             {
               tr.offset[0] = dx;
@@ -173,14 +177,11 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           first = 1;
           result = 0;
         }
-      draw:
+        draw:
         if (result == 1)
         {
           id = func_80006EF8(arg4, 0);
-          func_800068C0(arg4, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2],
-                        (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]),
-                        (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]),
-                        (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));
+          func_800068C0(arg4, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2], (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]), (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]), (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));
           func_800071EC(arg4, id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
           func_80008B28(arg4, id, 0, 0, size->w, 0, size->w, size->h, 0, size->h);
         }
@@ -188,9 +189,11 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
         {
           first = 1;
         }
+
       }
       obj++;
     }
     while (count--);
   }
 }
+

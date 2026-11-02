@@ -46,5 +46,4 @@ void	guS2DInitBg(uObjBg *bg)
 
 
   }
-  return;
 }

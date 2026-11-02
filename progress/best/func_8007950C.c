@@ -207,8 +207,7 @@ row_color_done:
     {
       func_80073108(arg0, temp_s0_4, temp_s4, *((s32 *) (D_800C02AE - (-0x103B2))), (s32) D_800C7F90[(var_fp & 0xFFFF)].icon);
     }
-    temp_s2_3 = temp_s4 + 1;
-    var_s7 = temp_s2_3;
+    temp_s2_3 = temp_s4; ++temp_s2_3; var_s7 = temp_s2_3;
     temp_s0_5 = temp_s0_4 + D_800A17EA;
     if ((var_fp & 0xFFFF) == 0) goto zero_row;
     if ((var_fp & 0xFFFF) != 4) goto normal_row;

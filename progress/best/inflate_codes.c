@@ -143,15 +143,38 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
       n -= chunk;
       if ((w - d) >= chunk)
       {
-        if ((!(((u32) ((w + D_800AE850) + 0x8AE8)) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
+        u32 *to = (u32 *) ((w + D_800AE850) + 0x8AE8);
+        if ((!(((u32) to) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
-          wcopy((u32 *) ((w + D_800AE850) + 0x8AE8), (u32 *) ((d + D_800AE850) + 0x8AE8), words * 4);
+          {
+            u32 *from = (u32 *) ((d + D_800AE850) + 0x8AE8);
+            u32 len = words * 4;
+            u32 *end = (u32 *) ((u8 *) from + len);
+            u32 n2;
+            u32 *s;
+            if ((to < end) & (from < to))
+            {
+              s = end;
+              n2 = len >> 2;
+              to = (u32 *) ((u8 *) to + len);
+              for (; n2; n2--)
+                *(--to) = *(--s);
+            }
+            else
+            {
+              s = from;
+              n2 = len >> 2;
+              for (; n2; n2--)
+                *(to++) = *(s++);
+            }
+          }
           w += words * 4;
           d += words * 4;
           chunk &= 3;
+          to = (u32 *) ((w + D_800AE850) + 0x8AE8);
         }
-        func_8008E13C((w + D_800AE850) + 0x8AE8, (d + D_800AE850) + 0x8AE8, chunk);
+        func_8008E13C(to, (d + D_800AE850) + 0x8AE8, chunk);
         w += chunk;
         d += chunk;
       }

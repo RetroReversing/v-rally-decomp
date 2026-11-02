@@ -38,9 +38,8 @@ void func_8007A29C(void)
   s8 i;
   s8 j;
   s32 n;
-  s32 pad[2];
   u8 t;
-  s32 v;
+  s32 pad[2];
   func_8004D31C();
   func_8005BC60();
   func_8005BB5C();
@@ -55,13 +54,13 @@ void func_8007A29C(void)
   cnt = base + 0x23D;
   tbl = D_800D0658;
   q = base + 0x241;
-  B(base, 0x23E) = 8;
-  B(base, 0x243) = 0xC;
   B(base, 0x23D) = 4;
+  B(base, 0x23E) = 8;
   B(base, 0x23F) = 4;
   B(base, 0x240) = 4;
   B(base, 0x241) = 0;
   B(base, 0x242) = 4;
+  B(base, 0x243) = 0xC;
   B(base, 0x244) = 0x10;
   do
   {

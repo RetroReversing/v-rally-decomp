@@ -86,18 +86,17 @@ void func_8006A438(void)
     u16 *pAC = &D_800A16AC;
 #define D_800A16AC (*pAC)
     a1 = D_800AFA64;
-    a2 = U(a1, 0x88);
-    a2 = (a2 << 1) / 3;
+    a2 = U(a1, 0x88) * 2 / 3;
     v0 = a2 * U(a1, 0x8A);
     a3 = W(a1, 0x4C);
-    temp_a0 = (v0 + a3) * 6;
-    F(&D_800A16B4, 0x0) = (f32) (H(P(a1, 0x54) + temp_a0, 0) + W(a1, 0x24));
-    D_800A16B8 = (f32) ((H(P(a1, 0x54) + temp_a0, 0x2) + W(a1, 0x28)) - 0x12C);
-    D_800A16BC = (f32) (H(P(a1, 0x54) + temp_a0, 0x4) + W(a1, 0x2C));
-    temp_a0 = ((a2 + 1) * U(a1, 0x8A) + a3) * 6;
-    F(&D_800A16C0, 0x0) = (f32) (H(P(a1, 0x54) + temp_a0, 0) + W(a1, 0x24));
-    D_800A16C4 = (f32) ((H(P(a1, 0x54) + temp_a0, 0x2) + W(a1, 0x28)) - 0x12C);
-    D_800A16C8 = (f32) (H(P(a1, 0x54) + temp_a0, 0x4) + W(a1, 0x2C));
+    temp_a0 = v0 + a3;
+    F(&D_800A16B4, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));
+    D_800A16B8 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);
+    D_800A16BC = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));
+    temp_a0 = ++a2 * U(a1, 0x8A) + a3;
+    F(&D_800A16C0, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));
+    D_800A16C4 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);
+    D_800A16C8 = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));
     temp_v0 = func_8004240C(3);
     temp_a3 = W(temp_v0, 0x178);
     D_800C7F84 = temp_v0;
@@ -123,9 +122,6 @@ void func_8006A438(void)
     F(D_800C7F84, 0x114) = 1.0f;
     cursor = func_80006008(temp_s7);
     {
-      char *tex = D_8009B5A8;
-#define D_8009B5A8 tex
-    {
       char *cmd = cursor;
       cursor += 8;
       V(cmd, 0) = 0xE7000000;
@@ -137,13 +133,16 @@ void func_8006A438(void)
       V(cmd, 0) = 0xE3000A01;
       V(cmd, 4) = 0x300000;
     }
+    new_var2 = D_800B706C - 0x80000000;
+    {
+      char *tex = D_8009B5A8;
+#define D_8009B5A8 tex
     {
       char *cmd = cursor;
       cursor += 8;
       V(cmd, 0) = 0xFE000000;
-      V(cmd, 4) = D_800B706C - 0x80000000;
+      V(cmd, 4) = new_var2;
     }
-    new_var2 = D_800B706C - 0x80000000;
 
     {
       char *cmd = cursor;
@@ -168,7 +167,6 @@ void func_8006A438(void)
       cursor += 8;
       V(cmd, 0) = 0xE7000000;
       V(cmd, 4) = 0;
- do { } while (0);
     }
     {
       char *cmd = cursor;
@@ -203,7 +201,8 @@ void func_8006A438(void)
     func_80006014(temp_s7);
     temp_s0 = func_8004240C(3);
     func_80010A6C(func_8004240C(3), &D_800A16AC);
-    temp_v0_5 = func_800056FC(W(temp_s0, 0x178));
+    temp_s7 = func_800056FC(W(temp_s0, 0x178));
+#define temp_v0_5 temp_s7
     cursor = func_80006008(temp_v0_5);
     guMtxF2L(new_var = temp_s0 + 0x38, func_8001BD1C());
     ;
@@ -245,9 +244,10 @@ void func_8006A438(void)
     temp_s7 = func_800056FC(temp_a3);
     temp_v0_7 = func_8004240C(1);
     D_800C7F84 = temp_v0_7;
+    temp_v0_7 += 0x38;
     D_800C7F84 = func_8004240C(3);
     func_80015F3C(temp_s7);
-    func_80015D68(D_800ADFB0, *D_800C8374, temp_s7, temp_s7, temp_v0_7 + 0x38);
+    func_80015D68(D_800ADFB0, *D_800C8374, temp_s7, temp_s7, temp_v0_7);
     if (D_8009D4EC != 0)
     {
       func_80081B28(D_8009D4EC);

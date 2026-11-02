@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern s32 D_800D065C;
 extern u8 D_800C02AE[];
 extern s32 D_800B6164;
@@ -98,8 +100,7 @@ void func_80033F20(A *a, B *b, C *c)
     }
     *(s32 *)((D_800C02AE + 0x10000) + 0x3AE) = x;
     D_800B6164 = b->limit;
-    delta = (speed < 0) ? -speed : speed;
-    delta = x - delta;
+    delta = x - __builtin_abs(speed);
     if (speed < new_var4)
     {
       slew = 255;
@@ -126,7 +127,8 @@ void func_80033F20(A *a, B *b, C *c)
     }
     goto done;
     special:
-    delta = (new_var = (rev == 3) ? (-2000) : 0) - speed;
+    x = (rev == 3) ? (-2000) : 0;
+    delta = x - speed;
 
     if (delta > 255)
     {
@@ -154,8 +156,9 @@ void func_80033F20(A *a, B *b, C *c)
     c->lo = 0;
   }
   done:
-  c->status |= ((u8) inline_fn(c)) | 16;
+  c->status = c->status | ~c->flags | 16;
 
   c->result = c->flags & c->status;
   *((s32 *) (((u8 *) a->motion) + 0x170)) = t;
 }
+

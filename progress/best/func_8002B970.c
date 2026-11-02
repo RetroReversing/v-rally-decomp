@@ -19,7 +19,7 @@ void func_8002B970(u8 *arg0, u8 *arg1)
     s32 y;
     s32 z;
   } sp;
-  s32 temp_a0;
+  s32 temp_a0; 
   s32 gv;
   s32 v0a;
   s32 temp_a0_5;
@@ -45,6 +45,7 @@ void func_8002B970(u8 *arg0, u8 *arg1)
   void *temp_a2_3;
   void *temp_v0;
   u8 *var_t0;
+  struct Row { u8 pad[0x44]; s32 v; s32 w; } *r;
   gv = I(D_800AE850, 0x82AC);
   v0a = I(arg0, 0x90);
   gv -= 0x1E;
@@ -53,19 +54,19 @@ void func_8002B970(u8 *arg0, u8 *arg1)
   var_s2 = 4;
   I(P(arg1, 0x80), 0x8) = (s32) (I(arg0, 0xDC) + I(D_800C02AE, 0x3246));
   var_a3 = 0x50;
-  var_t0 = ((u8 *) arg0) + 0x130;
+  temp_v0_4 = 4;
   I(P(arg1, 0x80), 0xC) = (s32) I(arg0, 0x128);
   do
   {
-    temp_a0 = I(var_t0, 0x44);
-    temp_a1 = I(var_t0, 0x90);
-    temp_a2 = I(var_t0, 0xDC);
+    temp_a0 = ((struct Row *) arg0)[temp_v0_4].v;
+    temp_a1 = ((struct Row *) arg0)[temp_v0_4 + 1].v;
+    temp_a2 = ((struct Row *) arg0)[temp_v0_4 + 2].v;
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x10) = (s32) (-temp_a0);
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x14) = temp_a1;
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x18) = temp_a2;
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x24) = temp_a0;
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x28) = temp_a1;
-    var_t0 += 0xE4;
+    temp_v0_4 += 3;
     var_s2 += 2;
     I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x2C) = temp_a2;
     var_a3 += 0x28;
@@ -85,7 +86,7 @@ void func_8002B970(u8 *arg0, u8 *arg1)
     temp_a1_3 = temp_a1_2 + ((unsigned char) 0x100);
     temp_a0_3 = ((u8 *) temp_a0_2) - (-var_s1);
     temp_a0_4 = temp_a0_3 + 0x1F0;
-    I(temp_a0_3, 0x1F0) = (s32) (I(temp_a1_2, 0x100) + I(temp_a2_3, 0xC));
+    I(temp_a0_4, 0) = (s32) (I(temp_a1_3, 0) + I(temp_a2_3, 0xC));
     I(temp_a0_4, 0x4) = (s32) (I(temp_a1_3, 0x4) + I(temp_a2_3, 0x10));
     I(temp_a0_4, 0x8) = (s32) (I(temp_a1_3, 0x8) + I(temp_a2_3, 0x14));
     var_t0 = D_8009C230;

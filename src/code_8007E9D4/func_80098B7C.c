@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern char D_800ADF08[];
 s32 func_80098998(s8 *arg0, s32 arg1, s32 arg2);
 f64 func_8009A590(f64 arg0, f64 *arg2);
@@ -29,7 +31,7 @@ char *func_80098B7C(f64 value, s32 ndigit, s32 *decpt, s32 *sign) {
     f64 *np;
     char *p;
 
-    exp10 = 0;
+    exp10 = 0; 
     bit = 0x100;
     n = ndigit;
     *sign = 0;
@@ -52,8 +54,7 @@ char *func_80098B7C(f64 value, s32 ndigit, s32 *decpt, s32 *sign) {
             *sign = 0;
             return D_800ADF08;
         }
-        __builtin_memcpy(D_800ADF08, D_800A7294, 4);
-        return D_800ADF08;
+        __builtin_memcpy(D_800ADF08, D_800A7294, 4); return D_800ADF08;
     }
     if (value < 0.0) {
         *sign = 1;
@@ -87,13 +88,11 @@ char *func_80098B7C(f64 value, s32 ndigit, s32 *decpt, s32 *sign) {
 again:
     if (x >= D_800A72A8) {
         exp10++;
-        x *= D_800A72B0;
-        goto again;
+        x *= D_800A72B0; goto again;
     }
     if (x < D_800A72B8) {
         exp10--;
-        x *= D_800A72A8;
-        goto again;
+        x *= D_800A72A8; goto again;
     }
     ten = D_800A72A8;
     p = D_800ADF08;
@@ -108,3 +107,4 @@ again:
     }
     return D_800ADF08;
 }
+

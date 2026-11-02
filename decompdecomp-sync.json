@@ -208,12 +208,23 @@
     "src/code_8004BEB4/func_8004C98C.c": "9361d43c4339a1ea45c2221301e7829bd909f081e3147beb1d98d8daa14d295f",
     "src/code_8001F46C/func_8001FFC4.c": "6f5d19adc30767ddaac5647a349d545eef923b9729e0dfcc3748b38418ae4e6e",
     "src/code_80026E3C/func_8002AA18.c": "775f873c732aa1972a97530acaa2e7cd17617dc56399b5586f6f93b045939cc0",
-    "src/code_80017B38/func_8001AF54.c": "12a27afc06f2c3a73ebae4b586d755e45b1315e31319e17da67fded079074a14"
+    "src/code_80017B38/func_8001AF54.c": "12a27afc06f2c3a73ebae4b586d755e45b1315e31319e17da67fded079074a14",
+    "src/code_8001F46C/func_80020428.c": "c9933701fce2da8e1bbc6da20711175fc810bb33c37ffb72504efc553cceb71b",
+    "src/code_80026E3C/func_8003BEBC.c": "a86b99b55e3efa5f4f7e265858872b714579a6c0f84cd8544e77c5d68fd1431e",
+    "src/code_8007E9D4/func_80098B7C.c": "f98025205f55bf3915d8c730a0379f4edb2baa93bb8ae34ee5477e60c522bba7",
+    "src/code_8004BEB4/func_80077FA8.c": "8fd3003432b1d580c6ed7044489871c9dcdeb520568e31e07b9eb5e384d16eba",
+    "src/code_8007E9D4/guMtxIdent.c": "2e31ef9670995eb66e5cc35a6348cf2ecc0308a762ff1427e0df425837b19cae",
+    "src/code_8007E9D4/func_80096268.c": "2fe54c6c5d6073d43572f0b5b7ac3299ddf4b20e599897b97f051065e577a971",
+    "src/code_8004BEB4/func_80053380.c": "16c441a73fc6c40b34ba4334fb5a8859aa0b18775964dbd2155aa3522ab559e6",
+    "src/code_80026E3C/func_80033F20.c": "20cfdd7819d423b32541f4a4c5a212ea24bec4ea55d9e81bfc1b4d96a49339be",
+    "src/code_8004BEB4/func_800535F4.c": "47b9fca5906fc98f296b78621ed57f0d2d2000309d1d9331fbf299d587511497",
+    "src/code_8004BEB4/func_800746C0.c": "862528b4789c19511fe4f2820decd129067859758f2885ff2cf9aa1d94e0e496"
   },
   "accepted": [
     "MusInitialize",
     "__osCheckPackId",
     "__osContRamRead",
+    "__osGetId",
     "__osPfsRWInode",
     "__osPfsRequestData",
     "__osRepairPackId",
@@ -258,6 +269,7 @@
     "func_8001CB88",
     "func_8001D07C",
     "func_8001FFC4",
+    "func_80020428",
     "func_80020B04",
     "func_80021064",
     "func_80022BE8",
@@ -276,6 +288,7 @@
     "func_80030A0C",
     "func_80031F2C",
     "func_800324B4",
+    "func_80033F20",
     "func_80034134",
     "func_800344F0",
     "func_800354F4",
@@ -290,6 +303,7 @@
     "func_80039A00",
     "func_8003B310",
     "func_8003B660",
+    "func_8003BEBC",
     "func_8003C354",
     "func_8003C968",
     "func_8003CD18",
@@ -331,6 +345,8 @@
     "func_80051994",
     "func_800526E4",
     "func_80052CF4",
+    "func_80053380",
+    "func_800535F4",
     "func_80053784",
     "func_80053F44",
     "func_800540A0",
@@ -383,10 +399,12 @@
     "func_8007159C",
     "func_80072984",
     "func_80073B64",
+    "func_800746C0",
     "func_800754D4",
     "func_80076060",
     "func_80077054",
     "func_80077724",
+    "func_80077FA8",
     "func_800783A8",
     "func_8007A01C",
     "func_8007BDC4",
@@ -414,13 +432,19 @@
     "func_800911B0",
     "func_80097A34",
     "func_80098560",
+    "func_80098B7C",
     "func_8009912C",
     "guLookAtReflectF",
+    "guMtxIdent",
     "guRotate",
     "huft_build",
     "inflate_dynamic"
   ],
   "skipped": [
+    {
+      "function": "func_8002C6EC",
+      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
+    },
     {
       "function": "func_8005D0B0",
       "reason": "The candidate has non-contiguous constant pools. Reference existing ROM data separately or split the pools before standalone export."
@@ -432,8 +456,20 @@
     {
       "function": "func_80087DE4",
       "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
+    },
+    {
+      "function": "__osPfsRequestData",
+      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
+    },
+    {
+      "function": "guS2DInitBg",
+      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
+    },
+    {
+      "function": "alFxPull",
+      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
     }
   ],
   "verified_build": true,
-  "matched_app": 1946
+  "matched_app": 1959
 }

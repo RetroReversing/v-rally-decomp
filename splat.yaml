@@ -69,8 +69,6 @@ segments:
   - - 50448
     - c
     - code_8000B910
-- type: bin
-  start: 55312
 - name: code_8000D9A0
   type: code
   start: 58784
@@ -79,8 +77,6 @@ segments:
   - - 58784
     - c
     - code_8000D9A0
-- type: bin
-  start: 73088
 - name: code_80012114
   type: code
   start: 77076
@@ -89,8 +85,6 @@ segments:
   - - 77076
     - c
     - code_80012114
-- type: bin
-  start: 96064
 - name: code_80017B38
   type: code
   start: 100152
@@ -119,8 +113,6 @@ segments:
   - - 162364
     - c
     - code_80026E3C
-- type: bin
-  start: 310208
 - name: code_8004BEB4
   type: code
   start: 314036
@@ -139,8 +131,6 @@ segments:
   - - 499980
     - c
     - code_8007950C
-- type: bin
-  start: 512672
 - name: code_8007E9D4
   type: code
   start: 521684

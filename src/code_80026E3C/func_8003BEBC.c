@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern int D_800AE858;
 s32 func_80038A8C(s32);
 s32 func_8003BE44(void *);
@@ -71,21 +73,18 @@ void func_8003BEBC(void *arg0)
         temp_ft0 = 1024.0f;
         temp_ft0 = temp_ft0 / ((f32) ((s16) (*((u16 *) (((char *) arg0) + 0x98)))));
         temp_v1_2 = *(*((void ***) (((char *) (*((void **) (((char *) arg0) + 0xA4)))) + 4)));
-        x = (f32) (*((u16 *) (((char *) temp_v1_2) + 6)));
-        x = temp_ft0 * x;
-        temp_ft0 = (f32) (*((u16 *) (((char *) temp_v1_2) + 8)));
-        y = temp_ft0;
-        y = temp_ft0 * y;
-        x *= 0.5f;
-        y *= 0.5f;
-        *((u16 *) (((char *) arg0) + 0x9A)) = *((volatile s16 *) (((char *) arg0) + 0x98));
         {
-          s32 ix = (s32) (-x);
-          s32 iy = (s32) (-y);
-          *((s16 *) (((char *) arg0) + 0x70)) = ix;
-          new_var = ((char *) arg0) + 0x72;
-          *((s16 *) new_var) = iy;
+        f32 w = (f32) (*((u16 *) (((char *) temp_v1_2) + 6)));
+        x = temp_ft0 * w;
         }
+        y = (f32) (*((u16 *) (((char *) temp_v1_2) + 8)));
+        temp_ft0 = temp_ft0 * y;
+        x *= 0.5f;
+        temp_ft0 *= 0.5f;
+        y = temp_ft0;
+        *((u16 *) (((char *) arg0) + 0x9A)) = *((volatile s16 *) (((char *) arg0) + 0x98));
+        *((s16 *) (((char *) arg0) + 0x70)) = -x;
+        *((s16 *) (((char *) arg0) + 0x72)) = -y;
       }
     }
   }
@@ -97,3 +96,4 @@ void func_8003BEBC(void *arg0)
 
   }
 }
+

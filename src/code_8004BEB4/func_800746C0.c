@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct RRec { s32 time; u8 c4; u8 pad5; char name[4]; u8 cA; char padB[0x40 - 0xB]; } RRec;
 typedef struct RData { char pad0[0x2C]; RRec recs[8]; s32 vals[8]; } RData;
 typedef struct RRes { char pad0[0x14]; RData *data; char pad18[0x24 - 0x18]; s32 *times; s32 *vals; } RRes;
@@ -18,6 +20,7 @@ void func_800746C0(void) {
     s32 *vals;
     RData *data;
     u8 i;
+    u32 n;
 
     car = *D_800B5C40;
     func_80041564();
@@ -40,7 +43,7 @@ void func_800746C0(void) {
                 D_800C7F90[i].diff = 0;
             }
             i++;
-        } while (i < 6);
+        } while ((n = i) < 6);
         break;
     case 2:
         i = 0;
@@ -81,14 +84,15 @@ void func_800746C0(void) {
                 D_800C7F90[i].diff = 0;
             }
             i++;
-        } while (i < 6);
+        } while ((n = i) < 6);
         break;
     default:
         return;
     }
-    func_80098290(D_800C7F90[i].name, data->recs[D_800C35A0->sel].name);
-    D_800C7F90[i].obj = car;
-    D_800C7F90[i].total = data->recs[D_800C35A0->sel].time;
-    D_800C7F90[i].rate = data->recs[D_800C35A0->sel].cA;
-    D_800C7F90[i].b = data->recs[D_800C35A0->sel].c4;
+    func_80098290(D_800C7F90[n].name, data->recs[D_800C35A0->sel].name);
+    D_800C7F90[n].obj = car;
+    D_800C7F90[n].total = data->recs[D_800C35A0->sel].time;
+    D_800C7F90[n].rate = data->recs[D_800C35A0->sel].cA;
+    D_800C7F90[n].b = data->recs[D_800C35A0->sel].c4;
 }
+

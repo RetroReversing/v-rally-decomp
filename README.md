@@ -20,8 +20,10 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,943 selected C functions / 451,816 matching bytes**, about **79.83% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,943 C and 179 assembly functions**.
+The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. They remain assembly until matched C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. Concurrent agent work brought the portable snapshot to **1,960 matches**, including the recovered `func_8007C694`; those newer app sources are preserved even where this standalone checkpoint still selects assembly. The portable snapshot also retains integration exceptions and newer drafts.
+
+- **1,953 selected C functions / 459,020 matching bytes**, about **77.52% of 592,136 exported candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,953 C and 169 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
