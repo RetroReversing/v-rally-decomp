@@ -20,10 +20,10 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. The recovered targets remain assembly until independently verified C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. The refreshed portable snapshot contains **1,962 matches**. Five further C functions are now integrated, including recovered `func_8004AFB8` and `func_8007C694` (9,024 bytes), after independent compilation and a complete cartridge comparison. Seven integration exceptions remain preserved. The portable snapshot also retains integration exceptions and newer drafts.
+The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. The recovered targets remain assembly until independently verified C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. The refreshed portable snapshot contains **1,962 matches**. Five further C functions are now integrated, including recovered `func_8004AFB8` and `func_8007C694` (9,024 bytes), after independent compilation and a complete cartridge comparison. The seven previously reported exceptions are reconciled: three already had curated repository C under older names, and four now pass standalone and complete-cartridge verification. The portable snapshot also retains newer drafts and restored private header assignments.
 
-- **1,958 selected C functions / 473,392 matching bytes**, about **79.95% of 592,136 exported candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,958 C and 164 assembly functions**.
+- **1,962 selected C functions / 475,032 matching bytes**, about **79.18% of 599,940 exported candidate-code bytes**.
+- **2,123 detected functions**; export includes **2,124 entries**, selecting **1,962 C and 162 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -484,3 +484,18 @@ in this single-function integration; the previously verified `func_80086A34` rem
 selected even though the app currently keeps a newer draft. The exact reconciliation is
 recorded in `decompdecomp-sync.json`. Snapshot matches and drafts are not additional
 independently verified standalone functions.
+
+### Additional boundary and export recovery (2 November)
+
+Two directly called, complete framed functions are now explicit assembly targets:
+`func_8000A840` (4,304 bytes) and `func_80078760` (3,500 bytes). The importer recovered them on a copy
+without changing any of the 1,962 existing matches. Their 7,804 code bytes increase the denominator;
+they are not new C matches. The live app needs the updated importer and a reimport to expose these targets.
+
+Four further standalone C selections are `func_8005D0B0`, `func_800869B8`, `func_80087DE4`, and
+`guS2DInitBg`. Source isolation preserves the actual target body and line breaks. The first uses
+matching-only entry extraction: every compile passes the normal linked code/data judge before its
+compiler-derived entry is emitted. Two eight-byte constant ranges have explicit reviewed ROM/RAM
+mappings; unmapped or conflicting reads fail. The bundled `export_entry.py` also works with the installed
+app runtime. All prior selected C is retained, and the complete normalized cartridge remains byte-identical.
+The refreshed portable snapshot retains concurrent drafts, notes and the restored private header units.

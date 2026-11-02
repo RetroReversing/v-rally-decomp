@@ -2123,3 +2123,7 @@ entrypoint = 0x80000400;
 __osTimerList = 0x800A2530;
 jtbl_alEnvmixerPull = 0x800A7080;
 frame_record_index = 0x800C727C;
+
+func_8000A840 = 0x8000A840; // type:func size:0x10D0
+
+func_80078760 = 0x80078760; // type:func size:0xDAC

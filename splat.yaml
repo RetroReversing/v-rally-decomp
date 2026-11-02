@@ -59,8 +59,14 @@ segments:
   - - 23704
     - c
     - code_80005098
-- type: bin
+- name: code_8000A840
+  type: code
   start: 46144
+  vram: 2147526720
+  subsegments:
+  - - 46144
+    - c
+    - code_8000A840
 - name: code_8000B910
   type: code
   start: 50448
@@ -121,8 +127,14 @@ segments:
   - - 314036
     - c
     - code_8004BEB4
-- type: bin
+- name: code_80078760
+  type: code
   start: 496480
+  vram: 2147977056
+  subsegments:
+  - - 496480
+    - c
+    - code_80078760
 - name: code_8007950C
   type: code
   start: 499980

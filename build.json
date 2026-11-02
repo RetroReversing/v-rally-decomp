@@ -24,6 +24,61 @@
     "-mips3",
     "-mgp32",
     "-mfp32",
+    "-O2"
+   ],
+   "timeout": 20,
+   "start": 2148075152,
+   "end": 2148075153
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2148040164,
+   "end": 2148040165
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2148035000,
+   "end": 2148035001
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147864752,
+   "end": 2147864753
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
     "-O2",
     "-g3"
    ],
@@ -7497,11 +7552,6 @@
   },
   {
    "kind": "asm",
-   "src": "asm/bin/B440.s",
-   "obj": "build/asm/bin/B440.o"
-  },
-  {
-   "kind": "asm",
    "src": "asm/bin/1F240.s",
    "obj": "build/asm/bin/1F240.o"
   },
@@ -7509,11 +7559,6 @@
    "kind": "asm",
    "src": "asm/bin/25960.s",
    "obj": "build/asm/bin/25960.o"
-  },
-  {
-   "kind": "asm",
-   "src": "asm/bin/79360.s",
-   "obj": "build/asm/bin/79360.o"
   },
   {
    "kind": "asm",
@@ -7604,14 +7649,15 @@
    ]
   },
   {
-   "name": "B440",
-   "kind": "raw",
+   "name": "code_8000A840",
+   "kind": "code",
    "start": 46144,
-   "objects": [
-    "build/asm/bin/B440.o"
-   ],
-   "stub": "asm/bin/B440.s",
-   "incbin": "assets/B440.bin"
+   "end": 50448,
+   "vram": 2147526720,
+   "bss_vram": null,
+   "bss_size": 0,
+   "pieces": [],
+   "bss": []
   },
   {
    "name": "code_8000B910",
@@ -7746,14 +7792,15 @@
    ]
   },
   {
-   "name": "seg_79360",
-   "kind": "raw",
+   "name": "code_80078760",
+   "kind": "code",
    "start": 496480,
-   "objects": [
-    "build/asm/bin/79360.o"
-   ],
-   "stub": "asm/bin/79360.s",
-   "incbin": "assets/79360.bin"
+   "end": 499980,
+   "vram": 2147977056,
+   "bss_vram": null,
+   "bss_size": 0,
+   "pieces": [],
+   "bss": []
   },
   {
    "name": "code_8007950C",
@@ -8802,6 +8849,13 @@
    "vram": 2147526124,
    "rom": 45548,
    "asm": "asm/nonmatchings/code_80005098/func_8000A5EC.s"
+  },
+  {
+   "name": "func_8000A840",
+   "seg": "code_8000A840",
+   "vram": 2147526720,
+   "rom": 46144,
+   "asm": "asm/nonmatchings/code_8000A840/func_8000A840.s"
   },
   {
    "name": "func_8000B910",
@@ -18444,7 +18498,10 @@
    "seg": "code_8004BEB4",
    "vram": 2147864752,
    "rom": 384176,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8005D0B0.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8005D0B0.s",
+   "c": "src/code_8004BEB4/func_8005D0B0.c",
+   "entry_only": true,
+   "own": {}
   },
   {
    "name": "func_8005D4A4",
@@ -21517,6 +21574,13 @@
    "own": {}
   },
   {
+   "name": "func_80078760",
+   "seg": "code_80078760",
+   "vram": 2147977056,
+   "rom": 496480,
+   "asm": "asm/nonmatchings/code_80078760/func_80078760.s"
+  },
+  {
    "name": "func_8007950C",
    "seg": "code_8007950C",
    "vram": 2147980556,
@@ -23270,7 +23334,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148035000,
    "rom": 554424,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_800869B8.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_800869B8.s",
+   "c": "src/code_8007E9D4/func_800869B8.c",
+   "own": {}
   },
   {
    "name": "func_80086A34",
@@ -23640,7 +23706,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148040164,
    "rom": 559588,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_80087DE4.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_80087DE4.s",
+   "c": "src/code_8007E9D4/func_80087DE4.c",
+   "own": {}
   },
   {
    "name": "func_80087E9C",
@@ -25349,7 +25417,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148075152,
    "rom": 594576,
-   "asm": "asm/nonmatchings/code_8007E9D4/guS2DInitBg.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/guS2DInitBg.s",
+   "c": "src/code_8007E9D4/guS2DInitBg.c",
+   "own": {}
   },
   {
    "name": "func_800907D0",
@@ -30117,6 +30187,19 @@
   "__osContRamRead": 2148100144,
   "atan2_angle4096": 2148105100,
   "MusInitialize": 2148033784,
-  "memset": 2148105776
- }
+  "memset": 2148105776,
+  "func_8000A840": 2147526720
+ },
+ "data_mappings": [
+  {
+   "rom_start": 679992,
+   "rom_end": 680000,
+   "vram": 2148160568
+  },
+  {
+   "rom_start": 680008,
+   "rom_end": 680016,
+   "vram": 2148160584
+  }
+ ]
 }

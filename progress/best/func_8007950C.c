@@ -116,9 +116,8 @@ void func_8007950C(s32 arg0)
     if ((var_fp & 0xFFFF) == 4)
     {
       var_s4 = 0x25;
-      temp_s2_2 = var_s7; temp_s2_2 += 0x19;
-      var_s7 = temp_s2_2 + 0x12;
-      func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD2));
+        
+      func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD2)) ; temp_s2_2 = var_s7 ; temp_s2_2 += 0x19 ; var_s7 = temp_s2_2 + 0x12 ;
       temp_s1_2 = func_8000C9B0(D_800C02AE + 0x7F5E, &sp40, 1, 1.0f, 1);
       temp_s3 = temp_s1_2;
       func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xDC, 0xDC, 0x80, 0xFF);
@@ -199,7 +198,7 @@ row_color_done:
     }
     if ((var_fp & 0xFFFF) != 4)
     {
-      func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16) var_s4, var_s7, sp40, 1);
+       do { func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16) var_s4, var_s7, sp40, 1 ) ; } while ( 0 );
     }
     temp_s0_4 = var_s4 + D_800A17E9;
     temp_s4 = var_s7 -  new_var3 ;
@@ -247,8 +246,8 @@ normal_row:
 normal_row_done:
     var_s7 = temp_s2_3 + 0xF;
 row_done:
-    var_fp += 1;
     func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xFF, 0xFF, 0xFF, 0xFF);
+    var_fp += 1;
   }
   while ((u16)var_fp < 5U);
   temp_s1_4 = D_800C02AE + 0x7F62;
@@ -259,15 +258,16 @@ row_done:
     func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, 0xA0 - (((u32) (func_8000C9B0(temp_s1_4, &sp40, 1, 1.0f, 0) & 0xFFFF)) >> 1), 0x14, &sp40, 0);
   }
   
+  var_s7 = 0x28;
   if ((*((s32 *) (D_800C02AE + 0x32AA))) == 2)
   {
     if ((*((u8 *) (D_800C02AE + 0x7F4F))) == 8)
-      func_80099DF8((var_s7 = 0x28, &sp40), &D_800A5ED8, func_80057918(D_800C8328, 0xD9), &tail.text);
+      func_80099DF8(&sp40, &D_800A5ED8, func_80057918(D_800C8328, 0xD9), &tail.text);
     else
-      func_80099DF8((var_s7 = 0x28, &sp40), &D_800A5F54, func_80057918(D_800C8328, 0xD9), &tail.text);
+      func_80099DF8(&sp40, &D_800A5F54, func_80057918(D_800C8328, 0xD9), &tail.text);
   }
   else
-    func_80099DF8((var_s7 = 0x28, &sp40), &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD9));
+    func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD9));
   temp_s3 = func_8000C9B0(temp_s1_4, &sp40, 1, 1.0f, 0);
   func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1), var_s7, &sp40, 0);
   func_8000C22C(*((s32 *) (D_800C02AE + 0x7F62)), 0xFF, 0xFF, 0xFF, 0xFF);

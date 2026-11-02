@@ -223,7 +223,11 @@
     "src/code_80026E3C/func_8004AFB8.c": "4c1d22b1290d6eaa80388bd776832ea04d25ceb9c777c107acfa32c0122c3005",
     "src/code_80005098/func_80009C90.c": "8a1527efef99f7946b2b4bc7ae7124c134cb6c001d5d5c5a730b252376bf00f9",
     "src/code_8007950C/func_8007C694.c": "661496876586b2e10bd8e3eda4ede6b12b1d404dcfb20ef1ecdb8e8b5a2202f4",
-    "src/code_80005098/func_800060C0.c": "0c932cd2e8ea06794b11c5ea817d08ca1377b831b3b5cf00bd6bde862e42f45d"
+    "src/code_80005098/func_800060C0.c": "0c932cd2e8ea06794b11c5ea817d08ca1377b831b3b5cf00bd6bde862e42f45d",
+    "src/code_8004BEB4/func_8005D0B0.c": "a3b1d61047227b8401a6f142aca2d84774608523f7135b8bce8769d3664271d7",
+    "src/code_8007E9D4/guS2DInitBg.c": "ebe6e59a73d1aac2d85215018c59e57ea5daa59b6791a86a5835bbd5bcfccf47",
+    "src/code_8007E9D4/func_80087DE4.c": "6f5859126e4a27f8f34cdadaf2e53abf3f239d449984817e27cf53b5cd8328a6",
+    "src/code_8007E9D4/func_800869B8.c": "6844c121d361ecbd29c06672e190fe425478ea773fab8aa289f59f64bc69c85b"
   },
   "accepted": [
     "MusInitialize",
@@ -371,6 +375,7 @@
     "func_80059618",
     "func_8005A100",
     "func_8005A790",
+    "func_8005D0B0",
     "func_8005D4A4",
     "func_8005F5C4",
     "func_8006090C",
@@ -428,7 +433,9 @@
     "func_80085D90",
     "func_80086138",
     "func_80086854",
+    "func_800869B8",
     "func_80087594",
+    "func_80087DE4",
     "func_80088008",
     "func_8008871C",
     "func_8008910C",
@@ -447,39 +454,11 @@
     "guLookAtReflectF",
     "guMtxIdent",
     "guRotate",
+    "guS2DInitBg",
     "huft_build",
     "inflate_dynamic"
   ],
-  "skipped": [
-    {
-      "function": "func_8002C6EC",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    },
-    {
-      "function": "func_8005D0B0",
-      "reason": "The candidate has non-contiguous constant pools. Reference existing ROM data separately or split the pools before standalone export."
-    },
-    {
-      "function": "func_800869B8",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    },
-    {
-      "function": "func_80087DE4",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    },
-    {
-      "function": "__osPfsRequestData",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    },
-    {
-      "function": "guS2DInitBg",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    },
-    {
-      "function": "alFxPull",
-      "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
-    }
-  ],
+  "skipped": [],
   "verified_build": true,
   "matched_app": 1962
 }
