@@ -97,9 +97,7 @@ void func_8007950C(s32 arg0)
   func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xFF, 0xFF, 0xFF, 0xFF);
   func_80099DF8(&sp40, &D_800A5EB8);
   temp_s0_2 = (D_800A17EA + D_800A17E9) + func_8000C9B0(D_800C02AE + 0x7F5E, &sp40, 1, 1.0f, 1);
-  var_s4 = temp_s0_2 & 0xFFFF;
-    temp_s0_3 = var_s4;
-    temp_v0_2 = ((u32) (temp_s0_3)) >> 1;
+  temp_v0_2 = ((u32)(temp_s0_2 & 0xFFFF)) >> 1;
   temp_s2 = temp_v0_2 + 0xA0;
   temp_s1 = 0xA0 - temp_v0_2;
   func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xDC, 0xDC, 0x80, 0xFF);
@@ -208,7 +206,7 @@ row_color_done:
     }
     temp_s2_3 = temp_s4; ++temp_s2_3;
     temp_s0_5 = temp_s0_4 + D_800A17EA;
-    var_s7 = temp_s2_3;
+    var_s7 = temp_s2_3 ^ arg0; var_s7 ^= arg0;
     if ((var_fp & 0xFFFF) == 0) goto zero_row;
     if ((var_fp & 0xFFFF) != 4) goto normal_row;
     {
@@ -221,10 +219,11 @@ row_color_done:
         {
           func_80073108(arg0, (s16) (temp_s1_3 + (D_800A17E9 + 0xFFF1)), temp_s4, *((s32 *) (D_800C02AE + 0x103B2)), (s32) D_800C7F90[4].icon);
         }
+        var_s7 = temp_s2_3 ^ arg0; var_s7 ^= arg0;
         func_80099DF8(sp40, &D_800A5ED8, &spB8, &spE8);
         
         func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, temp_s3 + (D_800A17E9 - 0xF) + D_800A17EA, temp_s2_3, sp40, 1);
-        var_s7 += 0xF;
+        do { var_s7 += 0xF; } while (0);
       goto row_done;
     }
 zero_row:
@@ -245,7 +244,7 @@ normal_row:
     goto normal_row_done;
   }
 normal_row_done:
-    var_s7 = temp_s2_3 + 0xF;
+    var_s7 += 0xF;
 row_done:
     func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xFF, 0xFF, 0xFF, 0xFF);
     var_fp += 1;
@@ -269,6 +268,6 @@ row_done:
   }
   else
       { func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD9)); temp_s3 = func_8000C9B0(temp_s1_4, &sp40, 1, 1.0f, 0); }
-  func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1), var_s7, &sp40, 0);
+  func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, (temp_s2_3 = 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1)), var_s7, &sp40, 0);
   func_8000C22C(*((s32 *) (D_800C02AE + 0x7F62)), 0xFF, 0xFF, 0xFF, 0xFF);
 }

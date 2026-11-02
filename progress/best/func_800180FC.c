@@ -1,4 +1,4 @@
-#define D_800B56EC (*(s32 *)(D_800AE850 + 0x6E9C))
+extern s32 D_800B56EC;
 typedef struct 
 {
   u32 pad : 27;
@@ -57,7 +57,7 @@ void func_80033370(Seg *);
 s32 func_8007EAA0(s32, s32);
 void memset(s32, s32, s32);
 void func_80015460(void *, s32);
-extern Seg *D_8009C230;
+extern Seg *volatile D_8009C230;
 extern void (*D_8009C234[])(void *);
 extern f32 D_8009CEC0[];
 extern u8 D_800A73E0[];
@@ -111,11 +111,15 @@ Track *func_800180FC(Track *t0)
     {
       segs[i].s64 = 0;
     }
-    segs[i].verts = (s16 *) (((s32) segs[i].verts) + D_800B56EC);
-    segs[i].off70 += D_800B56EC;
-    if (segs[i].off6C)
     {
-      segs[i].off6C += D_800B56EC;
+      s32 vv = (s32) segs[i].verts;
+      s32 base = D_800B56EC;
+      segs[i].verts = (s16 *) (vv + base);
+      segs[i].off70 += base;
+      if (segs[i].off6C)
+      {
+        segs[i].off6C += base;
+      }
     }
   }
 

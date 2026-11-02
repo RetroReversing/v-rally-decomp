@@ -94,6 +94,8 @@ void func_8003F3BC(s32 arg0, s32 arg1)
       y = r->y;
       switch (n)
       {
+case 0: break;
+
         case 1:
           dy = 0x4C;
           x = r->w / 2;

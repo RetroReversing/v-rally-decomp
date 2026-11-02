@@ -20,10 +20,16 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Latest complete sync — 2 November 2026
+
+The latest sync adds `func_80055D18` (**116 instructions / 464 bytes**) after its independent check and a complete byte-for-byte cartridge rebuild in private staging. Every earlier selected C function is retained. The full portable snapshot, captured at **2026-11-02 17:43 UTC**, retains **1,972 matches and 133 best drafts**, including current names, notes, symbols, headers and compiler profiles.
+
+The app reports **82.36% of eligible code** (480,884 / 583,868 bytes) and **1,972 / 2,086 eligible functions** (94.53%), with 35 functions set aside. The standalone checkpoint is **80.42% of all exported candidate-code bytes**; its denominator also includes additional preserved coverage and assembly entries. These are explicit snapshots, not continuous automatic synchronization.
+
 The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. The recovered targets remain assembly until independently verified C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. The refreshed portable snapshot contains **1,962 matches**. Five further C functions are now integrated, including recovered `func_8004AFB8` and `func_8007C694` (9,024 bytes), after independent compilation and a complete cartridge comparison. The seven previously reported exceptions are reconciled: three already had curated repository C under older names, and four now pass standalone and complete-cartridge verification. The portable snapshot also retains newer drafts and restored private header assignments.
 
-- **1,971 selected C functions / 482,008 matching bytes**, about **80.34% of 599,940 exported candidate-code bytes**.
-- **2,123 detected functions**; export includes **2,124 entries**, selecting **1,971 C and 153 assembly functions**.
+- **1,972 selected C functions / 482,472 matching bytes**, about **80.42% of 599,940 exported candidate-code bytes**.
+- **2,123 detected functions**; export includes **2,124 entries**, selecting **1,972 C and 152 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
