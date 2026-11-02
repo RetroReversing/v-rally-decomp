@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Obj71
 {
   u8 p[6];
@@ -83,7 +85,8 @@ void func_800710F0(void)
         s32 h = D_800A5D04;
         s32 c = D_800A5D06;
         *((s16 *) buf) = h;
-        *((volatile char *) (&buf[2])) = c;
+        *(&buf[2]) = c;
+ do { } while (0);
       }
       func_80052E94(t - best, &buf[2]);
       func_800980D0(p, D_800A5D08);
@@ -157,3 +160,4 @@ void func_800710F0(void)
   }
   while (j < 3);
 }
+

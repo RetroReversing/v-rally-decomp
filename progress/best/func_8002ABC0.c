@@ -11,15 +11,15 @@ typedef struct
 } Token;
 s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
 {
-  u8 work[1976];
   s8 buf[72];
+  Token tok[26];
   s16 n;
   s16 len;
   u8 neg;
   u8 hex;
   s16 quoted;
   u32 i;
-  register s32 command = cmd - 1;
+  s32 command = cmd - 1;
   while (((((((*p) != 32) & ((*p) != 9)) && (((*p) != 44) & ((*p) != 13))) && ((*p) != 35)) && (!((((*p) == 47) && ((p + 1) < end)) && (p[1] == 47)))) && (p < end))
   {
     p++;
@@ -55,8 +55,8 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
       {
         neg = (*p) == 45;
         p += neg;
-        ((Token *) work)[n].number = 0;
-        ((Token *) work)[n].numeric = 1;
+        tok[n].number = 0;
+        tok[n].numeric = 1;
         hex = 0;
         if (((*p) == 48) && (p[1] == 88))
         {
@@ -84,17 +84,17 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
           {
             if (((u8) ((*p) - 48)) >= 10)
             {
-              ((Token *) work)[n].number = ((((Token *) work)[n].number * 16) + (*p)) - 55;
+              tok[n].number = ((tok[n].number * 16) + (*p)) - 55;
             }
             else
             {
-              ((Token *) work)[n].number = ((((Token *) work)[n].number * 16) + (*p)) - 48;
+              tok[n].number = ((tok[n].number * 16) + (*p)) - 48;
             }
             buf[len + 2] = *p;
           }
           else
           {
-            ((Token *) work)[n].number = ((((Token *) work)[n].number * 10) + (*p)) - 48;
+            tok[n].number = ((tok[n].number * 10) + (*p)) - 48;
             buf[len] = *p;
           }
           len++;
@@ -103,32 +103,32 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
         while (len < 11);
         if (neg)
         {
-          ((Token *) work)[n].text[0] = 45;
-          ((Token *) work)[n].number = -((Token *) work)[n].number;
+          tok[n].text[0] = 45;
+          tok[n].number = -tok[n].number;
           if (hex)
           {
-            func_8008E13C(((Token *) work)[n].text, buf + 1, len + 4);
+            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 4);
           }
           else
           {
-            func_8008E13C((buf + 72) + (n * 76), buf + 1, len + 2);
+            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
           }
         }
         else
           if (hex)
         {
-          func_8008E13C((buf + 72) + (n * 76), buf, len + 3);
+          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
         }
         else
         {
-          func_8008E13C((buf + 72) + (n * 76), buf, len + 1);
+          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
         }
       }
       else
       {
         quoted = (*p) == 34;
         p += quoted;
-        ((Token *) work)[n].numeric = 0;
+        tok[n].numeric = 0;
         len = 0;
         do
         {
@@ -144,25 +144,24 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
             if ((*p) == quote)
           {
             buf[len] = 0;
-            break;
             p++;
+            break;
           }
           buf[len] = *(p++);
           len++;
         }
         while (len < 65);
-        func_8008E13C((buf + 72) + (n * 76), buf, len + 1);
+        func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
       }
       n++;
     }
     while (n < 27);
-    ((Token *) work)[0].number = n - 1;
+    tok[0].number = n - 1;
     i = command * 12;
     if (D_8009CEE9[i] & D_8009E260)
     {
-      (*((void (**)(void *)) (((u8 *) D_8009CEE4) + i)))(work);
+      (*((void (**)(void *)) (((u8 *) D_8009CEE4) + i)))(tok);
     }
   }
   return 1;
 }
-

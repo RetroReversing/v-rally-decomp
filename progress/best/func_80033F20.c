@@ -126,7 +126,7 @@ void func_80033F20(A *a, B *b, C *c)
     }
     goto done;
     special:
-    delta = (new_var = ((u32)(rev ^ 3) < 1) ? 0 : (-2000)) - speed;
+    delta = (new_var = (rev == 3) ? (-2000) : 0) - speed;
 
     if (delta > 255)
     {

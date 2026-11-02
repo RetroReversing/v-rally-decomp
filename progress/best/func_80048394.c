@@ -1,64 +1,60 @@
-#define W(p,o) (*(u8**)((u8*)(p)+(o)))
-#define H(p,o) (*(u16*)((u8*)(p)+(o)))
-#define S(p,o) (*(s16*)((u8*)(p)+(o)))
-typedef struct 
-{
-  u8 b[8];
-} Pair;
-typedef struct 
-{
-  u8 b[0x178];
-  Pair *p;
-} Obj;
+typedef struct { u8 b[8]; } Pair;
+typedef struct { u8 pad[6]; u16 n; } Frm;
+typedef struct { Frm *f; } Anim0;
+typedef struct { u8 pad[4]; Anim0 *a; } Anim;
+typedef struct {
+  u8 pad0[0xC];
+  Anim *anim;
+  u8 pad10[4];
+  s16 x14;
+  u8 pad16[6];
+  s16 x1C;
+  u8 pad1E[0x50 - 0x1E];
+} Item;
+typedef struct { Pair pos; u16 x8; u8 pad[0x2C - 0xA]; Item *cur; } Node;
+typedef struct { u8 b[0x178]; Node *p; } Obj;
+typedef struct { u8 pad[4]; u16 base; u8 pad6[0x24 - 6]; Item *l0; Item *l1; } Src;
 extern Obj *D_800C7F84;
 extern u32 D_800AFA6C;
 extern void func_8000A2C4(void *, s32, s32, s32);
-void func_80048394(s32 a, u8 *b, Obj *c, s32 d)
+void func_80048394(s32 a, Src *b, Obj *c, s32 d)
 {
-  Pair **new_var3;
   Pair saved;
-  u8 *root = (u8 *) D_800C7F84->p;
-  u8 *list;
+  Node *root = D_800C7F84->p;
+  Item *list;
+  Item *item;
   s32 x;
   s32 q;
   s32 prod;
-  Obj *new_var2;
-  Pair **new_var;
-  int new_var4;
-  s32 off;
-  u8 *item;
   s32 h;
-  list = (D_800AFA6C & 1) ? (W(b, 0x24)) : (W(b, 0x28));
-  saved = *D_800C7F84->p;
-  *D_800C7F84->p = *c->p;
-  h = H(W(W(W(list, 12), 4), 0), 6);
-  x = (s16) (H(b, 4) + H(c->p, 8));
+
+  if (D_800AFA6C & 1) {
+    list = b->l0;
+  } else {
+    list = b->l1;
+  }
+  saved = D_800C7F84->p->pos;
+  D_800C7F84->p->pos = c->p->pos;
+  h = list->anim->a->f->n;
+  x = (s16) (b->base + c->p->x8);
   q = x / h;
-  new_var4 = (!D_800C7F84) && (!D_800C7F84);
   prod = q * h;
   d *= 4;
-  off = q * 80;
-  if (new_var4)
-  {
-  }
-  item = list + off;
-  S(item, 28) = d;
-  S(item, 20) = (prod - x) * 4;
-  W(root, 44) = item;
+  item = &list[q];
+  item->x1C = d;
+  item->x14 = (prod - x) * 4;
+  root->cur = item;
   func_8000A2C4(D_800C7F84->p, 0, 0, 1);
-  h = H(W(W(W(item, 12), 4), 0), 6);
+  h = item->anim->a->f->n;
   x = x - prod;
-  S(item, 108) = d;
-  S(item, 100) = (h - x) * 4;
-  W(root, 44) = list + (off + 80);
+  item[1].x1C = d;
+  item[1].x14 = (h - x) * 4;
+  root->cur = &list[q + 1];
   func_8000A2C4(D_800C7F84->p, 0, 0, 1);
-  h = H(W(W(W(item, 92), 4), 0), 6);
-  S(item, 180) = ((h * 2) - x) * 4;
-  new_var2 = D_800C7F84;
-  S(item, 188) = d;
-  W(root, 44) = list + (off + 160);
-  new_var = &new_var2->p;
-  new_var3 = new_var;
+  h = item[1].anim->a->f->n;
+  item[2].x14 = (h * 2 - x) * 4;
+  item[2].x1C = d;
+  root->cur = &list[q + 2];
   func_8000A2C4(D_800C7F84->p, 0, 0, 1);
-  *(*new_var3) = *c->p;
+  D_800C7F84->p->pos = c->p->pos;
 }

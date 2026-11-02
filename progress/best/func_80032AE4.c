@@ -1,155 +1,99 @@
-extern void func_8002FFA4(void *, s32, s16, u16 *);
-extern s16 func_8003035C(void *, s32, s16 *, u16);
-typedef struct 
-{
-  s16 b[3];
-} Buf6;
-void func_80032AE4(void *arg0)
-{
-  s16 a[3];
-  unsigned short new_var3;
-  s16 b[3];
-  s16 c[3];
-  s16 new_var2;
-  u8 *s5 = arg0;
-  u8 *s7 = arg0;
-  u8 *s0;
-  u8 *t;
-  u8 *g;
-  s32 a2;
-  s32 s1;
-  s32 s2;
-  int new_var;
-  s32 s3;
-  s32 s4;
-  s32 s6;
-  s32 a3;
-  do
-  {
-    t = *((u8 **) (s5 + 0x58));
-    if (!t)
-    {
-      goto next;
-    }
-    if ((*((u16 *) (s5 + 0xA))) & 0x800)
-    {
-      goto next;
-    }
-    if (!((*((u16 *) (t + 0xA))) & 0x800))
-    {
-      goto next;
-    }
-    g = *((u8 **) (s5 + 0x78));
-    {
-      u8 v1;
-      v1 = g[0x15];
-      if (v1 != 0)
-      {
-        a2 = v1;
-      }
-      else
-      {
-        a2 = g[0x16];
-      }
-    }
-    if (!a2)
-    {
-      goto next;
-    }
-    g = *((u8 **) (s5 + 0x78));
-    s1 = g[0xF];
-    if (g[0xE] < s1)
-    {
-      s1 = g[0xE];
-    }
-    a2 = (a2 - g[0x14]) * 4;
-    if ((s1 < 1) || (s1 > 3))
-    {
-      goto next;
-    }
-    t = *((u8 **) (s5 + 0x58));
-    g = *((u8 **) (t + 0x78));
-    s0 = t;
-    s2 = g[0x17];
-    s6 = g[0x14];
-    a2 = s2 - a2;
-    if (a2 < 0x14)
-    {
-      if (t || s3)
-      {
-        a2 = 0x14;
-      }
-      else
-      {
-        a2 = 0x14;
-      }
-    }
-    new_var = 1;
-    if (a2 >= 0x51)
-    {
-      a2 = 0x50;
-    }
-    s1 = (s3 = (*((u16 *) (s0 + 0x88))) - ((s1 * 2) + new_var));
-    func_8002FFA4(s0, s3, (s16) a2, a);
-    func_8002FFA4(s0, (*((u16 *) (s0 + 0x88))) - 1, (s16) s2, b);
-    if (((*((u16 *) (s0 + 0x88))) - 1) < s3)
-    {
-      goto skip;
-    }
-    s4 = s3 + 1;
-    s2 = s3 * 12;
-    do
-    {
-      a3 = s1 - s3;
-      c[0] = b[0] - a[0];
-      new_var3 = (c[0] * a3) / ((*((u16 *) (s0 + 0x88))) - s4);
-      c[0] = new_var3 + a[0];
-      c[1] = b[1] - a[1];
-      c[1] = ((c[1] * a3) / ((*((u16 *) (s0 + 0x88))) - s4)) + a[1];
-      c[2] = b[2] - a[2];
-      c[2] = ((c[2] * a3) / ((*((u16 *) (s0 + 0x88))) - s4)) + a[2];
-      g = (*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2;
-      *((s16 *) (g + 6)) = c[0];
-      *((s16 *) (((*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2) + 8)) = c[1];
-      *((s16 *) (((*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2) + 0xA)) = c[2];
-      *((s16 *) (((*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2) + 4)) = func_8003035C(s0, s1, c, (u16) a3);
-      s1++;
-      s2 += 12;
-    }
-    while (((*((u16 *) (s0 + 0x88))) - 1) >= s1);
-    skip:
-    *((Buf6 *) b) = *((Buf6 *) a);
+typedef struct { s16 x, y, z; } Vec3s;
+typedef struct {
+    s32 pad0;
+    s16 val;
+    Vec3s pos;
+} Node12;
+typedef struct {
+    u8 pad0[0xE];
+    u8 e;
+    u8 f;
+    u8 pad10[4];
+    u8 b14;
+    u8 b15;
+    u8 b16;
+    u8 b17;
+    u8 pad18[4];
+    Node12 *nodes;
+} Info;
+typedef struct Car {
+    u8 pad0[0xA];
+    u16 flags;
+    u8 padC[0x4C];
+    struct Car *target;
+    struct Car *next;
+    u8 pad60[0x18];
+    Info *info;
+    u8 pad7C[0xC];
+    u16 count;
+} Car;
 
-    func_8002FFA4(s0, 0, (s16) s6, a);
-    if (s3 < 0)
-    {
-      goto next;
-    }
-    s1 = 0;
-    s2 = 0;
-    do
-    {
-      c[0] = b[0] - a[0];
-      c[0] = (c[0] * s1) / s3;
-      c[0] = c[0] + a[0];
-      c[1] = b[1] - a[1];
-      c[1] = ((c[1] * s1) / s3) + a[1];
-      c[2] = b[2] - a[2];
-      c[2] = ((c[2] * s1) / s3) + a[2];
-      g = (*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2;
-      *((s16 *) (g + 6)) = c[0];
-      new_var2 = a[1];
-      *((s16 *) (g + 8)) = c[1];
-      *((s16 *) (g + 0xA)) = c[2];
-      *((s16 *) (((*((u8 **) ((*((u8 **) (s0 + 0x78))) + 0x1C))) + s2) + 4)) = func_8003035C(s0, s1, c, new_var2);
-      s1++;
-      s2 += 12;
-    }
-    while (s3 >= s1);
-    next:
-    s5 = *((u8 **) (s5 + 0x5C));
+extern void func_8002FFA4(Car *, s32, s16, Vec3s *);
+extern s16 func_8003035C(Car *, s32, Vec3s *);
 
-  }
-  while ((s5 != s7) && (s5 != 0));
+void func_80032AE4(Car *arg0)
+{
+    Vec3s a;
+    Vec3s b;
+    Vec3s c;
+    Car *car;
+    Car *t;
+    Info *g;
+    s32 v;
+    s32 n;
+    s32 i;
+    s32 start;
+    s32 far;
+    s32 near;
+    s32 k;
+
+    car = arg0;
+    do {
+        if (car->target == NULL) goto next;
+        if (car->flags & 0x800) goto next;
+        if (!(car->target->flags & 0x800)) goto next;
+        g = car->info;
+        v = g->b15 ? g->b15 : g->b16;
+        if (v == 0) goto next;
+        g = car->info;
+        v = (v - g->b14) * 4;
+        i = g->e;
+        if (g->f < g->e) i = g->f;
+        if (i < 1 || i > 3) goto next;
+        t = car->target;
+        far = t->info->b17;
+        near = t->info->b14;
+        v = far - v;
+        if (v < 20) v = 20;
+        if (v > 80) v = 80;
+        start = t->count - (n * 2 + 1);
+        func_8002FFA4(t, start, v, &a);
+        func_8002FFA4(t, t->count - 1, far, &b);
+        for (i = start; i <= t->count - 1; i++) {
+            k = i - start;
+            c.x = b.x - a.x;
+            c.x = c.x * k / (t->count - (start + 1)) + a.x;
+            c.y = b.y - a.y;
+            c.y = c.y * k / (t->count - (start + 1)) + a.y;
+            c.z = b.z - a.z;
+            c.z = c.z * k / (t->count - (start + 1)) + a.z;
+            t->info->nodes[i].pos.x = c.x;
+            t->info->nodes[i].pos.y = c.y;
+            t->info->nodes[i].pos.z = c.z;
+            t->info->nodes[i].val = func_8003035C(t, i, &c);
+        }
+        b = a;
+        func_8002FFA4(t, 0, near, &a);
+        for (i = 0; i <= start; i++) {
+            c.x = (s16)(b.x - a.x) * i / start + a.x;
+            c.y = (s16)(b.y - a.y) * i / start + a.y;
+            c.z = (s16)(b.z - a.z) * i / start + a.z;
+            t->info->nodes[i].pos.x = c.x;
+            t->info->nodes[i].pos.y = c.y;
+            t->info->nodes[i].pos.z = c.z;
+            t->info->nodes[i].val = func_8003035C(t, i, &c);
+        }
+next:
+        car = car->next;
+    } while (car != arg0 && car != NULL);
 }
-

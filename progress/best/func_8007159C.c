@@ -4,7 +4,8 @@
 #define F(p,o) (*(f32 *)((u8 *)(p)+(o)))
 typedef struct Blob
 {
-  u8 w[708];
+  s32 w[175];
+  u8 tab[8];
 } Blob;
 extern u8 *D_800C3508;
 extern u8 *D_800C35A0;
@@ -14,34 +15,30 @@ extern Blob *D_800D0648;
 extern s32 *D_800A11B0;
 extern s32 D_800B0548;
 extern s32 D_800D05D8;
-extern f64 D_800A5D10;
+extern const f64 D_800A5D10;
 extern void func_8005937C(s32, s32);
 extern void func_8005C198(void);
 extern void func_80061740(Blob);
-extern void func_80062184(Blob);
-extern unsigned char func_800592AC(s32);
+extern void func_80062184(Blob, s32);
+extern s32 func_800592AC(s32);
 extern void func_8006185C(s32, s32);
 extern void func_800710F0(void);
-extern void func_8004D08C(s32, s32, s16, s16, f32, f32, s32, s32);
+extern void func_8004D08C(s32, s32, s16, s16, f32, f32, u8, u8);
 void func_8007159C(void)
 {
-  u8 *__repair_cached_pointer = D_800C3508;
-  volatile char new_var2;
+  u8 *p = A(D_800C3508, 16) + H(D_800C3508, 2) * 20;
+  s32 sel = p[14];
   Blob blob;
-  u8 *p = A(__repair_cached_pointer, 16) + (H(D_800C3508, 2) * 20);
-  u8 choice = p[14];
-  s32 selected;
-  u8 *new_var;
-  s32 i;
-  if (choice <= 33)
+  u8 i;
+  volatile s32 z;
+  if (sel < 34)
   {
     if (D_800A1468[0x245] == 0)
     {
-      selected = choice - p[13];
-      new_var2 = selected;
-      U(D_800C35A0, 32) = selected;
-      func_8005937C(choice, U(&D_800D0648[new_var2], 20));
-      if (selected != D_800B0548)
+      sel -= p[13];
+      U(D_800C35A0, 32) = sel;
+      func_8005937C(p[14], U(&D_800D0648[sel], 20));
+      if (sel != D_800B0548)
       {
         if (*D_800A11B0)
         {
@@ -49,9 +46,8 @@ void func_8007159C(void)
         }
         if (D_800A1468[0x2be] == 0)
         {
-          new_var = D_800C35A0;
-          func_80061740(D_800D0648[U(new_var, 32)]);
-          ;
+          func_80061740(D_800D0648[U(D_800C35A0, 32)]);
+          D_800B0548 = sel;
         }
       }
     }
@@ -63,28 +59,14 @@ void func_8007159C(void)
     {
       func_800710F0();
     }
-    ;
-    func_80062184(D_800D0648[U(D_800C35A0, 32)]);
-    if (D_800A1468[0x24d] == 0)
+    blob = D_800D0648[U(D_800C35A0, 32)];
+    func_80062184(blob, 0);
+    if (D_800A1468[0x24d] == 0 && D_800A1468[0x2be] == 0)
     {
-      u32 temp = D_800A1468[0x2be];
-      if (temp == 0)
+      for (i = 0; i < U(&blob, 20); i++)
       {
-        ;
-        if (temp < U(&blob, 20))
-        {
-          do
-          {
-            func_8004D08C(D_800D05D8, 0 & 255, H(D_800A14D0, 0), (s16) (U(D_800A14D0, 2) + ((0 & ((0, 255))) * D_800A14D0[8])), (f32) (((f64) F((0, D_800A14D0), 4)) - D_800A5D10), F(D_800A14D0, 4), ((u8 *) (&blob))[0x2bc + (0 & 255)], 255);
-            i++;
-            if (!selected)
-            {
-            }
-          }
-          while (((u32) (0 & 255)) < U(&blob, 20));
-        }
+        func_8004D08C(D_800D05D8, i, H(D_800A14D0, 0), U(D_800A14D0, 2) + i * D_800A14D0[8], F(D_800A14D0, 4) - D_800A5D10, F(D_800A14D0, 4), blob.tab[i], 255);
       }
     }
   }
 }
-

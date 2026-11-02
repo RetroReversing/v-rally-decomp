@@ -38,52 +38,26 @@ void func_8006BA44(s32 arg0, unsigned int arg1)
   var_a2 = 0;
   var_t0 = 0;
   temp_v1 = arg0 & 0xFF;
-  temp_s6 = *((s32 *) ((D_800C02AE + 0x10386) + (temp_v1 * 4)));
-  if (temp_v1 != 2)
+  temp_s6 = *((s32 *) ((D_800C02AE + 0x5A8A + 0xA8FC) + (temp_v1 * 4)));
+  switch (temp_v1)
   {
-    if (temp_v1 < 3)
-    {
-      do
-      {
-        if (temp_v1 == 1)
-        {
-          var_t0 = 0x32;
-          goto block_14;
-        }
-        var_t1 = arg1;
-      }
-      while (0);
-    }
-    else
-    {
-      switch (temp_v1)
-      {
-        case 3:
-          var_a2 = 9;
-          var_t0 = 0x3B;
-          goto block_14;
-
-        case 4:
-          var_a2 = 0xF;
-          var_t0 = 0x41;
-          goto block_14;
-
-        default:
-          var_t1 = arg1;
-          break;
-
-      }
-
-    }
+    case 1:
+      var_t0 = 0x32;
+      break;
+    case 2:
+      var_a2 = 4;
+      var_t0 = 0x36;
+      break;
+    case 3:
+      var_a2 = 9;
+      var_t0 = 0x3B;
+      break;
+    case 4:
+      var_a2 = 0xF;
+      var_t0 = 0x41;
+      break;
   }
-  else
-  {
-    var_a2 = 4;
-    var_t0 = 0x36;
-    block_14:
-    var_t1 = arg1 + var_a2;
-
-  }
+  var_t1 = arg1 + var_a2;
   var_s4 = 0;
   temp_fs0 = D_800A57F0;
   temp_s3 = arg1 & 0xFF;

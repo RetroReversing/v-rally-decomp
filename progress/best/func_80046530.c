@@ -1,72 +1,70 @@
 u32 func_8001FEE8();
-s32 func_80038AE4();
+void func_80038AE4(s32);
 s32 func_80046414();
 s32 func_800464B0();
 extern s32 D_8009D538;
 extern char D_800C02AE[];
-void func_80046530(void *arg0, s32 arg1, void *arg2)
+typedef struct { s32 pad0[4]; s32 a10; s32 a14; u32 a18; void *a1C; } Sub70;
+void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
 {
-  char *__repair_addr;
-  char *new_var2;
   u32 temp_a0;
-  u32 mask;
-  u32 *new_var;
-  s32 temp_v0_2;
+  s32 t;
   u32 temp_s2;
-  void *temp_a1;
+  u32 mask;
+  Sub70 *temp_a1;
   void *temp_v0;
-  if ((((!(D_8009D538 & 0x800)) && (!((*((s32 *) (((char *) arg2) + 0x14))) & 0x80))) && ((temp_s2 = func_8001FEE8(arg2), ((*(*((s32 **) (((char *) arg2) + 0x48)))) < 2) != 0))) && (func_800464B0(arg2) != 0))
+  if ((D_8009D538 & 0x800)) return;
+  if ((*((s32 *) (arg2 + 0x14))) & 0x80) return;
+  temp_s2 = func_8001FEE8(arg2);
+  if ((*(*((s32 **) (arg2 + 0x48)))) >= 2) return;
+  if (func_800464B0(arg2) == 0) return;
+  if (!((*((s32 *) (arg2 + 0x14))) & 0x20))
   {
-    if (!((*((s32 *) (((char *) arg2) + 0x14))) & 0x20))
+    temp_a1 = *((Sub70 **) (arg2 + 0x70));
+    temp_v0 = temp_a1->a1C;
+    if ((temp_v0 != arg0) && (mask = (0U - (u32)(temp_v0 != 0)) & 100U, mask >= temp_a1->a18) && (((*((s32 *) arg0)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U))
     {
-      temp_a1 = *((void **) (((char *) arg2) + 0x70));
-      temp_v0 = *((void **) (((char *) temp_a1) + 0x1C));
-      __repair_addr = (char *) (((char *) arg0) + 0);
-      new_var2 = ((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x18;
-      if (((temp_v0 != arg0) && ((mask = (0U - ((u32) (temp_v0 != ((void *) 0)))) & 0x64U, mask >= (*((u32 *) (((char *) temp_a1) + 0x18)))))) && (((((*((s32 *) __repair_addr)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U)) != 0))
+      temp_a0 = *((s32 *) (arg0 + 4));
+      if ((temp_a0 != 1) & (temp_a0 != 5))
       {
-        temp_a0 = *((s32 *) (((char *) arg0) + 4));
-        new_var = (u32 *) new_var2;
-        if ((temp_a0 != 1) & (temp_a0 != 5))
+        if (temp_a0 == 2)
         {
-          if (temp_a0 == 2)
-          {
-            *((s32 *) (((char *) temp_a1) + 0x14)) = (s32) (*((u8 *) (((char *) arg0) + 2)));
-            *((s32 *) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x10)) = (s32) (*((u8 *) (((char *) arg0) + 3)));
-          }
-          else
-          {
-            *((s32 *) (((char *) temp_a1) + 0x14)) = (s32) (*((u8 *) (((char *) arg0) + 0)));
-            *((s32 *) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x10)) = (s32) (*((u8 *) (((char *) arg0) + 1)));
-          }
-          *new_var = 0x7DU;
+          temp_a1->a14 = arg0[2];
+          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[3];
         }
         else
         {
-          *((s32 *) (((char *) temp_a1) + 0x10)) = 4;
-          *((s32 *) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x14)) = (s32) (*((u8 *) (((char *) arg0) + 0)));
-          *((u32 *) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x18)) = 0x7DU;
+          temp_a1->a14 = arg0[0];
+          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];
         }
-        *((void **) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x1C)) = arg0;
-        if (((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))) < 2U)
+        temp_a1 = *((Sub70 **) (arg2 + 0x70));
+        temp_a1->a18 = 0x7D;
+      }
+      else
+      {
+        temp_a1->a10 = 4;
+        (*((Sub70 **) (arg2 + 0x70)))->a14 = arg0[0];
+        (*((Sub70 **) (arg2 + 0x70)))->a18 = 0x7D;
+      }
+      (*((Sub70 **) (arg2 + 0x70)))->a1C = arg0;
+      if ((*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0xE))) < 2U)
+      {
+        func_80046414(arg0[1], arg0[0]);
+        if ((*((s32 *) (arg0 + 4))) == 1)
         {
-          func_80046414(*((u8 *) (((char *) arg0) + 1)), *((u8 *) (((char *) arg0) + 0)));
-          if ((*((s32 *) (((char *) arg0) + 4))) == 1)
-          {
-            func_80038AE4(0x13);
-            func_80046414(*((u8 *) (((char *) arg0) + 3)), *((u8 *) (((char *) arg0) + 2)));
-          }
-          temp_v0_2 = *((s32 *) (((char *) arg0) + 4));
-          if (((temp_v0_2 == 2) | (temp_v0_2 == 5)) != 0)
-          {
-            func_80046414(*((u8 *) (((char *) arg0) + 3)), *((u8 *) (((char *) arg0) + 2)));
-          }
+          func_80038AE4(0x13);
+          func_80046414(arg0[3], arg0[2]);
+        }
+        t = *((s32 *) (arg0 + 4));
+        if ((t == 2) | (t == 5))
+        {
+          func_80046414(arg0[3], arg0[2]);
         }
       }
     }
-    else
-    {
-      *((void **) (((char *) (*((void **) (((char *) arg2) + 0x70)))) + 0x1C)) = NULL;
-    }
+  }
+  else
+  {
+    (*((Sub70 **) (arg2 + 0x70)))->a1C = 0;
   }
 }

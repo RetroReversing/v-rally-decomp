@@ -50,7 +50,6 @@ void func_8002F270(void *arg0, s32 *arg1, s32 arg2, void *arg3, void *arg4)
   s32 var_v1;
   arg1 = arg1;
   var_s3 = 0;
-  sp9C = arg0;
   var_s7 = 1;
   var_fp = 0;
   spA7 = 0;

@@ -44,6 +44,7 @@ void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
   new_var4 = 0x7CD6;
   *((void **) (((char *) (&D_800C02AE)) + new_var4)) = temp_v0;
   temp_a3 = *((s16 *) (((char *) temp_v0_2) + 8));
+  new_var5 = (void *)(*((s16 *) (((char *) temp_v0_2) + 0xA)) + 6);
   temp_s4 = *((s16 *) (((char *) temp_v0_2) + 0xC));
   temp_s0 = *((s16 *) (((char *) temp_v0_2) + 0xE));
   temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) (&D_800C02AE)) + 0x32F2)))) + 0xE));
@@ -88,7 +89,7 @@ void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
       if (1)
     {
       temp_s1 = var_s1 + (temp_s4 - 0x10);
-      temp_s0_3 = (((*((s16 *) (((char *) temp_v0_2) + 0xA))) + 6) + (temp_s0 - 8)) - 0xE;
+      temp_s0_3 = ((s32)new_var5 + (temp_s0 - 8)) - 0xE;
       new_var2 = temp_s1 + 0xFFCC;
       temp_v0_4 = func_80040260(sp1C, (s16) (new_var2 + var_fp), temp_s0_3, 3, &func_8003C254, 0);
       temp_s3 = arg1 + 0x4C;

@@ -5,8 +5,8 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
 {
   s32 color;
   s32 eadd2;
-  s32 step;
   u8 dr;
+  s32 step;
   u8 dg;
   u8 db;
   u8 red;

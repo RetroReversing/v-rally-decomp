@@ -1,9 +1,9 @@
 typedef struct Pos {
     u8 pad00[8];
     s16 xA;
-    s16 x8;
-    s16 xC;
     s16 xE;
+    s16 xC;
+    s16 x8;
 } Pos;
 typedef struct Obj {
     u8 pad00[0xC];
@@ -65,7 +65,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
         }
         D_800C7F84 = func_8004240C(1);
         x = D_800C7F84->pos->xC;
-        y = D_800C7F84->pos->xE;
+        y = D_800C7F84->pos->x8;
         w = func_80040260(arg0, x - 0x32, y - 0x10, arg2, func_8003BA9C, 0);
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         w->obj = D_800C7F84;

@@ -63,6 +63,7 @@ void func_80054BB8(void)
                     found = 1;
                     acc.laps[c] += D_800C3650[g][k].c;
                     searching = 0;
+                    break;
                 }
                 else
                 {

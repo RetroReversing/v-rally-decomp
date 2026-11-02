@@ -32,14 +32,14 @@ void func_80015C74(void *arg0, s32 arg1)
       {
         do
         {
-          i = (*((u16 *) (p + 6))) << 2;
-          ((void (*)(void *, s32)) (*((void **) (((u8 *) D_8009BF88) + i))))(entry, a1);
+          ((void (*)(void *, s32)) (*((void **) (((u8 *) D_8009BF88) + ((*((u16 *) (p + 6))) << 2)))))(entry, a1);
           j++;
           p += 8;
         }
         while (j < (*((u32 *) ((*((u8 **) (entry + 8))) + 0x20))));
-      }
-      func_8007EE9C(*((void **) (entry + 8)));
+      }/*__repair_call_balance*/if(i){
+      func_8007EE9C(*((void **) (entry + 8)));}else{
+      func_8007EE9C(*((void **) (entry + 8)));}
       off += 0x38;
       i++;
     }
