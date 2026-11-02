@@ -66,14 +66,15 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     u8 fixed;
     s32 i;
     s32 px;
-    s32 py;
     s32 n;
+#define py n
     u8 c;
     s32 vtx;
     Font *font;
 
     gs = st;
     cur = 0;
+
     kern = 0;
     fixed = 0;
     ox = 0.0f;
@@ -81,11 +82,13 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     z = 0.0f;
     rot = angle != 0;
     if (x < 0) {
+        s32 w;
+        s32 nx = x;
         fixed = 1;
-        n = func_8000C9B0(fonts, str, nfonts, sx, mode);
-        ox = (s16)-x;
+        w = func_8000C9B0(fonts, str, nfonts, sx, mode);
+        ox = (s16)-nx;
         oy = y;
-        x = -x - n;
+        x = -nx - w;
     }
     font = fonts[0];
     if (mode == 0) {
@@ -129,14 +132,14 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
                 px += font->glyphs[c].k6 + kern - shrink;
                 py = ((f32)base - font->glyphs[c].k7 * sy) + y;
                 if (first) {
-                    if (!rot) {
-                        first = 0;
-                    } else {
+                    if (rot) {
                         first = 0;
                         if (!fixed) {
                             ox = px;
                             oy = py;
                         }
+                    } else {
+                        first = 0;
                     }
                 }
                 vtx = func_8000665C(st, 4);

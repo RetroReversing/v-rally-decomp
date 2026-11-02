@@ -162,8 +162,11 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         w0->unk88->unkE = obj->unk88->unk70;
         w1->unk88->unkE = obj->unk88->unk70;
     }
-    *obj->unk88->unk4 = 1;
-    gfx = func_800056FC(gGame->unk178);
+    {
+        Game *gm = gGame;
+        *obj->unk88->unk4 = 1;
+        gfx = func_800056FC(gm->unk178);
+    }
     arg1->unk78 = 0;
     if (gMode->unk1E == 0 && gMode->unk1A == 1 && obj->unk48->unk0 == 7 && obj->unk48->unk20 == 8) return;
     if (gMode->unk1E == 0 && obj->unk48->unk0 == 7 && gMode->unk18 == 1) return;
@@ -251,7 +254,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         v[1][0] = obj->unk8C->unkC4 + d[0];
         v[1][1] = obj->unk8C->unkC8 + d[1];
         v[1][2] = obj->unk8C->unkCC + d[2];
-        t = (obj->unk80->unk1F4 - 5) - part->unk28;
+        t = obj->unk80->unk1F4 - 5;
+        t -= part->unk28;
         if (v[1][1] < t - 20) v[1][1] = t;
         p = obj->unk8C->parts[4];
         d[0] = p->unk24 - part->unk24;
@@ -260,7 +264,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         v[2][0] = obj->unk8C->unkD8 + d[0];
         v[2][1] = obj->unk8C->unkDC + d[1];
         v[2][2] = obj->unk8C->unkE0 + d[2];
-        t = (obj->unk80->unk230 - 5) - part->unk28;
+        t = obj->unk80->unk230 - 5;
+        t -= part->unk28;
         if (v[2][1] < t - 20) v[2][1] = t;
         p = obj->unk8C->parts[5];
         d[0] = p->unk24 - part->unk24;
@@ -269,7 +274,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         v[3][0] = obj->unk8C->unkEC + d[0];
         v[3][1] = obj->unk8C->unkF0 + d[1];
         v[3][2] = obj->unk8C->unkF4 + d[2];
-        t = (obj->unk80->unk21C - 5) - part->unk28;
+        t = obj->unk80->unk21C - 5;
+        t -= part->unk28;
         if (v[3][1] < t - 20) v[3][1] = t;
         n = func_800070CC(ctx);
         func_800068C0(ctx, n, v[0][0], v[0][1] - 8, v[0][2], v[1][0], v[1][1] - 8, v[1][2],
@@ -288,10 +294,11 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         bright = (bright / 12 - 80) * 255 / 100;
         if (bright >= 0x100) bright = 0xFF;
     } else {
-        bright = 0xFF;
         if (func_8007BA1C(obj) == 0xFF) {
             bright = 0xC4;
             flags &= ~2;
+        } else {
+            bright = 0xFF;
         }
     }
     if (obj->unk48->unk0 == 7) gfx = arg1;
@@ -340,18 +347,18 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
             if (i == 0) {
                 func_80006014(gfx, g);
                 if ((gMode->unk2C & 2) && gMode->unk1E == 0) {
-                    _g = gfx->dl++; _g->w0 = 0xDE000000; _g->w1 = (u32)D_8009C0A8;
-                    _g = gfx->dl++; _g->w0 = 0xFB000000; _g->w1 = 0xFFFFFF20;
-                    _g = gfx->dl++; _g->w0 = 0xDA380007; _g->w1 = osVirtualToPhysical(m1);
+                    { Gfx *_a = gfx->dl++; _a->w0 = 0xDE000000; _a->w1 = (u32)D_8009C0A8; }
+                    { Gfx *_a = gfx->dl++; _a->w0 = 0xFB000000; _a->w1 = 0xFFFFFF20; }
+                    { Gfx *_a = gfx->dl++; _a->w0 = 0xDA380007; _a->w1 = osVirtualToPhysical(m1); }
                     func_80005F14(gfx, q->unk10[0]->unk90);
-                    _g = gfx->dl++; _g->w0 = 0xDA380007; _g->w1 = osVirtualToPhysical(m2);
+                    { Gfx *_a = gfx->dl++; _a->w0 = 0xDA380007; _a->w1 = osVirtualToPhysical(m2); }
                     func_80005F14(gfx, q->unk10[0]->unk90);
                 }
                 func_800061FC(arg1, m);
                 func_80051D10(arg1, obj, fp, alpha);
                 func_800169DC(gfx, flags);
                 g = func_80006008(gfx);
-                _g = g++; _g->w0 = 0xFB000000; _g->w1 = ENVCOL(col, bright, alpha);
+                { Gfx *_a = g++; _a->w0 = 0xFB000000; _a->w1 = ENVCOL(col, bright, alpha); }
             }
         }
     }

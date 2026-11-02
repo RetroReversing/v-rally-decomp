@@ -45,9 +45,9 @@ void func_8007950C(s32 arg0)
   s32 *var_a2_2;
   s32 *var_a3_2;
   u16 left_local;
-  s32 var_a1_2 ; int new_var3 ; s32 special_x;
+  s32  * new_var4 ; s32 var_a1_2 ; int new_var3 ; s32 special_x;
   s32 var_a2;
-  s32 right_local;
+  s32 right_local ; int new_var5 ;
   s32 var_a3;
   s32 temp_s0_4;
   s32 temp_s0_5;
@@ -123,9 +123,9 @@ void func_8007950C(s32 arg0)
       temp_s3 = temp_s1_2;
       func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xDC, 0xDC, 0x80, 0xFF);
       temp_s0_3 = ((u32) (temp_s3 & 0xFFFF)) >> 1;
-      new_var2 = 0x7F5E;
-      func_8007347C(arg0, (0x97 - temp_s0_3) & 0xFFFF, (temp_s2_2 + (-2)) & 0xFFFF, (temp_s1_2 + 0xF) & 0xFFFF, 0x11);
-      func_8000C244(*((s32 *) (D_800C02AE + new_var2)), arg0, 0xA0 - temp_s0_3, temp_s2_2, sp40, 1);
+       new_var5 = 0xFFFF ; new_var2 = 0x7F5E;
+      func_8007347C(arg0, (0x97 - temp_s0_3) &  new_var5 , (temp_s2_2 + (-2)) &  new_var5 , (temp_s1_2 + 0xF) &  new_var5 , 0x11);
+       new_var4 = (s32 *) (D_800C02AE + new_var2) ; func_8000C244 ( * new_var4 , arg0, 0xA0 - temp_s0_3, temp_s2_2, sp40, 1);
       func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xFF, 0xFF, 0xFF, 0xFF);
 
       goto row_color_done;

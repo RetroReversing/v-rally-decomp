@@ -58,59 +58,6 @@ void func_8002D75C(s32, s32, s32, s32 *);
 void func_8002E148(s16 *, s16 *);
 void func_8002E514(s16 *, s16 *, s16 *);
 
-#define FOLLOW_BLOCK()                                                    \
-    if (D_800C7F84->flags & 0x40) {                                       \
-        cd->EC = cd->E0 - car->obj->m[2];                                 \
-        cd->F0 = cd->E4 + car->obj->m[5];                                 \
-        cd->F4 = cd->E8 - car->obj->m[8];                                 \
-    } else {                                                              \
-        cd->EC = cd->E0 + car->obj->m[2];                                 \
-        cd->F0 = cd->E4 + car->obj->m[5];                                 \
-        cd->F4 = cd->E8 + car->obj->m[8];                                 \
-    }                                                                     \
-    for (i = 0; i < 2; i++) {                                             \
-        cam->v[i].x = 0;                                                  \
-        cam->v[i].y = 0;                                                  \
-        cam->v[i].z = 0;                                                  \
-    }                                                                     \
-    if (D_800C7F84->flags & 0x40) {                                       \
-        d[0] = cd->EC - cd->E0;                                           \
-        d[2] = cd->F4 - cd->E8;                                           \
-        ang = -func_8002D2C8(d[2], d[0]);                                 \
-    } else {                                                              \
-        ang = func_8001FD14(car);                                         \
-    }                                                                     \
-    cam->unk50 = cam->unk54 = ang;                                        \
-    a[0] = 0x1000;                                                        \
-    a[1] = 0;                                                             \
-    a[2] = 0;                                                             \
-    func_8002E514(car->obj->m, a, b);                                     \
-    r = func_8002D2C8(b[2], b[0]);                                        \
-    a[0] = 0;                                                             \
-    a[1] = r;                                                             \
-    a[2] = 0;                                                             \
-    func_8002E148(a, mtx);                                                \
-    func_8002E514(mtx, b, a);                                             \
-    r = func_8002D2C8(a[1], a[0]);                                        \
-    p0[0] = car->obj->m[2];                                               \
-    p0[1] = car->obj->m[8];                                               \
-    p1[0] = 0;                                                            \
-    p1[1] = 0;                                                            \
-    p2[0] = car->obj->m[0];                                               \
-    p2[1] = car->obj->m[6];                                               \
-    func_8002D75C(*(s32 *)p0, *(s32 *)p1, *(s32 *)p2, &sgn);              \
-    if (sgn < 0) {                                                        \
-        cd->D0 = 0x800 - r;                                               \
-    } else {                                                              \
-        cd->D0 = r;                                                       \
-    }                                                                     \
-    cd->F8 = car->obj->m[1];                                              \
-    cd->FC = car->obj->m[4];                                              \
-    cd->F100 = car->obj->m[7];                                            \
-    if (D_800C7F84->flags & 0x40) {                                       \
-        cd->D0 = -cd->D0;                                                 \
-    }
-
 void func_80011178(Cam *cam) {
     Car *car;
     CamEntry *ent;
@@ -123,6 +70,9 @@ void func_80011178(Cam *cam) {
     s32 diff;
     s32 idx;
     u32 fl;
+    s32 tgt;
+    s32 cur;
+    s32 dd;
     CamEntry **tp;
     s32 out[3];
     s16 p2[3];
@@ -154,7 +104,7 @@ void func_80011178(Cam *cam) {
         car->flags |= 0x800;
     }
     tp = &D_8009BEE0;
-    ent = *tp + cam->mode;
+    ent = *tp; ent += cam->mode;
     cd = &D_800C7F84->cd;
     if (D_800C7F84->flags & 0x100) {
         if (!(D_800C7F84->flags & 0x200)) {
@@ -186,7 +136,57 @@ void func_80011178(Cam *cam) {
         cd->E0 = car->obj->x;
         cd->E4 = car->obj->y - 50;
         cd->E8 = car->obj->z;
-        FOLLOW_BLOCK();
+        if (D_800C7F84->flags & 0x40) {
+            cd->EC = cd->E0 - car->obj->m[2];
+            cd->F0 = cd->E4 + car->obj->m[5];
+            cd->F4 = cd->E8 - car->obj->m[8];
+        } else {
+            cd->EC = cd->E0 + car->obj->m[2];
+            cd->F0 = cd->E4 + car->obj->m[5];
+            cd->F4 = cd->E8 + car->obj->m[8];
+        }
+        for (i = 0; i < 2; i++) {
+            cam->v[i].x = 0;
+            cam->v[i].y = 0;
+            cam->v[i].z = 0;
+        }
+        if (D_800C7F84->flags & 0x40) {
+            d[0] = cd->EC - cd->E0;
+            d[2] = cd->F4 - cd->E8;
+            ang = -func_8002D2C8(d[2], d[0]);
+        } else {
+            ang = func_8001FD14(car);
+        }
+        cam->unk50 = cam->unk54 = ang;
+        a[0] = 0x1000;
+        a[1] = 0;
+        a[2] = 0;
+        func_8002E514(car->obj->m, a, b);
+        r = func_8002D2C8(b[2], b[0]);
+        a[0] = 0;
+        a[1] = r;
+        a[2] = 0;
+        func_8002E148(a, mtx);
+        func_8002E514(mtx, b, a);
+        r = func_8002D2C8(a[1], a[0]);
+        p0[0] = car->obj->m[2];
+        p0[1] = car->obj->m[8];
+        p1[0] = 0;
+        p1[1] = 0;
+        p2[0] = car->obj->m[0];
+        p2[1] = car->obj->m[6];
+        func_8002D75C(*(s32 *)p0, *(s32 *)p1, *(s32 *)p2, &sgn);
+        if (sgn < 0) {
+            cd->D0 = 0x800 - r;
+        } else {
+            cd->D0 = r;
+        }
+        cd->F8 = car->obj->m[1];
+        cd->FC = car->obj->m[4];
+        cd->F100 = car->obj->m[7];
+        if (D_800C7F84->flags & 0x40) {
+            cd->D0 = -cd->D0;
+        }
         break;
     case 1:
         D_800C7F84->flags |= 0x88;
@@ -202,19 +202,64 @@ void func_80011178(Cam *cam) {
             cd->E4 = car->obj->y + D_8009CE8C[idx].y;
         }
         cd->E8 = car->obj->z + D_8009CE8C[idx].z;
-        FOLLOW_BLOCK();
+        if (D_800C7F84->flags & 0x40) {
+            cd->EC = cd->E0 - car->obj->m[2];
+            cd->F0 = cd->E4 + car->obj->m[5];
+            cd->F4 = cd->E8 - car->obj->m[8];
+        } else {
+            cd->EC = cd->E0 + car->obj->m[2];
+            cd->F0 = cd->E4 + car->obj->m[5];
+            cd->F4 = cd->E8 + car->obj->m[8];
+        }
+        for (i = 0; i < 2; i++) {
+            cam->v[i].x = 0;
+            cam->v[i].y = 0;
+            cam->v[i].z = 0;
+        }
+        if (D_800C7F84->flags & 0x40) {
+            d[0] = cd->EC - cd->E0;
+            d[2] = cd->F4 - cd->E8;
+            ang = -func_8002D2C8(d[2], d[0]);
+        } else {
+            ang = func_8001FD14(car);
+        }
+        cam->unk50 = cam->unk54 = ang;
+        a[0] = 0x1000;
+        a[1] = 0;
+        a[2] = 0;
+        func_8002E514(car->obj->m, a, b);
+        r = func_8002D2C8(b[2], b[0]);
+        a[0] = 0;
+        a[1] = r;
+        a[2] = 0;
+        func_8002E148(a, mtx);
+        func_8002E514(mtx, b, a);
+        r = func_8002D2C8(a[1], a[0]);
+        p0[0] = car->obj->m[2];
+        p0[1] = car->obj->m[8];
+        p1[0] = 0;
+        p1[1] = 0;
+        p2[0] = car->obj->m[0];
+        p2[1] = car->obj->m[6];
+        func_8002D75C(*(s32 *)p0, *(s32 *)p1, *(s32 *)p2, &sgn);
+        if (sgn < 0) {
+            cd->D0 = 0x800 - r;
+        } else {
+            cd->D0 = r;
+        }
+        cd->F8 = car->obj->m[1];
+        cd->FC = car->obj->m[4];
+        cd->F100 = car->obj->m[7];
+        if (D_800C7F84->flags & 0x40) {
+            cd->D0 = -cd->D0;
+        }
         D_800C7F84->flags &= 0xFFF7;
         break;
     case 2:
     case 3:
     case 6:
         {
-        s32 tgt;
-        s32 cur;
-        s32 dd;
-        if (cam->unk68 & 1) {
-            tgt = cam->unk60;
-        } else {
+        if (cam->unk68 & 1) { tgt = cam->unk60; } else {
             tgt = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4030;
         }
         cur = (cam->unk54 + 0x800) & 0xFFF;
@@ -281,27 +326,31 @@ void func_80011178(Cam *cam) {
         cd->EC = car->obj->x;
         cd->F0 = car->obj->y;
         cd->F4 = car->obj->z;
+        cd->E0 = cd->EC + s0;
+        cd->E4 = cd->F0 - 100.0f;
+        cd->E8 = cd->F4 + s1;
         cd->F8 = 0.0f;
         cd->FC = 1.0f;
         cd->F100 = 0.0f;
         cd->DC = 1.0f;
-        cd->E0 = cd->EC + s0;
-        cd->E4 = cd->F0 - 100.0f;
-        cd->E8 = cd->F4 + s1;
         break;
     case 5:
-        ent = *tp + 4;
-        s1 = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4038;
-        s0 = (cam->unk54 + 0x800) & 0xFFF;
-        diff = __builtin_abs(s1 - s0);
-        if (diff > 0x800) {
-            if (s1 < s0) {
-                s1 += 0x1000;
+        ent = *tp;
+        tgt = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4038;
+        cur = (cam->unk54 + 0x800) & 0xFFF;
+        dd = tgt - cur;
+        ent += 4;
+        if (dd < 0) {
+            dd = -dd;
+        }
+        if (dd > 0x800) {
+            if (tgt < cur) {
+                tgt += 0x1000;
             } else {
-                s0 += 0x1000;
+                cur += 0x1000;
             }
         }
-        s0 = func_80010DEC(s0, s1, cam->unk20) - 0x800;
+        s0 = func_80010DEC(cur, tgt, cam->unk20) - 0x800;
         if (cam->mode >= 2) {
             cam->unk20 = func_80010DEC(cam->unk20, cam->unk10, cam->unk18);
             cam->unk24 = func_80010DEC(cam->unk24, cam->unk14, cam->unk18);

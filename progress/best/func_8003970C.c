@@ -54,6 +54,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
     u32 px;
     u32 py;
     s32 ey;
+    s32 unused_pad;
 
     if (D_800C35A0->state == 7) {
         return;
@@ -80,21 +81,19 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
                 pos = obj->pos;
                 D_800C7F84 = obj;
                 dx = 0;
-                ey = pos->xE - 8;
+                ey = pos->x8 - 8;
                 x = pos->xC - 0x10;
-                px = pos->x8 + 0x14;
-                py = pos->xA + 6;
+                px = pos->xA + 0x14;
+                py = pos->xE + 6;
                 if (!(D_800C35A0->opts & 1)) {
                     x = pos->xC - 0x20;
                     dx = (obj->type == 1) ? 0x14 : 0;
                 }
-                px += x;
-                py += ey;
-                w = func_80040260(arg0, px - 0x1A + dx, py - 0xA, arg2, func_8003BA9C, 0);
+                w = func_80040260(arg0, px + x - 0x1A + dx, py + ey - 0xA, arg2, func_8003BA9C, 0);
                 w->text = func_80034FF0(arg1 + 0x4C, 0);
                 w->kind = 4;
                 w->obj = D_800C7F84;
-                w = func_80040260(arg0, px - 0x28 + dx, py - 0x15, arg2, 0, 0);
+                w = func_80040260(arg0, px + x - 0x28 + dx, py + ey - 0x15, arg2, 0, 0);
                 w->text = func_80034FF0(arg1 + 0x4C, 0);
                 w->kind = 3;
             }

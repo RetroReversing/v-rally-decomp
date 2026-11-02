@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct { u8 pad[0xDD]; u8 count; } MenuPage;
 typedef struct {
     u8 pad0[8]; u8 page; MenuPage pages[4]; u8 pad381;
@@ -25,14 +27,18 @@ extern u8 D_800C02AE[];
 #define M D_800A0384
 extern GameState *D_800C35A0;
 #define G D_800C35A0
-#define F(off) ((f32 *)(D_800C02AE + (off)))
+extern f32 D_800C35D8;
+extern f32 D_800C35DC;
+extern f32 D_800C35E0;
+extern f32 D_800C35E8;
+#define F(off) ((off) == 0x332A ? &D_800C35D8 : (off) == 0x332E ? &D_800C35DC : (off) == 0x3332 ? &D_800C35E0 : &D_800C35E8)
 #define CURSET (G->set[G->unk32[M->id]])
 
 void MusSetMasterVolume(s32, s32);
 void func_800494D4(u8);
 void func_80049D50(void);
 s32 func_80049E28(void);
-void func_8004E224(u8, s32);
+void func_8004E224(u8);
 u8 func_8006204C(u8, u8, u8);
 s32 func_80084BF0(u8);
 s8 func_80084C0C(u8, s32);
@@ -67,9 +73,18 @@ void func_8004AFB8(void) {
         page = M->page;
         if (page == 1) {
             switch (M->cursor) {
-            case 0: p = F(0x3332); if (*p > 0.0f) *p -= D_800A4F10; break;
-            case 1: p = F(0x333A); if (*p > 0.0f) *p -= D_800A4F10; break;
-            case 2: p = F(0x332E); if (*p > 0.0f) *p -= D_800A4F10; break;
+            case 0:
+                p = F(0x3332);
+                if (*p > 0.0f) *p -= D_800A4F10;
+                break;
+            case 1:
+                p = F(0x333A);
+                if (*p > 0.0f) *p -= D_800A4F10;
+                break;
+            case 2:
+                p = F(0x332E);
+                if (*p > 0.0f) *p -= D_800A4F10;
+                break;
             }
         } else if (page == 2) {
             sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
@@ -115,7 +130,7 @@ void func_8004AFB8(void) {
             } else if (G->unk1E == 0 && M->cursor == 1 && M->unk3A2 == 0) {
                 M->unk384 = 0;
                 M->cursor = 0;
-                func_8004E224(M->id, 1);
+                func_8004E224(M->id);
                 MusSetMasterVolume(3, (s32)(*F(0x332A) * 32767.0f));
             } else {
                 if (G->unk1E == 0 && M->unk3A2 == 0) {
@@ -218,9 +233,18 @@ void func_8004AFB8(void) {
             page = M->page;
             if (page == 1) {
                 switch (M->cursor) {
-                case 0: p = F(0x3332); if (*p > 0.0f) *p -= D_800A4F10; break;
-                case 1: p = F(0x333A); if (*p > 0.0f) *p -= D_800A4F10; break;
-                case 2: p = F(0x332E); if (*p > 0.0f) *p -= D_800A4F10; break;
+                case 0:
+                    p = F(0x3332);
+                    if (*p > 0.0f) *p -= D_800A4F10;
+                    break;
+                case 1:
+                    p = F(0x333A);
+                    if (*p > 0.0f) *p -= D_800A4F10;
+                    break;
+                case 2:
+                    p = F(0x332E);
+                    if (*p > 0.0f) *p -= D_800A4F10;
+                    break;
                 }
             } else if (page == 2) {
                 sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
@@ -248,3 +272,4 @@ void func_8004AFB8(void) {
         D_800A0389--;
     }
 }
+

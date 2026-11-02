@@ -218,7 +218,12 @@
     "src/code_8004BEB4/func_80053380.c": "16c441a73fc6c40b34ba4334fb5a8859aa0b18775964dbd2155aa3522ab559e6",
     "src/code_80026E3C/func_80033F20.c": "20cfdd7819d423b32541f4a4c5a212ea24bec4ea55d9e81bfc1b4d96a49339be",
     "src/code_8004BEB4/func_800535F4.c": "47b9fca5906fc98f296b78621ed57f0d2d2000309d1d9331fbf299d587511497",
-    "src/code_8004BEB4/func_800746C0.c": "862528b4789c19511fe4f2820decd129067859758f2885ff2cf9aa1d94e0e496"
+    "src/code_8004BEB4/func_800746C0.c": "862528b4789c19511fe4f2820decd129067859758f2885ff2cf9aa1d94e0e496",
+    "src/code_80005098/func_80009964.c": "48aefd95b18a81f733010be5ce91664563ec83786c4bc62af49bc5cf1baef0f2",
+    "src/code_80026E3C/func_8004AFB8.c": "4c1d22b1290d6eaa80388bd776832ea04d25ceb9c777c107acfa32c0122c3005",
+    "src/code_80005098/func_80009C90.c": "8a1527efef99f7946b2b4bc7ae7124c134cb6c001d5d5c5a730b252376bf00f9",
+    "src/code_8007950C/func_8007C694.c": "661496876586b2e10bd8e3eda4ede6b12b1d404dcfb20ef1ecdb8e8b5a2202f4",
+    "src/code_80005098/func_800060C0.c": "0c932cd2e8ea06794b11c5ea817d08ca1377b831b3b5cf00bd6bde862e42f45d"
   },
   "accepted": [
     "MusInitialize",
@@ -233,6 +238,7 @@
     "atan2_angle4096",
     "contInitControllers",
     "func_800051B4",
+    "func_800060C0",
     "func_80006B4C",
     "func_80006EF8",
     "func_800070CC",
@@ -240,6 +246,8 @@
     "func_80008500",
     "func_80008E80",
     "func_80009164",
+    "func_80009964",
+    "func_80009C90",
     "func_80009ED8",
     "func_8000A2C4",
     "func_8000BF2C",
@@ -330,6 +338,7 @@
     "func_80049E28",
     "func_80049F18",
     "func_8004A0A0",
+    "func_8004AFB8",
     "func_8004C2B8",
     "func_8004C98C",
     "func_8004CEB4",
@@ -408,6 +417,7 @@
     "func_800783A8",
     "func_8007A01C",
     "func_8007BDC4",
+    "func_8007C694",
     "func_8007F278",
     "func_80080674",
     "func_8008276C",
@@ -471,5 +481,5 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1959
+  "matched_app": 1962
 }
