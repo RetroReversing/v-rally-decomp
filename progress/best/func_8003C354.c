@@ -1,3 +1,4 @@
+static __inline__ s16 __repair_inline(s16 a) { return a; }
 s32 func_80034FF0(s32, s32);
 void *func_80040260(s32, s16, s16, s32, s32 *, s32);
 void *func_8004240C(s32);
@@ -11,6 +12,8 @@ static inline static static static static int inline_fn(int arg0)
 typedef struct { unsigned char pad[140]; void * value; } __repair_field_8C;
 typedef struct { unsigned char pad_0[120]; short field_78; short field_7A; unsigned char pad_7C[40]; int field_A4; } __repair_record_temp_v0_3;
 typedef struct { unsigned char pad_0[120]; short field_78; short field_7A; unsigned char pad_7C[28]; short field_98; short field_9A; unsigned char pad_9C[8]; int field_A4; } __repair_record_temp_v0_4;
+typedef struct { unsigned char pad_0[8]; short field_8; short field_A; short field_C; short field_E; } __repair_record_temp_v0_2;
+typedef struct { unsigned char pad_0[120]; short field_78; short field_7A; unsigned char pad_7C[28]; short field_98; short field_9A; unsigned char pad_9C[8]; int field_A4; } __repair_record_temp_v0_6;
 void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
 {
   s32 sp1C;
@@ -30,7 +33,7 @@ void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
   u16 temp_a0;
   void *temp_v0;
   void *temp_v0_2;
-  void *temp_v0_3;
+  
   
   void *temp_v0_4;
   char *new_var = (char *) (&D_800C02AE);
@@ -43,28 +46,28 @@ void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
   temp_v0_2 = *((void **) (((char *) temp_v0) + 0x178));
   new_var4 = 0x7CD6;
   *((void **) (((char *) (&D_800C02AE)) + new_var4)) = temp_v0;
-  temp_a3 = *((s16 *) (((char *) temp_v0_2) + 8));
-  new_var5 = (void *)(*((s16 *) (((char *) temp_v0_2) + 0xA)) + 6);
-  temp_s4 = *((s16 *) (((char *) temp_v0_2) + 0xC));
-  temp_s0 = *((s16 *) (((char *) temp_v0_2) + 0xE));
+  temp_a3 = ((__repair_record_temp_v0_2*)temp_v0_2)->field_8;
+  new_var5 = (void *)(((__repair_record_temp_v0_2*)temp_v0_2)->field_A + 6);
+  temp_s4 = ((__repair_record_temp_v0_2*)temp_v0_2)->field_C;
+  temp_s0 = __repair_inline(((__repair_record_temp_v0_2*)temp_v0_2)->field_E);
   temp_a0 = *((u16 *) (((char *) (*((void **) (((char *) (&D_800C02AE)) + 0x32F2)))) + 0xE));
   var_s1 = temp_a3 + 0x14;
   switch (temp_a0)
   {
     case 1:
       temp_s0_2 = temp_s0 - 0x14;
-      temp_v0_3 = func_80040260(sp1C, (s16) (temp_s4 - 0x52), temp_s0_2, 3, &func_8003C254, 0);
+      temp_v0 = func_80040260(sp1C, (s16) (temp_s4 - 0x52), temp_s0_2, 3, &func_8003C254, 0);
       temp_s1 = arg1 + 0x4C;
       new_var3 = 0xA8;
-      ((__repair_record_temp_v0_3*)temp_v0_3)->field_7A = 0;
-      ((__repair_record_temp_v0_3*)temp_v0_3)->field_78 = 1;
-      ((__repair_record_temp_v0_3*)temp_v0_3)->field_A4 = func_80034FF0(temp_s1, 0);
-      new_var6 = (void **) (((char *) temp_v0_3) + new_var3);
+      ((__repair_record_temp_v0_3*)temp_v0)->field_7A = 0;
+      ((__repair_record_temp_v0_3*)temp_v0)->field_78 = 1;
+      ((__repair_record_temp_v0_3*)temp_v0)->field_A4 = func_80034FF0(temp_s1, 0);
+      new_var6 = (void **) (((char *) temp_v0) + new_var3);
       *new_var6 = (void *) (*((void **) (((char *) (&D_800C02AE)) + new_var4)));
       temp_v0_4 = func_80040260(sp1C, (s16) (temp_s4 - 0x49), temp_s0_2, 3, &func_8003C254, 0);
       ((__repair_record_temp_v0_4*)temp_v0_4)->field_7A = 0;
       ((__repair_record_temp_v0_4*)temp_v0_4)->field_78 = 1;
-      ((__repair_field_8C *)temp_v0_4)->value = temp_v0_3;
+      ((__repair_field_8C *)temp_v0_4)->value = temp_v0;
       *((void **) (((char *) temp_v0_4) + new_var3)) = (void *) (*((void **) (((char *) (&D_800C02AE)) + new_var4)));
       ((__repair_record_temp_v0_4*)temp_v0_4)->field_A4 = func_80034FF0(temp_s1, 0);
       var_s6 = func_80040260(sp1C, (s16) (temp_s4 - 0x40), temp_s0_2, 3, &func_8003C254, 0);
@@ -101,13 +104,13 @@ void func_8003C354(s32 arg0, s32 arg1, s32 arg2)
       *((void **) (((char *) temp_v0_4) + new_var3)) = (void *) (*((void **) (new_var + new_var4)));
     }
       temp_v0_6 = func_80040260(sp1C, (s16) (inline_fn(temp_s1 + 0xFFD5) + var_fp), temp_s0_3, 3, &func_8003C254, 0);
-      *((s16 *) (((char *) temp_v0_6) + 0x7A)) = 0;
-      *((s16 *) (((char *) temp_v0_6) + 0x78)) = 1;
+      ((__repair_record_temp_v0_6*)temp_v0_6)->field_7A = 0;
+      ((__repair_record_temp_v0_6*)temp_v0_6)->field_78 = 1;
       ((__repair_field_8C *)temp_v0_6)->value = temp_v0_4;
-      *((s32 *) (((char *) temp_v0_6) + 0xA4)) = func_80034FF0(temp_s3, 0);
+      ((__repair_record_temp_v0_6*)temp_v0_6)->field_A4 = func_80034FF0(temp_s3, 0);
       new_var2 = (temp_s1 + 0xFFDE) + var_fp;
-      *((s16 *) (((char *) temp_v0_6) + 0x98)) = 0x600;
-      *((s16 *) (((char *) temp_v0_6) + 0x9A)) = 0x600;
+      ((__repair_record_temp_v0_6*)temp_v0_6)->field_98 = 0x600;
+      ((__repair_record_temp_v0_6*)temp_v0_6)->field_9A = 0x600;
       *((void **) (((char *) temp_v0_6) + new_var3)) = (void *) (*((void **) (((char *) (&D_800C02AE)) + new_var4)));
       var_s6 = func_80040260(sp1C, (s16) new_var2, temp_s0_3, 3, &func_8003C254, 0);
       *((s16 *) (((char *) var_s6) + 0x7A)) = 0;

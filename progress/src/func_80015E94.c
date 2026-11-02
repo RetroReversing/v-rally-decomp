@@ -1,5 +1,5 @@
 s32 func_8001B730();
-s32 func_80097E30();
+s32 memset();
 s32 func_80098290();
 void *func_80015E94(void *arg0, void *arg1)
 {
@@ -13,7 +13,7 @@ void *func_80015E94(void *arg0, void *arg1)
   void *entry;
   s32 count;
   func_8001B730(arg1);
-  func_80097E30(sp10, 0, 12);
+  memset(sp10, 0, 12);
   func_80098290(sp10, arg1);
   i = 0;
   count = *((u16 *) (((u8 *) arg0) + 32));

@@ -8,15 +8,13 @@ void func_8004E554(void *);
 int func_8004E5B0(char *a, u16 *b)
 {
   u8 changed = 0;
-  int dummy_changed_unused = 0;
   int high = 800;
   int low = 200;
-  u8 special = 0;
-  int t;
+  u8 special;
   int f;
   b[1] = 0;
-  t = U(a, 0x8c);
-  if (((t != 15) & (t != 22)) && (t != 28))
+  special = 0;
+  if (((U(a, 0x8c) != 15) & (U(a, 0x8c) != 22)) && (U(a, 0x8c) != 28))
   {
     f = U(a, 10);
     if (f & 8)
@@ -35,26 +33,19 @@ int func_8004E5B0(char *a, u16 *b)
       if (f & 16)
     {
       special = 1;
-      goto six;
+      b[0] = (b[1] = 6);
     }
     else
       if (f & 64)
     {
-      six:
       b[0] = (b[1] = 6);
-
     }
     else
-    {
       if (f & 32)
-      {
-        special = 1;
-        b[0] = 6;
-        b[1] = 9;
-      }
-      if (1)
-      {
-      }
+    {
+      special = 1;
+      b[0] = 6;
+      b[1] = 9;
     }
   }
   if (!b[1])
@@ -62,7 +53,8 @@ int func_8004E5B0(char *a, u16 *b)
     switch (U(a, 0x8c))
     {
       case 9:
-        b[1] = (b[0] = 1);
+        b[1] = 1;
+        b[0] = 1;
         b[3] = 0;
         break;
 
@@ -77,7 +69,18 @@ int func_8004E5B0(char *a, u16 *b)
         break;
 
       case 11:
-        b[3] = (b[0] = (b[1] = 1));
+        if (D_8009EB80)
+      {
+        b[1] = 1;
+        b[0] = 1;
+        b[3] = 1;
+      }
+      else
+      {
+        b[1] = 1;
+        b[0] = 1;
+        b[3] = 1;
+      }
         if (D_8009EB80 == 1)
       {
         low = 460;
@@ -85,11 +88,14 @@ int func_8004E5B0(char *a, u16 *b)
         break;
 
       case 12:
-        b[0] = (b[1] = (b[3] = 1));
+        b[1] = 1;
+        b[0] = 1;
+        b[3] = 1;
         break;
 
       case 13:
-        b[1] = (b[0] = 1);
+        b[1] = 1;
+        b[0] = 1;
         b[3] = 0;
         if (D_8009EB80 == 0)
       {
@@ -98,7 +104,9 @@ int func_8004E5B0(char *a, u16 *b)
         break;
 
       case 14:
-        b[1] = (b[0] = (b[3] = 1));
+        b[1] = 1;
+        b[0] = 1;
+        b[3] = 1;
         break;
 
       case 15:
@@ -108,16 +116,17 @@ int func_8004E5B0(char *a, u16 *b)
         break;
 
       case 16:
-        b[1] = (b[0] = 1);
+        b[1] = 1;
+        b[0] = 1;
         b[3] = 0;
         break;
 
       case 17:
         b[1] = 2;
+        b[0] = 1;
         if ((D_8009EB80 == 5) || (D_8009EB80 == 1))
       {
         b[0] = 0;
-        b[0] = 1;
       }
         if (D_8009EB80 == 6)
       {
@@ -146,27 +155,32 @@ int func_8004E5B0(char *a, u16 *b)
 
       case 19:
         b[1] = 1;
-        high = 0;
-        b[0] = high;
+        b[0] = 0;
         b[3] = 2;
         if (D_8009EB80 == 5)
       {
-        b[1] = (b[0] = (b[3] = 0));
+        b[1] = 0;
+        b[0] = 0;
+        b[3] = 0;
       }
         if (((D_8009EB80 == 6) || (D_8009EB80 == 4)) || (D_8009EB80 == 7))
       {
-        b[1] = (b[0] = 4);
+        b[1] = 4;
+        b[0] = 4;
         b[3] = 2;
       }
         break;
 
       case 20:
-        b[1] = (b[0] = (b[3] = 1));
+        b[1] = 1;
+        b[0] = 1;
+        b[3] = 1;
         break;
 
       case 21:
         b[1] = 1;
-        b[0] = (b[3] = 2);
+        b[0] = 2;
+        b[3] = 2;
         break;
 
       case 22:
@@ -217,7 +231,8 @@ int func_8004E5B0(char *a, u16 *b)
         break;
 
       case 25:
-        b[0] = (b[1] = 4);
+        b[1] = 4;
+        b[0] = 4;
         b[3] = 2;
         break;
 
@@ -225,15 +240,23 @@ int func_8004E5B0(char *a, u16 *b)
 
       case 27:
         b[1] = 1;
-        b[0] = (b[3] = 0);
+        b[0] = 0;
+        b[3] = 0;
         break;
 
       case 30:
-        b[1] = (b[0] = 1);
+        b[1] = 1;
+        b[0] = 0;
+        b[3] = 0;
         break;
 
       default:
-        b[0] = (b[1] = (b[3] = 0));
+        if (!b[1])
+      {
+        b[1] = 0;
+        b[0] = 0;
+        b[3] = 0;
+      }
         break;
 
     }
@@ -241,11 +264,13 @@ int func_8004E5B0(char *a, u16 *b)
   }
   if (B(a, 0x92) == 77)
   {
-    b[0] = (b[1] = 6);
+    b[1] = 6;
+    b[0] = 6;
     b[3] = 1;
     if (func_800308EC(a, 0) == 2)
     {
-      b[0] = (b[1] = 3);
+      b[1] = 3;
+      b[0] = 3;
     }
     special = func_800308EC(a, 9);
     if (special == 2)
@@ -255,27 +280,26 @@ int func_8004E5B0(char *a, u16 *b)
     }
     if ((D_8009EB80 == 1) && (U(a, 0x8c) == 1))
     {
-      if (low)
-      {
-        b[1] = (b[0] = (b[3] = 0));
-      }
-      else
-      {
-        b[1] = (b[0] = (b[3] = 0));
-      }
+      b[1] = 0;
+      b[0] = 0;
+      b[3] = 0;
     }
     if ((D_8009EB80 == 5) && ((U(a, 0x8c) == 17) || (U(a, 0x8c) == 1)))
     {
-      b[1] = (b[0] = (b[3] = 0));
+      b[1] = 0;
+      b[0] = 0;
+      b[3] = 0;
     }
     if ((D_8009EB80 == 6) && (U(a, 0x8c) == 20))
     {
-      b[1] = (b[0] = (b[3] = 0));
+      b[1] = 0;
+      b[0] = 0;
+      b[3] = 0;
     }
   }
-  if (b[1] && (!special))
+  if ((b[1] != 0) & (!special))
   {
-    if (U(a, 10) & 256)
+    if (U(a, 10) & 0x100)
     {
       func_8004E554(b);
     }

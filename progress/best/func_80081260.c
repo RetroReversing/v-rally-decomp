@@ -2,7 +2,7 @@ extern char D_800A73E0[];
 extern char D_800AE850[];
 extern char D_800C02AE[];
 void *func_8007EAA0(s32, s32);
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_80081260(s32 arg0, s32 arg1, s32 arg2)
 {
   char *new_var;
@@ -22,7 +22,7 @@ void func_80081260(s32 arg0, s32 arg1, s32 arg2)
   } *r;
   s32 ch;
   s3 = D_800AE850 + 0x8A30;
-  func_80097E30(s3, 0, 0xC14C);
+  memset(s3, 0, 0xC14C);
   *((s32 *) (D_800AE850 + 0x8AB0)) = arg0;
   *((s32 *) (D_800C02AE + 0x30A2)) = arg1;
   *((s32 *) (D_800AE850 + 0x8ABC)) = 0;

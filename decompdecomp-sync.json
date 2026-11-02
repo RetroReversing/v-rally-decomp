@@ -131,7 +131,8 @@
     "src/code_80005098/func_80008500.c": "c2f9db3875d773d433fa40ee374b948d999aa2f3f181821f8f40549288947d2a",
     "src/code_80012114/func_800169DC.c": "da7bc5a471936062a7fdd27f2311b28f6eae3400e7b627809a9a5cf6c4cd0d7c",
     "src/code_8004BEB4/func_8006ECB4.c": "b9624c91d65e2773456ee885281de14f047e9f272a91111b48ab61181b361948",
-    "src/code_8007E9D4/func_80089300.c": "d545f49eab4b11aea21a67fb2d85cea967e641a86fa4e33df8dfd742f27e2b7a"
+    "src/code_8007E9D4/func_80089300.c": "d545f49eab4b11aea21a67fb2d85cea967e641a86fa4e33df8dfd742f27e2b7a",
+    "src/code_8004BEB4/func_80073B64.c": "bd7659df2c1b7fa4d3039db950d9240fc2cc648035dc8e64f4953ac7d00ba91a"
   },
   "accepted": [
     "MusInitialize",
@@ -240,6 +241,7 @@
     "func_8006F8E0",
     "func_80070C34",
     "func_800710F0",
+    "func_80073B64",
     "func_80076060",
     "func_80077054",
     "func_8007F278",
@@ -277,5 +279,140 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1872
+  "matched_app": 1892,
+  "snapshot_only": [
+    {
+      "name": "func_80015780",
+      "vram": 2147571584,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80028740",
+      "vram": 2147649344,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_8003FD0C",
+      "vram": 2147745036,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_800407D0",
+      "vram": 2147747792,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80044908",
+      "vram": 2147764488,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_800548A0",
+      "vram": 2147829920,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80054BB8",
+      "vram": 2147830712,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80055EE8",
+      "vram": 2147835624,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80057D5C",
+      "vram": 2147843420,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_8005D0B0",
+      "vram": 2147864752,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80061F34",
+      "vram": 2147884852,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_800635A0",
+      "vram": 2147890592,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80063C60",
+      "vram": 2147892320,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80063D9C",
+      "vram": 2147892636,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80066B88",
+      "vram": 2147904392,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80069158",
+      "vram": 2147914072,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_8006EE3C",
+      "vram": 2147937852,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_8006F0E0",
+      "vram": 2147938528,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80072984",
+      "vram": 2147953028,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_8007A01C",
+      "vram": 2147983388,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "huft_build",
+      "vram": 2148023336,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_800848A0",
+      "vram": 2148026528,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_800869B8",
+      "vram": 2148035000,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80087DE4",
+      "vram": 2148040164,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "func_80089554",
+      "vram": 2148046164,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    },
+    {
+      "name": "__osPfsRWInode",
+      "vram": 2148099308,
+      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
+    }
+  ],
+  "standalone_only": [
+    "func_80086A34"
+  ]
 }

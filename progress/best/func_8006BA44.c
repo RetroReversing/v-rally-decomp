@@ -25,7 +25,7 @@ void func_8006BA44(s32 arg0, unsigned int arg1)
   s32 var_a2;
   s32 var_s4;
   s32 var_t0;
-  s32 var_t1;
+  
   s32 var_v1;
   u32 temp_a0_2;
   u8 temp_t1;
@@ -57,13 +57,13 @@ void func_8006BA44(s32 arg0, unsigned int arg1)
       var_t0 = 0x41;
       break;
   }
-  var_t1 = arg1 + var_a2;
+  temp_s2 = arg1 + var_a2;
   var_s4 = 0;
   temp_fs0 = D_800A57F0;
   temp_s3 = arg1 & 0xFF;
   sp14 = (u16 *) ((D_800C02AE + 0x5A8A) + ((var_t0 + temp_s3) * 2));
   temp_fp = (void *) (((s8 *) temp_s6) + (temp_s3 * 4));
-  temp_s5 = var_t1 & 0xFF;
+  temp_s5 = temp_s2 & 0xFF;
   temp_fs1 = ((f64) temp_s5) * D_800A57F8;
   do
   {

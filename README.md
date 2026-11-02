@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,866 selected C functions / 394,412 matching bytes**, about **69.69% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,866 C and 256 assembly functions**.
+- **1,867 selected C functions / 397,320 matching bytes**, about **70.20% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,867 C and 255 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -377,3 +377,27 @@ checker as described in [the source-linking guide](https://bytematch.dev/docs/so
 ```sh
 python3 /path/to/ByteMatch/scripts/check-source-links.py RetroReversing/v-rally-decomp --version NVLP
 ```
+
+### Exact rendering-function match — 2 November 2026
+
+`func_80073B64` now matches all **727 instructions / 2,908 bytes** in the live app and
+standalone build. The unchanged KMC GCC 2.7.2 profile is
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`; its isolated header, source layout and per-function
+profile are preserved together. The complete **12,582,912-byte cartridge rebuilt byte
+for byte**, SHA1 `da3f262dfb86cff1376c9a1aa081212e5a7aad64`. All earlier selected C is retained.
+
+The final register-only miss needed two coupled changes: small nested single-execution
+scopes changed the compiler's loop-depth-weighted register priorities, and restoring Y
+from an existing equal saved value kept that value live after a conditional call. This
+avoided the last redundant copy. These are verified reconstruction choices, not evidence
+that the original source used these wrappers or variable names. No inline assembly or
+fixed register bindings were added.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot preserves **1,892 app
+matches and 208 best drafts**, including current names, notes, headers and compiler profiles.
+The standalone selection is separately verified: **1,867 C / 255 assembly entries**.
+26 app matches are saved in the snapshot but are not selected as standalone C
+in this single-function integration; the previously verified `func_80086A34` remains
+selected even though the app currently keeps a newer draft. The exact reconciliation is
+recorded in `decompdecomp-sync.json`. Snapshot matches and drafts are not additional
+independently verified standalone functions.

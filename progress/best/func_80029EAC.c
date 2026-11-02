@@ -1,29 +1,10 @@
 #define W(p,o) (*(s32*)((char*)(p)+(o)))
-#define H(p,o) (*(s16*)((char*)(p)+(o)))
 #define U(p,o) (*(u16*)((char*)(p)+(o)))
 #define P(p,o) (*(char**)((char*)(p)+(o)))
-typedef struct 
-{
-  s16 x;
-  s16 y;
-  s16 z;
-} Vertex;
-typedef struct 
-{
-  s16 h[10];
-  int pad[3];
-} Matrix;
-typedef union 
-{
-  struct 
-  {
-    u16 x;
-    u16 z;
-    u32 pad;
-  } p;
-  int word;
-} Pair;
-void func_8002D724(char *a, int *);
+typedef struct { s16 x; s16 y; s16 z; } Vertex;
+typedef struct { s16 h[10]; int pad[3]; } Matrix;
+typedef union { struct { s16 x; s16 z; u32 pad; } p; int word; } Pair;
+void func_8002D724(int *, int *, int *);
 void func_8002D740(int *, int *, int *);
 void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
@@ -42,12 +23,7 @@ void func_80029EAC(char *a, Vertex *point, int index)
   int normal[4];
   Matrix mat;
   Matrix inv;
-  struct 
-  {
-    s16 x;
-    s16 y;
-    s16 z;
-  } delta;
+  struct { s16 x; s16 y; s16 z; } delta;
   int sign;
   int row;
   int col;
@@ -55,83 +31,80 @@ void func_80029EAC(char *a, Vertex *point, int index)
   int right;
   int down;
   int tmp;
-  int slot = 0;
-  int height = 0;
+  int slot;
+  int height;
+  int dot;
   int cell;
+  u16 w;
   char *g;
   char *indices;
   char *record;
   Vertex *v;
   g = P(P(a, 140), index * 4);
-  row = W(P(a, 96) + (index * 4), 0);
-  col = W(P(a, 96) + (index * 4), 48);
-  base = (U(g, 138) * row) + col;
-  right = base + 1;
-  down = base + U(g, 138);
-  cell = (row * (U(g, 138) - 1)) + col;
-  p.p.x = ((Vertex *) P(g, 84))[right].x;
-  p.p.z = ((Vertex *) P(g, 84))[right].z;
-  q.p.x = ((Vertex *) P(g, 84))[down].x;
-  q.p.z = ((Vertex *) P(g, 84))[down].z;
+  row = W(P(a, 96) + index * 4, 0);
+  col = W(P(a, 96) + index * 4, 48);
   r.p.x = point->x;
   r.p.z = point->z;
+  w = U(g, 138);
+  indices = P(g, 112);
+  base = w * row + col;
+  right = base + 1;
+  p.p.x = ((Vertex *) P(g, 84))[right].x;
+  p.p.z = ((Vertex *) P(g, 84))[right].z;
+  down = base + w;
+  q.p.x = ((Vertex *) P(g, 84))[down].x;
+  q.p.z = ((Vertex *) P(g, 84))[down].z;
+  cell = row * (w - 1) + col;
   func_8002D75C(p.word, q.word, r.word, &sign);
+  slot = down + 1;
+  height = right;
   if (sign < 0)
   {
-    tmp = right;
-    base = down + 1;
+    base = slot;
     right = down;
-    down = tmp;
+    down = height;
   }
-  v = (Vertex *) P(g, 84);
-  c[0] = v[right].x - v[base].x;
+  c[0] = ((Vertex *) P(g, 84))[right].x - ((Vertex *) P(g, 84))[base].x;
   c[1] = ((Vertex *) P(g, 84))[right].y - ((Vertex *) P(g, 84))[base].y;
   c[2] = ((Vertex *) P(g, 84))[right].z - ((Vertex *) P(g, 84))[base].z;
-  b[0] = ((Vertex *) P(g, 84))[tmp].x - ((Vertex *) P(g, 84))[base].x;
-  b[1] = ((Vertex *) P(g, 84))[tmp].y - ((Vertex *) P(g, 84))[base].y;
-  b[2] = ((Vertex *) P(g, 84))[tmp].z - ((Vertex *) P(g, 84))[base].z;
-  if (((((unsigned) (index - 4)) < 2) | (index == 10)) || (index == 11))
+  b[0] = ((Vertex *) P(g, 84))[down].x - ((Vertex *) P(g, 84))[base].x;
+  b[1] = ((Vertex *) P(g, 84))[down].y - ((Vertex *) P(g, 84))[base].y;
+  b[2] = ((Vertex *) P(g, 84))[down].z - ((Vertex *) P(g, 84))[base].z;
+  if ((((unsigned) (index - 4) < 2) | (index == 10)) || (index == 11))
   {
-    int shifts[4];
-    func_8002D724(a, c);
+    int sx, sy, sz;
+    height = 0;
+    func_8002D724(c, b, normal);
     slot = (index == 4) * 2;
     if (index == 5)
-    {
       slot = 3;
-    }
     slot &= -(index != 10);
     if (index == 11)
-    {
       slot = 1;
-    }
-    func_8002D7E4(normal[0], shifts);
-    func_8002D7E4(normal[1], shifts + 1);
-    func_8002D7E4(normal[2], shifts + 2);
-    if (((shifts[0] < 16) || (shifts[1] < 16)) || (shifts[2] < 16))
+    func_8002D7E4(normal[0], &sx);
+    func_8002D7E4(normal[1], &sy);
+    func_8002D7E4(normal[2], &sz);
+    if (sx < 16 || sy < 16 || sz < 16)
     {
-      if (shifts[1] < shifts[0])
-      {
-        shifts[0] = shifts[1];
-      }
-      if (shifts[2] < shifts[0])
-      {
-        shifts[0] = shifts[2];
-      }
-      shifts[0] = 17 - shifts[0];
-      normal[0] >>= shifts[0];
-      normal[1] >>= shifts[0];
-      normal[2] >>= shifts[0];
+      if (sx > sy)
+        sx = sy;
+      if (sx > sz)
+        sx = sz;
+      sx = 17 - sx;
+      normal[0] >>= sx;
+      normal[1] >>= sx;
+      normal[2] >>= sx;
     }
-    right = -normal[0];
     v = (Vertex *) P(g, 84);
-    row = v[base].y;
+    v += base;
+    dot = v->x * normal[0] + v->y * normal[1] + v->z * normal[2];
     if (normal[1])
     {
-      height = (((((right * ((s16) r.p.x)) - (normal[2] * ((s16) r.p.z))) + (v[base].x * normal[0])) + (row * normal[1])) + (v[base].z * normal[2])) / normal[1];
+      height = (-normal[0] * r.p.x - normal[2] * r.p.z + dot) / normal[1];
     }
-    W(P(a, 140), (slot * 20) + 176) = point->x;
-    W(P(a, 140), (slot * 20) + 180) = height;
-    W(P(a, 140), (slot * 20) + 184) = point->z;
+    W(P(a, 140), slot * 20 + 176) = point->x;
+    W(P(a, 140), slot * 20 + 180) = height;
+    W(P(a, 140), slot * 20 + 184) = point->z;
   }
   func_8002E688(c, c);
   func_8002E688(b, b);
@@ -155,13 +128,12 @@ void func_80029EAC(char *a, Vertex *point, int index)
   tmp = local[1] * 16;
   if (tmp <= 0)
   {
-    record = (P(a, 140) + (W(P(a, 140), 820) * 48)) + 824;
+    record = P(a, 140) + W(P(a, 140), 820) * 48 + 824;
     W(record, 40) = tmp;
     W(record, 36) = index;
     W(record, 32) = 0;
     *((Matrix *) record) = mat;
-    W(record, 44) = U(P(g, 112), cell * 2);
+    W(record, 44) = U(indices, cell * 2);
     W(P(a, 140), 820)++;
   }
 }
-

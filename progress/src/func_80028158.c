@@ -31,7 +31,7 @@ void func_80043A78(S1 *, S2 *);
 void func_8007B204(S1 *);
 s32 func_80077724(void);
 void func_80077214(S1 *, S2 *);
-void func_80097E30(S2 *, s32, s32);
+void memset(S2 *, s32, s32);
 void func_80028158(S1 *arg0, s32 arg1, S2 *arg2, s32 arg3)
 {
   unsigned short new_var;
@@ -108,7 +108,7 @@ void func_80028158(S1 *arg0, s32 arg1, S2 *arg2, s32 arg3)
       }
       else
       {
-        func_80097E30(arg2, 0, 8);
+        memset(arg2, 0, 8);
         arg2->f3 |= 0x10;
       }
     }

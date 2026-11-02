@@ -18,7 +18,7 @@ s32 func_8004CF7C(s32, s32, s32, s32, f32, s32, s32);
 s32 *func_80057918(s32, u16);
 u8 func_8006204C(u8, u8, u8);
 s32 func_800857C0(s32, s32);
-s32 func_80097E30(s32 *, s32, s32);
+s32 memset(s32 *, s32, s32);
 s32 func_800980D0(s32 *, s32 *);
 s32 func_80098290(void *, void *);
 extern char *D_800A0384;
@@ -201,9 +201,9 @@ void func_8004A0A0(void)
     func_800068C0(spAC, temp_s7, temp_v0_2, (s32) temp_s1_2, 0, (s32) temp_v0_2, (s32) temp_s0_4, 0, temp_s5, (s32) temp_s0_4, 0, temp_s5, (s32) temp_s1_2, 0);
     func_80007404(spAC, temp_s7, 0, 0x4A, 0xA5, 0xA0, 0, 0x4A, 0xA5, 0x32, 0, 0x4A, 0xA5, 0x32, 0, 0x4A, 0xA5, 0xA0);
     func_80006298(spAC);
-    func_80097E30(&sp48, 0, 0x2A);
-    func_80097E30(&sp78, 0, 0x14);
-    func_80097E30(&sp90, 0, 0x14);
+    memset(&sp48, 0, 0x2A);
+    memset(&sp78, 0, 0x14);
+    memset(&sp90, 0, 0x14);
     if ((*((u8 *) (((char *) D_800A0384) + 0x382))) == 0)
     {
       func_80098290((var_s2_2=0,&sp90), func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x126));

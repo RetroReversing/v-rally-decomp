@@ -48,7 +48,7 @@ s32 func_80086A94();
 s32 MusSetMasterVolume(s32, s32);                /* extern */
 s32 func_80086DE8();
 s32 func_80089980();
-s32 func_80097E30();
+s32 memset();
 extern char D_15DB10[];
 extern s32 *D_8009B770;
 extern s32 D_8009B9D8;
@@ -83,7 +83,7 @@ void func_8000E428(void) {
     void *temp_s0;
     s32 mode;
 
-    func_80097E30((u8 *)D_800A73E0 + 0x6C0C, 0, 0x460);
+    memset((u8 *)D_800A73E0 + 0x6C0C, 0, 0x460);
     *(s32 * *)(D_800C02AE + 0x7DFE) = &func_8000E3E4;
     var_s0 = 0;
     func_80080080();

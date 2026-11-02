@@ -49,7 +49,7 @@ extern u8 D_800C3650[];
 extern char D_800C7FF0[];
 extern Rec D_800B55FC[];
 extern s32 D_8009D540;
-extern void func_80097E30(void *, s32, s32);
+extern void memset(void *, s32, s32);
 extern void func_80098290(void *, void *);
 extern u8 func_80077FA8(u8);
 void func_80078018(void)
@@ -59,7 +59,8 @@ void func_80078018(void)
   u8 k;
   s32 zz;
   s32 d;
-  func_80097E30(D_800C7F90, 0, 120);
+
+  memset(D_800C7F90, 0, 120);
   while (node)
   {
     k = func_80077FA8(i);
@@ -70,10 +71,14 @@ void func_80078018(void)
     d = D_800C35A0->drivers[D_800C35A0->slot[i]].car;
     D_800C7F90[k].idx = i;
     D_800C7F90[k].car = d;
-    D_800C7F90[k].time = ((u32 (*)[8])D_800B55FC)[i][D_800C35A0->track];
-    ((u32 (*)[8])D_800B55FC)[i][D_800C35A0->track + 4] /= 100;
-    D_800C7F90[k].speed = (((u32 (*)[8])D_800B55FC)[i][D_800C35A0->track + 4] * D_8009D540 * 3600) /
-               (((u32 (*)[8])D_800B55FC)[i][D_800C35A0->track] * 10);
+    {
+    u32 *lap = D_800B55FC->lap;
+    u32 *dist = D_800B55FC->dist;
+    D_800C7F90[k].time = (lap + D_800C35A0->track)[i * 8];
+    (dist + D_800C35A0->track)[i * 8] /= 100;
+    D_800C7F90[k].speed = ((dist + D_800C35A0->track)[i * 8] * D_8009D540 * 3600) /
+               ((lap + D_800C35A0->track)[i * 8] * 10);
+    }
     D_800C7F90[k].type = *node->type;
     node = node->next;
     i++;

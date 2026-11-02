@@ -18,6 +18,31 @@ extern void func_8008E13C(void *, void *, u32);
 extern u8 D_800C02AE[];
 extern u8 D_800AE850[];
 extern u8 D_800A19F0[];
+static inline void wcopy(u32 *to, u32 *from, u32 len)
+{
+  u32 *end = (u32 *) ((u8 *) from + len);
+  u32 n;
+  u32 *s;
+  if ((to < end) & (from < to))
+  {
+    s = end;
+    n = len >> 2;
+    to = (u32 *) ((u8 *) to + len);
+    for (; n; n--)
+    {
+      *(--to) = *(--s);
+    }
+  }
+  else
+  {
+    s = from;
+    n = len >> 2;
+    for (; n; n--)
+    {
+      *(to++) = *(s++);
+    }
+  }
+}
 s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
 {
   u32 b;
@@ -118,53 +143,13 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
       n -= chunk;
       if ((w - d) >= chunk)
       {
-        u8 *dst = (w + D_800AE850) + 0x8AE8;
-        new_var2 = 4;
-        if ((!(((u32) dst) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
+        if ((!(((u32) ((w + D_800AE850) + 0x8AE8)) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
-          u32 bytes = words * new_var2;
-          u32 cnt;
-          u8 *src = (d + D_800AE850) + 0x8AE8;
-          u32 *to = (u32 *) dst;
-          u32 *from = (u32 *) src;
-          u32 *end = (u32 *) (src + bytes);
-          if ((((u32) to) < ((u32) end)) & (((u32) from) < ((u32) to)))
-          {
-            from = end;
-            cnt = bytes >> 2;
-            to = (u32 *) (dst + bytes);
-            for (; cnt; cnt--)
-            {
-              *(--to) = *(--from);
-            }
-
-          }
-          else
-          {
-            u32 *s3 = (u32 *) src;
-            u32 c3 = bytes >> 2;
-            while (c3)
-            {
-              *(to++) = *(s3++);
-              c3--;
-            }
-
-          }
-          if (bytes)
-          {
-            w += words * 4;
-            d += words * 4;
-            ;
-            chunk &= 3;
-          }
-          else
-          {
-            w += words * 4;
-            d += words * 4;
-            ;
-            chunk &= 3;
-          }
+          wcopy((u32 *) ((w + D_800AE850) + 0x8AE8), (u32 *) ((d + D_800AE850) + 0x8AE8), words * 4);
+          w += words * 4;
+          d += words * 4;
+          chunk &= 3;
         }
         func_8008E13C((w + D_800AE850) + 0x8AE8, (d + D_800AE850) + 0x8AE8, chunk);
         w += chunk;

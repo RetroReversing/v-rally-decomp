@@ -1,5 +1,5 @@
 typedef struct Car40 { u8 pad0[0x10]; u16 flags; u8 pad12[2]; u16 cls; u8 pad16[0x2C4 - 0x16]; } Car40;
-typedef struct Pl40 { s32 name; u8 pad[6]; u16 car; u8 pad2[0x28 - 0xC]; } Pl40;
+typedef struct Pl40 { u8 name[4]; u8 pad[6]; u16 car; u8 pad2[0x28 - 0xC]; } Pl40;
 typedef struct Race40 {
   u8 pad0[0xE]; u16 nplayers; u8 pad10[0xE]; u16 flag; u8 pad20[0x12];
   u8 slot[4]; u8 pad36[4]; u16 car[4]; u8 pad42[2]; Pl40 pl[4];
@@ -25,7 +25,6 @@ void func_800407D0(void)
   u32 k;
   u32 j;
   u16 *cars;
-  u16 *c;
   Db40 *dbs;
   Car40 *db;
   s32 *p;
@@ -44,10 +43,10 @@ void func_800407D0(void)
   for (i = 0; i < n; i++)
   {
     cars[i] = D_800C35A0->pl[D_800C35A0->slot[i]].car;
-    if (*(u8 *) &D_800C35A0->pl[D_800C35A0->slot[i]].name == 0)
+    if (D_800C35A0->pl[D_800C35A0->slot[i]].name[0] == 0)
     {
       func_80099DF8(name, D_800A4C20, D_800A4C28, i + 1);
-      *(s32 *) &D_800C35A0->pl[D_800C35A0->slot[i]] = name[0];
+      *(s32 *) D_800C35A0->pl[D_800C35A0->slot[i]].name = name[0];
     }
   }
   if (D_800C35A0->flag == 0)

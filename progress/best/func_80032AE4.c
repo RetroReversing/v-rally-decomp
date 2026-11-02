@@ -40,12 +40,13 @@ void func_80032AE4(Car *arg0)
     Car *t;
     Info *g;
     s32 v;
-    s32 n;
+    u8 e;
+    u8 f;
     s32 i;
     s32 start;
     s32 far;
     s32 near;
-    s32 k;
+    s32 near2;
 
     car = arg0;
     do {
@@ -55,28 +56,29 @@ void func_80032AE4(Car *arg0)
         g = car->info;
         v = g->b15 ? g->b15 : g->b16;
         if (v == 0) goto next;
-        g = car->info;
-        v = (v - g->b14) * 4;
-        i = g->e;
-        if (g->f < g->e) i = g->f;
+        
+        v = (v - (car->info)->b14) * 4;
+        e = (car->info)->e;
+        f = (car->info)->f;
+        if (f < e) i = f; else i = e;
         if (i < 1 || i > 3) goto next;
-        t = car->target;
-        far = t->info->b17;
-        near = t->info->b14;
+        far = car->target->info->b17;
+        near = car->target->info->b14;
         v = far - v;
+        t = car->target;
         if (v < 20) v = 20;
         if (v > 80) v = 80;
-        start = t->count - (n * 2 + 1);
+        start = t->count - (i * 2 + 1);
         func_8002FFA4(t, start, v, &a);
         func_8002FFA4(t, t->count - 1, far, &b);
         for (i = start; i <= t->count - 1; i++) {
-            k = i - start;
+            near2 = start + 1;
             c.x = b.x - a.x;
-            c.x = c.x * k / (t->count - (start + 1)) + a.x;
+            c.x = c.x * (i - start) / (t->count - near2) + a.x;
             c.y = b.y - a.y;
-            c.y = c.y * k / (t->count - (start + 1)) + a.y;
+            c.y = c.y * (i - start) / (t->count - near2) + a.y;
             c.z = b.z - a.z;
-            c.z = c.z * k / (t->count - (start + 1)) + a.z;
+            c.z = c.z * (i - start) / (t->count - near2) + a.z;
             t->info->nodes[i].pos.x = c.x;
             t->info->nodes[i].pos.y = c.y;
             t->info->nodes[i].pos.z = c.z;

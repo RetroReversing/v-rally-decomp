@@ -16,7 +16,7 @@ void *func_8007EAA0(s32, s32);
 Item *func_800592D0(s8);
 Seg *func_800592AC(u16);
 s32 func_80057918(s32, u16);
-s16 func_8000C9B0(void *, s32, u8, s32, s32);
+s32 func_8000C9B0(void *, s32, u8, s32, s32);
 extern Mgr *D_800A1468;
 extern u8 D_800C02AE[];
 extern s32 D_800C8328;
@@ -45,20 +45,20 @@ void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
         id = func_80057918(D_800C8328, item->id);
         m = D_800A1468;
         v = func_8000C9B0(TABP(m, item->sel), id, m->pair[item->sel][1], item->v, 0);
-        if (hi < v) hi = v;
+        if (v > hi) hi = v;
         if (item->w < lo) lo = item->w;
     }
     seg = func_800592AC(node->a);
     id = func_80057918(D_800C8328, seg->id);
     m = D_800A1468;
     v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
-    if (hi < v) hi = v;
+    if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     seg = func_800592AC(node->b);
     id = func_80057918(D_800C8328, seg->id);
     m = D_800A1468;
     v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
-    if (hi < v) hi = v;
+    if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     if (hi > lo) {
         node->flag = 0;

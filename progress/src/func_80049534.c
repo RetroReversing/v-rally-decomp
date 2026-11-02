@@ -16,7 +16,7 @@ typedef struct {
 extern Buf13 D_800A4E60;
 extern Buf14 D_800A4E70;
 extern char D_800A4E80[];
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_8004C7F0(void *);
 void func_80081540(void *);
 
@@ -25,9 +25,9 @@ void func_80049534(void) {
     s32 i;
 
     f.a = D_800A4E60;
-    func_80097E30(f.c, 0, 3);
+    memset(f.c, 0, 3);
     f.d = D_800A4E70;
-    func_80097E30(f.e, 0, 2);
+    memset(f.e, 0, 2);
     func_80081540(D_800A4E80);
     i = 1;
     do {

@@ -60,7 +60,7 @@ extern Track D_800C3750[];
 extern Rec *D_800D0634[];
 extern Stats D_800B6600;
 extern Node **D_800B5C40;
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 u8 func_80078338(u8);
 void func_80098290(char *, void *);
 void func_800783A8(void)
@@ -79,7 +79,7 @@ void func_800783A8(void)
   n = 0;
   node = *(*((Node ***) (D_800AE850 + 0x73F0)));
   st = STATS;
-  func_80097E30(ENTS, 0, 0x78);
+  memset(ENTS, 0, 0x78);
   i = 0;
   if (node != 0)
   {

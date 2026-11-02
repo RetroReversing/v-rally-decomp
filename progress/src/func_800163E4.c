@@ -2,7 +2,7 @@ extern char D_800C02AE[];
 extern u8 *D_800C7F80;
 void *func_80016204(void *);
 void *func_8007EAA0(s32, s32);
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_80005CB8(s32, s32, s32, s32, s32);
 void func_80005D98(s32);
 void func_80016354(void *, void *);
@@ -83,7 +83,7 @@ void *func_800163E4(void *arg0, u8 *arg1, u8 *arg2)
     handle = 0;
     p = (*((u8 **) fp)) + (i * 0x6c);
     q = func_8007EAA0(1, 0x94);
-    func_80097E30(q, 0, 0x94);
+    memset(q, 0, 0x94);
     *((u32 *) q) = 0;
     *((B64 *) (q + 8)) = *((B64 *) (p + 0xc));
     *((B64 *) (q + 0x48)) = *((B64 *) (p + 0xc));

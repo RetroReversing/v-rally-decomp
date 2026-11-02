@@ -33,11 +33,15 @@ void func_8006EE3C(u8 arg0)
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x44)) = (s8) (((unsigned long long) ((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xA) & 0x1F)) + 0x41);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x45)) = (s8) (((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 5) & 0x1F) + 0x41);
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x46)) = (s8) (((*((u8 *) (((char *) temp_t0) + 1))) & 0x1F) + 0x41);
-  value = *((u16 *) (((char *) temp_t0) + 2));
   *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x47)) = 0;
+  value = *((u16 *) (((char *) temp_t0) + 2));
   temp_a0_2 = D_800C35A0;
-  temp_a0_2 += temp_a3;
-  *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) ((value >> 0xC) + (((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xF) * 0x10);
+  {
+    u16 hi = *((u16 *) (((char *) temp_t0) + 0));
+    u16 v12 = value >> 0xC;
+    temp_a0_2 += temp_a3;
+    *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) (v12 + (hi >> 0xF) * 0x10);
+  }
   temp_a2_2 = *((u8 *) (((char *) temp_t0) + 5));
   value = *((u16 *) (((char *) temp_t0) + 2));
   *((s8 *) (((char *) temp_a0_2) + 0x54)) = (s8) (temp_a2_2 & 3);

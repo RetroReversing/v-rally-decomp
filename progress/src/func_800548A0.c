@@ -30,6 +30,8 @@ s32 func_80098180(char *, char *);
 s32 func_80098290(char *, void *);
 void func_800548A0(void)
 {
+char *__repair_addr;
+
   u32 tot[8];
   char name[8];
   u8 i;
@@ -96,7 +98,9 @@ void func_800548A0(void)
       }
       if (good) {
         ITEMS[3].score = t[i];
-        ITEMS[3].b4 = *(u16 *)(G + (G + i)[0x32] * 40 + 0x4E);
+__repair_addr = (char *)(G + (G + i)[0x32] * 40 + 0x4E);
+
+        ITEMS[3].b4 = *(u16 *)(__repair_addr);
         ITEMS[3].b5 = *(u16 *)(G + 0x16);
         func_80098290(ITEMS[3].name, (u8 *)G + (G[i + 0x32] * 40 + 0x44));
         ITEMS[3].laps = t[i + 4] / 50;

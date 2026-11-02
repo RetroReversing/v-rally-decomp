@@ -6,11 +6,11 @@ s32 func_80054740();
 s32 func_80055380();
 s32 func_8006ECB4();
 s32 func_8006F75C();
-s32 func_80097E30();
+s32 memset();
 extern char D_800AE850[];
 
 void func_80054838(void) {
-    func_80097E30(D_800AE850 + 0x2530, 0, 0x19);
+    memset(D_800AE850 + 0x2530, 0, 0x19);
     func_80053F44();
     func_800540A0();
     func_800544D4();

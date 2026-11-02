@@ -1,4 +1,4 @@
-s32 func_80097E30(s32, s32, s32);
+s32 memset(s32, s32, s32);
 
 void func_8001B514(void *arg0) {
     s32 temp_v0;
@@ -7,7 +7,7 @@ void func_8001B514(void *arg0) {
     s8 var_a1;
     void *temp_v1;
 
-    func_80097E30((s32)arg0, 0, 0x28);
+    memset((s32)arg0, 0, 0x28);
     var_a1 = 0;
     *(s16 *)((s8 *)arg0 + 0xC) = 0;
     *(s8 *)((s8 *)arg0 + 9) = 1;

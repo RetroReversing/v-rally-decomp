@@ -22,14 +22,16 @@ extern s32 D_800A3B30;
 extern u8 D_800A3B34;
 extern u8 D_800C02AE[];
 
-static __inline__ u8 sumcalc(u8 *ptr, int len)
+static __inline__ u16 sumcalc(u8 *ptr, int len)
 {
     int i;
     u32 sum = 0;
+    u8 *tmp = ptr;
     for (i = 0; i < len; i++) {
-        sum += *ptr++;
+        sum += *tmp;
+        tmp++;
     }
-    return sum;
+    return sum & 0xFFFF;
 }
 
 s32 __osPfsRWInode(OSPfsX *pfs, u8 *inode, u8 flag, u8 bank)

@@ -76,9 +76,10 @@ void func_800485F8(s32 arg0, s32 arg1, Arg2 *arg2, Arg3 *arg3)
     p->w0 = (0xF6000000 | (((arg2->rect->x1 - new_var) & 0x3FF) << 14)) | (((arg2->rect->y1 - new_var) & 0x3FF) << 2);
     p->w1 = ((arg2->rect->x0 & 0x3FF) << 14) | ((arg2->rect->y0 & 0x3FF) << 2);
     p = g++;
-    p->w0 = 0xE7000000;
     p->w1 = 0;
     p->w0 = 0xE7000000;
+    p->w0 = 0xE7000000;
+p->w1 = 0;
     func_80006014(h, g);
   }
 }

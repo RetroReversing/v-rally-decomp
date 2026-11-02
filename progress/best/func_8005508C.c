@@ -16,6 +16,8 @@ extern void func_800535F4(void *);
 
 void func_8005508C(void)
 {
+char *__repair_addr;
+
     s32 val[4];
     s32 bon[4];
     u8 pos[6];
@@ -63,7 +65,9 @@ void func_8005508C(void)
             }
             if ((u8)ok) {
                 D_800C3A90[2][3].val = val[i];
-                D_800C3A90[2][3].b4 = *(u16 *)(D_800C35A0 + i * 40 + 0x4E);
+__repair_addr = (char *)(D_800C35A0 + i * 40 + 0x4E);
+
+                D_800C3A90[2][3].b4 = *(u16 *)(__repair_addr);
                 D_800C3A90[2][3].b5 = *(u16 *)(D_800C35A0 + 0x16);
                 func_80098290(D_800C3A90[2][3].name, D_800C35A0 + (i * 40 + 0x44));
                 D_800C3A90[2][3].bB = 0;

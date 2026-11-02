@@ -108,7 +108,7 @@ void func_80044908(Car *car)
         e = trk->splits;
         if (!(car->flags & 0x20))
         {
-          pos = *new_var;
+          pos = *car->p48;
           sum = car->race->total;
           e[pos].a = sum;
           e[pos].b = car->lap->laps;
@@ -165,14 +165,15 @@ void func_80044908(Car *car)
           else
             if (seg == oseg)
           {
-            s32 k;
-            u32 n;
+#define k i
+            u16 n;
             va[0] = car->body->x - trk->x;
             va[2] = car->body->z - trk->z;
             vb[0] = other->body->x - trk->x;
             vb[2] = other->body->z - trk->z;
             n = trk->n;
-            k = (n * seg) + (n >> 1);
+            seg = (seg * n) + (n >> 1);
+            k = seg;
             vc[0] = trk->verts[(k + n) * 3] - trk->verts[k * 3];
             vc[2] = trk->verts[((k + n) * 3) + 2] - trk->verts[(k * 3) + 2];
             va[0] = vb[0] - va[0];

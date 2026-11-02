@@ -71,7 +71,7 @@ void func_80049654(void)
     row = ((u8) var_s1) * 222 + 10;
     do
     {
-      func_80097E30((D_800A0384 + row) + (((u8) var_s0) * 42), 0, 42);
+      memset((D_800A0384 + row) + (((u8) var_s0) * 42), 0, 42);
       var_s0++;
     }
     while (((u8) var_s0) < 5);

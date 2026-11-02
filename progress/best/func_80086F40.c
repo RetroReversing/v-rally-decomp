@@ -35,13 +35,12 @@ s32 func_80086F40(u32 a, s32 b)
 {
   s32 end;
   s32 chunk;
-  s32 t;
   s32 start;
   s32 sum;
   void *data;
   s32 n;
   Node *walker;
-  Node *old;
+  s32 old;
   if ((*((u32 *) (D_800C02AE + 0x339A))) & 1)
   {
     return osVirtualToPhysical((void *) a);
@@ -60,7 +59,7 @@ s32 func_80086F40(u32 a, s32 b)
       {
         break;
       }
-      old = walker;
+      old = (s32) walker;
       if (sum >= end)
       {
         walker->phys = D_800A1BA4;
@@ -78,18 +77,18 @@ s32 func_80086F40(u32 a, s32 b)
   alUnlink(walker);
   if (old != 0)
   {
-    alLink(walker, old);
-    t = a & 1;
+    alLink(walker, (Node *) old);
+    old = a & 1;
   }
   else
   {
     if (HEAD != 0)
     {
-      old = HEAD;
+      old = (s32) HEAD;
       HEAD = walker;
-      walker->next = old;
+      walker->next = (Node *) old;
       walker->prev = 0;
-      old->prev = walker;
+      ((Node *) old)->prev = walker;
     }
     else
     {
@@ -97,14 +96,14 @@ s32 func_80086F40(u32 a, s32 b)
       walker->next = 0;
       walker->prev = 0;
     }
-    t = a & 1;
+    old = a & 1;
   }
-  a -= t;
+  a -= old;
   walker->start = a;
   walker->phys = D_800A1BA4;
   data = walker->data;
   n = D_800A1BA8;
   D_800A1BA8 = n + 1;
   func_80081040(a, data, SIZE, TABLE[n].first, TABLE[n].rest);
-  return osVirtualToPhysical(data) + t;
+  return osVirtualToPhysical(data) + old;
 }

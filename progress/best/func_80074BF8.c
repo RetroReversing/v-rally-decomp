@@ -34,12 +34,12 @@ extern char D_800A5E0C[];
 extern char D_800A5E10[];
 extern char D_800A73E0[];
 extern char D_800C02AE[];
-static inline static static static static char *inline_fn(int arg0, s32 arg1)
+static inline char *inline_fn(int arg0, s32 arg1)
 {
   return (D_800C02AE + arg0) + (arg1 * 0x18);
 }
 
-static inline static static static int inline_fn2(s16 arg0, u8 arg1)
+static inline int inline_fn2(s16 arg0, u8 arg1)
 {
   return arg0 + arg1;
 }
@@ -135,18 +135,18 @@ void func_80074BF8(void *arg0, void *arg1)
     }
     func_80052E94(*((u32 *) ((D_800C02AE + 0x7CE6) + temp_s0_7)), &spB8);
     func_80052E94(*((u32 *) ((D_800C02AE + 0x7CEA) + temp_s0_7)), &spD0);
-    if ((*((s32 *) ((*((char **) (D_800C02AE + 0x32F2))) + 0x50))) != 0)
+    if ((*((u16 *) ((*((char **) (D_800C02AE + 0x32F2))) + 0x50))) != 0)
     {
       temp_v1 = *((u32 *) ((D_800C02AE + 0x7CEE) + temp_s0_7));
       if (temp_v1 >= 0x12DU)
       {
-        func_80099DF8(text, &D_800A5DE8);
+        func_80099DF8(spE8, &D_800A5DE8);
         var_v1 = 0xFFFF;
         var_v1 = var_s6 & var_v1;
       }
       else
       {
-        func_80099DF8(text, &D_800A5D7C, ((u32) (temp_v1 * 0x9F00)) >> 0x10);
+        func_80099DF8(spE8, &D_800A5D7C, ((u32) (temp_v1 * 0x9F00)) >> 0x10);
         var_v1 = var_s6 & 0xFFFF;
       }
       var_v0_2 = ((u32) ((*((u32 *) ((D_800C02AE + 0x7CEE) + (var_v1 * 0x18)))) * 0x27C)) >> 0xA;
@@ -174,34 +174,30 @@ void func_80074BF8(void *arg0, void *arg1)
     temp_s0_8 = var_s6 & 0xFFFF;
     if (temp_s0_8 == 6)
     {
-      func_80099DF8(&sp40, &D_800A5E10, (u32) (D_800C02AE + 0x7D72), &spB8, text);
-      goto block_26;
-    }
-    if (temp_s0_8 <= (((*((u8 *) (D_800A73E0 + 0x6C00))) - 1) - 1))
-    {
-      block_23:
-      func_80099DF8(&sp40, &D_800A5DFC, temp_s0_8 + 1, &spB8, &spD0, text);
-
-      var_v0_4 = var_s6 & 0xFFFF;
+      func_80099DF8(sp40, D_800A5E10, D_800C02AE + 0x7D72, spB8, text);
+      func_80099DF8(text, D_800A5E0C);
     }
     else
     {
-      if ((*((u8 *) (D_800A73E0 + 0x6C00))) == 0)
+      if (temp_s0_8 >= (*((u8 *) (D_800A73E0 + 0x6C00))) - 1)
       {
+        if ((*((u8 *) (D_800A73E0 + 0x6C00))) != 0)
+        {
+          func_80099DF8(sp40, D_800A5E0C);
+          func_80099DF8(spE8, D_800A5E0C);
+          goto done;
+        }
         if ((*((u32 *) ((D_800C02AE + 0x7CE6) + (temp_s0_8 * 0x18)))) == 0)
         {
-          func_80099DF8(&spB8, &D_800A5D70);
-          func_80099DF8(&spD0, &D_800A5D70);
-          func_80099DF8(text, &D_800A5D8C);
+          func_80099DF8(spB8, D_800A5D70);
+          func_80099DF8(spD0, D_800A5D70);
+          func_80099DF8(spE8, D_800A5D8C);
         }
-        goto block_23;
       }
-      func_80099DF8(&sp40, &D_800A5E0C);
-      block_26:
-      func_80099DF8(text, &D_800A5E0C);
-
-      var_v0_4 = var_s6 & 0xFFFF;
+      func_80099DF8(sp40, D_800A5DFC, temp_s0_8 + 1, spB8, spD0, text);
     }
+    done:
+    var_v0_4 = var_s6 & 0xFFFF;
     if ((*((u32 *) inline_fn(0x7CE6, var_v0_4))) != 0)
     {
       func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - (((u32) (func_8000C9B0(arg0 + 0x40, &sp40, 1, 1.0f, 1) & 0xFFFF)) >> 1), (s16) sp106, &sp40, 1);

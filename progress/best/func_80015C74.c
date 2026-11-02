@@ -1,5 +1,5 @@
 s32 func_8007EE9C();
-s32 func_80097E30();
+s32 memset();
 extern s32 D_8009BF88[];
 extern s8 D_800A16D5;
 extern char D_800A73E0[];
@@ -46,6 +46,6 @@ void func_80015C74(void *arg0, s32 arg1)
     while (i < (*((u16 *) (base + 0x20))));
   }
   *((u16 *) (base + 0x20)) = 0;
-  func_80097E30(D_800A73E0 + 0x6C0C, 0, 0x460);
+  memset(D_800A73E0 + 0x6C0C, 0, 0x460);
   D_800A16D5 = 0;
 }

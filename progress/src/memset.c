@@ -1,4 +1,4 @@
-s32 func_80097E30(s32 arg0, s32 arg1, u32 arg2)
+s32 memset(s32 arg0, s32 arg1, u32 arg2)
 {
     u32 pat;
     s32 p;

@@ -21,7 +21,7 @@ u32 func_80081E8C(u8 *dst, u32 len)
     {
       if (*size <= 0)
       {
-        func_80081040(D_800B7300 + size[5] + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
+        func_80081040(*(s32 *) (D_800AE850 + 0x8AB0) + size[5] + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
         *size = 8192;
         size[5] += 8192;
         size[-1] = size[-2];
@@ -37,22 +37,30 @@ u32 func_80081E8C(u8 *dst, u32 len)
       }
       else
       {
+        u8 *src;
+        u32 bytes;
         words = n >> 2;
-        s = *(u32 **) (D_800C02AE + 0x308E);
-        e = s + words;
-        if (((u32) dst < (u32) e) & ((u32) s < (u32) dst))
+        src = *(u8 **) (D_800C02AE + 0x308E);
+        bytes = words << 2;
+        if ((dst < src + bytes) & (src < dst))
         {
-          d = (u32 *) dst + words;
-          count = words;
-          if (count)
-            do { e--; d--; count--; *d = *e; } while (count);
+          d = (u32 *) (dst + bytes);
+          e = (u32 *) (src + bytes);
+          count = bytes >> 2;
+          while (count)
+          {
+            e--; d--; count--; *d = *e;
+          }
         }
         else
         {
+          s = (u32 *) src;
           d = (u32 *) dst;
-          count = words;
-          if (count)
-            do { *d = *s; s++; count--; d++; } while (count);
+          count = bytes >> 2;
+          while (count)
+          {
+            *d = *s; s++; count--; d++;
+          }
         }
         dst += words * 4;
         *ptr += words * 4;

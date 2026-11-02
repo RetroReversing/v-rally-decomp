@@ -12,7 +12,7 @@ typedef struct {
     s32 x3A4;
 } Mgr;
 extern Mgr *D_800A0384;
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_80098290(void *, void *);
 s16 func_8000C9B0(void *, void *, s32, s32, s32);
 
@@ -24,7 +24,7 @@ void func_80049F18(void)
     Mgr *m;
     s16 v;
 
-    func_80097E30(buf, 0, 0x2A);
+    memset(buf, 0, 0x2A);
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 5; j++) {
             D_800A0384->recs[i].vals[j] = 0;

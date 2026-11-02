@@ -28,11 +28,14 @@ typedef struct
   u8 z[0x21a];
   s8 ix;
 } A;
+typedef struct { u8 f; u8 pad[39]; } E40;
+typedef struct { u8 pad[0x48]; E40 e[4]; } RS;
 extern A *D_800A1468;
 extern u8 D_800A167C[];
 extern u8 D_800A1681;
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
+extern RS *D_800C35A0;
 extern u8 D_800A57B4[];
 void func_80069158(void)
 {
@@ -49,16 +52,17 @@ void func_80069158(void)
   do
   {
     im = n->img;
-    if (((i & 255) == 6) && ((*((u8 **) (D_800C02AE + 0x32f2)))[(D_800A1468->ix * 40) + 72] & 16))
+    if (((i & 255) == 6) && (D_800C35A0->e[D_800A1468->ix].f & 16))
     {
       sel = D_800A1681;
       goto draw;
     }
-    if (((i & 255) == 5) && ((*((u8 **) (D_800C02AE + 0x32f2)))[(D_800A1468->ix * 40) + 72] & 16))
+    if (((i & 255) == 5) && (D_800C35A0->e[D_800A1468->ix].f & 16))
     {
+      sel = indices[0];
       r[0] = (im->x + t[indices[new_var2 = 5]]->b->image->x) + 16;
       r[1] = im->y;
-      p = &t[indices[0]];
+      p = (T **)(sel * 4 + (u32)t);
       r[2] = (*p)->b->image->x;
       new_var = (*p)->b->image->y;
       r[3] = new_var;
@@ -74,10 +78,9 @@ void func_80069158(void)
     r[0] = im->x;
 
     r[1] = im->y;
-    p = &t[sel];
-    r[2] = (*p)->b->image->x;
-    r[3] = (*p)->b->image->y;
-    func_8004CEB4(*((s32 *) (D_800C02AE + 0x1032a)), (*p)->b->image, r, 0, 255, 255, 255, 255, 0);
+    r[2] = t[sel]->b->image->x;
+    r[3] = t[sel]->b->image->y;
+    func_8004CEB4(*((s32 *) (D_800C02AE + 0x1032a)), t[sel]->b->image, r, 0, 255, 255, 255, 255, 0);
     n = n->next;
     i++;
   }

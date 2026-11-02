@@ -24,7 +24,7 @@ s32 func_80052E94(u16, void *);
 Sp *func_800592D0(s32);
 s32 func_80059618(void *, s32, s32, s32, s32);
 s32 func_800596F4(void *, s16, s16, void *);
-s32 func_80097E30(void *, s32, s32);
+s32 memset(void *, s32, s32);
 s32 func_800980D0(void *, void *);
 s32 func_80099DF8(void *, void *, s32, void *);
 extern char D_800A5684[];
@@ -54,7 +54,7 @@ void func_80062E68(void)
   s32 v;
   s32 n;
   s = func_800592D0(0x10);
-  func_80097E30(&sp18, 0, 0xF);
+  memset(&sp18, 0, 0xF);
   n = 0;
   do
   {
@@ -75,7 +75,7 @@ void func_80062E68(void)
     new_var = inline_fn(D_800D0634 + (177 * (D_800C35A0->a * 4)), i, 6);
     new_var2 = &u->x;
     v = *new_var;
-    func_80097E30(&sp18, 0, 0xF);
+    memset(&sp18, 0, 0xF);
     func_80052E94(v, &sp18);
     func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);
     if (i == 0)
@@ -84,7 +84,7 @@ void func_80062E68(void)
     }
     else
     {
-      func_80097E30(&sp18, 0, 0xF);
+      memset(&sp18, 0, 0xF);
       {
         s32 t1 = D_800A568C;
         s32 t2 = D_800A568E;

@@ -1,25 +1,28 @@
-#define R D_800C35A0
 #define H(p) (*(u16*)(p))
 #define VH(p) (*(volatile u16*)(p))
-#define W(p) (*(u32*)(p))
+typedef struct { u16 v; u8 pad[38]; } Ent;
+typedef struct { u8 pad0[0xe]; u16 mode; u8 pad10[0x22]; u8 slot[4]; u8 pad36[0x18]; Ent e[4]; } RS;
+typedef struct { s32 cnt[4]; u16 flag[12]; u8 map[12][4]; } Blk;
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
+extern Blk D_800B6600;
+extern s32 D_800B6768[4];
 extern void func_80053C28(u8, u16);
-extern u8 *D_800C35A0;
+extern RS *D_800C35A0;
+#define R D_800C35A0
 void func_8006E394(void)
 {
   u8 used[4];
   u8 *s;
-  u8 *new_var;
-  int new_var3;
   u8 j;
   u8 i;
   u8 n;
   u8 base;
   u32 x;
-  u8 *new_var2;
+  u16 m;
   u32 q;
-  unsigned char v;
+  u8 v;
+  int b;
   for (i = 0; i < 4; i++)
   {
     used[i] = 0;
@@ -32,15 +35,15 @@ void func_8006E394(void)
   {
     D_800AE850[0x7FC8] = (x >> 13) & 1;
     D_800AE850[0x7FC9] = x >> 15;
-    H(R + 14) = (x >> 8) & 3;
-    R[0x32] = (VH(s) >> 4) & 15;
-    used[R[0x32]] = 1;
-    H((R + (R[0x32] * 40)) + 0x4e) = D_800C02AE[0x701e] & 15;
-    if (H(R + 14) >= 2)
+    R->mode = (x >> 8) & 3;
+    R->slot[0] = (VH(s) >> 4) & 15;
+    used[R->slot[0]] = 1;
+    R->e[R->slot[0]].v = D_800C02AE[0x701e] & 15;
+    if (R->mode >= 2)
     {
-      R[0x33] = *((volatile u16 *) s) & 15;
-      used[R[0x33]] = 1;
-      H((R + (R[0x33] * 40)) + 0x4e) = D_800C02AE[0x701e] >> 4;
+      R->slot[1] = *((volatile u16 *) s) & 15;
+      used[R->slot[1]] = 1;
+      R->e[R->slot[1]].v = D_800C02AE[0x701e] >> 4;
     }
     else
     {
@@ -53,11 +56,10 @@ void func_8006E394(void)
         }
       }
 
-      R[0x33] = i;
-      H((R + (R[0x33] * 40)) + 0x4e) = H(s) & 15;
-      func_80053C28(R[0x33], H(s) & 15);
+      R->slot[1] = i;
+      R->e[R->slot[1]].v = H(s) & 15;
+      func_80053C28(R->slot[1], H(s) & 15);
     }
-    new_var2 = D_800AE850 + 0x7db8;
     for (i = 0; i < 4; i++)
     {
       if (!used[i])
@@ -67,9 +69,9 @@ void func_8006E394(void)
       }
     }
 
-    R[0x34] = i;
-    H((R + (R[0x34] * 40)) + 0x4e) = (*((volatile u16 *) (s + 2))) >> 12;
-    func_80053C28(R[0x34], H(s + 2) >> 12);
+    R->slot[2] = i;
+    R->e[R->slot[2]].v = (*((volatile u16 *) (s + 2))) >> 12;
+    func_80053C28(R->slot[2], H(s + 2) >> 12);
     for (i = 0; i < 4; i++)
     {
       if (!used[i])
@@ -79,9 +81,9 @@ void func_8006E394(void)
       }
     }
 
-    R[0x35] = i;
-    H((R + (R[0x35] * 40)) + 0x4e) = (H(s + 2) >> 8) & 15;
-    func_80053C28(R[0x35], (H(s + 2) >> 8) & 15);
+    R->slot[3] = i;
+    R->e[R->slot[3]].v = (H(s + 2) >> 8) & 15;
+    func_80053C28(R->slot[3], (H(s + 2) >> 8) & 15);
     if (D_800AE850[0x7fc9])
     {
       n = 4;
@@ -92,58 +94,52 @@ void func_8006E394(void)
       n = 8;
       base = 0;
     }
-    q = s[9];
+    m = s[9];
     for (i = 0; i < n; i++)
     {
-      if ((q & (1 << i)) == (1 << i))
+      if ((m & (1 << i)) == (1 << i))
       {
-        H((D_800AE850 + 0x7dc0) + ((base + i) * 2)) = 1;
+        D_800B6600.flag[base + i] = 1;
       }
       else
       {
-        H((D_800AE850 + 0x7dc0) + ((base + i) * 2)) = 0;
+        D_800B6600.flag[base + i] = 0;
       }
     }
 
-    new_var = D_800AE850;
-    W(new_var + 0x7db0) = 0;
-    W(D_800AE850 + 0x7db4) = 0;
-    W(new_var2) = 0;
-    W(D_800AE850 + 0x7dbc) = 0;
+    D_800B6600.cnt[0] = 0;
+    D_800B6600.cnt[1] = 0;
+    D_800B6600.cnt[2] = 0;
+    D_800B6600.cnt[3] = 0;
     for (j = 0; j < 4; j++)
     {
       q = H((s + 10) + (j * 2));
       for (i = 0; i < n; i++)
       {
-        new_var3 = 1;
-        v = ((q & (1 << (i * 2))) == (new_var3 << (i * 2))) | (((q & (1 << ((i * 2) + 1))) == (1 << ((i * 2) + 1))) << new_var3);
-        D_800AE850[(0x7dd8 + ((base + i) * 4)) + j] = v;
+        b = 1;
+        v = ((q & (1 << (i * 2))) == (b << (i * 2))) | (((q & (1 << ((i * 2) + 1))) == (1 << ((i * 2) + 1))) << b);
+        D_800B6600.map[base + i][j] = v;
         switch (v)
         {
           case 0:
-            W((D_800AE850 + 0x7db0) + (j * 4)) += 4;
+            D_800B6600.cnt[j] += 4;
             break;
-
           case 1:
-            W((D_800AE850 + 0x7db0) + (j * 4)) += 2;
+            D_800B6600.cnt[j] += 2;
             break;
-
           case 2:
-            W((D_800AE850 + 0x7db0) + (j * 4))++;
+            D_800B6600.cnt[j]++;
             break;
-
         }
-
       }
-
     }
 
     for (i = 0; i < 4; i++)
     {
-      W((D_800AE850 + 0x7f18) + (i * 4)) = 0;
+      D_800B6768[i] = 0;
     }
 
-    W(D_800AE850 + 0x7f18) = (s[3] + (s[4] << 8)) + (s[5] << 16);
-    W(D_800AE850 + 0x7f1c) = (s[6] + (s[7] << 8)) + (s[8] << 16);
+    D_800B6768[0] = (s[3] + (s[4] << 8)) + (s[5] << 16);
+    D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
   }
 }

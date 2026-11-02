@@ -18,12 +18,12 @@ void func_8003737C(s32 arg0)
 {
   f32 sp40[16];
   void *new_var;
-  f32 vec[2];
   f32 temp_ft1;
   volatile f32 temp_fv0;
   s32 temp_s0_2;
   s32 temp_v0;
   u32 temp_v0_8;
+  f32 vec[2];
   void *temp_s0;
   void *temp_v0_2;
   void *temp_v0_3;
@@ -60,3 +60,4 @@ void func_8003737C(s32 arg0)
   func_800068C0(arg0, temp_s0_2, (s16) ((s32) (((f32) (-(*((s16 *) (((char *) new_var) + 0xC))))) - temp_ft1)), (s16) (((s32) (*((u16 *) (((char *) new_var) + 0xE)))) * (-1)), (s32) ((s16) ((s32) ((-200.0f) - temp_fv0))), (s32) ((s16) ((s32) (((f32) (*((s16 *) (((char *) new_var) + 0xC)))) - sp80))), (s32) ((s16) (((s32) (*((u16 *) (((char *) new_var) + 0xE)))) * (-1))), (s32) ((s16) ((s32) ((-200.0f) - temp_fv0))), (s32) ((s16) ((s32) (((f32) (*((s16 *) (((char *) temp_s0) + 0xC)))) + sp80))), (s32) ((s16) (*((u16 *) (((char *) temp_s0) + 0xE)))), (s32) ((s16) ((s32) (temp_fv0 + (-200.0f)))), (s32) ((s16) ((s32) (((f32) (-(*((s16 *) (((char *) new_var) + 0xC))))) + sp80))), (s32) ((s16) (*((u16 *) (((char *) new_var) + 0xE)))), (s32) ((s16) ((s32) ((*((f32 *) (((char *) D_800C7F84) + 0x150))) + (-200.0f)))));
   func_800072F4(arg0, temp_s0_2, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80);
 }
+

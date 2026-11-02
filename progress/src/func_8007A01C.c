@@ -19,7 +19,7 @@ extern Tbl *D_800C3508;
 extern void *D_800C35A0;
 extern u8 D_800A5F64[];
 extern u8 D_800A5F70[];
-extern void func_8005A360(s32);
+extern void func_8005A360(s32, s32);
 extern void func_800595EC(void *);
 extern void func_80053A78(void);
 extern void func_80062B70(void);
@@ -30,7 +30,7 @@ extern void func_80070A34(void);
 extern void func_8007A29C(void);
 extern void func_8007A9A8(void);
 extern void func_8007AA94(void);
-s32 func_8007A01C(s32 arg0)
+s32 func_8007A01C(s32 arg0, s32 arg1)
 {
   u32 scratch[1];
   unsigned short idx;
@@ -42,7 +42,7 @@ s32 func_8007A01C(s32 arg0)
   if (state != 0)
   {
     D_800A1468->state = --state;
-    func_8005A360(arg0);
+    func_8005A360(arg0, arg1);
     D_800A1468->cb0 = func_8007A29C;
     D_800A1468->cb1 = func_8007A9A8;
     D_800A1468->cb2 = func_8007AA94;

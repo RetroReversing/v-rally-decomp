@@ -4,7 +4,7 @@ extern u8 D_800C02AE[];
 
 s32 func_80022668(s32,s32);
  s32 func_8007EAA0(s32,s32);
- s32 func_80097E30(s32,s32,s32);
+ s32 memset(s32,s32,s32);
 
 void func_800201E4(s32 *arg0,s32 *arg1){
  s32 root,src,dst,record,half,off,v,w;
@@ -36,7 +36,7 @@ void func_800201E4(s32 *arg0,s32 *arg1){
  *(s32*)(*(s32*)(arg1+0x22)+0x68)=func_80022668(*(s32*)((u32)D_800AE850+0x87f4),0);
 
  record=func_8007EAA0(1,0x20);
-func_80097E30(record,0,0x20);
+memset(record,0,0x20);
 
  if(*(s32*)((u8*)arg0+0x44)==1){
   a=0x4b;

@@ -26,7 +26,7 @@ s32 func_80034FF0(void *, s32);
 void func_800407D0();
 void func_80052844(void *);
 void func_800857A0(s32);
-void func_80097E30(void *, s32, s32);
+void memset(void *, s32, s32);
 static inline static static static static static s32 inline_fn(s32 *arg0, u8 arg1)
 {
   return arg0[arg1];
@@ -61,7 +61,7 @@ void func_8005B3AC(void)
     case 0:
       func_800407D0();
       D_800C3588 = -1;
-      func_80097E30(count = &D_800C34D8, 0, 28);
+      memset(count = &D_800C34D8, 0, 28);
       break;
 
     case 5:

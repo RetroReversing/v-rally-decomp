@@ -29,6 +29,7 @@ void func_80012CA8(void *arg0, s32 arg1, s32 arg2)
   s32 pad[1];
   s32 *var_s0;
   s32 var_a1;
+  int new_var2;
   s32 var_a2;
   u16 temp_a1;
   u8 temp_v0;
@@ -103,12 +104,13 @@ void func_80012CA8(void *arg0, s32 arg1, s32 arg2)
           {
             var_s2 = temp_a1_2;
           }
-          *((void **) (((char *) var_s1) + 0x8C)) = var_s2;
         }
+        *((void **) (((char *) var_s1) + 0x8C)) = var_s2;
       }
       *((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x118)) = (f32) (*((s32 *) (((char *) (*((void **) (((char *) var_s1) + 0x8C)))) + 0xC)));
+      new_var2 = 0x8C;
       *((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x11C)) = (f32) (*((s32 *) (((char *) (*((void **) (((char *) var_s1) + 0x8C)))) + 0x10)));
-      *((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x120)) = (f32) (*((s32 *) (((char *) (*((void **) (((char *) var_s1) + 0x8C)))) + 0x14)));
+      *((f32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x120)) = (f32) (*((s32 *) (((char *) (*((void **) (((char *) var_s1) + new_var2)))) + 0x14)));
       temp_v0_3 = *((void **) (((char *) var_s3) + 0x58));
       var_a1 = *((s32 *) (((char *) temp_v0_3) + 0x10));
       var_a2 = *((s32 *) (((char *) temp_v0_3) + 0x14));
@@ -123,3 +125,4 @@ void func_80012CA8(void *arg0, s32 arg1, s32 arg2)
     func_80042290(*((void **) (D_800C02AE + 0x7CD6)), var_a1);
   }
 }
+

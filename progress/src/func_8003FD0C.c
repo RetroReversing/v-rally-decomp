@@ -28,9 +28,10 @@ void func_8003FD0C(s32 arg0)
   color[3] = 255;
   if (*(u16 *)(STATE + 14) == 2)
   {
-    s32 id = 6;
-    if (!(arg0 & 0xFF)) id = 5;
-    OBJ = func_8004240C(id);
+    if (!(arg0 & 0xFF))
+      OBJ = func_8004240C(5);
+    else
+      OBJ = func_8004240C(6);
     if (*(u16 *)(STATE + 18) & 1)
     {
       rect[0] = OBJ->r->x + 32;

@@ -3,14 +3,10 @@ typedef struct Cfg
   u8 pad[0x22B];
   s8 ctrl;
 } Cfg;
-typedef struct Rep
-{
-  u16 cnt;
-  u8 fast;
-} Rep;
 extern Cfg *D_800A1468;
 extern u32 D_800A14A8;
-extern Rep D_800A14AC;
+extern u16 D_800A14AC;
+extern u8 D_800A14AE;
 extern u32 D_8009D540;
 extern u8 D_800B65A0;
 extern u8 D_800B5C6C;
@@ -20,17 +16,19 @@ s32 func_80058E28(void)
 {
   u8 pad[8];
   s32 c;
+    s32 __repair_c_1;
   s32 out;
   s32 pos;
-  s32 ctrl;
+  s8 ctrl;
   s32 btn;
   s32 new_var;
   s8 i;
-  s8 x;
-  s8 y;
+  s32 x;
+  s32 y;
   u16 n;
 
   out = 0;
+  y = 0;
   c = D_800A1468->ctrl;
   x = 0;
   i = 0;
@@ -51,35 +49,35 @@ s32 func_80058E28(void)
     }
   }
 
-  c = 0;
+  __repair_c_1 = 0;
   if (x >= 0x50)
   {
-    c = 0x800;
+    __repair_c_1 = 0x800;
   }
   else if (x < (-0x4F))
   {
-    c = 0x400;
+    __repair_c_1 = 0x400;
   }
   if (y >= 0x60)
   {
-    c |= 0x100;
+    __repair_c_1 |= 0x100;
   }
   else if (y < (-0x5F))
   {
-    c |= 0x200;
+    __repair_c_1 |= 0x200;
   }
   btn = 0;
   i = 0;
-  x = ctrl;
+  x = (s8) ctrl;
   pos = x >= 0;
   loop2:
   if (i < D_800B65A0)
   {
-    if ((pos & (x == i)) || (x < 0))
+    if ((pos & (new_var = x == i)) || (x < 0))
     {
-      ctrl = func_80084BF0(i);
-      btn |= ctrl;
-      if (ctrl)
+      new_var = func_80084BF0(i);
+      btn |= new_var;
+      if (new_var)
       {
         D_800B5C6C = i;
       }
@@ -93,7 +91,7 @@ s32 func_80058E28(void)
 
   if (btn == 0)
   {
-    btn = c;
+    btn = __repair_c_1;
   }
   for (i = 0; i < 32; i++)
   {
@@ -108,45 +106,45 @@ s32 func_80058E28(void)
   {
     if (D_800A14A8 == 0)
     {
-      D_800A14AC.cnt = 0;
+      D_800A14AC = 0;
       D_800A14A8 = btn;
     }
     else if (D_800A14A8 == btn)
     {
-      n = ++D_800A14AC.cnt;
-      if (!D_800A14AC.fast)
+      n = ++D_800A14AC;
+      if (!D_800A14AE)
       {
-        if (n != ((D_8009D540 * 3) >> 2))
+        if (n == ((D_8009D540 * 3) >> 2))
         {
-          btn = 0;
+          D_800A14AE = 1;
+          D_800A14AC = 0;
         }
         else
         {
-          D_800A14AC.fast = 1;
-          D_800A14AC.cnt = 0;
+          btn = 0;
         }
       }
-      else if (n != (D_8009D540 / 6))
+      else if (n == (D_8009D540 / 6))
       {
-        btn = 0;
+        D_800A14AC = 0;
       }
       else
       {
-        D_800A14AC.cnt = 0;
+        btn = 0;
       }
     }
     else
     {
       D_800A14A8 = btn;
-      D_800A14AC.cnt = 1;
-      D_800A14AC.fast = 0;
+      D_800A14AC = 1;
+      D_800A14AE = 0;
     }
   }
   else
   {
     D_800A14A8 = 0;
-    D_800A14AC.cnt = 0;
-    D_800A14AC.fast = 0;
+    D_800A14AC = 0;
+    D_800A14AE = 0;
   }
   if (btn & 0x800)
   {

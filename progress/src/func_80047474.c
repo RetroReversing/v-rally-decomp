@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80097E30(s32, M2C_UNK, M2C_UNK);       /* extern */
+M2C_UNK memset(s32, M2C_UNK, M2C_UNK);       /* extern */
 extern s32 D_8009C230;
 
 void func_80047474(void) {
@@ -22,7 +22,7 @@ void func_80047474(void) {
     var_s0 = D_8009C230;
     temp_s1 = var_s0;
     do {
-        func_80097E30(M2C_FIELD(var_s0, s32 *, 0x74), 0, 0x20);
+        memset(M2C_FIELD(var_s0, s32 *, 0x74), 0, 0x20);
         var_s0 = M2C_FIELD(var_s0, s32 *, 0x5C);
     } while ((var_s0 != temp_s1) & (var_s0 != 0));
 }

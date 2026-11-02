@@ -24,6 +24,7 @@ s32 func_80069734(void)
   u8 used[4] = {0, 0, 0, 0};
   State *new_var;
   u8 old;
+  u8 *new_var2;
   u8 i;
   func_8005A360(0, 0);
   {
@@ -35,7 +36,8 @@ s32 func_80069734(void)
   D_800A1468->b24D = 0;
   D_800A1468->b22B = -1;
   new_var = D_800A1468;
-  old = D_800C35A0[new_var->cur + 0x32];
+  new_var2 = D_800C35A0;
+  old = new_var2[new_var->cur + 0x32];
   if (old != new_var->want)
   {
     (D_800C35A0 + new_var->cur)[0x32] = new_var->want;

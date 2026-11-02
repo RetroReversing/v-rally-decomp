@@ -9,7 +9,7 @@ typedef struct huft
   } v;
 } Huff;
 void *func_8007EAA0(int, int);
-void func_80097E30(void *, int, int);
+void memset(void *, int, int);
 extern u32 D_800C33A4;
 int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
 {
@@ -36,7 +36,7 @@ int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
   int y;
   u32 z;
   el = (n > 256) ? (b[256]) : (16);
-  func_80097E30(c, 0, sizeof(c));
+  memset(c, 0, sizeof(c));
   p = b;
   i = n;
   do
@@ -98,7 +98,7 @@ int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
     *(xp++) = (j += *(p++));
   }
 
-  func_80097E30(v, 0, sizeof(v));
+  memset(v, 0, sizeof(v));
   p = b;
   i = 0;
   do
@@ -193,7 +193,8 @@ int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
       i ^= j;
       while ((i & ((1 << w) - 1)) != x[h])
       {
-        w -= l[h--];
+        h--;
+        w -= l[h];
       }
 
     }
