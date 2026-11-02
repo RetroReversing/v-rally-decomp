@@ -59,6 +59,9 @@ void func_800754D4(void *arg0, void *arg1)
   s32 var_a2;
   s32 temp_s0_5;
   s32 second_position;
+  s32 header_raw_width;
+  s32 heading_gap;
+  s32 heading_other;
   u16 temp_s1_6;
   s16 temp_s1_7;
   s16 temp_s1_8;
@@ -125,9 +128,13 @@ void func_800754D4(void *arg0, void *arg1)
   temp_s1 = 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1);
   temp_s0_2 = func_8000C9B0(sp114, D_800C02AE + 0x7CE2, 1, 1.0f, 1);
   temp_s0 = (D_800A17EA + temp_s0_2) + func_8000C9B0(sp114, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0xD0), 1, 1.0f, 1);
+  sp106 = 40;
+  var_s7 = 0;
+  new_var5 = &spE8;
+  sp10C = spD0;
   temp_s1_2 = (temp_s1 - 7) & 0xFFFF;
   temp_s3_2 = (unsigned short) (temp_s3 + 0xD);
-  func_8007347C((var_s7 = 0, sp106 = 40, sp10C = spD0, arg1), temp_s1_2, 0x17, temp_s3_2, 0x11);
+  func_8007347C(arg1, temp_s1_2, 0x17, temp_s3_2, 0x11);
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
   temp_s1_6 = 0xA0;
   temp_s0_4 = ((u32) (temp_s0 & 0xFFFF)) >> 1;
@@ -139,11 +146,11 @@ void func_800754D4(void *arg0, void *arg1)
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
   new_var2 = 5;
   temp_s5_2 = (D_800C02AE + 0x7CE2) + 0x60;
-  temp_s0_6 = func_8000C9B0(sp114, temp_s5_2, 1, 1.0f, 1);
-  temp_s0_7 = (D_800A17EA + temp_s0_6) + func_8000C9B0(sp114, func_80057918(menu_language(), 0xD0), 1, 1.0f, 1);
+  header_raw_width = func_8000C9B0(sp114, temp_s5_2, 1, 1.0f, 1);
+  temp_s0 = (D_800A17EA + header_raw_width) + func_8000C9B0(sp114, func_80057918(menu_language(), 0xD0), 1, 1.0f, 1);
   func_8007347C(arg1, temp_s1_2, 0x8F, temp_s3_2, 0x11);
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
-  temp_s0_8 = ((u32) (temp_s0_7 & 0xFFFF)) >> 1;
+  temp_s0_8 = ((u32) (temp_s0 & 0xFFFF)) >> 1;
   temp_s1_3 = temp_s0_8 & 0xFFFF;
   func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, temp_s1_6 - temp_s1_3, 0x91, temp_s5_2, 1);
   func_80073108(arg1, (s16) (func_8000C9B0(sp114, D_800C02AE + 0x7CE2, 1, 1.0f, 1) - (temp_s0_8 - temp_s1_6)), 0x90, *((s32 *) (D_800C02AE + 0x103B2)), (s32) (*((u8 *) (D_800C02AE + 0x7D54))));
@@ -207,7 +214,7 @@ void func_800754D4(void *arg0, void *arg1)
       var_v0_3 <<= 3;
       var_v0_2 = *((u32 *) ((((char *) D_800C7F94) + var_v0_3) + 8));
     }
-    new_var5=&spE8;
+
     if (var_v0_2 < 0x64U)
     {
       func_80099DF8(&sp40, &D_800A5DF0, (u32) (*new_var5));
@@ -218,9 +225,9 @@ void func_800754D4(void *arg0, void *arg1)
       func_80099DF8((*new_var5), &D_800A5D9C, (u32) (&sp40));
     }
     temp_v1_2 = var_s7 & 0xFFFF;
-    temp_a0 = temp_v1_2 < 3U;
     if (temp_v1_2 != 6)
     {
+      temp_a0 = temp_v1_2 < 3U;
       if (temp_a0 != 0)
       {
         if (((s32) temp_v1_2) >= ((*((u8 *) (D_800A73E0 + 0x6C00))) - 1))
@@ -268,7 +275,19 @@ void func_800754D4(void *arg0, void *arg1)
         }
         else
         {
+          if ((u32)new_var5 & 0x10000) {
+          if ((u32)new_var5 & 0x100) {
           func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, sp10C, (*new_var5));
+          } else {
+          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, sp10C, (*new_var5));
+          }
+          } else {
+          if ((u32)new_var5 & 0x100) {
+          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, sp10C, (*new_var5));
+          } else {
+          func_80099DF8(&sp40, &D_800A5DFC, temp_s1_5 - 2, &spB8, sp10C, (*new_var5));
+          }
+          }
         }
         var_s0 = var_s7 & 0xFFFF;
       }
@@ -283,7 +302,7 @@ void func_800754D4(void *arg0, void *arg1)
     else
     {
       temp_s0_6 = (u32) (D_800C02AE + 0x7D72);
-      func_80099DF8(&sp40, &D_800A5E10, temp_s0_6, &spB8, (void *) (&spE8));
+      func_80099DF8(&sp40, &D_800A5E10, temp_s0_6, &spB8, (void *) ((*new_var5)));
       block_36:
       ;
 
@@ -293,7 +312,7 @@ void func_800754D4(void *arg0, void *arg1)
       ;
       ;
       ;
-      func_80099DF8((void *) (&spE8), &D_800A5E0C);
+      func_80099DF8((void *) ((*new_var5)), &D_800A5E0C);
     }
     formatted:
     if (D_800C7F94[var_s7 & 0xFFFF].id != 0)

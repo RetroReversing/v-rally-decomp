@@ -71,9 +71,9 @@ void func_80021064(void *list)
           {
             continue;
           }
-          type = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))));
           v = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x1dc + (i * 4))));
           x = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x100 + (i * 20))));
+          type = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))));
           z = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x108 + (i * 20))));
           y = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + 4))) + 30;
           switch (type)
@@ -126,7 +126,7 @@ void func_80021064(void *list)
             b[1] = 0;
             b[2] = 0;
             particle = func_8002EB34(manager, effect, b);
-            *((s16 *) (((char *) particle) + 4)) = x;
+            if (effect) { *((s16 *) (((char *) particle) + 4)) = x; } else { *((s16 *) (((char *) particle) + 4)) = x; }
             *((s16 *) (((char *) particle) + 6)) = y;
             *((s16 *) (((char *) particle) + 8)) = z;
             continue;
@@ -230,7 +230,7 @@ void func_80021064(void *list)
               {
                 goto clear_flag;
               }
-              new_var3 = five * 2;
+              new_var3 = five; new_var3 += five;
               contact = manager->contacts;
               contact += manager->head * 36;
               {

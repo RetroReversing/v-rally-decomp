@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,902 selected C functions / 421,068 matching bytes**, about **74.40% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,902 C and 220 assembly functions**.
+- **1,903 selected C functions / 424,024 matching bytes**, about **74.92% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,903 C and 219 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -324,6 +324,20 @@ The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,9
 and 196 best drafts**, alongside current names, 25,180 notes, headers, symbols and
 compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
 and compiler profiles were compared with the live app after saving.
+
+### Exact menu-function match — 2 November 2026
+
+`func_800754D4` now matches all **739 instructions / 2,956 bytes**, verified by the live
+app's normal ROM judge and independently by `build.py check func_800754D4`. Its original
+KMC GCC 2.7.2 profile (`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`) and isolated header are retained.
+Temporary reuse, equivalent formatter-call branches and initialization order recovered the
+register allocation and final instruction scheduling. These are reconstruction choices,
+not evidence of the original source spelling.
+
+All previously selected C remains intact. The full **12,582,912-byte** cartridge rebuild
+passes the byte-for-byte comparison. The portable `progress/` snapshot contains **1,905
+matches and 195 best drafts**, including the same verified source and compiler evidence;
+the standalone build selects **1,903 C functions**, with **219 assembly functions** remaining.
 
 ## Build
 
