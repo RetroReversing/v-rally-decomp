@@ -44,15 +44,16 @@ void func_80032AE4(Car *arg0)
   Vec3s c;
   Car *car;
   Car *t;
+  struct Car *new_var;
   Info *g;
   s32 v;
+  s32 __repair_phase_v;
   u8 e;
   u8 f;
   s32 i;
   s32 start;
   s32 far;
   s32 near;
-  s32 near2;
   car = arg0;
   do
   {
@@ -92,7 +93,8 @@ void func_80032AE4(Car *arg0)
     far = car->target->info->b17;
     near = car->target->info->b14;
     v = far - v;
-    t = car->target;
+    new_var = car->target;
+    t = new_var;
     if (v < 20)
     {
       v = 20;
@@ -101,18 +103,23 @@ void func_80032AE4(Car *arg0)
     {
       v = 80;
     }
-    { s32 n = (i * 2) + 1; start = t->count - n; }
+    {
+      s32 n = (i * 2) + 1;
+      start = t->count - n;
+    }
     func_8002FFA4(t, start, v, &a);
     func_8002FFA4(t, t->count - 1, far, &b);
     for (i = start; i <= (t->count - 1); i++)
     {
-      near2 = start + 1;
+      __repair_phase_v = start + 1;
       c.x = b.x - a.x;
-      c.x = ((c.x * (i - start)) / (t->count - near2)) + a.x;
+      c.x = (c.x * (i - start)) / (t->count - __repair_phase_v);
+      c.x = c.x + a.x;
       c.y = b.y - a.y;
-      c.y = ((c.y * (i - start)) / (t->count - near2)) + a.y;
+      c.y = ((c.y * (i - start)) / (t->count - __repair_phase_v)) + a.y;
       c.z = b.z - a.z;
-      c.z = ((c.z * (i - start)) / (t->count - near2)) + a.z;
+      c.z = (c.z * (i - start)) / (t->count - __repair_phase_v);
+      c.z = c.z + a.z;
       t->info->nodes[i].pos.x = c.x;
       t->info->nodes[i].pos.y = c.y;
       t->info->nodes[i].pos.z = c.z;
@@ -123,8 +130,8 @@ void func_80032AE4(Car *arg0)
     func_8002FFA4(t, 0, near, &a);
     for (i = 0; i <= start; i++)
     {
-      v = (((s16) (b.x - a.x)) * i) / start;
-      c.x = v + a.x;
+      __repair_phase_v = (((s16) (b.x - a.x)) * i) / start;
+      c.x = __repair_phase_v + a.x;
       c.y = ((((s16) (b.y - a.y)) * i) / start) + a.y;
       c.z = ((((s16) (b.z - a.z)) * i) / start) + a.z;
       t->info->nodes[i].pos.x = c.x;
