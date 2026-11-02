@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern void *func_8007EAA0(s32, s32);
 extern void *func_80081540(void *);
 extern u32 *func_80081664(s32, s32);
@@ -31,7 +33,7 @@ void *func_80057810(s32 arg0)
   {
     do
     {
-      { u32 **slot = s1->tbl + i; *slot = (u32 *)q; }
+      { do { u32 **__repair_index_scope_base = s1->tbl; s32 __repair_index_scope_offset = i; *(__repair_index_scope_base + __repair_index_scope_offset) = (u32 *)q; } while (0); }
       while (*(q++))
       {
         ;
@@ -43,3 +45,4 @@ void *func_80057810(s32 arg0)
   }
   return s1;
 }
+

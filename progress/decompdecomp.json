@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793628133.464989,
- "revision": 8001,
+ "saved_at": 1793632081.734931,
+ "revision": 8012,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1052,8 +1052,8 @@
   },
   "func_80005500": {
    "vram": 2147505408,
-   "best_score": 745,
-   "best_by": "claude-opus-8"
+   "best_score": 390,
+   "best_by": "permuter-6"
   },
   "func_800056F4": {
    "vram": 2147505908,
@@ -6547,8 +6547,8 @@
   },
   "func_80057810": {
    "vram": 2147842064,
-   "best_score": 10,
-   "best_by": "codex-gpt-6-sol-high-2"
+   "matched_by": "you",
+   "readable": false
   },
   "func_800578E0": {
    "vram": 2147842272,
@@ -8727,7 +8727,7 @@
   },
   "func_8007950C": {
    "vram": 2147980556,
-   "best_score": 1200,
+   "best_score": 660,
    "best_by": "you"
   },
   "func_80079F70": {
@@ -12226,12 +12226,6 @@
    "name": "func_8000A5EC",
    "vram": 2147526124,
    "size": 596,
-   "status": "open"
-  },
-  {
-   "name": "func_8000A840",
-   "vram": 2147526720,
-   "size": 4304,
    "status": "open"
   },
   {
@@ -20806,12 +20800,6 @@
    "name": "func_80078724",
    "vram": 2147976996,
    "size": 60,
-   "status": "open"
-  },
-  {
-   "name": "func_80078760",
-   "vram": 2147977056,
-   "size": 3500,
    "status": "open"
   },
   {
@@ -152385,6 +152373,11 @@
    "function": "func_8007EAA0",
    "text": "At 375. Everything matches except how `__builtin_return_address(0)` is read. The target stores $ra directly (`sw $ra, D_800AE850+0x72F0`, after the first jalr has clobbered ra), while KMC 2.7.2 lowers the builtin to `lw v0,4($sp)`, a bogus RAP elimination. That one extra load shifts every branch. Compiler trials: gcc-2.8.1-pm 885, egcs 8750, -O1 1466, -fomit-frame-pointer unchanged. Pure C seems unable to read raw $31 under this compiler without `register asm(\"$31\")`, which I did not use (no asm). This probably needs a compiler/profile decision or acceptance as-is.",
    "by": "claude-opus-10"
+  },
+  {
+   "function": "func_80005500",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "permuter-6"
   }
  ],
  "set_aside": [
@@ -165035,6 +165028,94 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
+   "func_80057810": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793631223.247811,
+    "attempt_id": 255770,
+    "source_sha256": "9897b0ba45985c8a95cbf7fa516fc9b67e8a138276c52e80918435c7d707ab79",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "5cf8adef50da4305b6e7dc8048e5f3e64ab10bd3ccc8ee4d8f5147ccee7d3318",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "6ebb7f81b6a3d025363def5c1de1dda0f93b82bd9cb766c7a6093d799dcb01a0",
+    "relocations_sha256": "06352015a320305c5c0f8db56548e8f8238a4392ce2b1f63fe0dd801266ef713",
+    "vram": 2147842064,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
    "func_80057D5C": {
     "format": 1,
     "verdict": "exact",
@@ -172460,6 +172541,7 @@
    "93c596d7e25170154972e630ef27a0a9cdd7fa1864414fe22e1a51b8e49ced97": "extern f32 D_8009CEC0[3];\nextern f32 D_8009CEC4;\nextern s32 D_8009FF30;\nextern u8 D_800C7926;\ntypedef struct { u16 idx; u16 c; u16 a; u16 b; } Vtx8;\ntypedef struct { Vtx8 *v; u16 count; u16 type; } Ent;\ntypedef struct { u8 r, g, b, a; s16 x, y, z; u8 pad[0x12 - 0xA]; u16 c; s16 a2; s16 b2; } Out;\ntypedef struct { u8 pad[0xC]; s16 *pos; u8 pad2[0x14 - 0x10]; Ent *ents; } Mdl;\ntypedef struct { u8 pad[0x10]; s16 *ys; u8 *cols; Mdl *mdl; u16 n; } Obj;\nvoid func_8005639C(Out **out, Obj *arg)\n{\n  s32 n;\n  s32 i;\n  u8 color;\n  u8 c;\n  Ent *e;\n  Vtx8 *p;\n  n = arg->n;\n  e = arg->mdl->ents;\n  color = 0x8c;\n  if (D_800C7926 == 0)\n    color = 0x32;\n  if (n != 0) {\n    for (i = 0; i < n; e++, i++) {\n      if (e->type == 0x23) {\n        n = e->count;\n        p = e->v;\n        for (i = 0; i < n; p++, i++) {\n          (*out)->x = arg->mdl->pos[p->idx * 2] * D_8009CEC0[0];\n          (*out)->z = arg->mdl->pos[p->idx * 2 + 1] * D_8009CEC0[2];\n          (*out)->y = arg->ys[p->idx] * D_8009CEC0[1];\n          if (D_8009FF30 != 2) {\n            u8 t = arg->cols[p->idx];\n            c = t;\n          } else\n            c = color;\n          (*out)->r = c;\n          (*out)->g = c;\n          (*out)->b = c;\n          (*out)->a = 15;\n          (*out)->a2 = (u32)(p->a * D_8009CEC0[0]);\n          (*out)->b2 = (u32)(p->b * D_8009CEC4);\n          (*out)->c = p->c;\n          (*out)++;\n        }\n      }\n    }\n  }\n}",
    "188504043fb5c12dbc68f88aa2ad17e0e9f029ef2517f4e10be1fb896febca9c": "typedef struct { u8 w[4]; s16 h; } Elem6;\ntypedef struct { u32 a:1; u32 b:4; u32 c:1; u32 rest:26; } Flags56;\ntypedef struct { u8 pad[0x84]; Flags56 f; } Obj56;\ntypedef struct { u8 *items; u16 count; } List56;\nvoid func_80009C90(Obj56 *, s32);\nvoid func_800566B4(void *arg0, u8 *arg1, Elem6 *arg2);\nvoid func_80056884(void *arg0, u8 *arg1, Elem6 *arg2);\nvoid func_80056AB8(Obj56 *arg0, List56 *arg1, Elem6 *arg2)\n{\n  u8 *p;\n  s32 i;\n  s32 n;\n  p = arg1->items;\n  n = arg1->count;\n  arg0->f.b = 1;\n  *(u32 *)&arg0->f = (*(u32 *)&arg0->f & 0xFBFFFFFF) | 0x04000000;\n  func_80009C90(arg0, 1);\n  for (i = 0; i < n; i++)\n  {\n    switch (p[3])\n    {\n      case 6:\n        func_800566B4(arg0, p, arg2);\n        break;\n      case 10:\n        func_80056884(arg0, p, arg2);\n        break;\n    }\n    p += 0x22;\n  }\n}",
    "518f73ede9101a4bf2b2a24adfa9b8755b20dc6f57c7c7b857c87f71d4516b60": "typedef struct\n{\n  u8 b[0x18];\n} Rec;\nextern u8 D_800AE850[];\nextern Rec *D_800B7020;\n#define KEY(i) (*((u16 *) (D_800B7020[i].b + 0x12)))\ns32 func_80057014(s32 l, s32 r)\n{\n  s32 i;\n  s32 j;\n  s32 key;\n  i = l - 1;\n  j = r + 1;\n  key = KEY(l);\n  for (;;)\n  {\n    do\n    {\n      j--;\n    }\n    while (key < KEY(j));\n    do\n    {\n      i++;\n    }\n    while (KEY(i) < key);\n    if (i >= j)\n    {\n      return j;\n    }\n    *((Rec *) (D_800AE850 + 0x1220)) = D_800B7020[i];\n    D_800B7020[i] = D_800B7020[j];\n    D_800B7020[j] = *((Rec *) (D_800AE850 + 0x1220));\n  }\n}\n",
+   "9897b0ba45985c8a95cbf7fa516fc9b67e8a138276c52e80918435c7d707ab79": "extern void *func_8007EAA0(s32, s32);\nextern void *func_80081540(void *);\nextern u32 *func_80081664(s32, s32);\nextern u8 D_800A5228;\ntypedef struct \n{\n  u32 *src;\n  u32 **tbl;\n  u32 n;\n} S;\nvoid *func_80057810(s32 arg0)\n{\n  S *s1;\n  u32 *v0;\n  u32 n;\n  s32 i;\n  s32 pad[2];\n  char *q;\n  u32 x;\n  s1 = func_8007EAA0(1, 12);\n  func_80081540(&D_800A5228);\n  v0 = func_80081664(1, arg0);\n  s1->src = v0;\n  n = *v0;\n  n = (((n >> 24) | ((n >> 8) & 0xff00)) | ((n & 0xff00) << 8)) | (n << 24);\n  s1->n = n;\n  s1->tbl = func_8007EAA0(1, n * 4);\n  q = ((char *) s1->src) + 4;\n  i = 0;\n  if (n)\n  {\n    do\n    {\n      { do { u32 **__repair_index_scope_base = s1->tbl; s32 __repair_index_scope_offset = i; *(__repair_index_scope_base + __repair_index_scope_offset) = (u32 *)q; } while (0); }\n      while (*(q++))\n      {\n        ;\n      }\n\n      i++;\n    }\n    while (((u32) i) < n);\n  }\n  return s1;\n}\n",
    "57596cbbfbac1fb2ec427c5d72e75f56a53ca647debc4be4b3a9d6c8c411f3e5": "typedef struct Node {\n    struct Node *next;\n    u16 a;\n    u16 b;\n    u8 n;\n    s8 k;\n    u8 flag;\n} Node;\ntypedef struct { char pad[0xD]; u8 base; char pad2[6]; } Ent;\ntypedef struct { s16 pad0; s16 idx; char pad4[0xC]; Ent *tab; } Ctx;\ntypedef struct { char pad[4]; u16 id; s16 pad6; s16 w; s8 sel; char padB[5]; s32 v; } Item;\ntypedef struct { char pad[8]; u16 id; s16 padA; s16 w; s8 sel; char padF[5]; s32 v; } Seg;\ntypedef struct { char pad[0x18]; Node *head; Node *tail; s32 count; char pad24[0xAC]; u8 pair[0x14][2]; } Mgr;\n\nvoid *func_8007EAA0(s32, s32);\nItem *func_800592D0(s8);\nSeg *func_800592AC(u16);\ns32 func_80057918(s32, u16);\ns32 func_8000C9B0(void *, s32, u8, s32, s32);\nextern Mgr *D_800A1468;\nextern u8 D_800C02AE[];\nextern s32 D_800C8328;\n#define CTX (*(Ctx **)(D_800C02AE + 0x325A))\n#define TABP(m, s) ((u8 *)(m) + ((m)->pair[s][0] * 4 + 0xE4))\n\nvoid func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)\n{\n    Node *node;\n    Item *item;\n    Seg *seg;\n    Mgr *m;\n    s16 hi, lo, v;\n    s8 i;\n    s32 id;\n\n    node = func_8007EAA0(1, 12);\n    lo = 240;\n    node->a = arg0 - CTX->tab[CTX->idx].base;\n    hi = 0;\n    node->b = arg1 - CTX->tab[CTX->idx].base;\n    node->n = arg2;\n    node->k = arg3;\n    item = func_800592D0(arg3);\n    for (i = 0; i < node->n; i++) {\n        id = func_80057918(D_800C8328, item->id);\n        m = D_800A1468;\n        v = func_8000C9B0(TABP(m, item->sel), id, m->pair[item->sel][1], item->v, 0);\n        if (v > hi) hi = v;\n        if (item->w < lo) lo = item->w;\n    }\n    seg = func_800592AC(node->a);\n    id = func_80057918(D_800C8328, seg->id);\n    m = D_800A1468;\n    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);\n    if (v > hi) hi = v;\n    if (seg->w < lo) lo = item->w;\n    seg = func_800592AC(node->b);\n    id = func_80057918(D_800C8328, seg->id);\n    m = D_800A1468;\n    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);\n    if (v > hi) hi = v;\n    if (seg->w < lo) lo = item->w;\n    if (hi > lo) {\n        node->flag = 0;\n    } else {\n        node->flag = 0;\n    }\n    if (D_800A1468->tail != NULL) {\n        D_800A1468->tail->next = node;\n    } else {\n        D_800A1468->head = node;\n    }\n    D_800A1468->tail = node;\n    D_800A1468->count++;\n}\n",
    "02929b62fdff6a82053c45ed95a4438341723a595eb6a4b04b401c0a9c39f483": "typedef struct { u8 start; u8 count; } Group;\ntypedef struct {\n    u8 pad0[0xD0];\n    Group groups[10];\n    void *items[1];\n} GroupTable;\ntypedef struct {\n    u8 pad0[0xA];\n    s8 group;\n} GroupOwner;\n\nvoid func_8000C22C(void *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);\nextern GroupTable *D_800A1468;\n\nvoid func_80059618(GroupOwner *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4) {\n    u8 i;\n\n    for (i = D_800A1468->groups[arg0->group].start;\n         i < D_800A1468->groups[arg0->group].start + D_800A1468->groups[arg0->group].count; i++) {\n        func_8000C22C(D_800A1468->items[i], arg1, arg2, arg3, arg4);\n    }\n}\n",
    "e03e6ec5da5f98e5077d7149e7e99d26e11ededda221c9babe1969bbe4f2e759": "typedef struct Node\n{\n  struct Node *next;\n} Node;\ntypedef struct Grp\n{\n  struct Grp *next;\n  char pad4[0x28 - 4];\n  Node *subs;\n  char pad2C[0x4C - 0x2C];\n  u8 nsub;\n} Grp;\ntypedef struct Ctx\n{\n  Node *list0;\n  s32 x4;\n  s32 cnt0;\n  Grp *grp;\n  s32 x10;\n  s32 cnt1;\n  Node *list2;\n  s32 x1C;\n  s32 cnt2;\n  Node *list3;\n  s32 x28;\n  s32 cnt3;\n  char pad30[0x222 - 0x30];\n  s16 sel;\n  char pad224[0x294 - 0x224];\n  void (*cb)(void);\n} Ctx;\nextern void func_80059154(s32);\nextern void func_80059FB4(void);\nextern void func_8005A0A8(void);\nextern void func_8007EE9C(void *);\nextern Ctx *D_800A1468;\nvoid func_8005A100(void)\n{\n  s32 m;\n  Grp *g;\n  Grp *gn;\n  Node *p;\n  s32 n;\n  Node *q;\n  if (D_800A1468->cb != NULL)\n  {\n    D_800A1468->cb();\n    D_800A1468->cb = NULL;\n  }\n  n = D_800A1468->cnt1;\n  D_800A1468->sel = -1;\n  if (n != 0)\n  {\n    gn = D_800A1468->grp;\n    while (n--)\n    {\n      g = gn;\n do { m = g->nsub; gn = g->next; } while (0);\n      p = g->subs;\n      if (m != 0)\n      {\n        while (m--)\n        {\n          q = p;\n          p = q->next;\n          func_8007EE9C(q);\n        }\n\n      }\n      func_8007EE9C(g);\n    }\n\n    D_800A1468->x10 = (D_800A1468->cnt1 = 0);\n  }\n  n = D_800A1468->cnt0;\n  if (n != 0)\n  {\n    p = D_800A1468->list0;\n    while (n--)\n    {\n      q = p;\n      p = q->next;\n      func_8007EE9C(q);\n    }\n\n    D_800A1468->cnt0 = 0;\n    D_800A1468->x4 = 0;\n  }\n  n = D_800A1468->cnt2;\n  if (n != 0)\n  {\n    Node *r = D_800A1468->list2;\n    while (n--)\n    {\n      Node *t = r;\n      r = t->next;\n      func_8007EE9C(t);\n    }\n\n    D_800A1468->cnt2 = 0;\n    D_800A1468->x1C = 0;\n  }\n  n = D_800A1468->cnt3;\n  if (n != 0)\n  {\n    Node *r = D_800A1468->list3;\n    while (n--)\n    {\n      Node *t = r;\n      r = t->next;\n      func_8007EE9C(t);\n    }\n\n    D_800A1468->cnt3 = 0;\n    D_800A1468->x28 = 0;\n  }\n  func_80059154(1);\n  func_80059154(4);\n  func_80059FB4();\n  func_8005A0A8();\n}\n",

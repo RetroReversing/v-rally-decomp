@@ -227,7 +227,8 @@
     "src/code_8004BEB4/func_8005D0B0.c": "a3b1d61047227b8401a6f142aca2d84774608523f7135b8bce8769d3664271d7",
     "src/code_8007E9D4/guS2DInitBg.c": "ebe6e59a73d1aac2d85215018c59e57ea5daa59b6791a86a5835bbd5bcfccf47",
     "src/code_8007E9D4/func_80087DE4.c": "6f5859126e4a27f8f34cdadaf2e53abf3f239d449984817e27cf53b5cd8328a6",
-    "src/code_8007E9D4/func_800869B8.c": "6844c121d361ecbd29c06672e190fe425478ea773fab8aa289f59f64bc69c85b"
+    "src/code_8007E9D4/func_800869B8.c": "6844c121d361ecbd29c06672e190fe425478ea773fab8aa289f59f64bc69c85b",
+    "src/code_8004BEB4/func_80057810.c": "372127aa161e7e4f08d7c22556da8998ef61028673d20352f3296d3a0ca42bdc"
   },
   "accepted": [
     "MusInitialize",
@@ -371,6 +372,7 @@
     "func_8005639C",
     "func_80056AB8",
     "func_80057014",
+    "func_80057810",
     "func_80057D5C",
     "func_80059618",
     "func_8005A100",
@@ -460,5 +462,13 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 1962
+  "matched_app": 1963,
+  "last_verification": {
+    "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+    "bytes": 12582912,
+    "added": [
+      "func_80057810"
+    ],
+    "note": "App exited after standalone check; orphaned isolated build completed. Full cartridge independently compared byte for byte before publication."
+  }
 }
