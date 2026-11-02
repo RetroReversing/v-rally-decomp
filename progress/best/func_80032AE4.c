@@ -116,7 +116,8 @@ void func_80032AE4(Car *arg0)
       c.x = (c.x * (i - start)) / (t->count - __repair_phase_v);
       c.x = c.x + a.x;
       c.y = b.y - a.y;
-      c.y = ((c.y * (i - start)) / (t->count - __repair_phase_v)) + a.y;
+      c.y = (c.y * (i - start)) / (t->count - __repair_phase_v);
+      c.y = c.y + a.y;
       c.z = b.z - a.z;
       c.z = (c.z * (i - start)) / (t->count - __repair_phase_v);
       c.z = c.z + a.z;

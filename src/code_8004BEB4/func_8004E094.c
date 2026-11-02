@@ -1,3 +1,9 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
+static inline s16 inline_second(f32 arg0)
+{
+ return (s16)((s32)(-arg0));
+}
 static inline static static static s16 inline_fn(f32 arg0)
 {
   return (s16) ((s32) (-arg0));
@@ -35,18 +41,18 @@ void func_8004E094(void *arg0)
     *((s32 *) (p + new_var3)) = (*((s32 *) (p + 0x80))) | 5;
     *((s16 *) (p + 0x7A)) = 0;
     *((s16 *) (p + 0x78)) = 1;
-    new_var2 = 0.5f;
     *((s32 *) (p + new_var3)) |= 4;
     *((u16 *) (p + 0x9A)) = (double) 0x100;
     v0 = *((u8 **) (a4 + 4));
     v1 = *((u8 **) v0);
-    p6 = (temp_ft0 * inline_fn2(v1)) * 0.5f;
+    new_var2 = 0.5f; p6 = (temp_ft0 * inline_fn2(v1)) * 0.5f;
     new_var4 = (f32) (*((u16 *) (v1 + 8)));
     p8 = (temp_ft0 * new_var4) * new_var2;
     new_var5 = p;
     *((u16 *) (new_var5 + 0x9A)) = *((u16 *) (new_var5 + 0x98));
     *((s32 *) (new_var5 + 0xA0)) |= 4;
     *((s16 *) (new_var5 + 0x70)) = inline_fn(p6);
-    *((s16 *) (new_var5 + 0x72)) = inline_fn(p8);
+    *((s16 *) (new_var5 + 0x72)) = inline_second(p8);
   }
 }
+
