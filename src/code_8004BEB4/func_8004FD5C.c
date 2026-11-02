@@ -19,7 +19,7 @@ s32 func_80022184(void *);
 s32 func_80022A90(Node *);
 void func_80022A98(Node *, s32);
 s32 func_8007EAA0(s32, s32);
-void func_80097E30(s32, s32, s32);
+void memset(s32, s32, s32);
 
 s32 func_8004FD5C(Mgr *arg0, s32 arg1)
 {
@@ -64,9 +64,9 @@ s32 func_8004FD5C(Mgr *arg0, s32 arg1)
             } else {
                 e->buf1 = 0;
             }
-            func_80097E30(e->buf0, 0, e->size0);
+            memset(e->buf0, 0, e->size0);
             if (i < D_800C35A0->nAlloc) {
-                func_80097E30(e->buf1, 0, e->size1);
+                memset(e->buf1, 0, e->size1);
             }
             e->unkC = 0;
             e->unkE = 0;

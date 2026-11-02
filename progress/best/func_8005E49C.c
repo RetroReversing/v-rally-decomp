@@ -118,7 +118,7 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
     while (((u32) (s1 & 0xFF)) < 3);
     new_var = ((u8 *) D_800A1468) + 0x1F8;
     *((s32 *) (((u8 *) D_800C3508->inner->p4) + 0x20)) = 5;
-    *((A5474 *) new_var) = D_800A5474;
+    __builtin_memcpy(&D_800A1468->x1f8, &D_800A5474, 9);
     func_8005A338(s4, s5);
     func_8005E1B8();
   }

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct S_osPfsInitPak_arg1
 {
   s32 unk_00;
@@ -22,7 +24,7 @@ static inline static u16 inline_fn(u16 *arg0)
   return *arg0;
 }
 
-s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
+s32 func_80095E18(S_osPfsInitPak_arg1 *p, void *q, void *r)
 {
   u8 a[0x20];
   u8 b[0x20];
@@ -85,8 +87,10 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
       n++;
     }
 
-    if (n == 0x20)
+    if (n != 0x20)
     {
+      break;
+    }
       if (bank > 0)
       {
         if (v = __osPfsSelectBank(p, 0))
@@ -103,7 +107,6 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
         }
       }
       bank++;
-    }
     if (bank >= 0x3E)
     {
       break;
@@ -178,3 +181,4 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *p, void *q, void *r)
 
   return 0;
 }
+

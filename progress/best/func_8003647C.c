@@ -36,6 +36,7 @@ extern Car *D_800C7F84;
 
 void func_8003647C(Particle *p, u8 idx)
 {
+s32 __repair_call_arithmetic;
     s16 vec[4];
     s16 rot[4];
     s32 mtx[8];
@@ -51,7 +52,7 @@ void func_8003647C(Particle *p, u8 idx)
     }
     dx += 4.0f;
     dz += 2.0f;
-    angle = -func_8002D2C8((s32)(D_800C7F84->vz * 4096.0f), (s32)(D_800C7F84->vx * -4096.0f)) - 0x200;
+    angle = -func_8002D2C8((s32)(D_800C7F84->vz * 4096.0f), (s32)(D_800C7F84->vx * -4096.0f));
     rot[0] = 0;
     rot[2] = 0;
     vec[2] = 0;
@@ -60,7 +61,9 @@ void func_8003647C(Particle *p, u8 idx)
         if (p->y == 1001) {
             vec[0] = func_80098090() % 4095 + 0x200;
             vec[1] = -(func_80098090() % 511);
-            rot[1] = angle + func_80098090() % 1023;
+__repair_call_arithmetic = angle - 0x200;
+
+            rot[1] = __repair_call_arithmetic + func_80098090() % 1023;
             func_8002E148(rot, mtx);
             func_8002E514(mtx, vec, p);
         }

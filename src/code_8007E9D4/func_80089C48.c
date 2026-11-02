@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Ent89 { u32 mask; s8 type; u8 pad5[3]; s32 val; } Ent89;
 typedef struct Node89 { u32 pad0; Ent89 *subs; u8 count; u8 active; u8 padA[2]; } Node89;
 typedef struct Obj89 { u8 pad0[8]; Node89 *nodes; u8 padC; u8 base; u8 cur; } Obj89;
@@ -18,13 +20,14 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
     u8 called;
     u8 c;
     u8 k;
-    Ent89 *e;
+#define e list
     Ent89 *p;
     Node89 *node;
     s32 (*fn)(s32, s32);
     s32 v;
     s32 m;
     s8 type;
+    s32 z;
 
     *out = ret;
     *flag = 0;
@@ -93,7 +96,7 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
                 }
                 p = &node->subs[k];
             }
-        } else if (e->type == 2 && !(x3f | (e->val == -1)) && !x37) {
+        } else if (e->type == 2 && !(z = x3f | (e->val == -1)) && !x37) {
             if (e->mask & 0x10000) {
                 x2f = 1;
             } else if (e->mask & 0x20) {
@@ -105,3 +108,4 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
     }
     return ret;
 }
+

@@ -35,7 +35,7 @@ void func_80059618(Win64F98 *, u8, u8, u8, u8);
 void func_800596F4(Win64F98 *, s16, s16, char *);
 void func_8005A6BC(s32);
 void func_8005A6E0(s32);
-void func_80097E30(char *, s32, s32);
+void memset(char *, s32, s32);
 void func_800980D0(char *, char *);
 void func_80099DF8(char *, char *, s32, char *);
 extern u8 *D_800A1468;
@@ -58,7 +58,7 @@ void func_80064F98(void)
   s32 first;
   s32 a;
   Tbl64F98 **tbl;
-  func_80097E30(buf, 0, 15);
+  memset(buf, 0, 15);
   first = 0;
   if (D_800A1468[0x245] == 0)
   {
@@ -75,7 +75,7 @@ void func_80064F98(void)
     for (i = 0, text = buf; i < 3; i++)
     {
       t = D_800C3650[D_800C35A0->x20][i].time;
-      func_80097E30(buf, 0, 15);
+      memset(buf, 0, 15);
       func_80052E94(t, buf);
       func_800596F4(w, w->x, w->y + (i * 22), buf);
       if (i == 0)
@@ -86,7 +86,7 @@ void func_80064F98(void)
       {
         s32 c;
         s32 h;
-        func_80097E30(buf, 0, 15);
+        memset(buf, 0, 15);
         h = D_800A56CC;
         c = D_800A56CE;
  do { *((s16 *) buf) = h; buf[2] = c; } while (0);
@@ -126,7 +126,7 @@ void func_80064F98(void)
       {
         s32 h;
         s32 c;
-        func_80097E30(buf, 0, 15);
+        memset(buf, 0, 15);
         h = D_800A56CC;
         c = D_800A56CE;
  do { *((s16 *) buf) = h; buf[2] = c; } while (0);

@@ -1,0 +1,69 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
+extern u8 *D_800C35A0;
+extern char D_800A16F4[];
+extern char D_800C02AE[];
+void func_8006EE3C(u8 arg0)
+{
+  s32 temp_a0;
+  s32 temp_a3;
+  s32 temp_v1;
+  u16 temp_a0_3;
+  u8 temp_v0;
+  u32 temp_a2_2;
+  void *temp_a0_2;
+  void *temp_a1;
+  void *temp_a2;
+  void *temp_t0;
+  void *dest;
+  u16 value;
+  temp_a0 = arg0;
+  temp_t0 = (temp_a0 * 0xE) + (D_800C02AE + 0x6E26);
+  temp_a2 = D_800C35A0;
+  temp_a3 = temp_a0 * 0x28;
+  temp_a2 += temp_a3;
+  *((u16 *) (((char *) temp_a2) + 0x52)) = (u16) (*((u16 *) (((char *) temp_t0) + 8)));
+  *((s32 *) (((char *) temp_a2) + 0x68)) = (s32) ((*((u16 *) (((char *) temp_t0) + 0xA))) + ((*((u16 *) (((char *) temp_t0) + 0xC))) << 0x10));
+  temp_v0 = ((u16) (*((u16 *) (((char *) temp_t0) + 4)))) >> 8;
+  temp_v1 = temp_v0 & 0x7F;
+  *((s8 *) (((char *) temp_a2) + 0x48)) = (s8) (temp_v1 & 0x1F);
+  *(D_800A16F4 + temp_a0) = (s8) (((s32) (temp_v1 - (temp_v0 & 0x1F))) >> 5);
+  dest = D_800C35A0;
+  value = *((u16 *) (((char *) temp_t0) + 4));
+  dest += temp_a3;
+  *((s8 *) (((char *) dest) + 0x4D)) = value >> 15;
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x44)) = (s8) (((unsigned long long) ((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xA) & 0x1F)) + 0x41);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x45)) = (s8) (((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 5) & 0x1F) + 0x41);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x46)) = (s8) (((*((u8 *) (((char *) temp_t0) + 1))) & 0x1F) + 0x41);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x47)) = 0;
+  value = *((u16 *) (((char *) temp_t0) + 2));
+  temp_a0_2 = D_800C35A0;
+  {
+    u16 hi = *((u16 *) (((char *) temp_t0) + 0));
+    u16 v12 = value >> 0xC;
+    temp_a0_2 += temp_a3;
+    *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) (v12 + (hi >> 0xF) * 0x10);
+  }
+  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 5));
+  value = *((u16 *) (((char *) temp_t0) + 2));
+  *((s8 *) (((char *) temp_a0_2) + 0x54)) = (s8) (temp_a2_2 & 3);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x55)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x56)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x57)) = (s8) (temp_a2_2 >> 6);
+  temp_a0_3 = *((u16 *) (((char *) temp_t0) + 2));
+  temp_a1 = D_800C35A0 + temp_a3;
+  *((s16 *) (((char *) temp_a1) + 0x60)) = (s16) (((temp_a0_3 & 7) * 0xA) - 0x14);
+  *((s16 *) (((char *) temp_a1) + 0x62)) = (s16) (((((u32) (temp_a0_3 & 0x38)) >> 3) * 0xA) - 0x14);
+  *((s16 *) (((char *) temp_a1) + 0x64)) = (s16) (((((u32) (temp_a0_3 & 0x1C0)) >> 6) * 0xA) - 0x14);
+  *((s16 *) (((char *) temp_a1) + 0x66)) = (s16) (((((u32) (temp_a0_3 & 0xE00)) >> 9) * 0xA) - 0x14);
+  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 6));
+  *((s8 *) (((char *) temp_a1) + 0x58)) = (s8) (temp_a2_2 & 3);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x59)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5A)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5B)) = temp_a2_2 >> 6;
+  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 7));
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5C)) = (s8) (temp_a2_2 & 3);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) - -0x5D)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5E)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);
+  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5F)) = (s8) (temp_a2_2 >> 6);
+}

@@ -50,19 +50,9 @@ void func_8006185C(u8 *arg0, s32 arg1)
   font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) arg0) + 8)));
   table = D_800A1468 + ((*((s8 *) (((u8 *) arg0) + 14))) * 2);
   result = func_8000C9B0(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4), font, *((u8 *) (((u8 *) table) + 0xd1)), *((s32 *) (((u8 *) arg0) + 20)), 0);
-  extent = (unsigned short) (result + 24);
-  offset = (anchor = *((s16 *) (((u8 *) arg0) + 10)));
-  if (anchor < 0)
-  {
-    if (x)
-    {
-      offset = (-offset) - result;
-    }
-    else
-    {
-      offset = (-offset) - result;
-    }
-  }
+  extent = result + 24;
+  offset = *((s16 *) (((u8 *) arg0) + 10));
+  offset = (offset < 0) ? ((-offset) - result) : offset;
   x = offset - 12;
   xend = x + extent;
   top = (*((u16 *) (((u8 *) arg0) + 12))) - 8;

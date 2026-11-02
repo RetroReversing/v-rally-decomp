@@ -20,11 +20,11 @@ void func_8002C6EC(void *, void *);
 void func_8002B7D4(void *);
 void func_8002C044(char *a)
 {
-  int v[4];
-  int q[4];
+  int v[3];
+  int q[3];
   Vec pos;
   Vec save;
-  int shift[5];
+  int shift[3];
   unsigned i = 0;
   long long new_var6;
   int *new_var4;
@@ -45,7 +45,6 @@ void func_8002C044(char *a)
   int oldcol;
   int *new_var5;
   int oldresult;
-  int k;
   for (i = 0; i < 12; i++, dst += 20, src += 20, off += 20)
   {
     func_8002D8A0(P(a, 0x5c) + 64, P(a, 0x80) + src, P(a, 0x80) + dst);
@@ -98,30 +97,22 @@ void func_8002C044(char *a)
         switch (result)
         {
           case 1:
-
           case 4:
-
           case 5:
-
           case 6:
-
           case 7:
-
           case 8:
             row = -1;
             col = -1;
             break;
-
           case 2:
             row = 0;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;
-
           case 3:
             row = U(g, 136) - 2;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;
-
         }
 
         do
@@ -148,7 +139,7 @@ void func_8002C044(char *a)
         }
         else
         {
-          W(P(a, 96), new_var3) = oldcol;
+          W(P(a, 96), (i * 4) + 48) = oldcol;
           W(P(a, 96), i * 4) = oldrow;
           g = old;
           P(P(a, 140), i * 4) = g;
@@ -183,23 +174,26 @@ void func_8002C044(char *a)
       {
         if (i == 0)
         {
-          k = 11;
+          shift[0] = 11;
         }
         if (i == 1)
         {
-          k = 10;
+          shift[0] = 10;
         }
         if (i == 2)
         {
-          k = 5;
+          shift[0] = 5;
         }
         if (i == 3)
         {
-          k = 4;
+          shift[0] = 4;
         }
-        W(P(a, 96), (i * 4) + 48) = W(P(a, 96), (k * 4) + 48);
-        W(P(a, 96), i * 4) = W(P(a, 96), k * 4);
-        P(P(a, 140), i * 4) = P(P(a, 140), k * 4);
+        {
+          int k = shift[0] * 4;
+          W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);
+          W(P(a, 96), i * 4) = W(P(a, 96), k);
+          P(P(a, 140), i * 4) = P(P(a, 140), k);
+        }
       }
       func_80029AA8(a, q, &pos, i);
     }

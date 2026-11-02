@@ -103,10 +103,8 @@ void func_80012638(void *arg0)
         }
 
         delta[0] = pos.x - (*((s32 *) (((char *) var_a1) + 0xC)));
-        temp_a0 = delta[0] >> 4;
         delta[2] = pos.z - (*((s32 *) (((char *) var_a1) + 0x14)));
-        temp_v0_4 = delta[2] >> 4;
-        temp_a0_2 = (temp_a0 * temp_a0) + (temp_v0_4 * temp_v0_4);
+        temp_a0_2 = ((delta[0] >> 4) * (delta[0] >> 4)) + ((delta[2] >> 4) * (delta[2] >> 4));
         if (var_t1 >= temp_a0_2)
         {
           var_t1 = temp_a0_2;
@@ -217,7 +215,6 @@ void func_80012638(void *arg0)
         cam->f114 = 1.0f;
       }
     }
-    temp_v0_3 = *((void **) (((char *) var_a2) + 0x7C));
   }
   func_80042290(*((void **) (D_800C02AE + 0x7CD6)));
 }

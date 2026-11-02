@@ -5,7 +5,7 @@ typedef struct Ent
   u16 f6;
 } Ent;
 extern u8 D_8009BBBC;
-extern s16 D_8009C254[];
+extern s16 D_8009C254[][4][7];
 extern s32 D_8009C2C4[];
 extern u16 D_800B5B50;
 extern s32 D_800B5B44;
@@ -70,10 +70,10 @@ void func_80018D7C(s32 arg0, u8 *arg1, u8 *arg2, s32 arg3)
       {
         rec->f4 = 4;
       }
-      v = D_8009C254[(((D_800B5B50 * 4) + D_800C7926) * 7) + rec->f4];
-      new_var = rec->p0;
+      v = D_8009C254[D_800B5B50][D_800C7926][rec->f4];
       if (v >= 0)
       {
+        new_var = rec->p0;
         __repair_literal = 4;
         *((u16 *) (arg1 + 0x1C)) |= ((s32 (*)(u8 *, s32, u8 *, s32)) (*((s32 *) ((((char *) D_8009C254) + 0x70) + (rec->f6 * __repair_literal)))))(new_var, rec->f4, arg2, arg3);
       }

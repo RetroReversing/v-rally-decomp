@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,867 selected C functions / 397,320 matching bytes**, about **70.20% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,867 C and 255 assembly functions**.
+- **1,902 selected C functions / 421,068 matching bytes**, about **74.40% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,902 C and 220 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -99,6 +99,12 @@ The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,7
 and 334 best drafts**, alongside current names, 20,672 notes, headers, symbols and
 compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
 and compiler profiles were compared with the live app after saving.
+
+Three app matches remain snapshot-only: `func_8005D0B0` has non-contiguous constant pools;
+`func_800869B8` and `func_80087DE4` emit extra function bodies. The previously verified
+`func_80086A34` remains selected as C while the app retains its newer draft. Nine existing
+repository sources were also refreshed and passed the complete-image check. All saved
+source formatting is retained because it can affect period compiler output.
 
 ### Follow-up app reconciliation — 1 November 2026
 
@@ -307,6 +313,18 @@ The two existing helper-emitting candidates remain excluded from standalone C;
 four additional matches arrived during verification and are preserved in the snapshot
 pending standalone integration. No previously selected C was removed.
 
+### All recent app progress synchronized — 2 November 2026
+
+This checkpoint adds **35 verified C functions / 23,748 matching bytes**:
+`func_8000A2C4`, `func_8000BF2C`, `func_80011058`, `func_80015780`, `func_80018D7C`, `func_80027DB4`, `func_80028740`, `func_80035684`, `func_8003737C`, `func_8003FD0C`, `func_800407D0`, `func_80044908`, `func_800548A0`, `func_80054BB8`, `func_80055EE8`, `func_80057D5C`, `func_80061F34`, `func_800635A0`, `func_80063C60`, `func_80063D9C`, `func_80066B88`, `func_80069158`, `func_8006EE3C`, `func_8006F0E0`, `func_80072984`, `func_8007A01C`, `func_80080674`, `func_80083C28`, `func_800848A0`, `func_80089554`, `func_80089C48`, `func_8008CDBC`, `func_80094BE0`, `func_80095E18`, `func_800964EC`. All earlier selected C is retained. Each addition
+passed its independent compiler/link check, and the complete original 12,582,912-byte
+cartridge rebuilt byte for byte. Objdiff source links and compiler profiles are updated together.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,904 matches
+and 196 best drafts**, alongside current names, 25,180 notes, headers, symbols and
+compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
+and compiler profiles were compared with the live app after saving.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -326,7 +344,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1866 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1902 of 2122 functions in C)
 ```
 
 ## Supported input

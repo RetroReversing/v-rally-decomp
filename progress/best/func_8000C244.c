@@ -32,7 +32,6 @@ s32 osVirtualToPhysical(void *);
 
 u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
 {
-  GfxCtx *c;
   u8 dec;
   u8 first;
   s32 kern;
@@ -81,7 +80,7 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
   gDma(c->dl++, 0xF3000000, _SHIFTL(7, 24, 3) | _SHIFTL(MIN((((font->tex->w * font->tex->h) + 3) >> 2) - 1, 0x7FF), 12, 12)
         | _SHIFTL(((1 << 11) + MAX(1, font->tex->w / 16) - 1) / MAX(1, font->tex->w / 16), 0, 12));
   gDma(c->dl++, 0xE7000000, 0);
-  gDma(c->dl++, _SHIFTL(0xF5, 24, 8) | _SHIFTL(2, 21, 3) | _SHIFTL(0, 19, 2) | _SHIFTL(((font->tex->w >> 1) + 7) >> 3, 9, 9), 0x80200);
+  gDma(c->dl++, _SHIFTL(0xF5, 24, 8) | _SHIFTL(4, 21, 3) | _SHIFTL(0, 19, 2) | _SHIFTL(((font->tex->w >> 1) + 7) >> 3, 9, 9), 0x80200);
   x = x0;
   bias = 0;
   first = 1;
@@ -89,7 +88,8 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
   len = func_8008E118(str);
   for (i = 0; i < len; i++)
   {
-    ch = str[i] - 0x20;
+    ch = str[i];
+    ch -= 0x20;
     if (ch != 0)
     {
       gl = &font->glyphs[ch];

@@ -17,6 +17,7 @@ extern u8 *D_800A1468;
 extern u8 D_800A5F7C[];
 extern u8 D_800A5F8C[];
 extern u8 *D_800C3508;
+typedef struct { u8 pad0[0x32]; u8 idx[0x16]; struct { u8 pad[6]; u8 b6; u8 b7; u8 pad2[0x20]; } e[4]; } RS;
 extern u8 *D_800C35A0;
 extern u8 *D_800D0658;
 void func_8007A29C(void)
@@ -45,7 +46,7 @@ void func_8007A29C(void)
   func_8005BB5C();
   i = 0;
   B(D_800A1468, 0x22B) = B(D_800A1468, 0x228);
-  t = B(D_800C35A0 + B(D_800C35A0 + (s8)B(D_800A1468, 0x228), 0x32) * 0x28, 0x4F);
+  t = ((RS *)D_800C35A0)->e[((RS *)D_800C35A0)->idx[(s8)B(D_800A1468, 0x228)]].b7;
   B(D_800A1468, 0x237) = t;
   ctx = D_800C3508;
   ent = P(ctx, 0x10) + SH(ctx, 2) * 0x14;
@@ -72,11 +73,12 @@ void func_8007A29C(void)
     prev = 0;
     if (n > 0)
     {
+      arr = q + i;
       r = cnt + i;
       do
       {
-        B(node, 0x22) = q[i] + j;
-        if (H(tbl + ((s8)q[i] + j) * 0x2C4, 0x10) & 8)
+        B(node, 0x22) = *arr + j;
+        if (H(tbl + ((s8)*arr + j) * 0x2C4, 0x10) & 8)
         {
           if (prev == 0)
           {

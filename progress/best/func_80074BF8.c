@@ -34,12 +34,12 @@ extern char D_800A5E0C[];
 extern char D_800A5E10[];
 extern char D_800A73E0[];
 extern char D_800C02AE[];
-static inline char *inline_fn(int arg0, s32 arg1)
+static inline static char *inline_fn(int arg0, s32 arg1)
 {
   return (D_800C02AE + arg0) + (arg1 * 0x18);
 }
 
-static inline int inline_fn2(s16 arg0, u8 arg1)
+static inline static int inline_fn2(s16 arg0, u8 arg1)
 {
   return arg0 + arg1;
 }
@@ -78,6 +78,7 @@ void func_80074BF8(void *arg0, void *arg1)
   u32 temp_a2;
   int new_var;
   u32 temp_s0_4;
+  int new_var2;
   u32 temp_s0_6;
   u32 temp_v1;
   u32 var_v0_2;
@@ -96,8 +97,9 @@ void func_80074BF8(void *arg0, void *arg1)
   temp_s4 = arg0 + 0x40;
   sp106 = 0x4B;
   text = spE8;
+  new_var2 = 1;
   temp_s3 = D_800C7F90;
-  temp_s1 = func_8000C9B0(temp_s4, &sp40, 1, 1.0f, 1);
+  temp_s1 = func_8000C9B0(temp_s4, &sp40, 1, 1.0f, new_var2);
   temp_s0_2 = 0xA0 - (((u32) (temp_s1 & 0xFFFF)) >> 1);
   var_s6 = 0;
   sp10C = func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1);
@@ -172,14 +174,9 @@ void func_80074BF8(void *arg0, void *arg1)
       func_80099DF8(text, &D_800A5D9C, (u32) (&sp40));
     }
     temp_s0_8 = var_s6 & 0xFFFF;
-    if (temp_s0_8 == 6)
+    if (temp_s0_8 != 6)
     {
-      func_80099DF8(sp40, D_800A5E10, D_800C02AE + 0x7D72, spB8, text);
-      func_80099DF8(text, D_800A5E0C);
-    }
-    else
-    {
-      if (temp_s0_8 >= (*((u8 *) (D_800A73E0 + 0x6C00))) - 1)
+      if (temp_s0_8 >= ((*((u8 *) (D_800A73E0 + 0x6C00))) - 1))
       {
         if ((*((u8 *) (D_800A73E0 + 0x6C00))) != 0)
         {
@@ -196,8 +193,14 @@ void func_80074BF8(void *arg0, void *arg1)
       }
       func_80099DF8(sp40, D_800A5DFC, temp_s0_8 + 1, spB8, spD0, text);
     }
+    else
+    {
+      func_80099DF8(sp40, D_800A5E10, D_800C02AE + 0x7D72, spB8, text);
+      func_80099DF8(text, D_800A5E0C);
+    }
     done:
     var_v0_4 = var_s6 & 0xFFFF;
+
     if ((*((u32 *) inline_fn(0x7CE6, var_v0_4))) != 0)
     {
       func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - (((u32) (func_8000C9B0(arg0 + 0x40, &sp40, 1, 1.0f, 1) & 0xFFFF)) >> 1), (s16) sp106, &sp40, 1);
@@ -220,3 +223,4 @@ void func_80074BF8(void *arg0, void *arg1)
   temp_s1_7 = temp_s1_6 + D_800A17E8;
   func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, temp_s1_7, 0xDE, func_80057918(D_800C8328, 0xD7), 1);
 }
+

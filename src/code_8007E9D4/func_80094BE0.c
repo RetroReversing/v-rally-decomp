@@ -1,6 +1,10 @@
+#include "decompdecomp_sync_462fb6042280f42bff92.h"
+#line 1 "func.c"
 /* Same-name source lead: alFxPull in TUROK_DINOSAUR_HUNTE; verified ROM source. Destination verification required. */
-#line 2 "reference.c"
-Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
+extern char D_800A71C0[];
+extern char D_800A71C4[];
+#line 4 "reference.c"
+Acmd *func_80094BE0(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                      Acmd *p) 
 {
     Acmd        *ptr = p;
@@ -14,7 +18,7 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
                                         
       
     
-    assert(source);
+    if (!source) func_800914E0(D_800A71C0, D_800A71C4, 75);
     /*
      * pull channels going into this effect first
      */
@@ -88,3 +92,4 @@ Acmd *alFxPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
       
     return ptr;
 }
+

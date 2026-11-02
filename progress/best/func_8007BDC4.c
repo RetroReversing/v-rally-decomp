@@ -25,20 +25,8 @@ void func_8007BDC4(void) {
     float sp20[16];s16 ypos;int xpos;
     char sp60[120];
     char spD8[24];
-    int var_a1;
-    int var_a1_2;
-    int var_a1_3;
-    int var_a2;
-    int var_a2_2;
-    int var_a2_3;
-    int var_a3;
-    int var_a3_2;
-    
     s32 temp_s0_2;
     s32 temp_v0;
-    s32 var_a0;
-    s32 var_a0_2;
-    s32 var_a0_3;
     s32 var_v0;
     s32 var_v1;
     char *temp_s0;
@@ -46,6 +34,7 @@ void func_8007BDC4(void) {
     char *temp_v0_2;
     char *temp_v1;
     char *temp_v1_2;
+    u8 *pf;
 
     if ((u32) D_800AFA6C >= 0xAU) {
         temp_s1 = P(D_800B5C40,0);
@@ -71,27 +60,21 @@ void func_8007BDC4(void) {
                     D_800C34D8 = (s32) W(P(temp_s1,0x5C),0x58);
                 }
                 D_800C34F0 = 1U;
-            } else if (*(volatile u8 *)&D_800C34F0 != 0) {
-                *(volatile u8 *)&D_800C34F0 = 0U;
+            } else if (*(pf = &D_800C34F0) != 0) {
+                *pf = 0U;
                 if ((u32) D_800C34DC > (u32) D_800C34E8) {
                     D_800C34E8 = (u32) D_800C34DC;
                     D_800C34F2 = 0x32U;
                 }
                 D_800C34DC = 0U;
-                var_v0 = -D_800C34E0 + W(P(temp_s1,0x88),0x84);
-                if (var_v0 < 0) {
-                    var_v0 = -var_v0;
-                }
+                var_v0 = abs(W(P(temp_s1,0x88),0x84) - (s32)D_800C34E0);
                 if ((u32) D_800C34EC < (u32) var_v0) {
                     D_800C34EC = (u32) var_v0;
                     D_800C34F3 = 0x32U;
                 }
                 D_800C34E0 = 0;
-                temp_v1_2 = P(temp_s1,0x8C);
-                var_v1 = (s32) (((((f32) H(temp_v1_2,0xB6) + (f32) H(temp_v1_2,0xCA) + (f32) H(temp_v1_2,0xDE) + (f32) H(temp_v1_2,0xF2)) * 0.25f) - (f32) W(P(temp_s1,0x80),0x4)) - (f32) W(P(temp_s1,0x5C),0x58));
-                if (var_v1 < 0) {
-                    var_v1 = -var_v1;
-                }
+                temp_v1 = P(temp_s1,0x8C);
+                var_v1 = abs((s32) (((((f32) H(temp_v1,0xB6) + (f32) H(temp_v1,0xCA) + (f32) H(temp_v1,0xDE) + (f32) H(temp_v1,0xF2)) * 0.25f) - (f32) W(P(temp_s1,0x80),0x4)) - (f32) W(P(temp_s1,0x5C),0x58)));
                 if ((u32) D_800C34E4 < (u32) var_v1) {
                     D_800C34E4 = (u32) var_v1;
                     D_800C34F1 = 0x32U;

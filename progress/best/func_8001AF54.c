@@ -52,8 +52,7 @@ void *func_8001AF54(ObjList *arg0)
   flagp = (u8 *) D_800A73E0;
   flagp += 0x6C01;
   *((void **) (D_800C02AE + 0x7CDE)) = arg0;
-  b = self->entries + off;
-  *((u8 **) (D_800C02AE + 0x326A)) = b;
+  ((ObjList *) (D_800C02AE + 0x326A))->entries = self->entries + off;
   t = self->entries + (w * 0x3C);
   if ((*flagp) == 1)
   {

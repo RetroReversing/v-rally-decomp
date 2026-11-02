@@ -31,8 +31,8 @@ void func_80029EAC(char *a, Vertex *point, int index)
   int right;
   int down;
   int tmp;
-  int slot;
-  int height;
+  register int slot;
+  register int height;
   int dot;
   int cell;
   u16 w;
@@ -43,11 +43,11 @@ void func_80029EAC(char *a, Vertex *point, int index)
   g = P(P(a, 140), index * 4);
   row = W(P(a, 96) + index * 4, 0);
   col = W(P(a, 96) + index * 4, 48);
-  r.p.x = point->x;
-  r.p.z = point->z;
   w = U(g, 138);
   indices = P(g, 112);
   base = w * row + col;
+  r.p.x = point->x;
+  r.p.z = point->z;
   right = base + 1;
   p.p.x = ((Vertex *) P(g, 84))[right].x;
   p.p.z = ((Vertex *) P(g, 84))[right].z;
@@ -56,13 +56,13 @@ void func_80029EAC(char *a, Vertex *point, int index)
   q.p.z = ((Vertex *) P(g, 84))[down].z;
   cell = row * (w - 1) + col;
   func_8002D75C(p.word, q.word, r.word, &sign);
-  slot = down + 1;
-  height = right;
+  height = down + 1;
+  slot = right;
   if (sign < 0)
   {
-    base = slot;
+    base = height;
     right = down;
-    down = height;
+    down = slot;
   }
   c[0] = ((Vertex *) P(g, 84))[right].x - ((Vertex *) P(g, 84))[base].x;
   c[1] = ((Vertex *) P(g, 84))[right].y - ((Vertex *) P(g, 84))[base].y;
@@ -96,11 +96,10 @@ void func_80029EAC(char *a, Vertex *point, int index)
       normal[2] >>= sx;
     }
     v = (Vertex *) P(g, 84);
-    v += base;
-    dot = v->x * normal[0] + v->y * normal[1] + v->z * normal[2];
+    right = v[base].x * normal[0] + v[base].y * normal[1] + v[base].z * normal[2];
     if (normal[1])
     {
-      height = (-normal[0] * r.p.x - normal[2] * r.p.z + dot) / normal[1];
+      height = (-normal[0] * r.p.x - normal[2] * r.p.z + right) / normal[1];
     }
     W(P(a, 140), slot * 20 + 176) = point->x;
     W(P(a, 140), slot * 20 + 180) = height;
@@ -128,7 +127,8 @@ void func_80029EAC(char *a, Vertex *point, int index)
   tmp = local[1] * 16;
   if (tmp <= 0)
   {
-    record = P(a, 140) + W(P(a, 140), 820) * 48 + 824;
+    record = P(a, 140) + 824;
+    record += W(P(a, 140), 820) * 48;
     W(record, 40) = tmp;
     W(record, 36) = index;
     W(record, 32) = 0;

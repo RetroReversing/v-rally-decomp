@@ -37,7 +37,7 @@ s32 func_80069734(void)
   D_800A1468->b22B = -1;
   new_var = D_800A1468;
   new_var2 = D_800C35A0;
-  old = new_var2[new_var->cur + 0x32];
+  old = *(new_var2 + new_var->cur + 0x32);
   if (old != new_var->want)
   {
     (D_800C35A0 + new_var->cur)[0x32] = new_var->want;

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern s32 D_8009CE8C;
 extern s32 D_8009CE90;
 extern s32 D_8009CE94;
@@ -16,7 +18,7 @@ void func_80011058(void *arg0, s32 arg1, s32 arg2)
   {
     if (arg1 != 0)
     {
-      temp = (char *) ((idx * 0x4C) + arg1);
+      temp = (char *) (((arg2 & 0xFFFF) * 0x4C) + arg1);
       *((s32 *) (((char *) arg0) + 0x10)) = *((s32 *) (temp + 0x90));
       *((s32 *) (((char *) arg0) + 0x14)) = *((s32 *) (temp + 0xDC));
       temp_v1 = *((s32 *) (temp + 0x128));
@@ -36,44 +38,36 @@ void func_80011058(void *arg0, s32 arg1, s32 arg2)
   }
   while (0);
   temp_v1 = *((u16 *) (((char *) arg0) + 0xE));
-  var_v0 = -0x87;
   switch (temp_v1)
   {
-    default: return;
     case 1:
+      var_v0 = -0x87;
       D_8009CE90 = var_v0;
       D_8009CE8C = 0;
       var_v0 = 0x2B;
       break;
-
     case 2:
       if ((*((u16 *) (((char *) arg0) + 0x12))) & 1)
-    {
-      if (arg2)
       {
-        D_8009CE9C = -0x56;
-        D_8009CE90 = -0x56;
+        var_v0 = -0x56;
+        D_8009CE9C = var_v0;
+        D_8009CE90 = var_v0;
         var_v0 = 0x34;
       }
       else
       {
-        D_8009CE9C = -0x56;
-        D_8009CE90 = -0x56;
-        var_v0 = 0x34;
+        var_v0 = -0x87;
+        D_8009CE9C = var_v0;
+        D_8009CE90 = var_v0;
+        var_v0 = 0x2B;
       }
-    }
-    else
-    {
-      D_8009CE9C = var_v0;
-      D_8009CE90 = var_v0;
-      var_v0 = 0x2B;
-    }
       D_8009CE98 = 0;
       D_8009CE8C = 0;
       D_8009CEA0 = var_v0;
       break;
-
+    default: return;
   }
 
   D_8009CE94 = var_v0;
 }
+

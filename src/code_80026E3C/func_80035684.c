@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Obj356
 {
   s32 x;
@@ -108,12 +110,14 @@ void func_80035684(char *arg0)
       }
       break;
     case 4:
-      cnt = *(u32 *) (arg0 + 0x174);
-      D_800C811C->n = cnt;
+      {
+      u32 c4 = *(u32 *) (arg0 + 0x174);
+      D_800C811C->n = c4;
       if ((u32) (D_800C7926 - 1) < 2)
-        D_800C811C->n = cnt >> 1;
+        D_800C811C->n = c4 >> 1;
       else if (D_800C7926 == 3)
-        D_800C811C->n = cnt >> 2;
+        D_800C811C->n = c4 >> 2;
+      }
       D_800C811C->c = *(s32 *) (arg0 + 0x1C0);
       D_800C811C->b6 = *(s32 *) (arg0 + 0x20C);
       D_800C811C->b7 = *(s32 *) (arg0 + 0x258);
@@ -140,3 +144,4 @@ void func_80035684(char *arg0)
       break;
   }
 }
+

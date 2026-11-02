@@ -24,7 +24,7 @@ void func_8008910C(void *arg0, s32 arg1)
   {
     var_v0 = D_800C34F8;
   }
-  temp_a1 = (u32) (temp_a1 * var_v0);
+  temp_a1 = (u32) (var_v0 * temp_a1);
   temp_a1 = temp_a1 >> 0xF;
   if ((*((s32 *) (((char *) arg0) + 0xC))) != (-1))
   {
@@ -48,15 +48,15 @@ void func_8008910C(void *arg0, s32 arg1)
   {
     if (D_800C730C)
     {
-      temp_a1_2 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;
-      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1_2;
-      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), temp_a1_2);
+      temp_a1 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;
+      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1;
+      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (u8) temp_a1);
     }
     else
     {
-      temp_a1_2 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;
-      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1_2;
-      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), temp_a1_2);
+      temp_a1 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;
+      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1;
+      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (u8) temp_a1);
     }
   }
   temp_a1 = (u16) temp_a1;

@@ -11,7 +11,7 @@ extern f32 D_8009BB9C;
 extern f32 D_8009BBA0;
 void *func_800051B4(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-  s32 var_s6;
+  
   void *var_s2;
   void *var_s5;
   s32 var_a0;
@@ -35,7 +35,7 @@ void *func_800051B4(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
   u32 var_t0;
   f32 *new_var2;
   f32 var_fv0;
-  var_s6 = (u16) arg4;
+  var_a0 = arg4;
   var_s2 = arg0;
   var_s5 = NULL;
   var_s1 = arg1;
@@ -43,7 +43,7 @@ void *func_800051B4(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
   var_s3 = arg2;
   var_s7 = arg3;
   var_s0 = func_8007EAA0(6, (s32) var_a1);
-  var_fp = (u16) var_s6;
+  var_fp = (u16) var_a0;
     sp1E = var_fp;
   if (var_s0 != NULL)
   {
@@ -52,7 +52,7 @@ void *func_800051B4(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
     {
       var_s4 = var_s1 & 0xFFFF;
       var_s1 = func_80005CB8(var_s4, (s32) var_s3, var_s7, 1, var_fp);
-      var_v0 = var_s6 & 2;
+      var_v0 = var_a0 & 2;
       if (var_s1 != 0)
       {
         *((s32 *) (((char *) var_s0) + 0x20)) = var_s1;

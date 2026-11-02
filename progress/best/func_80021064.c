@@ -51,7 +51,6 @@ void func_80021064(void *list)
   int trigger;
   int wx;
   int wy;
-  char *new_var4;
   int wz;
   int world[3];
   func_8002FD68();
@@ -204,12 +203,12 @@ void func_80021064(void *list)
         }
 
         {
-          unsigned five;
+          int five;
           for (i = 0, five = 0; i < 4; i++, five += 5)
           {
             if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x310 + (i * 4))))) >= 0)
             {
-              goto clear_flag;
+              if (manager->flags[i]) { manager->flags[i] = 0; } goto next_flag;
             }
             v = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x1dc + (i * 4))));
             if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 2)
@@ -239,18 +238,17 @@ void func_80021064(void *list)
                 a[1] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (1 * 4))));
                 a[2] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (2 * 4))));
               }
-              new_var4 = (char *) (*((char **) (((char *) obj) + 0x5c)));
               func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);
               {
                 wx = (*((int *) (((char *) contact) + (0 * 4))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (0 * 4))))) + b[0]);
-                wy = (*((int *) (new_var4 + (0x54 + (1 * 4))))) + b[1];
+                wy = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (1 * 4))))) + b[1];
                 *((int *) (((char *) contact) + (1 * 4))) = wy;
                 wz = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (2 * 4))))) + b[2];
                 *((int *) (((char *) contact) + (2 * 4))) = wz;
               }
-              *((s16 *) (((char *) contact) + 0x12)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x12c + (new_var3 * 4))))) - wx;
-              *((s16 *) (((char *) contact) + 0x14)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x130 + (new_var3 * 4))))) - wy;
-              *((s16 *) (((char *) contact) + 0x16)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x134 + (new_var3 * 4))))) - wz;
+              *((s16 *) (((char *) contact) + 0x12)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x12c + (i * 40))))) - wx;
+              *((s16 *) (((char *) contact) + 0x14)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x130 + (i * 40))))) - wy;
+              *((s16 *) (((char *) contact) + 0x16)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x134 + (i * 40))))) - wz;
               new_var3 += 5;
               new_var3 *= 4;
               {
@@ -275,18 +273,27 @@ void func_80021064(void *list)
               func_8002E778(world, world);
               world[0] = world[0] + (world[1] + world[2]);
               trigger = manager->threshold < world[0];
+              if (trigger)
+              {
+                manager->flags[i] = 0;
+                manager->head++;
+                if (manager->head == manager->capacity)
+                {
+                  if (effect) { manager->head = 0; } else { manager->head = 0; }
+                }
+              }
             }
             else
             {
               trigger = manager->flags[i];
-            }
-            if (trigger)
-            {
-              manager->flags[i] = 0;
-              manager->head++;
-              if (manager->head == manager->capacity)
+              if (trigger)
               {
-                manager->head = 0;
+                manager->flags[i] = 0;
+                manager->head++;
+                if (manager->head == manager->capacity)
+                {
+                  manager->head = 0;
+                }
               }
             }
             goto next_flag;
@@ -299,7 +306,6 @@ void func_80021064(void *list)
             next_flag:
             ;
 
-            ;
             ;
           }
 

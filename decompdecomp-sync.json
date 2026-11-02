@@ -3,15 +3,15 @@
   "owned": {
     "src/code_8007E9D4/func_80085C58.c": "6da3d970b5ea406d6149d24cfb28de7f01a3a9b13b825ab080c66730321b54fc",
     "src/code_8007E9D4/func_80096104.c": "32db09b891fe5a446c28e46356ac2668bae7f14eb9a100bcd8a537dffccd8df5",
-    "src/code_8004BEB4/func_8006090C.c": "2194cbae21b8d6540b1baab4b0f71ac4429343ccbbbb328fa4ea2ec118215718",
+    "src/code_8004BEB4/func_8006090C.c": "3082d54b4afd012309c06b7b2941e55e3f4626cf77199a89419ce30f3b52583b",
     "src/code_8004BEB4/func_8004C2B8.c": "3cce9f54ce4d580c427e97dd842b48b52b33bff98a366464fa76a230f3ecf068",
-    "src/code_80026E3C/func_8004A0A0.c": "26cb5909dff90f9a4e13341eaa3907e057d62def8b19ed2fb9df557901b3352c",
+    "src/code_80026E3C/func_8004A0A0.c": "f96e6adfdf65485809b9eb71c178ccc831771bbcc3fe5f2acc3d3c018da09adc",
     "src/code_8007E9D4/func_8008DFB0.c": "77ec6849c79c8f9f653b8fa99eca5d6395de2301459842a36a27c02933960079",
     "src/code_8007E9D4/func_80097A34.c": "d132e92303fdaa6f56c0009b4f0f06b62494a472e5df46a83ac1d4ddc9fce93b",
     "src/code_8007E9D4/func_8008F810.c": "7e3c9396e442afe0e219f2f40d3c8885691b38b53a7ef23519e4a7c956a838aa",
     "src/code_8004BEB4/func_80053784.c": "cf44f18eaaa85e958e061da0d75ebbac15c0050b33ea589f4053f30a8c4a36ce",
     "src/code_80026E3C/func_8003DDBC.c": "538e22455505d9dc2c1af279c13952f22de62fec268ff5542c87297e63b324b5",
-    "src/code_80026E3C/func_80049F18.c": "48c7c1b848bd9e872eb7afde6543f6dd53d98c04ab099d8a2ab59148a9928fdc",
+    "src/code_80026E3C/func_80049F18.c": "9e4f1cb054fa0e03622379664a4fdba06a2f75f6a06f8844f7618b876f512a01",
     "src/code_8001F46C/func_80022BE8.c": "92309035613dfaa0c617dd322f8b9e2141001f08b59ee16c15865b62a8554a36",
     "src/code_80026E3C/func_80026ED4.c": "fcbea9aba00fe119ca6d6bf1e3e8662fd6a56a69e1c88449d6ae12569df976d6",
     "src/code_80026E3C/func_8003035C.c": "334c7cb50c06968e41f26f6b8c6809842ca1aab6d194efd8fca1e776444b3161",
@@ -89,7 +89,7 @@
     "src/code_8004BEB4/func_80057014.c": "d65d460d92be1755af7ecafb8df71e708f08105ce0a7d66c36624132c631b297",
     "src/code_8001F46C/func_80020B04.c": "d561f32d04c3f272e1c49e49a8cb20f478951419897b28d56864d36b756f0b52",
     "src/code_80026E3C/func_80041F24.c": "0dc4978a8dc7f9b032feed373dcdabcfe978eb7f0bb8bef0aa919207008e788a",
-    "src/code_8004BEB4/func_80064F98.c": "515f8b3b7fc3c193dfcb1ebfa6f3788ba8e5c4b1f2d1aeef2d199de61315740b",
+    "src/code_8004BEB4/func_80064F98.c": "40fddece874c9766e15a7f58c148786b8e16d5c0b6d39bc94687be22df18d097",
     "src/code_8004BEB4/func_800643F0.c": "25f967400b301d31384196582e697f54d99910b106c443d2b9dcf57cbfd4174a",
     "src/code_8004BEB4/func_8005D4A4.c": "ce45f9b47eb0459f683ed9ade18fc426777b8912663972152c888abc71d32967",
     "src/code_8007E9D4/func_8008871C.c": "bf0e00ecc8537eca7e2ecbf38e042642e6f2737901f9b325fc9e5a5183e5c5bc",
@@ -110,21 +110,21 @@
     "src/code_8004BEB4/func_8004E224.c": "2a03b928657d4ad5da2aca24e9447846af2205396ca93c3bac0b3411ec69f92e",
     "src/code_8007E9D4/func_80086138.c": "5a45f213d4ccd916f71826acc8e897b220e822f2574fb081ddf7270f9c0b45d7",
     "src/code_80026E3C/func_80039A00.c": "96ab58d8d268ee776e85256e9ea14ea0800709ccaebd986e1d9d9bd29307cfe9",
-    "src/code_8004BEB4/func_8005F5C4.c": "2836098487f5057942043a9ea6ce83004143e0a05bf7fba40b115537cfd22ad8",
+    "src/code_8004BEB4/func_8005F5C4.c": "ee84c3e2a352a5f8cb167990a28c11dcdbdf8cfd68debb41f63fa7b74716dea9",
     "src/code_8004BEB4/func_80052CF4.c": "1ea005eb6c5e9f24a5288fa640d86a2bc2976bb9587fdc1e530312adc87a1d08",
     "src/code_8004BEB4/func_80068D9C.c": "151270442b6b18681b56132e23285327c8f1e788b7296ecb1a4bf55823b95a7b",
     "src/code_80026E3C/func_800376C8.c": "e92940da5785b0b69f9441203fae07832c89e9d2d3c8cffd52b6acb2caa90421",
     "src/code_8004BEB4/func_80050048.c": "26aed3c6f8b565a556685934a83fe294b4e6e93497adf96dff5c3b812ef06525",
-    "src/code_8004BEB4/func_80062E68.c": "4cb512aade56dbce9c75b18c4b73f705f2fb655bf8a2a6a7000266fb71fce1b6",
+    "src/code_8004BEB4/func_80062E68.c": "0dd427aaf6b459d1c4b8865033649c5ca788843627bbbed3e9db2c8ed1fd5b40",
     "src/code_80026E3C/func_8003CD18.c": "39729aa1777ce48448dc71b696a8287da052626cde67cf16ed7b02d20dbdaae9",
     "src/code_80026E3C/func_80027E8C.c": "2a205755785bacac9f08ee2aa1b64ff6624469e699f0f96acd48678a0bb74f26",
     "src/code_8007E9D4/func_80087594.c": "a0722da716c370883ac04d027730a6b44d1993bc6e3a3ab29d19983fde1de4d1",
-    "src/code_8004BEB4/func_8004FD5C.c": "3137a007acb3f05ad5102da0aa217346b10c6218601f0826c310ccda9129d762",
+    "src/code_8004BEB4/func_8004FD5C.c": "52b7c85c806e90844a948f3662bbde90ba6cb9db4301c4dad1832b4569c361e5",
     "src/code_80017B38/func_8001BDA0.c": "3aa207d4a3b623f583a79587a2eb73ef2db7a2db999e4c2a99a2998d733e9a2f",
     "src/code_8004BEB4/func_8006F8E0.c": "076c39a82728b7b893a997c4c9e87a4245d6d5b4b88b0670716e85656dc2e8c3",
     "src/code_8004BEB4/func_8005A100.c": "873e138af38d7135af052ea2293b3e8bad510c4f3a6cc4ebce3886b133d787ef",
     "src/code_8004BEB4/func_8005639C.c": "6ba6420f0103bcd7a457587a65b64e4034bdb5a50f3ecb04a319871be855fec8",
-    "src/code_8004BEB4/func_800710F0.c": "321f946e65a81741ce92802a189e3be122f7ea0575e484c23abfcdb10536c10a",
+    "src/code_8004BEB4/func_800710F0.c": "6d82f0737a91cb26fae0a4abc2c1203aa2e43ab3741c2fb305c77468ad1bea4d",
     "src/code_8004BEB4/func_8004CEB4.c": "4652ee3aba6adfe1b754bf346178ec5c7dbd4298e4fe37c14eff75b8bd59d9f1",
     "src/code_80005098/func_80006EF8.c": "b4faad289ec888387e8ec0861195441ebdd86b24f6457e1c8e591a29a9c0960a",
     "src/code_80026E3C/func_800415A8.c": "bce6612692982ce6f5be95c0c6bdb2c78b19185fba0332b7fe38c080eb352b2f",
@@ -132,27 +132,71 @@
     "src/code_80012114/func_800169DC.c": "da7bc5a471936062a7fdd27f2311b28f6eae3400e7b627809a9a5cf6c4cd0d7c",
     "src/code_8004BEB4/func_8006ECB4.c": "b9624c91d65e2773456ee885281de14f047e9f272a91111b48ab61181b361948",
     "src/code_8007E9D4/func_80089300.c": "d545f49eab4b11aea21a67fb2d85cea967e641a86fa4e33df8dfd742f27e2b7a",
-    "src/code_8004BEB4/func_80073B64.c": "bd7659df2c1b7fa4d3039db950d9240fc2cc648035dc8e64f4953ac7d00ba91a"
+    "src/code_8004BEB4/func_80073B64.c": "90c7e63c3904fdc2fdd35035e15e12a3a558c11c6a31b99af6af7e85a99b3eaa",
+    "src/code_8007E9D4/func_80089C48.c": "968bd253933f83a28a2192c5f963046dd5400439fe5e5641635a3e13fa4cba7b",
+    "src/code_8007950C/func_8007A01C.c": "f8919b46027cde4a2dfd39b7b70b2a785e211df22a08e328948699a7f2dc9315",
+    "src/code_8004BEB4/func_80063D9C.c": "627d9bfc2f1a55a06f467711a0ca13c862e244f7fbb1c77a109246be7b1f04bb",
+    "src/code_80026E3C/func_80035684.c": "2f928c8ad6f8aeb43da30386f16382cab0e65f1b309e82372c99b13199616793",
+    "src/code_8007E9D4/func_80080674.c": "b24a0c69283560094ab36c07a02c23ec6871395d18035727ac32bb5ea48ee668",
+    "src/code_80005098/func_8000A2C4.c": "cd50d4a9442f669884b88f2051e27ec908c815e3846d42a44bcfeddda900fc16",
+    "src/code_8004BEB4/func_800635A0.c": "55c10b2866db640b14718ec56edce1e173f87540682983b9003a19998613b218",
+    "src/code_8004BEB4/func_8006F0E0.c": "10332eaa9e50e9cb5288638b0629b9563338713349138f56d74fd8eb923f3598",
+    "src/code_80026E3C/func_800407D0.c": "efd2cc530046b2e3db9f0752a0e8fefc4c97986ae754302008408af3f2382e49",
+    "src/code_80026E3C/func_80028740.c": "bcc705057c3eb3f1d76a4aef0d810e3705e81d094088959cafb71188b9e0d448",
+    "src/code_80026E3C/func_8003737C.c": "21e98cddbf299a27f635fec62f1afc28187f902c66ef539265232542fa5e16ae",
+    "src/code_8004BEB4/func_80061F34.c": "e292339a2b266bd9d21609d11458ad3774117ff563e4446bef53bc8e302cf0c6",
+    "src/code_8007E9D4/func_800848A0.c": "b92815c86e94a5c8f6338d1808aba69f008405c9228df8dc09899de5bfca8b8e",
+    "src/code_8004BEB4/func_80054BB8.c": "0950607dc11e737b38352d8d71ecea7fd5191ce388a186b0f12fb90ebfa37e2c",
+    "src/code_8000D9A0/func_80011058.c": "9fe52995f4095589e364baeaedcc0461d75a2468e3aa2da40a303dfa4f4d3d5a",
+    "src/code_80012114/func_80015780.c": "4f1780204107df0d8c86cd6d20721e882e5b259f7c4c20f0a5ab06a7527b527c",
+    "src/code_80026E3C/func_8003FD0C.c": "e803bd4e91f5580198b165765d96417535998a617fb384dacc9d3f3f0cfe3c86",
+    "src/code_80026E3C/func_80044908.c": "eb5daeec88ae956597d2bf9180548e7598550fc26973660ffdd084ec75c45d20",
+    "src/code_8004BEB4/func_80069158.c": "f2475bf1ce9734d074e5eb6c4368856a17c67ac7914f00802dd338f38d8886c9",
+    "src/code_8007E9D4/func_80094BE0.c": "14d298fb54302a683b328c70393c1b9ca08e4e7b671e93198d47ffcafd5982ea",
+    "src/code_80026E3C/func_80027DB4.c": "89facb4f1b6c1ae91a1f1245aaf65a504a368ac51844a28bdc40bf8dd46d73b6",
+    "src/code_8007E9D4/func_80083C28.c": "46ad543fb1acbbd852e5739a928bb38db6090c6b8f642736a6e94e58094af7cc",
+    "src/code_8004BEB4/func_80072984.c": "bab2cf500fe29b8553a56e210b7840c9a3c24ba95cffb21503bdf88f78d0abc4",
+    "src/code_8007E9D4/func_800964EC.c": "d1e37ec80c30129f9699a43fd83faf5a275ad7992188863adde45472224efabb",
+    "src/code_8004BEB4/func_8006EE3C.c": "6406b57de892157932fd41977eb527919596b7ee94d4bdd6f9e316f99bd3fa07",
+    "src/code_8007E9D4/func_80089554.c": "badaa76c016f0cb7a06fc7cda68f8704467b6f15427d26c603742395852478b3",
+    "src/code_8000B910/func_8000BF2C.c": "54cf772bc46122346ad5e96d95c6f537d4f6d33008b4fd4ebe87152d92179503",
+    "src/code_8004BEB4/func_80057D5C.c": "d394a3b0672a9427a51ad05e1577a9616642288123d19e153c010357120ea459",
+    "src/code_80017B38/func_80018D7C.c": "c22523fb17ef0975f41cc2eb8a9d3727a1e3df5d1eb111cb2baf37baf9dbbffd",
+    "src/code_8004BEB4/func_800548A0.c": "2fbc531ae3f828803175dfd49eb3198900a7c68233207ab6984cc25729b6cbf5",
+    "src/code_8004BEB4/func_80066B88.c": "d857e3c9500f9370187a4f387efcef93ce3386767c0e7a9244ee063a6415875c",
+    "src/code_8007E9D4/func_8008CDBC.c": "fe3217a88325419827093ca4a00226bf463ba5324c5fe9087555d87f3e153c3e",
+    "src/code_8004BEB4/func_80055EE8.c": "7bad5292a0b15cbff11db8136914e4f56033699945769068106844a74e5f6dbf",
+    "src/code_8007E9D4/func_80095E18.c": "1221607180af7198f98c48c1e31081d1ff705ef2bb896be064b6c50469b698f8",
+    "src/code_8004BEB4/func_80063C60.c": "771f8992a6b2ac1a7a9a314babe008db748a97962ee9c88cc2c9d353d49b6587"
   },
   "accepted": [
     "MusInitialize",
     "__osCheckPackId",
     "__osContRamRead",
+    "__osPfsRWInode",
+    "__osPfsRequestData",
+    "__osRepairPackId",
     "_pullSubFrame",
+    "alFxPull",
     "atan2_angle4096",
     "contInitControllers",
     "func_80006EF8",
     "func_800075BC",
     "func_80008500",
     "func_80009ED8",
+    "func_8000A2C4",
+    "func_8000BF2C",
     "func_8000EC94",
     "func_8000F660",
+    "func_80011058",
     "func_800122A4",
     "func_800131C0",
+    "func_80015780",
     "func_80016204",
     "func_800169DC",
     "func_80017B38",
     "func_80018C04",
+    "func_80018D7C",
     "func_800197A4",
     "func_80019F9C",
     "func_8001BDA0",
@@ -160,8 +204,10 @@
     "func_80022BE8",
     "func_80023B7C",
     "func_80026ED4",
+    "func_80027DB4",
     "func_80027E8C",
     "func_80028394",
+    "func_80028740",
     "func_80028E94",
     "func_8002C6EC",
     "func_8002DE00",
@@ -172,9 +218,11 @@
     "func_80034134",
     "func_800344F0",
     "func_800354F4",
+    "func_80035684",
     "func_80035B04",
     "func_80035C4C",
     "func_800370E8",
+    "func_8003737C",
     "func_800376C8",
     "func_8003946C",
     "func_80039A00",
@@ -186,12 +234,15 @@
     "func_8003E1BC",
     "func_8003E4A8",
     "func_8003EE84",
+    "func_8003FD0C",
     "func_8003FFB4",
+    "func_800407D0",
     "func_800415A8",
     "func_80041F24",
     "func_80042DE0",
     "func_80042F40",
     "func_80043150",
+    "func_80044908",
     "func_80046804",
     "func_800475E4",
     "func_80049F18",
@@ -212,23 +263,33 @@
     "func_80053F44",
     "func_800540A0",
     "func_800545E4",
+    "func_800548A0",
+    "func_80054BB8",
     "func_80055904",
+    "func_80055EE8",
     "func_8005639C",
     "func_80057014",
+    "func_80057D5C",
     "func_80059618",
     "func_8005A100",
     "func_8005A790",
     "func_8005D4A4",
     "func_8005F5C4",
     "func_8006090C",
+    "func_80061F34",
     "func_80062E68",
+    "func_800635A0",
     "func_80063790",
+    "func_80063C60",
+    "func_80063D9C",
     "func_800643F0",
     "func_80064F98",
+    "func_80066B88",
     "func_80067474",
     "func_80067AC4",
     "func_8006874C",
     "func_80068D9C",
+    "func_80069158",
     "func_80069A08",
     "func_8006C3E4",
     "func_8006C640",
@@ -237,17 +298,23 @@
     "func_8006CF7C",
     "func_8006E8A0",
     "func_8006ECB4",
+    "func_8006EE3C",
+    "func_8006F0E0",
     "func_8006F4A8",
     "func_8006F8E0",
     "func_80070C34",
     "func_800710F0",
+    "func_80072984",
     "func_80073B64",
     "func_80076060",
     "func_80077054",
+    "func_8007A01C",
     "func_8007F278",
+    "func_80080674",
     "func_8008276C",
     "func_80082EB8",
     "func_800839C4",
+    "func_800848A0",
     "func_80085C58",
     "func_80085D90",
     "func_80086138",
@@ -256,6 +323,8 @@
     "func_80088008",
     "func_8008871C",
     "func_80089300",
+    "func_80089554",
+    "func_80089C48",
     "func_8008A31C",
     "func_8008DFB0",
     "func_8008F810",
@@ -266,9 +335,14 @@
     "func_8009912C",
     "guLookAtReflectF",
     "guRotate",
+    "huft_build",
     "inflate_dynamic"
   ],
   "skipped": [
+    {
+      "function": "func_8005D0B0",
+      "reason": "The candidate has non-contiguous constant pools. Reference existing ROM data separately or split the pools before standalone export."
+    },
     {
       "function": "func_800869B8",
       "reason": "The current candidate does not compile to one standalone function; keep assembly until its extra bodies or declarations are resolved."
@@ -279,140 +353,5 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 1892,
-  "snapshot_only": [
-    {
-      "name": "func_80015780",
-      "vram": 2147571584,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80028740",
-      "vram": 2147649344,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_8003FD0C",
-      "vram": 2147745036,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_800407D0",
-      "vram": 2147747792,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80044908",
-      "vram": 2147764488,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_800548A0",
-      "vram": 2147829920,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80054BB8",
-      "vram": 2147830712,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80055EE8",
-      "vram": 2147835624,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80057D5C",
-      "vram": 2147843420,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_8005D0B0",
-      "vram": 2147864752,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80061F34",
-      "vram": 2147884852,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_800635A0",
-      "vram": 2147890592,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80063C60",
-      "vram": 2147892320,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80063D9C",
-      "vram": 2147892636,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80066B88",
-      "vram": 2147904392,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80069158",
-      "vram": 2147914072,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_8006EE3C",
-      "vram": 2147937852,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_8006F0E0",
-      "vram": 2147938528,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80072984",
-      "vram": 2147953028,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_8007A01C",
-      "vram": 2147983388,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "huft_build",
-      "vram": 2148023336,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_800848A0",
-      "vram": 2148026528,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_800869B8",
-      "vram": 2148035000,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80087DE4",
-      "vram": 2148040164,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "func_80089554",
-      "vram": 2148046164,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    },
-    {
-      "name": "__osPfsRWInode",
-      "vram": 2148099308,
-      "reason": "Preserved in the portable app snapshot; not independently selected in this single-function standalone integration."
-    }
-  ],
-  "standalone_only": [
-    "func_80086A34"
-  ]
+  "matched_app": 1904
 }
