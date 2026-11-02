@@ -117,10 +117,10 @@ void func_8007950C(s32 arg0)
     {
       
         
-      func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD2)) ; temp_s2_2 = var_s7 ; temp_s2_2 += 0x19 ; var_s7 = temp_s2_2 +  new_var6  ;
+      func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD2)) ; var_s4 = 0x25; temp_s2_2 = var_s7 ; temp_s2_2 += 0x19 ; var_s7 = temp_s2_2 +  new_var6  ;
       temp_s1_2 = func_8000C9B0(D_800C02AE + 0x7F5E, &sp40, 1, 1.0f, 1);
       temp_s3 = temp_s1_2;
-      func_8000C22C((var_s4 = 0x25, *((s32 *) (D_800C02AE + 0x7F5E))), 0xDC, 0xDC, 0x80, 0xFF);
+      func_8000C22C(*((s32 *) (D_800C02AE + 0x7F5E)), 0xDC, 0xDC, 0x80, 0xFF);
       temp_s0_3 = ((u32) (temp_s3 & 0xFFFF)) >> 1;
        new_var5 = 0xFFFF ; new_var2 = 0x7F5E;
       func_8007347C(arg0, (0x97 - temp_s0_3) &  new_var5 , (temp_s2_2 + (-2)) &  new_var5 , (temp_s1_2 + 0xF) &  new_var5 , 0x11);
@@ -206,8 +206,9 @@ row_color_done:
     {
       func_80073108(arg0, temp_s0_4, temp_s4, *((s32 *) (D_800C02AE - (-0x103B2))), (s32) D_800C7F90[(var_fp & 0xFFFF)].icon);
     }
-    temp_s2_3 = temp_s4; ++temp_s2_3; var_s7 = temp_s2_3;
+    temp_s2_3 = temp_s4; ++temp_s2_3;
     temp_s0_5 = temp_s0_4 + D_800A17EA;
+    var_s7 = temp_s2_3;
     if ((var_fp & 0xFFFF) == 0) goto zero_row;
     if ((var_fp & 0xFFFF) != 4) goto normal_row;
     {

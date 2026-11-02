@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct {
     s32 val;
     u8 b4;
@@ -37,6 +39,7 @@ char *__repair_addr;
                 val[i] += D_800C3A90[0][j].val;
                 bon[i] += D_800C3A90[0][j].bonus;
                 found = 1;
+                cont = 0;
                 break;
             }
             j++;
@@ -52,6 +55,7 @@ char *__repair_addr;
                 val[i] += D_800C3A90[1][j].val;
                 bon[i] += D_800C3A90[1][j].bonus;
                 found = 1;
+                cont = 0;
                 break;
             }
             j++;
@@ -78,3 +82,4 @@ __repair_addr = (char *)(D_800C35A0 + i * 40 + 0x4E);
         }
     }
 }
+

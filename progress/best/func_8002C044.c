@@ -8,6 +8,7 @@ typedef struct
   s16 z;
 } Vec;
 typedef struct { s32 v[3]; s32 pad[2]; } E20;
+typedef struct { s32 x, y, z; } V3;
 typedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;
 extern char *D_800B5C40;
 void func_8002D8A0(void *, void *, void *);
@@ -20,6 +21,12 @@ void func_8002D7E4(int, int *);
 void func_8002E778(void *, void *);
 void func_8002C6EC(void *, void *);
 void func_8002B7D4(void *);
+static __inline__ void vadd(E20 *d, E20 *s, int *t)
+{
+  d->v[0] = s->v[0] + t[0];
+  d->v[1] = s->v[1] + t[1];
+  d->v[2] = s->v[2] + t[2];
+}
 void func_8002C044(char *a)
 {
   int v[3];
@@ -27,73 +34,41 @@ void func_8002C044(char *a)
   Vec pos;
   Vec save;
   int shift[3];
-  unsigned i = 0;
-  long long new_var6;
-  int *new_var4;
-  int dst = 256;
-  int src = 16;
-  int *new_var2;
-  char *new_var;
-  int off = 0;
+  unsigned i;
   char *g;
-  int new_var3;
   char *old;
   char *b;
-  char *c;
   int result;
   int row;
   int col;
   int oldrow;
   int oldcol;
-  int *new_var5;
   int oldresult;
+  int w;
+  int k;
   for (i = 0; i < 12; i++)
   {
     func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
-    {
-      E20 *bb = (E20 *) (P(a, 0x80) + i * 20 + 256);
-      E20 *cc = (E20 *) (P(a, 0x80) + i * 20 + 496);
-      char *trans = P(a, 0x58);
-      cc->v[0] = bb->v[0] + W(trans, 12);
-      cc->v[1] = bb->v[1] + W(trans, 16);
-      cc->v[2] = bb->v[2] + W(trans, 20);
-    }
+    vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));
   }
 
   for (i = 0; i < 12; i++)
   {
-    new_var4 = v;
-    {
-      char *p = (char *) ((i * 20) + ((int) P(a, 0x80)));
-      int x = W(p, 496);
-      int y = W(p, 500);
-      int z = W(p, 504);
-      v[0] = x;
-      do
-      {
-      }
-      while (0);
-      v[1] = y;
-      v[2] = z;
-    }
+    *(V3 *) v = *(V3 *) &((Blk20 *) P(a, 0x80))->o[i];
     g = P(P(a, 0x8c), i * 4);
-    new_var = g;
-    pos.x = (*((volatile int *) (&v[0]))) - W(new_var, 36);
-    pos.y = (*((volatile int *) (&v[1]))) - W(new_var, 40);
-    pos.z = (*((volatile int *) (&v[2]))) - W(new_var, 44);
+    pos.x = v[0] - W(g, 36);
+    pos.y = v[1] - W(g, 40);
+    pos.z = v[2] - W(g, 44);
     result = func_80028E94(a, &pos, i);
-    ;
     if (result > 0)
     {
       col = 0;
       row = 0;
       oldcol = W(P(a, 0x60), (i * 4) + 48);
-      new_var3 = (i * 4) + 48;
       oldrow = W(P(a, 0x60), i * 4);
       save = pos;
-      old = new_var;
-      g = func_80028D74(g, new_var4);
       oldresult = result;
+      g = func_80028D74(old = g, v);
       if (g != old)
       {
         switch (result)
@@ -117,20 +92,17 @@ void func_8002C044(char *a)
             break;
         }
 
-        do
+        w = U(g, 138) - 1; k = row * w;
+        if (!((u16 *) P(g, 112))[k + col])
         {
-          if (!U(P(g, 112), ((row * (U(g, 138) - 1)) + col) * 2))
-          {
-            col = -1;
-          }
+          col = -1;
         }
-        while (0);
-        if ((((row >= 0) && (col >= 0)) && (row < (U(g, 136) - 1))) && (col < (U(g, 138) - 1)))
+        if (row >= 0 && col >= 0 && row < U(g, 136) - 1 && col < U(g, 138) - 1)
         {
           W(P(a, 96), (i * 4) + 48) = col;
           W(P(a, 96), i * 4) = row;
           P(P(a, 140), i * 4) = g;
-          pos.x = (*(&v[0])) - W(g, 36);
+          pos.x = v[0] - W(g, 36);
           pos.y = v[1] - W(g, 40);
           pos.z = v[2] - W(g, 44);
           result = func_80028E94(a, &pos, i);
@@ -151,11 +123,7 @@ void func_8002C044(char *a)
       }
       else
       {
-        do
-        {
-          result = -result;
-        }
-        while (0);
+        result = -result;
       }
     }
     if (i < 4)
@@ -163,15 +131,13 @@ void func_8002C044(char *a)
       func_8002D8A0(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);
       v[0] <<= 2;
       v[1] <<= 2;
-      new_var6 = 2;
       v[2] <<= 2;
       v[0] += W(P(a, 88), 232);
       v[1] += W(P(a, 88), 236);
-      v[new_var6] += W(P(a, 88), 240);
-      new_var5 = v;
+      v[2] += W(P(a, 88), 240);
       q[0] = v[0] - (W(g, 36) << 4);
       q[1] = v[1] - (W(g, 40) << 4);
-      q[2] = new_var5[2] - (W(g, 44) << 4);
+      q[2] = v[2] - (W(g, 44) << 4);
       if (result < 0)
       {
         if (i == 0)
@@ -201,8 +167,7 @@ void func_8002C044(char *a)
       else
         func_80029AA8(a, q, &pos, i);
     }
-    else
-      if (result < 0)
+    else if (result < 0)
     {
       func_8002A4C4(a, &pos, i, result);
     }

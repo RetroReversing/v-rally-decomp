@@ -228,7 +228,15 @@
     "src/code_8007E9D4/guS2DInitBg.c": "ebe6e59a73d1aac2d85215018c59e57ea5daa59b6791a86a5835bbd5bcfccf47",
     "src/code_8007E9D4/func_80087DE4.c": "6f5859126e4a27f8f34cdadaf2e53abf3f239d449984817e27cf53b5cd8328a6",
     "src/code_8007E9D4/func_800869B8.c": "6844c121d361ecbd29c06672e190fe425478ea773fab8aa289f59f64bc69c85b",
-    "src/code_8004BEB4/func_80057810.c": "372127aa161e7e4f08d7c22556da8998ef61028673d20352f3296d3a0ca42bdc"
+    "src/code_8004BEB4/func_80057810.c": "372127aa161e7e4f08d7c22556da8998ef61028673d20352f3296d3a0ca42bdc",
+    "src/code_8004BEB4/func_8005508C.c": "c2baa7b97fceff44e2704f1c8d8641b47e228724f00ed6fc19bde6ca03e3330e",
+    "src/code_80026E3C/func_800480B0.c": "8dce2c03bcccfcc06ad3ea89889fb0f7d02e22f203505fa8f542a76cacd9d507",
+    "src/code_8007E9D4/func_80092FD4.c": "b73d1e6af51e099249a0f9be8d4257644150d83442a2ffa2eca3bf14b6e80f3b",
+    "src/code_80017B38/func_80018A14.c": "d7c1be796648b51cb62ed9ed4dd06b01305daab62e650cf656fa652355d34bf4",
+    "src/code_80026E3C/func_8002ABC0.c": "97e4ba0d131bf6ed806860b8f31d67cd6df8ceb7aae483fe69884424867e7037",
+    "src/code_8004BEB4/func_8006A438.c": "1a098828ecf843a7e5d2897b6c6b25c01d61668bd54e3abe9a5f33aedc44a54f",
+    "src/code_8004BEB4/func_80078018.c": "d8e6f65d45f69261dbe241a03607574996421fe7e69f3de412630138a6b63a16",
+    "src/code_8007E9D4/func_80081260.c": "2353c512f53d4a029a0611b546a63d12cbb1524c49e55cbe9a04441aae998108"
   },
   "accepted": [
     "MusInitialize",
@@ -238,6 +246,7 @@
     "__osPfsRWInode",
     "__osPfsRequestData",
     "__osRepairPackId",
+    "_getRate",
     "_pullSubFrame",
     "alFxPull",
     "atan2_angle4096",
@@ -271,6 +280,7 @@
     "func_800169DC",
     "func_80017B38",
     "func_80018900",
+    "func_80018A14",
     "func_80018C04",
     "func_80018D7C",
     "func_80019608",
@@ -295,6 +305,7 @@
     "func_80028740",
     "func_80028E94",
     "func_8002AA18",
+    "func_8002ABC0",
     "func_8002C6EC",
     "func_8002DE00",
     "func_8003035C",
@@ -338,6 +349,7 @@
     "func_80044908",
     "func_80046804",
     "func_800475E4",
+    "func_800480B0",
     "func_80048394",
     "func_800485F8",
     "func_80049E28",
@@ -367,6 +379,7 @@
     "func_800545E4",
     "func_800548A0",
     "func_80054BB8",
+    "func_8005508C",
     "func_80055904",
     "func_80055EE8",
     "func_8005639C",
@@ -399,6 +412,7 @@
     "func_80069158",
     "func_80069734",
     "func_80069A08",
+    "func_8006A438",
     "func_8006C3E4",
     "func_8006C640",
     "func_8006CCD0",
@@ -421,12 +435,14 @@
     "func_80077054",
     "func_80077724",
     "func_80077FA8",
+    "func_80078018",
     "func_800783A8",
     "func_8007A01C",
     "func_8007BDC4",
     "func_8007C694",
     "func_8007F278",
     "func_80080674",
+    "func_80081260",
     "func_8008276C",
     "func_80082EB8",
     "func_800839C4",
@@ -462,13 +478,5 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 1963,
-  "last_verification": {
-    "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
-    "bytes": 12582912,
-    "added": [
-      "func_80057810"
-    ],
-    "note": "App exited after standalone check; orphaned isolated build completed. Full cartridge independently compared byte for byte before publication."
-  }
+  "matched_app": 1971
 }

@@ -17,7 +17,7 @@ typedef struct Sel {
 typedef struct CarInfo { u8 a, b, c, pad; f32 speed; u8 pad8[0x14]; } CarInfo;
 typedef struct Item { u8 pad[4]; u16 val; } Item;
 typedef struct Hdr { u8 pad[2]; s16 type; } Hdr;
-extern u8 D_800AE850[];
+extern struct { u8 pad[0x1300]; CarInfo cars[16]; } D_800AE850;
 extern Sel *D_800C35A0;
 extern Hdr *D_800C3508;
 extern Stage *D_800D0634[];
@@ -33,7 +33,7 @@ extern u16 D_800A152A;
 extern u16 D_800A152C;
 extern s8 *D_800A1468;
 extern u8 D_800A14D5;
-extern u32 D_800A14DC;
+extern volatile u32 D_800A14DC;
 void func_800584D4(void);
 Item *func_800592D0(s32);
 void func_8005A05C(s32);
@@ -55,12 +55,12 @@ void func_800603B4(void)
   func_800584D4();
   D_800A1468[0x233] = -1;
   func_800592D0(5)->val = D_800A1504[D_800A1530[n]];
-  func_800592D0(13)->val = D_800A150C[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].a];
-  func_800592D0(9)->val = D_800A1514[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].b];
-  func_800592D0(7)->val = D_800A1520[((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].c];
+  func_800592D0(13)->val = D_800A150C[D_800AE850.cars[D_800C35A0->car].a];
+  func_800592D0(9)->val = D_800A1514[D_800AE850.cars[D_800C35A0->car].b];
+  func_800592D0(7)->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];
   it = func_800592D0(11);
   {
-    f32 f = ((CarInfo *)(D_800AE850 + 0x1300))[D_800C35A0->car].speed;
+    f32 f = D_800AE850.cars[D_800C35A0->car].speed;
     if (f <= 118.0f)
       it->val = D_800A1528;
     else if (f <= 132.0f)
@@ -73,9 +73,13 @@ void func_800603B4(void)
   if ((u32)(mode - 1) < 2 || (u32)(mode - 3) < 2 ||
       (D_800C35A0->course < 8 &&
        (D_800C832C[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage)))
+  {
     D_800A14D5 = 1;
+  }
   else
+  {
     D_800A14D5 = 0;
+  }
 
   sel = D_800C35A0;
   D_800A14DC = 0;

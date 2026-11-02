@@ -1,92 +1,99 @@
 extern char D_800AE850[];
 extern char D_800C02AE[];
-static inline static static s32 inline_fn(void *arg0)
-{
-  return *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x6C)))) + 8));
-}
 
-void func_8003B008(void *arg0)
-{
-  void *temp_v1;
-  void *var_a1;
-  void *temp_v0;
-  char *new_var2;
-  s32 a2;
-  char *new_var;
-  if ((*((u16 *) (((char *) (*((void **) (D_800C02AE - (-0x32F2))))) + 0x1E))) == 0)
-  {
-    temp_v1 = *((void **) (((char *) (*((void **) (((char *) arg0) + 0xA8)))) + 0x24));
-    var_a1 = (void *) temp_v1;
-    goto block_7;
-  }
-  var_a1 = *(*((void ***) (D_800AE850 + 0x73F0)));
-  if (var_a1 != NULL)
-  {
-    a2 = *((u16 *) (((char *) arg0) + 0x76));
-    loop_4:
-    temp_v1 = *((void **) (((char *) var_a1) + 0x6C));
+typedef struct Info {
+    u8 pad0[8];
+    s32 id;
+    s32 unkC;
+    u8 pad10[0x10];
+    s32 unk20;
+} Info;
 
-    if ((a2 != (*((s32 *) (((char *) temp_v1) + 8)))) || ((*((s32 *) (((char *) temp_v1) + 0x20))) != 0))
-    {
-      var_a1 = *((void **) (((char *) var_a1) + 4));
-      if (var_a1 != NULL)
-      {
-        goto loop_4;
-      }
+typedef struct Node {
+    u8 pad0[4];
+    struct Node *next;
+    u8 pad8[0x64];
+    Info *info;
+    s32 *unk70;
+} Node;
+
+typedef struct Holder {
+    u8 pad0[0x24];
+    Node *node;
+} Holder;
+
+typedef struct Car {
+    u8 pad0[0x76];
+    u16 id;
+    u8 pad78[2];
+    s16 unk7A;
+    u8 pad7C[4];
+    s32 flags;
+    u8 pad84[0xC];
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+    u8 pad94[0x14];
+    Holder *holder;
+} Car;
+
+typedef struct Game {
+    u8 pad0[0x1E];
+    u16 unk1E;
+} Game;
+
+#define GAME (*(Game **)(D_800C02AE + 0x32F2))
+
+void func_8003B008(Car *car) {
+    Node *n;
+
+    if (GAME->unk1E == 0) {
+        n = car->holder->node;
+    } else {
+        for (n = **(Node ***)(D_800AE850 + 0x73F0); n != NULL; n = n->next) {
+            if (car->id == n->info->id && n->info->unk20 == 0) {
+                break;
+            }
+        }
     }
-    block_7:
-    if (var_a1 != NULL)
-    {
-      *((s32 *) (((char *) arg0) + 0x80)) |= 4;
-      if ((*((s32 *) (((char *) (*((void **) (((char *) var_a1) + 0x6C)))) + 0xC))) != 0)
-      {
-        temp_v0 = *((void **) (D_800C02AE + 0x32F2));
-        *((s16 *) (((char *) arg0) + 0x7A)) = 0xB;
-        if ((*((u16 *) (((char *) temp_v0) + 0x1E))) == 0)
-        {
-          if ((*((s32 *) (((char *) (*((void **) (((char *) var_a1) + 0x6C)))) + 0xC))) < 0)
-          {
-            *((u8 *) (((char *) arg0) + 0x90)) = 0xFA;
-            *((s8 *) (((char *) arg0) + 0x91)) = 0x32;
-            new_var = (char *) arg0;
-            *((s8 *) (new_var + 0x92)) = 0xA;
-            *((s16 *) (((char *) arg0) + 0x7A)) = 0xB;
-          }
-          else
-          {
-            *((s16 *) (((char *) arg0) + 0x7A)) = (*((s8 *) (((char *) arg0) + 0x92)) = 0xA);
-            *((u8 *) (((char *) arg0) + 0x91)) = 0xC8;
-          }
-          *((u8 *) (((char *) arg0) + 0x92)) = 0xFF;
-          *((u8 *) (((char *) arg0) + 0x90)) = 0xA;
-          goto block_17;
-        }
-        if ((*((s32 *) (((char *) (*((void **) (((char *) var_a1) + 0x6C)))) + 0x20))) == 0)
-        {
-          var_a1 = *((void **) (((char *) (*((void **) (((char *) arg0) + 0xA8)))) + 0x24));
-          if (inline_fn(var_a1) == (*((u16 *) (((char *) arg0) + 0x76))))
-          {
-            *((u8 *) (((char *) arg0) + 0x90)) = 0xFE;
-            *((u8 *) (((char *) arg0) + 0x91)) = 0xD5;
-            *((s8 *) (((char *) arg0) + 0x92)) = 0x1E;
-          }
-          else
-          {
-            *((u8 *) (((char *) arg0) + 0x90)) = 0xFF;
-            *((u8 *) (((char *) arg0) + 0x91)) = 0xFF;
-            *((u8 *) (((char *) arg0) + 0x92)) = 0xFF;
-          }
-          block_17:
-          *((u8 *) (((char *) arg0) + 0x93)) = 0xFF;
-
-        }
-        new_var2 = D_800C02AE + 0x32F2;
-        if (((*((u16 *) (((char *) (*((void **) new_var2))) + 0x1E))) != 0) || ((*(*((s32 **) (((char *) var_a1) + 0x70)))) >= 2))
-        {
-          *((s32 *) (((char *) arg0) + 0x80)) &= ~4;
-        }
-      }
+    if (n == NULL) {
+        return;
     }
-
-  }
+    car->flags |= 4;
+    if (n->info->unkC == 0) {
+        return;
+    }
+    car->unk7A = 11;
+    if (GAME->unk1E == 0) {
+        if (n->info->unkC < 0) {
+            car->r = 0xFA;
+            car->g = 0x32;
+            car->b = 10;
+            car->unk7A = 11;
+            car->a = 0xFF;
+        } else {
+            car->unk7A = 10;
+            car->r = 10;
+            car->g = 200;
+            car->b = 10;
+            car->a = 0xFF;
+        }
+    } else if (n->info->unk20 == 0) {
+        n = car->holder->node;
+        if (car->id == n->info->id) {
+            car->r = 0xFE;
+            car->g = 0xD5;
+            car->b = 0x1E;
+            car->a = 0xFF;
+        } else {
+            car->r = 0xFF;
+            car->g = 0xFF;
+            car->b = 0xFF;
+            car->a = 0xFF;
+        }
+    }
+    if (GAME->unk1E != 0 || *n->unk70 >= 2) {
+        car->flags &= ~4;
+    }
 }

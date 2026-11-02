@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern void func_8008E13C(void *, void *, s32);
 extern u8 D_8009CEE9[];
 extern u8 D_8009E260;
@@ -9,6 +11,13 @@ typedef struct
   u8 numeric;
   u8 pad[3];
 } Token;
+typedef struct
+{
+  void (*fn)(void *);
+  u8 unk4;
+  u8 flags;
+  u8 pad[6];
+} CmdEntry;
 s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
 {
   s8 buf[72];
@@ -19,7 +28,9 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
   u8 hex;
   s16 quoted;
   u32 i;
-  s32 command = cmd - 1;
+  s32 command;
+  cmd--;
+  command = cmd;
   while (((((((*p) != 32) & ((*p) != 9)) && (((*p) != 44) & ((*p) != 13))) && ((*p) != 35)) && (!((((*p) == 47) && ((p + 1) < end)) && (p[1] == 47)))) && (p < end))
   {
     p++;
@@ -29,7 +40,6 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
   {
     register s32 comma = 44;
     register s32 quote = 34;
-    register s32 cr = 13;
     do
     {
       s8 *skip = p;
@@ -68,7 +78,7 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
         len = 0;
         do
         {
-          if (((((*p) == cr) || (((*p) == 32) | ((*p) == 9))) || (i = (*p) == comma)) || (!(p < end)))
+          if (((((*p) == 13) || (((*p) == 32) | ((*p) == 9))) || (i = (*p) == comma)) || (!(p < end)))
           {
             if (hex)
             {
@@ -129,39 +139,38 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
         quoted = (*p) == 34;
         p += quoted;
         tok[n].numeric = 0;
-        len = 0;
-        do
+        for (len = 0; len < 65; len++)
         {
-          if (!quoted)
+          if (quoted)
           {
-            if (((((*p) == cr) || (((*p) == 32) | ((*p) == 9))) || ((*p) == comma)) || (!(p < end)))
+            if ((*p) == 34)
+            {
+              buf[len] = 0;
+              p++;
+              break;
+            }
+          }
+          else
+          {
+            if (((((*p) == 13) || (((*p) == 32) | ((*p) == 9))) || (i = (*p) == comma)) || (!(p < end)))
             {
               buf[len] = 0;
               break;
             }
           }
-          else
-            if ((*p) == quote)
-          {
-            buf[len] = 0;
-            p++;
-            break;
-          }
           buf[len] = *(p++);
-          len++;
         }
-        while (len < 65);
         func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
       }
       n++;
     }
     while (n < 27);
     tok[0].number = n - 1;
-    i = command * 12;
-    if (D_8009CEE9[i] & D_8009E260)
+    if (D_8009CEE9[cmd * 12] & D_8009E260)
     {
-      (*((void (**)(void *)) (((u8 *) D_8009CEE4) + i)))(tok);
+      D_8009CEE4[cmd * 3](tok);
     }
   }
   return 1;
 }
+

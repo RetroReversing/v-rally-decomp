@@ -1,9 +1,11 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern char D_800A73E0[];
 extern char D_800AE850[];
 extern char D_800C02AE[];
 void *func_8007EAA0(s32, s32);
 void memset(void *, s32, s32);
-void func_80081260(s32 arg0, s32 arg1, s32 arg2)
+char *func_80081260(s32 arg0, s32 arg1, s32 arg2)
 {
   char *new_var;
   char *s3;
@@ -65,4 +67,6 @@ void func_80081260(s32 arg0, s32 arg1, s32 arg2)
   tmp = s3;
   *((char **) (D_800A73E0 + 0x6BC0)) = tmp;
   *((char **) (new_var + 0x8AB8)) = q;
+  return tmp;
 }
+

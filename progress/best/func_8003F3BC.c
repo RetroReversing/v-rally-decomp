@@ -63,6 +63,8 @@ void func_8003F05C();
 void func_8003EFF8();
 void func_8003F3BC(s32 arg0, s32 arg1)
 {
+  u32 cnt;
+  s32 dy;
   Rect *r;
   Spr *s0;
   Spr *s1;
@@ -71,7 +73,6 @@ void func_8003F3BC(s32 arg0, s32 arg1)
   u32 i;
   s16 x;
   s16 y;
-  s32 dy;
   s32 hw;
   s32 hh;
   s32 few;
@@ -82,10 +83,11 @@ void func_8003F3BC(s32 arg0, s32 arg1)
     return;
   }
   n = D_800C35A0[0xF];
-  few = n < 3;
+  if (n < 3)
   {
     for (i = 1; i <= n; i++)
     {
+      few = n < 3;
       D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);
       r = &D_800C7F84->rh->r;
       x = r->x;

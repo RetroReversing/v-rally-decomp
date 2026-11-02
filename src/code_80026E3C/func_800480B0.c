@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 #define sp20 matrix.matrix
 #define sp50 matrix.translate
 s32 func_80010BFC();
@@ -44,10 +46,13 @@ void func_800480B0(void *arg0, void *arg1)
   sp60[new_var3] = temp_ft0;
   sp60[2] = temp_fv0;
   func_8002E688(&sp60[new_var3], &sp60[0]);
-  func_8001BE68(arg0 + 0xB8, (f32) sp60[new_var3], new_var3, (f32) sp60[2], &sp70, &sp74, &sp78);
+  {
+    f32 fb = (f32) sp60[2];
+    func_8001BE68(arg0 + 0xB8, (f32) sp60[new_var3], new_var3,
+    fb, &sp70, &sp74, &sp78);
+  }
   sp70 *= 114.0f;
-  temp_fv1 = sp74;
-  temp_fv1 = (sp74 = temp_fv1 * 114.0f);
+  temp_fv1 = sp74; temp_fv1 = (sp74 = temp_fv1 * 114.0f);
   if (temp_fv1 < (-500.0f))
   {
     sp74 = -500.0f;
@@ -59,3 +64,4 @@ void func_800480B0(void *arg0, void *arg1)
   *((s32 *) (((char *) arg1) + 0x7C)) = (s32) sp74;
   *((s16 *) (((char *) arg1) + 0x10)) = (s16) (-(((func_8002D2C8(temp_fv0, temp_ft0) * 2) / 3) & 0xFFF));
 }
+

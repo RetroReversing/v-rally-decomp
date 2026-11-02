@@ -90,7 +90,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   u32 *t;
   arg0--;
   first = arg0;
-  size = ((size - 1) + align) & (-align);
+  size = (size + (align - 1)) & (-align);
   if (size == 0)
   {
     D_800C8090(D_800B5B40 - 4);

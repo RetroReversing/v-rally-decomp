@@ -55,6 +55,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
     u32 py;
     s32 ey;
     s32 unused_pad;
+    s32 t;
 
     if (D_800C35A0->state == 7) {
         return;
@@ -67,7 +68,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
         D_800C7F84 = func_8004240C(1);
         x = D_800C7F84->pos->xC;
         y = D_800C7F84->pos->x8;
-        w = func_80040260(arg0, x - 0x32, y - 0x10, arg2, func_8003BA9C, 0);
+        w = func_80040260(arg0, x - 0x32, (y -= 0x10), arg2, func_8003BA9C, 0);
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         w->obj = D_800C7F84;
         w = func_80040260(arg0, x - 0x46, y - 0x20, arg2, 0, 0);

@@ -63,7 +63,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
     switch (g->mode) {
     case 1:
         if (g->state == 0) {
-            y = y + h - 0x12;
+            y += h;
+            y -= 0x12;
             arg2--;
             func_8003A9AC(arg0, x + 0x4D, y, func_8003B310, arg1, arg2, 0);
             w = func_80040260(arg0, D_800C7F84->pos->f8 + 0x44, y, 2, func_8003B008, 0);
@@ -94,12 +95,14 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
         }
         if (D_800C35A0->state == 0) {
             pos = D_800C7F84->pos;
-            y = pos->fA + pos->fE - 0x12;
-            n = cnt - 1;
-            func_8003A9AC(arg0, xx + 0x39, y, func_8003B310, arg1, n, 0);
+            y = pos->fA;
+            y += pos->fE;
+            y -= 0x12;
+            arg2 = cnt - 1;
+            func_8003A9AC(arg0, xx + 0x39, y, func_8003B310, arg1, arg2, 0);
             w = func_80040260(arg0, xx + 0x2E, y, 2, func_8003B008, 0);
             w->text = func_80034FF0(arg1 + 0x4C, 0);
-            w->id = n;
+            w->id = arg2;
             w->obj = D_800C7F84;
         } else {
             tx = xx + 0x31;

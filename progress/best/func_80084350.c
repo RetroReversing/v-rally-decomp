@@ -1,8 +1,8 @@
-#define D_800B7300 (*(s32 *)(&D_800AE850+0x18AB0))
+#define D_800B7300 (*(s32 *)(&D_800C02AE-0x8FAE))
 #define sp32 (sp28+10)
 #define sp34 (sp28+12)
 #define sp38 (sp28+16)
-#define PKT (*(Pkt6 *)((&D_800AE850) + 0x2358))
+#define PKT D_800B0BA8
 extern u32 D_800C3338;
 extern u32 D_800C333C;
 extern s32 D_800C3340;
@@ -13,6 +13,7 @@ typedef struct
 {
   s32 w[6];
 } Pkt6;
+extern Pkt6 D_800B0BA8;
 extern void func_80081040(s32, s32, s32, Pkt6);
 extern void func_80081E8C(void *, s32);
 extern s16 func_800822D4(void *);
@@ -34,6 +35,8 @@ s32 func_80084350(s32 arg0)
   s32 found = 0;
   s32 *p;
   int new_var;
+  int __repair_phase_new_var;
+
   if (t < 0x2001)
   {
     func_80081040(D_800B7300, D_800C3338, *base, PKT);
@@ -71,12 +74,12 @@ s32 func_80084350(s32 arg0)
       D_800C333C = (D_800C3338 + rem) - 0x16;
       if (D_800C333C >= D_800C3338)
       {
-        new_var = 0x50;
+        __repair_phase_new_var = 0x50;
         base = (s32 *) (((u8 *) base) - 0x14);
         p = base;
         for (;;)
         {
-          if (((*(*((u8 **) ((&D_800C02AE) + 0x308E)))) == new_var) && (func_80098400(p[0], ((u8 *) p) + 0x26, 4) == 0))
+          if (((*(*((u8 **) ((&D_800C02AE) + 0x308E)))) == __repair_phase_new_var) && (func_80098400(p[0], ((u8 *) p) + 0x26, 4) == 0))
           {
             found = 1;
             p[1] -= inline_fn(p, 0, p);
@@ -96,13 +99,15 @@ s32 func_80084350(s32 arg0)
       D_800C3354 = (*base) - rem;
     }
     n = ((arg0 - rem) + 0x1fff) / 0x2000;
+    i = 1;
     if ((!found) && (n > 0))
     {
-      for (i = 1; (!found) & (i <= n); i++)
+      for (; (!found) & (i <= n); i++)
       {
         s32 *q = (s32 *) ((&D_800C02AE) + 0x30A6);
         *q -= 0x2000;
         func_80081040(D_800B7300 + (*q), *((s32 *) (((u8 *) ((s32 *) ((&D_800C02AE) + 0x30A6))) - 0x1c)), 0x2000, PKT);
+        new_var = 0x50;
         *((s32 *) (((&D_800C02AE) + 0x30A6) - 0x18)) = (*((s32 *) (((&D_800C02AE) + 0x30A6) - 0x1c))) + 0x1fff;
         p = (s32 *) (((&D_800C02AE) + 0x30A6) - 0x18);
         if (((u32) p[0]) >= ((u32) p[-1]))

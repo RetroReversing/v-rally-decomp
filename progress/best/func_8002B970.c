@@ -11,6 +11,12 @@ extern s32 D_8009F50C[];
 extern s32 D_8009F518[];
 extern s32 D_8009F51C[];
 extern void func_8002D8A0(s32, void *, void *);
+static inline void add3(s32 *d, s32 *a, s32 *b)
+{
+  d[0] = a[0] + b[0];
+  d[1] = a[1] + b[1];
+  d[2] = a[2] + b[2];
+}
 void func_8002B970(u8 *arg0, u8 *arg1)
 {
   struct 
@@ -82,29 +88,22 @@ void func_8002B970(u8 *arg0, u8 *arg1)
     func_8002D8A0(I(arg1, 0x5C) + 0x40, temp_a2_2 + var_s3, temp_a2_2 + var_s4);
     temp_a0_2 = P(arg1, 0x80);
     temp_a2_3 = P(arg1, 0x58);
-    temp_a1_2 = ((u8 *) temp_a0_2) + var_s1;
-    temp_a1_3 = temp_a1_2 + ((unsigned char) 0x100);
-    temp_a0_3 = ((u8 *) temp_a0_2) - (-var_s1);
-    temp_a0_4 = temp_a0_3 + 0x1F0;
-    I(temp_a0_4, 0) = (s32) (I(temp_a1_3, 0) + I(temp_a2_3, 0xC));
-    I(temp_a0_4, 0x4) = (s32) (I(temp_a1_3, 0x4) + I(temp_a2_3, 0x10));
-    I(temp_a0_4, 0x8) = (s32) (I(temp_a1_3, 0x8) + I(temp_a2_3, 0x14));
-    var_t0 = D_8009C230;
-    temp_v0 = ((u8 *) P(arg1, 0x80)) + var_s1;
+    add3((s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x1F0), (s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x100), (s32 *) ((u8 *) temp_a2_3 + 0xC));
+    temp_v0 = (u8 *) (var_s1 + (s32) P(arg1, 0x80));
     sp = *((typeof(sp) *) (temp_v0 + 0x1F0));
-    I(P(arg1, 0x60) + var_s1, 0x60) = sp.x;
-    I(P(arg1, 0x60) + var_s1, 0x64) = sp.y;
+    I(var_s1 + (s32) P(arg1, 0x60), 0x60) = sp.x + (var_t0 = D_8009C230, 0);
+    I(var_s1 + (s32) P(arg1, 0x60), 0x64) = sp.y;
     var_s4 += 0x14;
-    I(P(arg1, 0x60) + var_s1, 0x68) = sp.z;
+    I(var_s1 + (s32) P(arg1, 0x60), 0x68) = sp.z;
     temp_a0_5 = var_s2 * 4;
-    I(P(arg1, 0x60) + (var_s2 * 4), 0x30) = (s32) (I(var_t0, 0x4C) - 1);
+    I((var_s2 * 4) + (s32) P(arg1, 0x60), 0x30) = (s32) (I(var_t0, 0x4C) - 1);
     var_s3 += 0x14;
     new_var3 = var_t0;
-    I(P(arg1, 0x34) + temp_a0_5, 0x30) = (s32) (I(new_var3, 0x4C) - 1);
+    I(temp_a0_5 + (s32) P(arg1, 0x34), 0x30) = (s32) (I(new_var3, 0x4C) - 1);
     var_s2 += 1;
     new_var2 = new_var3;
-    I(P(arg1, 0x60) + temp_a0_5, 0) = ((u16) H(new_var3, 0x88)) >> 1;
-    I(P(arg1, 0x34) + temp_a0_5, 0) = ((u16) H(new_var2, 0x88)) >> 1;
+    I(temp_a0_5 + (s32) P(arg1, 0x60), 0) = ((u16) H(new_var3, 0x88)) >> 1;
+    I(temp_a0_5 + (s32) P(arg1, 0x34), 0) = ((u16) H(new_var2, 0x88)) >> 1;
     var_s1 += 0x14;
   }
   while (var_s2 < 0xC);
@@ -120,10 +119,10 @@ void func_8002B970(u8 *arg0, u8 *arg1)
   I(D_8009F518, temp_v0_4) = I(D_8009F518, temp_v0_4) + I(D_8009F51C, temp_v0_4);
   I(P(arg1, 0x34), 0x160) = 1;
   I(P(arg1, 0x34), 0x158) = 0;
-  I(P(arg1, 0x34), 0x168) = 0;
-  I(P(arg1, 0x34), 0x154) = 0;
-  I(P(arg1, 0x34), 0x16C) = 0x1F4;
   I(P(arg1, 0x34), 0x164) = 0;
+  I(P(arg1, 0x34), 0x168) = 0;
+  I(P(arg1, 0x34), 0x16C) = 0x1F4;
+  I(P(arg1, 0x34), 0x154) = 0;
   P(P(arg1, 0x34), 0x150) = new_var3;
   I(P(arg1, 0x60), 0x160) = 0;
   I(P(arg1, 0x60), 0x158) = 0;

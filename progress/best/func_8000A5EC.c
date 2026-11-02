@@ -38,6 +38,7 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   u16 new_var2;
   s32 type;
   unsigned int v;
+unsigned int __repair_phase_v;
   void *new_var;
   s32 __repair_v_1;
   s32 x;
@@ -140,9 +141,9 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   *((u32 *) new_var3) = 0x30;
   x = idx;
   x = x << 2;
-  v = *((u32 *) (x + ((int) im->tab)));
+  __repair_phase_v = *((u32 *) (x + ((int) im->tab)));
   *((u16 *) (((u8 *) o) + 0x18)) = 0x100;
-  *((u32 *) (((u8 *) o) + 0x14)) = v;
+  *((u32 *) (((u8 *) o) + 0x14)) = __repair_phase_v;
   *((u16 *) (inline_fn23(new_var) + 0x1c)) = 0;
   *((u16 *) (inline_fn23(o) + 0x1e)) = 0;
   ;

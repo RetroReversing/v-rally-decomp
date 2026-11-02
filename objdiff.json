@@ -2436,10 +2436,10 @@
       "name": "code_80017B38/func_80018A14",
       "target_path": "build/asm/nonmatchings/code_80017B38/func_80018A14.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80017B38/func_80018A14.s"
+        "complete": true,
+        "source_path": "src/code_80017B38/func_80018A14.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80017B38/func_80018A14.o"
     },
     {
       "name": "code_80017B38/func_80018BFC",
@@ -5289,10 +5289,10 @@
       "name": "code_80026E3C/func_8002ABC0",
       "target_path": "build/asm/nonmatchings/code_80026E3C/func_8002ABC0.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80026E3C/func_8002ABC0.s"
+        "complete": true,
+        "source_path": "src/code_80026E3C/func_8002ABC0.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80026E3C/func_8002ABC0.o"
     },
     {
       "name": "code_80026E3C/func_8002B180",
@@ -8340,10 +8340,10 @@
       "name": "code_80026E3C/func_800480B0",
       "target_path": "build/asm/nonmatchings/code_80026E3C/func_800480B0.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80026E3C/func_800480B0.s"
+        "complete": true,
+        "source_path": "src/code_80026E3C/func_800480B0.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80026E3C/func_800480B0.o"
     },
     {
       "name": "code_80026E3C/func_80048268",
@@ -9618,10 +9618,10 @@
       "name": "code_8004BEB4/func_8005508C",
       "target_path": "build/asm/nonmatchings/code_8004BEB4/func_8005508C.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8004BEB4/func_8005508C.s"
+        "complete": true,
+        "source_path": "src/code_8004BEB4/func_8005508C.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8004BEB4/func_8005508C.o"
     },
     {
       "name": "code_8004BEB4/func_80055378",
@@ -12705,10 +12705,10 @@
       "name": "code_8004BEB4/func_8006A438",
       "target_path": "build/asm/nonmatchings/code_8004BEB4/func_8006A438.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8004BEB4/func_8006A438.s"
+        "complete": true,
+        "source_path": "src/code_8004BEB4/func_8006A438.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8004BEB4/func_8006A438.o"
     },
     {
       "name": "code_8004BEB4/func_8006AAAC",
@@ -13839,10 +13839,10 @@
       "name": "code_8004BEB4/func_80078018",
       "target_path": "build/asm/nonmatchings/code_8004BEB4/func_80078018.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8004BEB4/func_80078018.s"
+        "complete": true,
+        "source_path": "src/code_8004BEB4/func_80078018.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8004BEB4/func_80078018.o"
     },
     {
       "name": "code_8004BEB4/func_80078338",
@@ -14829,10 +14829,10 @@
       "name": "code_8007E9D4/func_80081260",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_80081260.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_80081260.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_80081260.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_80081260.o"
     },
     {
       "name": "code_8007E9D4/func_80081470",
@@ -18042,10 +18042,10 @@
       "name": "code_8007E9D4/func_80092FD4",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_80092FD4.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_80092FD4.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_80092FD4.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_80092FD4.o"
     },
     {
       "name": "code_8007E9D4/func_80093254",

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Node
 {
   u32 pad;
@@ -74,10 +76,11 @@ void func_80078018(void)
     {
     u32 *lap = D_800B55FC->lap;
     u32 *dist = D_800B55FC->dist;
-    D_800C7F90[k].time = (lap + D_800C35A0->track)[i * 8];
-    (dist + D_800C35A0->track)[i * 8] /= 100;
-    D_800C7F90[k].speed = ((dist + D_800C35A0->track)[i * 8] * D_8009D540 * 3600) /
-               ((lap + D_800C35A0->track)[i * 8] * 10);
+    Game *g = D_800C35A0;
+#define P(b) (*(u32 *)((u32)(b) + g->track * 4 + (s32)(i << 5)))
+    D_800C7F90[k].time = P(lap);
+    P(dist) /= 100;
+    D_800C7F90[k].speed = (P(dist) * D_8009D540 * 3600) / (P(lap) * 10);
     }
     D_800C7F90[k].type = *node->type;
     node = node->next;
@@ -85,14 +88,10 @@ void func_80078018(void)
   }
   for (zz = 0; (u8)zz < 4; zz++)
   {
-    s32 t = D_800C7F90[(u8)zz].time;
-    if (t)
+    if (D_800C7F90[(u8)zz].time)
     {
-      s32 dd = t - (s32)D_800C7F90[0].time;
-      if (dd < 0)
-        dd = -dd;
-      D_800C7F90[(u8)zz].diff = dd;
-    }
+      s32 dd = D_800C7F90[(u8)zz].time - D_800C7F90[0].time;
+      D_800C7F90[(u8)zz].diff = __builtin_abs(dd); }
     else
     {
       D_800C7F90[(u8)zz].diff = 0;

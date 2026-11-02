@@ -55,12 +55,14 @@ void func_80073708(void) {
             D_800C7F90[(u8)place].rate = (u32)(data->vals[D_800C35A0->sel] * D_8009D540 * 3600) / (u32)(sum * 1000); } else {
             D_800C7F90[(u8)place].rate = 0;
         }
-        cfg = D_800C35A0;
-        if (cfg->cls != 5) {
-            *(s32 *)((u8 *)&D_800B55FC[0][cfg->cls] + (i << 5)) += sum;
+        {
+        RCfg *c2 = D_800C35A0;
+        if (c2->cls != 5) {
+            *(s32 *)((u8 *)&D_800B55FC[0][c2->cls] + (i << 5)) += sum;
             if (sum != 0) {
-                *(s32 *)((u8 *)&D_800B55FC[0][cfg->cls + 4] + (i << 5)) += data->vals[cfg->sel];
+                *(s32 *)((u8 *)&D_800B55FC[0][c2->cls + 4] + (i << 5)) += data->vals[c2->sel];
             }
+        }
         }
         D_800C7F90[(u8)place].pos = *obj->pos;
         if (D_800C7F90[(u8)place].pos < 4 && D_800C7F90[(u8)place].total != 0 && !(obj->flags & 0x200)) {
