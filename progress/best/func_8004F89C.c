@@ -35,7 +35,8 @@ void func_8004F89C(Ent *arg0)
           else
             if (index == type)
           {
-            node = P(P(P(D_800AE850, 0x73F0), 4), 0);
+            node = P(P(D_800AE850, 0x73F0), 4);
+            node = P(node, 0);
           }
           obj = (u8 *) (&arg0[index]);
           func_80022BE8(node, W(obj, 0));
@@ -53,7 +54,8 @@ void func_8004F89C(Ent *arg0)
         }
         if (index == 0)
         {
-          node = P(P(P(D_800AE850, 0x73F0), 0), 4);
+          node = P(P(D_800AE850, 0x73F0), 0);
+          node = P(node, 4);
         }
         else
           if (index == type)
@@ -64,8 +66,7 @@ void func_8004F89C(Ent *arg0)
         func_80022BE8(node, W(obj, 0));
         func_800239CC(node, obj + 0x1C);
         W(P(node, 0x88), 0) = W(obj, 0x18);
-        new_var = ~0x10;
-        W(node, 0x14) &= new_var;
+        W(node, 0x14) &= ~0x10;
         H(obj, 8) |= 0x400;
         W(P(node, 0x5C), 0x6C) = 1;
         W(P(node, 0x30), 0x6C) = 1;

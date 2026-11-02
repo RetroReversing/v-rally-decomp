@@ -8,7 +8,7 @@ extern char D_800AE850[];
 extern char D_800C02AE[];
 void func_8008910C(void *arg0, s32 arg1)
 {
-  u16 var_v0;
+  u32 var_v0;
   u32 temp_a1;
   u8 temp_a1_2;
   u8 temp_v1;
@@ -24,7 +24,7 @@ void func_8008910C(void *arg0, s32 arg1)
   {
     var_v0 = D_800C34F8;
   }
-  temp_a1 = (u32) (var_v0 * temp_a1);
+  temp_a1 = (u32) (temp_a1 * var_v0);
   temp_a1 = temp_a1 >> 0xF;
   if ((*((s32 *) (((char *) arg0) + 0xC))) != (-1))
   {

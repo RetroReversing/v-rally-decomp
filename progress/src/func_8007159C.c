@@ -30,7 +30,6 @@ void func_8007159C(void)
   s32 sel = p[14];
   Blob blob;
   u8 i;
-  volatile s32 z;
   if (sel < 34)
   {
     if (D_800A1468[0x245] == 0)

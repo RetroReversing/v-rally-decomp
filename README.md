@@ -20,8 +20,8 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
-- **1,903 selected C functions / 424,024 matching bytes**, about **74.92% of 565,980 detected candidate-code bytes**.
-- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,903 C and 219 assembly functions**.
+- **1,905 selected C functions / 426,912 matching bytes**, about **75.43% of 565,980 detected candidate-code bytes**.
+- **2,121 detected functions**; export includes **2,122 entries**, selecting **1,905 C and 217 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.
@@ -339,6 +339,39 @@ passes the byte-for-byte comparison. The portable `progress/` snapshot contains 
 matches and 195 best drafts**, including the same verified source and compiler evidence;
 the standalone build selects **1,903 C functions**, with **219 assembly functions** remaining.
 
+### Exact func_80021064 match and complete progress sync — 2 November 2026
+
+`func_80021064` matches all **619 instructions / 2,476 bytes** under the unchanged
+KMC-compatible GCC 2.7.2 profile (`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`). The live
+app, independent linked-code/data check and complete cartridge rebuild agree.
+
+The final near miss contained only a counter-initialization store in the wrong order.
+Deriving the five-step value from the existing wheel index, instead of maintaining a
+separate counter, recovered the compiler-generated initialization order. Removing an
+obsolete identical-arm scheduling guard was also necessary. Earlier, reusing a pair of
+scalar temporaries recovered the vector-subtraction register choices. These coupled
+changes explain why instruction-similar drafts can resist isolated edits; they do not
+establish the spelling of the original source. No inline assembly or fixed registers
+were added.
+
+This checkpoint adds **2 verified C functions / 2,888 matching bytes**:
+`func_80019608`, `func_80021064`. All earlier selected C is retained. Each addition
+passed its independent compiler/link check, and the complete original 12,582,912-byte
+cartridge rebuilt byte for byte. Objdiff source links and compiler profiles are updated together.
+
+The refreshed portable [`progress/`](progress/README.md) snapshot contains **1,913 matches
+and 187 best drafts**, alongside current names, 25,186 notes, headers, symbols and
+compiler settings. Drafts remain non-matching progress. Snapshot sources, names, notes, symbols
+and compiler profiles were compared with the live app after saving.
+
+The portable snapshot additionally preserves three integration blockers
+(`func_8005D0B0`: non-contiguous constant pools; `func_800869B8` and `func_80087DE4`:
+extra function bodies). Six more app matches arrived during the long rebuild and remain
+snapshot-only pending standalone verification: `func_800051B4`, `func_8001AAB4`, `func_8003C354`, `func_80048394`, `func_8007159C`, `func_8008910C`.
+The earlier verified `func_80086A34` remains selected as C while the app retains its newer
+draft. No previously selected C was removed. The snapshot is a point-in-time save;
+other agents can continue working after it.
+
 ## Build
 
 Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
@@ -358,7 +391,7 @@ Preparation detects byte order from the ROM magic and verifies the fixed hash. Y
 Expected final comparison:
 
 ```text
-identical: build/game.z64 matches baserom.z64 byte for byte (1902 of 2122 functions in C)
+identical: build/game.z64 matches baserom.z64 byte for byte (1905 of 2122 functions in C)
 ```
 
 ## Supported input

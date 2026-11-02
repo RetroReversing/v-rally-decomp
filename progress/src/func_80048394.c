@@ -39,21 +39,21 @@ void func_80048394(s32 a, Src *b, Obj *c, s32 d)
   x = (s16) (b->base + c->p->x8);
   q = x / h;
   prod = q * h;
-  d *= 4;
-  item = &list[q];
-  item->x1C = d;
-  item->x14 = (prod - x) * 4;
-  root->cur = item;
+  list[q].x1C = d * 4;
+  list[q].x14 = (prod - x) * 4;
+  root->cur = item = &list[q];
   func_8000A2C4(D_800C7F84->p, 0, 0, 1);
   h = item->anim->a->f->n;
-  x = x - prod;
-  item[1].x1C = d;
-  item[1].x14 = (h - x) * 4;
-  root->cur = &list[q + 1];
-  func_8000A2C4(D_800C7F84->p, 0, 0, 1);
-  h = item[1].anim->a->f->n;
-  item[2].x14 = (h * 2 - x) * 4;
-  item[2].x1C = d;
+  {
+    s32 r = x - prod;
+    item[1].x1C = d * 4;
+    item[1].x14 = (h - r) * 4;
+    root->cur = &list[q + 1];
+    func_8000A2C4(D_800C7F84->p, 0, 0, 1);
+    h = item[1].anim->a->f->n;
+    item[2].x14 = (h * 2 - r) * 4;
+  }
+  item[2].x1C = d * 4;
   root->cur = &list[q + 2];
   func_8000A2C4(D_800C7F84->p, 0, 0, 1);
   D_800C7F84->p->pos = c->p->pos;

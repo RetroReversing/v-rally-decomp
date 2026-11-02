@@ -62,8 +62,7 @@ void func_80021064(void *list)
       for (; obj; obj = *((char **) (((char *) obj) + 4)))
       {
         int velocity;
-        snapshot = (*((char **) (((char *) obj) + 0x38))) + 12;
-        manager = (VR210Manager *) (*((char **) (((char *) (*((char **) (((char *) obj) + 0x38)))) + 0)));
+        extra = (int)*((char **)(((char *)obj)+0x38)); snapshot = (char *)extra + 12; manager = *(VR210Manager **)extra;
         velocity = *((int *) (((char *) (*((char **) (((char *) obj) + 0x58)))) + 0));
         for (i = D_800AFA6C & 1; i < 4; i += 2)
         {
@@ -204,7 +203,7 @@ void func_80021064(void *list)
 
         {
           int five;
-          for (i = 0, five = 0; i < 4; i++, five += 5)
+          for (i = 0; i < 4; i++)
           {
             if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x310 + (i * 4))))) >= 0)
             {
@@ -230,7 +229,7 @@ void func_80021064(void *list)
               {
                 goto clear_flag;
               }
-              new_var3 = five; new_var3 += five;
+              five = i * 5; new_var3 = five; new_var3 += five;
               contact = manager->contacts;
               contact += manager->head * 36;
               {
@@ -258,18 +257,18 @@ void func_80021064(void *list)
               }
               func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, c);
               {
-                *((s16 *) (((char *) contact) + (12 + (0 * 2)))) = c[0] - b[0];
-                *((s16 *) (((char *) contact) + (12 + (1 * 2)))) = c[1] - b[1];
-                *((s16 *) (((char *) contact) + (12 + (2 * 2)))) = c[2] - b[2];
+                new_var = (u16)(c[0]); extra = (u16)(b[0]); *((s16 *) (((char *) contact) + (12 + (0 * 2)))) = new_var - extra;
+                new_var = (u16)(c[1]); extra = (u16)(b[1]); *((s16 *) (((char *) contact) + (12 + (1 * 2)))) = new_var - extra;
+                new_var = (u16)(c[2]); extra = (u16)(b[2]); *((s16 *) (((char *) contact) + (12 + (2 * 2)))) = new_var - extra;
                 *((s16 *) (((char *) contact) + (24 + (0 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (0 * 4))))) - wx;
                 *((s16 *) (((char *) contact) + (24 + (1 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (1 * 4))))) - wy;
                 *((s16 *) (((char *) contact) + (24 + (2 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (2 * 4))))) - wz;
               }
               *((int *) (((char *) contact) + 32)) |= 1;
               manager->flags[i] = 1;
-              world[0] = (*((s16 *) (((char *) contact) + 24))) - (*((s16 *) (((char *) contact) + 12)));
-              world[1] = (*((s16 *) (((char *) contact) + 26))) - (*((s16 *) (((char *) contact) + 14)));
-              world[2] = (*((s16 *) (((char *) contact) + 28))) - (*((s16 *) (((char *) contact) + 16)));
+              new_var = (*((s16 *) (((char *) contact) + 24))); extra = (*((s16 *) (((char *) contact) + 12))); world[0] = new_var - extra;
+              new_var = (*((s16 *) (((char *) contact) + 26))); extra = (*((s16 *) (((char *) contact) + 14))); world[1] = new_var - extra;
+              new_var = (*((s16 *) (((char *) contact) + 28))); extra = (*((s16 *) (((char *) contact) + 16))); world[2] = new_var - extra;
               func_8002E778(world, world);
               world[0] = world[0] + (world[1] + world[2]);
               trigger = manager->threshold < world[0];
@@ -279,7 +278,7 @@ void func_80021064(void *list)
                 manager->head++;
                 if (manager->head == manager->capacity)
                 {
-                  if (effect) { manager->head = 0; } else { manager->head = 0; }
+                  manager->head = 0;
                 }
               }
             }

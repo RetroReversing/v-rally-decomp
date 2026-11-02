@@ -28,11 +28,9 @@ void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
   Rect *r;
   Sprite *a;
   Sprite *b;
-  Sprite *c;
   s32 x, y, w, h, w2, h2;
   s32 sx;
   s16 sy;
-  s32 tex;
   s32 off;
 
   o = func_8004240C(((arg2 - 1) * 2) | 1);
@@ -48,23 +46,22 @@ void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
   case 1:
     sy = h - 20;
     a = func_80040260(arg0, w - 82, sy, 3, func_8003C254, 0);
-    tex = arg1 + 0x4C;
     a->unk7A = 0;
     a->unk78 = 1;
-    a->unkA4 = func_80034FF0(tex, 0);
+    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
     a->unkA8 = D_800C7F84;
     b = func_80040260(arg0, w - 73, sy, 3, func_8003C254, 0);
     b->unk7A = 0;
     b->unk78 = 1;
     b->unk8C = a;
     b->unkA8 = D_800C7F84;
-    b->unkA4 = func_80034FF0(tex, 0);
-    c = func_80040260(arg0, w - 64, sy, 3, func_8003C254, 0);
-    c->unk7A = 0;
-    c->unk78 = 0;
-    c->unk8C = b;
-    c->unkA4 = func_80034FF0(tex, 0);
-    c->unkA8 = D_800C7F84;
+    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    a = func_80040260(arg0, w - 64, sy, 3, func_8003C254, 0);
+    a->unk7A = 0;
+    a->unk78 = 0;
+    a->unk8C = b;
+    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    a->unkA8 = D_800C7F84;
     break;
   case 2:
     off = 0;
@@ -75,10 +72,9 @@ void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
     sx = x + w2;
     sy = y + h2 - 14;
     a = func_80040260(arg0, (s32)(sx + 0xFFCCU) + off, sy, 3, func_8003C254, 0);
-    tex = arg1 + 0x4C;
     a->unk7A = 0;
     a->unk78 = 1;
-    a->unkA4 = func_80034FF0(tex, 0);
+    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
     a->unk98 = 0x600;
     a->unk9A = 0x600;
     a->unkA8 = D_800C7F84;
@@ -86,18 +82,18 @@ void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
     b->unk7A = 0;
     b->unk78 = 1;
     b->unk8C = a;
-    b->unkA4 = func_80034FF0(tex, 0);
+    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
     b->unk98 = 0x600;
     b->unk9A = 0x600;
     b->unkA8 = D_800C7F84;
-    c = func_80040260(arg0, (s32)(sx + 0xFFDEU) + off, sy, 3, func_8003C254, 0);
-    c->unk7A = 0;
-    c->unk78 = 0;
-    c->unk8C = b;
-    c->unkA4 = func_80034FF0(tex, 0);
-    c->unk98 = 0x600;
-    c->unk9A = 0x600;
-    c->unkA8 = D_800C7F84;
+    a = func_80040260(arg0, (s32)(sx + 0xFFDEU) + off, sy, 3, func_8003C254, 0);
+    a->unk7A = 0;
+    a->unk78 = 0;
+    a->unk8C = b;
+    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    a->unk98 = 0x600;
+    a->unk9A = 0x600;
+    a->unkA8 = D_800C7F84;
     break;
   }
 }
