@@ -104,5 +104,6 @@ controlled reconstruction choices, not proof of the original source spelling.
 
 The final source was accepted by the normal running-app API (linked bytes and
 instructions exact), independently integrated, and included in a complete
-byte-identical cartridge rebuild. Eleven other concurrent new matches and all
-current progress were saved with it. Earlier selected C is retained.
+byte-identical cartridge rebuild. Twelve other concurrent new matches and all
+current progress were saved with it. The last concurrent match, `func_80051D10`,
+also passed its independent check and complete-cartridge comparison. Earlier selected C is retained.

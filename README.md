@@ -28,10 +28,10 @@ Scoped accumulators fixed register allocation; using one consistent typed game-s
 global resolved the final scheduling difference. No inline assembly or target edits
 were used. See [compiler matching notes](docs/compiler-matching-notes.md).
 
-This sync also includes 11 other new app matches: **12 C functions / 12,620
+This sync also includes 12 other new app matches: **13 C functions / 13,436
 matching bytes** in total. Every earlier selected C function is retained, and the
 complete **12,582,912-byte cartridge** rebuild remains byte-identical. There are no
-integration exceptions. The portable snapshot contains **2,010 matches and 95 best
+integration exceptions. The portable snapshot contains **2,011 matches and 94 best
 drafts**, with current notes, names, symbols, headers and compiler profiles.
 
 ### Earlier complete sync — 3 November 2026
@@ -61,8 +61,8 @@ shape workarounds, not a reconstruction of the original author's spelling.
 
 The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. The recovered targets remain assembly until independently verified C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. The refreshed portable snapshot contains **1,962 matches**. Five further C functions are now integrated, including recovered `func_8004AFB8` and `func_8007C694` (9,024 bytes), after independent compilation and a complete cartridge comparison. The seven previously reported exceptions are reconciled: three already had curated repository C under older names, and four now pass standalone and complete-cartridge verification. The portable snapshot also retains newer drafts and restored private header assignments.
 
-- **2,010 selected C functions / 516,884 matching bytes**, about **86.16% of 599,940 exported candidate-code bytes**.
-- **2,123 detected functions**; export includes **2,124 entries**, selecting **2,010 C and 114 assembly functions**.
+- **2,011 selected C functions / 517,700 matching bytes**, about **86.29% of 599,940 exported candidate-code bytes**.
+- **2,123 detected functions**; export includes **2,124 entries**, selecting **2,011 C and 113 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.

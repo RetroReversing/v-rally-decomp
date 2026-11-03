@@ -9231,10 +9231,10 @@
       "name": "code_8004BEB4/func_80051D10",
       "target_path": "build/asm/nonmatchings/code_8004BEB4/func_80051D10.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8004BEB4/func_80051D10.s"
+        "complete": true,
+        "source_path": "src/code_8004BEB4/func_80051D10.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8004BEB4/func_80051D10.o"
     },
     {
       "name": "code_8004BEB4/func_80052040",
