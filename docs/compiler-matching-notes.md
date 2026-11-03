@@ -107,3 +107,44 @@ instructions exact), independently integrated, and included in a complete
 byte-identical cartridge rebuild. Twelve other concurrent new matches and all
 current progress were saved with it. The last concurrent match, `func_80051D10`,
 also passed its independent check and complete-cartridge comparison. Earlier selected C is retained.
+
+## `func_80074BF8`: reuse a later temporary to avoid unwanted coalescing
+
+The final accepted function is **567 instructions / 2,268 bytes**, using the
+unchanged KMC GCC 2.7.2 profile `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+The near-exact draft differed only in the source operand order of one `addu`:
+the target required `$s0 = $t0 + $v0`, while the candidate emitted
+`$s0 = $v0 + $t0`. Commutative equivalence is insufficient for a byte match.
+
+A fresh subtotal and fresh destination preserved the expression's operand order,
+but GCC's local allocator tied the dying subtotal to the result, assigning both
+to `$s0`. Reusing the earlier display-handle variable avoided this tie, but moved
+an earlier mask instruction ahead of an argument move. That alternate was useful
+evidence even though its score was worse.
+
+The successful source instead reuses `temp_s0_8`, which has a separate later
+lifetime in the same function:
+
+```c
+base74 = D_800A17EA + sp10C;
+temp_s0_8 = base74 + temp_s0_3;
+/* Existing header draw and colour calls. */
+temp_s0_4 = ((u32)(temp_s0_8 & 0xFFFF)) >> 1;
+```
+
+This preserves the subtotal in `$t0`, the call return in `$v0`, and the sum in
+`$s0`, while retaining the original early instruction schedule. The normal app
+API accepted score **0** with exact linked bytes and instructions; an independent
+ROM-backed comparison also found **567 equal instructions and no differences**.
+The standalone integration and complete byte-identical cartridge rebuild passed.
+No target edits, inline assembly, fixed-register declarations or compiler-profile
+changes were used.
+
+For automatic repairs, retain alternatives that fix the residual operand pattern,
+even when another part gets worse. When a fresh destination coalesces with the
+wrong dying input, try a bounded set of compatible locals with genuinely separate
+lifetimes. Check that their old values are dead and their later values are
+redefined before use. Recompile the whole function and verify the complete build;
+source-level equivalence and register-allocation reasoning do not prove a match.
+These are measured reconstruction choices, not evidence of the original source
+spelling.

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern u32 D_800C7F9C[];
 extern char D_800C7F90[];
 extern s32 D_800C8328;
@@ -48,6 +50,7 @@ static inline static static int inline_fn2(s16 arg0, u8 arg1)
 void func_80074BF8(void *arg0, void *arg1)
 {
   s32 * dp74;
+s32 temp_s0_3; s32 base74; s32 width74;
 char sp40[0x78];
   char spB8[0x18];
   char spD0[0x18];
@@ -64,7 +67,7 @@ char sp40[0x78];
   s32 temp_s0_10;
   char (*new_var3)[];
   s32 temp_s0_2;
-  s32 temp_s0_3;
+  
   s32 temp_s0_7;
   s32 temp_s0_8;
   s32 temp_s0_9;
@@ -113,10 +116,10 @@ temp_v0 = func_80006008(arg1);
   sp10C = func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1);
   new_var = 5;
   temp_s0_3 = func_8000C9B0(temp_s4, func_80057918(D_800C8328, 0xD0), 1, 1.0f, 1);
-  temp_s0_3 += D_800A17EA + sp10C;
+  base74=D_800A17EA+sp10C;temp_s0_8=(base74+temp_s0_3);
   func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x3A, (temp_s1 + 0xD) & 0xFFFF, 0x11);
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
-  temp_s0_4 = ((u32) (temp_s0_3 & 0xFFFF)) >> 1;
+  temp_s0_4 = ((u32) (temp_s0_8 & 0xFFFF)) >> 1;
   temp_s1_2 = temp_s0_4 & 0xFFFF;
   func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s1_2, 0x3C, temp_s3, 1);
   func_80073108(arg1, (s16) (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) - (temp_s0_4 - 0xA0)), 0x3B, *((s32 *)dp74), (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
@@ -242,4 +245,5 @@ temp_v0 = func_80006008(arg1);
     func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD7), 1);
   }
 }
+
 
