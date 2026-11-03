@@ -261,7 +261,9 @@
     "src/code_8007E9D4/func_80081E8C.c": "c73c9dd5529dc330ad98a211bad3ff5e2649a4117eea2ca931a0d1a3ba627e72",
     "src/code_8000D9A0/func_8000DD40.c": "f0140ec04225680eb21cd14ca6aa5bba244eaf19ab65a030a9717e160ea84344",
     "src/code_80017B38/func_800180FC.c": "fdd17cf3a535b28220e5b0d9ceed910b4ddcc6d609e538eb9f7b5435cc6d7db1",
-    "src/code_80026E3C/func_8002EE00.c": "3c3e10f1b1cff858d4d812f19b77e5fa9f89acdb8de646f784b79515e0feafb7"
+    "src/code_80026E3C/func_8002EE00.c": "3c3e10f1b1cff858d4d812f19b77e5fa9f89acdb8de646f784b79515e0feafb7",
+    "src/code_8004BEB4/func_80073708.c": "2e65cccbcb721beafc0137f54c4c5748d96829d6f8867dc6754ee0e7026756f7",
+    "src/code_80026E3C/func_80032AE4.c": "24efe28e7da8defe846e927ee4ee10840da93618feb00f7b1a10437842532221"
   },
   "accepted": [
     "MusInitialize",
@@ -346,6 +348,7 @@
     "func_80030A0C",
     "func_80031F2C",
     "func_800324B4",
+    "func_80032AE4",
     "func_80033F20",
     "func_80034134",
     "func_800344F0",
@@ -472,6 +475,7 @@
     "func_800710F0",
     "func_8007159C",
     "func_80072984",
+    "func_80073708",
     "func_80073B64",
     "func_800746C0",
     "func_800754D4",
@@ -528,5 +532,5 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 1996
+  "matched_app": 1998
 }

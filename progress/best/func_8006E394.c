@@ -35,6 +35,7 @@ void func_8006E394(void)
   u8 i;
   u8 n;
   u8 base;
+  u8 *new_var;
   u32 x;
   u16 m;
   u16 q;
@@ -136,23 +137,24 @@ void func_8006E394(void)
         {
           int m0 = 1 << (i * 2);
           int m1 = 1 << ((i * 2) + 1);
-          int b0 = (q & (u16) m0) == (u16) m0;
-          int b1 = (q & (u16) m1) == (u16) m1;
+          int b0 = (q & ((u16) m0)) == ((u16) m0);
+          int b1 = (q & ((u16) m1)) == ((u16) m1);
           v = b0 | (b1 << 1);
         }
         D_800B6600.map[base + i][j] = v;
         switch (v)
         {
+          new_var = D_800AE850 + 0x7DB0;
           case 0:
-            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 4;
+            *(((s32 *) new_var) + j) += 4;
             break;
 
           case 1:
-            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 2;
+            *(((s32 *) new_var) + j) += 2;
             break;
 
           case 2:
-            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 1;
+            *(((s32 *) new_var) + j) += 1;
             break;
 
         }

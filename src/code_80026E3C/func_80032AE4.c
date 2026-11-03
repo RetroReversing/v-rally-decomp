@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   s16 x;
@@ -71,8 +73,10 @@ void func_80032AE4(Car *arg0)
     }
     g = car->info;
     {
-      u8 bb = g->b15;
-      v = bb ? bb : g->b16;
+      u8 bb;
+      Info *h = g;
+      bb = h->b15;
+      v = bb ? bb : h->b16;
     }
     if (v == 0)
     {
@@ -155,3 +159,4 @@ void func_80032AE4(Car *arg0)
   }
   while ((car != arg0) && (car != NULL));
 }
+

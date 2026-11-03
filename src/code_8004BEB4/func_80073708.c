@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct RObj { char pad0[4]; struct RObj *next; char pad8[0x14 - 8]; s32 flags; char pad18[0x48 - 0x18]; s32 *pos; char pad4C[0x6C - 0x4C]; struct { s32 *times; s32 pad; s32 place; } *res; } RObj;
 typedef struct REntry { char name[4]; s32 total; s32 diff; s32 rate; u8 pos; u8 idx; u8 b; u8 pad; RObj *obj; } REntry;
 typedef struct RPlayer { char name[4]; s32 time; s32 pad; s32 c; char pad2[2]; u8 d; } RPlayer;
@@ -30,11 +32,13 @@ void func_80073708(void) {
     s32 n;
     u8 k;
     s32 d;
+    s32 *tb;
 
     data = func_80041564();
     obj = *D_800B5C40;
     i = 0;
     while (obj != NULL) {
+        tb = D_800B55FC[0];
         j = 0;
         sum = 0;
         n = D_800ADFE0 - 1;
@@ -58,9 +62,10 @@ void func_80073708(void) {
         {
         RCfg *c2 = D_800C35A0;
         if (c2->cls != 5) {
-            *(s32 *)((u8 *)&D_800B55FC[0][c2->cls] + (i << 5)) += sum;
+            *(s32 *)((u8 *)(tb + c2->cls) + (i << 5)) += sum;
             if (sum != 0) {
-                *(s32 *)((u8 *)&D_800B55FC[0][c2->cls + 4] + (i << 5)) += data->vals[c2->sel];
+                s32 *tb2 = tb + 4;
+                *(s32 *)((u8 *)(tb2 + c2->cls) + (i << 5)) += data->vals[c2->sel];
             }
         }
         }
@@ -79,7 +84,8 @@ void func_80073708(void) {
     }
     if (D_800C35A0->mode == 2 && (u32)D_800C7F90[3].total < (u32)D_800C7F90[2].total) {
         if (D_800C35A0->cls != 5) {
-            *(s32 *)((u8 *)&D_800B55FC[0][D_800C35A0->cls] + (D_800C7F90[3].idx << 5)) += 15000;
+            s32 *tb3 = D_800B55FC[0];
+            *(s32 *)((u8 *)(tb3 + D_800C35A0->cls) + (D_800C7F90[3].idx << 5)) += 15000;
             D_800C7F90[3].total = 0;
             D_800C7F90[3].rate = 0;
             D_800C7F90[3].diff = 0;
@@ -90,3 +96,4 @@ void func_80073708(void) {
     D_800C7FF0.c = data->recs[D_800C35A0->sel].cA;
     D_800C7FF0.d = data->recs[D_800C35A0->sel].c4;
 }
+

@@ -18,11 +18,11 @@ s32 func_80081540(u8 *arg0) {
         return 1;
     }
     var_a0 = *(s32 *)0x800B7304;
-    var_s2 = 0; var_s0 = 0; base=sp10; var_t0 = 0;
+    var_s0 = 0; var_s2 = 0; base=sp10; var_t0 = 0;
 loop_3:
     var_a3 = base; var_a2 = (u8 *)((u32)var_s0 + (u32)arg0);
 loop_4:
-    temp_v0_2 = *var_a2; var_a2 += 1; var_s0 += 1; *var_a3 = temp_v0_2;
+    temp_v0_2 = *var_a2; var_a2 += 1;/*__repair_loop_weight*/do { var_s0 += 1;} while (0); *var_a3 = temp_v0_2;
     temp_a1 = var_a2[-1]; var_t0 += 1; var_a3 += 1;
     if ((temp_a1 != 0x5C) & (temp_a1 != 0x2F)) { if (temp_a1 != 0) goto loop_4; }
     if (temp_a1 == 0) { var_s2 = 1; sp10[var_t0 - 1] = 0x2F; }

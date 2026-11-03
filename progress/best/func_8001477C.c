@@ -57,7 +57,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     {
       if (err >= 0)
       {
-        err += eadd;
+ do { err += eadd; } while (0);
         y0 += step;
       }
       else
@@ -69,6 +69,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       green += dg;
       blue += db;
     }
+
   }
   else
   {
@@ -108,5 +109,6 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       green += dg;
       blue += db;
     }
+
   }
 }
