@@ -16,7 +16,7 @@ s32 func_80058E28(void)
 {
   u8 pad[8];
   s32 c;
-    s32 __repair_c_1;
+  s32 __repair_c_1;
   s32 out;
   s32 pos;
   s8 ctrl;
@@ -26,21 +26,21 @@ s32 func_80058E28(void)
   s32 x;
   s32 y;
   u16 n;
-
   out = 0;
   y = 0;
   c = D_800A1468->ctrl;
   x = 0;
   i = 0;
+  out = i;
   ctrl = c;
   pos = c >= 0;
   loop1:
   if (i < D_800B65A0)
   {
-    if ((pos & (new_var = c == i)) || (c < 0))
+    if ((pos & (new_var = c == out)) || (c < 0))
     {
-      x = func_80084C0C(i, 0x10000);
-      y = func_80084C0C(i, 0x20000);
+      x = func_80084C0C(out, 0x10000);
+      y = func_80084C0C(out, 0x20000);
     }
     i++;
     if (!(y | x))
@@ -54,7 +54,8 @@ s32 func_80058E28(void)
   {
     __repair_c_1 = 0x800;
   }
-  else if (x < (-0x4F))
+  else
+    if (x < (-0x4F))
   {
     __repair_c_1 = 0x400;
   }
@@ -62,7 +63,8 @@ s32 func_80058E28(void)
   {
     __repair_c_1 |= 0x100;
   }
-  else if (y < (-0x5F))
+  else
+    if (y < (-0x5F))
   {
     __repair_c_1 |= 0x200;
   }
@@ -109,7 +111,8 @@ s32 func_80058E28(void)
       D_800A14AC = 0;
       D_800A14A8 = btn;
     }
-    else if (D_800A14A8 == btn)
+    else
+      if (D_800A14A8 == btn)
     {
       n = ++D_800A14AC;
       if (!D_800A14AE)
@@ -124,7 +127,8 @@ s32 func_80058E28(void)
           btn = 0;
         }
       }
-      else if (n == (D_8009D540 / 6))
+      else
+        if (n == (D_8009D540 / 6))
       {
         D_800A14AC = 0;
       }
@@ -176,3 +180,4 @@ s32 func_80058E28(void)
   }
   return out;
 }
+

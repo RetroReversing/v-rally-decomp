@@ -1,114 +1,71 @@
-extern char D_8009CEE0[];
+extern char *D_8009CEE0[];
 extern u8 D_8009CEE8;
-static inline static int inline_fn(s32 arg0)
-{
-  return arg0 + 1;
-}
 
 s32 func_8002AA6C(char *src, char *end)
 {
-  unsigned long new_var;
-  char *look;
-  char *lim;
-  char buf[0x21];
-  char *out;
-  char *p;
-  char *q;
-  s32 c;
-  s32 c0;
-  s32 n;
-  look = src + 1;
-  out = buf;
-  lim = buf + 0x11;
-  for (;;)
-  {
-    c = *src;
-    if ((c == 0x20) || (c == 9))
-    {
-      *out = 0;
-      goto done;
-    }
-    if ((c == 0x2C) || (c == 0xD))
-    {
-      *out = 0;
-      goto done;
-    }
-    if (c == 0x23)
-    {
-      *out = 0;
-      goto done;
-    }
-    if (c == 0x2F)
-    {
-      if ((look < end) && ((*look) == c))
-      {
-        *out = 0;
+    char *look;
+    char *lim;
+    char buf[0x11];
+    char *out;
+    char *p;
+    char *q;
+    s32 c;
+    s32 i;
+    s32 off;
+
+    look = src + 1;
+    out = buf;
+    lim = buf + 0x11;
+    for (;;) {
+        c = *src;
+        if ((c == 0x20) || (c == 9)) {
+            *out = 0;
+            goto done;
+        }
+        if ((c == 0x2C) || (c == 0xD)) {
+            *out = 0;
+            goto done;
+        }
+        if (c == 0x23) {
+            *out = 0;
+            goto done;
+        }
+        if (c == 0x2F) {
+            if ((look < end) && (*look == c)) {
+                *out = 0;
+                goto done;
+            }
+        }
+        if (src >= end) {
+            *out = 0;
+            goto done;
+        }
+        look++;
+        *out = *src;
+        out++;
+        src++;
+        if ((s32)out < (s32)lim) {
+            continue;
+        }
         goto done;
-      }
     }
-    if (src >= end)
-    {
-      *out = 0;
-      goto done;
-    }
-    look++;
-    *out = *src;
-    out++;
-    src++;
-    if (((s32) out) < ((s32) lim))
-    {
-      continue;
-    }
-    goto done;
-  }
-
-  done:
-  if (D_8009CEE8 != 0xFF)
-  {
-    c0 = buf[0];
-    c0 = 0;
-    n = 0;
-    do
-    {
-      p = buf;
-      q = *((char **) (D_8009CEE0 + c0));
-      ;
-      if (c0 == (*q))
-      {
-        if (c0 != 0)
-        {
-          while ((*p) != 0)
-          {
-            q++;
-            p++;
-            if ((n = *q) != (*p))
-            {
-              break;
+done:
+    i = 0;
+    if (D_8009CEE8 != 0xFF) {
+        off = 0;
+        do {
+            p = buf;
+            q = *(char **)((char *)D_8009CEE0 + off);
+            while (*p == *q && *p != 0 && *q != 0) {
+                p++;
+                q++;
             }
-            end = p;
-            if ((*end) == 0)
-            {
-              break;
+            if (*p == 0 && *q == 0) {
+                return i + 1;
             }
-          }
-
-        }
-      }
-      new_var = inline_fn(n);
-      ;
-      if ((*end) == 0)
-      {
-        if ((*q) == 0)
-        {
-          return new_var;
-        }
-      }
-      c0 += 0xC;
-      n++;
+            off += 12;
+            i++;
+        } while (*((u8 *)&D_8009CEE8 + off) != 0xFF);
     }
-    while ((*(((u8 *) (&D_8009CEE8)) + c0)) != 0xFF);
-  }
-
-  return 0;
+    return 0;
 }
-

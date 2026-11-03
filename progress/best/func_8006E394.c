@@ -1,15 +1,32 @@
 #define H(p) (*(u16*)(p))
 #define VH(p) (*(volatile u16*)(p))
-typedef struct { u16 v; u8 pad[38]; } Ent;
-typedef struct { u8 pad0[0xe]; u16 mode; u8 pad10[0x22]; u8 slot[4]; u8 pad36[0x18]; Ent e[4]; } RS;
-typedef struct { s32 cnt[4]; u16 flag[12]; u8 map[12][4]; } Blk;
+#define R D_800C35A0
+typedef struct 
+{
+  u16 v;
+  u8 pad[38];
+} Ent;
+typedef struct 
+{
+  u8 pad0[0xe];
+  u16 mode;
+  u8 pad10[0x22];
+  u8 slot[4];
+  u8 pad36[0x18];
+  Ent e[4];
+} RS;
+typedef struct 
+{
+  s32 cnt[4];
+  u16 flag[12];
+  u8 map[12][4];
+} Blk;
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern Blk D_800B6600;
 extern s32 D_800B6768[4];
 extern void func_80053C28(u8, u16);
 extern RS *D_800C35A0;
-#define R D_800C35A0
 void func_8006E394(void)
 {
   u8 used[4];
@@ -20,7 +37,7 @@ void func_8006E394(void)
   u8 base;
   u32 x;
   u16 m;
-  u32 q;
+  u16 q;
   u8 v;
   int b;
   for (i = 0; i < 4; i++)
@@ -41,7 +58,7 @@ void func_8006E394(void)
     R->e[R->slot[0]].v = D_800C02AE[0x701e] & 15;
     if (R->mode >= 2)
     {
-      R->slot[1] = *((volatile u16 *) s) & 15;
+      R->slot[1] = (*((volatile u16 *) s)) & 15;
       used[R->slot[1]] = 1;
       R->e[R->slot[1]].v = D_800C02AE[0x701e] >> 4;
     }
@@ -116,22 +133,32 @@ void func_8006E394(void)
       q = H((s + 10) + (j * 2));
       for (i = 0; i < n; i++)
       {
-        b = 1;
-        v = ((q & (1 << (i * 2))) == (b << (i * 2))) | (((q & (1 << ((i * 2) + 1))) == (1 << ((i * 2) + 1))) << b);
+        {
+          int m0 = 1 << (i * 2);
+          int m1 = 1 << ((i * 2) + 1);
+          int b0 = (q & (u16) m0) == (u16) m0;
+          int b1 = (q & (u16) m1) == (u16) m1;
+          v = b0 | (b1 << 1);
+        }
         D_800B6600.map[base + i][j] = v;
         switch (v)
         {
           case 0:
-            D_800B6600.cnt[j] += 4;
+            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 4;
             break;
+
           case 1:
-            D_800B6600.cnt[j] += 2;
+            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 2;
             break;
+
           case 2:
-            D_800B6600.cnt[j]++;
+            *((s32 *) (D_800AE850 + 0x7DB0) + j) += 1;
             break;
+
         }
+
       }
+
     }
 
     for (i = 0; i < 4; i++)
@@ -143,3 +170,4 @@ void func_8006E394(void)
     D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
   }
 }
+

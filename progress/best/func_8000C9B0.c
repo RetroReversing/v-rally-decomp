@@ -1,4 +1,4 @@
-typedef struct
+typedef struct 
 {
   s16 code;
   s16 pad2;
@@ -9,7 +9,7 @@ typedef struct
   s8 post;
   u8 pad9[7];
 } Glyph;
-typedef struct
+typedef struct 
 {
   u8 pad0[0x8];
   u8 adv;
@@ -31,17 +31,23 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
   u8 c;
   u8 n;
   Glyph *g;
-
   if (mode == 0)
+  {
     sp = 1;
-  else if (mode == 1)
-    sp = 2;
+  }
   else
+    if (mode == 1)
+  {
+    sp = 2;
+  }
+  else
+  {
     sp = 1;
+  }
   f = fonts[fi];
   x = 0;
   len = func_8008E118(str);
-  if ((len == 0) | (len > 0xA0))
+  if ((len == 0) | ((len - 1) >= 0xA0))
   {
     func_8008E3A0(D_800A3F28, len);
   }
@@ -52,25 +58,31 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
     n = 0;
     if (c)
     {
-      while ((f->glyphs[c].code == -0x80) & (n != nfonts))
+      while ((f->glyphs[c].code == (-0x80)) & (n != nfonts))
       {
         fi++;
-        if (fi == nfonts) fi = 0;
+        if (fi == nfonts)
+        {
+          fi = 0;
+        }
         f = fonts[fi];
         n++;
       }
-      if (f->glyphs[c].code != -0x80)
+
+      if (f->glyphs[c].code != (-0x80))
       {
-        x += f->glyphs[c].pre + kern - sp;
+        x += (f->glyphs[c].pre + kern) - sp;
         kern = f->glyphs[c].post;
-        x = (f32) x + f->glyphs[c].w * scale;
+        x = ((f32) x) + (f->glyphs[c].w * scale);
       }
     }
     else
     {
-      x = (f32) x + f->glyphs[0].w * scale;
+      x = ((f32) x) + (f->glyphs[0].w * scale);
     }
     x += f->adv;
   }
-  return x - f->adv + kern;
+
+  return (x - f->adv) + kern;
 }
+

@@ -29,6 +29,8 @@ static __inline__ void vadd(E20 *d, E20 *s, int *t)
 }
 void func_8002C044(char *a)
 {
+int __repair_literal;
+
   int v[3];
   int q[3];
   Vec pos;
@@ -43,7 +45,7 @@ void func_8002C044(char *a)
   int col;
   int oldrow;
   int oldcol;
-  int oldresult;
+  
   int w;
   int k;
   for (i = 0; i < 12; i++)
@@ -51,23 +53,27 @@ void func_8002C044(char *a)
     func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
     vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));
   }
+  old = 0;
 
   for (i = 0; i < 12; i++)
   {
     *(V3 *) v = *(V3 *) &((Blk20 *) P(a, 0x80))->o[i];
-    g = P(P(a, 0x8c), i * 4);
+    g = ((char **) P(a, 0x8c))[i];
     pos.x = v[0] - W(g, 36);
     pos.y = v[1] - W(g, 40);
     pos.z = v[2] - W(g, 44);
     result = func_80028E94(a, &pos, i);
     if (result > 0)
     {
+      int oldrow;
+      int oldcol;
+      int __repair_literal;
       col = 0;
       row = 0;
-      oldcol = W(P(a, 0x60), (i * 4) + 48);
-      oldrow = W(P(a, 0x60), i * 4);
+      oldcol = ((int *) P(a, 0x60))[i + 12];
+      oldrow = ((int *) P(a, 0x60))[i];
       save = pos;
-      oldresult = result;
+      __repair_literal = result;
       g = func_80028D74(old = g, v);
       if (g != old)
       {
@@ -118,7 +124,7 @@ void func_8002C044(char *a)
           g = old;
           P(P(a, 140), i * 4) = g;
           pos = save;
-          result = -oldresult;
+          result = -__repair_literal;
         }
       }
       else
@@ -212,5 +218,5 @@ void func_8002C044(char *a)
     }
   }
 
-  func_8002B7D4(a);
+  func_8002B7D4(a + i - i);
 }

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 #define sp38 sv[0]
 #define sp40 sv[2]
 u16 func_8000665C();
@@ -30,17 +32,20 @@ s32 func_80019C90(G *arg0, u8 *arg1, R *arg2, u16 arg3, u16 arg4)
   s1 = func_8000665C(arg0, 4) & 0xFFFF;
   func_800068C0(arg0, s1, (s16) ((s32) (((f32) arg2->x) - sp38)), arg2->y, (s16) ((s32) (((f32) arg2->z) - sp40)), (s16) ((s32) (((f32) arg2->x) - sp38)), (s16) (arg2->y - arg2->h), (s16) ((s32) (((f32) arg2->z) - sp40)), (s16) ((s32) (((f32) arg2->x) + sp38)), (s16) (arg2->y - arg2->h), (s16) ((s32) (((f32) arg2->z) + sp40)), (s16) ((s32) (((f32) arg2->x) + sp38)), arg2->y, (s16) ((s32) (((f32) arg2->z) + sp40)));
   func_80008B28(arg0, s1, arg3, arg4, arg3, 0, 0, 0, 0, arg4);
-  a3 = arg0->p;
-  a1 = s1 & 0x1F;
-  a2 = a1 << 0x11;
-  v1 = (u8) ((a1 + 2) * 2);
-  arg0->p = a3 + 2;
-  a3[0] = ((a2 | ((a1 + 1) << 9)) | v1) | 0x07000000;
-  a3[1] = ((v1 << 8) | a2) | ((a1 + 3) * 2);
-  a3 = arg0->p;
-  arg0->p = a3 + 2;
-  a3[0] = 0xE7000000;
-  a3[1] = 0;
+  {
+    u32 *g = arg0->p;
+    a1 = s1 & 0x1F;
+    arg0->p = g + 2;
+    g[0] = ((((a1 * 2) & 0xFF) << 16) | ((((a1 + 1) * 2) & 0xFF) << 8) | (((a1 + 2) * 2) & 0xFF)) | (7 << 24);
+    g[1] = (((a1 * 2) & 0xFF) << 16) | ((((a1 + 2) * 2) & 0xFF) << 8) | (((a1 + 3) * 2) & 0xFF);
+  }
+  {
+    u32 *g = arg0->p;
+    arg0->p = g + 2;
+    g[0] = 0xE7000000;
+    g[1] = 0;
+  }
   return s1;
 }
+
 

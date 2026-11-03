@@ -100,9 +100,9 @@ void func_800317D4(PObj *o)
       d = b - a;
       for (i = a; i < b; i++)
       {
-        cur[0] = p0[0] + ((((s16) (p1[0] - p0[0])) * (i - ((s32) a))) / d);
-        cur[1] = p0[1] + ((((s16) (p1[1] - p0[1])) * (i - ((s32) a))) / d);
-        cur[2] = p0[2] + ((((s16) (p1[2] - p0[2])) * (i - ((s32) a))) / d);
+        cur[0] = lerp(p1[0], p0[0], i - a, d);
+        cur[1] = lerp(p1[1], p0[1], i - a, d);
+        cur[2] = lerp(p1[2], p0[2], i - a, d);
         o->def->tbl[i].x = cur[0];
         o->def->tbl[i].y = cur[1];
         o->def->tbl[i].z = cur[2];
@@ -132,11 +132,11 @@ void func_800317D4(PObj *o)
   for (; i <= (o->n - 1); i++)
   {
     cur[0] = p1[0] - p0[0];
-    cur[0] = p0[0] + ((((s16) cur[0]) * (i - ((s32) b))) / (o->n - b1));
+    cur[0] = lerp(cur[0], 0, i - b, o->n - b1) + p0[0];
     cur[1] = p1[1] - p0[1];
-    cur[1] = p0[1] + ((((s16) cur[1]) * (i - ((s32) b))) / (o->n - b1));
+    cur[1] = lerp(cur[1], 0, i - b, o->n - b1) + p0[1];
     cur[2] = p1[2] - p0[2];
-    cur[2] = p0[2] + ((((s16) cur[2]) * (i - ((s32) b))) / (o->n - b1));
+    cur[2] = lerp(cur[2], 0, i - b, o->n - b1) + p0[2];
     o->def->tbl[i].x = cur[0];
     o->def->tbl[i].y = cur[1];
     o->def->tbl[i].z = cur[2];

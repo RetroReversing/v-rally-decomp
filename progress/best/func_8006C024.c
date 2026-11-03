@@ -39,7 +39,7 @@ void func_8006C024(s32 arg0, s32 arg1)
   var_s3 = 0;
   temp_fs0 = D_800A5878;
   temp_s6 = D_800D0634 + (temp_a0 * 0x2C4);
-  temp_s5 = func_8006B9E0(temp_a0) & 0xFF;
+  temp_s5 = func_8006B9E0(temp_a0, temp_s0) & 0xFF;
   if (1)
   {
     sp14 = (char *) (temp_s5 * 2);
@@ -120,8 +120,8 @@ void func_8006C024(s32 arg0, s32 arg1)
         *((s8 *) (new_var + 0x30)) = (s8) ((((u16) (*((u16 *) (((char *) var_s1) + 2)))) >> 0xC) + ((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xF) * 0x10));
         *((s8 *) (((char *) var_a2) + 0x36)) = (s8) (((u32) (((*((s32 *) (((char *) ((temp_s0 *= 4) + temp_s6)) + 0x22C))) * D_8009D540) * 0xE10)) / ((u32) (temp_a1 * 0x3E8)));
       }
-    }
-    var_s3 += 1;
+    }/*__repair_loop_weight*/do {do {do {
+    var_s3 += 1;} while (0);} while (0);} while (0);
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }

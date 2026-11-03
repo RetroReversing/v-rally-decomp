@@ -60,10 +60,9 @@ void func_800603B4(void)
   func_800592D0(7)->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];
   it = func_800592D0(11);
   {
-    f32 f = D_800AE850.cars[D_800C35A0->car].speed;
-    if (f <= 118.0f)
+    if (D_800AE850.cars[D_800C35A0->car].speed <= 118.0f)
       it->val = D_800A1528;
-    else if (f <= 132.0f)
+    else if (D_800AE850.cars[D_800C35A0->car].speed <= 132.0f)
       it->val = D_800A152A;
     else
       it->val = D_800A152C;

@@ -91,7 +91,7 @@ void func_8002B970(u8 *arg0, u8 *arg1)
     add3((s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x1F0), (s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x100), (s32 *) ((u8 *) temp_a2_3 + 0xC));
     temp_v0 = (u8 *) (var_s1 + (s32) P(arg1, 0x80));
     sp = *((typeof(sp) *) (temp_v0 + 0x1F0));
-    I(var_s1 + (s32) P(arg1, 0x60), 0x60) = sp.x + (var_t0 = D_8009C230, 0);
+    { s32 tx; I(var_s1 + (s32) P(arg1, 0x60), 0x60) = (tx = sp.x, var_t0 = D_8009C230, tx); }
     I(var_s1 + (s32) P(arg1, 0x60), 0x64) = sp.y;
     var_s4 += 0x14;
     I(var_s1 + (s32) P(arg1, 0x60), 0x68) = sp.z;

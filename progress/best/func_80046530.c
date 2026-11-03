@@ -61,8 +61,8 @@ void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
           temp_a1->a14 = arg0[0];
           (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];
         }
-        temp_a1 = *((Sub70 **) (arg2 + 0x70));
-        temp_a1->a18 = 0x7D;
+        temp_a0 = 0x7D;
+        (*((Sub70 **) (arg2 + 0x70)))->a18 = temp_a0;
       }
       else
       {

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern s32 D_800B56EC;
 typedef struct 
 {
@@ -66,6 +68,7 @@ extern s32 D_800C3510;
 extern Info *D_800C7F80;
 Track *func_800180FC(Track *t0)
 {
+  char *c;
   Seg *segs;
   Track *t;
   Seg *s;
@@ -135,7 +138,8 @@ Track *func_800180FC(Track *t0)
     }
 
     D_800C3510 = i;
-    D_8009C230 = &segs[D_800C7F80->cur]; }
+    D_8009C230 = &segs[D_800C7F80->cur];
+  }
   else
   {
     for (i = 0; i < t->n; i++)
@@ -149,7 +153,7 @@ Track *func_800180FC(Track *t0)
 
     old = D_800C7F80->cur;
     D_800C7F80->cur = i;
-    D_8009C230 = &segs[(u16) i];
+    *(Seg **) &D_8009C230 = &segs[D_800C7F80->cur];
     D_800C3510 = old;
     for (i = 0; i < t->n; i++)
     {
@@ -192,14 +196,16 @@ Track *func_800180FC(Track *t0)
 
   for (i = 0; i < t->n; i++)
   {
-    if (segs[i].cmds)
+    q = &segs[i];
+    if (q->cmds)
     {
-      char *c;
- do { segs[i].cmds += D_800B56EC; func_80015460(segs[i].cmds, segs[i].count50); c = segs[i].cmds; } while (0);
+      c = q->cmds += D_800B56EC;
+      func_80015460(c, q->count50);
+      c = q->cmds;
       if (c)
       {
         s32 m;
-        m = segs[i].count50;
+        m = q->count50;
         j = 0;
         if (j < m)
         {
@@ -215,27 +221,27 @@ Track *func_800180FC(Track *t0)
         }
       }
     }
-    segs[i].alloc = func_8007EAA0(1, 0x28);
-    memset(segs[i].alloc, 0, 0x28);
-    segs[i].z7C = 0;
-    segs[i].x0 -= 400;
-    segs[i].y0 -= 400;
-    segs[i].x2 -= 400;
-    segs[i].x1 += 400;
-    segs[i].y1 += 400;
-    segs[i].x3 += 400;
-    segs[i].x0 = segs[i].x0 * D_8009CEC0[0];
-    segs[i].y0 = segs[i].y0 * D_8009CEC0[1];
-    segs[i].x2 = segs[i].x2 * D_8009CEC0[2];
-    segs[i].x1 = segs[i].x1 * D_8009CEC0[0];
-    segs[i].y1 = segs[i].y1 * D_8009CEC0[1];
-    segs[i].x3 = segs[i].x3 * D_8009CEC0[2];
-    segs[i].b24 = segs[i].b24 * D_8009CEC0[0];
-    segs[i].b28 = segs[i].b28 * D_8009CEC0[1];
-    segs[i].b2C = segs[i].b2C * D_8009CEC0[2];
-    n = segs[i].h * segs[i].w;
+    q->alloc = func_8007EAA0(1, 0x28);
+    memset(q->alloc, 0, 0x28);
+    q->z7C = 0;
+    q->x0 -= 400;
+    q->y0 -= 400;
+    q->x2 -= 400;
+    q->x1 += 400;
+    q->y1 += 400;
+    q->x3 += 400;
+    q->x0 = q->x0 * D_8009CEC0[0];
+    q->y0 = q->y0 * D_8009CEC0[1];
+    q->x2 = q->x2 * D_8009CEC0[2];
+    q->x1 = q->x1 * D_8009CEC0[0];
+    q->y1 = q->y1 * D_8009CEC0[1];
+    q->x3 = q->x3 * D_8009CEC0[2];
+    q->b24 = q->b24 * D_8009CEC0[0];
+    q->b28 = q->b28 * D_8009CEC0[1];
+    q->b2C = q->b2C * D_8009CEC0[2];
+    n = q->h * q->w;
     {
-      s16 *v = segs[i].verts;
+      s16 *v = q->verts;
       for (j = 0; j < n; j++)
       {
         v[(j * 3) + 0] = v[(j * 3) + 0] * D_8009CEC0[0];
@@ -247,12 +253,13 @@ Track *func_800180FC(Track *t0)
   }
 
   func_80028740(D_8009C230);
-  for (i = 0, q = segs; i < t->n; i++, q++)
+  for (i = 0; i < t->n; i++)
   {
-    func_800307C8(q);
+    func_800307C8(&segs[i]);
   }
 
   func_80030A0C(D_8009C230);
   func_80033370(D_8009C230);
   return t0;
 }
+

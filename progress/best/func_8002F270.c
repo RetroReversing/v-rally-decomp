@@ -44,13 +44,13 @@ extern f64 D_800A4A60;
 extern u8 D_800C02AE[];
 void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
 {
+  u8 loaded;
   Xform tr;
   s16 delta[3];
   u8 setup;
-  u8 loaded;
   s32 first;
   s32 result;
-  s32 t;
+  
   s32 d;
   s32 d2;
   s16 dx;
@@ -60,12 +60,12 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
   Gfx *g;
   u16 id;
   f64 lim;
-  result = 0;
-  first = 1;
   loaded = 0;
-  setup = 0;
+  result = 0;
   *((u16 *) (((u8 *) arg4) + 0x78)) = 0;
   guMtxIdentF(tr.mat);
+  first = 1;
+  setup = 0;
   if (count--)
   {
     lim = D_800A4A60;
@@ -75,16 +75,17 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
       {
         if (!loaded)
         {
-          loaded = 1;
           func_800075BC(arg4, size, 0);
+          loaded = 1;
         }
         if (first)
         {
           first = 0;
           if (!setup)
           {
-            setup = 1;
+            setup = first + 1;
             g = func_80006008(arg4);
+            
             if (D_8009FF30 == 5)
             {
               Gfx *_g = g++;
@@ -114,7 +115,7 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
             }
             func_80006014(arg4, g);
           }
-          t = func_8001BD1C();
+          d = func_8001BD1C();
           tr.mat[3][0] = obj->x;
           tr.mat[3][1] = obj->y;
           tr.mat[3][2] = obj->z;
@@ -131,19 +132,19 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
             d2 = -d2;
           }
           result = 0;
-          if (d2 < 6001)
+          if (d2 <= 6000)
           {
-            d2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);
-            if (d2 < 0)
+            s32 dz2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);
+            if (dz2 < 0)
             {
-              d2 = -d2;
+              dz2 = -dz2;
             }
-            if (d2 < 6001)
+            if (dz2 < 6001)
             {
-              result = func_80010BFC(t, cam + 0x38, &tr);
+              result = func_80010BFC(d, cam + 0x38, &tr);
               if (result == 1)
               {
-                func_800061FC(arg4, t);
+                func_800061FC(arg4, d);
               }
             }
           }

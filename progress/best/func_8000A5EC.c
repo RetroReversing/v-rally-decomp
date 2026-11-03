@@ -37,8 +37,11 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   u16 idx;
   u16 new_var2;
   s32 type;
-  unsigned int v;
+  
 unsigned int __repair_phase_v;
+unsigned int __repair_phase___repair_phase_v;
+    unsigned int __repair___repair_phase_v_2;
+    unsigned int __repair___repair_phase_v_1;
   void *new_var;
   s32 __repair_v_1;
   s32 x;
@@ -60,17 +63,17 @@ unsigned int __repair_phase_v;
       goto finish;
     }
     *((u16 *) (inline_fn23(o) + 0x30)) = 0;
-    v = inline_fn2(im, 4);
+    __repair_phase_v = inline_fn2(im, 4);
     goto basic;
   }
   else
     if (type == 256)
   {
-    v = im->w;
+    __repair_phase_v = im->w;
     *((u8 *) (((u8 *) o) + 0x54)) = 2;
     *((u8 *) (((u8 *) o) + 0x55)) = 1;
     *((u16 *) (((u8 *) o) + 0x52)) = 0;
-    *((u16 *) (((u8 *) o) + 0x50)) = v >> 3;
+    *((u16 *) (((u8 *) o) + 0x50)) = __repair_phase_v >> 3;
     if (mode & 1)
     {
       if (1)
@@ -79,12 +82,12 @@ unsigned int __repair_phase_v;
       }
     }
     *((u16 *) (((u8 *) o) + 0x30)) = 0;
-    v = inline_fn2(im, 3);
+    __repair_phase_v = inline_fn2(im, 3);
     goto basic;
   }
   else
   {
-    v = im->w;
+    __repair_phase_v = im->w;
     *inline_fn(o) = 0;
     *((u8 *) (inline_fn23(o) + 0x54)) = 0;
     *inline_fn23(inline_fn23(o) + 0x55) = 3;
@@ -100,7 +103,7 @@ unsigned int __repair_phase_v;
       goto finish;
     }
     *((u16 *) (((u8 *) o) + 0x30)) = 0;
-    v = inline_fn2(im, 1);
+    __repair_phase_v = inline_fn2(im, 1);
     goto basic;
   }
   direct:
@@ -108,11 +111,11 @@ unsigned int __repair_phase_v;
 
   goto finish;
   basic:
-  *((s16 *) (inline_fn23(o) + 0x32)) = (v << 2) - 1;
+  *((s16 *) (inline_fn23(o) + 0x32)) = (__repair_phase_v << 2) - 1;
 
-  v = im->size;
+  __repair_phase_v = im->size;
   ;
-  *((s16 *) (inline_fn23(o) + 0x34)) = (v << 2) - 1;
+  *((s16 *) (inline_fn23(o) + 0x34)) = (__repair_phase_v << 2) - 1;
   finish:
   *((s16 *) (((u8 *) o) + 0x42)) = 0x400;
 
@@ -120,37 +123,37 @@ unsigned int __repair_phase_v;
   *((s16 *) (((u8 *) o) + 0x4a)) = 0x400;
   __repair_v_1 = im->w;
   *((s16 *) (inline_fn23(o) + 0x44)) = __repair_v_1 << 5;
-  v = im->size;
+  __repair___repair_phase_v_1 = im->size;
   *((s16 *) (inline_fn23(o) + 0x4e)) = 0;
   *inline_fn23(inline_fn23(o) + 0x56) = 0;
   *inline_fn23(((u8 *) o) + 0x57) = 0;
-  *((s16 *) (inline_fn23(o) + 0x4c)) = v << 5;
-  v = 0x1033;
+  *((s16 *) (inline_fn23(o) + 0x4c)) = __repair___repair_phase_v_1 << 5;
+  __repair_phase_v = 0x1033;
   if (!(mode & 1))
   {
-    v = 0xfc1034;
+    __repair_phase_v = 0xfc1034;
   }
-  *((u32 *) (inline_fn23(o) + 0x28)) = v;
-  v = *((u32 *) im->ptr);
+  *((u32 *) (inline_fn23(o) + 0x28)) = __repair_phase_v;
+  __repair___repair_phase_v_2 = *((u32 *) im->ptr);
   *((u16 *) (((u8 *) o) + 0x36)) = 0;
-  *((u32 *) (((u8 *) o) + 0x2c)) = v;
-  v = *((u32 *) im->ptr);
+  *((u32 *) (((u8 *) o) + 0x2c)) = __repair___repair_phase_v_2;
+  __repair_phase_v = *((u32 *) im->ptr);
   *((u32 *) (((u8 *) o) + 0x3c)) = -1;
   new_var3 = ((u8 *) o) + 0x10;
-  *((u32 *) (((u8 *) o) + 0x38)) = v;
+  *((u32 *) (((u8 *) o) + 0x38)) = __repair_phase_v;
   *((u32 *) new_var3) = 0x30;
   x = idx;
   x = x << 2;
-  __repair_phase_v = *((u32 *) (x + ((int) im->tab)));
+  __repair_phase___repair_phase_v = *((u32 *) (x + ((int) im->tab)));
   *((u16 *) (((u8 *) o) + 0x18)) = 0x100;
-  *((u32 *) (((u8 *) o) + 0x14)) = __repair_phase_v;
+  *((u32 *) (((u8 *) o) + 0x14)) = __repair_phase___repair_phase_v;
   *((u16 *) (inline_fn23(new_var) + 0x1c)) = 0;
   *((u16 *) (inline_fn23(o) + 0x1e)) = 0;
   ;
   *((s16 *) (((u8 *) o) + 0x1a)) = im->type - 1;
-  v = *((u32 *) (x + ((int) im->tab)));
+  __repair_phase_v = *((u32 *) (x + ((int) im->tab)));
   *((u32 *) (((u8 *) o) + 0x24)) = -1;
-  *((u32 *) (((u8 *) o) + 0x20)) = v;
+  *((u32 *) (((u8 *) o) + 0x20)) = __repair_phase_v;
   if (flags & 32)
   {
     do

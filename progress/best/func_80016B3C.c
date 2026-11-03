@@ -137,6 +137,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     Part *p;
     Node *s;
     void *m;
+    void *m0;
     u8 *bb;
     s32 i;
     u32 j, k;
@@ -148,14 +149,15 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     q = obj->unk88->unk0;
     if (D_800A0384 != NULL && D_800A0384->unk384 == 0) {
         Node *w0, *w1;
-        for (i = 0; i < 4; i++) {
-            Node *w = obj->unk88->wheels[i];
-            Ent *e = &obj->unk88->ent[i];
+        s32 n;
+        for (n = 0; n < 4; n++) {
+            Node *w = obj->unk88->wheels[n];
+            Ent *e = &obj->unk88->ent[n];
             e->unkE = 0;
             e->unk10 = 0;
             w->unk88 = e;
             w->unk0 = 1;
-            w->unk88->unkC -= obj->unk54[i] / 2;
+            w->unk88->unkC -= obj->unk54[n] / 2;
         }
         w0 = obj->unk88->wheels[0];
         w1 = obj->unk88->wheels[1];
@@ -219,9 +221,10 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     }
     if (((*(Game **)0x800C7F84)->unk24 == obj || obj->unk88->unk80 == 0) && ((*(Game **)0x800C7F84)->unk20 & 8)) return;
     gfx->unk78 = 0;
-    type = obj->unk48->unk0;
     ctx = gfx;
-    flags = type == 7;
+    type = obj->unk48->unk0;
+    flags = 0;
+    if (type == 7) flags = 1;
     if (D_8009FF30 == 2) flags |= 2;
     if (obj->unk6C->unk30 > 4410000 || obj->unk48->unk0 != 7) {
         alpha = 0xFF;
@@ -241,11 +244,11 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     func_80006014(ctx, g);
     part = obj->unk8C->parts[10];
     func_8002E0B8(&mf, part->unk10);
-    m = func_8001BD1C();
-    if (func_80010BFC(m, fp, &mf) == 1) {
+    m0 = func_8001BD1C();
+    if (func_80010BFC(m0, fp, &mf) == 1) {
         u16 n;
         func_800075BC(ctx, shd->unkC->unk4[0], 0);
-        func_800061FC(ctx, m);
+        func_800061FC(ctx, m0);
         v[0][0] = obj->unk8C->unkB0;
         v[0][1] = obj->unk8C->unkB4;
         v[0][2] = obj->unk8C->unkB8;
@@ -293,9 +296,10 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     if (obj == gGame->unk24 || D_8009FF30 != 2 || gB7678 != 0) {
         bright = 0;
         for (i = 0; i < 12; i++) {
-            p = obj->unk8C->parts[i];
-            t = obj->unk60[i] * (p->unk8A - 1);
-            bright += p->unk6C[t + obj->unk60[i + 12]];
+            part = obj->unk8C->parts[i];
+            t = obj->unk60[i] * (part->unk8A - 1);
+            t += obj->unk60[i + 12];
+            bright += part->unk6C[t];
         }
         bright /= 12;
         bright -= 80;
@@ -303,8 +307,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         if (bright >= 0x100) bright = 0xFF;
     } else {
         if (func_8007BA1C(obj) == 0xFF) {
-            bright = 0xC4;
             flags &= ~2;
+            bright = 0xC4;
         } else {
             bright = 0xFF;
         }

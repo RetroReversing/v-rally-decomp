@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   s32 a;
@@ -36,7 +38,7 @@ u32 func_80081E8C(u8 *dst, u32 len)
     {
       if ((*size) <= 0)
       {
-        func_80081040((*(s32 *)0x800B7300 + size[5]) + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
+        func_80081040(((*((s32 *) 0x800B7300)) + size[5]) + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
         *size = 8192;
         size[5] += 8192;
         size[-1] = size[-2];
@@ -60,7 +62,7 @@ u32 func_80081E8C(u8 *dst, u32 len)
         words = n >> 2;
         src = *((u8 **) (D_800C02AE + 0x308E));
         bytes = words << 2;
-        new_var2 = words * 4;
+        ;
         if ((dst < (src + bytes)) & (src < dst))
         {
           d = (u32 *) (dst + bytes);
@@ -90,7 +92,7 @@ u32 func_80081E8C(u8 *dst, u32 len)
 
         }
         dst += words * 4;
-        *ptr += new_var2;
+        *ptr += words * 4;
         tail = n & 3;
         func_8008E13C(dst, *((void **) (D_800C02AE + 0x308E)), tail);
         dst += tail;
@@ -103,4 +105,5 @@ u32 func_80081E8C(u8 *dst, u32 len)
   }
   return len;
 }
+
 

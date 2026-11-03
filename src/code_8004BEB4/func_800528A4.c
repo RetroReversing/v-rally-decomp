@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern u8 D_800ADFE0;
 extern u8 D_800ADFE1;
 extern u8 *D_800B5C40;
@@ -45,20 +47,19 @@ void func_800528A4(void)
       sum = *p;
     }
     else
-      if (sum < (((u32) flag[-1]) - 1))
     {
-      n = ((u32) D_800ADFE0) - 1;
       k = 0;
+      if (k < (((u32) flag[-1]) - 1))
       do
       {
         k += 1;
-        sum += *p;
-        p += 1;
+        sum += *p++;
       }
-      while (k < n);
+      while (k < (u32)(D_800ADFE0 - 1));
     }
-    flag2 = (table + ((*((u16 *) (base + 0x22))) << 4)) + 0x118;
-    *((u32 *) (flag2 + (i << 2))) = sum;
+    n = (*((u16 *) (base + 0x22))) << 4;
+    flag2 = (u8 *) ((n + (u32) table) + 0x118);
+    *((u32 *) ((i << 2) + (u32) flag2)) = sum;
     node = *((u8 **) (node + 4));
   }
 
@@ -66,7 +67,7 @@ void func_800528A4(void)
   if ((*((u16 *) (obj2 + 0x2C))) & 0x4000)
   {
     new_var2 = 0x118;
-    row = (u32 *) ((table + ((*((u16 *) (obj2 + 0x22))) << 4)) + new_var2);
+    row = (u32 *) ((((*((u16 *) (obj2 + 0x22))) << 4) + (u32) table) + new_var2);
     min = ~0U;
     for (i = 0; i < 4; i += 1)
     {
@@ -81,3 +82,4 @@ void func_800528A4(void)
     }
   }
 }
+

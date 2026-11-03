@@ -3,7 +3,6 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define TXL2WORDS(txls, b_txl) MAX(1, ((txls) * (b_txl) / 8))
 #define CALC_DXT(width, b_txl) (((1 << 11) + TXL2WORDS(width, b_txl) - 1) / TXL2WORDS(width, b_txl))
-#define TXL2WORDS_4b(txls) MAX(1, ((txls) / 16))
 #define gDPSetTextureImage(pkt, f, s, w, i) { Gfx *_g = (Gfx *)(pkt); _g->w0 = _SHIFTL(0xFD, 24, 8) | _SHIFTL(f, 21, 3) | _SHIFTL(s, 19, 2) | _SHIFTL((w) - 1, 0, 12); _g->w1 = (u32)(i); }
 #define gDPSetTile(pkt, fmt, siz, line, tmem, tile, palette, cmt, maskt, shiftt, cms, masks, shifts) { Gfx *_g = (Gfx *)(pkt);   _g->w0 = _SHIFTL(0xF5, 24, 8) | _SHIFTL(fmt, 21, 3) | _SHIFTL(siz, 19, 2) | _SHIFTL(line, 9, 9) | _SHIFTL(tmem, 0, 9);   _g->w1 = _SHIFTL(tile, 24, 3) | _SHIFTL(palette, 20, 4) | _SHIFTL(cmt, 18, 2) | _SHIFTL(maskt, 14, 4) | _SHIFTL(shiftt, 10, 4) | _SHIFTL(cms, 8, 2) | _SHIFTL(masks, 4, 4) | _SHIFTL(shifts, 0, 4); }
 #define gDPNoParam(pkt, cmd) { Gfx *_g = (Gfx *)(pkt); _g->w0 = _SHIFTL(cmd, 24, 8); _g->w1 = 0; }
@@ -18,10 +17,13 @@ typedef struct
 } Gfx;
 Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 a6, s32 row, s32 a8, s32 height, s32 pal, s32 cms, s32 cmt, s32 masks, s32 maskt, s32 shifts, s32 shiftt)
 {
+  s32 img = timg;
+
   switch (siz)
   {
     case 1:
-      gDPSetTextureImage(gfx++, fmt, 2, 1, timg += row * width);
+      img += row * width;
+      gDPSetTextureImage(gfx++, fmt, 2, 1, img);
       gDPSetTile(gfx++, fmt, 2, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
       gDPLoadSync(gfx++);
       gDPLoadBlock(gfx++, 7, 0, 0, (((width * height) + 1) >> 1) - 1, CALC_DXT(width, 1));
@@ -31,7 +33,8 @@ Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 
       break;
 
     case 2:
-      gDPSetTextureImage(gfx++, fmt, 2, 1, timg += (row * width) * 2);
+      img += (row * width) * 2;
+      gDPSetTextureImage(gfx++, fmt, 2, 1, img);
       gDPSetTile(gfx++, fmt, 2, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
       gDPLoadSync(gfx++);
       gDPLoadBlock(gfx++, 7, 0, 0, (width * height) - 1, CALC_DXT(width, 2));
@@ -41,7 +44,8 @@ Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 
       break;
 
     case 3:
-      gDPSetTextureImage(gfx++, fmt, 3, 1, timg += (row * width) * 4);
+      img += (row * width) * 4;
+      gDPSetTextureImage(gfx++, fmt, 3, 1, img);
       gDPSetTile(gfx++, fmt, 3, 0, 0, 7, 0, cmt, maskt, shiftt, cms, masks, shifts);
       gDPLoadSync(gfx++);
       gDPLoadBlock(gfx++, 7, 0, 0, (width * height) - 1, CALC_DXT(width, 4));
@@ -49,13 +53,6 @@ Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 
       gDPSetTile(gfx++, fmt, 3, ((width * 2) + 7) >> 3, 0, 0, pal, cmt, maskt, shiftt, cms, masks, shifts);
       gDPSetTileSize(gfx++, 0, 0, 0, (width - 1) << 2, (height - 1) << 2);
       break;
-
-  }
-
-  if (siz)
-  {
-    return gfx;
   }
   return gfx;
 }
-

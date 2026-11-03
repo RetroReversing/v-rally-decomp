@@ -103,12 +103,13 @@ void func_8002A4C4(u8 *obj, s16 *point, s32 idx, s32 edge)
   func_8002E530(&mat, rel, d);
   func_8002DA98(&mat, &inv);
   mat.m = inv;
-  if ((height = slot = d[1] << 4) > 0)
+  if ((height = d[1] << 4) > 0)
     goto L8C0;
   list = P(obj, 0x8c);
   slot = W(list, 0x334);
   list += 0x338;
-  entry = (u8 *)(slot * 48 + (u32)list);
+  height = slot * 48;
+  entry = (u8 *)(height + (u32)list);
   W(entry, 0x28) = d[1] << 4;
   W(entry, 0x24) = idx;
   W(entry, 0x20) = 0;

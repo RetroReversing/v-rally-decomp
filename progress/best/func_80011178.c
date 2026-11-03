@@ -67,12 +67,11 @@ void func_80011178(Cam *cam) {
     s32 r;
     s32 s1;
     s32 s0;
-    s32 diff;
     s32 idx;
     u32 fl;
     s32 tgt;
     s32 cur;
-    s32 dd;
+#define dd i
     CamEntry **tp;
     s32 out[3];
     s16 p2[3];

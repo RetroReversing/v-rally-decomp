@@ -5,8 +5,10 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
   signed char *e;
   signed char a2;
   int a1;
-  int val;
+  int __repair_phase_val;
+  signed char new_var2;
   s32 a0;
+  int new_var;
   s32 v1;
   u8 *tbl;
   u8 idx;
@@ -17,11 +19,11 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
       return 0;
     }
     idx = arg0;
-    val = *((signed char *) ((D_800A1B70 + (idx * 6)) + 0x1E));
+    a1 = *((signed char *) ((D_800A1B70 + (idx * 6)) + 0x1E));
     e = (signed char *) (D_800A1B70 + (idx * 20));
-    a2 = val;
+    a2 = a1;
     v1 = e[0x5F] + e[0x60];
-    if (val >= v1)
+    if (a1 >= v1)
     {
       a1 = e[0x5C];
       a0 = v1;
@@ -29,7 +31,7 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
     else
     {
       v1 = e[0x5F] + e[0x5E];
-      if (v1 < val)
+      if (v1 < a1)
       {
         return 0;
       }
@@ -41,21 +43,28 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
   {
     tbl = D_800A1B70;
     idx = arg0;
-    val = (a2 = *((signed char *) ((tbl + (idx * 6)) + 0x1F)));
- do { e = (signed char *) (tbl + (idx * 20)); v1 = e[0x64] + e[0x65]; } while (0);
-    if (val >= v1)
+    __repair_phase_val = (a2 = *((signed char *) ((tbl - (-(idx * 6))) + 0x1F)));
+    do
+    {
+      e = (signed char *) (tbl + (idx * 20));
+      v1 = e[0x64] + e[0x65];
+    }
+    while (0);
+    if (__repair_phase_val >= v1)
     {
       a1 = e[0x61];
       a0 = v1;
     }
     else
     {
-      v1 = e[0x64] + e[0x63];
-      if (v1 < val)
+      v1 = e[0x64];
+      v1 = v1 + e[0x63];
+      if (v1 < __repair_phase_val)
       {
         return 0;
       }
-      a1 = e[0x62];
+      new_var2 = e[0x62];
+      a1 = new_var2;
       a0 = v1;
     }
   }
@@ -73,7 +82,8 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
     }
     return (a2 * 0x7F) / (a1 - a0);
   }
-  if (a2 < a0)
+  new_var = a2 < a0;
+  if (new_var)
   {
     if (a2 < a1)
     {
@@ -89,3 +99,4 @@ s8 func_80084C0C(s32 arg0, s32 arg1)
   }
   return 0;
 }
+

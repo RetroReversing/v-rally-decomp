@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern char D_800AE850[];
 extern char D_800C02AE[];
 
@@ -80,8 +82,10 @@ void func_8003B008(Car *car) {
             car->a = 0xFF;
         }
     } else if (n->info->unk20 == 0) {
+        s32 id;
         n = car->holder->node;
-        if (car->id == n->info->id) {
+        id = n->info->id;
+        if (id == car->id) {
             car->r = 0xFE;
             car->g = 0xD5;
             car->b = 0x1E;
@@ -97,3 +101,4 @@ void func_8003B008(Car *car) {
         car->flags &= ~4;
     }
 }
+

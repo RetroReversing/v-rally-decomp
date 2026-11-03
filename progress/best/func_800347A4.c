@@ -9,7 +9,7 @@ void func_800347A4(void *obj,s8 *out) {
  struct { int data[56]; int plan[8]; } workspace;
 #define data workspace.data
 #define plan workspace.plan
- int angle,raw,limit,forced,progress,target,state,timer,phase,steer,speed,step;
+ int angle,raw,forced,limit,progress,target,state,timer,phase,steer,speed,step;
  int i,index,nearest,delta,denom,other,heading;
  out[4]=0; out[5]=0; out[1]=0; out[0]=0;
  angle=func_8002D2C8(H(P(obj,0x5c),0x50),H(P(obj,0x5c),0x44));

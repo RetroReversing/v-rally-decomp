@@ -37,6 +37,7 @@ extern const f64 D_800A4A50;
 extern const f64 D_800A4A58;
 extern s32 D_800AFA8C;
 
+#define CLMP(v) ((v) >= 256 ? 255 : (v))
 #define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
 
 void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice)
@@ -68,16 +69,11 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
                 switch (D_800C811C->mode) {
                 case 2:
                     GCMD(dl++, 0xFA000000, -1);
-                    p = dl++;
-                    p->w0 = 0xFB000000;
-                    r = D_800ADFC6[0] * 2;
-                    if (r >= 256) r = 255;
-                    r <<= 24;
-                    g = D_800ADFC6[1] * 2;
-                    if (g >= 256) g = 255;
-                    b = D_800ADFC6[2] * 2;
-                    if (b >= 256) b = 255;
-                    p->w1 = r | ((g & 0xFF) << 16) | ((b & 0xFF) << 8) | e->alpha;
+                    GCMD(dl++, 0xFB000000,
+                         (((u32)({ r = D_800ADFC6[0] * 2; if (r >= 256) r = 255; r; }) & 0xFF) << 24) |
+                         (((u32)({ g = D_800ADFC6[1] * 2; if (g >= 256) g = 255; g; }) & 0xFF) << 16) |
+                         (((u32)({ b = D_800ADFC6[2] * 2; if (b >= 256) b = 255; b; }) & 0xFF) << 8) |
+                         ((u32)e->alpha & 0xFF));
                     break;
                 case 1:
                     GCMD(dl++, 0xFA000000, -1);
@@ -85,10 +81,10 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
                     p->w0 = 0xFB000000;
                     r = D_800ADFC6[0] * 2;
                     if (r >= 256) r = 255;
-                    r <<= 24;
+                    d = r << 24;
                     g = D_800ADFC6[1] * 2;
                     if (g >= 256) g = 255;
-                    c = r | ((g & 0xFF) << 16);
+                    c = d | ((g & 0xFF) << 16);
                     b = D_800ADFC6[2] * 2;
                     if (b >= 256) b = 255;
                     p->w1 = c | ((b & 0xFF) << 8) | e->alpha;

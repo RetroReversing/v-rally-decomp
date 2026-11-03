@@ -1,4 +1,3 @@
-extern s32 D_800AE850[];
 s32 func_80081470(s32, u8 *);
 
 s32 func_80081540(u8 *arg0) {
@@ -15,13 +14,13 @@ s32 func_80081540(u8 *arg0) {
     u8 temp_v0_2;
     temp_v0 = *arg0;
     if (((temp_v0 == 0x5C) | (temp_v0 == 0x2F)) != 0) {
-        *(s32 *)((u8 *)D_800AE850 + 0x8AB8) = *(s32 *)((u8 *)D_800AE850 + 0x8AB4);
+        *(s32 *)0x800B7308 = *(s32 *)0x800B7304;
         return 1;
     }
-    var_a0 = *(s32 *)((u8 *)D_800AE850 + 0x8AB4);
+    var_a0 = *(s32 *)0x800B7304;
     var_s2 = 0; var_s0 = 0; base=sp10; var_t0 = 0;
 loop_3:
-    var_a3 = base; var_a2 = var_s0 + arg0;
+    var_a3 = base; var_a2 = (u8 *)((u32)var_s0 + (u32)arg0);
 loop_4:
     temp_v0_2 = *var_a2; var_a2 += 1; var_s0 += 1; *var_a3 = temp_v0_2;
     temp_a1 = var_a2[-1]; var_t0 += 1; var_a3 += 1;
@@ -32,6 +31,6 @@ loop_4:
     var_a0 = func_80081470(var_a0, sp10);
     if (var_a0 == 0) return 0;
     var_t0 = 0;
-    if (var_s2 != 0) { *(s32 *)((u8 *)D_800AE850 + 0x8AB8) = var_a0; return 1; }
+    if (var_s2 != 0) { *(s32 *)0x800B7308 = var_a0; return 1; }
     goto loop_3;
 }

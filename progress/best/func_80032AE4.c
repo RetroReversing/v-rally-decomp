@@ -70,7 +70,10 @@ void func_80032AE4(Car *arg0)
       goto next;
     }
     g = car->info;
-    v = (g->b15) ? (g->b15) : (g->b16);
+    {
+      u8 bb = g->b15;
+      v = bb ? bb : g->b16;
+    }
     if (v == 0)
     {
       goto next;
@@ -131,10 +134,15 @@ void func_80032AE4(Car *arg0)
     func_8002FFA4(t, 0, near, &a);
     for (i = 0; i <= start; i++)
     {
-      __repair_phase_v = (((s16) (b.x - a.x)) * i) / start;
-      c.x = __repair_phase_v + a.x;
-      c.y = ((((s16) (b.y - a.y)) * i) / start) + a.y;
-      c.z = ((((s16) (b.z - a.z)) * i) / start) + a.z;
+      c.x = b.x - a.x;
+      c.x = (c.x * i) / start;
+      c.x = c.x + a.x;
+      c.y = b.y - a.y;
+      c.y = (c.y * i) / start;
+      c.y = c.y + a.y;
+      c.z = b.z - a.z;
+      c.z = (c.z * i) / start;
+      c.z = c.z + a.z;
       t->info->nodes[i].pos.x = c.x;
       t->info->nodes[i].pos.y = c.y;
       t->info->nodes[i].pos.z = c.z;
@@ -147,4 +155,3 @@ void func_80032AE4(Car *arg0)
   }
   while ((car != arg0) && (car != NULL));
 }
-
