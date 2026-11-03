@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793716195.043734,
- "revision": 10929,
+ "saved_at": 1793717333.851091,
+ "revision": 10931,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -156363,6 +156363,51 @@
    "function": "func_8006D564",
    "text": "The saved best now rechecks at 230. 20 of the remaining diff rows are hi/lo reloc display artifacts on D_800D0634[] (target shows hi=D_800C02AE+0x132f2, lo a raw number); the bytes are probably equal. The real residuals are: (1) in the second half, the [2] and [3] loops load the D_800D0634 entry into v0, but the target loads it into s2 (=p). Writing `p = D_800D0634[2]; func_8006DD04(GROUP(p,j));` for both loops makes it much worse (1100): p and j swap s0/s2 across the whole function. Reordering the declarations or making p `register` doesn't help. Untried: a fresh block-local pointer for just those two loops, or keeping p's use count balanced by removing a p use elsewhere. (2) the Slot store `((Slot*)D_800C35A0)[(u8)arg0].pad00[0x44]=0x5B` swaps v0 and v1 (target: addu v1,v1,v0; li v0,0x5b; sb v0,0x44(v1)). Try a different index expression order or a temp for it.",
    "by": "claude-opus-5"
+  },
+  {
+   "function": "func_80012638",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006786C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-4"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-5"
+  },
+  {
+   "function": "func_80007CA0",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-6"
+  },
+  {
+   "function": "func_80045404",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8001A340",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-8"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-9"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-11"
+  },
+  {
+   "function": "func_8007EBF4",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-12"
   }
  ],
  "set_aside": [
