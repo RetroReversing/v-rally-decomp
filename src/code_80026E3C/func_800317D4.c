@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   u16 pad0;
@@ -132,11 +134,14 @@ void func_800317D4(PObj *o)
   for (; i <= (o->n - 1); i++)
   {
     cur[0] = p1[0] - p0[0];
-    cur[0] = lerp(cur[0], 0, i - b, o->n - b1) + p0[0];
+    cur[0] = lerp(cur[0], 0, i - b, o->n - b1);
+    cur[0] += p0[0];
     cur[1] = p1[1] - p0[1];
-    cur[1] = lerp(cur[1], 0, i - b, o->n - b1) + p0[1];
+    cur[1] = lerp(cur[1], 0, i - b, o->n - b1);
+    cur[1] += p0[1];
     cur[2] = p1[2] - p0[2];
-    cur[2] = lerp(cur[2], 0, i - b, o->n - b1) + p0[2];
+    cur[2] = lerp(cur[2], 0, i - b, o->n - b1);
+    cur[2] += p0[2];
     o->def->tbl[i].x = cur[0];
     o->def->tbl[i].y = cur[1];
     o->def->tbl[i].z = cur[2];
@@ -144,3 +149,4 @@ void func_800317D4(PObj *o)
   }
   }
 }
+

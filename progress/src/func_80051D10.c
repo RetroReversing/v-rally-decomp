@@ -7,6 +7,7 @@ extern void func_800075BC(s32,s32,s32); extern void func_80051994(s32, A2*, u16*
 typedef struct {u32 w0,w1;} G;
 void func_80051D10(s32 a0,A1 *a1,A2 *a2,u32 a3){
  u16 sp[6]; u8 *s0; s32 s1;  s32 s7; G *v;
+ a3 = a3 & 255;
  a3 &= 255;
  if(D_800A1240){
   s0=(u8*)*(void**)((u8*)a1->p88+0x7c); v=func_80006008(a0);

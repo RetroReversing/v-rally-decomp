@@ -82,3 +82,27 @@ arg1[2]=(s32)len;
  return n;
 }
 ```
+
+## `func_80016B3C`: scoped accumulators and consistent global identity (3 November)
+
+Exact live and standalone result: 4,092 bytes / 1,023 instructions, KMC GCC 2.7.2
+with bundled GNU as 2.6, `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+Starting from score 550, block-local `t` in the distance calculation reached 480;
+a separate local `t` in the brightness loop reached 440. A stray scheduling NOP
+then shifted many later branches. The final fix declares `extern Game *D_800C7F84`
+and uses it consistently for `gGame` and the visibility check, replacing a mixture
+of byte-array-base-plus-offset access and a bare integer pointer. That source
+change produced score 0 with unchanged flags, targets and verification rules.
+
+An earlier colour-byte prefetch scored 80 but loaded it too early, so it was not
+a match. The ten-minute app deep pass tested 202 candidates without improving 80;
+more than 2,200 focused command-block permutations and many packing, width, helper,
+formatting, copy and flag probes also failed. The final correction came from
+checking the high-level global identity, not an increasingly elaborate packing
+expression. A lower score was not the best seed for that correction. These are
+controlled reconstruction choices, not proof of the original source spelling.
+
+The final source was accepted by the normal running-app API (linked bytes and
+instructions exact), independently integrated, and included in a complete
+byte-identical cartridge rebuild. Eleven other concurrent new matches and all
+current progress were saved with it. Earlier selected C is retained.

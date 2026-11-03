@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   u32 w0;
@@ -127,19 +129,10 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           tr.offset[2] = 0;
           cam = *((u8 **) (D_800C02AE + 0x7CD6));
           d2 = (*((f32 *) (cam + 0x118))) - ((f32) obj->x);
-          if (d2 < 0)
-          {
-            d2 = -d2;
-          }
-          result = 0;
-          if (d2 <= 6000)
+          if (__builtin_abs(d2) <= 6000)
           {
             s32 dz2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);
-            if (dz2 < 0)
-            {
-              dz2 = -dz2;
-            }
-            if (dz2 < 6001)
+            if (__builtin_abs(dz2) < 6001)
             {
               result = func_80010BFC(d, cam + 0x38, &tr);
               if (result == 1)
@@ -147,6 +140,14 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
                 func_800061FC(arg4, d);
               }
             }
+            else
+            {
+              result = 0;
+            }
+          }
+          else
+          {
+            result = 0;
           }
         }
         else
@@ -159,13 +160,10 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
           delta[2] = dz;
           if (((((f64) abs(dx)) < lim) && (((f64) abs(dy)) < lim)) && (((f64) abs(dz)) < lim))
           {
-            d = obj->y;
-            d = d - (*((s32 *) ((*((u8 **) (((u8 *) arg0) + 0x5C))) + 0x58)));
-            if (d < 0)
-            {
-              d = -d;
-            }
-            if (d < 160)
+            s32 e = obj->y;
+            e = e - (*((s32 *) ((*((u8 **) (((u8 *) arg0) + 0x5C))) + 0x58)));
+            e = __builtin_abs(e);
+            if (e < 160)
             {
               tr.offset[0] = dx;
               tr.offset[1] = dy;
@@ -197,4 +195,5 @@ void func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)
     while (count--);
   }
 }
+
 

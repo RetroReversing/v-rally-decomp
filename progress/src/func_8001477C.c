@@ -7,8 +7,8 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
   s32 dx;
   s32 dy;
   s32 err;
-  s32 eadd;
   s32 eadd2;
+  s32 eadd;
   s32 step;
   s32 swap;
   u8 red;
@@ -20,17 +20,11 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
   color = func_80005C48(D_8009B5A8);
   dx = x1 - x0;
   dy = y1 - y0;
+  dx = __builtin_abs(dx);
+  dy = __builtin_abs(dy);
   red = r0;
   green = g0;
   blue = b0;
-  if (dx < 0)
-  {
-    dx = -dx;
-  }
-  if (dy < 0)
-  {
-    dy = -dy;
-  }
   if (dx >= dy)
   {
     dr = (r1 - red) / dx;
@@ -46,8 +40,8 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       y0 = swap;
     }
     step = (y0 < y1) ? (1) : (-1);
+    err = 2 * dy - dx;
     eadd2 = 2 * dy;
-    err = eadd2 - dx;
     eadd = 2 * (dy - dx);
     func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
     red = r0 + dr;
@@ -55,14 +49,14 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     blue = b0 + db;
     for (x0++; x0 <= x1; x0++)
     {
-      if (err >= 0)
+      if (err < 0)
       {
- do { err += eadd; } while (0);
-        y0 += step;
+        err += eadd2;
       }
       else
       {
-        err += eadd2;
+        err += eadd;
+        y0 += step;
       }
       func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
       red += dr;
@@ -86,8 +80,8 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
       y0 = swap;
     }
     step = (x0 < x1) ? (1) : (-1);
+    err = 2 * dx - dy;
     eadd2 = 2 * dx;
-    err = eadd2 - dy;
     eadd = 2 * (dx - dy);
     func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
     red = r0 + dr;
@@ -95,14 +89,14 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     blue = b0 + db;
     for (y0++; y0 <= y1; y0++)
     {
-      if (err >= 0)
+      if (err < 0)
       {
-        err += eadd;
-        x0 += step;
+        err += eadd2;
       }
       else
       {
-        err += eadd2;
+        err += eadd;
+        x0 += step;
       }
       func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
       red += dr;

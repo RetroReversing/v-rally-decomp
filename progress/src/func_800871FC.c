@@ -44,11 +44,15 @@ s32 alAudioFrame(s32, s32 *, s32, s16);
 void func_8007F6E0(s32);
 void osSetThreadPri(s32, s32);
 void func_8007F798(s32, s32, void *);
+static inline s32 *getSlot(void)
+{
+  return &D_800AE850[(0x2278 / 4) + D_800A1BAC % 3];
+}
 s32 func_800871FC(Arg0 *a, Arg1 *b)
 {
   Arg0 *new_var4;
   s32 *new_var2;
-  s32 samples[4];
+  s32 samples[2];
   u8 *new_var5;
   int new_var;
   s16 count;
@@ -81,11 +85,9 @@ s32 func_800871FC(Arg0 *a, Arg1 *b)
   }
   {
     a->p4C = ((u8 *) a) + 0x58;
-    new_var = D_800A1BAC % 3;
     a->n50 = 4;
     a->n52 = 0;
-    idx = new_var;
-    slot = &D_800AE850[(0x2278 / 4) + idx];
+    slot = getSlot();
     a->x38 = *slot;
     frame = *slot;
     new_var5 = (u8 *) (&D_80001D10);
@@ -103,7 +105,7 @@ s32 func_800871FC(Arg0 *a, Arg1 *b)
     a->x40 = 0;
     a->x44 = 0;
     a->x3C = ((wrote - frame) >> 3) << 3;
-    func_8007F6E0(D_800C8320);
+    func_8007F6E0(*(s32 *)0x800C8320);
     osSetThreadPri(D_800AE850[0x2290 / 4], 6);
     func_8007F798(0x26, 0, ((u8 *) a) + 8);
     D_800A1BAC++;

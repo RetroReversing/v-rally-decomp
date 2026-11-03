@@ -1,4 +1,11 @@
-extern char *D_8009CEE0[];
+typedef struct
+{
+  char *name;
+  s32 val;
+  u8 id;
+  u8 pad[3];
+} NameEnt;
+extern NameEnt D_8009CEE0[];
 extern u8 D_8009CEE8;
 s32 func_8002AA6C(char *src, char *end)
 {
@@ -10,10 +17,11 @@ s32 func_8002AA6C(char *src, char *end)
   s32 c;
   s32 i;
   char *out;
-  s32 off;
+  s32 hash = 0x23;
+  s32 slash = 0x2F;
+  out = buf;
   lim = buf + 0x11;
   look = src + 1;
-  out = buf;
   for (;;)
   {
     c = *src;
@@ -27,12 +35,12 @@ s32 func_8002AA6C(char *src, char *end)
       *out = 0;
       goto done;
     }
-    if (c == 0x23)
+    if (c == hash)
     {
       *out = 0;
       goto done;
     }
-    if (c == 0x2F)
+    if (c == slash)
     {
       if ((look < end) && ((*look) == c))
       {
@@ -58,13 +66,12 @@ s32 func_8002AA6C(char *src, char *end)
 
   done:
   i = 0;
-  if (D_8009CEE8 != 0xFF)
+  if (D_8009CEE0[0].id != 0xFF)
   {
-    off = 0;
     do
     {
       p = buf;
-      q = *((char **) (((char *) D_8009CEE0) + off));
+      q = D_8009CEE0[i].name;
       while ((((*p) == (*q)) && ((*p) != 0)) && ((*q) != 0))
       {
         p++;
@@ -80,11 +87,9 @@ s32 func_8002AA6C(char *src, char *end)
         return i + 1;
       }
       next:
-      off += 12;
       i++;
     }
-    while ((*(((u8 *) (&D_8009CEE8)) + off)) != 0xFF);
+    while (D_8009CEE0[i].id != 0xFF);
   }
   return 0;
 }
-

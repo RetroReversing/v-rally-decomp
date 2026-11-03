@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 u32 func_8001FEE8();
 void func_80038AE4(s32);
 s32 func_80046414();
@@ -21,6 +23,7 @@ void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
   u32 temp_s2;
   int new_var;
   u32 mask;
+  u32 k;
   Sub70 *temp_a1;
   void *temp_v0;
   if (D_8009D538 & 0x800)
@@ -49,7 +52,8 @@ void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
     if (((temp_v0 != arg0) && ((mask = (0U - ((u32) (temp_v0 != 0))) & new_var2, mask >= temp_a1->a18))) && ((((*((s32 *) arg0)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U)))
     {
       temp_a0 = *((s32 *) (arg0 + 4));
-      if ((temp_a0 != 1) & (temp_a0 != 5))
+      k = (temp_a0 != 1) & (temp_a0 != 5);
+      if (k)
       {
         if (temp_a0 == 2)
         {
@@ -61,8 +65,8 @@ void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
           temp_a1->a14 = arg0[0];
           (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];
         }
-        temp_a0 = 0x7D;
-        (*((Sub70 **) (arg2 + 0x70)))->a18 = temp_a0;
+        k = 0x7D;
+        (*((Sub70 **) (arg2 + 0x70)))->a18 = k;
       }
       else
       {
@@ -92,3 +96,4 @@ void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
     (*((Sub70 **) (arg2 + 0x70)))->a1C = 0;
   }
 }
+

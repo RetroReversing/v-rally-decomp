@@ -75,6 +75,7 @@ typedef struct Game { u8 pad[0x20]; u16 unk20; u8 pad22[2]; Obj *unk24; u8 pad28
 typedef struct Mode { u8 pad[0xE]; u16 unkE; u8 pad10[8]; u16 unk18; u16 unk1A; u16 unk1C; u16 unk1E; u8 pad20[0xC]; u16 unk2C; } Mode;
 typedef struct Ext { u8 pad[0x384]; u8 unk384; } Ext;
 
+extern Game *D_800C7F84;
 extern u8 D_8009C0A8[];
 extern u8 D_8009C1A0[];
 extern s32 D_8009FF30;
@@ -83,7 +84,7 @@ extern u8 D_800A73E0[];
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 
-#define gGame (*(Game **)(D_800C02AE + 0x7CD6))
+#define gGame D_800C7F84
 #define gMode (*(Mode **)(D_800C02AE + 0x32F2))
 #define gB7D3B (*(u8 *)(D_800C02AE + 0x7D3B))
 #define gB7678 (*(u8 *)(D_800C02AE + 0x7678))
@@ -192,6 +193,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         if (type != 8) {
             if (type < 4 || type == 8) {
                 Pos *a, *b;
+                s32 t, dx, dy, dz;
                 if (obj != gGame->unk24) return;
                 a = obj->unk5C;
                 obj = obj->unk4;
@@ -219,7 +221,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         s32 vis = isBoundingBoxVisible(fp, bb, gGame->unk178);
         obj->unk88->unk80 = vis;
     }
-    if (((*(Game **)0x800C7F84)->unk24 == obj || obj->unk88->unk80 == 0) && ((*(Game **)0x800C7F84)->unk20 & 8)) return;
+    if ((D_800C7F84->unk24 == obj || obj->unk88->unk80 == 0) && (D_800C7F84->unk20 & 8)) return;
     gfx->unk78 = 0;
     ctx = gfx;
     type = obj->unk48->unk0;
@@ -296,6 +298,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     if (obj == gGame->unk24 || D_8009FF30 != 2 || gB7678 != 0) {
         bright = 0;
         for (i = 0; i < 12; i++) {
+            s32 t;
             part = obj->unk8C->parts[i];
             t = obj->unk60[i] * (part->unk8A - 1);
             t += obj->unk60[i + 12];

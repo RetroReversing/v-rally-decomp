@@ -66,7 +66,7 @@ s32 func_80084350(s32 arg0)
     rem = t % 0x2000;
     if (rem >= 0x13)
     {
-      func_80081040((D_800B7300 + t) - rem, D_800C3338, rem, PKT);
+      func_80081040((D_800B7300 + *base) - rem, *(u32 *)(&D_800C02AE + 0x308A), rem, PKT);
       D_800C3340 = rem;
       D_800C3354 = (*base) - rem;
       D_800C333C = (D_800C3338 + rem) - 0x16;
