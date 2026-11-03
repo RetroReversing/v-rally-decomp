@@ -31,7 +31,7 @@ target=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);
   if(data[41]) {other=data[33+data[42+index]]*10;if(nearest<3000){steer=other-progress+(other>=501?-390:390);step=2;}}
  }else if(data[41]) {
   other=data[33+data[42+index]]*10;delta=speed-data[25+data[42+index]];
-  if(delta>1000){step=delta/150;if(data[29+data[42+index]]<step*100)if(other>=501)steer=other-progress-300;else steer=other-progress+300;}
+  if(delta>1000){step=delta/150;if(nearest<step*100)if(other>=501)steer=other-progress-300;else steer=other-progress+300;}
   else step=3;
  }
  if(step>8)step=8;

@@ -27,7 +27,7 @@ void func_800407D0();
 void func_80052844(void *);
 void func_800857A0(s32);
 void memset(void *, s32, s32);
-static inline static static static static static s32 inline_fn(s32 *arg0, u8 arg1)
+static inline s32 inline_fn(s32 *arg0, u8 arg1)
 {
   return arg0[arg1];
 }
@@ -70,7 +70,10 @@ void func_8005B3AC(void)
       func_80052844(D_800C35A0);
     }
       ok = 1;
-      count = &D_800D0628;
+      {
+      u16 *count = &D_800D0628;
+      u8 i;
+      u8 j;
       for (i = 0; i < 4; i++)
     {
       for (j = 0; j < (*count); j++)
@@ -83,6 +86,7 @@ void func_8005B3AC(void)
       }
 
     }
+      }
 
       if ((u8) ok)
     {

@@ -1,3 +1,4 @@
+extern u32 D_800C7F9C[];
 extern char D_800C7F90[];
 extern s32 D_800C8328;
 extern s32 D_800D0660;
@@ -34,19 +35,20 @@ extern char D_800A5E0C[];
 extern char D_800A5E10[];
 extern char D_800A73E0[];
 extern char D_800C02AE[];
-static inline char *inline_fn(int arg0, s32 arg1)
+static inline static char *inline_fn(int arg0, s32 arg1)
 {
   return (D_800C02AE + arg0) + (arg1 * 0x18);
 }
 
-static inline static int inline_fn2(s16 arg0, u8 arg1)
+static inline static static int inline_fn2(s16 arg0, u8 arg1)
 {
   return arg0 + arg1;
 }
 
 void func_80074BF8(void *arg0, void *arg1)
 {
-  char sp40[0x78];
+  s32 * dp74;
+char sp40[0x78];
   char spB8[0x18];
   char spD0[0x18];
   char spE8[0x18];
@@ -58,9 +60,9 @@ void func_80074BF8(void *arg0, void *arg1)
   s16 temp_s1_4;
   s16 temp_s1_5;
   s16 temp_s1_6;
-  s16 temp_s1_7;
   s32 temp_s0;
   s32 temp_s0_10;
+  char (*new_var3)[];
   s32 temp_s0_2;
   s32 temp_s0_3;
   s32 temp_s0_7;
@@ -85,7 +87,8 @@ void func_80074BF8(void *arg0, void *arg1)
   void *temp_s3_2;
   void *temp_s4;
   void *temp_v0;
-  temp_v0 = func_80006008(arg1);
+  dp74=(s32 *)&D_800D0660;
+temp_v0 = func_80006008(arg1);
   *((u32 *) temp_v0) = 0xDE000000;
   *((void **) (((char *) temp_v0) + 4)) = &D_800A1798;
   func_80006014(arg1, temp_v0 + 8);
@@ -101,21 +104,28 @@ void func_80074BF8(void *arg0, void *arg1)
   text = spE8;
   temp_s0_2 = 0xA0 - (((u32) (temp_s1 & 0xFFFF)) >> 1);
   var_s6 = 0;
+  text = (char *) (((u32) text) ^ ((u32) arg0));
+  text = (char *) (((u32) text) ^ ((u32) arg0));
+  text = (char *) (((u32) text) ^ ((u32) arg0));
+  text = (char *) (((u32) text) ^ ((u32) arg0));
+  text = (char *) (((u32) text) ^ ((u32) arg0));
+  text = (char *) (((u32) text) ^ ((u32) arg0));
   sp10C = func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1);
   new_var = 5;
   temp_s0_3 = func_8000C9B0(temp_s4, func_80057918(D_800C8328, 0xD0), 1, 1.0f, 1);
-  temp_s0_3 = (D_800A17EA + sp10C) + temp_s0_3;
+  temp_s0_3 += D_800A17EA + sp10C;
   func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x3A, (temp_s1 + 0xD) & 0xFFFF, 0x11);
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
   temp_s0_4 = ((u32) (temp_s0_3 & 0xFFFF)) >> 1;
   temp_s1_2 = temp_s0_4 & 0xFFFF;
   func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s1_2, 0x3C, temp_s3, 1);
-  func_80073108(arg1, (s16) (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) - (temp_s0_4 - 0xA0)), 0x3B, D_800D0660, (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, ((func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) + 0xA0) - temp_s1_2) + D_800A17EA, 0x3C, func_80057918(D_800C8328, 0xD0), 1);
+  func_80073108(arg1, (s16) (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) - (temp_s0_4 - 0xA0)), 0x3B, *((s32 *)dp74), (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
+  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) + (0xA0 - temp_s1_2)) + D_800A17EA, 0x3C, func_80057918(D_800C8328, 0xD0), 1);
   func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
   do
   {
     temp_s1_3 = var_s6 & 0xFFFF;
+    new_var3 = &D_800A5DF0;
     if (temp_s1_3 == 6)
     {
       temp_v0_2 = func_8000C9B0(arg0 + 0x40, func_80057918(D_800C8328, 0xD1), 1, 1.0f, 1);
@@ -155,19 +165,19 @@ void func_80074BF8(void *arg0, void *arg1)
       temp_a2 = *((u32 *) ((D_800C02AE + 0x7CEE) + temp_s0_7));
       if (temp_a2 >= 0x12DU)
       {
-        func_80099DF8(text, &D_800A5DF4, temp_a2);
-        var_v0_3 = var_s6 & 0xFFFF;
+        func_80099DF8(spE8, &D_800A5DF4);
+        
       }
       else
       {
         func_80099DF8(spE8, &D_800A5D84, temp_a2 & 0xFFFF);
-        var_v0_3 = var_s6 & 0xFFFF;
+        
       }
-      var_v0_2 = *((u32 *) ((D_800C02AE + 0x7CEE) + (var_v0_3 * 0x18)));
+      {s32 idx74;do {do {idx74=var_s6 & 0xFFFF;}while(0);}while(0);idx74=D_800C7F9C[idx74*6];var_v0_2=idx74;}
     }
     if (var_v0_2 < 0x64U)
     {
-      func_80099DF8(&sp40, &D_800A5DF0, (u32) text);
+      func_80099DF8(&sp40, new_var3, (u32) text);
       func_80099DF8(text, &D_800A5D9C, (u32) (&sp40));
     }
     temp_s0_8 = var_s6 & 0xFFFF;
@@ -197,6 +207,7 @@ void func_80074BF8(void *arg0, void *arg1)
         func_80099DF8(sp40, f);
         func_80099DF8(spE8, f);
       }
+
     }
     else
     {
@@ -219,16 +230,16 @@ void func_80074BF8(void *arg0, void *arg1)
   temp_s0_9 = func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD3), 1, 1.0f, 1);
   temp_s0_10 = (((D_800A17E8 + temp_s0_9) + (D_800A17E8 + new_var)) + func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD7), 1, 1.0f, 1)) + 0x10;
   {
-  s32 xx = 0x140 - temp_s0_10;
-  s32 *pp = &D_800D0664;
-  func_80073320(arg1, xx & 0xFFFF, 0xDC, temp_s0_10 & 0xFFFF, 0x11);
-  func_80073108(arg1, (s16) xx, 0xDC, *pp, 2);
-  xx += D_800A17E8;
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD3), 1);
-  xx += func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD3), 1, 1.0f, 1);
-  func_80073108(arg1, (s16) xx, 0xDC, *pp, 0);
-  xx += D_800A17E8;
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD7), 1);
+    u16 xx = 0x140 - temp_s0_10;
+    s32 *pp = &D_800D0664;
+    func_80073320(arg1, xx & 0xFFFF, 0xDC, temp_s0_10 & 0xFFFF, 0x11);
+    func_80073108(arg1, (s16) xx, 0xDC, *pp, 2);
+    xx += D_800A17E8;
+    func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD3), 1);
+    xx += func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD3), 1, 1.0f, 1);
+    func_80073108(arg1, (s16) xx, 0xDC, *pp, 0);
+    xx += D_800A17E8;
+    func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD7), 1);
   }
 }
 

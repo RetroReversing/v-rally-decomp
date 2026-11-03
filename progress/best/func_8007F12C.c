@@ -20,7 +20,8 @@ s32 func_8007F12C(u32 id, s32 *ret, s32 arg2, ...)
   va_list7F ap;
   s32 x;
   s32 y;
-  volatile s32 idx;
+  s32 idx;
+  s32 *pidx = &idx;
   Cls7F12C **new_var2;
   int new_var3;
   Hdr7F12C *p;
@@ -48,8 +49,8 @@ s32 func_8007F12C(u32 id, s32 *ret, s32 arg2, ...)
     idx = id; }
   else
   {
-    idx = 1;
     p = (Hdr7F12C *) id;
+    idx = 1;
   }
   if (new_var3 = p == 0)
   {

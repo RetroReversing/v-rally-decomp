@@ -23,7 +23,6 @@ void func_80036C48(u8 *p)
     a = D_800A4A98;
     b = D_800A4AA0;
     c = D_800A4AA8;
-    j = 0;
     D_800C60D4 = func_80080440();
 
     {
@@ -62,7 +61,7 @@ void func_80036C48(u8 *p)
         n->g = 255;
         n->bl = 255;
     }
-    do {
+    for (j = 0; j < 5; j++) {
         Spr *n;
         Res *q;
         Obj *t;
@@ -79,8 +78,7 @@ void func_80036C48(u8 *p)
         n->r = c.v[j][0];
         n->g = c.v[j][1];
         n->bl = c.v[j][2];
-        j++;
-    } while (j < 5);
+    }
     {
         Spr *n;
         Res *q;

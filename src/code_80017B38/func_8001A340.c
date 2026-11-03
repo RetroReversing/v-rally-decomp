@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct { s32 words[8]; } Copy32;
 typedef struct { u32 w0; u32 w1; } Gfx;
 typedef struct { s32 m[16]; } Matrix;
@@ -68,7 +70,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   Matrix mtx;
   void *m;
   Gfx *gfx;
-  u8 sel;
+  u32 sel;
   s32 i;
   s16 v;
   s32 idx;
@@ -88,7 +90,9 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   gfx = start;
   }
   D_8009CBBC = 0;
-  sel = D_800C7926 & -(D_800C792E & 1);
+  sel = D_800C7926;
+  sel = (sel & -(D_800C792E & 1)) & 0xFF;
+  sel &= 0xFF;
   switch (lod) {
   case 0:
   case 1:
@@ -176,3 +180,4 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   func_80006014(r, gfx);
   return 1;
 }
+

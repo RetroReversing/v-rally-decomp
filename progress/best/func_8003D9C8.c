@@ -67,10 +67,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
     case 1:
       if (g->state == 0)
     {
-      y += h;
-      y -= 0x12;
       arg2--;
-      func_8003A9AC(arg0, x + 0x4D, y, func_8003B310, arg1, arg2, 0);
+      func_8003A9AC(arg0, x + 0x4D, y = y + h - 0x12, func_8003B310, arg1, arg2, 0);
       w = func_80040260(arg0, D_800C7F84->pos->f8 + 0x44, y, 2, func_8003B008, 0);
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->id = arg2;

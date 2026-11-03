@@ -12,7 +12,8 @@ extern V *D_800C5BB0[];
 extern s32 D_800C72D8[];
 void *func_8007EBF4(s32 a, s32 b, ...)
 {
-  volatile s32 n;
+  s32 n;
+  s32 *pn = &n;
   int new_var;
   s32 x;
   void *p;
@@ -27,10 +28,10 @@ void *func_8007EBF4(s32 a, s32 b, ...)
   D_800B5B40 = (s32) __builtin_return_address(0);
   q = a;
   x = *((s32 *) ((((u32) __builtin_next_arg(b)) + 3) & (~3)));
-  n = a;
   if (!(q & 0xffff0000))
   {
     q = D_800C72D8[a];
+    n = a;
   }
   else
   {

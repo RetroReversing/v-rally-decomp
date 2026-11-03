@@ -115,6 +115,8 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
         n = 0;
         if (c != 0) {
             while ((font->glyphs[c].code == -0x80) & ((n & 0xFF) != nfonts)) {
+                n &= 0xFF;
+                n &= 0xFF;
                 if (((cur + 1) & 0xFF) == nfonts) cur = 0; else cur++;
                 font = fonts[cur & 0xFF];
                 LOAD_TEX(font)

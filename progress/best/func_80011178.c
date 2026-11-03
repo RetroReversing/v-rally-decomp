@@ -274,6 +274,7 @@ void func_80011178(Cam *cam) {
                 cur += 0x1000;
             }
         }
+
         cur = func_80010DEC(cur, tgt, cam->unk20) - 0x800;
         if (cam->mode >= 2) {
             cam->unk20 = func_80010DEC(cam->unk20, cam->unk10, cam->unk18);
@@ -337,9 +338,9 @@ void func_80011178(Cam *cam) {
     case 5:
         ent = *tp;
         tgt = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4038;
+        ent += 4;
         cur = (cam->unk54 + 0x800) & 0xFFF;
         dd = tgt - cur;
-        ent += 4;
         if (dd < 0) {
             dd = -dd;
         }

@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   u8 pad0[0x228];
@@ -63,13 +65,10 @@ s32 func_8006786C(void)
   a1[3] = 0;
   func_8006F0E0(D_800A1468->unk228, a1);
   func_8006F75C();
-  v0_tbl = *((u8 **) (D_800C02AE + 0x32F2));
-  goto after_tbl;
-  after_tbl:
+  { extern u8 * volatile D_800C35A0; v0_tbl = D_800C35A0; }
   v1_obj = D_800A1468;
-
   a1 = v0_tbl;
-  new_var = v0_tbl;
+  new_var = a1;
   a0 = 1;
   idx = *((s8 *) (((u8 *) v1_obj) + 0x22B));
   t0 = v1_obj;
@@ -78,7 +77,7 @@ s32 func_8006786C(void)
   a3 = a2;
   v1 = a0 & 0xFF;
   search_loop:
-  if ((*((u8 *) ((new_var + (a0 & 0xFF)) + 0x32))) == a2)
+  if ((*((u8 *) ((a1 + (a0 & 0xFF)) + 0x32))) == a2)
   {
     v1 = a0 & 0xFF;
     goto search_done;
@@ -119,3 +118,4 @@ s32 func_8006786C(void)
   }
   while (0);
 }
+

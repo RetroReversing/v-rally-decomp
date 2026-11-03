@@ -82,8 +82,8 @@ void func_8003F3BC(s32 arg0, s32 arg1)
   {
     return;
   }
-  n = D_800C35A0[0xF];
-  if (n < 3)
+  cnt = D_800C35A0[0xF];
+  if (cnt < 3)
   {
     for (i = 1; i <= n; i++)
     {
@@ -94,7 +94,6 @@ void func_8003F3BC(s32 arg0, s32 arg1)
       y = r->y;
       switch (n)
       {
-case 0: break;
 
         case 1:
           dy = 0x4C;

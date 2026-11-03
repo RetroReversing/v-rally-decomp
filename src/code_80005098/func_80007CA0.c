@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   u8 pad[0x14];
@@ -67,8 +69,11 @@ s32 func_80007CA0(GfxState *g, Tex *t, s32 idx)
     p[1] = 0;
   }
   {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
+    s32 *v = *(s32 *volatile *)&new_var->p;
+    s32 *p;
+    new_var->p = v + 2;
+    p = v;
+    v = 0;
     p[0] = 0xF3000000;
     w = t->w;
     y = w >> 4;
@@ -114,3 +119,4 @@ s32 func_80007CA0(GfxState *g, Tex *t, s32 idx)
     return 0;
   }
 }
+

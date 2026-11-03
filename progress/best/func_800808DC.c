@@ -153,7 +153,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   {
     if (h->used == 0)
     {
-      avail = ((((s32) h->next) & (-align)) - ((((s32) (((u8 *) h) + 0x13)) + align) & (-align))) & (-align);
+      avail = ((((s32) h->next) & (-align)) - ((((s32) h) + (align + 0x13)) & (-align))) & (-align);
       if (avail >= size)
       {
         p = fit(h, avail, size, shift, mask, &mode);
@@ -197,16 +197,16 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
       }
         if (((u32) best) >= ((u32) (size + 0x14)))
       {
-        s = (Header *) (res + size);
-        next->prev = s;
-        s->next = next;
-        s->prev = bestH;
-        s->b8 = 0;
-        s->b9 = 0;
-        s->used = 0;
-        s->init = 0;
-        s->value = 0;
-        bestH->next = s;
+        nh = (Header *) (res + size);
+        next->prev = nh;
+        nh->next = next;
+        nh->prev = bestH;
+        nh->b8 = 0;
+        nh->b9 = 0;
+        nh->used = 0;
+        nh->init = 0;
+        nh->value = 0;
+        bestH->next = nh;
       }
         bestH->used = 1;
         bestH->value = 0;
@@ -226,24 +226,24 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
         break;
 
       case 3:
-        s = (Header *) (res + size);
-        nh = ((Header *) res) - 1;
-        nh->used = 1;
-        nh->prev = bestH;
-        nh->next = s;
-        nh->b8 = 0;
-        nh->b9 = 0;
-        nh->init = 0;
-        nh->value = 0;
-        bestH->next = nh;
-        next->prev = s;
-        s->next = next;
-        s->prev = nh;
+        nh = (Header *) (res + size);
+        s = ((Header *) res) - 1;
+        s->used = 1;
+        s->prev = bestH;
+        s->next = nh;
         s->b8 = 0;
         s->b9 = 0;
-        s->used = 0;
         s->init = 0;
         s->value = 0;
+        bestH->next = s;
+        next->prev = nh;
+        nh->next = next;
+        nh->prev = s;
+        nh->b8 = 0;
+        nh->b9 = 0;
+        nh->used = 0;
+        nh->init = 0;
+        nh->value = 0;
         break;
 
       default:

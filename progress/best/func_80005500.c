@@ -78,9 +78,12 @@ void func_80005500(View5500 *v, Rect5500 *r)
   g = gdl++;
   g->w0 = 0xDC080008;
   g->w1 = osVirtualToPhysical(v->vp);
+  {
+  Gfx5500 *g;
   g = gdl++;
   g->w0 = (0xED000000 | ((((s32) (((f32) v->x0) * 4.0f)) & 0xFFF) << 12)) | (((s32) (((f32) v->y0) * 4.0f)) & 0xFFF);
   g->w1 = ((((s32) (((f32) v->x1) * 4.0f)) & 0xFFF) << 12) | (((s32) (((f32) v->y1) * 4.0f)) & 0xFFF);
+  }
   func_80006014(ctx, gdl);
 }
 

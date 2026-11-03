@@ -100,8 +100,8 @@ if (!(arg0 == 0)) return;
         r = D_8009FFD8;
         it = func_80042078(&r, 5, D_8009FF38[idx].v[6], D_8009FF38[idx].v[7], 2);
         func_800424A4(it, D_800A4C58);
-        it->id = n * 2 + 1;
-        r = D_8009FFD8;
+        it->id = n * 2 | 1;
+        { extern u8 D_8009FFDA[]; r = *(Rect *)(D_8009FFDA - 2); }
         if (gObj->mode == 2 && (gObj->flags & 1)) {
             r.x += 0x18;
             r.w -= 0x30;

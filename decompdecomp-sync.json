@@ -276,7 +276,12 @@
     "src/code_80026E3C/func_80046530.c": "7fab26ce4a303ea686283e04a3c19458893a28ccd9ce62bb69c4cd8c962d51d2",
     "src/code_80012114/func_80015F3C.c": "6731f00e3d3f6b8670dc4e2c2e8f31e73a7ebc11e1ee8944511bfe5ff04e927c",
     "src/code_80026E3C/func_8002F270.c": "8f7b0e46f35126e9d5688b66f64b3291d02f245e58fc812fb811f8c95e8ea412",
-    "src/code_8004BEB4/func_80051D10.c": "f7c0979cdcf6d1528e9082eb3a7c0133d4b0863fba7c69ed9a53dbab5c107e0b"
+    "src/code_8004BEB4/func_80051D10.c": "f7c0979cdcf6d1528e9082eb3a7c0133d4b0863fba7c69ed9a53dbab5c107e0b",
+    "src/code_80026E3C/func_80036C48.c": "81e0ddbc0a905340d5ae6a13e52d97a512804e0ffa4f314b0261c90e1e81a4d1",
+    "src/code_80005098/func_80007CA0.c": "7b1f774ecaa50d05857f3f66fb96bef52d7279edd03836ab3034613f38895125",
+    "src/code_8004BEB4/func_8006786C.c": "a69b3b485d14180b4647ca5df147bd46512b230b1560771c41186c2fac38a9d1",
+    "src/code_80017B38/func_8001A340.c": "eb5d36a273b933d434732eae534ba61ad1724a261cbd5be2941da9adaa131402",
+    "src/code_80026E3C/func_8002BD40.c": "faf8fd6e8ae286663191548d8adc905722b197f00a9218cf90f7aebe8dc12207"
   },
   "accepted": [
     "MusInitialize",
@@ -297,6 +302,7 @@
     "func_80006EF8",
     "func_800070CC",
     "func_800075BC",
+    "func_80007CA0",
     "func_80007F18",
     "func_80008500",
     "func_80008E80",
@@ -335,6 +341,7 @@
     "func_800197A4",
     "func_80019C90",
     "func_80019F9C",
+    "func_8001A340",
     "func_8001AAB4",
     "func_8001AF54",
     "func_8001BDA0",
@@ -359,6 +366,7 @@
     "func_8002ABC0",
     "func_8002B7D4",
     "func_8002B970",
+    "func_8002BD40",
     "func_8002C6EC",
     "func_8002DE00",
     "func_8002EE00",
@@ -377,6 +385,7 @@
     "func_80035B04",
     "func_80035C4C",
     "func_8003647C",
+    "func_80036C48",
     "func_800370E8",
     "func_8003737C",
     "func_800376C8",
@@ -476,6 +485,7 @@
     "func_80065C04",
     "func_80066B88",
     "func_80067474",
+    "func_8006786C",
     "func_80067AC4",
     "func_8006874C",
     "func_80068D9C",
@@ -558,5 +568,5 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2011
+  "matched_app": 2016
 }
