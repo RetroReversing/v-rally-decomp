@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   u8 b[0x500];
@@ -38,7 +40,7 @@ void func_80063FFC(void)
     u8 *first = D_800C35A0;
     t = *((u16 *) (first + 0x1e));
     i = *((u16 *) (first + 0x20));
-    t = *((s32 *) ((((u8 *) (&D_800C02AE)) + 0x10386) + (((u16) t) * 4)));
+    t = ((s32 *) 0x800D0634)[(u16) t];
     {
       s32 base = (6 * (118 * i)) + t;
       s32 offset = (*((u16 *) (first + 0x22))) << 6;
@@ -68,8 +70,7 @@ void func_80063FFC(void)
     func_8005C0E8(2, 1, 4);
   }
   func_800603B4();
-  t = D_800A16D4;
-  if (t >= 3)
+  if ((s16) D_800A16D4 >= 3)
   {
     goto done;
   }
@@ -90,7 +91,9 @@ void func_80063FFC(void)
         *((u16 *) (a0 + 0xe)) = 1;
         if (new_var == 0x10003)
         {
-          goto shared;
+          *((u16 *) (a0 + 0x1e)) = 5;
+          *((u16 *) (a0 + 0x20)) = 1;
+          *((u16 *) (a0 + 0x22)) = 2;
         }
         else
           if (new_var == 0x60004)
@@ -104,8 +107,8 @@ void func_80063FFC(void)
         {
           shared:
           *((u16 *) (a0 + 0x1e)) = 5;
-
-          *((u16 *) (a0 + 0x22)) = (float) 2;
+          *((u16 *) (a0 + 0x20)) = 1;
+          *((u16 *) (a0 + 0x22)) = 2;
         }
         else
           if (t == 0x40000)
@@ -161,4 +164,5 @@ void func_80063FFC(void)
   func_80057B40(0x1c, 2, 0, 0);
 
 }
+
 

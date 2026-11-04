@@ -125,7 +125,7 @@ void func_80059A60(void)
       D_800C7F84 = func_8004240C(which);
       if ((i != 1) || (!D_800A1468->f24D))
       {
-        D_800C5D20[i]->fn(D_800C5D20[i]->arg);
+        D_800C5D20[(unsigned int) i]->fn(D_800C5D20[i]->arg);
       }
     }
 
@@ -142,44 +142,7 @@ void func_80059A60(void)
   {
     n = D_800A1468->nstyles;
     s = D_800A1468->styles;
-    for (i = 0; i < n; i++, s = s->next)
-    {
-      if (s->visible)
-      {
-        func_800599D0(s, s->mode);
-      }
-    }
-
-  }
-  if (D_800A1468->nwidgets)
-  {
-    n = D_800A1468->nwidgets;
-    w = D_800A1468->widgets;
-    for (i = 0; i < n; i++, w = w->next)
-    {
-      flags = &w->active;
-      if (*flags)
-      {
-        func_800599D0(w->sub, w->mode);
-        if ((!w->useStyleMode) || w->mode)
-        {
-          s = w->styles;
-          for (j = 0; j < w->nstyles; s = s->next, j++)
-          {
-            if (s->visible)
-            {
-              u8 hl;
-              if (w->useStyleMode)
-              {
-                hl = s->mode;
-              }
-              else
-              {
-                hl = flags[1];
-              }
-              if (hl)
-              {
-                func_80059618(s, 220, 220, 14, 255);
+ for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0(s, s->mode); } } } if (D_800A1468->nwidgets) { n = D_800A1468->nwidgets; w = D_800A1468->widgets; for (i = 0; i < n; i++, w = w->next) { flags = &w->active; if (*flags) { func_800599D0(w->sub, w->mode); if ((!w->useStyleMode) || w->mode) { s = w->styles; for (j = 0; j < w->nstyles; s = s->next, j++) { if (s->visible) { u8 hl; if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; } if (hl) { func_80059618(s, 220, 220, 14, j = 255);
               }
               else
               {
@@ -258,4 +221,3 @@ void func_80059A60(void)
     D_800A1468->f249--;
   }
 }
-

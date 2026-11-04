@@ -195,7 +195,8 @@ void func_80043A78(Car *car, Pad *pad)
         pad->b2 = 0xFF;
         pad->b3 = pad->b1;
         if (D_800C35A0->state != 0 & D_800C35A0->state != 5) {
-            D_800A1234[*car->player].hA = 2;
+            n = (Car *)*car->player;
+            D_800A1234[(s32)n].hA = 2;
             cnt = D_800C35A0->players;
             k = 0;
             for (n = *D_800B5C40; n != NULL; n = n->next) {
@@ -218,13 +219,13 @@ void func_80043A78(Car *car, Pad *pad)
             if (*car->player < 4) {
                 D_800A1234[*car->player].hA = 2;
             }
-            all = 1;
+            cnt = 1;
             for (n = *D_800B5C40; n != NULL; n = n->next) {
                 if (*n->player < 4) {
-                    all &= -((n->flags & 0x100) != 0);
+                    all = -((n->flags & 0x100) != 0); cnt &= all;
                 }
             }
-            if ((s16)all) {
+            if (cnt) {
             finish:
                 D_800B6880 = 0;
                 func_80042F40();

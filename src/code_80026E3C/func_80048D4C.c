@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Node { s32 a; struct Node *next; s32 rest[18]; } Node;
 typedef struct { Node **list; s32 pad4[3]; u32 count; u8 digits[16]; Node *t24; Node *t28; s32 x2c; } Grp;
 typedef struct { u32 count; u8 digits[1]; } Cnt;
@@ -51,14 +53,15 @@ void func_80048D4C(u8 *arg0) {
                 node = node->next;
                 k--;
             }
-            grp->t24[i] = *node;
-            grp->t24[i + cnt->count] = *node;
-            grp->t24[cnt->count * 2 + i] = *node;
-            grp->t28[i] = *node;
-            grp->t28[i + cnt->count] = *node;
-            grp->t28[cnt->count * 2 + i] = *node;
+            __builtin_memcpy(&grp->t24[i], node, sizeof(Node));
+            __builtin_memcpy(&grp->t24[i + cnt->count], node, sizeof(Node));
+            __builtin_memcpy(&grp->t24[cnt->count * 2 + i], node, sizeof(Node));
+            __builtin_memcpy(&grp->t28[i], node, sizeof(Node));
+            __builtin_memcpy(&grp->t28[i + cnt->count], node, sizeof(Node));
+            __builtin_memcpy(&grp->t28[cnt->count * 2 + i], node, sizeof(Node));
             p++;
         }
         s2 = *(u8 **)(s2 + 4);
     }
 }
+

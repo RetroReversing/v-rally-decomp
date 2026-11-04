@@ -41,7 +41,7 @@ void func_800529F0(void)
   if (D_800C35A0->mode == 5)
   {
     cfg = D_800C35A0;
-    rec = &D_800D0648[cfg->idx];
+    rec = &(*(ChRec **)0x800D0648)[cfg->idx];
     t = &D_800B6600;
     new_var = &D_800C81FC;
     for (i = 0; i < 4; i++)

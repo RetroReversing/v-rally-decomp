@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern u8 D_800C02AE[];
 extern f64 D_800A4008;
 void guMtxCatF(void *, void *, void *);
@@ -31,19 +33,13 @@ s32 func_80010BFC(s32 arg0, u8 *arg1, u8 *arg2)
   func_8001C358(arg1 + 0x80, sp20);
   func_8001C108(sp20, *((s32 *) (arg1 + 0x104)), *((s32 *) (arg1 + 0x108)), *((s32 *) (arg1 + 0x10C)), arg1 + 0x110, arg1 + 0x114, arg1 + 0x118);
   lim = D_800A4008;
-  v = (s32) (*((f32 *) (arg1 + 0xB0)));
-  if (v < 0) v = -v;
-  if ((f64) v < lim) {
-  v = (s32) (*((f32 *) (arg1 + 0xB4)));
-  if (v < 0) v = -v;
-  if ((f64) v < lim) {
-  v = (s32) (*((f32 *) (arg1 + 0xB8)));
-  if (v < 0) v = -v;
-  if ((f64) v < lim) {
+  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB0)))) < lim) {
+  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB4)))) < lim) {
+  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB8)))) < lim) {
   if (arg0 != 0)
   {
     guMtxF2L(arg1 + 0x80, arg0);
   }
-  v = 1; } else v = 0; } else v = 0; } else v = 0;
-  return v;
+  return 1; } } }
+  return 0;
 }

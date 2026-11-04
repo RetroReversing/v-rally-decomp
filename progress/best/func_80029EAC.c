@@ -79,13 +79,13 @@ void func_80029EAC(char *a, Vertex *point, int index)
   q.p.z = ((Vertex *) P(g, 84))[down].z;
   cell = (row * (w - 1)) + col;
   func_8002D75C(p.word, q.word, r.word, &sign);
-  slot = down + 1;
-  height = right;
+  height = down + 1;
+  slot = right;
   if (sign < 0)
   {
-    base = slot;
+    base = height;
     right = down;
-    down = height;
+    down = slot;
   }
   c[0] = ((Vertex *) P(g, 84))[right].x - ((Vertex *) P(g, 84))[base].x;
   c[1] = ((Vertex *) P(g, 84))[right].y - ((Vertex *) P(g, 84))[base].y;
@@ -129,13 +129,13 @@ void func_80029EAC(char *a, Vertex *point, int index)
       normal[2] >>= sx;
     }
     v = (Vertex *) P(g, 84);
-    right = ((v[base].x * normal[0]) + (v[base].y * normal[1])) + (v[base].z * normal[2]);
+    dot = ((v[base].x * normal[0]) + (v[base].y * normal[1])) + (v[base].z * normal[2]);
     do
     {
       if (normal[1])
       {
         height = normal[2];
-        height = ((((-normal[0]) * r.p.x) - (height * r.p.z)) + right) / normal[1];
+        height = ((((-normal[0]) * r.p.x) - (height * r.p.z)) + dot) / normal[1];
       }
     }
     while (0);
@@ -162,10 +162,10 @@ void func_80029EAC(char *a, Vertex *point, int index)
   func_8002E530(&mat, &delta, local);
   func_8002DA98(&mat, &inv);
   mat = inv;
-  dot = local[1] * 16;
-  if (dot <= 0)
+  right = local[1] * 16;
+  if (right <= 0)
   {
-    height = dot;
+    height = right;
     record = P(a, 140) + 824;
     record += W(P(a, 140), 820) * 48;
     W(record, 40) = height;

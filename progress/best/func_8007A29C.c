@@ -35,22 +35,22 @@ void func_8007A29C(void)
 {
   u8 *ent;
   u8 *tbl;
+  u8 *q;
   u8 *ctx;
   u8 *base;
   u8 *node;
   u8 *prev;
   u8 *p;
-  u8 *q;
-  u8 *arr;
   u8 *cnt;
+  u8 *arr;
   u8 m;
   u8 *r;
   u16 off;
   s8 i;
   s8 j;
   s32 n;
-  u8 t;
   s32 pad[2];
+  u8 t;
   func_8004D31C();
   func_8005BC60();
   func_8005BB5C();
@@ -104,7 +104,12 @@ void func_8007A29C(void)
             func_8007EE9C(node);
             node = P(prev, 0);
           }
- do { *r -= 1; B(p, 0x4C) -= 1; } while (0);
+          do
+          {
+            *r -= 1;
+            B(p, 0x4C) -= 1;
+          }
+          while (0);
         }
         else
         {
@@ -123,7 +128,11 @@ void func_8007A29C(void)
       func_8008A0D8(D_800C3508, (B(P(D_800C3508, 0x10) + (SH(D_800C3508, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
       if (B(D_800A1468, 0x238) == i)
       {
-        *((u16 *) (&(*((RS *) D_800C35A0)).e[((RS *) D_800C35A0)->idx[(s8) B(D_800A1468, 0x228)]].b6)) = 4;
+        {
+          u8 *rs = D_800C35A0;
+          rs += (rs + ((s8) B(D_800A1468, 0x228)))[0x32] * 40;
+          H(rs, 0x4E) = 4;
+        }
         B(D_800A1468, 0x238) = H(D_800D0658, 0xB24);
       }
     }
@@ -143,3 +152,4 @@ void func_8007A29C(void)
   node = func_800592D0(0x38);
   H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);
 }
+

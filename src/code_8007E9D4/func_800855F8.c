@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 extern u32 *D_800A1B70;
 s32 func_80085778(s32, s32, s32, void *);
 void func_800855F8(s32 arg0, s32 arg1) {
@@ -17,10 +19,13 @@ void func_800855F8(s32 arg0, s32 arg1) {
     if (arg1 & *(u32 *)((u8 *)entry + 0xC4)) flags |= 0x100;
     if (arg1 & *(u32 *)((u8 *)entry + 0xC8)) flags |= 0x200;
     if (arg1 & *(u32 *)((u8 *)entry + 0xCC)) flags |= 0x400;
-    if (arg1 & *(u32 *)((u8 *)entry + 0xD0)) flags |= 0x800;
-    if (arg1 & *(u32 *)((u8 *)entry + 0xD4)) flags |= 0x1000;
-    if (arg1 & *(u32 *)((u8 *)entry + 0xD8)) flags |= 0x2000;
-    if (arg1 & *(u32 *)((u8 *)entry + 0xDC)) flags |= 0x4000;
+    {
+        u32 *p;
+        if (arg1 & *(u32 *)((u8 *)entry + 0xD0)) { flags |= 0x800; p = entry; } else p = entry;
+        if (arg1 & *(u32 *)((u8 *)p + 0xD4)) flags |= 0x1000;
+        if (arg1 & *(u32 *)((u8 *)p + 0xD8)) flags |= 0x2000;
+        if (arg1 & *(u32 *)((u8 *)p + 0xDC)) flags |= 0x4000;
+    }
     if (arg1 & *(u32 *)((u8 *)entry + 0xE0)) flags |= 0x8000;
     func_80085778(index, flags, arg1, entry);
 }

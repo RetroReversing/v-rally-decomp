@@ -12,8 +12,9 @@ void func_800885CC(u8 *arg)
   *(s32 *) p = 0;
   for (i = 0; i < 0x134; i++)
     *arg++ = 0;
-  p[0xC4] = 0xFF;
-  p[0xB6] = 0xFF;
+  t = 0xFF;
+  p[0xC4] = t;
+  p[0xB6] = t;
   v = 0x6000 / D_800B68EC;
   p[0xCA] = 0;
   p[0xCB] = 0x7F;

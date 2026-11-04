@@ -133,7 +133,7 @@ void func_8000E428(void) {
 loop_6:
     func_80086A94();
     func_80089980();
-    MusSetMasterVolume(3, (s32) (32767.0f * D_800C35D8));
+    do { MusSetMasterVolume(3, (s32) (32767.0f * D_800C35D8)); } while (0);
     func_8005A790();
     if (M2C_FIELD(D_800C35A0, u16 *, 0x1E) == mode) {
         D_8009F640 &= ~0x80;

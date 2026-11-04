@@ -1,46 +1,38 @@
-void func_8002FFA4(u8 *arg0, s32 arg1, s32 arg2, s16 *arg3)
+#define PTS(off) (*(u16 *)((off) + *(u8 **)(arg0 + 0x54)))
+void func_8002FFA4(u8 *o, s32 arg1, s16 arg2, s16 *out)
 {
-  s16 sp[3];
-  s16 t1;
-  s32 a0;
-  s32 a1;
-  s32 a3;
-  s32 t0;
-  s32 v1;
-  s16 d0;
-  s16 d1;
-  s16 d2;
-  u8 *base;
-  a0 = (arg1 * (*((u16 *) (arg0 + 0x8A)))) + (*((s32 *) (arg0 + 0x4C)));
-  t0 = a0 - 2;
-  v1 = a0 + 2;
-  t0 = ((t1 - 1) - 1) < ((0x32 - 1) - 1);
-  if (t0)
-  {
-    base = *((u8 **) (arg0 + 0x54));
-    a1 = a0 * 6;
-    a3 = t0 * 6;
-    arg3 = (char *) (base + a3);
-    d0 = (*((u16 *) (base + a1))) - (*((u16 *) arg3));
-  }
-  else
-  {
-    base = *((u8 **) (arg0 + 0x54));
-    a1 = v1 * 6;
-    a3 = a0 * 6;
-    d0 = (*((u16 *) (base + a1))) - (*((u16 *) (base + a3)));
-    t1 -= 0x32;
-  }
-  sp[0] = d0;
-  d1 = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a1) + 2))) - (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 2)));
-  sp[1] = d1;
-  d2 = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a1) + 4))) - (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 4)));
-  sp[2] = d2;
-  sp[0] = (((s16) d0) * t1) / 50;
-  sp[1] = (((s16) d1) * t1) / 50;
-  sp[2] = (((s16) d2) * t1) / 50;
-  arg3[0] = (*((u16 *) ((*((u8 **) (arg0 + 0x54))) + a3))) + sp[0];
-  arg3[1] = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 2))) + sp[1];
-  arg3[2] = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 4))) + sp[2];
-}
+    u8 *arg0 = o;
+    s16 d[3];
+    s32 t;
+    s32 idx;
+    s32 prev, next;
+    s32 a, b;
+    s16 d0;
+    u8 *base;
 
+    idx = *(s32 *)(arg0 + 0x4C) + arg1 * *(u16 *)(arg0 + 0x8A);
+    t = arg2;
+    prev = idx - 2;
+    next = idx + 2;
+    if (t < 50) {
+        base = *(u8 **)(arg0 + 0x54);
+        a = idx * 6;
+        b = prev * 6;
+        d0 = *(u16 *)(a + base) - *(u16 *)(b + base);
+    } else {
+        base = *(u8 **)(arg0 + 0x54);
+        a = next * 6;
+        b = idx * 6;
+        d0 = *(u16 *)(a + base) - *(u16 *)(b + base);
+        t -= 50;
+    }
+    d[0] = d0;
+    d[1] = PTS(a + 2) - PTS(b + 2);
+    d[2] = PTS(a + 4) - PTS(b + 4);
+    d[0] = d[0] * t / 50;
+    d[1] = d[1] * t / 50;
+    d[2] = d[2] * t / 50;
+    out[0] = PTS(b) + d[0];
+    out[1] = PTS(b + 2) + d[1];
+    out[2] = PTS(b + 4) + d[2];
+}

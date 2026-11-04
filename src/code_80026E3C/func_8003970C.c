@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Pos
 {
   u8 pad00[8];
@@ -73,7 +75,8 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
       D_800C7F84 = func_8004240C(1);
       x = D_800C7F84->pos->xC;
       y = D_800C7F84->pos->x8;
-      w = func_80040260(arg0, x - 0x32, y -= 0x10, arg2, func_8003BA9C, 0);
+      ey = y - 0x10;
+      w = func_80040260(arg0, x - 0x32, ey, arg2, func_8003BA9C, 0);
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->obj = D_800C7F84;
       w = func_80040260(arg0, x - 0x46, y - 0x20, arg2, 0, 0);
@@ -82,11 +85,11 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
       break;
 
     case 2:
-      for (i = 1, ey; i < 3; i++, k += 2)
+      for (i = 1; i < 3; i++)
     {
       if (D_800C35A0->slots[D_800C35A0->order[i]].flags & 2)
       {
-        obj = func_8004240C(k);
+        obj = func_8004240C(i * 2 - 1);
         pos = obj->pos;
         D_800C7F84 = obj;
         dx = 0;
@@ -114,4 +117,5 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
   }
 
 }
+
 

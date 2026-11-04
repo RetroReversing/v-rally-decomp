@@ -10,12 +10,11 @@ s32 func_8006B9E0(u8, u8);
 s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {
-  char *__repair_addr;
   f64 bound = D_800A58A8;
   u8 *p = D_800C35A0;
   u8 *tab = D_800C7125;
   s32 i = 0;
-  u8 *base = D_800D0634 + (p[0x21] * 0x2c4);
+  u8 *base = *(u8 **)0x800D0634 + (p[0x21] * 0x2c4);
   u32 idx;
   u32 x;
   s32 raw;
@@ -26,10 +25,11 @@ long func_8006DDD8(void)
   s32 stride;
   f64 b;
   int new_var;
-  idx = (u8) func_8006B9E0(p[0x21], p[0x23]);
+  code = func_8006B9E0(p[0x21], p[0x23]);
+  stride = D_800C35A0[0x23] * 64;
+  idx = (u8) code;
   twice = idx * 2;
   b = ((f64) ((s32) idx)) * D_800A58B0;
-  stride = (*((u8 **) (D_800C02AE + 0x32f2)))[0x23] * 64;
   new_var = 0x40;
   loop:
   {
@@ -45,8 +45,9 @@ long func_8006DDD8(void)
       }
       x = raw;
     }
-    off = (((idx * 9) + ((i & 255) * 3)) * 4) - (((u8) x) * 8);
-    code = func_8006B924((base + (stride + 0x2c)) + ((i & 255) * 16), i & 255);
+    off = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);
+    { s32 i16;
+    code = func_8006B924((base + (stride + 0x2c)) + (i16 = (i & 255) * 16), i & 255); }
     if (((u8) code) == 5)
     {
       if ((u8) off)
@@ -55,8 +56,7 @@ long func_8006DDD8(void)
       }
       else
       {
-        tab[(u8) x] = 255;
-        tab[((u8) x) + 1] |= 15;
+        do { tab[(u8) x] = 255; tab[((u8) x) + 1] |= 15; } while (0);
       }
     }
     else

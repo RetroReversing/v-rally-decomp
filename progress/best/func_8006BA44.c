@@ -7,25 +7,20 @@ s32 func_8006BF30(s32, s32, s32, s32);
 void func_8006BA44(u8 arg0, unsigned int arg1)
 {
   u16 *sp14;
-  f64 temp_fs0;
   f64 temp_fs1;
   f64 temp_fv1;
   s16 temp_a1;
   s32 temp_s2;
-short __repair_phase_temp_s2;
-  s16 temp_s2_2;
-  s16 var_s0;
+  s32 hv;
+  s32 temp_s2_2;
   unsigned short temp_a0;
   s32 temp_s0;
   s32 temp_s3;
   s32 temp_s5;
   s32 temp_s6;
-  
-  
   s32 var_a2;
   s32 var_s4;
   s32 var_t0;
-  
   s32 var_v1;
   u32 temp_a0_2;
   u8 temp_t1;
@@ -35,12 +30,11 @@ short __repair_phase_temp_s2;
   void *temp_v0_2;
   void *var_a2_2;
   void *var_s1;
-  var_t0 = 0;
   var_a2 = 0;
+  var_t0 = 0;
   var_v1 = arg1;
-  temp_s2 = arg0 & 0xFF;
-  temp_s6 = *((s32 *) ((D_800C02AE + 0x5A8A + 0xA8FC) + (temp_s2 * 4)));
-  switch (temp_s2)
+  temp_s6 = *((s32 *) ((D_800C02AE + 0x5A8A + 0xA8FC) + (arg0 * 4)));
+  switch (arg0)
   {
     case 1:
       var_t0 = 0x32;
@@ -57,12 +51,12 @@ short __repair_phase_temp_s2;
       var_a2 = 0xF;
       var_t0 = 0x41;
       break;
-  }/*__repair_loop_weight*/do {do {do {
-  var_v1 += var_a2;} while (0);} while (0);} while (0);
+  }
+  var_v1 += var_a2;
   var_s4 = 0;
   temp_s3 = arg1 & 0xFF;
   sp14 = (u16 *) ((D_800C02AE + 0x5A8A) + ((var_t0 + temp_s3) * 2));
-  temp_fp = (void *) (((s8 *) temp_s6) + (temp_s3 * 4));
+  temp_fp = (void *) ((temp_s3 * 4) + ((s8 *) temp_s6));
   temp_s5 = var_v1 & 0xFF;
   temp_fs1 = ((f64) temp_s5) * D_800A57F8;
   do
@@ -82,17 +76,18 @@ short __repair_phase_temp_s2;
       if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
       {
         var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0 & 0xF3) * 0xE));
-        __repair_phase_temp_s2 = (temp_t1 * 4) + var_t0;
+        hv = (temp_t1 * 4) + var_t0;
         func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);
         var_a2_2 = (void *) (((s8 *) temp_s6) + ((temp_s0 * 0x10) + (temp_s3 << 6)));
         ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) var_s1))) >> 0xA) & 0x1F) + 0x41);
         ((s8 *) var_a2_2)[0x33] = (s8) (((((u16) (*((u16 *) var_s1))) >> 5) & 0x1F) + 0x41);
-        var_s0 = __repair_phase_temp_s2;
+        temp_s0 = hv;
+        temp_t1 = (((u8 *) var_s1)[1] & 0x1F) + 0x41;
         ((s8 *) var_a2_2)[0x38] = 1;
-        ((s8 *) var_a2_2)[0x34] = (s8) ((((u8 *) var_s1)[1] & 0x1F) + 0x41);
-        if (__repair_phase_temp_s2 & 1)
+        ((s8 *) var_a2_2)[0x34] = (s8) temp_t1;
+        if (hv & 1)
         {
-          var_s0 = -(s16) __repair_phase_temp_s2;
+          temp_s0 = -(s16) hv;
         }
         goto block_28;
       }
@@ -105,21 +100,21 @@ short __repair_phase_temp_s2;
       if (((temp_t1_2 < 0xFFU) | (temp_a0_2 < 0xFU)) != 0)
       {
         var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0_2 >> 2) * 0xE));
-        temp_s2_2 = (s16) (temp_t1_2 | ((temp_a0_2 & 3) << 8));
+        temp_s2_2 = (temp_t1_2 | ((temp_a0_2 & 3) << 8));
         func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);
         var_a2_2 = (void *) ((((s8 *) temp_s6) + (temp_s0 * 0x10)) + (temp_s3 <<= 6));
         ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) var_s1))) >> 0xA) & 0x1F) + 0x41);
         ((s8 *) var_a2_2)[0x33] = (s8) (((((u16) (*((u16 *) var_s1))) >> 5) & 0x1F) + 0x41);
-        var_s0 = temp_s2_2;
+        temp_s0 = temp_s2_2;
         temp_t1 = (((u8 *) var_s1)[1] & 0x1F) + 0x41;
         ((s8 *) var_a2_2)[0x38] = 1;
         ((s8 *) var_a2_2)[0x34] = (s8) temp_t1;
         if (temp_s2_2 & 1)
         {
-          var_s0 = -temp_s2_2;
+          temp_s0 = -temp_s2_2;
         }
         block_28:
-        temp_a1 = (s16) ((*sp14) - var_s0);
+        temp_a1 = (s16) ((*sp14) - temp_s0);
 
         if (var_s4)
         {

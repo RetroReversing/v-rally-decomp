@@ -1,6 +1,3 @@
-#define G (*(LookS *)(D_800C02AE + 0x5D32))
-#define CAM(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
-#define AMB (*(u16 *)(D_800A73E0 + 0x6BE6))
 extern s32 D_800A1860;
 extern s32 D_800A1864;
 extern s32 D_800A1868;
@@ -14,180 +11,151 @@ extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 s32 func_8002DA98(u8 *arg0, s32 *arg1);
 void func_8002E514(s32 *arg0, s16 *arg1, s16 *arg2);
-typedef struct 
-{
-  s32 b[3];
-  s32 c[3];
-  f32 t1;
-  f32 t2;
-} LookS;
-typedef struct 
-{
-  s16 x;
-  s16 y;
-  s16 z;
-  s16 pad;
-  s32 unk8;
-  u32 col;
-} V16;
-typedef struct 
-{
-  u32 col;
-  s16 x;
-  s16 y;
-  s16 z;
-  s16 pad;
-  u8 rest[12];
-} V24;
-typedef struct 
-{
-  u8 pad0[0x30];
-  V24 *v24[12];
-  V16 *v16[12];
-  u16 n16[12];
-  u16 n24[12];
+typedef struct { s32 b[3]; s32 c[3]; f32 t1; f32 t2; } LookS;
+#define G (*(LookS *)(D_800C02AE + 0x5D32))
+#define CAM(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
+#define AMB (*(u16 *)(D_800A73E0 + 0x6BE6))
+
+typedef struct { s16 x, y, z, pad; s32 unk8; u32 col; } V16;
+typedef struct { u32 col; s16 x, y, z; s16 pad; u8 rest[12]; } V24;
+typedef struct {
+    u8 pad0[0x30];
+    V24 *v24[12];
+    V16 *v16[12];
+    u16 n16[12];
+    u16 n24[12];
 } LObj;
+
 void func_8007B4A4(LObj *o)
 {
-  s16 p[4];
-  s16 q[4];
-  s32 m[12];
-  f32 dx;
-  f32 dy;
-  f32 dz;
-  f32 len;
-  f32 s;
-  f32 ex;
-  f32 ey;
-  f32 ez;
-  f32 dot;
-  f32 f;
-  f32 amb;
-  s32 i;
-  s32 j;
-  s32 n;
-  short full;
-  u8 c;
-  s32 lo;
-  s32 hi;
-  LookS *L;
-  u16 *ap;
-  V16 *v;
-  V24 *w;
-  func_8002DA98(D_800AE850 + 0x6E78, m);
-  p[0] = D_800A1860 - CAM(0);
-  p[1] = D_800A1864 - CAM(1);
-  p[2] = D_800A1868 - CAM(2);
-  func_8002E514(m, p, p);
- q[0] = D_800A186C - CAM(0); q[1] = D_800A1870 - CAM(1); q[2] = D_800A1874 - CAM(2); func_8002E514(m, q, q); dx = p[0] - q[0]; s = dx * dx; dy = p[1] - q[1]; s += dy * dy; dz = p[2] - q[2]; s += dz * dz; len = __builtin_sqrtf(s); dx /= len; dy /= len;
-  dz /= len;
-  L = &G;
-  ap = &AMB;
-  full = 0xFF;
-  L->b[0] = p[0];
-  L->b[1] = p[1];
-  L->b[2] = p[2];
-  L->c[0] = q[0];
-  L->c[1] = q[1];
-  L->c[2] = q[2];
-  L->t2 = D_800A187C;
-  L->t1 = D_800A1878;
-  for (i = 0; i < 12; i++)
-  {
-    n = o->n16[i];
-    v = o->v16[i];
-    j = 0;
-    if (n != 0)
-    {
-      do
-      {
-        ex = L->b[0] - v->x;
-        s = ex * ex;
-        ey = L->b[1] - v->y;
-        s += ey * ey;
-        ez = L->b[2] - v->z;
-        s += ez * ez;
-        len = __builtin_sqrtf(s);
-        ex /= len;
-        ey /= len;
-        ez /= len;
-        dot = ((ex * dx) + (ey * dy)) + (ez * dz);
-        c = full;
-        if (L->t1 < dot)
-        {
-          lo = c << 8;
-          hi = (c << 16) + 1;
-        }
-        else
-          if (L->t2 < dot)
-        {
-          f = (dot - L->t2) / (1.0f - L->t2);
-          amb = *ap;
-          if (len < 1200.0f)
-          {
-            f = (len * f) * 0.00083333335f;
-          }
-          c = (u32) ((f * (255.0f - amb)) + amb);
-          lo = c << 8;
-          hi = (c << 16) + 2;
-        }
-        else
-        {
-          c = *ap;
-          lo = c << 8;
-          hi = (c << 16) + 4;
-        }
-        v->col = (lo + hi) + (c << 24);
-        j++;
-        v++;
-      }
-      while (j < n);
-    }
-    n = o->n24[i];
-    w = o->v24[i];
-    j = 0;
-    if (n != 0)
-    {
-      do
-      {
-        ex = L->b[0] - w->x;
-        s = ex * ex;
-        ey = L->b[1] - w->y;
-        s += ey * ey;
-        ez = L->b[2] - w->z;
-        s += ez * ez;
-        len = __builtin_sqrtf(s);
-        ex /= len;
-        ey /= len;
-        ez /= len;
-        dot = ((ex * dx) + (ey * dy)) + (ez * dz);
-        c = full;
-        if (L->t1 < dot)
-        {
-          lo = c << 8;
-          hi = (c << 16) + 1;
-        }
-        else
-          if (L->t2 < dot)
-        {
-          amb = *ap;
-          f = 255.0f - amb;
-          c = (u32) ((f - (((L->t1 - dot) * f) / (L->t1 - L->t2))) + amb);
-          lo = c << 8;
-          hi = (c << 16) + 2;
-        }
-        else
-        {
-          c = *ap;
-          lo = c << 8;
-          hi = (c << 16) + 4;
-        }
-        w->col = (lo + hi) + (c << 24);
-        j++;
-        w++;
-      }
-      while (j < n);
-    }
-  }
+    s16 p[4];
+    s16 q[4];
+    s32 m[12];
+    f32 dx, dy, dz, len, s;
+    f32 ex, ey, ez, dot, f, amb, k;
+    s32 i, j, n;
+    s32 full;
+    s32 c;
+    s32 lo, hi;
+    LookS *L;
+    u16 *ap;
+    V16 *v;
+    V24 *w;
 
+    func_8002DA98(D_800AE850 + 0x6E78, m);
+    p[0] = D_800A1860 - CAM(0);
+    p[1] = D_800A1864 - CAM(1);
+    p[2] = D_800A1868 - CAM(2);
+    func_8002E514(m, p, p);
+    q[0] = D_800A186C - CAM(0);
+    q[1] = D_800A1870 - CAM(1);
+    q[2] = D_800A1874 - CAM(2);
+    func_8002E514(m, q, q);
+    dx = p[0] - q[0];
+    s = dx * dx;
+    dy = p[1] - q[1];
+    s += dy * dy;
+    dz = p[2] - q[2];
+    s += dz * dz;
+    len = __builtin_sqrtf(s);
+    dx /= len;
+    dy /= len;
+    dz /= len;
+    full = 0xFF;
+    ap = &AMB;
+    {
+    LookS *g = &G;
+    g->b[0] = p[0];
+    L = g;
+    }
+    G.b[1] = p[1];
+    G.b[2] = p[2];
+    G.c[0] = q[0];
+    G.c[1] = q[1];
+    G.c[2] = q[2];
+    G.t1 = D_800A1878;
+    G.t2 = D_800A187C;
+    for (i = 0; i < 12; i++) {
+        n = o->n16[i];
+        v = o->v16[i];
+        j = 0;
+        if (n != 0) {
+            do {
+                k = 255.0f;
+                ex = L->b[0] - v->x;
+                s = ex * ex;
+                ey = L->b[1] - v->y;
+                s += ey * ey;
+                ez = L->b[2] - v->z;
+                s += ez * ez;
+                len = __builtin_sqrtf(s);
+                ex /= len;
+                ey /= len;
+                ez /= len;
+                dot = ex * dx + ey * dy + ez * dz;
+                c = full;
+                if (L->t1 < dot) {
+                    lo = c << 8;
+                    hi = (c << 16) + 1;
+                } else if (L->t2 < dot) {
+                    f = (dot - L->t2) / (1.0f - L->t2);
+                    amb = *ap;
+                    if (len < 1200.0f) {
+                        f = len * f * 0.00083333335f;
+                    }
+                    c = (u8)(u32)(f * (k - amb) + amb);
+                    lo = c << 8;
+                    hi = (c << 16) + 2;
+                } else {
+                    c = (u8)*ap;
+                    lo = c << 8;
+                    hi = (c << 16) + 4;
+                }
+                lo += hi;
+                lo += c << 24;
+                v->col = lo;
+                v++;
+                j++;
+            } while (j < n);
+        }
+        w = o->v24[i];
+        n = o->n24[i];
+        j = 0;
+        if (n != 0) {
+            do {
+                k = 255.0f;
+                ex = L->b[0] - w->x;
+                s = ex * ex;
+                ey = L->b[1] - w->y;
+                s += ey * ey;
+                ez = L->b[2] - w->z;
+                s += ez * ez;
+                len = __builtin_sqrtf(s);
+                ex /= len;
+                ey /= len;
+                ez /= len;
+                dot = ex * dx + ey * dy + ez * dz;
+                c = full;
+                if (L->t1 < dot) {
+                    lo = c << 8;
+                    hi = (c << 16) + 1;
+                } else if (L->t2 < dot) {
+                    amb = *ap;
+                    f = k - amb; f -= (L->t1 - dot) * f / (L->t1 - L->t2);
+                    c = (u8)(u32)(f + amb);
+                    lo = c << 8;
+                    hi = (c << 16) + 2;
+                } else {
+                    c = (u8)*ap;
+                    lo = c << 8;
+                    hi = (c << 16) + 4;
+                }
+                lo += hi;
+                lo += c << 24;
+                w->col = lo;
+                w++;
+                j++;
+            } while (j < n);
+        }
+    }
 }
