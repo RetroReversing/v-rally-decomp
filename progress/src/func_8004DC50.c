@@ -50,7 +50,6 @@ void func_8004DC50(DCObj *o)
 {
   DCObj *last;
   DCObj *p;
-  DCObj *r;
   DCItem *it;
   DCInfo *info;
   DCBlock *blk;
@@ -89,7 +88,7 @@ void func_8004DC50(DCObj *o)
               e->a = 0;
               e->b = t;
             }
-            found = e->type;
+            found = 1;
             for (k = 0; k < 5; k++)
             {
               n = (k * 2) | 1;
@@ -149,12 +148,15 @@ void func_8004DC50(DCObj *o)
     last = last->parent->parent;
     if (last != 0)
     {
-      if (!(u8) func_8004DB30(last, idx))
+      found = func_8004DB30(last, idx);
+      if (!found)
       {
         last = last->next;
-        if (!(u8) func_8004DB30(last, idx))
+        found = func_8004DB30(last, idx);
+        if (!found)
         {
-          func_8004DB30(last->next, idx);
+          last = last->next;
+          func_8004DB30(last, idx);
         }
       }
       idx++;

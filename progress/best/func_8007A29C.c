@@ -104,8 +104,7 @@ void func_8007A29C(void)
             func_8007EE9C(node);
             node = P(prev, 0);
           }
-          *r -= 1;
-          B(p, 0x4C) -= 1;
+ do { *r -= 1; B(p, 0x4C) -= 1; } while (0);
         }
         else
         {
@@ -144,4 +143,3 @@ void func_8007A29C(void)
   node = func_800592D0(0x38);
   H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);
 }
-

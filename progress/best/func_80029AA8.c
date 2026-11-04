@@ -97,12 +97,12 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
     do
     {
       base = diag;
-      diag = right;
-      right = down;
-      down = count;
+      diag = down;
+      down = right;
+      right = count;
     }
     while (0);
-    down = diag;
+    right = diag;
   }
   diffR[0] = grid->verts[right].x - grid->verts[base].x;
   diffR[new_var2] = grid->verts[right].y - grid->verts[base].y;

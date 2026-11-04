@@ -46,12 +46,11 @@ void func_800529F0(void)
     new_var = &D_800C81FC;
     for (i = 0; i < 4; i++)
     {
-      u32 k;
       u32 s;
       s = 0;
-      for (k = 0; k < rec->n; k++)
+      for (m = 0; m < rec->n; m++)
       {
-        s += t->laps[k][i];
+        s += t->laps[m][i];
       }
 
       t->sums[cfg->idx][i] = s;

@@ -130,7 +130,15 @@ void func_80029EAC(char *a, Vertex *point, int index)
     }
     v = (Vertex *) P(g, 84);
     right = ((v[base].x * normal[0]) + (v[base].y * normal[1])) + (v[base].z * normal[2]);
- do { if (normal[1]) { height = ((((-normal[0]) * r.p.x) - (normal[2] * r.p.z)) + right) / normal[1]; } } while (0);
+    do
+    {
+      if (normal[1])
+      {
+        height = normal[2];
+        height = ((((-normal[0]) * r.p.x) - (height * r.p.z)) + right) / normal[1];
+      }
+    }
+    while (0);
     W(P(a, 140), (slot * 20) + 176) = point->x;
     W(P(a, 140), (slot * 20) + 180) = height;
     W(P(a, 140), (slot * 20) + 184) = point->z;
@@ -168,3 +176,4 @@ void func_80029EAC(char *a, Vertex *point, int index)
     W(P(a, 140), 820)++;
   }
 }
+

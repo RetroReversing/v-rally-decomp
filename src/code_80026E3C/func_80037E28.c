@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 #define U2F(x) (dv = (x), (x) < 0 ? dv += big : 0, (f32)dv)
 typedef struct 
 {
@@ -66,17 +68,13 @@ extern u8 D_800C35C8;
 extern Snd *D_800C81D4;
 extern Cam *D_800C7F84;
 extern u8 D_800B6818;
-static inline static static static static f32 inline_fn(s32 arg0)
-{
-  return (f32) (120 - arg0);
-}
 
 void func_80037E28(void)
 {
   Car *car;
   Audio *audio;
   Snd *snd;
-  Snd *snd1;
+  union { Snd *sound; u32 gear; } scratch;
   f32 *vols;
   f32 *pv;
   u16 new_var;
@@ -87,6 +85,7 @@ void func_80037E28(void)
   f64 dv;
   int new_var2;
   f64 big;
+ f32 hundred;
   s32 rpm;
   s32 kind;
   s32 spd;
@@ -96,7 +95,6 @@ void func_80037E28(void)
   u16 mode;
   int new_var3;
   u8 ok;
-  u8 gear;
   u8 i;
   ok = 0;
   if (!(D_8009F640 & 1))
@@ -117,9 +115,7 @@ void func_80037E28(void)
   {
     return;
   }
-  big = D_800A4AC8;
-  vols = &D_800C35E4;
-  pv = (f32 *)((char *)vols + 4);
+  hundred=100.0f; vols=&D_800C35E4; pv=(f32 *)((char *)vols+4); big=D_800A4AC8;
   do
   {
     audio = car->audio;
@@ -148,7 +144,7 @@ void func_80037E28(void)
         f = 12000.0f;
       }
         ;
-        f = (100.0f - (f * 0.008333334f)) * 0.01f;
+        f = (hundred - (f * 0.008333334f)) * 0.01f;
         if ((D_800C35A0->mode == 6) || (D_800C35A0->mode == 7))
       {
         *vols = 0.0f;
@@ -174,9 +170,9 @@ void func_80037E28(void)
           {
             g = -g;
           }
-          if (g > 100.0f)
+          if (g > hundred)
           {
-            g = 100.0f;
+            g = hundred;
           }
           D_800C35E4 = D_800C35E0 * ((1.0f - (g * 0.004f)) * 112.0f);
           D_800C7F84 = func_8004240C(1);
@@ -217,45 +213,45 @@ void func_80037E28(void)
         break;
       }
         t = ((rpm * 12) * D_800A4AD0) - D_800A4AD8;
-        func_80086E8C(&snd[0], t);
-        snd1 = &snd[1];
-        func_80086E8C(snd1, t);
+        do { func_80086E8C(&snd[0], t); } while(0);
+        scratch.sound = &snd[1];
+        func_80086E8C(scratch.sound, t);
         if (rpm < 4000)
       {
         func_80086D90(&snd[0], f * ((*pv) * 120.0f));
         u = spd + 30;
-        func_80086D90(snd1, (U2F(u) * f) * (*pv));
+        func_80086D90(scratch.sound, (U2F(u) * f) * (*pv));
       }
       else
         if (rpm < 5500)
       {
         k = (new_var2 = ((rpm - 4000) * 40) / 1500);
-        func_80086D90(&snd[0], (inline_fn(k) * f) * (*pv));
+        func_80086D90(&snd[0], ((f32)(120 - k) * f) * (*pv));
         new_var3 = spd + 30;
         k = k + new_var3;
-        func_80086D90(snd1, (U2F(k) * f) * (*pv));
+        func_80086D90(scratch.sound, (U2F(k) * f) * (*pv));
       }
       else
       {
         func_80086D90(&snd[0], f * ((*pv) * 80.0f));
         u = spd + 80;
-        func_80086D90(snd1, (U2F(u) * f) * (*pv));
+        func_80086D90(scratch.sound, (U2F(u) * f) * (*pv));
       }
         if (kind != 1)
       {
         break;
       }
-        gear = car->ctrl[0x337];
-        if (gear != 0)
+        scratch.gear = car->ctrl[0x337];
+        if ((u8)scratch.gear != 0)
       {
-        if (gear >= 3)
+        if ((u8)scratch.gear >= 3)
         {
-          gear = 2;
+          scratch.gear = 2;
         }
         if (func_80086D34(&snd[5]))
         {
           func_80086B34(&snd[5]);
-          func_80086D90(&snd[5], ((f32) gear) * (D_800C35E8 * 56.0f));
+          func_80086D90(&snd[5], ((f32)(u8)scratch.gear) * (D_800C35E8 * 56.0f));
         }
       }
         if (audio->last != (*car->surface))
@@ -293,7 +289,7 @@ void func_80037E28(void)
         else
           if (sum > 4000)
         {
-          func_80086D90(&snd[2], D_800C35E8 * 100.0f);
+          func_80086D90(&snd[2], D_800C35E8 * hundred);
         }
         else
         {
@@ -312,4 +308,5 @@ void func_80037E28(void)
   }
   while (car != NULL);
 }
+
 

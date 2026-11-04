@@ -47,11 +47,10 @@ void func_800603B4(void)
   u16 course;
   Sel *sel;
   Stage *base0;
-  u8 *st;
   u8 *p;
   Item *it;
 
-  n = func_800602F4(&D_800D0634[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);
+  n = func_800602F4(&((Stage **)0x800D0634)[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);
   func_800584D4();
   D_800A1468[0x233] = -1;
   func_800592D0(5)->val = D_800A1504[D_800A1530[n]];
@@ -71,7 +70,7 @@ void func_800603B4(void)
   mode = D_800C35A0->mode;
   if ((u32)(mode - 1) < 2 || (u32)(mode - 3) < 2 ||
       (D_800C35A0->course < 8 &&
-       (D_800C832C[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage)))
+       (((u8 *)0x800C832C)[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage)))
   {
     D_800A14D5 = 1;
   }
@@ -81,9 +80,9 @@ void func_800603B4(void)
   }
 
   sel = D_800C35A0;
+  base0 = *(Stage **)0x800D0634;
   D_800A14DC = 0;
   mode = sel->mode;
-  base0 = D_800D0634[0];
   for (i = 0; i < 3; i++)
   {
     if (mode == 5)
@@ -91,21 +90,23 @@ void func_800603B4(void)
       course = sel->course;
       if (course < 8)
       {
-        st = (u8 *)&base0[course];
-        p = st + (i * 16 + (sel->stage << 6));
+        p = (u8 *)&base0[course];
+        p += i * 16 + (sel->stage << 6);
+        D_800A14DC += *(s32 *)(p + 0x2C);
       }
       else
       {
-        st = (u8 *)&base0[D_800A1548[course]];
-        p = st + (i * 16 + ((((Stage *)st)->first + (sel->stage - 2)) << 6));
+        p = (u8 *)&base0[D_800A1548[course]];
+        p += i * 16 + ((((Stage *)p)->first + (sel->stage - 2)) << 6);
+        D_800A14DC += *(s32 *)(p + 0x2C);
       }
     }
     else
     {
-      st = (u8 *)&(*(Stage **)((u8 *)D_800D0634 + mode * 4))[sel->course];
-      p = st + (i * 16 + (sel->stage << 6));
+      p = (u8 *)&D_800D0634[mode][sel->course];
+      p += i * 16 + (sel->stage << 6);
+      D_800A14DC += *(s32 *)(p + 0x2C);
     }
-    D_800A14DC += *(s32 *)(p + 0x2C);
   }
   if (D_800C35A0->mode != 5 || D_800A14D5 == 0)
     D_800A14DC /= 3;

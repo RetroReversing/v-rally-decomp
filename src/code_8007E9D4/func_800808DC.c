@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct Header
 {
   struct Header *next;
@@ -9,12 +11,12 @@ typedef struct Header
   s32 tag;
   s32 value;
 } Header;
-void func_8007F828(void *);
+void func_8007F828(void *, s32);
 void func_80097DC4(void *, void *, s32);
 extern u8 *D_800B5B40;
 extern void (*D_800C8090)(void *);
 extern u32 D_800C33D0[];
-static inline static s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
+static inline s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
 {
   u32 i = ((u32) (p - 0x80000000)) >> shift;
   u32 end = ((u32) ((p + size) - 0x80000000)) >> shift;
@@ -29,7 +31,7 @@ static inline static s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
   return 1;
 }
 
-static inline static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
+static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
 {
   u8 *start = (u8 *) (h + 1);
   u32 gran;
@@ -52,12 +54,10 @@ static inline static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask
   if (gran < ((u32) avail))
   {
     base = (u8 *) (((s32) start) & (-gran));
-    off = size;
     for (;;)
     {
-      off += gran;
       n++;
-      if (range_free(base + gran, size, shift, mask) && ((start + avail) >= (base + off)))
+      if (range_free(base + gran, size, shift, mask) && ((start + avail) >= (base + (gran * n + size))))
       {
         break;
       }
@@ -85,9 +85,12 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   s32 mode;
   u32 bestMode;
   u32 i;
+  int new_var;
   u32 e;
+  u8 *new_var2;
   s32 k;
   u32 *t;
+  u32 m;
   arg0--;
   first = arg0;
   size = (size + (align - 1)) & (-align);
@@ -101,15 +104,16 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   bestH = NULL;
   res = NULL;
-  bestMode = 0;
+  new_var = 0;
+  bestMode = new_var;
   if (first->init == 0)
   {
-    e = (u8 *) first->next - (u8 *) (first + 1);
-    if ((u32) (size + 0x1C) < e)
+    e = ((u8 *) first->next) - ((u8 *) (first + 1));
+    if (((u32) (size + 0x1C)) < e)
     {
       first->init = 1;
       h = first + 1;
-      func_8007F828(h);
+      func_8007F828(h, e);
     }
     else
     {
@@ -139,8 +143,8 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
       if ((h->used != 0) && (h->next != NULL))
       {
         i = ((u32) (((u8 *) (h + 1)) - 0x80000000)) >> shift;
-        e = ((u32) (((u8 *) h->next) - 0x80000000)) >> shift;
-        for (; i <= e; i++)
+        m = ((u32) (((u8 *) h->next) - 0x80000000)) >> shift;
+        for (; i <= m; i++)
         {
           D_800C33D0[i] |= 1 << h->tag;
         }
@@ -163,7 +167,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
           bestH = h;
           if (mode != 2)
           {
-            res = (u8 *) (((s32) ((p - 1) + align)) & (-align));
+            res = (u8 *) (((s32) ((new_var2 = p - 1) + align)) & (-align));
           }
           else
           {
@@ -186,13 +190,14 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
       {
         func_80097DC4(nh, bestH, 0x14);
         bestH = nh;
-        if (nh->prev != NULL)
+        nh = 0;
+        if (bestH->prev != NULL)
         {
-          nh->prev->next = bestH;
+          bestH->prev->next = bestH;
         }
-        if (nh->next != NULL)
+        if (bestH->next != NULL)
         {
-          nh->next->prev = bestH;
+          bestH->next->prev = bestH;
         }
       }
         if (((u32) best) >= ((u32) (size + 0x14)))
@@ -254,4 +259,5 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   return res;
 }
+
 

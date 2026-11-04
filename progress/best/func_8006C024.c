@@ -70,12 +70,12 @@ void func_8006C024(s32 arg0, s32 arg1)
     {
       temp_v0 = (D_800C02AE + 0x6E77) + temp_a0;
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));
-      temp_a0_3 = ((u8) (*((u8 *) (((char *) temp_v0) + 0)))) >> 4;
-      temp_t0 = (u32) (temp_a0_3 & 0xC);
-      if (((temp_t1 < 0xFFU) | (((u32) (temp_a0_3 & 0xFF)) < 0xFU)) != 0)
+      temp_a0 = ((u8) (*((u8 *) (((char *) temp_v0) + 0)))) >> 4;
+      temp_t0 = (u32) (temp_a0 & 0xC) >> 2;
+      if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
       {
-        var_s1 = ((temp_a0_3 & 0xF3) * 0xE) + (D_800C02AE + 0x6E26);
-        temp_s2 = (temp_t1 * 4) + (temp_t0 >> 2);
+        var_s1 = ((temp_a0 & 0xF3) * 0xE) + (D_800C02AE + 0x6E26);
+        temp_s2 = (temp_t1 * 4) + temp_t0;
         func_8006BF30(temp_s0_2, 0, arg0 & 0xFF, temp_s0);
         var_a2 = temp_s6 + ((temp_s0_2 * 0x10) + (temp_s0 << 6));
         *((s8 *) (((char *) var_a2) + 0x32)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xA) & 0x1F) + 0x41);

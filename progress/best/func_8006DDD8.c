@@ -51,8 +51,7 @@ long func_8006DDD8(void)
     {
       if ((u8) off)
       {
-        tab[((u8) x) + 1] = 255;
-        tab[(u8) x] |= 0xf0;
+ do { tab[((u8) x) + 1] = 255; tab[(u8) x] |= 0xf0; } while (0);
       }
       else
       {
@@ -176,4 +175,3 @@ long func_8006DDD8(void)
     goto loop;
   }
 }
-

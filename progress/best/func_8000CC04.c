@@ -102,8 +102,8 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     }
     { Gfx *_g = gs->gfx++; _g->w0 = 0xFA000000; _g->w1 = (font->r << 24) | (font->g << 16) | (font->b << 8) | font->a; }
     LOAD_TEX(font)
-    base = 0;
     px = x;
+    base = 0;
     first = 1;
     len = func_8008E118(str);
     if ((len == 0) | (len >= 0xA1)) {
@@ -132,8 +132,8 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
                         base -= 5;
                     }
                 }
-                px += font->glyphs[c].k6 + kern - shrink;
                 py = ((f32)base - font->glyphs[c].k7 * sy) + y;
+                px += font->glyphs[c].k6 + kern - shrink;
                 if (first) {
                     if (rot) {
                         first = 0;
@@ -165,11 +165,13 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
                                   (s32)(px + font->glyphs[c].w * sx), (s32)(py + font->glyphs[c].h * sy), 0,
                                   (s32)(px + font->glyphs[c].w * sx), py, 0, px, py, 0);
                 }
-                func_80008B28(st, vtx, font->uv[c][0] * 2, font->uv[c][4] * 2, font->uv[c][1] * 2, font->uv[c][5] * 2,
-                              font->uv[c][2] * 2, font->uv[c][6] * 2, font->uv[c][3] * 2, font->uv[c][7] * 2);
                 {
-                    u32 t = (u16)vtx & 0x1F;
-                    Gfx *_g = gs->gfx++;
+                    u32 t = (u16)vtx;
+                    Gfx *_g;
+                func_80008B28(st, t, font->uv[c][0] * 2, font->uv[c][4] * 2, font->uv[c][1] * 2, font->uv[c][5] * 2,
+                              font->uv[c][2] * 2, font->uv[c][6] * 2, font->uv[c][3] * 2, font->uv[c][7] * 2);
+                    t &= 0x1F;
+                    _g = gs->gfx++;
                     _g->w0 = (t << 17) | ((t + 1) << 9) | ((t + 2) * 2) | 0x07000000;
                     _g->w1 = (t << 17) | (((t + 2) * 2) << 8) | ((t + 3) * 2);
                 }

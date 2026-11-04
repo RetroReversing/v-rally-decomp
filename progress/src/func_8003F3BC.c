@@ -1,4 +1,5 @@
-#define CARFLAG(i) ((D_800C35A0 + (D_800C35A0 + (i))[0x31] * 40)[0x48] & 8)
+static inline s32 carflag(u8 *g, u32 i) { u8 *c = g + (g + i)[0x31] * 40; return c[0x48] & 8; }
+#define CARFLAG(i) carflag(D_800C35A0, i)
 typedef struct Tex3
 {
   u16 h0;
@@ -85,7 +86,9 @@ void func_8003F3BC(s32 arg0, s32 arg1)
   cnt = D_800C35A0[0xF];
   if (cnt < 3)
   {
-    for (i = 1; i <= n; i++)
+    i = 1;
+    if (i <= cnt)
+    for (n = cnt; i <= n; i++)
     {
       few = n < 3;
       D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);

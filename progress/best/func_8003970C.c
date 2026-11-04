@@ -59,7 +59,6 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
   u32 py;
   s32 ey;
   s32 unused_pad;
-  s32 t;
   if (D_800C35A0->state == 7)
   {
     return;
@@ -83,7 +82,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
       break;
 
     case 2:
-      for (i = 1, k = 1; i < 3; i++, k += 2)
+      for (i = 1, ey; i < 3; i++, k += 2)
     {
       if (D_800C35A0->slots[D_800C35A0->order[i]].flags & 2)
       {

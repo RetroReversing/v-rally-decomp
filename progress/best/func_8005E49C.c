@@ -72,7 +72,6 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
   Obj *o;
   u8 *new_var;
   Inner *in;
-  Entry *e;
   Item *it;
   o = (Obj *) D_800C3508->inner;
   s4 = arg0;
@@ -104,7 +103,6 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
   }
   if (s2 & 0xFF)
   {
-    s1 = 0;
     func_80084AF4(s4);
     func_80084AD8();
     func_8002FB64();

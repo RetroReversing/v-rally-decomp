@@ -154,10 +154,11 @@ void func_80011178(Cam *cam) {
             d[0] = cd->EC - cd->E0;
             d[2] = cd->F4 - cd->E8;
             ang = -func_8002D2C8(d[2], d[0]);
+            cam->unk50 = cam->unk54 = ang;
         } else {
             ang = func_8001FD14(car);
+            cam->unk50 = cam->unk54 = ang;
         }
-        cam->unk50 = cam->unk54 = ang;
         a[0] = 0x1000;
         a[1] = 0;
         a[2] = 0;
@@ -220,10 +221,11 @@ void func_80011178(Cam *cam) {
             d[0] = cd->EC - cd->E0;
             d[2] = cd->F4 - cd->E8;
             ang = -func_8002D2C8(d[2], d[0]);
+            cam->unk50 = cam->unk54 = ang;
         } else {
             ang = func_8001FD14(car);
+            cam->unk50 = cam->unk54 = ang;
         }
-        cam->unk50 = cam->unk54 = ang;
         a[0] = 0x1000;
         a[1] = 0;
         a[2] = 0;

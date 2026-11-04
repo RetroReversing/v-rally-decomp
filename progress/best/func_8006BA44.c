@@ -17,7 +17,6 @@ short __repair_phase_temp_s2;
   s16 var_s0;
   unsigned short temp_a0;
   s32 temp_s0;
-  short new_var;
   s32 temp_s3;
   s32 temp_s5;
   s32 temp_s6;
@@ -78,11 +77,12 @@ short __repair_phase_temp_s2;
     {
       temp_v0 = (void *) ((D_800C02AE + 0x6F70) + temp_a0);
       temp_t1 = ((u8 *) temp_v0)[1];
-      temp_a0_2 = ((u8) ((u8 *) temp_v0)[0]) >> 4;
-      if (((temp_t1 < 0xFFU) | (((u32) (temp_a0_2 & 0xFF)) < 0xFU)) != 0)
+      temp_a0 = ((u8) ((u8 *) temp_v0)[0]) >> 4;
+      var_t0 = (temp_a0 & 0xC) >> 2;
+      if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
       {
-        var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0_2 & 0xF3) * 0xE));
-        __repair_phase_temp_s2 = (temp_t1 * 4) + (((u32) (temp_a0_2 & 0xC)) >> 2);
+        var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0 & 0xF3) * 0xE));
+        __repair_phase_temp_s2 = (temp_t1 * 4) + var_t0;
         func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);
         var_a2_2 = (void *) (((s8 *) temp_s6) + ((temp_s0 * 0x10) + (temp_s3 << 6)));
         ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) var_s1))) >> 0xA) & 0x1F) + 0x41);

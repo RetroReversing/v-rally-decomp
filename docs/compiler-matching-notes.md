@@ -148,3 +148,36 @@ redefined before use. Recompile the whole function and verify the complete build
 source-level equivalence and register-allocation reasoning do not prove a match.
 These are measured reconstruction choices, not evidence of the original source
 spelling.
+
+
+### Exact controller update: copied values, allocation and debug boundaries (4 November 2026)
+
+`func_800347A4` now matches all 529 instructions / 2,116 bytes through the live app
+with the unchanged KMC GCC 2.7.2 profile (`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`).
+No assembly, target bytes, shared header or compiler-profile edits were used.
+
+Useful measured repairs were splitting scan-local nearest/index lifetimes, naming a
+repeated distance load in the second scan, keeping the signed `/128` adjustment
+explicit, sharing the switch increment tail, and separating a normalized divisor
+from the predicate that reuses its former temporary. Statement boundaries around
+the final divide also mattered: the compact form allowed an instruction into the
+post-`mflo` gap; the separated form retained the target's two NOPs under `-g3`.
+Preserve those line boundaries in matching source.
+
+Installed-compiler diagnostics showed why a seemingly helpful shared tail changed
+allocation: it reduced one variable's reference count enough to reorder allocation.
+Several unsigned 32-bit zero identities preserve behavior and compile away while
+affecting the legacy compiler's flow/allocation evidence. This is a controlled
+compiler experiment, not a recommendation to add arbitrary padding or assume
+weights determine every hard register.
+
+The final two mismatches were `bgez`/`addiu` reading the original `a3` instead of
+the already copied `v0`. Clearing the no-longer-needed nearest variable immediately
+after copying it prevented that substitution; the dead clear disappeared and the
+normal byte judge returned exact. This is safe here because that source value has
+no further read before its independent redefinition; do not generalize the clear
+without checking liveness, aliases and volatility.
+
+A three-minute deep-permuter run at score 330 used 482 compiler invocations without
+an improvement. Targeted source experiments reached zero afterwards. This is one
+measured function, not a general model or token-cost comparison.

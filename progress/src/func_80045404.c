@@ -10,8 +10,8 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
   u8 *var_a0_3;
   u8 *var_a0_4;
   u8 *var_a2;
-  u32 new_var;
   u8 *var_a2_3;
+  u8 *var_a2_7;
   u8 *var_a2_5;
   u8 *var_v1_3;
   u8 *var_v1_5;
@@ -42,8 +42,8 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
   u32 temp_v1_4;
   u32 var_a0;
   u8 *var_v1_6;
+  u8 *var_x;
   void *temp_s0;
-  u32 new_var2;
   void *temp_v1;
   void *temp_v1_2;
   var_a0 = arg0;
@@ -73,7 +73,7 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
   }
   if (D_8009D544 == 0)
   {
-    if (var_t1)
+    if (var_t2)
     {
       I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);
     }
@@ -96,6 +96,7 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
   if (var_s2 & 0xFF)
   {
     temp_a1 = arg1 + (temp_v1_5 + 0x2C);
+    var_a2_4 = (u8 *)(sp10 + 4);
     do
     {
       var_s2 = 0;
@@ -147,18 +148,17 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
           while (var_v1_2 != 0);
           var_a0_4 = var_t0 + 0x10;
         }
-        new_var = (u32) var_t0;
-        if ((((u32) temp_a3) < ((u32) var_a0_4)) & (new_var < ((u32) temp_a3)))
+        if ((((u32) temp_a3) < ((u32) var_a0_4)) & (((u32) var_t0) < ((u32) temp_a3)))
         {
-          var_a2_3 = var_a0_4;
+          var_a2_7 = var_a0_4;
           var_v1_3 = temp_a3 + 0x10;
           var_a0_5 = 4;
           do
           {
-            var_a2_3 -= 4;
+            var_a2_7 -= 4;
             var_v1_3 -= 4;
             var_a0_5 -= 1;
-            I(var_v1_3, 0) = I(var_a2_3, 0);
+            I(var_v1_3, 0) = I(var_a2_7, 0);
           }
           while (var_a0_5 != 0);
         }
@@ -177,50 +177,32 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
           }
           while (var_a0_6 != 0);
         }
-        var_v1_5 = sp10 + 4;
-        if ((new_var < ((u32) (sp10 + 4))) & (((u32) sp10) < ((u32) var_t0)))
+        var_x = (u8 *) sp10;
+        if ((((u32) var_t0) < ((u32) var_a2_4)) & (((u32) var_x) < ((u32) var_t0)))
         {
-          new_var2 = temp_s3;
-          var_a2_5 = var_t0 + 0x10;
-          var_a0_7 = 4;
+          var_v1_6 = var_a2_4;
+          var_a2_6 = var_t0 + 0x10;
+          var_a0_8 = 4;
           do
           {
-            if (new_var2)
-            {
-              var_v1_5 -= 4;
-              var_a2_5 -= 4;
-              var_a0_7 -= 1;
-              I(var_a2_5, 0) = I(var_v1_5, 0);
-            }
-            else
-            {
-              var_v1_5 -= 4;
-              var_a2_5 -= 4;
-              var_a0_7 -= 1;
-              I(var_a2_5, 0) = I(var_v1_5, 0);
-            }
+            var_v1_6 -= 4;
+            var_a2_6 -= 4;
+            var_a0_8 -= 1;
+            I(var_a2_6, 0) = I(var_v1_6, 0);
           }
-          while (var_a0_7 != 0);
+          while (var_a0_8 != 0);
           var_t0 -= 0x10;
         }
         else
         {
-          var_v1_6 = (u8 *) sp10;
+          var_v1_6 = var_x;
           var_a2_6 = var_t0;
           var_a0_8 = 4;
           do
           {
-            do
-            {
-              temp_v0_3 = I(var_v1_6, 0);
-              do
-              {
-                var_v1_6 += 4;
-              }
-              while (0);
-              var_a0_8 -= 1;
-            }
-            while (0);
+            temp_v0_3 = I(var_v1_6, 0);
+            var_v1_6 += 4;
+            var_a0_8 -= 1;
             I(var_a2_6, 0) = temp_v0_3;
             var_a2_6 += 4;
           }
@@ -244,4 +226,3 @@ void func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)
     while (var_s2 & 0xFF);
   }
 }
-
