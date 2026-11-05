@@ -20,6 +20,23 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Empty-callee contract and parameter lifetime — 5 November 2026
+
+`func_8005E49C` now matches **124 instructions / 496 bytes**, using its unchanged
+KMC GCC 2.7.2 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3` profile. Correcting an empty
+callee to its actual `void(void)` contract and using unchanged incoming parameters
+directly recovered the target scheduling and register allocation. The required
+second-loop counter reset remains present.
+
+The normal app judge accepted it. The complete **12,582,912-byte cartridge** also
+rebuilt byte-identically, preserving all **2,069** previous selected C objects and
+profiles. The selected build now contains **2,070 C units**; the full portable
+snapshot includes the new match and all current progress. An existing mixed-arity
+`func_8005A338` interface remains documented; these checks establish byte identity,
+not whole-program C conformance. See the
+[investigation](docs/matching-experiments/func_8005E49C-investigation.md).
+
+
 ### Exact parser bounds match — 5 November 2026
 
 `func_8002B180` now matches all **87 instructions / 348 bytes**. The live app's

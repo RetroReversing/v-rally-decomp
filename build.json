@@ -20378,7 +20378,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147869852,
    "rom": 389276,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8005E49C.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8005E49C.s",
+   "c": "src/code_8004BEB4/func_8005E49C.c",
+   "own": {}
   },
   {
    "name": "func_8005E68C",

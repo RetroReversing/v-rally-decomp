@@ -67,3 +67,27 @@ negative result does not justify a formatting repair family. The required reset
 was never removed; no dummy branch, register binding or volatile was introduced.
 Mixed-arity helper contracts and record-bound preconditions remain unresolved.
 No exact claim, full-cartridge claim or live source change is made for this pass.
+
+
+## Accepted exact checkpoint: selected empty-callee contract
+
+The previous negative results are superseded by a 496-byte exact match. Selected
+`func_80084AF4` is an empty `void(void)` function. Correcting its caller-owned
+declaration and dropping its side-effect-free scalar arguments allows argument
+setup for a later failure-path call to occupy the earlier branch delay slot.
+Using the genuine incoming parameters directly, rather than copying them into
+unchanged scalar locals, then recovers register allocation. The required reset
+is retained. No padding, dummy operation, volatile or register binding was added.
+
+The first proposal from the bounded composed automatic repair reproduces the exact
+source (SHA256 `3bad25f35c369a7ef51a2fcbda2242a5ab8e1540fe655a78cd602ec7390dda9e`).
+Ordinary pinned compilation and linking establish all 124 instructions / 496 bytes
+exact. The normal app judge accepted score 0. The full 12,582,912-byte cartridge
+comparison passed, preserving all previous 2,069 C objects and profiles.
+
+The pre-existing `func_8005A338` zero/two-argument interface inconsistency remains.
+Its selected definition is not empty and is not eligible for this repair. The
+original two genuine arguments are retained; no extra arguments or ABI tricks were
+invented. Array bounds, callback/resource validity and the retained mixed-arity
+interface limit the semantic claim: this is verified byte identity, not proof of
+whole-program C conformance. All portable progress accompanies the match.

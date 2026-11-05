@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793912279.655076,
- "revision": 18906,
+ "saved_at": 1793913221.2742798,
+ "revision": 18908,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -7303,8 +7303,8 @@
   },
   "func_8005E49C": {
    "vram": 2147869852,
-   "best_score": 140,
-   "best_by": "candidate-review"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8005E68C": {
    "vram": 2147870348,
@@ -273080,6 +273080,94 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
+   "func_8005E49C": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793913134.864128,
+    "attempt_id": 309355,
+    "source_sha256": "3bad25f35c369a7ef51a2fcbda2242a5ab8e1540fe655a78cd602ec7390dda9e",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "bfea7d994ab3b503efe4aa3765bdd4774b074adab411f9b67e0a035f602af0bc",
+    "relocations_sha256": "9c4746d5b8923c53f8c591a4ddc45caa540c9e7a8320aedba469a74c632d2698",
+    "vram": 2147869852,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
    "func_8005E6AC": {
     "format": 1,
     "verdict": "exact",
@@ -286814,6 +286902,7 @@
    "96ec1bb6191998b565b3dedccbb2d1b72926da2635fa6474184fa298fb789453": "typedef struct Tex\n{\n  char pad0[6];\n  u16 w;\n  u16 h;\n} Tex;\ntypedef struct Img\n{\n  s32 pad0;\n  Tex **tex;\n} Img;\ntypedef struct Elem\n{\n  char pad0[0x24];\n  Img **imgs;\n  char pad28[0x37 - 0x28];\n  u8 alpha;\n} Elem;\nextern u8 **D_800B55E4;\nextern void *func_8004240C(s32);\nextern void func_8004CEB4(s32, Tex *, s16 *, u8, s32, s32, s32, s32, s32);\nvoid func_8005D4A4(s32 arg0)\n{\n  s16 rect[4];\n  f32 scale;\n  s32 new_var2;\n  u8 *base;\n  Tex **new_var;\n  Elem *e;\n  Tex *new_var3;\n  scale = 1.25f;\n  if (arg0 & 0xFF)\n  {\n    scale = 0.625f;\n  }\n  base = *D_800B55E4;\n  e = (Elem *) (base + 12);\n  rect[0] = 0;\n  rect[1] = (arg0 & 0xFF) ? (135) : (269);\n  rect[2] = (*e->imgs[3]->tex)->w * scale;\n  rect[3] = (*e->imgs[3]->tex)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 0, 0, 100, 100, 0);\n  e = (Elem *) (base + 68);\n  rect[0] = 0;\n  rect[1] = (arg0 & 0xFF) ? (187) : (375);\n  rect[2] = (*e->imgs[3]->tex)->w * scale;\n  new_var = e->imgs[3]->tex;\n  rect[3] = (*new_var)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 100, 100, 200, 200, 0);\n  e = (Elem *) (base + 12);\n  if (arg0 & 0xFF)\n  {\n    rect[0] = 160;\n    rect[1] = 135;\n  }\n  else\n  {\n    rect[0] = 320;\n    rect[1] = 269;\n  }\n  rect[2] = (*e->imgs[0x17]->tex)->w * scale;\n  rect[3] = (*e->imgs[0x17]->tex)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[0x17]->tex, rect, e->alpha, 0, 0, 100, 100, 0);\n  e = (Elem *) (base + 68);\n  if (arg0 & 0xFF)\n  {\n    rect[0] = 160;\n    rect[1] = 187;\n  }\n  else\n  {\n    rect[0] = 320;\n    rect[1] = 375;\n  }\n  rect[2] = (*e->imgs[0x17]->tex)->w * scale;\n  rect[3] = (*e->imgs[0x17]->tex)->h * scale;\n  new_var2 = *((s32 *) (((u8 *) func_8004240C(1)) + 0x178));\n  func_8004CEB4(new_var2, *e->imgs[0x17]->tex, rect, e->alpha, 100, 100, 200, 200, 0);\n}\n\n",
    "5053fc46d5b4b1d2337ce10a8687e7ac7dc475a7e1c860b36cee375eccd3a7a0": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\nM2C_UNK func_800592F4(M2C_UNK, s32);                /* extern */\nvoid *func_8005A744(u32, void *);                  /* extern */\nM2C_UNK func_8008A0D8(s32, M2C_UNK, M2C_UNK);       /* extern */\nextern void *D_800A1468;\nextern f32 D_800A14CC;\nextern f64 D_800A5480;\nextern M2C_UNK D_800AE850;\nextern M2C_UNK D_800C02AE;\n\nvoid func_8005DC40(void) {\n    M2C_FIELD(D_800A1468, s8 *, 0x245) = 1;\n    func_800592F4(7, M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0xE) - 1);\n    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;\n    if (M2C_FIELD(D_800A1468, u8 *, 0x248) == 0) {\n        func_8008A0D8(M2C_FIELD(&D_800C02AE, s32 *, 0x325A), 9, 0);\n        M2C_FIELD(func_8005A744(5, (void *)(M2C_FIELD(D_800A1468, void **, 0xC))), s8 *, 0x41) = 0;\n    }\n    M2C_FIELD(D_800A1468, s16 *, 0x220) = 0;\n    D_800A14CC = (f32) ((f64) (M2C_FIELD(&D_800AE850, u8 *, 0x2544) + M2C_FIELD(&D_800AE850, u8 *, 0x2545) + M2C_FIELD(&D_800AE850, u8 *, 0x2546) + M2C_FIELD(&D_800AE850, u8 *, 0x2547) + M2C_FIELD(&D_800AE850, u8 *, 0x2548)) * D_800A5480);\n}\n",
    "7150f0277f38db6340964e46c1557dd32dcab38e6fe3f84ab927484df71427db": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\nvoid *func_800592D0(u32);                       /* extern */\nM2C_UNK func_80059618(void *, u8, u8, u8, s32);     /* extern */\nM2C_UNK func_800596F4(void *, s16, s16, char *); /* extern */\nvoid *func_8005A744(u32, void *);                  /* extern */\ns32 func_80084BF0(M2C_UNK);                         /* extern */\nM2C_UNK func_8008A0D8(void *, M2C_UNK, u8);         /* extern */\nM2C_UNK func_80099DF8(char *, M2C_UNK *, ...); /* extern */\nextern void *D_800A1468;\nextern f32 D_800A14CC;\nextern s8 D_800A14D4;\nextern M2C_UNK D_800A5488;\nextern M2C_UNK D_800A5490;\nextern M2C_UNK D_800C02AE;\n\nextern void *D_800C3508;\nextern void *D_800C35A0;\nvoid func_8005DD2C(void) {\n    char sp18[5];\n    f32 temp_fv1;\n    s32 temp_a3;\n    u32 var_a0;\n    s32 var_a2;\n    s32 var_v1;\n    s32 var_v1_2;\n    void *temp_v0;\n    void *temp_v1;\n\n    temp_v1 = M2C_FIELD(D_800C3508, void **, 0x10) + (M2C_FIELD(D_800C3508, s16 *, 2) * 0x14);\n    if (M2C_FIELD(temp_v1, u8 *, 0xE) != M2C_FIELD(temp_v1, u8 *, 0xD)) {\n        D_800A14D4 = 1;\n    }\n    if ((M2C_FIELD(D_800C35A0, u16 *, 0x2C) & 0x2000) && (func_80084BF0(0) == 0x2020)) {\n        M2C_FIELD(D_800A1468, u8 *, 0x248) = (u8) ~M2C_FIELD(D_800A1468, u8 *, 0x248);\n        func_8008A0D8(D_800C3508, 9, M2C_FIELD(D_800A1468, u8 *, 0x248));\n        M2C_FIELD(func_8005A744(5, (void *)(M2C_FIELD(D_800A1468, void **, 0xC))), u8 *, 0x41) = (u8) M2C_FIELD(D_800A1468, u8 *, 0x248);\n    }\n    if (M2C_FIELD(D_800A1468, u16 *, 0x220) != 0) {\n        temp_v0 = func_800592D0(0);\n        var_v1 = 0;\n        do {\n            M2C_FIELD(temp_v0, s8 *, 0x1A) = 1;\n            temp_v0 = M2C_FIELD(temp_v0, void **, 0);\n            var_v1 += 1;\n        } while ((u32) (var_v1 & 0xFF) < 3U);\n        M2C_FIELD(D_800A1468, u16 *, 0x220) = (u16) (M2C_FIELD(D_800A1468, u16 *, 0x220) - 1);\n    } else {\n        temp_v0 = func_800592D0(0);\n        var_v1_2 = 0;\n        do {\n            M2C_FIELD(temp_v0, s8 *, 0x1A) = 0;\n            temp_v0 = M2C_FIELD(temp_v0, void **, 0);\n            var_v1_2 += 1;\n        } while ((u32) (var_v1_2 & 0xFF) < 3U);\n    }\n    temp_v0 = func_800592D0(4);\n    func_80059618(temp_v0, M2C_FIELD(temp_v0, u8 *, 0xB), M2C_FIELD(temp_v0, u8 *, 0xC), M2C_FIELD(temp_v0, u8 *, 0xD), (s32) M2C_FIELD(temp_v0, u8 *, 0xE));\n    sp18[4] = 0;\n    var_a2 = (u32)D_800A14CC;\n    var_a0 = (u16)(u32)(D_800A14CC * 10.0f);\n    temp_a3 = (var_a0 % 10) & 0xFFFF;\n    if (temp_a3 != 0) {\n        func_80099DF8(sp18, &D_800A5488, var_a2 & 0xFF, temp_a3);\n    } else {\n        func_80099DF8(sp18, &D_800A5490, var_a2 & 0xFF);\n    }\n    func_800596F4(temp_v0, M2C_FIELD(temp_v0, s16 *, 6), M2C_FIELD(temp_v0, s16 *, 8), sp18);\n}\n",
+   "3bad25f35c369a7ef51a2fcbda2242a5ab8e1540fe655a78cd602ec7390dda9e": "typedef struct LayoutRecord { s32 a; u8 b; u8 pad[3]; s32 c; } LayoutRecord;\ntypedef struct Entry { void (*fn)(s32,s32,s32); LayoutRecord *data; u8 count,a,b,pad; } Entry;\ntypedef struct Inner { void (*fn)(void); LayoutRecord *data; Entry *subs; u8 count,start,cur,extra; s32 zero; } Inner;\ntypedef struct Root { u16 n; s16 a; u16 b,pad; s32 c,d; Inner *inner; u8 e; u8 padding[3]; } Root;\ntypedef struct G1468\n{\n  unsigned char pad0[0x1F8];\n  s32 x1f8;\n  s32 x1fc;\n  s8 x200;\n  unsigned char pad201[0x8b];\n  void (*cb)(void);\n} G1468;\ntypedef struct A5474\n{\n  s32 a;\n  s32 b;\n  s8 c;\n} A5474;\nextern Root *D_800C3508;\nextern s32 D_800C3558;\nextern void *D_800C8328;\nextern G1468 *D_800A1468;\nextern s32 D_800A14BC[];\nextern A5474 D_800A5474;\nextern void func_8002FB64(void);\nextern void func_80038F64(s32);\nextern void *func_80057810(s32);\nextern void func_800578E0(void *);\nextern s32 func_8005A338();\nextern void func_8005E1B8(void);\nextern void func_8006ECB4(void);\nextern s32 func_8006F75C(void);\nextern void func_80084AD8(void);\nextern void func_80084AF4(void);\nextern s32 func_80084DD4(s32);\nextern u8 func_80084E10(void);\nextern s32 func_800857C0(s32, s32);\nextern void func_8005E820(void);\ns32 func_8005E49C(s32 arg0, s32 arg1)\n{\n  s32 s0;\n  s32 s1;\n  s32 s2;\n  s32 s3;\n  Inner *o;\n  u8 *new_var;\n  Inner *in;\n  LayoutRecord *it;\n  o = D_800C3508->inner;\n  D_800C3558 = (o[3].cur - o[3].start) + 1;\n  func_80038F64(D_800C3558 & 0xFF);\n  s2 = 1;\n  func_8006ECB4();\n  s1 = 0;\n  func_8006F75C();\n  func_800578E0(D_800C8328);\n  D_800C8328 = func_80057810(D_800A14BC[D_800C3558]);\n  {\n    u8 count = func_80084E10();\n    if (count)\n    {\n      s3 = count;\n      do\n      {\n        s0 = s1 & 0xFF;\n        if (func_80084DD4(s0))\n        {\n          s2 &= -(func_800857C0(s0, 2) != 0);\n        }\n        s1++;\n      }\n      while (((u32) (s1 & 0xFF)) < ((u32) s3));\n    }\n  }\n  if (s2 & 0xFF)\n  {\n    s1 = 0;\n    func_80084AF4();\n    func_80084AD8();\n    func_8002FB64();\n    in = D_800C3508->inner;\n    do\n    {\n      it = D_800C3508->inner[3].subs[s1 & 0xFF].data;\n      it[3].c = 5;\n      s1++;\n    }\n    while (((u32) (s1 & 0xFF)) < 3);\n    new_var = ((u8 *) D_800A1468) + 0x1F8;\n    D_800C3508->inner[0].data[2].c = 5;\n    __builtin_memcpy(&D_800A1468->x1f8, &D_800A5474, 9);\n    func_8005A338(arg0, arg1);\n    func_8005E1B8();\n  }\n  else\n  {\n    func_8005A338(arg0, arg1);\n    D_800A1468->cb = func_8005E820;\n  }\n  return 0;\n}\n",
    "6a56ed8a9a354e8a5296cfa035a24009bec110dbbb393ce29fdd289036dd87e2": "extern s32 D_800B7070; extern u32 D_8009D540; extern u8 D_800A54B0[]; extern u8 D_800C02AE[];void *func_800592D0(u32); extern s32 func_80059618(void *,u8,u8,u8,s32); extern s32 func_800596F4(void *,s16,s16,s32 *); extern s32 func_80099DF8(s32 *,u8 *,s32);\nvoid func_8005E6AC(void) {\n s32 sp18; u8 *p; u8 *v1; s32 v0; void *s0; u32 quotient;\n p=*(u8 **)(D_800C02AE+0x325A);\n v1=*(u8 **)(p+0x10)+*(s16 *)(p+2)*20;\n if(D_800B7070>0){v0=D_800B7070-1; D_800B7070=v0; if(v0==0){*(s32 *)(v1+0x10)=1; *(s16 *)(p+4)=0;}}\n else *(s32 *)(v1+0x10)=1;\n quotient=D_800B7070/D_8009D540;\n\n func_80099DF8(&sp18,D_800A54B0,quotient&0xffff);\n s0=func_800592D0(5);\n func_80059618(s0,*((u8*)s0+0xB),*((u8*)s0+0xC),*((u8*)s0+0xD),*((u8*)s0+0xE));\n func_800596F4(s0,*(s16*)((u8*)s0+6),*(s16*)((u8*)s0+8),&sp18);\n}\n",
    "1496005d381d926d0ad8dbceb9c685de97a47434a8e06d381065f88530f046af": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\nvoid *func_800592D0(u32);                     /* extern */\n\nvoid func_8005E820(void) {\n    (M2C_UNK)func_800592D0(0);\n}\n",
    "58f26e1d6bf0503f2be4263370afed336a74c8da61d8833efcdade20ceb60c54": "typedef struct { s32 pad10[4]; s32 w20,w24,w28,w2C,w30,w34,w38,w3C,w40,w44,w48,w4C; u8 b50[12]; u8 b5C[4]; s32 pad60[2]; } FuncBuf;\nvoid func_8004C370(s32, FuncBuf *, s32, s32);\nvoid func_8004C2B8(s32 arg0,s32 arg1,s32 arg2,s32 arg3,u16 arg4,u8 arg5) ;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nextern int D_800C3558;\nextern int D_800C8328;\ns32 func_80038F64();\ns32 func_80057810();\ns32 func_800578E0();\ns32 func_8005A360();\ns32 func_8006ECB4();\ns32 func_8006F75C();\ns32 func_8006FA8C();\nextern u8 *D_800A1468;\nextern s32 D_800A14C0;\nextern u8 D_800C02AE[];\nextern s32 func_8005DC40;\nextern s32 func_8005DD2C;\ns32 func_8005E928(s32 arg0, s32 arg1)\n{\n  u8 *new_var;\n  char *new_var2;\n  char *new_var3;\n  new_var3 = D_800C02AE + 0x32AA;\n  func_8006FA8C();\n  new_var = (u8 *) (((char *) new_var3) + 3);\n  func_80038F64(*new_var);\n  func_8006ECB4();\n  func_8006F75C();\n  if (*(s32 *)new_var3 == 0)\n  {\n    new_var2 = D_800C02AE;\n    if (new_var2)\n    {\n      func_800578E0(D_800C8328);\n      D_800C8328 = func_80057810(D_800A14C0);\n    }\n    else\n    {\n      func_800578E0(D_800C8328);\n      D_800C8328 = func_80057810(D_800A14C0);\n    }\n  }\n  func_8005A360(arg0, arg1);\n  *((s32 **) (((char *) D_800A1468) + 0x288)) = &func_8005DC40;\n  new_var = &func_8005DD2C;\n  *((s32 **) (((char *) D_800A1468) + 0x28C)) = new_var;\n  return 0;\n}\n\n\n\nextern u8 *D_800A1468;\nextern u8 D_800C02AE[];\nextern void func_8008A0D8(void *, int, int);void *func_800592AC(u32);\nextern void func_800592F4(int, int, u8 *);\nextern void func_80068E5C(int);\nint func_80068D9C(int arg0)\n;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nvoid func_8006F3C0(void) ;\n",
