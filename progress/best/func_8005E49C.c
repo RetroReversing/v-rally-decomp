@@ -51,14 +51,14 @@ extern void func_8002FB64(void);
 extern void func_80038F64(s32);
 extern s32 func_80057810(s32);
 extern void func_800578E0(s32);
-extern void func_8005A338(s32, s32, ...);
+extern s32 func_8005A338();
 extern void func_8005E1B8(void);
 extern void func_8006ECB4(void);
 extern void func_8006F75C(void);
 extern void func_80084AD8(void);
 extern void func_80084AF4(s32);
 extern s32 func_80084DD4(s32);
-extern s32 func_80084E10(void);
+extern u8 func_80084E10(void);
 extern s32 func_800857C0(s32, s32);
 extern void func_8005E820(void);
 s32 func_8005E49C(s32 arg0, s32 arg1)
@@ -103,6 +103,7 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
   }
   if (s2 & 0xFF)
   {
+    s1 = 0;
     func_80084AF4(s4);
     func_80084AD8();
     func_8002FB64();

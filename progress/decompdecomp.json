@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793881520.46979,
- "revision": 17842,
+ "saved_at": 1793882037.642477,
+ "revision": 17853,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -7303,8 +7303,8 @@
   },
   "func_8005E49C": {
    "vram": 2147869852,
-   "best_score": 25,
-   "best_by": "permuter-1222"
+   "best_score": 140,
+   "best_by": "candidate-review"
   },
   "func_8005E68C": {
    "vram": 2147870348,
@@ -164848,6 +164848,56 @@
   {
    "function": "func_80049DB0",
    "text": "Historical score20 uses four XOR cancellation identities and out-of-bounds arithmetic from scalar globals. Corrected exploratory revision removes those definite defects and uses captured BSS extents; score40. Raw BSS pointer views remain a machine-memory model, not a complete cross-TU ISO alias/type proof. Not an exact match or cartridge acceptance. Independent native search continues from clean60, no best-source portfolio. Future source typing should replace raw BSS views once actual shared layouts are established.",
+   "by": "you"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Saved best 1465 is a heavily auto-mutated candidate; my clean rewrites scored 9273-12745 (stack 0x60/0x68 vs 0x50, extra spills). Semantics understood: 12-bit packed entries at D_800C02AE+0x6E77, nibble offset t=(u32)(k*4.5 + i*1.5) via explicit f64 compare against D_800A5878 (must be written explicitly: `if(!(lim<=v)) t=(s32)v; else t=(s32)(v-lim)|0x80000000;` since compiler-made u32 conversion references ?local rodata). Branch ((k*9+i*3)*4 - t*8)&0xff==4: A: n=b0>>4, val=b1*4+((n&0xC)>>2), entry=(n&0xF3)*14; B: c=b1&0xF, val=b0|((c&3)<<8), entry=(c>>2)*14; valid unless 0xFFF. Each path DUPLICATES func_8006BF30(i,0,arg0,id) + rec stores 0x32/0x33/0x38/0x34 and sign flip; then shared tail (d=*p - s; 0x2C, 0x30, 0x36 divu) via goto. Target keeps p (u16*) on stack sp14, slot=base+id*4 in fp, k in s5, id in s4 (copied from s0). Rewrite from saved best rather than from scratch unless you have budget.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "The saved best now rechecks at 210 (historical 200). Two rows are the D_800C0634 reloc artifact. The real diff: the target does `andi v0,v0,0xffff; bne ..2` on saved1E and then `andi v1,a1,0xffff; bne ..4` on saved22, with both kept in s0/s1. Ours has (saved22&saved1E)==4, which emits andi 2 and is missing one andi; that costs 1 insn and shifts the branch targets. Tried on the second compare: &0xFFFF and saved22&saved22 (both 300, both andis gone), |saved1E==6 (410), a (u16) cast (2465). A clean rewrite with switch(D_800A16D4) and plain u16 compares scored 2430. The target needs a C shape where both the saved1E and saved22 compares keep a 0xffff mask (the value must not be known zero-extended). Try s32 saved vars assigned from the u16 fields via an inline returning int, or the variables declared int with (u16) on the compare.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Saved best stays 565 (rev 9cf5f07b). Results this session in the case-1 else loop:\n- Moving new_var = arg1+0x4C inside the if: 805, because the prologue s7/fp allocation flips.\n- Inlining (void*)(arg1+0x4C) in the calls: 800 with the cast, 3015 without.\n- Removing the (u16) cast from j*11: 2880. Loop.c then strength-reduces y+11j into a new biv (move s3,s0 ...), y no longer spills, and the frame shrinks from 0x58 to 0x50.\nTarget: no andi, no strength reduction; j*11 is recomputed from s1 each iteration and y is reloaded from sp+0x1C. The hoisted s6=&func_8003ED94, s3=1 and s2=arg1+0x4C come AFTER j=0 in the preheader. Remaining open question: what stops j from being a biv/giv in the target while LICM still happens? Ideas: a second assignment to j, or j as a u32 whose increment is not a simple biv. Explicit hoisting with a goto loop scored 795 per earlier notes.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Saved best is still 425. Finding: the target calls func_80042F40 NOT at the start of the else branch but inside the finish block, after `*(D_800AE850+0x8030)=0` and before the two func_80085778 calls. The saved best has it at the else start, which is wrong. Moving it to finish fixes the call position (with the ternary variant: 475), but then reorg puts the sw into the jal delay slot; the target has sw, jal, nop. A volatile store didn't stop that (530, and it changes the addressing). Other remaining diff: `if (!(v&4))` should compile to `andi; beql v0,zero -> ori 4 (delay); ori 2; j; addiu -5`. Writing if(v&4) swaps the order but still gives non-likely beqz (445); ternary !(v&4)? gives 425, same as best. D_800A1234[*player].hA=2 has a commutative addu register swap (rows 258-260). Next: keep the call in finish and find what blocks the delay fill, e.g. D_800B6880 as a plain extern or the call through a pointer.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Still 420. This session, all tried against the saved best: (1) clean flat version with the d0 lhu/subu in each branch and every pts access reloading o->0x54: 2010 (o in t1, i in a1). (2) Neutral changes, giving identical code: dropping `t=` in out[1]; `*new_var=d0`; prev assigned before t; `d[0]=(d0*t)/500`; u32 a/b; `if (arg2<500)`; an extra `s16 *o2=out` local; separate i with arg1 reused as the 'a' offset. (3) Worse: param named arg0 directly with no copy (735); s32 d0 (440); dropping new_var2 so b+2 is written directly (495-505), even though new_var2 causes the extra `addiu t0,t1,2`. What remains: the target's i is in a0, offsets a/b are computed in place in a1/a3, and t is in t1. Ours has i in v1, offsets via v0 into a1/t1, and t in t3. Only global regalloc differs.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-6d91f54aae804d08"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Review selected corrective alternative attempt 297496; rejudged score 140, replacing reported source 7e04d00510a86b2e3b5b. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Historical score25 omits required counter reset before second loop: after a first count2 it updates only entry2 instead of entries0,1,2. Corrected draft restores reset and scores140; known return declarations are corrected. Legacy ignored call arguments versus selected zero-argument callee definitions still need cross-TU review. Not an exact match or cartridge acceptance. Prior3000nativeattempts on the same corrected baseline found noexact; no duplicate new native lane. Remaining mismatch is reset/call delay-slot scheduling, not justification to remove reset.",
    "by": "you"
   }
  ],
