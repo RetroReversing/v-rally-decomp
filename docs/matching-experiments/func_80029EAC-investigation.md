@@ -85,3 +85,26 @@ revisit.
 ### Normal import confirmed
 
 Subsequent read-only inspection confirms all four exact corrected source hashes in the live matched records. The canonical standalone tree now contains the same four tested corrections. The full normal progress export also retains current app source/profile alternatives; previously verified standalone variants remain selected for other functions until separately audited. This adds no match and keeps the copied full-image proof above.
+
+
+## Triangle-role and depth-phase revisit
+
+The current corrected opaque transpose preserves the genuine-padding Matrix
+caller model at score295 without invented zero stores. Padding is transported
+as object representation, not read as an uninitialized scalar. This bounded
+model does not establish whole-program type reconciliation.
+
+152 directed controls compiled (142 distinct sources):12 final-scope/copy forms,
+72 triangle-role/depth lifetime combinations,48 assignment-in-condition/final-copy
+forms and20 small record/array index-role forms. No exact match or improvement
+was found. The record/array forms introduced unwanted memory traffic. Ten initial
+C89 parsing forms were corrected before final tests and are not counted as
+successful compiles. Nineteen supported compiler/debug/optimization controls also
+found no improvement; one unsupported newer option was excluded.
+
+The early vertex-role register allocation and final depth delayed move remain
+unresolved. Live source, context, target, relocations, profile and symbols are
+unchanged. No candidate was adopted or new full-cartridge claim made. Normal
+project notes and the portable snapshot retain these results. This function
+remains OPEN295 and revisitable; repeating the prior native sweeps or these
+identical lifetime controls is not a new hypothesis.

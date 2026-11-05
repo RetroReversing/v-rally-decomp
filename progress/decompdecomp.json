@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793914448.205892,
- "revision": 18912,
+ "saved_at": 1793914735.490761,
+ "revision": 18914,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249458,6 +249458,14 @@
    "created_at": 1793914443.3795042,
    "score_before": 265,
    "score_after": 265
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Grounded revisit 2026-11-05 [triangle-phase-padding]: currentacceptedopaquetranspose andthreewrappercorrections permitboundedgenuinepaddingMatrixmodel at295withoutinventedzero stores. No typedscalarreadsofpadding.152compiledsourcecontrols/142distinctsources noexact:12finalscope/copyforms,72triangle-role/depthphasecoalescing,48assignment-condition/finalcopyforms,20actuallyusedsmallrecord/arrayforms. Minimum295; aggregateindexrecords addunwantedmemorytraffic(min2865).10initialC89parseforms correctedbeforefinaltests, notcountedascompiledsuccess. Parent19supportedcompiler/debug/optimizationcontrols noimprovement; newerregmoveflagrejected/excluded. Remainingearlyvertexroleallocations andfinaldepthdelayslotmove aren'tsolvedbyrenaming/coalescingalone. Privateevidence /Volumes/Data/Codex/tmp/func80029EAC/current/REPORT.md, final-evidence.json,parent-profiles/. Source/context/target/relocs/profile/symbols unchanged. OPEN/revisitable295. No exactsourceadoption/fullcartridgeclaim/wholeprogramtypereconciliation. Don'trepeatpriornative1000/representation1000orcurrentnegativecontrolswithoutnewcause.",
+   "by": "you",
+   "created_at": 1793914729.7299469,
+   "score_before": 295,
+   "score_after": 295
   }
  ],
  "set_aside": [
