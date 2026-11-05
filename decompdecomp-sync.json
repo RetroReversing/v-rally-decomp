@@ -346,7 +346,13 @@
     "src/code_8007950C/func_8007AD68.c": "118768d2e7044dd981dd3472a29dc39a143a613a2280925b9857c6cb7135026f",
     "include/decompdecomp_snapshot_8007ad68.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8007E9D4/func_8007FC44.c": "e70bf50fa38894f7d05e59eb7a1abf1a32fca4fb9e51450279fd92439c0c0013",
-    "include/decompdecomp_snapshot_8007fc44.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_8007fc44.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_8006CB9C.c": "fd0968bb40cf45b3eed72cdf75b6a13c1412af8dd894c99d9505ce5cb0a2ed4c",
+    "include/decompdecomp_snapshot_8006cb9c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_800684F4.c": "1fda1ff56b0d79f46e32ff5b62baad363302fab363171d83d6f4d9258ca3a69b",
+    "include/decompdecomp_snapshot_800684f4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_8006D564.c": "8be0a00e657da7fe9f993634c8ab3dd04040f4e6ad8247514dd87dbb63358355",
+    "include/decompdecomp_snapshot_8006d564.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -680,25 +686,32 @@
     "func_8000A5EC",
     "func_800502D4",
     "func_8007AD68",
-    "func_8007FC44"
+    "func_8007FC44",
+    "func_8006CB9C",
+    "func_800684F4",
+    "func_8006D564"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2067,
+  "matched_app": 2068,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8007FC44"
+      "func_8006D564"
     ],
-    "note": "Ordinary function and full cartridge checks passed. All2066 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
+    "contract_corrections": [
+      "func_8006CB9C",
+      "func_800684F4"
+    ],
+    "note": "2065 other prior C objects and all2067 prior compiler profiles unchanged. The assembly run loses only the newly compiled function include."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_8007FC44",
+    "function": "func_8006D564",
     "score": 0,
-    "raw_source_sha256": "f635f45a341ca24294deb1606759792edcbecdf2dc7bd30e4b6e859359219495",
+    "raw_source_sha256": "442dc8dd042da0e11bbd28239a22803a4f2aac5ca53727f15abbf988e67448f7",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "standalone_header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "profile": {
@@ -713,6 +726,6 @@
       ],
       "timeout": 20
     },
-    "note": "Normal live API accepted the same independently full-cartridge-verified source. No claim taken over."
+    "note": "Normal saved-source importer accepted the independently full-cartridge-verified sources. No other agent claim taken over."
   }
 }

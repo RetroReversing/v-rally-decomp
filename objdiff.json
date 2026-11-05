@@ -13029,10 +13029,10 @@
       "name": "code_8004BEB4/func_8006D564",
       "target_path": "build/asm/nonmatchings/code_8004BEB4/func_8006D564.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8004BEB4/func_8006D564.s"
+        "complete": true,
+        "source_path": "src/code_8004BEB4/func_8006D564.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8004BEB4/func_8006D564.o"
     },
     {
       "name": "code_8004BEB4/func_8006DD04",

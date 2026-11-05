@@ -1,5 +1,5 @@
 typedef struct Item {
-    u8 pad[0x10];
+    s32 w[4];
 } Item;
 typedef struct Group {
     Item item[4];
@@ -20,7 +20,7 @@ typedef struct Game {
     u16 sel;
     u16 sub;
     u8 pad24[0x44 - 0x24];
-    u8 b44;
+    Slot slots[4];
 } Game;
 extern Game *D_800C35A0;
 extern Record *D_800D0634[5];
@@ -29,9 +29,9 @@ extern Group D_800C3650[4];
 extern Item D_800C3A50[];
 extern s8 D_800A16F0;
 extern u8 D_800A57C0[];
-extern void func_8006F820(Item *, u8);
-extern void func_8006DD04(Group *);
-extern void func_8006DDD8(void);
+extern s32 func_8006F820(void *, s32);
+extern void func_8006DD04(void *);
+extern long func_8006DDD8(void);
 extern void func_8006D10C(void);
 extern void func_8006C640(void);
 extern void func_8006CE1C(void);
@@ -40,8 +40,8 @@ extern void func_8006C99C(void);
 extern void func_8006F4A8(u8);
 extern void func_8006EE3C(u8);
 extern void func_8006F0E0(u8);
-extern void func_8006F75C(void);
-extern void func_8002B618(u8 *, s32);
+extern s32 func_8006F75C(void);
+extern s32 func_8002B618(u8 *, u8 *);
 extern void func_8006F8E0(void);
 extern void func_80054838(void);
 extern void func_8005508C(void);
@@ -69,7 +69,7 @@ void func_8006D564(s32 arg0)
             k = 0;
             g = GROUP(r, j);
             for (; k < 3; k++) {
-                func_8006F820(&g->item[k], arg0);
+                func_8006F820(&g->item[k], (u8)arg0);
             }
             D_800C35A0->mode = 0;
             D_800C35A0->sel = i;
@@ -78,11 +78,11 @@ void func_8006D564(s32 arg0)
         }
     }
     for (j = 0; j < 4; j++) {
-        p = (u8 *)D_800D0634[1];
+        r = D_800D0634[1];
         k = 0;
-        p = (u8 *)GROUP(p, j);
+        p = (u8 *)GROUP(r, j);
         for (; k < 3; k++) {
-            func_8006F820(&((Group *)p)->item[k], arg0);
+            func_8006F820(&((Group *)p)->item[k], (u8)arg0);
         }
         D_800C35A0->mode = 1;
         D_800C35A0->sel = 0;
@@ -90,11 +90,11 @@ void func_8006D564(s32 arg0)
         func_8006D10C();
     }
     for (j = 0; j < 5; j++) {
-        p = (u8 *)D_800D0634[2];
+        r = D_800D0634[2];
         k = 0;
-        p = (u8 *)GROUP(p, j);
+        p = (u8 *)GROUP(r, j);
         for (; k < 3; k++) {
-            func_8006F820(&((Group *)p)->item[k], arg0);
+            func_8006F820(&((Group *)p)->item[k], (u8)arg0);
         }
         D_800C35A0->mode = 2;
         D_800C35A0->sel = 0;
@@ -106,7 +106,7 @@ void func_8006D564(s32 arg0)
         k = 0;
         p = (u8 *)GROUP(p, j);
         for (; k < 3; k++) {
-            func_8006F820(&((Group *)p)->item[k], arg0);
+            func_8006F820(&((Group *)p)->item[k], (u8)arg0);
         }
         D_800C35A0->mode = 3;
         D_800C35A0->sel = 0;
@@ -118,7 +118,7 @@ void func_8006D564(s32 arg0)
         k = 0;
         p = (u8 *)GROUP(p, j);
         for (; k < 3; k++) {
-            func_8006F820(&((Group *)p)->item[k], arg0);
+            func_8006F820(&((Group *)p)->item[k], (u8)arg0);
         }
         D_800C35A0->mode = 4;
         D_800C35A0->sel = 0;
@@ -127,21 +127,21 @@ void func_8006D564(s32 arg0)
     }
     for (i = 0; i < 12; i++) {
         for (k = 0; k < 3; k++) {
-            func_8006F820(&D_800C3750[i].item[k], arg0);
+            func_8006F820(&D_800C3750[i].item[k], (u8)arg0);
         }
         D_800C35A0->sel = i;
         func_8006C640();
     }
     for (i = 0; i < 4; i++) {
         for (k = 0; k < 3; k++) {
-            func_8006F820(&D_800C3650[i].item[k], arg0);
+            func_8006F820(&D_800C3650[i].item[k], (u8)arg0);
         }
         func_8006CE1C();
     }
     for (k = 0; k < 3; k++) {
-        func_8006F820(&D_800C3A50[k], arg0);
+        func_8006F820(&D_800C3A50[k], (u8)arg0);
         func_8006CB9C();
-        func_8006F820(&D_800C3A50[k + 12], arg0);
+        func_8006F820(&D_800C3A50[k + 12], (u8)arg0);
         func_8006C99C();
     }
     D_800C35A0->mode = mode;
@@ -149,7 +149,7 @@ void func_8006D564(s32 arg0)
     D_800C35A0->sub = sub;
     func_8006F4A8(arg0);
     func_8006EE3C(arg0);
-    ((struct { u8 pad[0x44]; Slot s[4]; } *)D_800C35A0)->s[(u8)arg0].pad00[0] = 0x5B;
+    D_800C35A0->slots[(u8)arg0].pad00[0] = 0x5B;
     func_8006F0E0(arg0);
     func_8006F75C();
     D_800A16F0 = j = 0;

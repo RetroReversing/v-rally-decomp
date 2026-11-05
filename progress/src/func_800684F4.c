@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8005803C(M2C_UNK, M2C_UNK);            /* extern */
 s32 func_80068130();                                /* extern */
-M2C_UNK func_8006D564(u8);                          /* extern */
+void func_8006D564(s32);                          /* extern */
 M2C_UNK func_8006E8A0();                            /* extern */
 M2C_UNK func_8006EE3C(u8);                          /* extern */
 M2C_UNK func_8006F424();           /* extern */

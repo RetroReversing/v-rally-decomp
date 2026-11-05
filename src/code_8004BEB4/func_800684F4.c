@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_800684f4.h"
+#line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -16,7 +16,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8005803C(M2C_UNK, M2C_UNK);            /* extern */
 s32 func_80068130();                                /* extern */
-M2C_UNK func_8006D564(u8);                          /* extern */
+void func_8006D564(s32);                          /* extern */
 M2C_UNK func_8006E8A0();                            /* extern */
 M2C_UNK func_8006EE3C(u8);                          /* extern */
 M2C_UNK func_8006F424();           /* extern */
@@ -48,3 +48,4 @@ s32 func_800684F4(void) {
     D_800A1630 = func_80068130();
     return 0;
 }
+

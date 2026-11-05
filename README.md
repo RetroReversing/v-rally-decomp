@@ -946,3 +946,10 @@ The complete **12,582,912-byte** cartridge matches, with all **2,065** prior sel
 `func_8007FC44` now matches **118 instructions / 472 bytes**. A pure inline byte-address accessor, ordinary branch scopes and debug-sensitive call line layout recover the original scheduling without the old unsupported volatile qualifier. The callback calls use the signatures supported by the thread and profiling-hook registrations.
 
 The complete **12,582,912-byte** cartridge matches, with all **2,066** prior selected C objects and compiler profiles unchanged. The standalone tree now selects **2,067 C functions**; all current app progress is saved. See `docs/matching-experiments/func_8007FC44-investigation.md` for evidence and remaining project-wide declaration limits.
+
+
+### Paired pointer capture reuse
+
+`func_8006D564` now matches **488 instructions /1,952 bytes**. Reusing a genuinely dead typed pointer for two later captures recovers the original register allocation; either change alone worsens the score. The reusable bounded repair is in decompdecomp PR567. Two existing functions also received verified declaration corrections.
+
+The complete **12,582,912-byte** cartridge remains byte-identical. The tree selects **2,068 C functions**; all2,067 prior profiles and2,065 other prior C objects are unchanged. See `docs/matching-experiments/func_8006D564-investigation.md` for evidence and normal input preconditions.
