@@ -925,3 +925,10 @@ without changing store order.
 Ordinary linked bytes and the complete **12,582,912-byte** cartridge match. All
 2,063 previous C objects are unchanged. The standalone tree selects **2,064 C
 functions**. All current app progress is saved.
+
+
+### Constant-store scheduling
+
+`func_800502D4` now matches **206 instructions / 824 bytes** with its unchanged compiler profile. A once-only scope around an existing constant byte store recovers the original GCC instruction scheduling without adding a memory access or changing source store order.
+
+Ordinary linked bytes and the complete **12,582,912-byte** cartridge match. All **2,064** prior C objects and profiles remain unchanged. The standalone tree now selects **2,065 C functions**. All current app progress is saved.
