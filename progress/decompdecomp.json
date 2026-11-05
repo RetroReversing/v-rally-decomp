@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793873748.860286,
- "revision": 17775,
+ "saved_at": 1793874461.512843,
+ "revision": 17786,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164618,6 +164618,51 @@
   {
    "function": "func_800529F0",
    "text": "The saved score-135 draft is semantically sound; audited layout sums=0x58, laps=0x118, total=0x168. The clean alternative only removes unused locals, remains 135/nonexact, SHA256 3e63cc2d3f1051e701f8a1ebdf88af2a96b5f08ce5ed141e7e5acd4a25b737f2. 1000 native candidates,59 generic repairs and targeted probes (including61 parent probes, some overlapping helper probes) found no exact match. Residuals: first summing loop accumulator v1 versus candidate a1 and row pointer a1 versus candidate v1; flag address hoists before rather than after switch constants. Sum commutation/scope/type/reuse, bound capture, address forms, independent bindings, switch order, flag lifetime placement, total accumulation forms and simple source-line changes did not improve135. Full minification changes scheduling but worsens295; do not infer formatting is inert. OPEN/revisitable, no compiler/profile/target/ABI/judge changes, no selected standalone C. Clean source: docs/matching-experiments/func_800529F0-nonmatching-alternative.c.",
+   "by": "you"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "The saved 200 and the 210 are semantically invalid (saved22 & saved1E). The valid form here is 300. Target insight: saved1E/saved22 are copies (s0/s1) of lhu values, the compare uses the original lhu pseudo with an andi 0xFFFF, and the restore uses andi 0xFF, i.e. `(u8)saved`. So the variables are u16 and the HImode load pseudo has two uses (copy + compare). Tried. u8 locals with `sc->unk1E==2` compares narrow to lbu (1325). u16 locals with `sc->unk1E == 2` compares reload unk1E after the sh to unkE (1145). `b1E==2 && b22==4` with clean u16 locals, the rest unchanged: 2250 (other code changed too). Dead 0xFFFF inits on both saved1E and saved22 with `(x&x)` compares: 300, both andis gone. Duplicate-`static` inline decls make no difference. Removing the saved22 init with `(saved22&saved22)`: 300. So the 210's saved1E andi appears to depend on the `& saved1E` fold in the second compare. Idea left: make the compare read the field through a different pointer expression that CSE still matches (e.g. via D_800C35A0 directly), so the load pseudo stays shared without a variable copy.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "KEY FINDING: the target's loop has NO loop.c hoisting. The D_800A5888 load, the 0x6E77/0x6E26 lui/addiu and sel*9 are all recomputed every pass. So the outer loop is likely goto-based (`loop: ... i++; if ((i&0xFF)<3) goto loop;`), which loop.c doesn't see. That also explains fp = explicit `spd = (s32*)base + n` (spd[0x8B]) and the explicit sp14 tbl var before the loop. With the goto loop (rev 9bef83e5, 7150) the frame is 0x50 and s7=arg0 is right. The remaining big problem is that gcc crossjumps branch A's call+stores into branch B (209-210 insns vs 240). That didn't happen in the do-while version rev b14dd0ab (6374, 234 insns, val s16 / val2 s32, Rec without base pad, r = base+0x2C+ii*16+n*64). So combine b14dd0ab's body exactly with the goto loop + spd. Also `hi` as u8 turns 0xF3 into andi 3 (keep u32 hi with (hi&0xFF)<0xF). The saved 1465 is semantically wrong (temp_s0*=4).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Best is still rev 9659377e (120; needs `func_8008DD00(msg); osSpTaskStartGo(msg);` on one line). Unchanged at 120: the obj copy removed (pass self directly); a goto-join after the mode1 store in the yielded arm; `if (Yielded==0) goto m2b; D=mode1; goto join; m2b: D=mode2; join:;`. Worse: non-volatile extern (with or without a volatile-cast read) gives 370; yield result through `action` then one store gives 1521. The last patch (rev 75865272, a shared mode2 store after the if/else) has a compile error from a missing join label; the notes say this shape scored 200 earlier. Analysis: in the target, reorg filled the beqz(Yielded) delay slot by following the fallthrough thread [sw mode1 (volatile); j join] through the jump and stealing `move a0,s2` at the join; the j was then redirected to join+4 with a nop. Ours fails that steal and puts the move into the j's slot. Something must let the thread scan past the volatile sw. Not tried: a mode1 store that isn't a volatile insn but keeps the same code everywhere else.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Saved best (1000, rev 7ee63259) still best. Clean readable rewrite (u8 args, for-loop with u8 i, single tail block, D_800D0634[] extern) scored 12230: frame grows to 0x60 and much more changes. Keep the saved-best structure. Making var_t0 = temp_a0&0xC with `var_t0 >>= 2` inside the if (to match the target's andi 0xC in the delay slot and the later srl) scored 3345, because int var_t0 gives sra and the tail block gets duplicated. If retried, make var_t0 unsigned. Remaining diffs in saved best: regalloc s0/s1/s2 swapped in the first branch (target: s0=i&0xFF, s1=table ptr, s2=hv, t1=lo byte); var_a2=temp_s0*3 gets its own reg (a2) where target uses v0; `addu a0,a2,t1` vs target `addu t1,t1,a2` in the switch tail (arg1+off should accumulate into t1); first-instruction sw s7 ordering.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Best still 295 (rev 6d5c9a1c), now pure regalloc: target right=s3, height=s0, slot=s2, down=s1, and the tail local[1]*16 sits in v0 with `move a1,v0` in the bgtz delay slot (stored value is a separate short-lived pseudo). Reusing `right` for the tail value (295) makes the tail wrong (s0) but the top nearly right. Every variant with a separate tail temp (local[1]*=16; block-local int h; early return with temp; `if((local[1]*16)<=0)`) gives 380: the tail is fixed but the top rotates (right s2, down s0, height s1, slot s3; target needs right<->slot and down<->height swapped). On the 380 base, swapping roles (slot=down+1; height=right) = 380; moving the swap assignments inside if(sign<0) = 1484/1684. Next ideas: tail temp plus a different declaration order for right/slot/height/down, or give slot/height distinct pseudos used only in the swap block while keeping height as a separate variable for the later W(...,180) store.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Best stays 425 (rev 4e725cb9). Target layout (get_assembly 280-330): else-branch (cnt &= -(flags&0x100 !=0) loop) has NO func_80042F40 call before the D_800A1234 hA=2 store. func_80042F40 is called in the shared finish block AFTER `D_800B6880 = 0` (D_800B6880 == D_800AE850+0x8030), and the jal has an unfilled nop delay slot (lui at; sw; jal; nop). Removing the call from the else branch and putting it after the store in finish fixes all the branch-target diffs, but gas then moves the sw into the jal delay slot, which scores 475 (worse than 425 because of nop/order rows). Already tried without fixing the delay slot: volatile store (530, uses addiu address form), D_800B6880 plain extern (475), a duplicated store in the goto path before `goto finish` with the label moved to the call (675, no cross-jump merge). Still open: (1) a way to stop the delay-slot fill: something must put a label/barrier between the sw and the jal. (2) Old diff A: the timer==0, !(v&8) branch needs beql with ori 4 in the delay slot (see the older notes). (3) regalloc v0/v1 swap in the `D_800A1234[*car->player].hA = 2` store in the else path; try the Slot44 *sl temp form there.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Saved best 635 (rev 0787dc68) is unchanged. Semantic issue: target keeps pos->x in fp and computes s3=fp+0x14; the 2nd/3rd case-1 calls use fp+0x1C/fp+0x24 = pos->x+0x1C/+0x24. Saved best passes x+0x1C with x=pos->x+0x14, i.e. pos->x+0x30, which is wrong. The straightforward fix (x=pos->x; calls x+0x14, x+0x1C, x+0x24) scores 1570 because regalloc shifts. Case-1 else branch: new_var is uninitialised there (UB). Initialising it scores 835-895 (top of function: 835; inside the if before the loop: 845; before the loop: 895). Dropping the (u16) cast on j gives 3095. A clean full rewrite gives 3826 with frame 0x50 vs 0x58. Next idea: combine the semantic fixes, then tune the variable-declaration order so the frame stays 0x58.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nStill 140; the only real diff is the final-loop idx/value v1/a0 swap. No change (140): u8 x temp with x += x>>1; u32 k=j copy; (D[j]&0xFF)>>1; *(D+j); j[D]; (u8)D[j]>>1; (D+0)[j]; D[j]/2; a static inline boost_half(u8 k) helper; `return` after the >>1 loop. Worse: int x temp (335).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "The saved score-1000 source mutates invariant temp_s3 with <<=6 and duplicates an identical tail behind an artificial condition. Corrected source removes both. Frozen G8 profile produces unsupported .lit8 relocation; standard KMC GCC 2.7.2, -G0 -mips3 -mgp32 -mfp32 -O2 -g3 clean source is3004. Natural separate A/B tails improve1035; sound invariant-pointer recomputation improves945 under that standard profile, still NONEXACT with local .rodata mapping problem. Lower score is not directly comparable to frozen-profile1000. Best research SHA256 88b6fe6ba9aeb871805930fa253eb3eda1611df6daa5283049c4e9dcf9b7e7ec; see docs/matching-experiments/func_8006BA44-nonmatching-alternative.c. Final lane1000 native judgments found no exact; interrupted preliminary lanes and directed probes retained privately. Rejected unsafe perm_expand_expr: it recomputed captured row pointer after temp_s0 became decoded hv, changing later store addresses. Shared app safeguard investigation pending separately. Exact readonly constants verified: threshold2^31, factors4.5 and1.5. Explicit threshold and type/profile probes not exact. OPEN/revisitable; no live profile, target, ABI or judge edits; no standalone C selected.",
    "by": "you"
   }
  ],
