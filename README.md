@@ -858,3 +858,17 @@ The ordinary linked check and complete **12,582,912-byte** cartridge comparison
 passed, with all 2,059 previous objects unchanged. The standalone tree now
 selects **2,060 C functions / 64 assembly units**. All current app progress is
 preserved in the refreshed portable snapshot.
+
+
+### Triangle index and pointer storage phases
+
+`func_80029AA8` now matches **257 instructions / 1,028 bytes** with its unchanged
+KMC GCC 2.7.2 profile. A phased union reuses the right vertex index storage for
+the later difference-vector pointer, after its final integer use. Capturing
+the rotation temporary after the diagonal calculation and before the helper
+call restores the remaining register allocation. The external calls retain their
+original order and the triangle permutation is unchanged.
+
+The ordinary linked check and full **12,582,912-byte** cartridge comparison
+passed; all 2,060 prior objects remain unchanged. The standalone tree selects
+**2,061 C functions / 63 assembly units**. All current app progress is saved.

@@ -1,3 +1,5 @@
+#include "decompdecomp_snapshot_80029aa8.h"
+#line 1 "func.c"
 typedef struct Vertex3
 {
   s16 x;
@@ -64,7 +66,7 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
   u16 *attr;
   s32 base;
   s32 down;
-  s32 right;
+  union { s32 index; s32 *ptr; } right;
   Inv4 *new_var;
   s32 diag;
   s32 clamped;
@@ -85,36 +87,37 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
   base = count * row + col;
   new_var2 = 1;
   down = base + count;
-  right = base + new_var2;
+  right.index = base + new_var2;
   cell = (row * (count - new_var2)) + col;
-  rightXZ.x = grid->verts[right].x;
-  rightXZ.z = grid->verts[right].z;
+  rightXZ.x = grid->verts[right.index].x;
+  rightXZ.z = grid->verts[right.index].z;
   downXZ.x = grid->verts[down].x;
   diag = down + new_var2;
+  vertex_temp = right.index;
   downXZ.z = grid->verts[down].z;
   func_8002D75C(*((s32 *) (&rightXZ)), *((s32 *) (&downXZ)), *((s32 *) (&sampleXZ)), &sign);
-  vertex_temp = right;
   if (sign < 0)
   {
 
     do
     {
       base = diag;
-      right = down;
+      right.index = down;
     }
     while (0);
     down = vertex_temp;
   }
-  diffR[0] = grid->verts[right].x - grid->verts[base].x;
-  diffR[new_var2] = grid->verts[right].y - grid->verts[base].y;
-  diffR[2] = grid->verts[right].z - grid->verts[base].z;
+  diffR[0] = grid->verts[right.index].x - grid->verts[base].x;
+  diffR[new_var2] = grid->verts[right.index].y - grid->verts[base].y;
+  diffR[2] = grid->verts[right.index].z - grid->verts[base].z;
   diffD[0] = grid->verts[down].x - grid->verts[base].x;
   diffD[new_var2] = grid->verts[down].y - grid->verts[base].y;
   diffD[2] = grid->verts[down].z - grid->verts[base].z;
-  func_8002E688(diffR, diffR);
+  right.ptr = diffR;
+  func_8002E688(right.ptr, right.ptr);
   func_8002E688(diffD, diffD);
-  func_8002D740(diffR, diffD, cross);
-  func_8002D740(diffD, cross, diffR);
+  func_8002D740(right.ptr, diffD, cross);
+  func_8002D740(diffD, cross, right.ptr);
   mat[0] = diffD[0];
   mat[new_var2] = diffD[new_var2];
   mat[2] = diffD[2];
@@ -141,4 +144,5 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
   dst[0] = *((Inv4 *) mat);
   dst[new_var2] = *(((Inv4 *) mat) + new_var2);
 }
+
 

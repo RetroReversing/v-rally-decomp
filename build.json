@@ -18,6 +18,20 @@
  },
  "compiler_ranges": [
   {
+   "start": 2147654312,
+   "end": 2147655340,
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20
+  },
+  {
    "start": 2147847720,
    "end": 2147848524,
    "toolchain": "gcc-2.7.2-kmc",
@@ -14460,7 +14474,9 @@
    "seg": "code_80026E3C",
    "vram": 2147654312,
    "rom": 173736,
-   "asm": "asm/nonmatchings/code_80026E3C/func_80029AA8.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_80029AA8.s",
+   "c": "src/code_80026E3C/func_80029AA8.c",
+   "own": {}
   },
   {
    "name": "func_80029EAC",
