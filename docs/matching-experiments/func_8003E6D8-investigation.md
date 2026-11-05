@@ -51,3 +51,41 @@ Parent refined possible constructor contract: returning void* with five existing
 Both native processes ended normally. First:1000 generated attempts705 compiled/scored,54duplicate,121forbidden-token,120Clang-rejected; best650 unchanged. Second:999 actual generated attempts710 compiled/scored,58duplicate,97forbidden-token,132Clang-rejected; best565 unchanged. The second lane requested16 batches bounded by1000 attempts; one attempt was not yielded by the native generator. No quota-filling restart or additional lane was used. These are preflight-passing compiler counts, not claims that every random transformation is semantically proven.
 
 Additional recorded baseline/directed compiler judgments: 87, allnonexact. Parent intentionally improved live ordinarydraft635->565 with stable start-pos.c; finalreadonly state {'status': 'open', 'best_score': 565, 'target_unchanged': True, 'best_source_sha256': '9cf5f07ba15d2d557b01bf48bc8348e11a2df8e4396eddddaf2f866ebc7ceefd', 'claims': []}. No selected C match or cartridge gate. All metadata and source hashes are in evidence.json.
+
+## Fresh-contract, backward-edge and setup-order investigation
+
+Current ordinary and diagnostic builds agree under pinned KMC GCC 2.7.2
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. A fresh declaration probe agrees with the
+selected constructor/texture interfaces and remains 565. Its callback-address
+casts do **not** resolve the concrete downstream mismatch: the constructor
+stores an opaque `void(void)` hook, the selected dispatcher passes a node, and
+the actual callbacks accept `void*`/`u8*`. This is not a fully compatible callable
+contract or an accepted new C match. Valid allocations, object storage and
+selector/lifecycle assumptions remain explicit.
+
+The loop dump recognizes j as a basic induction variable. Its u16 use blocks
+strength reduction but leaves an unwanted mask. A real backward edge keeps that
+mode-1 loop outside the loop optimizer and removes the mask; mode 2 is unchanged.
+With genuine callback/mode/resource setup hoists the control scores 795. Moving
+the resource arithmetic after the other two independent local assignments gives
+580 with target-sized control/code shape. This is not better than saved 565.
+The shared `pure_preheader_order` generator independently reproduces five setup
+permutations at 655/595/580/665/790; [app PR #637](https://github.com/RetroReversing/decompdecomp/pull/637)
+automates that bounded pure-local scheduling step, not the complete function.
+
+One new independent native lane used only this frozen 580 seed and the unchanged
+profile/header/target: **969 actual generated attempts**, 52 duplicates,
+72 forbidden-token rejects, 138 independent Clang-preflight rejects, and
+**707 compiled/scored**. It ended normally; no quota-filling restart or
+selected-best portfolio. The best is a 565 tie using actual consumed resource
+and coordinate lifetimes, not a new match or a source adoption. Ordinary/diagnostic
+linked parity is verified for the seed, declaration probe and tie. Earlier
+565/650 native lanes and profile/formatting sweeps were not repeated.
+
+Live source, profile, target and claims remain unchanged at **OPEN 565**.
+All portable progress and the new source-bound note are saved. No full-cartridge
+build was warranted for a nonexact candidate. Callback invocation compatibility
+must be closed before accepting a future exact source; retain the existing
+source-quality and raw-storage limitations rather than describing the casts as
+proof. Private immutable evidence manifest SHA-256:
+`b746a7682c1d6d2e9737bd059c5047caec7e0a72a749f41eaa0645d546646bf8`.
