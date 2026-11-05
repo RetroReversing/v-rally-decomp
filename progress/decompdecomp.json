@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793914735.490761,
- "revision": 18914,
+ "saved_at": 1793915122.422983,
+ "revision": 18916,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249466,6 +249466,14 @@
    "created_at": 1793914729.7299469,
    "score_before": 295,
    "score_after": 295
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Grounded revisit 2026-11-05 [sentinel-inline-return]: valid OPEN40 retained. 69 new source attempts: 63 compiled/linked, six unsupported attribute-syntax failures. Whole/partial real inline evaluators, sentinel phases, actual pointer-carrier reuse and wide-value controls found no exact or sub40 result. A neutral full inline helper creates return-preferred pseudo81(v0), but genuine p pseudo83 remains a0: return preference alone does not repair coalescing/local temporary choices. Ordinary/-da raw parity confirmed for four representative cases. Parent alternate compiler lane: 20 attempts across ten installed GCC builds; only four valid scored big-endian candidates (KMC40/60, PM2.8.1 180/605). Four wrong-byte-order outputs and twelve failed builds are NOT negative matching evidence. SN-AS with legitimate g0 compiles at180/605. Sixteen PM inline-region controls all compiled, best145/124bytes versus target120; not improvement over valid40. No downloads, profiles adopted, source edits or new app rule. Private evidence: /Volumes/Data/Codex/tmp/func80049DB0/current-revisit-nov5/REPORT.md and parent-compilers/. Fresh source/header/target/profile/symbols unchanged, unclaimed. Keep OPEN/revisitable; do not revive historical cancellation/OOB score20 or repeat native/line/profile sweeps without a new cause.",
+   "by": "you",
+   "created_at": 1793915117.455793,
+   "score_before": 20,
+   "score_after": 20
   }
  ],
  "set_aside": [

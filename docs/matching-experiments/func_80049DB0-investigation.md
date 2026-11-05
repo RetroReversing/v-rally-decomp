@@ -26,3 +26,28 @@ Final: 975 actual generated attempts across16 batches;95 duplicates,103 token/li
 ## Parent recovery after terminal search
 
 The parent created its own project-scoped manual MCP connection, claimed only this unclaimed function, compiled the corrected40 source with the ordinary judge, and attached it to a structured candidate-quality report on the historical20 source. The connection was revoked, freeing only its own claims. The ordinary GUI corrective-alternative adoption rejudged and selected40. Readonly confirmation: OPEN40, unclaimed, source SHA256 `ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216`. This is an explicit review of an exploratory machine-memory draft, not an exact match or complete ISO alias/prototype proof. No selected cartridge C or compiler/header/target changed. Historical warning is retained and blocks silently reselecting the old reported shape. All current progress is being saved normally.
+
+
+## Inline return-lifetime and compiler-release controls
+
+The current valid40 draft was freshly frozen unchanged. Sixty-three new source
+controls compiled and linked, with six unsupported attribute-syntax failures
+excluded. Whole/partial genuine inline evaluation regions, sentinel phases,
+actual pointer-carrier reuse and wide-value forms found no exact or sub40
+result. A byte-neutral full inline helper does create a return-preferred pseudo
+in v0, but the real p value remains in a0. Return preference alone therefore
+does not recover the missing coalescing or local temporary allocation. Four
+representative ordinary/diagnostic compilations have identical raw linked bytes.
+
+A separate ten-build compiler-release check on valid40/60 sources made20
+attempts. Four candidates could be judged: KMC40/60 and PM GCC2.8.1 180/605.
+Four outputs had the wrong byte order and12 builds failed; neither group is
+negative matching evidence. SN-AS with a legitimate g0 profile compiles both
+sources at180/605. Sixteen compiled PM inline-region controls have a minimum
+145 and124 bytes versus the120-byte target, not an improvement over valid40.
+
+Source, header, target, symbols and selected profile remain unchanged. No
+profile or source was adopted and no new automatic rule is demonstrated. The
+function remains OPEN40 and revisitable. Normal app notes and a full portable
+progress snapshot retain the results; historical cancellation/OOB20 remains
+rejected. No full-cartridge claim is made for an unmatched candidate.
