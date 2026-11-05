@@ -98,7 +98,7 @@ void func_800603B4(void)
       {
         s32 off = i * 16;
         Stage *q = &base0[D_800A1548[course]];
-        off += (q->first + (sel->stage - 2)) << 6;
+        { s32 st = sel->stage - 2; off += (q->first + st) << 6; }
         p = (u8 *)q + off;
         D_800A14DC += *(s32 *)(p + 0x2C);
       }
@@ -115,5 +115,4 @@ void func_800603B4(void)
   if (D_800C3508->type == 4 && D_800C35A0->stage == 0)
     func_8005A05C(1);
   D_800A1468[0x22B] = -1;
-
 }

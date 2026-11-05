@@ -23135,7 +23135,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148004140,
    "rom": 523564,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_8007F12C.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_8007F12C.s",
+   "c": "src/code_8007E9D4/func_8007F12C.c",
+   "own": {}
   },
   {
    "name": "func_8007F270",

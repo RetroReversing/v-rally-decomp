@@ -37,7 +37,7 @@ s32 func_8007F12C(u32 id, s32 *ret, s32 arg2, ...)
     void *u;
     do
     {
-      D_800B5B40 = u;
+      D_800B5B40 = __builtin_mips_live_return_address();
     }
     while (0);
   }

@@ -47,9 +47,10 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
   f = fonts[fi];
   x = 0;
   len = func_8008E118(str);
-  if ((len == 0) | ((len - 1) >= 0xA0))
+  if ((len == 0) | (len > 0xA0))
   {
     func_8008E3A0(D_800A3F28, len);
+    __builtin_mips_debug_break();
   }
   for (i = 0; i < len; i++)
   {
@@ -78,7 +79,9 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
     }
     else
     {
-      x = ((f32) x) + (f->glyphs[0].w * scale);
+      s32 t;
+      t = ((f32) x) + (f->glyphs[0].w * scale);
+      x = t;
     }
     x += f->adv;
   }

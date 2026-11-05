@@ -2,7 +2,7 @@ char *func_8002B180(char *p, char *end)
 {
     s32 c;
 
-    while (({ s32 t = p < end; t; })) {
+    while (({ s32 t=p<end; if (!t) return end; t; })) {
         top:
         c = *p;
         if (c == '\r') {
@@ -30,7 +30,7 @@ char *func_8002B180(char *p, char *end)
             if (c2 == ' ' || c2 == '\t' || c2 == ',') {
                 c2 = *p;
                 while (c2 == ' ' || c2 == '\t' || c2 == ',') {
-                    if (!(p < end)) goto top;
+                    if (!(p < end)) break;
                     c2 = *++p;
                 }
             } else {

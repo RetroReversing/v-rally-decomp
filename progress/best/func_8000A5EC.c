@@ -1,162 +1,128 @@
-void func_8000B910(void *, s16, s16);
+void func_8000B910(void *, s32, s32);
 void osWritebackDCache(void *, s32);
-typedef struct 
-{
-  u8 pad[4];
-  u16 type;
-  u16 w;
-  u16 h;
-  u16 padA;
-  u16 size;
-  u8 padE[2];
-  u32 *tab;
-  u32 *ptr;
-  u32 x;
-  u32 *items;
+typedef struct {
+    u8 pad[4];
+    u16 type;
+    u16 w;
+    u16 h;
+    u16 padA;
+    u16 size;
+    u8 padE[2];
+    u32 *tab;
+    u32 *ptr;
 } Img;
-static inline static static u16 *inline_fn(void *arg0)
+typedef struct {
+    u8 pad0[0xC];
+    Img *img;
+    u32 f10;
+    u32 f14;
+    u16 f18;
+    s16 f1A;
+    u16 f1C;
+    u16 f1E;
+    u32 f20;
+    s32 f24;
+    u32 f28;
+    u32 f2C;
+    u16 f30;
+    s16 f32;
+    s16 f34;
+    u16 f36;
+    u32 f38;
+    s32 f3C;
+    u16 pad40;
+    s16 f42;
+    s16 f44;
+    s16 f46;
+    u16 pad48;
+    s16 f4A;
+    s16 f4C;
+    s16 f4E;
+    u16 f50;
+    u16 f52;
+    u8 f54;
+    u8 f55;
+    u8 f56;
+    u8 f57;
+} Obj;
+
+void func_8000A5EC(Obj *o, Img *im, s32 mode, s32 flags, u16 a4, u16 a5, u16 idx)
 {
-  return (u16 *) (((u8 *) arg0) + 0x52);
-}
+    u32 v;
+    u8 m;
+    Img *img = im;
 
-static inline static static static static static u16 inline_fn2(Img *arg0, int arg1)
-{
-  return arg0->w >> arg1;
-}
-
-static inline static static static static static u8 *inline_fn23(void *arg0)
-{
-  return (u8 *) arg0;
-}
-
-void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s32 arg6)
-{
-  u16 a4;
-  u8 *new_var3;
-  u16 a5;
-  u16 idx;
-  u16 new_var2;
-  s32 type;
-  unsigned int __repair_phase___repair_phase_v;
-  unsigned int __repair___repair_phase___repair_phase_v_1;
-  unsigned int __repair_phase___repair_phase___repair_phase_v;
-  unsigned int __repair___repair_phase_v_2;
-  unsigned int __repair___repair_phase_v_1;
-  void *new_var;
-  s32 __repair_v_1;
-  s32 x;
-  *((void **) (inline_fn23(o) + 12)) = im;
-  a4 = arg4;
-  new_var = o;
-  a5 = arg5;
-  idx = arg6;
-  type = im->type;
-  if (type == 16)
-  {
-    new_var2 = inline_fn2(im, 4);
-    *((u16 *) (inline_fn23(o) + 0x52)) = 0;
-    *inline_fn23(inline_fn23(o) + 0x54) = 2;
-    *inline_fn23(inline_fn23(o) + 0x55) = 0;
-    *((u16 *) (inline_fn23(o) + 0x50)) = new_var2;
-    if (mode & 1)
-    {
-      goto finish;
+    o->img = im;
+    m = mode;
+    if (im->type == 16) {
+        u32 w = im->w;
+        o->f52 = 0;
+        o->f54 = 2;
+        o->f55 = 0;
+        o->f50 = w >> 4;
+        if (mode & 1) goto fin;
+        o->f30 = 0;
+        v = im->w >> 4;
+    } else if (im->type == 256) {
+        u32 w = im->w;
+        o->f54 = 2;
+        o->f55 = 1;
+        o->f52 = 0;
+        o->f50 = w >> 3;
+        if (mode & 1) goto fin;
+        o->f30 = 0;
+        v = im->w >> 3;
+    } else {
+        u32 w = im->w;
+        o->f52 = 0;
+        o->f54 = 0;
+        o->f55 = 3;
+        o->f50 = w >> 2;
+        if (mode & 1) {
+            o->f30 = 0;
+            o->f32 = ((im->w * im->h) >> 1) - 1;
+            o->f34 = 0x7FF / (im->w >> 2) + 1;
+            goto fin;
+        }
+        o->f30 = 0;
+        v = im->w >> 1;
     }
-    *((u16 *) (inline_fn23(o) + 0x30)) = 0;
-    __repair_phase___repair_phase_v = inline_fn2(im, 4);
-    goto basic;
-  }
-  else
-    if (type == 256)
-  {
-    __repair_phase___repair_phase_v = im->w;
-    *((u8 *) (((u8 *) o) + 0x54)) = 2;
-    *((u8 *) (((u8 *) o) + 0x55)) = 1;
-    *((u16 *) (((u8 *) o) + 0x52)) = 0;
-    *((u16 *) (((u8 *) o) + 0x50)) = __repair_phase___repair_phase_v >> 3;
-    if (mode & 1)
+    o->f32 = v * 4 - 1;
+    o->f34 = im->size * 4 - 1;
+fin:
     {
-      if (1)
-      {
-        goto direct;
-      }
+        u16 t1, t2; u32 t3, t4, t5, t6, t7;
+        o->f42 = 0x400;
+        t1 = im->w;
+        o->f46 = 0;
+        o->f4A = 0x400;
+        o->f44 = t1 << 5;
+        t2 = im->size;
+        o->f4E = 0;
+        o->f56 = 0;
+        o->f57 = 0;
+        o->f4C = t2 << 5;
+        o->f28 = (m & 1) ? 0x1033 : 0xFC1034;
+        t3 = *im->ptr;
+        o->f36 = 0;
+        o->f2C = t3;
+        t4 = *im->ptr;
+        o->f3C = -1;
+        o->f38 = t4;
+        o->f10 = 0x30;
+        t5 = im->tab[idx];
+        o->f18 = 0x100;
+        o->f14 = t5;
+        t6 = im->type;
+        o->f1C = 0;
+        o->f1E = 0;
+        o->f1A = t6 - 1;
+        t7 = im->tab[idx];
+        o->f24 = t2 = -1;
+        o->f20 = t7;
     }
-    *((u16 *) (((u8 *) o) + 0x30)) = 0;
-    __repair_phase___repair_phase_v = inline_fn2(im, 3);
-    goto basic;
-  }
-  else
-  {
-    __repair_phase___repair_phase_v = im->w;
-    *inline_fn(o) = 0;
-    *((u8 *) (inline_fn23(o) + 0x54)) = 0;
-    *inline_fn23(inline_fn23(o) + 0x55) = 3;
-    *((u16 *) (inline_fn23(o) + 0x50)) = inline_fn2(im, 2);
-    if (mode & 1)
-    {
-      *((u16 *) (inline_fn23(o) + 0x30)) = 0;
-      ;
-      ;
-      *((s16 *) (((u8 *) o) + 0x32)) = (((s32) (im->w * im->h)) >> 1) - 1;
-      ;
-      *((s16 *) (((u8 *) o) + 0x34)) = (0x7ff / inline_fn2(im, 2)) + 1;
-      goto finish;
+    if (flags & 0x20) {
+        func_8000B910(o, (s16)a4, (s16)a5);
     }
-    *((u16 *) (((u8 *) o) + 0x30)) = 0;
-    __repair_phase___repair_phase_v = inline_fn2(im, 1);
-    goto basic;
-  }
-  direct:
-  *((u16 *) (((u8 *) o) + 0x30)) = 0;
-
-  goto finish;
-  basic:
-  *((s16 *) (inline_fn23(o) + 0x32)) = (__repair_phase___repair_phase_v << 2) - 1;
-
-  __repair_phase___repair_phase___repair_phase_v = im->size;
-  ;
-  *((s16 *) (inline_fn23(o) + 0x34)) = (__repair_phase___repair_phase___repair_phase_v << 2) - 1;
-  finish:
-  *((s16 *) (((u8 *) o) + 0x42)) = 0x400;
-
-  *((s16 *) (inline_fn23(o) + 0x46)) = 0;
-  *((s16 *) (((u8 *) o) + 0x4a)) = 0x400;
-  __repair_v_1 = im->w;
-  *((s16 *) (inline_fn23(o) + 0x44)) = __repair_v_1 << 5;
-  __repair___repair_phase_v_1 = im->size;
-  *((s16 *) (inline_fn23(o) + 0x4e)) = 0;
-  *inline_fn23(inline_fn23(o) + 0x56) = 0;
-  *inline_fn23(((u8 *) o) + 0x57) = 0;
-  *((s16 *) (inline_fn23(o) + 0x4c)) = __repair___repair_phase_v_1 << 5;
-  *((u32 *) (inline_fn23(o) + 0x28)) = (mode & 1) ? (0x1033) : (0xfc1034);
-  __repair___repair_phase_v_2 = *((u32 *) im->ptr);
-  *((u16 *) (((u8 *) o) + 0x36)) = 0;
-  *((u32 *) (((u8 *) o) + 0x2c)) = __repair___repair_phase_v_2;
-  __repair___repair_phase___repair_phase_v_1 = *((u32 *) im->ptr);
-  *((u32 *) (((u8 *) o) + 0x3c)) = -1;
-  *((u32 *) (((u8 *) o) + 0x38)) = __repair___repair_phase___repair_phase_v_1;
-  *((u32 *) new_var3) = 0x30;
-  x = idx;
-  new_var3 = ((u8 *) o) + 0x10;
-  x = x << 2;
-  __repair_phase___repair_phase_v = *((u32 *) (x + ((int) im->tab)));
-  *((u16 *) (((u8 *) o) + 0x18)) = 0x100;
-  *((u32 *) (((u8 *) o) + 0x14)) = __repair_phase___repair_phase_v;
-  *((u16 *) (inline_fn23(new_var) + 0x1c)) = 0;
-  *((u16 *) (inline_fn23(o) + 0x1e)) = 0;
-  ;
-  *((s16 *) (((u8 *) o) + 0x1a)) = im->type - 1;
-  __repair_phase___repair_phase_v = *((u32 *) (x + ((int) im->tab)));
-  *((u32 *) (((u8 *) o) + 0x24)) = -1;
-  *((u32 *) (((u8 *) o) + 0x20)) = __repair_phase___repair_phase_v;
-  if (flags & 32)
-  {
-    do
-    {
-      func_8000B910(o, (s16) a4, (s16) a5);
-    }
-    while (0);
-  }
-  osWritebackDCache(o, 96);
+    osWritebackDCache(o, 0x60);
 }
-

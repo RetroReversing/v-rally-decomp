@@ -567,6 +567,7 @@
     "func_8007BA1C",
     "func_8007BDC4",
     "func_8007C694",
+    "func_8007F12C",
     "func_8007F278",
     "func_80080674",
     "func_800808DC",
@@ -613,7 +614,28 @@
     "inflate_codes",
     "inflate_dynamic"
   ],
-  "skipped": [],
+  "skipped": [
+    {
+      "function": "func_8000C9B0",
+      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+    },
+    {
+      "function": "func_800199DC",
+      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+    },
+    {
+      "function": "func_8002B180",
+      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+    },
+    {
+      "function": "func_8003D9C8",
+      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+    },
+    {
+      "function": "func_80084C0C",
+      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+    }
+  ],
   "verified_build": true,
-  "matched_app": 2040
+  "matched_app": 2046
 }

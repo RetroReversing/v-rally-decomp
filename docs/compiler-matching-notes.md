@@ -206,3 +206,31 @@ Those line markers moved the assembler hazard NOP before the common branch label
 fixing the last two branch words (20 to 0). Do not collapse or reformat these
 verified lines without rechecking; equivalent branches through a NOP are still
 different machine code.
+
+
+## Current live return-address snapshot — 5 November 2026
+
+`func_8007F12C` differed by a single register operand: an absolute global store read
+an uninitialized draft local instead of the hardware `$ra`. The read follows an
+optional callback, so the required value is the currently live link register, not
+the function-entry caller address returned by `__builtin_return_address(0)`.
+
+The registered KMC compiler's fixed `__builtin_mips_live_return_address()` uses an
+ordered empty extended-asm output bound to `$31` with a memory clobber. The app
+accepts the intrinsic call, not arbitrary submitted instructions. The new
+`live_return_address` family requires raw target words proving an absolute `$ra`
+store and a single-use uninitialized placeholder; normal exact judging decides it.
+
+In the running app, one generated proposal and two compiles including baseline
+reached **score 5 → 0**, all **81 instructions / 324 linked bytes exact**. This
+replaces a source/semantics problem that a recorded 199-profile compiler sweep
+had not resolved. Generic compiler tests distinguish current reads around callbacks
+from an earlier snapshot saved across a call. The change and compiler-guide lessons
+are merged in [decompdecomp #493](https://github.com/RetroReversing/decompdecomp/pull/493).
+
+The actual live source and exact production intrinsic header passed the standalone
+function check, then a complete cartridge relink using unchanged, already verified
+objects. The final 12,582,912-byte image matches the original byte for byte, SHA-256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+The effective compiler remains `gcc-2.7.2-kmc` with
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
