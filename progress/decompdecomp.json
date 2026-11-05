@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793859500.19634,
- "revision": 16406,
+ "saved_at": 1793860343.272181,
+ "revision": 16510,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -161702,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 300 candidates tested; 128 cached skips; 0 rejected; 138s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_8006C024 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161747,7 +161747,7 @@
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 300 candidates tested; 171 cached skips; 0 rejected; 136s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_8006D10C is claimed by claude-opus-12 for another 29 min.",
    "by": "Rr.permuter-1446"
   },
   {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 191 cached skips; 0 rejected; 124s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 181 cached skips; 0 rejected; 97s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -164223,6 +164223,11 @@
   {
    "function": "func_8007A29C",
    "text": "Unresolved: frozen baseline has exactly two raw differing stack words (tbl sp34 vs targetsp14). Six extra advisory operand differences were a masked-low-annotation parser bug; corrected advisory2, ordinarylinkedfalse unchanged. Body-exact alternative retained in repository docs/matching-experiments/func_8007A29C-frame-alternative.c SHA5dbcd2b326323fe77a346989efc20b86eeb05e993c13aa91cb695ad90c7d24f5: tbl declarationfirst/no unusedpad yields frame58 vs60,22prologue/epilogue differences andcorrectedadvisory22. No new match or source selection. Padding/scope/alignment/qualifiers/copies/widecarriers/caller-save/peephole/strength-reduction and installedN64GCCbuilds unsuccessful; source lifetime/highwater slot remains hypothesis. Preserve existingbest andkeepopen.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Unresolved pass: frozen savedsource reproduces320; joining func_8008DD00(msg);osSpTaskStartGo(msg); onone source line restores120. Sourcealternative retaineddocs/matching-experiments/func_8007FC44-delay-alternative.c SHA9659377e329cc833be3395c2d0c748f3a697207653c9efb466cc8aa640ade1c6. Remaining pure a0 move/nop swap between conditional and following jump delayslots. RTL volatile resource conflicts block speculation; removingvolatile fillswrongotherstore slot. ~250 targetedsourceprobes andboundedprovenprofiles unsuccessful; detailsrepositorynotes/privatefrozenproofs. No acceptedC; keepexistingbest andOPEN, revisitwithnewmechanism.",
    "by": "you"
   }
  ],

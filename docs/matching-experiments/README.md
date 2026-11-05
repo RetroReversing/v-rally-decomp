@@ -68,3 +68,35 @@ already-installed alternative N64 GCC builds did not produce exact bytes.
 The remaining hypothesis is a spill-allocation high-water slot or source
 lifetime shape retaining eight bytes after the real spills. That mechanism
 is unproven; keep both alternatives open for later work.
+
+
+## func_8007FC44
+
+`func_8007FC44-delay-alternative.c` is **unmatched and not selected**. Keeping
+`func_8008DD00(msg); osSpTaskStartGo(msg);` on one source line restores the
+historical advisory score of **120**; the frozen saved source otherwise
+reproduced 320 with the current context. The remaining difference swaps
+argument setup (`a0` from the object pointer) and a `nop` between a conditional
+branch delay slot and the following unconditional jump delay slot.
+
+Pinned profile: KMC GCC 2.7.2,
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. Use the frozen global context in
+`include/decompdecomp_snapshot_800450b8.h`, SHA-256
+`dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212`.
+Source SHA-256:
+`9659377e329cc833be3395c2d0c748f3a697207653c9efb466cc8aa640ade1c6`.
+
+RTL places argument setup after the shared label and both volatile stores.
+Volatile-resource conflicts prevent speculation across those stores. Removing
+volatility permits the wanted move but wrongly puts a store in another delay
+slot. This explains the tested candidates, not the original source qualifiers.
+About 250 targeted line/scope, capture, branch-shape, type and qualifier
+experiments did not produce exact bytes. SDK scheduler sources supplied
+context only; no verified same-function donor was found.
+
+Controlled profile tests on this source/nonvolatile variant respectively:
+`-fno-schedule-insns2` 1210/1460, `-g0` 120/370, `-g2` 280/160,
+`-O1` 1490/1740, diagnostic `-fno-delayed-branch` 2110/2110.
+Nearby verified plain `-O2` gave 120/370; `-O2 -ffast-math
+-fno-schedule-insns` gave 250/500. These are negative results, not recommended
+profile changes. No linked match or full-cartridge acceptance is claimed.
