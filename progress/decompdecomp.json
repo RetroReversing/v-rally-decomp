@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793921228.9911838,
- "revision": 18944,
+ "saved_at": 1793921421.0887969,
+ "revision": 18946,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249575,6 +249575,14 @@
    "created_at": 1793919338.321162,
    "score_before": 420,
    "score_after": 357
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Exact1272bytes accepted normally, finalsource SHA c1494de2a370d59f0c9aed340bac7e377e922d0392b289ef2cad267198011a36; full12582912-bytecartridge exact. Actual inverse terminal inline timeout helper resolves branch/delayfill; shared terminal_guard_layout auto proposals260/0. PR635 merged70e861ee. Eighteen existing typed direct-call/caller corrections remain exact under unchanged profiles; all2070 prior profiles and2052otherselectedCobjects preserved. Grid audit55tracks2255grids plus guarded initialization/updates bounds magnitudeinput[-8,6] in initializedretailstate. Successful UIsetup and no interleavedteardown/reassignment remain explicit; raw-storage/effective-type assumptions not globallyproved. No dummyops/padding/asm/targetchanges. Focalg3profile only newprofile. Repo fc21e8b includesALLprogress. Private immutable ready-focal-final and parent-cartridge-gate receipts; nextfunction59A60.",
+   "by": "you",
+   "created_at": 1793921416.0460548,
+   "score_before": 265,
+   "score_after": 0
   }
  ],
  "set_aside": [
