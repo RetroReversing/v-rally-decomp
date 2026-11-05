@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793918946.763566,
- "revision": 18937,
+ "saved_at": 1793919342.0026398,
+ "revision": 18940,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4553,7 +4553,7 @@
   },
   "func_80030180": {
    "vram": 2147680640,
-   "best_score": 420,
+   "best_score": 357,
    "best_by": "you"
   },
   "func_8003035C": {
@@ -249554,6 +249554,14 @@
    "created_at": 1793918936.666952,
    "score_before": 30,
    "score_after": 30
+  },
+  {
+   "function": "func_80030180",
+   "text": "Current30180 normal judge now selects OPEN357 from420, SHA42937dab3c761235e2543330a631a9b0ffe2e19dc06e7e487998ec234b97f9c6. Parent ordinary linked357 reproduced; compatible public void*formal with genuinely consumed u8*base matches sole actualdirectcaller33E34 at80033ECC. Re-expressing coordinate halfword access as signed byte_offset/2+component removes b+2 lifetime; linked480bytes versus476target, remainingextra move/larger frame. Both offsets are6*k; signed/2 preserves negative even values within original defined signed32 arithmetic domain. Do NOT adopt unsigned/shift355 controls without extra domain proof. Full decoded index/overflow bounds and actual underlyingu16array effective-type/storage assumptions remain unresolved, not a wholeprogramCproof. Explicit per-usecast variant807; compatiblebytebaseline420; new genuine halfword-index lifetimes815/945; helperboundary525to2145 noexact. Ordinary and-da canonical linkedbytes agree, rawELF metadata differs. KeepOPEN/revisitable; no new exactmatch/all2070matchedsources unchanged. Evidence /Volumes/Data/Codex/tmp/func80030180/current-nov5/REPORT.md, compatible-proofs.json and parent-compatible-proof.json. Do not repeat old80plus1300controls, formatting/profile sweeps or incompatiblefirstformal source.",
+   "by": "you",
+   "created_at": 1793919338.321162,
+   "score_before": 420,
+   "score_after": 357
   }
  ],
  "set_aside": [

@@ -24,3 +24,36 @@ is not a verified source donor. The residual is still allocation/scheduling and 
 extra instruction. Compiler diagnostics were replayed with a frozen judge; no live
 source, profile or accepted count changed. These negative families should be retained
 to avoid repeating expensive searches without a new hypothesis.
+
+
+## Compatible signed halfword-unit candidate — 5 November 2026
+
+The normal app judge now selects **OPEN 357**, improved from 420, SHA256
+`42937dab3c761235e2543330a631a9b0ffe2e19dc06e7e487998ec234b97f9c6`.
+Parent ordinary linked reproduction agrees; all 2,070 matched sources remain
+unchanged. This is a 480-byte nonmatching candidate against a 476-byte target,
+with an extra move and larger frame, not a new matched function.
+
+The public `void *` formal matches the actual selected caller `func_80033E34`;
+a genuinely consumed byte-base local preserves byte arithmetic. The raw direct
+call scan finds only that caller (site 0x80033ECC), not a proof about arbitrary
+indirect calls. Typed prototype and initialization checks pass. Per-use casts
+score 807; a compatible byte-address baseline remains 420.
+
+Signed halfword-unit coordinate access removes a retained byte-offset lifetime.
+Both relevant offsets are six times an index, so signed division by two preserves
+negative even offsets too, within the original defined signed-arithmetic domain.
+Unsigned/shift controls scoring 355 are not selected: they need additional domain
+proof. New accessor/component helpers score 525–2145 and actual index-lifetime
+representations 815/945. Ordinary and diagnostic canonical linked bytes agree;
+ELF metadata differs. Preferred linked SHA256 is
+`50aa274dfa9ba1d4176136b0f248b0761b66217b271ce41f2c61e80713b69de8`.
+
+Actual decoded indices are not globally proven overflow-free. The backing
+coordinate storage must be a suitably aligned, sufficiently large u16 array
+object; a cast alone does not establish this. These are explicit defined-domain
+and storage assumptions, not a whole-game C proof. The real caller's three-element
+output array supplies its output extent. An automatic byte-to-element rewrite
+would need those type/alignment/bounds/divisibility facts before being generalized.
+Keep the function open and preserve these controls instead of repeating prior
+formatting, profile and native sweeps.
