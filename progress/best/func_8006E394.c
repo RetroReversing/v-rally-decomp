@@ -60,7 +60,8 @@ void func_8006E394(void)
     R->e[R->slot[0]].v = D_800C02AE[0x701e] & 15;
     if (R->mode >= 2)
     {
-      R->slot[1] = (*((volatile u16 *) s)) & 15;
+      n = *((volatile u16 *) s);
+      R->slot[1] = n & 15;
       used[R->slot[1]] = 1;
       R->e[R->slot[1]].v = D_800C02AE[0x701e] >> 4;
     }
@@ -145,21 +146,35 @@ void func_8006E394(void)
       for (i = 0; i < n; i++)
       {
         b = base + i;
- do { do { { int m0 = 1 << (i * 2); int m1 = 1 << ((i * 2) + 1); int b0 = (q & ((u16) m0)) == ((u16) m0); int b1 = (q & ((u16) m1)) == ((u16) m1); v = b0 | (b1 << 1); } } while (0); } while (0);
+        do
+        {
+          do
+          {
+            {
+              int m0 = 1 << (i * 2);
+              int m1 = 1 << ((i * 2) + 1);
+              int b0 = (q & ((u16) m0)) == ((u16) m0);
+              int b1 = (q & ((u16) m1)) == ((u16) m1);
+              v = b0 | (b1 << 1);
+            }
+          }
+          while (0);
+        }
+        while (0);
         D_800B6600.map[b][j] = v;
-        new_var = &D_800AE850[0x7DB0 + j * 4];
+        new_var = &D_800AE850[0x7DB0 + (j * 4)];
         switch (v)
         {
           case 0:
-            *(s32 *)new_var += 4;
+            *((s32 *) new_var) += 4;
             break;
 
           case 1:
-            *(s32 *)new_var += 2;
+            *((s32 *) new_var) += 2;
             break;
 
           case 2:
-            *(s32 *)new_var += 1;
+            *((s32 *) new_var) += 1;
             break;
 
         }
@@ -177,3 +192,4 @@ void func_8006E394(void)
     D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
   }
 }
+

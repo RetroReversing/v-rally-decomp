@@ -705,3 +705,12 @@ Saved **2,046 standalone C functions** and all **2,049 app matches**
 in the portable progress snapshot. `func_8007EAA0` passed the standalone and full
 cartridge byte comparison. Remaining app-only matches stay in `progress/` pending
 independent build integration.
+
+
+### Verified dispatcher source/profile pair
+
+The standalone build now selects **2,047 C functions**, including
+`func_8007EBF4`, verified against the complete cartridge. The portable snapshot
+still contains **2,049 app matches**. This new standalone match has not yet been
+applied in the app because another worker holds its claim; no worker was stopped
+or claim taken over.

@@ -288,3 +288,15 @@ staging: hardware-only score 65, combined score 0. Flags: KMC GCC 2.7.2,
 `-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -fno-schedule-insns`.
 Its source and four pending units passed individual checks and a full
 12,582,912-byte cartridge comparison before publication.
+
+
+### Coupled profile and live-register repair
+
+`func_8007EBF4` matches all85 instructions with its live-register read and
+KMC flags `-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -fno-schedule-insns`.
+The saved app profile gives baseline5 and hardware65; the verified profile gives
+baseline75 and hardware0. Existing repair generates one exact candidate.
+Standalone and full12,582,912-byte cartridge gates passed. The profile ranks
+fifth by current matched usage. A small native run in the older app exhausted
+its budget on other families and did not match it. The canonical C is verified;
+live application waits for the existing CPU worker to release its claim.

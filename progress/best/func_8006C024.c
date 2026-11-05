@@ -57,11 +57,7 @@ void func_8006C024(s32 arg0, s32 arg1)
     }
     else
     {
-      do
-      {
-        var_a0 = ((s32) (temp_fv1 - temp_fs0)) | 0x80000000;
-      }
-      while (0);
+ do { do { var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 = var_a0 | 0x80000000; } while (0); } while (0);
       var_v1 = temp_s5 * 8;
     }
     temp_s0_2 = var_s3 & 0xFF;
@@ -137,4 +133,3 @@ void func_8006C024(s32 arg0, s32 arg1)
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }
-

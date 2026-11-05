@@ -575,6 +575,7 @@
     "func_8007BDC4",
     "func_8007C694",
     "func_8007EAA0",
+    "func_8007EBF4",
     "func_8007F12C",
     "func_8007F278",
     "func_80080674",
@@ -653,5 +654,8 @@
   "not_integrated_after_checkpoint": [
     "func_8007EAA0",
     "func_8007EE9C"
+  ],
+  "pending_app_verification": [
+    "func_8007EBF4"
   ]
 }

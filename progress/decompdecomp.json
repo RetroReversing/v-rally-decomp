@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793844606.2967858,
- "revision": 14945,
+ "saved_at": 1793845018.479797,
+ "revision": 14962,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8345,7 +8345,7 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 2770,
+   "best_score": 2760,
    "best_by": "Rr.permuter-1437"
   },
   "func_8006C3E4": {
@@ -8425,8 +8425,8 @@
   },
   "func_8006E394": {
    "vram": 2147935124,
-   "best_score": 1330,
-   "best_by": "claude-opus-7"
+   "best_score": 1160,
+   "best_by": "Rr.permuter-1453"
   },
   "func_8006E8A0": {
    "vram": 2147936416,
@@ -161599,7 +161599,7 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 460 \u2192 460; 0 improvements; 49 candidates tested; 46 cached skips; 0 rejected; 118s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 460 \u2192 460; 0 improvements; 58 candidates tested; 92 cached skips; 0 rejected; 109s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-887"
   },
   {
@@ -161654,7 +161654,7 @@
   },
   {
    "function": "func_800603B4",
-   "text": "Deep permuter: score 195 \u2192 195; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 63s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 195 \u2192 195; 0 improvements; 33 candidates tested; 64 cached skips; 0 rejected; 115s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1280"
   },
   {
@@ -161704,7 +161704,7 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 46 candidates tested; 64 cached skips; 0 rejected; 104s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 300 candidates tested; 121 cached skips; 0 rejected; 508s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
@@ -161724,7 +161724,7 @@
   },
   {
    "function": "func_8006DDD8",
-   "text": "Deep permuter: score 30 \u2192 30; 0 improvements; 141 candidates tested; 0 cached skips; 0 rejected; 255s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 30 \u2192 30; 0 improvements; 300 candidates tested; 135 cached skips; 0 rejected; 607s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1449"
   },
   {
@@ -161734,7 +161734,7 @@
   },
   {
    "function": "func_80020098",
-   "text": "Deep permuter: score 70 \u2192 70; 0 improvements; 34 candidates tested; 33 cached skips; 0 rejected; 70s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 70 \u2192 70; 0 improvements; 300 candidates tested; 68 cached skips; 0 rejected; 590s elapsed. Variant limit reached.",
    "by": "Rr.permuter-454"
   },
   {
@@ -161754,12 +161754,12 @@
   },
   {
    "function": "func_8003BBDC",
-   "text": "Deep permuter: score 120 \u2192 120; 0 improvements; 37 candidates tested; 37 cached skips; 0 rejected; 73s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 120 \u2192 120; 0 improvements; 300 candidates tested; 74 cached skips; 0 rejected; 596s elapsed. Variant limit reached.",
    "by": "Rr.permuter-779"
   },
   {
    "function": "func_80029EAC",
-   "text": "Deep permuter: score 295 \u2192 295; 0 improvements; 300 candidates tested; 0 cached skips; 0 rejected; 554s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 295 \u2192 295; 0 improvements; 300 candidates tested; 135 cached skips; 0 rejected; 536s elapsed. Variant limit reached.",
    "by": "Rr.permuter-581"
   },
   {
@@ -161769,12 +161769,12 @@
   },
   {
    "function": "func_8006603C",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 44 candidates tested; 38 cached skips; 0 rejected; 104s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 40 candidates tested; 80 cached skips; 0 rejected; 82s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1343"
   },
   {
    "function": "func_8007AD68",
-   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 45 candidates tested; 43 cached skips; 0 rejected; 101s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 45 candidates tested; 86 cached skips; 0 rejected; 89s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1558"
   },
   {
@@ -161809,12 +161809,12 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 300 \u2192 300; 0 improvements; 47 candidates tested; 0 cached skips; 0 rejected; 77s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 300 \u2192 300; 0 improvements; 300 candidates tested; 50 cached skips; 0 rejected; 592s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
    "function": "func_8006E394",
-   "text": "Deep permuter: score 1330 \u2192 1330; 0 improvements; 300 candidates tested; 3 cached skips; 0 rejected; 565s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1330 \u2192 1160; 1 improvements; 300 candidates tested; 102 cached skips; 0 rejected; 524s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1453"
   },
   {
@@ -161829,7 +161829,7 @@
   },
   {
    "function": "func_8007EBF4",
-   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 59s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 300 candidates tested; 38 cached skips; 0 rejected; 571s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1575"
   },
   {
@@ -163400,6 +163400,11 @@
   {
    "function": "func_8006185C",
    "text": "At 190 on rechecking (170 historically, same source). The operand rows (D_800C02AE+0x807A via %hi 0x800D35A0, and the D_80000002/4 lo relocs) are reloc artifacts; ignore them. The real diffs: (1) offset ternary: the target copies offset into v0 and negates in place, while ours puts the result in a1. These were all worse (700-990): if-forms, -(offset+result), a temp t, folding into x. (2) The CV(h) block: the target puts h in a2, D_800A14D0 in a1 and the product in a0; ours is shifted down one register. These were neutral or worse: CV straight into height, s32 h, mult operand swap, a local for D_800A14D0, moving width=w later (930), s32 boxheight (590). Dropping `new_var = h;` in the else branch is neutral (cleaner C).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 3; 79 differing rows (1 opcode, 27 register, 1 stack, 31 branch target, 4 operand, 6 reordered, 6 inserted, 3 deleted; advisory).\nTarget: \nCandidate: sw $ra, 0x24($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = move $a2, $zero\n  = addiu $v1, $sp, 0x10\n> T:  | C: sw $ra, 0x24($sp)\nr T: sw $ra, 0x20($sp) | C: sw $s2, 0x20($sp)\n  = sw $s1, 0x1c($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest 1160 (permuter rev b84e0217). Key insight: target hoists `andi s1,t5,0xff` (n) and branches `beqz s1` for the inner-loop guard; ours hoists `sltu t9,zero,n` (GTU vs 0 expanded as scc), which steals the register; ours then keeps the cnt base in s1, but the target re-does the lui each j. Fix that guard and most of the remaining diffs should go away. Also, the target's dead `t9 = base+0x10` looks like a hoisted &flag address. Tried this session, none better: int v (1440), u16 v (=), switch((u8)v) (=), (b1<<1)|b0 (1395), switch on map with the store inline (1375), cnt zeroing as a loop (3080), Blk via a (Blk*)&D_800AE850[0x7DB0] macro (2453), n>i / int-cast compares (=), u8 b (1785), q u32 (1860), new_var at the top of the body (1826), `if(n==0) continue` (1866), decl reorder (=).",
    "by": "claude-opus-12"
   }
  ],
