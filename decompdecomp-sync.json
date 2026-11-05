@@ -378,7 +378,11 @@
     "include/decompdecomp_snapshot_8002fd68.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "include/decompdecomp_snapshot_8005a790.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8007E9D4/func_80085FB8.c": "745a549ab245465e3b4aaa410b2f815e0758e9582f916b90b2dc5d0bea468831",
-    "include/decompdecomp_snapshot_80085fb8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_80085fb8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_800424A4.c": "260a65986c032f9a18cafa91d2e3237411a0ee44ac2378bc8dba313b0a4c3383",
+    "include/decompdecomp_snapshot_800424a4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_80041320.c": "d20b0b92e649e8a0eb2fd4d20e6582fcbddf341235893fbc8bcdc61569728060",
+    "include/decompdecomp_snapshot_80041320.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -727,7 +731,9 @@
     "func_8002FB64",
     "func_8002FBD4",
     "func_8002FD68",
-    "func_80085FB8"
+    "func_80085FB8",
+    "func_800424A4",
+    "func_80041320"
   ],
   "skipped": [],
   "verified_build": true,
@@ -737,14 +743,10 @@
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [],
     "contract_corrections": [
-      "func_800857C0",
-      "func_8002FB64",
-      "func_8002FBD4",
-      "func_8002FD68",
-      "func_8005A790",
-      "func_80085FB8"
+      "func_800424A4",
+      "func_80041320"
     ],
-    "note": "Six existing matched-source corrections; 2063 other selected C objects and all2069 standalone compiler profiles unchanged. No additional function match."
+    "note": "Two existing matched-source corrections; 2067 other selected C objects and all2069 standalone compiler profiles unchanged. No additional function match."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],

@@ -1,5 +1,6 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_snapshot_80041320.h"
+#line 1 "func.c"
+extern void func_800424A4(void *, void *);
 typedef struct { u8 b[8]; } Buf8;
 
 extern u8 *D_8009B5A4;
@@ -63,3 +64,4 @@ void func_80041320(void) {
     func_800424A4(s2, D_800A4C60);
     *(s32 *)((u8 *)s2 + 12) = 4;
 }
+

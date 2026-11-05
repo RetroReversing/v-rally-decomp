@@ -50,3 +50,11 @@ Final readonly state: OPEN 518, unclaimed, frozen target and header unchanged. N
 ## Possible app safeguard follow-up
 
 The app's limited introduced-scalar initialization guard currently gives no verdict for an entire function when any CFG node names a macro. Here gObj/gItem and a self-casting function-call macro disable it. Native candidate 444 compiles but uses a new scalar whose zero assignment exists only in the opposite branch; candidate 459 has a similarly uninitialized introduced pointer. Their scores are worse and neither was accepted. A future improvement could reason narrowly about known object-like/self-cast macros or analyze safely preprocessed source; arbitrary macros cannot be treated as pure reads. This is negative safety evidence, not a new match or proof of a complete C equivalence checker.
+
+## November 5: forwarding-interface recovery
+
+Twelve new bounded geometry/lifetime controls did not improve the focal score518. The constructor establishes allocated item storage; all17 direct calls to the matched label-copy wrapper pass item and label pointers. The old single-integer wrapper contract omitted that second parameter. The corrected two-pointer forwarding wrapper and a declaration-only correction in its matched caller each passed the ordinary linked judge. Canonical and live function bodies were compared before replacement; no unrelated alternative body was imported.
+
+The separate two-source correction passed the full12,582,912-byte cartridge comparison, SHA256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7. All2069 compiler profiles and2067 other selected C objects are unchanged. Normal saved-source import has independently rejudged both exact and confirmed the corrected hashes. This is an existing-match contract repair, not a new match for the focal function.
+
+The direct-call audit does not establish every indirect reference. Label string lengths were not proven from the available frozen segment mapping, so ordinary valid-buffer/string preconditions remain explicit; an incomplete bounds scan is not a safety proof. The downstream copy implementation's broader legacy typing was not silently rewritten. Private game evidence remains outside the repository.

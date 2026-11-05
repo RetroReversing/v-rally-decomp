@@ -1,3 +1,4 @@
+extern void func_800424A4(void *, void *);
 typedef struct { u8 b[8]; } Buf8;
 
 extern u8 *D_8009B5A4;
