@@ -71,3 +71,39 @@ All 40 judgments have per-source JSON and source SHA256 in evidence.json. No car
 A useful diagnostic is to distinguish character views anchored to an enclosing object from arithmetic past a scalar member. An automatic source rewrite can propose `w->mode` or the proven enclosing byte view and rejudge; it must never prefer the invalid low-score version simply because allocation was closer. Existing function-signature repair should surface the actual selected scalar ABI and propose explicit caller conversions when required by target argument preparation. Pointer-return wrapper corrections require a joint contract gate and full cartridge validation, not a local-only claim.
 
 No new matching repair family is demonstrated by this unresolved function. Keep it OPEN and revisitable; retain prior negative evidence. Do not generalize the fake identical-arm task4 branch or an arbitrary dead initialization into the permuter.
+
+## Current-contract correction and late jump-pass evidence
+
+The ordinary app review flow now retains a corrected **OPEN 950** draft,
+SHA-256 `51ea779e856af16f83bfe157f916705ace2cd72d49ee285fce446ca7c2272407`.
+The parent independently reproduced its ordinary linked score, reported the
+historical source's quality defects and adopted the compiled alternative.
+All **2,071 matched sources remain unchanged**. This is a provisional draft,
+not a new match, and no selected cartridge C changed.
+
+The correction removes the invented identical-arm task-4 branch, replaces
+indexing beyond the active scalar with an enclosing-object character view,
+and agrees with the current selected wrapper/callee types, with explicit
+required argument conversions. Underlying raw-storage/effective-type and valid
+list/callback lifecycle assumptions remain explicit, not globally proven.
+
+Diagnostic and ordinary linked bytes agree. In the rejected old source, the
+task-4 comparison survives register allocation (`greg`) with its loop-hoisted
+constant in s2. `jump2` then merges the duplicated call/store arms and removes
+the comparison, leaving the dead constant. This explains the rejected draft's
+artifact; it does not prove the original source had that artificial branch.
+Seven genuinely finite task-context/call-region helper controls are nonexact;
+old native and formatting sweeps were not repeated. The reusable negative
+finding is recorded in app [PR #636](https://github.com/RetroReversing/decompdecomp/pull/636).
+
+Actual task setup distinguishes slot 4's creation context, but the dispatcher
+still selects context 1 for slots 2/3/4. No real slot-4-only dispatch effect was
+found to justify a redundant branch. Runtime-resolved callback descriptors do
+not supply a complete signature proof.
+
+Changing the drawing callee's second coordinate from unsigned to signed
+halfword preserves its private exact object and gives a prospective focal
+score 750. That callee has additional concrete direct-callee contract defects,
+so neither the signed interface nor the score-750 caller is selected. Future
+work must close those contracts and preserve all selected callers before any
+such adoption. Continue from the reviewed 950 draft, not the invalid 200 seed.

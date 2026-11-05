@@ -70,19 +70,23 @@ typedef struct Menu
   u8 pad290[0x2BD - 0x290];
   s8 f2BD;
 } Menu;
-extern Menu *D_800A1468;
+extern u8 *D_800A1468;
+#define MENU ((Menu *)D_800A1468)
 extern Task *D_800C5D20[];
 extern void *D_800C7F84;
 extern u8 D_800C02AE[];
-extern void *func_8004240C(s32);
-extern void func_80047B54(void *, u16, s32, s32);
+struct N { int p0; struct N *next; int p8; int key; };
+extern struct N *func_8004240C(int);
+extern void func_80047B54(void *, s32, s16, s16);
 extern void func_8005BCD4(void);
-extern void func_800599D0(void *, u8);
-extern Style *func_800592D0(s32);
-extern Widget *func_800592AC(u16);
-extern void func_80059618(Style *, u8, u8, u8, u8);
-extern void *func_80057918(s32, u16);
-extern void func_800596F4(Style *, s16, s16, void *);
+extern void func_800599D0(u8 *, s32);
+extern void *func_800592D0(u32);
+extern void *func_800592AC(u32);
+typedef struct { u8 pad0[0xA]; s8 group; } GroupOwner;
+extern void func_80059618(GroupOwner *, u8, u8, u8, u8);
+extern s32 func_80057918(s32 *, s32);
+typedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;
+extern void func_800596F4(Arg *, s16, u16, s32);
 void func_80059A60(void)
 {
   u8 i;
@@ -90,15 +94,14 @@ void func_80059A60(void)
   u8 n;
   s32 which;
   Style *s;
-  Group *new_var;
   Widget *w;
   Group *g;
   u8 *flags;
-  if (D_800A1468->f232 && (D_800A1468->f233 >= 0))
+  if (MENU->f232 && (MENU->f233 >= 0))
   {
-    func_80047B54(func_8004240C(0), D_800A1468->f233, 0, 0);
+    func_80047B54(func_8004240C(0), (u16)MENU->f233, 0, 0);
   }
-  if (D_800A1468->f249)
+  if (MENU->f249)
   {
     for (i = 0; i < 5; i++)
     {
@@ -107,35 +110,33 @@ void func_80059A60(void)
         continue;
       }
       switch (i) { case 0: which = 2; break; case 1: which = 2; break; default: which = 1; break; }
-      if (i == 4) { D_800C7F84 = func_8004240C(which); } else
-
       D_800C7F84 = func_8004240C(which);
-      if ((i != 1) || (!D_800A1468->f24D))
+      if ((i != 1) || (!MENU->f24D))
       {
         D_800C5D20[(unsigned int) i]->fn(D_800C5D20[i]->arg);
       }
     }
 
   }
-  if (D_800A1468->callback)
+  if (MENU->callback)
   {
-    D_800A1468->callback();
+    MENU->callback();
   }
-  if (D_800A1468->f249 && (D_800A1468->f222 >= 0))
+  if (MENU->f249 && (MENU->f222 >= 0))
   {
     func_8005BCD4();
   }
-  if (D_800A1468->nstyles && D_800A1468->f249)
+  if (MENU->nstyles && MENU->f249)
   {
-    n = D_800A1468->nstyles;
-    s = D_800A1468->styles;
- for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0(s, s->mode); } } } if (D_800A1468->nwidgets) { n = D_800A1468->nwidgets; w = D_800A1468->widgets; for (i = 0; i < n; i++, w = w->next) { flags = &w->active; if (*flags) { func_800599D0(w->sub, w->mode); if ((!w->useStyleMode) || w->mode) { s = w->styles; for (j = 0; j < w->nstyles; s = s->next, j++) { if (s->visible) { u8 hl; if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; } if (hl) { func_80059618(s, 220, 220, 14, 255);
+    n = MENU->nstyles;
+    s = MENU->styles;
+ for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0((u8 *)s, s->mode); } } } if (MENU->nwidgets) { n = MENU->nwidgets; w = MENU->widgets; for (i = 0; i < n; i++, w = w->next) { flags = (u8 *)w + 0x41; if (*flags) { func_800599D0(w->sub, w->mode); if ((!w->useStyleMode) || w->mode) { s = w->styles; for (j = 0; j < w->nstyles; s = s->next, j++) { if (s->visible) { u8 hl; if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; } if (hl) { func_80059618((GroupOwner *)s, 220, 220, 14, 255);
               }
               else
               {
-                func_80059618(s, s->r, s->g, s->b, s->a);
+                func_80059618((GroupOwner *)s, s->r, s->g, s->b, s->a);
               }
-              func_800596F4(s, s->x, s->y, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), s->id));
+              func_800596F4((Arg *)s, s->x, (u16)s->y, func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id));
             }
           }
 
@@ -144,47 +145,46 @@ void func_80059A60(void)
     }
 
   }
-  if (D_800A1468->ngroups)
+  if (MENU->ngroups)
   {
-    n = D_800A1468->ngroups;
-    new_var = D_800A1468->groups;
-    g = new_var;
+    n = MENU->ngroups;
+    g = MENU->groups;
     for (i = 0; i < n; i++)
     {
       if (g->active)
       {
-        D_800A1468->f24D = 0;
+        MENU->f24D = 0;
         s = func_800592D0(g->b9);
         for (j = 0; j < g->b8; j++, s = s->next)
         {
-          func_800599D0(s, s->mode);
+          func_800599D0((u8 *)s, s->mode);
         }
 
         w = func_800592AC(g->w0);
         func_800599D0(w->sub, w->mode);
         which = g->w1;
-        w = func_800592AC(which);
+        w = func_800592AC((u16)which);
         func_800599D0(w->sub, w->mode);
-        D_800A1468->f24D = 1;
+        MENU->f24D = 1;
       }
     }
 
   }
-  if (D_800A1468->ngroups2)
+  if (MENU->ngroups2)
   {
-    n = D_800A1468->ngroups2;
-    g = D_800A1468->groups2;
+    n = MENU->ngroups2;
+    g = MENU->groups2;
     for (i = 0; i < n; i++)
     {
       if (g->active)
       {
-        D_800A1468->f24D = 0;
+        MENU->f24D = 0;
         if (g->b9)
         {
           s = func_800592D0(g->b8);
           for (j = 0; j < g->b9; j++, s = s->next)
           {
-            func_800599D0(s, s->mode);
+            func_800599D0((u8 *)s, s->mode);
           }
 
         }
@@ -194,17 +194,17 @@ void func_80059A60(void)
           func_800599D0(w->sub, w->mode);
         }
 
-        D_800A1468->f24D = 1;
+        MENU->f24D = 1;
       }
     }
 
   }
-  if (D_800A1468->f24B >= 0)
+  if (MENU->f24B >= 0)
   {
-    D_800A1468->f24B--;
+    MENU->f24B--;
   }
-  if ((D_800A1468->f2BD >= 0) && D_800A1468->f249)
+  if ((MENU->f2BD >= 0) && MENU->f249)
   {
-    D_800A1468->f249--;
+    MENU->f249--;
   }
 }

@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793921421.0887969,
- "revision": 18946,
+ "saved_at": 1793921739.377527,
+ "revision": 18951,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -6976,8 +6976,8 @@
   },
   "func_80059A60": {
    "vram": 2147850848,
-   "best_score": 200,
-   "best_by": "permuter"
+   "best_score": 950,
+   "best_by": "candidate-review"
   },
   "func_80059F80": {
    "vram": 2147852160,
@@ -249583,6 +249583,30 @@
    "created_at": 1793921416.0460548,
    "score_before": 265,
    "score_after": 0
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-937de9194b3046e3",
+   "created_at": 1793921699.093602,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Review selected corrective alternative attempt 310437; rejudged score 950, replacing reported source 8ad0455786049d295374. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793921705.112909,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Reviewed correction: OPEN950 SHA51ea779e856af16f83bfe157f916705ace2cd72d49ee285fce446ca7c2272407 replaces invalid200 identical-arm task4 branch and scalar-member overrun. Current actual selected contracts/explicit needed conversions retained. Parent ordinary linked950 and normal quality adoption verified; all2071matchedsources unchanged. Prior dead s2=4 is a late jump2 tail-merge artifact in REJECTEDsource: comparison survives greg, then disappears; not original-source proof. Seven genuine finite helper controls nonexact. Signed596F4 arg2 prospectivecontrol exact; corresponding750 draft NOTadopted until all596F4 caller/callee contracts repaired. Taskslot4 actualcreationcontext0 is real but dispatchcontext1 remains target; no justified slot4-only dispatch effect. Existing raw-storage/list/callback lifecycle assumptions explicit. Appguide PR636 records negativeevidence. KeepOPEN/revisitable; no new match/cartridgechange. Private manifest479fffa54312995e26c1710664d7b2d5057f9fb7f177b69eaaa38e2691501143.",
+   "by": "you",
+   "created_at": 1793921737.4108968,
+   "score_before": 200,
+   "score_after": 200
   }
  ],
  "set_aside": [
