@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793853345.05132,
- "revision": 15978,
+ "saved_at": 1793854009.74259,
+ "revision": 16040,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5373,8 +5373,8 @@
   },
   "func_80040CF4": {
    "vram": 2147749108,
-   "best_score": 534,
-   "best_by": "Rr.permuter-837"
+   "best_score": 518,
+   "best_by": "claude-opus-12"
   },
   "func_800412FC": {
    "vram": 2147750652,
@@ -161767,7 +161767,7 @@
   },
   {
    "function": "func_80040CF4",
-   "text": "Deep permuter: score 534 \u2192 534; 0 improvements; 300 candidates tested; 151 cached skips; 0 rejected; 561s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 518 \u2192 518; 0 improvements; 69 candidates tested; 62 cached skips; 0 rejected; 56s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-837"
   },
   {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 57s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 300 candidates tested; 194 cached skips; 0 rejected; 185s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -161847,7 +161847,7 @@
   },
   {
    "function": "func_8006185C",
-   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 67s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 163 cached skips; 0 rejected; 233s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1286"
   },
   {
@@ -163942,8 +163942,68 @@
   },
   {
    "function": "func_8007B4A4",
-   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 85; 48 differing rows (44 register, 4 reordered; advisory).\nTarget: lui $at, 0x4f00\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = div.s $f20, $f20, $f12\n  = div.s $f18, $f18, $f12\no T: lui $at, 0x4f00 | C: \no T: mtc1 $at, $f22 | C: \n  = addiu $t6, $zero, 0xff\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 85; 48 differing rows (44 register, 4 reordered; advisory).\nTarget: lui $at, 0x4f00\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = div.s $f20, $f20, $f12\n  = div.s $f18, $f18, $f12\no T: lui $at, 0x4f00 | C: \no T: mtc1 $at, $f22 | C: \n  = addiu $t6, $zero, 0xff\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRev 4b24a37e (330): remaining = hoisted 2^31 const (lui 0x4f00/mtc1 f22) placed before full=0xff in target (after &AMB in ours), plus c/hi register swap (target c=v0, hi=v1) in all branches and v/&col giv a1/a2 swap in loop2. Tried (all worse): single expr `v->col = lo+hi+(c<<24)` 340; `hi+=lo; hi+=c<<24` 475; `hi=c<<24; col=lo+hi` 340. Untried: declaring a f32 local `two31`-free approach e.g. use (s32) conversion instead of (u32) with explicit compare; reorder full/ap decl after p/q computation.",
    "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 32; 59 differing rows (3 opcode, 4 register, 42 branch target, 7 operand, 1 inserted, 2 deleted; advisory).\nTarget: beqz $v0, 0x124\nCandidate: beqz $v0, 0x120\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(D_800A1468)($v0)\n  = lbu $v0, 0x249($v0)\ni T: beqz $v0, 0x124 | C: beqz $v0, 0x120\n  = nop\n  = move $s4, $zero\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved 220 = 2 reloc-artifact rows (D_800C8328 via D_800C02AE+0x807A, unfixable) + one real diff: target `beql v1,zero` with a0=2 in delay at switch(i) for which; ours beqz. Dead `if (i == 4) {...} else` is REQUIRED (produces target's unused `li s2,4`); removing it \u2192 1005+. Tried (all worse or equal 220): if/else chains, `which=1; if(i==0||i==1)which=2`, ternaries, case reorders (case1 first / default first =220 equal), merged `case 0: case 1:` (1075), u8 which (620), s16 which (1065), direct calls per case (1270), extra `else if (i==3)` (420), `if (i != 4)` (220). Untried: restructure the following `if ((i != 1) || !f24D)` (e.g. `if (i == 1 && f24D) continue;`), different switch inside the i==4 branch, or making i==4 branch contain different work cross-jumped away.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8008188C",
+   "text": "Best is still 190 (rev f9244318). Variants I tried this session against that rev, all worse: removing the early `s = getState(e)` gave 580; plain extern D_800B7300 in the call gave 200; swapping the order to `e->x1C + D_800B7300` gave 195; `getState(e)->x0` without assigning s gave 800; `getState(0)` early gave 800; putting D_800B7300 in a temp local first gave 630. The only real difference left: the `lui/addiu s0,&D_800C3338` must come after the D_800B7300 load (just before `lw a1,0(s0)`). Everything else is reloc artifacts. Untried: make D_800C3338 a pointer variable seeded from an index argument, or write the struct copy as an explicit temp before the call.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Still 130. Tried on the saved base (no effect, still 130): moving `diag=down+1` to just before `if(sign<0)`, writing `right=base+1` as a literal, swapping the down/right declarations, computing right before down with `count+base`. Worse: dropping the do{}while hack for straight-line moves (295), the mirrored hack (down=diag at the end) 135, `right=count; down=right` 290, moving the downXZ.x load first 1620, removing the diag assignment before the call 951. Still to try: change which value is live across func_8002D75C (e.g. pass &sign differently, or make sampleXZ a pointer-cast local) so down/right get different priority.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nSaved 60: only diff is sb 0x228 scheduled before `move a0,s2` (target: move a0,s2; sb; jal). Tried on saved best (all =60): `+= 1`, s8* cast increment, increment hoisted out of the weird if(func_80065860) dup, if(!fn) swap, `s32 a0=arg0` local, trailing if(0). Worse: dropping the dup if (145), s8 idx local + `= idx+1` (215, a1\u2192a2 regs). Untried: arg temps used in call (`func_8005A388(x, arg1)` with x assigned before the increment), making team computed after, reorder `team = cur` relative to condition.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Best is still 1155 (rev b6a4026c). No effect (=1155): `q=((u16*)(s+10))[j]`, writing map as `*(&map[0][0]+b*4+j)=v`, `i=0; if(i<n) for(;i<n;)`. Worse: new_var also set at the top of the j loop (2215), new_var assigned before the map store (1295), `(b1<<1)|b0` (1390), `if(n==0) continue;` at the top of the j loop (1961). The lead is rev f952ddcd: `new_var = (u8*)&((s32*)&D_800B6600)[j]` scores 1350, but the structure moves toward the target. The i-loop guard now lands in s1 (`sltu s1` where the target has `andi s1`), a +0x28 giv is hoisted, and the cnt base is no longer pinned in s1. Ours now hoists t9=+0x28 and keeps the base in t8. The target hoists t9=+0x10 (dead, probably a j-giv final value) and t8=+0x28, and rebuilds lui/addiu for cnt in each j. Next: combine that form with the u8 n guard (the sltu vs andi difference), or try `s32 *cp = D_800B6600.cnt` hoisted before the j loop and use cp[j].",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nThe saved best (45) is semantically wrong. It never resets s1 before the second loop, but the target resets it (`addu s1,zero,zero` in the delay slot of jal func_80084AF4, with `move a0,s4` in the beqz delay slot). Leaving out 4 reloc-artifact rows (D_800C8328), that delay slot is the only real diff. Adding `s1 = 0` anywhere in the true branch (before the call, after it, between the calls, before the loop, as a comma expression in the argument, through a temp) scores 160 or 245. The scheduler always puts s1=0 before the a0 arg setup, or into a later call's delay slot. Untried: change the `if (s2 & 0xFF)` structure (e.g. make s2 a u8 local, or an early return in the else path), or a for loop with a fresh counter that reg-alloc can coalesce into s1.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Rev 9659377e = 120 (the one-line `func_8008DD00(msg); osSpTaskStartGo(msg);` is required). This session: swapping the arms of the first if (>=) \u2192 770; `if (osSpTaskYielded(old)==0) mode2 else mode1` \u2192 770; a label before func_8007F394 \u2192 no change. Reorg analysis: in the target, the mode1 `j` was ALSO redirected to join+4 (0xe0, skipping the move at 0xdc), so its delay slot was filled with a copy of `move a0,s2` and then deleted as redundant, because the beqz slot (filled by fill_eager from the target thread: mode2 sw, then the join move) already held it. In ours, eager filling of the beqz fails. The likely cause is that beqz is EQ, so it is predicted not-taken and the fallthrough thread is tried first; the target thread then gets rejected over a0 liveness or ordering. Next: something that makes the eager target-thread scan succeed, e.g. no other a0 user between the beqz and the join on the mode2 path, or a different instruction ahead of the join.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nSaved 62 = 6 reloc-artifact rows (D_800D0658 %hi via other symbol, unfixable) + 2 stack rows: tbl spill slot target 0x14($sp), ours 0x34. Target slot layout: tbl@0x14, ent@0x1c, cnt@0x24, q@0x2c, an unknown 8 bytes @0x30, frame 0x60. Experiments: removing `s32 pad[2]` \u2192 frame 0x58 (92); no pad + tbl declared first (82: slots right except frame 8 smaller); tbl first then ent,cnt,q,pad[2] (70: tbl@0x14 correct but pad lands at 0x18 pushing ent/cnt/q +8); s64/double/pointer dummy instead of pad (82, no slot). Untried: pad[2] declared at the very end after `u8 t`, or in an inner block after the loop; a 5th genuinely spilled pseudo (e.g. keep ctx live to the end, `P(ctx,0x10)` in the final block) declared after q.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8003BBDC",
+   "text": "Saved best is 60 (rev 56086c8d). The only diff: the target loads the switch value `lhu v1,0xE(fp)` between `lw v0,0x178(a0)` (r=obj->rect) and `sw a0,D_800C7F84`, but ours loads it after the store. A u16 `sel` local read before the `D_800C7F84 = obj` store gets that order right but changes reg alloc (score 435, one extra insn, sel kept live). Reordering `D_800C7F84 = obj` vs `r = obj->rect` made no change. `switch(count)` scored 1324. Next to try: the switch on `(s32)sel` or an s32/int local instead of u16, an inline-function read, or `switch (*(u16*)(D_800C35A0+0xE))` through the global (different base) placed before the store.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Clean rev 9a07b334 = 1460: Spl struct, PT(o,off)=*(u16*)(off+o->pts), s16 d0 set in each branch. Each branch issues only ONE lw 0x54, so the \"extra lw\" from older notes is gone. The real difference is that ours computes a=i*6 via a v0 temp and puts the result in t2/t0, while the target computes in place in a1/a3 (sll a1,a0,1; addu a1,a1,a0; sll a1,a1,1). s32 d0 gives 1850. No effect: declaration order, t=tt before i. Worse: a block-local `u8 *p = o->pts` with p+a addressing (3665), s32 tt param (1910). Untried: `a = i * 3; a <<= 1;` or `a = (i*2 + i)*2` so the multiply stays in place; s32 offsets as u32.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 22; 130 differing rows (112 register, 3 stack, 9 branch target, 4 operand, 2 deleted; advisory).\nTarget: sra $s5, $s1, 0x10\nCandidate: sra $s3, $s1, 0x10\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lbu $t0, 0xf($s2)\n  = sll $s1, $v0, 0x10\nr T: sra $s5, $s1, 0x10 | C: sra $s3, $s1, 0x10\n  = sb $t0, 0x37($sp)\n  = addiu $t0, $t0, -1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSaved 518 (from 534) by swapping Rect field store orders (first block r.h before r.w; non-flags case-2 branch p->h before p->w). These only compensate store scheduling for swapped regs. Root issue: global regalloc swaps w/h (target w=s5,h=s3; ours w=s3,h=s5); also the result reg for `it` is s6 in target vs s0/s4 in ours, and &r is s2 vs s6. Local declaration order has no effect. Worse: s16 w/h (1396-4886), h2=hh-1 without assigning h (652), it0\u2192it (539), swapping the w/h read order (579), re-reading D_8009FFD8.w/.h in case 2 (1471-11343), dropping the redundant case-1 p->h/p->w stores (893). Untried: case-local copies of x/y/w/h, a Rect struct copy `Rect d = D_8009FFD8` as the source.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Retain open60 draft. Fresh m2c/goto reconstruction produced independent genuine structured70 alternative, no duplicated-if; preserved at canonical docs/matching-experiments/func_8007AD68-structured.c with frozen context/profile and linked residual notes in README. Corrected func_8006F0E0 ABI is void(u8), not phantom second pointer; correction alone stays60. Fresh70 residual: saved signedidx a2 ratherthan a0, argument restore in branchdelay instead of increment. Fresh shared90/native at least282+464+150 did not match; 16 scalar lifetime probes failed, four formal-parameter reuse probes708. Original60 RTL store-before-move tie survives sched2/reorg; queued argument increments flush before hard arg register loads. Preserve both independent basins; not impossible/paused. No live source change or cartridge acceptance claimed.",
+   "by": "you"
   }
  ],
  "set_aside": [

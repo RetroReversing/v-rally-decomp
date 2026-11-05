@@ -55,8 +55,8 @@ void func_80040CF4(u8 arg0)
     Item *it0;
     r.x = x;
     r.y = y;
-    r.w = w;
     r.h = h;
+    r.w = w;
     it0 = func_80042078(&r, 5, D_8009FF38[idx].v[0], D_8009FF38[idx].v[1], 2);
     func_800424A4(it0, D_800A4C30);
     it0->id = 0;
@@ -116,8 +116,8 @@ void func_80040CF4(u8 arg0)
       p = &r;
       p->x = x;
       p->y = y2;
-      p->w = w2;
       p->h = h;
+      p->w = w2;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
       func_800424A4(it, D_800A4C38);
       it->id = 1;
