@@ -76,3 +76,25 @@ The saved source hash at this checkpoint was
 No native search was repeated, no claim was taken or released, and no match or
 live source change is claimed. A concise source-hash-bound investigation note
 was also sent through the app's normal add_note tool for future agents.
+
+
+## Completed parity and lifetime controls
+
+A fresh read-only freeze confirmed the corrected325 baseline and selected callee
+contracts. The eight previously untested address/parity controls now compile,
+but score585–1398. In total43 new source controls compiled without an exact
+match: formal reuse, typed predecessor/parity separation, initialization order,
+loop/predecessor-hit placement and six disjoint phase-union forms. The unions
+read only their active member; none relies on inactive-member type punning.
+
+Nineteen supported compiler/debug/optimization controls also found no
+improvement. Disabling forced memory operands scores330 only because it
+reverses operands of a commutative cache-hit addition; it does not fix the
+saved-register swap or outgoing aggregate argument staging. One newer option
+was rejected by the period compiler and excluded.
+
+Source, context, target, symbols and profile remained unchanged. No source was
+adopted and no new repair family was demonstrated. The results are retained
+in normal app notes and portable progress; this function remains OPEN325 and
+revisitable. Do not restart the old native sweep or use the incompatible265
+draft as an apparent improvement baseline.

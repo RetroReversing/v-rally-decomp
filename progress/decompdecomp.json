@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793914211.04147,
- "revision": 18910,
+ "saved_at": 1793914448.205892,
+ "revision": 18912,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249450,6 +249450,14 @@
    "created_at": 1793914206.0133362,
    "score_before": 135,
    "score_after": 135
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Grounded revisit 2026-11-05 [dma-aggregate-lifetimes]: corrected325 baseline retained, actual6wordPacketbyvalue/ALDMAproc(s32,s32,void*) andselectedlinkcontracts.43compiledsourcecontrols noexact:8previouslyUNTESTEDparitycontrols585-1398; formalreuse325; typedpredecessor/separateparity340;11initializationplacements325-1150;7loop/predecessorhitplacements325-1660;6validdisjointphaseunioncontrols325. No inactiveunionmemberreads. Parent19supportedcompiler/debug/optimizationcontrols noimprovement; newerregmoveflagrejected/excluded. Noforce-mem330 merelyreversescommutativecachehitaddoperands, doesNOTfixsavedregswaporoutgoingaggregateargstaging. No needrepeatoldnative500/515searchorinvalid265ABIbaseline. Privateevidence /Volumes/Data/Codex/tmp/func80086F40/current/REPORT.md and parent-profiles/. Source/context/target/profile unchanged. OPEN/revisitable325, noexactadoption orfullcartridgeclaim.",
+   "by": "you",
+   "created_at": 1793914443.3795042,
+   "score_before": 265,
+   "score_after": 265
   }
  ],
  "set_aside": [
