@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793872504.200243,
- "revision": 17763,
+ "saved_at": 1793873168.477267,
+ "revision": 17769,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164568,6 +164568,31 @@
   {
    "function": "func_800502D4",
    "text": "Matched 206 instructions / 824 bytes with unchanged compiler profile. A once-only do-while scope around the existing constant byte store recovers GCC scheduling without adding an access or moving source stores. Ordinary linked bytes and full 12582912-byte cartridge are exact; all 2064 prior C objects and profiles unchanged. No judge, target or boundary changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Saved best (20) unchanged. These left the score at 20: dropping `game = root` and using root directly for the 6C chain; `0x3A98 != p`; `(u32)p != 0x3A98U`; `return *(s32*)root != 0x3A98;` in the if-arm. Worse: value=1 / if(p==15000) value=... / return value (465); game as the 6C temp (215); splitting the 6C chain into two root assignments (215); ternary return (395); loading *p into value instead of p (45). Not yet tried: a shared constant-1 pseudo across the 0x1A compare and return 1, written on the clean struct form.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Still 518 (saved rev 84b9a245). Tried against 518 this session. Neutral: else-branch `w = hw-1; w2 = w`; block-scoped explicit `{s32 th = D.h<<16; h = th>>16;}` (identical code). Worse: explicit function-scope sign temps tw/th, with the flags branch `th=(h+((u32)th>>31))>>1` and the else branch the same for tw, together with in-place w-=0x38 (5451, 23 insns fewer). th only, as a function-scope var with hh=(h+((u32)th>>31))>>1 (968): o moved to s4, the th temp became s1, and w/h were still s3/s5. Then reusing th as hh (3668: frame grew by 8 and the loads were reordered). Conclusion: the h/w priority swap is not fixed by making the sign temps user vars. Untried: case-local copies of x/y/w/h, and a Rect copy as the source.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Still 330 (saved best unchanged). Identical output (no effect): `register` on c/hi/full/w/f; moving full=0xFF/ap=&AMB to outer-loop top (still hoisted to the same spot, 2^31 still after them); split conversion via u32 t + `c = t & 0xFF` (loop1 or loop2); `*ap & 0xFF`. Worse: proper do-while outer loop (i=0; do{..; i++;}while(i<12)) 1215 (it adds move t3,zero, so the for loop is right). Remaining: only regalloc (c=v0/hi=v1, f2/f4, loop2 a1/a2) + the 2^31 preheader order. Most likely permanent residue.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Saved best is still 60 (c039417). Each of these gave exactly 60 with the same sb/move a0 order: idx local with `=idx+1` in one or both dup branches; a `!func_80065860` cond; a u8 pointer local for the ++; `(u8)(x+1)`; storing the call result in a var; `s32 a=arg0` temp; `&D[0x228]` pointer ++; both dup branches holding only ++ with one call after the if/else. That last one shows the dup-if only needs the increment inside it, so the call placement doesn't matter. Worse: else branch `return func_8005A388(...)` (1685); else without the increment (590). The sb-vs-move-a0 tie seems decided by RTL insn order in backward sched. Untried: changing which pseudo holds the D_800A1468 base for the store (e.g. reloading the global after the compare).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Legacy score1465 draft is not sound: reads new_var5 uninitialized, doubles the sp14 base through u16 pointer arithmetic, overwrites the selector and multiplies the original frame argument by four inside each iteration. Clean baseline2524 fixes these and removes unused volatile. Explicit invariant frame_record capture improves to2259, still nonexact, SHA256 0639d8615e7f6fbc198513a9aab3280e0e8caf97f669698a4ebd282f8a7b487f. See docs/matching-experiments/func_8006C024-nonmatching-alternative.c. Readable alternative with inherited redundant do scopes removed scores2454. 1000 native candidates plus targeted probes (including51 parent judgments) found no exact match. Lower2031 candidate rejected for artificial duplicated identical branches. Remaining issue: invariant frame<<6 occupies fp and frame_record spills, unlike target; scalar phase/lifetime and hoist/type probes did not fix register allocation/scheduling. Other-region machine draft transfers back to same7292 baseline, not a hidden matched donor. OPEN and revisitable; no target/profile/ABI/judge edits or selected standalone C.",
    "by": "you"
   }
  ],
