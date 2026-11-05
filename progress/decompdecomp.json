@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793873168.477267,
- "revision": 17769,
+ "saved_at": 1793873748.860286,
+ "revision": 17775,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164593,6 +164593,31 @@
   {
    "function": "func_8006C024",
    "text": "Legacy score1465 draft is not sound: reads new_var5 uninitialized, doubles the sp14 base through u16 pointer arithmetic, overwrites the selector and multiplies the original frame argument by four inside each iteration. Clean baseline2524 fixes these and removes unused volatile. Explicit invariant frame_record capture improves to2259, still nonexact, SHA256 0639d8615e7f6fbc198513a9aab3280e0e8caf97f669698a4ebd282f8a7b487f. See docs/matching-experiments/func_8006C024-nonmatching-alternative.c. Readable alternative with inherited redundant do scopes removed scores2454. 1000 native candidates plus targeted probes (including51 parent judgments) found no exact match. Lower2031 candidate rejected for artificial duplicated identical branches. Remaining issue: invariant frame<<6 occupies fp and frame_record spills, unlike target; scalar phase/lifetime and hoist/type probes did not fix register allocation/scheduling. Other-region machine draft transfers back to same7292 baseline, not a hidden matched donor. OPEN and revisitable; no target/profile/ABI/judge edits or selected standalone C.",
+   "by": "you"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Still 200 (rev 8ad04557). The only diff is case 0's beql vs our beqz. Tried this session against 200. No change: u32 which, register which, case-1-first order, braces on the i==4 else, nested `if(i==1){if(f24D)continue;}`. Worse: u16 which (445), `if(i==4) which=1; else switch` (860), an explicit case 4 (1240), duplicating switch+call in both i==4 arms (860), `if(i==4){}` after the call in place of the hack (750), i==4 in the f24D condition (1370). Untried: goto-based skip of the NULL check (needs a label at the loop end), i as int with u8 casts, and a pointer walk over D_800C5D20.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Current candidate rev 7533a20c is semantically correct (temp_s3 << 6 in both branches) and scores 1030 under the -G8 range profile. It cannot reach 0 under -G8: the 2^31 fixuns literal goes to .lit8 (reloc type 8). Under try_compiler -G0 (the compiler map agrees) the same source scores 1070; -ffast-math/-fno-strength-reduce make no difference. Under -G0 the s3/s4 regs come out right. Tried under -G0, all worse: `temp_s2 = var_v1 + __repair_subtotal` plus `fp = s6 + s3*4` (1100; the addu order is fixed but the dest becomes a0, not t1, and s3/s4 swap back); `var_v1 += var_a2` reusing the arg1 copy (1155); moving the s3/sp14/fp/s5/fs1 computations inside the do-loop (5288). Remaining -G0 diffs: prologue sw s7 order; `addu t1,t1,a2` (target accumulates into the arg1-copy reg t1); fp operand order; the literal ldc1 f20 is hoisted right after s4=0 in the target, but ours comes after the fp computation. Next: get the function's profile switched to -G0 (via suggest) before tuning further.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Saved 25 is still semantically wrong (no s1=0 before loop 2). Valid variants this session: `(s1=0, func_80084AF4)(s4)` 140; s1=0 after AF4 225; after AD8 225; s3=s4;s1=0;s4=s3 at if top 140; goto/else-first layout 1975. Analysis: reorg processes beqz first (backward fill blocked by the join label at L8005E58C), so the then-path RTL must be [a0=s4; s1=0; jal AF4] for the jal slot to get s1=0 and beqz to get a0=s4 (relax_delay_slots then steals the identical else a0=s4). Our sched always emits s1=0 before the arg move (lower priority). A way to make s1=0 depend on or follow the a0 move is still unfound.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Still 1155. Neutral (=1155): `Blk *p=&D_800B6600; p->cnt[0]=0` with the rest via the symbol; `q=((u16*)(s+10))[j]`; `i < (s32)n`. Worse: map[base+i][j] inline with no b (1370); a while loop with b=base+i++ (2165); new_var computed before the map store (1295); `i != n` (1440); u8 b (1795). The key diff is still in the j-loop. Ours hoists `sltu t9,zero,n` as the inner-loop entry flag; the target hoists `andi s1,n,0xff` and tests `beqz s1`. The target also hoists dead t9=sym+0x10 and t8=sym+0x28 (map), re-luis the cnt base per j, and computes v after the map address with no andi (move v1,v0). The dead +0x10 may be an invariant split from a map address written as flag-relative (sym+0x10)+0x18+b*4+j, then folded away. Earlier tries of that form were neutral, so the remaining cause is probably how the inner loop guard is expressed.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "The saved score-135 draft is semantically sound; audited layout sums=0x58, laps=0x118, total=0x168. The clean alternative only removes unused locals, remains 135/nonexact, SHA256 3e63cc2d3f1051e701f8a1ebdf88af2a96b5f08ce5ed141e7e5acd4a25b737f2. 1000 native candidates,59 generic repairs and targeted probes (including61 parent probes, some overlapping helper probes) found no exact match. Residuals: first summing loop accumulator v1 versus candidate a1 and row pointer a1 versus candidate v1; flag address hoists before rather than after switch constants. Sum commutation/scope/type/reuse, bound capture, address forms, independent bindings, switch order, flag lifetime placement, total accumulation forms and simple source-line changes did not improve135. Full minification changes scheduling but worsens295; do not infer formatting is inert. OPEN/revisitable, no compiler/profile/target/ABI/judge changes, no selected standalone C. Clean source: docs/matching-experiments/func_800529F0-nonmatching-alternative.c.",
    "by": "you"
   }
  ],
