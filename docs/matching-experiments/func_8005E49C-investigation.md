@@ -36,3 +36,13 @@ The recovery candidate is `clean.c`, SHA-256 `816e9a79bb56ad2bf4187ec62387f1667b
 ## Parent corrective adoption
 
 The parent used its own temporary project-scoped MCP connection to claim, normally compile and report the missing reset against the historical25 source, attaching clean_contracts.c as a measured alternative. It revoked only that connection and its claims, then used the ordinary GUI candidate-review adoption to rejudge and select the corrected140 draft. This fixes the definite loop counterexample; unresolved legacy ignored-argument/callee prototype compatibility remains explicit. No exact match or cartridge acceptance is claimed. All current progress was saved normally.
+
+## November 5: allocation provenance and interface audit
+
+Six new call-preserving boolean accumulation controls scored140,940 or1206; none matched. The selected allocator and independent users establish20-byte page arrays,12-byte subentries and12-byte data records. The old pointer/offset views have been replaced in the separate research source with these actual arrays. Resource helper pointer declarations were reconciled privately. Both changes preserve the exact same500 linked candidate bytes and score140, against496 target bytes.
+
+The new starting point is `func_8005E49C-layout-research.c`, SHA256 `a74af4ca17516bcedc0dc1bcf3025858c379234fcb74a2c92dcd52743f3d5f47`. It is research, not accepted matched C. Actual input counts must still establish at least four pages, three subentries in page3, four data records per selected subentry and three records in page0. Mixed zero/one-argument and zero/two-argument uses of two stubs remain unresolved; do not invent required parameters for them.
+
+A separate direct-caller audit found all nine calls to `func_800857C0` pass second integer argument2. Adding an unused second `s32` formal and correcting five caller declarations passes six individual pinned linked checks. This also corrects one caller's `s8` return declaration to the callee's `s32`. Full cartridge verification and normal app acceptance are pending; no new match is claimed. The first parameter and complete callee body are unchanged. The audit covers direct calls, not proof of every possible indirect reference.
+
+App PR606 adds bounded advisory empty-stub interface warnings. It does not change any signature, target or verdict. Existing loop-reset safety guidance already covers the earlier missing-reset defect. Private byte evidence and game data remain outside this repository.
