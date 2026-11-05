@@ -32,7 +32,7 @@ void func_8007B4A4(LObj *o)
     s16 q[4];
     s32 m[12];
     f32 dx, dy, dz, len, s;
-    f32 ex, ey, ez, dot, f, amb, k;
+    f32 ex, ey, ez, dot, f, amb, k, g1;
     s32 i, j, n, j2;
     s32 full;
     s32 c;
@@ -98,12 +98,12 @@ void func_8007B4A4(LObj *o)
                     lo = c << 8;
                     hi = (c << 16) + 1;
                 } else if (L->t2 < dot) {
-                    f = (dot - L->t2) / (1.0f - L->t2);
+                    g1 = (dot - L->t2) / (1.0f - L->t2);
                     amb = *ap;
                     if (len < 1200.0f) {
-                        f = len * f * 0.00083333335f;
+                        g1 = len * g1 * 0.00083333335f;
                     }
-                    c = (u8)(u32)(f * (k - amb) + amb);
+                    c = (u8)(u32)(g1 * (k - amb) + amb);
                     lo = c << 8;
                     hi = (c << 16) + 2;
                 } else {
@@ -142,7 +142,8 @@ void func_8007B4A4(LObj *o)
                 } else if (L->t2 < dot) {
                     amb = *ap;
                     f = k - amb; f -= (L->t1 - dot) * f / (L->t1 - L->t2);
-                    c = (u8)(u32)(f + amb);
+                    g1 = f + amb;
+                    c = (u8)(u32)g1;
                     lo = c << 8;
                     hi = (c << 16) + 2;
                 } else {

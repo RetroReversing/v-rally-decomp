@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793888472.732217,
- "revision": 17892,
+ "saved_at": 1793890731.493174,
+ "revision": 17928,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5723,8 +5723,8 @@
   },
   "func_80046E54": {
    "vram": 2147774036,
-   "best_score": 140,
-   "best_by": "permuter"
+   "matched_by": "permuter",
+   "readable": false
   },
   "func_800471B0": {
    "vram": 2147774896,
@@ -9003,8 +9003,8 @@
   },
   "func_8007B4A4": {
    "vram": 2147988644,
-   "best_score": 330,
-   "best_by": "claude-opus-12"
+   "best_score": 310,
+   "best_by": "claude-opus-3"
   },
   "func_8007BA1C": {
    "vram": 2147990044,
@@ -244807,7 +244807,7 @@
    "function": "func_8006603C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-12",
-   "created_at": 1793888017.779733,
+   "created_at": 1793888638.667051,
    "score_before": 30,
    "score_after": 30
   },
@@ -248799,7 +248799,7 @@
    "function": "func_8006603C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-12",
-   "created_at": 1793888017.779733,
+   "created_at": 1793888638.667051,
    "score_before": 30,
    "score_after": 30
   },
@@ -248823,7 +248823,7 @@
    "function": "func_8006603C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-12",
-   "created_at": 1793888017.779733,
+   "created_at": 1793888638.667051,
    "score_before": 30,
    "score_after": 30
   },
@@ -248855,7 +248855,7 @@
    "function": "func_8006603C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-12",
-   "created_at": 1793888017.779733,
+   "created_at": 1793888638.667051,
    "score_before": 30,
    "score_after": 30
   },
@@ -248887,7 +248887,7 @@
    "function": "func_800529F0",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-7",
-   "created_at": 1793888017.735405,
+   "created_at": 1793888638.654989,
    "score_before": 135,
    "score_after": 135
   },
@@ -248898,6 +248898,78 @@
    "created_at": 1793888267.246243,
    "score_before": 518,
    "score_after": 518
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3",
+   "created_at": 1793888638.285194,
+   "score_before": 330,
+   "score_after": 330
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7",
+   "created_at": 1793888638.654989,
+   "score_before": 135,
+   "score_after": 135
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-12",
+   "created_at": 1793888638.667051,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Best is still 135 (saved rev 77abee0e). The earlier function note lists what was already tried. New this session: s32 i scores 335; reusing j as the inner-loop counter scores 230; a loop-scope `u32 k` inner counter scores 155; s = t->laps[m][i] + s, a while-loop form and `register u32 s` give identical code. The remaining diffs are the v1/a1 swap between accumulator s and the laps giv pointer in loop 1, and the t2=&D_800C81FC load scheduled before the t3/t6/t5 switch constants (1,2,3) in loop 2. Untried: a points lookup table instead of the switch; computing &t->laps[0][i] as a hoisted pointer outside the inner loop while keeping m indexing; moving the `rank` table write after the switch.",
+   "by": "claude-opus-7",
+   "created_at": 1793888721.8833,
+   "score_before": 135,
+   "score_after": 135
+  },
+  {
+   "function": "func_8006603C",
+   "text": "The saved 200 rechecks at 210 and stays best. It is semantically invalid: `(saved22&saved1E)==4` can never be true. Tried this session on that compare: `(saved22&0xFFFF)==4` 300; `(saved22&saved22)==4` 300 (both andis gone); s32 saved1E/saved22 with and without `(u16)` casts in the compare 730; an inline `is_pair(u16 a,u16 b,u16 ea,u16 eb){return a==ea&&b==eb;}` 2465. Plain `saved1E==2 && saved22==4` is also 2465. The 2465 shape changes registers from the top of the function (sc lands in a2 instead of a0 and gains an extra move), so the compare's form feeds back into global allocation. The remaining goal: both compares keep an `andi 0xffff` on the lhu value while s0/s1 hold copies. A C shape that does this has not been found.\n\nclaude-opus-12: Tried on the second compare: (saved22&0xFFFF)==4 300; (saved22&saved22)==4 300; s32 saved vars with or without (u16) casts 730; inline is_pair(u16,u16,u16,u16) 2465. The 2465 shape shifts sc to a2 from the top of the function. The saved 210/200 is still the best (semantically invalid).",
+   "by": "claude-opus-12",
+   "created_at": 1793888730.8982909,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Still 330. Rev 87f57f65 (330): a separate f32 g1 for the loop-1 f (div/len<1200/conv). Loop-1 f regs now match the target (f2), but loop-2's f+amb add moves to f4 (target f2), so the net is the same. Loop 2 using g1 as well = 330; loop 2 `f += amb; c=(u8)(u32)f` = 385; `amb + f*(k-amb)` = 335. No effect: decl order c/full, hi/lo swap, u32 lo/hi. Remaining: loop1 c=v1 vs target v0 (hi v0 vs target v1), 2^31 const preheader order, loop2 f+amb reg. Next idea: in rev 87f57f65 give loop 2 its own float var for the f+amb add (e.g. `g2 = f + amb; c=(u8)(u32)g2` \u2014 the split form was worse earlier, but untested with g1).\n\nNEW BEST 310 (saved; was 330). Fix: loop1 uses its own float g1 (g1=(dot-t2)/(1-t2); if(len<1200) g1=len*g1*K; c=(u8)(u32)(g1*(k-amb)+amb)), and loop2 ends with `g1 = f + amb; c = (u8)(u32)g1;`. Both loops' float regs now match. Still left: (1) the 2^31 preheader order; (2) c is v0 in the target in both loops, but ours puts c in v1 (loop1) / a0 (loop2) and full in t5 vs the target's t6 (the target has t5 = 0x80000000). Neutral: g1 split in loop1, u32 full, decl order c/full, hi/lo, u32 lo/hi. Worse: u8 c (1475), block-local c (365), `amb + f*(k-amb)` (335).\n\nNew best 310 (was 330). Two changes: loop 1 uses a separate f32 g1 for its f (div / len<1200 / conversion), and loop 2 converts via `g1 = f + amb; c = (u8)(u32)g1;`. Remaining: loop1 c is v1 where the target has v0 (lo/hi/c triplet registers swapped in all three branches of loop 1), plus the 2^31 constant preheader order. Worse on the 310 base: block-local `s32 c` in loop 1 (345); hi before lo in loop1 first branch (575).\n\nReleased because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3",
+   "created_at": 1793888996.6282291,
+   "score_before": 330,
+   "score_after": 310
+  },
+  {
+   "function": "func_8006E394",
+   "text": "The saved 1155 stays best; the diff starts at row 177 in the flag/map loops. Target details. (1) The inner-loop guard is `beqz s1` with s1=n&0xff; ours hoists an extra `sltu t9,zero,v0`. (2) The target rematerializes lui/addiu D_800AE850+0x7db0 inside the j loop and hoists +0x10 and +0x28 bases into t9/t8; ours hoists the base into s1. (3) After `sb v0` for map[b][j]=v, the target has `move v1,v0` and switches on v1 with no andi; ours has `andi a0,a0,0xff` (u8 v). The target also does `or v0,v0,a0`, i.e. (b1<<1)|b0, in that operand order. Tried: `int v` instead of `u8 v` gives 1435 (the extra move is lost and branch targets shift). Untested because compiles kept failing with 'Progress changed while this attempt compiled': `switch ((int) v)` and `switch ((u8) v)` with int v, and swapping the or operands to `(b1 << 1) | b0`.\n\nThe saved best stays at 1155. In the map loop the target computes `v=(b1<<1)|b0` (or v0,v0,a0), then `sb v0` to map, then `move v1,v0` (no andi), then the switch on v1. Ours (u8 v) has an andi 0xff before the branch. Tried: swapping the or operands to `(b1<<1)|b0` (1390; the or order now matches but it costs elsewhere); int v (1430); int v with `switch((u8)v)` (1390, andi still present). None beat 1155. Other open issues are in the notes above: inner-loop entry `beqz s1` (n&0xff) vs our hoisted sltu t9, and the target's t9=&D_800B6600+0x10 hoist.",
+   "by": "claude-opus-12",
+   "created_at": 1793889473.6793332,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Adds to the earlier notes. Correct semantics, b=[31] and n=[35] with n+=j, scores 550. u8 q makes it worse (685). An unused `u8 m = [35]` with n left uninitialised scores 330 (it mirrors the 325 trick). n = m + j scores 800, with the move s5 present again. Key observation: the move s5 disappears ONLY when n has no prior definition (n += j on an uninitialised n). Any real init of n, or a separate source var, brings andi v0 + move s5 back. So the original probably builds n so that its only assignment is after the switch. Ideas left: n = j + D_800C35A0[35] written as one expression with D_800C35A0 cached in a local pointer read once at the top (`u8 *g = D_800C35A0; b = g[31]; ... n = g[35] + j;`); or a switch on b that assigns n directly per case (n = g[35] + 4 etc.).",
+   "by": "claude-opus-7",
+   "created_at": 1793889555.8396091,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7",
+   "created_at": 1793889753.098851,
+   "score_before": 20,
+   "score_after": 20
   }
  ],
  "set_aside": [
@@ -255726,6 +255798,94 @@
     "target_sha256": "e3e203fa27a9f0928207688bb56bddf6380d63839654602edcee965593946f94",
     "relocations_sha256": "f8f076e9f0ab110803414f69ad8889a6d6b57dce21b2335b5122013f12f6ef0a",
     "vram": 2147602556,
+    "unit": "code_80017B38",
+    "mode": "rom"
+   },
+   "func_8001E524": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793890680.443021,
+    "attempt_id": 299785,
+    "source_sha256": "0a90a688658de6c0233068434467d612402d77247fe85ac4e80ca93acb197c3a",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "9d271eb3ae591d3e0e79945f71e41c81d05fc6f7a2b62a84ff9e8d8a10b4bb12",
+    "relocations_sha256": "a565841916e91228bc3c43133d1bc64445d5374afba83f4fb3285ce62cfd0274",
+    "vram": 2147607844,
     "unit": "code_80017B38",
     "mode": "rom"
    },
@@ -262956,10 +263116,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "a3e1da0923ce52a0c0f0434e5dd955f1bd5abe178c19026f030b937ccaea844e",
-    "recorded_at": 1793587913.392597,
-    "attempt_id": 244755,
-    "source_sha256": "d1c3e528d5560db42156cde68a153094833a94948275a33eca190308852b9744",
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793890681.016363,
+    "attempt_id": 299786,
+    "source_sha256": "d047d5408b789d1a48ce552ed27c205bc09aabd569dea28c6f540e2ffc392e41",
     "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "context_version": 17,
     "compiler": {
@@ -262976,7 +263136,7 @@
     },
     "compiler_identity": {
      "toolchain": "gcc-2.7.2-kmc",
-     "registry_sha256": "5cf8adef50da4305b6e7dc8048e5f3e64ab10bd3ccc8ee4d8f5147ccee7d3318",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
      "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
      "executables": {
       "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
@@ -263006,7 +263166,7 @@
       "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
       "game_code": "NVLP",
       "region": "Europe",
-      "byte_order": "v64"
+      "byte_order": "z64"
      },
      "effective_command": [
       "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
@@ -263031,6 +263191,94 @@
     "target_sha256": "ec709b0bcde34de4795f0e5a6886389641859350a5665c2d0ce45dd8cb7d35c6",
     "relocations_sha256": "9697712348dffc7e3607bcc731750cf2eb03dcf5bcf3ef07dd026beaaa3b74bd",
     "vram": 2147764488,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_80044D9C": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793890681.477982,
+    "attempt_id": 299787,
+    "source_sha256": "ff131fded798beb96c178bfe2919f4f5cc07c3464ff4c120ebc192048879cf22",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "7a55f13043b50f4ff61e6d80e8087275de63ce989472d873964b62d67597f80a",
+    "relocations_sha256": "d34c6f32a787cb4b14a17f13f9cd3db18b5e074d347d515accb82f8dff642aec",
+    "vram": 2147765660,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -263471,6 +263719,94 @@
     "target_sha256": "5fce35b1f3cee721c88843dbceaab64c65b85c04a6b6eeb3342ed522bc6b1dcf",
     "relocations_sha256": "8fdefcca902c0e7ff61838c582edb7b49ceeb9af54635e2598f2e02d457ba161",
     "vram": 2147772420,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_80046E54": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793890681.9213219,
+    "attempt_id": 299788,
+    "source_sha256": "fa162f92c7024590cef39ff6d7318bfbad18092b513313791fc3158ffa3bbb4f",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "c9985315abcb8f7268a488807f5158bd07bb40eb27a2c4bf820717f37c66dcfd",
+    "relocations_sha256": "a97ece72e4ee9ef8a0752b01d6e2f98eb73991624fa185656729d5b88c6a0335",
+    "vram": 2147774036,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -278422,6 +278758,7 @@
    "0465cee6febb06526fd4a34508e58067e31725b3a7c7018088b5b716a2342de3": "extern char D_800AE850[];\nextern void *D_800C8054;\ns32 func_8001BCE0(s32);\nvoid func_8001BD44(void);\nvoid func_8001BDA0(void)\n{\n  s32 *p = (s32 *) (D_800AE850 + 0x87D8);\n  s32 v;\n  *p = func_8001BCE0(0x12C);\n  v = func_8001BCE0(0x12C);\n  p[2] = p[0];\n  *((s32 *) (D_800AE850 + 0x6D9C)) = (s32)D_800C8054;\n  p[4] = 0;\n  p[5] = 0x12C;\n  p[1] = v;\n  p[3] = v;\n  D_800C8054 = func_8001BD44;\n}",
    "41be3e0365631a756eaa26fb0b9e8b064f39ca4e7491af9ed7c89d96149bf188": "extern s32 D_8009FF38;\ntypedef struct { u8 pad[0x44]; s32 v; u8 pad2[4]; } S76;\nvoid func_8001CB88(S76 *arg0) {\n u16 i=2; s16 (*tbl)[10]=(s16 (*)[10])&D_8009FF38;\n s16 *dst = tbl[*(u16 *)((u8 *)arg0+0x92)];\n do { dst[i]=arg0[i].v; i++; } while(i<10);\n}",
    "ebb3cff0daf8b364398ef43d7bbcf7f181c388961fb701891cd2def06419178f": "extern char D_800AE850[];\nextern char D_800C02AE[];\ns32 func_80041F24(void *, u8);\nvoid func_8001CFD0(void *arg0);\n\nvoid func_8001D07C(void *arg0)\n{\n    u8 n;\n    u32 i;\n    s32 flag;\n    s32 v;\n\n    n = *(u8 *)(*(char **)(D_800C02AE + 0x32F2) + 0xF);\n    v = *(s32 *)((char *)arg0 + 0x90);\n    for (i = 1; i <= n; i++) {\n        if (i < 2 || (v != 0 && v != 3)) {\n            *(s32 *)(D_800AE850 + 0x252C) = func_80041F24(arg0, i);\n            func_8001CFD0(arg0);\n        }\n    }\n}",
+   "0a90a688658de6c0233068434467d612402d77247fe85ac4e80ca93acb197c3a": "typedef struct Stat Stat;\nextern void func_80046E54(Stat *);\nvoid func_8001E524(Stat *s) {\n    func_80046E54(s);\n}\n",
    "49f8806b9db55c56a9aa89ac41246abf7a166cb90ba87b798785b6db5ae20116": "typedef struct Vec3s {\n    s16 x;\n    s16 y;\n    s16 z;\n} Vec3s;\n\ntypedef struct S1 {\n    u8 pad0[0x24];\n    s32 unk24;\n    s32 unk28;\n    s32 unk2C;\n    u8 pad30[0x4C - 0x30];\n    s32 unk4C;\n    u8 pad50[0x54 - 0x50];\n    Vec3s *unk54;\n    u8 pad58[0x88 - 0x58];\n    u16 unk88;\n    u16 unk8A;\n} S1;\n\nvoid func_8002D2C8(s32, s32);\n\nvoid func_8001FFC4(s32 *arg0, S1 *arg1, s32 arg2, s32 arg3) {\n    s32 i;\n    s32 off;\n    s32 t;\n    s32 x;\n    Vec3s *base;\n    Vec3s *w;\n\n    i = (s16)arg3;\n    i *= arg1->unk8A; t = (s16)arg2;\n    i += arg1->unk4C; i += t;\n    x = arg1->unk24;\n    base = arg1->unk54;\n    off = i * 6;\n    arg0[0] = ((Vec3s *)(off + (int)base))->x + x;\n    arg0[1] = ((Vec3s *)(off + (int)arg1->unk54))->y + arg1->unk28;\n    arg0[2] = ((Vec3s *)(off + (int)arg1->unk54))->z + arg1->unk2C;\n    i += arg1->unk8A;\n    w = (Vec3s *)(i * 6 + (int)arg1->unk54);\n    func_8002D2C8(w->x - ((Vec3s *)(off + (int)arg1->unk54))->x, w->z - ((Vec3s *)(off + (int)arg1->unk54))->z);\n}\n",
    "d22cbbf0e3b76f39585fc04f2535433a0aeffd1270579036a71ed2722610a5a0": "extern u8 D_800C02AE[];\nvoid func_80020098(u8 *arg0, u8 arg1)\n{\n  u8 i, j, k;\n  u8 prev, cur;\n  u8 *dst;\n  k = 0;\n\n  cur = arg0[0x93];\n  for (i = 0; i < *(s32 *)(arg0 + 0x44) - 1; i++)\n  {\n    prev = cur;\n    cur = arg0[i * 0x4C + 0xDF];\n    for (j = 0; j < 10; j++)\n    {\n      D_800C02AE[0x5BAA + arg1 * 0x81 + k] = prev + j * (cur - prev) / 10;\n      if (D_800C02AE[0x5BAA + arg1 * 0x81 + k] >= 0x80) D_800C02AE[0x5BAA + arg1 * 0x81 + k] = 0x7F;\n      if (k < 0x80) k++;\n    }\n  }\n  D_800C02AE[0x5C2A + arg1 * 0x81] = cur;\n}",
    "40ffd841f2522b6bb66c0e3b65d4f3fd59d242326dcf9cf95b27d7cca06bffd6": "typedef struct Sub80020428\n{\n  s32 *f0;\n  s32 f4;\n  s32 f8;\n  s32 fC;\n  s32 f10;\n  void *f14;\n  s32 *f18;\n  s32 f1C;\n  s32 f20;\n  s32 *f24;\n  s32 *f28;\n  s32 f2C;\n} Sub80020428;\ntypedef struct Obj80020428\n{\n  u8 pad[0x40];\n  Sub80020428 *f40;\n} Obj80020428;\ntypedef struct Cfg80020428\n{\n  u8 pad[0xE];\n  u16 mode;\n  u8 pad10[0xE];\n  u16 f1E;\n} Cfg80020428;\ntypedef struct Res80020428\n{\n  u8 pad[0x12];\n  u16 f12;\n} Res80020428;\nextern u8 D_800ADFE0;\nextern u16 D_800ADFE4;\nextern Cfg80020428 *D_800C35A0;\nextern s32 D_8009D534;\nRes80020428 *func_80041564(void);\ns32 *func_8007EAA0(s32, s32);\nvoid func_80020428(Obj80020428 *arg0)\n{\n  Res80020428 *res;\n  s32 *a;\n  s32 *b;\n  s32 n;\n  u32 i;\n  res = func_80041564();\n  if (D_800C35A0->f1E != 0)\n    arg0->f40->f0 = func_8007EAA0(1, (D_800ADFE0 + 1) * 4);\n  else\n    arg0->f40->f0 = func_8007EAA0(1, 0x10);\n  switch (D_800C35A0->mode)\n  {\n  case 1:\n    arg0->f40->f24 = func_8007EAA0(1, 0x1C);\n    arg0->f40->f28 = func_8007EAA0(1, 0x1C);\n    break;\n  case 2:\n    arg0->f40->f24 = func_8007EAA0(1, 0x10);\n    arg0->f40->f28 = func_8007EAA0(1, 0x10);\n    break;\n  case 3:\n  case 4:\n    arg0->f40->f24 = func_8007EAA0(1, 4);\n    arg0->f40->f28 = func_8007EAA0(1, 4);\n    break;\n  }\n  arg0->f40->f2C = 0;\n  arg0->f40->f14 = res;\n  arg0->f40->f4 = 0;\n  arg0->f40->f8 = 1;\n  arg0->f40->fC = 0;\n  arg0->f40->f10 = D_800ADFE4;\n  arg0->f40->f20 = 0;\n  if (res->f12 == 0)\n    arg0->f40->f18 = func_8007EAA0(1, 4);\n  else\n    arg0->f40->f18 = func_8007EAA0(1, res->f12 * 4);\n  a = arg0->f40->f24;\n  b = arg0->f40->f28;\n  n = 0;\n  switch (D_800C35A0->mode)\n  {\n  case 1:\n    n = 6;\n    break;\n  case 2:\n    n = 3;\n    break;\n  case 3:\n  case 4:\n    n = 1;\n    break;\n  }\n  while (n--)\n  {\n    *a++ = D_8009D534;\n    *b++ = 0;\n  }\n  a = arg0->f40->f0;\n  if (D_800C35A0->f1E != 0)\n  {\n    u8 *bp = &D_800ADFE0;\n    for (n = 0; n < (u32)(*bp + 1); n++)\n      *a++ = 0;\n  }\n  else\n  {\n    for (n = 0; n < 4U; n++)\n      *a++ = 0;\n  }\n}",
@@ -278504,12 +278841,14 @@
    "fd9f6751e3cceeb82df1dfe5873b6351ef1dcdb02caefcce296f74ca22416ba2": "extern char D_800A73E0[];\nextern char D_800AE850[];\nvoid func_80042DE0(void)\n{\n  void *slot[5];\n  u16 i;\n  char *node;\n  char *tbl;\n  char *ent;\n  s32 idx;\n  char *cur;\n  s32 t1;\n  s32 v1;\n  s32 sum;\n  char *base4;\n  s32 five;\n  char *tbl2;\n  s32 one;\n  s32 *list;\n  i = 0;\n  do\n  {\n    slot[i] = NULL;\n    i++;\n  }\n  while (i < 5);\n  list = *((s32 **) (D_800AE850 + 0x73F0));\n  node = *((char **) list);\n  if (node != NULL)\n  {\n    tbl = D_800A73E0 + 0x6C00;\n    do\n    {\n      ent = *((char **) (node + 0x6C));\n      idx = *((s32 *) (ent + 8));\n      v1 = (*((u8 *) tbl)) * 4;\n      if ((*((s32 *) ((v1 + (*((char **) ent))) - 4))) == 0)\n      {\n        slot[idx] = node;\n      }\n      node = *((char **) (node + 4));\n    }\n    while (node != NULL);\n  }\n  cur = slot[4];\n  if (cur != NULL)\n  {\n    t1 = 4;\n    five = 5;\n    tbl2 = D_800A73E0 + 0x6C00;\n    one = 1;\n    do\n    {\n      if ((*(*((s32 **) (cur + 0x48)))) == five)\n      {\n        cur = *((char **) (cur + 0x6C));\n        base4 = *((char **) cur);\n        base4 += 4;\n        sum = *((s32 *) (cur + 0xC));\n        v1 = *((s32 *) (cur + 4));\n        if ((*((s32 *) ((base4 + ((*((u8 *) tbl2)) * 4)) - 8))) == 0)\n        {\n          idx = *((s32 *) (cur + 8));\n          if (((u32) idx) >= 5)\n          {\n            idx = 4;\n          }\n          if (((u32) one) < ((u32) idx))\n          {\n            i = 1;\n            do\n            {\n              node = slot[i];\n              i++;\n              if (node != NULL)\n              {\n                sum += *((s32 *) ((*((char **) (node + 0x6C))) + 0xC));\n              }\n            }\n            while (((u32) i) < ((u32) idx));\n          }\n          *((s32 *) ((base4 + ((*((u8 *) tbl2)) * 4)) - 8)) = v1 + sum;\n        }\n      }\n      v1 = t1 - 1;\n      t1 = v1;\n      cur = slot[(u16) v1];\n    }\n    while (cur != NULL);\n  }\n}\n",
    "c35be510d7a0236f6bab15b6781f18e6deefbf234a0f3d58da71ec5530c38797": "#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\n\n\nextern const int D_800B6880;\nextern void **D_800B5C40;\n\n\ns32 func_8000E8B8();\nvoid *func_80022318();\ns32 func_8002FE78();\nvoid *func_8004240C();\ns32 func_80042DE0();\ns32 func_800528A4();\ns32 func_80073708();\ns32 func_800746C0();\ns32 func_80076E7C();\nextern s32 D_8009D538;\nextern char D_800A4DF4[];\nextern char D_800AE850[];\nextern char D_800C02AE[];\nextern void *D_800C35A0; extern void *D_800C7F84;\n\nvoid func_80042F40(void) {\n    s32 temp_v1;\n    s32 mode;\n    s32 temp_a0;\n    void *config;\n    void *node;\n    void *temp_a1;\n    void *temp_v0;\n    void *temp_v0_2;\n    void *temp_v0_3;\n    void *var_v1;\n\n    func_8002FE78();\n    temp_a0 = M2C_FIELD(D_800C35A0, u16 *, 0xE);\n    D_8009D538 |= 1;\n    temp_v0 = func_8004240C((temp_a0 * 2) | 1);\n    D_800C7F84 = temp_v0;\n    node = M2C_FIELD(func_80022318(temp_v0 + 0x28, &D_800A4DF4), void **, 0x10);\n    config = D_800C35A0;\n    M2C_FIELD(node, s32 *, 8) = 1;\n    temp_v0_2 = func_8004240C((M2C_FIELD(config, u16 *, 0xE) * 2) + 2);\n    temp_a0 = *(s32 *)((char *)temp_v0_2 + 0x178);\n    D_800C7F84 = temp_v0_2;\n    func_8000E8B8(temp_a0);\n    temp_v1 = M2C_FIELD(D_800C35A0, u16 *, 0x1E);\n    switch (temp_v1) {\n    case 0: func_800746C0(); break;\n    case 1: case 2: case 3: case 4: func_80042DE0(); goto mode_join;\n    case 5: func_80042DE0(); func_800528A4();\nmode_join: func_80073708(); break;\n    }\n    temp_v0_3 = func_8004240C((M2C_FIELD(D_800C35A0, u16 *, 0xE) * 2) + 2);\n    D_800C7F84 = temp_v0_3;\n    func_80076E7C(temp_v0_3);\n    var_v1 = *D_800B5C40;\n    D_8009D538 |= 0xA00;\n    if (var_v1 != NULL) {\n        mode = D_800B6880;\n        do {\n            temp_a1 = *(void * *)((char *)var_v1 + 0x48);\n            temp_a0 = *(s32 *)((char *)temp_a1 + 0x20);\n            switch (temp_a0) {                      /* switch 2; irregular */\n            case 6:                                 /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 4;\n                break;\n            case 10:                                /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 8;\n                break;\n            case 7:                                 /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 8;\n                break;\n            default:                                /* switch 2 */\n                M2C_FIELD(*(void * *)((char *)var_v1 + 0x48), s32 *, 0x20) = 8;\n                break;\n            }\n            if (D_800B6880 == 2) {\n                M2C_FIELD(*(void * *)((char *)var_v1 + 0x48), s32 *, 0x20) = 4;\n            }\n            var_v1 = *(void * *)((char *)var_v1 + 4);\n        } while (var_v1 != NULL);\n    }\n}\n",
    "252ab789342db24b0dbb6dfede4da6d9859a64cc4432075363fae45ea98e741b": "extern int D_800B6880;\nextern unsigned int D_800AE44C;\nextern float D_800C35E0;\nextern signed char D_800C8120;\ns32 func_8000E8B8();\ns32 func_8001FEE8();\nvoid *func_80022318();\ns32 func_80022F78();\ns32 func_80027C64();\ns32 func_80027E8C();\ns32 func_8002FE78();\ns32 func_80038A8C();\nvoid *func_8004240C();\ns32 func_80042D20();\nlong func_80042F40();\ns32 func_80043124();\ns32 func_800446D0();\ns32 func_800447A0();\ns32 func_80076E7C();\ns32 func_800804C4();\ns32 func_80080514();\ns32 func_80085778();\ns32 func_80086854();\ns32 func_80086A34();\ns32 func_80086DE8();\nextern s32 D_8009D538;\nextern void *D_800C35A0;\nextern s32 D_8009F640;\nextern s32 D_800A0200;\nextern char D_800A4DF4[];\nextern char D_800A4DFC[];\nextern char D_800A73E0[];\nextern char D_800AE850[];\nextern char D_800C02AE[];\nextern s32 func_8002291C;\nextern s32 func_8004E18C;\ntypedef struct { unsigned char pad_0[4]; void * field_4; unsigned char pad_8[12]; int field_14; unsigned char pad_18[48]; void * field_48; unsigned char pad_4C[32]; void * field_6C; } __repair_record_var_s2;\nvoid func_80043150(void *arg0, void *arg1)\n{\n  s32 temp_a0;\n  s32 var_a0_2;\n  s32 var_a1;\n  s32 var_s3;\n  s32 var_s5;\n  u32 temp_v1_3;\n  u32 temp_v1_5;\n  char *new_var2;\n  s32 var_s1;\n  u32 temp_a0_2;\n  u8 temp_v0_2;\n  int new_var;\n  u8 temp_v0_3;\n  u8 temp_v1;\n  u8 temp_v1_2;\n  u8 var_s4;\n  void *temp_a2;\n  void *temp_v0;\n  void *temp_v0_10;\n  void *temp_v0_4;\n  void *temp_v0_5;\n  void *temp_v0_6;\n  void *temp_v0_7;\n  void *temp_v0_8;\n  void *temp_v0_9;\n  void *temp_v1_4;\n  void *var_a0;\n  void *var_s0;\n  void *var_s2;\n  var_s2 = arg0;\n  var_s0 = arg1;\n  temp_a2 = ((__repair_record_var_s2*)var_s2)->field_6C;\n  var_s4 = *((u8 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xF));\n  var_s5 = *((s32 *) (((char *) temp_a2) + 0x10));\n  func_80085778(*((u8 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 3)), 1);\n  if (D_800B6880 != 1)\n  {\n    if (!((((__repair_record_var_s2*)var_s2)->field_14) & 0x200))\n    {\n      temp_v0 = func_8004240C((var_s4 * 2) + 2);\n      *((void **) (D_800C02AE + 0x7CD6)) = temp_v0;\n      func_800447A0(temp_v0);\n    }\n    func_80027E8C(var_s2, *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0)), var_s0);\n    ((__repair_record_var_s2*)var_s2)->field_14 |= 0x200;\n    var_a1 = func_8001FEE8(var_s2);\n    if (var_a1 < 0)\n    {\n      *((s8 *) (((char *) var_s0) + 5)) = 0;\n      *((s8 *) (((char *) var_s0) + 4)) = 0;\n      temp_v0_2 = (*((u8 *) (((char *) var_s0) + 1))) | 0x10;\n      *((u8 *) (((char *) var_s0) + 1)) = temp_v0_2;\n      temp_v1 = ((*((u8 *) (((char *) var_s0) + 2))) | (~temp_v0_2)) | 0x10;\n      *((u8 *) (((char *) var_s0) + 2)) = temp_v1;\n      *((s8 *) (((char *) var_s0) + 3)) = (s8) ((*((u8 *) (((char *) var_s0) + 1))) & temp_v1);\n    }\n    else\n    {\n      *((s8 *) (((char *) var_s0) + 4)) = 0;\n      *((u8 *) (((char *) var_s0) + 5)) = 0x80;\n    }\n    if ((((u32) (var_a1 + 5)) < 0xBU) & (var_s5 == 0))\n    {\n      *((s8 *) (((char *) var_s0) + 5)) = 0;\n      temp_v1_2 = (*((u8 *) (((char *) var_s0) + 1))) & 0xEF;\n      *((u8 *) (((char *) var_s0) + 1)) = temp_v1_2;\n      temp_v0_3 = ((*((u8 *) (((char *) var_s0) + 2))) | (~temp_v1_2)) | 0x10;\n      *((u8 *) (((char *) var_s0) + 2)) = temp_v0_3;\n      *((s8 *) (((char *) var_s0) + 3)) = (s8) ((*((u8 *) (((char *) var_s0) + 1))) & temp_v0_3);\n      var_s0 = *(*((void ***) (D_800AE850 + 0x73F0)));\n      var_s1 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));\n      var_s3 = 0;\n      if (var_s0 != NULL)\n      {\n        do\n        {\n          if ((*(*((s32 **) (((char *) var_s0) + 0x48)))) < 4)\n          {\n            var_a1 = func_8001FEE8(var_s0, var_a1);\n            if (((!((*((s32 *) (((char *) var_s0) + 0x14))) & 0x100)) && (((u32) (var_a1 + 5)) < 0xBU)) && ((*((s32 *) (((char *) (*((void **) (((char *) var_s0) + 0x6C)))) + 0x10))) == 0))\n            {\n              var_s3 += 1;\n              var_s1 -= 1;\n            }\n            if (((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))) >= 2U)\n            {\n              {\n                s32 flags = (*((s32 *) (((char *) var_s0) + 0x14))) & 0x100;\n                var_s1 -= flags != 0;\n              }\n            }\n          }\n          var_s0 = *((void **) (((char *) var_s0) + 4));\n        }\n        while (var_s0 != NULL);\n      }\n      if (var_s1 == 0)\n      {\n        temp_v1_3 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));\n        if ((temp_v1_3 >= 2U) && ((var_s3 & 0xFFFF) != temp_v1_3))\n        {\n          func_80042F40();\n          D_800B6880 = 0;\n          func_80085778(0U, 0x1000);\n          func_80085778(0U, 0x8000);\n        }\n        else\n        {\n          if (((u32) D_800AE44C) < 2U)\n          {\n            if ((*((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0))) < 4)\n            {\n              var_a0 = *(*((void ***) (D_800AE850 + 0x72FC)));\n              if (var_a0 != NULL)\n              {\n                loop_23:\n                if ((*((s32 *) (((char *) var_a0) + 0x24))) != var_s2)\n                {\n                  var_a0 = *((void **) (((char *) var_a0) + 4));\n                  if (var_a0 != NULL)\n                  {\n                    goto loop_23;\n                  }\n                }\n\n              }\n              temp_v0_4 = func_80022318(var_a0 + 0x28, &D_800A4DFC);\n              {\n                s32 two = 2;\n                if (temp_v0_4 != NULL)\n                {\n                  temp_v1_4 = *((void **) (((char *) temp_v0_4) + 0x10));\n                  if ((*((s32 *) (((char *) temp_v1_4) + 8))) != two)\n                  {\n                    *((s32 *) (((char *) temp_v1_4) + 8)) = two;\n                  }\n                }\n              }\n            }\n            if (D_800AE44C == 0)\n            {\n              func_80038A8C(0x10);\n              if (!(D_8009F640 & 0x20))\n              {\n                D_8009F640 |= 0x20;\n                func_80086A34(1);\n                func_80086854(D_800C02AE + 0x10122);\n                func_80086DE8((s32) (D_800C35E0 * 80.0f));\n              }\n            }\n          }\n          new_var2 = ((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x1E;\n          ((__repair_record_var_s2*)var_s2)->field_14 |= 0x80;\n          temp_a0_2 = D_800AE44C + 1;\n          D_800AE44C = temp_a0_2;\n          if (temp_a0_2 == (((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (D_800C02AE + 0x32F2))))->e * 0x4B))\n          {\n            temp_v1_5 = *((u16 *) new_var2);\n            D_8009D538 &= ~1;\n            if ((temp_v1_5 != 0) & (temp_v1_5 != 5))\n            {\n              if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x36))) != 0)\n              {\n                var_a0_2 = var_s4 * 2;\n                if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE))) == 1)\n                {\n                  {\n                    s32 i = 0;\n                    do\n                    {\n                      func_80085778(i & 0xFF, 1);\n                      i++;\n                    }\n                    while (((u32) (i & 0xFFFF)) < ((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))));\n                  }\n                  D_8009D538 |= 0x80;\n                  temp_v0_5 = func_8004240C((var_s4 * 2) + 2);\n                  *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_5;\n                  func_800446D0(temp_v0_5);\n                }\n                else\n                {\n                  goto block_39;\n                }\n              }\n              else\n              {\n                var_a0_2 = var_s4 * 2;\n                block_39:\n                temp_v0_6 = func_8004240C(var_a0_2 + 2);\n                { extern void *D_800C7F84; D_800C7F84 = temp_v0_6; }\n                func_800447A0(temp_v0_6);\n                func_80043124(var_s2);\n                func_8002FE78();\n                D_8009D538 |= 1;\n                temp_v0_7 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (D_800C02AE + 0x32F2))))->e * 2) | 1);\n                *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_7;\n                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) func_80022318(temp_v0_7 + 0x28, &D_800A4DF4)) + 0x10))))->v = 1;\n                temp_v0_8 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) D_800C35A0)->e * 2) + 2);\n                *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_8;\n                func_8000E8B8(((struct { u8 pad[0x178]; s32 x; } *) temp_v0_8)->x);\n                { extern void *D_800C7F84; func_80076E7C(D_800C7F84); }\n                var_s2 = *(*((void ***) (D_800AE850 + 0x73F0)));\n                if (var_s2 != NULL)\n                {\n                  do\n                  {\n                    *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0x20)) = 8;\n                    ((__repair_record_var_s2*)var_s2)->field_14 |= 0x10;\n                    var_s2 = ((__repair_record_var_s2*)var_s2)->field_4;\n                  }\n                  while (var_s2 != NULL);\n                }\n                D_800B6880 = 2;\n                D_8009D538 |= 0xA00;\n              }\n            }\n            else\n            {\n              func_80043124(var_s2, *((void **) (D_800C02AE + 0x32F2)));\n            }\n          }\n        }\n      }\n    }\n  }\n  else\n  {\n    temp_v0_9 = func_8004240C((var_s4 * 2) + 2);\n    *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_9;\n    func_800447A0(temp_v0_9);\n    func_80043124(var_s2);\n    D_800B6880 = 5;\n    D_800C8120 = 0;\n  }\n  if (var_s5 != 0)\n  {\n    D_800AE44C = 0U;\n    ((__repair_record_var_s2*)var_s2)->field_14 &= ~0x200;\n    if (D_800B6880 != 1)\n    {\n      *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0x20)) = (s32) (func_80027C64(*((u16 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 2))) & 0xFFFF);\n    }\n  }\n  if (D_800A0200 != 0)\n  {\n    temp_v0_10 = func_8004240C((var_s4 * 2) + 2);\n    *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_10;\n    new_var = 0x73F0;\n    func_800447A0(temp_v0_10);\n    func_80042D20();\n    func_80022F78(*((void ***) (D_800AE850 + new_var)));\n    func_80080514(*((void ***) (D_800AE850 + new_var)), &func_8002291C, 0x10);\n    func_800804C4(*((void ***) (D_800AE850 + 0x72FC)), &func_8004E18C);\n    D_800A0200 = 0;\n  }\n}\n",
-   "d1c3e528d5560db42156cde68a153094833a94948275a33eca190308852b9744": "typedef struct \n{\n  u32 a;\n  s32 b;\n} Split;\ntypedef struct \n{\n  u8 pad0[8];\n  s16 checkpoint;\n  u8 pad0A[0x24 - 0xA];\n  s32 x;\n  u8 pad28[4];\n  s32 z;\n  u8 pad30[0x54 - 0x30];\n  s16 *verts;\n  u8 pad58[0x74 - 0x58];\n  Split *splits;\n  u8 pad78[0x8A - 0x78];\n  u16 n;\n} Track;\ntypedef struct \n{\n  u8 pad0[0x28];\n  Track *track;\n} TrackRef;\ntypedef struct \n{\n  u8 pad0[0x28];\n  u32 seg;\n} Progress;\ntypedef struct \n{\n  u8 pad0[0x2B8];\n  s32 x;\n  u8 pad2BC[4];\n  s32 z;\n} Body;\ntypedef struct \n{\n  s32 *times;\n  u32 total;\n  s32 position;\n  s32 gap;\n} RaceInfo;\ntypedef struct \n{\n  s32 laps;\n  u32 checkpoint;\n  s32 count;\n} LapInfo;\ntypedef struct Car\n{\n  u8 pad0[4];\n  struct Car *next;\n  u8 pad8[0x14 - 0x8];\n  u32 flags;\n  u8 pad18[0x48 - 0x18];\n  s32 *p48;\n  u8 pad4C[0x60 - 0x4C];\n  Progress *progress;\n  u8 pad64[0x6C - 0x64];\n  RaceInfo *race;\n  LapInfo *lap;\n  u8 pad74[0x80 - 0x74];\n  Body *body;\n  u8 pad84[0x8C - 0x84];\n  TrackRef *ref;\n} Car;\ntypedef struct \n{\n  Car *first;\n} CarList;\nextern u16 D_800ADFDE;\nextern s32 D_800ADFE8;\nextern CarList *D_800B5C40;\nextern u8 *D_800C35A0;\nvoid func_80044908(Car *car)\n{\n  s32 va[4];\n  s32 vb[4];\n  s32 vc[4];\n  LapInfo *lap;\n  u32 oldCp;\n  u32 cp;\n  s32 pos;\n  u32 sum;\n  Track *trk;\n  Split *e;\n  Car *other;\n  s32 laps;\n  s32 *new_var;\n  u8 found;\n  s32 i;\n  s32 *tp;\n  lap = car->lap;\n  sum = 0;\n  oldCp = lap->checkpoint;\n  pos = D_800ADFDE;\n  cp = oldCp;\n  if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)\n  {\n    if (((*car->p48) < 4) && (!(car->flags & 0x100)))\n    {\n      trk = car->ref->track;\n      lap->checkpoint = trk->checkpoint;\n      if (oldCp != trk->checkpoint)\n      {\n        e = trk->splits;\n        if (!(car->flags & 0x20))\n        {\n          pos = *car->p48;\n          sum = car->race->total;\n          e[pos].a = sum;\n          e[pos].b = car->lap->laps;\n          car->race->gap = e[4].a - e[pos].a;\n        }\n      }\n    }\n    return;\n  }\n  trk = car->ref->track;\n  if ((cp == 0) && (trk->checkpoint == D_800ADFE8))\n  {\n    lap->count--;\n  }\n  else\n    if ((cp == D_800ADFE8) && (trk->checkpoint == 0))\n  {\n    car->lap->count++;\n  }\n  else\n    if (cp < ((u32) trk->checkpoint))\n  {\n    car->lap->count++;\n  }\n  else\n    if (((u32) trk->checkpoint) < cp)\n  {\n    car->lap->count--;\n  }\n  car->lap->checkpoint = trk->checkpoint;\n  other = D_800B5C40->first;\n  laps = car->lap->count;\n  for (; other != NULL; other = other->next)\n  {\n    if (other != car)\n    {\n      Track *otrk = other->ref->track;\n      s32 olaps = other->lap->count;\n      if (!(other->flags & 0x100))\n      {\n        if (olaps < laps)\n        {\n          pos--;\n        }\n        else\n          if (laps == olaps)\n        {\n          u32 seg = car->progress->seg;\n          u32 oseg = other->progress->seg;\n          if ((oseg < seg) && (trk == otrk))\n          {\n            pos--;\n          }\n          else\n            if (seg == oseg)\n          {\n#define k i\n            u16 n;\n            va[0] = car->body->x - trk->x;\n            va[2] = car->body->z - trk->z;\n            vb[0] = other->body->x - trk->x;\n            vb[2] = other->body->z - trk->z;\n            n = trk->n;\n            seg = (seg * n) + (n >> 1);\n            k = seg;\n            vc[0] = trk->verts[(k + n) * 3] - trk->verts[k * 3];\n            vc[2] = trk->verts[((k + n) * 3) + 2] - trk->verts[(k * 3) + 2];\n            va[0] = vb[0] - va[0];\n            va[2] = vb[2] - va[2];\n            if (((vc[0] * va[0]) + (vc[2] * va[2])) <= 0)\n            {\n              pos--;\n            }\n          }\n        }\n      }\n    }\n  }\n\n  car->race->position = pos;\n  if (pos == 1)\n  {\n    car->race->gap = 0;\n  }\n  else\n  {\n    Car *o;\n    found = 0;\n    o = D_800B5C40->first;\n    while ((!found) && (o != NULL))\n    {\n      if (o->race->position == (car->race->position - 1))\n      {\n        found = 1;\n      }\n      else\n      {\n        o = o->next;\n      }\n    }\n\n    if (found)\n    {\n      RaceInfo *r = car->race;\n      s32 g = r->gap;\n      s32 og = o->race->gap;\n      if (g < og)\n      {\n        r->gap = og;\n        o->race->gap = g;\n      }\n    }\n  }\n  if (oldCp != trk->checkpoint)\n  {\n    e = trk->splits;\n    pos--;\n    if (!(car->flags & 0x20))\n    {\n      tp = car->race->times;\n      for (i = 1; i < car->lap->laps; i++)\n      {\n        sum += tp[i];\n      }\n\n      sum += car->race->total;\n      e[pos].a = sum;\n      e[pos].b = car->lap->laps;\n      if (pos != 0)\n      {\n        if ((e[0].b == e[pos].b) && (e[0].a != 0))\n        {\n          if (e[0].a < sum)\n          {\n            car->race->gap = sum - e[0].a;\n          }\n        }\n        else\n          if (e[pos - 1].b > e[pos].b)\n        {\n          car->race->gap = (e[pos - 1].b - e[pos].b) + 3600000;\n        }\n      }\n    }\n  }\n}\n\n",
+   "d047d5408b789d1a48ce552ed27c205bc09aabd569dea28c6f540e2ffc392e41": "typedef struct \n{\n  u32 a;\n  s32 b;\n} Split;\ntypedef struct \n{\n  u8 pad0[8];\n  s16 checkpoint;\n  u8 pad0A[0x24 - 0xA];\n  s32 x;\n  u8 pad28[4];\n  s32 z;\n  u8 pad30[0x54 - 0x30];\n  s16 *verts;\n  u8 pad58[0x74 - 0x58];\n  Split *splits;\n  u8 pad78[0x8A - 0x78];\n  u16 n;\n} Track;\ntypedef struct \n{\n  u8 pad0[0x28];\n  Track *track;\n} TrackRef;\ntypedef struct \n{\n  u8 pad0[0x28];\n  u32 seg;\n} Progress;\ntypedef struct \n{\n  u8 pad0[0x2B8];\n  s32 x;\n  u8 pad2BC[4];\n  s32 z;\n} Body;\ntypedef struct \n{\n  s32 *times;\n  u32 total;\n  s32 position;\n  s32 gap;\n} RaceInfo;\ntypedef struct \n{\n  s32 laps;\n  u32 checkpoint;\n  s32 count;\n} LapInfo;\ntypedef struct Car\n{\n  u8 pad0[4];\n  struct Car *next;\n  u8 pad8[0x14 - 0x8];\n  u32 flags;\n  u8 pad18[0x48 - 0x18];\n  s32 *p48;\n  u8 pad4C[0x60 - 0x4C];\n  Progress *progress;\n  u8 pad64[0x6C - 0x64];\n  RaceInfo *race;\n  LapInfo *lap;\n  u8 pad74[0x80 - 0x74];\n  Body *body;\n  u8 pad84[0x8C - 0x84];\n  TrackRef *ref;\n} Car;\ntypedef struct \n{\n  Car *first;\n} CarList;\ntypedef struct Cursor { s16 marker; u16 position; } Cursor;\nextern Cursor D_800ADFDC;\nextern s32 D_800ADFE8;\nextern CarList *D_800B5C40;\nextern u8 *D_800C35A0;\nvoid func_80044908(Car *car)\n{\n  s32 va[4];\n  s32 vb[4];\n  s32 vc[4];\n  LapInfo *lap;\n  u32 oldCp;\n  u32 cp;\n  s32 pos;\n  u32 sum;\n  Track *trk;\n  Split *e;\n  Car *other;\n  s32 laps;\n  s32 *new_var;\n  u8 found;\n  s32 i;\n  s32 *tp;\n  lap = car->lap;\n  sum = 0;\n  oldCp = lap->checkpoint;\n  pos = D_800ADFDC.position;\n  cp = oldCp;\n  if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)\n  {\n    if (((*car->p48) < 4) && (!(car->flags & 0x100)))\n    {\n      trk = car->ref->track;\n      lap->checkpoint = trk->checkpoint;\n      if (oldCp != trk->checkpoint)\n      {\n        e = trk->splits;\n        if (!(car->flags & 0x20))\n        {\n          pos = *car->p48;\n          sum = car->race->total;\n          e[pos].a = sum;\n          e[pos].b = car->lap->laps;\n          car->race->gap = e[4].a - e[pos].a;\n        }\n      }\n    }\n    return;\n  }\n  trk = car->ref->track;\n  if ((cp == 0) && (trk->checkpoint == D_800ADFE8))\n  {\n    lap->count--;\n  }\n  else\n    if ((cp == D_800ADFE8) && (trk->checkpoint == 0))\n  {\n    car->lap->count++;\n  }\n  else\n    if (cp < ((u32) trk->checkpoint))\n  {\n    car->lap->count++;\n  }\n  else\n    if (((u32) trk->checkpoint) < cp)\n  {\n    car->lap->count--;\n  }\n  car->lap->checkpoint = trk->checkpoint;\n  other = D_800B5C40->first;\n  laps = car->lap->count;\n  for (; other != NULL; other = other->next)\n  {\n    if (other != car)\n    {\n      Track *otrk = other->ref->track;\n      s32 olaps = other->lap->count;\n      if (!(other->flags & 0x100))\n      {\n        if (olaps < laps)\n        {\n          pos--;\n        }\n        else\n          if (laps == olaps)\n        {\n          u32 seg = car->progress->seg;\n          u32 oseg = other->progress->seg;\n          if ((oseg < seg) && (trk == otrk))\n          {\n            pos--;\n          }\n          else\n            if (seg == oseg)\n          {\n#define k i\n            u16 n;\n            va[0] = car->body->x - trk->x;\n            va[2] = car->body->z - trk->z;\n            vb[0] = other->body->x - trk->x;\n            vb[2] = other->body->z - trk->z;\n            n = trk->n;\n            seg = (seg * n) + (n >> 1);\n            k = seg;\n            vc[0] = trk->verts[(k + n) * 3] - trk->verts[k * 3];\n            vc[2] = trk->verts[((k + n) * 3) + 2] - trk->verts[(k * 3) + 2];\n            va[0] = vb[0] - va[0];\n            va[2] = vb[2] - va[2];\n            if (((vc[0] * va[0]) + (vc[2] * va[2])) <= 0)\n            {\n              pos--;\n            }\n          }\n        }\n      }\n    }\n  }\n\n  car->race->position = pos;\n  if (pos == 1)\n  {\n    car->race->gap = 0;\n  }\n  else\n  {\n    Car *o;\n    found = 0;\n    o = D_800B5C40->first;\n    while ((!found) && (o != NULL))\n    {\n      if (o->race->position == (car->race->position - 1))\n      {\n        found = 1;\n      }\n      else\n      {\n        o = o->next;\n      }\n    }\n\n    if (found)\n    {\n      RaceInfo *r = car->race;\n      s32 g = r->gap;\n      s32 og = o->race->gap;\n      if (g < og)\n      {\n        r->gap = og;\n        o->race->gap = g;\n      }\n    }\n  }\n  if (oldCp != trk->checkpoint)\n  {\n    e = trk->splits;\n    pos--;\n    if (!(car->flags & 0x20))\n    {\n      tp = car->race->times;\n      for (i = 1; i < car->lap->laps; i++)\n      {\n        sum += tp[i];\n      }\n\n      sum += car->race->total;\n      e[pos].a = sum;\n      e[pos].b = car->lap->laps;\n      if (pos != 0)\n      {\n        if ((e[0].b == e[pos].b) && (e[0].a != 0))\n        {\n          if (e[0].a < sum)\n          {\n            car->race->gap = sum - e[0].a;\n          }\n        }\n        else\n          if (e[pos - 1].b > e[pos].b)\n        {\n          car->race->gap = (e[pos - 1].b - e[pos].b) + 3600000;\n        }\n      }\n    }\n  }\n}\n\n",
+   "ff131fded798beb96c178bfe2919f4f5cc07c3464ff4c120ebc192048879cf22": "#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n\ntypedef struct Cursor { s16 marker; u16 position; } Cursor;\nextern Cursor D_800ADFDC;\nextern int D_800AE44C;\nextern float D_800C35E0;\n\ns32 func_80027C64();\ns32 func_80038A8C();\ns32 func_80086854();\ns32 func_80086A34();\ns32 func_80086DE8();\nextern s32 D_8009D538;\nextern s32 D_8009F640;\nextern char D_800A73E0[];\nextern char D_800AE850[];\nextern char D_800C02AE[];\n\nvoid func_80044D9C(void *arg0, s32 arg1, void *arg2) {\n    s32 temp_a0_3;\n    s32 temp_a0_4;\n    s32 temp_a0_5;\n    s32 temp_v1;\n    int var_a0;\n    u16 temp_v0;\n    u16 limit;\n    void *temp_a0;\n    void *temp_a0_2;\n    void *temp_a0_6;\n    void *temp_a1;\n    void *temp_v1_2;\n    void *temp_v1_3;\n    void *temp_v1_4;\n    void *var_s0;\n    void *var_s1;\n    void *var_s2;\n\n    var_s1 = arg2;\n    if (!(D_8009D538 & 0x800)) {\n        temp_a1 = *(void * *)((char *)var_s1 + 0x70);\n        var_s2 = arg0;\n        temp_v1 = *(s32 *)((char *)temp_a1 + 0x28);\n        if (temp_v1 == *(u16 *)((char *)var_s2 + 0)) {\n            *(s32 *)((char *)temp_a1 + 0x28) = (s32) (temp_v1 + 1);\n            temp_a0 = *(void * *)((char *)var_s1 + 0x70);\n            if (*(s32 *)((char *)temp_a0 + 0x28) == D_800ADFDC.marker) {\n                *(s32 *)((char *)temp_a0 + 0x28) = 0;\n            }\n            temp_v0 = M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0x1E);\n            if ((temp_v0 != 0) & (temp_v0 != 5)) {\n                temp_v1_2 = *(void * *)((char *)var_s1 + 0x6C);\n                M2C_FIELD(((*(u16 *)((char *)var_s2 + 0) * 4) + *(s32 *)((char *)temp_v1_2 + 0x18)), s32 *, -4) = (s32) *(s32 *)((char *)temp_v1_2 + 4);\n                if (((u16) M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0xE) >= 2U) && (M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0) < 4)) {\n                    var_s0 = **(void ** *)(D_800AE850 + 0x73F0);\n                    var_a0 = 1;\n                    limit = (u16) M2C_FIELD(*(void * *)((char *)var_s1 + 0x6C), u16 *, 0xA);\n                    if (var_s0 != NULL) {\n                        do {\n                            if ((**(s32 * *)((char *)var_s0 + 0x48) < 4) & ((s32) var_s0 != var_s1)) {\n                                var_a0 &= -((u16) M2C_FIELD(*(void * *)((char *)var_s0 + 0x6C), u16 *, 0xA) >= limit);\n                            }\n                            var_s0 = *(void * *)((char *)var_s0 + 4);\n                        } while ((var_s0 != NULL) & ((var_a0 & 0xFF) != 0));\n                    }\n                    if (var_a0 & 0xFF) {\n                        temp_a0_2 = *(void * *)((char *)var_s1 + 0x6C);\n                        *(s32 *)((char *)temp_a0_2 + 0x10) += *(u16 *)((char *)var_s2 + 2);\n                        temp_v1_3 = *(void * *)((char *)var_s1 + 0x6C);\n                        if (*(s32 *)((char *)temp_v1_3 + 0x10) >= 0x64) {\n                            *(s32 *)((char *)temp_v1_3 + 0x10) = 0x63;\n                        }\n                        var_s0 = **(void ** *)(D_800AE850 + 0x73F0);\n                        if (var_s0 != NULL) {\n                            register var_s2 = (void *)-0x201;\n                            do {\n                                if ((M2C_FIELD(*(void * *)((char *)var_s0 + 0x48), s32 *, 0) < 4) & (var_s0 != (s32) var_s1)) {\n                                    M2C_FIELD(*(void * *)((char *)var_s0 + 0x6C), s32 *, 0x10) = (s32) M2C_FIELD(*(void * *)((char *)var_s1 + 0x6C), s32 *, 0x10);\n                                    temp_a0_3 = *(s32 *)((char *)var_s0 + 0x14);\n                                    if (temp_a0_3 & 0x200) {\n void *obj = *(void **)((char *)var_s0 + 0x48);\n                                        *(s32 *)((char *)var_s0 + 0x14) = (s32) (temp_a0_3 & ~0x200);\n                                        D_800AE44C = 0;\n                                        M2C_FIELD(*(void * *)((char *)var_s0 + 0x48), s32 *, 0x20) = (s32) (func_80027C64(M2C_FIELD(obj, u16 *, 2)) & 0xFFFF);\n                                    }\n                                }\n                                var_s0 = *(void * *)((char *)var_s0 + 4);\n                            } while (var_s0 != NULL);\n                        }\n                        temp_a0_4 = *(s32 *)((char *)var_s1 + 0x14);\n                        if (temp_a0_4 & 0x200) {\n                            void *obj = *(void **)((char *)var_s1 + 0x48);\n                            *(s32 *)((char *)var_s1 + 0x14) = (s32) (temp_a0_4 & ~0x200);\n                            D_800AE44C = 0;\n                            M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0x20) = (s32) (func_80027C64(M2C_FIELD(obj, u16 *, 2)) & 0xFFFF);\n                        }\n                        goto block_27;\n                    }\n                } else {\n                    temp_a0_5 = *(s32 *)((char *)var_s1 + 0x14);\n                    if (temp_a0_5 & 0x200) {\n                        void *obj=*(void **)((char *)var_s1+0x48);\n                        *(s32 *)((char *)var_s1 + 0x14) = (s32) (temp_a0_5 & ~0x200);\n                        D_800AE44C = 0;\n                        M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0x20) = (s32) (func_80027C64(M2C_FIELD(obj, u16 *, 2)) & 0xFFFF);\n                    }\n                    temp_a0_6 = *(void * *)((char *)var_s1 + 0x6C);\n                    *(s32 *)((char *)temp_a0_6 + 0x10) += *(u16 *)((char *)var_s2 + 2);\n                    temp_v1_4 = *(void * *)((char *)var_s1 + 0x6C);\n                    if (*(s32 *)((char *)temp_v1_4 + 0x10) >= 0x64) {\n                        *(s32 *)((char *)temp_v1_4 + 0x10) = 0x63;\n                    }\nblock_27:\n                    if (M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0) < 4) {\n                        func_80086A34(1);\n                        D_8009F640 &= ~0x10;\n                        func_80038A8C(0x14);\n                        func_80086854(D_800C02AE + 0x6C6A);\n                        func_80086DE8((s32) (D_800C35E0 * 80.0f));\n                    }\n                }\n            }\n        }\n    }\n}\n",
    "65764622bddecec7a785769a3be3ab53a9b579257bb8801877beca41c4c3b8a3": "extern char *D_800C35A0;\nextern s32 D_8009D540;\ns32 func_80041564(void);\nvoid func_800450B8(void *arg0)\n{\n  s32 mode;\n  u8 swapped;\n  void *ctx;\n  s32 *slot;\n  s32 *other;\n  s32 base;\n  u32 val;\n  u32 prev;\n  s32 i;\n  u32 off;\n  s32 *q;\n  s32 tmp;\n  char *cfg;\n  unsigned char *rec;\n  s32 t;\n  u32 numer;\n  u32 denom;\n  mode = *((u16 *) (D_800C35A0 + 0xE));\n  swapped = 1;\n  if (mode == 2)\n  {\n    goto mode2;\n  }\n  if (mode >= 3)\n  {\n    goto done;\n  }\n  if (mode != 1)\n  {\n    goto done;\n  }\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  slot += 6;\n  *slot = *((s32 *) (((u8 *) ctx) + 4));\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  other += 6;\n  base = func_80041564();\n  cfg = D_800C35A0;\n  if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))\n  {\n    rec = ((char *) base) + ((*((u16 *) (cfg + 0x22))) << 6);\n    if (rec[0x38] != 0)\n    {\n      t = *((s32 *) (rec + 0x2C));\n      if (((u32) t) >= 0xBU)\n      {\n        *slot = t - 3;\n      }\n    }\n    else\n    {\n      t = *((s32 *) (rec + 0x2C));\n      if (((u32) t) >= 0x1FU)\n      {\n        *slot = t - 0xA;\n      }\n    }\n  }\n  numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  if (swapped != 0)\n  {\n    do\n    {\n      swapped = 0;\n      i = 6;\n      do\n      {\n        off = (i & 0xFF) * 4;\n        q = (s32 *) (off + ((int) slot));\n        val = q[0];\n        prev = q[-1];\n        if (prev > val)\n        {\n          q[0] = prev;\n          q[-1] = val;\n          tmp = *((s32 *) (off + ((int) other)));\n          swapped = 1;\n          *((s32 *) (((u8 *) other) + off)) = *((s32 *) ((((u8 *) other) + off) - 4));\n          *((s32 *) ((((u8 *) other) + off) - 4)) = tmp;\n        }\n        i -= 1;\n      }\n      while ((i & 0xFF) != 0);\n    }\n    while (swapped != 0);\n  }\n  goto done;\n  mode2:\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  slot += 3;\n  *slot = *((s32 *) (((u8 *) ctx) + 4));\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  do\n  {\n    other = *((s32 **) (((u8 *) ctx) + 0x28));\n    other += 3;\n    base = func_80041564();\n    cfg = D_800C35A0;\n    if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))\n    {\n      rec = ((char *) base) + ((*((u16 *) (cfg + 0x22))) << 6);\n      if (rec[0x38] != 0)\n      {\n        t = *((s32 *) (rec + 0x2C));\n        if (((u32) t) >= 0xBU)\n        {\n          *slot = t - 3;\n        }\n      }\n      else\n      {\n        t = *((s32 *) (rec + 0x2C));\n        if (((u32) t) >= 0x1FU)\n        {\n          *slot = t - 0xA;\n        }\n      }\n    }\n    numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);\n  }\n  while (0);\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  if (swapped != 0)\n  {\n    do\n    {\n      swapped = 0;\n      i = 3;\n      do\n      {\n        off = (i & 0xFF) * 4;\n        q = (s32 *) (off + ((int) slot));\n        val = q[0];\n        prev = q[-1];\n        if (val < prev)\n        {\n          q[0] = prev;\n          q[-1] = val;\n          tmp = *((s32 *) (off + ((int) other)));\n          swapped = 1;\n          *((s32 *) (((u8 *) other) + off)) = *((s32 *) ((((u8 *) other) + off) - 4));\n          *((s32 *) ((((u8 *) other) + off) - 4)) = tmp;\n        }\n        i -= 1;\n      }\n      while ((i & 0xFF) != 0);\n    }\n    while (swapped != 0);\n  }\n  done:\n  return;\n}\n",
    "8eade706296b1ec51dcdeb295e18af91e5808c01dcfd34e760078c13a2c34d2f": "#define I(p,o) (*(u32 *)((u8*)(p)+(o)))\n#define H(p,o) (*(u16 *)((u8*)(p)+(o)))\n#define B(p,o) (*(u8 *)((u8*)(p)+(o)))\nvoid func_80098290(void *, s32, s32);\nextern u8 D_8009D544;\nextern u8 *D_800C35A0;\nvoid func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)\n{\n  u32 sp10[4];\n  u8 *var_a0_3;\n  u8 *var_a0_4;\n  u8 *var_a2;\n  u8 *var_a2_3;\n  u8 *var_a2_7;\n  u8 *var_a2_5;\n  u8 *var_v1_3;\n  u8 *var_v1_5;\n  u8 *temp_a1;\n  s32 temp_a2;\n  s32 temp_v1_5;\n  s32 var_a0_5;\n  s32 var_a0_6;\n  s32 var_a0_7;\n  s32 var_a0_8;\n  u8 var_s2 = 1;\n  s32 var_t1;\n  s32 var_t2;\n  s32 var_v1;\n  s32 var_v1_2;\n  u32 temp_s3;\n  u8 *temp_a3;\n  u8 *var_a0_2;\n  u8 *var_a2_2;\n  u8 *var_a2_4;\n  u8 *var_a2_6;\n  u8 *var_t0;\n  u8 *var_v1_4;\n  u32 temp_v0;\n  u32 temp_v0_2;\n  u32 temp_v0_3;\n  u32 temp_v1_3;\n  u32 temp_v1_4;\n  u32 var_a0;\n  u8 *var_v1_6;\n  u8 *var_x;\n  void *temp_s0;\n  void *temp_v1;\n  void *temp_v1_2;\n  var_a0 = arg0;\n  temp_s3 = H(D_800C35A0, 0x22);\n  temp_a2 = temp_s3 << 6;\n  temp_v1 = arg1 + ((int) (temp_a2 + 0x2C));\n  temp_s0 = temp_v1 + 0x30;\n  if (H(D_800C35A0, 0x2C) & 0x4000)\n  {\n    temp_v1_2 = arg1 + temp_a2;\n    if (B(temp_v1_2, 0x38) != 0)\n    {\n      temp_v1_3 = I(temp_v1_2, 0x2C);\n      if (temp_v1_3 > (0xBU - 1))\n      {\n        var_a0 = temp_v1_3 - 3;\n      }\n    }\n    else\n    {\n      temp_v1_4 = I(temp_v1_2, 0x2C);\n      if (temp_v1_4 >= 0x1FU)\n      {\n        var_a0 = temp_v1_4 - 0xA;\n      }\n    }\n  }\n  if (D_8009D544 == 0)\n  {\n    if (var_t2)\n    {\n      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);\n    }\n    else\n    {\n      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);\n    }\n  }\n  else\n  {\n    I(temp_s0, 0) = var_a0;\n  }\n  func_80098290(temp_s0 + 6, arg3, temp_a2);\n  temp_v1_5 = temp_s3 << 6;\n  B(temp_s0, 0xC) = 1;\n  B(temp_s0, 0x4) = arg2;\n  B(temp_s0, 0x5) = arg4;\n  B(temp_s0, 0xA) = (s8) arg5;\n  B(temp_s0, 0xB) = (u8) B(arg1 + temp_v1_5, 0x37);\n  if (var_s2 & 0xFF)\n  {\n    temp_a1 = arg1 + (temp_v1_5 + 0x2C);\n    var_a2_4 = (u8 *)(sp10 + 4);\n    do\n    {\n      var_s2 = 0;\n      var_t2 = 3;\n      var_t0 = temp_a1 + 0x30;\n      var_t1 = 0x20;\n      loop_15:\n      temp_a3 = temp_a1 + var_t1;\n\n      if ((((u32) I(var_t0, 0)) < ((u32) I(temp_a3, 0))) ^ 0)\n      {\n        var_a0_2 = sp10;\n        var_a2 = temp_a3 + 0x10;\n        var_s2 = 1;\n        if ((((u32) var_a0_2) < ((u32) var_a2)) & (((u32) temp_a3) < ((u32) var_a0_2)))\n        {\n          var_a0_3 = sp10 + 4;\n          var_v1 = 4;\n          do\n          {\n            do\n            {\n              var_a2 -= 4;\n              var_a0_3 -= 4;\n              var_v1 -= 1;\n              I(var_a0_3, 0) = I(var_a2, 0);\n            }\n            while (var_v1 != 0);\n          }\n          while (0);\n          var_a0_4 = var_t0 + 0x10;\n        }\n        else\n        {\n          var_a2_2 = temp_a3;\n          var_v1_2 = 4;\n          do\n          {\n            temp_v0 = I(var_a2_2, 0);\n            var_a2_2 += 4;\n            do\n            {\n              var_v1_2 -= 1;\n              I(var_a0_2, 0) = temp_v0;\n              var_a0_2 += 4;\n            }\n            while (0);\n          }\n          while (var_v1_2 != 0);\n          var_a0_4 = var_t0 + 0x10;\n        }\n        if ((((u32) temp_a3) < ((u32) var_a0_4)) & (((u32) var_t0) < ((u32) temp_a3)))\n        {\n          var_a2_7 = var_a0_4;\n          var_v1_3 = temp_a3 + 0x10;\n          var_a0_5 = 4;\n          do\n          {\n            var_a2_7 -= 4;\n            var_v1_3 -= 4;\n            var_a0_5 -= 1;\n            I(var_v1_3, 0) = I(var_a2_7, 0);\n          }\n          while (var_a0_5 != 0);\n        }\n        else\n        {\n          var_a2_3 = var_t0;\n          var_v1_4 = temp_a3;\n          var_a0_6 = 4;\n          do\n          {\n            temp_v0_2 = I(var_a2_3, 0);\n            var_a2_3 += 4;\n            var_a0_6 -= 1;\n            I(var_v1_4, 0) = temp_v0_2;\n            var_v1_4 += 4;\n          }\n          while (var_a0_6 != 0);\n        }\n        var_x = (u8 *) sp10;\n        if ((((u32) var_t0) < ((u32) var_a2_4)) & (((u32) var_x) < ((u32) var_t0)))\n        {\n          var_v1_6 = var_a2_4;\n          var_a2_6 = var_t0 + 0x10;\n          var_a0_8 = 4;\n          do\n          {\n            var_v1_6 -= 4;\n            var_a2_6 -= 4;\n            var_a0_8 -= 1;\n            I(var_a2_6, 0) = I(var_v1_6, 0);\n          }\n          while (var_a0_8 != 0);\n          var_t0 -= 0x10;\n        }\n        else\n        {\n          var_v1_6 = var_x;\n          var_a2_6 = var_t0;\n          var_a0_8 = 4;\n          do\n          {\n            temp_v0_3 = I(var_v1_6, 0);\n            var_v1_6 += 4;\n            var_a0_8 -= 1;\n            I(var_a2_6, 0) = temp_v0_3;\n            var_a2_6 += 4;\n          }\n          while (var_a0_8 != 0);\n          goto block_36;\n        }\n      }\n      else\n      {\n        block_36:\n        var_t0 -= 0x10;\n\n      }\n      var_t2 -= 1;\n      var_t1 -= 0x10;\n      if (var_t2 != 0)\n      {\n        goto loop_15;\n      }\n    }\n    while (var_s2 & 0xFF);\n  }\n}\n",
    "b888091f14ba82eaf97055feea43d216c70cbd041e5a9a4df2c4b6ecc0fe0a5e": "void func_80038AE4(s32 a);\nvoid func_80046414(s32 a, s32 b)\n{\n    if (b == 1) {\n        if (a == 1) goto s6;\n        if (a == 0) goto s2;\n        if (a == 2) goto s4;\n        return;\n    s2:\n        a = 2;\n        goto call;\n    }\n    if (b == 2) {\n        if (a == 1) goto s5;\n        if (a == 0) goto s1;\n        if (a == b) goto s3;\n        return;\n    }\n    if (a == 6) {\n        if (b != 8) return;\n        a = 0x12;\n        goto call;\n    }\n    if (a != 3) return;\n    a = 0;\n    goto call;\ns6: a = 6; goto call;\ns4: a = 4; goto call;\ns5: a = 5; goto call;\ns1: a = 1; goto call;\ns3: a = 3;\ncall:\n    func_80038AE4(a);\n}\n",
    "6331d20b09ac8da215dfeeb85d623b968216b124fe19ed41a61954ece5d7106f": "u32 func_8001FEE8();\nvoid func_80038AE4(s32);\ns32 func_80046414();\ns32 func_800464B0();\nextern s32 D_8009D538;\nextern char D_800C02AE[];\ntypedef struct \n{\n  s32 pad0[4];\n  s32 a10;\n  s32 a14;\n  u32 a18;\n  void *a1C;\n} Sub70;\nvoid func_80046530(u8 *arg0, s32 arg1, u8 *arg2)\n{\n  u32 temp_a0;\n  s32 t;\n  char *new_var3;\n  unsigned int new_var2;\n  u32 temp_s2;\n  int new_var;\n  u32 mask;\n  u32 k;\n  Sub70 *temp_a1;\n  void *temp_v0;\n  if (D_8009D538 & 0x800)\n  {\n    return;\n  }\n  if ((*((s32 *) (arg2 + 0x14))) & 0x80)\n  {\n    return;\n  }\n  temp_s2 = func_8001FEE8(arg2);\n  new_var2 = 100U;\n  if ((*(*((s32 **) (arg2 + 0x48)))) >= 2)\n  {\n return; }\n  if (func_800464B0(arg2) == 0)\n  {\n    return;\n  }\n  new_var = 0x14;\n  if (!((*((s32 *) (arg2 + new_var))) & 0x20))\n  {\n    temp_a1 = *((Sub70 **) (arg2 + 0x70));\n    temp_v0 = temp_a1->a1C;\n    new_var3 = D_800C02AE + 0x32F2;\n    if (((temp_v0 != arg0) && ((mask = (0U - ((u32) (temp_v0 != 0))) & new_var2, mask >= temp_a1->a18))) && ((((*((s32 *) arg0)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U)))\n    {\n      temp_a0 = *((s32 *) (arg0 + 4));\n      k = (temp_a0 != 1) & (temp_a0 != 5);\n      if (k)\n      {\n        if (temp_a0 == 2)\n        {\n          temp_a1->a14 = arg0[2];\n          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[3];\n        }\n        else\n        {\n          temp_a1->a14 = arg0[0];\n          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];\n        }\n        k = 0x7D;\n        (*((Sub70 **) (arg2 + 0x70)))->a18 = k;\n      }\n      else\n      {\n        temp_a1->a10 = 4;\n        (*((Sub70 **) (arg2 + 0x70)))->a14 = arg0[0];\n        (*((Sub70 **) (arg2 + 0x70)))->a18 = 0x7D;\n      }\n      (*((Sub70 **) (arg2 + 0x70)))->a1C = arg0;\n      if ((*((u16 *) ((*((u8 **) new_var3)) + 0xE))) < 2U)\n      {\n        func_80046414(arg0[1], arg0[0]);\n        if ((*((s32 *) (arg0 + 4))) == 1)\n        {\n          func_80038AE4(0x13);\n          func_80046414(arg0[3], arg0[2]);\n        }\n        t = *((s32 *) (arg0 + 4));\n        if ((t == 2) | (t == 5))\n        {\n          func_80046414(arg0[3], arg0[2]);\n        }\n      }\n    }\n  }\n  else\n  {\n    (*((Sub70 **) (arg2 + 0x70)))->a1C = 0;\n  }\n}\n",
    "676d15468bb3bf337a1e118199394f1abd10a88148205a7fed20ab14d0c74f13": "typedef struct \n{\n  s32 x;\n  s32 y;\n  s32 z;\n  s32 w;\n} Vec4_80046804;\nextern void (*D_800A0264[])(u8 *, s32, u8 *, s32);\nvoid func_80046804(u8 **arg0, u8 *arg1)\n{\n  Vec4_80046804 dv;\n  Vec4_80046804 pos;\n  Vec4_80046804 dd;\n  s32 unused[2];\n  s32 *p;\n  s32 bit;\n  u16 bit2;\n  s32 t;\n  s32 i;\n  s32 n;\n  u8 *e;\n  p = (s32 *) (*arg0);\n  pos.x = *((s32 *) ((*((u8 **) (arg1 + 0x80))) + 0x2B8));\n  pos.z = *((s32 *) ((*((u8 **) (arg1 + 0x80))) + 0x2C0));\n  dd.x = pos.x - p[0];\n  dd.z = pos.z - p[2];\n  if (((u32) (((dd.x >> 4) * (dd.x >> 4)) + ((dd.z >> 4) * (dd.z >> 4)))) < 50000)\n  {\n    bit = 1;\n    n = (u16) (((*((u16 *) ((*((u8 **) (arg1 + 0x48))) + 0x2E))) * 2) | 1);\n    i = 0;\n    if (n > 0)\n    {\n      do\n      {\n        bit = (bit & 0xFFFF) << 1;\n        i++;\n      }\n      while (i < n);\n    }\n    dv.x = pos.x - p[0];\n    dv.y = pos.y - p[1];\n    dv.z = pos.z - p[2];\n    t = (bit & 0xFFFF) << 1;\n    bit2 = t;\n    if (((dv.x * p[3]) + (dv.z * p[5])) < 0)\n    {\n      if (((*((u16 *) (((u8 *) p) + 0x1A))) & t) == bit2)\n      {\n        i = 0;\n        e = ((u8 *) p) + 0x1C;\n        if (i < (*((u16 *) (((u8 *) p) + 0x18))))\n        {\n          loop:\n          D_800A0264[*((u16 *) e)](e + 8, *((u16 *) (e + 2)), arg1, 0);\n\n          i++;\n          e += (*((s32 *) (e + 4))) + 8;\n          if (i < (*((u16 *) (((u8 *) p) + 0x18))))\n          {\n            goto loop;\n          }\n        }\n      }\n      *((u16 *) (((u8 *) p) + 0x1A)) = ((*((u16 *) (((u8 *) p) + 0x1A))) | bit) & (~bit2);\n    }\n    else\n    {\n      *((u16 *) (((u8 *) p) + 0x1A)) = ((*((u16 *) (((u8 *) p) + 0x1A))) | bit2) & (~bit);\n    }\n  }\n}\n\n",
+   "fa162f92c7024590cef39ff6d7318bfbad18092b513313791fc3158ffa3bbb4f": "typedef struct Stat\n{\n  u8 pad00[0x44];\n  s32 v;\n  u8 pad48[4];\n} Stat;\ntypedef struct Slot\n{\n  u8 pad00[7];\n  u8 car;\n  u8 pad08[0x20];\n} Slot;\ntypedef struct Game\n{\n  u8 pad00[0xE];\n  u16 players;\n  u8 pad10[6];\n  u16 diff;\n  u8 pad18[6];\n  u16 state;\n  u8 pad20[0x10];\n  u8 b30;\n  u8 pad31;\n  u8 order[0x16];\n  Slot slots[8];\n} Game;\ntypedef struct Record\n{\n  s32 w[5];\n  u16 count;\n  u8 pad16[0x2C4 - 0x16];\n} Record;\nextern Game *D_800C35A0;\nextern Record *D_800D0658;\ntypedef struct Cursor { s16 marker; u16 position; } Cursor;\nextern Cursor D_800ADFDC;\nextern u8 D_800ADFE0;\nextern u8 D_800B55E0;\nextern u8 D_800B6FF2[];\nextern u8 D_800B6FF6;\n\nvoid func_80046E54(Stat *s)\n{\n  u32 i;\n  u8 j;\n  u8 cnt; u8 value;\n  u8 flag;\n  u16 n;\n  s32 v;\n  u16 t;\n  D_800ADFDC.marker = -1;\n  if ((*((u16 *) (((u8 *) D_800C35A0) + 0x1E))) != 0)\n  {\n    D_800ADFE0 = s[1].v + 1;\n  }\n  else\n    if ((D_800ADFE0 = D_800C35A0->b30) != 0)\n  {\n    D_800ADFE0 = D_800ADFE0 + 1;\n  }\n  if ((D_800C35A0->state == 0) && (D_800C35A0->players == 4))\n  {\n    D_800ADFDC.position = 0x10;\n  }\n  i = 0;\n  D_800ADFDC.position = 0;\n  D_800B55E0 = s[2].v;\n  do\n  {\n    v = s[i + 3].v;\n    D_800B6FF2[i] = v;\n    if (D_800C35A0->diff == 0)\n    {\n      D_800B6FF2[i] = ((((u8) v) * D_800B55E0) / 50) + v;\n    }\n    if (D_800C35A0->diff == 1)\n    {\n      D_800B6FF2[i] = D_800B6FF2[i] + ((D_800B6FF2[i] * D_800B55E0) / 100);\n    }\n    i++;\n  }\n  while (i < 5);\n  if ((D_800C35A0->state != 0) & (D_800C35A0->state < 5))\n  {\n    t = D_800D0658[D_800C35A0->slots[D_800C35A0->order[0]].car].count;\n    n = D_800C35A0->players;\n    flag = (t == 1) || (t == 3);\n    if (n == 2)\n    {\n      t = D_800D0658[D_800C35A0->slots[D_800C35A0->order[1]].car].count;\n      flag = (t == 1) || (t == 3);\n    }\n    if (flag == 1)\n    {\n      cnt = 0;\n      for (j = 0; j < n; j++)\n      {\n        if (D_800D0658[D_800C35A0->slots[D_800C35A0->order[j]].car].count == 3)\n        {\n          cnt++;\n        }\n      }\n\n      if (cnt == D_800C35A0->players)\n      {\n        for (j = 0; j < 4; j++)\n        {\n          value=D_800B6FF2[j]; value += value >> 1; D_800B6FF2[j]=value;\n        }\n\n      }\n      else\n      {\n        for (j = 0; j < 4; j++)\n        {\n          value=D_800B6FF2[j]; value += (value * D_800B6FF2[4])/100; D_800B6FF2[j]=value;\n        }\n\n      }\n    }\n  }\n}\n\n",
    "fbf70cbe3954266adf91686b24386954c1bb3052963252e077bc28f7d163aa20": "#define sp60 rect.x\n#define sp62 rect.y\n#define sp64 rect.w\n#define sp66 rect.h\nvoid *func_800056FC(void *);\nvoid *func_80006008(void *);\ns32 func_80006014(void *, void *);\ns32 func_800061FC(void *, s32);\ns32 func_800067FC(void *, s32, s16, s16);\ns32 func_80006984(void *, s32, s32, s32, s32);\nu16 func_800070CC(void *);\ns32 func_80008770(void *, void *, s32, s16 *);\ns32 func_80008C58(void *, s32, s32, s32);\ns32 func_8001BD1C();\ns32 guMtxF2L(void *, s32);\ns32 guMtxIdent(void *);\ns32 guOrthoF(void *, f32, f32, f32, f32, f32, f32, f32);\nextern void *D_8009B5A4;\nextern s32 D_800A0310;\nextern s16 D_800A0370[];\nextern s16 D_800A0372;\nextern s16 D_800A0374;\nextern s16 D_800A0376;\nextern char D_800C02AE[];\nvoid func_800475E4(void *arg0, void *arg1)\n{\n  f32 sp20[4][4];\n  struct \n  {\n    s16 x;\n    s16 y;\n    u16 w;\n    u16 h;\n    s32 extra[2];\n  } rect;\n  f32 temp_fs0;\n  s32 var_s5;\n  s32 temp_fv1;\n  s32 temp_s0_2;\n  u32 temp_s0_3;\n  int temp_s1;\n  u32 temp_s2;\n  s32 temp_s3;\n  u16 temp_a0;\n  u16 temp_v1;\n  u16 temp_v1_2;\n  void *temp_a1;\n  void *temp_a2;\n  void *bounds;\n  void *temp_s0;\n  void *temp_v0;\n  void *temp_v0_2;\n  void *temp_v0_3;\n  u32 command;\n  u32 temp_v3;\n  struct Packet\n  {\n    u32 w0;\n    u32 w1;\n  } *cursor;\n  struct Packet *pkt;\n  temp_s0 = D_800C02AE + 0x80D2;\n  guMtxIdent(temp_s0);\n  temp_v0 = func_800056FC(arg0);\n  cursor = func_80006008(temp_v0);\n  pkt = cursor++;\n  command = 0xDA380003;\n  pkt->w0 = 0xDE000000;\n  pkt->w1 = (u32) (&D_800A0310);\n  cursor->w0 = command;\n  cursor->w1 = (u32) temp_s0;\n  cursor++;\n  func_80006014(temp_v0, cursor);\n  var_s5 = 0;\n  temp_s0_2 = func_8001BD1C();\n  guOrthoF(sp20, 0, (f32) (*((s16 *) (((char *) arg0) + 0xC))), (f32) (*((s16 *) (((char *) arg0) + 0xE))), 0, -1.0f, 10.0f, 1.0f);\n  guMtxF2L(sp20, temp_s0_2);\n  func_800061FC(temp_v0, temp_s0_2);\n  temp_a1 = *((void **) (((char *) temp_v0) + 0x14));\n  *((void **) (((char *) temp_v0) + 0x14)) = (void *) (temp_a1 + 8);\n  *((s32 *) (((char *) temp_a1) + 0)) = (0xED000000 | ((((s32) (((f32) D_800A0370[0]) * 4.0f)) & 0xFFF) << 12)) | (((s32) (((f32) D_800A0372) * 4.0f)) & 0xFFF);\n  *((s32 *) (((char *) temp_a1) + 4)) = (s32) (((((s32) (((f32) ((D_800A0370[0] + D_800A0374) - 1)) * 4.0f)) & 0xFFF) << 0xC) | (((s32) (((f32) ((D_800A0372 + D_800A0376) - 1)) * 4.0f)) & 0xFFF));\n  temp_v1 = *((u16 *) (((char *) arg1) + 8));\n  temp_fs0 = ((f32) (*((s16 *) (((char *) arg0) + 0xE)))) / ((f32) temp_v1);\n  if (temp_v1 != 0)\n  {\n    do\n    {\n      sp60 = 0;\n      sp62 = var_s5;\n      sp64 = *((u16 *) (((char *) arg1) + 6));\n      temp_a0 = *((u16 *) (((char *) arg1) + 8));\n      temp_v1_2 = *((u16 *) (((char *) arg1) + 0xC));\n      if (var_s5 < (temp_a0 - temp_v1_2))\n      {\n        sp66 = temp_v1_2;\n      \n      func_80008770(temp_v0, arg1, 0, &sp60);}\n      else\n      {\n        sp66 = temp_a0 - var_s5;\n      \n      func_80008770(temp_v0, arg1, 0, &sp60);}\n      temp_s1 = func_800070CC(temp_v0) & 0xFFFF;\n      temp_s3 = temp_s1 & 0xFFFF;\n      temp_fv1 = (s32) (((f32) var_s5) * temp_fs0);\n      func_800067FC(temp_v0, temp_s3, 0, (s16) temp_fv1);\n      temp_s2 = (u16) (temp_s1 + 1);\n      func_800067FC(temp_v0, temp_s2, *((s16 *) (((char *) arg0) + 0xC)), (s16) temp_fv1);\n      temp_s0_3 = (u16) (temp_s1 + 2);\n      func_800067FC(temp_v0, temp_s0_3, *((s16 *) (((char *) arg0) + 0xC)), (s16) ((s32) (((f32) (((s16) sp66) + var_s5)) * temp_fs0)));\n      ;\n      temp_v3 = (u16)(temp_s1 + 3);\n      func_800067FC(temp_v0, temp_v3, 0, (s16) ((s32) (((f32) (((s16) sp66) + var_s5)) * temp_fs0)));\n      func_80008C58(temp_v0, temp_s3, 0, 0);\n      func_80008C58(temp_v0, temp_s2, (sp64 - 1) & 0xFFFF, 0);\n      func_80008C58(temp_v0, temp_s0_3, (sp64 - 1) & 0xFFFF, (sp66 - 1) & 0xFFFF);\n      func_80008C58(temp_v0, temp_v3, 0, (sp66 - 1) & 0xFFFF);\n      func_80006984(temp_v0, temp_s3, 0xFF, 0xFF, 0xFF);\n      func_80006984(temp_v0, temp_s2, 0xFF, 0xFF, 0xFF);\n      func_80006984(temp_v0, temp_s0_3, 0xFF, 0xFF, 0xFF);\n      func_80006984(temp_v0, temp_v3, 0xFF, 0xFF, 0xFF);\n      var_s5 += *((u16 *) (((char *) arg1) + 0xC));\n    }\n    while (var_s5 < ((s32) (*((u16 *) (((char *) arg1) + 8)))));\n  }\n  bounds = D_8009B5A4;\n  temp_a2 = *((void **) (((char *) temp_v0) + 0x14));\n  *((void **) (((char *) temp_v0) + 0x14)) = (void *) (temp_a2 + 8);\n  *((s32 *) (((char *) temp_a2) + 0)) = (0xED000000 | ((((s32) (((f32) (*((s16 *) (((char *) bounds) + 0)))) * 4.0f)) & 0xFFF) << 12)) | (((s32) (((f32) (*((s16 *) (((char *) bounds) + 2)))) * 4.0f)) & 0xFFF);\n  *((s32 *) (((char *) temp_a2) + 4)) = (s32) (((((s32) (((f32) (((*((s16 *) (((char *) bounds) + 0))) + (*((s16 *) (((char *) bounds) + 4)))) - 1)) * 4.0f)) & 0xFFF) << 0xC) | (((s32) (((f32) (((*((s16 *) (((char *) bounds) + 2))) + (*((s16 *) (((char *) bounds) + 6)))) - 1)) * 4.0f)) & 0xFFF));\n}\n\n",
    "6c1b8cad4b0fb76ef6fdb1d5869fdf39e809293228628005daaf1d8c1d7cb782": "#define sp20 matrix.matrix\n#define sp50 matrix.translate\ns32 func_80010BFC();\ns32 func_8001BE68(void *, f32, s32, f32, f32 *, f32 *, s32 *);\ns32 func_8002D2C8();\ns32 func_8002E688();\ns32 guMtxIdentF();\nvoid func_800480B0(void *arg0, void *arg1)\n{\n  s32 *new_var2;\n  struct \n  {\n    s32 matrix[12];\n    f32 translate[4];\n  } matrix;\n  s32 sp60[4];\n  int new_var3;\n  char *new_var;\n  f32 sp70;\n  float new_var4;\n  f32 sp74;\n  u32 sp78;\n  f32 temp_fv1;\n  f32 temp_ft0f;\n  f32 temp_fv0f;\n  s32 temp_ft0;\n  s32 temp_fv0;\n  guMtxIdentF(sp20);\n  sp50[0] = *((f32 *) (((char *) arg0) + 0x118));\n  sp50[1] = *((f32 *) (((char *) arg0) + 0x11C));\n  sp50[2] = *((f32 *) (((char *) arg0) + 0x120));\n  func_80010BFC(0, arg0 + 0x38, sp20);\n  ;\n  *((s32 *) (((char *) arg1) + 0x88)) = (s32) (((s32) (-(*((f32 *) (((char *) arg0) - -0x108))))) & 0xFFF);\n  new_var4 = (*((f32 *) (((char *) arg0) + 0x124))) - (*((f32 *) (((char *) arg0) + 0x118)));\n  temp_ft0f = new_var4;\n  new_var = ((char *) arg0) + 0x12C;\n  temp_fv0f = *((f32 *) new_var);\n  temp_fv0f = temp_fv0f - (*((f32 *) (((char *) arg0) + 0x120)));\n  sp60[1] = 0;\n  temp_ft0 = (s32) temp_ft0f;\n  temp_fv0 = (s32) temp_fv0f;\n  new_var3 = 0;\n  sp60[new_var3] = temp_ft0;\n  sp60[2] = temp_fv0;\n  func_8002E688(&sp60[new_var3], &sp60[0]);\n  {\n    f32 fb = (f32) sp60[2];\n    func_8001BE68(arg0 + 0xB8, (f32) sp60[new_var3], new_var3,\n    fb, &sp70, &sp74, &sp78);\n  }\n  sp70 *= 114.0f;\n  temp_fv1 = sp74; temp_fv1 = (sp74 = temp_fv1 * 114.0f);\n  if (temp_fv1 < (-500.0f))\n  {\n    sp74 = -500.0f;\n  }\n  if (sp74 > 500.0f)\n  {\n    sp74 = 500.0f;\n  }\n  *((s32 *) (((char *) arg1) + 0x7C)) = (s32) sp74;\n  *((s16 *) (((char *) arg1) + 0x10)) = (s16) (-(((func_8002D2C8(temp_fv0, temp_ft0) * 2) / 3) & 0xFFF));\n}\n",
    "c2a9681eb6f1b16bb3463cb1b9c27457466a022e124a488e662c628f4545f93c": "typedef struct { u8 b[8]; } Pair;\ntypedef struct { u8 pad[6]; u16 n; } Frm;\ntypedef struct { Frm *f; } Anim0;\ntypedef struct { u8 pad[4]; Anim0 *a; } Anim;\ntypedef struct {\n  u8 pad0[0xC];\n  Anim *anim;\n  u8 pad10[4];\n  s16 x14;\n  u8 pad16[6];\n  s16 x1C;\n  u8 pad1E[0x50 - 0x1E];\n} Item;\ntypedef struct { Pair pos; u16 x8; u8 pad[0x2C - 0xA]; Item *cur; } Node;\ntypedef struct { u8 b[0x178]; Node *p; } Obj;\ntypedef struct { u8 pad[4]; u16 base; u8 pad6[0x24 - 6]; Item *l0; Item *l1; } Src;\nextern Obj *D_800C7F84;\nextern u32 D_800AFA6C;\nextern void func_8000A2C4(void *, s32, s32, s32);\nvoid func_80048394(s32 a, Src *b, Obj *c, s32 d)\n{\n  Pair saved;\n  Node *root = D_800C7F84->p;\n  Item *list;\n  Item *item;\n  s32 x;\n  s32 q;\n  s32 prod;\n  s32 h;\n\n  if (D_800AFA6C & 1) {\n    list = b->l0;\n  } else {\n    list = b->l1;\n  }\n  saved = D_800C7F84->p->pos;\n  D_800C7F84->p->pos = c->p->pos;\n  h = list->anim->a->f->n;\n  x = (s16) (b->base + c->p->x8);\n  q = x / h;\n  prod = q * h;\n  list[q].x1C = d * 4;\n  list[q].x14 = (prod - x) * 4;\n  root->cur = item = &list[q];\n  func_8000A2C4(D_800C7F84->p, 0, 0, 1);\n  h = item->anim->a->f->n;\n  {\n    s32 r = x - prod;\n    item[1].x1C = d * 4;\n    item[1].x14 = (h - r) * 4;\n    root->cur = &list[q + 1];\n    func_8000A2C4(D_800C7F84->p, 0, 0, 1);\n    h = item[1].anim->a->f->n;\n    item[2].x14 = (h * 2 - r) * 4;\n  }\n  item[2].x1C = d * 4;\n  root->cur = &list[q + 2];\n  func_8000A2C4(D_800C7F84->p, 0, 0, 1);\n  D_800C7F84->p->pos = c->p->pos;\n}\n",

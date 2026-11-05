@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80044908.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -72,7 +72,8 @@ typedef struct
 {
   Car *first;
 } CarList;
-extern u16 D_800ADFDE;
+typedef struct Cursor { s16 marker; u16 position; } Cursor;
+extern Cursor D_800ADFDC;
 extern s32 D_800ADFE8;
 extern CarList *D_800B5C40;
 extern u8 *D_800C35A0;
@@ -97,7 +98,7 @@ void func_80044908(Car *car)
   lap = car->lap;
   sum = 0;
   oldCp = lap->checkpoint;
-  pos = D_800ADFDE;
+  pos = D_800ADFDC.position;
   cp = oldCp;
   if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)
   {

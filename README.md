@@ -953,3 +953,10 @@ The complete **12,582,912-byte** cartridge matches, with all **2,066** prior sel
 `func_8006D564` now matches **488 instructions /1,952 bytes**. Reusing a genuinely dead typed pointer for two later captures recovers the original register allocation; either change alone worsens the score. The reusable bounded repair is in decompdecomp PR567. Two existing functions also received verified declaration corrections.
 
 The complete **12,582,912-byte** cartridge remains byte-identical. The tree selects **2,068 C functions**; all2,067 prior profiles and2,065 other prior C objects are unchanged. See `docs/matching-experiments/func_8006D564-investigation.md` for evidence and normal input preconditions.
+
+
+### Byte update register allocation
+
+`func_80046E54` now matches **215 instructions /860 bytes**. Loading each byte into a byte local and applying a compound update recovers the target allocation in both final loops. Three existing functions also received audited contract corrections: explicit pointer forwarding and a consistent four-byte record view for two adjacent fields.
+
+The full **12,582,912-byte** cartridge remains byte-identical. The tree selects **2,069 C functions**, preserving all2,068 prior profiles and2,065 other prior C objects. See `docs/matching-experiments/func_80046E54-investigation.md` for evidence and representation limits.

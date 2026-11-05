@@ -1,6 +1,7 @@
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
 
-extern short D_800ADFDC;
+typedef struct Cursor { s16 marker; u16 position; } Cursor;
+extern Cursor D_800ADFDC;
 extern int D_800AE44C;
 extern float D_800C35E0;
 
@@ -42,7 +43,7 @@ void func_80044D9C(void *arg0, s32 arg1, void *arg2) {
         if (temp_v1 == *(u16 *)((char *)var_s2 + 0)) {
             *(s32 *)((char *)temp_a1 + 0x28) = (s32) (temp_v1 + 1);
             temp_a0 = *(void * *)((char *)var_s1 + 0x70);
-            if (*(s32 *)((char *)temp_a0 + 0x28) == D_800ADFDC) {
+            if (*(s32 *)((char *)temp_a0 + 0x28) == D_800ADFDC.marker) {
                 *(s32 *)((char *)temp_a0 + 0x28) = 0;
             }
             temp_v0 = M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0x1E);

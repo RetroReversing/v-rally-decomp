@@ -150,7 +150,7 @@
     "src/code_8000D9A0/func_80011058.c": "9fe52995f4095589e364baeaedcc0461d75a2468e3aa2da40a303dfa4f4d3d5a",
     "src/code_80012114/func_80015780.c": "4f1780204107df0d8c86cd6d20721e882e5b259f7c4c20f0a5ab06a7527b527c",
     "src/code_80026E3C/func_8003FD0C.c": "e803bd4e91f5580198b165765d96417535998a617fb384dacc9d3f3f0cfe3c86",
-    "src/code_80026E3C/func_80044908.c": "eb5daeec88ae956597d2bf9180548e7598550fc26973660ffdd084ec75c45d20",
+    "src/code_80026E3C/func_80044908.c": "0ee974502d30f85adff99fee7ca0a10e7bbb59f9d30b1b36077e93e69f1eeca7",
     "src/code_8004BEB4/func_80069158.c": "f2475bf1ce9734d074e5eb6c4368856a17c67ac7914f00802dd338f38d8886c9",
     "src/code_8007E9D4/func_80094BE0.c": "513532f1f8c1ea751d11327a747de8a2a86c6b4a23363daef33d07e94b5ddad9",
     "src/code_80026E3C/func_80027DB4.c": "89facb4f1b6c1ae91a1f1245aaf65a504a368ac51844a28bdc40bf8dd46d73b6",
@@ -352,7 +352,14 @@
     "src/code_8004BEB4/func_800684F4.c": "1fda1ff56b0d79f46e32ff5b62baad363302fab363171d83d6f4d9258ca3a69b",
     "include/decompdecomp_snapshot_800684f4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_8006D564.c": "8be0a00e657da7fe9f993634c8ab3dd04040f4e6ad8247514dd87dbb63358355",
-    "include/decompdecomp_snapshot_8006d564.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_8006d564.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_80046E54.c": "550bfe7c3938f59826d9307101bac625cc618e40d195379d600be1e1fecbcc72",
+    "include/decompdecomp_snapshot_80046e54.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80017B38/func_8001E524.c": "3da312fac14ab9b5a6065360776a5696d836cef5cd3d21fcb41707dd604e3770",
+    "include/decompdecomp_snapshot_8001e524.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_80044D9C.c": "9e626db80051da57d3ec406a66ffd056db697097e32236d3c3916cffdc16dbba",
+    "include/decompdecomp_snapshot_80044d9c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_snapshot_80044908.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -689,29 +696,33 @@
     "func_8007FC44",
     "func_8006CB9C",
     "func_800684F4",
-    "func_8006D564"
+    "func_8006D564",
+    "func_80046E54",
+    "func_8001E524",
+    "func_80044D9C"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2068,
+  "matched_app": 2069,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8006D564"
+      "func_80046E54"
     ],
     "contract_corrections": [
-      "func_8006CB9C",
-      "func_800684F4"
+      "func_8001E524",
+      "func_80044D9C",
+      "func_80044908"
     ],
-    "note": "2065 other prior C objects and all2067 prior compiler profiles unchanged. The assembly run loses only the newly compiled function include."
+    "note": "2065 other prior C objects and all2068 prior compiler profiles unchanged. The prior single-function assembly run is replaced by compiled C."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_8006D564",
+    "function": "func_80046E54",
     "score": 0,
-    "raw_source_sha256": "442dc8dd042da0e11bbd28239a22803a4f2aac5ca53727f15abbf988e67448f7",
+    "raw_source_sha256": "fa162f92c7024590cef39ff6d7318bfbad18092b513313791fc3158ffa3bbb4f",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "standalone_header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "profile": {
@@ -726,6 +737,6 @@
       ],
       "timeout": 20
     },
-    "note": "Normal saved-source importer accepted the independently full-cartridge-verified sources. No other agent claim taken over."
+    "note": "Authoritative read-only hashes confirm ordinary saved-source import accepted all four full-cartridge-verified sources; initial HTTP request timed out. No claim taken over."
   }
 }
