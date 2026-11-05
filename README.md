@@ -897,3 +897,18 @@ is not a behavior improvement over the prior score-45 draft. Corrected variants
 scored 140 or 225 and did not match after 55 bounded source/profile probes.
 The corrected [alternative](docs/matching-experiments/func_8005E49C-reset-alternative.c)
 is research material, not selected linked C. The verified 2,062-function build is unchanged.
+
+
+### Conditional copy and CSE lifetime
+
+`func_8006185C` now matches **343 instructions / 1,372 bytes** using its unchanged
+KMC GCC 2.7.2 profile. Removing a dead uninitialized read left its bytes unchanged.
+A scoped saved copy, branch-local dead write to the old input, and restoration
+then recovered the negative-arm/output register reuse. The source behavior is
+unchanged and the unused read is absent from the accepted source.
+
+The ordinary linked comparison is exact even though the advisory rendering has
+seven misleading constant-address labels. No target or judge was changed. The full
+**12,582,912-byte** cartridge comparison passed with all 2,062 previous objects
+unchanged. The standalone tree selects **2,063 C functions / 61 assembly units**.
+All current app progress is saved.

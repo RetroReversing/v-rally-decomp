@@ -18,6 +18,20 @@
  },
  "compiler_ranges": [
   {
+   "start": 2147883100,
+   "end": 2147884472,
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20
+  },
+  {
    "start": 2148042188,
    "end": 2148042524,
    "toolchain": "gcc-2.7.2-kmc",
@@ -20839,7 +20853,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147883100,
    "rom": 402524,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006185C.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006185C.s",
+   "c": "src/code_8004BEB4/func_8006185C.c",
+   "own": {}
   },
   {
    "name": "func_80061DB8",

@@ -1,3 +1,5 @@
+#include "decompdecomp_snapshot_8006185c.h"
+#line 1 "func.c"
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 #define CV(out,val,threshold) {f64 d=(val);if(!((threshold)<=d))out=(s32)d;else out=(s32)(d-(threshold))|0x80000000;}
 extern s32 func_80057918(s32, u16);
@@ -52,7 +54,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
   result = func_8000C9B0(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4), font, *((u8 *) (((u8 *) table) + 0xd1)), *((s32 *) (((u8 *) arg0) + 20)), 0);
   extent = result + 24;
   offset = *((s16 *) (((u8 *) arg0) + 10));
-  offset = (offset < 0) ? ((-offset) - result) : offset;
+  do {center=offset; if(offset<0){offset=0;center=-center-result;}} while(0); offset=center;
   x = offset - 12;
   xend = x + extent;
   top = (*((u16 *) (((u8 *) arg0) + 12))) - 8;
@@ -72,7 +74,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
   }
   else
   {
-    new_var = h;
+
     gap = 356 - xend;
     i = 0;
     count = *((u8 *) (((u8 *) arg0) + 77));
@@ -120,4 +122,5 @@ void func_8006185C(u8 *arg0, s32 arg1)
     func_8004C1B4(D_800ADF80, 352, (u16) (y - 4), 352, (u16) ((y + height) + 4), (u16) (width + 360), (u16) ((y + height) + 4), (u16) (width + 360), (u16) (y - 4));
   }
 }
+
 
