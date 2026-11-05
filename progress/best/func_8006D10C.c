@@ -4,22 +4,22 @@ extern u8 *D_800C35A0;
 extern u8 *D_800D0634[];
 extern u16 D_800C5D9C[];
 extern u8 D_800C721E[];
-extern s32 func_8006B924(void *);
+extern s32 func_8006B924(u8 *);
 void func_8006D10C(void)
 {
-  f64 fs1;
-  u8 i;
-  u8 j;
-  s32 k;
-  u8 n;
-  s32 q;
   s32 r;
+  u8 n;
   s32 code;
-  u8 b;
+  s32 q;
+  f64 fs1;
   u8 *s6;
+  u8 j;
+  u8 i;
+  u8 b;
+  s32 k;
   u8 *out;
   b = D_800C35A0[31];
-  b = D_800C35A0[35];
+  n = D_800C35A0[35];
   s6 = D_800D0634[b];
   j = 0;
   switch (b)
@@ -41,27 +41,14 @@ void func_8006D10C(void)
 
   }
 
-  do
-  {
-    do
-    {
-      do
-      {
-        n += j;
-      }
-      while (0);
-    }
-    while (0);
-  }
-  while (0);
+  n += j;
   i = 0;
   fs1 = ((f64) n) * D_800A5898;
   do
   {
     j = (u32) (fs1 + (((f64) (i & 255)) * D_800A58A0));
     k = i & 255;
-    q = n * 9;
-    q = ((q + (k * 3)) * 4) - ((j & 255) * 8);
+    q = (((n * 9) + (k * 3)) * 4) - ((j & 255) * 8);
     code = func_8006B924((s6 + (((*((u16 *) (D_800C35A0 + 34))) << 6) + 44)) + (k * 16));
     out = D_800C721E;
     if ((code & 255) == 5)

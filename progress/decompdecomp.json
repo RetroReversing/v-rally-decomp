@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793899152.494613,
- "revision": 18166,
+ "saved_at": 1793900997.676537,
+ "revision": 18240,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8418,8 +8418,8 @@
   },
   "func_8006D10C": {
    "vram": 2147930380,
-   "best_score": 325,
-   "best_by": "Rr.permuter-1446"
+   "best_score": 505,
+   "best_by": "manual-b125c7e6b67d4423"
   },
   "func_8006D564": {
    "vram": 2147931492,
@@ -249154,6 +249154,102 @@
    "created_at": 1793899007.823113,
    "score_before": 420,
    "score_after": 420
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-215393531b6a43de",
+   "created_at": 1793899362.412246,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Rechecked best is 140 (rev d96ed658); the D_800C8328 reloc rows are the known target artifact. Real diff: the target is `beqz v0,else [move a0,s4]; jal AF4 [move s1,0]`, with a0=s4 shared with the else path's first call. Ours puts s1=0 in the beqz slot, which costs an extra `move a0,s4` in the else path. Tried: s1=0 after func_80084AF4(s4) = 225 (beqz gets a0=s4 but s1=0 lands in the next jal slot); a separate u8 j for the second loop = 155 (s0 instead of s1); a per-branch return 0 = 225. In the target, a0=s4 must come before s1=0 in the then-block at sched/reorg time, i.e. s1=0 sits between the arg setup and the jal. Next idea: `func_80084AF4(s4 + (s1 = 0))`-style tricks or a temp holding s4, e.g. `a = s4; s1 = 0; func_80084AF4(a);`.",
+   "by": "claude-opus-3",
+   "created_at": 1793899688.428556,
+   "score_before": 25,
+   "score_after": 25
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Saved best 1465 is SEMANTICALLY WRONG: it does `temp_s0 *= 4` inside the loop (b changes each iteration), has a dead if(new_var5) on an uninitialised value, and a junk var_a2 at loop end. The target hoists fp = ent + b*4 before the loop (lw 0x22C(fp)) and keeps b in s4 (a copy of s0). My clean rewrites (revs 7a968085 / 3243a1a5: separate branch A (odd nibble: lo=p[1], hi=p[0]>>4, col idx hi&0xF3, v=lo*4+((hi&0xC)>>2)) and branch B (lo=p[0], c=p[1]&0xF, col idx c>>2, v=lo|((c&3)<<8)), goto tail into B's common tail, manual u32 conversion `if(!(lim<=d)) x=(s32)d; else x=(s32)(d-lim)|0x80000000` with lim=D_800A5878 (2^31)) score ~10200: 215 vs 240 insns. Problems: (1) cross-jump merges A's call+stores into B. The target keeps them separate because A's negate is `sll16;sra16;negu` (sext) and B's is a plain negu. Separate s16 va/vb and an int nv temp didn't stop it. (2) gcc hoists D_800C02AE+0x6E26 into a saved reg and b*64 (sll s7,s4,6) as loop invariants, so the frame is 0x60 instead of 0x50. Next: in A, write the negate on an int-typed value (e.g. `sv = -(s16)va` where va is s32), so the negu sequences differ. Avoid the b*64 hoist, perhaps with `e = ent + ((k*16) + (b<<6))` like the old code.\n\nSaved 1465 C is semantically wrong (`temp_s0 *= 4` mutates b inside the loop; s reassigned in branch A). A clean rewrite with correct semantics reached 4344. Shape: b=arg1&0xFF; ent=D_800D0634+(u8)arg0*0x2C4; s=(u8)func_8006B9E0; ref=(u16*)(D_800C02AE+0x5A8A)+s (spilled at sp+0x14); lim=D_800A5878; base=s*D_800A5880; u8 loop i<3; manual u32 conversion `if(!(lim<=d)) x=(s32)d; else x=(s32)(d-lim)|0x80000000`. Branch A (nibble test ==4) uses int temps `h=(u8)h>>4`, `n=-v; sv=n`, then goto into B's tail (keeps the target's partial cross-jump). Main remaining problem: loop.c hoists s*9, b<<6 and D_800C02AE+0x6E26 out of the loop, but the target recomputes them each iteration; only ref and fp=ent+b*4 are hoisted. Next idea, not yet compiled: write the loop as a label + `if ((i&0xFF)<3) goto loop;` so loop.c doesn't optimise it, with ref/spd/base as explicit pre-loop locals.",
+   "by": "claude-opus-12",
+   "created_at": 1793899723.847649,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Still 295, pure regalloc (10 rows): ours right=s0, height(down+1)=s2, slot=s3; the target has height=s0, slot=s2, right=s3 (down=s1 matches). The target's priority order is height > down > slot > right. This session, worse: a Vertex* for the right row in the c[] block (980) or for p.x/p.z (660); dropping `height = right` in the tail (310); the tail in down (365); `height = local[1]*16` tail (385). Rev 3f72f28b (separate tail var, direct store) = 360. Further work needs a different idea for right/height priorities (refs vs live length); every simple tail/temp change has been tried.",
+   "by": "claude-opus-3",
+   "created_at": 1793899797.75055,
+   "score_before": 295,
+   "score_after": 295
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "The saved best (325) is semantically wrong: it overwrites b with [35] and `n += j` reads an uninitialised n. The target does: a0=D_800C35A0[0x1F] (index into D_800D0634 and the switch), v1=[0x23]; n=(u8)([0x23]+j) where j=0/4/9/15 for cases 0,2/3/4 (andi s5 after the add); s7=&D_800C5D9C[n] hoisted before the loop. Correct version `b=[31]; n=[35]; ...; n += j;` = 550: one extra `move s5,v0` (andi goes to v0 and is copied to s5) plus the lbu order. Remaining diffs: (1) a known reloc artifact on the D_800D0634 load (lui %hi(+0x15aee), lw 0x634), unfixable; (2) the (u32) conversion uses a local .rodata 2^31 where the target uses D_800A5890. A manual conversion `lim=D_800A5890; if(!(lim<=d)) j=(s32)d; else j=(s32)(d-lim)|0x80000000;` grew the frame to 0x58 (4925, from an automatic run, untested alone). Next: on the correct-semantics version, make n's andi land in s5 directly (e.g. compute n as `(u8)(D_800C35A0[35] + j)` in one expression after the switch, or keep [35] in a separate s32 temp).\n\nSomething else kept rewriting the candidate during my claim (revisions changed between my patches), so recent results are mixed. Findings: the saved 325 is semantically wrong (n uninitialised, b overwritten). The correct-semantics form (b=[31] for D_800D0634[b] and the switch, [35] read BEFORE the switch, n=(u8)([35]+j) after it) scores 550 to 800 (rev 1c567840: `q=[35]; ... n=q+j;` with a (u32) cast = 800). The persistent diff is an extra `move s5,v0` (the andi of n goes to v0, then is copied), and [35] lands in s3 instead of v1. The manual u32 conversion with D_800A5890 (lim hoisted) adds `addiu s7,zero,0xff` and an fp save; worse (1226 to 2962) unless j stays u8. Untested next step: `s32 n` with `n = (u8)(q + j)`, and j as u8 with the manual conversion.\n\nSaved best 325 is semantically WRONG (b overwritten by [35], n uninitialised). Target: b=D_800C35A0[31] indexes D_800D0634 and drives switch {2:4,3:9,4:15,else 0}; n=(u8)([35]+j). The u32 conversion must be written by hand with extern D_800A5890 (`lim = D_800A5890;` before the loop; `if (!(lim <= d)) j=(s32)d; else j=(s32)(d-lim)|0x80000000;`, j s32) -> 1226, with no ?local rodata. Remaining: one extra saved reg (fp), a hoisted `addiu s7,zero,0xff` where the target has s7=&D_800C5D9C[n], [31]/[35] in swapped v1/a0, and an extra move for n. An explicit `ref` local was worse (3915).",
+   "by": "claude-opus-12",
+   "created_at": 1793899894.8008058,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Still 518. This session: if/else-if in place of the switch = 1248, which confirms the switch (target beq n==1; beq n==2; j). Else-branch h3 copy = 3399; r.w before r.h = 526; s16 w,h = 4897; h,w declared first = 518. What remains is the w/h s3/s5 register-priority swap plus it0 in s0 vs s6 (target: it0 shares it's s6). Can't get closer with simple changes.",
+   "by": "claude-opus-3",
+   "created_at": 1793899900.024066,
+   "score_before": 518,
+   "score_after": 518
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Rechecked best 210 (saved 200). The target emits `andi 0xffff` on both saved1E (v0, copied to s0) and saved22 (a1 from lhu 0x22) before comparing with 2 and 4. Saved C gets only the second (as andi 2). `(saved1E & 0xFFFF) == 2` gets the first andi but then the saved22 andi vanishes with any of: &0xFFFF, &(saved1E+0xFFFD), &inline_fn2(0xFFFF), or a saved22=0xFFFF pre-init (300). s32/u32 saved22 = 435; plain compares = 2465. Next: route saved22 through a copy the way saved1E is.",
+   "by": "claude-opus-3",
+   "created_at": 1793900241.44419,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-12",
+   "created_at": 1793900192.4513128,
+   "score_before": 295,
+   "score_after": 295
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Rechecked best 210 (saved 200). The target emits `andi 0xffff` on both saved1E (v0, copied to s0) and saved22 (a1 from lhu 0x22) before comparing with 2 and 4. Saved C gets only the second (as andi 2). `(saved1E & 0xFFFF) == 2` gets the first andi but then the saved22 andi vanishes with any of: &0xFFFF, &(saved1E+0xFFFD), &inline_fn2(0xFFFF), or a saved22=0xFFFF pre-init (300). s32/u32 saved22 = 435; plain compares = 2465. Next: route saved22 through a copy the way saved1E is.",
+   "by": "claude-opus-3",
+   "created_at": 1793900241.44419,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-0b2384a1017b47d5",
+   "created_at": 1793900603.835207,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Still 1155. This session: `b=base; for(..;i++,b++)` = 2595; `new_var = (u8*)D_800B6600.flag - 0x10 + j*4` = 1350. That one gets the inner guard into s1 (sltu s1 vs the target's andi s1,n) and the map base into t9=+0x28 with cnt base t8 = sym (the target has t9=+0x10, t8=+0x28, and re-luis sym inside the j loop). Hypothesis: the target's dead t9 = sym+0x10 = &cnt[4] is the leftover end bound of a failed biv elimination of j through the giv &cnt[j] = sym + j*4. The giv was recognised but not reduced, and sym stays rematerialised in the loop. Look for a C form where &cnt[j] is a plain giv of j (j used elsewhere too, e.g. the map index) without sym being hoisted.",
+   "by": "claude-opus-3",
+   "created_at": 1793900820.8621671,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-b125c7e6b67d4423",
+   "created_at": 1793900915.864376,
+   "score_before": 325,
+   "score_after": 325
   }
  ],
  "set_aside": [
