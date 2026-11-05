@@ -12,8 +12,8 @@ judge accepted them as matches.
 - **Compiler:** gcc-2.7.2-kmc
 <!-- decompdecomp:details:end -->
 <!-- decompdecomp:progress:start -->
-- **Progress:** 2046 matching function(s), 59 best attempt(s)
-- **Completion:** 2,046 / 2,086 functions (98.1%). 35 set aside, excluded from completion.
+- **Progress:** 2048 matching function(s), 57 best attempt(s)
+- **Completion:** 2,048 / 2,086 functions (98.2%). 35 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 ## What's in this folder

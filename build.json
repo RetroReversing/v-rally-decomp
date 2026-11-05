@@ -25,6 +25,65 @@
     "-mgp32",
     "-mfp32",
     "-O2",
+    "-ffast-math",
+    "-fno-schedule-insns",
+    "-fno-strength-reduce",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2148027404,
+   "end": 2148027405
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147736008,
+   "end": 2147736009
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-fno-thread-jumps"
+   ],
+   "timeout": 20,
+   "start": 2147660160,
+   "end": 2147660161
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147588572,
+   "end": 2147588573
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
     "-g3"
    ],
    "timeout": 20,
@@ -11541,7 +11600,9 @@
    "seg": "code_80017B38",
    "vram": 2147588572,
    "rom": 107996,
-   "asm": "asm/nonmatchings/code_80017B38/func_800199DC.s"
+   "asm": "asm/nonmatchings/code_80017B38/func_800199DC.s",
+   "c": "src/code_80017B38/func_800199DC.c",
+   "own": {}
   },
   {
    "name": "func_80019C90",
@@ -14261,7 +14322,9 @@
    "seg": "code_80026E3C",
    "vram": 2147660160,
    "rom": 179584,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8002B180.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8002B180.s",
+   "c": "src/code_80026E3C/func_8002B180.c",
+   "own": {}
   },
   {
    "name": "func_8002B2DC",
@@ -16127,7 +16190,9 @@
    "seg": "code_80026E3C",
    "vram": 2147736008,
    "rom": 255432,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8003D9C8.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8003D9C8.s",
+   "c": "src/code_80026E3C/func_8003D9C8.c",
+   "own": {}
   },
   {
    "name": "func_8003DDBC",
@@ -24321,7 +24386,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148027404,
    "rom": 546828,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_80084C0C.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_80084C0C.s",
+   "c": "src/code_8007E9D4/func_80084C0C.c",
+   "own": {}
   },
   {
    "name": "func_80084DD4",

@@ -234,3 +234,46 @@ objects. The final 12,582,912-byte image matches the original byte for byte, SHA
 `d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
 The effective compiler remains `gcc-2.7.2-kmc` with
 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+
+
+## Explicit outer return guard and jump-threading profile — 5 November 2026
+
+`func_8002B180` is a text-prefix scanner, **87 instructions / 348 bytes**. The
+live app's ordinary editor judge accepted its reconstructed C at score **0**,
+including linked bytes. The accepted function-only profile is KMC GCC 2.7.2:
+`-G0 -mips3 -mgp32 -mfp32 -O2 -fno-thread-jumps`.
+
+The inherited score-210 source jumped from the whitespace loop directly into the
+outer body. Although close in instruction similarity, that skipped the bounds
+retest and was not an equivalent exit. The accepted C uses `break` to leave the
+inner whitespace loop. Its outer statement-expression condition computes the
+bounds comparison, explicitly returns `end` when false, and otherwise yields the
+comparison result. Preserve that guard together with the function's profile.
+
+| Controlled diagnostic, same target/header | Score | Exact linked bytes |
+| --- | ---: | --- |
+| Correct inner `break`, previous `-O2` profile | 410 | No |
+| Correct inner `break` plus `-fno-thread-jumps`, without explicit outer return | 200 | No |
+| Correct inner `break` and explicit outer return, previous profile | 710 | No |
+| Correct inner `break`, explicit outer return and `-fno-thread-jumps` | 0 | Yes |
+
+Without the return guard, the remaining instruction under the alternative flags
+was an annulled `beql` instead of the target's ordinary `beq` at entry. With the
+original flags, jump threading changed the inner loop's return route. `-g3`,
+scheduler toggles, small inline helpers and ordinary `do`/`while` rewrites did not
+recover the accepted pair in the measured trials. This is one verified compiler
+case, not evidence that the retail project universally disabled jump threading or
+that the reconstructed statement-expression was the original source spelling.
+
+A useful automated search would couple a bounded, semantically correct exit/guard
+repair with a function-only compiler experiment. Neither the isolated source edit
+nor the isolated flag change was sufficient. Keep exact-byte checks: instruction
+similarity and the semantic equivalence of an annulled branch are insufficient.
+The live app's normal function-settings endpoint followed by a fresh ordinary C
+submission saved the pair; two automatic bundle attempts had refused a changed
+compiler/build-input fingerprint. No verifier, ROM byte or instruction was patched.
+
+Accepted source: [func_8002B180.c](../src/code_80026E3C/func_8002B180.c).
+
+The standalone compiler/link check and complete **12,582,912-byte cartridge**
+comparison also passed for the published checkpoint. Earlier selected C was retained.

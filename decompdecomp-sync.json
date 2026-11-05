@@ -304,7 +304,11 @@
     "src/code_8007950C/func_8007BA1C.c": "f2af2ddbef023b749cb422d06e6cef1c7810d254758e3d8f41689953eb59bc3d",
     "src/code_80026E3C/func_8002B540.c": "d8708303daa205715858a00d4d638e751dd3c346795597a5ce4cf77575778bf0",
     "src/code_80026E3C/func_80048D4C.c": "99c6e89401849b7498e8b98122aeee9379d08c4004ed7af2f69ed65c25bca447",
-    "src/code_8000D9A0/func_80010BFC.c": "26c228fc0063ee7d6b4135715622bb37f401bf267ee73691c69140515c1f440c"
+    "src/code_8000D9A0/func_80010BFC.c": "26c228fc0063ee7d6b4135715622bb37f401bf267ee73691c69140515c1f440c",
+    "src/code_80017B38/func_800199DC.c": "b64cf8408d2dad7e825d5f28b4d61beb7fcaba9d30462da7aac554a77a1a4234",
+    "src/code_80026E3C/func_8002B180.c": "1c6b7ef0823c990828a92283ed89cc5e07de6832cef2555b35d7b6e27f36d962",
+    "src/code_80026E3C/func_8003D9C8.c": "abf188e8f12556e5e7e8bc738f7b3ec02c029bebc11d4b366400b57730a916f7",
+    "src/code_8007E9D4/func_80084C0C.c": "2f6f68556a61146b3021b02fcf734243aabfbab2a95e12e64cb8feb425bc194a"
   },
   "accepted": [
     "MusInitialize",
@@ -369,6 +373,7 @@
     "func_80018D7C",
     "func_80019608",
     "func_800197A4",
+    "func_800199DC",
     "func_80019C90",
     "func_80019F9C",
     "func_8001A340",
@@ -394,6 +399,7 @@
     "func_8002AA18",
     "func_8002AA6C",
     "func_8002ABC0",
+    "func_8002B180",
     "func_8002B344",
     "func_8002B540",
     "func_8002B7D4",
@@ -437,6 +443,7 @@
     "func_8003C968",
     "func_8003CD18",
     "func_8003D8F4",
+    "func_8003D9C8",
     "func_8003DDBC",
     "func_8003E1BC",
     "func_8003E3E0",
@@ -580,6 +587,7 @@
     "func_800839C4",
     "func_80084350",
     "func_800848A0",
+    "func_80084C0C",
     "func_800855F8",
     "func_80085C58",
     "func_80085D90",
@@ -617,25 +625,24 @@
   "skipped": [
     {
       "function": "func_8000C9B0",
-      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
-    },
-    {
-      "function": "func_800199DC",
-      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
-    },
-    {
-      "function": "func_8002B180",
-      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
-    },
-    {
-      "function": "func_8003D9C8",
-      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
-    },
-    {
-      "function": "func_80084C0C",
-      "reason": "Exact app match preserved in portable progress; independent standalone integration remains pending."
+      "reason": "Standalone object spans 600 bytes versus its 596-byte target, overlapping the next function by four bytes. Assembly retained; matched C preserved in portable progress."
     }
   ],
   "verified_build": true,
-  "matched_app": 2046
+  "matched_app": 2048,
+  "last_verification": {
+    "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+    "bytes": 12582912,
+    "added": [
+      "func_800199DC",
+      "func_8002B180",
+      "func_8003D9C8",
+      "func_80084C0C"
+    ],
+    "note": "The app restarted during the isolated build. After that process ended, resumed the frozen staged build using its unchanged compiled C objects and the normal build/link pipeline. The resumed build succeeded, and its complete cartridge was compared byte for byte before publication. No live database writes."
+  },
+  "not_integrated_after_checkpoint": [
+    "func_8007EAA0",
+    "func_8007EE9C"
+  ]
 }
