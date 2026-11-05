@@ -793,3 +793,22 @@ passed. All 2,055 earlier C objects remain unchanged; only the former assembly
 run removes this newly compiled function. The tree now selects **2,056 C
 functions / 68 assembly units**, and a fresh portable snapshot retains all app
 progress. There are no integration exceptions at this checkpoint.
+
+
+### Obsolete assembly verdict recovered
+
+`func_8007EF5C` now matches **61 instructions / 244 bytes** with the same
+verified live-return-address repair and unchanged KMC GCC 2.7.2 profile. The
+volatile stack index remains intact. Earlier assembly-only votes predated the
+fixed hardware intrinsic; their reasons are retained in the recovery audit.
+The ordinary live judge, independent function check and complete
+**12,582,912-byte** cartridge comparison passed. All 2,056 earlier C objects
+remain unchanged.
+
+The standalone tree now selects **2,057 C functions / 67 assembly units**.
+A copied-project replay proves the generic capability review can retire only
+obsolete tooling verdicts and match this case through ordinary autopilot,
+even when the package version has not changed. All current app progress is
+preserved in the refreshed portable snapshot; no integration exceptions remain.
+
+The generic recovery is tracked in [decompdecomp PR #507](https://github.com/RetroReversing/decompdecomp/pull/507).

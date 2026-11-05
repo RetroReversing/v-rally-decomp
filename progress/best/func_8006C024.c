@@ -19,6 +19,7 @@ void func_8006C024(s32 arg0, s32 arg1)
   s32 temp_a0;
   s32 temp_s0;
   s32 temp_s0_2;
+s32 __repair_phase_temp_s0_2;
   s32 temp_s5;
   s32 temp_s6;
   s32 var_a0;
@@ -49,9 +50,9 @@ void func_8006C024(s32 arg0, s32 arg1)
   }
   do
   {
-    temp_s0_2 = var_s3 & 0xFF;
-    temp_fv1 = temp_fs1 + (((f64) temp_s0_2) * D_800A5888);
-    if (temp_fs0 > temp_fv1)
+    __repair_phase_temp_s0_2 = var_s3 & 0xFF;
+    temp_fv1 = temp_fs1 + (((f64) __repair_phase_temp_s0_2) * D_800A5888);
+    if (!(temp_fs0 <= temp_fv1))
     {
       var_a0 = (s32) temp_fv1;
       temp_s0_2 = temp_s5 * 8;
