@@ -277,3 +277,14 @@ Accepted source: [func_8002B180.c](../src/code_80026E3C/func_8002B180.c).
 
 The standalone compiler/link check and complete **12,582,912-byte cartridge**
 comparison also passed for the published checkpoint. Earlier selected C was retained.
+
+
+### Live-register dispatcher allocation
+
+`func_8007EAA0` uses the current live return-address intrinsic with the
+original one-shot scope and an inlined constant. The live match was produced by
+an independently running helper. Controlled replay additionally found declaration
+staging: hardware-only score 65, combined score 0. Flags: KMC GCC 2.7.2,
+`-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -fno-schedule-insns`.
+Its source and four pending units passed individual checks and a full
+12,582,912-byte cartridge comparison before publication.

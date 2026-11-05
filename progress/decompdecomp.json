@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793844031.1012568,
- "revision": 14914,
+ "saved_at": 1793844606.2967858,
+ "revision": 14945,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1112,6 +1112,19 @@
     "-O2",
     "-fno-thread-jumps"
    ]
+  },
+  "285880:2147766456": {
+   "vram": 2147766456,
+   "function": "func_800450B8",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ]
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1161,7 +1174,8 @@
   "local_source_1891": "common_local_source_1891.h",
   "local_source_1975": "common_local_source_1975.h",
   "local_source_2029": "common_local_source_2029.h",
-  "local_source_599": "common_local_source_599.h"
+  "local_source_599": "common_local_source_599.h",
+  "local_source_894": "common_local_source_894.h"
  },
  "functions": {
   "func_80005120": {
@@ -5621,8 +5635,8 @@
   },
   "func_800450B8": {
    "vram": 2147766456,
-   "best_score": 310,
-   "best_by": "permuter"
+   "matched_by": "claude-opus-7",
+   "readable": false
   },
   "func_80045404": {
    "vram": 2147767300,
@@ -161550,22 +161564,22 @@
   },
   {
    "function": "func_80046E54",
-   "text": "Deep permuter: score 320 \u2192 320; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 65s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 320 \u2192 320; 0 improvements; 33 candidates tested; 64 cached skips; 0 rejected; 61s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-907"
   },
   {
    "function": "func_80049DB0",
-   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 73s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 256 candidates tested; 74 cached skips; 0 rejected; 448s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-947"
   },
   {
    "function": "func_800885CC",
-   "text": "Deep permuter: score 175 \u2192 175; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 63s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 175 \u2192 175; 0 improvements; 33 candidates tested; 64 cached skips; 0 rejected; 61s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1807"
   },
   {
    "function": "func_80029AA8",
-   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 70s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 34 candidates tested; 64 cached skips; 0 rejected; 81s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-580"
   },
   {
@@ -161575,7 +161589,7 @@
   },
   {
    "function": "func_8008188C",
-   "text": "Deep permuter: score 190 \u2192 190; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 65s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 190 \u2192 190; 0 improvements; 35 candidates tested; 64 cached skips; 0 rejected; 104s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1657"
   },
   {
@@ -161585,22 +161599,22 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 460 \u2192 460; 0 improvements; 48 candidates tested; 0 cached skips; 0 rejected; 84s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 460 \u2192 460; 0 improvements; 49 candidates tested; 46 cached skips; 0 rejected; 118s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-887"
   },
   {
    "function": "func_80059A60",
-   "text": "Deep permuter: score 610 \u2192 610; 0 improvements; 33 candidates tested; 34 cached skips; 0 rejected; 63s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 610 \u2192 610; 0 improvements; 47 candidates tested; 66 cached skips; 0 rejected; 82s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1155"
   },
   {
    "function": "func_80086F40",
-   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 125 candidates tested; 0 cached skips; 0 rejected; 226s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 300 candidates tested; 131 cached skips; 0 rejected; 546s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1756"
   },
   {
    "function": "func_8005E49C",
-   "text": "Deep permuter: score 45 \u2192 45; 0 improvements; 53 candidates tested; 0 cached skips; 0 rejected; 102s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 45 \u2192 45; 0 improvements; 101 candidates tested; 52 cached skips; 0 rejected; 179s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1223"
   },
   {
@@ -161640,7 +161654,7 @@
   },
   {
    "function": "func_800603B4",
-   "text": "Deep permuter: score 195 \u2192 195; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 73s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 195 \u2192 195; 0 improvements; 33 candidates tested; 32 cached skips; 0 rejected; 63s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1280"
   },
   {
@@ -161660,17 +161674,17 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 2770 \u2192 2770; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 67s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 2770 \u2192 2770; 0 improvements; 300 candidates tested; 33 cached skips; 0 rejected; 511s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1437"
   },
   {
    "function": "func_800450B8",
-   "text": "Deep permuter: score 310 \u2192 310; 0 improvements; 300 candidates tested; 1 cached skips; 0 rejected; 561s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 310 \u2192 310; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_800450B8 is claimed by claude-opus-7 for another 29 min.",
    "by": "Rr.permuter-895"
   },
   {
    "function": "func_80030180",
-   "text": "Deep permuter: score 435 \u2192 435; 0 improvements; 122 candidates tested; 0 cached skips; 0 rejected; 182s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 435 \u2192 435; 0 improvements; 300 candidates tested; 121 cached skips; 0 rejected; 529s elapsed. Variant limit reached.",
    "by": "Rr.permuter-673"
   },
   {
@@ -161680,12 +161694,12 @@
   },
   {
    "function": "func_8002FFA4",
-   "text": "Deep permuter: score 462 \u2192 462; 0 improvements; 38 candidates tested; 0 cached skips; 0 rejected; 73s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 462 \u2192 462; 0 improvements; 300 candidates tested; 38 cached skips; 0 rejected; 497s elapsed. Variant limit reached.",
    "by": "Rr.permuter-672"
   },
   {
    "function": "func_8007B4A4",
-   "text": "Deep permuter: score 380 \u2192 380; 0 improvements; 43 candidates tested; 42 cached skips; 0 rejected; 100s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 380 \u2192 380; 0 improvements; 300 candidates tested; 86 cached skips; 0 rejected; 519s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1564"
   },
   {
@@ -161695,17 +161709,17 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 89 candidates tested; 0 cached skips; 0 rejected; 181s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 87 cached skips; 0 rejected; 541s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
    "function": "func_8007F050",
-   "text": "Deep permuter: score 145 \u2192 145; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 96s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 145 \u2192 145; 0 improvements; 300 candidates tested; 36 cached skips; 0 rejected; 511s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1579"
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 505 \u2192 505; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 58s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 505 \u2192 505; 0 improvements; 64 candidates tested; 32 cached skips; 0 rejected; 152s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1446"
   },
   {
@@ -161730,7 +161744,7 @@
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1040 \u2192 1040; 0 improvements; 82 candidates tested; 0 cached skips; 0 rejected; 156s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 1040 \u2192 1040; 0 improvements; 300 candidates tested; 82 cached skips; 0 rejected; 517s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1434"
   },
   {
@@ -161750,7 +161764,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 85 candidates tested; 74 cached skips; 0 rejected; 172s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 72 candidates tested; 0 cached skips; 0 rejected; 110s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -161760,7 +161774,7 @@
   },
   {
    "function": "func_8007AD68",
-   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 45 candidates tested; 0 cached skips; 0 rejected; 81s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 45 candidates tested; 43 cached skips; 0 rejected; 101s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1558"
   },
   {
@@ -161775,7 +161789,7 @@
   },
   {
    "function": "func_80058E28",
-   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 140 candidates tested; 0 cached skips; 0 rejected; 241s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 300 candidates tested; 141 cached skips; 0 rejected; 565s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1138"
   },
   {
@@ -161785,7 +161799,7 @@
   },
   {
    "function": "func_8007ED48",
-   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 63s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 300 candidates tested; 39 cached skips; 0 rejected; 489s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1576"
   },
   {
@@ -161805,7 +161819,7 @@
   },
   {
    "function": "func_8006185C",
-   "text": "Deep permuter: score 190 \u2192 190; 0 improvements; 200 candidates tested; 0 cached skips; 0 rejected; 49s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 190 \u2192 190; 0 improvements; 300 candidates tested; 0 cached skips; 0 rejected; 533s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1286"
   },
   {
@@ -163360,13 +163374,33 @@
   },
   {
    "function": "func_8007EBF4",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nMatches at 0 with -fno-schedule-insns, which its unit-mate func_8007EAA0 already uses; the user has been sent a flag suggestion. Under the project flags the best is 65 (s1/s2 swap). The C is the candidate revision 11671ecb: the u-wrapper do{D_800B5B40=(s32)__builtin_mips_live_return_address();}while(0). Once the flag is applied it should match as-is.",
    "by": "claude-opus-12"
   },
   {
    "function": "func_8006E394",
    "text": "Best 1330 (saved, restore it). Target inner j/i loop: v int-like (sb v0 then move v1,v0, no andi before switch), OR order (b1<<1)|b0, a1=base+i computed first; &D_800AE850[0x7DB0] re-materialized inside j loop, t9=+0x10 and t8=+0x28 hoisted; n tested as `andi s1,t5,0xff; beqz`. Tried: int vv + D_800B6600.cnt[j] (1780), int vv + new_var ptr (1685), u8 v with (b1<<1)|b0 (1860), int n/base (3158, also needs s1 saved \u2014 keep u8). All worse than saved form.",
    "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Best 62 (saved, with `s32 pad[2]`): only non-reloc diff = tbl spill slot 0x34 vs target 0x14. Spill slots are 8-byte, assigned in pseudo/declaration order AFTER array locals. Declaring `u8 *tbl;` FIRST (before ent/cnt/q) and removing pad puts all spills exactly right (tbl 0x14, ent 0x1c, cnt 0x24, q 0x2c) but frame 0x58 vs 0x60 (score 82; diffs only frame offsets of saved regs). Target has 8 more bytes at 0x30-0x37 after spill slots \u2014 not an array local (those go at 0x10 before spills); an unused scalar doesn't help. Need a 5th spilled pseudo after q (something living across calls that reload spills) or a dead spill slot. Remaining D_800D0658 rows are reloc artifacts.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006DDD8",
+   "text": "Still 30: p (D_800C35A0) gets v0 where the target uses a1, plus the 0x800D0634 reloc artifact; a plain extern D_800D0634 scores 40. None of these changed the output: drop p and use D_800C35A0[...] directly; split base out to its own statement after the decls; locals u8/s32 a=p[0x21] and c=p[0x23]; prototype (s32,s32); search_flags (project flags best). Not tried yet: restructure the f64 bound/p decls, or work out what RTL order makes p live across the base computation so it lands in a1.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8002C044",
+   "text": "Saved best 205 (rev f701fbce, uses `func_8002B7D4(a + i - i)` hack; plain `func_8002B7D4(a)` = 240). Remaining diff is pure regalloc: target i-loop counter in s7, i*4 index in fp, oldcol in s6, old in s5; ours shifts these (s5/s7/fp/s6). Separate k counter for first loop scored 455. Try: different declaration order of i/old/oldcol, making first loop use its own variable with distinct lifetime, or i*4 pointer giv as explicit variable.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "At 190 on rechecking (170 historically, same source). The operand rows (D_800C02AE+0x807A via %hi 0x800D35A0, and the D_80000002/4 lo relocs) are reloc artifacts; ignore them. The real diffs: (1) offset ternary: the target copies offset into v0 and negates in place, while ours puts the result in a1. These were all worse (700-990): if-forms, -(offset+result), a temp t, folding into x. (2) The CV(h) block: the target puts h in a2, D_800A14D0 in a1 and the product in a0; ours is shifted down one register. These were neutral or worse: CV straight into height, s32 h, mult operand swap, a local for D_800A14D0, moving width=w later (930), s32 boxheight (590). Dropping `new_var = h;` in the else branch is neutral (cleaner C).",
+   "by": "claude-opus-12"
   }
  ],
  "set_aside": [
@@ -177083,6 +177117,94 @@
     "relocations_sha256": "9697712348dffc7e3607bcc731750cf2eb03dcf5bcf3ef07dd026beaaa3b74bd",
     "vram": 2147764488,
     "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_800450B8": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793844224.991743,
+    "attempt_id": 291828,
+    "source_sha256": "65764622bddecec7a785769a3be3ab53a9b579257bb8801877beca41c4c3b8a3",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 47,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "local_source_894",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "5a4adc2d426721babdb8a80fc729e30732eb2f4c5334fe8d4083f306cdb526eb",
+    "relocations_sha256": "e0f3d9ca20ab47e50089921d192e1ad8c6275c3dce4eb55766b1c20bd8e0c36d",
+    "vram": 2147766456,
+    "unit": "local_source_894",
     "mode": "rom"
    },
    "func_80045404": {
@@ -191049,6 +191171,7 @@
    "c35be510d7a0236f6bab15b6781f18e6deefbf234a0f3d58da71ec5530c38797": "#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\n\n\nextern const int D_800B6880;\nextern void **D_800B5C40;\n\n\ns32 func_8000E8B8();\nvoid *func_80022318();\ns32 func_8002FE78();\nvoid *func_8004240C();\ns32 func_80042DE0();\ns32 func_800528A4();\ns32 func_80073708();\ns32 func_800746C0();\ns32 func_80076E7C();\nextern s32 D_8009D538;\nextern char D_800A4DF4[];\nextern char D_800AE850[];\nextern char D_800C02AE[];\nextern void *D_800C35A0; extern void *D_800C7F84;\n\nvoid func_80042F40(void) {\n    s32 temp_v1;\n    s32 mode;\n    s32 temp_a0;\n    void *config;\n    void *node;\n    void *temp_a1;\n    void *temp_v0;\n    void *temp_v0_2;\n    void *temp_v0_3;\n    void *var_v1;\n\n    func_8002FE78();\n    temp_a0 = M2C_FIELD(D_800C35A0, u16 *, 0xE);\n    D_8009D538 |= 1;\n    temp_v0 = func_8004240C((temp_a0 * 2) | 1);\n    D_800C7F84 = temp_v0;\n    node = M2C_FIELD(func_80022318(temp_v0 + 0x28, &D_800A4DF4), void **, 0x10);\n    config = D_800C35A0;\n    M2C_FIELD(node, s32 *, 8) = 1;\n    temp_v0_2 = func_8004240C((M2C_FIELD(config, u16 *, 0xE) * 2) + 2);\n    temp_a0 = *(s32 *)((char *)temp_v0_2 + 0x178);\n    D_800C7F84 = temp_v0_2;\n    func_8000E8B8(temp_a0);\n    temp_v1 = M2C_FIELD(D_800C35A0, u16 *, 0x1E);\n    switch (temp_v1) {\n    case 0: func_800746C0(); break;\n    case 1: case 2: case 3: case 4: func_80042DE0(); goto mode_join;\n    case 5: func_80042DE0(); func_800528A4();\nmode_join: func_80073708(); break;\n    }\n    temp_v0_3 = func_8004240C((M2C_FIELD(D_800C35A0, u16 *, 0xE) * 2) + 2);\n    D_800C7F84 = temp_v0_3;\n    func_80076E7C(temp_v0_3);\n    var_v1 = *D_800B5C40;\n    D_8009D538 |= 0xA00;\n    if (var_v1 != NULL) {\n        mode = D_800B6880;\n        do {\n            temp_a1 = *(void * *)((char *)var_v1 + 0x48);\n            temp_a0 = *(s32 *)((char *)temp_a1 + 0x20);\n            switch (temp_a0) {                      /* switch 2; irregular */\n            case 6:                                 /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 4;\n                break;\n            case 10:                                /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 8;\n                break;\n            case 7:                                 /* switch 2 */\n                *(s32 *)((char *)temp_a1 + 0x20) = 8;\n                break;\n            default:                                /* switch 2 */\n                M2C_FIELD(*(void * *)((char *)var_v1 + 0x48), s32 *, 0x20) = 8;\n                break;\n            }\n            if (D_800B6880 == 2) {\n                M2C_FIELD(*(void * *)((char *)var_v1 + 0x48), s32 *, 0x20) = 4;\n            }\n            var_v1 = *(void * *)((char *)var_v1 + 4);\n        } while (var_v1 != NULL);\n    }\n}\n",
    "252ab789342db24b0dbb6dfede4da6d9859a64cc4432075363fae45ea98e741b": "extern int D_800B6880;\nextern unsigned int D_800AE44C;\nextern float D_800C35E0;\nextern signed char D_800C8120;\ns32 func_8000E8B8();\ns32 func_8001FEE8();\nvoid *func_80022318();\ns32 func_80022F78();\ns32 func_80027C64();\ns32 func_80027E8C();\ns32 func_8002FE78();\ns32 func_80038A8C();\nvoid *func_8004240C();\ns32 func_80042D20();\nlong func_80042F40();\ns32 func_80043124();\ns32 func_800446D0();\ns32 func_800447A0();\ns32 func_80076E7C();\ns32 func_800804C4();\ns32 func_80080514();\ns32 func_80085778();\ns32 func_80086854();\ns32 func_80086A34();\ns32 func_80086DE8();\nextern s32 D_8009D538;\nextern void *D_800C35A0;\nextern s32 D_8009F640;\nextern s32 D_800A0200;\nextern char D_800A4DF4[];\nextern char D_800A4DFC[];\nextern char D_800A73E0[];\nextern char D_800AE850[];\nextern char D_800C02AE[];\nextern s32 func_8002291C;\nextern s32 func_8004E18C;\ntypedef struct { unsigned char pad_0[4]; void * field_4; unsigned char pad_8[12]; int field_14; unsigned char pad_18[48]; void * field_48; unsigned char pad_4C[32]; void * field_6C; } __repair_record_var_s2;\nvoid func_80043150(void *arg0, void *arg1)\n{\n  s32 temp_a0;\n  s32 var_a0_2;\n  s32 var_a1;\n  s32 var_s3;\n  s32 var_s5;\n  u32 temp_v1_3;\n  u32 temp_v1_5;\n  char *new_var2;\n  s32 var_s1;\n  u32 temp_a0_2;\n  u8 temp_v0_2;\n  int new_var;\n  u8 temp_v0_3;\n  u8 temp_v1;\n  u8 temp_v1_2;\n  u8 var_s4;\n  void *temp_a2;\n  void *temp_v0;\n  void *temp_v0_10;\n  void *temp_v0_4;\n  void *temp_v0_5;\n  void *temp_v0_6;\n  void *temp_v0_7;\n  void *temp_v0_8;\n  void *temp_v0_9;\n  void *temp_v1_4;\n  void *var_a0;\n  void *var_s0;\n  void *var_s2;\n  var_s2 = arg0;\n  var_s0 = arg1;\n  temp_a2 = ((__repair_record_var_s2*)var_s2)->field_6C;\n  var_s4 = *((u8 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xF));\n  var_s5 = *((s32 *) (((char *) temp_a2) + 0x10));\n  func_80085778(*((u8 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 3)), 1);\n  if (D_800B6880 != 1)\n  {\n    if (!((((__repair_record_var_s2*)var_s2)->field_14) & 0x200))\n    {\n      temp_v0 = func_8004240C((var_s4 * 2) + 2);\n      *((void **) (D_800C02AE + 0x7CD6)) = temp_v0;\n      func_800447A0(temp_v0);\n    }\n    func_80027E8C(var_s2, *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0)), var_s0);\n    ((__repair_record_var_s2*)var_s2)->field_14 |= 0x200;\n    var_a1 = func_8001FEE8(var_s2);\n    if (var_a1 < 0)\n    {\n      *((s8 *) (((char *) var_s0) + 5)) = 0;\n      *((s8 *) (((char *) var_s0) + 4)) = 0;\n      temp_v0_2 = (*((u8 *) (((char *) var_s0) + 1))) | 0x10;\n      *((u8 *) (((char *) var_s0) + 1)) = temp_v0_2;\n      temp_v1 = ((*((u8 *) (((char *) var_s0) + 2))) | (~temp_v0_2)) | 0x10;\n      *((u8 *) (((char *) var_s0) + 2)) = temp_v1;\n      *((s8 *) (((char *) var_s0) + 3)) = (s8) ((*((u8 *) (((char *) var_s0) + 1))) & temp_v1);\n    }\n    else\n    {\n      *((s8 *) (((char *) var_s0) + 4)) = 0;\n      *((u8 *) (((char *) var_s0) + 5)) = 0x80;\n    }\n    if ((((u32) (var_a1 + 5)) < 0xBU) & (var_s5 == 0))\n    {\n      *((s8 *) (((char *) var_s0) + 5)) = 0;\n      temp_v1_2 = (*((u8 *) (((char *) var_s0) + 1))) & 0xEF;\n      *((u8 *) (((char *) var_s0) + 1)) = temp_v1_2;\n      temp_v0_3 = ((*((u8 *) (((char *) var_s0) + 2))) | (~temp_v1_2)) | 0x10;\n      *((u8 *) (((char *) var_s0) + 2)) = temp_v0_3;\n      *((s8 *) (((char *) var_s0) + 3)) = (s8) ((*((u8 *) (((char *) var_s0) + 1))) & temp_v0_3);\n      var_s0 = *(*((void ***) (D_800AE850 + 0x73F0)));\n      var_s1 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));\n      var_s3 = 0;\n      if (var_s0 != NULL)\n      {\n        do\n        {\n          if ((*(*((s32 **) (((char *) var_s0) + 0x48)))) < 4)\n          {\n            var_a1 = func_8001FEE8(var_s0, var_a1);\n            if (((!((*((s32 *) (((char *) var_s0) + 0x14))) & 0x100)) && (((u32) (var_a1 + 5)) < 0xBU)) && ((*((s32 *) (((char *) (*((void **) (((char *) var_s0) + 0x6C)))) + 0x10))) == 0))\n            {\n              var_s3 += 1;\n              var_s1 -= 1;\n            }\n            if (((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))) >= 2U)\n            {\n              {\n                s32 flags = (*((s32 *) (((char *) var_s0) + 0x14))) & 0x100;\n                var_s1 -= flags != 0;\n              }\n            }\n          }\n          var_s0 = *((void **) (((char *) var_s0) + 4));\n        }\n        while (var_s0 != NULL);\n      }\n      if (var_s1 == 0)\n      {\n        temp_v1_3 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));\n        if ((temp_v1_3 >= 2U) && ((var_s3 & 0xFFFF) != temp_v1_3))\n        {\n          func_80042F40();\n          D_800B6880 = 0;\n          func_80085778(0U, 0x1000);\n          func_80085778(0U, 0x8000);\n        }\n        else\n        {\n          if (((u32) D_800AE44C) < 2U)\n          {\n            if ((*((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0))) < 4)\n            {\n              var_a0 = *(*((void ***) (D_800AE850 + 0x72FC)));\n              if (var_a0 != NULL)\n              {\n                loop_23:\n                if ((*((s32 *) (((char *) var_a0) + 0x24))) != var_s2)\n                {\n                  var_a0 = *((void **) (((char *) var_a0) + 4));\n                  if (var_a0 != NULL)\n                  {\n                    goto loop_23;\n                  }\n                }\n\n              }\n              temp_v0_4 = func_80022318(var_a0 + 0x28, &D_800A4DFC);\n              {\n                s32 two = 2;\n                if (temp_v0_4 != NULL)\n                {\n                  temp_v1_4 = *((void **) (((char *) temp_v0_4) + 0x10));\n                  if ((*((s32 *) (((char *) temp_v1_4) + 8))) != two)\n                  {\n                    *((s32 *) (((char *) temp_v1_4) + 8)) = two;\n                  }\n                }\n              }\n            }\n            if (D_800AE44C == 0)\n            {\n              func_80038A8C(0x10);\n              if (!(D_8009F640 & 0x20))\n              {\n                D_8009F640 |= 0x20;\n                func_80086A34(1);\n                func_80086854(D_800C02AE + 0x10122);\n                func_80086DE8((s32) (D_800C35E0 * 80.0f));\n              }\n            }\n          }\n          new_var2 = ((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x1E;\n          ((__repair_record_var_s2*)var_s2)->field_14 |= 0x80;\n          temp_a0_2 = D_800AE44C + 1;\n          D_800AE44C = temp_a0_2;\n          if (temp_a0_2 == (((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (D_800C02AE + 0x32F2))))->e * 0x4B))\n          {\n            temp_v1_5 = *((u16 *) new_var2);\n            D_8009D538 &= ~1;\n            if ((temp_v1_5 != 0) & (temp_v1_5 != 5))\n            {\n              if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x36))) != 0)\n              {\n                var_a0_2 = var_s4 * 2;\n                if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE))) == 1)\n                {\n                  {\n                    s32 i = 0;\n                    do\n                    {\n                      func_80085778(i & 0xFF, 1);\n                      i++;\n                    }\n                    while (((u32) (i & 0xFFFF)) < ((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE)))));\n                  }\n                  D_8009D538 |= 0x80;\n                  temp_v0_5 = func_8004240C((var_s4 * 2) + 2);\n                  *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_5;\n                  func_800446D0(temp_v0_5);\n                }\n                else\n                {\n                  goto block_39;\n                }\n              }\n              else\n              {\n                var_a0_2 = var_s4 * 2;\n                block_39:\n                temp_v0_6 = func_8004240C(var_a0_2 + 2);\n                { extern void *D_800C7F84; D_800C7F84 = temp_v0_6; }\n                func_800447A0(temp_v0_6);\n                func_80043124(var_s2);\n                func_8002FE78();\n                D_8009D538 |= 1;\n                temp_v0_7 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (D_800C02AE + 0x32F2))))->e * 2) | 1);\n                *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_7;\n                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) func_80022318(temp_v0_7 + 0x28, &D_800A4DF4)) + 0x10))))->v = 1;\n                temp_v0_8 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) D_800C35A0)->e * 2) + 2);\n                *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_8;\n                func_8000E8B8(((struct { u8 pad[0x178]; s32 x; } *) temp_v0_8)->x);\n                { extern void *D_800C7F84; func_80076E7C(D_800C7F84); }\n                var_s2 = *(*((void ***) (D_800AE850 + 0x73F0)));\n                if (var_s2 != NULL)\n                {\n                  do\n                  {\n                    *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0x20)) = 8;\n                    ((__repair_record_var_s2*)var_s2)->field_14 |= 0x10;\n                    var_s2 = ((__repair_record_var_s2*)var_s2)->field_4;\n                  }\n                  while (var_s2 != NULL);\n                }\n                D_800B6880 = 2;\n                D_8009D538 |= 0xA00;\n              }\n            }\n            else\n            {\n              func_80043124(var_s2, *((void **) (D_800C02AE + 0x32F2)));\n            }\n          }\n        }\n      }\n    }\n  }\n  else\n  {\n    temp_v0_9 = func_8004240C((var_s4 * 2) + 2);\n    *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_9;\n    func_800447A0(temp_v0_9);\n    func_80043124(var_s2);\n    D_800B6880 = 5;\n    D_800C8120 = 0;\n  }\n  if (var_s5 != 0)\n  {\n    D_800AE44C = 0U;\n    ((__repair_record_var_s2*)var_s2)->field_14 &= ~0x200;\n    if (D_800B6880 != 1)\n    {\n      *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0x20)) = (s32) (func_80027C64(*((u16 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 2))) & 0xFFFF);\n    }\n  }\n  if (D_800A0200 != 0)\n  {\n    temp_v0_10 = func_8004240C((var_s4 * 2) + 2);\n    *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_10;\n    new_var = 0x73F0;\n    func_800447A0(temp_v0_10);\n    func_80042D20();\n    func_80022F78(*((void ***) (D_800AE850 + new_var)));\n    func_80080514(*((void ***) (D_800AE850 + new_var)), &func_8002291C, 0x10);\n    func_800804C4(*((void ***) (D_800AE850 + 0x72FC)), &func_8004E18C);\n    D_800A0200 = 0;\n  }\n}\n",
    "d1c3e528d5560db42156cde68a153094833a94948275a33eca190308852b9744": "typedef struct \n{\n  u32 a;\n  s32 b;\n} Split;\ntypedef struct \n{\n  u8 pad0[8];\n  s16 checkpoint;\n  u8 pad0A[0x24 - 0xA];\n  s32 x;\n  u8 pad28[4];\n  s32 z;\n  u8 pad30[0x54 - 0x30];\n  s16 *verts;\n  u8 pad58[0x74 - 0x58];\n  Split *splits;\n  u8 pad78[0x8A - 0x78];\n  u16 n;\n} Track;\ntypedef struct \n{\n  u8 pad0[0x28];\n  Track *track;\n} TrackRef;\ntypedef struct \n{\n  u8 pad0[0x28];\n  u32 seg;\n} Progress;\ntypedef struct \n{\n  u8 pad0[0x2B8];\n  s32 x;\n  u8 pad2BC[4];\n  s32 z;\n} Body;\ntypedef struct \n{\n  s32 *times;\n  u32 total;\n  s32 position;\n  s32 gap;\n} RaceInfo;\ntypedef struct \n{\n  s32 laps;\n  u32 checkpoint;\n  s32 count;\n} LapInfo;\ntypedef struct Car\n{\n  u8 pad0[4];\n  struct Car *next;\n  u8 pad8[0x14 - 0x8];\n  u32 flags;\n  u8 pad18[0x48 - 0x18];\n  s32 *p48;\n  u8 pad4C[0x60 - 0x4C];\n  Progress *progress;\n  u8 pad64[0x6C - 0x64];\n  RaceInfo *race;\n  LapInfo *lap;\n  u8 pad74[0x80 - 0x74];\n  Body *body;\n  u8 pad84[0x8C - 0x84];\n  TrackRef *ref;\n} Car;\ntypedef struct \n{\n  Car *first;\n} CarList;\nextern u16 D_800ADFDE;\nextern s32 D_800ADFE8;\nextern CarList *D_800B5C40;\nextern u8 *D_800C35A0;\nvoid func_80044908(Car *car)\n{\n  s32 va[4];\n  s32 vb[4];\n  s32 vc[4];\n  LapInfo *lap;\n  u32 oldCp;\n  u32 cp;\n  s32 pos;\n  u32 sum;\n  Track *trk;\n  Split *e;\n  Car *other;\n  s32 laps;\n  s32 *new_var;\n  u8 found;\n  s32 i;\n  s32 *tp;\n  lap = car->lap;\n  sum = 0;\n  oldCp = lap->checkpoint;\n  pos = D_800ADFDE;\n  cp = oldCp;\n  if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)\n  {\n    if (((*car->p48) < 4) && (!(car->flags & 0x100)))\n    {\n      trk = car->ref->track;\n      lap->checkpoint = trk->checkpoint;\n      if (oldCp != trk->checkpoint)\n      {\n        e = trk->splits;\n        if (!(car->flags & 0x20))\n        {\n          pos = *car->p48;\n          sum = car->race->total;\n          e[pos].a = sum;\n          e[pos].b = car->lap->laps;\n          car->race->gap = e[4].a - e[pos].a;\n        }\n      }\n    }\n    return;\n  }\n  trk = car->ref->track;\n  if ((cp == 0) && (trk->checkpoint == D_800ADFE8))\n  {\n    lap->count--;\n  }\n  else\n    if ((cp == D_800ADFE8) && (trk->checkpoint == 0))\n  {\n    car->lap->count++;\n  }\n  else\n    if (cp < ((u32) trk->checkpoint))\n  {\n    car->lap->count++;\n  }\n  else\n    if (((u32) trk->checkpoint) < cp)\n  {\n    car->lap->count--;\n  }\n  car->lap->checkpoint = trk->checkpoint;\n  other = D_800B5C40->first;\n  laps = car->lap->count;\n  for (; other != NULL; other = other->next)\n  {\n    if (other != car)\n    {\n      Track *otrk = other->ref->track;\n      s32 olaps = other->lap->count;\n      if (!(other->flags & 0x100))\n      {\n        if (olaps < laps)\n        {\n          pos--;\n        }\n        else\n          if (laps == olaps)\n        {\n          u32 seg = car->progress->seg;\n          u32 oseg = other->progress->seg;\n          if ((oseg < seg) && (trk == otrk))\n          {\n            pos--;\n          }\n          else\n            if (seg == oseg)\n          {\n#define k i\n            u16 n;\n            va[0] = car->body->x - trk->x;\n            va[2] = car->body->z - trk->z;\n            vb[0] = other->body->x - trk->x;\n            vb[2] = other->body->z - trk->z;\n            n = trk->n;\n            seg = (seg * n) + (n >> 1);\n            k = seg;\n            vc[0] = trk->verts[(k + n) * 3] - trk->verts[k * 3];\n            vc[2] = trk->verts[((k + n) * 3) + 2] - trk->verts[(k * 3) + 2];\n            va[0] = vb[0] - va[0];\n            va[2] = vb[2] - va[2];\n            if (((vc[0] * va[0]) + (vc[2] * va[2])) <= 0)\n            {\n              pos--;\n            }\n          }\n        }\n      }\n    }\n  }\n\n  car->race->position = pos;\n  if (pos == 1)\n  {\n    car->race->gap = 0;\n  }\n  else\n  {\n    Car *o;\n    found = 0;\n    o = D_800B5C40->first;\n    while ((!found) && (o != NULL))\n    {\n      if (o->race->position == (car->race->position - 1))\n      {\n        found = 1;\n      }\n      else\n      {\n        o = o->next;\n      }\n    }\n\n    if (found)\n    {\n      RaceInfo *r = car->race;\n      s32 g = r->gap;\n      s32 og = o->race->gap;\n      if (g < og)\n      {\n        r->gap = og;\n        o->race->gap = g;\n      }\n    }\n  }\n  if (oldCp != trk->checkpoint)\n  {\n    e = trk->splits;\n    pos--;\n    if (!(car->flags & 0x20))\n    {\n      tp = car->race->times;\n      for (i = 1; i < car->lap->laps; i++)\n      {\n        sum += tp[i];\n      }\n\n      sum += car->race->total;\n      e[pos].a = sum;\n      e[pos].b = car->lap->laps;\n      if (pos != 0)\n      {\n        if ((e[0].b == e[pos].b) && (e[0].a != 0))\n        {\n          if (e[0].a < sum)\n          {\n            car->race->gap = sum - e[0].a;\n          }\n        }\n        else\n          if (e[pos - 1].b > e[pos].b)\n        {\n          car->race->gap = (e[pos - 1].b - e[pos].b) + 3600000;\n        }\n      }\n    }\n  }\n}\n\n",
+   "65764622bddecec7a785769a3be3ab53a9b579257bb8801877beca41c4c3b8a3": "extern char *D_800C35A0;\nextern s32 D_8009D540;\ns32 func_80041564(void);\nvoid func_800450B8(void *arg0)\n{\n  s32 mode;\n  u8 swapped;\n  void *ctx;\n  s32 *slot;\n  s32 *other;\n  s32 base;\n  u32 val;\n  u32 prev;\n  s32 i;\n  u32 off;\n  s32 *q;\n  s32 tmp;\n  char *cfg;\n  unsigned char *rec;\n  s32 t;\n  u32 numer;\n  u32 denom;\n  mode = *((u16 *) (D_800C35A0 + 0xE));\n  swapped = 1;\n  if (mode == 2)\n  {\n    goto mode2;\n  }\n  if (mode >= 3)\n  {\n    goto done;\n  }\n  if (mode != 1)\n  {\n    goto done;\n  }\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  slot += 6;\n  *slot = *((s32 *) (((u8 *) ctx) + 4));\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  other += 6;\n  base = func_80041564();\n  cfg = D_800C35A0;\n  if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))\n  {\n    rec = ((char *) base) + ((*((u16 *) (cfg + 0x22))) << 6);\n    if (rec[0x38] != 0)\n    {\n      t = *((s32 *) (rec + 0x2C));\n      if (((u32) t) >= 0xBU)\n      {\n        *slot = t - 3;\n      }\n    }\n    else\n    {\n      t = *((s32 *) (rec + 0x2C));\n      if (((u32) t) >= 0x1FU)\n      {\n        *slot = t - 0xA;\n      }\n    }\n  }\n  numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  if (swapped != 0)\n  {\n    do\n    {\n      swapped = 0;\n      i = 6;\n      do\n      {\n        off = (i & 0xFF) * 4;\n        q = (s32 *) (off + ((int) slot));\n        val = q[0];\n        prev = q[-1];\n        if (prev > val)\n        {\n          q[0] = prev;\n          q[-1] = val;\n          tmp = *((s32 *) (off + ((int) other)));\n          swapped = 1;\n          *((s32 *) (((u8 *) other) + off)) = *((s32 *) ((((u8 *) other) + off) - 4));\n          *((s32 *) ((((u8 *) other) + off) - 4)) = tmp;\n        }\n        i -= 1;\n      }\n      while ((i & 0xFF) != 0);\n    }\n    while (swapped != 0);\n  }\n  goto done;\n  mode2:\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  slot += 3;\n  *slot = *((s32 *) (((u8 *) ctx) + 4));\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  do\n  {\n    other = *((s32 **) (((u8 *) ctx) + 0x28));\n    other += 3;\n    base = func_80041564();\n    cfg = D_800C35A0;\n    if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))\n    {\n      rec = ((char *) base) + ((*((u16 *) (cfg + 0x22))) << 6);\n      if (rec[0x38] != 0)\n      {\n        t = *((s32 *) (rec + 0x2C));\n        if (((u32) t) >= 0xBU)\n        {\n          *slot = t - 3;\n        }\n      }\n      else\n      {\n        t = *((s32 *) (rec + 0x2C));\n        if (((u32) t) >= 0x1FU)\n        {\n          *slot = t - 0xA;\n        }\n      }\n    }\n    numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);\n  }\n  while (0);\n  ctx = *((void **) (((u8 *) arg0) + 0x6C));\n  slot = *((s32 **) (((u8 *) ctx) + 0x24));\n  other = *((s32 **) (((u8 *) ctx) + 0x28));\n  if (swapped != 0)\n  {\n    do\n    {\n      swapped = 0;\n      i = 3;\n      do\n      {\n        off = (i & 0xFF) * 4;\n        q = (s32 *) (off + ((int) slot));\n        val = q[0];\n        prev = q[-1];\n        if (val < prev)\n        {\n          q[0] = prev;\n          q[-1] = val;\n          tmp = *((s32 *) (off + ((int) other)));\n          swapped = 1;\n          *((s32 *) (((u8 *) other) + off)) = *((s32 *) ((((u8 *) other) + off) - 4));\n          *((s32 *) ((((u8 *) other) + off) - 4)) = tmp;\n        }\n        i -= 1;\n      }\n      while ((i & 0xFF) != 0);\n    }\n    while (swapped != 0);\n  }\n  done:\n  return;\n}\n",
    "8eade706296b1ec51dcdeb295e18af91e5808c01dcfd34e760078c13a2c34d2f": "#define I(p,o) (*(u32 *)((u8*)(p)+(o)))\n#define H(p,o) (*(u16 *)((u8*)(p)+(o)))\n#define B(p,o) (*(u8 *)((u8*)(p)+(o)))\nvoid func_80098290(void *, s32, s32);\nextern u8 D_8009D544;\nextern u8 *D_800C35A0;\nvoid func_80045404(u32 arg0, u8 *arg1, s8 arg2, s32 arg3, u8 arg4, s32 arg5)\n{\n  u32 sp10[4];\n  u8 *var_a0_3;\n  u8 *var_a0_4;\n  u8 *var_a2;\n  u8 *var_a2_3;\n  u8 *var_a2_7;\n  u8 *var_a2_5;\n  u8 *var_v1_3;\n  u8 *var_v1_5;\n  u8 *temp_a1;\n  s32 temp_a2;\n  s32 temp_v1_5;\n  s32 var_a0_5;\n  s32 var_a0_6;\n  s32 var_a0_7;\n  s32 var_a0_8;\n  u8 var_s2 = 1;\n  s32 var_t1;\n  s32 var_t2;\n  s32 var_v1;\n  s32 var_v1_2;\n  u32 temp_s3;\n  u8 *temp_a3;\n  u8 *var_a0_2;\n  u8 *var_a2_2;\n  u8 *var_a2_4;\n  u8 *var_a2_6;\n  u8 *var_t0;\n  u8 *var_v1_4;\n  u32 temp_v0;\n  u32 temp_v0_2;\n  u32 temp_v0_3;\n  u32 temp_v1_3;\n  u32 temp_v1_4;\n  u32 var_a0;\n  u8 *var_v1_6;\n  u8 *var_x;\n  void *temp_s0;\n  void *temp_v1;\n  void *temp_v1_2;\n  var_a0 = arg0;\n  temp_s3 = H(D_800C35A0, 0x22);\n  temp_a2 = temp_s3 << 6;\n  temp_v1 = arg1 + ((int) (temp_a2 + 0x2C));\n  temp_s0 = temp_v1 + 0x30;\n  if (H(D_800C35A0, 0x2C) & 0x4000)\n  {\n    temp_v1_2 = arg1 + temp_a2;\n    if (B(temp_v1_2, 0x38) != 0)\n    {\n      temp_v1_3 = I(temp_v1_2, 0x2C);\n      if (temp_v1_3 > (0xBU - 1))\n      {\n        var_a0 = temp_v1_3 - 3;\n      }\n    }\n    else\n    {\n      temp_v1_4 = I(temp_v1_2, 0x2C);\n      if (temp_v1_4 >= 0x1FU)\n      {\n        var_a0 = temp_v1_4 - 0xA;\n      }\n    }\n  }\n  if (D_8009D544 == 0)\n  {\n    if (var_t2)\n    {\n      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);\n    }\n    else\n    {\n      I(temp_s0, 0) = (u32) (((u32) (var_a0 * 3)) >> 1);\n    }\n  }\n  else\n  {\n    I(temp_s0, 0) = var_a0;\n  }\n  func_80098290(temp_s0 + 6, arg3, temp_a2);\n  temp_v1_5 = temp_s3 << 6;\n  B(temp_s0, 0xC) = 1;\n  B(temp_s0, 0x4) = arg2;\n  B(temp_s0, 0x5) = arg4;\n  B(temp_s0, 0xA) = (s8) arg5;\n  B(temp_s0, 0xB) = (u8) B(arg1 + temp_v1_5, 0x37);\n  if (var_s2 & 0xFF)\n  {\n    temp_a1 = arg1 + (temp_v1_5 + 0x2C);\n    var_a2_4 = (u8 *)(sp10 + 4);\n    do\n    {\n      var_s2 = 0;\n      var_t2 = 3;\n      var_t0 = temp_a1 + 0x30;\n      var_t1 = 0x20;\n      loop_15:\n      temp_a3 = temp_a1 + var_t1;\n\n      if ((((u32) I(var_t0, 0)) < ((u32) I(temp_a3, 0))) ^ 0)\n      {\n        var_a0_2 = sp10;\n        var_a2 = temp_a3 + 0x10;\n        var_s2 = 1;\n        if ((((u32) var_a0_2) < ((u32) var_a2)) & (((u32) temp_a3) < ((u32) var_a0_2)))\n        {\n          var_a0_3 = sp10 + 4;\n          var_v1 = 4;\n          do\n          {\n            do\n            {\n              var_a2 -= 4;\n              var_a0_3 -= 4;\n              var_v1 -= 1;\n              I(var_a0_3, 0) = I(var_a2, 0);\n            }\n            while (var_v1 != 0);\n          }\n          while (0);\n          var_a0_4 = var_t0 + 0x10;\n        }\n        else\n        {\n          var_a2_2 = temp_a3;\n          var_v1_2 = 4;\n          do\n          {\n            temp_v0 = I(var_a2_2, 0);\n            var_a2_2 += 4;\n            do\n            {\n              var_v1_2 -= 1;\n              I(var_a0_2, 0) = temp_v0;\n              var_a0_2 += 4;\n            }\n            while (0);\n          }\n          while (var_v1_2 != 0);\n          var_a0_4 = var_t0 + 0x10;\n        }\n        if ((((u32) temp_a3) < ((u32) var_a0_4)) & (((u32) var_t0) < ((u32) temp_a3)))\n        {\n          var_a2_7 = var_a0_4;\n          var_v1_3 = temp_a3 + 0x10;\n          var_a0_5 = 4;\n          do\n          {\n            var_a2_7 -= 4;\n            var_v1_3 -= 4;\n            var_a0_5 -= 1;\n            I(var_v1_3, 0) = I(var_a2_7, 0);\n          }\n          while (var_a0_5 != 0);\n        }\n        else\n        {\n          var_a2_3 = var_t0;\n          var_v1_4 = temp_a3;\n          var_a0_6 = 4;\n          do\n          {\n            temp_v0_2 = I(var_a2_3, 0);\n            var_a2_3 += 4;\n            var_a0_6 -= 1;\n            I(var_v1_4, 0) = temp_v0_2;\n            var_v1_4 += 4;\n          }\n          while (var_a0_6 != 0);\n        }\n        var_x = (u8 *) sp10;\n        if ((((u32) var_t0) < ((u32) var_a2_4)) & (((u32) var_x) < ((u32) var_t0)))\n        {\n          var_v1_6 = var_a2_4;\n          var_a2_6 = var_t0 + 0x10;\n          var_a0_8 = 4;\n          do\n          {\n            var_v1_6 -= 4;\n            var_a2_6 -= 4;\n            var_a0_8 -= 1;\n            I(var_a2_6, 0) = I(var_v1_6, 0);\n          }\n          while (var_a0_8 != 0);\n          var_t0 -= 0x10;\n        }\n        else\n        {\n          var_v1_6 = var_x;\n          var_a2_6 = var_t0;\n          var_a0_8 = 4;\n          do\n          {\n            temp_v0_3 = I(var_v1_6, 0);\n            var_v1_6 += 4;\n            var_a0_8 -= 1;\n            I(var_a2_6, 0) = temp_v0_3;\n            var_a2_6 += 4;\n          }\n          while (var_a0_8 != 0);\n          goto block_36;\n        }\n      }\n      else\n      {\n        block_36:\n        var_t0 -= 0x10;\n\n      }\n      var_t2 -= 1;\n      var_t1 -= 0x10;\n      if (var_t2 != 0)\n      {\n        goto loop_15;\n      }\n    }\n    while (var_s2 & 0xFF);\n  }\n}\n",
    "b888091f14ba82eaf97055feea43d216c70cbd041e5a9a4df2c4b6ecc0fe0a5e": "void func_80038AE4(s32 a);\nvoid func_80046414(s32 a, s32 b)\n{\n    if (b == 1) {\n        if (a == 1) goto s6;\n        if (a == 0) goto s2;\n        if (a == 2) goto s4;\n        return;\n    s2:\n        a = 2;\n        goto call;\n    }\n    if (b == 2) {\n        if (a == 1) goto s5;\n        if (a == 0) goto s1;\n        if (a == b) goto s3;\n        return;\n    }\n    if (a == 6) {\n        if (b != 8) return;\n        a = 0x12;\n        goto call;\n    }\n    if (a != 3) return;\n    a = 0;\n    goto call;\ns6: a = 6; goto call;\ns4: a = 4; goto call;\ns5: a = 5; goto call;\ns1: a = 1; goto call;\ns3: a = 3;\ncall:\n    func_80038AE4(a);\n}\n",
    "6331d20b09ac8da215dfeeb85d623b968216b124fe19ed41a61954ece5d7106f": "u32 func_8001FEE8();\nvoid func_80038AE4(s32);\ns32 func_80046414();\ns32 func_800464B0();\nextern s32 D_8009D538;\nextern char D_800C02AE[];\ntypedef struct \n{\n  s32 pad0[4];\n  s32 a10;\n  s32 a14;\n  u32 a18;\n  void *a1C;\n} Sub70;\nvoid func_80046530(u8 *arg0, s32 arg1, u8 *arg2)\n{\n  u32 temp_a0;\n  s32 t;\n  char *new_var3;\n  unsigned int new_var2;\n  u32 temp_s2;\n  int new_var;\n  u32 mask;\n  u32 k;\n  Sub70 *temp_a1;\n  void *temp_v0;\n  if (D_8009D538 & 0x800)\n  {\n    return;\n  }\n  if ((*((s32 *) (arg2 + 0x14))) & 0x80)\n  {\n    return;\n  }\n  temp_s2 = func_8001FEE8(arg2);\n  new_var2 = 100U;\n  if ((*(*((s32 **) (arg2 + 0x48)))) >= 2)\n  {\n return; }\n  if (func_800464B0(arg2) == 0)\n  {\n    return;\n  }\n  new_var = 0x14;\n  if (!((*((s32 *) (arg2 + new_var))) & 0x20))\n  {\n    temp_a1 = *((Sub70 **) (arg2 + 0x70));\n    temp_v0 = temp_a1->a1C;\n    new_var3 = D_800C02AE + 0x32F2;\n    if (((temp_v0 != arg0) && ((mask = (0U - ((u32) (temp_v0 != 0))) & new_var2, mask >= temp_a1->a18))) && ((((*((s32 *) arg0)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U)))\n    {\n      temp_a0 = *((s32 *) (arg0 + 4));\n      k = (temp_a0 != 1) & (temp_a0 != 5);\n      if (k)\n      {\n        if (temp_a0 == 2)\n        {\n          temp_a1->a14 = arg0[2];\n          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[3];\n        }\n        else\n        {\n          temp_a1->a14 = arg0[0];\n          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];\n        }\n        k = 0x7D;\n        (*((Sub70 **) (arg2 + 0x70)))->a18 = k;\n      }\n      else\n      {\n        temp_a1->a10 = 4;\n        (*((Sub70 **) (arg2 + 0x70)))->a14 = arg0[0];\n        (*((Sub70 **) (arg2 + 0x70)))->a18 = 0x7D;\n      }\n      (*((Sub70 **) (arg2 + 0x70)))->a1C = arg0;\n      if ((*((u16 *) ((*((u8 **) new_var3)) + 0xE))) < 2U)\n      {\n        func_80046414(arg0[1], arg0[0]);\n        if ((*((s32 *) (arg0 + 4))) == 1)\n        {\n          func_80038AE4(0x13);\n          func_80046414(arg0[3], arg0[2]);\n        }\n        t = *((s32 *) (arg0 + 4));\n        if ((t == 2) | (t == 5))\n        {\n          func_80046414(arg0[3], arg0[2]);\n        }\n      }\n    }\n  }\n  else\n  {\n    (*((Sub70 **) (arg2 + 0x70)))->a1C = 0;\n  }\n}\n",

@@ -1,7 +1,7 @@
 extern char *D_800C35A0;
 extern s32 D_8009D540;
 s32 func_80041564(void);
-volatile char func_800450B8(void *arg0)
+void func_800450B8(void *arg0)
 {
   s32 mode;
   u8 swapped;
@@ -36,7 +36,6 @@ volatile char func_800450B8(void *arg0)
   }
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
   slot = *((s32 **) (((u8 *) ctx) + 0x24));
-  ;
   slot += 6;
   *slot = *((s32 *) (((u8 *) ctx) + 4));
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
@@ -64,10 +63,7 @@ volatile char func_800450B8(void *arg0)
       }
     }
   }
-  numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C));
-  numer *= D_8009D540;
-  denom = *slot;
-  *other = (numer * 0xE10) / (denom * 0x3E8);
+  numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
   slot = *((s32 **) (((u8 *) ctx) + 0x24));
   other = *((s32 **) (((u8 *) ctx) + 0x28));
@@ -101,9 +97,7 @@ volatile char func_800450B8(void *arg0)
   goto done;
   mode2:
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
-
   slot = *((s32 **) (((u8 *) ctx) + 0x24));
-  ;
   slot += 3;
   *slot = *((s32 *) (((u8 *) ctx) + 4));
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
@@ -133,10 +127,7 @@ volatile char func_800450B8(void *arg0)
         }
       }
     }
-    numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C));
-    numer *= D_8009D540;
-    denom = *slot;
-    *other = (numer * 0xE10) / (denom * 0x3E8);
+    numer = *((s32 *) ((((char *) base) + ((*((u16 *) (D_800C35A0 + 0x22))) * 4)) + 0x22C)); numer *= D_8009D540; denom = *slot; *other = (numer * 0xE10) / (denom * 0x3E8);
   }
   while (0);
   ctx = *((void **) (((u8 *) arg0) + 0x6C));
@@ -171,6 +162,4 @@ volatile char func_800450B8(void *arg0)
   }
   done:
   return;
-
 }
-

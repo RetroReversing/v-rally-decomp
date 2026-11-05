@@ -697,3 +697,11 @@ names, notes, headers and compiler settings. The standalone selection is now
 **1,971 C / 153 assembly entries**, or **482,008 / 599,940 candidate-code bytes (80.34%)**.
 A fresh instruction-byte recount corrects the previous summary's 12-byte undercount;
 that correction is not an additional match.
+
+
+### Verified live-register allocation update
+
+Saved **2,046 standalone C functions** and all **2,049 app matches**
+in the portable progress snapshot. `func_8007EAA0` passed the standalone and full
+cartridge byte comparison. Remaining app-only matches stay in `progress/` pending
+independent build integration.

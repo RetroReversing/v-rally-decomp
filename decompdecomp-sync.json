@@ -574,6 +574,7 @@
     "func_8007BA1C",
     "func_8007BDC4",
     "func_8007C694",
+    "func_8007EAA0",
     "func_8007F12C",
     "func_8007F278",
     "func_80080674",
@@ -625,11 +626,19 @@
   "skipped": [
     {
       "function": "func_8000C9B0",
-      "reason": "Standalone object spans 600 bytes versus its 596-byte target, overlapping the next function by four bytes. Assembly retained; matched C preserved in portable progress."
+      "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
+    },
+    {
+      "function": "func_800450B8",
+      "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
+    },
+    {
+      "function": "func_8007EE9C",
+      "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
     }
   ],
   "verified_build": true,
-  "matched_app": 2048,
+  "matched_app": 2049,
   "last_verification": {
     "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
     "bytes": 12582912,

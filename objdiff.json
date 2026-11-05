@@ -14154,10 +14154,10 @@
       "name": "code_8007E9D4/func_8007EAA0",
       "target_path": "build/asm/nonmatchings/code_8007E9D4/func_8007EAA0.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007E9D4/func_8007EAA0.s"
+        "complete": true,
+        "source_path": "src/code_8007E9D4/func_8007EAA0.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007E9D4/func_8007EAA0.o"
     },
     {
       "name": "code_8007E9D4/func_8007EBF4",
