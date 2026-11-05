@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793915122.422983,
- "revision": 18916,
+ "saved_at": 1793915366.706524,
+ "revision": 18918,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249474,6 +249474,14 @@
    "created_at": 1793915117.455793,
    "score_before": 20,
    "score_after": 20
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Grounded revisit 2026-11-05 [interpolation-local-records]: current valid420 seed retained; historical invalid462 remains rejected. 32 distinct coordinate representation controls compiled (four non-applicable combinations skipped, not counted): three-field s16 record versus genuine s16[3] nested record, real alias lifetime, direct local access, first-delta width and b versus b+2 phase. None exact. Baseline/scalar/nested records emit identical480bytes; removing actual b+2 lifetime gives476 targetlength but score505. Four ordinary/-da linked parity controls confirmed. Parent19 supported KMC scheduling/debug/optimization controls found no improvement; PM2.8.1 g3/g0 score4260/4850. Source/header/profile/target/symbols unchanged, no claims. Existing valid-grid/object/array/prototype caveats retained, not whole-program C proof. Private evidence: /Volumes/Data/Codex/tmp/func8002FFA4/current-nov5/REPORT.md and parent-profiles/. OPEN/revisitable420; no exact adoption, cartridge claim or justified new app repair. Don't repeat native/offset/helper/record grids without a new allocation cause.",
+   "by": "you",
+   "created_at": 1793915362.838571,
+   "score_before": 420,
+   "score_after": 420
   }
  ],
  "set_aside": [
