@@ -47,3 +47,37 @@ Period-compiler compile-time checks in padding-layout-assert.c establish sizeof(
 Both native lanes ended normally. Initialized zero-field baseline:1000 attempts,715 successful compiled/scored candidates,53 duplicate,104 forbidden-token,128 rejected by Clang; minimum860 from chained zero-field assignments, noexact. Padding-model baseline:1000 attempts,740 successful compiled/scored candidates,58 duplicate,108 forbidden-token,94 rejected by Clang; minimum295 unchanged, noexact. Additionally55 recorded baseline/directed compiler judgments, allnonexact. No matched-code portfolio, liveacceptance, fullcartridgegate, apppatch or runtimechange. Livefinal remainsOPEN295/unclaimed with targetunchanged.
 
 Keep padding.c as representation research with the callee-contract caveat; preserve sound.c only as conservative zero-field negative control. Do not replace livebest or count either as matched.
+
+## Interface and representation-copy revisit
+
+# Revisit result
+
+No exact func_80029EAC match. Thirty-two bounded role-lifetime combinations all compiled and linked, minimum advisory295. No native sweep repeated. Correct return/type declarations preserve focal295 (`provisional-corrected.c`), research only.
+
+Four existing selected callees have independently exact corrected sources in final-corrected-proofs.json. Three wrappers forward the actual typed arguments; E530 returns the actual E288 result. Transpose uses 32-byte/alignment4 nine-short Matrix plus genuine unnamed padding and copies three tail words by builtin memcpy using unsigned-char object offsets20/24/28. No scalar padding evaluation. Signed/unsigned16 aliases address the meaningful nine halfwords. No custom asm, volatile, register, identity tests or altered profile. All four independently frozen effective contexts equal focal. Parent owns joint declaration reconciliation and cartridge/acceptance. Changing transpose parameter type means affected external declarations must agree before any complete source-level contract claim. Other callers may use meaningful translation fields; representation copies preserve their bytes, but this research Matrix model does not establish those callers' type model.
+
+Controls: library memcpy12 unresolved memcpy symbol/nonexact1740; unaligned builtin12 nonexact2130; aligned builtin12 nonexact760; aligned split4 with int arithmetic exact but superseded by unsigned-character-offset exact variant. The latter avoids int-pointer arithmetic across a Matrix object.
+
+Runtime/live source/canonical repository never changed. Live DB accessed strictly readonly. Fresh final status: open, score295, claims0.
+
+All eight direct transpose callers captured in transpose-callers.json use distinct frame-local outputs (inv/frame.mat/loc.sp30/spA8/m) with separate local or external/global inputs. No inplace call found; memcpy precondition is justified for this observed call graph, not a universal overlap-capable API claim. Unsupported builtin memmove4 is nonexact2555/unresolved; representation transport through local u32 temporary is nonexact820 due spills. Source audit did not establish absence of arbitrary indirect calls beyond existing symbol references.
+
+Followup: opaque void*(void*,void*) transpose signature with local Matrix pointer conversions is exact0, superseding typed public signature. Period checks sizeof(Matrix)==32 and sizeof(struct{char c;Matrix m;})==36 both compile. Direct h[] indexing, with or without explicit unsigned source casts, scores790 due traversal codegen; exact opaque source preserves corresponding signed/unsigned16 alias accesses. Thus public parameter declarations need no new Matrix type contract. Return declarations still need agreement. final-corrected-proofs.json now points at transpose-opaque-1-fields-0.c.
+
+### Independent cartridge gate and live-import status
+
+Parent rebuilt a copied complete cartridge with the three forwarding-wrapper
+corrections and the opaque transpose correction together. Output is exactly
+12,582,912 bytes, SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All 2,069 selected compiler profiles and 2,065 other selected C objects are
+unchanged. This corrects existing matched sources; it adds no function match.
+A separate three-wrapper-only cartridge control also passes full byte equality.
+
+The ordinary saved-source files are staged for import, but the app's save
+request timed out and read-only inspection had not yet confirmed these sources
+in its database. Do not claim live acceptance from the copied build. The
+adjacent corrected-source examples preserve the tested inputs for review.
+The focal caller remains OPEN295 and the full cross-unit record types have not
+been globally reconciled. No runtime update or restart was performed for this
+revisit.
