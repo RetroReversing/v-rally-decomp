@@ -78,12 +78,7 @@ void func_8006C024(s32 arg0, s32 arg1)
         {
           do
           {
-            do
-            {
-              var_a0 = (s32) (temp_fv1 - temp_fs0);
-              var_a0 |= 0x80000000;
-            }
-            while (0);
+ do { do { var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 |= 0x80000000; } while (0); } while (0);
           }
           while (0);
         }
@@ -112,7 +107,7 @@ void func_8006C024(s32 arg0, s32 arg1)
         func_8006BF30(temp_s0_2, 0, arg0 & 0xFF, temp_s0);
         var_a2 = temp_s6 + ((temp_s0_2 * 0x10) + (temp_s0 << 6));
         *((s8 *) (((char *) var_a2) + 0x32)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xA) & 0x1F) + 0x41);
-        *((s8 *) (((char *) var_a2) + 0x33)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) - -0)))) >> 5) & 0x1F) + 0x41);
+        *((s8 *) (((char *) var_a2) + 0x33)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) - (-0))))) >> 5) & 0x1F) + 0x41);
         var_s0 = temp_s2;
         *((s8 *) (((char *) var_a2) + 0x34)) = (new_var2 = (s8) (((*((u8 *) (((char *) var_s1) + 1))) & 0x1F) + 0x41));
         *((s8 *) (((char *) var_a2) + 0x38)) = 1;
@@ -171,4 +166,3 @@ void func_8006C024(s32 arg0, s32 arg1)
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }
-

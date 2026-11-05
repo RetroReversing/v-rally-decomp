@@ -37,3 +37,34 @@ an exact total. Sixteen scalar-lifetime probes did not improve 70; four formal
 parameter phase-reuse probes all scored 708. Earlier register/scope, comma,
 queued-increment, function-pointer and bounded compiler-stage probes did not
 solve the score-60 scheduling tie.
+
+
+## func_8007A29C
+
+`func_8007A29C-frame-alternative.c` is **unmatched and not selected**. Moving
+the table-pointer declaration first and removing an unused eight-byte array
+makes all body instruction words and spill offsets agree with the target,
+but yields a frame of `0x58` instead of `0x60`. Twenty-two prologue/epilogue
+words differ, including register saves and restores eight bytes too low.
+Its corrected advisory score is **22**, versus **2** for the existing draft,
+which only places the table pointer at `sp+0x34` instead of `sp+0x14`.
+
+Earlier advisory scores were 82 and 62: six fictitious relocation operand
+differences came from omitted masked-constant low-half annotations. The
+diagnostic parser fix removes those differences; both ordinary linked
+verdicts remain false. No new match or full-cartridge acceptance is claimed.
+
+Pinned profile: KMC GCC 2.7.2,
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. Use the frozen global context in
+`include/decompdecomp_snapshot_800450b8.h`, SHA-256
+`dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212`.
+Alternative source SHA-256:
+`5dbcd2b326323fe77a346989efc20b86eeb05e993c13aa91cb695ad90c7d24f5`.
+
+Negative evidence: unused array sizes/scopes, register qualifiers, aligned
+locals, scalar/aggregate pointer carriers, early/late pointer copies, wider
+integer carriers, caller-save/peephole/strength-reduction switches and
+already-installed alternative N64 GCC builds did not produce exact bytes.
+The remaining hypothesis is a spill-allocation high-water slot or source
+lifetime shape retaining eight bytes after the real spills. That mechanism
+is unproven; keep both alternatives open for later work.
