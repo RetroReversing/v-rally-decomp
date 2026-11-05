@@ -4,7 +4,7 @@ static inline s8 *inline_fn(s8 *arg0, int arg1)
   return arg0 + arg1;
 }
 
-s32 func_800857C0(s32 arg0)
+s32 func_800857C0(s32 arg0, s32 unused_arg1)
 {
   s32 new_var;
   int new_var2;

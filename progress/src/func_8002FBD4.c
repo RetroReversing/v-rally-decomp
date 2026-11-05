@@ -1,4 +1,4 @@
-s32 func_800857C0();
+s32 func_800857C0(s32, s32);
 s32 func_800857EC();
 extern s32 D_8009D538;
 extern void *D_800A0384;

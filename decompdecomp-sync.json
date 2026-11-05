@@ -19,7 +19,7 @@
     "src/code_80026E3C/func_8003E4A8.c": "8bec56547888be400f0af4ea884cd1bac87dcc799001e0ff00278a2543112feb",
     "src/code_8007E9D4/func_8009912C.c": "7384b9df839d4f8533b1506a75beecb1520ca12854983aa9b1e5bf87163ac11f",
     "src/code_80017B38/func_800197A4.c": "bbcecf6df8379391e10f34a20af75787b942bbed52ca76176e595ee8e9a7eaf3",
-    "src/code_8004BEB4/func_8005A790.c": "40445b644c475300180f8289c087bb753f1ff7e739fcd216ff2d1560ab853040",
+    "src/code_8004BEB4/func_8005A790.c": "b7dfd6fc7a9cef7256857fec2985e90c2b59473c418ccd80edcea2cf9639e076",
     "src/code_8007E9D4/func_80098560.c": "863798650516446518975852ccd0f42b4f45abeccf95c8b67ab8e5ec1e0af96a",
     "src/code_80026E3C/func_80046804.c": "f47863ce88640845b61dbb53df4b25fde693c2c09893c66a81bc08f39061fddb",
     "src/code_80026E3C/func_8002DE00.c": "c9b697d1acc942cbec22a4871aaf809a9a5824776c69d5b10c1580d468a89a20",
@@ -367,7 +367,18 @@
     "src/code_80026E3C/func_8002E530.c": "9a433e941879a325f099471d7c24d393a7c469203240a7176aff3c4786ee497a",
     "include/decompdecomp_snapshot_8002e530.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_8002DA98.c": "f0d088a3bd4ad007911756787288f4bea83287056b91442d10a304affd853fa2",
-    "include/decompdecomp_snapshot_8002da98.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_8002da98.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8007E9D4/func_800857C0.c": "efde2946f90909ec071f770ef803d3b3b3f181002dd3222a3e19ee0fd70ca477",
+    "include/decompdecomp_snapshot_800857c0.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_8002FB64.c": "0e28bd58ed0761746869f2a9208850d4fcd248d407317211b823cf1646b153fd",
+    "include/decompdecomp_snapshot_8002fb64.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_8002FBD4.c": "46c885ad21b36c37681359b3b1190dd19c10da2338726596d17a4d623a8ffd9c",
+    "include/decompdecomp_snapshot_8002fbd4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_8002FD68.c": "b0930c389166928213864a2b93418093d3b23829c6a194ad4bb0733f4b99dfd7",
+    "include/decompdecomp_snapshot_8002fd68.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_snapshot_8005a790.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8007E9D4/func_80085FB8.c": "745a549ab245465e3b4aaa410b2f815e0758e9582f916b90b2dc5d0bea468831",
+    "include/decompdecomp_snapshot_80085fb8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -711,7 +722,12 @@
     "func_8002D724",
     "func_8002D740",
     "func_8002E530",
-    "func_8002DA98"
+    "func_8002DA98",
+    "func_800857C0",
+    "func_8002FB64",
+    "func_8002FBD4",
+    "func_8002FD68",
+    "func_80085FB8"
   ],
   "skipped": [],
   "verified_build": true,
@@ -721,12 +737,14 @@
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [],
     "contract_corrections": [
-      "func_8002D724",
-      "func_8002D740",
-      "func_8002E530",
-      "func_8002DA98"
+      "func_800857C0",
+      "func_8002FB64",
+      "func_8002FBD4",
+      "func_8002FD68",
+      "func_8005A790",
+      "func_80085FB8"
     ],
-    "note": "Four existing matched-source corrections; 2065 other selected C objects and all2069 standalone compiler profiles unchanged. No additional function match."
+    "note": "Six existing matched-source corrections; 2063 other selected C objects and all2069 standalone compiler profiles unchanged. No additional function match."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -734,7 +752,7 @@
     "matched": 2069,
     "all_function_addresses_integrated": true,
     "corrected_source_hashes_confirmed": true,
-    "note": "Full normal progress export preserves current source/profile alternatives. Prior independently verified standalone variants are retained outside the four audited corrections."
+    "note": "All normal progress exported; other previously audited standalone variants retained."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

@@ -1,4 +1,4 @@
-s32 func_800857C0();
+s32 func_800857C0(s32, s32);
 s32 func_800858A4();
 extern char D_800AE850[];
 

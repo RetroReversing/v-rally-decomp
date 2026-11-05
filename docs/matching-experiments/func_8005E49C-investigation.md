@@ -46,3 +46,7 @@ The new starting point is `func_8005E49C-layout-research.c`, SHA256 `a74af4ca175
 A separate direct-caller audit found all nine calls to `func_800857C0` pass second integer argument2. Adding an unused second `s32` formal and correcting five caller declarations passes six individual pinned linked checks. This also corrects one caller's `s8` return declaration to the callee's `s32`. Full cartridge verification and normal app acceptance are pending; no new match is claimed. The first parameter and complete callee body are unchanged. The audit covers direct calls, not proof of every possible indirect reference.
 
 App PR606 adds bounded advisory empty-stub interface warnings. It does not change any signature, target or verdict. Existing loop-reset safety guidance already covers the earlier missing-reset defect. Private byte evidence and game data remain outside this repository.
+
+### Joint contract correction accepted
+
+All six corrected sources passed the full12,582,912-byte cartridge comparison (SHA256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7). All2069 selected profiles and2063 other C objects are unchanged. The normal saved-source import rejudged all six exact; readonly final source hashes agree. Standalone source bodies were also compared against frozen live bodies before replacement; only include wrappers differed. No new matched function is counted. A fresh normal ALL-progress snapshot accompanies this correction.

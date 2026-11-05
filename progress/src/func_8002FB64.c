@@ -1,4 +1,4 @@
-s8 func_800857C0();
+s32 func_800857C0(s32, s32);
 extern char D_800AE850[];
 
 void func_8002FB64(void)

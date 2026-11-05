@@ -1,6 +1,6 @@
-#include "common.h"
-
-s32 func_800857C0();
+#include "decompdecomp_snapshot_8002fd68.h"
+#line 1 "func.c"
+s32 func_800857C0(s32, s32);
 s32 func_800858A4();
 extern char D_800AE850[];
 
@@ -38,3 +38,4 @@ void func_8002FD68(void)
     var_s3++;
   } while (var_s3 < 4);
 }
+

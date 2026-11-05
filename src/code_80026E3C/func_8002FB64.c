@@ -1,6 +1,6 @@
-#include "common.h"
-
-s8 func_800857C0();
+#include "decompdecomp_snapshot_8002fb64.h"
+#line 1 "func.c"
+s32 func_800857C0(s32, s32);
 extern char D_800AE850[];
 
 void func_8002FB64(void)
@@ -15,3 +15,4 @@ void func_8002FB64(void)
     *((s8 *) (D_800AE850 + 0x239D + (i << 4))) = 0;
   }
 }
+

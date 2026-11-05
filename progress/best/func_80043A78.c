@@ -225,14 +225,7 @@ void func_80043A78(Car *car, Pad *pad)
       }
       else
       {
-        if (!(v & 4))
-        {
-          *st = (v | 4) & (~2);
-        }
-        else
-        {
-          *st = (v | 2) & (~4);
-        }
+        *st = !(v & 4) ? ((v | 4) & (~2)) : ((v | 2) & (~4));
         *timer = 50;
         *st |= 8;
       }
@@ -282,7 +275,6 @@ void func_80043A78(Car *car, Pad *pad)
     }
     else
     {
-      func_80042F40();
       if ((*car->player) < 4)
       {
         D_800A1234[*car->player].hA = 2;
@@ -299,8 +291,9 @@ void func_80043A78(Car *car, Pad *pad)
 
       if (cnt)
       {
+        D_800B6880 = 0;
         finish:
-        *(s32 *)(D_800AE850 + 0x8030) = 0;
+        func_80042F40();
 
         func_80085778(0, 0x1000);
         func_80085778(0, 0x8000);

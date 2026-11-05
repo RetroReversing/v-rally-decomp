@@ -1,6 +1,6 @@
-#include "common.h"
-
-s32 func_800857C0();
+#include "decompdecomp_snapshot_8002fbd4.h"
+#line 1 "func.c"
+s32 func_800857C0(s32, s32);
 s32 func_800857EC();
 extern s32 D_8009D538;
 extern void *D_800A0384;
@@ -66,3 +66,4 @@ void func_8002FBD4(u8 *arg0, s32 arg1, s32 arg2)
   *((u8 *) ((D_800AE850 + 0x2390) + inline_fn((u8 **) (arg0 + 0x48)))) = arg2;
   func_800857EC(*((u8 *) ((*((u8 **) (arg0 + 0x48))) + 3)), 2, arg1 & 0xFF);
 }
+

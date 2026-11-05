@@ -1,7 +1,7 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80085fb8.h"
+#line 1 "func.c"
 s32 func_80084DD4();
-s32 func_800857C0();
+s32 func_800857C0(s32, s32);
 s32 __osMotorAccess();
 s32 osMotorInit();
 extern s32 D_800A1B70;
@@ -34,3 +34,4 @@ void func_80085FB8(void)
     }
     while (var_s1 < 4);
 }
+

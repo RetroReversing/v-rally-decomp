@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8005a790.h"
 #line 1 "func.c"
 typedef struct { char pad[0x14]; void *commands; } CommandObject;
 typedef struct { char pad[0x178]; s32 field; } ViewObject;
@@ -74,7 +74,7 @@ s32 func_8007F634();
 s32 func_8007F6E0();
 s32 func_80080440();
 s32 func_80080478();
-s32 func_800857C0();
+s32 func_800857C0(s32, s32);
 s32 func_80089B70();
 s32 func_80089B80();
 s32 guMtxF2L(s32 *, s32);
