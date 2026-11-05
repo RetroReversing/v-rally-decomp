@@ -11,11 +11,10 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-
-void *func_800592AC(u8);                            /* extern */
-void *func_8005A744(u8, s32);                       /* extern */
+void *func_800592AC(u32);                            /* extern */
+void *func_8005A744(u32, void *);                       /* extern */
 extern void *D_800A1468;
 
 void func_8007A688(void) {
-    M2C_FIELD(D_800A1468, u8 *, 0x237) = (u8) M2C_FIELD(func_8005A744(M2C_FIELD(D_800A1468, u8 *, 0x239), M2C_FIELD(func_800592AC(M2C_FIELD(D_800A1468, u8 *, 0x238)), s32 *, 0x28)), u8 *, 0x22);
+    M2C_FIELD(D_800A1468, u8 *, 0x237) = (u8) M2C_FIELD(func_8005A744(M2C_FIELD(D_800A1468, u8 *, 0x239), (void *)(M2C_FIELD(func_800592AC((u8)(M2C_FIELD(D_800A1468, u8 *, 0x238))), void **, 0x28))), u8 *, 0x22);
 }

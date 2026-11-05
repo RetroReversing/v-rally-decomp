@@ -1,9 +1,8 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80068e5c.h"
+#line 1 "func.c"
 extern u8 *D_800C35A0;
 extern void *D_800C3508;
-extern u8 *D_800A1468;
-u8 *func_800592AC();
+extern u8 *D_800A1468;void *func_800592AC(u32);
 void func_800592F4();
 void func_80068D9C();
 void func_8008A0D8();
@@ -28,3 +27,4 @@ s32 func_80068E5C(s32 arg0) {
     func_800592F4(arg0, 1);
     return 0;
 }
+

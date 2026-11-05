@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80057998.h"
+#line 1 "func.c"
 s32 func_8002B618(void *, void *);
 void *func_8007EAA0(s32, s32);
 s32 func_80084BF0(s32);
@@ -17,17 +17,17 @@ void func_80057998(void)
     *(s8 *)(temp_s0 + 0x246) = 1;
     *(s8 *)(temp_s0 + 0x22B) = -1;
     *(s32 *)(temp_s0 + 0x8) = 0;
-    *(s32 *)(temp_s0 + 0x0) = 0;
-    *(s32 *)(temp_s0 + 0x4) = 0;
+    *(void **)(temp_s0 + 0x0) = NULL;
+    *(void **)(temp_s0 + 0x4) = NULL;
     *(s32 *)(temp_s0 + 0x14) = 0;
-    *(s32 *)(temp_s0 + 0xC) = 0;
-    *(s32 *)(temp_s0 + 0x10) = 0;
+    *(void **)(temp_s0 + 0xC) = NULL;
+    *(void **)(temp_s0 + 0x10) = NULL;
     *(s32 *)(temp_s0 + 0x20) = 0;
-    *(s32 *)(temp_s0 + 0x18) = 0;
-    *(s32 *)(temp_s0 + 0x1C) = 0;
+    *(void **)(temp_s0 + 0x18) = NULL;
+    *(void **)(temp_s0 + 0x1C) = NULL;
     *(s32 *)(temp_s0 + 0x2C) = 0;
-    *(s32 *)(temp_s0 + 0x24) = 0;
-    *(s32 *)(temp_s0 + 0x28) = 0;
+    *(void **)(temp_s0 + 0x24) = NULL;
+    *(void **)(temp_s0 + 0x28) = NULL;
     *(s8 *)(temp_s0 + 0x234) = 0;
     *(s8 *)(temp_s0 + 0x232) = 0;
     *(s8 *)(temp_s0 + 0x233) = 0;
@@ -55,3 +55,4 @@ void func_80057998(void)
     D_800A1468 = temp_s0;
     func_8002B618(D_800A13C0, D_800A5230);
 }
+

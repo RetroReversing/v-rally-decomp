@@ -1,5 +1,4 @@
-extern s32 D_800B7070; extern u32 D_8009D540; extern u8 D_800A54B0[]; extern u8 D_800C02AE[];
-extern void *func_800592D0(s32); extern s32 func_80059618(void *,u8,u8,u8,s32); extern s32 func_800596F4(void *,s16,s16,s32 *); extern s32 func_80099DF8(s32 *,u8 *,s32);
+extern s32 D_800B7070; extern u32 D_8009D540; extern u8 D_800A54B0[]; extern u8 D_800C02AE[];void *func_800592D0(u32); extern s32 func_80059618(void *,u8,u8,u8,s32); extern s32 func_800596F4(void *,s16,s16,s32 *); extern s32 func_80099DF8(s32 *,u8 *,s32);
 void func_8005E6AC(void) {
  s32 sp18; u8 *p; u8 *v1; s32 v0; void *s0; u32 quotient;
  p=*(u8 **)(D_800C02AE+0x325A);

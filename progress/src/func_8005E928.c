@@ -67,8 +67,7 @@ s32 func_8005E928(s32 arg0, s32 arg1)
 
 extern u8 *D_800A1468;
 extern u8 D_800C02AE[];
-extern void func_8008A0D8(void *, int, int);
-extern u8 *func_800592AC(int);
+extern void func_8008A0D8(void *, int, int);void *func_800592AC(u32);
 extern void func_800592F4(int, int, u8 *);
 extern void func_80068E5C(int);
 int func_80068D9C(int arg0)

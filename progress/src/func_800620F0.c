@@ -1,12 +1,11 @@
 extern char D_800C02AE[];
-extern void *D_800A1468;
-void *func_8005A744();
+extern void *D_800A1468;void *func_8005A744(u32, void *);
 void func_800620F0(s32 arg0)
 {
   u8 *a1;
   u8 *a3;
   u32 a2;
-  a3 = func_8005A744(*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0x20)), *((s32 *) (((char *) D_800A1468) + 0xC)));
+  a3 = func_8005A744(*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0x20)), (void *)(*((void **) (((char *) D_800A1468) + 0xC))));
   a1 = *((u8 **) (a3 + 0x28));
   a2 = 0;
   if (a3[0x4C] != a2)

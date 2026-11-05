@@ -1,7 +1,6 @@
-#include "common.h"
-
-extern int D_800C35A0;
-void *func_800592AC();
+#include "decompdecomp_snapshot_80069690.h"
+#line 1 "func.c"
+extern int D_800C35A0;void *func_800592AC(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_8006874C();
@@ -33,3 +32,4 @@ void func_80069690(void)
   func_800596F4(temp_s0, *((s16 *) (((char *) temp_s0) + 6)), *((s16 *) (((char *) temp_s0) + 8)), D_800C35A0 + (((*((s8 *) (((char *) D_800A1468) + 0x22A))) * 0x28) + (new_var = 0x44)));
   func_8006874C(*((s8 *) (((char *) D_800A1468) + 0x22A)));
 }
+

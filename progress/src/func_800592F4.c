@@ -1,4 +1,4 @@
-void *func_800592AC();
+void *func_800592AC(u32);
 extern char D_800C02AE[];
 void func_800592F4(s32 arg0, s32 arg1)
 {
@@ -11,7 +11,7 @@ void func_800592F4(s32 arg0, s32 arg1)
 
     p = *((char **) (D_800C02AE + 0x325A));
     base = *((char **) (p + 0x10));
-    obj = func_800592AC(arg0 - *((u8 *) (base + *((s16 *) (p + 2)) * 0x14 + 0xD)), base);
+    obj = func_800592AC(arg0 - *((u8 *) (base + *((s16 *) (p + 2)) * 0x14 + 0xD)));
     cnt = *((u8 *) (obj + 0x4D));
     cur = *((char **) (obj + 0x28));
     i = 0;

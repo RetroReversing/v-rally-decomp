@@ -1,10 +1,9 @@
-typedef struct Obj { struct Obj *next; u16 id,x,y; u8 a,b,c,d,e; u8 padf; f32 sx,sy; u8 pad18[2]; u8 active; } Obj;
+typedef struct Obj { void *next; u16 id,x,y; u8 a,b,c,d,e; u8 padf; f32 sx,sy; u8 pad18[2]; u8 active; } Obj;
 typedef struct { u8 pad[0x1e4]; void *p; u8 pad2[0x4f]; u8 mode; u8 pad3[0x11]; u8 flag; } State;
 typedef struct { u8 pad[6]; u16 x,y; } Dim;
 typedef struct { Dim *d; } DimPtr;
 typedef struct { u8 pad[4]; DimPtr *p; } World;
-extern State *D_800A1468; extern s32 D_800D05D8;
-extern Obj *func_800592D0(s32); extern void func_8007A6D0(void);
+extern State *D_800A1468; extern s32 D_800D05D8;void *func_800592D0(u32); extern void func_8007A6D0(void);
 extern s32 func_8004CEB4(s32, void*, u16*, s32,s32,s32,s32,s32,s32);
 void func_8007A7D0(void) {
  u16 p[4]; Obj *o,*q; u8 i; World *w;

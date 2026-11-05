@@ -1,7 +1,6 @@
 extern u8 *D_800C35A0;
 extern void *D_800C3508;
-extern u8 *D_800A1468;
-u8 *func_800592AC();
+extern u8 *D_800A1468;void *func_800592AC(u32);
 void func_800592F4();
 void func_80068D9C();
 void func_8008A0D8();

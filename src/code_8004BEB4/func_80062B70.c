@@ -1,6 +1,6 @@
-#include "common.h"
-
-void *func_800592AC();
+#include "decompdecomp_snapshot_80062b70.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
 s32 func_800592F4();
 extern s32 D_800C3558;
 extern void *D_800C35A0;
@@ -50,3 +50,4 @@ void func_80062B70(void)
     }
   }
 }
+

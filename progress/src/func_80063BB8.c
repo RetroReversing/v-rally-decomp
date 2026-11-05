@@ -1,7 +1,6 @@
 s32 func_800593FC();
 s32 func_8005946C();
-s32 func_8005A00C();
-s32 func_8005A6BC();
+s32 func_8005A00C();void func_8005A6BC(u32);
 extern void *D_800A1468;
 extern char D_800C02AE[];
 

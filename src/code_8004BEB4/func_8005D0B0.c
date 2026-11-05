@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8005d0b0.h"
 #line 1 "func.c"
 typedef struct {
     u8 pad0[6];
@@ -46,12 +46,9 @@ extern f64 D_800A5440;
 s32 func_8004240C();
 s32 func_80047B54();
 void func_8004CF7C(s32 arg0, u16 arg1, s16 arg2, s16 arg3, f32 arg4, u8 arg5, u16 arg6);
-char *func_80057918();
-Win *func_800592D0();
+char *func_80057918();void *func_800592D0(u32);
 void func_80059618(Win *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
-s32 func_800596F4();
-s32 func_8005A6BC();
-s32 func_8005A6E0();
+s32 func_800596F4();void func_8005A6BC(u32);void func_8005A6E0(u32);
 s32 memset();
 s32 func_80099DF8();
 

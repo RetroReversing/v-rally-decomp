@@ -1,4 +1,4 @@
-void *func_800592AC();
+void *func_800592AC(u32);
 extern char D_800C02AE[];
 
 void func_800593FC(s32 arg0, s32 arg1)

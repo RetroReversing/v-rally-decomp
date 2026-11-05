@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_8005dd2c.h"
+#line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -13,11 +13,10 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-
-void *func_800592D0(M2C_UNK);                       /* extern */
+void *func_800592D0(u32);                       /* extern */
 M2C_UNK func_80059618(void *, u8, u8, u8, s32);     /* extern */
 M2C_UNK func_800596F4(void *, s16, s16, char *); /* extern */
-void *func_8005A744(M2C_UNK, s32);                  /* extern */
+void *func_8005A744(u32, void *);                  /* extern */
 s32 func_80084BF0(M2C_UNK);                         /* extern */
 M2C_UNK func_8008A0D8(void *, M2C_UNK, u8);         /* extern */
 M2C_UNK func_80099DF8(char *, M2C_UNK *, ...); /* extern */
@@ -48,7 +47,7 @@ void func_8005DD2C(void) {
     if ((M2C_FIELD(D_800C35A0, u16 *, 0x2C) & 0x2000) && (func_80084BF0(0) == 0x2020)) {
         M2C_FIELD(D_800A1468, u8 *, 0x248) = (u8) ~M2C_FIELD(D_800A1468, u8 *, 0x248);
         func_8008A0D8(D_800C3508, 9, M2C_FIELD(D_800A1468, u8 *, 0x248));
-        M2C_FIELD(func_8005A744(5, M2C_FIELD(D_800A1468, s32 *, 0xC)), u8 *, 0x41) = (u8) M2C_FIELD(D_800A1468, u8 *, 0x248);
+        M2C_FIELD(func_8005A744(5, (void *)(M2C_FIELD(D_800A1468, void **, 0xC))), u8 *, 0x41) = (u8) M2C_FIELD(D_800A1468, u8 *, 0x248);
     }
     if (M2C_FIELD(D_800A1468, u16 *, 0x220) != 0) {
         temp_v0 = func_800592D0(0);
@@ -81,3 +80,4 @@ void func_8005DD2C(void) {
     }
     func_800596F4(temp_v0, M2C_FIELD(temp_v0, s16 *, 6), M2C_FIELD(temp_v0, s16 *, 8), sp18);
 }
+

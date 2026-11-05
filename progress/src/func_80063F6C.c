@@ -1,5 +1,4 @@
-s32 func_8005A05C();
-s32 func_8005A6E0();
+s32 func_8005A05C();void func_8005A6E0(u32);
 s32 func_8008A140();
 extern void *D_800A1468;
 extern void *D_800C3508;

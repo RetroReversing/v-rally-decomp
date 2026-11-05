@@ -68,8 +68,7 @@ extern u16 D_800A152C;
 extern s8 *D_800A1468;
 extern u8 D_800A14D5;
 extern volatile u32 D_800A14DC;
-void func_800584D4(void);
-Item *func_800592D0(s32);
+void func_800584D4(void);void *func_800592D0(u32);
 void func_8005A05C(s32);
 u8 func_800602F4(Info *);
 void func_800603B4(void)
@@ -86,10 +85,10 @@ void func_800603B4(void)
   n = func_800602F4(&((Stage **) 0x800D0634)[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);
   func_800584D4();
   D_800A1468[0x233] = -1;
-  func_800592D0(5)->val = D_800A1504[D_800A1530[n]];
-  func_800592D0(13)->val = D_800A150C[D_800AE850.cars[D_800C35A0->car].a];
-  func_800592D0(9)->val = D_800A1514[D_800AE850.cars[D_800C35A0->car].b];
-  func_800592D0(7)->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];
+  ((Item *)func_800592D0(5))->val = D_800A1504[D_800A1530[n]];
+  ((Item *)func_800592D0(13))->val = D_800A150C[D_800AE850.cars[D_800C35A0->car].a];
+  ((Item *)func_800592D0(9))->val = D_800A1514[D_800AE850.cars[D_800C35A0->car].b];
+  ((Item *)func_800592D0(7))->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];
   it = func_800592D0(11);
   {
     if (D_800AE850.cars[D_800C35A0->car].speed <= 118.0f)

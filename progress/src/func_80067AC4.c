@@ -1,9 +1,7 @@
 typedef struct Draw { s32 pad[4]; s32 x[4]; s32 y[4]; s32 id[4]; u8 r[4]; u8 g[4]; u8 b[4]; u8 a[4]; s32 pad2[2]; } Draw;
 typedef struct TextObj { char pad0[6]; s16 x; s16 y; char padA; u8 r; u8 g; u8 b; u8 a; } TextObj;
 typedef struct NameEntry { s8 scroll; s8 sel; u8 len; char name[16]; } NameEntry;
-typedef struct GameState { char pad0[0x228]; s8 cfg; char pad229[0x24D - 0x229]; u8 hide; char pad24E[0x280 - 0x24E]; NameEntry entry; } GameState;
-
-extern TextObj *func_800592D0(s32);
+typedef struct GameState { char pad0[0x228]; s8 cfg; char pad229[0x24D - 0x229]; u8 hide; char pad24E[0x280 - 0x24E]; NameEntry entry; } GameState;void *func_800592D0(u32);
 extern char *func_80057918(s32, s32);
 extern char *func_8004240C(s32);
 extern void func_80059618(TextObj *, u8, u8, u8, u8);

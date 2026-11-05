@@ -1,9 +1,8 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80063bb8.h"
+#line 1 "func.c"
 s32 func_800593FC();
 s32 func_8005946C();
-s32 func_8005A00C();
-s32 func_8005A6BC();
+s32 func_8005A00C();void func_8005A6BC(u32);
 extern void *D_800A1468;
 extern char D_800C02AE[];
 
@@ -29,3 +28,4 @@ s32 func_80063BB8(s32 arg0) {
     func_8005946C(arg0, ((u16 *) *(void **) (D_800C02AE + 0x32F2))[0x22 / 2]);
     return 0;
 }
+

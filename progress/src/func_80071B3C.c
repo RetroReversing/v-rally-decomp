@@ -1,8 +1,7 @@
 extern unsigned char D_800B6819;
 extern int D_800C3508;
 extern s32 D_800C35A0;
-s32 func_80057B40();
-void *func_800592AC();
+s32 func_80057B40();void *func_800592AC(u32);
 void func_8005C0E8(s32, u32, u32);
 s32 func_800603B4();
 void func_80061F34(void *, void *);

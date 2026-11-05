@@ -11,8 +11,7 @@ void func_8005BC60(void);
 void func_8005BB5C(void);
 void func_80063328(void);
 void func_8005937C(s32, s32);
-void func_8005A05C(s32);
-void func_8005A6E0(s32);
+void func_8005A05C(s32);void func_8005A6E0(u32);
 void func_80061740(Block635);
 void func_800635A0(void)
 {

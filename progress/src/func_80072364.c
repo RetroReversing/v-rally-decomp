@@ -1,5 +1,5 @@
 /* identical to func_80064504 (matched), with its names changed by decompdecomp */
-void *func_800592AC();
+void *func_800592AC(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_8006090C();

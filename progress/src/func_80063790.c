@@ -31,8 +31,7 @@ extern void func_80061740(Record);
 extern void func_8006185C(s32, s32);
 extern void func_80062184(Record, s32);
 extern void func_80062E68(void);
-extern void func_8004D08C(s32, u8, s16, s16, f32, f32, u8, u8);
-extern s32 func_800592AC(u16);
+extern void func_8004D08C(s32, u8, s16, s16, f32, f32, u8, u8);void *func_800592AC(u32);
 
 void func_80063790(void)
 {
@@ -61,7 +60,7 @@ void func_80063790(void)
         }
         D_800C35A0->h22 = 0;
     } else {
-        func_8006185C(func_800592AC(D_800C35A0->sel), 0);
+        func_8006185C((s32)func_800592AC((u16)(D_800C35A0->sel)), 0);
     }
     record = D_800D0634[D_800C35A0->sel];
     if (D_800C3508->count == 1 && D_800A1468[0x245]) {

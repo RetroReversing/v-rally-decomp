@@ -1,6 +1,6 @@
 typedef struct Obj Obj;
 
-struct Obj { Obj *next;
+struct Obj { void *next;
  u8 pad0[0xB];
  u8 f;
  u8 g;
@@ -31,9 +31,7 @@ extern Manager *D_800C3508;
  extern u8 *D_800C35A0;
  extern State *D_800A1468;
 
-void func_80057D5C(s32,s32,s32,s32);
- Obj *func_800592AC(s32);
- Obj *func_800592D0(s32);
+void func_80057D5C(s32,s32,s32,s32);void *func_800592AC(u32);void *func_800592D0(u32);
  void func_8008A0D8(Manager *,s32,s32);
 
 s32 func_80068130(void) {

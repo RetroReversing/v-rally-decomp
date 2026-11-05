@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8005f5c4.h"
 #line 1 "func.c"
 #define TA ((Rec5F *) (&D_800C02AE + 0x37A2))
 #define TB ((Rec5F *) (&D_800C02AE + 0x38A2))
@@ -31,8 +31,7 @@ extern s8 D_800A5506;
 extern u8 D_800C02AE;
 extern Rec5F D_800C3A50[];
 extern Rec5F D_800C3B50[];
-extern Rec5F D_800C3B10[];
-extern Obj5F *func_800592D0(s32);
+extern Rec5F D_800C3B10[];void *func_800592D0(u32);
 extern void func_80052E94(s32, char *);
 extern void func_80059618(Obj5F *, u8, u8, u8, s32);
 extern void func_800596F4(Obj5F *, s16, s16, char *);

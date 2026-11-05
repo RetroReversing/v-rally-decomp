@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8006556c.h"
 #line 1 "func.c"
 #define H(p,o) (*(s16 *)((u8*)(p)+(o)))
 #define U(p,o) (*(u16 *)((u8*)(p)+(o)))
@@ -21,8 +21,7 @@ extern void func_80065C04(void);
 extern void func_80062304(void *, s16);
 extern void func_8005937C(s32, u16);
 extern void func_8008A0D8(void *, u16, s32);
-extern void func_8008A1CC(void *, u16, s32, void *);
-extern u8 *func_800592AC(s32);
+extern void func_8008A1CC(void *, u16, s32, void *);void *func_800592AC(u32);
 extern void func_80061740(Blob);
 void func_8006556C(void)
 {

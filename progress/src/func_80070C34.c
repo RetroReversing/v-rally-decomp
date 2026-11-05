@@ -3,11 +3,8 @@ extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern u8 *D_800C3508;
 extern void *D_800C35A0;
-extern void func_80057B40();
-extern void *func_800592AC(s32);
-extern void func_8005937C(s32, u16);
-extern void func_8005A6BC(s32);
-extern void func_8005A6E0(s32);
+extern void func_80057B40();void *func_800592AC(u32);
+extern void func_8005937C(s32, u16);void func_8005A6BC(u32);void func_8005A6E0(u32);
 extern void func_8005BB5C();
 extern void func_8005BC60();
 typedef struct 

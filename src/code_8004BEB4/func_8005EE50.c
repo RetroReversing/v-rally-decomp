@@ -1,9 +1,8 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_8005ee50.h"
+#line 1 "func.c"
 void func_8004CF7C(s32, s32, s16, s16, f32, s32, s32);
 void func_80059618(void *, u8, u8, u8, s32);
-void func_800596F4(void *, s16, s16, void *);
-void *func_8005A744(s32, s32);
+void func_800596F4(void *, s16, s16, void *);void *func_8005A744(u32, void *);
 extern void *D_800A1468;
 extern s32 D_800A54D4;
 extern s32 D_800C02AE;
@@ -18,7 +17,7 @@ void func_8005EE50(s32 arg0, s32 arg1)
   u16 var_s1;
   u16 var_s2;
   p = *((void **) (((u8 *) (&D_800C02AE)) + 0x325A));
-  temp_v0 = func_8005A744(arg0 - (*((u8 *) (((*((u8 **) (((u8 *) p) + 0x10))) + (((s16 *) p)[1] * 0x14)) + 0xD))), *((s32 *) (((u8 *) D_800A1468) + 0xC)));
+  temp_v0 = func_8005A744(arg0 - (*((u8 *) (((*((u8 **) (((u8 *) p) + 0x10))) + (((s16 *) p)[1] * 0x14)) + 0xD))), (void *)(*((void **) (((u8 *) D_800A1468) + 0xC))));
   temp_v1 = *((void **) (((u8 *) temp_v0) + 0x28));
   var_s1 = ((u16 *) temp_v1)[3];
   var_s2 = ((u16 *) temp_v1)[4];
@@ -54,3 +53,4 @@ void func_8005EE50(s32 arg0, s32 arg1)
     func_800596F4(((u8 *) temp_v0) + 4, (s16) var_s1, (s16) var_s2, &D_800A54D4);
   }
 }
+

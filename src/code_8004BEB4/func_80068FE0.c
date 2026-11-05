@@ -1,8 +1,6 @@
-#include "snapshot29_0433f7af8f6d.h"
-
-s32 func_80034FF0(s32, s32);
-void *func_800592AC(s32);
-void *func_800592D0(s32);
+#include "decompdecomp_snapshot_80068fe0.h"
+#line 1 "func.c"
+s32 func_80034FF0(s32, s32);void *func_800592AC(u32);void *func_800592D0(u32);
 s32 func_800592F4(s32, s32);
 s32 func_80081540(void *);
 s32 func_8008A0D8(s32, s32, s32);
@@ -74,3 +72,4 @@ void func_80068FE0(void)
   }
   while (((u32) (i & 0xFF)) < 8U);
 }
+

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8006090c.h"
 #line 1 "func.c"
 extern s32 D_800A159C[16];
 typedef struct { u32 w0,w1; } Command;
@@ -41,12 +41,9 @@ Actor *func_8004240C(s32);
 s32 func_8004CF7C(s32, s32, s32, s32, f32, s32, s32);
 s32 func_8004D1A8(s32, s32, f32, s32, s32);
 s32 func_80052E94(s32, s16 *);
-s16 *func_80057918(s32, s32);
-void *func_800592D0(s32);
+s16 *func_80057918(s32, s32);void *func_800592D0(u32);
 s32 func_80059618(void *, u8, u8, u8, s32);
-s32 func_800596F4(void *, s16, s16, s16 *);
-s32 func_8005A6BC(s32);
-s32 func_8005A6E0(s32);
+s32 func_800596F4(void *, s16, s16, s16 *);void func_8005A6BC(u32);void func_8005A6E0(u32);
 s32 func_8005D4A4(s32);
 s32 func_80060820(s32);
 s32 memset();

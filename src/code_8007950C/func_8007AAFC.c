@@ -1,6 +1,6 @@
-#include "common.h"
-
-void *func_800592AC(u8, void *);
+#include "decompdecomp_snapshot_8007aafc.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
 s32 func_800593FC(s32, s32);
 s32 func_8005946C(s32, u8);
 s32 func_8007A688(u8, void *);
@@ -29,7 +29,7 @@ s32 func_8007AAFC(s32 arg0) {
     s0 = s1;
     temp_a0 = *(u8 *)(*(char **)(D_800C02AE + 0x103AA) + s0 * 0x2C4 + 0x15);
     if (temp_a0 == *(u8 *)(pa + 0x238)) {
-        var_v1 = *(char **)((char *)func_800592AC(temp_a0, D_800A1468) + 0x28);
+        var_v1 = *(char **)((char *)func_800592AC((u8)(temp_a0)) + 0x28);
         var_a0 = 0;
         if (*(u8 *)(var_v1 + 0x22) != s0) {
             do {
@@ -50,3 +50,4 @@ s32 func_8007AAFC(s32 arg0) {
     func_8005946C(arg0, *((u8 *)D_800A1468 + 0x239));
     return 0;
 }
+

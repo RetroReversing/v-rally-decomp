@@ -1,7 +1,7 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80072364.h"
+#line 1 "func.c"
 /* identical to func_80064504 (matched), with its names changed by decompdecomp */
-void *func_800592AC();
+void *func_800592AC(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_8006090C();
@@ -37,3 +37,4 @@ void func_80072364(void)
   func_8006A438();
   func_8006090C();
 }
+

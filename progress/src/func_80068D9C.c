@@ -1,6 +1,5 @@
 extern u8 *D_800A1468;
-extern u8 D_800C02AE[];
-extern u8 *func_800592AC(s32);
+extern u8 D_800C02AE[];void *func_800592AC(u32);
 extern void func_800592F4(s32 arg0, s32);
 extern void func_80068E5C(s32);
 extern void func_8008A0D8(void *, s32, s32);

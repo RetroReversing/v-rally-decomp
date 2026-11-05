@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80069158.h"
 #line 1 "func.c"
 void func_8004CEB4(s32, void *, u16 *, s32, s32, s32, s32, s32, s32);
 void func_800596F4(void *, s16, s16, void *);
@@ -19,14 +19,14 @@ typedef struct
 } T;
 typedef struct N
 {
-  struct N *next;
+  void *next;
   u8 p[0x24];
   I *img;
 } N;
 typedef struct 
 {
   u8 p[12];
-  N *list;
+  void *list;
   u8 z[0x21a];
   s8 ix;
 } A;

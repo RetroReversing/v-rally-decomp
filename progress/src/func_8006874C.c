@@ -2,8 +2,7 @@
 typedef struct 
 {
   u32 words[9];
-} Style;
-extern Style *func_800592D0(unsigned short);
+} Style;void *func_800592D0(u32);
 extern void func_80059618(Style *, u8, u8, u8, s32);
 extern void func_800596F4(Style *, s16, s16, void *);
 extern void func_80098290(void *, void *);

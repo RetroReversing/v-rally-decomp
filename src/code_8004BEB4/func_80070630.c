@@ -1,8 +1,7 @@
 #include "decompdecomp_snapshot_80070630.h"
 #line 1 "func.c"
 extern unsigned char D_800C7112;
-extern int D_800C3508;
-void *func_800592AC();
+extern int D_800C3508;void *func_800592AC(u32);
 s32 func_800592F4();
 void func_8005C0E8(s32, u32, u32);
 s32 func_8006E380();

@@ -31,3 +31,4 @@ void func_80061F34(void *scene, void *base) {
     func_8004C7F0(temp);
     func_8004C7F0(D_800A565C);
 }
+

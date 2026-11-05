@@ -1,8 +1,7 @@
-#include "snapshot31_verified.h"
-
-void *func_800592AC();
-s32 func_800592F4();
-void *func_8005A744();
+#include "decompdecomp_snapshot_8005fad0.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
+s32 func_800592F4();void *func_8005A744(u32, void *);
 s32 func_8008A0D8();
 extern void *D_800A1468;
 extern u8 D_800A154C[];
@@ -29,7 +28,7 @@ void func_8005FAD0(void)
     temp_s0 = new_var;
     func_8008A0D8(D_800C3508, *(D_800A154C + temp_s0), 0);
     var_s1 += 1;
-    *((s8 *) (((char *) func_8005A744((*(D_800A154C + new_var)) - 0x17, *((s32 *) (((char *) D_800A1468) + 0xC)))) + 0x41)) = 0;
+    *((s8 *) (((char *) func_8005A744((*(D_800A154C + new_var)) - 0x17, (void *)(*((void **) (((char *) D_800A1468) + 0xC))))) + 0x41)) = 0;
   }
   while (((u32) (var_s1 & 0xFF)) < 3U);
   func_8008A0D8(D_800C3508, 0x17U, 0);
@@ -93,3 +92,4 @@ void func_8005FAD0(void)
   func_800592F4(0x1C, var_s1 & 0xFF);
   *((s8 *) (((char *) (((*((s16 *) (((char *) D_800C3508) + 2))) * 0x14) + (*((s32 *) (((char *) D_800C3508) + 0x10))))) + 0xE)) = 0x19;
 }
+

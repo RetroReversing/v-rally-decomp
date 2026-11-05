@@ -17,14 +17,14 @@ typedef struct
 } T;
 typedef struct N
 {
-  struct N *next;
+  void *next;
   u8 p[0x24];
   I *img;
 } N;
 typedef struct 
 {
   u8 p[12];
-  N *list;
+  void *list;
   u8 z[0x21a];
   s8 ix;
 } A;

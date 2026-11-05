@@ -1,11 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8006874c.h"
 #line 1 "func.c"
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 typedef struct 
 {
   u32 words[9];
-} Style;
-extern Style *func_800592D0(unsigned short);
+} Style;void *func_800592D0(u32);
 extern void func_80059618(Style *, u8, u8, u8, s32);
 extern void func_800596F4(Style *, s16, s16, void *);
 extern void func_80098290(void *, void *);

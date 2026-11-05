@@ -5,9 +5,9 @@ extern void *D_800A1468;
 extern f64 D_800A5240;
 
 void func_800586F8(void *arg0) {
-    M2C_UNK *temp_s1;
-    M2C_UNK *temp_v0;
-    M2C_UNK *temp_v0_2;
+    void *temp_s1;
+    void *temp_v0;
+    void *temp_v0_2;
     s32 temp_v1;
     s32 var_a0;
     s32 flag;
@@ -64,18 +64,18 @@ void func_800586F8(void *arg0) {
     *(u8 *)((s8 *)temp_s1 + 0xE) = 0xcc;
     list = D_800A1468;
     *(s16 *)((s8 *)temp_s1 + 0x18) = 0;
-    temp_v0_2 = *(M2C_UNK **)((s8 *)list + 0x10);
+    temp_v0_2 = *(void **)((s8 *)list + 0x10);
     if (temp_v0_2 != NULL) {
-        *temp_v0_2 = (s32)temp_v0;
+        *(void **)temp_v0_2 = temp_v0;
     } else {
-        *(M2C_UNK **)((s8 *)list + 0xC) = temp_v0;
+        *(void **)((s8 *)list + 0xC) = temp_v0;
     }
-    *(M2C_UNK **)((s8 *)D_800A1468 + 0x10) = temp_v0;
-    *(M2C_UNK **)((s8 *)D_800A1468 + 0x1F0) = temp_v0;
+    *(void **)((s8 *)D_800A1468 + 0x10) = temp_v0;
+    *(void **)((s8 *)D_800A1468 + 0x1F0) = temp_v0;
     *(s32 *)((s8 *)D_800A1468 + 0x14) += 1;
     *(u8 *)((s8 *)temp_v0 + 0x4C) = 0;
     *(u8 *)((s8 *)temp_v0 + 0x4D) = 0;
     *(u8 *)((s8 *)temp_v0 + 0x4E) = 0;
-    *(s32 *)((s8 *)temp_v0 + 0x28) = 0;
-    *(s32 *)((s8 *)temp_v0 + 0x2C) = 0;
+    *(void **)((s8 *)temp_v0 + 0x28) = NULL;
+    *(void **)((s8 *)temp_v0 + 0x2C) = NULL;
 }

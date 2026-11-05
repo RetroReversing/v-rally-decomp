@@ -1,8 +1,7 @@
 extern void *D_800A1468;
 extern u16 D_800A16E0[];
 extern void *D_800C35A0;
-s32 func_8006204C(u8, u8, u8);
-void *func_8005A744(s32, s32);
+s32 func_8006204C(u8, u8, u8);void *func_8005A744(u32, void *);
 s32 func_800592F4(s32, s32);
 void func_8006AE34(void)
 {
@@ -43,7 +42,7 @@ void func_8006AE34(void)
   w = k & 255;
   new_var = func_8006204C(*((u8 *) (((u8 *) D_800C35A0) + 0x1f)), *((u8 *) (((u8 *) D_800C35A0) + 0x21)), *((u8 *) (((u8 *) D_800C35A0) + 0x23)));
   y = new_var;
-  t = func_8005A744(0, *((s32 *) D_800A1468));
+  t = func_8005A744(0, (void *)(*((void **) D_800A1468)));
   y &= 255;
   z = y * 2;
   *((u16 *) (((u8 *) t) + 4)) = D_800A16E0[z / 2];
@@ -55,7 +54,7 @@ void func_8006AE34(void)
   func_800592F4(w + 3, *((u8 *) (((u8 *) c) + 0x18)));
   func_800592F4(w + 4, *((u8 *) (((u8 *) c) + 0x14)));
   {
-    void *out = func_8005A744(2, *((s32 *) D_800A1468));
+    void *out = func_8005A744(2, (void *)(*((void **) D_800A1468)));
     q = 0x128;
     index = (*((s8 *) (((u8 *) D_800A1468) + 0x228))) == 0;
     if (index)

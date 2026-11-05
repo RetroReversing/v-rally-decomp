@@ -20,8 +20,7 @@ typedef struct
 } Sel;
 extern u8 *D_800D0634;
 extern Sel *D_800C35A0;
-s32 func_80052E94(u16, void *);
-Sp *func_800592D0(s32);
+s32 func_80052E94(u16, void *);void *func_800592D0(u32);
 s32 func_80059618(void *, s32, s32, s32, s32);
 s32 func_800596F4(void *, s16, s16, void *);
 s32 memset(void *, s32, s32);

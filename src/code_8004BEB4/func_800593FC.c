@@ -1,6 +1,6 @@
-#include "common.h"
-
-void *func_800592AC();
+#include "decompdecomp_snapshot_800593fc.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
 extern char D_800C02AE[];
 
 void func_800593FC(s32 arg0, s32 arg1)
@@ -24,3 +24,4 @@ void func_800593FC(s32 arg0, s32 arg1)
     *((u8 *) (((char *) temp_v0_2) + 0x4E)) = 1;
     *((u8 *) (((char *) temp_v0_2) + 0x4D)) = temp_b;
 }
+

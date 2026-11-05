@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8007159c.h"
 #line 1 "func.c"
 #define U(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define H(p,o) (*(s16 *)((u8 *)(p)+(o)))
@@ -21,8 +21,7 @@ extern const f64 D_800A5D10;
 extern void func_8005937C(s32, s32);
 extern void func_8005C198(void);
 extern void func_80061740(Blob);
-extern void func_80062184(Blob, s32);
-extern s32 func_800592AC(s32);
+extern void func_80062184(Blob, s32);void *func_800592AC(u32);
 extern void func_8006185C(s32, s32);
 extern void func_800710F0(void);
 extern void func_8004D08C(s32, s32, s16, s16, f32, f32, u8, u8);
@@ -54,7 +53,7 @@ void func_8007159C(void)
     }
     else
     {
-      func_8006185C(func_800592AC(U(D_800C35A0, 32)), 0);
+      func_8006185C((s32)func_800592AC(U(D_800C35A0, 32)), 0);
     }
     if (H(D_800C3508, 2) == 2)
     {
@@ -71,3 +70,4 @@ void func_8007159C(void)
     }
   }
 }
+

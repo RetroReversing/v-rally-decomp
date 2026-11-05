@@ -1,28 +1,28 @@
 typedef struct Node
 {
-  struct Node *next;
+  void *next;
 } Node;
 typedef struct Grp
 {
-  struct Grp *next;
+  void *next;
   char pad4[0x28 - 4];
-  Node *subs;
+  void *subs;
   char pad2C[0x4C - 0x2C];
   u8 nsub;
 } Grp;
 typedef struct Ctx
 {
-  Node *list0;
-  s32 x4;
+  void *list0;
+  void *x4;
   s32 cnt0;
-  Grp *grp;
-  s32 x10;
+  void *grp;
+  void *x10;
   s32 cnt1;
-  Node *list2;
-  s32 x1C;
+  void *list2;
+  void *x1C;
   s32 cnt2;
-  Node *list3;
-  s32 x28;
+  void *list3;
+  void *x28;
   s32 cnt3;
   char pad30[0x222 - 0x30];
   s16 sel;
@@ -70,7 +70,7 @@ void func_8005A100(void)
       func_8007EE9C(g);
     }
 
-    D_800A1468->x10 = (D_800A1468->cnt1 = 0);
+    D_800A1468->cnt1 = 0; D_800A1468->x10 = NULL;
   }
   n = D_800A1468->cnt0;
   if (n != 0)

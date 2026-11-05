@@ -1,5 +1,4 @@
-extern unsigned char D_800B0D98;
-void *func_800592D0();
+extern unsigned char D_800B0D98;void *func_800592D0(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_80099DF8();

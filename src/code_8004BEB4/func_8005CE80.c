@@ -1,5 +1,5 @@
-#include "snapshot31_verified.h"
-
+#include "decompdecomp_snapshot_8005ce80.h"
+#line 1 "func.c"
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern u8 *D_800C35A0;
@@ -14,8 +14,7 @@ extern u16 D_800A152C;
 extern s32 D_800A1538[];
 extern u8 D_800A5408[];
 extern void func_8004D31C(void);
-extern s32 func_8006204C(u8, u8, u8);
-extern u8 *func_800592D0(s32);
+extern s32 func_8006204C(u8, u8, u8);void *func_800592D0(u32);
 extern void func_80047CC0(s32);
 extern u8 *func_8004240C(s32);
 extern void func_80047C2C(s32, s32);
@@ -66,3 +65,4 @@ void func_8005CE80(void)
   *((f32 *) (D_800C02AE + 0x6A4A)) = *((f32 *) (slot + 0x10));
   D_800A1468[0x2BD] = 1;
 }
+

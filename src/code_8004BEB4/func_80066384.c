@@ -1,6 +1,6 @@
-#include "common.h"
-
-void *func_800592AC();
+#include "decompdecomp_snapshot_80066384.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_8006090C();
@@ -54,3 +54,4 @@ void func_80066384(void)
     var_s2 = *((void **)var_s2);
   } while ((u32)(var_s1 & 0xFF) < (u32)*inline_fn(D_800C02AE));
 }
+

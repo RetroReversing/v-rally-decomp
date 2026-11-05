@@ -1,9 +1,9 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_snapshot_80065860.h"
+#line 1 "func.c"
 typedef struct {u32 w[177];} Scene658;
 extern u8 *D_800C3508,*D_800C35A0,*D_800A1468,*D_800A14D0;
 extern s32 *D_800A11B0; extern u8 D_800A1620[];extern Scene658 *D_800D0634[];extern s32 D_800AFA58,D_800D05D8;extern f64 D_800A56D8;
-void func_80061740(Scene658);void func_80062184(Scene658,s32);s32 func_800592AC(s32);void func_8005937C(u8,u16);void func_8005C198(void);void func_8006185C(s32,s32);void func_80064F98(void);
+void func_80061740(Scene658);void func_80062184(Scene658,s32);void *func_800592AC(u32);void func_8005937C(u8,u16);void func_8005C198(void);void func_8006185C(s32,s32);void func_80064F98(void);
 void func_8004D08C(s32,s32,s16,s16,f32,f32,s32,s32);
 #define H(p,o) (*(u16*)((u8*)(p)+(o)))
 #define S(p,o) (*(s16*)((u8*)(p)+(o)))
@@ -31,10 +31,10 @@ D_800AFA58=selected;
 }
 H(D_800C35A0,34)=0;
 }
-func_800592AC(selected);
+(s32)func_800592AC(selected);
 scene=*D_800D0634[D_800A1468[0x23C]];
 }else{
-result=func_800592AC(H(D_800C35A0,30)-1);
+result=(s32)func_800592AC(H(D_800C35A0,30)-1);
 scene=*D_800D0634[H(D_800C35A0,30)];
 func_8006185C(result,0);
 }
@@ -52,3 +52,4 @@ i++;
 }
 }
 }
+

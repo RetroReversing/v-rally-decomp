@@ -1,6 +1,5 @@
 extern u8 *D_800A1468;extern u8 D_800AE850[],D_800C02AE[];extern u8 *D_800C35A0;
-typedef struct Node{struct Node *next;u16 id;u8 pad[20];u8 active;}Node;
-extern Node *func_800592D0(int);extern u8 *func_80057918(void*,int);extern int func_8008E118(u8*);
+typedef struct Node{void *next;u16 id;u8 pad[20];u8 active;}Node;void *func_800592D0(u32);extern u8 *func_80057918(void*,int);extern int func_8008E118(u8*);
 void func_800724A4(void){
 s8 i;Node *p,*r;u8 *b=D_800A1468+0x24f;u8 n,base,j,a,rank;u8 *text;
 if(D_800AE850[0x7fc9]){n=4;base=8;}else{n=8;base=0;}

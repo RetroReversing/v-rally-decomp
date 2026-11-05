@@ -1,10 +1,9 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80062184.h"
+#line 1 "func.c"
 extern u8 D_800C02AE[];
 extern u8 *D_800A1468;
 extern s32 D_800C8328;
-s32 func_80057918(s32, s32);
-void *func_800592D0(s32);
+s32 func_80057918(s32, s32);void *func_800592D0(u32);
 void func_80059618(void *, u32, u32, u32, u32);
 void func_800596F4(void *, s16, s16, s32);
 void func_800620F0(s32);
@@ -38,3 +37,4 @@ void func_80062184(Args args, s32 arg4, s32 arg5) {
         } while (i < *(u16 *)&arg5);
     }
 }
+

@@ -1,7 +1,6 @@
-#include "common.h"
-
-extern unsigned char D_800B0D98;
-void *func_800592D0();
+#include "decompdecomp_snapshot_80062df4.h"
+#line 1 "func.c"
+extern unsigned char D_800B0D98;void *func_800592D0(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_80099DF8();
@@ -17,3 +16,4 @@ void func_80062DF4(void)
   func_80099DF8(sp18, &D_800A567C, D_800B0D98);
   func_800596F4(temp_v0, *((s16 *) (((char *) temp_v0) + 6)), *((s16 *) (((char *) temp_v0) + 8)), sp18);
 }
+

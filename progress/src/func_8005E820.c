@@ -11,9 +11,8 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-
-M2C_UNK func_800592D0(M2C_UNK);                     /* extern */
+void *func_800592D0(u32);                     /* extern */
 
 void func_8005E820(void) {
-    func_800592D0(0);
+    (M2C_UNK)func_800592D0(0);
 }

@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_8005eb48.h"
+#line 1 "func.c"
 #define C (*(C02 *)(D_800C02AE+2))
 #define O (C.o)
 #define I(n) (*(s32 *)(D_800C02AE+(n)))
@@ -38,8 +38,7 @@ void func_8004D31C();
 void func_8005EA28();
 void func_800592F4(s32, s32);
 void func_8005EE50(s32, s16, s32);
-void func_80057D5C(s32, s32, s32, s32);
-void *func_8005A744(s32, s32);
+void func_80057D5C(s32, s32, s32, s32);void *func_8005A744(u32, void *);
 void func_8008A104(s32, s32, s32, s32);
 void func_8005EB48(void)
 {
@@ -97,7 +96,7 @@ void func_8005EB48(void)
   }
   {
     func_8008A104(I(0x325a), 18, new_var, new_var);
-    p = func_8005A744(8, *((s32 *) (D_800A1468 + 12)));
+    p = func_8005A744(8, (void *)(*((void **) (D_800A1468 + 12))));
     p[15] = 80;
     p[16] = 80;
     p[17] = 80;
@@ -107,3 +106,4 @@ void func_8005EB48(void)
   func_8008A104(I(0x325a), 18, 1, 1);
 
 }
+

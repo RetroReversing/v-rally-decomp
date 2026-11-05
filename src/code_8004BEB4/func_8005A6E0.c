@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_8005a6e0.h"
+#line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
+void *func_800592D0(u32);                              /* extern */
 
-void *func_800592D0();                              /* extern */
-
-void func_8005A6E0(void) {
-    M2C_FIELD(func_800592D0(), s8 *, 0x1A) = 0;
+void func_8005A6E0(u32 index) {
+    M2C_FIELD(func_800592D0(index), s8 *, 0x1A) = 0;
 }
+

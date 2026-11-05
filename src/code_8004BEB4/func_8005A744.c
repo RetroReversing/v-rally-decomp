@@ -1,17 +1,4 @@
-#include "common.h"
+#include "decompdecomp_snapshot_8005a744.h"
+#line 1 "func.c"
+void *func_8005A744(u32 count, void *head) { u32 before; goto check; loop: head=*(void **)head; check: before=count; count--; if(before) goto loop; return head; }
 
-s32 *func_8005A744(s32 arg0, s32 *arg1)
-{
-  s32 var_v0;
-  var_v0 = arg0;
-  goto check;
-  loop:
-  arg1 = *arg1;
-  var_v0 = arg0;
-  check:
-  if (arg0-- != 0)
-  {
-    goto loop;
-  }
-  return arg1;
-}

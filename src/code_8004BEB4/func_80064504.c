@@ -1,6 +1,6 @@
-#include "common.h"
-
-void *func_800592AC();
+#include "decompdecomp_snapshot_80064504.h"
+#line 1 "func.c"
+void *func_800592AC(u32);
 s32 func_80059618();
 s32 func_800596F4();
 s32 func_8006090C();
@@ -36,3 +36,4 @@ void func_80064504(void)
   func_8006A438();
   func_8006090C();
 }
+
