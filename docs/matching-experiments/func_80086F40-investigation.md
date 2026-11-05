@@ -17,3 +17,41 @@ alternative C is accepted, and the original source/profile/target remain intact.
 
 Immutable private capture SHA-256:
 `b76c48a920b871341650c19ad44974c622a90d60070f7e262d8594700982dfe3`.
+
+## Contract audit superseding the old score baseline
+
+The earlier 265-point baseline and five-word-call description above were superseded by the selected-callee audit below. They are retained as historical negative evidence, not valid source contracts.
+
+
+No exact match. Keep the function OPEN/revisitable. No live project or runtime mutation was performed.
+
+## Honest baseline and actual contracts
+
+Fresh read-only capture SHA-256: `b52fe4120d4cc845bcb018e3e36e80e9759661a505cb32d03b97b24d6cb29ae4`.
+
+Preferred corrected draft: `corrected.c`, SHA-256 `4fd369c155ee0c1911ce715a03ff34e7b7f6aaf563083c3213098f2bb11f4ae5`. Unchanged ordinary pinned compiler/link judge: score **325**, not exact. The old 265 is not a valid improvement baseline: it used incompatible cross-TU callee declarations and an out-of-bounds pointer intermediate.
+
+Actual selected `func_80081040` takes `(s32, s32, u32, struct { s32 w[6]; })`, rather than five arguments splitting the final aggregate. Actual selected `alLink` uses a two-field node with `next` and pointer-to-next-field `prev`, taking `(N *, N **)`. `alUnlink` takes `void *`, and `osVirtualToPhysical` takes `s32`. The corrected callback embeds that link structure as its first member and uses the actual field addresses. The cache-hit address calculation uses unsigned 32-bit machine-address arithmetic before the explicit address conversion, avoiding the invalid intermediate `data + full_ROM_address` pointer.
+
+The parent independently traced the factory and selected SDK-derived audio consumers to `ALDMAproc(s32, s32, void *)`. The corrected callback retains the genuinely unused third state argument and converts its signed input address to an unsigned local for comparisons. Existing selected frame/counter globals are `u32`, retained in the corrected draft. These are actual contract corrections, not guessed ABI variants used to manipulate allocation. The larger legacy cross-TU SDK chain is not globally proven ISO-typed.
+
+Normal game preconditions still matter: nonnegative bounded request lengths, valid cached ranges without signed end overflow, a valid free-list pool and corresponding allocated packet table, and frame-reset bounded DMA counter. Parent investigation of selected initialization/frame-reset functions supplies this context; arbitrary invalid callers are not claimed safe.
+
+## New negative evidence
+
+212 non-native ordinary compile/link judgments (211 compile successfully; one deliberately staged assignment violates the old compiler's declaration placement and is rejected). 83 are the current shared repair generator's bounded proposals. No improvement from:
+
+- compatible six-word aggregate staging, copies and call-argument assignment/comma placement;
+- genuinely dead input/local reuse and initialization placement;
+- predecessor/parity split and disjoint-lifetime storage union;
+- unsigned address/counter/local representations;
+- loop-shape and predecessor-capture placement;
+- current shared allocation/debug-line/local repair proposals.
+
+Exploratory alternative aggregate layouts were negative only and are **not** compatible replacement types for the selected six-word-array definition. None is proposed for acceptance.
+
+A private safe native lane completed 500 scored candidates, best 325, no exact. It ran from the corrected callee/address baseline before the parent supplied the final unused callback state argument and unsigned global declarations. Those final contract changes independently preserve score325; the native results are negative exploration rather than proof about every variant of the final declaration. Candidates were filtered for invented qualifiers/asm/register, trivial identities/self assignments and Clang-detected uninitialized use. No random candidate was accepted.
+
+Remaining differences are chiefly the saved-register allocation swap and scheduling of the first outgoing argument across the aggregate copy. No reusable repair family was demonstrated to solve them. Suggest preventing token-wasting searches on an inconsistent lower-score draft by presenting known selected-callee/callback contracts before launching the search; do not weaken exact-byte acceptance.
+
+Evidence: `negative-evidence.json`, `corrected.json`, `shared-results.json`, `native-safe/results.json`, and immutable `frozen/` capture. Private ROM/assembly/captures must not be committed.
