@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793880551.0754921,
- "revision": 17822,
+ "saved_at": 1793881151.79337,
+ "revision": 17829,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8423,8 +8423,8 @@
   },
   "func_8006D564": {
    "vram": 2147931492,
-   "best_score": 40,
-   "best_by": "claude-opus-12"
+   "best_score": 25,
+   "best_by": "claude-opus-7"
   },
   "func_8006DD04": {
    "vram": 2147933444,
@@ -164783,6 +164783,26 @@
   {
    "function": "func_8003E6D8",
    "text": "Renderer investigation remains OPEN565. Corrected ordinary draft saved previously: uninitialized resource argument and coordinate errors fixed; separate initial position pointer restores register roles. Native lanes1000attempts705scored (650baseline),999attempts710scored (565baseline),87directedjudgments found noexact. Goto removesstrengthreduction butlosesLICM; explicitlyhoisted795negativecontrol preserved. Cross-function constructor/resource/callbackCprototypes stillrequireaudit; drafts are machine-behavior research, notwholeprogramCproof. See docs/matching-experiments/func_8003E6D8-investigation.md. No matchedC/profile/header/targetchanges orcartridgegate.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Best 60 (rev a73971149, weird `if (func_80065860)` duplicate branches) \u2014 only diff: target sb v0,0x228(a1) sits between `move a0,s2` and jal (ours before move a0). Target loads lb v1 then `addu a0,v1,zero` copy, so idx+1 comes from the s8 compare value. Tried: plain `D[0x228]++; call` (145: D ptr goes to a2, sb after jal-slot reorder), comma-in-args both positions (145), `idx = D[0x228]; if(idx<..){D[0x228]=idx+1;` (215), `=++idx` (410), `=(s8)D+1` (215). Left: keep the if-duplication trick but write idx+1 store from a local, or store via local pointer `u8 *s = D_800A1468` held across compare.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Score 200, with a single diff row: row 45 has beqz where the target has beql (the switch's i==0 test, delay slot a0=2). The dead `if (i == 4) {...} else` duplicate is needed: it produces the s2=4 constant in the target (removing it gives 750; changing it to i==3 gives 210). Switch variants that scored the same 200: default-first order, case 1 before case 0, no break on default. Worse: if-chain (460), ternary (1360), merged case 0/1 (1055), explicit case 2/3/4 (1545), which=2 then if (1380), the if/else-if/else ordering (1050), case 4 added to default (1240/1270). Likely cause: reorg chooses the annulled branch only when a0 looks live on the fallthrough. Try a C shape where the fallthrough path appears to use which/a0 before setting it, or where i==1 jumps to a shared label.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Now 25 (rev 8cbc0a8a). Fixed the slot 0x5B store's v0/v1 swap by writing it as `((struct { u8 pad[0x44]; Slot s[4]; } *)D_800C35A0)->s[(u8)arg0].pad00[0] = 0x5B;`. The 0x1C-pad variant with pad00[0x28] also scores 25, so Game is probably an array of 0x28-byte entries inside a struct. Left: the first-half [0] loop has r/g swapped (ours r=s4, g=s2). Equal (25): inlining g (&GROUP(r,j)->item[k]), block-local g, Item* it pointer, r->groups[j], r via byte offset i*sizeof(Record). Worse: p as g in loop 1 (635), g = GROUP(p,j) as a temp in the second-half [0] loop (635), g in loops 2-5 (1100), r in the second-half [0] loop too (1230), `r = D[0]; r = &r[i];` (675: hoists the D_800D0634 load into s4).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Revisited OPEN2: actual linked1004byte candidate differs in exactly2tablepointer spill instructions:sp+34 vs targetsp+14, frame60. Corrected noarg/integer/pointer-return caller declarations keep same2; selectedvoidwrapper sources require later cross-function contract audit. Existing unusedpad2 is neverread but unexplained; removingit changesframe58 and fails. No newdummyarrays orfakeeffects.1000nativegenerated/757compiled-scored,48duplicate,72Clangreject,123forbidden-token; noexact. Lexicalscope/realaggregate/valuegetter/addressablegettercontrols negative. Addressablegetter moves spill18 but otherinstructions differ1086. Reports and correctedmachine-behavior alternatives preserved in docs/matching-experiments; no matchedC/header/profile/targetchanges orcartridgegate.",
    "by": "you"
   }
  ],
