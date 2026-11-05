@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793890731.493174,
- "revision": 17928,
+ "saved_at": 1793896750.614447,
+ "revision": 18095,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -9963,8 +9963,8 @@
   },
   "func_80086F40": {
    "vram": 2148036416,
-   "best_score": 265,
-   "best_by": "claude-opus-9"
+   "best_score": 325,
+   "best_by": "candidate-review"
   },
   "func_80087114": {
    "vram": 2148036884,
@@ -243269,9 +243269,9 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 208 cached skips; 0 rejected; 247s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 135 \u2192 135; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1042",
-   "created_at": 1793887075.384492,
+   "created_at": 1793895140.135686,
    "score_before": 135,
    "score_after": 135
   },
@@ -243293,9 +243293,9 @@
   },
   {
    "function": "func_80049DB0",
-   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 256 candidates tested; 74 cached skips; 0 rejected; 448s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-947",
-   "created_at": 1793887075.4181828,
+   "created_at": 1793895131.7188082,
    "score_before": 20,
    "score_after": 20
   },
@@ -243333,41 +243333,41 @@
   },
   {
    "function": "func_8003E6D8",
-   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 62 candidates tested; 153 cached skips; 0 rejected; 86s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
+   "text": "Deep permuter: score 565 \u2192 565; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 61s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-806",
-   "created_at": 1793887075.458835,
+   "created_at": 1793895133.118376,
    "score_before": 565,
    "score_after": 565
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 187 cached skips; 0 rejected; 312s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 425 \u2192 425; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-887",
-   "created_at": 1793887075.465148,
+   "created_at": 1793895140.0942998,
    "score_before": 425,
    "score_after": 425
   },
   {
    "function": "func_80059A60",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 1 candidates tested; 149 cached skips; 0 rejected; 44s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1155",
-   "created_at": 1793887075.4998689,
+   "created_at": 1793895135.906764,
    "score_before": 200,
    "score_after": 200
   },
   {
    "function": "func_80086F40",
-   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 578s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1756",
-   "created_at": 1793887075.504564,
+   "created_at": 1793895140.0884411,
    "score_before": 265,
    "score_after": 265
   },
   {
    "function": "func_8005E49C",
-   "text": "Deep permuter: score 45 \u2192 45; 0 improvements; 101 candidates tested; 52 cached skips; 0 rejected; 179s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 25 \u2192 25; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1223",
-   "created_at": 1793887075.518972,
+   "created_at": 1793895134.389049,
    "score_before": 25,
    "score_after": 25
   },
@@ -243461,11 +243461,11 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 300 candidates tested; 147 cached skips; 0 rejected; 144s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1437",
-   "created_at": 1793887075.568715,
-   "score_before": 2875,
-   "score_after": 1485
+   "created_at": 1793895140.05444,
+   "score_before": 1465,
+   "score_after": 1465
   },
   {
    "function": "func_800450B8",
@@ -243477,11 +243477,11 @@
   },
   {
    "function": "func_80030180",
-   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 33 candidates tested; 78 cached skips; 0 rejected; 84s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-673",
-   "created_at": 1793887075.575828,
-   "score_before": 440,
-   "score_after": 435
+   "created_at": 1793895140.123679,
+   "score_before": 420,
+   "score_after": 420
   },
   {
    "function": "func_80084C0C",
@@ -243493,19 +243493,19 @@
   },
   {
    "function": "func_8002FFA4",
-   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 300 candidates tested; 185 cached skips; 0 rejected; 677s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-672",
-   "created_at": 1793887075.581461,
-   "score_before": 550,
+   "created_at": 1793895137.161608,
+   "score_before": 420,
    "score_after": 420
   },
   {
    "function": "func_8007B4A4",
-   "text": "Deep permuter: score 330 \u2192 330; 0 improvements; 300 candidates tested; 155 cached skips; 0 rejected; 565s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 310 \u2192 310; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1564",
-   "created_at": 1793887075.584526,
-   "score_before": 330,
-   "score_after": 330
+   "created_at": 1793895399.437063,
+   "score_before": 310,
+   "score_after": 310
   },
   {
    "function": "func_800502D4",
@@ -243533,10 +243533,10 @@
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 300 candidates tested; 205 cached skips; 0 rejected; 142s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1446",
-   "created_at": 1793887075.64203,
-   "score_before": 355,
+   "created_at": 1793895140.128282,
+   "score_before": 325,
    "score_after": 325
   },
   {
@@ -243565,18 +243565,18 @@
   },
   {
    "function": "func_80040CF4",
-   "text": "Deep permuter: score 518 \u2192 518; 0 improvements; 300 candidates tested; 177 cached skips; 0 rejected; 213s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 518 \u2192 518; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-837",
-   "created_at": 1793887075.67612,
-   "score_before": 550,
-   "score_after": 534
+   "created_at": 1793895140.120159,
+   "score_before": 518,
+   "score_after": 518
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1000 \u2192 1000; 0 improvements; 300 candidates tested; 160 cached skips; 0 rejected; 203s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1000 \u2192 1000; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1434",
-   "created_at": 1793887075.6791198,
-   "score_before": 1095,
+   "created_at": 1793895134.3923662,
+   "score_before": 1000,
    "score_after": 1000
   },
   {
@@ -243597,27 +243597,27 @@
   },
   {
    "function": "func_80029EAC",
-   "text": "Deep permuter: score 295 \u2192 295; 0 improvements; 300 candidates tested; 135 cached skips; 0 rejected; 536s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 295 \u2192 295; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-581",
-   "created_at": 1793887075.6892622,
+   "created_at": 1793895140.131138,
    "score_before": 295,
    "score_after": 295
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 8s elapsed. Stopped: func_8007A29C is claimed by claude-opus-3 for another 29 min.",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1548",
-   "created_at": 1793887075.6945999,
+   "created_at": 1793895140.0985758,
    "score_before": 2,
    "score_after": 2
   },
   {
    "function": "func_8006603C",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 46 candidates tested; 150 cached skips; 0 rejected; 49s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 61s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1343",
-   "created_at": 1793887075.711385,
-   "score_before": 30,
-   "score_after": 30
+   "created_at": 1793895127.825475,
+   "score_before": 200,
+   "score_after": 200
   },
   {
    "function": "func_8007AD68",
@@ -243685,11 +243685,11 @@
   },
   {
    "function": "func_8006E394",
-   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8006E394 is claimed by permuter for another 2 min.",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 60s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
    "by": "Rr.permuter-1453",
-   "created_at": 1793887075.826723,
-   "score_before": 1705,
-   "score_after": 1160
+   "created_at": 1793895140.115869,
+   "score_before": 1155,
+   "score_after": 1155
   },
   {
    "function": "func_8006185C",
@@ -244391,9 +244391,9 @@
    "function": "func_8006BA44",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-3",
-   "created_at": 1793887076.190061,
-   "score_before": 1040,
-   "score_after": 1030
+   "created_at": 1793892397.8242502,
+   "score_before": 1000,
+   "score_after": 1000
   },
   {
    "function": "func_8006185C",
@@ -245503,7 +245503,7 @@
    "function": "func_8007A29C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-7",
-   "created_at": 1793887076.743262,
+   "created_at": 1793892398.9144142,
    "score_before": 2,
    "score_after": 2
   },
@@ -248970,6 +248970,102 @@
    "created_at": 1793889753.098851,
    "score_before": 20,
    "score_after": 20
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Saved best is 40 (rev ea647ba1). The target allocates root=a1, game=a2, p=a0, then does lw v1,0x6c / lw a1,0x24(v1) for the second player's pointer and xori into v0 at the end. Tried: a clean rewrite with s32 *p / s32 *q locals and direct `return *q != 15000` (80); saved structure with direct returns instead of goto/xor (60); merging the final `p = *p; p ^= 0x3A98` into one line (75). The existing split `p = *p; p = p ^ ...` form with goto done is the best. The remaining diffs are in the second half (v1 vs v0 for the 0x6c intermediate and the 0x3A98 constant). Untried: a separate s32 variable v for the xor results (`v = *(s32*)root ^ 0x3A98; goto done; ... v = *(s32*)p ^ 0x3A98; done: return v != 0;`) \u2014 the compile was cut by a server disconnect.",
+   "by": "claude-opus-7",
+   "created_at": 1793890806.195701,
+   "score_before": 20,
+   "score_after": 20
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Still 200 (one beql vs beqz in the which-switch). This session: neutral (200) = cases swapped, default first, u32 which. Worse: u8 which (600); removing the `if (i == 4) {...} else` dummy (750: it is what produces the target's hoisted `addiu s2,zero,4`, so keep it); ternary/if-else (i==0||i==1) (1360); `which=1; if(...)which=2` (1360); merged `case 0: case 1:` (1055). Target: beql i==0 -> call [a0=2]; bne i,1 -> call [a0=1]; a0=2. Reorg sees a0 live on the fall-through only in the target. Untried: s16 which; a different expression for the s2=4 dummy (e.g. a real `i == 4` use elsewhere).",
+   "by": "claude-opus-3",
+   "created_at": 1793891435.461397,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Best is still 135 (saved rev 77abee0e). Adds to the previous notes. Neutral: the if/rank++ form of the rank count (135); moving new_var=&D_800C81FC before cfg= (identical code). Worse: a separate `pts` variable for the switch result instead of reusing j (230, shifts all the t-registers). If the current candidate shows pts, revert to the saved best. The remaining issues are unchanged: s/giv v1-a1 swap in loop 1, and t2=&D_800C81FC scheduled before the t3/t6/t5 constants in loop 2.",
+   "by": "claude-opus-7",
+   "created_at": 1793891820.242395,
+   "score_before": 135,
+   "score_after": 135
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-340504b0fee64b47",
+   "created_at": 1793891945.918887,
+   "score_before": 265,
+   "score_after": 265
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-ecf26e88910e4854",
+   "created_at": 1793892396.906837,
+   "score_before": 265,
+   "score_after": 265
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3",
+   "created_at": 1793892397.8242502,
+   "score_before": 1000,
+   "score_after": 1000
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7",
+   "created_at": 1793892398.9144142,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_80030180",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-12",
+   "created_at": 1793892399.843206,
+   "score_before": 420,
+   "score_after": 420
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Review selected corrective alternative attempt 301347; rejudged score 325, replacing reported source c6f0cd26b2cf88511a21. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793893578.0770519,
+   "score_before": 265,
+   "score_after": 265
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3",
+   "created_at": 1793895415.263338,
+   "score_before": 425,
+   "score_after": 425
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7",
+   "created_at": 1793895415.333256,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_80030180",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-12",
+   "created_at": 1793895415.344673,
+   "score_before": 420,
+   "score_after": 420
   }
  ],
  "set_aside": [
@@ -258263,6 +258359,270 @@
     "unit": "local_source_599",
     "mode": "rom"
    },
+   "func_8002D724": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793895113.745345,
+    "attempt_id": 305626,
+    "source_sha256": "0108d9770a8e2e102e4324f347ab853d9854137826efba3319011f7f37d6fc6f",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "74b928a65a20bdb10343bc9ea60717dd62a0d83bc86cb8788b35b08bd9af986d",
+    "relocations_sha256": "6ab3ed8d8a04f4bc0ec6b99a6da567f16e58550e620e7ca034b65335bfb8db67",
+    "vram": 2147669796,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8002D740": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793895114.936419,
+    "attempt_id": 305627,
+    "source_sha256": "b11fcf0f9a534527fe43c5eeab12169cd4b9a5b6fdef3c802c7738735863d8d4",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "b4149ef3e220f8078e926c5adb751fb5f1f62d0ac392ade18af490d5a4c7ca3f",
+    "relocations_sha256": "dd0dd77622d6909451b6f9194def428ee4e9c5018c38f57afec5e70fcfe26563",
+    "vram": 2147669824,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8002DA98": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793895115.518039,
+    "attempt_id": 305628,
+    "source_sha256": "43f4599e13887824008597fb2898f4416f92b79c768f13937b6da206ed581cbf",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "c5bf617d51283c531bda919830ead1325539c02f55b36925674f19d451a06799",
+    "relocations_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "vram": 2147670680,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
    "func_8002DE00": {
     "format": 1,
     "verdict": "exact",
@@ -258348,6 +258708,94 @@
     "target_sha256": "213bfa54ad2f997ff2621597f883d8ae6e61a2ed07be7c2e37265e3a6c99abd8",
     "relocations_sha256": "926787f8f35b31d24b394b36a14ae262ba5c74e574fc3b740c6882b8bd3948d5",
     "vram": 2147671552,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8002E530": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793895115.975799,
+    "attempt_id": 305629,
+    "source_sha256": "0d0911e7fbd8457651f24afda76589780aab57090cd7f39586cc7b6a5eb4a275",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "080d2aeddd3b24e597052f287eb4fade606e9dbb1018bfb186c62d59a6f2df2a",
+    "relocations_sha256": "4fed7cb040b33bfebcf1b6b4312e5532e25dcf85058528ad4f01861fcf942f6b",
+    "vram": 2147673392,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -278786,7 +279234,11 @@
    "badd0e9cf670956996583e7a0a4839e171aeaeec6ea6b085211f5c9e86e4c8be": "typedef struct { s32 x, y, z; } Vec3S32;\ntypedef struct { s16 x, y, z; } Vec3S16;\ntypedef struct { Vec3S32 v; s32 pad[2]; } Rec;\ntypedef struct { u8 pad[0x10]; Rec c[12]; Rec a[12]; Rec b[12]; } RecSet;\nvoid *func_80028E24(s32, Vec3S32 *);\nvoid func_80028E94(void *, Vec3S16 *, u32);\nvoid func_8002C044(void *);\nvoid func_8002D8A0(s32, Rec *, Rec *);\nextern s32 D_8009C230;\n\nstatic inline void vec_add(Vec3S32 *a, Vec3S32 *b, Vec3S32 *d)\n{\n  d->x = a->x + b->x;\n  d->y = a->y + b->y;\n  d->z = a->z + b->z;\n}\n\nvoid func_8002BD40(u8 *arg0)\n{\n  Vec3S32 sp10;\n  Vec3S16 sp20;\n  u32 i;\n  u8 *t;\n\n  *(s32 *)(*(u8 **)(arg0 + 0x8C) + 0x334) = 0;\n  *(s32 *)(*(u8 **)(arg0 + 0x8C) + 0x100) = 0;\n  for (i = 0; i < 12; i++)\n  {\n    func_8002D8A0(*(s32 *)(arg0 + 0x5C) + 0x40, &(*(RecSet **)(arg0 + 0x80))->c[i], &(*(RecSet **)(arg0 + 0x80))->a[i]);\n    vec_add(&(*(RecSet **)(arg0 + 0x80))->a[i].v, (Vec3S32 *)(*(u8 **)(arg0 + 0x58) + 0xC), &(*(RecSet **)(arg0 + 0x80))->b[i].v);\n    sp10 = *(&(*(RecSet **)(arg0 + 0x80))->b[i].v);\n    t = func_80028E24(D_8009C230, &sp10);\n    *(u8 **)(*(u8 **)(arg0 + 0x8C) + i * 4) = t;\n    sp20.x = sp10.x - *(s32 *)(t + 0x24);\n    sp20.y = sp10.y - *(s32 *)(t + 0x28);\n    sp20.z = sp10.z - *(s32 *)(t + 0x2C);\n    func_80028E94(arg0, &sp20, i);\n  }\n  func_8002C044(arg0);\n}\n",
    "c95ad94fe61b0cfadad81ae3c367d93ff4de23c1a4c1094042cd97d033718816": "#define W(p,o) (*(int*)((char*)(p)+(o)))\n#define U(p,o) (*(u16*)((char*)(p)+(o)))\n#define P(p,o) (*(char**)((char*)(p)+(o)))\ntypedef struct \n{\n  s16 x;\n  s16 y;\n  s16 z;\n} Vec;\ntypedef struct { s32 v[3]; s32 pad[2]; } E20;\ntypedef struct { s32 x, y, z; } V3;\ntypedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;\nextern char *D_800B5C40;\nvoid func_8002D8A0(void *, void *, void *);\nint func_80028E94(void *, void *, int);\nchar *func_80028D74(void *, void *);\nvoid func_80029AA8(void *, void *, void *, int);\nvoid func_8002A4C4(void *, void *, int, int);\nvoid func_80029EAC(void *, void *, int);\nvoid func_8002D7E4(int, int *);\nvoid func_8002E778(void *, void *);\nvoid func_8002C6EC(void *, void *);\nvoid func_8002B7D4(void *);\nstatic __inline__ void vadd(E20 *d, E20 *s, int *t)\n{\n  d->v[0] = s->v[0] + t[0];\n  d->v[1] = s->v[1] + t[1];\n  d->v[2] = s->v[2] + t[2];\n}\nvoid func_8002C044(char *a)\n{\nint __repair_literal;\n\n  int v[3];\n  int q[3];\n  Vec pos;\n  Vec save;\n  int shift[3];\n  unsigned i;\n  char *g;\n  char *old;\n  char *b;\n  int result;\n  int row;\n  int col;\n  int oldrow;\n  int oldcol;\n  \n  int w;\n  int k;\n  for (i = 0; i < 12; i++)\n  {\n    func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);\n    vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));\n  }\n  old = 0;\n\n  for (i = 0; i < 12; i++)\n  {\n    *(V3 *) v = *(V3 *) &((Blk20 *) P(a, 0x80))->o[i];\n    g = ((char **) P(a, 0x8c))[i];\n    pos.x = v[0] - W(g, 36);\n    pos.y = v[1] - W(g, 40);\n    pos.z = v[2] - W(g, 44);\n    result = func_80028E94(a, &pos, i);\n    if (result > 0)\n    {\n      int oldrow;\n      int oldcol;\n      int __repair_literal;\n      col = 0;\n      row = 0;\n      oldcol = ((int *) P(a, 0x60))[i + 12];\n      oldrow = ((int *) P(a, 0x60))[i];\n      save = pos;\n      __repair_literal = result;\n      g = func_80028D74(old = g, v);\n      if (g != old)\n      {\n        switch (result)\n        {\n          case 1:\n          case 4:\n          case 5:\n          case 6:\n          case 7:\n          case 8:\n            row = -1;\n            col = -1;\n            break;\n          case 2:\n            row = 0;\n            col = oldcol - (W(old, 76) - W(g, 76));\n            break;\n          case 3:\n            row = U(g, 136) - 2;\n            col = oldcol - (W(old, 76) - W(g, 76));\n            break;\n        }\n\n        w = U(g, 138) - 1; k = row * w;\n        if (!((u16 *) P(g, 112))[k + col])\n        {\n          col = -1;\n        }\n        if (row >= 0 && col >= 0 && row < U(g, 136) - 1 && col < U(g, 138) - 1)\n        {\n          W(P(a, 96), (i * 4) + 48) = col;\n          W(P(a, 96), i * 4) = row;\n          P(P(a, 140), i * 4) = g;\n          pos.x = v[0] - W(g, 36);\n          pos.y = v[1] - W(g, 40);\n          pos.z = v[2] - W(g, 44);\n          result = func_80028E94(a, &pos, i);\n          if (result)\n          {\n            result = -result;\n          }\n        }\n        else\n        {\n          W(P(a, 96), (i * 4) + 48) = oldcol + oldcol - oldcol;\n          W(P(a, 96), i * 4) = oldrow;\n          g = (char *)((int)old + (int)old - (int)old);\n          P(P(a, 140), i * 4) = g;\n          pos = save;\n          result = -__repair_literal;\n        }\n      }\n      else\n      {\n        result = -result;\n      }\n    }\n    if (i < 4)\n    {\n      func_8002D8A0(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);\n      v[0] <<= 2;\n      v[1] <<= 2;\n      v[2] <<= 2;\n      v[0] += W(P(a, 88), 232);\n      v[1] += W(P(a, 88), 236);\n      v[2] += W(P(a, 88), 240);\n      q[0] = v[0] - (W(g, 36) << 4);\n      q[1] = v[1] - (W(g, 40) << 4);\n      q[2] = v[2] - (W(g, 44) << 4);\n      if (result < 0)\n      {\n        if (i == 0)\n        {\n          shift[0] = 11;\n        }\n        if (i == 1)\n        {\n          shift[0] = 10;\n        }\n        if (i == 2)\n        {\n          shift[0] = 5;\n        }\n        if (i == 3)\n        {\n          shift[0] = 4;\n        }\n        {\n          int k = shift[0] * 4;\n          W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);\n          W(P(a, 96), i * 4) = *(int *)(k + (int)P(a, 96));\n          P(P(a, 140), i * 4) = *(char **)(k + (int)P(a, 140));\n        }\n        func_80029AA8(a, q, &pos, i);\n      }\n      else\n        func_80029AA8(a, q, &pos, i);\n    }\n    else if (result < 0)\n    {\n      func_8002A4C4(a, &pos, i, result);\n    }\n    else\n    {\n      func_80029EAC(a, &pos, i);\n    }\n  }\n\n  for (b = P(D_800B5C40, 0); b; b = P(b, 4))\n  {\n    if (((b == a) || (W(b, 20) & 64)) || (W(a, 20) & 64))\n    {\n      continue;\n    }\n    v[0] = W(P(a, 92), 84) - W(P(b, 92), 84);\n    v[1] = W(P(a, 92), 88) - W(P(b, 92), 88);\n    v[2] = W(P(a, 92), 92) - W(P(b, 92), 92);\n    func_8002D7E4(v[0], shift);\n    func_8002D7E4(v[1], shift + 1);\n    func_8002D7E4(v[2], shift + 2);\n    if (((shift[0] < 17) || (shift[1] < 17)) || (shift[2] < 17))\n    {\n      if (shift[0] > shift[1])\n      {\n        shift[0] = shift[1];\n      }\n      if (shift[0] > shift[2])\n      {\n        shift[0] = shift[2];\n      }\n      shift[0] = 17 - shift[0];\n      v[0] >>= shift[0];\n      v[1] >>= shift[0];\n      v[2] >>= shift[0];\n    }\n    func_8002E778(v, v);\n    v[0] += v[1] + v[2];\n    if (v[0] <= 0x4e1ff)\n    {\n      func_8002C6EC(a, b);\n    }\n  }\n\n  func_8002B7D4(a + i - i);\n}\n",
    "39491578c96b04395bab49eca618af12e6e3c3d73b187bf314141ff2bf692bef": "#line 1 \"reference.c\"\nu8 func_8002C6EC(void *arg0, void *arg1)\n{\n  Scratch frame; Vec3 *vp;\n  char *faceBase;\n  char *other;\n  int oldCount;\n  int otherCount;\n  char *new_var3;\n  char *new_var;\n  u16 new_var2;\n  int k; unsigned more;\n  int count;\n  int faceIndex;\n  unsigned int i;\n  unsigned int vertex;\n  unsigned int j;u32 x0,x1,x2,x3;\n  char *a;\n  char *b;\n  char *rot;char *raw;\n\n\n  s8 *table,*table0,*table1,*table2;\n  raw = (*(char *volatile *)((char *)arg1+0x5c));\n  a = (*(char *volatile *)((char *)arg1+0x8c));\n  b = P(arg0, 0x8c);\n  faceBase = a + 0x104;\n  other = b + 0x338;\n  oldCount = W(a, 0x100);\n  otherCount = W(b, 0x334);\n  rot=raw+0x40;\n  func_8002DA98(rot, &frame.mat);\n  frame.bounds[2] = W(P(arg1, 0x80), 0xec) + 15;\n  frame.bounds[3] = W(P(arg1, 0x80), 0xf0) + 15;\n  frame.bounds[5] = W(P(arg1, 0x80), 0xf4) + 15;\n  frame.bounds[0] = W(P(arg1, 0x80), 0x88) - 15;\n  frame.bounds[1] = W(P(arg1, 0x80), 0x8c) - 15;\n  frame.bounds[4] = W(P(arg1, 0x80), 0x90) - 50;\n  {\n    s8 one=1;\n    s8 *p = frame.flags;\n    do\n    {\n      *(p++) = one;\n    }\n    while (p < (frame.flags + 6));\n  }\n  frame.delta[0] = W(P(arg0, 0x5c), 0x54) - W(rot, 0x14);\n  frame.delta[1] = W(P(arg0, 0x5c), 0x58) - W(rot, 0x18);\n  frame.delta[2] = W(P(arg0, 0x5c), 0x5c) - W(rot, 0x1c);\n  func_8002E530(&frame.mat, frame.delta, &frame.out);\n  if (frame.out.x > 0)\n  {\n    frame.flags[1] = 0;\n  }\n  else\n    if (frame.out.x == 0)\n  {\n    frame.flags[3] = (frame.flags[1] = 0);\n  }\n  else\n    if (frame.out.x < 0)\n  {\n    frame.flags[3] = 0;\n  }\n  if (frame.out.y > 0)\n  {\n    frame.flags[4] = 0;\n  }\n  else\n    if (frame.out.y == 0)\n  {\n    frame.flags[4] = 0;\n    frame.flags[5] = 0;\n  }\n  else\n    if (frame.out.y < 0)\n  {\n    frame.flags[5] = 0;\n  }\n  if (frame.out.z > 0)\n  {\n    frame.flags[0] = 0;\n  }\n  else\n    if (frame.out.z == 0)\n  {\n    frame.flags[0] = 0;\n    frame.flags[2] = 0;\n  }\n  else\n    if (frame.out.z < 0)\n  {\n    frame.flags[2] = 0;\n  }\n  frame.zero.p.x = 0;\n  frame.zero.p.z = 0;\n  frame.dir.p.x = frame.out.x;\n  frame.dir.p.z = frame.out.z;\ni=0;\n{ int *test0=&frame.test;\n  for (table0 = D_8009E270; i < 4; i++, table0 += 2)\n  {\n    if (frame.flags[i])\n    {\n      frame.pair.p.x = W(P(arg1, 0x80), (table0[0] * 20) + 0x60);\n      frame.pair.p.z = W(P(arg1, 0x80), (table0[0] * 20) + 0x68);\n      func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test0);\n      x0=i*2;\n      if (frame.test > 0)\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (D_8009E271[x0] * 20) + 0x60);\n        frame.pair.p.z = W(P(arg1, 0x80), (D_8009E271[x0] * 20) + 0x68);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test0);\n        if (frame.test < 0)\n        {\n          break;\n        }\n        frame.flags[i] = 0;\n      }\n    }\n  }\n}\n\n\n  for (x0 = i + 1; x0 < 4; x0++)\n  {\n    frame.flags[x0] = 0;\n  }\n\n  if ((i == 2) || (i == 0))\n  {\n    x1 = i;\n    frame.dir.p.x = frame.out.y;\n    frame.dir.p.z = frame.out.z;\n    if (x1 < 6)\n    {\nint *test1=&frame.test;\n    table1 = D_8009E278 + i * 2;\n    for (; x1 < 6; x1++, table1 += 2)\n    {\n      if (frame.flags[x1])\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (table1[0] * 20) + 0x64);\n        frame.pair.p.z = W(P(arg1, 0x80), (table1[0] * 20) + 0x68);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test1);\n        i=x1*2;\n        if (frame.test > 0)\n        {\n          frame.pair.p.x = W(P(arg1, 0x80), (D_8009E279[i] * 20) + 0x64);\n          frame.pair.p.z = W(P(arg1, 0x80), (D_8009E279[i] * 20) + 0x68);\n          func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test1);\n          if (frame.test < 0)\n          {\n            break;\n          }\n          frame.flags[x1] = 0;\n        }\n      }\n    }\n    }\n\n  }\n  else\n  {\n    x1 = i;\n    frame.dir.p.x = frame.out.x;\n    frame.dir.p.z = frame.out.y;\n    if (x1 < 6)\n    {\nint *test2=&frame.test;\n    table2 = D_8009E284 + i * 2;\n    for (; x1 < 6; x1++, table2 += 2)\n    {\n      if (frame.flags[x1])\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (table2[0] * 20) + 0x60);\n        frame.pair.p.z = W(P(arg1, 0x80), (table2[0] * 20) + 0x64);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test2);\n        i=x1*2;\n        if (frame.test < 0)\n        {\n          frame.pair.p.x = W(P(arg1, 0x80), (D_8009E285[i] * 20) + 0x60);\n          frame.pair.p.z = W(P(arg1, 0x80), (D_8009E285[i] * 20) + 0x64);\n          func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test2);\n          if (frame.test > 0)\n          {\n            break;\n          }\n          frame.flags[x1] = 0;\n        }\n      }\n    }\n    }\n\n  }\nfaceIndex=x1;count=0;i=0;vp=&frame.v;if(vp){x0=oldCount+(((u32)(u8)faceIndex)>>8);}else{x0=oldCount;}x2=(x0<<3)-x0;x2<<=3;x0=x2+(u32)faceBase;\nfor (;(more=i<12);i++)\n  {\n    frame.v = *((Vec3 *)(P(arg0, 0x80) + 0x1f0 + i*20));\n    frame.v.x -= W(rot, 0x14);\n    frame.v.y -= W(rot, 0x18);\n    frame.v.z -= W(rot, 0x1c);\n    func_8002E778(vp, &frame.out);\n    frame.out.x += frame.out.y + frame.out.z;\n    if (frame.out.x > 0x270ff)\n    {\n      continue;\n    }\n    frame.delta[0] = frame.v.x;\n    frame.delta[1] = frame.v.y;\n    frame.delta[2] = frame.v.z;\n    func_8002E530(&frame.mat, frame.delta, vp);\n    if (!((((((frame.v.x < frame.bounds[2]) && (frame.bounds[0] < frame.v.x)) && (frame.v.y < frame.bounds[3])) && (frame.bounds[1] < frame.v.y)) && (frame.v.z < frame.bounds[5])) && (frame.bounds[4] < frame.v.z)))\n    {\n      continue;\n    }\n    switch (faceIndex)\n    {\n      case 0:\n        frame.out.x = frame.bounds[4] - frame.v.z;\n        frame.face.m[0] = H(rot, 0);\n        frame.face.m[3] = H(rot, 6);\n        frame.face.m[6] = H(rot, 12);\n        frame.face.m[1] = -H(rot, 4);\n        frame.face.m[4] = -H(rot, 10);\n        frame.face.m[7] = -H(rot, 16);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 2:\n        frame.out.x = frame.v.z - frame.bounds[5];\n        frame.face.m[0] = -H(rot, 0);\n        frame.face.m[3] = -H(rot, 6);\n        frame.face.m[6] = -H(rot, 12);\n        frame.face.m[1] = H(rot, 4);\n        frame.face.m[4] = H(rot, 10);\n        frame.face.m[7] = H(rot, 16);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 1:\n        frame.out.x = frame.bounds[0] - frame.v.x;\n        frame.face.m[0] = -H(rot, 4);\n        frame.face.m[3] = -H(rot, 10);\n        frame.face.m[6] = -H(rot, 16);\n        frame.face.m[1] = -H(rot, 0);\n        frame.face.m[4] = -H(rot, 6);\n        frame.face.m[7] = -H(rot, 12);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 3:\n        frame.out.x = frame.v.x - frame.bounds[2];\n        frame.face.m[0] = H(rot, 4);\n        frame.face.m[3] = H(rot, 10);\n        frame.face.m[6] = H(rot, 16);\n        frame.face.m[1] = H(rot, 0);\n        frame.face.m[4] = H(rot, 6);\n        frame.face.m[7] = H(rot, 12);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 4:\n        frame.out.x = frame.bounds[1] - frame.v.y;\n        new_var = rot;\n        frame.face.m[0] = H(new_var, 4);\n        frame.face.m[3] = H(rot, 10);\n        frame.face.m[6] = H(rot, 16);\n        frame.face.m[1] = -H(rot, 2);\n        frame.face.m[4] = -H(rot, 8);\n        frame.face.m[7] = -H(rot, 14);\n        frame.face.m[2] = H(rot, 0);\n        frame.face.m[5] = H(rot, 6);\n        frame.face.m[8] = H(rot, 12);\n        break;\n\n      case 5:\n        frame.out.x = frame.v.y - frame.bounds[3];\n        frame.face.m[0] = -H(rot, 4);\n        frame.face.m[3] = -H(rot, 10);\n        frame.face.m[6] = -H(rot, 16);\n        frame.face.m[1] = H(new_var3 = rot, 2);\n        frame.face.m[4] = H(rot, 8);\n        frame.face.m[7] = H(rot, 14);\n        frame.face.m[2] = H(rot, 0);\n        frame.face.m[5] = H(rot, 6);\n        frame.face.m[8] = H(rot, 12);\n        break;\n\n    }\n\n    if (frame.out.x > 0)\n    {\n      frame.out.x = 0;\n    }\n    else\n      if (i >= 4)\n    {\n      u32 p = (u32)otherCount*48+(u32)other;\n      W(p, 0x28) = frame.out.x << 4;\n      W(p, 0x24) = i;\n      P(p, 0x20) = arg1;\n      *((Matrix32 *) p) = frame.face;\n      W(p, 0x2c) = 1;\n      W(P(arg0, 0x8c), 0x334) = otherCount + 1;\n    }\n    if (i < 4)\n    {\n      W(P(arg0, 0x80), 0x310 + (i * 4)) = frame.out.x;\n      W(P(arg0, 0x80), 0x320 + (i * 4)) = 1;\n      {Matrix32 *base=(Matrix32 *)(P(arg0,0x8c)+0x30); base[i]=frame.face;}\n    }\n    if (frame.out.x < 0)\n    {\n      count++;\n      W(((char *)x0), 0x30) = frame.out.x << 4;\n      W(((char *)x0), 0x34) = 1;\n      W(((char *)x0), 0x2c) = i;\n      P(((char *)x0), 0x28) = arg0;\n      if (faceIndex == 0) H(((char *)x0), 0) = 0; else H(((char *)x0), 0) = frame.v.x;\n      H(((char *)x0), 2) = frame.v.y;\n      H(((char *)x0), 4) = frame.v.z;\n      frame.face.m[1] = -frame.face.m[1];\n      frame.face.m[4] = -frame.face.m[4];\n      frame.face.m[7] = -frame.face.m[7];\n      new_var2 = frame.face.m[2];\n      frame.face.m[2] = -new_var2;\n      frame.face.m[5] = -frame.face.m[5];\n      frame.face.m[8] = -frame.face.m[8];\n      *((Matrix32 *) (((char *)x0) + 8)) = frame.face;\n      if (oldCount < 10)\n      {\n        W(P(arg1, 0x8c), 0x100) = oldCount + 1;\n      }\n    }\n  }\n\n  { u8 finalCount=(u8)count; if(finalCount) return more | ((finalCount<<8)>>16); else return more; }\n}\n",
+   "0108d9770a8e2e102e4324f347ab853d9854137826efba3319011f7f37d6fc6f": "void func_8002D594(s32 *, s32 *, s32 *);\nvoid func_8002D724(s32 *a, s32 *b, s32 *c) { func_8002D594(a,b,c); }\n",
+   "b11fcf0f9a534527fe43c5eeab12169cd4b9a5b6fdef3c802c7738735863d8d4": "void func_8002D620(s32 *, s32 *, s32 *);\nvoid func_8002D740(s32 *a, s32 *b, s32 *c) { func_8002D620(a,b,c); }\n",
+   "43f4599e13887824008597fb2898f4416f92b79c768f13937b6da206ed581cbf": "typedef struct { s16 h[9]; unsigned int :16; unsigned int :32; unsigned int :32; unsigned int :32; } Matrix;\ntypedef char matrix_size_check[sizeof(Matrix)==32?1:-1];\ntypedef struct { char c; Matrix m; } MatrixAlignmentCheck;\ntypedef char matrix_alignment_check[sizeof(MatrixAlignmentCheck)==36?1:-1];\nvoid *func_8002DA98(void *raw0, void *raw1)\n{\n  Matrix *arg0 = raw0;\n  Matrix *arg1 = raw1;\n  s32 i;\n  s32 j;\n\n  ((u16 *)arg1)[0] = ((u16 *)arg0)[0];\n  ((u16 *)arg1)[4] = ((u16 *)arg0)[4];\n  ((u16 *)arg1)[8] = ((u16 *)arg0)[8];\n  for (i = 0; i < 3; i++)\n  {\n    for (j = 0; j < 3; j++)\n    {\n      ((u16 *)((char *)arg1 + j * 6))[i] = ((u16 *)((char *)arg0 + i * 6))[j];\n    }\n  }\n  __builtin_memcpy((s32 *)((unsigned char *)arg1+20), (const s32 *)((const unsigned char *)arg0+20), 4);\n__builtin_memcpy((s32 *)((unsigned char *)arg1+24), (const s32 *)((const unsigned char *)arg0+24), 4);\n__builtin_memcpy((s32 *)((unsigned char *)arg1+28), (const s32 *)((const unsigned char *)arg0+28), 4);\n  return arg1;\n}\n",
    "066b097494e8c0d93ef5a2252f9f1054015979b6385509a38eaa2860a9ec91ab": "void func_8002DB18();\ns16 *func_8002DE00(s16 *arg0, s16 *arg1)\n{\n  s16 sp10[16];\n  s16 sp30[16];\n  s16 sp50[16];\n  s16 sp70[16];\n  s16 *var_s6;\n  s16 s5;\n  s16 s2;\n  s16 s3;\n  s16 s1;\n  s16 s0;\n  s16 last;\n  var_s6 = arg1;\n  s2 = arg0[0];\n  s5 = func_8002D2E4(s2);\n  s2 = func_8002D348(arg0[0]);\n  s3 = func_8002D2E4(arg0[1]);\n  s1 = func_8002D348(arg0[1]);\n  s0 = func_8002D2E4(arg0[2]);\n  last = func_8002D348(arg0[2]);\n  sp10[0] = s3;\n  sp10[1] = 0;\n  {\n    s16 positive = s1;\n    ;\n    sp10[2] = positive;\n  }\n  sp10[3] = 0;\n  sp10[4] = 0x1000;\n  sp10[5] = 0;\n  sp10[6] = -s1;\n  sp10[7] = 0;\n  sp10[8] = s3;\n  sp30[0] = 0x1000;\n  sp30[1] = 0;\n  sp30[2] = 0;\n  sp30[3] = 0;\n  sp30[4] = s5;\n  sp30[5] = -s2;\n  sp30[6] = 0;\n  sp30[7] = s2;\n  sp30[8] = s5;\n  sp50[0] = s0;\n  sp50[1] = -last;\n  sp50[2] = 0;\n  sp50[3] = last;\n  sp50[4] = s0;\n  sp50[5] = 0;\n  sp50[6] = 0;\n  sp50[7] = 0;\n  sp50[8] = 0x1000;\n  func_8002DB18(sp10, sp30, sp70);\n  func_8002DB18(sp70, sp50, var_s6);\n  return var_s6;\n}\n\n",
+   "0d0911e7fbd8457651f24afda76589780aab57090cd7f39586cc7b6a5eb4a275": "s32 *func_8002E288(s16 *, s16 *, s32 *);\ns32 *func_8002E530(s16 *a, s16 *b, s32 *c) { return func_8002E288(a,b,c); }\n",
    "3848ce72907d4eb645622f639c10cb8dfc88edf4684207fa7975292eb87eaa25": "s32 func_8002E688(s32 *arg0, s32 *arg1)\n{\n  f32 v[3];\n  f32 len;\n  f32 fn;\n  f32 s;\n  s32 n;\n  v[0] = (f32) arg0[0];\n  v[1] = (f32) arg0[1];\n  v[2] = (f32) arg0[2];\n  len = ((v[0] * v[0]) + (v[1] * v[1])) + (v[2] * v[2]);\n  if (len != 0.0f)\n  {\n    n = (s32) __builtin_sqrtf(len);\n  }\n  else\n  {\n    n = 0;\n  }\n  if (n == 0)\n  {\n    n = 1;\n  }\n  s = 4096.0f; arg1[0] = (s32) ((((f32) arg0[0]) / ((f32) n)) * s);\n  arg1[1] = (s32) ((((f32) arg0[1]) / ((f32) n)) * s);\n  s = (((f32) arg0[2]) / ((f32) n)) * s;\n  arg1[2] = (s32) s;\n  return n;\n}",
    "b55498b8d868a1b1ffc8bd995ea6d1efa7f9656dbed6eb97590651219c4b8ff3": "typedef struct { u32 w0, w1; } Gfx;\ntypedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;\ntypedef struct { char pad[0x38]; char mtx[0xE0]; f32 x, y, z; } Camera; /* x at 0x118 */\ntypedef struct { char pad[4]; u16 mode; } Config;\ntypedef struct { char pad[6]; u16 w; u16 h; } Tex;\ntypedef struct { char pad[4]; Tex **tex; } Model;\ntypedef struct {\n    u16 active;      /* 0x00 */\n    char pad2[2];\n    u16 c4, c6, c8;  /* 0x04 */\n    char padA[8];\n    u16 texIdx;      /* 0x12 */\n    char pad14[4];\n    u16 size;        /* 0x18 */\n    char pad1A[4];\n    u8 alpha;        /* 0x1E */\n    u8 pad1F;\n    Model *model;    /* 0x20 */\n} Entry;\ntypedef struct { char pad[0x54]; s32 x, y, z; } Pos;\ntypedef struct { char pad[0x5C]; Pos *pos; } Obj;\ntypedef struct { s8 a; s8 b; s16 c; s16 d; u16 e; u16 f; u16 g; } Draw;\n\nGfx *func_80006008(DLBuf *);\nvoid func_80006014(DLBuf *, Gfx *);\nvoid *func_8001BD1C(void);\nvoid guMtxIdentF(f32 (*)[4]);\nvoid func_80010BFC(void *, void *, f32 (*)[4]);\nvoid func_800061FC(DLBuf *, void *);\nvoid func_800075BC(DLBuf *, Tex *, s32);\nvoid func_80019C90(DLBuf *, void *, Draw *, u16, u16);\nextern char D_8009EAB0[];\nextern Config *D_800C811C;\nextern Camera *D_800C7F84;\nextern u16 D_800ADFC6[3];\nextern const f64 D_800A4A50;\nextern const f64 D_800A4A58;\nextern s32 D_800AFA8C;\n\n#define CLMP(v) ((v) >= 256 ? 255 : (v))\n#define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\n\nvoid func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice)\n{\n    f32 mf[4][4];\n    Draw draw;\n    Gfx *dl;\n    Gfx *p;\n    void *m;\n    u8 done;\n    u8 started;\n    s32 r, g, b;\n    u32 c;\n    s32 d;\n    s32 dy, dz;\n    f32 x;\n\n    done = 0;\n    started = 0;\n    if (twice) {\n        count = (u32)count >> 1;\n    }\n    while (count--) {\n        if (e->active != 0) {\n            if (!started) {\n                dl = func_80006008(buf);\n                started = 1;\n                GCMD(dl++, 0xDE000000, (u32)D_8009EAB0);\n                switch (D_800C811C->mode) {\n                case 2:\n                    GCMD(dl++, 0xFA000000, -1);\n                    GCMD(dl++, 0xFB000000,\n                         (((u32)({ r = D_800ADFC6[0] * 2; if (r >= 256) r = 255; r; }) & 0xFF) << 24) |\n                         (((u32)({ g = D_800ADFC6[1] * 2; if (g >= 256) g = 255; g; }) & 0xFF) << 16) |\n                         (((u32)({ b = D_800ADFC6[2] * 2; if (b >= 256) b = 255; b; }) & 0xFF) << 8) |\n                         ((u32)e->alpha & 0xFF));\n                    break;\n                case 1:\n                    GCMD(dl++, 0xFA000000, -1);\n                    p = dl++;\n                    p->w0 = 0xFB000000;\n                    r = D_800ADFC6[0] * 2;\n                    if (r >= 256) r = 255;\n                    d = r << 24;\n                    g = D_800ADFC6[1] * 2;\n                    if (g >= 256) g = 255;\n                    c = d | ((g & 0xFF) << 16);\n                    b = D_800ADFC6[2] * 2;\n                    if (b >= 256) b = 255;\n                    p->w1 = c | ((b & 0xFF) << 8) | e->alpha;\n                default:\n                    GCMD(dl++, 0xFB000000, e->alpha | 0xFFFFFF00);\n                    GCMD(dl++, 0xFA000000, -1);\n                    break;\n                }\n                func_80006014(buf, dl);\n            }\n            if (!done) {\n                done = 1;\n                m = func_8001BD1C();\n                guMtxIdentF(mf);\n                x = obj->pos->x;\n                if (!(abs((s32)(x - D_800C7F84->x)) < D_800A4A50)) return;\n                if (!(abs((s32)((f32)obj->pos->y - D_800C7F84->y)) < D_800A4A58)) return;\n                if (!(abs((s32)((f32)obj->pos->z - D_800C7F84->z)) < D_800A4A50)) return;\n                mf[3][0] = x;\n                mf[3][1] = obj->pos->y;\n                mf[3][2] = obj->pos->z;\n                func_80010BFC(m, D_800C7F84->mtx, mf);\n                func_800061FC(buf, m);\n            }\n            if (done == 1) {\n                D_800AFA8C++;\n                func_800075BC(buf, e->model->tex[e->texIdx], 0);\n                draw.a = 3;\n                draw.b = 0;\n                draw.c = e->size * 2;\n                draw.d = e->size * 2;\n                draw.e = e->c4;\n                draw.f = e->c6;\n                draw.g = e->c8;\n                func_80019C90(buf, D_800C7F84->mtx, &draw, e->model->tex[0]->w, e->model->tex[0]->h);\n            }\n        }\n        e++;\n        if (twice) {\n            e++;\n        }\n    }\n}\n",
    "9c48b4996538a3273337b43a3562a2aa08223e2a12967bec96ca77bc745a7751": "typedef struct \n{\n  u32 w0;\n  u32 w1;\n} Gfx;\ntypedef struct Obj\n{\n  s32 x;\n  s32 y;\n  s32 z;\n  s16 v0[3];\n  s16 v2[3];\n  s16 v1[3];\n  s16 pad;\n  s32 flags;\n} Obj;\ntypedef struct Xform\n{\n  f32 mat[4][4];\n  u16 origin[3];\n  s32 offset[3];\n} Xform;\ntypedef struct Size\n{\n  u8 pad[6];\n  u16 w;\n  u16 h;\n} Size;\nGfx *func_80006008(void *);\nvoid func_80006014(void *, Gfx *);\nvoid func_800061FC(void *, s32);\nvoid func_800068C0(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);\ns32 func_80006EF8(void *, s32);\nvoid func_800071EC(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);\nvoid func_800075BC(void *, void *, s32);\nvoid func_80008B28(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);\ns32 func_80010BFC(s32, void *, Xform *);\ns32 func_8001BD1C(void);\nvoid guMtxIdentF(void *);\nextern u8 D_8009EB00[];\nextern u8 D_8009EB40[];\nextern s32 D_8009FF30;\nextern f64 D_800A4A60;\nextern u8 D_800C02AE[];\nvoid func_8002F270(void *arg0, Obj *obj, s32 count, Size *size, void *arg4)\n{\n  u8 loaded;\n  Xform tr;\n  s16 delta[3];\n  u8 setup;\n  s32 first;\n  s32 result;\n  \n  s32 d;\n  s32 d2;\n  s16 dx;\n  s16 dy;\n  s16 dz;\n  u8 *cam;\n  Gfx *g;\n  u16 id;\n  f64 lim;\n  loaded = 0;\n  result = 0;\n  *((u16 *) (((u8 *) arg4) + 0x78)) = 0;\n  guMtxIdentF(tr.mat);\n  first = 1;\n  setup = 0;\n  if (count--)\n  {\n    lim = D_800A4A60;\n    do\n    {\n      if (obj->flags & 1)\n      {\n        if (!loaded)\n        {\n          func_800075BC(arg4, size, 0);\n          loaded = 1;\n        }\n        if (first)\n        {\n          first = 0;\n          if (!setup)\n          {\n            setup = first + 1;\n            g = func_80006008(arg4);\n            \n            if (D_8009FF30 == 5)\n            {\n              Gfx *_g = g++;\n              _g->w0 = 0xDE000000;\n              _g->w1 = (u32) D_8009EB40;\n            }\n            else\n            {\n              Gfx *_g = g++;\n              _g->w0 = 0xDE000000;\n              _g->w1 = (u32) D_8009EB00;\n            }\n            {\n              Gfx *_g = g++;\n              _g->w0 = 0xDE000000;\n              _g->w1 = (u32) D_8009EB00;\n            }\n            {\n              Gfx *_g = g++;\n              _g->w0 = 0xFA000000;\n              _g->w1 = ((D_800C02AE[0x6C27] << 24) | (D_800C02AE[0x6C27] << 16)) | (D_800C02AE[0x6C27] << 8);\n            }\n            {\n              Gfx *_g = g++;\n              _g->w0 = 0xFB000000;\n              _g->w1 = (((D_800C02AE[0x6C26] << 24) | (D_800C02AE[0x6C26] << 16)) | (D_800C02AE[0x6C26] << 8)) | D_800C02AE[0x6C28];\n            }\n            func_80006014(arg4, g);\n          }\n          d = func_8001BD1C();\n          tr.mat[3][0] = obj->x;\n          tr.mat[3][1] = obj->y;\n          tr.mat[3][2] = obj->z;\n          tr.origin[0] = obj->x;\n          tr.origin[1] = obj->y;\n          tr.origin[2] = obj->z;\n          tr.offset[0] = 0;\n          tr.offset[1] = 0;\n          tr.offset[2] = 0;\n          cam = *((u8 **) (D_800C02AE + 0x7CD6));\n          d2 = (*((f32 *) (cam + 0x118))) - ((f32) obj->x);\n          if (__builtin_abs(d2) <= 6000)\n          {\n            s32 dz2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);\n            if (__builtin_abs(dz2) < 6001)\n            {\n              result = func_80010BFC(d, cam + 0x38, &tr);\n              if (result == 1)\n              {\n                func_800061FC(arg4, d);\n              }\n            }\n            else\n            {\n              result = 0;\n            }\n          }\n          else\n          {\n            result = 0;\n          }\n        }\n        else\n        {\n          dx = obj->x - tr.origin[0];\n          delta[0] = dx;\n          dy = obj->y - tr.origin[1];\n          delta[1] = dy;\n          dz = obj->z - tr.origin[2];\n          delta[2] = dz;\n          if (((((f64) abs(dx)) < lim) && (((f64) abs(dy)) < lim)) && (((f64) abs(dz)) < lim))\n          {\n            s32 e = obj->y;\n            e = e - (*((s32 *) ((*((u8 **) (((u8 *) arg0) + 0x5C))) + 0x58)));\n            e = __builtin_abs(e);\n            if (e < 160)\n            {\n              tr.offset[0] = dx;\n              tr.offset[1] = dy;\n              tr.offset[2] = dz;\n              goto draw;\n            }\n          }\n          obj--;\n          count++;\n          first = 1;\n          result = 0;\n        }\n        draw:\n        if (result == 1)\n        {\n          id = func_80006EF8(arg4, 0);\n          func_800068C0(arg4, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2], (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]), (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]), (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));\n          func_800071EC(arg4, id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);\n          func_80008B28(arg4, id, 0, 0, size->w, 0, size->w, size->h, 0, size->h);\n        }\n        else\n        {\n          first = 1;\n        }\n\n      }\n      obj++;\n    }\n    while (count--);\n  }\n}\n\n",

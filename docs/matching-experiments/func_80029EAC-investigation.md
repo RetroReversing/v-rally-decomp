@@ -81,3 +81,7 @@ adjacent corrected-source examples preserve the tested inputs for review.
 The focal caller remains OPEN295 and the full cross-unit record types have not
 been globally reconciled. No runtime update or restart was performed for this
 revisit.
+
+### Normal import confirmed
+
+Subsequent read-only inspection confirms all four exact corrected source hashes in the live matched records. The canonical standalone tree now contains the same four tested corrections. The full normal progress export also retains current app source/profile alternatives; previously verified standalone variants remain selected for other functions until separately audited. This adds no match and keeps the copied full-image proof above.
