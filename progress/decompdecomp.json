@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793862097.8424199,
- "revision": 16941,
+ "saved_at": 1793863885.521704,
+ "revision": 17359,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5623,8 +5623,8 @@
   },
   "func_80043A78": {
    "vram": 2147760760,
-   "best_score": 460,
-   "best_by": "permuter"
+   "best_score": 425,
+   "best_by": "claude-opus-3"
   },
   "func_80043F70": {
    "vram": 2147762032,
@@ -5723,8 +5723,8 @@
   },
   "func_80046E54": {
    "vram": 2147774036,
-   "best_score": 200,
-   "best_by": "claude-opus-7"
+   "best_score": 140,
+   "best_by": "permuter"
   },
   "func_800471B0": {
    "vram": 2147774896,
@@ -6228,8 +6228,8 @@
   },
   "func_800502D4": {
    "vram": 2147812052,
-   "best_score": 180,
-   "best_by": "claude-opus-8"
+   "best_score": 140,
+   "best_by": "claude-opus-3"
   },
   "func_8005060C": {
    "vram": 2147812876,
@@ -6398,8 +6398,8 @@
   },
   "func_800529F0": {
    "vram": 2147822064,
-   "best_score": 145,
-   "best_by": "claude-opus-5"
+   "best_score": 135,
+   "best_by": "claude-opus-7"
   },
   "func_80052BB0": {
    "vram": 2147822512,
@@ -6963,8 +6963,8 @@
   },
   "func_80059A60": {
    "vram": 2147850848,
-   "best_score": 220,
-   "best_by": "claude-opus-7"
+   "best_score": 200,
+   "best_by": "permuter"
   },
   "func_80059F80": {
    "vram": 2147852160,
@@ -7303,8 +7303,8 @@
   },
   "func_8005E49C": {
    "vram": 2147869852,
-   "best_score": 45,
-   "best_by": "claude-opus-4"
+   "best_score": 25,
+   "best_by": "permuter-1222"
   },
   "func_8005E68C": {
    "vram": 2147870348,
@@ -7618,8 +7618,8 @@
   },
   "func_8006185C": {
    "vram": 2147883100,
-   "best_score": 130,
-   "best_by": "claude-opus-3"
+   "best_score": 90,
+   "best_by": "permuter"
   },
   "func_80061DB8": {
    "vram": 2147884472,
@@ -10218,8 +10218,8 @@
   },
   "func_800885CC": {
    "vram": 2148042188,
-   "best_score": 175,
-   "best_by": "permuter"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8008871C": {
    "vram": 2148042524,
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 145 \u2192 145; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 158s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 171 cached skips; 0 rejected; 59s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161627,7 +161627,7 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 460 \u2192 460; 0 improvements; 58 candidates tested; 92 cached skips; 0 rejected; 109s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 425 \u2192 425; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_80043A78 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-887"
   },
   {
@@ -161702,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 300 candidates tested; 123 cached skips; 0 rejected; 143s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 300 candidates tested; 147 cached skips; 0 rejected; 144s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161732,7 +161732,7 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 300 candidates tested; 121 cached skips; 0 rejected; 508s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 62s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
@@ -161747,7 +161747,7 @@
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 300 candidates tested; 196 cached skips; 0 rejected; 142s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 300 candidates tested; 205 cached skips; 0 rejected; 142s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1446"
   },
   {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 214 cached skips; 0 rejected; 138s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 216 cached skips; 0 rejected; 131s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -164248,6 +164248,56 @@
   {
    "function": "func_80029AA8",
    "text": "Matched257 instructions/1028 bytes with unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Triangle copy rotation retains semantics. A phased union reuses right index storage for the later diffR pointer after its final integer use; moving the temporary copy after diagonal calculation but before the helper call recovers register allocation. Ordinary linked and complete cartridge checks passed; all2060 prior objects unchanged.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nScore 60: only diff is sb 0x228 placed before `move a0,s2` instead of after (target: addiu v0,a0,1 [delay]; move a0,s2; sb v0,0x228(a1); jal; move a1,s0). Tried (worse or equal): s8 idx local + D[0x228]=idx+1 (215, a1->a2 regalloc), dropping the if(func_80065860) duplicate-branch hack (145), ((s8*))[0x228]++ (60), +=1 (60), (s32) cast on compare (60), comma-expr in call args (145/215). Target copies lb result into a0 (move a0,v1) then addiu v0,a0,1, so the idx pseudo shares a0. Untried: copy arg0/arg1 into locals before the if; restructure into one shared call after the if/else.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Saved best 1000 is SEMANTICALLY WRONG: branch B uses `temp_s3 <<= 6`, mutating the loop-invariant arg1&0xFF used as call arg next iteration. Valid fix with best score: revision 7533a20c92c354b32ae7 (score 1030): branch-B line written as `var_a2_2 = (void *)(((s8*)temp_s6) + ((temp_s0*0x10) + (temp_s3 << 6)));` (same form as branch A). Remaining diff there: s3/s4 swapped (loop counter var_s4 gets s3, temp_s3 gets s4) plus prologue s7 save order. Tried without effect: swapping `var_s4=0`/`temp_s3=` order, reordering declarations. Passing `arg1 & 0xFF` directly to call -> 3121. A clean struct-based rewrite (u8 args, Blk/Ent structs, merged tail) scored ~10300 \u2014 target duplicates call+stores into both branches with a shared tail from `d = *sp14 - val` (L8006BD78), and arg1 must be `unsigned int` (no entry mask). Next idea: make loop counter a u8 variable (i++ with u8 type) or make temp_s3 a u8 in the 1030 version to flip s3/s4 priority.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_800502D4",
+   "text": "Now 140 (was 160 recheck). Fix: write the 6880 store as *(u32*)(D_800AE850+0x8030)=5 (target now relocs to that symbol; was 0x800B6880 const). Remaining: 2 rows are the reloc artifact on the |=2 store to D_800C02AE+0x8076 (target %hi(D_800C02AE+0x132f2)/-0x7cdc, unfixable), plus the sb D_800C8120 scheduling. KEY FINDING: the sb is pinned only by the later sh 0x1E(g) (g pointer aliases it); sw 6880 and other stores don't constrain it (volatile, same-base, array-index, pointer forms of either store: all no change). Order Z,Y,S (C8120=0; g->1E=0; 6880=5) puts the sb exactly right, but then sh 0x1E is scheduled too early (right after sb instead of after the and -2): same score 140, rev 235d0d25. Next ideas: keep Z,Y,S order but make the sh 0x1E depend on something late (e.g. store g->1E via a reloaded g or after D538 computed), or find a store between Z and S that aliases sb but schedules late (some g-relative store that the target has after the and: only sh 0x1E / sh 0xE(delay slot) exist). Permutations that were worse: E before Y/D (445), P before A (200), D before Y (200).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Now 135 (was 155/145): use plain extern `&D_800D0648[cfg->idx]` instead of the (ChRec**)0x800D0648 cast. Two diffs remain. (1) In the first inner sum loop, the sum and pointer-giv registers are swapped (target sum=v1, ptr=a1). Equal or worse: s32 s, register s, sum at function scope, s=laps+s, for(s=0,m=0..), hoisting rec->n into a local (370), using j as the inner counter (230). (2) Target materializes &D_800C81FC (t2) AFTER the constants 1,2,3 (t3,t6,t5), but ours does it before them. Worse: direct D_800C81FC=1 stores (660), flag=&D_800C81FC inside the loop (290), *new_var direct (510), removing new_var (445). Untried: making the flag a struct field / array element, or writing the switch as an if-chain.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Current 1155 (revision 1077e1a8: removed the do{}while(0) around `n=8;base=0;` \u2014 that version rechecks at 1155, with the wrapper it was 1755). Remaining diff is all in the j/i map loop: target keeps n&0xff in s1 and tests `beqz s1` for inner-loop entry; ours hoists `sltu t9,zero,n`. Target also hoists t9=&cnt+0x10 (flag base, apparently unused) and t8=&cnt+0x28 (map), and reloads lui &cnt (0x7DB0) inside the outer j loop instead of hoisting to s1. Target computes v as `(b1<<1)|b0` after the map address and does `move v1,v0` (no andi) before the switch. All worse: v as int (1435), (b1<<1)|b0 order (1390), D_800B6600.cnt[j] += in switch (1500), new_var=&D_800B6600.cnt[j] (1350), n as u32 (2048), `if (n)` guard on the inner loop (1961), m as u32 (1380), combined store-assign `map=v=(b1<<1)|b0` (1580). Untried: a Blk* local pointer for cnt/flag/map in the j loop, and making the inner flag-loop use D_800B6600 via pointer so its base CSEs with t9.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Best 295: 1 real insn diff plus register diffs. Target tail: `sll v0,v0,4; bgtz v0; move a1,v0` (the final value is a short-lived temp copied to a1). Ours reuses `right = local[1]*16`, which puts right in s0. Target allocation for the swap block: right=s3, down=s1, height(down+1)=s0, slot=s2, base=s5. Tried: a fresh var for the final value (__repair_phase_right, 380: tail fixed but early regs become right=s2/down=s0/height=s1/slot=s3), `if ((height=local[1]*16)<=0)` (385), `height=local[1]<<4` (385), dot as final var (410). Replacing the height/slot temporaries in the sign<0 swap with block locals or dot was much worse (1374-1759), so keep height/slot reuse there. Next: start from the 380 version (fresh final var) and tune the priorities so height outranks down and right ranks below slot (e.g. add or remove refs of right/slot).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Still 20. All of these left the output unchanged (20): `value=1; if (p==0x3A98){value=...; goto done;} return value;`, `return (*root ^ 0x3A98) != 0;`, and `return *root != 0x3A98;` in the if-arm. Only the v0/v1 diff on the second 0x6C temp remains. The tail form is not what drives it.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Now 140 (revision 816e9a79). Fixed a real bug: the second loop (it->x2c = 5 for 3 entries) needs `s1 = 0;` \u2014 the target resets s1, and the old saved C reused s1 from the first loop. Best placement is `s1 = 0;` as the first statement in the if-body, before func_80084AF4(s4). 2 rows left are the known D_800C8328 %hi reloc artifact. Remaining real diff: target puts `move a0,s4` in the beqz delay slot (taken from both branches, so the else branch has no own move a0,s4) and `move s1,zero` in the jal func_80084AF4 delay slot. Ours puts s1=0 in the beqz slot. Worse or no change: s1=0 after the call (225), `func_80084AF4((s1=0, s4))` (140), `if ((s1=0, s2&0xFF))` (140), for-loop form (425). Keep `new_var = ((u8*)D_800A1468)+0x1F8;` (dead, but removing it gives 450).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 154; 14 differing rows (1 opcode, 4 register, 5 operand, 2 reordered, 1 inserted, 1 deleted; advisory).\nTarget: beql $v0, $zero, 0x27c\nCandidate: bnez $v0, 0x27c\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = ori $v0, $v1, 0x20\n  = andi $v0, $v1, 4\n| T: beql $v0, $zero, 0x27c | C: bnez $v0, 0x27c\ni T: ori $v0, $v1, 4 | C: ori $v0, $v1, 2\ni T: ori $v0, $v1, 2 | C: ori $v0, $v1, 4\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800885CC",
+   "text": "Matched84 instructions/336 bytes using unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Identified related __MusIntInitialiseChannel SDK source in local Puzzle League libmus/player.c; its source assignment order, adapted to target field offsets, restores scheduling. Chained tempo writes require inner A0 then outer94. Ordinary linked check and complete cartridge comparison passed; all2061 prior objects unchanged. Mixed byte signedness, constant lifetime/scopes and252 declaration probes did not solve it.",
    "by": "you"
   }
  ],
@@ -191165,6 +191215,94 @@
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
+   "func_800885CC": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793863822.0829408,
+    "attempt_id": 294327,
+    "source_sha256": "442ecfeb23c9af9b722c58a79868a1bf7c403f3a5c43f5a8bcfe73cba22068e9",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "2512c523ca5ad4292cd901ff63813360f2948215de2abaf848cb5ed61883db8c",
+    "relocations_sha256": "eb983633464641d41c107e0fc85921d1dba8599772ea9d20ab78aaa322fc01ff",
+    "vram": 2148042188,
+    "unit": "code_8007E9D4",
+    "mode": "rom"
+   },
    "func_8008871C": {
     "format": 1,
     "verdict": "exact",
@@ -193209,6 +193347,7 @@
    "68487b5ec3f0c6c12edf21c46b7afe5bdabfbfa9fb0a1e390bdcc80252f564db": "typedef struct S_func_80087AB8_arg0\n{\n  u8 pad0[0x70];\n  s32 f70;\n  u8 pad1[0x1C];\n  s16 f90;\n  u8 pad2[2];\n  s16 f94;\n  u8 pad3[8];\n  u16 f9E;\n} S_func_80087AB8_arg0;\ntypedef struct Rec\n{\n  u8 pad0[0x70];\n  s32 f70;\n  u8 pad74[0x20];\n  s16 f94;\n  u8 pad96[0xA];\n  s16 fA0;\n  u8 padA2[0x134 - 0xA2];\n} Rec;\nextern s32 D_800B68EC;\nextern Rec *D_800B68F0;\nextern s32 D_800C782C;\nu8 *func_80087AB8(S_func_80087AB8_arg0 *arg0, u8 *arg1)\n{\n  s32 pad[1];\n  s32 q;\n  s32 s;\n  s32 i;\n  Rec *p;\n  q = ((*arg1 * 0x6000) / 120) / D_800B68EC;\n  s = (q * arg0->f90) >> 7;\n  arg1++;\n  if (arg0->f9E != 0)\n  {\n    arg0->f94 = q;\n  }\n  else\n  {\n    p = D_800B68F0;\n    for (i = 0; i < D_800C782C; i++, p++)\n    {\n      if (p->f70 == arg0->f70)\n      {\n        p->fA0 = q;\n        p->f94 = s;\n      }\n    }\n  }\n  return arg1;\n}\n",
    "08d987d8c9b726d49ed31f3ebf5866eb9dbbaf74899e9078c35110a24fc2bb46": "typedef struct Trk {\n    u8 pad00[0x30];\n    s32 x30;\n    s32 x34;\n    u8 pad38[0x6C - 0x38];\n    f32 f6C;\n    u8 pad70[0x78 - 0x70];\n    s32 x78;\n    u8 pad7C[4];\n    s32 x80;\n    s32 x84;\n    u8 pad88[0x9A - 0x88];\n    u16 h9A;\n    u16 h9C;\n    u8 pad9E[0xB4 - 0x9E];\n    u8 bB4;\n    u8 padB5[0xD3 - 0xB5];\n    u8 depth;\n    u8 *ret[5];\n    s32 e8[5];\n    s32 fc[5];\n    u16 h110[5];\n    u16 h11A[5];\n    u8 b124[5];\n    u8 b129[5];\n    u8 b12E[5];\n} Trk;\n\nu8 *func_80087DE4(Trk *t, u8 *p)\n{\n    s32 idx = t->depth;\n\n    t->b124[idx] = *p++;\n    t->ret[idx] = p;\n    t->e8[idx] = t->x34;\n    t->fc[idx] = t->x30;\n    t->b129[idx] = t->bB4;\n    t->b12E[idx] = t->f6C;\n    t->h110[idx] = t->h9A;\n    t->h11A[idx] = t->h9C;\n    t->depth++;\n    return p;\n}\n\ntypedef struct Ent {\n    s32 active;\n    u8 pad04[0x9A];\n    u16 h9E;\n    u8 padA0[0x134 - 0xA0];\n} Ent;\nextern s32 D_800C782C;\nextern Ent *D_800B68F0;\n\ns32 func_800869B8(s32 arg0)\n{\n    s32 i;\n    s32 hits;\n    Ent *e;\n\n    i = 0;\n    hits = 0;\n    e = D_800B68F0;\n    for (i = 0; i < D_800C782C; i++, e++) {\n        if (e->active != 0) {\n            if (e->h9E != 0) {\n                if (arg0 & 1) {\n                    hits++;\n                }\n            } else {\n                if (arg0 & 2) {\n                    hits++;\n                }\n            }\n        }\n    }\n    return hits;\n}\n\nextern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern void (*D_800C8090)(s32);\nextern void (*D_800C80A8)(s32);\n\ns32 func_8007EE9C(void *arg0)\n{\n    s32 result = 0;\n\n    if (D_800A19B0 == 1) {\n        D_800C80A8(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 1;\n    D_800B5B40 = (s32)__builtin_return_address(0);\n    if (arg0 != 0) {\n        result = ((s32 (*)(void *))D_800C5BB0[*(s32 *)((u8 *)arg0 - 8)][1])(arg0);\n    } else {\n        D_800C8090(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 0;\n    return result;\n}\n\ns32 func_80088008(Trk *t, u8 *p)\n{\n    s32 a;\n    s32 b;\n    s32 c;\n    s32 d;\n\n    a = *p++;\n    b = *p++;\n    c = *p++;\n    d = *p++;\n    t->h9A = 1;\n    t->x34 = t->x84 + ((c << 8) + d);\n    t->h9C = 1;\n    t->x30 = t->x80 + ((p[0] << 8) + p[1]);\n    return t->x78 + ((a << 8) + b);\n}\n",
    "1dd1e510be1725421d092529da7624258946520200df97956314eba64de5dc5a": "typedef struct S88008 {\n    u8 pad00[0x30];\n    s32 x30;\n    s32 x34;\n    u8 pad38[0x40];\n    s32 x78;\n    u8 pad7C[4];\n    s32 x80;\n    s32 x84;\n    u8 pad88[0x12];\n    s16 x9A;\n    s16 x9C;\n} S88008;\n\ns32 func_80088008(S88008 *arg0, u8 *arg1) {\n    s32 x, y, b, c, d, e, f;\n\n    x = *arg1++;\n    b = *arg1++;\n    c = *arg1++;\n    d = *arg1++;\n    arg0->x9A = 1;\n    y = c << 8;\n    y += d;\n    arg0->x34 = arg0->x84 + y;\n    e = *arg1++;\n    f = *arg1++;\n    y = e << 8;\n    y += f;\n    arg0->x9C = 1;\n    arg0->x30 = arg0->x80 + y;\n    x <<= 8;\n    x += b;\n    return arg0->x78 + x;\n}\n",
+   "442ecfeb23c9af9b722c58a79868a1bf7c403f3a5c43f5a8bcfe73cba22068e9": "typedef struct {\ns32 f0;\nu8 pad4[8];\ns32 fC;\nu8 pad10[20];\nf32 f24;\nu8 pad28[44];\nf32 f54;\nf32 f58;\nf32 f5C;\nu8 pad60[8];\nf32 f68;\nu8 pad6C[8];\ns32 f74;\nu8 pad78[24];\ns16 f90;\ns16 f92;\ns16 f94;\ns16 f96;\nu16 f98;\ns16 f9A;\ns16 f9C;\nu8 pad9E[2];\ns16 fA0;\nu8 padA2[6];\ns16 fA8;\nu8 padAA[10];\nu8 fB4;\nu8 fB5;\nu8 fB6;\nu8 fB7;\nu8 padB8[1];\nu8 fB9;\nu8 fBA;\nu8 padBB[3];\nu8 fBE;\nu8 fBF;\nu8 fC0;\nu8 fC1;\nu8 padC2[2];\nu8 fC4;\nu8 padC5[5];\nu8 fCA;\nu8 fCB;\n} Obj;\nextern s32 D_800B68EC;\nextern s32 D_800C34D4;\nvoid func_800885CC(u8 *arg)\n{\n  Obj *p;\n  u8 save;\n  u32 i;\n  s16 v;\n  s32 t;\n  p = (Obj *)arg;\n  save = p->fC1;\n  p->f0 = 0;\n  for (i = 0; i < 0x134; i++)\n  {\n    *(arg++) = 0;\n  }\n\n p->f98 = 0xFFFF;\n p->fC4 = 0xFF;\n p->fB6 = 0xFF;\n p->f24 = 99.9f;\n p->f94 = p->fA0 = 0x6000 / D_800B68EC;\n p->fCA = 0;\n p->f92 = 1;\n p->fCB = 127;\n p->fB4 = 127;\n p->f68 = 2*(1.0/64.0);\n p->fB5 = 64;\n p->f9A = 1;\n p->f9C = 1;\n p->fC = -1;\n p->f96 = 0x80;\n p->fA8 = 0x80;\n p->f90 = 0x80;\n p->fB7 = 1;\n p->fBE = 1;\n p->f54 = 1.0f;\n p->fB9 = 127;\n p->fBF = 255;\n p->f58 = 1.0/255.0;\n p->fBA = 127;\n p->fC0 = 15;\n p->f5C = 1.0/15.0;\n p->f74 = D_800C34D4;\n p->fC1 = save;\n}\n",
    "fc071095d08fa76c770f02297b86f6903b8dc3459e4a9d3b0e7638c82f96c85f": "typedef struct {\n    u8 pad[0x10];\n    s32 unk10;\n} WaveInfo;\n\ntypedef struct {\n    u8 pad[0x28];\n    f32 *pitch;\n    void **wave;\n} InstInfo;\n\ntypedef struct Chan {\n    u8 *pdata;          /* 0x00 */\n    void *wave;         /* 0x04 */\n    s32 unk08;          /* 0x08 */\n    u8 pad0C[0x28 - 0x0C];\n    f32 pitch;          /* 0x28 */\n    u8 pad2C[0x38 - 0x2C];\n    s32 time;           /* 0x38 */\n    s32 last_time;      /* 0x3C */\n    u8 pad40[0x48 - 0x40];\n    f32 unk48;          /* 0x48 */\n    f32 unk4C;          /* 0x4C */\n    s32 unk50;          /* 0x50 */\n    u8 pad54[0x70 - 0x54];\n    WaveInfo *unk70;    /* 0x70 */\n    InstInfo *inst;     /* 0x74 */\n    u8 pad78[0x7C - 0x78];\n    u8 *drum;           /* 0x7C */\n    u8 pad80[0x92 - 0x80];\n    u16 length;         /* 0x92 */\n    u8 pad94[0x98 - 0x94];\n    u16 unk98;          /* 0x98 */\n    u8 pad9A[0xA2 - 0x9A];\n    u16 unkA2;          /* 0xA2 */\n    u16 fixed_length;   /* 0xA4 */\n    u16 wave_idx;       /* 0xA6 */\n    u8 padA8[0xAF - 0xA8];\n    u8 ignore_fixed;    /* 0xAF */\n    u8 padB0[0xB3 - 0xB0];\n    u8 velocity;        /* 0xB3 */\n    u8 padB4;\n    u8 unkB5;           /* 0xB5 */\n    u8 padB6[0xBB - 0xB6];\n    u8 unkBB;\n    u8 unkBC;\n    u8 unkBD;\n    u8 padBE[0xC1 - 0xBE];\n    u8 playing;         /* 0xC1 */\n    u8 unkC2;\n    u8 unkC3;\n    u8 unkC4;\n    u8 unkC5;\n    u8 padC6;\n    u8 unkC7;\n    u8 unkC8;\n    u8 unkC9;\n    u8 vel_on;          /* 0xCA */\n    u8 default_vel;     /* 0xCB */\n    u8 unkCC;\n    u8 padCD;\n    u8 unkCE;\n    u8 unkCF;\n} Chan;\n\ntypedef u8 *(*CmdFunc)(Chan *, u8 *);\nextern CmdFunc D_800A1BC0[];\nextern u8 D_800AE850[];\nextern u8 D_800C02AE[];\nextern u8 *func_80087988(Chan *, s32);\nextern void func_80088AA4(Chan *, s32);\nextern void func_80089298(Chan *);\nextern void func_80089538(Chan *);\nextern void alSynSetFXMix(void *, void *, s32);\nextern void alSynSetVol(void *, void *, s32, s32);\nextern void alSynStopVoice(void *, void *);\n\n#define SYNTH ((void *)(D_800AE850 + 0x2304))\n#define VOICE(n) ((void *)(*(u8 **)(D_800C02AE + 0x7576) + (n) * 28))\n\nvoid func_8008871C(Chan *ch, s32 n)\n{\n    u8 *p;\n    s32 note;\n    u8 v;\n    u8 mix;\n    InstInfo *inst;\n    s32 idx;\n\n    p = ch->pdata;\n    if (p != NULL) {\n    loop:\n        v = *p;\n        if (v >= 0x80) {\n            if (v >= 0xAA) {\n                goto end_seq;\n            }\n            p = D_800A1BC0[v & 0x7F](ch, p + 1);\n            if (p != NULL) {\n                goto loop;\n            }\n        }\n    }\n    ch->pdata = p;\n    if (p == NULL) {\n        goto stop;\n    }\n    ch->unk48 = ch->unk4C;\n    note = *ch->pdata++;\n    if (ch->vel_on) {\n        ch->velocity = *ch->pdata++;\n    } else {\n        ch->velocity = ch->default_vel;\n    }\n    if (ch->fixed_length) {\n        if (ch->ignore_fixed) {\n            ch->ignore_fixed = 0;\n            v = *ch->pdata++;\n            if (v < 0x80) {\n                ch->length = v;\n            } else {\n                ch->length = *ch->pdata++ + ((v & 0x7F) << 8);\n            }\n        } else {\n            ch->length = ch->fixed_length;\n        }\n    } else {\n        v = *ch->pdata++;\n        if (v < 0x80) {\n            ch->length = v;\n        } else {\n            ch->length = *ch->pdata++ + ((v & 0x7F) << 8);\n        }\n    }\n    ch->last_time = ch->time;\n    ch->time += ch->length << 8;\n    ch->unkA2 = 0;\n    ch->unkC9 = 0;\n    ch->unkC8 = ch->unkC7;\n    if (note != 0x60) {\n        inst = ch->inst;\n        if (ch->drum != NULL) {\n            ch->wave_idx = ch->drum[note * 4];\n            ch->unkB5 = ch->drum[note * 4 + 2] >> 1;\n            func_80087988(ch, ch->unk70->unk10 + ch->drum[note * 4 + 1] * 7);\n            note = ch->drum[note * 4 + 3];\n        }\n        if (!ch->unkCE) {\n            func_80089298(ch);\n        }\n        if (ch->unkCC) {\n            func_80089538(ch);\n        }\n        idx = ch->wave_idx;\n        if (!ch->unkCF) {\n            ch->wave = inst->wave[idx];\n            if (ch->playing && ch->unk98) {\n                ch->unk98 = 0;\n                alSynSetVol(SYNTH, VOICE(n), 0, *(s32 *)(D_800AE850 + 0x7420));\n            } else {\n                func_80088AA4(ch, n);\n            }\n        }\n        ch->pitch = (f32)note + inst->pitch[idx];\n        mix = ch->unkC2;\n        if (mix != ch->unkC4) {\n            s32 fx = ch->unkC3;\n            s32 val = (0x80 - fx) * mix;\n            ch->unkC4 = mix;\n            alSynSetFXMix(SYNTH, VOICE(n), (fx + (val >> 7)) & 0xFF);\n        }\n    } else if (ch->unkBB < 4) {\n        ch->unkBB = 4;\n        ch->unkBD = 1;\n        ch->unk50 = ch->unk08;\n        ch->unkC5 = ch->unkBC;\n    }\n    return;\nend_seq:\n    ch->pdata = NULL;\n    return;\nstop:\n    if (ch->playing) {\n        ch->playing = 0;\n        alSynStopVoice(SYNTH, VOICE(n));\n    }\n}\n",
    "13d4d8b6a600d719a44635812d5aae045d39bd6a198195ab1592238db079a90b": "extern unsigned short D_800C730C;\nextern unsigned short D_800C34F8;\nextern int D_800C7824;\nextern int D_800B68EC;\ns32 alSynSetPan(void *, s32, u8);\ns32 alSynSetVol(void *, s32, s16, s32);\nextern char D_800AE850[];\nextern char D_800C02AE[];\nvoid func_8008910C(void *arg0, s32 arg1)\n{\n  u32 var_v0;\n  u32 temp_a1;\n  u8 temp_a1_2;\n  u8 temp_v1;\n  temp_a1 = ((u32) ((((*((u8 *) (((char *) arg0) + 0xB4))) * (*((u8 *) (((char *) arg0) + 0xBC)))) * (*((u8 *) (((char *) arg0) + 0xB3)))) * (*((s16 *) (((char *) arg0) + 0x96))))) >> 0xD;\n  if (temp_a1 > 0x7FFFU)\n  {\n    temp_a1 = 0x7FFF;\n  }\n  if ((*((u16 *) (((char *) arg0) + 0x9E))) == 0)\n  {\n    var_v0 = D_800C730C; }\n  else\n  {\n    var_v0 = D_800C34F8;\n  }\n  temp_a1 = (u32) (temp_a1 * var_v0);\n  temp_a1 = temp_a1 >> 0xF;\n  if ((*((s32 *) (((char *) arg0) + 0xC))) != (-1))\n  {\n    *((s32 *) (((char *) arg0) + 0x18)) = 0;\n  }\n  if (temp_a1 != (*((u16 *) (((char *) arg0) + 0x98))))\n  {\n    if (D_800B68EC)\n    {\n      *((u16 *) (((char *) arg0) + 0x98)) = temp_a1;\n      alSynSetVol(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (s16) temp_a1, 0xF4240 / ((s32) D_800B68EC));\n    }\n    else\n    {\n      *((u16 *) (((char *) arg0) + 0x98)) = temp_a1;\n      alSynSetVol(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (s16) temp_a1, 0xF4240 / ((s32) D_800B68EC));\n    }\n  }\n  temp_v1 = *((u8 *) (((char *) arg0) + 0xB5));\n  if (temp_v1 != (*((u8 *) (((char *) arg0) + 0xB6))))\n  {\n    if (D_800C730C)\n    {\n      temp_a1 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;\n      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1;\n      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (u8) temp_a1);\n    }\n    else\n    {\n      temp_a1 = (((s32) (temp_v1 * (*((s16 *) (((char *) arg0) + 0xA8))))) >> 7) & 0x7F;\n      *((u8 *) (((char *) arg0) + 0xB6)) = temp_a1;\n      alSynSetPan(D_800AE850 + 0x2304, D_800C7824 + (arg1 * 0x1C), (u8) temp_a1);\n    }\n  }\n  temp_a1 = (u16) temp_a1;\n}\n",
    "1e52fcd111d629538289e09bd366209868d78afc3047df5ffd51a0137694cb2b": "extern f64 D_800A6D48;\nextern f64 D_800A6D50;\nextern f64 D_800A6D58;\nextern f64 D_800A6D60;\nextern f64 D_800A6D68;\nextern f64 D_800A6D70;\nextern f64 D_800A6D78;\nextern f64 D_800A6D80;\nextern f64 D_800A6D88;\nextern f64 D_800A6D90;\nextern f64 D_800A6D98;\nextern f64 D_800A6DA0;\nextern f64 D_800A6DA8;\nextern f64 D_800A6DB0;\nf32 func_80089300(f32 x)\n{\n  f32 x4;\n  f32 x2;\n  if (x == 0.0f)\n  {\n    return 1.0f;\n  }\n  if (x > 0.0f)\n  {\n    x2 = x * x;\n    return x * D_800A6D80 + D_800A6DA0 + x2 * D_800A6D88 + (x2 * x) * D_800A6D90\n         + (x2 * x2) * D_800A6D98 + ((x2 * x2) * x) * D_800A6DA8 + ((x2 * x2) * x2) * D_800A6DB0;\n  }\n  x = -x;\n  x2 = x * x;\n  x4 = x2 * x2;\n  return D_800A6D68 / (x * D_800A6D48 + D_800A6D68 + x2 * D_800A6D50 + (x2 * x) * D_800A6D58\n         + x4 * D_800A6D60 + (x4 * x) * D_800A6D70 + (x4 * x2) * D_800A6D78);\n}",

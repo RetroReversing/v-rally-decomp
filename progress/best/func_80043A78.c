@@ -79,7 +79,7 @@ typedef struct Game
 extern Game *D_800C35A0;
 extern Snd **D_800B5B4C;
 extern Car **D_800B5C40;
-extern s32 D_800B6880;
+extern s32 D_800B6880; extern u8 D_800AE850[];
 extern Slot44 *D_800A1234;
 extern u8 D_800A4DFC[];
 extern s32 func_8001FEE8(Car *, Ctl *);
@@ -251,7 +251,7 @@ void func_80043A78(Car *car, Pad *pad)
     if ((D_800C35A0->state != 0) & (D_800C35A0->state != 5))
     {
       n = (Car *) (*car->player);
-      D_800A1234[(s32) n].hA = 2;
+      { Slot44 *sl = &D_800A1234[(s32) n]; sl->hA = 2; }
       cnt = D_800C35A0->players;
       k = 0;
       for (n = *D_800B5C40; n != NULL; n = n->next)
@@ -300,7 +300,7 @@ void func_80043A78(Car *car, Pad *pad)
       if (cnt)
       {
         finish:
-        D_800B6880 = 0;
+        *(s32 *)(D_800AE850 + 0x8030) = 0;
 
         func_80085778(0, 0x1000);
         func_80085778(0, 0x8000);

@@ -872,3 +872,17 @@ original order and the triangle permutation is unchanged.
 The ordinary linked check and full **12,582,912-byte** cartridge comparison
 passed; all 2,060 prior objects remain unchanged. The standalone tree selects
 **2,061 C functions / 63 assembly units**. All current app progress is saved.
+
+
+### Music-channel initialization
+
+`func_800885CC` now matches **84 instructions / 336 bytes** with its unchanged
+KMC GCC 2.7.2 profile. Related local libmus source identifies this as the channel
+initializer `__MusIntInitialiseChannel`. Reconstructing its source assignment
+order with the target field layout resolved scheduling; reversing the equal-type
+tempo assignment chain resolved the final two store differences. This is adapted
+source context from another library version, not proof of an identical SDK build.
+
+The ordinary linked check and full **12,582,912-byte** cartridge comparison
+passed with all 2,061 prior objects unchanged. The standalone tree selects
+**2,062 C functions / 62 assembly units**. All current app progress is saved.
