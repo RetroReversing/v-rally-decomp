@@ -148,7 +148,7 @@ void func_8006D564(s32 arg0)
     D_800C35A0->sub = sub;
     func_8006F4A8(arg0);
     func_8006EE3C(arg0);
-    ((Slot *)D_800C35A0)[(u8)arg0].pad00[0x44] = 0x5B;
+    { Slot *sl = (Slot *)D_800C35A0; sl[(u8)arg0].pad00[0x44] = 0x5B; }
     func_8006F0E0(arg0);
     func_8006F75C();
     D_800A16F0 = 0;

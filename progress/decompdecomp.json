@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793863885.521704,
- "revision": 17359,
+ "saved_at": 1793864403.735313,
+ "revision": 17450,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8423,8 +8423,8 @@
   },
   "func_8006D564": {
    "vram": 2147931492,
-   "best_score": 145,
-   "best_by": "claude-opus-6"
+   "best_score": 60,
+   "best_by": "claude-opus-3"
   },
   "func_8006DD04": {
    "vram": 2147933444,
@@ -8923,8 +8923,8 @@
   },
   "func_8007A29C": {
    "vram": 2147984028,
-   "best_score": 62,
-   "best_by": "claude-opus-8"
+   "best_score": 2,
+   "best_by": "claude-opus-3"
   },
   "func_8007A688": {
    "vram": 2147985032,
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 171 cached skips; 0 rejected; 59s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 181 cached skips; 0 rejected; 152s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161627,7 +161627,7 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 425 \u2192 425; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_80043A78 is claimed by claude-opus-3 for another 29 min.",
+   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 151 cached skips; 0 rejected; 184s elapsed. Variant limit reached.",
    "by": "Rr.permuter-887"
   },
   {
@@ -161732,12 +161732,12 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 62s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 206 cached skips; 0 rejected; 177s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 183 cached skips; 0 rejected; 216s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_8006D564 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161792,7 +161792,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 72 candidates tested; 0 cached skips; 0 rejected; 110s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8007A29C is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -164292,12 +164292,77 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 154; 14 differing rows (1 opcode, 4 register, 5 operand, 2 reordered, 1 inserted, 1 deleted; advisory).\nTarget: beql $v0, $zero, 0x27c\nCandidate: bnez $v0, 0x27c\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = ori $v0, $v1, 0x20\n  = andi $v0, $v1, 4\n| T: beql $v0, $zero, 0x27c | C: bnez $v0, 0x27c\ni T: ori $v0, $v1, 4 | C: ori $v0, $v1, 2\ni T: ori $v0, $v1, 2 | C: ori $v0, $v1, 4\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 154; 14 differing rows (1 opcode, 4 register, 5 operand, 2 reordered, 1 inserted, 1 deleted; advisory).\nTarget: beql $v0, $zero, 0x27c\nCandidate: bnez $v0, 0x27c\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = ori $v0, $v1, 0x20\n  = andi $v0, $v1, 4\n| T: beql $v0, $zero, 0x27c | C: bnez $v0, 0x27c\ni T: ori $v0, $v1, 4 | C: ori $v0, $v1, 2\ni T: ori $v0, $v1, 2 | C: ori $v0, $v1, 4\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nNew best 425 (rev 4e725cb9). Changes: (1) first hA=2 site written as `n=(Car*)(*car->player); { Slot44 *sl = &D_800A1234[(s32) n]; sl->hA = 2; }` fixes its addu/reg order (-15). The same ptr form at the second site (inside the F40 else) is worse (450); the int-cast/index/u32/tbl-local forms are all no change. (2) The 6880 store now relocates in the target as D_800AE850+0x8030: declare `extern u8 D_800AE850[];` and write `*(s32*)(D_800AE850+0x8030)=0` (no score change in the 425 layout, but it is the right symbol). Moving func_80042F40 into finish (right structure) from 425 gives 475 (the sw goes into the jal slot again); the const 0x800B6880 form gives 495 and volatile 530. Still open: the beql toggle, the second-site addu order, and the finish delay slot.",
    "by": "claude-opus-3"
   },
   {
    "function": "func_800885CC",
    "text": "Matched84 instructions/336 bytes using unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Identified related __MusIntInitialiseChannel SDK source in local Puzzle League libmus/player.c; its source assignment order, adapted to target field offsets, restores scheduling. Chained tempo writes require inner A0 then outer94. Ordinary linked check and complete cartridge comparison passed; all2061 prior objects unchanged. Mixed byte signedness, constant lifetime/scopes and252 declaration probes did not solve it.",
+   "by": "you"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "WARNING: saved best (462) is semantically WRONG. In the t<50 branch it does `out = (u16*)(b+base)`, which overwrites the output pointer, so the final out[0..2] stores go to the points array. The target keeps out (a3->t4) and stores the result there. A clean valid version scores 1585 (revision da65c07d): Obj struct {start@0x4C s32, u8 *pts@0x54, u16 stride@0x8A}; idx = o->start + arg1*o->stride; t=arg2; prev=idx-2; next=idx+2; each branch does `base=o->pts; a=..*6; b=..*6; d[0]=*(u16*)(a+base)-*(u16*)(b+base);` and the else branch adds t-=50; after that d[1], d[2] via PT(), d[i]=d[i]*t/50, out[i]=PT(b+2i)+d[i]. 119 insns match the count; the rest is register allocation. Target keeps idx in a0 (o moved to t2), prev in t0, a*6 in a1, b*6 in a3 across the function, and holds d0 in v1 until the later sh. Writing idx as `arg1*stride + start` (in either statement order) or using an s32 d0 scalar scores 1620.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "265: a pure s0/s1 swap of walker (target s1) and old (target s0), plus a1/a0 shifts in the TABLE arg setup (target `move a0,s2` is earlier, the sw uses a0). No change (265): reordering old=0/walker=HEAD/end, swapping declaration order, `(Node*)old != 0`, `walker->start = a = a - old`, reading n before data, `FREE = FREE->next`. Worse: a separate var for a&1 (460), a block-local h for HEAD (475), func_80081040(walker->start,...) (985), moving end=a+b above the early return (530), do-while loop (555). Untried: splitting the loop walker from the free-list walker into two variables; old as Node* with the offset in its own var.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Rechecked 120 (rev 9659377e, one-line DD00+StartGo). New this pass: making single stores non-volatile via *(s32*)&D_800A19B4: on the mode2 (yield-else), lt-arm, or =0 store \u2192 120 (no change); on the mode1 store, or the whole decl non-volatile \u2192 370. The beqz slot is still nop. Remaining idea: change the fallthrough layout so the move a0,s2 is not first claimed by the j's simple fill (e.g. make the mode1 arm the taken one with an explicit goto to a label placed before func_8007F394).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "518 (saved). Target registers: w (from D_8009FFDC) = s5 and h = s3; the w<<16 and h<<16 temps stay live in s1/s0 and are reused for the sign bit of w/2 and h/2. In the flags branch the target updates in place: x2=x+0x20 in s4, w-=0x38 in s5, hh=h/2 in s0, h=hh-1 in s3, second rect y=y+hh+1. In the else branch: hw=w/2 in s1, w=hw-1 in s5, x+hw+1 in s1. Ours has w/h swapped (s3/s5), item ptr s4 (target s6), p s6 (target s2). Tried: swapping the r.h/r.w stores (526), swapping the w/h loads (563/571), swapping the declaration order (518), in-place `w -= 0x38` with s32 temps in the flags branch (1734, also moves the D_8009FFDC load earlier). The global allocation order is the remaining problem.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked 210. Second-compare forms that all scored 300 (andi dropped): inline_fn2(saved22&0xFFFF), (u16)inline_fn2(saved22), saved22&(u16)inline_fn2(0xFFFF), saved22&(saved22|saved1E), saved22&(saved1E|0xFFFD), and the xor-to-0xFFFF form. A dead saved22=0xFFFF init with the saved1E hack \u2192 210 (no change). Untested: the dead init COMBINED with (saved22&saved22) in one candidate (my claim ended before that compile). saved1E keeps its andi maybe because it has two sets (dead init + real).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Saved best 435 (permuter-ish, rev 3ae638d2) rechecked at 435, still best. This session: clean Pt{u16 x,y,z} *pts struct with a/b index select then d[] = pts[a]-pts[b], d=d*t/500, out=pts[b]+d \u2192 2400 (rev 92b8098b); the else branch merges, so the per-branch duplicated d0 is lost. Pointer pa/pb per branch with d0 computed in each branch \u2192 3082 (stack 0x30, worse). The target computes byte offsets a1=i*6, a3=prev*6 in both branches, does the first lhu/subu inside each branch, reloads o->0x54 before every later access, and keeps sp[1]/sp[2] in a stack s16[3] (reloaded with lhu for out[1]/out[2]) while sp[0] stays in a register. What's left: start from the saved best and fix regalloc only (t0/t1/t3 differences).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Rechecked 330 (rev 4b24a37e). This pass: re-setting full=0xFF at the outer-loop top \u2192 370; inside inner loop1 \u2192 1415; an extra full=0xFF after the G stores \u2192 330 (no change). The outer loop as do{...i++;}while(i<12) (for header kept, so i++ is doubled; buggy, ignore) \u2192 1215. Remaining are regalloc diffs (c/hi v0/v1, f2/f4, loop2 giv) plus the hoisted 2^31 order; the permuter is exhausted. Try a proper do-while outer loop (i=0; do{..}while(++i<12)), which I did not test correctly.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "The saved best (635) is semantically WRONG. With x = pos->x+0x14 its case-1 calls pass x+0x1C and x+0x24, but the target passes rawx+0x1C and rawx+0x24, i.e. x+8 and x+0x10. Its case-1 else branch also reads new_var uninitialised. Semantically correct fix: on rev 0787dc68 (saved best), change the 2nd and 3rd case-1 calls to `x + 8` and `x + 0x10`. That scored 645 (variant test) and is the right base. Remaining diff is mostly regalloc: the target keeps raw pos->x in fp and computes s3=fp+0x14 in the beq delay slot; pos is in v0 and the Game ptr in a0. Things that made it worse: a separate raw variable (x1/k/x0) with x = x0+0x14 gave 1735-3371 because the frame shrank to 0x50 with fewer spills. The target spills y@0x1C, i@0x24 and k@0x2C, and fp=constant 1 in case 2. The current rev ffb2fb3e is only half-patched (3rd call still x+0x24). Patch it to x + 0x10.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Saved best 140 (permuter rev 5468d4d2) rechecked at 140. The only real diffs left are the idx/value v1/a0 swap in both final j-loops; the rest are reloc-artifact operands. Tried with no change (140): block-scoped u8 k in the >>1 loop; removing p; j=0 before the cnt==players if; swapping cnt/flag decls; swapping j/i decls; D_800B6FF2[(u8)j]; a u16 x temp; a while loop; a (u32) cast before >>1; (&D_800B6FF2[0])[j]. Worse: p=&D[j] pointer (960); D_800B6FF6 instead of D[4] (500); reusing cnt as the final-loop index (230/505: swap persists and adds a bnel); reusing flag as the index (610); flag as the count-loop index (235). Untried: changing the count-loop's cnt++ form; making D_800B6FF2 a struct with fields.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 45; 3 differing rows (1 opcode, 2 operand; advisory).\nTarget: beql $v1, $zero, 0xc8\nCandidate: beqz $v1, 0xc8\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $v0, $zero, 0x114\n  = addiu $s4, $s4, 1\n| T: beql $v1, $zero, 0xc8 | C: beqz $v1, 0xc8\n  = addiu $a0, $zero, 2\n  = bne $v1, $s0, 0xc8\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest is 200 (rev 8ad04557, permuter). Its only diff is case 0 of the first-loop switch: the target emits `beql v1,zero` (slot a0=2) where ours has `beqz`. Every variant below was tried against the 200 source. Score 200 (no change): default-first switch order, case1-first order, switch((s32)i), `if (i != 4)` hack, plain D_800C5D20[i] index, s16 Style.id. Worse: which as u8 (600), s16 (1045) or s8 (1450); if-chain (460); `which=2; if(i!=0&&i!=1) which=1` (1380); ternary (1360); `which=1` init plus a switch without default (460); if/else-if/else (1050); cases 2/3 plus default (1240); removing the `i==4` hack (750); `i==4` passing a constant 1 or 2 (940/930); `case 4: default` (1240); i==4 in the f24D condition (1370); a store-temp on f24D=1 (445). Still untried: making the fallthrough block start non-findable for reorg's mark_target_live_regs, e.g. a label or goto between the switch and the call, or a do{}while(0) around the switch.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Best is saved_best rev 15b3924cd2add4a97119, score 60. Only register diffs remain. In phase 2, the loop for D_800D0634[1] uses `p = D_800D0634[1]; GROUP(p,j)`, which puts the load in s2 as in the target. Doing the same for loop [2] (`p = D_800D0634[2]`) shifts s0/s2 allocation for the whole function and gives 1000, so don't. Also left: the Slot store `sl[(u8)arg0].pad00[0x44]=0x5B` swaps v0/v1 (target: addu v1,v1,v0; li v0,0x5b; sb v0,0x44(v1)). Not tried yet: a separate pointer variable (not p) for the [2] load only, and computing the Slot address before the 0x5B constant through a u8* temp.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nSaved best 90 (permuter rev d14cfb1d) rechecked at 90. The only real diff is 4 register rows in the offset ternary: target `move v0,v1; negu v0,v0; subu v0,v0,a0; addiu s2,v0,-12`, so offset/temp share v0 and the negate works on the copy. Ours is `move a1,v1; negu v0,v1; subu a1,v0,a0`. No change (90): a (s32) cast on -offset; -(s16)offset; (u32)-offset; 0-offset-result; u32 result; local repairs (decl order, extent temp, call balance, split font). Worse: inlining the ternary into x (800); triple-load s16 ternary (575); center copy ternary (600); -(extent-24) (390); a separate s16/s32 anchor or center copy with an if or ternary testing the copy (600); an inline lt helper (690).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Verified retry: score25 draft STILL omits second s1=0, target instruction at8005E598/offset252. Ordinary linked baseline differs only there: target00008821 reset, candidate02802021 redundantargumentcopy. This is same old score45 defect, not semantic improvement. Correct reset-before-call source140, correct equal-size reset-after-call225;55 bounded source/profile probes no exact. Correct alternative retained in repository docs/matching-experiments/func_8005E49C-reset-alternative.c. Keep OPEN; never accept missing-reset draft merely because score is low.",
    "by": "you"
   }
  ],

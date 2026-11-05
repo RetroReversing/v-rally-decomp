@@ -49,6 +49,7 @@ void func_8007A29C(void)
   s8 j;
   s32 n;
   s32 pad[2];
+
   u8 t;
   func_8004D31C();
   func_8005BC60();

@@ -886,3 +886,14 @@ source context from another library version, not proof of an identical SDK build
 The ordinary linked check and full **12,582,912-byte** cartridge comparison
 passed with all 2,061 prior objects unchanged. The standalone tree selects
 **2,062 C functions / 62 assembly units**. All current app progress is saved.
+
+
+### Counter-reset retry remains unresolved
+
+`func_8005E49C` remains open. Its score-25 saved draft differs at one raw word,
+but that word must reset the second loop counter; the draft instead repeats an
+argument copy and carries the first loop count forward. The lower advisory score
+is not a behavior improvement over the prior score-45 draft. Corrected variants
+scored 140 or 225 and did not match after 55 bounded source/profile probes.
+The corrected [alternative](docs/matching-experiments/func_8005E49C-reset-alternative.c)
+is research material, not selected linked C. The verified 2,062-function build is unchanged.
