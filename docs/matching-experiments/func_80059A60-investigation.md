@@ -33,3 +33,41 @@ Leave this function OPEN and revisitable. No new automatic rule is justified by 
 ## Final run evidence
 
 1000 unique independent native candidates actually compiled and linked; no exact result. Best recorded advisory score630 was not a new semantic repair: ordinary formatting alone produces it. The six final do/while hypotheses (`i++<4`, `i++!=4`, `++i<5`, preserving continue-to-condition semantics) were also negative: clean scores1305/1610/1150; multiline1745/2050/1310.
+
+## Valid byte-view and interface revisit
+
+# func_80059A60 revisit: contract and enclosing byte-view audit
+
+No exact match. Forty fresh private linked judgments compiled; no native search repeated. Live function remains OPEN200, unchanged and unclaimed on final read. No runtime, canonical repository, target, profile or live mutations. The previous 1000 native and 78 directed controls remain prior negative evidence, not this run's counts.
+
+## Fresh capture
+
+`fresh-inputs.json` freezes current function, project, header/context17, compiler profile and symbols; input SHA256 is in `evidence.json`. Target bytes unchanged from prior capture. Pinned app imports: `/Volumes/Data/Codex/tmp/loaded-byte-compound/src`, compiler gcc-2.7.2-kmc `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+
+## Important quality corrections
+
+The live200 baseline still has the previously rejected identical-arm `if(i==4)`. It also takes `&w->active` then indexes `[1]`, crossing that scalar member's subobject. A direct `w->mode` rewrite is semantically right but changes allocation: previous clean750 becomes1256. Instead, an unsigned-character view of the actual enclosing object, `flags=(u8*)w+0x41`, permits inspecting both bytes inside Widget. This preserves750 with no identity branch. `cast-corrected.c` additionally declares actual47B54's `(void*,s32,s16,s16)` argument ABI and explicitly converts signed f233 to u16 before passing it, retaining the machine's unsigned-halfword argument behavior.
+
+A genuine two-byte `Widget.flags[2]` representation also preserves750, but the enclosing-object byte view avoids introducing a separate layout representation solely to retain allocation.
+
+Fresh selected-source evidence (`callee-sources.json`, parent-selected-contracts.json) exposes further legacy discrepancies:
+
+- 599D0's second argument is s32, not u8. Correcting this and passing Style through a byte view preserves750.
+- 592AC's actual parameter is s32, not u16. Its selected definition is incorrectly void while forwarding 5A744's pointer result; 592D0 has the same return forwarding problem. Their genuine pointer-return definitions need joint correction before calling the whole chain C-contract-clean. This revisit does not silently alter those selected functions.
+- 57918's selected definition returns s32 and accepts `(s32*,s32)`, not `(s32,u16)->void*`.
+- 596F4's selected argument ABI is `(Arg*,s16,u16,s32)`, not `(Style*,s16,s16,void*)`.
+- Actual distinct structural pointer types across translation units are not globally reconciled. `contracts.c`/`explicit-narrow.c` are argument-ABI probes, not claims of full ISO cross-TU type compatibility.
+
+Correcting known scalar argument ABI mismatches jointly gives1135; explicit halfword argument conversions give950. Neither is exact. Individual corrections and their exact diffs are preserved. Lower advisory scores do not excuse invalid source, and larger scores do not refute a necessary interface correction.
+
+## New negative controls
+
+The prior typed-bound experiment used multiline formatting. This revisit tested clean-layout typed bounds and literal forms with lawful member or array views: these are new combinations, not another blind native run. The apparently closer410 result retains `s2=5` as a genuinely consumed runtime bound and uses `slt`, whereas the target has dead `s2=4` followed by immediate `sltiu ...5`. It therefore does not recover the original behavior of compiler passes. No distinct legitimate task4 effect was found that would justify inventing a branch just to preserve that dead initialization.
+
+All 40 judgments have per-source JSON and source SHA256 in evidence.json. No cartridge build was warranted for a nonmatch.
+
+## Automation implications
+
+A useful diagnostic is to distinguish character views anchored to an enclosing object from arithmetic past a scalar member. An automatic source rewrite can propose `w->mode` or the proven enclosing byte view and rejudge; it must never prefer the invalid low-score version simply because allocation was closer. Existing function-signature repair should surface the actual selected scalar ABI and propose explicit caller conversions when required by target argument preparation. Pointer-return wrapper corrections require a joint contract gate and full cartridge validation, not a local-only claim.
+
+No new matching repair family is demonstrated by this unresolved function. Keep it OPEN and revisitable; retain prior negative evidence. Do not generalize the fake identical-arm task4 branch or an arbitrary dead initialization into the permuter.
