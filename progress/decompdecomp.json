@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793913221.2742798,
- "revision": 18908,
+ "saved_at": 1793914211.04147,
+ "revision": 18910,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249442,6 +249442,14 @@
    "created_at": 1793912256.237546,
    "score_before": 2,
    "score_after": 2
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Grounded revisit 2026-11-05 [sum-bound-interference]: current ordinary KMC baseline135/448bytes still differs12rawwords. Diagnostic-da linkedbytes identical. Compiler globalallocator priorityrow199 before sum99; sum99 additionallyinterferes183=hoistedrec->n bound. 4realaggregateaccumulators,8counter/scopecontrols,55singleadjacentlineboundarymerges,16genuinezero/nonzero-countinitcontrols,9destinationpointercaptures,12block/statement-expressionreductions,8actualmemoryreductions allnonexact. All55linevariants emitONEidenticalbaselinehash; don't repeatasnovel. Parent19supportedprofile/debug/optimizationcontrols noimprovement; newer-fno-regmove rejected/excluded. No dummyoperations,padding,volatile orregisterbinding. Sourceprofileunchanged;135bestretained. Promisingnewworkneedsactualdataflow/livenesscause, notflatnativeoridenticallinevariants. Privateevidence /Volumes/Data/Codex/tmp/func800529F0/current/REPORT.md; compilercontrols parent-profiles/. OPEN/revisitable, noexactorcartridgeclaim.",
+   "by": "you",
+   "created_at": 1793914206.0133362,
+   "score_before": 135,
+   "score_after": 135
   }
  ],
  "set_aside": [

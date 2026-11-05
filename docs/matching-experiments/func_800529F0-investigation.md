@@ -76,3 +76,27 @@ configuration, record, table and flag addresses can be mapped through real
 machine hi/lo pairs; those mappings do not supply missing source or prove an
 exact twin. No transplant or profile change was justified. No new match or
 reusable automatic repair is claimed.
+
+
+## Count-bound interference investigation
+
+A fresh freeze reproduced score135 and the same12 differing raw instruction words.
+The ordinary and diagnostic `-da` compilations emitted identical linked bytes.
+GCC's global allocation dump identifies the row pointer ahead of the accumulator
+in allocation priority; the accumulator additionally conflicts with the hoisted
+initial lap-count value. This explains a concrete interference difference, but
+does not establish a source fix.
+
+112 new source controls found no improvement: four scalar aggregate forms, eight
+counter/scope controls, 55 individual adjacent source-line merges, 16 guarded
+initialization forms, nine destination-pointer captures, 12 block reductions and
+eight memory reductions. All55 line controls were also independently recompiled
+and raw-linked: every one emitted the same baseline machine-code hash. Nineteen
+supported compiler/debug/optimization controls likewise found no improvement;
+one unsupported newer compiler option was excluded.
+
+The source, target, header, symbols and compiler profile remained unchanged. No
+exact match, source adoption or cartridge claim is made. These results are saved
+in the ordinary app notes and full portable progress. Keep this function OPEN
+and revisitable; further work needs a new actual data-flow or allocation cause,
+not another repetition of the same line edits or flat native search.
