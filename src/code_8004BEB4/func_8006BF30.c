@@ -1,9 +1,9 @@
-#include "common.h"
-
+#include "decompdecomp_promoted_8006bf30.h"
+#line 1 "func.c"
 extern u8 D_800C02AE[];
 void func_8006BE50(u8 *p, u8 a);
 
-void func_8006BF30(u8 a, u8 b, u8 c, u8 d) {
+void func_8006BF30(s32 aa, s32 bb, s32 cc, s32 dd) { u8 a=(u8)aa, b=(u8)bb, c=(u8)cc, d=(u8)dd;
     switch (b) {
     case 0:
         func_8006BE50(((u8 **)((u8 *)D_800C02AE + 0x10386))[b] + c * 708 + ((d << 6) + 0x2C), a);
@@ -28,3 +28,4 @@ void func_8006BF30(u8 a, u8 b, u8 c, u8 d) {
         break;
     }
 }
+

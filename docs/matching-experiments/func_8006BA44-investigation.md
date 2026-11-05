@@ -58,3 +58,43 @@ at different offsets from the target, so ordinary linking rejects placement.
 It is byte-identical to the earlier audited-best diagnostic control, which
 contains no artificial branch. No best-source portfolio, selected profile,
 live callee correction or accepted match resulted from these controls.
+
+
+## Modern compatible interface and corrected 705 draft
+
+A fresh audit found the previous 765 source still incompatible with the selected
+ANSI byte-parameter helper and the integer-parameter caller of this function.
+The earlier root85 correction did not cover this separate interface. Nine direct
+machine call sites identify six callers of `func_8006BF30`: four matched functions
+and two open drafts.
+
+The selected helper now uses integer parameters and four genuine byte locals.
+This preserves its byte conversions and exact machine code. Four matched callers
+now declare its actual void return and integer parameters, with explicit byte
+casts wherever their previous prototypes supplied narrowing. All five normal
+app rechecks are exact. The complete 12,582,912-byte cartridge remains identical,
+preserving all 2,070 profiles and the 2,065 other selected C objects. No K&R syntax
+or artificial ABI mechanism is needed. Other unselected draft interfaces are not
+claimed globally reconciled.
+
+In the focal function, an integer incoming category followed by a genuinely
+consumed `u8` local improves 765 to 705. Per-use casts and self-assignment into
+the wide parameter produce different code. The actual invariant output-table
+pointer remains cached, the slot stays unchanged and the artificial duplicate
+tail is absent. The normal app judge has selected the corrected 705 draft. It
+is still OPEN and has not been selected as standalone C.
+
+The observed caller supplies categories 1..4 and bounded slots. Converted values
+are finite and at most 79.5; this supports the low-arm signed conversion here,
+not a generic floating-cast rule. The actual ordered/unordered threshold predicate
+is preserved. Dynamic records still require a nonzero divisor and valid storage,
+and existing raw-memory/effective-type assumptions remain explicit. This removes
+definite local errors and aligns the selected interface; it is not a whole-game
+C-conformance proof.
+
+Thirty-two valid new research compiles, including an independent proof replay,
+found no exact match. One exploratory tail probe that skipped an update was
+excluded. A prototype automatic typed-entry-local transformation reproduces 705
+from the 1100 entry-mask control in two proposals. It remains private pending
+type-inspection, language and promotion guards; no new app repair is claimed
+enabled by this checkpoint. All current progress is saved normally.

@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793915366.706524,
- "revision": 18918,
+ "saved_at": 1793916951.2427552,
+ "revision": 18924,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8358,8 +8358,8 @@
   },
   "func_8006BA44": {
    "vram": 2147924548,
-   "best_score": 1000,
-   "best_by": "Rr.permuter-1434"
+   "best_score": 705,
+   "best_by": "you"
   },
   "func_8006BE50": {
    "vram": 2147925584,
@@ -249482,6 +249482,14 @@
    "created_at": 1793915362.838571,
    "score_before": 420,
    "score_after": 420
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Grounded correction 2026-11-05 [promoted-byte-entry-705]: normal app judge now retains corrected OPEN705 source SHA f4c72742f1d50c37d704d5e8d933a7dcd89d37a49dc40688bdc97e93f442256b. Historical1000 is rejected: destructive invariant-slot shift and artificial duplicated tail. Current candidate preserves slot, caches actual output pointer, uses integer incoming category and genuinely consumed u8 local, and preserves ordered/unordered threshold test. BF30 now has modern integer formals and four byte locals; its four matched callers retain explicit prior narrowing with compatible void/int declarations. All five sources normal-rechecked exact; full12,582,912-byte cartridge exact, all2070profiles and2065otherCobjects unchanged. 32 valid new research compiles plus one excluded wrong-tail probe; no exact focal match. Observed category/slot bounds give finite conversion0..79.5; divisor must be nonzero and actual storage valid. Existing raw-memory/effective-type caveats remain, not whole-program C proof. Two private automatic typed-entry-local proposals reproduce705 from1100, pending language/type-inspection safety guards. Evidence /Volumes/Data/Codex/tmp/func8006BA44/current-nov5/REPORT.md and parent-contracts/cartridge-gate/. No GP guessing or literal-value mapping. Keep OPEN/revisitable; next search starts from current corrected705, not invalid1000 or incompatible old765.",
+   "by": "you",
+   "created_at": 1793916650.01736,
+   "score_before": 1000,
+   "score_after": 705
   }
  ],
  "set_aside": [
@@ -277608,7 +277616,7 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
-   "func_8006C3E4": {
+   "func_8006BF30": {
     "format": 1,
     "verdict": "exact",
     "abi": {
@@ -277618,10 +277626,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "0acb30f234fbab5a28588d613f826b557012c9831f4c67fd01ba7f139b45dfd7",
-    "recorded_at": 1793530591.2427719,
-    "attempt_id": 223289,
-    "source_sha256": "4e6de8a83727cf4f86e565c658f474458eebe75ed9d776e6607132b2b9132c64",
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793916447.463748,
+    "attempt_id": 309821,
+    "source_sha256": "e000cf0002b82592bf9651f5778081fbc66aabad74536d59bd0fce88c35bbb12",
     "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "context_version": 17,
     "compiler": {
@@ -277638,7 +277646,7 @@
     },
     "compiler_identity": {
      "toolchain": "gcc-2.7.2-kmc",
-     "registry_sha256": "97858a6d26dc4972fd416510508393f7a48b73cd10dc2bcd984b89aed7b46213",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
      "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
      "executables": {
       "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
@@ -277668,7 +277676,7 @@
       "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
       "game_code": "NVLP",
       "region": "Europe",
-      "byte_order": "v64"
+      "byte_order": "z64"
      },
      "effective_command": [
       "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
@@ -277687,7 +277695,95 @@
      ],
      "language": "c",
      "context_unit": "",
-     "scoring_revision": "3105b50bdc2a53fb509822b4bc5abfcbe37aeb9f81041623aa53133cded4adaa",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "64ccbfe0da49646ab64e535c5442b6b1f8e406153adb63a87642a8c6b47d807b",
+    "relocations_sha256": "e47245b7b42ff9a7e68fd33e077e6f8fa500d4c47f1cf572e04cced30ca6ca37",
+    "vram": 2147925808,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
+   "func_8006C3E4": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793916448.109613,
+    "attempt_id": 309822,
+    "source_sha256": "05222047f968d293d8f2767f4ccd2da206c9a728a1029ff68a51667ffd3c0d09",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
      "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
     },
     "target_sha256": "1d3d267381d920ed2ce4b3bc1513739a3e756e4209b3f2f95bfd54078bc37078",
@@ -277781,6 +277877,94 @@
     "target_sha256": "d8db908074132f8d344f9ede74a780b3bda00621a56a7f32272f099d989e29fb",
     "relocations_sha256": "30b4fe71d6e1bdaa7446b849fbca984555f6083122e09494550d02330c4c930c",
     "vram": 2147927616,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
+   "func_8006C780": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793916448.583634,
+    "attempt_id": 309823,
+    "source_sha256": "e39d027675c654eb7b6f15e338bb46075baf510cf1c2dc53365cbe85ed4ac65e",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "85b5a110f5998bd6c968810b52005efc5235efcf8839abed048a79d9d3ec12e4",
+    "relocations_sha256": "3b468ac91dcc72fd4b5175b4486811382f2a57b71d642999e29c6198fa22e47f",
+    "vram": 2147927936,
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
@@ -277882,10 +278066,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "58febafdf8ab1b4115434566e75c61f65da90d97c62ec373ac39e51208d27ee0",
-    "recorded_at": 1793564182.607808,
-    "attempt_id": 239064,
-    "source_sha256": "df89b312fe5808902a9a9b37943c34d5d607f34561e4a6a2c7dc10460a8a3c40",
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793916449.031629,
+    "attempt_id": 309824,
+    "source_sha256": "481f0d9567c87d6b4226ed4f5111f1b42ba5a671e29c9e595ff4704d321131be",
     "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "context_version": 17,
     "compiler": {
@@ -277902,7 +278086,7 @@
     },
     "compiler_identity": {
      "toolchain": "gcc-2.7.2-kmc",
-     "registry_sha256": "97858a6d26dc4972fd416510508393f7a48b73cd10dc2bcd984b89aed7b46213",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
      "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
      "executables": {
       "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
@@ -277932,7 +278116,7 @@
       "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
       "game_code": "NVLP",
       "region": "Europe",
-      "byte_order": "v64"
+      "byte_order": "z64"
      },
      "effective_command": [
       "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
@@ -277951,7 +278135,7 @@
      ],
      "language": "c",
      "context_unit": "",
-     "scoring_revision": "6a25db941b81f660310f940f34af98ea5f82c4ef8dc7980b5cab78b5b6568c58",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
      "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
     },
     "target_sha256": "29357da66a12d9e78c85819fccba76d2af2ff6918a70b75ab6b3f58b1cb7bff7",
@@ -278058,10 +278242,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "58febafdf8ab1b4115434566e75c61f65da90d97c62ec373ac39e51208d27ee0",
-    "recorded_at": 1793557035.386563,
-    "attempt_id": 234810,
-    "source_sha256": "ab773a41854bdd5e0309476604158985ab56132afe453e22b8aeb41786383ff1",
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793916449.504739,
+    "attempt_id": 309825,
+    "source_sha256": "032e5adf2f294465c6f07003aa476a5c4d8daa0a8b19d14b61ca0c984bb92f4b",
     "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "context_version": 17,
     "compiler": {
@@ -278078,7 +278262,7 @@
     },
     "compiler_identity": {
      "toolchain": "gcc-2.7.2-kmc",
-     "registry_sha256": "97858a6d26dc4972fd416510508393f7a48b73cd10dc2bcd984b89aed7b46213",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
      "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
      "executables": {
       "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
@@ -278108,7 +278292,7 @@
       "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
       "game_code": "NVLP",
       "region": "Europe",
-      "byte_order": "v64"
+      "byte_order": "z64"
      },
      "effective_command": [
       "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
@@ -278127,7 +278311,7 @@
      ],
      "language": "c",
      "context_unit": "",
-     "scoring_revision": "3105b50bdc2a53fb509822b4bc5abfcbe37aeb9f81041623aa53133cded4adaa",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
      "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
     },
     "target_sha256": "a57b708f3ada6ef03e5fba9a6f1dd5200376565abdccf5110940b988ac667f07",
@@ -286993,12 +287177,14 @@
    "62219befc17e06de039362f45660780d4ce10ba708c0f90bc22374e4fe9c42e3": "typedef struct { u32 w0, w1; } Gfx;\ntypedef struct { s32 x, y, z; } Vec3i;\ntypedef struct {\n    char pad0[0x38];\n    char mtx[0xD4];      /* 0x38 */\n    f32 f10C, f110, f114; /* 0x10C */\n    Vec3i eye;           /* 0x118 */\n    Vec3i at;            /* 0x124 */\n    f32 f130, f134, f138; /* 0x130 */\n    char pad13C[0x3C];\n    void *dl;            /* 0x178 */\n} Camera;\ntypedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;\ntypedef struct { char pad[0x104]; u16 persp; char pad106[0x52]; char light0[0x10]; char light1[0x10]; } View;\ntypedef struct { char pad[4]; s16 width; } FrameBuf;\ntypedef struct { char pad[0x44]; u16 a44[4]; u16 a4C[4]; u16 a54[4]; } Players;\ntypedef struct { char pad[0x237]; u8 track; } GameState;\n\n#define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\n\nvoid func_80022668(s32, s32);\nvoid *func_8004240C(s32);\nDLBuf *func_800056FC(void *);\nvoid func_80005500(void *, s16 *);\nGfx *func_80006008(DLBuf *);\nvoid func_80006014(DLBuf *, Gfx *);\nvoid *func_80005C48(FrameBuf *);\nu32 osVirtualToPhysical(void *);\nvoid func_80010A6C(void *, s16 *);\nvoid *func_8001BD1C(void);\nvoid guMtxF2L(void *, void *);\nvoid guMtxIdent(void *);\nvoid func_8001C1A8(f32 *, void *);\nvoid func_80010BFC(void *, void *, void *);\nvoid func_800061FC(DLBuf *, void *);\nvoid func_8004D1A8(void *, s32, f32, s32, s32);\nvoid func_8001E3A8(u8);\ns32 func_80084DD4(u8);\nvoid func_80015C74(void *, s32);\nvoid func_80017B38(void *, s32, DLBuf *, void *);\n\nextern s32 D_800A11B0;\nextern Camera *D_800C7F84;\nextern Vec3i D_800A1694;\nextern Vec3i D_800A16A0;\nextern s16 D_800A16AC[4];\nextern FrameBuf *D_8009B5A8;\nextern u32 D_800B706C;\nextern char D_800C8380[];\nextern f32 D_800A1584[];\nextern f32 D_800A158C;\nextern char D_800A159C[];\nextern f32 D_800A15D0;\nextern s32 D_800C5E50;\nextern GameState *D_800A1468;\nextern s32 D_800AFB40;\nextern s32 D_800B5AF4;\nextern s32 D_800AFA68;\nextern Players *D_800A1B70;\nextern char D_800ADFB0[];\nextern char D_800ADFEC[];\n\nvoid func_80069A08(void)\n{\n    DLBuf *buf;\n    Gfx *gfx;\n    View *view;\n    void *mtx;\n    void *m;\n    u32 zaddr;\n    s32 i;\n\n    func_80022668(D_800A11B0, 0);\n    D_800C7F84 = func_8004240C(3);\n    buf = func_800056FC(D_800C7F84->dl);\n\n    D_800C7F84 = func_8004240C(3);\n    D_800C7F84->eye = D_800A1694;\n    D_800C7F84->at = D_800A16A0;\n    D_800C7F84->f130 = 0.0f;\n    D_800C7F84->f134 = 100.0f;\n    D_800C7F84->f138 = 0.0f;\n    D_800C7F84->f10C = 0.4f;\n    D_800C7F84->f110 = 0.4f;\n    D_800C7F84->f114 = 1.0f;\n    func_80005500(D_800C7F84->dl, D_800A16AC);\n\n    D_800C7F84 = func_8004240C(1);\n    D_800C7F84->eye = D_800A1694;\n    D_800C7F84->at = D_800A16A0;\n    D_800C7F84->f130 = 0.0f;\n    D_800C7F84->f134 = 100.0f;\n    D_800C7F84->f138 = 0.0f;\n    D_800C7F84->f10C = 0.4f;\n    D_800C7F84->f110 = 0.4f;\n    D_800C7F84->f114 = 1.0f;\n\n    gfx = func_80006008(buf);\n    GCMD(gfx++, 0xE7000000, 0);\n    GCMD(gfx++, 0xE3000A01, 0x300000);\n    zaddr = D_800B706C - 0x80000000;\n    GCMD(gfx++, 0xFE000000, zaddr);\n    GCMD(gfx++, 0xFF100000 | ((D_8009B5A8->width - 1) & 0xFFF), zaddr);\n    GCMD(gfx++, 0xF7000000, 0xFFFCFFFC);\n    GCMD(gfx++, 0xF6000000 | (((D_8009B5A8->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),\n         ((D_800A16AC[0] & 0x3FF) << 14) | ((D_800A16AC[1] & 0x3FF) << 2));\n    GCMD(gfx++, 0xE7000000, 0);\n    GCMD(gfx++, 0xFF100000 | ((D_8009B5A8->width - 1) & 0xFFF), osVirtualToPhysical(func_80005C48(D_8009B5A8)));\n    GCMD(gfx++, 0xF7000000, 0x10001);\n    GCMD(gfx++, 0xF6000000 | (((D_8009B5A8->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),\n         ((D_800A16AC[0] & 0x3FF) << 14) | (((D_800A16AC[1] + 60) & 0x3FF) << 2));\n    GCMD(gfx++, 0xE3000A01, 0);\n    func_80006014(buf, gfx);\n\n    view = func_8004240C(3);\n    func_80010A6C(func_8004240C(3), D_800A16AC);\n    buf = func_800056FC(((Camera *)view)->dl);\n    gfx = func_80006008(buf);\n    m = func_8001BD1C();\n    guMtxF2L(((Camera *)view)->mtx, m);\n    guMtxIdent(D_800C8380);\n    GCMD(gfx++, 0xDB0E0000, view->persp);\n    GCMD(gfx++, 0xDA380003, (u32)D_800C8380);\n    GCMD(gfx++, 0xDC08000A, (u32)view->light0);\n    GCMD(gfx++, 0xDC08030A, (u32)view->light1);\n    GCMD(gfx++, 0xE7000000, 0);\n    func_80006014(buf, gfx);\n\n    D_800C7F84 = func_8004240C(3);\n    buf = func_800056FC(D_800C7F84->dl);\n    D_800C7F84 = func_8004240C(1);\n    mtx = D_800C7F84->mtx;\n    D_800C7F84 = func_8004240C(3);\n    m = func_8001BD1C();\n    D_800A1584[0] = -90.0f;\n    D_800A158C += 4.0f;\n    func_8001C1A8(D_800A1584, D_800A159C);\n    D_800A15D0 = 80.0f;\n    func_80010BFC(m, D_800C7F84->mtx, D_800A159C);\n    func_800061FC(buf, m);\n    GCMD(buf->gfx++, 0xFB000000, -1);\n    func_8004D1A8(D_800C7F84->dl, 0, 4.0f, 0, 0xFF);\n\n    if (D_800C5E50 == -1) {\n        func_8001E3A8(D_800A1468->track);\n        D_800C5E50 = D_800A1468->track;\n        D_800B5AF4 = D_800A1468->track;\n        D_800AFB40 = 0;\n        for (i = 0; i < 4; i++) {\n            if (func_80084DD4(i) != 0) {\n                D_800A1B70->a4C[i] &= 0x7FFF;\n                D_800A1B70->a44[i] &= 0x7FFF;\n                D_800A1B70->a54[i] &= 0x7FFF;\n            }\n        }\n    } else if (D_800C5E50 != D_800A1468->track) {\n        if (D_800B5AF4 != D_800A1468->track) {\n            D_800B5AF4 = D_800A1468->track;\n            D_800AFB40 = 0;\n        }\n        D_800AFB40++;\n        if (D_800AFB40 >= 13) {\n            func_80015C74(D_800ADFB0, 0);\n            func_8001E3A8(D_800A1468->track);\n            D_800C5E50 = D_800A1468->track;\n            D_800AFB40 = 0;\n        }\n        for (i = 0; i < 4; i++) {\n            if (func_80084DD4(i) != 0) {\n                D_800A1B70->a4C[i] &= 0x7FFF;\n                D_800A1B70->a44[i] &= 0x7FFF;\n                D_800A1B70->a54[i] &= 0x7FFF;\n            }\n        }\n    }\n    if (D_800C5E50 == D_800A1468->track) {\n        D_800AFA68 += 50;\n        if (D_800AFA68 >= 256) {\n            D_800AFA68 = 255;\n        } else {\n            for (i = 0; i < 4; i++) {\n                if (func_80084DD4(i) != 0) {\n                    D_800A1B70->a4C[i] &= 0x7FFF;\n                    D_800A1B70->a44[i] &= 0x7FFF;\n                    D_800A1B70->a54[i] &= 0x7FFF;\n                }\n            }\n        }\n    } else if (D_800AFA68 > 0) {\n        D_800AFA68 -= 50;\n        if (D_800AFA68 < 0) {\n            D_800AFA68 = 0;\n        }\n    }\n    func_80017B38(D_800ADFEC, 0, buf, mtx);\n}\n",
    "cb010d317cdc114e9be94947c99887ee87b0ea7ac1c6269d61647297ecfaeea3": "#define V(p,o) (*(s32*)((char*)(p)+(o)))\n#define W(p,o) (*(s32*)((char*)(p)+(o)))\n#define F(p,o) (*(f32*)((char*)(p)+(o)))\n#define H(p,o) (*(s16*)((char*)(p)+(o)))\n#define U(p,o) (*(u16*)((char*)(p)+(o)))\n#define P(p,o) (*(char**)((char*)(p)+(o)))\ntypedef struct { u32 w0, w1; } DLGfx;\n#define CMD(pkt,a,b) { DLGfx *_g = (DLGfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\ntypedef struct \n{\n  s32 a;\n  s32 b;\n  s32 c;\n} Triple;\nextern Triple D_800A1694;\nextern Triple D_800A16A0;\nextern Triple D_800A16B4;\nextern Triple D_800A16C0;\nextern f32 D_800A16B8;\nextern f32 D_800A16BC;\nextern f32 D_800A16C4;\nextern f32 D_800A16C8;\nextern u16 D_800A16AC;\nextern u16 D_800A16AE;\nextern s16 D_800A16B2;\nextern u8 D_800A16D5;\nextern char *D_8009B5A8;\nextern char *D_800AFA64;\nextern char *D_800C7F84;\nextern int D_800B706C;\nextern int D_8009D4EC;\nextern int D_8009D4E8;\nextern int *D_800C8374;\nextern char D_800C8380[];\nextern char D_800ADFB0[];\nchar *func_8004240C(int);\nDLGfx *func_80006008(int);\nint func_800056FC(int);\nint func_8001BD1C(void);\nint func_80005C48(void *);\nint osVirtualToPhysical(int);\nvoid func_8006A438(void)\n{\n  DLGfx *cursor;\n  s32 temp_a0;\n  s32 temp_a3;\n  s32 temp_s7;\n  char *temp_s0;\n  char *temp_s1;\n  char *new_var;\n  char *temp_v0;\n  char *temp_v0_2;\n  int new_var2;\n  char *temp_v0_3;\n  char *temp_v0_6;\n  char *temp_v0_7;\n  if (D_800A16D5 == 0)\n  {\n    return;\n  }\n  {\n    char *a1;\n    s32 a2;\n    s32 v0;\n    s32 a3;\n    u16 *pAC = &D_800A16AC;\n#define D_800A16AC (*pAC)\n    a1 = D_800AFA64;\n    a2 = U(a1, 0x88) * 2 / 3;\n    v0 = a2 * U(a1, 0x8A);\n    a3 = W(a1, 0x4C);\n    temp_a0 = v0 + a3;\n    F(&D_800A16B4, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));\n    D_800A16B8 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);\n    D_800A16BC = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));\n    temp_a0 = ++a2 * U(a1, 0x8A) + a3;\n    F(&D_800A16C0, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));\n    D_800A16C4 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);\n    D_800A16C8 = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));\n    temp_v0 = func_8004240C(3);\n    temp_a3 = W(temp_v0, 0x178);\n    D_800C7F84 = temp_v0;\n    temp_s7 = func_800056FC(temp_a3);\n    temp_v0_2 = func_8004240C(3);\n    D_800C7F84 = temp_v0_2;\n    *((Triple *) (temp_v0_2 + 0x118)) = D_800A1694;\n    *((Triple *) (D_800C7F84 + 0x124)) = D_800A16A0;\n    W(D_800C7F84, 0x130) = 0;\n    F(D_800C7F84, 0x134) = 100.0f;\n    W(D_800C7F84, 0x138) = 0;\n    F(D_800C7F84, 0x114) = 1.0f;\n    func_80005500(W(D_800C7F84, 0x178), &D_800A16AC, &D_800A16A0);\n    temp_v0_3 = func_8004240C(1);\n    D_800C7F84 = temp_v0_3;\n    *((Triple *) (temp_v0_3 + 0x118)) = D_800A16B4;\n    *((Triple *) (D_800C7F84 + 0x124)) = D_800A16C0;\n    W(D_800C7F84, 0x130) = 0;\n    F(D_800C7F84, 0x134) = 100.0f;\n    W(D_800C7F84, 0x138) = 0;\n    F(D_800C7F84, 0x10C) = 0.4f;\n    F(D_800C7F84, 0x110) = 0.4f;\n    F(D_800C7F84, 0x114) = 1.0f;\n    cursor = func_80006008(temp_s7);\n    CMD(cursor++, 0xE7000000, 0);\n    CMD(cursor++, 0xE3000A01, 0x300000);\n    new_var2 = D_800B706C + 0x80000000;\n    {\n      char *tex = D_8009B5A8;\n      CMD(cursor++, 0xFE000000, new_var2);\n      CMD(cursor++, ((H(tex, 4) - 1) & 0xFFF) | 0xFF100000, new_var2);\n      CMD(cursor++, 0xF7000000, 0xFFFCFFFC);\n      CMD(cursor++, 0xF6000000 | (((u32)(H(tex, 4) - 1) & 0x3FF) << 14) | (((u32)(D_800A16B2 - 1) & 0x3FF) << 2),\n          ((D_800A16AC & 0x3FF) << 14) | ((D_800A16AE & 0x3FF) << 2));\n      CMD(cursor++, 0xE7000000, 0);\n      CMD(cursor++, ((H(tex, 4) - 1) & 0xFFF) | 0xFF100000, osVirtualToPhysical(func_80005C48(tex)));\n    }\n    CMD(cursor++, 0xE3000A01, 0);\n    CMD(cursor++, 0xF7000000, 0x10001);\n    CMD(cursor++, 0xF6000000 | (((u32)(H(D_8009B5A8, 4) - 1) & 0x3FF) << 14) | (((u32)(D_800A16B2 - 1) & 0x3FF) << 2),\n        ((D_800A16AC & 0x3FF) << 14) | ((D_800A16AE & 0x3FF) << 2));\n#undef D_800A16AC\n    func_80006014(temp_s7, cursor);\n    temp_s0 = func_8004240C(3);\n    func_80010A6C(func_8004240C(3), &D_800A16AC);\n    temp_s7 = func_800056FC(W(temp_s0, 0x178));\n    cursor = func_80006008(temp_s7);\n    guMtxF2L(new_var = temp_s0 + 0x38, func_8001BD1C());\n    guMtxIdent(D_800C8380);\n    CMD(cursor++, 0xDB0E0000, U(temp_s0, 0x104));\n    CMD(cursor++, 0xDA380003, (s32) D_800C8380);\n    CMD(cursor++, 0xDC08000A, (s32) (temp_s0 + 0x158));\n    CMD(cursor++, 0xDC08030A, (s32) (temp_s0 + 0x168));\n    CMD(cursor++, 0xE7000000, 0);\n    func_80006014(temp_s7, cursor);\n    temp_v0_6 = func_8004240C(3);\n    temp_a3 = W(temp_v0_6, 0x178);\n    D_800C7F84 = temp_v0_6;\n    temp_s7 = func_800056FC(temp_a3);\n    temp_v0_7 = func_8004240C(1);\n    D_800C7F84 = temp_v0_7;\n    temp_s1 = temp_v0_7 + 0x38;\n    D_800C7F84 = func_8004240C(3);\n    func_80015F3C(temp_s7);\n    func_80015D68(D_800ADFB0, *D_800C8374, temp_s7, temp_s7, temp_s1);\n    if (D_8009D4EC != 0)\n    {\n      func_80081B28(D_8009D4EC);\n      D_8009D4EC = 0;\n      func_80081B28(D_8009D4E8);\n      D_8009D4E8 = 0;\n    }\n  }\n}\n",
    "6ef0d595eba50fc9fd58b79ba8bda331615c57544148a368f3feeac2b7431d6d": "extern void *D_800A1468;\nextern u16 D_800A16E0[];\nextern void *D_800C35A0;\ns32 func_8006204C(u8, u8, u8);void *func_8005A744(u32, void *);\ns32 func_800592F4(s32, s32);\nvoid func_8006AE34(void)\n{\n  s8 a;\n  s16 q;\n  s16 x;\n  s32 z;\n  s32 y;\n  s32 w;\n  s32 new_var;\n  u8 k;\n  char index;\n  void *p;\n  void *b;\n  void *c;\n  void *base;\n  void *t = D_800A1468;\n  b = D_800C35A0;\n  a = *((s8 *) (((u8 *) t) + 0x228));\n  b = ((u8 *) b) + a;\n  index = *((u8 *) (((u8 *) b) + 0x32));\n  *((s8 *) (((u8 *) t) + 0x22b)) = a;\n  base = D_800C35A0;\n  index = (s8) index;\n  p = ((u8 *) base) + ((((s32) index) * 0x28) + 0x44);\n  if ((*((u16 *) (((u8 *) base) + 0x1e))) == 0)\n  {\n    k = 0x1e;\n  }\n  else\n  {\n    k = 0x14;\n    if ((*((u16 *) (((u8 *) base) + 0x1e))) == 5)\n    {\n      k = 0x2d;\n    }\n  }\n  w = k & 255;\n  new_var = func_8006204C(*((u8 *) (((u8 *) D_800C35A0) + 0x1f)), *((u8 *) (((u8 *) D_800C35A0) + 0x21)), *((u8 *) (((u8 *) D_800C35A0) + 0x23)));\n  y = new_var;\n  t = func_8005A744(0, (void *)(*((void **) D_800A1468)));\n  y &= 255;\n  z = y * 2;\n  *((u16 *) (((u8 *) t) + 4)) = D_800A16E0[z / 2];\n  func_800592F4(w, *((u8 *) (((u8 *) p) + 9)));\n  c = ((u8 *) p) + y;\n  func_800592F4(w + 1, *((u8 *) (((u8 *) c) + 0x10)));\n  x = *((s16 *) (((u8 *) (z + ((s32) p))) + 0x1c));\n  func_800592F4(w + 2, (-((s16) (x / 10))) + 2);\n  func_800592F4(w + 3, *((u8 *) (((u8 *) c) + 0x18)));\n  func_800592F4(w + 4, *((u8 *) (((u8 *) c) + 0x14)));\n  {\n    void *out = func_8005A744(2, (void *)(*((void **) D_800A1468)));\n    q = 0x128;\n    index = (*((s8 *) (((u8 *) D_800A1468) + 0x228))) == 0;\n    if (index)\n    {\n      q = 0x126;\n    }\n    *((s16 *) (((u8 *) out) + 4)) = q;\n  }\n}\n",
-   "4e6de8a83727cf4f86e565c658f474458eebe75ed9d776e6607132b2b9132c64": "typedef struct Lap { s32 time; u8 c4; u8 pad5; char name[3]; u8 pad9; u8 speed; u8 padB; u8 valid; u8 padD[3]; } Lap;\ntypedef struct Drv { u16 w0; u16 w2; char pad[10]; } Drv;\ntypedef struct Rec { char pad0[0x14]; u16 n; char pad16[0x22C - 0x16]; s32 vals[8]; char pad24C[0x2C4 - 0x24C]; } Rec;\n\nextern void func_8006BF30(u8, s32, u8, u8);\nextern s32 D_8009D540;\nextern s32 D_800ADF40[];\nextern Lap D_800C3750[][4];\nextern Drv D_800C70D4[];\nextern u8 D_800C7124[];\nextern Rec *D_800D0648;\n\nvoid func_8006C3E4(u8 arg0) {\n    u8 i;\n    s32 j;\n    u32 x;\n    Drv *d;\n    u16 *tbl;\n    s32 total;\n    u8 n;\n\n    for (i = 0; i < 3; i++) {\n        j = i;\n        tbl = (u16 *)D_800C7124;\n        x = tbl[arg0 * 3 + j + 0xAD];\n        if (x != 0xFFFF) {\n            d = &D_800C70D4[x >> 14];\n            func_8006BF30(j, 22, arg0, arg0);\n            D_800C3750[arg0][j].name[0] = ((d->w0 >> 10) & 0x1F) + 'A';\n            D_800C3750[arg0][j].name[1] = ((d->w0 >> 5) & 0x1F) + 'A';\n            {\n                s32 blue = ((u8 *)d)[1];\n                x &= 0x3FFF;\n                D_800C3750[arg0][j].valid = 1;\n                D_800C3750[arg0][j].name[2] = (blue & 0x1F) + 'A';\n            }\n            if (x & 1) x = -x;\n            x = D_800ADF40[arg0] - x;\n            D_800C3750[arg0][j].time = x;\n            D_800C3750[arg0][j].c4 = (d->w2 >> 12) + (d->w0 >> 15) * 16;\n            total = 0;\n            for (n = 0; n < D_800D0648[arg0].n; n++) {\n                total += D_800D0648[arg0].vals[n];\n            }\n            D_800C3750[arg0][i].speed = (u32)(total * D_8009D540 * 3600) / (u32)(x * 1000);\n        }\n    }\n}\n",
+   "e000cf0002b82592bf9651f5778081fbc66aabad74536d59bd0fce88c35bbb12": "extern u8 D_800C02AE[];\nvoid func_8006BE50(u8 *p, u8 a);\n\nvoid func_8006BF30(s32 aa, s32 bb, s32 cc, s32 dd) { u8 a=(u8)aa, b=(u8)bb, c=(u8)cc, d=(u8)dd;\n    switch (b) {\n    case 0:\n        func_8006BE50(((u8 **)((u8 *)D_800C02AE + 0x10386))[b] + c * 708 + ((d << 6) + 0x2C), a);\n        break;\n    case 1:\n        func_8006BE50((u8 *)D_800C02AE + 0x34A2 + (d << 6), a);\n        break;\n    case 2:\n        func_8006BE50((u8 *)D_800C02AE + 0x33A2 + (d << 6), a);\n        break;\n    case 3:\n        func_8006BE50((u8 *)D_800C02AE + 0x37A2, a);\n        break;\n    case 4:\n        func_8006BE50((u8 *)D_800C02AE + 0x37E2, a);\n        break;\n    case 5:\n        func_8006BE50((u8 *)D_800C02AE + 0x3822, a);\n        break;\n    case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15: case 16:\n    case 17: case 18: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 26:\n        break;\n    }\n}\n",
+   "05222047f968d293d8f2767f4ccd2da206c9a728a1029ff68a51667ffd3c0d09": "typedef struct Lap { s32 time; u8 c4; u8 pad5; char name[3]; u8 pad9; u8 speed; u8 padB; u8 valid; u8 padD[3]; } Lap;\ntypedef struct Drv { u16 w0; u16 w2; char pad[10]; } Drv;\ntypedef struct Rec { char pad0[0x14]; u16 n; char pad16[0x22C - 0x16]; s32 vals[8]; char pad24C[0x2C4 - 0x24C]; } Rec;\n\nextern void func_8006BF30(s32,s32,s32,s32);\nextern s32 D_8009D540;\nextern s32 D_800ADF40[];\nextern Lap D_800C3750[][4];\nextern Drv D_800C70D4[];\nextern u8 D_800C7124[];\nextern Rec *D_800D0648;\n\nvoid func_8006C3E4(u8 arg0) {\n    u8 i;\n    s32 j;\n    u32 x;\n    Drv *d;\n    u16 *tbl;\n    s32 total;\n    u8 n;\n\n    for (i = 0; i < 3; i++) {\n        j = i;\n        tbl = (u16 *)D_800C7124;\n        x = tbl[arg0 * 3 + j + 0xAD];\n        if (x != 0xFFFF) {\n            d = &D_800C70D4[x >> 14];\n            func_8006BF30((u8)(j), 22,(u8)(arg0),(u8)(arg0));\n            D_800C3750[arg0][j].name[0] = ((d->w0 >> 10) & 0x1F) + 'A';\n            D_800C3750[arg0][j].name[1] = ((d->w0 >> 5) & 0x1F) + 'A';\n            {\n                s32 blue = ((u8 *)d)[1];\n                x &= 0x3FFF;\n                D_800C3750[arg0][j].valid = 1;\n                D_800C3750[arg0][j].name[2] = (blue & 0x1F) + 'A';\n            }\n            if (x & 1) x = -x;\n            x = D_800ADF40[arg0] - x;\n            D_800C3750[arg0][j].time = x;\n            D_800C3750[arg0][j].c4 = (d->w2 >> 12) + (d->w0 >> 15) * 16;\n            total = 0;\n            for (n = 0; n < D_800D0648[arg0].n; n++) {\n                total += D_800D0648[arg0].vals[n];\n            }\n            D_800C3750[arg0][i].speed = (u32)(total * D_8009D540 * 3600) / (u32)(x * 1000);\n        }\n    }\n}\n",
    "85b0469353fcb161dc5e9b4a8198824e3be66f2737255a1147d75fc0ea1b73db": "typedef struct Item\n{\n  s32 x;\n  u8 pad[0xC];\n} Item;\ntypedef struct Group\n{\n  Item item[4];\n} Group;\ntypedef struct Game\n{\n  u8 pad00[0x20];\n  u16 sel;\n} Game;\ntypedef struct Tbl\n{\n  u8 pad[0x15A];\n  u16 v;\n} Tbl;\nextern Game *D_800C35A0;\nextern Group D_800C3750[];\nextern s32 D_800ADF40[];\nextern u8 D_800C7124[];\nextern u8 func_8006B924(Item *);\nvoid func_8006C640(void)\n{\n  u8 idx;\n  u8 i;\n  u8 *new_var2;\n  u8 r;\n  u8 new_var;\n  s32 d;\n  new_var2 = D_800C7124;\n  idx = D_800C35A0->sel;\n  for (i = 0; i < 3; i++)\n  {\n    r = func_8006B924(&D_800C3750[idx].item[i]);\n    new_var = i;\n    if (r == 5)\n    {\n      ((Tbl *) (new_var2 + (((idx * 3) + new_var) * 2)))->v = 0xFFFF;\n    }\n    else\n    {\n      d = D_800ADF40[idx] - D_800C3750[idx].item[new_var].x;\n      if (d >= 0)\n      {\n        if (d >= 0x4000)\n        {\n          d = 0x3FFE;\n        }\n        d &= ~1;\n      }\n      else\n      {\n        d = -d;\n        if (d >= 0x4000)\n        {\n          d = 0x3FFE;\n        }\n        d |= 1;\n      }\n      ((Tbl *) (new_var2 + (((idx * 3) + i) * 2)))->v = d | (r << 14);\n    }\n  }\n\n}\n\n",
+   "e39d027675c654eb7b6f15e338bb46075baf510cf1c2dc53365cbe85ed4ac65e": "extern void func_8006BF30(s32,s32,s32,s32);\nextern u8 D_800A73E0[];\nextern u8 D_800C02AE[];\nvoid func_8006C780(void) {\n    s32 count; u32 index; u32 entry; u8 *src; u8 *table; s32 offset;\n    table=D_800C02AE+28278; count=0; index=count&255;\n    do {\n        index=count&255;\n        entry=*(u16 *)(table+index*2+334);\n        if(entry!=0xFFFF) {\n            src=D_800C02AE+28198+(entry>>14)*14;\n            if(index<3) {\n                func_8006BF30(index,25,0,0); offset=index*16;\n                D_800C02AE[14312+offset]=((*(u16*)src>>10)&31)+65;\n                D_800C02AE[14313+offset]=((*(u16*)src>>5)&31)+65;\n                D_800C02AE[14314+offset]=(src[1]&31)+65;\n                {u8 flag=*(u8 *)((s32)table+index+331); entry=entry&0x3fff; D_800C02AE[14318+offset]=1;\n                D_800C02AE[14310+offset]=flag&15;}\n                if(entry&1)entry=-entry;\n                entry=*(s32 *)(D_800A73E0+27540)-entry; *(s32 *)(D_800C02AE+14306+offset)=entry;\n                count++; goto tail;\n            } else {\n                func_8006BF30((count-3)&255,26,0,0); offset=(index-3)*16;\n                D_800C02AE[14376+offset]=((*(u16*)src>>10)&31)+65;\n                D_800C02AE[14377+offset]=((*(u16*)src>>5)&31)+65;\n                D_800C02AE[14378+offset]=(src[1]&31)+65;\n                {u8 flag=*(u8 *)((s32)table+index+328); entry=entry&0x3fff; D_800C02AE[14382+offset]=1;\n                D_800C02AE[14374+offset]=flag>>4;}\n                if(entry&1)entry=-entry;\n                entry=*(s32 *)(D_800A73E0+27544)-entry; *(s32 *)(D_800C02AE+14370+offset)=entry;\n            }\n        }\n        count++; tail: ;\n    } while((u32)(count&255)<6);\n}\n",
    "0d12b32ba341a66788277abdb1d649988c18a9f50420b4a5157e36291ce50e2f": "s32 func_8006B924(u8 *);\nextern s32 D_800ADF70;\nextern char D_800C3A50[];\nextern u16 D_800C72C6[];\n\nvoid func_8006CB9C(void) {\n    s32 arg1;\n    s32 var_s0;\n    s32 temp_s1;\n    u8 var_s2;\n    u8 var_s3;\n    s32 var_a0;\n    u16 *temp_s4;\n\n    temp_s4 = D_800C72C6;\n    var_s3 = 0;\n    do {\n        var_s2 = 0;\n        do {\n            var_s0 = var_s2;\n            temp_s1 = var_s0 << 4;\n            arg1 = func_8006B924((u8 *)(temp_s1 + D_800C3A50));\n            if ((arg1 & 0xFF) == 5) {\n                temp_s4[var_s0] = 0xFFFF;\n            } else {\n                var_a0 = D_800ADF70 - *(s32 *)(D_800C3A50 + temp_s1);\n                if (var_a0 >= 0) {\n                    if (var_a0 >= 0x4000) {\n                        var_a0 = 0x3FFE;\n                    }\n                    var_a0 &= ~1;\n                } else {\n                    var_a0 = -var_a0;\n                    if (var_a0 >= 0x4000) {\n                        var_a0 = 0x3FFE;\n                    }\n                    var_a0 |= 1;\n                }\n                temp_s4[var_s2] = var_a0 | ((arg1 & 0xFF) << 14);\n            }\n            var_s2++;\n        } while (var_s2 < 3);\n        var_s3++;\n    } while (var_s3 < 4);\n}\n",
-   "df89b312fe5808902a9a9b37943c34d5d607f34561e4a6a2c7dc10460a8a3c40": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[96];\n  u16 w[3];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(u8 a, u8 b, u8 c, u8 d);\n\nvoid func_8006CCD0(void)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->w[j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30(j, 0x18, 0, 0);\n      D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[16][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[16] - v;\n      D_800C3650[16][j].val = v;\n      D_800C3650[16][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
+   "481f0d9567c87d6b4226ed4f5111f1b42ba5a671e29c9e595ff4704d321131be": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[96];\n  u16 w[3];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(s32,s32,s32,s32);\n\nvoid func_8006CCD0(void)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->w[j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30((u8)(j),(u8)(0x18),(u8)(0),(u8)(0));\n      D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[16][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[16] - v;\n      D_800C3650[16][j].val = v;\n      D_800C3650[16][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
    "cc9dc3f34e867e7ea8f33680207b205a8540cb44c9846e5a8c26be29c2f5f08b": "typedef struct { s32 v; s32 pad[3]; } Sample;\nextern Sample D_800C3650[4][4];\nextern s32 D_800ADF30[4];\nextern u16 D_800C7206[12];\nu8 func_8006B924(Sample *);\n\nvoid func_8006CE1C(void)\n{\n  u16 *out;\n  u8 i;\n  u8 j;\n  u8 code;\n  s32 d;\n\n  out = D_800C7206;\n  for (i = 0; i < 4; i++) {\n    for (j = 0; j < 3; j++) {\n      code = func_8006B924(&D_800C3650[i][j]);\n      if (code == 5) {\n        out[i * 3 + j] = 0xFFFF;\n      } else {\n        d = D_800ADF30[i] - D_800C3650[i][j].v;\n        if (d >= 0) {\n          if (d >= 0x4000) d = 0x3FFE;\n          d &= ~1;\n        } else {\n          d = -d;\n          if (d >= 0x4000) d = 0x3FFE;\n          d |= 1;\n        }\n        out[i * 3 + j] = d | (code << 14);\n      }\n    }\n  }\n}",
-   "ab773a41854bdd5e0309476604158985ab56132afe453e22b8aeb41786383ff1": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[1];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(u8 a, u8 b, u8 c, u8 d);\n\nvoid func_8006CF7C(u8 i)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->v[i * 3 + j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30(j, 0x17, i, i);\n      D_800C3650[i][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[i][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[i][j].cC = 1;\n      D_800C3650[i][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[i] - v;\n      D_800C3650[i][j].val = v;\n      D_800C3650[i][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
+   "032e5adf2f294465c6f07003aa476a5c4d8daa0a8b19d14b61ca0c984bb92f4b": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[1];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(s32,s32,s32,s32);\n\nvoid func_8006CF7C(u8 i)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->v[i * 3 + j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30((u8)(j),(u8)(0x17),(u8)(i),(u8)(i));\n      D_800C3650[i][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[i][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[i][j].cC = 1;\n      D_800C3650[i][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[i] - v;\n      D_800C3650[i][j].val = v;\n      D_800C3650[i][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
    "442dc8dd042da0e11bbd28239a22803a4f2aac5ca53727f15abbf988e67448f7": "typedef struct Item {\n    s32 w[4];\n} Item;\ntypedef struct Group {\n    Item item[4];\n} Group;\ntypedef struct Record {\n    s32 w[5];\n    u16 count;\n    u8 pad16[0x2C - 0x16];\n    Group groups[10];\n    u8 pad2AC[0x18];\n} Record;\ntypedef struct Slot {\n    u8 pad00[0x28];\n} Slot;\ntypedef struct Game {\n    u8 pad00[0x1E];\n    u16 mode;\n    u16 sel;\n    u16 sub;\n    u8 pad24[0x44 - 0x24];\n    Slot slots[4];\n} Game;\nextern Game *D_800C35A0;\nextern Record *D_800D0634[5];\nextern Group D_800C3750[12];\nextern Group D_800C3650[4];\nextern Item D_800C3A50[];\nextern s8 D_800A16F0;\nextern u8 D_800A57C0[];\nextern s32 func_8006F820(void *, s32);\nextern void func_8006DD04(void *);\nextern long func_8006DDD8(void);\nextern void func_8006D10C(void);\nextern void func_8006C640(void);\nextern void func_8006CE1C(void);\nextern void func_8006CB9C(void);\nextern void func_8006C99C(void);\nextern void func_8006F4A8(u8);\nextern void func_8006EE3C(u8);\nextern void func_8006F0E0(u8);\nextern s32 func_8006F75C(void);\nextern s32 func_8002B618(u8 *, u8 *);\nextern void func_8006F8E0(void);\nextern void func_80054838(void);\nextern void func_8005508C(void);\n\n#define GROUP(p, j) ((Group *)((u8 *)(p) + ((j) * 0x40 + 0x2C)))\n\nvoid func_8006D564(s32 arg0)\n{\n    Record *r;\n    Group *g;\n    u8 i;\n    u8 j;\n    u8 *p;\n    u8 k;\n    u8 mode;\n    u8 sel;\n    u8 sub;\n\n    mode = D_800C35A0->mode;\n    sel = D_800C35A0->sel;\n    sub = D_800C35A0->sub;\n    for (i = 0; i < 8; i++) {\n        r = &D_800D0634[0][i];\n        for (j = 0; j < r->count; j++) {\n            k = 0;\n            g = GROUP(r, j);\n            for (; k < 3; k++) {\n                func_8006F820(&g->item[k], (u8)arg0);\n            }\n            D_800C35A0->mode = 0;\n            D_800C35A0->sel = i;\n            D_800C35A0->sub = j;\n            func_8006DDD8();\n        }\n    }\n    for (j = 0; j < 4; j++) {\n        r = D_800D0634[1];\n        k = 0;\n        p = (u8 *)GROUP(r, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 1;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 5; j++) {\n        r = D_800D0634[2];\n        k = 0;\n        p = (u8 *)GROUP(r, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 2;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 6; j++) {\n        p = (u8 *)D_800D0634[3];\n        k = 0;\n        p = (u8 *)GROUP(p, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 3;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 3; j++) {\n        p = (u8 *)D_800D0634[4];\n        k = 0;\n        p = (u8 *)GROUP(p, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 4;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (i = 0; i < 12; i++) {\n        for (k = 0; k < 3; k++) {\n            func_8006F820(&D_800C3750[i].item[k], (u8)arg0);\n        }\n        D_800C35A0->sel = i;\n        func_8006C640();\n    }\n    for (i = 0; i < 4; i++) {\n        for (k = 0; k < 3; k++) {\n            func_8006F820(&D_800C3650[i].item[k], (u8)arg0);\n        }\n        func_8006CE1C();\n    }\n    for (k = 0; k < 3; k++) {\n        func_8006F820(&D_800C3A50[k], (u8)arg0);\n        func_8006CB9C();\n        func_8006F820(&D_800C3A50[k + 12], (u8)arg0);\n        func_8006C99C();\n    }\n    D_800C35A0->mode = mode;\n    D_800C35A0->sel = sel;\n    D_800C35A0->sub = sub;\n    func_8006F4A8(arg0);\n    func_8006EE3C(arg0);\n    D_800C35A0->slots[(u8)arg0].pad00[0] = 0x5B;\n    func_8006F0E0(arg0);\n    func_8006F75C();\n    D_800A16F0 = j = 0;\n    func_8002B618(D_800A57C0, 0);\n    func_8006F8E0();\n\n    mode = D_800C35A0->mode;\n    sel = D_800C35A0->sel;\n    sub = D_800C35A0->sub;\n    for (i = 0; i < 8; i++) {\n        p = (u8 *)&D_800D0634[0][i];\n        for (j = 0; j < ((Record *)p)->count; j++) {\n            D_800C35A0->mode = 0;\n            D_800C35A0->sel = i;\n            D_800C35A0->sub = j;\n            func_8006DD04(GROUP(p, j));\n            func_8006DDD8();\n        }\n    }\n    for (j = 0; j < 4; j++) {\n        D_800C35A0->mode = 1;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[1];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 5; j++) {\n        D_800C35A0->mode = 2;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[2];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 6; j++) {\n        D_800C35A0->mode = 3;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[3];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 3; j++) {\n        D_800C35A0->mode = 4;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[4];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (i = 0; i < 12; i++) {\n        D_800C35A0->sel = i;\n        func_8006DD04(&D_800C3750[i]);\n        func_8006C640();\n    }\n    for (i = 0; i < 4; i++) {\n        func_8006DD04(&D_800C3650[i]);\n        func_8006CE1C();\n    }\n    func_8006DD04((Group *)D_800C3A50);\n    func_8006CB9C();\n    func_8006DD04((Group *)&D_800C3A50[12]);\n    func_8006C99C();\n    D_800C35A0->mode = mode;\n    D_800C35A0->sel = sel;\n    D_800C35A0->sub = sub;\n    func_80054838();\n    func_8005508C();\n}\n",
    "1ef654372987dc4af13a8abd9b723324f593f27e3ab8aaa6bf635cc78915b725": "extern u8 D_800C02AE[];\nextern u8 *D_800C35A0;\nextern u8 *D_800D0634;\nextern u16 D_800C5D38[];\nextern u8 D_800C7125[];\nextern f64 D_800A58A8;\nextern f64 D_800A58B0;\nextern f64 D_800A58B8;\ns32 func_8006B9E0(u8, u8);\ns32 func_8006B924(void *, int);\nlong func_8006DDD8(void)\n{\n  f64 bound = D_800A58A8;\n  s32 code = (s32)D_800C35A0;\n  u8 *tab = D_800C7125;\n  s32 i = 0;\n  u8 *base = *(u8 **)0x800D0634 + (((u8 *)code)[0x21] * 0x2c4);\n  u32 idx;\n  u32 x;\n  s32 raw;\n  u32 twice;\n  s16 off;\n  s32 delta;\n  s32 stride;\n  f64 b;\n  int new_var;\n  code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);\n  stride = D_800C35A0[0x23] * 64;\n  idx = (u8) code;\n  twice = idx * 2;\n  b = ((f64) ((s32) idx)) * D_800A58B0;\n  new_var = 0x40;\n  loop:\n  {\n    {\n      f64 value = b + (((f64) (i & 255)) * D_800A58B8);\n      if (!(bound <= value))\n      {\n        raw = (s32) value;\n      }\n      else\n      {\n        raw = ((s32) (value - bound)) | 0x80000000;\n      }\n      x = raw;\n    }\n    off = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);\n    { s32 i16;\n    code = func_8006B924((base + (stride + 0x2c)) + (i16 = (i & 255) * 16), i & 255); }\n    if (((u8) code) == 5)\n    {\n      if ((u8) off)\n      {\n do { tab[((u8) x) + 1] = 255; tab[(u8) x] |= 0xf0; } while (0);\n      }\n      else\n      {\n        do { tab[(u8) x] = 255; tab[((u8) x) + 1] |= 15; } while (0);\n      }\n    }\n    else\n    {\n      if (code)\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      else\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      if (delta >= 0)\n      {\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta &= ~1;\n      }\n      else\n      {\n        delta = -delta;\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta |= 1;\n      }\n      if ((u8) off)\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[(u8) x] &= 0xcf;\n            break;\n\n          case 1:\n            off = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);\n            break;\n\n          case 2:\n            tab[(u8) x] = (tab[(u8) x] & 0xef) | 0x20;\n            break;\n\n          case 3:\n            tab[(u8) x] |= 0x30;\n            break;\n\n        }\n\n        if (delta & 1)\n        {\n          tab[(u8) x] |= new_var;\n        }\n        else\n        {\n          tab[(u8) x] &= 0xbf;\n        }\n        if (delta & 2)\n        {\n          tab[(u8) x] |= 0x80;\n        }\n        else\n        {\n          tab[(u8) x] &= 0x7f;\n        }\n        tab[((u8) x) + 1] = delta >> 2;\n      }\n      else\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[((u8) x) + 1] &= 0xf3;\n            break;\n\n          case 1:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] | 4) & 0xf7;\n            break;\n\n          case 2:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] & 0xfb) | 8;\n            break;\n\n          case 3:\n            tab[((u8) x) + 1] |= 12;\n            break;\n\n        }\n\n        if (delta & 0x100)\n        {\n          tab[((u8) x) + 1] |= 1;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfe;\n        }\n        if (delta & 0x200)\n        {\n          tab[((u8) x) + 1] |= 2;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfd;\n        }\n        tab[(u8) x] = delta;\n      }\n    }\n    i++;\n  }\n\n  if (((u32) (i & 255)) < 3)\n  {\n    goto loop;\n  }\n}\n",
    "341c99033e3f11d89266dc3efd13f4778a55f2110122c295d1c4996015cf43b0": "typedef struct {\n    u16 f15 : 1;\n    u16 f14 : 1;\n    u16 f13 : 1;\n    u16 pad : 3;\n    u16 f8 : 2;\n    u16 f4 : 4;\n    u16 f0 : 4;\n    u16 g12 : 4;\n    u16 g8 : 4;\n    u8 b3;\n    u8 b4;\n    u8 b5;\n    u8 b6;\n    u8 b7;\n    u8 b8;\n    u8 b9;\n    s16 sums[4];\n    u8 pad12[0x1BA - 0x12];\n    s8 code;\n} Packet;\ntypedef struct {\n    u8 pad0[0xA];\n    union {\n        u16 w;\n        u8 b[2];\n    } v;\n    u8 pad0C[0x28 - 0xC];\n} Entry;\ntypedef struct {\n    u8 pad0[0xE];\n    u16 mode;\n    u8 pad10[0x32 - 0x10];\n    u8 sel0;\n    u8 sel1;\n    u8 sel2;\n    u8 sel3;\n    u8 pad36[0x44 - 0x36];\n    Entry e[1];\n} Game;\ntypedef struct { u8 a; u8 b; u8 c; } Flags3;\nextern Packet D_800C7112;\nextern Game *D_800C35A0;\nextern Flags3 D_800B6818;\nextern u16 D_800B6610[];\nextern u8 D_800B6628[][4];\nextern s32 D_800B6768;\nextern s32 D_800B676C;\n\nvoid func_8006E8A0(void)\n{\n    Packet *p;\n    u8 n;\n    u8 base;\n    u8 i;\n    u8 j;\n    s8 bits;\n    s16 sum;\n\n    if (D_800B6818.b != 0)\n    {\n        n = 4;\n        base = 8;\n    }\n    else\n    {\n        n = 8;\n        base = 0;\n    }\n    p = &D_800C7112;\n    p->f14 = D_800B6818.c;\n    p->f13 = D_800B6818.a;\n    p->f15 = D_800B6818.b;\n    p->f8 = D_800C35A0->mode;\n    p->f4 = D_800C35A0->sel0;\n    D_800C7112.code = D_800C35A0->e[D_800C35A0->sel0].v.b[1] & 0xF;\n    if (D_800C35A0->mode == 2)\n    {\n        p->f0 = D_800C35A0->sel1;\n        D_800C7112.code += (D_800C35A0->e[D_800C35A0->sel1].v.b[1] & 0xF) << 4;\n    }\n    else\n    {\n        p->f0 = D_800C35A0->e[D_800C35A0->sel1].v.w;\n    }\n    p->g12 = D_800C35A0->e[D_800C35A0->sel2].v.w & 0xF;\n    p->g8 = D_800C35A0->e[D_800C35A0->sel3].v.w;\n    bits = 0;\n    for (i = 0; i < n; i++)\n    {\n        if (D_800B6610[base + i] == 1)\n        {\n            bits |= 1 << i;\n        }\n    }\n    p->b9 = bits;\n    for (j = 0; j < 4; j++)\n    {\n        sum = 0;\n        for (i = 0; i < n; i++)\n        {\n            sum += D_800B6628[base + i][j] << (i * 2);\n        }\n        p->sums[j] = sum;\n    }\n    {\n        s32 t = D_800B6768;\n        p->b3 = t;\n        p->b5 = t >> 16;\n        p->b4 = t >> 8;\n        t = D_800B676C;\n        p->b8 = t >> 16;\n        p->b7 = t >> 8;\n        p->b6 = t;\n    }\n}\n",

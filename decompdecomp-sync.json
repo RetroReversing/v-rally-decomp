@@ -58,7 +58,7 @@
     "src/code_8001F46C/func_80023B7C.c": "8fe198c13babc24bedb0f44ff4a8757bdec631190041a2d0630164edd1b552c5",
     "src/code_8007E9D4/func_800859A0.c": "1602989a628e94c04a6abf6dab311f6a8489d30636dd5395f4c880840d7c0b69",
     "src/code_8004BEB4/func_8006E8A0.c": "cbd9e3531085744e618e6705eb3c9ffa29a4a66e1bcf270e424ce63441d9f0a4",
-    "src/code_8004BEB4/func_8006C3E4.c": "d9258ae53d17c786f2cd44dbbce9efbd8969052c8f114590ece3ef26b7a889a4",
+    "src/code_8004BEB4/func_8006C3E4.c": "1d0d2ead110c292eb7f7a6fb77c0662b1b38ba0dfd28ed87abf557860d94ca35",
     "src/code_8007E9D4/func_8007F278.c": "d518f28db6b8cdf81379c04ac0cc5c1bbd34e2cd26b8a9a14b8ca52801a19213",
     "src/code_80012114/func_800122A4.c": "aa84799236e4db35d7dead7a9b19d65789f9d85963faf7d7082fb7fce0b5f609",
     "src/code_80026E3C/func_80031F2C.c": "2e8c6595824e79d405372e74d28bbc3227b423c35716c065c8ff3476aa8c2f86",
@@ -79,12 +79,12 @@
     "src/code_80026E3C/func_80030A0C.c": "ecb5fc4eade2dc0902cc7e5cd6057a7cf7e516e3736f13de7aceed65e2999ee5",
     "src/code_8004BEB4/func_8004D7D4.c": "084fd1d14a5804507ade8e0ccf314f5e8194a153a63aa500de76964c2717697c",
     "src/code_80026E3C/func_8003FFB4.c": "020813aa8f8183f4265da6eb783f9817415ba18992397e830397f23830cff860",
-    "src/code_8004BEB4/func_8006CF7C.c": "d04a9d01b88604b80654a4416db2ae88f6e7a7c8a55a23662ab0de5c8dc5f368",
+    "src/code_8004BEB4/func_8006CF7C.c": "81d3b5cced260287409b01335f980cb713200ef91cb196ad56d82e21d65ae5eb",
     "src/code_80026E3C/func_8002C6EC.c": "86cd34f94dcf09f004ed412573fae382c0801f3f6f9ba1b836772aead0e7c650",
     "src/code_8004BEB4/func_80059618.c": "a2f4723dda8c04cde0962cdad63da6424e8dbcad35f8be885eb7db8323389c4a",
     "src/code_80012114/func_80016204.c": "c40535d64f63725753a7f6d7e4f352f43479b15f5d98e848ae6583023a474152",
     "src/code_8004BEB4/func_80055904.c": "f6cb647c3cb5d82a5cf1f6bc54d6072f6cd5edba1a5b4c34e25fd8b81be52435",
-    "src/code_8004BEB4/func_8006CCD0.c": "c9e28e65046b05010d24e28ef2066bc6b1ce7e81fcc561cbb9fb38038b1550f6",
+    "src/code_8004BEB4/func_8006CCD0.c": "593030721a37d95b116e729204b6ad27992512d91d8d90daf63b0703fbef7b5a",
     "src/code_8004BEB4/func_800516BC.c": "5ba1000f52ba581dbbb62e96c54af8c5527412acfbed3dc9e7b08cec0f6d0c6b",
     "src/code_8004BEB4/func_80057014.c": "d65d460d92be1755af7ecafb8df71e708f08105ce0a7d66c36624132c631b297",
     "src/code_8001F46C/func_80020B04.c": "d561f32d04c3f272e1c49e49a8cb20f478951419897b28d56864d36b756f0b52",
@@ -570,7 +570,14 @@
     "src/code_8007950C/func_8007AAFC.c": "ee70c37ff2fe593e45416650fa9271df5c03bbc15cec62b7fdfcbdc0fc976699",
     "include/decompdecomp_snapshot_8007aafc.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_8005E49C.c": "fbf343e8ee5afe7b5dbbdebc7a45c287fec6bf723c8abbeb4630ff5a54222170",
-    "include/decompdecomp_snapshot_8005e49c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_8005e49c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_8006BF30.c": "71efc07ab7844dccf89fa58860156d0c03f567adab8f2ab120ad70ce8d8e43c2",
+    "include/decompdecomp_promoted_8006bf30.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_8006C780.c": "eb92f08ebf6e0684b1aa7aa35cf3ed16a1a12305173e8feb544e3c69d559ef81",
+    "include/decompdecomp_promoted_8006c780.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_promoted_8006c3e4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_promoted_8006cf7c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_promoted_8006ccd0.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1002,21 +1009,24 @@
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
-    "added": [
-      "func_8005E49C"
+    "added": [],
+    "contract_corrections": [
+      "func_8006BF30",
+      "func_8006C780",
+      "func_8006C3E4",
+      "func_8006CF7C",
+      "func_8006CCD0"
     ],
-    "prior_selected_c_preserved": 2069,
-    "prior_objects_changed": [],
-    "prior_profiles_changed": [],
-    "note": "Normal app linked acceptance and independent full-cartridge proof. Existing A338 mixed-arity contract remains documented; no whole-program C-conformance claim."
+    "all_2070_profiles_preserved": true,
+    "other_2065_selected_c_objects_preserved": true,
+    "note": "Modern wide interfaces plus genuine byte locals preserve prior machine behavior; explicit caller narrowing retained. No new function match or whole-program C-conformance claim."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
     "matched": 2070,
-    "all_function_addresses_integrated": true,
-    "new_source_hash_confirmed": true,
-    "note": "ALL portable live progress saved. Prior standalone source/profile variants retained."
+    "corrected_source_hashes_confirmed": true,
+    "note": "ALL progress saved, including corrected OPEN705 decoder draft. Other previously audited standalone source/profile variants retained."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

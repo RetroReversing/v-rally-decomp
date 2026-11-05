@@ -1,4 +1,4 @@
-extern s32 func_8006BF30(u32, s32, s32, s32);
+extern void func_8006BF30(s32,s32,s32,s32);
 extern u8 D_800A73E0[];
 extern u8 D_800C02AE[];
 void func_8006C780(void) {

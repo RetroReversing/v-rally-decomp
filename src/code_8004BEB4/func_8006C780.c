@@ -1,6 +1,6 @@
-#include "snapshot29_0433f7af8f6d.h"
-
-extern s32 func_8006BF30(u32, s32, s32, s32);
+#include "decompdecomp_promoted_8006c780.h"
+#line 1 "func.c"
+extern void func_8006BF30(s32,s32,s32,s32);
 extern u8 D_800A73E0[];
 extern u8 D_800C02AE[];
 void func_8006C780(void) {
@@ -35,3 +35,4 @@ void func_8006C780(void) {
         count++; tail: ;
     } while((u32)(count&255)<6);
 }
+

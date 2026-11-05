@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_promoted_8006ccd0.h"
 #line 1 "func.c"
 typedef struct Slot6C
 {
@@ -28,7 +28,7 @@ extern Slot6C D_800C3650[][4];
 extern Code6C D_800C70D4[];
 extern Tbl6C D_800C7124;
 extern s32 D_800ADF30[];
-extern void func_8006BF30(u8 a, u8 b, u8 c, u8 d);
+extern void func_8006BF30(s32,s32,s32,s32);
 
 void func_8006CCD0(void)
 {
@@ -44,7 +44,7 @@ void func_8006CCD0(void)
     if (v != 0xFFFF)
     {
       p = &D_800C70D4[v >> 14];
-      func_8006BF30(j, 0x18, 0, 0);
+      func_8006BF30((u8)(j),(u8)(0x18),(u8)(0),(u8)(0));
       D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;
       D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;
       x = (((u8 *) p)[1] & 0x1F) + 0x41;

@@ -2,7 +2,7 @@ typedef struct Lap { s32 time; u8 c4; u8 pad5; char name[3]; u8 pad9; u8 speed; 
 typedef struct Drv { u16 w0; u16 w2; char pad[10]; } Drv;
 typedef struct Rec { char pad0[0x14]; u16 n; char pad16[0x22C - 0x16]; s32 vals[8]; char pad24C[0x2C4 - 0x24C]; } Rec;
 
-extern void func_8006BF30(u8, s32, u8, u8);
+extern void func_8006BF30(s32,s32,s32,s32);
 extern s32 D_8009D540;
 extern s32 D_800ADF40[];
 extern Lap D_800C3750[][4];
@@ -25,7 +25,7 @@ void func_8006C3E4(u8 arg0) {
         x = tbl[arg0 * 3 + j + 0xAD];
         if (x != 0xFFFF) {
             d = &D_800C70D4[x >> 14];
-            func_8006BF30(j, 22, arg0, arg0);
+            func_8006BF30((u8)(j), 22,(u8)(arg0),(u8)(arg0));
             D_800C3750[arg0][j].name[0] = ((d->w0 >> 10) & 0x1F) + 'A';
             D_800C3750[arg0][j].name[1] = ((d->w0 >> 5) & 0x1F) + 'A';
             {

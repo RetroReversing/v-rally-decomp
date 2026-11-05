@@ -20,6 +20,21 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Promoted byte-argument contracts — 5 November 2026
+
+Five existing matched sources now agree on the packed-record helper's integer interface while retaining its byte conversions. Typed byte
+locals preserve the callee's exact code; explicit caller casts preserve existing
+argument conversions. All five pass the normal app judge and the complete
+**12,582,912-byte cartridge comparison**. All **2,070** selected compiler
+profiles and the other **2,065 C objects** are unchanged. This adds no match.
+
+The related open `func_8006BA44` draft improves to **705** after correcting its
+entry type, invariant slot and duplicated tail. It remains nonmatching and is
+retained only in portable progress. See the
+[investigation](docs/matching-experiments/func_8006BA44-investigation.md) for the
+remaining runtime-data and raw-memory assumptions.
+
+
 ### Empty-callee contract and parameter lifetime — 5 November 2026
 
 `func_8005E49C` now matches **124 instructions / 496 bytes**, using its unchanged
