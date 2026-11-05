@@ -49,3 +49,7 @@ All candidates still require semantic review. A lower advisory score is not a ma
 ## Native helper linkage finding
 
 Parent compilation-symbol audit (parent-inline-symbols.json) found that the native perm_inline variant emitted a GLOBAL inline_fn helper, 16 bytes in .text, even though the selected target had inlined its call. Across generated translation units this can add unaccounted text or collide with another helper definition. The static __inline__ variant emits no helper symbol and retains the same 1200 score. The generator-only safeguard for newly introduced inline helpers was merged in decompdecomp PR #528 (https://github.com/RetroReversing/decompdecomp/pull/528), with a two-unit linkage/execution regression and 138 focused tests. Original source functions must remain unchanged. This is a tooling correctness finding, not a new game match or evidence of full-cartridge equality.
+
+## November 5 bounded revisit
+
+Eleven new packed-field and limit-lifetime controls were nonexact. The actual selected helper contract is void(s32,s32), whereas the earlier decoder declared void(u8,u16). Correcting the nonvolatile research prototype retains1200; this is not an exact match and does not establish the original interface independently. PR609 now flags bounded simple explicit prototype discrepancies in full briefs. No live source or profile change was made. Private frozen inputs, source hashes and raw linked evidence remain on the Data volume; no game data is included here.

@@ -1,3 +1,7 @@
 # Packed record encoding investigation
 
 The saved score-325 draft is invalid: state[31] selector is overwritten by state[35], and n is read uninitialized. Target uses two independent bytes. Required-prelude clang confirms the uninitialized read; clean alternative passes. Audited clean source score600, nonexact, SHA256 0371890309c8cb74ddde07673d0381a05b118f5eee7676ddc05b5cb10f486ccf. Main residuals: initial selector/index register allocation, one extra move after byte narrowing, loop arithmetic temporary allocation and consequent branch offsets. 1000 guarded native candidates, 125 helper manual probes and 40 parent probes found no exact match. Safe q-hoist alternative scores505 but diverges in loop register lifetimes. Use docs/matching-experiments/func_8006D10C-nonmatching-alternative.c as sound starting point. OPEN and revisitable; no target/profile/judge changes or selected standalone C.
+
+## November 5 bounded revisit
+
+Fourteen new bounded mode-offset and packed-offset controls did not improve the corrected505 baseline. The saved325 source still reads uninitialized n after overwriting the separate mode byte. A normal compile retained corrected attempt307944, and a structured source-scoped quality report now links it. Review adoption was requested; the HTTP observation timed out, and current source is still325, so adoption is not claimed. No exact match or repeated native search. Broader caller/object preconditions remain unresolved. Private frozen inputs, source hashes and raw linked evidence remain on the Data volume; no game data is included here.
