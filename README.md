@@ -939,3 +939,10 @@ Ordinary linked bytes and the complete **12,582,912-byte** cartridge match. All 
 `func_8007AD68` now matches **212 instructions / 848 bytes**. A genuine unsigned-byte increment recovers the store scheduling from an audited switch-based source, without the prior artificial duplicate branch.
 
 The complete **12,582,912-byte** cartridge matches, with all **2,065** prior selected C objects and compiler profiles unchanged. The standalone tree now selects **2,066 C functions**; all current app progress is saved. See `docs/matching-experiments/func_8007AD68-investigation.md` for the source and contract audit.
+
+
+### Task scheduler callback scheduling
+
+`func_8007FC44` now matches **118 instructions / 472 bytes**. A pure inline byte-address accessor, ordinary branch scopes and debug-sensitive call line layout recover the original scheduling without the old unsupported volatile qualifier. The callback calls use the signatures supported by the thread and profiling-hook registrations.
+
+The complete **12,582,912-byte** cartridge matches, with all **2,066** prior selected C objects and compiler profiles unchanged. The standalone tree now selects **2,067 C functions**; all current app progress is saved. See `docs/matching-experiments/func_8007FC44-investigation.md` for evidence and remaining project-wide declaration limits.
