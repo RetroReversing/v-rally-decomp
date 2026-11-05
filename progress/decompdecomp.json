@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793872250.402845,
- "revision": 17760,
+ "saved_at": 1793872504.200243,
+ "revision": 17763,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -161737,7 +161737,7 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8006D564 is claimed by claude-opus-12 for another 29 min.",
+   "text": "Deep permuter: score 240 \u2192 240; 0 improvements; 89 candidates tested; 0 cached skips; 0 rejected; 261s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1447"
   },
   {
