@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793852755.454713,
- "revision": 15751,
+ "saved_at": 1793853345.05132,
+ "revision": 15978,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1748,8 +1748,8 @@
   },
   "func_8000A5EC": {
    "vram": 2147526124,
-   "best_score": 110,
-   "best_by": "permuter"
+   "best_score": 40,
+   "best_by": "claude-opus-12"
   },
   "func_8000B910": {
    "vram": 2147531024,
@@ -7618,7 +7618,7 @@
   },
   "func_8006185C": {
    "vram": 2147883100,
-   "best_score": 170,
+   "best_score": 130,
    "best_by": "claude-opus-3"
   },
   "func_80061DB8": {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 110 \u2192 110; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
+   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 57s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -161847,7 +161847,7 @@
   },
   {
    "function": "func_8006185C",
-   "text": "Deep permuter: score 190 \u2192 190; 0 improvements; 300 candidates tested; 136 cached skips; 0 rejected; 623s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 67s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1286"
   },
   {
@@ -163883,6 +163883,66 @@
   {
    "function": "func_8003E6D8",
    "text": "Best is 635 (rev 0787dc6). The saved best has a fragile UB construct and is semantically wrong in two places: `x = (x = pos->x) + 0x14` is UB but gives the target's raw-x reg (fp) plus a hoisted s3=x+0x14, and `new_var` is read uninitialized in the case-1 else loop (the target computes s2=arg1+0x4C inside that branch). All of these were worse: clean `k=pos->x; x=k+0x14` (1735); `x=pos->x` with calls at x+0x14/+0x1C/+0x24, plus a for loop and inlined arg1+0x4C (3806); `x=pos->x` alone (1595); `x+8` for the 2nd call (640); new_var initialized in the loop (845); dropping the u16 cast in `y+j*11` (3095). The target spills y to 0x1C(sp) (frame 0x58) and keeps raw pos->x in fp. Remaining diffs are mostly regalloc: a0/a1 swap for D_800C35A0, s1/s2 swapped for func ptr vs arg1+0x4C, the j loop using andi, and case-2 init order of fp/s6/s7.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Saved best is 295, rechecked. Swapped roles (slot=down+1; height=right; base=slot; down=height) score 335: right=s0 vs target s3, slot=s3 vs target s0, xori temp s0 vs target s1. In the swapped version, ending with base/down/height instead of `right = local[1]*16` gave 385 each. No change: declaration-order permutations of right/slot/height (pseudo order seems to come from first use); `height = base+1` instead of `= right`; a `right = 0` reset. Worse: inlining base+1 for p (1115); moving the swap's temp/down+1 inside the if (1664). Untried: changing the ref counts of slot in the index-4/5/10/11 block, e.g. a separate local for slot there.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Still 145. No change (145): switch case order reversed (3,2,1); swapping the flag/new_var declaration order; volatile new_var. Worse: an if-chain instead of the switch (2005); `*flag = m < count` instead of the if/else (960). The switch structure is right. What remains is the s/laps-giv register swap and the &D_800C81FC hoist order, both likely loop.c giv ordering.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Saved best is still 435 (permuter, semantically dubious). Clean rewrites this session, all worse. (a) Byte offsets with n reused as the 'a' offset and PT(off)=*(u16*)(pts+off): rev 8b8b95f8, 1415, 120 insns. The extra insns are a lw 0x54 per branch (the target loads pts once per branch, early), and *6 goes through a v0 temp instead of being computed in place in a1/a3. A per-branch `u8 *p` local changed nothing (1415), and neither did moving t=tt after idx. (b) u16* pts indexing PTS[a*3] with a/b index vars: 1620. Same with n=idx*3: 1725. In every clean version the arg0 copy lands in t1 (target t2), and sll/sra of arg2 plus lw 0x4c are scheduled before the move a3. Not tried: arg2 declared s32 with t=(s16)arg2, or declaring PTS as a struct {u16 x,y,z} array with the pointers a=&pts[idx], b=&pts[prev] in each branch.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Best is 265 (rev c6f0cd2); the diff is a pure s0/s1 swap (target: old/prev=s0, walker=s1). It also has a call-setup issue: the target does `move a0,s2` early and stores `sw a0,8(s1)` for walker->start, and uses a1 (not a0) as the TABLE base. Tried with no gain: swapping the decl or init order of old/walker, the FREE check before the assign, a separate nd var for the FREE node, using old in the found-return path, `walker->start = a -= old` (all 265); a single `old=a&1` after the if (460); a for loop (460); reusing walker for data (678); a Packet-by-value prototype func_80081040(u32,void*,s32,Packet{s32 w[6]}) (325: same swap, plus lw a3 order). Still to try: old as Node* with a separate odd var plus the struct by value; or computing `st = a - odd` into a temp used for both walker->start and the call arg.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8000A5EC",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nSaved best is now 40 (was 110), rev bf181296. The fix: `t4 = 0x30; o->f10 = t4;` (reusing the t4 temp) fixes the f38/f10 store order. 3 diffs are left. (1) At entry the target loads im->type (lhu v1,4(a1)) BEFORE the idx stack arg (lhu t0,0x32(sp)), and ours loads it after. Removing the `img` alias, putting m=mode first, swapping declarations: no change. (2) The 0x30 lands in v1 where the target uses v0. (3) The f24 store is 0xff (u8 m = (t2=-1)) where the target wants -1. Storing a plain -1 (or making m s8/s16/s32/u32, or (s8)m) costs 695-740: once m stops being live late, im gets copied to t0 and the registers shift. A fix for (3) has to keep the mode copy (m, in a0) live up to the f24 store while still producing -1, e.g. a `m |= ...` trick that folds to -1, or an s32 var derived from mode.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "Improved 190 \u2192 130. Two changes: (1) the y line is `{ u8 *p = D_800A14D0; u32 n = p[8]; y = *(u16*)(p+2) + (*(u16*)(game+34)) * n; }`, which fixes the load order and the mult regs (140); (2) the h conversion writes h=(s32)(d-t); h|=0x80000000 (130). A plain `h = f64expr;` (the u32 conversion) gives the same 130, and so does a plain conversion for each other CV use, so the CV macro can be dropped for readable C. Remaining rows: reloc artifacts (D_800C02AE+0x132f2/0x10000 with -0x7cd8, D_80000002/4 for the 0x8000/2 constants; not fixable), plus the offset ternary regs (target: move v0,v1; negu v0,v0; subu v0,v0,a0; ours copies into a1). Ternary tries at 130: the ternary with >= flipped, and `center=offset; if(center<0) center=-center-result; offset=center`. Worse: if-statement forms (445-735); a separate s16 load temp (640).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80058E28",
+   "text": "Saved best is 60 (rev 22bf4c4), but its loop1 is semantically wrong: it compares `c == out` and calls func_80084C0C(out, ...), where the target uses (s8)i. Rev 95e3eba fixes that (c == i, func(i, ...)) and scores 70. Both loops then share one leftover diff: target D_800B65A0 goes to v1 and (s8)i to v0, which the xor then reuses; ours swaps them. Tried, no gain: `D_800B65A0 > i`; `i == c`; `(c^i)==0`; `!(c^i)`; swapped & operands (75); for/break or while forms (2500+); a new_var=i temp (1200); local repairs (decl order, split lifetimes, signedness: none better). Still to try: search_flags; restructuring both loops identically (e.g. a shared inline-like pattern); making i an s32 with (s8) casts.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_800885CC",
+   "text": "Saved best is still 175. Its only diff: in the target the 0xFF constant (a1) stays live and is reused for p[0xBF], and 0x7F is in v1. Ours rematerialises 0xFF for BF and puts 0x40 in a1 early. Tried: `p[0xBF] = t` (keeps 0xFF live) = 445, but then p lands in a1 and 0xFF in a2, so the registers rotate (target: p a2, 0xFF a1, div operand a0). Swapping the loop pointer and store pointer roles: same 445. Plain 0x40 instead of inline_fn: 625. Fully clean C with the plain D_800B68EC extern: 1020 (it needs the `*(s32*)0x800B68EC` cast for the hi/lo pattern). Next: keep BF=t and find what pushes p into a2, e.g. declaring t before p, making save an s32, or a `u8 c = 0xFF` local instead of s32 t.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Saved best is still 460. Applying the structure fix (func_80042F40 moved into finish) to the saved 460 gives 500, rev 42037792. The jumps now line up (goto finish targets 0x80043EE0). But reorg puts the D_800B6880=0 store in the jal F40 delay slot. The target has sw, jal, nop. Plain extern 510; `*(volatile s32*)&D_800B6880` 550 (store still in the slot, base address materialised); `*(volatile s32*)0x800B6880` 1110. Untried: something that blocks delay-slot filling, e.g. the store in its own block (`if (cnt) { D_800B6880 = 0; } if (cnt) {...}`) or a label between the store and the call reached by a real jump. The int-cast/base+offset forms for both D_800A1234[...].hA=2 stores made no change (460). The toggle beql/ori4 order is still open (see earlier notes).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Clean Spline rewrite (rev 553b80af, 585): `Spline *s = s0;` copy; i = s->start + arg1*s->stride; t = arg2; prev/next; s16 d0 per branch; d[3] stack array; PT() macro reloading s->pts. Only regalloc is left: ours s=t1, t=t2, i=v1; target s=t2, t=t1, i=a0. The 0x51EB851F magic goes to a3 (ours) vs t0 (target), and that adds one insn. No change (585): int param reused as i (`s32 i` param cast to Spline*, with or without register); `register s32 i`; t=arg2 before i or after prev/next; arg1 *= stride first; an unused k=50 local. Worse: `arg1*stride + start` order (620); an out copy local (1035); reassigning s after the divides (2095). The saved 462 is permuter junk.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8000C9B0",
+   "text": "Standalone export reconciliation: direct compiler previously lacked the fixed __builtin_mips_debug_break template, emitted an unresolved call and600-byte body, and overlapped the next target. Carrying normal toolchains.source_prelude with the effective context restores the596-byte body. Ordinary function check and full12582912-byte cartridge comparison now pass; all2054 prior compiled C objects unchanged. Target boundary and compiler flags were not changed.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 85; 48 differing rows (44 register, 4 reordered; advisory).\nTarget: lui $at, 0x4f00\nCandidate: \nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = div.s $f20, $f20, $f12\n  = div.s $f18, $f18, $f12\no T: lui $at, 0x4f00 | C: \no T: mtc1 $at, $f22 | C: \n  = addiu $t6, $zero, 0xff\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
    "by": "claude-opus-7"
   }
  ],

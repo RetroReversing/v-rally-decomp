@@ -763,3 +763,16 @@ return-address helper retains its verified fixed wrapper. A fresh `progress/`
 snapshot preserves all current app progress. `func_8000C9B0` remains an
 explicit integration exception because its compiled extent overlaps the next
 entry; its app source is preserved without claiming a standalone match.
+
+
+### Debugger intrinsic export reconciliation
+
+`func_8000C9B0` is now integrated after preserving the pinned toolchain's
+fixed debugger-break template in its standalone header. Without that template,
+the direct compiler treated the intrinsic as an unresolved call and emitted a
+600-byte body; with it, the body is the expected **596 bytes**. No target
+boundary or compiler setting was changed. Its ordinary function check and
+complete **12,582,912-byte** cartridge comparison passed, with all 2,054 earlier
+C objects unchanged. The standalone build now selects **2,055 C functions /
+69 assembly units**, and no currently matched app function remains an integration
+exception at this checkpoint. All current portable app progress is retained.

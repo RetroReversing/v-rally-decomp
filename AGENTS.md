@@ -29,3 +29,12 @@ notes, symbols and headers are retained alongside independently verified standal
 
 Always push V-Rally progress commits to `origin/main` after verification. A request to
 commit V-Rally progress includes authorization to push; do not ask again.
+
+## Preserve fixed compiler intrinsics in direct builds
+
+When capturing app source for a direct standalone compiler invocation, retain
+`toolchains.source_prelude(toolchains.get(profile["toolchain"]), source + "\n" + header)`
+as well as the effective context and per-function flags. The normal app compiler
+injects fixed intrinsic templates itself; a passing `check` does not prove a
+direct build has those definitions. Verify the direct object and full cartridge,
+and do not compensate for a missing intrinsic by enlarging target boundaries.

@@ -128,7 +128,8 @@ void func_8000A5EC(Obj *o, Img *im, s32 mode, s32 flags, u16 a4, u16 a5, u16 idx
     t4 = *im->ptr;
     o->f3C = -1;
     o->f38 = t4;
-    o->f10 = 0x30;
+    t4 = 0x30;
+    o->f10 = t4;
     t5 = im->tab[idx];
     o->f18 = 0x100;
     o->f14 = t5;
