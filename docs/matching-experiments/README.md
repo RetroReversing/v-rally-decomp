@@ -100,3 +100,28 @@ Controlled profile tests on this source/nonvolatile variant respectively:
 Nearby verified plain `-O2` gave 120/370; `-O2 -ffast-math
 -fno-schedule-insns` gave 250/500. These are negative results, not recommended
 profile changes. No linked match or full-cartridge acceptance is claimed.
+
+
+## func_80029AA8 (improved live draft)
+
+The portable snapshot now preserves a **70-score unmatched draft**, improved
+from 130 through the ordinary live judge. It introduces a saved original-right
+index before the sign test and a one-shot scope around the base/right updates.
+The triangle permutation is unchanged: negative selects diagonal/down/right;
+nonnegative retains the original indices. `cell` and the constant-one local
+remain unchanged. All instruction sequence/order differences are resolved;
+fourteen register operands still differ. No selected C or full-cartridge
+acceptance is claimed.
+
+Frozen alternative: `func_80029AA8-70.c` (also saved in the portable snapshot), SHA-256
+`349a2449a309a833165994f5a1e5f848c25451a95869ff7b33b407bdb0d337bc`.
+Profile: KMC GCC 2.7.2, `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`; frozen
+global context SHA-256
+`dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212`.
+
+A bounded scan of 544 symbolically valid copy rotations did not improve the
+original 130 result. Direct scalar temporaries alone scored 295; explicit
+byte-offset and native-index phase reuse hoisted work or changed allocation;
+register storage-class hints did not help. The productive scope changes
+affect allocator reference weighting. Continue the register-lifetime
+investigation rather than repeating those negative grids.

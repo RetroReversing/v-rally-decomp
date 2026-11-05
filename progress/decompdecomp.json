@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793860343.272181,
- "revision": 16510,
+ "saved_at": 1793861016.186303,
+ "revision": 16686,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4088,8 +4088,8 @@
   },
   "func_80029AA8": {
    "vram": 2147654312,
-   "best_score": 130,
-   "best_by": "claude-opus-10"
+   "best_score": 70,
+   "best_by": "you"
   },
   "func_80029EAC": {
    "vram": 2147655340,
@@ -161607,7 +161607,7 @@
   },
   {
    "function": "func_80029AA8",
-   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 111 cached skips; 0 rejected; 557s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 70 \u2192 70; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_80029AA8 is claimed by the user in the C editor. The user can select Let agents work on this; choose another eligible function meanwhile.",
    "by": "Rr.permuter-580"
   },
   {
@@ -161702,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_8006C024 is claimed by claude-opus-3 for another 29 min.",
+   "text": "Deep permuter: score 1485 \u2192 1485; 0 improvements; 300 candidates tested; 139 cached skips; 0 rejected; 139s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161747,7 +161747,7 @@
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_8006D10C is claimed by claude-opus-12 for another 29 min.",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 300 candidates tested; 195 cached skips; 0 rejected; 140s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1446"
   },
   {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 181 cached skips; 0 rejected; 97s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 20 \u2192 20; 0 improvements; 300 candidates tested; 196 cached skips; 0 rejected; 120s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -164228,6 +164228,21 @@
   {
    "function": "func_8007FC44",
    "text": "Unresolved pass: frozen savedsource reproduces320; joining func_8008DD00(msg);osSpTaskStartGo(msg); onone source line restores120. Sourcealternative retaineddocs/matching-experiments/func_8007FC44-delay-alternative.c SHA9659377e329cc833be3395c2d0c748f3a697207653c9efb466cc8aa640ade1c6. Remaining pure a0 move/nop swap between conditional and following jump delayslots. RTL volatile resource conflicts block speculation; removingvolatile fillswrongotherstore slot. ~250 targetedsourceprobes andboundedprovenprofiles unsuccessful; detailsrepositorynotes/privatefrozenproofs. No acceptedC; keepexistingbest andOPEN, revisitwithnewmechanism.",
+   "by": "you"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Best stays 1485 (permuter C). WARNING: that C is semantically wrong: `(temp_s0 *= 4) + temp_s6` in the 0x22C load multiplies arg1 by 4 on every loop pass. Target: fp = s6 + arg1*4 is hoisted before the loop (loop-invariant), arg1&0xFF lives in s0 and is copied to s4, raw arg0 is kept in s7 and re-masked at the call, and the tbl pointer (D_800C02AE+0x5A8A + k*2) is spilled to sp+0x14. Replacing `*=` with a pure `temp_s0*4 + temp_s6` (3 spellings) gives 2948. The rest are no-ops at 1485: u8 arg0, a void callee decl, an extra hoisted temp. Two clean rewrites (u8 locals/i u8; or s32 args with &0xFF, a goto into a shared tail, both branches duplicating call+stores) scored 5690 and 7121, too many deleted insns. Semantics: bit offset = (i*3 + k*9)*4 with a = (u32)(k*C1 + i*C2)&0xFF. If the offset is &0xFF==4: hi=tbl6E77[a]>>4, b1=tbl6E77[a+1], s1=0x6E26 + (hi&3)*14, val=b1*4+((hi&0xC)>>2). Else: lo=tbl6E77[a+1]&0xF, s1=0x6E26 + (lo>>2)*14, val=tbl6E77[a] | (lo&3)<<8. If val is odd, val=-val. Then rec = base + i*16 + arg1*64. Store fields 0x32/33/34 (5-bit +0x41), 0x38=1, 0x2C=(s16)(*tbl - val), 0x30, and 0x36 = (u32)(base[arg1].0x22C * D_8009D540 * 3600)/(u32)(t*1000). Next step: a clean version that keeps the loop structure and the double->u32 conversion explicit, like the permuter's (s32) / |0x80000000 form.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Saved best (325, permuter) is SEMANTICALLY WRONG: it never loads D_800C35A0[31] (b overwritten by [35], switch/index on [35], n uninitialised). Correct semantics (rev 81b439e4, score 550): b=[31] for D_800D0634 index and switch; n=[35]; n+=j (j=0/4/9/15). With correct semantics the only real diffs are: (1) extra `move s5,v0` after `andi v0,v1,0xff` (target does `andi s5,v1,0xff` directly) which shifts all branch offsets by 4; (2) n*9 hoisted into s3 instead of recomputed in loop as v1; (3) D_800D0634 %hi reloc artifact (2 rows, ignore). Tried without effect/worse: n s32/u32 (4146), separate b/n temp then n=b+j (800), dropping the do{}while(0) nest (600), k=n for fs1 (825), (u8)n*9 (same), swapping i=0/fs1 order (500 on wrong base), inlining q expr (1200). Next ideas: remove the hoist of n*9 (maybe q computed as (n*9+k*3)*4 in a different association, or n read via a volatile-ish/global path); try n as unsigned char in an index expression like D_800C5D9C[n] being computed before; try permuter on the semantic version 81b439e4.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Improved genuine triangle-permutation draft130->70 via normalAPI. NewsourceSHA349a2449a309a833165994f5a1e5f848c25451a95869ff7b33b407bdb0d337bc; temp=oldright beforecondition; ifnegative base=olddiag/right=olddown/down=temp; one-shot scope wrapsfirsttwocopies. cell/new_var2unchanged. Sameheader/profile/target; statusOPEN,14register-onlydifferences, no acceptedC/fullcartridgeclaim. 544symbolicallyvalidcopyrotationprobes nofurtherimprovement; explicitbyte/nativeoffsetphase andregisterkeyword didnothelp. Original130frozenprivately andretainedingithistory. Continue allocatorpriority mechanism; no artificial asm.",
    "by": "you"
   }
  ],

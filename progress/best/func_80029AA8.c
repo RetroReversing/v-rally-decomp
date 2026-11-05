@@ -71,6 +71,7 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
   s32 *slot;
   s32 row;
   s32 col;
+  s32 vertex_temp;
   s32 count;
   Inv4 *dst;
   grid = *((Grid29 **) (((s32) obj->grids) + (index * 4)));
@@ -92,17 +93,17 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 index)
   diag = down + new_var2;
   downXZ.z = grid->verts[down].z;
   func_8002D75C(*((s32 *) (&rightXZ)), *((s32 *) (&downXZ)), *((s32 *) (&sampleXZ)), &sign);
+  vertex_temp = right;
   if (sign < 0)
   {
+
     do
     {
       base = diag;
-      diag = down;
-      down = right;
-      right = count;
+      right = down;
     }
     while (0);
-    right = diag;
+    down = vertex_temp;
   }
   diffR[0] = grid->verts[right].x - grid->verts[base].x;
   diffR[new_var2] = grid->verts[right].y - grid->verts[base].y;
