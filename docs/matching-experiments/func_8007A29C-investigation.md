@@ -25,3 +25,25 @@ No second native lane was run. No exact candidate was found, so the full-cartrid
 ## November 5 bounded revisit
 
 A fresh unclaimed freeze reproduced score2. Correcting three additional helper declarations preserves the same two spill-slot differences. Removing unexplained padding scores32; removing the single do/while wrapper scores52. Prior native/padding searches were not repeated. The known return-wrapper interface discrepancy remains unresolved, so a low score is not a global C correctness proof. No live source, compiler profile or target changed. Private frozen inputs, source hashes and raw linked evidence remain on the Data volume; no game data is included here.
+
+## Current-contract, padding-free revisit
+
+The pointer-return/u32-index wrapper and first-word storage corrections are now
+accepted. Correcting the focal declarations and removing unsupported `pad[2]`
+reproduces a padding-free score 32 control, with frame 0x58 rather than target 0x60.
+Actual declaration initializers at their original evaluation points produce a fresh
+score 30 variant, recovering one spill slot but not the frame or other slots. This
+is not best-ever: an older valid frame-different alternative scored 22. None matches.
+
+The fresh run records 66 admissible controls, 65 compiled, including 20 profile
+controls; one CDK compilation fails and is not a negative match result. Meaningful
+count/offset initialization recipes, nonoverlapping pointer phases, genuinely used
+earlier table/record pointers, inline node filtering, actual table-record extents
+and const views all fail. Two preliminary overlapping-lifetime union controls were
+excluded by source review. No artificial padding or new native sweep was used.
+
+Earlier profile sweeps used padded seeds. The new padding-free KMC O1/O2/O3 and
+five debug-level combinations, plus four successfully compiled installed SN packs,
+still find no exact object. No setting was adopted. These results require a new
+allocation/lifetime explanation before repeating the same families. The function
+remains OPEN; the app now carries a note explaining why saved score 2 is misleading.

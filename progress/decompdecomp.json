@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793911031.807429,
- "revision": 18902,
+ "saved_at": 1793912279.655076,
+ "revision": 18906,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249418,6 +249418,30 @@
    "created_at": 1793909271.058306,
    "score_before": 518,
    "score_after": 518
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Grounded revisit 2026-11-05 [controller-phase-240]: saved score265 is invalid (completion path skips global-zero store; car pointer used as player index). Corrected current text1310; prior safe7 primary655. Genuine active integer-index->Car-node union plus actual slot-base += index consumer reaches primary460 / neighboring-g3 240 (all nearby selected profiles useg3). Five branch/delay-slot positions still differ; no exact or profile adoption. Preserve target's final state-pointer rebinding. Sound membership/track-speed bounds remain explicit domain assumptions. Tested128 positive-polarity token/line partitions, state/mask/result lifetimes, genuinehelpers and28 installedperiod profiles on correctedseeds: noexact. Ordinary/-da linkedparity confirmed. Current source +notes: canonical docs/matching-experiments/func_80043A78-phase-nonmatching-alternative.c and func_80043A78-investigation.md at85facbe. No padding/volatile/dummyoperations to force branch.",
+   "by": "you",
+   "created_at": 1793912044.0187688,
+   "score_before": 425,
+   "score_after": 425
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Grounded revisit 2026-11-05 [lighting-matrix-32]: unsigned color packing corrects signed c<<24 at255; corrected contracts/packing preserve310. Actual matrix representation is32bytes (nine halfwords +padding +three translation words); typed32Matrix scores322, notexact. No evidence supports enlarging with unused48bytefields toforceframe. 107new real position-array/record, colorpacking/lifetime/helper, consumedFloat3 direction/relative phase controls foundnoexact. US7CA54 independenttarget has same0x70frame/stacklocations; PAL/USmatrix-vector routine rawbytesidentical360. USextra instructions are loop-address recurrences, notlightingmath/newmatrixfields. 52 realinstalledperiod/debug/optimization controls on validMatrix32 negative; no profiles changed. Private evidence /Volumes/Data/Codex/tmp/func8007B4A4/current-deep/RESULT.md. KeepOPEN/revisitable; no new match.",
+   "by": "you",
+   "created_at": 1793912047.8123882,
+   "score_before": 330,
+   "score_after": 330
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Grounded revisit 2026-11-05 [table-spill-nopad]: savedscore2 depends on unexplained unusedpad[2]; not an admissible match. Current592AC/D0 pointerreturns andu32indices +5A744firstwordpointerstorage NOW fixedcanonical. Correct focalcontracts/removeunusedpad =>valid32, frame58vs target60. Bestfresh actual declarationinitializers atoriginal evaluationpoints scores30, qspill2c correct; otherframe/spills wrong. Historicalvalid22framealternative exists;30notbestever. 66admissiblecontrols,65compiled incl20periodprofilecontrols (oneCDKtool failure): actualconsumedcount/offsetinitializers, nonoverlapphaseunions, priorconsumedtable/record reuse, naturalinlinefilter, realtableextent/consttypes\u2014allnonexact. Two overlappinguniontrials explicitlyexcluded. Prior1000native/padding/getterfamilies not repeated. Do not rerun without new actualallocationcause; do notinventpadding/dummyoperations. Private immutableevidence /Volumes/Data/Codex/tmp/func8007A29C/current-contracts-revisit/REPORT.md. StillOPEN/revisitable; no source/profileadoption.",
+   "by": "you",
+   "created_at": 1793912256.237546,
+   "score_before": 2,
+   "score_after": 2
   }
  ],
  "set_aside": [

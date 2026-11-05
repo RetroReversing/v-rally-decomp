@@ -25,3 +25,26 @@ Residual same-size mismatch:42 register positions and4 reordered positions. Colo
 Final nine explicit brightness/u32-conversion capture controls, first loop/second loop/both: all330, no exact. Parent six packing/lifetime controls: loop-local360; directtag2115/1975/2360. No reusable automation rule proved.
 
 Parent final controls: moving the full-color assignment into its only consuming branch (first loop, second loop, both) preserves the330 score in all three cases. These remove a redundant assignment on other paths; no new instructions or false branches were added. No exact result.
+
+## Current structural and regional controls
+
+A fresh revisit tested 107 new grounded controls without a match. Correct unsigned
+packing and actual helper declarations preserve 310. A 32-byte fixed matrix model
+scores 322. Actual position arrays/records, genuine normalized-direction and relative
+Float3 objects, color lifetimes and meaningful lighting helpers do not improve it.
+No unsupported 48-byte object was introduced to force the target frame.
+
+The independent US counterpart `8007CA54` is also OPEN. It has the same 0x70 frame and
+p/q/m locations. Its matrix-vector routine is byte-identical to the PAL target;
+both transpose implementations access a 32-byte representation. The extra US
+instructions concern loop-address recurrences, not new matrix fields or lighting
+math. The first 85 instruction patterns agree after address/callee substitution.
+This supports the model but does not provide verified donor C or identify a flag.
+
+Forty-eight normal installed period profiles and four additional debug controls on
+the actual 32-byte matrix source find no exact result. No download, profile adoption
+or selected C change occurred. A read-only mnemonic search found no matched US donor
+above 0.85 similarity for any of the 18 remaining PAL functions; this is a search
+result, not proof of semantic dissimilarity. Revisit only with a new grounded stack
+allocation, source or compiler mechanism. Function-specific app notes retain these
+negatives and the unsafe signed-packing warning.
