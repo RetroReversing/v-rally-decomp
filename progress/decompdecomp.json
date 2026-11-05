@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793880146.080461,
- "revision": 17817,
+ "saved_at": 1793880551.0754921,
+ "revision": 17822,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164758,6 +164758,31 @@
   {
    "function": "func_8003E6D8",
    "text": "Corrected machine-behavior draft lowers635 to565: fixes uninitialized mode1 pointer and original-base coordinate offsets; distinct start_pos restores initial/mode2 register roles. Not an exact match or cartridge acceptance. Still audit cross-function C prototypes:40260 selected C has void5arg declaration vs actual pointer result/unused6tharg;34FF0 returns pointer stored as32bit resource, callbacks consume context pointer despite local void(void) declarations. Valid allocations/global/slot indices required. Native650 search and directed loop/lifetime controls ongoing. No target/header/compiler/profile changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Semantics: p=root->6C->24; if game->0xE==2 {r=root->4; if game->0x1A==1 r=r->4; return *p!=15000 || *(r->6C->24)!=15000;} return *p!=15000. Natural C (separate q, or reusing root for q, any declaration order) gives score 80, all register-only: target p=a0, root=a1, game=a2; ours root=a0, game=a1, p=a2. Declaration order does not affect allocation. Saved best of 20 uses the odd xor-chain (p ^= root four times) else-branch trick. Left to try: a struct-typed root/game with field accesses, or computing p inside both branches.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Best 295 kept (rev 3fe8c22f). Remaining diff is pure regalloc: target right=s3, down=s1, down+1 (height)=s0, slot=s2; ours right=s0, height=s2, slot=s3. Also tail: target computes local[1]*16 in v0 then move a1 in bgtz delay slot (non-callee-saved), ours in s0 because reusing 'right'. Tried tail value in height/dot/down/slot/row/col/sign directly: all worse (355-595). Using a separate var (dot/cell) for down+1 in the swap: catastrophic (1600+). Idea left: restructure swap as 4 corner indices i0..i3 with temp, or new block-scoped temp for tail with whole-function compile_and_diff (block-scoped `{int h=...}` needs closing brace).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Still 518 (rev 84b9a245). This session: worse with an h2=hh-1 direct (654), else-branch reload (s16)D.h (3748/14247), first block as struct copy r=D (2703), fully in-place s32 flags branch (w-=0x38, h=hh-1, s32 x2) (1734 again: it moves the D_8009FFDC load to the top), merged it0 (523; with w-first stores 531). Neutral: register w, else-branch w=hw-1;w2=w, it0 decl at top. Target register map: s0=htemp/hh, s1=wtemp/const2/idx20, s2=o then p, s3=h, s4=x2/y2, s5=w, s6=it (it0 too), s7=n, fp=x. Ours: s0=it0, s1=wtemp, s2=o/x2, s3=w, s4=htemp/it, s5=h, s6=p. So in ours htemp's priority falls below it0 and w. Look for something that raises the h<<16 temp's priority (more refs or a shorter range).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Score stays at 330 (rows 85-91 have the 2^31 const lui 0x4f00/mtc1 f22 hoisted after full/ap instead of before; first loop c is in v1 rather than v0, f in the len<1200 branch uses f4 instead of f2; second loop w pointer is in a2 rather than a1). These had no effect (identical output): moving the full/ap assigns earlier or later, u32 c, swapping lo/hi declarations, c=full inside the if, amb before the div, f/1200.0f, (u32)(..)&0xFF, f declaration order. These made it worse: c=0xFF literal (1125), removing full/ap (1182), ap before full (350), swapping n/w in loop2 (340), splitting f*=K (350), splitting the conversion into f then c (350), the if/else form of f (2235). Not yet tried: different struct typing for V16/V24, a pointer-index loop instead of j counters, and a shared helper for the colour pack.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Renderer investigation remains OPEN565. Corrected ordinary draft saved previously: uninitialized resource argument and coordinate errors fixed; separate initial position pointer restores register roles. Native lanes1000attempts705scored (650baseline),999attempts710scored (565baseline),87directedjudgments found noexact. Goto removesstrengthreduction butlosesLICM; explicitlyhoisted795negativecontrol preserved. Cross-function constructor/resource/callbackCprototypes stillrequireaudit; drafts are machine-behavior research, notwholeprogramCproof. See docs/matching-experiments/func_8003E6D8-investigation.md. No matchedC/profile/header/targetchanges orcartridgegate.",
    "by": "you"
   }
  ],

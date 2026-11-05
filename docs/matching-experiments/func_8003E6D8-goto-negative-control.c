@@ -1,0 +1,220 @@
+typedef struct 
+{
+  s16 pad0[4];
+  s16 x;
+  s16 y;
+} Pos;
+typedef struct 
+{
+  u8 pad0[0xC];
+  s32 type;
+  u8 pad10[0x168];
+  Pos *pos;
+} Mgr;
+typedef struct 
+{
+  u8 flags;
+  u8 pad[0x27];
+} Slot;
+typedef struct 
+{
+  u8 pad0[0xE];
+  u16 mode;
+  u8 pad10[2];
+  u16 flags12;
+  u8 pad14[0xA];
+  u16 state;
+  u8 pad20[0x11];
+  u8 sel[0x17];
+  Slot slots[4];
+} Game;
+typedef struct 
+{
+  u8 pad0[0x76];
+  u16 n;
+  s16 part;
+  u8 pad7A[0x16];
+  u8 r;
+  u8 g;
+  u8 b;
+  u8 a;
+  u8 pad94[0x10];
+  s32 tex;
+  Mgr *owner;
+} Spr;
+extern Game *D_800C35A0;
+extern Mgr *D_800C7F84;
+s32 func_80034FF0(void *, s32);
+Spr *func_80040260(s32, s16, s16, s32, void (*)(void), s32);
+Mgr *func_8004240C(s32);
+extern void func_8003ED04(void);
+extern void func_8003ED94(void);
+extern void func_8003EE84(void);
+extern void func_8003EF20(void);
+void func_8003E6D8(s32 arg0, s32 arg1)
+{
+  Pos *pos;
+  Pos *start_pos;
+  Mgr *m;
+  Spr *s;
+  void *new_var2;
+  s32 x;
+  s32 base_x;
+  s32 y;
+  u32 i;
+  u32 j;
+  void (*loop_callback)(void);
+  s32 loop_one;
+  void *loop_resource;
+  void *new_var;
+  s32 k;
+  s32 p;
+  u16 state;
+  u16 mode;
+  s16 yy;
+  s16 x1;
+  s16 x2;
+  s16 x3;
+  start_pos = D_800C7F84->pos;
+  base_x = start_pos->x;
+  x = base_x + 0x14;
+  y = start_pos->y + 6;
+  state = D_800C35A0->state;
+  if (state == 7)
+  {
+    return;
+  }
+  mode = D_800C35A0->mode;
+  switch (mode)
+  {
+    case 1:
+      if (state == 0)
+    {
+      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 1)
+      {
+        s = func_80040260(arg0, x, y, 5, func_8003ED04, mode);
+        new_var2 = (void *) ((u32)arg1 + 0x4CU);
+        s->tex = func_80034FF0(new_var2, 0);
+        s->part = 0;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, base_x + 0x1C, y, 5, func_8003ED04, mode);
+        new_var = (void *) ((u32)arg1 + 0x4CU);
+        s->tex = func_80034FF0(new_var, 0);
+        s->part = 1;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, base_x + 0x24, y, 5, func_8003ED04, mode);
+        s->tex = func_80034FF0(new_var, 0);
+        s->part = 2;
+        s->owner = D_800C7F84;
+      }
+    }
+    else
+    {
+      j = 0;
+      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)
+      {
+        loop_resource = (void *) ((u32)arg1 + 0x4CU);
+        loop_callback = func_8003ED94;
+        loop_one = 1;
+loop_mode1:
+        {
+          yy = y + (j * 11);
+          s = func_80040260(arg0, 0x1C, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
+          s->part = 0;
+          j++;
+          s->n = j;
+          s->owner = D_800C7F84;
+          s = func_80040260(arg0, 0x24, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
+          s->part = loop_one;
+          s->n = j;
+          s->owner = D_800C7F84;
+          s = func_80040260(arg0, 0x2C, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
+          s->part = 2;
+          s->n = j;
+          s->owner = D_800C7F84;
+        }
+        if (j < 4) goto loop_mode1;
+      }
+    }
+      break;
+
+    case 2:
+      i = 1;
+      k = 1;
+      p = (u32)arg1 + 0x4CU;
+      arg1 = 0;
+      do
+    {
+      m = func_8004240C(k);
+      pos = m->pos;
+      D_800C7F84 = m;
+      x = pos->x;
+      y = pos->y + 6;
+      if (!(D_800C35A0->flags12 & 1))
+      {
+        x += 0x14;
+        if (m->type == 3)
+        {
+          x -= 0xE;
+        }
+      }
+      if ((D_800C35A0->state != 0) && (D_800C35A0->slots[D_800C35A0->sel[i]].flags & 4))
+      {
+        x1 = x + 8;
+        yy = y + 10;
+        s = func_80040260(arg0, x1, yy, 5, func_8003EF20, 1);
+        x2 = x + 0x10;
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 0;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x2, yy, 5, func_8003EF20, 1);
+        x3 = x + 0x18;
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 1;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x3, yy, 5, func_8003EF20, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 2;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x1, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 0;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+        s = func_80040260(arg0, x2, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 1;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+        s = func_80040260(arg0, x3, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 2;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+      }
+      k += 2;
+      arg1++;
+      i++;
+    }
+    while (i < 3);
+      break;
+
+  }
+
+}
+
