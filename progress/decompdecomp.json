@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793851117.246658,
- "revision": 15525,
+ "saved_at": 1793852103.943879,
+ "revision": 15725,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8373,8 +8373,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 2615,
-   "best_by": "claude-opus-12"
+   "best_score": 2540,
+   "best_by": "Rr.permuter-1437"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -161592,7 +161592,7 @@
   },
   {
    "function": "func_80046E54",
-   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_80046E54 is claimed by claude-opus-12 for another 29 min.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 300 candidates tested; 189 cached skips; 0 rejected; 156s elapsed. Variant limit reached.",
    "by": "Rr.permuter-907"
   },
   {
@@ -161702,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 2615 \u2192 2615; 0 improvements; 300 candidates tested; 164 cached skips; 0 rejected; 183s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 2540 \u2192 2540; 0 improvements; 300 candidates tested; 72 cached skips; 0 rejected; 157s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161737,7 +161737,7 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 145 \u2192 145; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8006D564 is claimed by claude-opus-3 for another 29 min.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 177 cached skips; 0 rejected; 184s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161772,7 +161772,7 @@
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1000 \u2192 1000; 0 improvements; 300 candidates tested; 35 cached skips; 0 rejected; 182s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1000 \u2192 1000; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_8006BA44 is claimed by claude-opus-12 for another 29 min.",
    "by": "Rr.permuter-1434"
   },
   {
@@ -163834,6 +163834,21 @@
    "function": "func_8000A5EC",
    "text": "claude-opus-7: best 110 (saved). Remaining: (1) entry load order lhu type(a1) before lhu idx 0x32(sp); (2) f38/f10 store order; (3) f24 gets addiu 0xff instead of -1 because m is u8. The late `m = -1` reassignment is load-bearing: removing it or writing o->f24=-1 directly / a clean tail -> 765 (147 rows shift, because mode's register copy a0 changes). `s32 m` -> 610 (loses the move a0,a2 and shifts regs). Try: u8 m for the mode copy plus a separate s32 local set to -1 that shares the slot (e.g. s16/ s8 m to get -1 sign-ext: try `s8 m`), or `m` declared as signed char.\n\nclaude-opus-7 follow-up: any variant where f24 receives a true -1 (s8/s16 m, (s8)m cast, o->f24=-1) -> 765 with 147 rows changed (whole-function shift), u16 m -> 300. So the 0xff vs -1 row is coupled to something structural; inspect last_diff of the 765 variant to see what shifts before trying more.",
    "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Rechecked 230 (saved best source). The only real diff is the 0x5B store: target `addu v1,v1(base),v0(off)` (result in base reg), ours `addu v0,v0,v1`. Tried this session: comma-expr inside func_8006F0E0 arg, (Slot[n+1]).pad[0x1C], local Game *gp, u8 n local (635), g reuse (295), s+= forms (275: fixes store but moves `move a0,s0` after it and second-half [2]/[3] loops use v0 not s2), s+= with u8 n (415), s=(Slot*)base+n (275), register s (275), s+= plus p=D_800D0634[2] in second-half loop (1165), base+0x44 then [n*0x28] (485). Untried: making the second-half [2..4] loops keep s2 by some other means while using the s+= form; changing the type of D_800C35A0 to Slot* globally.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Best 200 (saved). Remaining: (a) operand-only %hi reloc artifacts on D_800B6FF2/D_800D0658 (ignore, per shared knowledge); (b) in both final j-loops (>>1 loop and *D[4]/100 loop) index andi uses $a0 and loaded value $v1, target has index $v1, value $a0. Tried without effect (still 200): u8 x temp, reorder decls (u8 j before u32 i), separate k for the count loop, register u8* decl, u32 jj copy, hoisting j=0 before the if. Worse: (D>>1)+D order 395, s32 x 275, do-while 830, u8* q 1020, s=0 910, u32 x in both loops 602 (frame shrinks to 0x10, mult->multu). Untried: making the final loops reuse a different var per branch, int-typed j with explicit (u8) casts, changing the cnt/flag types to affect pseudo numbering.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Bounded investigation (5 Nov): baseline score 45 is not semantically complete: at +0xFC the target resets the reused loop counter to zero, while the draft duplicates call argument setup. Four other displayed differences are relocation spelling noise. Correct reset-before-call C scores 160; reset-after-call 245. Compiler RTL and local GCC 2.7.2 reorg.c show CALL delay slots are filled before branch slots: target needs argument setup before reset in pre-delay RTL; corrected draft has the opposite order. 3,000 distinct guarded native source trials (2,914 linked/scored objects; 913.5s; broader second phase allowed CFG-safe reset relocation) found no exact candidate. Scoped identities, argument/call staging, ordinary wrappers, counter type/storage changes, bounded verified profiles and scheduler/CPU diagnostics did not solve it. Keep this function OPEN for later structural/compiler evidence; do not accept the incomplete score-45 draft, mark impossible, or pause it. Private evidence: /Volumes/Data/Codex/tmp/func8005E49C/native-walk-evidence.json and rtl-exact/func.c.dbr.",
+   "by": "you"
   }
  ],
  "set_aside": [

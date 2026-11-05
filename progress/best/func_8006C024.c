@@ -57,17 +57,28 @@ void func_8006C024(s32 arg0, s32 arg1)
     }
     else
     {
- do { do { var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 = var_a0 | 0x80000000; } while (0); } while (0);
+      do
+      {
+        do
+        {
+          var_a0 = (s32) (temp_fv1 - temp_fs0);
+          var_a0 = var_a0 | 0x80000000;
+        }
+        while (0);
+      }
+      while (0);
       var_v1 = temp_s5 * 8;
     }
+    temp_a0 = 0xFF;
+    temp_a0 = var_a0 & temp_a0;
     temp_s0_2 = var_s3 & 0xFF;
-    temp_a0 = var_a0 & 0xFF;
     if ((((((temp_s0_2 * 3) + (var_v1 + temp_s5)) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
       temp_v0 = (D_800C02AE + 0x6E77) + temp_a0;
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));
       temp_a0 = ((u8) (*((u8 *) (((char *) temp_v0) + 0)))) >> 4;
-      temp_t0 = temp_a0 & 0xC;
+      temp_t0 = temp_a0;
+      temp_t0 = temp_t0 & 0xC;
       if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
       {
         temp_t0 >>= 2;
@@ -134,3 +145,4 @@ void func_8006C024(s32 arg0, s32 arg1)
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }
+
