@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793869612.1457589,
- "revision": 17693,
+ "saved_at": 1793870602.496202,
+ "revision": 17716,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 207 cached skips; 0 rejected; 271s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 208 cached skips; 0 rejected; 247s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161722,7 +161722,7 @@
   },
   {
    "function": "func_8002FFA4",
-   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 300 candidates tested; 169 cached skips; 0 rejected; 242s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 300 candidates tested; 175 cached skips; 0 rejected; 242s elapsed. Variant limit reached.",
    "by": "Rr.permuter-672"
   },
   {
@@ -161732,12 +161732,12 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 287 cached skips; 0 rejected; 301s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 341 cached skips; 0 rejected; 260s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 178 cached skips; 0 rejected; 312s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 9s elapsed. Stopped: func_8006D564 is claimed by claude-opus-7 for another 29 min.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161792,7 +161792,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 289s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 8s elapsed. Stopped: func_8007A29C is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -164534,6 +164534,16 @@
    "function": "func_8006603C",
    "text": "Saved200draft INVALID: saved1E==2 then(saved22 &saved1E)==4 impossible; reproducedpoison210 emitsANDI2 ratherthantargetANDIFFFF, no compilerbugclaim. Use audited safe300alternative, SHA5961efac8cdac2671f39f1bf45e0a1acb184069576575e48876688dab1ddccc9. Cleanactualcondition saved1E==2 &&saved22==4 restored. Materializedmodeboolean preserves realnestedchecks withoutvolatile. Earlierrestorebytecasts fixregisterallocation. Ordinary300nonexact: two targetANDIFFFFmissing plusconsequentoffsets; false symbolannotationsirrelevant. Native973attempts total including interruptedunsafe445tempuninitialized rejected. No target/profile/judgechanges, no standaloneCselected; OPEN/revisitable. Parentnarrowing/mask/field probes noexact.",
    "by": "you"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Saved best is still 2. Its only diff is tbl's spill slot: target 0x14, ours 0x34. New this session: making tbl a memory local (`u8 *tb[2]`, tb[1]=D_800D0658, in place of pad) scores 1097. The frame becomes 0x58 and scheduling changes, so tbl really is a spilled register pseudo, not a local. The earlier notes' hypothesis still stands: we need tbl declared first, no pad, and something that wastes an 8-byte slot after the 4 spill slots. That could be a 5th spilled pseudo or a caller-save area. Untested: a pseudo that is live across calls in a call-clobbered reg (caller-saves).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-7"
   }
  ],
  "set_aside": [
