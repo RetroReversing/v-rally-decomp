@@ -81,3 +81,28 @@ existing relocation display; the ordinary judge, not rendered names, is authorit
 These results do not justify a new automatic repair. Next useful route is actual
 compiler narrow-value range propagation evidence, not additional equivalent masks
 or unrestricted random candidates. The function must remain OPEN.
+
+
+## Current reviewed correction and first-CSE evidence — 5 November 2026
+
+The normal app review now selects **OPEN 305**, source SHA256
+`cca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103`.
+Parent ordinary compilation reproduces the private linked proof: 612 candidate
+bytes versus 620 target bytes, no linker problems. The historical 200 predicate
+is invalid: `(a & a) == 2` forces `a == 2`, making `(b & a) == 4` impossible.
+The target compares the original halfwords independently against 2 and 4.
+Initialized fields `(2, 4)` distinguish the required stores; no gameplay trace
+establishes that this pair was observed. Real snapshot/restore operations and
+stored-byte conversions are retained, without claiming globally reconciled raw
+object/effective-type, scene-bound or nullability contracts.
+
+New genuine aggregate, initialized output-pointer and byte-representation value
+transports did not help. Three additional actual-predicate switch/fallback forms
+also stay at 305. GCC RTL contains the two required halfword zero extensions in
+initial/jump phases. First CSE substitutes the getters' already narrowed values
+and deletes them; combine later forms LHU. This is earlier than register
+allocation. Ordinary and diagnostic canonical linked bytes agree (SHA256
+`0a7b03fe163c92a11dc7e602b02eed5b3600a0455175a6704a2de34bdc781dac`),
+although raw ELF diagnostic metadata differs. No new exact match or successful
+automatic repair is claimed. Keep open and avoid repeating final-allocation or
+mask-spelling sweeps without a new first-CSE hypothesis.

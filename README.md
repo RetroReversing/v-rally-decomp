@@ -39,6 +39,10 @@ historical lower score with known uninitialized and loop-mutation errors. This
 changes no matched function; its corrected C and review evidence are saved in
 portable progress. See its [investigation](docs/matching-experiments/func_8006C024-investigation.md).
 
+`func_8006603C` likewise now retains corrected **OPEN 305**, replacing a
+historical 200 draft with an impossible predicate. These reviewed draft
+corrections leave all 2,070 matched sources unchanged.
+
 
 ### Empty-callee contract and parameter lifetime — 5 November 2026
 

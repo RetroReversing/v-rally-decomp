@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793918625.155396,
- "revision": 18932,
+ "saved_at": 1793918946.763566,
+ "revision": 18937,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -7903,8 +7903,8 @@
   },
   "func_8006603C": {
    "vram": 2147901500,
-   "best_score": 200,
-   "best_by": "restored"
+   "best_score": 305,
+   "best_by": "candidate-review"
   },
   "func_800662A8": {
    "vram": 2147902120,
@@ -249530,6 +249530,30 @@
    "created_at": 1793918622.068526,
    "score_before": 1465,
    "score_after": 1465
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-d9aa1144b97f43af",
+   "created_at": 1793918871.166281,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Review selected corrective alternative attempt 310095; rejudged score 305, replacing reported source d78456b18ef26223785c. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793918889.563048,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Corrected provisional6603C selected through normal manual-MCP compile/source-scoped report and candidate-recovery review 2026-11-05: OPEN305 revisioncca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103 replaces invalid200. Predicate(a&a)==2forcesa2, so(b&a)==4is impossible; actual target independently compares original unsigned halfwords to2and4. Initialized pair(2,4) distinguishes target stores, not a claim of observed gameplay. Parent ordinary linked305 recheck, all2070matched sources unchanged. New actual value transports and three predicate switch/fallback forms noexact. RTL initial/jump has both required zero extensions; firstCSE substitutes already-narrowed inline getter values and removes masks, combine later formsLHU. Ordinary and-da canonical linkedbytes identical0a7b03fe163c92a11dc7e602b02eed5b3600a0455175a6704a2de34bdc781dac; rawELF metadata differs. Do not repeat final-regalloc guesses for instructions gone before allocation. No successful automatic repair justified. Preserve real snapshot/restore and independent predicate; raw storage/effective-type and bounded scene/nonnull preconditions remain. Keep OPEN/revisitable. Evidence /Volumes/Data/Codex/tmp/func8006603C/current-nov5/REPORT.md, baseline-proof.json, predicate-proof.json. Compiler guide updated via appPR633.",
+   "by": "you",
+   "created_at": 1793918936.666952,
+   "score_before": 30,
+   "score_after": 30
   }
  ],
  "set_aside": [
