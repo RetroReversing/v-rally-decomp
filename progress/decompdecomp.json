@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793881151.79337,
- "revision": 17829,
+ "saved_at": 1793881520.46979,
+ "revision": 17842,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5923,8 +5923,8 @@
   },
   "func_80049DB0": {
    "vram": 2147786160,
-   "best_score": 20,
-   "best_by": "you"
+   "best_score": 40,
+   "best_by": "candidate-review"
   },
   "func_80049E28": {
    "vram": 2147786280,
@@ -164803,6 +164803,51 @@
   {
    "function": "func_8007A29C",
    "text": "Revisited OPEN2: actual linked1004byte candidate differs in exactly2tablepointer spill instructions:sp+34 vs targetsp+14, frame60. Corrected noarg/integer/pointer-return caller declarations keep same2; selectedvoidwrapper sources require later cross-function contract audit. Existing unusedpad2 is neverread but unexplained; removingit changesframe58 and fails. No newdummyarrays orfakeeffects.1000nativegenerated/757compiled-scored,48duplicate,72Clangreject,123forbidden-token; noexact. Lexicalscope/realaggregate/valuegetter/addressablegettercontrols negative. Addressablegetter moves spill18 but otherinstructions differ1086. Reports and correctedmachine-behavior alternatives preserved in docs/matching-experiments; no matchedC/header/profile/targetchanges orcartridgegate.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRev 9659377e: 120 under current -g3 (was 320) by writing `func_8008DD00(msg); osSpTaskStartGo(msg);` on ONE line (osSpTaskStart macro). Remaining 2 rows: target beqz (after osSpTaskYielded) has `move a0,s2` in its delay slot and the `j +0xe0` has nop; ours is the reverse. No change from: if/else on one line, braces, ternary, joining with func_8007F394 line or the preceding result= line, goto duplicate call. Try other line joins (e.g. old/D_800A19B4=0 together, the second func_8008DD00(old);osSpTaskStartGo(old) pair on one line) or a different branch shape.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Saved best stays 1000 (rev 7ee63259). Tried the unsigned ut0 = temp_a0&0xC with `ut0 >>= 2` inside the if: 3205 (236 vs 259 insns, the tail collapses). So the unsigned type doesn't fix the srl. The function's profile still produces a .lit8 reloc (type 8), so it can't reach 0 until the profile is switched to -G0 (see earlier notes). Work on the -G0 profile issue before tuning.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Saved best is 25. Two of its 3 diff rows are the known D_800C8328 hi/lo reloc artifact. The real one is row 63: the target has `move s1,zero` in the jal func_80084AF4 delay slot, and the saved C never resets s1 before loop 2 (semantically wrong, but closest). Adding s1=0 at these places: before func_80084AF4 gives 140 (s1=0 moves into the beqz slot and the else path gets its own move a0,s4); between AF4 and AD8, after AD8, after FB64, or right before the do all give 225 (it lands in the AD8 slot). A u8 for-loop rewrite of loop 2 gives 725. Needed: rtl order a0=s4; s1=0; jal AF4. Try some way to make the arg copy happen before the zeroing, e.g. a temp declared differently, or s1 as a u8 loop var shared by both loops.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Best 135. Two issues: (1) first inner loop: target s=v1, laps ptr giv=a1; ours swapped. No change from: for(s=0,m=0..), s=s+.., byte-offset access, using outer `sum` var, `u32 s=0` init. (2) target sets the flag ptr t2=&D_800C81FC AFTER the switch constants t3=1,t6=2,t5=3 (just before t0=t4,t1=0); ours hoists it before. Removing new_var / writing `flag=&D_800C81FC` in loop (290) / direct D_800C81FC stores (1310) are worse. Untried: declare new_var right before the 2nd loop, unsigned int vs int types for the switch, different declaration order of locals.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Saved best stays 2. Confirmed: tbl declared first while keeping pad[2] gives 10 (all four spills +8). Replacing pad with f64/s64 locals, or removing it, gives 22 (frame 0x58). Unused locals of any mode give no slot. Hypothesis for the empty 8-byte area at sp+0x30: it must be a reload-time allocation that comes after the initial alter_reg spill slots. Candidates: (1) a caller-save area (setup_save_areas runs in the reload main loop after the alter_reg loop; flag_caller_saves is on at -O2) for a pseudo global-alloc put in a t-reg across a call, which reload later spilled; (2) a spilled pseudo whose only store reload deleted as a dead output reload. Not tested yet.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-b0a7b86abf5c4e81"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-f3c4079ee1ad4fd4"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Review selected corrective alternative attempt 297374; rejudged score 40, replacing reported source d48c9c3c9580d48f3d7b. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Historical score20 uses four XOR cancellation identities and out-of-bounds arithmetic from scalar globals. Corrected exploratory revision removes those definite defects and uses captured BSS extents; score40. Raw BSS pointer views remain a machine-memory model, not a complete cross-TU ISO alias/type proof. Not an exact match or cartridge acceptance. Independent native search continues from clean60, no best-source portfolio. Future source typing should replace raw BSS views once actual shared layouts are established.",
    "by": "you"
   }
  ],
