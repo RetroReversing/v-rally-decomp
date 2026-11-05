@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793868874.467656,
- "revision": 17626,
+ "saved_at": 1793869612.1457589,
+ "revision": 17693,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 201 cached skips; 0 rejected; 302s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 207 cached skips; 0 rejected; 271s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161722,7 +161722,7 @@
   },
   {
    "function": "func_8002FFA4",
-   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 300 candidates tested; 114 cached skips; 0 rejected; 288s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 300 candidates tested; 169 cached skips; 0 rejected; 242s elapsed. Variant limit reached.",
    "by": "Rr.permuter-672"
   },
   {
@@ -161732,12 +161732,12 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 287 cached skips; 0 rejected; 307s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 287 cached skips; 0 rejected; 301s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 169 cached skips; 0 rejected; 328s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 178 cached skips; 0 rejected; 312s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161792,7 +161792,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 191 cached skips; 0 rejected; 342s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 289s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -164513,6 +164513,26 @@
   {
    "function": "func_80046E54",
    "text": "Bounded investigation:1000 native variants,20actualfirstpage repairs,149helpermanual +86parent probes; noexact, best140unchanged. Layouts audited Statstride4c/v44, Gameplayers e/diff16/state1e/order32/slots48, Recordstride2c4/count14. Difference onlylasttwo boostloops indexa0/valuev1 vs targetindexv1/valuea0. Ordinary rawlink false; advisory operands include misleadingsymbolannotations. Sound alternative declaresDCglobalpair as s16array[2], preserves DE0x10store; ordinary140unchanged. No target/profile/judgechanges. OPEN/revisitable, notpaused. PrivatecaptureSHAf3f77a7e9acd45c7f66ef7c6c33e9e38d0cff34ff7f47ec333ce78e4f2788771.",
+   "by": "you"
+  },
+  {
+   "function": "func_800502D4",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 142; 5 differing rows (2 operand, 3 reordered; advisory).\nTarget: \nCandidate: addiu $v0, $zero, 5\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $a1, %hi(D_800C02AE+0x38f0)\n  = lbu $a1, %lo(D_800C02AE+0x38f0)($a1)\no T:  | C: addiu $v0, $zero, 5\n  = lui $at, %hi(D_800C02AE+0x7e72)\n  = sb $zero, %lo(D_800C02AE+0x7e72)($at)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Saved best is still 425. This session: (1) F40 moved into finish, with the store written as a field of a global struct (`typedef struct {u8 pad[0x8030]; s32 x8030;} BigG; extern BigG D_800AE850; D_800AE850.x8030=0;`). Our compile now has the target's exact `lui $at,%hi(D_800AE850+0x8030); sw $zero,%lo(...)($at)` macro form, with no reloc diff. But the jal F40 still swaps in after the lui (lui; jal; sw), while the target has lui; sw; jal; nop. Result 475 (rev fb9f1943). The swap is probably gas (reorder mode) filling the jal slot with the macro's sw. Something in the original blocked it: maybe a label/line note before the jal, or a different statement form. `if (cnt) F40();` \u2192 665 (worse). (2) Theory for the beql toggle: in gcc 2.7, mostly_true_jump predicts EQ as not-taken, so a beqz fills from the fallthrough. The target's beql (fill from the taken path) means either the fallthrough thread wasn't owned (a label in front of the ori-2 block) or the branch was predicted taken (a LOOP_BEG/VTOP note next to the target label). Untested: wrap the else arm in a loop construct to produce those notes. Left: the jal slot, the toggle beql, and the hA addu order at the first site in the F40-in-finish layout.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Saved best is still 420 (rev ba84dd9c, the sound version with the new_var/new_var2 forms). The target never forms b+2; it uses the `lhu 2(base+b)` offset form. Removing new_var2 (PTS(b+2) at either site, or both, with the new_var2 assignment dropped) scores worse: 495-545. Target regalloc: o=t2, out=t4, t=t1, idx=a0 (arg0's reg), prev=t0, next=v1, a=a1 (arg1's reg), b=a3 (out's reg). In the target, next got v1 before idx, so idx must have a lower global-alloc priority than next (a longer life or fewer refs). Untried: make idx live longer (e.g. use idx after the join), or put next in an s16/inline expression to raise its priority.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Saved200draft INVALID: saved1E==2 then(saved22 &saved1E)==4 impossible; reproducedpoison210 emitsANDI2 ratherthantargetANDIFFFF, no compilerbugclaim. Use audited safe300alternative, SHA5961efac8cdac2671f39f1bf45e0a1acb184069576575e48876688dab1ddccc9. Cleanactualcondition saved1E==2 &&saved22==4 restored. Materializedmodeboolean preserves realnestedchecks withoutvolatile. Earlierrestorebytecasts fixregisterallocation. Ordinary300nonexact: two targetANDIFFFFmissing plusconsequentoffsets; false symbolannotationsirrelevant. Native973attempts total including interruptedunsafe445tempuninitialized rejected. No target/profile/judgechanges, no standaloneCselected; OPEN/revisitable. Parentnarrowing/mask/field probes noexact.",
    "by": "you"
   }
  ],
