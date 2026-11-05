@@ -5,3 +5,9 @@ The saved score-325 draft is invalid: state[31] selector is overwritten by state
 ## November 5 bounded revisit
 
 Fourteen new bounded mode-offset and packed-offset controls did not improve the corrected505 baseline. The saved325 source still reads uninitialized n after overwriting the separate mode byte. A normal compile retained corrected attempt307944, and a structured source-scoped quality report now links it. Review adoption was requested; the HTTP observation timed out, and current source is still325, so adoption is not claimed. No exact match or repeated native search. Broader caller/object preconditions remain unresolved. Private frozen inputs, source hashes and raw linked evidence remain on the Data volume; no game data is included here.
+
+### Retained correction and review guard fix
+
+The exact corrected505 research source is also retained as `func_8006D10C-initialization-corrected.c` (SHA2566dd89f6e9c0f6bbef3bad5ec7d0287437f29034edd3b356be766c8f9f0a895b0). It requires the frozen project context and remains nonmatching, with the broader object/caller preconditions described above. The source-scoped normal report links measured attempt307944; no live database writes bypassed the app.
+
+PR611 fixes an independently reproduced review failure: an autosave can increment the progress manifest counter while the judge runs. The old code compared complete serialized configs and could reject that bookkeeping change as a build-settings change. The fix excludes only progress_revision, preserving every actual configuration, context, source and status guard. Twenty-nine recovery tests passed, including concurrent real compiler changes. The live adoption request timed out and remains unconfirmed; this explanation does not assert it was the only cause of the timeout. Updating/restarting the running app requires separate user approval under its AGENTS.md.
