@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793875531.6916108,
- "revision": 17801,
+ "saved_at": 1793875968.6894479,
+ "revision": 17804,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164728,6 +164728,11 @@
   {
    "function": "func_80043A78",
    "text": "Saved score425 draft has misplaced func_80042F40 call and a player index cast through Car*. Corrected baseline655 with original flags; private -g3 alternative435 still assumes coordinate delta is not INT_MIN for signed abs. Fully wrapping magnitude alternative1115 is also preserved. Neither is exact or selected. 1000 independent native candidates and141 directed results found no exact match. Residual branch-likely and register scheduling differences. Both alternatives and their caveats are in docs/matching-experiments/func_80043A78-*. OPEN/revisitable; no live compiler/header/target/ABI changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Audited saved200 draft contains redundant identical-call i==4 branches that manufacture dead s2=4; do not promote this. Removing it yields raw clean750, physically closer than multiline630, whose lower advisory score introduces extra scheduling differences. Target initial s2=4 is never consumed before zero overwrite. Field offsets, aligned global word load, u8 count masks and nonadvancing outer Group loops checked against target; do not change Group traversal. 1000 unique compiled/linked independent native candidates and directed loop/dispatch/profile/do-while tests found no exact. Both audited nonmatching alternatives and negative evidence preserved in docs/matching-experiments/func_80059A60-*. OPEN/revisitable; no live source/profile/ABI/judge edits or selectedC changes. External claim belongs to another agent and is untouched.",
    "by": "you"
   }
  ],
