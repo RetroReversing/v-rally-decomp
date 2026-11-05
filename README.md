@@ -751,3 +751,15 @@ source, unit context and function-only profile match the earlier standalone and
 full-cartridge proof. All current portable app progress is saved; no worker claim
 was taken over. This reconciles an existing C selection rather than adding a new
 standalone function.
+
+
+### Remaining verified app exports
+
+`func_800450B8` and `func_8007EE9C` add **259 instructions / 1,036 bytes**
+to the standalone build, now **2,054 C functions / 70 assembly units**.
+Both passed independent function checks and the complete **12,582,912-byte**
+cartridge comparison; all 2,052 earlier C objects remain unchanged. The live
+return-address helper retains its verified fixed wrapper. A fresh `progress/`
+snapshot preserves all current app progress. `func_8000C9B0` remains an
+explicit integration exception because its compiled extent overlaps the next
+entry; its app source is preserved without claiming a standalone match.

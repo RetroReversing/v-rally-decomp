@@ -23,7 +23,7 @@ void func_8006C024(s32 arg0, s32 arg1)
   s32 temp_s6;
   s32 var_a0;
   s32 var_s3;
-  s32 var_v1;
+  
   u32 temp_a0_3;
   u32 temp_t0;
   u8 temp_t1;
@@ -31,15 +31,16 @@ void func_8006C024(s32 arg0, s32 arg1)
   char *new_var;
   void *temp_v0;
   s8 new_var2;
+  int new_var3;
   void *temp_v0_2;
   void *var_a2;
   void *var_s1;
   var_a0 = arg0 & 0xFF;
   temp_s0 = arg1 & 0xFF;
-  var_s3 = 0;
   temp_fs0 = D_800A5878;
   temp_s6 = D_800D0634 + (var_a0 * 0x2C4);
   temp_s5 = func_8006B9E0(var_a0, temp_s0) & 0xFF;
+  var_s3 = 0;
   if (1)
   {
     sp14 = (char *) (temp_s5 * 2);
@@ -53,7 +54,7 @@ void func_8006C024(s32 arg0, s32 arg1)
     if (temp_fs0 > temp_fv1)
     {
       var_a0 = (s32) temp_fv1;
-      var_v1 = temp_s5 * 8;
+      temp_s0_2 = temp_s5 * 8;
     }
     else
     {
@@ -67,12 +68,13 @@ void func_8006C024(s32 arg0, s32 arg1)
         while (0);
       }
       while (0);
-      var_v1 = temp_s5 * 8;
+      temp_s0_2 = temp_s5 * 8;
     }
     temp_a0 = 0xFF;
+    new_var3 = temp_s0_2 + temp_s5;
     temp_a0 = var_a0 & temp_a0;
     temp_s0_2 = var_s3 & 0xFF;
-    if ((((((temp_s0_2 * 3) + (var_v1 + temp_s5)) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
+    if ((((((temp_s0_2 * 3) + new_var3) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
       temp_v0 = (D_800C02AE + 0x6E77) + temp_a0;
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));

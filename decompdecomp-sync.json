@@ -316,7 +316,11 @@
     "src/code_80026E3C/func_8002C044.c": "66549a5648a93efebedf5393c72a18b7cfaeac0b379fd4f5a0d7277960a5f61e",
     "include/decompdecomp_snapshot_8002c044.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_800603B4.c": "64b3ca7f85db556a5e144b2c30655d26991131b34a30b7ecfdd669f31d68706a",
-    "include/decompdecomp_snapshot_800603b4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_800603b4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_800450B8.c": "fcf323c8fc9209c7c5b9d80592af1beec367827182fd1d6c136c3695a2be89e2",
+    "src/code_8007E9D4/func_8007EE9C.c": "99aa5b0ebed86d4258ccba8bde70837a46525b47006375dc0c9dea84397ae066",
+    "include/decompdecomp_snapshot_800450b8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_snapshot_8007ee9c.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61"
   },
   "accepted": [
     "MusInitialize",
@@ -635,19 +639,13 @@
     "func_8006DDD8",
     "func_80020098",
     "func_8002C044",
-    "func_800603B4"
+    "func_800603B4",
+    "func_800450B8",
+    "func_8007EE9C"
   ],
   "skipped": [
     {
       "function": "func_8000C9B0",
-      "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
-    },
-    {
-      "function": "func_800450B8",
-      "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
-    },
-    {
-      "function": "func_8007EE9C",
       "reason": "Exact app match preserved in portable progress; standalone integration remains pending."
     }
   ],
@@ -657,16 +655,13 @@
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_80020098",
-      "func_8002C044",
-      "func_800603B4"
+      "func_800450B8",
+      "func_8007EE9C"
     ],
-    "note": "Three independently produced app matches passed standalone checks and a complete cartridge comparison in an isolated copied repository. Every object from the earlier 2048-C cache is unchanged; the already verified canonical pointer-lifetime function was recompiled alongside these additions. Fresh ALL app progress retained."
+    "note": "Both app matches passed independent standalone checks and the complete cartridge comparison. All 2052 prior C objects remain unchanged. Only the previously documented overlapping-target exception remains."
   },
   "not_integrated_after_checkpoint": [
-    "func_8000C9B0",
-    "func_800450B8",
-    "func_8007EE9C"
+    "func_8000C9B0"
   ],
   "pending_app_verification": [],
   "last_live_reconciliation": {
