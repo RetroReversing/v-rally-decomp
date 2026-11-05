@@ -30,6 +30,8 @@ extern RS *D_800C35A0;
 void func_8006E394(void)
 {
   u8 used[4];
+  u16 m;
+  unsigned int new_var2;
   u8 *s;
   u8 j;
   u8 i;
@@ -37,7 +39,6 @@ void func_8006E394(void)
   u8 base;
   u8 *new_var;
   u32 x;
-  u16 m;
   u16 q;
   u8 v;
   int b;
@@ -74,7 +75,8 @@ void func_8006E394(void)
         }
       }
 
-      R->slot[1] = i;
+      new_var2 = 1;
+      R->slot[new_var2] = i;
       R->e[R->slot[1]].v = H(s) & 15;
       func_80053C28(R->slot[1], H(s) & 15);
     }
@@ -109,20 +111,28 @@ void func_8006E394(void)
     }
     else
     {
-      n = 8;
-      base = 0;
+      do
+      {
+        n = 8;
+        base = 0;
+      }
+      while (0);
     }
     m = s[9];
     for (i = 0; i < n; i++)
     {
-      if ((m & (1 << i)) == (1 << i))
+      do
       {
-        D_800B6600.flag[base + i] = 1;
+        if ((m & (1 << i)) == (1 << i))
+        {
+          D_800B6600.flag[base + i] = 1;
+        }
+        else
+        {
+          D_800B6600.flag[base + i] = 0;
+        }
       }
-      else
-      {
-        D_800B6600.flag[base + i] = 0;
-      }
+      while (0);
     }
 
     D_800B6600.cnt[0] = 0;
@@ -134,27 +144,22 @@ void func_8006E394(void)
       q = H((s + 10) + (j * 2));
       for (i = 0; i < n; i++)
       {
-        {
-          int m0 = 1 << (i * 2);
-          int m1 = 1 << ((i * 2) + 1);
-          int b0 = (q & ((u16) m0)) == ((u16) m0);
-          int b1 = (q & ((u16) m1)) == ((u16) m1);
-          v = b0 | (b1 << 1);
-        }
-        D_800B6600.map[base + i][j] = v;
+        b = base + i;
+ do { do { { int m0 = 1 << (i * 2); int m1 = 1 << ((i * 2) + 1); int b0 = (q & ((u16) m0)) == ((u16) m0); int b1 = (q & ((u16) m1)) == ((u16) m1); v = b0 | (b1 << 1); } } while (0); } while (0);
+        D_800B6600.map[b][j] = v;
+        new_var = &D_800AE850[0x7DB0 + j * 4];
         switch (v)
         {
-          new_var = D_800AE850 + 0x7DB0;
           case 0:
-            *(((s32 *) new_var) + j) += 4;
+            *(s32 *)new_var += 4;
             break;
 
           case 1:
-            *(((s32 *) new_var) + j) += 2;
+            *(s32 *)new_var += 2;
             break;
 
           case 2:
-            *(((s32 *) new_var) + j) += 1;
+            *(s32 *)new_var += 1;
             break;
 
         }
@@ -172,4 +177,3 @@ void func_8006E394(void)
     D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
   }
 }
-

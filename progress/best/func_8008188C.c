@@ -45,7 +45,7 @@ typedef struct VREntry
   s32 x24;
   s32 x28;
 } VREntry;
-static __inline__ VRLoadState *getState(void *q)
+static inline static VRLoadState *getState(void *q)
 {
   VRLoadState *p;
   int k = 0;
@@ -55,14 +55,45 @@ static __inline__ VRLoadState *getState(void *q)
     p = D_800C3338 + k;
   return p;
 }
+
 s32 func_8008188C(s32 arg0, s32 arg1)
 {
   VREntry *e;
   VRLoadState *s;
-  e = func_800817A0(*(s32 *)0x800B7308, arg0);
- do { func_80081040(*(s32 *)0x800B7300 + e->x1C, (s = getState(e))->x0, 0x2000, D_800B0BA8, D_800B0BAC); s->x38 = e->x10; s->x34 = e->x14; s->x32 = e->x1A; s->x30 = e->x18; s->x4 = e->x28; s->x8 = e->x24; D_800B731C = e->x14; ((s32 *) D_800B7334)[0] = e->x20; ((s32 *) D_800B7334)[1] = e->x14; D_800B7320 = e->x10; } while (0);
+  s32 *new_var;
+  e = func_800817A0(*((s32 *) 0x800B7308), arg0);
+  s = getState(e);
+  do
+  {
+    func_80081040((*((s32 *) 0x800B7300)) + e->x1C, (s = getState(e))->x0, 0x2000, D_800B0BA8, D_800B0BAC);
+    s->x38 = e->x10;
+    s->x34 = e->x14;
+    s->x32 = e->x1A;
+    s->x30 = e->x18;
+  }
+  while (0);
+  do
+  {
+    s->x4 = e->x28;
+    s->x8 = e->x24;
+  }
+  while (0);
+  new_var = &e->x20;
+  do
+  {
+    *((s32 *) 0x800B731C) = e->x14;
+    (*((s32 **) 0x800B7334))[0] = *new_var;
+  }
+  while (0);
+  do
+  {
+    ((s32 *) D_800B7334)[1] = e->x14;
+    *((s32 *) 0x800B7320) = e->x10;
+  }
+  while (0);
   s->x1C = e->x1C;
   func_80081D50(arg1);
   func_80081C30();
   return s->x60;
 }
+

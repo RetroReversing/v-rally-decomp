@@ -34,16 +34,15 @@ extern u8 *D_800D0658;
 void func_8007A29C(void)
 {
   u8 *ent;
-  u8 *tbl;
+  u8 *cnt;
   u8 *q;
+  u8 *tbl;
   u8 *ctx;
   u8 *base;
   u8 *node;
   u8 *prev;
   u8 *p;
-  u8 *cnt;
   u8 *arr;
-  u8 m;
   u8 *r;
   u16 off;
   s8 i;

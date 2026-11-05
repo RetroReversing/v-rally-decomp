@@ -20,6 +20,31 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Exact text-rendering match — 5 November 2026
+
+`func_8000CC04` now matches **868 instructions / 3,472 bytes**. The running app
+accepted score **0** with exact linked bytes and a ready standalone layout; the
+canonical repository's independent function check also passes. The complete
+**12,582,912-byte normalized cartridge** rebuilt byte-identically with this C
+selected. Every earlier standalone C selection and the existing local edits are retained.
+
+The compiler remains KMC-compatible GCC 2.7.2 with
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. The assertion path uses the fixed
+`__builtin_mips_debug_break()` compatibility intrinsic from decompdecomp #481;
+its trusted definition is included in the private repository header for direct builds.
+This is not a native GCC 2.7 builtin or arbitrary submitted assembly. Keep the
+verified source line breaks: the branch-tail integer temporary's separate lines
+place an assembler hazard NOP before the shared branch destination. A one-line
+rewrite changed two branch encodings and scored 20. See [compiler matching notes](docs/compiler-matching-notes.md).
+
+The standalone selection is **2,040 C / 84 assembly entries**, covering
+**546,844 / 599,940 candidate-code bytes (91.15%)**. The refreshed portable
+[`progress/`](progress/README.md) snapshot retains all **2,043 app matches,
+62 best drafts and 27,537 notes**, plus names, headers and compiler settings.
+Three other app matches are preserved in that snapshot but are not yet selected
+as standalone C: `func_800199DC`, `func_8003D9C8`, and `func_80084C0C`.
+They are excluded from the standalone C count above.
+
 ### Complete app progress sync — 4 November 2026
 
 This checkpoint adds **11 verified C functions / 6,148 matching bytes**:
@@ -118,8 +143,8 @@ shape workarounds, not a reconstruction of the original author's spelling.
 
 The 2 November boundary audit restores five complete compiled-function targets that the importer had truncated to 4–12 bytes: `func_8000CC04`, `func_80011178`, `func_80016B3C`, `func_8004AFB8`, and `func_8007C694`. Their remaining **24,376 bytes** are now code rather than opaque binary ranges. The recovered targets remain assembly until independently verified C is available. The standalone linker uses `--no-keep-memory` to reduce linker memory usage; the final full-ROM comparison passed with that option. This increases the code-coverage denominator; a lower displayed percentage does not mean matched code was lost. The recovery retained all **1,957 pre-reimport matches**. The refreshed portable snapshot contains **1,962 matches**. Five further C functions are now integrated, including recovered `func_8004AFB8` and `func_8007C694` (9,024 bytes), after independent compilation and a complete cartridge comparison. The seven previously reported exceptions are reconciled: three already had curated repository C under older names, and four now pass standalone and complete-cartridge verification. The portable snapshot also retains newer drafts and restored private header assignments.
 
-- **2,039 selected C functions / 543,372 matching bytes**, about **90.57% of 599,940 exported candidate-code bytes**.
-- **2,123 detected functions**; export includes **2,124 entries**, selecting **2,039 C and 85 assembly functions**.
+- **2,040 selected C functions / 546,844 matching bytes**, about **91.15% of 599,940 exported candidate-code bytes**.
+- **2,123 detected functions**; export includes **2,124 entries**, selecting **2,040 C and 84 assembly functions**.
 - Full **12,582,912-byte original normalized cartridge rebuilt byte for byte**, with no C build fallbacks.
 - The 29 October 2026 app snapshot adds **113 C functions and 54,932 matching bytes** over the 1,587-function checkpoint. Every previously selected C function is retained. The additional sources have isolated snapshot headers and the compiler settings used for their verification. Readable symbol aliases remain provisional.
 - The 29 October app snapshot reported **1,706 matches**. Six remained assembly because they cannot yet be integrated faithfully into the standalone build: `func_8003354C`, `osCreateThread`, `guFrustum`, `guOrtho`, `osCreateViManager`, and `alEnvmixerPull` (3,116 bytes combined). Names and types remain provisional.

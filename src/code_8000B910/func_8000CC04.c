@@ -1,3 +1,5 @@
+#include "decompdecomp_debug_glyph_cc04.h"
+#line 1 "func.c"
 typedef struct { u32 w0, w1; } Gfx;
 typedef struct { u8 pad0[0x14]; Gfx *gfx; } GfxState;
 typedef struct { u8 pad0[8]; void *addr; s32 width; s32 height; } TexInfo;
@@ -107,7 +109,8 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     first = 1;
     len = func_8008E118(str);
     if ((len == 0) | (len >= 0xA1)) {
-        func_8008E3A0(D_800A3F28, len);
+        func_8008E3A0(D_800A3F28, len); __builtin_mips_debug_break();
+        
     }
     for (i = 0; i < len; i++) {
         c = str[i];
@@ -115,8 +118,6 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
         n = 0;
         if (c != 0) {
             while ((font->glyphs[c].code == -0x80) & ((n & 0xFF) != nfonts)) {
-                n &= 0xFF;
-                n &= 0xFF;
                 if (((cur + 1) & 0xFF) == nfonts) cur = 0; else cur++;
                 font = fonts[cur & 0xFF];
                 LOAD_TEX(font)
@@ -166,22 +167,31 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
                                   (s32)(px + font->glyphs[c].w * sx), py, 0, px, py, 0);
                 }
                 {
-                    u32 t = (u16)vtx;
+                    u32 t;
                     Gfx *_g;
-                func_80008B28(st, t, font->uv[c][0] * 2, font->uv[c][4] * 2, font->uv[c][1] * 2, font->uv[c][5] * 2,
+                func_80008B28(st, vtx, font->uv[c][0] * 2, font->uv[c][4] * 2, font->uv[c][1] * 2, font->uv[c][5] * 2,
                               font->uv[c][2] * 2, font->uv[c][6] * 2, font->uv[c][3] * 2, font->uv[c][7] * 2);
+                    t = (u16)vtx;
                     t &= 0x1F;
                     _g = gs->gfx++;
-                    _g->w0 = (t << 17) | ((t + 1) << 9) | ((t + 2) * 2) | 0x07000000;
-                    _g->w1 = (t << 17) | (((t + 2) * 2) << 8) | ((t + 3) * 2);
+                    {
+                        u32 a = t << 17;
+                        s32 b = (t + 2) * 2;
+                        _g->w0 = a | ((t + 1) << 9) | b | 0x07000000;
+                        _g->w1 = a | ((b & 0xFFFFFFFE) << 8) | ((t + 3) * 2);
+                    }
                 }
                 px = px + font->glyphs[c].w * sx;
                 kern = font->glyphs[c].k8;
             }
         } else {
-            px = px + font->glyphs[0].w * sx;
+            { s32 temp;
+ temp = px + font->glyphs[0].w * sx;
+ px = temp;
+ }
         }
         px += font->adv;
     }
     return px - (u16)x - font->adv;
 }
+

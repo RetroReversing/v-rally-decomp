@@ -13,10 +13,7 @@ void func_80030180(u8 *arg0, s32 arg1, s16 arg2, s16 *arg3)
   u8 *base;
   int new_var;
   s32 t1;
-  v1 = *((u16 *) (arg0 + 0x8A));
-  t1 = arg2;
-  a0 = (arg1 * v1) + (*((s32 *) (arg0 + 0x4C)));
-  v1 = a0 - 2;
+  v1 = *((u16 *) (arg0 + 0x8A)); t1 = arg2; a0 = ((*((s32 *) (arg0 + 0x4C)))) + ((arg1 * v1)); v1 = a0 - 2;
   __repair_phase_v1 = a0 + 2;
   if (t1 < 500)
   {

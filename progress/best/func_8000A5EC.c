@@ -14,17 +14,17 @@ typedef struct
   u32 x;
   u32 *items;
 } Img;
-static inline static u16 *inline_fn(void *arg0)
+static inline static static u16 *inline_fn(void *arg0)
 {
   return (u16 *) (((u8 *) arg0) + 0x52);
 }
 
-static inline static static static static u16 inline_fn2(Img *arg0, int arg1)
+static inline static static static static static u16 inline_fn2(Img *arg0, int arg1)
 {
   return arg0->w >> arg1;
 }
 
-static inline static static static static u8 *inline_fn23(void *arg0)
+static inline static static static static static u8 *inline_fn23(void *arg0)
 {
   return (u8 *) arg0;
 }
@@ -37,13 +37,11 @@ void func_8000A5EC(void *o, Img *im, s32 mode, s32 flags, s32 arg4, s32 arg5, s3
   u16 idx;
   u16 new_var2;
   s32 type;
-  
-
-unsigned int __repair_phase___repair_phase_v;
-    unsigned int __repair___repair_phase___repair_phase_v_1;
-unsigned int __repair_phase___repair_phase___repair_phase_v;
-    unsigned int __repair___repair_phase_v_2;
-    unsigned int __repair___repair_phase_v_1;
+  unsigned int __repair_phase___repair_phase_v;
+  unsigned int __repair___repair_phase___repair_phase_v_1;
+  unsigned int __repair_phase___repair_phase___repair_phase_v;
+  unsigned int __repair___repair_phase_v_2;
+  unsigned int __repair___repair_phase_v_1;
   void *new_var;
   s32 __repair_v_1;
   s32 x;
@@ -130,21 +128,16 @@ unsigned int __repair_phase___repair_phase___repair_phase_v;
   *inline_fn23(inline_fn23(o) + 0x56) = 0;
   *inline_fn23(((u8 *) o) + 0x57) = 0;
   *((s16 *) (inline_fn23(o) + 0x4c)) = __repair___repair_phase_v_1 << 5;
-  __repair_phase___repair_phase_v = 0x1033;
-  if (!(mode & 1))
-  {
-    __repair_phase___repair_phase_v = 0xfc1034;
-  }
-  *((u32 *) (inline_fn23(o) + 0x28)) = __repair_phase___repair_phase_v;
+  *((u32 *) (inline_fn23(o) + 0x28)) = (mode & 1) ? (0x1033) : (0xfc1034);
   __repair___repair_phase_v_2 = *((u32 *) im->ptr);
   *((u16 *) (((u8 *) o) + 0x36)) = 0;
   *((u32 *) (((u8 *) o) + 0x2c)) = __repair___repair_phase_v_2;
   __repair___repair_phase___repair_phase_v_1 = *((u32 *) im->ptr);
   *((u32 *) (((u8 *) o) + 0x3c)) = -1;
-  new_var3 = ((u8 *) o) + 0x10;
   *((u32 *) (((u8 *) o) + 0x38)) = __repair___repair_phase___repair_phase_v_1;
   *((u32 *) new_var3) = 0x30;
   x = idx;
+  new_var3 = ((u8 *) o) + 0x10;
   x = x << 2;
   __repair_phase___repair_phase_v = *((u32 *) (x + ((int) im->tab)));
   *((u16 *) (((u8 *) o) + 0x18)) = 0x100;

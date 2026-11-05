@@ -22,6 +22,7 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
   s32 var_s4;
   s32 var_t0;
   s32 var_v1;
+s32 __repair_subtotal;
   u32 temp_a0_2;
   u8 temp_t1;
   u8 temp_t1_2;
@@ -30,44 +31,49 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
   void *temp_v0_2;
   void *var_a2_2;
   void *var_s1;
-  var_a2 = 0;
-  var_t0 = 0;
+  var_a2 = (var_t0 = 0);
   var_v1 = arg1;
-  temp_s6 = *((s32 *) ((D_800C02AE + 0x5A8A + 0xA8FC) + (arg0 * 4)));
+  temp_s6 = ((s32 *) 0x800D0634)[arg0];
   switch (arg0)
   {
     case 1:
       var_t0 = 0x32;
       break;
+
     case 2:
       var_a2 = 4;
       var_t0 = 0x36;
       break;
+
     case 3:
       var_a2 = 9;
       var_t0 = 0x3B;
       break;
+
     case 4:
       var_a2 = 0xF;
       var_t0 = 0x41;
       break;
+
   }
-  var_v1 += var_a2;
+
+  __repair_subtotal = var_a2;
+temp_s2 = __repair_subtotal + var_v1;
   var_s4 = 0;
   temp_s3 = arg1 & 0xFF;
   sp14 = (u16 *) ((D_800C02AE + 0x5A8A) + ((var_t0 + temp_s3) * 2));
   temp_fp = (void *) ((temp_s3 * 4) + ((s8 *) temp_s6));
-  temp_s5 = var_v1 & 0xFF;
+  temp_s5 = temp_s2 & 0xFF;
   temp_fs1 = ((f64) temp_s5) * D_800A57F8;
   do
   {
-    temp_s0 = var_s4 & 0xFF;
-    temp_fv1 = temp_fs1 + (((f64) (temp_s0)) * D_800A5800);
+    temp_fv1 = temp_fs1 + (((f64) (var_s4 & 0xFF)) * D_800A5800);
     temp_s2 = (u32) temp_fv1;
-    var_v1 = temp_s5 * 8;
+    var_v1 = (temp_s5 * 8) + temp_s5;
     temp_s0 = var_s4 & 0xFF;
-    temp_a0 = temp_s2 & 0xFF;
-    if ((((temp_s0 * 3 + (var_v1 + temp_s5)) * 4 - temp_a0 * 8) & 0xFF) == 4)
+    temp_s2_2 = temp_s2 & 0xFF;
+    temp_a0 = temp_s2_2;
+    if ((((((temp_s0 * 3) + var_v1) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
       temp_v0 = (void *) ((D_800C02AE + 0x6F70) + temp_a0);
       temp_t1 = ((u8 *) temp_v0)[1];
@@ -87,7 +93,7 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
         ((s8 *) var_a2_2)[0x34] = (s8) temp_t1;
         if (hv & 1)
         {
-          temp_s0 = -(s16) hv;
+          temp_s0 = -((s16) hv);
         }
         goto block_28;
       }
@@ -100,7 +106,7 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
       if (((temp_t1_2 < 0xFFU) | (temp_a0_2 < 0xFU)) != 0)
       {
         var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0_2 >> 2) * 0xE));
-        temp_s2_2 = (temp_t1_2 | ((temp_a0_2 & 3) << 8));
+        temp_s2_2 = temp_t1_2 | ((temp_a0_2 & 3) << 8);
         func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);
         var_a2_2 = (void *) ((((s8 *) temp_s6) + (temp_s0 * 0x10)) + (temp_s3 <<= 6));
         ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) var_s1))) >> 0xA) & 0x1F) + 0x41);
@@ -134,3 +140,4 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
   }
   while (((u32) (var_s4 & 0xFF)) < 3U);
 }
+

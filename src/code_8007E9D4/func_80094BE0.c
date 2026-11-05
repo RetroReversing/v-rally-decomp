@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_462fb6042280f42bff92.h"
+#include "decompdecomp_sync_7c9add893ce5c5a0c56a.h"
 #line 1 "func.c"
 /* Same-name source lead: alFxPull in TUROK_DINOSAUR_HUNTE; verified ROM source. Destination verification required. */
 extern char D_800A71C0[];

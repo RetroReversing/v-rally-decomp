@@ -28,6 +28,20 @@
     "-g3"
    ],
    "timeout": 20,
+   "start": 2148092896,
+   "end": 2148092897
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
    "start": 2148029944,
    "end": 2148029945
   },
@@ -10059,7 +10073,9 @@
    "seg": "code_8000B910",
    "vram": 2147535876,
    "rom": 55300,
-   "asm": "asm/nonmatchings/code_8000B910/func_8000CC04.s"
+   "asm": "asm/nonmatchings/code_8000B910/func_8000CC04.s",
+   "c": "src/code_8000B910/func_8000CC04.c",
+   "own": {}
   },
   {
    "name": "func_8000D9A0",

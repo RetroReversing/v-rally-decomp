@@ -1,213 +1,211 @@
-static inline static static s32 __repair_inline(s32 a)
+typedef struct 
 {
-  return a;
-}
-
-extern u8 D_800C02AE;
+  s16 pad0[4];
+  s16 x;
+  s16 y;
+} Pos;
+typedef struct 
+{
+  u8 pad0[0xC];
+  s32 type;
+  u8 pad10[0x168];
+  Pos *pos;
+} Mgr;
+typedef struct 
+{
+  u8 flags;
+  u8 pad[0x27];
+} Slot;
+typedef struct 
+{
+  u8 pad0[0xE];
+  u16 mode;
+  u8 pad10[2];
+  u16 flags12;
+  u8 pad14[0xA];
+  u16 state;
+  u8 pad20[0x11];
+  u8 sel[0x17];
+  Slot slots[4];
+} Game;
+typedef struct 
+{
+  u8 pad0[0x76];
+  u16 n;
+  s16 part;
+  u8 pad7A[0x16];
+  u8 r;
+  u8 g;
+  u8 b;
+  u8 a;
+  u8 pad94[0x10];
+  s32 tex;
+  Mgr *owner;
+} Spr;
+extern Game *D_800C35A0;
+extern Mgr *D_800C7F84;
 s32 func_80034FF0(void *, s32);
-void *func_80040260(s32, s16, s16, s32, void *, s32);
-void *func_8004240C(s32);
-extern void *D_800C35A0;
-extern void *D_800C7F84;
+Spr *func_80040260(s32, s16, s16, s32, void (*)(void), s32);
+Mgr *func_8004240C(s32);
 extern void func_8003ED04(void);
 extern void func_8003ED94(void);
 extern void func_8003EE84(void);
 extern void func_8003EF20(void);
 void func_8003E6D8(s32 arg0, s32 arg1)
 {
-  char *__repair_addr;
-  s32 sp1C;
-  void *owner;
-  s32 result;
-  u32 sp24;
-  s32 sp2C;
-  s32 temp_fp;
-  s16 temp_s0;
-  s16 temp_s0_2;
-  s16 temp_s1_2;
-  s16 temp_s2_2;
-  s16 temp_s3;
-  s32 var_s3;
-  s32 temp_s2;
-  s32 temp_s6_2;
-  s32 temp_v0_3;
-  s32 temp_v0_4;
-  u16 temp_s6;
-  u16 temp_v1;
-  u32 var_s1;
-  u32 temp_t0;
-  void *temp_a0;
-  void *temp_s4;
-  void *temp_v0;
-  void *temp_v0_2;
-  void *mgr;
-  mgr = D_800C7F84;
-  owner = *((void **) (((char *) mgr) + 0x178));
-  temp_v0 = (void *) owner;
-  temp_fp = __repair_inline(*((s16 *) (((char *) temp_v0) + 8)));
-  temp_v1 = *((u16 *) (((char *) D_800C35A0) + 0x1E));
-  sp1C = (*((s16 *) (((char *) temp_v0) + 0xA))) + 6;
-  var_s3 = temp_fp + 0x14;
-  if (temp_v1 != 7)
+  Pos *pos;
+  Mgr *m;
+  Spr *s;
+  void *new_var2;
+  s32 x0;
+  s32 x;
+  s32 y;
+  u32 i;
+  u32 j;
+  void *new_var;
+  s32 k;
+  s32 p;
+  u16 state;
+  u16 mode;
+  s16 yy;
+  s16 x1;
+  s16 x2;
+  s16 x3;
+  pos = D_800C7F84->pos;
+  x = (x0 = pos->x) + 0x14;
+  y = pos->y + 6;
+  state = D_800C35A0->state;
+  if (state == 7)
   {
-    temp_s6 = *((u16 *) (((char *) D_800C35A0) + 0xE));
-    switch (temp_s6)
+    return;
+  }
+  mode = D_800C35A0->mode;
+  switch (mode)
+  {
+    case 1:
+      if (state == 0)
     {
-      case 1:
-        if (temp_v1 == 0)
+      new_var2 = (void *) (arg1 + 0x4C);
+      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 1)
       {
-        __repair_addr = (char *) (D_800C35A0 + ((*((u8 *) (((char *) D_800C35A0) + 0x32))) * 0x28));
-        if ((*((u8 *) (((char *) __repair_addr) + 0x48))) & 1)
-        {
-          temp_s4 = func_80040260(arg0, (s16) var_s3, (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_a0, 0);
-          owner = D_800C7F84;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, (s16) (temp_fp + 0x1C), (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_a0, 0);
-          owner = D_800C7F84;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, (s16) (temp_fp + 0x24), (s16) sp1C, 5, &func_8003ED04, (s32) temp_s6);
-          result = func_80034FF0(temp_a0, 0);
-          owner = D_800C7F84;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          return;
-        }
+        s = func_80040260(arg0, x, y, 5, func_8003ED04, mode);
+        s->tex = func_80034FF0(new_var2, 0);
+        s->part = 0;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x0 + 0x1C, y, 5, func_8003ED04, mode);
+        new_var = (void *) (arg1 + 0x4C);
+        s->tex = func_80034FF0(new_var, 0);
+        s->part = 1;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x0 + 0x24, y, 5, func_8003ED04, mode);
+        s->tex = func_80034FF0(new_var, 0);
+        s->part = 2;
+        s->owner = D_800C7F84;
       }
-      else
-      {
-        var_s1 = 0;
-        if ((*((u8 *) (((char *) (D_800C35A0 - (-((*((u8 *) (((char *) D_800C35A0) + 0x32))) * 0x28)))) + 0x48))) & 4)
-        {
-          do
-          {
-            temp_s0 = sp1C + (((s16) var_s1) * 0xB);
-            var_s1 += 1;
-            temp_s4 = func_80040260(arg0, 0x1C, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_a0, 0);
-            owner = D_800C7F84;
-            *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-            *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
-            *((u16 *) (((char *) temp_s4) + 0x76)) = var_s1;
-            *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-            temp_s4 = func_80040260(arg0, 0x24, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_a0, 0);
-            owner = D_800C7F84;
-            *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-            *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
-            *((u16 *) (((char *) temp_s4) + 0x76)) = var_s1;
-            *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-            temp_s4 = func_80040260(arg0, 0x2C, temp_s0, 5, &func_8003ED94, 1);
-            result = func_80034FF0(temp_a0, 0);
-            owner = D_800C7F84;
-            *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-            *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
-            *((u16 *) (((char *) temp_s4) + 0x76)) = var_s1;
-            *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          }
-          while (var_s1 < 4U);
-          return;
-        }
-      }
-        break;
-
-      case 2:
-        sp24 = 1;
-        temp_s6_2 = arg1 + 0x4C;
-        arg1 = 0;
-        sp2C = 1;
-        do
-      {
-        temp_v0_2 = func_8004240C(sp2C);
-        temp_a0 = *((void **) (((char *) temp_v0_2) + 0x178));
-        D_800C7F84 = temp_v0_2;
-        var_s3 = *((s16 *) (((char *) temp_a0) + 8));
-        sp1C = (*((s16 *) (((char *) temp_a0) + 0xA))) + 6;
-        if (!((*((u16 *) (((char *) D_800C35A0) + 0x12))) & 1))
-        {
-          var_s3 += 0x14;
-          if ((*((s32 *) (((char *) temp_v0_2) + 0xC))) == 3)
-          {
-            var_s3 -= 0xE;
-          }
-        }
-        if (((*((u16 *) (((char *) D_800C35A0) + 0x1E))) != 0) && ((*((u8 *) (((char *) (D_800C35A0 + ((*((u8 *) (((char *) (D_800C35A0 + sp24)) + 0x31))) * 0x28))) + 0x48))) & 4))
-        {
-          temp_s2_2 = var_s3 + 8;
-          temp_s0_2 = sp1C + 0xA;
-          temp_s4 = func_80040260(arg0, temp_s2_2, temp_s0_2, 5, &func_8003EF20, 1);
-          temp_s1_2 = var_s3 + 0x10;
-          result = func_80034FF0((void *) temp_s6_2, 0);
-          owner = D_800C7F84;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, temp_s1_2, temp_s0_2, 5, &func_8003EF20, 1);
-          temp_s3 = var_s3 + 0x18;
-          result = func_80034FF0((void *) temp_s6_2, 0);
-          owner = (*((void **) (((char *) temp_s4) + 0xA8)) = D_800C7F84);
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
-          temp_s4 = func_80040260(arg0, temp_s3, temp_s0_2, 5, &func_8003EF20, 1);
-          result = func_80034FF0((void *) temp_s6_2, 0);
-          owner = D_800C7F84;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = result;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, temp_s2_2, temp_s0_2, 5, &func_8003EE84, 1);
-          temp_v0_3 = func_80034FF0((void *) temp_s6_2, 0);
-          owner = D_800C7F84;
-          *((u8 *) (((char *) temp_s4) + 0x90)) = 0xFE;
-          *((u8 *) (((char *) temp_s4) + 0x91)) = 0xD5;
-          *((s8 *) (((char *) temp_s4) + 0x92)) = 0x1E;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = temp_v0_3;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 0;
-          *((s16 *) (((char *) temp_s4) + 0x76)) = arg1;
-          *((u8 *) (((char *) temp_s4) + 0x93)) = 0xFF;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, temp_s1_2, temp_s0_2, 5, &func_8003EE84, 1);
-          temp_v0_4 = func_80034FF0((void *) temp_s6_2, 0);
-          owner = D_800C7F84;
-          *((u8 *) (((char *) temp_s4) + 0x90)) = 0xFE;
-          *((u8 *) (((char *) temp_s4) + 0x91)) = 0xD5;
-          *((s8 *) (((char *) temp_s4) + 0x92)) = 0x1E;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = temp_v0_4;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 1;
-          *((s16 *) (((char *) temp_s4) + 0x76)) = arg1;
-          *((u8 *) (((char *) temp_s4) + 0x93)) = 0xFF;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-          temp_s4 = func_80040260(arg0, temp_s3, temp_s0_2, 5, &func_8003EE84, 1);
-          var_s1 = func_80034FF0((void *) temp_s6_2, 0);
-          owner = D_800C7F84;
-          *((s16 *) (((char *) temp_s4) + 0x78)) = 2;
-          *((u8 *) (((char *) temp_s4) + 0x90)) = 0xFE;
-          *((u8 *) (((char *) temp_s4) + 0x91)) = 0xD5;
-          *((s8 *) (((char *) temp_s4) + 0x92)) = 0x1E;
-          *((s32 *) (((char *) temp_s4) + 0xA4)) = var_s1;
-          *((s16 *) (((char *) temp_s4) + 0x76)) = arg1;
-          *((u8 *) (((char *) temp_s4) + 0x93)) = 0xFF;
-          *((void **) (((char *) temp_s4) + 0xA8)) = owner;
-        }
-        sp2C += 2;
-        arg1 += 1;
-        {
-          u32 __repair_value;
-          __repair_value = sp24 + 1;
-          temp_t0 = __repair_value;
-        }
-        sp24 = temp_t0;
-      }
-      while (temp_t0 < 3U);
-        break;
-
     }
+    else
+    {
+      j = 0;
+      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)
+      {
+        do
+        {
+          yy = y + (((u16) j) * 11);
+          j++;
+          s = func_80040260(arg0, 0x1C, yy, 5, func_8003ED94, 1);
+          s->tex = func_80034FF0(new_var, 0);
+          s->part = 0;
+          s->n = j;
+          s->owner = D_800C7F84;
+          s = func_80040260(arg0, 0x24, yy, 5, func_8003ED94, 1);
+          s->tex = func_80034FF0(new_var, 0);
+          s->part = 1;
+          s->n = j;
+          s->owner = D_800C7F84;
+          s = func_80040260(arg0, 0x2C, yy, 5, func_8003ED94, 1);
+          s->tex = func_80034FF0(new_var, 0);
+          s->part = 2;
+          s->n = j;
+          s->owner = D_800C7F84;
+        }
+        while (j < 4);
+      }
+    }
+      break;
+
+    case 2:
+      i = 1;
+      k = 1;
+      p = arg1 + 0x4C;
+      arg1 = 0;
+      do
+    {
+      m = func_8004240C(k);
+      pos = m->pos;
+      D_800C7F84 = m;
+      x = pos->x;
+      y = pos->y + 6;
+      if (!(D_800C35A0->flags12 & 1))
+      {
+        x += 0x14;
+        if (m->type == 3)
+        {
+          x -= 0xE;
+        }
+      }
+      if ((D_800C35A0->state != 0) && (D_800C35A0->slots[D_800C35A0->sel[i]].flags & 4))
+      {
+        x1 = x + 8;
+        yy = y + 10;
+        s = func_80040260(arg0, x1, yy, 5, func_8003EF20, 1);
+        x2 = x + 0x10;
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 0;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x2, yy, 5, func_8003EF20, 1);
+        x3 = x + 0x18;
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 1;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x3, yy, 5, func_8003EF20, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->part = 2;
+        s->owner = D_800C7F84;
+        s = func_80040260(arg0, x1, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 0;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+        s = func_80040260(arg0, x2, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 1;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+        s = func_80040260(arg0, x3, yy, 5, func_8003EE84, 1);
+        s->tex = func_80034FF0((void *) p, 0);
+        s->owner = D_800C7F84;
+        s->part = 2;
+        s->n = arg1;
+        s->r = 0xFE;
+        s->g = 0xD5;
+        s->b = 0x1E;
+        s->a = 0xFF;
+      }
+      k += 2;
+      arg1++;
+      i++;
+    }
+    while (i < 3);
+      break;
 
   }
-}
 
+}

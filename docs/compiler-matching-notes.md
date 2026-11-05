@@ -181,3 +181,28 @@ without checking liveness, aliases and volatility.
 A three-minute deep-permuter run at score 330 used 482 compiler invocations without
 an improvement. Targeted source experiments reached zero afterwards. This is one
 measured function, not a general model or token-cost comparison.
+
+## func_8000CC04: debugger break, shared shifts and branch-label NOP placement
+
+The unchanged KMC GCC 2.7.2/binutils 2.6 profile
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3` now gives a normal app/API score of 0
+for all 868 instructions. Source, context and function-specific settings were kept
+together; the independent standalone check and complete normalized cartridge
+comparison both pass. No original game source was consulted.
+
+The error path contains a real BREAK 9. Legacy GCC's noreturn annotation does not
+generate it, and its unknown `__builtin_trap`/`__builtin_abort` names become external
+calls. The fixed `__builtin_mips_debug_break()` compatibility intrinsic supplies
+that architectural debugger operation, using the same trusted-template mechanism
+as the app's fixed hardware intrinsics. It permits debugger resumption, not a C
+noreturn assumption. The portable private header carries its definition.
+
+Remaining compiler-shape fixes were removing redundant loop masks, retaining the
+doubled triangle-index intermediate using its redundant even-bit mask at a later
+shift, and capturing the UV-call's narrowed vertex value after the call instead
+of initializing the temporary before it. A block-local integer conversion temporary
+then needed declaration, conversion and final copy on separate physical lines.
+Those line markers moved the assembler hazard NOP before the common branch label,
+fixing the last two branch words (20 to 0). Do not collapse or reformat these
+verified lines without rechecking; equivalent branches through a NOP are still
+different machine code.

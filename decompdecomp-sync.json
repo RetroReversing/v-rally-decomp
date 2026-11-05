@@ -152,7 +152,7 @@
     "src/code_80026E3C/func_8003FD0C.c": "e803bd4e91f5580198b165765d96417535998a617fb384dacc9d3f3f0cfe3c86",
     "src/code_80026E3C/func_80044908.c": "eb5daeec88ae956597d2bf9180548e7598550fc26973660ffdd084ec75c45d20",
     "src/code_8004BEB4/func_80069158.c": "f2475bf1ce9734d074e5eb6c4368856a17c67ac7914f00802dd338f38d8886c9",
-    "src/code_8007E9D4/func_80094BE0.c": "14d298fb54302a683b328c70393c1b9ca08e4e7b671e93198d47ffcafd5982ea",
+    "src/code_8007E9D4/func_80094BE0.c": "513532f1f8c1ea751d11327a747de8a2a86c6b4a23363daef33d07e94b5ddad9",
     "src/code_80026E3C/func_80027DB4.c": "89facb4f1b6c1ae91a1f1245aaf65a504a368ac51844a28bdc40bf8dd46d73b6",
     "src/code_8007E9D4/func_80083C28.c": "46ad543fb1acbbd852e5739a928bb38db6090c6b8f642736a6e94e58094af7cc",
     "src/code_8004BEB4/func_80072984.c": "bab2cf500fe29b8553a56e210b7840c9a3c24ba95cffb21503bdf88f78d0abc4",
@@ -337,6 +337,7 @@
     "func_8000A2C4",
     "func_8000BF2C",
     "func_8000C244",
+    "func_8000CC04",
     "func_8000DD40",
     "func_8000E428",
     "func_8000EC94",
@@ -614,5 +615,5 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2039
+  "matched_app": 2040
 }

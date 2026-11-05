@@ -49,9 +49,14 @@ extern u8 *D_800C35A0;
 extern Obj *D_800C7F84;
 extern void func_8003BB6C(void);
 extern void func_8003C864(void);
-static inline u8 *inline_fn(u8 arg0)
+static inline static static static static u8 *inline_fn(u8 arg0)
 {
   return D_800C35A0 + (arg0 * 40);
+}
+
+static inline static static int inline_fn2(s32 arg0, int arg1)
+{
+  return arg0 - arg1;
 }
 
 void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
@@ -63,15 +68,16 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
   u32 count;
   u32 i;
   Obj *obj;
+  s32 xa;
   Rect *r;
   s32 x;
   s32 y;
   s32 w;
-  s32 xa;
   s32 k;
   u16 h;
   Widget *wd;
-  if ((mode != 7) && ((mode != 0) & (mode != 5)))
+  x = 5;
+  if ((mode != 7) && ((mode != 0) & (mode != x)))
   {
     pack = func_80034FF0(arg1 + 0x4C, 0, mode);
     func_80055738(pack);
@@ -79,23 +85,25 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
     width = pack->tex[0]->width;
     for (i = 1; i <= count; i++)
     {
-      obj = func_8004240C((i * 2) - 1);
+      obj = func_8004240C(inline_fn2(i * 2, 1));
       r = obj->rect;
       D_800C7F84 = obj;
-      x = r->x;
+      x = (*r).x;
       w = r->w;
       y = r->y;
-      h = r->h - 8;
       xa = x + 0x14;
-      k = w - 0x10;
+      k = inline_fn2(w, 0x10);
+      h = inline_fn2(r->h, 8);
+      {
+      }
       switch (*((u16 *) (g + 0xE)))
       {
         case 1:
-          func_80040260(arg0, (k - width) - 0x18, 0x1B, arg2, func_8003BB6C, 0)->pack = pack;
+          func_80040260(arg0, inline_fn2(inline_fn2(k, width), 0x18), 0x1B, arg2, func_8003BB6C, 0)->pack = pack;
           func_800556C4(pack);
           if (inline_fn(D_800C35A0[0x32])[0x48] & 1)
         {
-          wd = func_80040260(arg0, w - 0x66, y + 7, arg2, func_8003C864, 0);
+          wd = func_80040260(arg0, inline_fn2(w, 0x66), y + 7, arg2, func_8003C864, 0);
           wd->pack = pack;
           wd->obj = D_800C7F84;
           func_800556C4(pack);
@@ -105,7 +113,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
         case 2:
           if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
         {
-          func_80040260(arg0, w - 0x12, y + 7, arg2, func_8003BB6C, 0)->pack = pack;
+          func_80040260(arg0, inline_fn2(w, 0x12), y + 7, arg2, func_8003BB6C, 0)->pack = pack;
         }
         else
         {
