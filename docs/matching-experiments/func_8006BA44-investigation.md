@@ -35,3 +35,26 @@ Neither a guessed GP nor value-based pool placement is justified. A clearer
 GP/literal diagnostic is useful; relocation support alone cannot solve this
 function. The function remains OPEN. No live edit, accepted match or full
 cartridge build was claimed for this provisional source.
+
+### Compatible legacy byte-parameter interface control
+
+The selected downstream byte-argument callee and an old-style C definition with
+byte parameter declarations plus an integer prototype both reproduce exactly
+the same linked bytes (SHA256
+`64ccbfe0da49646ab64e535c5442b6b1f8e406153adb63a87642a8c6b47d807b`).
+The old-style source SHA256 is
+`9a4f7453cb3fa33842892ec998efb6cd5c2427e5a03da4a1897140726bd35758`.
+This is a joint source-interface hypothesis: default argument promotions make
+the integer prototype compatible with that old-style definition in period C,
+not with the original ANSI byte-parameter definition. A C11 pedantic syntax
+control also accepts this combination, with a deprecation warning; it is not
+C23 syntax and must not be generalized to modern-language projects.
+
+Using the compatible integer interface in the clean caller did not solve the
+function: original G8 natural source1135 (unresolved literal8), explicit
+threshold3099 without link problems; frame remains the target size. A final
+G0-only natural control scores945 but still has its pool-address instructions
+at different offsets from the target, so ordinary linking rejects placement.
+It is byte-identical to the earlier audited-best diagnostic control, which
+contains no artificial branch. No best-source portfolio, selected profile,
+live callee correction or accepted match resulted from these controls.
