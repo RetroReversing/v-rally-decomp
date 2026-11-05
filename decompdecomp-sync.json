@@ -322,7 +322,9 @@
     "include/decompdecomp_snapshot_800450b8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "include/decompdecomp_snapshot_8007ee9c.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
     "src/code_8000B910/func_8000C9B0.c": "c7768dd2187a19fdeb64da6f2d822bf06fa7716003f46e927bed1d45464bd9f1",
-    "include/decompdecomp_snapshot_8000c9b0.h": "3c8b0fa010453a5307540dd295971a4931aefb5dd330d00300d81bad3c83e560"
+    "include/decompdecomp_snapshot_8000c9b0.h": "3c8b0fa010453a5307540dd295971a4931aefb5dd330d00300d81bad3c83e560",
+    "src/code_8007E9D4/func_8007F050.c": "67e1b91c3f30b3e65e7fa8f34d0d6d54f8f7190529221d542bb409ad2cd11feb",
+    "include/decompdecomp_snapshot_8007f050.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61"
   },
   "accepted": [
     "MusInitialize",
@@ -644,25 +646,26 @@
     "func_800603B4",
     "func_800450B8",
     "func_8007EE9C",
-    "func_8000C9B0"
+    "func_8000C9B0",
+    "func_8007F050"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2055,
+  "matched_app": 2056,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8000C9B0"
+      "func_8007F050"
     ],
-    "note": "Fixed debugger intrinsic carried by normal toolchain source_prelude. Standalone check and complete cartridge comparison passed. All 2054 prior C objects unchanged."
+    "note": "Ordinary function and full cartridge checks passed. All2055 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_8007ED48",
+    "function": "func_8007F050",
     "score": 0,
-    "raw_source_sha256": "1c0cc15791c994a0af16b665a7dbef823d0d126176670a1a0f209074bef9c82c",
+    "raw_source_sha256": "21e0fcd06949885fc7c5147906cd2515a127029a7a3ed252ca16a8c087fbeb4c",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "standalone_header_sha256": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
     "profile": {
@@ -673,11 +676,10 @@
         "-mgp32",
         "-mfp32",
         "-O2",
-        "-ffast-math",
-        "-fno-schedule-insns"
+        "-g3"
       ],
       "timeout": 20
     },
-    "note": "Existing worker released its claim. Applied the already full-cartridge-verified source/profile through normal compiler and C judge APIs, with a fresh effective-unit context hash check; no claim was taken over."
+    "note": "Normal live API accepted the same independently full-cartridge-verified source. No claim taken over."
   }
 }

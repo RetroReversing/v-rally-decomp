@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793854009.74259,
- "revision": 16040,
+ "saved_at": 1793854475.821789,
+ "revision": 16092,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -9078,8 +9078,8 @@
   },
   "func_8007F050": {
    "vram": 2148003920,
-   "best_score": 145,
-   "best_by": "claude-opus-2"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8007F12C": {
    "vram": 2148004140,
@@ -161767,7 +161767,7 @@
   },
   {
    "function": "func_80040CF4",
-   "text": "Deep permuter: score 518 \u2192 518; 0 improvements; 69 candidates tested; 62 cached skips; 0 rejected; 56s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 518 \u2192 518; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_80040CF4 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-837"
   },
   {
@@ -161837,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 300 candidates tested; 194 cached skips; 0 rejected; 185s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 300 candidates tested; 187 cached skips; 0 rejected; 131s elapsed. Variant limit reached.",
    "by": "Rr.permuter-111"
   },
   {
@@ -161847,7 +161847,7 @@
   },
   {
    "function": "func_8006185C",
-   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 163 cached skips; 0 rejected; 233s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 170 cached skips; 0 rejected; 167s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1286"
   },
   {
@@ -164003,6 +164003,26 @@
   {
    "function": "func_8007AD68",
    "text": "Retain open60 draft. Fresh m2c/goto reconstruction produced independent genuine structured70 alternative, no duplicated-if; preserved at canonical docs/matching-experiments/func_8007AD68-structured.c with frozen context/profile and linked residual notes in README. Corrected func_8006F0E0 ABI is void(u8), not phantom second pointer; correction alone stays60. Fresh70 residual: saved signedidx a2 ratherthan a0, argument restore in branchdelay instead of increment. Fresh shared90/native at least282+464+150 did not match; 16 scalar lifetime probes failed, four formal-parameter reuse probes708. Original60 RTL store-before-move tie survives sched2/reorg; queued argument increments flush before hard arg register loads. Preserve both independent basins; not impossible/paused. No live source change or cartridge acceptance claimed.",
+   "by": "you"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 2; 89 differing rows (1 opcode, 25 register, 1 stack, 18 branch target, 13 operand, 7 reordered, 10 inserted, 14 deleted; advisory).\nTarget: addiu $v0, $zero, -1\nCandidate: addiu $sp, $sp, -0x30\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $v1, %hi(D_800C02AE+0x32f2)\n  = lw $v1, %lo(D_800C02AE+0x32f2)($v1)\ni T: addiu $v0, $zero, -1 | C: addiu $sp, $sp, -0x30\n> T:  | C: addiu $v0, $zero, -1\n> T:  | C: sw $ra, 0x28($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nStill 200 (idx/value v1<->a0 swap in the final two j-loops). No change (200): u32 idx=j temp, u8 x=D>>1 then +=, (u8)(a+(a>>1)), (u32)/(s32) cast on the shift operand, a[j]=(a[j]>>1)+a[j], /2. Worse: s32 k with (u8)k casts or (k&0xFF) as the final-loop index (360), players==cnt operand swap (205), (a*3)>>1 (665), separate u8 k per branch (665), u32 j (3932). Untried: a real static inline helper (define it in the source; my patch forgot the definition, so the 3416 is invalid), splitting the loops into a separate inline function taking j.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 25; 26 differing rows (6 register, 20 operand; advisory).\nTarget: lui $a0, %hi(D_800C02AE+0x132f2)\nCandidate: lui $a0, %hi(D_800C02AE+0x10386)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = subu $v0, $v0, $v1\n  = sll $v0, $v0, 4\ni T: lui $a0, %hi(D_800C02AE+0x132f2) | C: lui $a0, %hi(D_800C02AE+0x10386)\ni T: lw $a0, 0x634($a0) | C: lw $a0, %lo(D_800C02AE+0x10386)($a0)\n  = addu $v0, $v0, $v1\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nStill 230. This session I tried more forms of the 0x5B store and none changed the output (all stayed 230): (u32)/(s32) integer-cast address forms in both operand orders, idx[base] reversed indexing, (u8)arg0*5*8, (Slot[n+1]).pad[4] (235), base+0x44 then [n], (u32)/(s32)/(u16) index casts, a local Game *gp, an explicit (u8) value, and a block-local u8 idx for all three calls. The target computes the index from a0 (same as ours). The only difference is addu operand order: the target has (plus base off). Untried: changing D_800C35A0's declared type to Slot* in the whole function.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Saved best 1000 uses semantically wrong `temp_s3 <<= 6` in the else branch (mutates loop invariant). Semantically-correct version (temp_s3 << 6) scores 1465 (const 0x800D0634 cast) / 1475 (D_800C02AE+0x10386 extern; target reloc for that load is the %hi-artifact noted in knowledge). Removing the redundant duplicated `if (var_s4) {...} else {same}` tail costs a lot (\u21922889), so keep it. Clean rewrites (u8 locals, struct-ish raw ptr, single shared call/stores) score ~10-11k: target duplicates call+stores 0x32..0x34+negation in BOTH branches and shares only the tail from *sp14 - s0 on. Operand-order swaps of `__repair_subtotal + var_v1`, switch((u8)arg0), fp operand order: no effect. Remaining diff is mostly regalloc (target s7=arg0 saved after a2/t0 zeroing, v1 = arg0&0xFF, t1 = arg1 copy; s3=arg1&0xFF, s4=i; target hoists 2^31 constant D_800A57F0 into fs0 before loop, mine doesn't).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007F050",
+   "text": "Matched55instructions/220bytes at unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Entry-caller builtin baseline145; replacing with fixed live-return-address intrinsic alone270 (mask operations scheduled before store); wrapping the correct store in do{...}while(0) gives0. Same generated source reproduced automatically at shared/targeted rank2. Ordinary standalone and full12582912-byte cartridge checks pass, all2055 prior C objects unchanged. Generic bounded target-backed app repair implemented; not an arbitrary-asm workaround.",
    "by": "you"
   }
  ],
@@ -188203,6 +188223,94 @@
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
+   "func_8007F050": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793854407.5798159,
+    "attempt_id": 293606,
+    "source_sha256": "21e0fcd06949885fc7c5147906cd2515a127029a7a3ed252ca16a8c087fbeb4c",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "db24275017eb2183d75edd97f230da8353402a25aaf7502fb5efed808f257936",
+    "relocations_sha256": "f243533ae477708a756b2fbfee006e0276724f6157aa5aca620a698640d7f76b",
+    "vram": 2148003920,
+    "unit": "code_8007E9D4",
+    "mode": "rom"
+   },
    "func_8007F12C": {
     "format": 1,
     "verdict": "exact",
@@ -192427,6 +192535,7 @@
    "11671ecb7d24488663e105837ddbfbd537b450b4a491fdfcb2159d6dfe9465fc": "extern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern s32 D_800C72D8[];\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern void (*D_800C808C)(s32, s32);\ns32 func_8007EBF4(s32 arg0, s32 arg1, ...)\n{\n volatile s32 sp10;\n s32 temp_s3;\n s32 p;\n s32 q;\n s32 result = 0;\n if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n D_800A19B0 = 1;\n { s32 u; do { D_800B5B40 = (s32)__builtin_mips_live_return_address(); } while (0); }\n temp_s3 = ((s32 *)(((s32)__builtin_next_arg(arg1) + 3) & ~3))[0];\n if (!(arg0 & 0xFFFF0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n if (q) {\n  result = ((s32 (*)(s32, s32, s32))D_800C5BB0[sp10][6])(q + 8, arg1, temp_s3);\n  if (result) *(s32 *)(result - 8) = sp10;\n  else D_800C808C(arg0, D_800B5B40 - 4);\n }\n D_800A19B0 = 0;\n return result;\n}",
    "1c0cc15791c994a0af16b665a7dbef823d0d126176670a1a0f209074bef9c82c": "extern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern s32 D_800C72D8[];\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern void (*D_800C808C)(s32, s32);\ns32 func_8007ED48(s32 arg0, s32 arg1, ...)\n{\n volatile s32 sp10;\n s32 temp_s3;\n s32 p;\n s32 q;\n s32 result = 0;\n if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n D_800A19B0 = 1;\n { s32 u; do { D_800B5B40 = (s32)__builtin_mips_live_return_address(); } while (0); }\n temp_s3 = ((s32 *)(((s32)__builtin_next_arg(arg1) + 3) & ~3))[0];\n if (!(arg0 & 0xFFFF0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n if (q) {\n  result = ((s32 (*)(s32, s32, s32))D_800C5BB0[sp10][4])(q + 8, arg1, temp_s3);\n  if (result) *(s32 *)(result - 8) = sp10;\n  else D_800C808C(arg0, D_800B5B40 - 4);\n }\n D_800A19B0 = 0;\n return result;\n}",
    "4f155f7a5feedb5f7293fbcff001915a9a3e0a000141dd7ae0c4bf7877c38414": "extern s32 D_800A19B0;\nextern volatile s32 D_800B5B40;\nextern s32 D_800C5BB0[];\nextern s32 D_800C8090;\nextern s32 D_800C80A8;\ns32 func_8007EE9C(void *arg0) {\n    s32 result = 0;\n    if (D_800A19B0 == 1) {\n        ((void (*)(s32))D_800C80A8)(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 1;\n    { void *return_address = __builtin_mips_live_return_address(); D_800B5B40 = (s32)return_address; }\n    if (arg0 != 0) {\n        s32 index = *(s32 *)((u8 *)arg0 - 8);\n        s32 **table = (s32 **)((u8 *)D_800C5BB0 + index * 4);\n        result = ((s32 (*)(void *))(*table)[1])(arg0);\n    } else {\n        ((void (*)(s32))D_800C8090)(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 0;\n    return result;\n}",
+   "21e0fcd06949885fc7c5147906cd2515a127029a7a3ed252ca16a8c087fbeb4c": "extern s32 D_800A19B0, D_800B5B40;\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern s32 D_800C72D8[];\nextern s32 func_80080F08(s32);\ns32 func_8007F050(s32 arg0)\n{\n    volatile s32 sp10;\n    s32 result = 0;\n    s32 p;\n    s32 q;\n    if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n    D_800A19B0 = 1;\n    do { D_800B5B40 = (s32) __builtin_mips_live_return_address(); } while (0);\n    if (!(arg0 & 0xffff0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n    if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n    if (q) result = func_80080F08(q + 8);\n    D_800A19B0 = 0;\n    return result;\n}\n",
    "5888a07d6e91789986a3511a6f9c95f808e5d7dff75ec1eb9b407f45d7746da9": "typedef char *va_list7F;\ntypedef struct \n{\n  s32 a;\n  s32 b;\n} Hdr7F12C;\ntypedef struct \n{\n  s32 pad[3];\n  s32 (*fn)(void *, s32, s32, s32);\n} Cls7F12C;\nextern s32 D_800A19B0;\nextern void *D_800B5B40;\nextern Cls7F12C *D_800C5BB0[];\nextern void *D_800C72D8[];\nextern void (*D_800C8090)(void *);\nextern void (*D_800C80A8)(void *);\ns32 func_8007F12C(u32 id, s32 *ret, s32 arg2, ...)\n{\n  va_list7F ap;\n  s32 x;\n  int new_var4;\n  s32 y;\n  s32 idx;\n  s32 *pidx = &idx;\n  Cls7F12C **new_var2;\n  int new_var3;\n  Hdr7F12C *p;\n  Cls7F12C *c;\n  s32 *new_var;\n  if (D_800A19B0 == 1)\n  {\n    D_800C80A8(((char *) D_800B5B40) - 4);\n  }\n  D_800A19B0 = 1;\n  {\n    void *u;\n    do\n    {\n      D_800B5B40 = __builtin_mips_live_return_address();\n    }\n    while (0);\n  }\n do { ap = (va_list7F) __builtin_next_arg(arg2); ap = (char *) ((((int) ap) + 3) & (-4)); new_var4 = 1; x = *((s32 *) ap); ap += 4; ap = (char *) ((((int) ap) + 3) & (-4)); new_var = (s32 *) ap; y = *new_var; if (!(id & 0xFFFF0000)) { p = D_800C72D8[id]; idx = id; } else { p = (Hdr7F12C *) id; idx = new_var4; } if (new_var3 = p == 0) { D_800C8090(((char *) D_800B5B40) - 4); p = 0; } else { p--; } } while (0);\n  if (p != 0)\n  {\n    new_var2 = D_800C5BB0;\n    c = new_var2[idx];\n    if (c != 0)\n    {\n      *ret = c->fn(p + 1, arg2, x, y);\n    }\n  }\n  D_800A19B0 = 0;\n  return 0;\n}\n",
    "ed656f9976b5fcb79dfc186c58164c953564e1d1a0d6699476bec1c43d1b9bbf": "extern s32 D_800A18E0[];\nextern s32 D_800AE850[];\nextern s32 D_800B0BA0;\nextern u8 D_800B4174[];\nextern s32 D_800C02AE[];\nextern void func_8007F270(void);\nextern s32 func_80080430(void *);\nextern s32 osCreateMesgQueue(void *, void *, s32);\nextern s32 func_8008BA40(s32);\nextern s32 osSetEventMesg(s32, void *, s32);\ns32 func_8007F278(void)\n{\n  volatile u16 *new_var;\n  {\n    s32 *v1;\n    s32 v0;\n    v1 = (s32 *) (((u8 *) D_800AE850) + 0x5910);\n    v0 = 0xE;\n    do\n    {\n      *v1 = 0;\n      v0 = v0 - 1;\n      v1 = v1 + 1;\n    }\n    while (v0 != 0);\n  }\n  {\n    u32 s1;\n    u8 *s0;\n    s32 *s2;\n    u32 s3;\n    s1 = 0;\n    s3 = (u32) (&func_8007F270);\n    s0 = ((u8 *) D_800AE850) + 0x5910;\n    s2 = (s32 *) (((u8 *) D_800C02AE) + 0x7D8A);\n    do\n    {\n      *s2 = (s32) s3;\n      func_80080430(s0);\n      osCreateMesgQueue(s0 + 0x14, s0 + 0x2C, 0xC);\n      new_var = (volatile u16 *) (s0 + 0xE);\n      *new_var = (u16) s1;\n      *((volatile u16 *) (s0 + 0xC)) = 0;\n      s0 = s0 + 0x5C;\n      s1 = s1 + 1;\n      s2 = s2 + 1;\n    }\n    while (s1 < 0x38);\n  }\n  {\n    s32 *p;\n    D_800B0BA0 = func_8008BA40(0);\n    if (D_800A18E0[0] != 0)\n    {\n      u8 *base = D_800B4174;\n      p = D_800A18E0;\n      do\n      {\n        s32 idx = *p++;\n        s32 ev = *p++;\n        osSetEventMesg(ev, (void *) ((idx * 0x5C) + (u32) base), 0);\n      } while (*p != 0);\n    }\n    return 1;\n  }\n}\n",
    "5666cde779f869553d04ed9dbea95e61e10ffbab272acd604f0902f64392c890": "typedef struct Node Node;\nstruct Node\n{\n  Node *next;\n  Node *prev;\n  u8 x8[2];\n  u8 used;\n  u8 busy;\n  u8 xc[4];\n  u32 field10;\n};\nextern Node *D_800A19E0;\nextern u32 D_800A19E4;\nextern u32 D_800B5B40;\nextern void (*D_800C8090)(void *);\nextern void *func_8007F828(void *, u32);\nextern u32 func_80080EA0(Node *);\nvoid *func_80080674(void *arg0, u32 arg1)\n{\n  Node *s0 = arg0;\n  u32 s2 = arg1;\n  Node *s1;\n  u32 a1;\n  Node *a0;\n  loop: { Node *head = D_800A19E0; if (head == 0) goto done; if (head == s0) goto done; if (D_800A19E4 < s2) goto done; if (func_80080EA0(head) < s2 + 0x14) goto done; s0 = D_800A19E0; goto loop; } done: s2 = (s2 + 3) & ~3;\n  a0 = (Node *) (((u8 *) s0) - 0x14);\n  if (s2 == 0)\n  {\n    D_800C8090(((u8 *) D_800B5B40) - 4);\n    for (;;)\n    {\n      ;\n    }\n\n  }\n  s1 = 0;\n  if (a0->busy == 0)\n  {\n    u32 end = ((u32) a0->next) - 0x14;\n    a1 = end - ((u32) a0);\n    if ((s2 + 0x1c) < a1)\n    {\n      a0->busy = 1;\n      s0 = (Node *) (((u8 *) a0) + 0x14);\n      func_8007F828(s0, a1);\n    }\n    else\n    {\n      s0 = 0;\n    }\n  }\n  else\n  {\n    s0 = (Node *) (((u8 *) a0) + 0x14);\n  }\n  a1 = 0x7fffffff;\n  if (s0 != 0)\n  {\n    do\n    {\n      if (s0->used == 0)\n      {\n        u32 end = ((u32) s0->next) - 0x14;\n        u32 size = end - ((u32) s0);\n        if ((size >= s2) && ((size < a1) || (s1 == 0)))\n        {\n          a1 = size;\n          s1 = s0;\n        }\n      }\n      s0 = s0->next;\n    }\n    while (s0 != 0);\n  }\n  if (s1 != 0)\n  {\n    u32 total = s2 + 0x14;\n    if (a1 >= total)\n    {\n      Node *v0 = s1->next;\n      s0 = (Node *) (((u8 *) s1) + total);\n      v0->prev = s0;\n      s0->next = v0;\n      s0->prev = s1;\n      s0->x8[0] = 0;\n      s0->x8[1] = 0;\n      s0->used = 0;\n      s0->busy = 0;\n      s0->field10 = 0;\n      s1->next = s0;\n    }\n    s1->used = 1;\n    s1->field10 = 0;\n    s1 = (Node *) (((u8 *) s1) + 0x14);\n  }\n  return s1;\n}\n",

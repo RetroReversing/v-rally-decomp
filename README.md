@@ -776,3 +776,20 @@ complete **12,582,912-byte** cartridge comparison passed, with all 2,054 earlier
 C objects unchanged. The standalone build now selects **2,055 C functions /
 69 assembly units**, and no currently matched app function remains an integration
 exception at this checkpoint. All current portable app progress is retained.
+
+
+### Live-return-address dispatcher match
+
+`func_8007F050` now matches **55 instructions / 220 bytes** with the unchanged
+KMC GCC 2.7.2 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3` profile. Reading the entry
+caller address scored 145; the correct live-register intrinsic alone worsened
+to 270 because the compiler moved mask arithmetic across its store. Combining
+the intrinsic with a one-shot `do { ... } while (0)` statement matches at zero.
+The shared automatic repair reproduces that exact source as its second proposal.
+The generic app change is tracked in [decompdecomp PR #506](https://github.com/RetroReversing/decompdecomp/pull/506).
+
+The standalone function check and full **12,582,912-byte** cartridge comparison
+passed. All 2,055 earlier C objects remain unchanged; only the former assembly
+run removes this newly compiled function. The tree now selects **2,056 C
+functions / 68 assembly units**, and a fresh portable snapshot retains all app
+progress. There are no integration exceptions at this checkpoint.
