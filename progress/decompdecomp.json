@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793879548.466091,
- "revision": 17811,
+ "saved_at": 1793879656.0699599,
+ "revision": 17813,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164748,6 +164748,11 @@
   {
    "function": "func_80040CF4",
    "text": "Rectangle renderer remains OPEN518. Audited integer-address alternative518 and direct-root alternative818 preserved with source hashes in docs/matching-experiments. Two native lanes each1000attempts/990compiled-scored found noexact; shared Clang scratch path made overlapping preflight metadata unreliable, independently replayed safe counts distinguished in report. No selected C/profile/header/target changes. Narrow lifetime/layout/copy/profile controls negative. Bad introduced integer candidate revealed unrelated macros disabling initialization guard; a private fix with synthetic regressions rejects it. Pointer initialization remains outside that guard. See investigation for discarded invalid broad textual replacements and remaining real register-allocation evidence.",
+   "by": "you"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Triangle-plane routine remains OPEN295. Two independent1000attempt native lanes found noexact: zero-field715compiled/scored best860, genuine-padding740compiled/scored best295 unchanged. 55 directed/baseline judgments negative. Matrix padding research preserves295 but needs transpose callee representation-copy contract; do not adopt as proven C. Zero stores negative control changes target behavior/code shape. Sources and caveats preserved in docs/matching-experiments. No selected source/profile/header/target/ABI changes or cartridge gate.",
    "by": "you"
   }
  ],
