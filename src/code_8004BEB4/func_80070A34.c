@@ -1,10 +1,10 @@
-#include "common.h"
-
+#include "decompdecomp_snapshot_80070a34.h"
+#line 1 "func.c"
 extern unsigned char D_800B6818;
 extern int D_800C3508;
 void *func_800592AC();
 s32 func_800592F4();
-s32 func_8005C0E8();
+void func_8005C0E8(s32, u32, u32);
 s32 func_8008A0D8();
 extern void *D_800A1468;
 extern u8 D_800A1700;
@@ -32,3 +32,4 @@ void func_80070A34(void)
   *((s8 *) (((char *) temp_s1) + 0x41)) = var_s0;
   func_8008A0D8(D_800C3508, 7, var_s0);
 }
+

@@ -13,7 +13,7 @@ extern u8 D_800AE850[];
 extern u8 *D_800C35A0;
 extern u8 *D_800D0634[];
 
-void func_80061F34(void) {
+void func_80061F34(void *scene, void *base) {
     u8 temp[12];
     u8 *p;
     u32 index;

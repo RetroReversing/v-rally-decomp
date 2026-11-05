@@ -1,5 +1,5 @@
 extern void *func_800592AC();
-void func_8005C0E8(s32 start, u32 offset, u32 end, u16 value) {
+void func_8005C0E8(s32 start, u32 offset, u32 end) {
     u32 i;
     u32 limit = start + offset;
     void *p;

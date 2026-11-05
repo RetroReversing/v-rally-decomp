@@ -1,7 +1,7 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_snapshot_8005c0e8.h"
+#line 1 "func.c"
 extern void *func_800592AC();
-void func_8005C0E8(s32 start, u32 offset, u32 end, u16 value) {
+void func_8005C0E8(s32 start, u32 offset, u32 end) {
     u32 i;
     u32 limit = start + offset;
     void *p;
@@ -26,3 +26,4 @@ void func_8005C0E8(s32 start, u32 offset, u32 end, u16 value) {
             *(u16 *)((u8 *)p + 0xC) = v;
     }
 }
+

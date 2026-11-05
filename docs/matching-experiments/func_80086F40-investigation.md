@@ -55,3 +55,24 @@ A private safe native lane completed 500 scored candidates, best 325, no exact. 
 Remaining differences are chiefly the saved-register allocation swap and scheduling of the first outgoing argument across the aggregate copy. No reusable repair family was demonstrated to solve them. Suggest preventing token-wasting searches on an inconsistent lower-score draft by presenting known selected-callee/callback contracts before launching the search; do not weaken exact-byte acceptance.
 
 Evidence: `negative-evidence.json`, `corrected.json`, `shared-results.json`, `native-safe/results.json`, and immutable `frozen/` capture. Private ROM/assembly/captures must not be committed.
+
+## Cursor and outgoing-aggregate lifetime revisit
+
+Twenty new controls preserved the real four-argument, six-word Packet contract
+but found no exact match. Typed previous-link cursors retained 325 and the same
+walker/predecessor register swap. Ten genuine dead-address/aligned-address
+lifetime controls scored 325–865 without improvement. Four meaningful inline
+DMA-submission extractions recovered outgoing argument/table/copy register
+choices, but removed the target's saved-register subtract plus argument move;
+they became one instruction shorter and scored 500. The first aggregate-word
+load also remained earlier than the target's size load.
+
+Eight original-address/return-parity lifetime controls were prepared but not
+tested: a foreign app-agent claim appeared before the first compile, so the
+private investigation stopped. Do not count them as negative results. Recheck
+current source, context, compiler profile and ownership before continuing.
+The saved source hash at this checkpoint was
+`4fd369c155ee0c1911ce715a03ff34e7b7f6aaf563083c3213098f2bb11f4ae5`.
+No native search was repeated, no claim was taken or released, and no match or
+live source change is claimed. A concise source-hash-bound investigation note
+was also sent through the app's normal add_note tool for future agents.

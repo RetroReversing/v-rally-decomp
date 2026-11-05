@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80063ffc.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -19,9 +19,9 @@ extern s32 func_8006A24C;
 extern void func_800416EC();
 extern s32 func_80057B40(s32, s32, s32, s32);
 extern void *func_800592AC(s32);
-extern s32 func_8005C0E8(s32, s32, s32);
+void func_8005C0E8(s32, u32, u32);
 extern s32 func_800603B4(void);
-extern s32 func_80061F34(void *, s32);
+void func_80061F34(void *, void *);
 extern s32 func_8006A25C(void);
 extern s32 func_8008A0D8(s32, s32, s32);
 extern s32 func_8008A270(s32, s32, s32);
@@ -46,7 +46,7 @@ void func_80063FFC(void)
       s32 offset = (*((u16 *) (first + 0x22))) << 6;
       *(first + 0x2e) = *((u8 *) ((base + offset) + 0x37));
     }
-    func_80061F34(first, t);
+    func_80061F34(first, (void *)t);
   }
   {
     u8 *menu = D_800C3508;

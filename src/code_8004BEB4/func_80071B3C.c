@@ -1,13 +1,13 @@
-#include "snapshot31_verified.h"
-
+#include "decompdecomp_snapshot_80071b3c.h"
+#line 1 "func.c"
 extern unsigned char D_800B6819;
 extern int D_800C3508;
 extern s32 D_800C35A0;
 s32 func_80057B40();
 void *func_800592AC();
-s32 func_8005C0E8();
+void func_8005C0E8(s32, u32, u32);
 s32 func_800603B4();
-s32 func_80061F34();
+void func_80061F34(void *, void *);
 s32 func_8006A25C();
 s32 func_8008A0D8();
 s32 func_8008A270();
@@ -190,3 +190,4 @@ void func_80071B3C(void)
   }
   func_80057B40(0x2A, 3, 0, 0);
 }
+

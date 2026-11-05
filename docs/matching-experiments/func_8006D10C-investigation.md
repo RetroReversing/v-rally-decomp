@@ -15,3 +15,21 @@ PR611 fixes an independently reproduced review failure: an autosave can incremen
 ### Corrected draft selected normally
 
 The saved-file reimport rejudged505 but did not retain the draft as selected. A fresh ordinary scoped claim and compile then selected the exact corrected source hash6dd89f6e9c0f6bbef3bad5ec7d0287437f29034edd3b356be766c8f9f0a895b0 at505. Readonly inspection confirms OPEN505 and the saved best file exists; only the parent's temporary connection/claim was revoked. All current progress was exported normally. This replaces the definite local uninitialized-value defect, not a new exact match or a claim of global C correctness. No app update/restart or direct database write was used.
+
+## Packing-oriented revisit
+
+The ROM constants are verified as 4.5 and 1.5. This routine packs three 12-bit
+entries: two status bits plus a capped signed-difference representation, with
+an all-ones sentinel for code 5. For byte n and loop i in 0..2, exhaustive byte
+checks establish q & 255 = 4 * ((n + i) & 1), including wrapped byte j. This is a
+semantic aid, not a proposed replacement of the target's floating operations.
+
+Thirty-four new linked controls (ten sequenced packing expressions, twelve
+whole-entry inline helpers, twelve high/low-lane inline helpers) did not improve
+the initialized score-505 seed. Meaningful early-return helpers inline; some
+whole-helper if/else forms do not and become much worse. Neither produced an
+exact candidate. The remaining issue is loop-invariant arithmetic placement and
+register lifetime. No native or whitespace sweep was repeated. The invalid old
+325 draft remains rejected. A source-hash-bound summary was also added through
+the app's normal note interface to help subsequent agents start from this
+verified packing structure. No live source/profile/target change is claimed.

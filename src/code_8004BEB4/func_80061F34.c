@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80061f34.h"
 #line 1 "func.c"
 extern void func_8004C7F0(void *);
 extern void func_8004D31C(void);
@@ -15,7 +15,7 @@ extern u8 D_800AE850[];
 extern u8 *D_800C35A0;
 extern u8 *D_800D0634[];
 
-void func_80061F34(void) {
+void func_80061F34(void *scene, void *base) {
     u8 temp[12];
     u8 *p;
     u32 index;
