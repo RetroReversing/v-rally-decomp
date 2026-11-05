@@ -812,3 +812,18 @@ even when the package version has not changed. All current app progress is
 preserved in the refreshed portable snapshot; no integration exceptions remain.
 
 The generic recovery is tracked in [decompdecomp PR #507](https://github.com/RetroReversing/decompdecomp/pull/507).
+
+
+### Constant pointer capture timing
+
+`func_8008188C` now matches **74 instructions / 296 bytes** with its unchanged
+KMC GCC 2.7.2 profile. Correcting the aggregate callee ABI alone did not resolve
+the instruction scheduling difference. Separating an invariant global field
+argument from the pointer capture after the call produced an exact match.
+The generic repair also reproduced exact from the original saved source at
+rank 6 of 34 proposals and rank 6 of 8 on the first targeted page.
+Both variants passed ordinary linked checks and the complete **12,582,912-byte**
+cartridge comparison; all 2,057 prior objects remained unchanged.
+
+The standalone tree now selects **2,058 C functions / 66 assembly units**.
+All current app progress is preserved in the refreshed portable snapshot.

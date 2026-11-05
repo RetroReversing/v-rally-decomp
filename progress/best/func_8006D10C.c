@@ -36,15 +36,15 @@ void func_8006D10C(void)
     case 4:
       j = 15;
       break;
-  }
-  n = b + j;
+  }/*__repair_loop_weight*/do {do {do {
+  n += j;} while (0);} while (0);} while (0);
   i = 0;
   fs1 = ((f64) n) * D_800A5898;
   do
   {
     j = (u32) (fs1 + ((f64) (i & 255)) * D_800A58A0);
     k = i & 255;
-    q = ((n * 9) + (k * 3)) * 4 - (j & 255) * 8;
+    q = n * 9; q = (q + k * 3) * 4 - (j & 255) * 8;
     code = func_8006B924(s6 + (((*(u16 *) (D_800C35A0 + 34)) << 6) + 44) + k * 16);
     out = D_800C721E;
     if ((code & 255) == 5)

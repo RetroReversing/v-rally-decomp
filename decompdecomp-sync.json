@@ -326,7 +326,9 @@
     "src/code_8007E9D4/func_8007F050.c": "67e1b91c3f30b3e65e7fa8f34d0d6d54f8f7190529221d542bb409ad2cd11feb",
     "include/decompdecomp_snapshot_8007f050.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
     "src/code_8007E9D4/func_8007EF5C.c": "bd0d7424b7e7af82bb44859174165d8b8fcf84ba5a09211d6a6282e365e01d96",
-    "include/decompdecomp_snapshot_8007ef5c.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61"
+    "include/decompdecomp_snapshot_8007ef5c.h": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
+    "src/code_8007E9D4/func_8008188C.c": "afc80c9742ded01c617e6726db73d9f5d6eb68067e32ca84f58caf69481f6794",
+    "include/decompdecomp_snapshot_8008188c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -650,27 +652,28 @@
     "func_8007EE9C",
     "func_8000C9B0",
     "func_8007F050",
-    "func_8007EF5C"
+    "func_8007EF5C",
+    "func_8008188C"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2057,
+  "matched_app": 2058,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8007EF5C"
+      "func_8008188C"
     ],
-    "note": "Ordinary function and full cartridge checks passed. All2056 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
+    "note": "Ordinary function and full cartridge checks passed. All2057 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_8007EF5C",
+    "function": "func_8008188C",
     "score": 0,
-    "raw_source_sha256": "6b93958525cff2ab75f892c7a8906f151b7770dcca1d39d958423a8976343d1c",
+    "raw_source_sha256": "bd761a2c3b4ad08ff154cc0967a192bac9c3a9cbb82b702b86a84de5914efc05",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "standalone_header_sha256": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
+    "standalone_header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "profile": {
       "toolchain": "gcc-2.7.2-kmc",
       "flags": [

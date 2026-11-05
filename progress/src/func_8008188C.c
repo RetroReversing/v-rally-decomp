@@ -1,7 +1,7 @@
 extern void *D_800B7334;
 extern s32 D_800B7320;
 extern s32 D_800B731C;
-extern s32 D_800B0BA8;
+
 extern s32 D_800B7300;
 extern s32 D_800B7308;
 typedef struct VRTransferArgs
@@ -11,12 +11,13 @@ typedef struct VRTransferArgs
   s32 c;
   s32 d;
   s32 e;
+  s32 f;
 } VRTransferArgs;
-extern VRTransferArgs D_800B0BAC;
-s32 func_80081040(s32, s32, s32, s32, VRTransferArgs);
-void *func_800817A0(s32, s32);
-void func_80081C30(void);
-void func_80081D50(s32);
+extern VRTransferArgs D_800B0BA8;
+void func_80081040(s32, s32, u32, VRTransferArgs);
+s32 func_800817A0(void *, s32);
+s32 func_80081C30(void);
+s32 func_80081D50(s32);
 typedef struct VRLoadState
 {
   s32 x0;
@@ -61,11 +62,12 @@ s32 func_8008188C(s32 arg0, s32 arg1)
   VREntry *e;
   VRLoadState *s;
   s32 *new_var;
-  e = func_800817A0(*((s32 *) 0x800B7308), arg0);
+  e = (VREntry *)func_800817A0(*((void **) 0x800B7308), arg0);
   s = getState(e);
   do
   {
-    func_80081040((*((s32 *) 0x800B7300)) + e->x1C, (s = getState(e))->x0, 0x2000, D_800B0BA8, D_800B0BAC);
+    func_80081040((*((s32 *) 0x800B7300)) + e->x1C, D_800C3338[0].x0, 0x2000, D_800B0BA8);
+    s = getState(e);
     s->x38 = e->x10;
     s->x34 = e->x14;
     s->x32 = e->x1A;

@@ -19,15 +19,15 @@ void func_8006C024(s32 arg0, s32 arg1)
   s32 temp_a0;
   s32 temp_s0;
   s32 temp_s0_2;
-s32 __repair_phase_temp_s0_2;
+  s32 __repair_phase_temp_s0_2;
   s32 temp_s5;
   s32 temp_s6;
   s32 var_a0;
   s32 var_s3;
-  
   u32 temp_a0_3;
   u32 temp_t0;
   u8 temp_t1;
+  int new_var4;
   u8 temp_t1_2;
   char *new_var;
   void *temp_v0;
@@ -61,12 +61,7 @@ s32 __repair_phase_temp_s0_2;
     {
       do
       {
-        do
-        {
-          var_a0 = (s32) (temp_fv1 - temp_fs0);
-          var_a0 = var_a0 | 0x80000000;
-        }
-        while (0);
+ do { do { var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 |= 0x80000000; } while (0); } while (0);
       }
       while (0);
       temp_s0_2 = temp_s5 * 8;
@@ -78,8 +73,9 @@ s32 __repair_phase_temp_s0_2;
     if ((((((temp_s0_2 * 3) + new_var3) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
       temp_v0 = (D_800C02AE + 0x6E77) + temp_a0;
+      temp_s5 = *((u8 *) (((char *) temp_v0) + 0));
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));
-      temp_a0 = ((u8) (*((u8 *) (((char *) temp_v0) + 0)))) >> 4;
+      temp_a0 = ((u8) temp_s5) >> 4;
       temp_t0 = temp_a0;
       temp_t0 = temp_t0 & 0xC;
       if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
@@ -96,7 +92,8 @@ s32 __repair_phase_temp_s0_2;
         *((s8 *) (((char *) var_a2) + 0x38)) = 1;
         if (temp_s2 & 1)
         {
-          var_s0 = -temp_s2;
+          new_var4 = -temp_s2;
+          var_s0 = new_var4;
         }
         goto block_13;
       }
@@ -122,12 +119,12 @@ s32 __repair_phase_temp_s0_2;
         {
           var_s0 = -temp_s2_2;
         }
-        new_var = (char *) var_a2;
+        ;
         block_13:
         temp_a1 = (*sp14) - var_s0;
 
         *((s32 *) (((char *) var_a2) + 0x2C)) = (s32) temp_a1;
-        *((s8 *) (new_var + 0x30)) = (s8) ((((u16) (*((u16 *) (((char *) var_s1) + 2)))) >> 0xC) + ((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xF) * 0x10));
+        *((s8 *) (((char *) var_a2) + 0x30)) = (s8) ((((u16) (*((u16 *) (((char *) var_s1) + 2)))) >> 0xC) + ((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xF) * 0x10));
         *((s8 *) (((char *) var_a2) + 0x36)) = (s8) (((u32) (((*((s32 *) (((char *) ((temp_s0 *= 4) + temp_s6)) + 0x22C))) * D_8009D540) * 0xE10)) / ((u32) (temp_a1 * 0x3E8)));
       }
     }
@@ -148,4 +145,3 @@ s32 __repair_phase_temp_s0_2;
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }
-
