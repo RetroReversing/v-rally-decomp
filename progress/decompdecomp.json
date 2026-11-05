@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793902976.669024,
- "revision": 18388,
+ "saved_at": 1793903363.566047,
+ "revision": 18390,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249298,6 +249298,14 @@
    "created_at": 1793902499.211532,
    "score_before": 0,
    "score_after": 0
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Best 265 (rev 543fce51; the goto path skips the store, so j is +0x470 vs the target's +0x468; see earlier notes). The beql block (timer==0, v&4 toggle) was explored with temps d/r and `*st = d & r` on the 265 base:\n- `if(!(v&4)){d=v|4;r=~2}else{d=v|2;r=~4}` = 270: gives bnel (branch-likely!) but flipped orientation, with d/r in v1/v0.\n- the same with the var roles swapped (r=or value, d=mask; `*st = r & d`) = 265.\n- `if(v&4){r=v|2;d=~4}else{r=v|4;d=~2} *st=r&d` = 285, with only 7 diff rows: the layout matches, but reorg fills the beqz slot from the fall-through instead of stealing `ori v0,v1,4` with beql; plus the known j+8 and 3 regalloc rows at sh 0xa.\n- mask assigned first in each branch = 730; two ternaries = 790.\nNext: on the 285 form, make the fall-through's first insn unsafe for the taken path so reorg uses beql.",
+   "by": "claude-opus-3",
+   "created_at": 1793903187.948273,
+   "score_before": 265,
+   "score_after": 265
   }
  ],
  "set_aside": [

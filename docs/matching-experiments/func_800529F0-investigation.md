@@ -57,3 +57,22 @@ baseline.c SHA2563e63cc2d3f1051e701f8a1ebdf88af2a96b5f08ce5ed141e7e5acd4a25b737f
 baseline.json normal score135/nonexact; evidence.json contains all62 probes.
 No demonstrated reusable automatic repair. Keep the function OPEN; do not
 publish an exact claim or repeat the old1000-candidate flat search.
+
+## Sum-update and other-region revisit
+
+Fourteen additional bounded controls retained the score-135 best. Six inline
+helpers including the sum, sum-store and total update all emitted identical
+448-byte score-155 code. Linked-byte comparison showed that they fixed none of
+the original twelve word differences and added four counter/bound differences.
+Three sequenced post-increment or staged-load forms canonicalized to the saved
+135 code. Three typed row traversals emitted identical 444-byte score-850 code.
+Two unsigned modular-add spellings stayed at 135; commuting the addition did
+not repair the underlying register allocation. No native search was repeated.
+
+The other imported region's semantic counterpart is func_800537DC (114
+instructions versus PAL's 112), but it remains OPEN with neither matched C nor
+a saved best draft. Its effective compiler profile is identical. The code's
+configuration, record, table and flag addresses can be mapped through real
+machine hi/lo pairs; those mappings do not supply missing source or prove an
+exact twin. No transplant or profile change was justified. No new match or
+reusable automatic repair is claimed.
