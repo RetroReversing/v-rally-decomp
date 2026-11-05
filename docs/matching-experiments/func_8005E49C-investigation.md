@@ -50,3 +50,20 @@ App PR606 adds bounded advisory empty-stub interface warnings. It does not chang
 ### Joint contract correction accepted
 
 All six corrected sources passed the full12,582,912-byte cartridge comparison (SHA256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7). All2069 selected profiles and2063 other C objects are unchanged. The normal saved-source import rejudged all six exact; readonly final source hashes agree. Standalone source bodies were also compared against frozen live bodies before replacement; only include wrappers differed. No new matched function is counted. A fresh normal ALL-progress snapshot accompanies this correction.
+
+## Delay-slot dependency revisit
+
+Twenty-four unique source controls across 25 measured runs did not match.
+The allocation-grounded baseline stays at 140. The target places argument setup
+in the conditional branch delay slot and the required counter reset in the
+following call delay slot; GCC reverses those assignments and needs an extra
+argument-setup instruction on the failure path (500 versus 496 bytes).
+
+Switch order, genuine success early return/common-call factoring, reset lifetime
+placement, conventional source-line layouts and real three-field record copies
+were tested. Debug-line notes can affect scheduling: compacting the prefix
+worsened the score to 660, while local reset/branch layout stayed at 140. This
+negative result does not justify a formatting repair family. The required reset
+was never removed; no dummy branch, register binding or volatile was introduced.
+Mixed-arity helper contracts and record-bound preconditions remain unresolved.
+No exact claim, full-cartridge claim or live source change is made for this pass.

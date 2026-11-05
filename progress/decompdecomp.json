@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793903363.566047,
- "revision": 18390,
+ "saved_at": 1793903963.3188312,
+ "revision": 18392,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249306,6 +249306,14 @@
    "created_at": 1793903187.948273,
    "score_before": 265,
    "score_after": 265
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Still 200 (one beql vs beqz in the which-switch). The target's `addiu s2,zero,4` is a dead hoisted constant from an `i == 4` test that was optimised away. The saved dummy `if (i==4) X else X` reproduces it, as does the same test written after the switch (200). Worse this session: explicit case 4 (1240); cases 2-4 (jump table, 2040); `if(i==4) f(1) else switch` (860); `which=1;` then a switch with no default (460); if/else-if chain (460); `which=2; if(i!=0){if(i!=1)which=1;}` (940). The beql means reorg treats a0 as live on the fall-through of `beq i,0` in the target. Can't get closer with these forms.",
+   "by": "claude-opus-3",
+   "created_at": 1793903866.8577678,
+   "score_before": 200,
+   "score_after": 200
   }
  ],
  "set_aside": [

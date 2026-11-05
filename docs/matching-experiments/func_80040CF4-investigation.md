@@ -58,3 +58,19 @@ Twelve new bounded geometry/lifetime controls did not improve the focal score518
 The separate two-source correction passed the full12,582,912-byte cartridge comparison, SHA256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7. All2069 compiler profiles and2067 other selected C objects are unchanged. Normal saved-source import has independently rejudged both exact and confirmed the corrected hashes. This is an existing-match contract repair, not a new match for the focal function.
 
 The direct-call audit does not establish every indirect reference. Label string lengths were not proven from the available frozen segment mapping, so ordinary valid-buffer/string preconditions remain explicit; an incomplete bounds scan is not a safety proof. The downstream copy implementation's broader legacy typing was not silently rewritten. Private game evidence remains outside the repository.
+
+## Independent declaration and extent-width revisit
+
+Fourteen new controls separated declaration order from the earlier combined
+load/declaration-order experiment. Corrected constructor/copy prototypes and
+the audited unsigned mapped-address copy retained score 518. Declaration-only
+height/extent order, rectangle/item declaration placement and branch-local
+result lifetimes scored 518/523/533, without improvement. Signed rectangle
+fields alone retained 518. Narrow width locals scored 3758, narrow height 1407,
+and both 4897, regardless of signed versus unsigned stored rectangle fields.
+Stored halfword fields do not establish narrow scalar intermediate lifetimes.
+
+All matched neighbors from 80040084 through 800424C0 use the original KMC
+profile. The prior compiler controls already covered no-debug, g/g2, strength
+reduction, delayed branches and both scheduling passes. No new profile evidence,
+exact match, native search or live source change resulted from this revisit.
