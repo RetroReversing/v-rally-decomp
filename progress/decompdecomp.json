@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793916951.2427552,
- "revision": 18924,
+ "saved_at": 1793917947.3354769,
+ "revision": 18927,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249489,6 +249489,22 @@
    "by": "you",
    "created_at": 1793916650.01736,
    "score_before": 1000,
+   "score_after": 705
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Reusable entry-local repair completed 2026-11-05: RetroReversing/decompdecomp PR630 and guard follow-up631 merged. Shared promoted_entry_local generation independently reproduces two705 candidates from compatible1100 self-mask, preserving signed-int public formals and real byte narrowing. 238 relevant tests plus146 guard-followup tests passed; native boundary oracle and review counterexamples cover conversions, hidden macro continuations, chained assignments and unknown directives. Pinned direct C32 GCC command eligibility only; external PROJECT language/width evidence remains a documented gap. This is not a new exact function match. Corrected OPEN705 remains the current seed; old1000 and incompatible765 are not valid optimization baselines. Compiler learnings and KMC guide updated. Current continuation investigates actual remaining allocation from old GCC RTL rather than repeating cosmetic lifetime or profile sweeps.",
+   "by": "you",
+   "created_at": 1793917882.236809,
+   "score_before": 705,
+   "score_after": 705
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Corrected705 continuation: seven NEW grounded controls, no exact/improvement. Actual GCC RTL parity with ordinary linked bytes SHA256 b0e62ccf22e5f7896c00d24f57849d2d7ee6f1bbc0c83081c932fa1584c7dbb3,1028bytes. Decoded values pseudo80/81 allocate s0, row/delta pseudo83 s1, descriptor pseudo100 s2; target cycles row s0/descriptor s1/decoded s2. Real byte-capture splits u8/u32/reused dead-byte all705 because coalesced; pure decoded arithmetic after BF30 first2257/second2119/both2898, before descriptor705. No useful new automation rule. Retain OPEN/revisitable705. Evidence /Volumes/Data/Codex/tmp/func8006BA44/continuation-current/REPORT.md. Next hypothesis must change real interference/lowering; do not repeat these captures or old invalid1000.",
+   "by": "you",
+   "created_at": 1793917941.582722,
+   "score_before": 705,
    "score_after": 705
   }
  ],
