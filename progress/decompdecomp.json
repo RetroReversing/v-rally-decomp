@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793877726.181216,
- "revision": 17809,
+ "saved_at": 1793879548.466091,
+ "revision": 17811,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164743,6 +164743,11 @@
   {
    "function": "func_8007B4A4",
    "text": "Lighting vertex routine audited: correct signed color packing and coordinate subtracts to unsigned wrapping without changing330score. Valid object/vertex counts, nonzero vector lengths and finite in-range FP-to-uint conversions remain required. 1000 independentnative compiled/linked candidates and directeddeclaration,colorwidth,floatratio,pointer,packing,scope,line,profile controls found noexact. Parentloop-localcolor,tagpacking,andfull-colorassignment-sinking controls also negative. Remaining47 renderedpositions:42registerdifferences and4reordered, sameinstructioncounts. Auditedclean source and failedexperiments in docs/matching-experiments/func_8007B4A4-*. Nativeharnessmetadata issue affected recordedlineage after conversiontoordinarystr; unsafeexpandfilter ranbefore conversion, rawsourcespreserved, no candidateportfolio or acceptedC. OPEN/revisitable, no livecompiler/header/target/ABI/judge or selectedsource changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Rectangle renderer remains OPEN518. Audited integer-address alternative518 and direct-root alternative818 preserved with source hashes in docs/matching-experiments. Two native lanes each1000attempts/990compiled-scored found noexact; shared Clang scratch path made overlapping preflight metadata unreliable, independently replayed safe counts distinguished in report. No selected C/profile/header/target changes. Narrow lifetime/layout/copy/profile controls negative. Bad introduced integer candidate revealed unrelated macros disabling initialization guard; a private fix with synthetic regressions rejects it. Pointer initialization remains outside that guard. See investigation for discarded invalid broad textual replacements and remaining real register-allocation evidence.",
    "by": "you"
   }
  ],
