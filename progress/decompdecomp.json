@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793867006.204513,
- "revision": 17526,
+ "saved_at": 1793867534.129484,
+ "revision": 17543,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 192 cached skips; 0 rejected; 266s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 197 cached skips; 0 rejected; 268s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161627,7 +161627,7 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 286s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 187 cached skips; 0 rejected; 312s elapsed. Variant limit reached.",
    "by": "Rr.permuter-887"
   },
   {
@@ -161732,12 +161732,12 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 287 cached skips; 0 rejected; 293s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 292 cached skips; 0 rejected; 264s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 155 cached skips; 0 rejected; 295s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 174 cached skips; 0 rejected; 297s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161792,7 +161792,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 176 cached skips; 0 rejected; 299s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 180 cached skips; 0 rejected; 265s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -164398,6 +164398,36 @@
   {
    "function": "func_8000A5EC",
    "text": "Matched149 instructions/596 bytes at unchanged compiler profile. Corrected texture mask from truncated255 to allbitsset; isolated constant0x30 store with an existing consumed temporary inside a once-only do scope. Ordinary linked raw bytes exact and full12582912-byte cartridge exact; all2063 prior C objects unchanged. No judge/target/boundary changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Saved best (20, XOR-obfuscated) remains best. Clean C tried: `return *p!=0x3A98 || *q!=0x3A98` -> 1205 (q load moves after compare). Explicit `q = root->6C->24; if (*p!=0x3A98) return 1; return *q!=0x3A98;` -> 80, structure identical, regalloc only: target root=a1, game=a2, p=a0, q reuses a1 with v1 for 0x6C temp; clean version gives root=a0, game=a1, p=a2. Saved best gets prologue regs right but in branch-2 uses v0 instead of v1 for the 0x6C temp and the 0x3A98 const. Next: from saved best, try declaring the 0x3A98 compare via a local const, or swapping operand order `0x3A98 != p`, or reusing `game` var as the temp for root->6C.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Best 60 (saved_best, permuter source with dummy `if (func_80065860) {...} else {...}` duplicate branches). Only diff left: in the then-branch, target schedules `move a0,s2` before `sb v0,0x228(a1)` (the increment store); ours puts sb first. Tried: plain `D_800A1468[0x228]++` (145), s8* cast ++ (145), `x = x + 1` forms (215), local s32 a=arg0 copy (145), dropping increment in else (590), clean rewrite with s8 c local read before team load (650: regalloc a2/a3 instead of a1/a0 and ptr add operand order swapped). Next idea: keep the saved-best structure but vary how the arg0 copy is made (e.g. store arg0/arg1 into locals at top before func_8007A688), or make the then-branch increment via a u8* local loaded before the compare.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nBest 25 (saved). Rows 25/27 are the known hi-reloc artifact (D_800C8328), unfixable. Real remaining diff: target resets s1=0 before the 2nd loop (the saved C wrongly omits the reset; the 2nd loop starts at s1 from loop 1). Target: beqz slot=move a0,s4 (shared by the AF4 call AND the else-path func_8005A338, which has no own a0 setup), jal AF4 slot=move s1,zero. This suggests a0=s4 sits before the andi/beqz in RTL (simple backward fill), and s1=0 fills the jal slot forward. Tried: s1=0 before AF4 (140; s1=0 lands in beqz slot), after AF4 (225; lands in AD8 slot), at if top/before if (140), a separate j var (155/240), a u8 for-loop, a temp copy t=s4 before if (propagated, 225), a common func_8005A338 between two if(ok) tests (760, no threading). Untried: change the else body order/arg types, or make func_8005A338 non-variadic (prototype is `s32 func_8005A338(void)` in its matched file; the candidate declares (s32,s32,...)). Try the proper prototype or a K&R call; also an inverted if (!ok) {else} else {...}.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Saved best 435 (permuter) has semantically WRONG d1 line (`*((u8**)arg0) + (a1+0x54)` reads arg0[0], should be arg0->0x54) \u2014 beware. Semantics: n = arg0->4C + arg1*arg0->8A(u16); points = (s16[3]*)arg0->54; if t<500 {a=n,b=n-2} else {a=n+2,b=n,t-=500}; d=pts[a]-pts[b] (s16 stack array, each reloading ->54); d=d*t/500; out=pts[b]+d. Best clean version 1040: lo=n-2, hi=n+2 before if; per-branch base load, byte offsets a1=idx*6, a3=idx*6, d0 in branch; mult order `arg0->4C + arg1*8A` must be `arg1*8A + arg0->4C` (target addu a0,a1,v0). Clean versions with no pre-computed lo/hi scored 1905-2400. Remaining: regalloc (target t2=arg0, t1=t, t4=arg3, a0=n, t0=n-2, v1=n+2) and early order of sll/sra of arg2 after lw 0x4C.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Semantically-correct base (temp_s3 << 6 instead of <<= 6) = 1465 under current profile (-G8 -ffast-math -fno-strength-reduce); \"relocation type 8\" link diag from the 2^31 .lit8 literal persists (target uses lui/ldc1 D_800A57F0, i.e. -G0-like rodata). On that base: u8 var_s4 = 1465 (equal), register keyword on temp_s3/var_s4 = equal, u8 temp_s3 = 1979, temp_s3=(u8)var_v1 = 1625, var_s4=(var_s4+1)&0xFF loop = 1570. search_flags: project flags best (1000 for wrong-semantics best; -G0 1070). s3/s4 swap (loop counter vs arg1&0xff) still unresolved; consider suggesting -G0 for code_8004BEB4 range if other functions there show the same ldc1 literal pattern.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Bounded investigation:515 ordinary compile/link judgments including existing20candidate firstpage, no exact and best265unchanged. Remaining chiefly s0/s1allocation swap plus firstargument staging before5word struct copy. Related SDK __amDMA in local Turok/DiddyKongRacing guided types/lifetimes but no exactdonor. Separate predecessor/alignment locals, phaseunion, localstorage/ordering, loads/callstaging and source-line boundaries did not solve. Prototype/ABI probes negative only, no proposed replacement. Baseline preserved; OPEN/revisitable, not paused. No judge/profile/target/boundarychanges.",
    "by": "you"
   }
  ],
