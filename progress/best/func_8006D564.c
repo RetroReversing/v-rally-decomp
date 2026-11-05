@@ -50,10 +50,11 @@ extern void func_8005508C(void);
 
 void func_8006D564(s32 arg0)
 {
-    u8 *p;
+    Record *r;
     Group *g;
     u8 i;
     u8 j;
+    u8 *p;
     u8 k;
     u8 mode;
     u8 sel;
@@ -63,10 +64,10 @@ void func_8006D564(s32 arg0)
     sel = D_800C35A0->sel;
     sub = D_800C35A0->sub;
     for (i = 0; i < 8; i++) {
-        p = (u8 *)&D_800D0634[0][i];
-        for (j = 0; j < ((Record *)p)->count; j++) {
+        r = &D_800D0634[0][i];
+        for (j = 0; j < r->count; j++) {
             k = 0;
-            g = GROUP(p, j);
+            g = GROUP(r, j);
             for (; k < 3; k++) {
                 func_8006F820(&g->item[k], arg0);
             }
@@ -151,7 +152,7 @@ void func_8006D564(s32 arg0)
     { Slot *sl = (Slot *)D_800C35A0; sl[(u8)arg0].pad00[0x44] = 0x5B; }
     func_8006F0E0(arg0);
     func_8006F75C();
-    D_800A16F0 = 0;
+    D_800A16F0 = j = 0;
     func_8002B618(D_800A57C0, 0);
     func_8006F8E0();
 
@@ -180,21 +181,24 @@ void func_8006D564(s32 arg0)
         D_800C35A0->mode = 2;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006DD04(GROUP(D_800D0634[2], j));
+        p = (u8 *)D_800D0634[2];
+        func_8006DD04(GROUP(p, j));
         func_8006D10C();
     }
     for (j = 0; j < 6; j++) {
         D_800C35A0->mode = 3;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006DD04(GROUP(D_800D0634[3], j));
+        p = (u8 *)D_800D0634[3];
+        func_8006DD04(GROUP(p, j));
         func_8006D10C();
     }
     for (j = 0; j < 3; j++) {
         D_800C35A0->mode = 4;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006DD04(GROUP(D_800D0634[4], j));
+        p = (u8 *)D_800D0634[4];
+        func_8006DD04(GROUP(p, j));
         func_8006D10C();
     }
     for (i = 0; i < 12; i++) {

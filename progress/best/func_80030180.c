@@ -1,57 +1,52 @@
-void func_80030180(u8 *arg0, s32 arg1, s16 arg2, s16 *arg3)
+#define PTS(off) (*(u16 *)((off) + *(u8 **)(arg0 + 0x54)))
+void func_80030180(u8 *o, s32 arg1, s16 arg2, s16 *out)
 {
-  char *__repair_addr;
-  s16 sp[3];
-  s32 a0;
-  s32 a1;
-  s32 a3;
-  s32 v1;
-  s32 __repair_phase_v1;
+  u8 *arg0 = o;
+  s16 d[3];
   s16 d0;
-  s16 d1;
-  s16 d2;
+  s32 t;
+  s32 prev;
+  s32 next;
+  s32 a;
+  s32 b;
+  int new_var2;
   u8 *base;
-  int new_var;
-  s32 t1;
-  v1 = *((u16 *) (arg0 + 0x8A)); t1 = arg2; a0 = ((*((s32 *) (arg0 + 0x4C)))) + ((arg1 * v1)); v1 = a0 - 2;
-  __repair_phase_v1 = a0 + 2;
-  if (t1 < 500)
+  s16 *new_var;
+  u16 *pa;
+  u16 *pb;
+  s32 one;
+  arg1 = (*((s32 *) (arg0 + 0x4C))) + (arg1 * (*((u16 *) (arg0 + 0x8A))));
+  t = arg2;
+  prev = arg1 - 2;
+  next = arg1 + 2;
+  if (t < 500)
   {
-    if (__repair_addr || arg2)
-    {
-      base = *((u8 **) (arg0 + 0x54));
-      a1 = a0 * 6;
-      a3 = v1 * 6;
-      __repair_addr = (char *) (base + a3);
-      d0 = (*((u16 *) (base + a1))) - (*((u16 *) __repair_addr));
-    }
-    else
-    {
-      base = *((u8 **) (arg0 + 0x54));
-      a1 = a0 * 6;
-      a3 = v1 * 6;
-      __repair_addr = (char *) (base + a3);
-      d0 = (*((u16 *) (base + a1))) - (*((u16 *) __repair_addr));
-    }
+    base = *((u8 **) (arg0 + 0x54));
+    a = arg1 * 6;
+    b = prev * 6;
+    pa = (u16 *) (a + base);
+    pb = (u16 *) (b + base);
+    d0 = (*pa) - (*pb);
   }
   else
   {
     base = *((u8 **) (arg0 + 0x54));
-    a3 = a0 * 6;
-    a1 = __repair_phase_v1 * 6;
-    d0 = (*((u16 *) (base + a1))) - (*((u16 *) (base + a3)));
-    t1 -= 500;
+    a = next * 6;
+    b = arg1 * 6;
+    pa = (u16 *) (a + base);
+    pb = (u16 *) (b + base);
+    d0 = (*pa) - (*pb);
+    t -= 500;
   }
-  sp[0] = d0;
-  d1 = (*((u16 *) (((*((u8 **) arg0)) + (a1 + 0x54)) + 2))) - (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 2)));
-  sp[1] = d1;
-  d2 = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a1) + 4))) - (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 4)));
-  sp[new_var = 2] = d2;
-  sp[0] = (((s16) d0) * t1) / 500;
-  sp[1] = (((s16) d1) * t1) / 500;
-  sp[new_var] = (((s16) d2) * t1) / 500;
-  arg3[0] = (*((u16 *) ((*((u8 **) (arg0 + 0x54))) + a3))) + sp[0];
-  arg3[1] = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + new_var))) + sp[1];
-  arg3[new_var] = (*((u16 *) (((*((u8 **) (arg0 + 0x54))) + a3) + 4))) + sp[2];
+  new_var = &d[0];
+  new_var2 = b + 2;
+  d[0] = d0;
+  d[1] = PTS(a + 2) - PTS(new_var2);
+  d[2] = PTS(a + 4) - PTS(b + 4);
+  d[0] = ((*new_var) * t) / 500;
+  d[1] = (d[1] * t) / 500; d[2] = (d[2] * t) / 500;
+  out[0] = PTS(b) + d[0];
+  out[1] = PTS(t = new_var2) + d[1];
+  out[2] = PTS(b + 4) + d[2];
 }
 

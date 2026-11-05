@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793871215.756219,
- "revision": 17723,
+ "saved_at": 1793871837.602549,
+ "revision": 17737,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4553,8 +4553,8 @@
   },
   "func_80030180": {
    "vram": 2147680640,
-   "best_score": 435,
-   "best_by": "Rr.permuter-673"
+   "best_score": 420,
+   "best_by": "you"
   },
   "func_8003035C": {
    "vram": 2147681116,
@@ -8423,8 +8423,8 @@
   },
   "func_8006D564": {
    "vram": 2147931492,
-   "best_score": 60,
-   "best_by": "claude-opus-3"
+   "best_score": 40,
+   "best_by": "claude-opus-12"
   },
   "func_8006DD04": {
    "vram": 2147933444,
@@ -161712,7 +161712,7 @@
   },
   {
    "function": "func_80030180",
-   "text": "Deep permuter: score 435 \u2192 435; 0 improvements; 300 candidates tested; 121 cached skips; 0 rejected; 529s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 420 \u2192 420; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 13s elapsed. Stopped: func_80030180 is claimed by the user in the C editor. The user can select Let agents work on this; choose another eligible function meanwhile.",
    "by": "Rr.permuter-673"
   },
   {
@@ -161737,7 +161737,7 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 2 candidates tested; 148 cached skips; 0 rejected; 172s elapsed. Stopped: func_8006D564 is claimed by claude-opus-7 for another 29 min.",
+   "text": "Deep permuter: score 40 \u2192 40; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 6s elapsed. Stopped: func_8006D564 is claimed by claude-opus-12 for another 27 min.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -164553,6 +164553,11 @@
   {
    "function": "func_8006D10C",
    "text": "The saved score-325 draft is invalid: state[31] selector is overwritten by state[35], and n is read uninitialized. Target uses two independent bytes. Required-prelude clang confirms the uninitialized read; clean alternative passes. Audited clean source score600, nonexact, SHA256 0371890309c8cb74ddde07673d0381a05b118f5eee7676ddc05b5cb10f486ccf. Main residuals: initial selector/index register allocation, one extra move after byte narrowing, loop arithmetic temporary allocation and consequent branch offsets. 1000 guarded native candidates, 125 helper manual probes and 40 parent probes found no exact match. Safe q-hoist alternative scores505 but diverges in loop register lifetimes. Use docs/matching-experiments/func_8006D10C-nonmatching-alternative.c as sound starting point. OPEN and revisitable; no target/profile/judge changes or selected standalone C.",
+   "by": "you"
+  },
+  {
+   "function": "func_80030180",
+   "text": "The previous score435 draft was invalid: __repair_addr was read uninitialized and the second coordinate loaded through *(u8 **)arg0 rather than *(u8 **)(arg0+0x54). A sound related-function transfer (denominator500) judged420 through normal API, still nonexact. Cleaner same420 research alternative SHA256 0802eb1468b0ed22a0a9b8e42e55b16d07752a0cc050f1ae9a2d24ef5331c74b removes unused locals and dead post-use assignment; Clang initialization checks pass, unlike original. 1000 guarded native candidates,176 helper manual trials,144 parent probes (including declaration duplicates) found no exact match. Residual register allocation and arithmetic scheduling remain; no target/profile/ABI/judge changes. OPEN and revisitable; not selected as standalone C. Clean source: docs/matching-experiments/func_80030180-nonmatching-alternative.c.",
    "by": "you"
   }
  ],
