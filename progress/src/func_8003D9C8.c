@@ -1,3 +1,4 @@
+typedef void (*SpriteHook)(void);
 typedef struct Pos
 {
   u8 pad00[8];
@@ -40,10 +41,10 @@ extern void func_8003B240();
 extern void func_8003AE84();
 extern void func_8003B2C0();
 extern void func_8003AF74();
-extern void func_8003A9AC(s32, s32, s32, void *, s32, u16, s32);
+extern void func_8003A9AC(s32, s32, s32, SpriteHook, s32, u16, u8 *);
 extern s32 func_80034FF0(s32, s32);
-extern Widget *func_80040260(s32, s16, s16, s16, void *, s32);
-static __inline__ s32 make_label(s32 a, s32 x, s32 y, void *cb, s32 text, s32 count) { count--; func_8003A9AC(a,x,y,cb,text,count,0); return count; }
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
+static __inline__ s32 make_label(s32 a, s32 x, s32 y, SpriteHook cb, s32 text, s32 count) { count--; func_8003A9AC(a,x,y,cb,text,count,0); return count; }
 void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
 {
   Obj *obj = D_800C7F84;
@@ -69,9 +70,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       if (g->state == 0)
     {
       s32 local_y;
-      arg2 = make_label(arg0, x + 0x4D, (local_y = y + h - 0x12), func_8003B310, arg1, arg2);
+      arg2 = make_label(arg0, x + 0x4D, (local_y = y + h - 0x12), (SpriteHook)func_8003B310, arg1, arg2);
       base = (s16)local_y;
-      w = func_80040260(arg0, D_800C7F84->pos->f8 + 0x44, base, 2, func_8003B008, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x44, base, (s16)(2), (SpriteHook)(func_8003B008), 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->id = arg2;
       w->obj = D_800C7F84;
@@ -82,8 +83,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       i = 2;
       do
       {
-        func_8003A9AC(arg0, D_800C7F84->pos->f8 + 0x5F, base + step, func_8003B310, arg1, i, 0);
-        w = func_80040260(arg0, D_800C7F84->pos->f8 + 0x56, step + base, 2, func_8003B008, 0);
+        func_8003A9AC(arg0, D_800C7F84->pos->f8 + 0x5F, base + step, (SpriteHook)func_8003B310, arg1, i, 0);
+        w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x56, step + base, (s16)(2), (SpriteHook)(func_8003B008), 0));
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         step += 11;
         w->id = i;
@@ -111,9 +112,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       local_y = pos->fA;
       local_y += pos->fE;
       local_y -= 0x12;
-      arg2 = make_label(arg0, ((s32)w) + 0x39, local_y, func_8003B310, arg1, cnt);
+      arg2 = make_label(arg0, ((s32)w) + 0x39, local_y, (SpriteHook)func_8003B310, arg1, cnt);
       base = (s16)local_y;
-      w = func_80040260(arg0, ((s32)w) + 0x2E, base, 2, func_8003B008, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), ((s32)w) + 0x2E, base, (s16)(2), (SpriteHook)(func_8003B008), 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->id = arg2;
       w->obj = D_800C7F84;
@@ -122,9 +123,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
     {
       tx = ((s32)w) + 0x31;
       ty = base + 10;
-      func_8003A9AC(arg0, tx, ty, func_8003B240, arg1, i, 0);
+      func_8003A9AC(arg0, tx, ty, (SpriteHook)func_8003B240, arg1, i, 0);
       tx2 = (s16) (((s32)w) + 0x28);
-      w = func_80040260(arg0, tx2, ty, 2, func_8003AE84, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), tx2, ty, (s16)(2), (SpriteHook)(func_8003AE84), 0));
       res = arg1 + 0x4C;
       w->text = func_80034FF0(res, 0);
       current = D_800C7F84;
@@ -133,8 +134,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       w->col[2] = 0x1E;
       w->col[3] = 0xFF;
       w->obj = current;
-      func_8003A9AC(arg0, tx, base, func_8003B2C0, arg1, i, 0);
-      w = func_80040260(arg0, tx2, base, 2, func_8003AF74, 0);
+      func_8003A9AC(arg0, tx, base, (SpriteHook)func_8003B2C0, arg1, i, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), tx2, base, (s16)(2), (SpriteHook)(func_8003AF74), 0));
       w->text = func_80034FF0(res, 0);
       w->obj = D_800C7F84;
     }

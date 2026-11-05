@@ -1,5 +1,6 @@
+typedef void (*SpriteHook)(void);
 s32 func_80034FF0();
-void *func_80040260();
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern char D_800C02AE[];
 extern s32 func_8003FC80;
 
@@ -23,7 +24,7 @@ void func_8003FB48(s32 arg0, s32 arg1)
                 y = *(u16 *)(temp_v0 + 0xA) + 6;
                 x = (*(u16 *)(temp_v0 + 0x8) + 0x36) << 16;
                 for (i = 0; i < 4; i++) {
-                    temp_s0 = func_80040260(arg0, x >> 16, (s16)(y + i * 11 - 2), 5, &func_8003FC80, 1);
+                    temp_s0 = ((void *)func_80040260((void *)(arg0), x >> 16, (s16)(y + i * 11 - 2), 5, (SpriteHook)(&func_8003FC80), 1));
                     new_var = func_80034FF0(arg1 + 0x4C, 0);
                     *(s32 *)((u8 *)temp_s0 + 0xA4) = new_var;
                     *(u16 *)((u8 *)temp_s0 + 0x78) = i + 1;

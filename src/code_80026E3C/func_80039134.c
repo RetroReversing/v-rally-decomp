@@ -1,10 +1,11 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80039134.h"
 #line 1 "func.c"
+typedef void (*SpriteHook)(void);
 extern u8 *D_800C35A0;
 extern u8 *D_800C7F84;
 extern s32 func_80034FF0(s32, s32);
 extern void func_8003C6D8(s32, s32, s32);
-extern void *func_80040260(s32, s16, s16, s32, void *, s32);
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern void *func_8004240C(s32);
 extern void func_8003BA58(void);
 extern void func_8003BADC(void);
@@ -66,14 +67,14 @@ void func_80039134(s32 arg0, s32 arg1)
       cy = r1->unkE;
       y = sx - 0x66;
       x = cy - 0x54;
-      o = func_80040260(arg0, y, x, 5, 0, mode);
+      o = ((void *)func_80040260((void *)(arg0), y, x, 5, (SpriteHook)(0), mode));
       o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
       o->unk7A = 0xC;
       o->unkA0 = 2;
       o->unkA8 = D_800C7F84;
       o->unk93 = 0x64;
       func_8003C6D8(arg0, arg1, 0);
-      o = func_80040260(arg0, y, x, 5, func_8003BADC, mode);
+      o = ((void *)func_80040260((void *)(arg0), y, x, 5, (SpriteHook)(func_8003BADC), mode));
       o->unk78 = 0;
       o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
       o->unk7A = 8;
@@ -102,13 +103,13 @@ void func_80039134(s32 arg0, s32 arg1)
         }
         x = (u16)sx + (u16)-0x39 + add;
         y = sy - 0x38;
-        o = func_80040260(arg0, x, y, 5, func_8003BA58, 1);
+        o = ((void *)func_80040260((void *)(arg0), x, y, 5, (SpriteHook)(func_8003BA58), 1));
         o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
         o->unk7A = 0xD;
         o->unkA0 = 2;
         o->unkA8 = D_800C7F84;
         func_8003C6D8(arg0, arg1, i);
-        o = func_80040260(arg0, x, y, 5, func_8003BADC, 1);
+        o = ((void *)func_80040260((void *)(arg0), x, y, 5, (SpriteHook)(func_8003BADC), 1));
         o->unk78 = 0;
         o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
         o->unk7A = 0xA;

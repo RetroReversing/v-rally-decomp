@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80028740.h"
 #line 1 "func.c"
 typedef struct
 {
@@ -37,7 +37,7 @@ typedef struct Grid
   u8 flip;
   s8 pending;
 } Grid;
-void func_8002E514(void *, void *, void *);
+void *func_8002E514(void *, void *, void *);
 void func_80028394(Grid *);
 extern int D_8009E250[3];
 extern u16 D_800C792C;

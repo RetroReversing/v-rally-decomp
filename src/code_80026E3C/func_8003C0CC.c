@@ -1,5 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8003c0cc.h"
 #line 1 "func.c"
+typedef void (*SpriteHook)(void);
 extern u8 D_800C02AE[];
 typedef struct { u16 h0, h2, type, width, height; } Tex;
 typedef struct { u8 count, pad[3]; Tex **tex; } Pack;
@@ -23,7 +24,7 @@ typedef struct {
 #define CUR_CAR (*(Car **)&D_800C02AE[0x7CD6])
 void func_8003BEBC(void *);
 Pack *func_80034FF0(s32, s32);
-Spr *func_80040260(Spr *, s16, s16, s16, void *, s32);
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 Car *func_8004240C(s32);
 
 static inline f32 to_f(s32 v)
@@ -31,8 +32,9 @@ static inline f32 to_f(s32 v)
     return v;
 }
 
-void func_8003C0CC(Spr *spr, s32 arg1)
+void func_8003C0CC(void *list, s32 arg1)
 {
+    Spr *spr;
     Car *car;
     Dim *d;
     Pack *pk;
@@ -45,7 +47,7 @@ void func_8003C0CC(Spr *spr, s32 arg1)
         car = func_8004240C((GAME->count << 1) | 1);
         d = car->dim;
         CUR_CAR = car;
-        spr = func_80040260(spr, (s16)d->w / 2, (s16)d->h / 2, 4, func_8003BEBC, 0);
+        spr = func_80040260(list, (s16)d->w / 2, (s16)d->h / 2, (s16)(4), (SpriteHook)(func_8003BEBC), 0);
         spr->sx = 0x100;
         spr->sy = 0x100;
         spr->flags |= 4;

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80035c4c.h"
 #line 1 "func.c"
 typedef struct Part { s16 x; s16 t; s16 z; s16 w; } Part;
 typedef struct Ent { f32 x; f32 y; f32 z; } Ent;
@@ -7,7 +7,7 @@ typedef struct Cam { char pad0[0xD8]; f32 dirx; char padDC[4]; f32 dirz; char pa
 
 extern s32 func_8002D2C8(s32, s32);
 extern void func_8002E148(s16 *, s32 *);
-extern void func_8002E514(s32 *, s16 *, Part *);
+void *func_8002E514(void *, void *, void *);
 extern u64 osGetTime(void);
 extern s32 func_80098090(void);
 extern void func_800980C4(u32);

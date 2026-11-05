@@ -1,3 +1,4 @@
+typedef void (*SpriteHook)(void);
 static inline s32 carflag(u8 *g, u32 i) { u8 *c = g + (g + i)[0x31] * 40; return c[0x48] & 8; }
 #define CARFLAG(i) carflag(D_800C35A0, i)
 typedef struct Tex3
@@ -58,7 +59,7 @@ typedef struct
 extern u8 *D_800C35A0;
 extern Node *D_800C7F84;
 Pack3 *func_80034FF0(s32 id, s32 extra);
-Spr *func_80040260(s32 arg0, s16 arg1, s16 arg2, s16 arg3, void *arg4, s32 arg5);
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 Node *func_8004240C(s32 arg0);
 void func_8003F05C();
 void func_8003EFF8();
@@ -123,13 +124,13 @@ void func_8003F3BC(s32 arg0, s32 arg1)
 
       if (CARFLAG(i))
       {
-        s1 = func_80040260(arg0, x, y + 10, 8, func_8003F05C, 1);
+        s1 = ((Spr *)func_80040260((void *)(arg0), x, y + 10, (s16)(8), (SpriteHook)(func_8003F05C), 1));
         s1->pack = func_80034FF0(arg1 + 0x4C, 0);
         s1->mode = 2;
         s1->node = D_800C7F84;
         s1->alpha = 0xB4;
       }
-      s0 = func_80040260(arg0, x, r->y + dy, 8, func_8003EFF8, 1);
+      s0 = ((Spr *)func_80040260((void *)(arg0), x, r->y + dy, (s16)(8), (SpriteHook)(func_8003EFF8), 1));
       s0->pack = func_80034FF0(arg1 + 0x4C, 0);
       s0->frame = 5;
       s0->node = D_800C7F84;

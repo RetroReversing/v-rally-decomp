@@ -1,9 +1,10 @@
+typedef void (*SpriteHook)(void);
 extern s32 D_800C7F84;
 s32 func_80034FF0();
-void *func_80040260();
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern void func_8003A73C();
 
-void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4, u16 arg5, u8 *arg6)
+void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, SpriteHook arg3, s32 arg4, u16 arg5, u8 *arg6)
 {
     s32 var_s2;
     s32 var_s5;
@@ -11,7 +12,7 @@ void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4, u16 arg5, 
     u32 var_s3;
     u16 var_s6;
     u8 *var_s0;
-    s32 *var_fp;
+    SpriteHook var_fp;
     s32 ret;
     s32 d;
 
@@ -22,7 +23,7 @@ void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4, u16 arg5, 
     var_s4 = arg4 + 0x4C;
     var_s3 = 0;
     do {
-        var_s0 = func_80040260(arg0, (s16)var_s2, (s16)var_s5, 2, var_fp, 0);
+        var_s0 = ((void *)func_80040260((void *)(arg0), (s16)var_s2, (s16)var_s5, 2, (SpriteHook)(var_fp), 0));
         *(u16 *)(var_s0 + 0x78) = var_s3;
         ret = func_80034FF0(var_s4, 0);
         d = D_800C7F84;
@@ -37,7 +38,7 @@ void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4, u16 arg5, 
             var_s0[0x93] = arg6[3];
         }
         if (var_s3 == 1) {
-            var_s0 = func_80040260(arg0, (s16)var_s2, (s16)var_s5, 2, func_8003A73C, 0);
+            var_s0 = ((void *)func_80040260((void *)(arg0), (s16)var_s2, (s16)var_s5, 2, (SpriteHook)(func_8003A73C), 0));
             ret = func_80034FF0(var_s4, 0);
             d = D_800C7F84;
             var_s2 += 4;

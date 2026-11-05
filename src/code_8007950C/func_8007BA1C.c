@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8007ba1c.h"
 #line 1 "func.c"
 extern s32 D_800A1860;
 extern s32 D_800A1864;
@@ -12,7 +12,7 @@ extern u8 D_800A73E0[];
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 s32 func_8002DA98(u8 *arg0, s32 *arg1);
-void func_8002E514(s32 *arg0, s16 *arg1, s16 *arg2);
+void *func_8002E514(void *, void *, void *);
 f32 sqrtf(f32);
 #define ORG(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
 #define G(i) (((s32 *)(D_800C02AE + 0x5D32))[i])

@@ -1,6 +1,7 @@
-s32 func_8003A794();
+typedef void (*SpriteHook)(void);
+void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);
 extern char D_800C02AE[];
-extern s32 func_8003AD18;
+void func_8003AD18(void *);
 
 void func_8003D780(s32 arg0, s32 arg1)
 {
@@ -32,9 +33,9 @@ void func_8003D780(s32 arg0, s32 arg1)
     case 1:
         if (*(u16 *)(a3 + 0x1E) == 0) {
             a2 = *(s16 *)(*(u8 **)(g + 0x178) + 0xA) + t2 - 0x12;
-            func_8003A794(arg0, a1, a2, &func_8003AD18, arg1, 0, col);
+            func_8003A794((s32)(arg0), a1, a2, (SpriteHook)(&func_8003AD18), (u8 *)(arg1), 0, col);
         } else {
-            func_8003A794(arg0, t5 - 0x4A, a2, &func_8003AD18, arg1, 0, 0);
+            func_8003A794((s32)(arg0), t5 - 0x4A, a2, (SpriteHook)(&func_8003AD18), (u8 *)(arg1), 0, 0);
         }
         break;
     case 2:
@@ -49,7 +50,7 @@ void func_8003D780(s32 arg0, s32 arg1)
             }
             a1 -= 0x14;
             a2 = a2 + t2 - 0x14;
-            func_8003A794(arg0, a1, a2, &func_8003AD18, arg1, 0, col);
+            func_8003A794((s32)(arg0), a1, a2, (SpriteHook)(&func_8003AD18), (u8 *)(arg1), 0, col);
         } else {
             if (*(u16 *)(a3 + 0x12) & 1) {
                 if (*(s32 *)(g + 0xC) == 3) {
@@ -64,7 +65,7 @@ void func_8003D780(s32 arg0, s32 arg1)
                 }
                 a2 = t2 - 0x1C;
             }
-            func_8003A794(arg0, a1, a2, &func_8003AD18, arg1, 0, 0);
+            func_8003A794((s32)(arg0), a1, a2, (SpriteHook)(&func_8003AD18), (u8 *)(arg1), 0, 0);
         }
         break;
     }

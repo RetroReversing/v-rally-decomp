@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8003647c.h"
 #line 1 "func.c"
 typedef struct {
     s16 x, y, z;
@@ -31,7 +31,7 @@ typedef struct {
 
 extern s32 func_8002D2C8(s32, s32);
 extern void func_8002E148(s16 *, s32 *);
-extern void func_8002E514(s32 *, s16 *, Particle *);
+void *func_8002E514(void *, void *, void *);
 extern s32 func_80098090(void);
 extern SmokeTable *D_800C811C;
 extern Car *D_800C7F84;

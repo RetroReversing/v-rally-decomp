@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80011178.h"
 #line 1 "func.c"
 typedef struct { s32 x, y, z; } Vec3i;
 
@@ -58,7 +58,7 @@ s32 func_8002D2E4(s32);
 s32 func_8002D348(s32);
 void func_8002D75C(s32, s32, s32, s32 *);
 void func_8002E148(s16 *, s16 *);
-void func_8002E514(s16 *, s16 *, s16 *);
+void *func_8002E514(void *, void *, void *);
 
 void func_80011178(Cam *cam) {
     Car *car;

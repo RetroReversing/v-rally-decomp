@@ -1,5 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_8003970c.h"
 #line 1 "func.c"
+typedef void (*SpriteHook)(void);
 typedef struct Pos
 {
   u8 pad00[8];
@@ -45,7 +46,7 @@ extern Game *D_800C35A0;
 extern Obj *D_800C7F84;
 extern void func_8003BA9C();
 extern s32 func_80034FF0(s32, s32);
-extern Widget *func_80040260(s32, s16, s16, u16, void *, s32);
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern Obj *func_8004240C(s32);
 void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
 {
@@ -76,10 +77,10 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
       x = D_800C7F84->pos->xC;
       y = D_800C7F84->pos->x8;
       ey = y - 0x10;
-      w = func_80040260(arg0, x - 0x32, ey, arg2, func_8003BA9C, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), x - 0x32, ey, (u16)(arg2), (SpriteHook)(func_8003BA9C), 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->obj = D_800C7F84;
-      w = func_80040260(arg0, x - 0x46, y - 0x20, arg2, 0, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), x - 0x46, y - 0x20, (u16)(arg2), (SpriteHook)(0), 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->kind = 2;
       break;
@@ -102,11 +103,11 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
           x = pos->xC - 0x20;
           dx = (obj->type == 1) ? (0x14) : (0);
         }
-        w = func_80040260(arg0, ((px + x) - 0x1A) + dx, (py + ey) - 0xA, arg2, func_8003BA9C, 0);
+        w = ((Widget *)func_80040260((void *)(arg0), ((px + x) - 0x1A) + dx, (py + ey) - 0xA, (u16)(arg2), (SpriteHook)(func_8003BA9C), 0));
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         w->kind = 4;
         w->obj = D_800C7F84;
-        w = func_80040260(arg0, ((px + x) - 0x28) + dx, (ey = py + ey) - 0x15, arg2, 0, 0);
+        w = ((Widget *)func_80040260((void *)(arg0), ((px + x) - 0x28) + dx, (ey = py + ey) - 0x15, (u16)(arg2), (SpriteHook)(0), 0));
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         w->kind = 3;
       }

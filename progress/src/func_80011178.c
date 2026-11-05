@@ -56,7 +56,7 @@ s32 func_8002D2E4(s32);
 s32 func_8002D348(s32);
 void func_8002D75C(s32, s32, s32, s32 *);
 void func_8002E148(s16 *, s16 *);
-void func_8002E514(s16 *, s16 *, s16 *);
+void *func_8002E514(void *, void *, void *);
 
 void func_80011178(Cam *cam) {
     Car *car;

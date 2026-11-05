@@ -5,7 +5,7 @@ typedef struct Cam { char pad0[0xD8]; f32 dirx; char padDC[4]; f32 dirz; char pa
 
 extern s32 func_8002D2C8(s32, s32);
 extern void func_8002E148(s16 *, s32 *);
-extern void func_8002E514(s32 *, s16 *, Part *);
+void *func_8002E514(void *, void *, void *);
 extern u64 osGetTime(void);
 extern s32 func_80098090(void);
 extern void func_800980C4(u32);

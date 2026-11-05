@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_snapshot_80021064.h"
 #line 1 "func.c"
 typedef struct VR210Manager
 {
@@ -20,7 +20,7 @@ u64 osGetTime(void);
 void func_800980C4(u32);
 int func_80098090(void);
 void *func_8002EB34(void *, int, void *);
-void func_8002E514(void *, void *, void *);
+void *func_8002E514(void *, void *, void *);
 void func_8002D3AC(void *, void *, int, int, void *);
 int func_8001FEE8(void *);
 void func_8002FBD4(void *, int, int);

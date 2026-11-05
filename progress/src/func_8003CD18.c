@@ -1,9 +1,10 @@
+typedef void (*SpriteHook)(void);
 typedef struct { u8 pad[0x7A]; s16 x7A; u8 pad2[0x28]; s32 xA4; void *xA8; } Btn3CD18;
 typedef struct { u8 pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect3CD18;
 typedef struct { u8 pad[0xC]; s32 type; u8 pad2[0x168]; Rect3CD18 *rect; } Obj3CD18;
 typedef struct { u8 pad[0xE]; u16 mode; u8 pad2[2]; u16 flags; u8 pad3[0xA]; u16 x1E; } Mgr3CD18;
 s32 func_80034FF0(void *, s32);
-Btn3CD18 *func_80040260(void *, s16, s16, s32, void *, s32);
+void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 Obj3CD18 *func_8004240C(s32);
 void func_8003CB8C();
 void func_8003CC0C();
@@ -15,17 +16,17 @@ extern Obj3CD18 *D_800C7F84;
 #define D_800ADFE1 (*(u8 *)(D_800A73E0 + 0x6C01))
 
 #define BTN_A(X, Y, CB) \
-    b = func_80040260(arg0, X, Y, 2, CB, 0); \
+    b = ((Btn3CD18 *)func_80040260((void *)(arg0), X, Y, 2, (SpriteHook)(CB), 0)); \
     name = (u8 *)arg1 + 0x4C; \
     b->xA4 = func_80034FF0(name, 0); \
     b->xA8 = D_800C7F84;
 #define BTN_B(X, Y, CB) \
-    b = func_80040260(arg0, X, Y, 2, CB, 0); \
+    b = ((Btn3CD18 *)func_80040260((void *)(arg0), X, Y, 2, (SpriteHook)(CB), 0)); \
     b->xA4 = func_80034FF0(name, 0); \
     b->x7A = 15; \
     b->xA8 = D_800C7F84;
 #define BTN_C(X, Y, CB) \
-    b = func_80040260(arg0, X, Y, 2, CB, 0);
+    b = ((Btn3CD18 *)func_80040260((void *)(arg0), X, Y, 2, (SpriteHook)(CB), 0));
 
 void func_8003CD18(void *arg0, void *arg1, u16 arg2)
 {
