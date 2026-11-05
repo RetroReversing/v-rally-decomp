@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793877346.025811,
- "revision": 17807,
+ "saved_at": 1793877726.181216,
+ "revision": 17809,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164738,6 +164738,11 @@
   {
    "function": "func_8006E394",
    "text": "Saved1155 draft uses added volatile reads. Reusing real Packet bitfields from matched adjacent encoder8006E8A0 restores halfword reloads without volatile,1350; audited static inline offset helper yields1200, still nonexact. Native externalinline emits unwanted global16-byte helper; static emitsnone withsame1200score. Parent fixing generator-only linkage. Two independent1000 compiled/linked lanes (clean2395 and Packet1350) found noexact; directedlayout,width,scope,flag,inline tests preserved. RTL indicates aggregate/scalar classification affects initialCSE reuse, not generalalias proof. Source assumes valid decodedslots<4 and validrecord/pointers; no arbitraryguard orABI changes. Actual matched Game/Entry layoutneutral; decoderPacketreadable/privatehelper alternatives and detailednegative evidence in docs/matching-experiments/func_8006E394-*. OPEN/revisitable; no selectedC/profile/header/target/judge changes.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Lighting vertex routine audited: correct signed color packing and coordinate subtracts to unsigned wrapping without changing330score. Valid object/vertex counts, nonzero vector lengths and finite in-range FP-to-uint conversions remain required. 1000 independentnative compiled/linked candidates and directeddeclaration,colorwidth,floatratio,pointer,packing,scope,line,profile controls found noexact. Parentloop-localcolor,tagpacking,andfull-colorassignment-sinking controls also negative. Remaining47 renderedpositions:42registerdifferences and4reordered, sameinstructioncounts. Auditedclean source and failedexperiments in docs/matching-experiments/func_8007B4A4-*. Nativeharnessmetadata issue affected recordedlineage after conversiontoordinarystr; unsafeexpandfilter ranbefore conversion, rawsourcespreserved, no candidateportfolio or acceptedC. OPEN/revisitable, no livecompiler/header/target/ABI/judge or selectedsource changes.",
    "by": "you"
   }
  ],
