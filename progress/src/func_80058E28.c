@@ -22,6 +22,7 @@ s32 func_80058E28(void)
   s8 ctrl;
   s32 btn;
   s32 new_var;
+  s32 __repair_guard;
   s8 i;
   s32 x;
   s32 y;
@@ -35,12 +36,13 @@ s32 func_80058E28(void)
   ctrl = c;
   pos = c >= 0;
   loop1:
-  if (i < D_800B65A0)
+  __repair_guard = D_800B65A0;
+  if ((__repair_guard = i < __repair_guard))
   {
-    if ((pos & (new_var = c == out)) || (c < 0))
+    if ((pos & (new_var = c == i)) || (c < 0))
     {
-      x = func_80084C0C(out, 0x10000);
-      y = func_80084C0C(out, 0x20000);
+      x = func_80084C0C(i, 0x10000);
+      y = func_80084C0C(i, 0x20000);
     }
     i++;
     if (!(y | x))
@@ -73,9 +75,10 @@ s32 func_80058E28(void)
   x = (s8) ctrl;
   pos = x >= 0;
   loop2:
-  if (i < D_800B65A0)
+  __repair_guard = D_800B65A0;
+  if ((__repair_guard = i < __repair_guard))
   {
-    if ((pos & (new_var = x == i)) || (x < 0))
+    if ((pos & (__repair_guard = x == i)) || (x < 0))
     {
       new_var = func_80084BF0(i);
       btn |= new_var;

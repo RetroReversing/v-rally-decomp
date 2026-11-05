@@ -842,3 +842,19 @@ The ordinary linked check and complete **12,582,912-byte** cartridge comparison
 passed, with all 2,058 previous objects unchanged. The standalone tree now
 selects **2,059 C functions / 65 assembly units**. All current app progress is
 preserved in the refreshed portable snapshot.
+
+
+### Bound and boolean storage lifetimes
+
+`func_80058E28` now matches **201 instructions / 804 bytes** with its unchanged
+KMC GCC 2.7.2 profile. Its saved draft used a stale zero-valued local where the
+target used the signed loop counter. Correcting that raised the advisory score
+from 60 to 70 while fixing the behavior. Sequenced bound loads and comparison
+result storage then restored the target temporary-register allocation.
+A nested double-assignment diagnostic was rejected; the accepted source uses
+separate full expressions suitable for period C.
+
+The ordinary linked check and complete **12,582,912-byte** cartridge comparison
+passed, with all 2,059 previous objects unchanged. The standalone tree now
+selects **2,060 C functions / 64 assembly units**. All current app progress is
+preserved in the refreshed portable snapshot.

@@ -47,7 +47,7 @@ typedef struct
   u8 f56;
   u8 f57;
 } Obj;
-void func_8000A5EC(Obj *o, Img *im, s32 mode, s32 flags, u16 a4, u16 a5, u16 idx)
+void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
 {
   u32 v;
   u8 m;
@@ -121,7 +121,7 @@ void func_8000A5EC(Obj *o, Img *im, s32 mode, s32 flags, u16 a4, u16 a5, u16 idx
     o->f56 = 0;
     o->f57 = 0;
     o->f4C = t2 << 5;
-    o->f28 = (m & 1) ? (0x1033) : (0xFC1034);
+    o->f28 = (mode & 1) ? (0x1033) : (0xFC1034);
     t3 = *im->ptr;
     o->f36 = 0;
     o->f2C = t3;
