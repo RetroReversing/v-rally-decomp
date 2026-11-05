@@ -743,3 +743,11 @@ The standalone build now selects **2,052 C functions / 72 assembly units**.
 unit headers and KMC `-O2 -g3` profiles passed individual checks and the complete
 **12,582,912-byte** cartridge comparison. Earlier selected C remains intact,
 and a fresh `progress/` snapshot preserves all current matches, drafts and notes.
+
+
+The previously pending `func_8007ED48` dispatcher has also passed the live app
+judge at score zero after its existing worker released the claim. Its exact
+source, unit context and function-only profile match the earlier standalone and
+full-cartridge proof. All current portable app progress is saved; no worker claim
+was taken over. This reconciles an existing C selection rather than adding a new
+standalone function.

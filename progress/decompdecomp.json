@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793849680.544627,
- "revision": 15408,
+ "saved_at": 1793851117.246658,
+ "revision": 15525,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1139,6 +1139,20 @@
     "-ffast-math",
     "-fno-schedule-insns"
    ]
+  },
+  "522568:2148003144": {
+   "vram": 2148003144,
+   "function": "func_8007ED48",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-schedule-insns"
+   ]
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1734,8 +1748,8 @@
   },
   "func_8000A5EC": {
    "vram": 2147526124,
-   "best_score": 300,
-   "best_by": "claude-opus-12"
+   "best_score": 110,
+   "best_by": "permuter"
   },
   "func_8000B910": {
    "vram": 2147531024,
@@ -8344,7 +8358,7 @@
   },
   "func_8006BA44": {
    "vram": 2147924548,
-   "best_score": 1015,
+   "best_score": 1000,
    "best_by": "Rr.permuter-1434"
   },
   "func_8006BE50": {
@@ -9049,8 +9063,8 @@
   },
   "func_8007ED48": {
    "vram": 2148003144,
-   "best_score": 5,
-   "best_by": "claude-opus-7"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8007EE9C": {
    "vram": 2148003484,
@@ -161578,7 +161592,7 @@
   },
   {
    "function": "func_80046E54",
-   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_80046E54 is claimed by claude-opus-12 for another 29 min.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_80046E54 is claimed by claude-opus-12 for another 29 min.",
    "by": "Rr.permuter-907"
   },
   {
@@ -161608,7 +161622,7 @@
   },
   {
    "function": "func_8003E6D8",
-   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 213s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 62 candidates tested; 153 cached skips; 0 rejected; 86s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
    "by": "Rr.permuter-806"
   },
   {
@@ -161688,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 2615 \u2192 2615; 0 improvements; 44 candidates tested; 39 cached skips; 0 rejected; 46s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 2615 \u2192 2615; 0 improvements; 300 candidates tested; 164 cached skips; 0 rejected; 183s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161723,7 +161737,7 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 152 cached skips; 0 rejected; 237s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 145 \u2192 145; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8006D564 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161758,7 +161772,7 @@
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1015 \u2192 1015; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_8006BA44 is claimed by claude-opus-7 for another 29 min.",
+   "text": "Deep permuter: score 1000 \u2192 1000; 0 improvements; 300 candidates tested; 35 cached skips; 0 rejected; 182s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1434"
   },
   {
@@ -161823,7 +161837,7 @@
   },
   {
    "function": "func_8000A5EC",
-   "text": "Deep permuter: score 300 \u2192 300; 0 improvements; 300 candidates tested; 50 cached skips; 0 rejected; 592s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 110 \u2192 110; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
    "by": "Rr.permuter-111"
   },
   {
@@ -163775,6 +163789,51 @@
    "function": "func_80046E54",
    "text": "Rechecked 200: the only real diff is the idx/value register swap in the two final j-loops (target: idx andi in v1, addr/value in a0). The rest are reloc-artifact operand rows. No change (200): `a[j] = (a[j]>>1) + a[j]`; `for(j=0;j<4;){...; j++;}`; `j = 0;` before the cnt==players if. Worse: `cnt += (...count == 3)` branchless (835). Theory: local-alloc qty priority. The idx qty (3 refs, long life) loses to the tied addr/val/sum qty. Something that shortens idx life or adds refs to it might flip the order. 500+ attempts overall, so low yield.",
    "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8003BBDC",
+   "text": "Best is still 60 (saved, rev 56086c8d): the only difference is that the switch's `lhu v1,0xe(fp)` must come BEFORE the `sw D_800C7F84` store. I tried reading the switch value early: `mode = *(u16*)(g+0xE)` before the store, then `switch(mode)`. That fixes the order, but it costs one extra instruction and causes register churn (score 425). Using count or arg1 as the temp is worse (2654 / 610). Ideas left: make D_800C7F84 a type that can't alias g (e.g. read g+0xE via a u16* local taken once outside the loop), or store D_800C7F84 after the r->x/w/y loads.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Saved best 635 (permuter) has SEMANTIC BUGS: (1) new_var uninitialized in case1/state!=0 loop (target s2=arg1+0x4C after flag test, j=0 in delay slot); (2) `x = (x = pos->x) + 0x14` is UB that gcc resolves so `x+0x1C`/`x+0x24` compile as pos->x+0x1C \u2014 i.e. target has px=pos->x (fp) and x=px+0x14 (s3); calls use x, px+0x1C, px+0x24. Semantically correct versions: px local + new_var init before flag test = 910; new_var init inside if-body before do = 860 (rev 94b9bb13; adds andi from (u16)j cast and extra addiu s2 for new_var2 in case1). Removing (u16) cast \u2192 3417; inline arg1+0x4C for first case1 call \u2192 890. Remaining diffs: s5/s7 swap for arg0/arg1 in prologue, a0/a1 swap around pos loads, new_var2 computed before first call instead of after (target: addiu s1,s7,0x4c after first func_80040260). Clean for-loop rewrite gave 8457 (frame 0x48 vs target 0x58 which keeps y, i, k on stack) \u2014 keep do-while with explicit k.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Stuck at 330. All remaining diffs are register or order differences:\n(a) The hoisted 2^31 constant (lui 0x4f00 \u2192 f22) should come before `addiu t6,0xff`/ap.\n(b) In loop 1, c should be in v0 (ours v1) and hi in v1.\n(c) In the len<1200 branch, f should be in f2 the whole time (ours uses f4).\n(d) In loop 2, the base w should be in a1 and w+8 in a2 (ours is swapped; loop 1 is correct with a2 base, a1=+0xC).\nNo change (still 330): swapping full/ap order or moving them after the G stores; `f*=` splits; u32 c/lo/hi; `amb=(f32)`; `&0xFF` instead of the (u8) cast.\nWorse: removing full or ap (1182); u8 c (1495); u8 full (720); swapping n24/v24 load order (340); loop condition `j2<o->n24[i]` (810); incrementing j before v (350).\nUntried: restructuring both loops as one helper or inline per vertex type; declaring v/w inside their loop blocks; making full a const literal only in loop 2.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 177; 44 differing rows (1 opcode, 29 register, 1 branch target, 2 operand, 6 reordered, 2 inserted, 3 deleted; advisory).\nTarget: addiu $t5, $zero, 4\nCandidate: addiu $t4, $zero, 4\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lbu $v0, %lo(D_800AE850+0x7fc9)($v0)\n  = beqz $v0, 0x2d0\nr T: addiu $t5, $zero, 4 | C: addiu $t4, $zero, 4\n  = j func_8006E394+0x2d8\nr T: addiu $t2, $zero, 8 | C: addiu $a1, $zero, 8\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nclaude-opus-7 (session 2): Best stays 1155 (rev 40d7371c). All neutral (=1155): switch((s32)v), (u8) cast on v, b0+(b1<<1), b0|(b1*2), switch(map[b][j]), map via ((u8*)flag)[0x18+b*4+j] or &flag[12] 2D cast, new_var as (s32*)&D_800AE850[0x7DB0]+j, i<(u8)n, n>i, i=0 split init. Worse: `if (n)` guard around inner loop (1861), switch(v&3) (1435), int v (1435), (b1<<1)+b0 (1390), &D_800B6600.cnt[j] (1350), map=v=expr inline (1345), int temp b0|= then v=b0 (1625), incremental v |= (2495), b=i+base (1175). Untested: q=((u16*)(s+10))[j]; new_var assigned at top of j loop as well. Key unresolved: target guard `andi s1,t5,0xff; beqz s1` vs ours hoisted `sltu t9,zero,n`; cnt base relui per j (ours keeps in s1).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Best is 130 (saved). The remaining diffs are register differences around the sign<0 swap. Target regs: s5=base, s1=down, s3=right, s0=diag=down+1. diag is computed AFTER the func_8002D75C call, before bgez. The branch does: s2=right; base=diag; right=down; down=s2.\nSaved C keeps a dead `right = count` inside a do{}while(0). Removing it shrinks the frame from 0x100 to 0xf8 (one saved register fewer) and scores 811/1076, even with the cell computation moved after the branch. So something must keep one extra value live across the call.\nIdea left: find which value is really live there (maybe count or attr/cell kept in a saved reg) without a dead store, e.g. use count after the branch.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80058E28",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 3; 98 differing rows (3 opcode, 39 register, 2 stack, 34 branch target, 12 operand, 2 inserted, 6 deleted; advisory).\nTarget: sw $s5, 0x2c($sp)\nCandidate: sw $s4, 0x28($sp)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lw $v0, %lo(D_800A1468)($v0)\n  = addiu $sp, $sp, -0x38\ni T: sw $s5, 0x2c($sp) | C: sw $s4, 0x28($sp)\nr T: move $s5, $zero | C: move $s4, $zero\n  = move $a0, $zero\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSemantically-correct reported_corrected (c==i, func(i)) = 70; only diff is v0/v1 swap in both `if (i < D_800B65A0)` loop heads (target: global in v1, (s8)i in v0 reused by xor). No change (70): `D_800B65A0 > i`, (s32)/(u8) casts, `!(i >= N)`, `(s8)i <`, `i == c`, __repair_c_1=0 dead copy, decl order. Worse: while/for/do-while loop forms (2966), drop new_var= in cond (860), s32 i (1130), temp new_var=i before compare (1200/420), i++ inside if-goto (790), c>=0&&c==i (2057), u32 c (1525). Keep the goto loop form. Untried: pos = ctrl>=0; register-hint locals for the global (e.g. u8 lim = D_800B65A0 in loop); second loop alone variations.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "claude-opus-7: Best 534 (rev 68667633), pure regalloc: target w->s5, h->s3, it0->s6, p->s2 (ours w->s3, h->s5, it0->s0, p->s6). Case 1 stores p->h before p->w in source deliberately (swapping to w,h = 542). Neutral: swap w/h declarations, p before it decl, extra unused local. Worse: swap w/h assignment order (579). Next ideas: change lifetime of w/h (e.g. use D_8009FFD8.w directly in case 1, or make w/h s16 locals), give it0 function scope reused as `it`.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Best is still 265: only s0/s1 are swapped. The target has walker (the HEAD/FREE node) in s1 and old/offset in s0; ours is the reverse.\nNo change (265): swapping declaration order; reordering the end/old/walker initialisations.\nWorse:\n- Separate vars (prev Node*, node, off computed after the if): 695. walker spills to a2 and the andi in the j delay slot is lost, so the original likely does reuse one var for prev and a&1.\n- Using HEAD directly in the head-insert branch: 955.\nUntried: a do-while instead of while plus the outer if; walker as a register var; making `end` u32.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8000A5EC",
+   "text": "claude-opus-7: best 110 (saved). Remaining: (1) entry load order lhu type(a1) before lhu idx 0x32(sp); (2) f38/f10 store order; (3) f24 gets addiu 0xff instead of -1 because m is u8. The late `m = -1` reassignment is load-bearing: removing it or writing o->f24=-1 directly / a clean tail -> 765 (147 rows shift, because mode's register copy a0 changes). `s32 m` -> 610 (loses the move a0,a2 and shifts regs). Try: u8 m for the mode copy plus a separate s32 local set to -1 that shares the slot (e.g. s16/ s8 m to get -1 sign-ext: try `s8 m`), or `m` declared as signed char.\n\nclaude-opus-7 follow-up: any variant where f24 receives a true -1 (s8/s16 m, (s8)m cast, o->f24=-1) -> 765 with 147 rows changed (whole-function shift), u16 m -> 300. So the 0xff vs -1 row is coupled to something structural; inspect last_diff of the 765 variant to see what shifts before trying more.",
+   "by": "claude-opus-7"
   }
  ],
  "set_aside": [
@@ -187795,6 +187854,97 @@
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
+   "func_8007ED48": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793850422.079587,
+    "attempt_id": 292901,
+    "source_sha256": "1c0cc15791c994a0af16b665a7dbef823d0d126176670a1a0f209074bef9c82c",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-fno-schedule-insns"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-ffast-math",
+       "-fno-schedule-insns"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-fno-schedule-insns",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "7b39fb782ec50ecc1205f1fed8c5a60de014b68ce93c9c1dacbb10989fdb34ef",
+    "relocations_sha256": "75375ac0adc96bab684e144691ff0d2bc9c77146b73eb38c89bf5d641790a814",
+    "vram": 2148003144,
+    "unit": "code_8007E9D4",
+    "mode": "rom"
+   },
    "func_8007EE9C": {
     "format": 1,
     "verdict": "exact",
@@ -192105,6 +192255,7 @@
    "d594e924faad67c6b9a070897345c724d0e98176ff2f72e1552bf426655fc206": "typedef struct { u8 pad[0xC]; u16 unkC; u16 unkE; } Vp178;\ntypedef struct { u8 pad[0x178]; Vp178 *unk178; } VpCtx;\ntypedef struct { u8 pad[6]; u16 unk6; } TexHdr;\ntypedef struct { TexHdr *t[4]; } TexSet;\ntypedef struct { u8 pad[4]; TexSet *unk4; } TexOwner;\ntypedef struct { u8 pad[0xE]; u16 unkE; u8 pad2[0xE]; u16 unk1E; } GameState;\n\nextern GameState *D_800C35A0;\nextern VpCtx *D_800C7F84;\nextern u8 D_800C8380[];\nextern u8 D_800C83C4[];\n#define D_800C8385 D_800C83C4[1]\nextern u8 D_800C8170[];\ntypedef struct { u8 pad[0x1D00]; void *font; u16 timer; u16 page; } DbgBlk;\nextern DbgBlk D_800AE850;\n#define D_800B0550 D_800AE850.font\n#define D_800B0554 D_800AE850.timer\n#define D_800B0556 D_800AE850.page\nextern TexOwner *D_800AFA50;\nextern u32 D_800AFA6C;\nextern u8 D_800B5580[];\nextern u8 D_800B6888[];\nextern s32 D_800A18D0;\n\nextern char D_800A6018[], D_800A6030[], D_800A604C[], D_800A605C[], D_800A6068[], D_800A6074[], D_800A6080[], D_800A608C[], D_800A60A0[];\nextern char D_800A60AC[], D_800A60BC[], D_800A60CC[], D_800A60D8[];\nextern char D_800A60E4[], D_800A60F4[], D_800A6104[], D_800A6118[], D_800A6130[], D_800A6144[], D_800A6154[];\nextern char D_800A6168[], D_800A6178[], D_800A6180[], D_800A618C[], D_800A6198[], D_800A61A0[], D_800A61AC[], D_800A61B4[], D_800A61C4[];\nextern char D_800A61D0[], D_800A61DC[], D_800A61E8[], D_800A61F8[], D_800A6204[], D_800A620C[], D_800A6218[], D_800A6228[];\nextern char D_800A6238[], D_800A6250[], D_800A6258[], D_800A6260[], D_800A626C[], D_800A6278[];\nextern char D_800A6284[], D_800A6298[], D_800A62A4[], D_800A62AC[], D_800A62B8[], D_800A62C4[], D_800A62D0[], D_800A62D8[];\nextern char D_800A62E4[], D_800A62FC[], D_800A6308[], D_800A6318[], D_800A6328[];\nextern char D_800A6334[], D_800A6350[], D_800A635C[], D_800A6364[], D_800A6370[];\nextern char D_800A637C[], D_800A6394[], D_800A63A0[], D_800A63B0[], D_800A63C8[], D_800A63D4[];\nextern char D_800A63E0[], D_800A63F0[], D_800A63F8[], D_800A6404[], D_800A6410[], D_800A641C[], D_800A6428[], D_800A6440[], D_800A644C[], D_800A6458[];\nextern char D_800A6468[], D_800A6474[], D_800A6484[], D_800A648C[], D_800A6498[], D_800A64A4[], D_800A64B0[], D_800A64BC[], D_800A64C8[];\nextern char D_800A64D4[], D_800A64E4[], D_800A6508[], D_800A6528[], D_800A653C[];\nextern char D_800A655C[], D_800A656C[], D_800A6578[], D_800A658C[], D_800A6594[], D_800A65B0[];\nextern char D_800A65D4[], D_800A65EC[], D_800A6608[], D_800A6620[];\nextern char D_800A6638[], D_800A6650[], D_800A6668[], D_800A6674[];\nextern char D_800A6694[], D_800A66B0[], D_800A66C8[], D_800A66DC[], D_800A66EC[], D_800A6710[], D_800A6738[];\nextern char D_800A675C[], D_800A6770[], D_800A6790[], D_800A67AC[], D_800A67CC[], D_800A67E8[], D_800A67FC[];\nextern char D_800A6820[], D_800A6830[], D_800A6840[];\nextern char D_800A685C[], D_800A6868[], D_800A6874[];\nextern char D_800A6884[], D_800A689C[], D_800A68C8[], D_800A68DC[], D_800A68F8[], D_800A691C[];\nextern char D_800A693C[], D_800A6950[], D_800A6960[], D_800A6970[], D_800A697C[], D_800A6990[];\nextern char D_800A699C[], D_800A69B4[], D_800A69C4[], D_800A69E4[], D_800A6A00[], D_800A6A20[], D_800A6A3C[];\nextern char D_800A6A60[], D_800A6A78[], D_800A6A98[], D_800A6AB8[], D_800A6ADC[], D_800A6B00[], D_800A6B20[];\nextern char D_800A6B3C[], D_800A6B58[], D_800A6B7C[], D_800A6B90[];\nextern char D_800A6B9C[], D_800A6BB0[], D_800A6BC8[], D_800A6BEC[], D_800A6C04[], D_800A6C1C[], D_800A6C38[];\n\nvoid guMtxIdent(void *m);\nvoid guOrthoF(f32 mf[4][4], f32 l, f32 r, f32 b, f32 t, f32 n, f32 f, f32 scale);\nvoid guMtxF2L(f32 mf[4][4], void *m);\nvoid *func_800056FC(void *);\nu32 *func_80006008(void *);\nvoid func_80006014(void *, u32 *);\nvoid *func_8001BD1C(void);\nvoid func_800061FC(void *, void *);\nvoid func_80006298(void *);\nvoid func_8000C22C(void *, s32, s32, s32, s32);\nvoid func_8000C244(void *, void *, s32, s32, char *, s32);\nvoid func_8007C3E0(s32, s32, s32, s32, s32);\nVpCtx *func_8004240C(s32);\ns32 func_80084DD4(s32);\nvoid func_8000A5EC(void *, void *, s32, s32, s32, s32, s32);\nvoid D_8000A840(Vp178 *, s16, s16, void *, s32, s32);\n\n#define COL(r,g,b) func_8000C22C(D_800B0550, r, g, b, 0xE1)\n#define W COL(0xFF,0xFF,0xFF)\n#define O COL(0xFF,0x94,0x05)\n#define PR(y,s) func_8000C244(D_800B0550, gfx, 0x18, y, s, 2)\n#define PR1(y,s) func_8000C244(D_800B0550, gfx, 0x18, y, s, 1)\n\nvoid func_8007C694(void) {\n    f32 mf[4][4];\n    void *gfx;\n    u32 *p;\n    void *m;\n    s32 x0;\n    s32 x1;\n\n    if (D_800C35A0->unk1E == 7) {\n        guMtxIdent(D_800C8380);\n        x1 = 0;\n        gfx = func_800056FC(D_800C7F84->unk178);\n        p = func_80006008(gfx);\n        p[0] = 0xDA380003;\n        p[1] = (u32)D_800C8380;\n        func_80006014(gfx, p + 2);\n        m = func_8001BD1C();\n        guOrthoF(mf, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);\n        guMtxF2L(mf, m);\n        func_800061FC(gfx, m);\n        func_8000C22C(D_800B0550, 0xFF, 0xFF, 0xFF, 0xFF);\n        if (--D_800B0554 == 0) {\n            if (++D_800B0556 >= 16) {\n                D_800B0556 = 0;\n            }\n            D_800B0554 = 100;\n        }\n        func_80006298(gfx);\n        if (!(D_800A18D0 & 4)) {\n            func_8007C3E0(0x30, 2, 1, 0x30, 0x2000);\n            switch (D_800B0556) {\n            case 0:\n                W; PR(0x40, D_800A6018);\n                O; PR(0x4C, D_800A6030);\n                break;\n            case 1:\n                W; PR(0x40, D_800A604C); PR(0x4C, D_800A605C);\n                O; PR(0x58, D_800A6068);\n                W; PR(0x64, D_800A6074);\n                O; PR(0x70, D_800A6080);\n                W; PR(0x7C, D_800A608C);\n                O; PR(0x88, D_800A60A0);\n                break;\n            case 2:\n                W; PR(0x40, D_800A60AC);\n                O; PR(0x4C, D_800A60BC);\n                W; PR(0x58, D_800A60CC);\n                O; PR(0x64, D_800A60D8);\n                break;\n            case 3:\n                func_8007C3E0(0x200, 0x100, 0x8000, 0xC000, 0x8000);\n                W; PR(0x40, D_800A60E4);\n                O; PR(0x4C, D_800A60F4); PR(0x58, D_800A6104); PR(0x64, D_800A6118); PR(0x70, D_800A6130); PR(0x7C, D_800A6144); PR(0x88, D_800A6154);\n                break;\n            case 4:\n                func_8007C3E0(0x800, 0x400, 0x8000, 2, 1);\n                W; PR(0x40, D_800A6168);\n                O; PR(0x4C, D_800A6178); PR(0x58, D_800A6180); PR(0x64, D_800A618C); PR(0x70, D_800A6198); PR(0x7C, D_800A61A0); PR(0x88, D_800A61AC);\n                W; PR(0x94, D_800A61B4);\n                O; PR(0xA0, D_800A61C4);\n                break;\n            case 5:\n                func_8007C3E0(0x20, 0x10, 0x2000, 0x4000, 4);\n                W; PR(0x40, D_800A61D0);\n                O; PR(0x4C, D_800A61DC);\n                W; PR(0x64, D_800A61E8);\n                O; PR(0x70, D_800A61F8);\n                W; PR(0x7C, D_800A6204);\n                O; PR(0x88, D_800A620C); PR(0x94, D_800A6218); PR(0xA0, D_800A6228);\n                break;\n            case 6:\n                func_8007C3E0(8, 4, 0x2000, 0x10, 2);\n                W; PR(0x40, D_800A6238);\n                O; PR(0x4C, D_800A6250); PR(0x58, D_800A6258); PR(0x64, D_800A6260); PR(0x70, D_800A626C); PR(0x7C, D_800A6278);\n                break;\n            case 7:\n                func_8007C3E0(0x800, 8, 0x400, 4, 8);\n                PR(0x40, D_800A6284);\n                O; PR(0x4C, D_800A6298); PR(0x58, D_800A62A4); PR(0x64, D_800A62AC); PR(0x70, D_800A62B8); PR(0x7C, D_800A62C4); PR(0x88, D_800A62D0); PR(0x94, D_800A62D8);\n                break;\n            case 8:\n                func_8007C3E0(0x800, 0x200, 4, 1, 0x10);\n                W; PR(0x40, D_800A62E4);\n                O; PR(0x4C, D_800A62FC); PR(0x58, D_800A6308); PR(0x64, D_800A6318); PR(0x70, D_800A6328);\n                break;\n            case 9:\n                W; PR(0x40, D_800A6334);\n                O; PR(0x4C, D_800A6350); PR(0x58, D_800A635C); PR(0x64, D_800A6364); PR(0x70, D_800A6370);\n                break;\n            case 10:\n                W; PR(0x40, D_800A637C);\n                O; PR(0x4C, D_800A6394); PR(0x58, D_800A63A0);\n                W; PR(0x64, D_800A63B0);\n                O; PR(0x70, D_800A63C8); PR(0x7C, D_800A63D4);\n                break;\n            case 11:\n                W; PR(0x40, D_800A63E0);\n                O; PR(0x4C, D_800A63F0); PR(0x58, D_800A63F8); PR(0x64, D_800A6404); PR(0x70, D_800A6410); PR(0x7C, D_800A641C);\n                W; PR(0x88, D_800A6428);\n                O; PR(0x94, D_800A6440); PR(0xA0, D_800A644C); PR(0xAC, D_800A6458);\n                break;\n            case 12:\n                W; PR(0x40, D_800A6468);\n                O; PR(0x4C, D_800A6474); PR(0x58, D_800A6484); PR(0x64, D_800A648C); PR(0x70, D_800A6498);\n                W; PR(0x7C, D_800A64A4);\n                O; PR(0x88, D_800A64B0); PR(0xA0, D_800A64BC); PR(0x94, D_800A64C8);\n                break;\n            case 13:\n                W; PR(0x40, D_800A64D4);\n                O; PR(0x4C, D_800A64E4); PR(0x58, D_800A6508); PR(0x64, D_800A6528); PR(0x70, D_800A653C);\n                break;\n            case 14:\n                W; PR1(0x40, D_800A655C);\n                O; PR1(0x4C, D_800A656C); PR1(0x58, D_800A6578);\n                W; PR1(0x64, D_800A658C);\n                O; PR1(0x70, D_800A6594);\n                W; PR(0x88, D_800A65B0);\n                break;\n            case 15:\n                break;\n            }\n        } else {\n            func_8000C22C(D_800B0550, 0xFF, 0xFF, 0xFF, 0xFF);\n            switch (D_800B0556) {\n            case 0:\n                PR(0x40, D_800A65D4);\n                break;\n            case 1:\n                PR(0x40, D_800A65EC); PR(0x4C, D_800A6608); PR(0x58, D_800A6620);\n                break;\n            case 2:\n                PR(0x40, D_800A6638); PR(0x4C, D_800A6650); PR(0x58, D_800A6668); PR(0x64, D_800A6674);\n                break;\n            case 3:\n                PR(0x40, D_800A6694); PR(0x4C, D_800A66B0); PR(0x58, D_800A66C8); PR(0x70, D_800A66DC); PR(0x7C, D_800A66EC); PR(0x88, D_800A6710); PR(0x94, D_800A6738);\n                func_8007C3E0(0x30, 2, 1, 0x30, 8);\n                break;\n            case 4:\n                func_8007C3E0(0x200, 0x100, 0x8000, 0xC000, 0x8000);\n                PR(0x40, D_800A675C); PR(0x4C, D_800A6770); PR(0x58, D_800A6790); PR(0x64, D_800A67AC); PR(0x70, D_800A67CC); PR(0x7C, D_800A67E8); PR(0x88, D_800A67FC);\n                break;\n            case 5:\n                func_8007C3E0(0x800, 0x400, 0x8000, 2, 1);\n                PR(0x40, D_800A6820); PR(0x4C, D_800A6830); PR(0x58, D_800A6840);\n                break;\n            case 6:\n                func_8007C3E0(0x20, 0x10, 0x2000, 0x4000, 4);\n                PR(0x40, D_800A685C); PR(0x4C, D_800A6868); PR(0x58, D_800A6874);\n                break;\n            case 7:\n                func_8007C3E0(8, 4, 0x2000, 0x10, 2);\n                PR(0x40, D_800A6884); PR(0x4C, D_800A689C); PR(0x58, D_800A68C8); PR(0x64, D_800A68DC); PR(0x70, D_800A68F8); PR(0x7C, D_800A691C);\n                break;\n            case 8:\n                func_8007C3E0(0x800, 8, 0x400, 4, 8);\n                PR(0x40, D_800A693C); PR(0x58, D_800A6950); PR(0x64, D_800A6960); PR(0x70, D_800A6970); PR(0x7C, D_800A697C); PR(0x88, D_800A6990);\n                break;\n            case 9:\n                func_8007C3E0(0x800, 0x200, 4, 1, 0x10);\n                PR(0x40, D_800A699C); PR(0x58, D_800A69B4); PR(0x64, D_800A69C4); PR(0x70, D_800A69E4); PR(0x7C, D_800A6A00); PR(0x88, D_800A6A20); PR(0x94, D_800A6A3C);\n                break;\n            case 10:\n                PR(0x58, D_800A6A60); PR(0x64, D_800A6A78); PR(0x70, D_800A6A98); PR(0x7C, D_800A6AB8); PR(0x88, D_800A6ADC); PR(0x94, D_800A6B00); PR(0xB8, D_800A6B20);\n                break;\n            case 11:\n                PR(0x40, D_800A6B3C); PR(0x58, D_800A6B58); PR(0x64, D_800A6B7C);\n                break;\n            case 12:\n                PR(0x40, D_800A6B90);\n                break;\n            case 13:\n                PR(0x40, D_800A6B9C); PR(0x58, D_800A6BB0); PR(0x70, D_800A6BC8); PR(0x7C, D_800A6BEC); PR(0x88, D_800A6C04); PR(0x94, D_800A6C1C);\n                break;\n            case 14:\n                PR(0x40, D_800A6C38);\n                break;\n            }\n        }\n        func_80006298(gfx);\n        D_800C7F84 = func_8004240C((D_800C35A0->unkE << 1) | 1);\n        if (func_80084DD4(0) == 0) {\n            func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[3], 0, 0, 0, 0, 0);\n            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[3]->unk6 >> 1);\n            func_8000A5EC(D_800B6888, D_800AFA50->unk4->t[2], 0, 0, 0, 0, 0);\n            x1 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[2]->unk6 >> 1);\n        } else {\n            func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[1], 0, 0, 0, 0, 0);\n            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[1]->unk6 >> 1);\n        }\n        func_8000A5EC(D_800C8170, D_800AFA50->unk4->t[0], 0, 0, 0, 0, 0);\n        if ((D_800AFA6C >> 3) & 1) {\n            if (func_80084DD4(0) == 0) {\n                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);\n                D_8000A840(D_800C7F84->unk178, x1, D_800C7F84->unk178->unkE - 0x1A, D_800B6888, 1, 0);\n            } else {\n                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);\n            }\n        }\n        D_8000A840(D_800C7F84->unk178, 0x10, 0x10, D_800C8170, 1, 0);\n    }\n    if (D_800C8385) {\n        D_800C8385--;\n    }\n}\n",
    "f900e84333eb22431bf4776985cc6ebc63738006ad8e8da0fd0586fa6ffa5a06": "extern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern s32 D_800C72D8[];\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern void (*D_800C808C)(s32, s32);\ns32 func_8007EAA0(s32 arg0, s32 arg1, ...)\n{\n volatile s32 sp10;\n s32 temp_s3;\n s32 p;\n s32 q;\n s32 result = 0;\n if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n D_800A19B0 = 1;\n { s32 u; do { D_800B5B40 = (s32)__builtin_mips_live_return_address(); } while (0); }\n temp_s3 = ((s32 *)(((s32)__builtin_next_arg(arg1) + 3) & ~3))[0];\n if (!(arg0 & 0xFFFF0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n if (q) {\n  result = ((s32 (*)(s32, s32, s32))*(s32 *)D_800C5BB0[sp10])(q + 8, arg1, temp_s3);\n  if (result) *(s32 *)(result - 8) = sp10;\n  else D_800C808C(arg0, D_800B5B40 - 4);\n }\n D_800A19B0 = 0;\n return result;\n}",
    "11671ecb7d24488663e105837ddbfbd537b450b4a491fdfcb2159d6dfe9465fc": "extern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern s32 D_800C72D8[];\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern void (*D_800C808C)(s32, s32);\ns32 func_8007EBF4(s32 arg0, s32 arg1, ...)\n{\n volatile s32 sp10;\n s32 temp_s3;\n s32 p;\n s32 q;\n s32 result = 0;\n if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n D_800A19B0 = 1;\n { s32 u; do { D_800B5B40 = (s32)__builtin_mips_live_return_address(); } while (0); }\n temp_s3 = ((s32 *)(((s32)__builtin_next_arg(arg1) + 3) & ~3))[0];\n if (!(arg0 & 0xFFFF0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n if (q) {\n  result = ((s32 (*)(s32, s32, s32))D_800C5BB0[sp10][6])(q + 8, arg1, temp_s3);\n  if (result) *(s32 *)(result - 8) = sp10;\n  else D_800C808C(arg0, D_800B5B40 - 4);\n }\n D_800A19B0 = 0;\n return result;\n}",
+   "1c0cc15791c994a0af16b665a7dbef823d0d126176670a1a0f209074bef9c82c": "extern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern s32 D_800C72D8[];\nextern void (*D_800C8090)(s32), (*D_800C80A8)(s32);\nextern void (*D_800C808C)(s32, s32);\ns32 func_8007ED48(s32 arg0, s32 arg1, ...)\n{\n volatile s32 sp10;\n s32 temp_s3;\n s32 p;\n s32 q;\n s32 result = 0;\n if (D_800A19B0 == 1) D_800C80A8(D_800B5B40 - 4);\n D_800A19B0 = 1;\n { s32 u; do { D_800B5B40 = (s32)__builtin_mips_live_return_address(); } while (0); }\n temp_s3 = ((s32 *)(((s32)__builtin_next_arg(arg1) + 3) & ~3))[0];\n if (!(arg0 & 0xFFFF0000)) { p = D_800C72D8[arg0]; sp10 = arg0; } else { p = arg0; sp10 = 1; }\n if (p == 0) { D_800C8090(D_800B5B40 - 4); q = 0; } else q = p - 8;\n if (q) {\n  result = ((s32 (*)(s32, s32, s32))D_800C5BB0[sp10][4])(q + 8, arg1, temp_s3);\n  if (result) *(s32 *)(result - 8) = sp10;\n  else D_800C808C(arg0, D_800B5B40 - 4);\n }\n D_800A19B0 = 0;\n return result;\n}",
    "4f155f7a5feedb5f7293fbcff001915a9a3e0a000141dd7ae0c4bf7877c38414": "extern s32 D_800A19B0;\nextern volatile s32 D_800B5B40;\nextern s32 D_800C5BB0[];\nextern s32 D_800C8090;\nextern s32 D_800C80A8;\ns32 func_8007EE9C(void *arg0) {\n    s32 result = 0;\n    if (D_800A19B0 == 1) {\n        ((void (*)(s32))D_800C80A8)(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 1;\n    { void *return_address = __builtin_mips_live_return_address(); D_800B5B40 = (s32)return_address; }\n    if (arg0 != 0) {\n        s32 index = *(s32 *)((u8 *)arg0 - 8);\n        s32 **table = (s32 **)((u8 *)D_800C5BB0 + index * 4);\n        result = ((s32 (*)(void *))(*table)[1])(arg0);\n    } else {\n        ((void (*)(s32))D_800C8090)(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 0;\n    return result;\n}",
    "5888a07d6e91789986a3511a6f9c95f808e5d7dff75ec1eb9b407f45d7746da9": "typedef char *va_list7F;\ntypedef struct \n{\n  s32 a;\n  s32 b;\n} Hdr7F12C;\ntypedef struct \n{\n  s32 pad[3];\n  s32 (*fn)(void *, s32, s32, s32);\n} Cls7F12C;\nextern s32 D_800A19B0;\nextern void *D_800B5B40;\nextern Cls7F12C *D_800C5BB0[];\nextern void *D_800C72D8[];\nextern void (*D_800C8090)(void *);\nextern void (*D_800C80A8)(void *);\ns32 func_8007F12C(u32 id, s32 *ret, s32 arg2, ...)\n{\n  va_list7F ap;\n  s32 x;\n  int new_var4;\n  s32 y;\n  s32 idx;\n  s32 *pidx = &idx;\n  Cls7F12C **new_var2;\n  int new_var3;\n  Hdr7F12C *p;\n  Cls7F12C *c;\n  s32 *new_var;\n  if (D_800A19B0 == 1)\n  {\n    D_800C80A8(((char *) D_800B5B40) - 4);\n  }\n  D_800A19B0 = 1;\n  {\n    void *u;\n    do\n    {\n      D_800B5B40 = __builtin_mips_live_return_address();\n    }\n    while (0);\n  }\n do { ap = (va_list7F) __builtin_next_arg(arg2); ap = (char *) ((((int) ap) + 3) & (-4)); new_var4 = 1; x = *((s32 *) ap); ap += 4; ap = (char *) ((((int) ap) + 3) & (-4)); new_var = (s32 *) ap; y = *new_var; if (!(id & 0xFFFF0000)) { p = D_800C72D8[id]; idx = id; } else { p = (Hdr7F12C *) id; idx = new_var4; } if (new_var3 = p == 0) { D_800C8090(((char *) D_800B5B40) - 4); p = 0; } else { p--; } } while (0);\n  if (p != 0)\n  {\n    new_var2 = D_800C5BB0;\n    c = new_var2[idx];\n    if (c != 0)\n    {\n      *ret = c->fn(p + 1, arg2, x, y);\n    }\n  }\n  D_800A19B0 = 0;\n  return 0;\n}\n",
    "ed656f9976b5fcb79dfc186c58164c953564e1d1a0d6699476bec1c43d1b9bbf": "extern s32 D_800A18E0[];\nextern s32 D_800AE850[];\nextern s32 D_800B0BA0;\nextern u8 D_800B4174[];\nextern s32 D_800C02AE[];\nextern void func_8007F270(void);\nextern s32 func_80080430(void *);\nextern s32 osCreateMesgQueue(void *, void *, s32);\nextern s32 func_8008BA40(s32);\nextern s32 osSetEventMesg(s32, void *, s32);\ns32 func_8007F278(void)\n{\n  volatile u16 *new_var;\n  {\n    s32 *v1;\n    s32 v0;\n    v1 = (s32 *) (((u8 *) D_800AE850) + 0x5910);\n    v0 = 0xE;\n    do\n    {\n      *v1 = 0;\n      v0 = v0 - 1;\n      v1 = v1 + 1;\n    }\n    while (v0 != 0);\n  }\n  {\n    u32 s1;\n    u8 *s0;\n    s32 *s2;\n    u32 s3;\n    s1 = 0;\n    s3 = (u32) (&func_8007F270);\n    s0 = ((u8 *) D_800AE850) + 0x5910;\n    s2 = (s32 *) (((u8 *) D_800C02AE) + 0x7D8A);\n    do\n    {\n      *s2 = (s32) s3;\n      func_80080430(s0);\n      osCreateMesgQueue(s0 + 0x14, s0 + 0x2C, 0xC);\n      new_var = (volatile u16 *) (s0 + 0xE);\n      *new_var = (u16) s1;\n      *((volatile u16 *) (s0 + 0xC)) = 0;\n      s0 = s0 + 0x5C;\n      s1 = s1 + 1;\n      s2 = s2 + 1;\n    }\n    while (s1 < 0x38);\n  }\n  {\n    s32 *p;\n    D_800B0BA0 = func_8008BA40(0);\n    if (D_800A18E0[0] != 0)\n    {\n      u8 *base = D_800B4174;\n      p = D_800A18E0;\n      do\n      {\n        s32 idx = *p++;\n        s32 ev = *p++;\n        osSetEventMesg(ev, (void *) ((idx * 0x5C) + (u32) base), 0);\n      } while (*p != 0);\n    }\n    return 1;\n  }\n}\n",

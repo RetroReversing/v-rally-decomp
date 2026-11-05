@@ -308,8 +308,8 @@ live application waits for the existing CPU worker to release its claim.
 repair and verified `-O2 -ffast-math -fno-schedule-insns` KMC profile. Saved
 `-g3` scores5 before repair and65 afterward; the verified profile scores75
 before repair and0 afterward. Full cartridge comparison passed with all prior
-objects unchanged. No additional rewrite family was needed. Its live application
-is pending an existing CPU worker claim. `func_8007EBF4` has now also passed the
+objects unchanged. No additional rewrite family was needed. Its live application initially waited for an existing CPU worker claim and
+has now passed the normal app judge at score zero with the same source/context/profile. `func_8007EBF4` has now also passed the
 live app judge after its worker released the claim.
 
 

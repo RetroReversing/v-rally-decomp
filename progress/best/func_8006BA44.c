@@ -104,7 +104,8 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
       temp_v0_2 = (void *) ((D_800C02AE + 0x6F70) + temp_a0);
       temp_t1_2 = ((u8 *) temp_v0_2)[0];
       temp_a0_2 = ((u8 *) temp_v0_2)[1] & 0xF;
-      if (((temp_t1_2 < 0xFFU) | (temp_a0_2 < 0xFU)) != 0)
+      __repair_subtotal = (temp_t1_2 < 0xFFU) | (temp_a0_2 < 0xFU);
+      if (__repair_subtotal != 0)
       {
         var_s1 = (void *) ((D_800C02AE + 0x6E26) + ((temp_a0_2 >> 2) * 0xE));
         temp_s2_2 = temp_t1_2 | ((temp_a0_2 & 3) << 8);

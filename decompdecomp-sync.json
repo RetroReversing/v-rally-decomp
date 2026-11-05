@@ -652,7 +652,7 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 2054,
+  "matched_app": 2055,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
@@ -668,7 +668,26 @@
     "func_800450B8",
     "func_8007EE9C"
   ],
-  "pending_app_verification": [
-    "func_8007ED48"
-  ]
+  "pending_app_verification": [],
+  "last_live_reconciliation": {
+    "function": "func_8007ED48",
+    "score": 0,
+    "raw_source_sha256": "1c0cc15791c994a0af16b665a7dbef823d0d126176670a1a0f209074bef9c82c",
+    "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "standalone_header_sha256": "72635f1f065f43374cdd4f6d170a3c3574bc3129f4669e311176e324a2828d61",
+    "profile": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32",
+        "-O2",
+        "-ffast-math",
+        "-fno-schedule-insns"
+      ],
+      "timeout": 20
+    },
+    "note": "Existing worker released its claim. Applied the already full-cartridge-verified source/profile through normal compiler and C judge APIs, with a fresh effective-unit context hash check; no claim was taken over."
+  }
 }
