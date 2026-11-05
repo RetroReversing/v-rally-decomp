@@ -912,3 +912,16 @@ seven misleading constant-address labels. No target or judge was changed. The fu
 **12,582,912-byte** cartridge comparison passed with all 2,062 previous objects
 unchanged. The standalone tree selects **2,063 C functions / 61 assembly units**.
 All current app progress is saved.
+
+
+### Texture descriptor initialization
+
+`func_8000A5EC` now matches **149 instructions / 596 bytes** with its unchanged
+compiler profile. The texture mask is stored as all bits set, correcting a
+truncated 255 in the earlier draft. A once-only scope around the texture-type
+constant store lets an existing consumed temporary take the required register
+without changing store order.
+
+Ordinary linked bytes and the complete **12,582,912-byte** cartridge match. All
+2,063 previous C objects are unchanged. The standalone tree selects **2,064 C
+functions**. All current app progress is saved.

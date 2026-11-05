@@ -338,7 +338,9 @@
     "src/code_8007E9D4/func_800885CC.c": "430a59f100a9f3d36ccd3dc0dd6d9b8fa635bcc17dc362b8d222139e8d17e807",
     "include/decompdecomp_snapshot_800885cc.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_8006185C.c": "e5d844b3da29fa933e0866e60531c3c2a5da6ffda0ac58699fa837ff44dceee0",
-    "include/decompdecomp_snapshot_8006185c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_8006185c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80005098/func_8000A5EC.c": "5aa7396d5890d8792e77f0787495785472a592db31cb2f8fdd12ae260071f731",
+    "include/decompdecomp_snapshot_8000a5ec.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -668,25 +670,26 @@
     "func_80058E28",
     "func_80029AA8",
     "func_800885CC",
-    "func_8006185C"
+    "func_8006185C",
+    "func_8000A5EC"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2063,
+  "matched_app": 2064,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8006185C"
+      "func_8000A5EC"
     ],
-    "note": "Ordinary function and full cartridge checks passed. All2062 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
+    "note": "Ordinary function and full cartridge checks passed. All2063 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_8006185C",
+    "function": "func_8000A5EC",
     "score": 0,
-    "raw_source_sha256": "b7b9849301e4e395de817dbe3079f08355052b9acd6eb5bcd26e9477e7b7f88f",
+    "raw_source_sha256": "ea0e20d5db28c449db83f43aa4b97b6d9b06f1457974634976b0021e29ffc535",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "standalone_header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "profile": {

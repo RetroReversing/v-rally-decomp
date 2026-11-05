@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793865282.5202482,
- "revision": 17492,
+ "saved_at": 1793867006.204513,
+ "revision": 17526,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1748,8 +1748,8 @@
   },
   "func_8000A5EC": {
    "vram": 2147526124,
-   "best_score": 20,
-   "best_by": "claude-opus-3"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8000B910": {
    "vram": 2147531024,
@@ -161582,7 +161582,7 @@
   },
   {
    "function": "func_800529F0",
-   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 188 cached skips; 0 rejected; 238s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 155 \u2192 155; 0 improvements; 300 candidates tested; 192 cached skips; 0 rejected; 266s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1042"
   },
   {
@@ -161627,7 +161627,7 @@
   },
   {
    "function": "func_80043A78",
-   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 167 cached skips; 0 rejected; 301s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 445 \u2192 445; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 286s elapsed. Variant limit reached.",
    "by": "Rr.permuter-887"
   },
   {
@@ -161732,12 +161732,12 @@
   },
   {
    "function": "func_800502D4",
-   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 242 cached skips; 0 rejected; 286s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 300 candidates tested; 287 cached skips; 0 rejected; 293s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1008"
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 152 cached skips; 0 rejected; 303s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 155 cached skips; 0 rejected; 295s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161792,7 +161792,7 @@
   },
   {
    "function": "func_8007A29C",
-   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 166 cached skips; 0 rejected; 280s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 62 \u2192 62; 0 improvements; 300 candidates tested; 176 cached skips; 0 rejected; 299s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1548"
   },
   {
@@ -164393,6 +164393,11 @@
   {
    "function": "func_8006185C",
    "text": "Matched343 instructions/1372 bytes at unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Removed dead uninitialized new_var=h read (no byte change). Scoped center copy, branch-local dead offset=0 write and restoration prevent CSE from choosing original offset as negative-arm representative, allowing negation/output in v0. Ordinary link exact despite advisory70 from7 misleadingconstant-relocation labels; no target/judge/scorer changes. Fullcartridge passed; all2062 priorobjects unchanged.",
+   "by": "you"
+  },
+  {
+   "function": "func_8000A5EC",
+   "text": "Matched149 instructions/596 bytes at unchanged compiler profile. Corrected texture mask from truncated255 to allbitsset; isolated constant0x30 store with an existing consumed temporary inside a once-only do scope. Ordinary linked raw bytes exact and full12582912-byte cartridge exact; all2063 prior C objects unchanged. No judge/target/boundary changes.",
    "by": "you"
   }
  ],
@@ -167260,6 +167265,94 @@
     "target_sha256": "1f2ac087eb168407e53f04c46915e32c169ef758e4e74e6341f46c1cb24645ec",
     "relocations_sha256": "4783fb1fb5f02b47bdb114a5253fadbbf0f2ae44d129d5e78a4bb44fc1948033",
     "vram": 2147525316,
+    "unit": "code_80005098",
+    "mode": "rom"
+   },
+   "func_8000A5EC": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793866957.193472,
+    "attempt_id": 294892,
+    "source_sha256": "ea0e20d5db28c449db83f43aa4b97b6d9b06f1457974634976b0021e29ffc535",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "e8bbc505eb60590c1018d1b9b966e0c570f293166d3b9f33dddf33fd9a2d8bb5",
+    "relocations_sha256": "3d62f498526dfc350bb19c52758141064f2f0785e3166c460ae1e5b4361766b5",
+    "vram": 2147526124,
     "unit": "code_80005098",
     "mode": "rom"
    },
@@ -193257,6 +193350,7 @@
    "942b0caa7e60cc3351ad3ac659ca6b107765a51e272177a87b325a4f68c95419": "typedef struct { u32 w0; u32 w1; } DLGfx;\ntypedef struct {\n    u32 b31 : 1;\n    u32 pad0 : 7;\n    u32 b22 : 2;\n    u32 b21 : 1;\n    u32 pad1 : 7;\n    u32 b12 : 2;\n    u32 pad2 : 12;\n} S9C90Flags;\ntypedef struct { u8 pad[0x14]; DLGfx *dl; u8 pad2[0x64]; s32 a7c; s32 a80; S9C90Flags flags; } S9C90;\n#define CMD(st, a, b) { DLGfx *_g = (st)->dl; (st)->dl = _g + 1; _g->w0 = (a); _g->w1 = (b); }\n\ns32 func_80009C90(S9C90 *o, u8 force)\n{\n  if (force == 1)\n  {\n    o->a7c = 0;\n    o->a80 = 0;\n  }\n  if ((o->flags.b21 != o->flags.b31) | (force == 1))\n  {\n    o->flags.b21 = o->flags.b31;\n    if (o->flags.b31)\n      CMD(o, 0xD7000002, 0x80008000)\n    else\n      CMD(o, 0xD7000000, 0x80008000)\n  }\n  if ((o->flags.b12 != o->flags.b22) | (force == 1))\n  {\n    o->flags.b12 = o->flags.b22;\n    switch (o->flags.b22)\n    {\n      case 0:\n        CMD(o, 0xE3001001, 0)\n        break;\n      case 1:\n        CMD(o, 0xE3001001, 0x8000)\n        break;\n      case 2:\n        CMD(o, 0xE3001001, 0xC000)\n        break;\n    }\n  }\n  return 1;\n}",
    "c27af688cbdd3babb087bb87833b1b096def7e9c65c18e76c9177d60a06008a3": "extern char D_800A73E0[];\nextern char D_800AE850[];\nextern void *D_800C8054;\ns32 func_80009E10(s32);\nvoid func_80009E7C(void);\nvoid func_80009ED8(void)\n{\n  int new_var3;\n  s32 *new_var2;\n  s32 *p = (s32 *) (D_800A73E0 + 0x6BA8);\n  s32 v;\n  unsigned short new_var;\n  s32 a;\n  s32 b;\n  new_var3 = 0x15E;\n  *p = func_80009E10(new_var3);\n  v = func_80009E10(new_var3);\n  a = p[0];\n  b = *(&D_800C8054);\n  do\n  {\n    p[1] = v;\n    p[4] = 0;\n    new_var = 5;\n    p[3] = v;\n    p[5] = new_var3;\n    D_800C8054 = func_80009E7C;\n  }\n  while (0);\n  p[2] = a;\n  do\n  {\n  }\n  while (0);\n  *(new_var2 = (s32 *) (D_800AE850 + 0x11F4)) = b;\n}",
    "3f4e97b3d7bc86edb82e98bdd9fafc831e28323766f4fb6e6e82d01fb51b4442": "typedef struct { u32 w0; u32 w1; } Gfx;\ntypedef struct { s16 a10; u16 a12; s16 a14; u16 a16; s16 a18; u16 a1A; s16 a1C; u16 a1E; } VpPart;\ntypedef struct { u8 pad[0x10]; s16 a10; u16 a12; s16 a14; u16 a16; s16 a18; u16 a1A; s16 a1C; u16 a1E; } Q;\ntypedef struct { s16 x; s16 y; s16 w; s16 h; u8 pad[0x24]; Q *p; } R;\ns32 func_800056FC();\ns32 func_80005C48(s32);\nGfx *func_80006008(s32);\nvoid func_80006014(s32, Gfx *);\nu32 osVirtualToPhysical(s32);\nextern s16 *D_8009B5A4;\nextern s32 D_8009B5A8;\nextern s32 D_8009B5D0;\n#define GW(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\n#define SHL(v, s, w) (((u32)(v) & ((1 << (w)) - 1)) << (s))\n#define SCISSOR(pkt, ulx, uly, lrx, lry) { Gfx *_g = (Gfx *)(pkt); \\\n  _g->w0 = SHL(0xED, 24, 8) | SHL((int)((float)(ulx) * 4.0F), 12, 12) | SHL((int)((float)(uly) * 4.0F), 0, 12); \\\n  _g->w1 = SHL(0, 24, 2) | SHL((int)((float)(lrx) * 4.0F), 12, 12) | SHL((int)((float)(lry) * 4.0F), 0, 12); }\nvoid func_8000A2C4(R *a, s32 arg1, s32 arg2, u8 arg3)\n{\n  Q *q;\n  s32 v;\n  s32 t;\n  Gfx *g;\n  q = a->p;\n  v = func_800056FC();\n  g = func_80006008(v);\n  t = func_80005C48(D_8009B5A8);\n  GW(g++, 0xDE000000, (u32)&D_8009B5D0);\n  GW(g++, 0xFF100000 | ((D_8009B5A4[2] - 1) & 0xFFF), osVirtualToPhysical(t));\n  if (!arg3)\n  {\n    a->p->a10 = 0;\n    a->p->a18 = 0;\n    a->p->a14 = arg1 * 4;\n    a->p->a1C = arg2 * 4;\n    a->p->a16 = a->p->a12;\n    a->p->a1E = a->p->a1A;\n    SCISSOR(g++, a->x, a->y, a->w, a->h);\n  }\n  else\n  {\n    a->p->a10 = 0;\n    a->p->a18 = 0;\n    SCISSOR(g++, a->x, a->y, a->w + 8, a->h);\n  }\n  GW(g++, 0xE200001C, 0);\n  GW(g++, 0xE3000A01, 0x200000);\n  GW(g++, 0xE3001001, 0x8000);\n  GW(g++, 0x05000017, (u32)q + 0x38);\n  GW(g++, 0xE7000000, 0);\n  GW(g++, 0x0A000000, (u32)q + 0x10);\n  GW(g++, 0xE7000000, 0);\n  GW(g++, 0xE3000A01, 0);\n  func_80006014(v, g);\n}\n",
+   "ea0e20d5db28c449db83f43aa4b97b6d9b06f1457974634976b0021e29ffc535": "void func_8000B910(void *, s32, s32);\nvoid osWritebackDCache(void *, s32);\ntypedef struct \n{\n  u8 pad[4];\n  u16 type;\n  u16 w;\n  u16 h;\n  u16 padA;\n  u16 size;\n  u8 padE[2];\n  u32 *tab;\n  u32 *ptr;\n} Img;\ntypedef struct \n{\n  u8 pad0[0xC];\n  Img *img;\n  u32 f10;\n  u32 f14;\n  u16 f18;\n  s16 f1A;\n  u16 f1C;\n  u16 f1E;\n  u32 f20;\n  s32 f24;\n  u32 f28;\n  u32 f2C;\n  u16 f30;\n  s16 f32;\n  s16 f34;\n  u16 f36;\n  u32 f38;\n  s32 f3C;\n  u16 pad40;\n  s16 f42;\n  s16 f44;\n  s16 f46;\n  u16 pad48;\n  s16 f4A;\n  s16 f4C;\n  s16 f4E;\n  u16 f50;\n  u16 f52;\n  u8 f54;\n  u8 f55;\n  u8 f56;\n  u8 f57;\n} Obj;\nvoid func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)\n{\n  u32 v;\n  s32 m;\n  Img *img = im;\n  o->img = im;\n  m = mode;\n  if (im->type == 16)\n  {\n    u32 w = im->w;\n    o->f52 = 0;\n    o->f54 = 2;\n    o->f55 = 0;\n    o->f50 = w >> 4;\n    if (mode & 1)\n    {\n      goto fin;\n    }\n    o->f30 = 0;\n    v = im->w >> 4;\n  }\n  else\n    if (im->type == 256)\n  {\n    u32 w = im->w;\n    o->f54 = 2;\n    o->f55 = 1;\n    o->f52 = 0;\n    o->f50 = w >> 3;\n    if (mode & 1)\n    {\n      goto fin;\n    }\n    o->f30 = 0;\n    v = im->w >> 3;\n  }\n  else\n  {\n    u32 w = im->w;\n    o->f52 = 0;\n    o->f54 = 0;\n    o->f55 = 3;\n    o->f50 = w >> 2;\n    if (mode & 1)\n    {\n      o->f30 = 0;\n      o->f32 = ((im->w * im->h) >> 1) - 1;\n      o->f34 = (0x7FF / (im->w >> 2)) + 1;\n      goto fin;\n    }\n    o->f30 = 0;\n    v = im->w >> 1;\n  }\n  o->f32 = (v * 4) - 1;\n  o->f34 = (im->size * 4) - 1;\n  fin:\n  {\n    u16 t1;\n    u16 t2;\n    u32 t3;\n    u32 t4;\n    u32 t5;\n    u32 t6;\n    u32 t7;\n    o->f42 = 0x400;\n    t1 = im->w;\n    o->f46 = 0;\n    o->f4A = 0x400;\n    o->f44 = t1 << 5;\n    t2 = im->size;\n    o->f4E = 0;\n    o->f56 = 0;\n    o->f57 = 0;\n    o->f4C = t2 << 5;\n    o->f28 = (mode & 1) ? (0x1033) : (0xFC1034);\n    t3 = *im->ptr;\n    o->f36 = 0;\n    o->f2C = t3;\n    t4 = *im->ptr;\n    o->f3C = -1;\n    o->f38=t4;\n    do {t3=0x30;o->f10=t3;}while(0);\n    t5 = im->tab[idx];\n    o->f18 = 0x100;\n    o->f14 = t5;\n    m = -1;\n    t6 = im->type;\n    o->f1C = 0;\n    o->f1E = 0;\n    o->f1A = t6 - 1;\n    t7 = im->tab[idx];\n    o->f24 = m;\n    o->f20 = t7;\n  }\n\n  if (flags & 0x20)\n  {\n    func_8000B910(o, (s16) a4, (s16) a5);\n  }\n  osWritebackDCache(o, 0x60);\n}\n\n",
    "39afd7c2e3903eac1b709d51f6bc487dd0957e587f2b99a3c4e6e7807c791544": "typedef struct {\n    s16 x;\n    s16 y;\n    u8 w;\n    u8 h;\n    u8 pad[10];\n} BFEnt;\ntypedef struct {\n    s16 x[4];\n    s16 y[4];\n} BFQuad;\ntypedef struct {\n    u8 unk0;\n    u8 count;\n    u8 pad[6];\n    BFEnt ents[1];\n} BFArg;\ntypedef struct {\n    u8 pad0[8];\n    void *ptr;\n} BFItem;\ntypedef struct {\n    u8 pad0[8];\n    u8 flag;\n    u8 pad9[7];\n    BFItem *item;\n    u8 pad14[4];\n    BFEnt *data;\n    BFQuad quads[128];\n    f32 scale[3];\n} BFObj;\nextern s16 func_8000BF10(s32);\nextern void *func_8007EAA0(s32, s32);\nextern u8 *func_8008E13C(u8 *, u8 *, s32);\n\nBFObj *func_8000BF2C(BFArg *arg0)\n{\n    BFObj *obj;\n    BFItem *item;\n    u8 count;\n    u8 i;\n    u32 size;\n    BFQuad q;\n\n    obj = func_8007EAA0(1, sizeof(BFObj));\n    item = func_8007EAA0(1, 0x1C);\n    count = arg0->count;\n    \n    size = count * sizeof(BFEnt);\n    item->ptr = &arg0->ents[count];\n    obj->item = item;\n    obj->data = func_8007EAA0(1, size);\n    func_8008E13C((i = 0, (u8 *)obj->data), (u8 *)arg0->ents, size);\n    for (; i < count; i++) {\n        obj->data[i].x = func_8000BF10(obj->data[i].x);\n        obj->data[i].y = func_8000BF10(obj->data[i].y);\n    }\n    obj->flag = 0;\n    for (i = 0; i < 3; i++) {\n        obj->scale[i] = 1.0f;\n    }\n    for (i = 0; i < count; i++) {\n        s16 x = obj->data[i].x;\n        if (x != -128) {\n            obj->quads[i].x[0] = x;\n            obj->quads[i].y[0] = obj->data[i].y + obj->data[i].h;\n            obj->quads[i].x[1] = obj->data[i].x + obj->data[i].w;\n            obj->quads[i].y[1] = obj->data[i].y + obj->data[i].h;\n            obj->quads[i].x[2] = obj->data[i].x + obj->data[i].w;\n            obj->quads[i].y[2] = obj->data[i].y;\n            obj->quads[i].x[3] = obj->data[i].x;\n            obj->quads[i].y[3] = obj->data[i].y;\n        }\n        q = obj->quads[i];\n    }\n    return obj;\n}\n",
    "ce167dbb4560b7ad57e0602eee635422c2837c9b4004c3feec3b5fa6ad0ec5ac": "#define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((1 << (w)) - 1)) << (s)))\n#define MAX(a, b) ((a) > (b) ? (a) : (b))\n#define MIN(a, b) ((a) < (b) ? (a) : (b))\ntypedef struct { u32 w0, w1; } Gfx;\n#define gDma(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (u32)(b); }\ntypedef struct { u8 pad0[0x14]; Gfx *dl; } GfxCtx;\ntypedef struct { u8 pad0[8]; void *img; s32 w; s32 h; } FontTex;\ntypedef struct { s16 id; s16 pad2; u8 w; u8 h; s8 xoff; s8 yoff; s8 adv; u8 pad9[7]; } Glyph;\ntypedef struct { s16 u[4]; s16 v[4]; } GlyphUV;\ntypedef struct {\n  u8 pad0[4];\n  u8 r, g, b, a;\n  u8 spacing;\n  u8 pad9[7];\n  FontTex *tex;\n  u8 pad14[4];\n  Glyph *glyphs;\n  GlyphUV uv[128];\n  f32 sx;\n  f32 sy;\n} Font;\nextern s32 D_800C3558;\nextern u32 D_8009B618[];\nextern u32 D_8009B680[];\nextern f64 D_800A3F10;\nextern f64 D_800A3F18;\ns32 func_8000665C(GfxCtx *, s32);\nvoid func_800068C0(GfxCtx *, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32);\nvoid func_80008B28(GfxCtx *, s32, u16, u16, u16, u16, u16, u16, u16, u16);\ns32 func_8008E118(u8 *);\ns32 osVirtualToPhysical(void *);\n\nu16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)\n{\n  s32 kern;\n  s32 x;\n  s32 y;\n  s32 bias;\n  s32 len;\n  s32 i;\n  u8 ch;\n  s32 vtx;\n  f32 fx;\n  Glyph *gl;\n  u8 first;\n  u8 dec;\n\n  kern = 0;\n  if (x0 > 320 || y0 > 240)\n  {\n    return 0;\n  }\n  {\n  GfxCtx *c = ctx;\n  Font *f = font;\n#define font f\n  if (mode == 0)\n  {\n    dec = 1;\n    gDma(c->dl++, 0xDE000000, D_8009B680);\n  }\n  else if (mode == 1)\n  {\n    dec = 2;\n    gDma(c->dl++, 0xDE000000, D_8009B618);\n  }\n  else if (mode == 2)\n  {\n    dec = 2;\n    gDma(c->dl++, 0xDE000000, D_8009B680);\n  }\n  else\n  {\n    dec = 1;\n  }\n  gDma(c->dl++, 0xFA000000, (font->r << 24) | (font->g << 16) | (font->b << 8) | font->a);\n  gDma(c->dl++, 0xFD900000, osVirtualToPhysical(font->tex->img));\n  gDma(c->dl++, 0xF5900000, 0x07080200);\n  gDma(c->dl++, 0xE6000000, 0);\n  gDma(c->dl++, 0xF3000000, _SHIFTL(7, 24, 3) | _SHIFTL(MIN((((font->tex->w * font->tex->h) + 3) >> 2) - 1, 0x7FF), 12, 12)\n        | _SHIFTL(((1 << 11) + MAX(1, font->tex->w / 16) - 1) / MAX(1, font->tex->w / 16), 0, 12));\n  gDma(c->dl++, 0xE7000000, 0);\n  gDma(c->dl++, _SHIFTL(0xF5, 24, 8) | _SHIFTL(4, 21, 3) | _SHIFTL(0, 19, 2) | _SHIFTL(((font->tex->w >> 1) + 7) >> 3, 9, 9), 0x80200);\n  x = x0;\n  bias = 0;\n  first = 1;\n  gDma(c->dl++, 0xF2000000, _SHIFTL((font->tex->w - 1) << 2, 12, 12) | _SHIFTL((font->tex->h - 1) << 2, 0, 12));\n  len = func_8008E118(str);\n  for (i = 0; i < len; i++, x += font->spacing)\n  {\n    ch = str[i];\n    ch -= 0x20;\n    if (ch != 0)\n    {\n      if (font->glyphs[ch].id != -0x80)\n      {\n        if (first)\n        {\n          bias = font->glyphs[ch].yoff * font->sy;\n          first = 0;\n          if (D_800C3558 == 3 && (ch == 3 || ch == 4 || ch == 6))\n          {\n            bias = bias - (font->sy * 3.0f - D_800A3F10);\n          }\n        }\n        y = bias - (font->glyphs[ch].yoff * font->sy + D_800A3F18) + (f64) y0;\n        x += font->glyphs[ch].xoff + kern - dec;\n        vtx = ((u16 (*)(GfxCtx *, s32))func_8000665C)(ctx, 4);\n        fx = x;\n        func_800068C0(ctx, vtx, x, (f32) y + font->glyphs[ch].h * font->sy, 0,\n                      fx + font->glyphs[ch].w * font->sx, (f32) y + font->glyphs[ch].h * font->sy, 0,\n                      fx + font->glyphs[ch].w * font->sx, y, 0, x, y, 0);\n        func_80008B28(ctx, vtx, font->uv[ch].u[0] * 2, font->uv[ch].v[0] * 2,\n                      font->uv[ch].u[1] * 2, font->uv[ch].v[1] * 2,\n                      font->uv[ch].u[2] * 2, font->uv[ch].v[2] * 2,\n                      font->uv[ch].u[3] * 2, font->uv[ch].v[3] * 2);\n        gDma(c->dl++, (_SHIFTL((vtx & 31) * 2, 16, 8) | _SHIFTL(((vtx & 31) + 1) * 2, 8, 8) | _SHIFTL(((vtx & 31) + 2) * 2, 0, 8)) | _SHIFTL(0x07, 24, 8),\n             _SHIFTL((vtx & 31) * 2, 16, 8) | _SHIFTL(((vtx & 31) + 2) * 2, 8, 8) | _SHIFTL(((vtx & 31) + 3) * 2, 0, 8));\n        x = fx + font->glyphs[ch].w * font->sx;\n        kern = font->glyphs[ch].adv;\n      }\n    }\n    else\n    {\n      x = (f32) x + font->glyphs[0].w * font->sx;\n    }\n  }\n  return x - x0 - font->spacing;\n  }\n}\n",
    "31bc1ba910362d76d9ae620ef843fa85882ab5c46a5a1072426df4c00b811211": "typedef struct \n{\n  s16 code;\n  s16 pad2;\n  u8 w;\n  u8 pad5;\n  s8 pre;\n  s8 pad7;\n  s8 post;\n  u8 pad9[7];\n} Glyph;\ntypedef struct \n{\n  u8 pad0[0x8];\n  u8 adv;\n  u8 pad9[0xF];\n  Glyph *glyphs;\n} Font;\nextern s32 func_8008E118(u8 *);\nextern void func_8008E3A0(char *, s32);\nextern char D_800A3F28[];\ns32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)\n{\n  s32 kern = 0;\n  u8 fi = 0;\n  s32 x;\n  s32 len;\n  u8 sp;\n  Font *f;\n  s32 i;\n  u8 c;\n  u8 n;\n  Glyph *g;\n  if (mode == 0)\n  {\n    sp = 1;\n  }\n  else\n    if (mode == 1)\n  {\n    sp = 2;\n  }\n  else\n  {\n    sp = 1;\n  }\n  f = fonts[fi];\n  x = 0;\n  len = func_8008E118(str);\n  if ((len == 0) | (len > 0xA0))\n  {\n    func_8008E3A0(D_800A3F28, len);\n    __builtin_mips_debug_break();\n  }\n  for (i = 0; i < len; i++)\n  {\n    c = str[i];\n    c -= 0x20;\n    n = 0;\n    if (c)\n    {\n      while ((f->glyphs[c].code == (-0x80)) & (n != nfonts))\n      {\n        fi++;\n        if (fi == nfonts)\n        {\n          fi = 0;\n        }\n        f = fonts[fi];\n        n++;\n      }\n\n      if (f->glyphs[c].code != (-0x80))\n      {\n        x += (f->glyphs[c].pre + kern) - sp;\n        kern = f->glyphs[c].post;\n        x = ((f32) x) + (f->glyphs[c].w * scale);\n      }\n    }\n    else\n    {\n      s32 t;\n      t = ((f32) x) + (f->glyphs[0].w * scale);\n      x = t;\n    }\n    x += f->adv;\n  }\n\n  return (x - f->adv) + kern;\n}\n\n",

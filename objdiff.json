@@ -1005,10 +1005,10 @@
       "name": "code_80005098/func_8000A5EC",
       "target_path": "build/asm/nonmatchings/code_80005098/func_8000A5EC.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80005098/func_8000A5EC.s"
+        "complete": true,
+        "source_path": "src/code_80005098/func_8000A5EC.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80005098/func_8000A5EC.o"
     },
     {
       "name": "code_8000A840/func_8000A840",

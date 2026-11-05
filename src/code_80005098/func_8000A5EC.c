@@ -1,3 +1,5 @@
+#include "decompdecomp_snapshot_8000a5ec.h"
+#line 1 "func.c"
 void func_8000B910(void *, s32, s32);
 void osWritebackDCache(void *, s32);
 typedef struct 
@@ -50,7 +52,7 @@ typedef struct
 void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
 {
   u32 v;
-  u8 m;
+  s32 m;
   Img *img = im;
   o->img = im;
   m = mode;
@@ -127,13 +129,12 @@ void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
     o->f2C = t3;
     t4 = *im->ptr;
     o->f3C = -1;
-    o->f38 = t4;
-    t4 = 0x30;
-    o->f10 = t4;
+    o->f38=t4;
+    do {t3=0x30;o->f10=t3;}while(0);
     t5 = im->tab[idx];
     o->f18 = 0x100;
     o->f14 = t5;
-    m = (t2 = -1);
+    m = -1;
     t6 = im->type;
     o->f1C = 0;
     o->f1E = 0;
@@ -149,4 +150,5 @@ void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
   }
   osWritebackDCache(o, 0x60);
 }
+
 
