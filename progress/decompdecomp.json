@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793856314.7640781,
- "revision": 16264,
+ "saved_at": 1793856907.2231581,
+ "revision": 16298,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5083,8 +5083,8 @@
   },
   "func_8003BBDC": {
    "vram": 2147728348,
-   "best_score": 60,
-   "best_by": "claude-opus-3"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8003BE44": {
    "vram": 2147728964,
@@ -8373,7 +8373,7 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 1687,
+   "best_score": 1615,
    "best_by": "Rr.permuter-1437"
   },
   "func_8006C3E4": {
@@ -161702,7 +161702,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 1777 \u2192 1687; 1 improvements; 300 candidates tested; 150 cached skips; 0 rejected; 111s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1615 \u2192 1615; 0 improvements; 33 candidates tested; 64 cached skips; 0 rejected; 17s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161747,7 +161747,7 @@
   },
   {
    "function": "func_8006D10C",
-   "text": "Deep permuter: score 330 \u2192 330; 0 improvements; 33 candidates tested; 94 cached skips; 0 rejected; 18s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 330 \u2192 330; 0 improvements; 300 candidates tested; 174 cached skips; 0 rejected; 116s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1446"
   },
   {
@@ -164108,6 +164108,76 @@
   {
    "function": "func_8008188C",
    "text": "Matched 74 instructions / 296 bytes with unchanged KMC GCC 2.7.2 G0/mips3/gp32/fp32/O2/g3. Corrected aggregate callee ABI alone remains score190. Separating the invariant global field argument from the later pointer capture matches exactly. The generic rule also reproduces exact from the original ABI source at shared rank6/34 and targeted first-page rank6/8. Both sources independently passed the ordinary function judge and full12582912-byte cartridge comparison; all2057 prior objects unchanged.",
+   "by": "you"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "265, pure s0/s1 swap: target old/prev/(a&1)=s0 and walker/free-node/data=s1 (data = walker->data even reuses s1). Ours puts walker in s0. Tried: swapping the decl order of old/walker, moving `old = 0` before `end = a + b` (no change); a separate `node` variable for the FREE half (285, walker drops to v1 in the loop, so walker must stay one pseudo across both halves). Ideas: make `old` a Node* used more (e.g. typed Node *prev, separate s32 off for a&1), or raise old's refs/priority; maybe `data` should reuse the walker variable (walker = walker->data cast).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Still 330. Tried this session (equal 330): `c = full` moved into the first branch; lo/hi/c declaration order (both orders). Worse: `hi+=lo; hi+=c<<24; col=hi` 475; `c<<=24` before the adds 530; full=0xFF/ap removed 1182; ap/full order swapped 350; `c = 0xFF` literal in the branch 1110; per-branch macro `col = (c<<8)+((c<<16)+fl)+(c<<24)` hoping crossjump makes the shared tail: 1240 (the c<<16 is CSE'd/merged differently). Left: the lui 0x4f00/mtc1 f22 hoist order, c=v0/hi=v1 in the colour blocks, the f2/f4 regs in the len<1200 branch, and the w/w+8 giv swap in loop 2.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80058E28",
+   "text": "The saved 60 is semantically suspect: loop1 calls func_80084C0C(out, ...) and compares c == out, where out == 0. The target passes i (andi s0,s1,0xff with s1 = the loop counter). The correct form `(pos & (new_var = c == i)) || c < 0` with func_80084C0C(i, ...) is rev 95e3eba5 at 70. It now has the same pattern in both loops: the target loads D_800B65A0 into v1 and sign-extends i into v0 (slt v1,v0,v1), and the xor reuses v0. Ours swaps v0/v1. Next ideas: write the test as `D_800B65A0 > i`, use a for-loop form instead of the goto loop, or put the (s8)i in a temp before the load.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Still 130. The dead `right = count` in the do-while hack can be `right = cell` or `right = index` with identical output, so the count liveness doesn't matter; the do{}while shape is what keeps the frame. `diag = down+1` moved after the call in the hack gives 816. Mirrored hack (diag=right; right=down; down=count; then down=diag) gives 135. From the target: after the swap, s0/s1/s3 hold the cse'd stack addresses &diffD/&cross/&diffR across the later calls, and s2 holds base*6 (verts index). So the s2 swap temp `move s2,s3` in the bgez delay slot may share s2 with the base*6 pseudo, and the down/right s1/s3 choice may be decided by the later array-address pseudos. Untested idea: pass explicit pointer locals for the arrays (p = diffR etc.) to change pseudo order.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Clean rewrite rev 73443ee461790e4531f4 scores 1005, with 119/120 insns and almost all diffs regalloc only. Its form: a Spline struct (start@0x4C, pts@0x54 PtV{u16 x,y,z}*, stride u16@0x8A), copied as `Spline *s = s0;`. prev/next are computed before the branch. Each branch computes byte offsets a=i*6, b=prev*6 (else a=next*6, b=i*6, t-=50), then `s16 d0 = PT(a,0)-PT(b,0)` with PT(off,f)=*(u16*)((u8*)s->pts+off+f); after the branch d[0]=d0. Writing the offsets in bytes removed the `move a,i` copies, and the per-branch d0 gained about 550. What is left: ours s=t1, t=t3, prev=a1; the target has s=t2, t=t1, prev=t0, and the 0x51EB851F magic reuses prev's t0 (ours a3, one extra lui). Tried with no effect: t=arg2 after prev/next, swapping decl order, t=(s16)arg2. s32 arg2 is worse. Next ideas: make prev die earlier (b = (i-2)*6 directly without a prev var while keeping the addiu before the branch), use `d[0] = (d0 * t)/50`, or a pts local per branch. The saved best of 462 is permuter garbage (it overwrites `out`); don't build on it.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Still 45; the saved C omits the s1=0 reset. New this session: u8 i counter for loop 2 \u2192 260; `if (s1 = 0);` after the call \u2192 245; `func_80084AF4((s1=0, s4))` \u2192 160; `s1=0; func_80084AF4(arg0)` \u2192 786. A closer look at the after-call variant (`func_80084AF4(s4); s1 = 0;` = 245, rev 995b79a0): ours has the beqz slot = a0=s4 (copied from the else thread) AND the jal AF4 slot = a0=s4 (duplicate), with s1=0 in the jal AD8 slot. The target's sequence is consistent with the after-call C: if reorg first moves the fallthrough's a0=s4 into the beqz slot (fill_simple's forward scan on a conditional branch, or redundant_insn deleting the jal-slot copy), the AF4 slot refills from AFTER the call with s1=0. So the after-call C is probably the right source. What's left is why reorg in ours keeps the duplicate: maybe mark_target_live_regs is conservative at the else label (L8005E648). Try changing the else arm's structure (e.g. a shared `func_8005A338(s4,s5)` call after the if, or the else arm first) while keeping s1=0 after the AF4 call.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_800885CC",
+   "text": "Best is still 175 (rev a25a205b). The only diff left is registers: the target keeps 0xFF live in a1 for C4/B6/BF and holds 0x7F in v1. Ours puts 0xFF in v1 and 0x40 (from inline_fn) in a1 early. Tried this session, all worse: p[0xBF]=t (445, p moves to a1); 0x40 literal (625); u8 t (645); 0x7F in a shared var (430); p[0xBF]=p[0xC4]/p[0xB6] (535); chained p[C4]=p[B6]=0xFF (305); extern D_800B68EC instead of the cast address (185); p[0xBF]=t moved up after CA (285); swapping declaration order (175, no change). Untried: making p a register/local copy taken after the loop; using a struct type with u8 fields; computing v before the 0xFF stores.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.\n\nRechecked 230; 20 rows are D_800D0634 reloc artifacts. Real diffs: (a) slot store v0/v1 swap at `((Slot*)D_800C35A0)[(u8)arg0].pad00[0x44]=0x5B` (multiple index forms all 230); (b) 2nd-half loops [2],[3] load D_800D0634[n] into v0, target s2 (loop [1] gets s2 since it uses p). Tried: reusing p in loop[2] -> 1120 (perturbs first-half alloc s0/s2); g (Group*) -> 420 (swaps s3/s4 of i/g); block-local `Record *q` -> 230 unchanged; `register` q -> 230; moving q decl before sub store -> 290. Ideas left: a dedicated function-level pointer var declared at a specific position (e.g. before p) used for 2nd-half loops [1]-[4]; or write 2nd-half loop[1] without p so p's live range shrinks, then p in [2]-[4].",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8003BBDC",
+   "text": "Best is 60 (rev bdce779f). The only diff is one reordered `lhu v1,0xe(fp)` (the switch selector): the target schedules it before the `sw` to D_800C7F84, ours after, because the store may alias. Reading the selector into `mode` before the D_800C7F84 store, then switch(mode), fixes the order but scores 425: an extra insn, a register shift and one more branch target. Next to try: a fresh u16/s32 local for the selector (not mode/count) read before the store; or moving the `D_800C7F84 = obj;` store to after the r->x/w/y/h reads.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 45; 3 differing rows (1 opcode, 2 operand; advisory).\nTarget: beql $v1, $zero, 0xc8\nCandidate: beqz $v1, 0xc8\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $v0, $zero, 0x114\n  = addiu $s4, $s4, 1\n| T: beql $v1, $zero, 0xc8 | C: beqz $v1, 0xc8\n  = addiu $a0, $zero, 2\n  = bne $v1, $s0, 0xc8\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nRev 8ad0455 is at 220. Of its 3 diff rows, 2 are the known %hi relocation artifact for D_800C02AE+0x807A (target uses hi(+0x10000) with lo -0x7cd8), which can't be fixed. The only real diff: the target has `beql v1,zero` at the i==0 test of the switch picking func_8004240C's arg (2 for i=0/1, else 1); ours is beqz. These all score worse: if-chain (480), ternary (1380), fallthrough case 0:case 1 (1075), which=1 init then switch (480), u8 which (620), s16 which (1065), dropping the odd `if (i==4){...} else` duplicate call (770), calls inside the switch (1070), extra cases. Neutral (220): case order, default first, no final break, braces on if4. Untried: making a0 look live on the fallthrough path, e.g. passing a different expression on the i==1 path, or a do/while form of the outer loop.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 172; 18 differing rows (18 register; advisory).\nTarget: andi $v1, $a1, 0xff\nCandidate: andi $a0, $a1, 0xff\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = bne $v0, $v1, 0x2f0\n  = move $a1, $zero\nr T: andi $v1, $a1, 0xff | C: andi $a0, $a1, 0xff\nr T: lui $a0, 0x800b | C: lui $v1, 0x800b\nr T: addu $a0, $a0, $v1 | C: addu $v1, $v1, $a0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest is 200. The remaining real diffs are only register swaps in the two final `for (j<4)` loops: the target puts j&0xff in v1 and the byte value in a0, ours the reverse. The rest are D_800B6FF2/D_800D0658 relocation artifacts. Tried, all worse or equal: a cnt/v temp for the value (385/730); cnt or flag as the loop var (565/220); declaration reorders (200); (u8) j indexing (200); `x = x + ...` form (200); swapped compare (205); the local-repair families (signedness, cfg lifetimes, array_index_width, local_width), all worse. Next to try: a pointer walk `u8 *q = D_800B6FF2; ... q[j]`, or a do-while form of the final loops.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Saved best 60 (c039417) has one diff: the target schedules `sb v0,0x228(a1)` before `jal func_8005A388`, between `move a0,s2` and the jal, with `move a1,s0` in the delay slot. Ours puts sb after the arg moves. The D_800A1468 pointer must end up in a1 (ours gets a2 when sb comes after move a1). Tried: dropping the dummy `if (func_80065860)` duplicate and writing idx=(s8)p[0x228]; p[0x228]=idx+1 (215); plain ++ (145); assign-in-cond (215). A clean rewrite with switch cases merged, no default return, and a pointer local `s` scored 1875: the switch needs the explicit `default: return 0` and the separate case 0 duplicate kept in both switches. Untried next: keep the saved best but make the ++ go through a `u8 *p = D_800A1468` local only inside the then-branch; or call func_8005A388 with args computed before the store (e.g. temps).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "The saved-best 635 candidate has two semantic bugs. (1) Case 1, state==0: the target passes pos->x+0x1C and pos->x+0x24 (fp = raw pos->x; s3 = fp+0x14 is used only for the first call). The candidate's `x + 0x1C` with x = pos->x+0x14 gives +0x30. Fix it by keeping the raw pos->x in a separate variable. `x = (x1 = pos->x) + 0x14;` alone scored 652 and put pos->x in fp correctly. Changing the uses to x1+0x1C/x1+0x24 scored 1764 (frame 0x60): x1 is s16 and shared with case 2, so use a fresh s32 local instead. (2) Case 1 else loop: new_var is uninitialised; the target computes s2 = arg1+0x4C before the loop. Adding `new_var = arg1+0x4C` there gave 895. A full rewrite (inline arg1+0x4C everywhere, for loop with j*11 without the u16 cast) gave 3096 with frame 0x50: the target spills y+6 to 0x1C(sp) and has 8 more bytes of stack. Case 2: the target sets fp=1 (k) before s6=arg1+0x4C and s7=0; ours does the reverse. Writing func_8004240C(i*2-1) instead of k gave 1438.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8003BBDC",
+   "text": "Matched154instructions/616bytes at unchanged KMC GCC2.7.2 G0/mips3/gp32/fp32/O2/g3. Baseline60 had a halfword load scheduled after a global store instead of before it. Early scalar capture changed register allocation and worsened160; typed aggregate field access resolves the scheduling exactly. Candidate-local inferred record field views also reproduce exact without changing pointer declaration. Fullcartridge and ordinary linked verification passed; all2058 prior objects unchanged.",
    "by": "you"
   }
  ],
@@ -175868,6 +175938,94 @@
     "target_sha256": "c98aaf6740e78704ae06521144c996e03e054b280f17bf60f9e6b7d7943704a7",
     "relocations_sha256": "0eda94d78b1da7b238b1db00dec0e2052bc2f1ed9faa8b87a249c9534f33407d",
     "vram": 2147726944,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8003BBDC": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793856826.259108,
+    "attempt_id": 294012,
+    "source_sha256": "8d1a994c36d592453d085d1ea70817e4671c466d84744b84a1e35d2b30f0ccf3",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "a4f3b4091a803747c360a5191cc1633d6c40954e1efb1319fd36d4fbb58d9432",
+    "relocations_sha256": "f7602a2615725322e4456be485443dbc165a0ffc5516df57abb19b66fe99dd0f",
+    "vram": 2147728348,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -192633,6 +192791,7 @@
    "1d53bacbf10346a1fc4e3d8c77881df9c09e60105c67f29723f3b9d9f33aee50": "extern char D_800AE850[];\nextern char D_800C02AE[];\n\ntypedef struct Info {\n    u8 pad0[8];\n    s32 id;\n    s32 unkC;\n    u8 pad10[0x10];\n    s32 unk20;\n} Info;\n\ntypedef struct Node {\n    u8 pad0[4];\n    struct Node *next;\n    u8 pad8[0x64];\n    Info *info;\n    s32 *unk70;\n} Node;\n\ntypedef struct Holder {\n    u8 pad0[0x24];\n    Node *node;\n} Holder;\n\ntypedef struct Car {\n    u8 pad0[0x76];\n    u16 id;\n    u8 pad78[2];\n    s16 unk7A;\n    u8 pad7C[4];\n    s32 flags;\n    u8 pad84[0xC];\n    u8 r;\n    u8 g;\n    u8 b;\n    u8 a;\n    u8 pad94[0x14];\n    Holder *holder;\n} Car;\n\ntypedef struct Game {\n    u8 pad0[0x1E];\n    u16 unk1E;\n} Game;\n\n#define GAME (*(Game **)(D_800C02AE + 0x32F2))\n\nvoid func_8003B008(Car *car) {\n    Node *n;\n\n    if (GAME->unk1E == 0) {\n        n = car->holder->node;\n    } else {\n        for (n = **(Node ***)(D_800AE850 + 0x73F0); n != NULL; n = n->next) {\n            if (car->id == n->info->id && n->info->unk20 == 0) {\n                break;\n            }\n        }\n    }\n    if (n == NULL) {\n        return;\n    }\n    car->flags |= 4;\n    if (n->info->unkC == 0) {\n        return;\n    }\n    car->unk7A = 11;\n    if (GAME->unk1E == 0) {\n        if (n->info->unkC < 0) {\n            car->r = 0xFA;\n            car->g = 0x32;\n            car->b = 10;\n            car->unk7A = 11;\n            car->a = 0xFF;\n        } else {\n            car->unk7A = 10;\n            car->r = 10;\n            car->g = 200;\n            car->b = 10;\n            car->a = 0xFF;\n        }\n    } else if (n->info->unk20 == 0) {\n        s32 id;\n        n = car->holder->node;\n        id = n->info->id;\n        if (id == car->id) {\n            car->r = 0xFE;\n            car->g = 0xD5;\n            car->b = 0x1E;\n            car->a = 0xFF;\n        } else {\n            car->r = 0xFF;\n            car->g = 0xFF;\n            car->b = 0xFF;\n            car->a = 0xFF;\n        }\n    }\n    if (GAME->unk1E != 0 || *n->unk70 >= 2) {\n        car->flags &= ~4;\n    }\n}\n",
    "59347079197180d8d16699fe84d90bbf0c0d9c0e580345947ef09afe6f0e9a16": "typedef struct Info {\n    u8 pad00[8];\n    s32 id;\n    s32 score;\n    u8 pad10[0x10];\n    s32 done;\n} Info;\ntypedef struct Node {\n    u8 pad00[4];\n    struct Node *next;\n    u8 pad08[0x64];\n    Info *info;\n    s32 *p70;\n} Node;\ntypedef struct Owner {\n    u8 pad00[0x24];\n    Node *node;\n} Owner;\ntypedef struct Hud {\n    u8 pad00[0x76];\n    u16 id;\n    u16 digit;\n    s16 val;\n    u8 pad7C[4];\n    s32 flags;\n    u8 pad84[0xC];\n    u8 r, g, b, a;\n    u8 blink;\n    u8 pad95[0x13];\n    Owner *owner;\n} Hud;\ntypedef struct Game {\n    u8 pad00[0x1E];\n    u16 state;\n} Game;\nextern Game *D_800C35A0;\nextern Node **D_800B5C40;\nextern s32 D_8009D538;\nextern u8 D_8009FE24[];\nextern void func_8003AC30(s32, u8 *);\n\nvoid func_8003B310(Hud *h)\n{\n    Node *n;\n    s32 v;\n    u8 c;\n    u32 d;\n    s32 id;\n\n    if (D_800C35A0->state == 0) {\n        n = h->owner->node;\n        if (*n->p70 == 1) {\n            n = NULL;\n            h->flags |= 4;\n        }\n    } else {\n        for (n = *D_800B5C40; n != NULL; n = n->next) {\n            if (h->id == n->info->id) {\n                break;\n            }\n        }\n    }\n    if (n != NULL) {\n        v = n->info->score;\n        if (D_800C35A0->state == 0 && (v & 0xFF000000)) {\n            v = -v;\n        }\n        if (h->digit == 0) {\n            func_8003AC30(v, D_8009FE24);\n            c = D_8009FE24[h->digit];\n            h->flags &= ~4;\n            h->blink = 0;\n            h->val = c - '0';\n        } else {\n            h->flags &= ~4;\n            if (D_800C35A0->state == 0) {\n                if ((u32)(v - 30001) < 29999) {\n                    h->blink = 1;\n                } else {\n                    h->blink = 0;\n                }\n                d = h->digit;\n            } else {\n                d = h->digit;\n                h->blink = 0;\n            }\n            h->val = D_8009FE24[d] - '0';\n        }\n        if (n != NULL) {\n            if (n->info->score != 0 && D_800C35A0->state == 0) {\n                if (n->info->score > 0) {\n                    h->r = 10;\n                    h->g = 200;\n                    h->b = 10;\n                    h->a = 255;\n                    if (!(D_8009D538 & 2)) {\n                        h->blink--;\n                    }\n                    return;\n                }\n                h->r = 250;\n                h->g = 50;\n                h->b = 10;\n                h->a = 255;\n            } else if (n->info->done == 0) {\n                n = h->owner->node;\n                id = n->info->id;\n                if (id == h->id) {\n                    h->r = 254;\n                    h->g = 213;\n                    h->b = 30;\n                    h->a = 255;\n                } else {\n                    h->r = 255;\n                    h->g = 255;\n                    h->b = 255;\n                    h->a = 255;\n                }\n            }\n        }\n    }\n}\n",
    "20a08f7466339fb10be79171e145df79d8254b635ebb910c3c5c2a1e18a9d8a4": "typedef struct { char pad[0x14]; s32 flags; char pad18[0x54]; char *def; } Node; /* def at 0x6C */\ntypedef struct { char pad[0x24]; Node *node; } Link;\ntypedef struct {\n    char pad0[0x78];\n    u16 idx;      /* 0x78 */\n    s16 digit;    /* 0x7A */\n    char pad7C[4];\n    s32 flags;    /* 0x80 */\n    char pad84[0x10];\n    u8 blink;     /* 0x94 */\n    char pad95;\n    s16 last;     /* 0x96 */\n    char pad98[0x10];\n    Link *link;   /* 0xA8 */\n} Obj;\n\nvoid func_8003A6D4(Obj *, u8 *);\nvoid func_8003AB38(u32, u8 *, s32);\nextern s32 D_8009D534;\nextern u8 D_8009D544;\nextern u8 D_8009FE00[];\nextern u32 D_800AFA6C;\n\nvoid func_8003B660(Obj *o)\n{\n    u8 col[4];\n    Node *n;\n    s32 c;\n\n    n = o->link->node;\n    if (n != NULL) {\n        c = **(s32 **)(n->def + 0x24);\n        o->flags &= ~4;\n        if (c == D_8009D534) {\n            o->flags |= 4;\n        } else {\n            if (!(n->flags & 0x10) && o->last != c) {\n                o->blink = 100;\n            }\n            o->last = c;\n            if (o->idx == 0) {\n                if (D_8009D544 == 0) {\n                    func_8003AB38((u32)(c * 2) / 3, D_8009FE00, c);\n                } else {\n                    func_8003AB38(c, D_8009FE00, c);\n                }\n            }\n            if (o->blink != 0 && !((D_800AFA6C >> 3) & 1)) {\n                if (o->flags & 4) {\n                    o->flags &= ~4;\n                } else {\n                    o->flags |= 4;\n                }\n            }\n        }\n    }\n    col[0] = 200;\n    col[1] = 200;\n    col[2] = 10;\n    col[3] = 255;\n    func_8003A6D4(o, col);\n    o->digit = D_8009FE00[o->idx] - 48;\n}\n",
+   "8d1a994c36d592453d085d1ea70817e4671c466d84744b84a1e35d2b30f0ccf3": "typedef struct { u8 p[0xE]; u16 count; } State;\ntypedef struct Tex3 {u16 h0,h2,type,width,height;u8 a,b;u32 c;u8 **pal,**image;u32 x,y;} Tex3;\ntypedef struct {u8 count,pad[3];Tex3 **tex;} Pack3;\ntypedef struct { u8 pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect;\ntypedef struct { u8 pad[0xC]; s32 kind; u8 pad2[0x168]; Rect *rect; } Obj;\ntypedef struct { u8 pad[0xA4]; void *pack; void *obj; } Widget;\nextern Pack3 *func_80034FF0(s32 id, s32 extra, s32);\nextern Widget *func_80040260(s32 arg0, s16 arg1, s16 arg2, u16 arg3, void *arg4, s32);\nextern Obj *func_8004240C(int arg0);\nextern u8 func_800556C4(void *arg0);\nextern void func_80055738(void *);\nextern u8 *D_800C35A0;\nextern Obj *D_800C7F84;\nextern void func_8003BB6C(void);\nextern void func_8003C864(void);\nstatic inline u8 *inline_fn(u8 arg0)\n{\n  return D_800C35A0 + (arg0 * 40);\n}\n\nstatic inline int inline_fn2(s32 arg0, int arg1)\n{\n  return arg0 - arg1;\n}\n\nvoid func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)\n{\n  State *g = (State *)D_800C35A0;\n  u16 mode = *((u16 *) ((u8 *)g + 0x1E));\n  Pack3 *pack;\n  s32 width;\n  u32 count;\n  u32 i;\n  Obj *obj;\n  s32 xa;\n  Rect *r;\n  s32 x;\n  s32 y;\n  s32 w;\n  s32 k;\n  u16 h;\n  Widget *wd;\n  x = 5;\n  if ((mode != 7) && ((mode != 0) & (mode != x)))\n  {\n    pack = func_80034FF0(arg1 + 0x4C, 0, mode);\n    func_80055738(pack);\n    count = g->count;\n    width = pack->tex[0]->width;\n    for (i = 1; i <= count; i++)\n    {\n      obj = func_8004240C(inline_fn2(i * 2, 1));\n      r = obj->rect;\n      D_800C7F84 = obj;\n      x = (*r).x;\n      w = r->w;\n      y = r->y;\n      xa = x + 0x14;\n      k = inline_fn2(w, 0x10);\n      h = inline_fn2(r->h, 8);\n      switch (g->count)\n      {\n        case 1:\n          func_80040260(arg0, inline_fn2(inline_fn2(k, width), 0x18), 0x1B, arg2, func_8003BB6C, 0)->pack = pack;\n          func_800556C4(pack);\n          if (inline_fn(D_800C35A0[0x32])[0x48] & 1)\n          {\n            wd = func_80040260(arg0, inline_fn2(w, 0x66), y + 7, arg2, func_8003C864, 0);\n            wd->pack = pack;\n            wd->obj = D_800C7F84;\n            func_800556C4(pack);\n          }\n          break;\n        case 2:\n          if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)\n          {\n            func_80040260(arg0, inline_fn2(w, 0x12), y + 7, arg2, func_8003BB6C, 0)->pack = pack;\n            func_800556C4(pack);\n          }\n          else\n          {\n            if (obj->kind == 3)\n            {\n              xa = x + 6;\n            }\n            func_80040260(arg0, xa, h + 0xFFF7, arg2, func_8003BB6C, 0)->pack = pack;\n            func_800556C4(pack);\n          }\n          break;\n      }\n    }\n  }\n}\n",
    "6ca87212bf87f3522d8278b0a6d41f71ca36111075074832aea5c4a9e0abf74d": "extern int D_800AE858;\ns32 func_80038A8C(s32);\ns32 func_8003BE44(void *);\nextern s32 D_8009BA30;\nextern s32 D_8009D538;\nextern void *D_800A0384;\nextern char D_800AE850[];\nextern char D_800C02AE[];\nvoid func_8003BEBC(void *arg0)\n{\n  f32 temp_ft0;\n  f32 x;\n  f32 y;\n  s32 var_v0;\n  char *new_var;\n  u16 temp_v1;\n  void *temp_v1_2;\n  if (((*((s32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x24))) != 0) && ((*((u8 *) (((char *) D_800A0384) + 0x384))) == 0))\n  {\n    if (!(D_8009D538 & 2))\n    {\n      temp_v1 = *((u16 *) (((char *) arg0) + 0x78));\n      *((s32 *) (((char *) arg0) + 0x80)) = (s32) ((*((s32 *) (((char *) arg0) + 0x80))) & (~4));\n      if (temp_v1 != 0)\n      {\n        *((u16 *) (((char *) arg0) + 0x78)) = (u16) (temp_v1 - 1);\n        *((s32 *) (((char *) arg0) + 0x80)) = (s32) ((*((s32 *) (((char *) arg0) + 0x80))) | 4);\n        if ((*((u16 *) (((char *) arg0) + 0x78))) == 0)\n        {\n          if (D_800AE858 == 0)\n          {\n            func_80038A8C(((*((u8 *) (((char *) arg0) + 0x7B))) + 7) & 0xFF);\n            D_800AE858 = 4;\n            D_8009BA30 = 0;\n          }\n          var_v0 = (*((s32 *) (((char *) arg0) + 0x80))) & (~4);\n          goto block_20;\n        }\n      }\n      else\n      {\n        if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)\n        {\n          *((u16 *) (((char *) arg0) + 0x98)) -= 0x20;\n        }\n        else\n        {\n          *((u16 *) (((char *) arg0) + 0x98)) = (*((u16 *) (((char *) arg0) + 0x98))) + 0x20;\n        }\n        *((u8 *) (((char *) arg0) + 0x93)) = (u8) ((*((u8 *) (((char *) arg0) + 0x93))) - 4);\n        if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)\n        {\n          if (((s16) (*((u16 *) (((char *) arg0) + 0x98)))) < 0x201)\n          {\n            func_8003BE44(arg0);\n          }\n        }\n        else\n          if (((s16) (*((u16 *) (((char *) arg0) + 0x98)))) >= 0x400)\n        {\n          func_8003BE44(arg0);\n          if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)\n          {\n            *((u16 *) (((char *) arg0) + 0x98)) = 0x400;\n          }\n          else\n          {\n            *((u16 *) (((char *) arg0) + 0x98)) = 0x100;\n          }\n        }\n        temp_ft0 = 1024.0f;\n        temp_ft0 = temp_ft0 / ((f32) ((s16) (*((u16 *) (((char *) arg0) + 0x98)))));\n        temp_v1_2 = *(*((void ***) (((char *) (*((void **) (((char *) arg0) + 0xA4)))) + 4)));\n        {\n        f32 w = (f32) (*((u16 *) (((char *) temp_v1_2) + 6)));\n        x = temp_ft0 * w;\n        }\n        y = (f32) (*((u16 *) (((char *) temp_v1_2) + 8)));\n        temp_ft0 = temp_ft0 * y;\n        x *= 0.5f;\n        temp_ft0 *= 0.5f;\n        y = temp_ft0;\n        *((u16 *) (((char *) arg0) + 0x9A)) = *((volatile s16 *) (((char *) arg0) + 0x98));\n        *((s16 *) (((char *) arg0) + 0x70)) = -x;\n        *((s16 *) (((char *) arg0) + 0x72)) = -y;\n      }\n    }\n  }\n  else\n  {\n    var_v0 = (*((s32 *) (((char *) arg0) + 0x80))) | 4;\n    block_20:\n    *((s32 *) (((char *) arg0) + 0x80)) = var_v0;\n\n  }\n}\n",
    "fc487a24c32414cb2281badea342309abe844271aefeac5aebeaa8f5e9f11771": "extern u8 D_800C02AE[];\ntypedef struct { u16 h0, h2, type, width, height; } Tex;\ntypedef struct { u8 count, pad[3]; Tex **tex; } Pack;\ntypedef struct { u8 pad[0xE]; u16 count; u8 pad2[0xE]; u16 mode; } Game;\ntypedef struct { u8 pad[0xC]; u16 w, h; } Dim;\ntypedef struct { u8 pad[0x178]; Dim *dim; } Car;\ntypedef struct {\n    u8 pad[0x70];\n    s16 x, y;\n    u8 pad74[4];\n    s16 unk78;\n    u8 pad7A[6];\n    u32 flags;\n    u8 pad84[0x14];\n    s16 sx, sy;\n    u8 pad9C[4];\n    u32 flags2;\n    Pack *pack;\n} Spr;\n#define GAME (*(Game **)&D_800C02AE[0x32F2])\n#define CUR_CAR (*(Car **)&D_800C02AE[0x7CD6])\nvoid func_8003BEBC(void *);\nPack *func_80034FF0(s32, s32);\nSpr *func_80040260(Spr *, s16, s16, s16, void *, s32);\nCar *func_8004240C(s32);\n\nstatic inline f32 to_f(s32 v)\n{\n    return v;\n}\n\nvoid func_8003C0CC(Spr *spr, s32 arg1)\n{\n    Car *car;\n    Dim *d;\n    Pack *pk;\n    Tex *tex;\n    f32 s;\n    f32 fx;\n    f32 fy;\n\n    if (GAME->mode != 7) {\n        car = func_8004240C((GAME->count << 1) | 1);\n        d = car->dim;\n        CUR_CAR = car;\n        spr = func_80040260(spr, (s16)d->w / 2, (s16)d->h / 2, 4, func_8003BEBC, 0);\n        spr->sx = 0x100;\n        spr->sy = 0x100;\n        spr->flags |= 4;\n        pk = func_80034FF0(arg1 + 0x4C, 0);\n        s = 1024.0f / to_f(spr->sx);\n        spr->pack = pk;\n        tex = pk->tex[0];\n        fx = s * to_f(tex->width) * 0.5f;\n        fy = s * to_f(tex->height) * 0.5f;\n        spr->sy = spr->sx;\n        spr->unk78 = 1;\n        spr->flags2 |= 4;\n        spr->x = -fx;\n        spr->y = -fy;\n    }\n}\n",
    "d904f8edb5a942a9ddf02d445fab752ae13d354485072871acb95104d9755102": "typedef struct {\n  char pad0[0x78];\n  s16 unk78;\n  s16 unk7A;\n  char pad7C[0x10];\n  void *unk8C;\n  char pad90[8];\n  s16 unk98;\n  s16 unk9A;\n  char pad9C[8];\n  s32 unkA4;\n  void *unkA8;\n} Sprite;\ntypedef struct { char pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect;\ntypedef struct { char pad[0xC]; s32 unkC; char pad10[0x168]; Rect *rect; } Owner;\ntypedef struct { char pad[0xE]; u16 mode; char pad10[2]; u16 flags; } Cfg;\n\ns32 func_80034FF0(s32, s32);\nSprite *func_80040260(s32, s16, s16, s16, void *, s32);\nOwner *func_8004240C(s32);\nvoid func_8003C254(void);\nextern Cfg *D_800C35A0;\nextern Owner *D_800C7F84;\n\nvoid func_8003C354(s32 arg0, s32 arg1, u16 arg2)\n{\n  Owner *o;\n  Rect *r;\n  Sprite *a;\n  Sprite *b;\n  s32 x, y, w, h, w2, h2;\n  s32 sx;\n  s16 sy;\n  s32 off;\n\n  o = func_8004240C(((arg2 - 1) * 2) | 1);\n  r = o->rect;\n  D_800C7F84 = o;\n  x = r->x + 20;\n  y = r->y + 6;\n  w = r->w;\n  h = r->h;\n  w2 = w - 16;\n  h2 = h - 8;\n  switch (D_800C35A0->mode) {\n  case 1:\n    sy = h - 20;\n    a = func_80040260(arg0, w - 82, sy, 3, func_8003C254, 0);\n    a->unk7A = 0;\n    a->unk78 = 1;\n    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    a->unkA8 = D_800C7F84;\n    b = func_80040260(arg0, w - 73, sy, 3, func_8003C254, 0);\n    b->unk7A = 0;\n    b->unk78 = 1;\n    b->unk8C = a;\n    b->unkA8 = D_800C7F84;\n    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    a = func_80040260(arg0, w - 64, sy, 3, func_8003C254, 0);\n    a->unk7A = 0;\n    a->unk78 = 0;\n    a->unk8C = b;\n    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    a->unkA8 = D_800C7F84;\n    break;\n  case 2:\n    off = 0;\n    if (!(D_800C35A0->flags & 1)) {\n      x = r->x + 4;\n      off = -(o->unkC == 1) & 20;\n    }\n    sx = x + w2;\n    sy = y + h2 - 14;\n    a = func_80040260(arg0, (s32)(sx + 0xFFCCU) + off, sy, 3, func_8003C254, 0);\n    a->unk7A = 0;\n    a->unk78 = 1;\n    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    a->unk98 = 0x600;\n    a->unk9A = 0x600;\n    a->unkA8 = D_800C7F84;\n    b = func_80040260(arg0, (s32)(sx + 0xFFD5U) + off, sy, 3, func_8003C254, 0);\n    b->unk7A = 0;\n    b->unk78 = 1;\n    b->unk8C = a;\n    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    b->unk98 = 0x600;\n    b->unk9A = 0x600;\n    b->unkA8 = D_800C7F84;\n    a = func_80040260(arg0, (s32)(sx + 0xFFDEU) + off, sy, 3, func_8003C254, 0);\n    a->unk7A = 0;\n    a->unk78 = 0;\n    a->unk8C = b;\n    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);\n    a->unk98 = 0x600;\n    a->unk9A = 0x600;\n    a->unkA8 = D_800C7F84;\n    break;\n  }\n}\n",

@@ -1,3 +1,4 @@
+typedef struct { u8 p[0xE]; u16 count; } State;
 typedef struct Tex3 {u16 h0,h2,type,width,height;u8 a,b;u32 c;u8 **pal,**image;u32 x,y;} Tex3;
 typedef struct {u8 count,pad[3];Tex3 **tex;} Pack3;
 typedef struct { u8 pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect;
@@ -24,8 +25,8 @@ static inline int inline_fn2(s32 arg0, int arg1)
 
 void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
 {
-  u8 *g = D_800C35A0;
-  u16 mode = *((u16 *) (g + 0x1E));
+  State *g = (State *)D_800C35A0;
+  u16 mode = *((u16 *) ((u8 *)g + 0x1E));
   Pack3 *pack;
   s32 width;
   u32 count;
@@ -44,7 +45,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
   {
     pack = func_80034FF0(arg1 + 0x4C, 0, mode);
     func_80055738(pack);
-    count = *((u16 *) (g + 0xE));
+    count = g->count;
     width = pack->tex[0]->width;
     for (i = 1; i <= count; i++)
     {
@@ -57,7 +58,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
       xa = x + 0x14;
       k = inline_fn2(w, 0x10);
       h = inline_fn2(r->h, 8);
-      switch (*((u16 *) (g + 0xE)))
+      switch (g->count)
       {
         case 1:
           func_80040260(arg0, inline_fn2(inline_fn2(k, width), 0x18), 0x1B, arg2, func_8003BB6C, 0)->pack = pack;

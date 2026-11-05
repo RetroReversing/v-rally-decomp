@@ -827,3 +827,18 @@ cartridge comparison; all 2,057 prior objects remained unchanged.
 
 The standalone tree now selects **2,058 C functions / 66 assembly units**.
 All current app progress is preserved in the refreshed portable snapshot.
+
+
+### Typed field access restores load scheduling
+
+`func_8003BBDC` now matches **154 instructions / 616 bytes** with its unchanged
+KMC GCC 2.7.2 profile. The remaining difference was a halfword load scheduled
+after a global store. Expressing the existing offset as a typed structure field
+restored the target order; an early scalar capture instead changed register
+allocation and did not match. Candidate-local inferred field views reproduce
+the fix without changing the byte-pointer declaration.
+
+The ordinary linked check and complete **12,582,912-byte** cartridge comparison
+passed, with all 2,058 previous objects unchanged. The standalone tree now
+selects **2,059 C functions / 65 assembly units**. All current app progress is
+preserved in the refreshed portable snapshot.

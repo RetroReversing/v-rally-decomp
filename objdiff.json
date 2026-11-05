@@ -7017,10 +7017,10 @@
       "name": "code_80026E3C/func_8003BBDC",
       "target_path": "build/asm/nonmatchings/code_80026E3C/func_8003BBDC.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80026E3C/func_8003BBDC.s"
+        "complete": true,
+        "source_path": "src/code_80026E3C/func_8003BBDC.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80026E3C/func_8003BBDC.o"
     },
     {
       "name": "code_80026E3C/func_8003BE44",
