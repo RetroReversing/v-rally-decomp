@@ -22,7 +22,7 @@ void func_8006BA44(u8 arg0, unsigned int arg1)
   s32 var_s4;
   s32 var_t0;
   s32 var_v1;
-s32 __repair_subtotal;
+  s32 __repair_subtotal;
   u32 temp_a0_2;
   u8 temp_t1;
   u8 temp_t1_2;
@@ -58,7 +58,7 @@ s32 __repair_subtotal;
   }
 
   __repair_subtotal = var_a2;
-temp_s2 = __repair_subtotal + var_v1;
+  temp_s2 = __repair_subtotal + var_v1;
   var_s4 = 0;
   temp_s3 = arg1 & 0xFF;
   sp14 = (u16 *) ((D_800C02AE + 0x5A8A) + ((var_t0 + temp_s3) * 2));
@@ -73,9 +73,10 @@ temp_s2 = __repair_subtotal + var_v1;
     temp_s0 = var_s4 & 0xFF;
     temp_s2_2 = temp_s2 & 0xFF;
     temp_a0 = temp_s2_2;
-    if ((((((temp_s0 * 3) + var_v1) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
+    var_a2 = temp_s0 * 3;
+    if (((((var_a2 + var_v1) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
-      temp_v0 = (void *) ((D_800C02AE + 0x6F70) + temp_a0);
+      temp_v0 = (void *) ((D_800C02AE + 0x6F70) - (-temp_a0));
       temp_t1 = ((u8 *) temp_v0)[1];
       temp_a0 = ((u8) ((u8 *) temp_v0)[0]) >> 4;
       var_t0 = (temp_a0 & 0xC) >> 2;

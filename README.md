@@ -714,3 +714,11 @@ The standalone build now selects **2,047 C functions**, including
 still contains **2,049 app matches**. This new standalone match has not yet been
 applied in the app because another worker holds its claim; no worker was stopped
 or claim taken over.
+
+
+### Dispatcher coverage checkpoint
+
+**2,048 standalone C functions** and **2,050 app matches** are
+preserved. `func_8007ED48` passed standalone and full cartridge checks using the
+existing repair. `func_8007EBF4` is now matched in the live app too; only ED48
+awaits its existing worker claim before live application.

@@ -300,3 +300,14 @@ Standalone and full12,582,912-byte cartridge gates passed. The profile ranks
 fifth by current matched usage. A small native run in the older app exhausted
 its budget on other families and did not match it. The canonical C is verified;
 live application waits for the existing CPU worker to release its claim.
+
+
+### Second dispatcher confirms source/profile pairing
+
+`func_8007ED48` matches85 instructions with the same existing live-register
+repair and verified `-O2 -ffast-math -fno-schedule-insns` KMC profile. Saved
+`-g3` scores5 before repair and65 afterward; the verified profile scores75
+before repair and0 afterward. Full cartridge comparison passed with all prior
+objects unchanged. No additional rewrite family was needed. Its live application
+is pending an existing CPU worker claim. `func_8007EBF4` has now also passed the
+live app judge after its worker released the claim.
