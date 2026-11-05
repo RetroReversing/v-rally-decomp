@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793879756.9239821,
- "revision": 17814,
+ "saved_at": 1793880146.080461,
+ "revision": 17817,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5218,8 +5218,8 @@
   },
   "func_8003E6D8": {
    "vram": 2147739352,
-   "best_score": 635,
-   "best_by": "permuter"
+   "best_score": 565,
+   "best_by": "you"
   },
   "func_8003ED04": {
    "vram": 2147740932,
@@ -164753,6 +164753,11 @@
   {
    "function": "func_80029EAC",
    "text": "Triangle-plane routine remains OPEN295. Two independent1000attempt native lanes found noexact: zero-field715compiled/scored best860, genuine-padding740compiled/scored best295 unchanged. 55 directed/baseline judgments negative. Matrix padding research preserves295 but needs transpose callee representation-copy contract; do not adopt as proven C. Zero stores negative control changes target behavior/code shape. Sources and caveats preserved in docs/matching-experiments. No selected source/profile/header/target/ABI changes or cartridge gate.",
+   "by": "you"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Corrected machine-behavior draft lowers635 to565: fixes uninitialized mode1 pointer and original-base coordinate offsets; distinct start_pos restores initial/mode2 register roles. Not an exact match or cartridge acceptance. Still audit cross-function C prototypes:40260 selected C has void5arg declaration vs actual pointer result/unused6tharg;34FF0 returns pointer stored as32bit resource, callbacks consume context pointer despite local void(void) declarations. Valid allocations/global/slot indices required. Native650 search and directed loop/lifetime controls ongoing. No target/header/compiler/profile changes.",
    "by": "you"
   }
  ],

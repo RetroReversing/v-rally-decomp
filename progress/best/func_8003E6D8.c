@@ -54,10 +54,12 @@ extern void func_8003EF20(void);
 void func_8003E6D8(s32 arg0, s32 arg1)
 {
   Pos *pos;
+  Pos *start_pos;
   Mgr *m;
   Spr *s;
   void *new_var2;
   s32 x;
+  s32 base_x;
   s32 y;
   u32 i;
   u32 j;
@@ -70,9 +72,10 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   s16 x1;
   s16 x2;
   s16 x3;
-  pos = D_800C7F84->pos;
-  x = (x = pos->x) + 0x14;
-  y = pos->y + 6;
+  start_pos = D_800C7F84->pos;
+  base_x = start_pos->x;
+  x = base_x + 0x14;
+  y = start_pos->y + 6;
   state = D_800C35A0->state;
   if (state == 7)
   {
@@ -84,19 +87,19 @@ void func_8003E6D8(s32 arg0, s32 arg1)
     case 1:
       if (state == 0)
     {
-      new_var2 = (void *) (arg1 + 0x4C);
       if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 1)
       {
         s = func_80040260(arg0, x, y, 5, func_8003ED04, mode);
+        new_var2 = (void *) ((u32)arg1 + 0x4CU);
         s->tex = func_80034FF0(new_var2, 0);
         s->part = 0;
         s->owner = D_800C7F84;
-        s = func_80040260(arg0, x + 0x1C, y, 5, func_8003ED04, mode);
-        new_var = (void *) (arg1 + 0x4C);
+        s = func_80040260(arg0, base_x + 0x1C, y, 5, func_8003ED04, mode);
+        new_var = (void *) ((u32)arg1 + 0x4CU);
         s->tex = func_80034FF0(new_var, 0);
         s->part = 1;
         s->owner = D_800C7F84;
-        s = func_80040260(arg0, x + 0x24, y, 5, func_8003ED04, mode);
+        s = func_80040260(arg0, base_x + 0x24, y, 5, func_8003ED04, mode);
         s->tex = func_80034FF0(new_var, 0);
         s->part = 2;
         s->owner = D_800C7F84;
@@ -104,6 +107,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
     }
     else
     {
+      new_var = (void *) ((u32)arg1 + 0x4CU);
       j = 0;
       if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)
       {
@@ -135,7 +139,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
     case 2:
       i = 1;
       k = 1;
-      p = arg1 + 0x4C;
+      p = (u32)arg1 + 0x4CU;
       arg1 = 0;
       do
     {
