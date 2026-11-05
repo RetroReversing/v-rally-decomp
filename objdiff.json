@@ -14028,10 +14028,10 @@
       "name": "code_8007950C/func_8007AD68",
       "target_path": "build/asm/nonmatchings/code_8007950C/func_8007AD68.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_8007950C/func_8007AD68.s"
+        "complete": true,
+        "source_path": "src/code_8007950C/func_8007AD68.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_8007950C/func_8007AD68.o"
     },
     {
       "name": "code_8007950C/func_8007B0B8",

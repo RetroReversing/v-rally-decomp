@@ -342,7 +342,9 @@
     "src/code_80005098/func_8000A5EC.c": "5aa7396d5890d8792e77f0787495785472a592db31cb2f8fdd12ae260071f731",
     "include/decompdecomp_snapshot_8000a5ec.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_800502D4.c": "59a43d45ee9f9ff1b089ebd9a7fd0a0b3fb1dce5490077c282895253a87572ab",
-    "include/decompdecomp_snapshot_800502d4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_snapshot_800502d4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8007950C/func_8007AD68.c": "118768d2e7044dd981dd3472a29dc39a143a613a2280925b9857c6cb7135026f",
+    "include/decompdecomp_snapshot_8007ad68.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -674,25 +676,26 @@
     "func_800885CC",
     "func_8006185C",
     "func_8000A5EC",
-    "func_800502D4"
+    "func_800502D4",
+    "func_8007AD68"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2065,
+  "matched_app": 2066,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_800502D4"
+      "func_8007AD68"
     ],
-    "note": "Ordinary function and full cartridge checks passed. All 2064 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
+    "note": "Ordinary function and full cartridge checks passed. All2065 prior C objects unchanged. The former assembly run loses only this newly compiled function include."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "function": "func_800502D4",
+    "function": "func_8007AD68",
     "score": 0,
-    "raw_source_sha256": "865e99c049d3944720fb2722e254e7e8764bf3afc4fd54176b2da1e57a1a66fd",
+    "raw_source_sha256": "52735d3eda7a2a6fdabe224c924b1d4eb5820278c9e924988ae6dd9797d3320c",
     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "standalone_header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "profile": {

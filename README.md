@@ -932,3 +932,10 @@ functions**. All current app progress is saved.
 `func_800502D4` now matches **206 instructions / 824 bytes** with its unchanged compiler profile. A once-only scope around an existing constant byte store recovers the original GCC instruction scheduling without adding a memory access or changing source store order.
 
 Ordinary linked bytes and the complete **12,582,912-byte** cartridge match. All **2,064** prior C objects and profiles remain unchanged. The standalone tree now selects **2,065 C functions**. All current app progress is saved.
+
+
+### Unsigned-byte update scheduling
+
+`func_8007AD68` now matches **212 instructions / 848 bytes**. A genuine unsigned-byte increment recovers the store scheduling from an audited switch-based source, without the prior artificial duplicate branch.
+
+The complete **12,582,912-byte** cartridge matches, with all **2,065** prior selected C objects and compiler profiles unchanged. The standalone tree now selects **2,066 C functions**; all current app progress is saved. See `docs/matching-experiments/func_8007AD68-investigation.md` for the source and contract audit.
