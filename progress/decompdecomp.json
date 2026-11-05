@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793848875.241119,
- "revision": 15242,
+ "saved_at": 1793849680.544627,
+ "revision": 15408,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8359,8 +8359,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 2760,
-   "best_by": "Rr.permuter-1437"
+   "best_score": 2615,
+   "best_by": "claude-opus-12"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -161578,7 +161578,7 @@
   },
   {
    "function": "func_80046E54",
-   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 374s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_80046E54 is claimed by claude-opus-12 for another 29 min.",
    "by": "Rr.permuter-907"
   },
   {
@@ -161608,7 +161608,7 @@
   },
   {
    "function": "func_8003E6D8",
-   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 559s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 213s elapsed. Variant limit reached.",
    "by": "Rr.permuter-806"
   },
   {
@@ -161688,7 +161688,7 @@
   },
   {
    "function": "func_8006C024",
-   "text": "Deep permuter: score 2770 \u2192 2770; 0 improvements; 300 candidates tested; 33 cached skips; 0 rejected; 511s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 2615 \u2192 2615; 0 improvements; 44 candidates tested; 39 cached skips; 0 rejected; 46s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "Rr.permuter-1437"
   },
   {
@@ -161723,7 +161723,7 @@
   },
   {
    "function": "func_8006D564",
-   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 87 cached skips; 0 rejected; 541s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 230 \u2192 230; 0 improvements; 300 candidates tested; 152 cached skips; 0 rejected; 237s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1447"
   },
   {
@@ -161758,7 +161758,7 @@
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1015 \u2192 1015; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 372s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1015 \u2192 1015; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_8006BA44 is claimed by claude-opus-7 for another 29 min.",
    "by": "Rr.permuter-1434"
   },
   {
@@ -161783,7 +161783,7 @@
   },
   {
    "function": "func_8006603C",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 300 candidates tested; 161 cached skips; 0 rejected; 533s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 46 candidates tested; 150 cached skips; 0 rejected; 49s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
    "by": "Rr.permuter-1343"
   },
   {
@@ -163675,6 +163675,106 @@
    "function": "func_80059A60",
    "text": "Score 220 = 2 reloc-artifact rows (D_800C02AE+0x807A, known unfixable) + target `beql v1,zero` vs our `beqz` in the which=2/1 selection. Tried (all worse or equal): if/else-if chains, ||, ternaries, switch with fallthrough case 0:case 1:, explicit case 2/3/4, reordered cases, default without break, u8 which, per-case calls, dropping the i==4 dead-branch hack (770; the hack is load-bearing). Left: change how reorg sees a0 liveness, e.g. which as a separate var per path, or a do/while/goto form for the 5-task loop.",
    "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Still 145. Three diffs are left: (1) the D_800D0648 %hi reloc artifact. Keeping the 0x800D0648 cast scores 145; the plain extern scores 155. (2) In the first inner loop the target puts s in v1 and the laps pointer giv in a1, and ours swaps them. These made no difference (all 145): s32 s, register s, a while loop with m++, a pointer-cast access, s = x + s, a function-scope sum, and m=0 moved out of the for. Hoisting rec->n into j is much worse (370). (3) In the second loop the target hoists the &D_800C81FC lui/addiu AFTER the constants 1/2/3. Ours puts it before them. Using flag=&D_800C81FC directly in the loop gives 300, and dropping new_var gives 455. Ideas not yet tried: switch case order or an if-chain for the rank\u2192points mapping, declaring new_var as a different type, or reordering the declarations.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Clean struct version is rev 6f5602dd, score 1460, 120 insns vs 119. It uses a Spline struct (base@4C, u8* pts@54, u16 stride@8A) and PT(off) = *(u16*)(off + pts); scalar s16 d0 is set in each branch, then d[0]=d0; d[1]..; d[2]..; d[0]=d0*t/500 ... Finding: making d0 a scalar instead of d[0] removes the sh/lh round trip at the join (2010 \u2192 1460), and the target keeps d0 in v1. Remaining: (1) each branch loads 0x54 twice where the target loads it once. I did NOT test a per-branch `u8 *p = arg0->pts` local: that variant only declared p and never used it. (2) Regalloc: arg0 lands in t1 (target t2), t in t3 (target t1), i in a1 (target a0), offsets a/b in t2/t0 (target a1/a3); the target computes the 0x10624DD3 constant into t0 after prev dies. Operand order (pts+off vs off+pts) changed nothing, nor did statement order of t/i, or splitting arg1*=stride. The saved best 435 is permuter C with an uninitialised var.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "Rechecked 190. Many operand rows are reloc artifacts (D_80000002/D_80000004 for 0x80000000/+2 constants, D_800C02AE+0x807A). Real diffs: (1) offset ternary uses a1 for the temp where target uses v0 (target: lh v1; bgez v1 with `move v0,v1` in the delay slot; negu v0; subu v0,v0,a0). (2) Register choice in the h CV block, with h in a2 and D_800A14D0 in a1. Tried, all worse or equal: if-statement forms of offset (700-795), s16 offset (895), x-direct, >= ternary; dropping new_var=h (equal); CV into height/new_var directly (445/220); s32 h (equal); reordering the y mult operands (415, or equal).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "Best is 460 (the saved one). Three diffs are left. (A) The timer==0, !(v&8) branch: the target fall-through is the (v&4)!=0 case (ori 2 / -5), and the ==0 case sits behind beql, with ori 4 in the delay slot and -3 at the branch target. if(v&4){(v|2)&~4}else{(v|4)&~2} gives the right block order (480), but gcc puts the ori 4 at the else label instead of filling the beql delay slot. The 'a'/'mk' temp versions score 460/480/495. Ideas not yet tried: a ternary on the mask only, or computing a before the if. (B) For D_800A1234[*player].hA = 2 the target does addu base+off and puts the const 2 in v0. Ours has the operands reversed, in both places. (C) In the else branch around func_80042F40 the jumps are 8 bytes off and the jal is placed differently, so the block layout of the goto finish/cnt sections differs.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Clean readable version is rev 4e688bb5, score 1035 (the saved 462 is permuter junk with uninitialised vars). It is the twin of func_80030180, with 50 in place of 500. Struct Spline {base@4C s32, u8 *pts@54, u16 stride@8A}; i = arg0->base + arg1*arg0->stride (base first: 1070\u21921035, and arg3 now gets t4 like the target). Each branch does p=arg0->pts; a=..*6; b=..*6; d0=*(u16*)(a+p)-*(u16*)(b+p), with scalar s16 d0, then d[0]=d0, d[1], d[2] via PT(), d[k]=..*t/50, out[k]=PT(b+2k)+d[k]. Only regalloc and the scheduling of the 4C load vs the arg2 sext remain. The target computes a/b in place (sll a1,a0,1; addu a1,a1,a0; sll a1,a1,1) with p in v0 and i in a0; ours uses v0 temps, p in a0, i in v1. Worse: PT() without p (1455), s16 t (1165), p loaded after a/b (1230). No effect: declaration order, t=arg2 after prev/next, an out=arg3 alias, testing arg2<50 directly.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8008188C",
+   "text": "Saved best rechecked at 190. Its only real diff: `lui/addiu s0,&D_800C3338` is scheduled right after the first jal, but the target puts it after the D_800B7300 load (just before `lw a1,0(s0)`). All other rows are reloc artifacts (D_800AE850+0x10000 hi with raw lo). The early `s = getState(e);` is load-bearing: removing it gives 580 (s/e registers swap). A plain `s = D_800C3338` folds to absolute addresses (2606). A clean rewrite with real externs gives 4330 (folded addresses). Idea: make the s pointer non-foldable another way (e.g. index from a global or param, or a pointer-array global) so its set comes late, at the first use.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Best is 505 (saved). The main diff is that ours hoists n*9 out of the loop into s7 (2 extra insns before the loop), which shifts the registers. The target computes n*9 inside the loop as (n<<3)+n and then adds k*3 (addu v0, k3, n9). It hoists only &D_800C5D9C[n] (s7) and the FP constants. Tried, all worse: reordered the sum (k*3 + n*9) (910); (n*3+k)*12 and (n*3+k)*3*4 (1490); n*36+k*12 (845); splitting q into two statements (730); a goto loop (3027, which kills all hoisting, so the loop must be a real loop); for(;;) with a break (995). Equal (505): (u8)n*9, and q=0 before the loop. Ideas not yet tried: an explicit `u16 *p = &D_800C5D9C[n]` before the loop; making n a u32/int, or a variable whose value is re-derived inside the loop (e.g. n recomputed, or reading D_800C35A0[35] again in the loop) so loop.c can't treat n*9 as invariant.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "This session (all starting from the saved 45 C, where valid C means adding an s1=0 reset): inverted if with the else arm first is 1080 (block order flips). `func_80084AF4(s4), s1 = 0;` is 245. `{ s32 a = s4; s1 = 0; func_80084AF4(a); }` is 160. `s0 = s4;` before the if plus `s1=0; func_80084AF4(s0)` is 160. `func_80084AF4(s4 | (s1 = 0))` is 160. Theory: reorg filled the beqz slot from the else thread (its a0=s4), which needs the then-arm RTL to be [a0=s4; s1=0; jal AF4]. The arg move is always emitted right before the call, so s1=0 has to come from something sched1 places between them. Still untried: declaring func_80084AF4 with a second dummy param, a goto-based layout, and putting the s1 reset at the end of the first loop's exit path.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_800885CC",
+   "text": "Saved best rechecked at 175. Target keeps 0xFF in a1 from the C4/B6 stores and reuses it for p[0xBF]; 0x7F is in v1 and 0x40 is materialised in v0 later. Using `p[0xBF] = t` (t live) moves p/arg into a0/a1 (625), and removing inline_fn gives 285-445. Also tried: p[i] loop (1025), s32 save/i, (unsigned short) casts, inline_fn()|0xFF, `t=0` after B6. None beat 175. Left: some construct that makes the 0xFF pseudo get a1 while p stays in a2 and arg in a0, e.g. a second u8 local for 0xFF declared before p, or reordering the stores so BF comes right after B6.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800502D4",
+   "text": "Tested the untried volatile-scalar idea. `extern volatile u8 D_800C8120;` with `D_800C8120 = 0` gives 210, unchanged: the sb still lands after the and -2, not right after lbu 38F0. The plain non-volatile scalar is 360 (variant with its use still cast was broken; don't trust it). `*(volatile u8*)&D_800C8120[0]=0` puts the sb in the right place but emits lui/addiu/sb 0(v0): 335. So the volatile-through-array-address form schedules right but materialises the address. Untried: a volatile store through a pointer local initialised earlier (e.g. `volatile u8 *z = D_800C8120;` at the top of the state==7 block), or a struct-member volatile.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8000A5EC",
+   "text": "Best is 300 (saved, rev 9e31187d, the temp-heavy version). Three diffs are left: (1) at entry, the target loads im->type before the idx stack arg (t0); ours loads it after. (2) The tail stores: the target does f3C=-1, f38=t4 and then f10=0x30, while ours schedules f10 earlier. (3) f24 = -1 has to come out as addiu -1, but `o->f24 = t2 = -1` with u16 t2 gives ori 0xffff. Trials: f24=-1 directly, or t3=-1, gives 765 (!). Big cliff: the reuse of t2 matters for scheduling. t2 as s32/u32 gives 325, s16 gives 765. Inlining t4 gives 520. A clean natural rewrite gives 3155. Idea not yet tried: keep u16 t2 for the size<<5 but add a separate s32 temp for -1 that is assigned at the t2 position.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Rechecked: baseline 62, tbl-first 70, no pad 92, all matching the earlier notes. I made no new structural attempt. Every s register plus fp is used in the target, so the caller-save hypothesis (an unused 5th 8-byte slot at 0x30 coming from setup_save_areas) is plausible. An approach not yet seen in the notes: in gcc 2.7 alter_reg, a pseudo gets no stack slot when it has a reg_equiv_memory_loc/constant. Conversely, a spilled pseudo that reload later turns into an equivalence would leave a dead slot. A variable initialised from a global (e.g. `u8 *z = D_800A1468;` declared after q and used across calls) might create such a slot. Not tested.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "No compiles this claim. I left it because my session context was running low, and the notes already cover the main avenues. The saved permuter source (2760) has a semantic bug: in the first branch `new_var` is used uninitialised at block_13 (it is only set in the else branch). Any valid rewrite must set new_var = var_a2 before the goto.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Saved best 60 (autopilot, uses odd `if (func_80065860)` duplicate-branch hack to get sb 0x228 before jal func_8005A388). Target computes idx copy: `lb v1,0x228(a1); addu a0,v1,zero; ... addiu v0,a0,1; sb v0,0x228(a1)` before jal with move a1,s0 in delay slot. Tried: clean rewrite (580), `idx = D[0x228]; if (idx < n-1) { D[0x228]=idx+1; ...}` on top of saved best (215: regalloc a2/a3 vs a1/a0, and call arg moves scheduled before jal). Target also loads D_800C35A0 (g) into a0 right after the call before stores to s (saved best's `u8 *s,*g` locals do that). Next: start from saved best 60 and only tweak the sb/jal ordering in its if-hack, e.g. compute idx+1 in a temp before the hack.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Best stays 62 (rev 85ada359, has s32 pad[2]). What I found this session: the target has 8-byte reload spill slots at 0x10/0x18/0x20/0x28 (+4 offsets) for tbl, ent, cnt, q, and a 5th slot at 0x30 that nothing uses. Declaring `u8 *tbl;` FIRST and removing pad[2] (rev 5dbcd2b3, score 82) gives exactly the target spill offsets for all four (tbl 0x14, ent 0x1C, cnt 0x24, q 0x2C). The only remaining diff is frame size 0x58 vs 0x60, plus the unfixable D_800D0658 reloc artifacts. So the missing piece is one 8-byte slot allocated AFTER the reload spills: probably a caller-save area (setup_save_areas) for some pseudo that sits in a call-clobbered reg across a call and later gets kicked or re-allocated. Any front local (a pad array) shifts all the spills, so it can't work. Variants tried at 82 with no change: `register` on ent, reusing p for func_800592AC in the cnt==0 block, an s8 k copy for func_8005937C. Next: from rev 5dbcd2b3, find C that makes global put one low-priority pseudo into a caller-saved reg across a call without visible save/restore code.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Improved 2760 -> 2615 (rev 87f7db3e) using permuter source with: (1) 0x2C store via var_a2 rather than new_var (2720); (2) branch A `temp_t0 = temp_a0 & 0xC;` before the if, then `temp_t0 >>= 2;` inside the if body (2615, gives target andi 0xC; srl). No effect / worse: swapping fp compare to `fs0 <= fv1` (2820), 0x30 store via var_a2 (7796), sp14 one-expression (2860), s32 temp_s2/var_s0 (3075/4100), `var_s0=-var_s0`, branch B temp_a0=temp_t0 copy (2615/2810), copying `b = temp_s0` after the call and using b in the loop (2760: copy appears but as move s4,a1 at the start; the mask lands in a1 not s0). Remaining: s0/s4 alloc for arg1&0xFF, sp14 kept in fp instead of spilled to 0x14(sp) with fp=b*4+base, branch A missing sll/sra sign extension before negu, var_s0 in a0 instead of s0, 0x6E26 base in t2 instead of v1.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Semantics: 12-bit packed table D_800C721E (entry n*3+i, byte idx = float n*4.5+i*1.5 via D_800A57F8/D_800A5800, u32 conversion with 2^31 const D_800A57F0 hoisted to fs0). nibble-high branch: lo=byte0>>4, hi=byte1, rec=&D_800C70D4[lo&3] (14-byte recs), hv=hi*4+((lo&0xC)>>2); else hi=byte0, lo=byte1&0xF, rec idx lo>>2, hv=hi|((lo&3)<<8). Cond uses bitwise | of two sltiu. Saved best 1015 uses `temp_s3 <<= 6` inside loop (semantically wrong); with `temp_s3 << 6` it rechecks at 1480. Target `addu t1,t1,a2` needs `var_v1 += var_a2` (var_v1=arg1 copy) \u2014 fixed that row but no score change. Clean rewrites (struct/array externs, for loop over u8 i) scored 8210-8530: gcc crossjumps the call/tails earlier and hoists n*9; target computes n*9 inside loop and keeps the 2^31 ldc1 before loop. Remaining in 1480 version: mostly register allocation (s3/s4 swap for arg1&0xFF vs loop counter, conversion result in v1 instead of a0, ldc1 D_800A57F0 not hoisted). Tried: u8 loop var (no change), u8 arg1 (worse 1775), merging temp_s2/temp_a0 (worse).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: instruction order / control flow; first differing row 19; 12 differing rows (8 branch target, 2 operand, 2 deleted; advisory).\nTarget: lui $a1, %hi(D_800C02AE+0x1325a)\nCandidate: lui $a1, %hi(D_800C02AE+0x10386)\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lhu $v1, 0x20($a0)\n  = sll $v0, $v0, 2\ni T: lui $a1, %hi(D_800C02AE+0x1325a) | C: lui $a1, %hi(D_800C02AE+0x10386)\n  = addu $a1, $a1, $v0\ni T: lw $a1, 0x634($a1) | C: lw $a1, %lo(D_800C02AE+0x10386)($a1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nSession 2026-11-05 (rev d78456b1, 210): more second-compare variants, all 300 (andi dropped): `saved22&(saved1E|0xFFFF)`, `(u16)(saved22&~0)`, `saved22&(u16)saved22`, `saved22&(one|0xFFFE)`, `saved22&(u16)(saved1E|saved22)`, `saved22&(saved1E+0xFFFD)`, `saved22&((saved1E<<15)-1)`, `inline_fn2(saved22)==4`, plus a (u16) cast. xor form scored 690. `saved22=sc->unk22` direct scored 345. `saved22&(saved1E|saved1E)` scored 440. A dummy `saved22=0xFFFF;` init or a double inline assignment stayed at 210 (no change). The theory: the andi is left because the lhu value has 2 uses (copied to s1 and compared), so combine can't fold the zero_extend. The first compare keeps it, the second doesn't. Untested: give saved22 its own copy-then-compare structure that mirrors saved1E's `saved1E = 0xFFFF` dead init plus self-and.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Rechecked 200: the only real diff is the idx/value register swap in the two final j-loops (target: idx andi in v1, addr/value in a0). The rest are reloc-artifact operand rows. No change (200): `a[j] = (a[j]>>1) + a[j]`; `for(j=0;j<4;){...; j++;}`; `j = 0;` before the cnt==players if. Worse: `cnt += (...count == 3)` branchless (835). Theory: local-alloc qty priority. The idx qty (3 refs, long life) loses to the tied addr/val/sum qty. Something that shortens idx life or adds refs to it might flip the order. 500+ attempts overall, so low yield.",
+   "by": "claude-opus-12"
   }
  ],
  "set_aside": [

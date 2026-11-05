@@ -733,3 +733,13 @@ score zero; the standalone check and complete **12,582,912-byte** cartridge
 comparison passed, with all prior compiled objects unchanged. The standalone
 tree now selects **2,049 C functions / 75 assembly units**. All current app
 progress, including drafts and notes, is preserved in `progress/`.
+
+
+### Three additional app matches
+
+The standalone build now selects **2,052 C functions / 72 assembly units**.
+`func_80020098`, `func_8002C044` and `func_800603B4` add **767 instructions /
+3,068 bytes** from independently running app helpers. Their captured source,
+unit headers and KMC `-O2 -g3` profiles passed individual checks and the complete
+**12,582,912-byte** cartridge comparison. Earlier selected C remains intact,
+and a fresh `progress/` snapshot preserves all current matches, drafts and notes.
