@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793875968.6894479,
- "revision": 17804,
+ "saved_at": 1793877248.936945,
+ "revision": 17806,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -164733,6 +164733,11 @@
   {
    "function": "func_80059A60",
    "text": "Audited saved200 draft contains redundant identical-call i==4 branches that manufacture dead s2=4; do not promote this. Removing it yields raw clean750, physically closer than multiline630, whose lower advisory score introduces extra scheduling differences. Target initial s2=4 is never consumed before zero overwrite. Field offsets, aligned global word load, u8 count masks and nonadvancing outer Group loops checked against target; do not change Group traversal. 1000 unique compiled/linked independent native candidates and directed loop/dispatch/profile/do-while tests found no exact. Both audited nonmatching alternatives and negative evidence preserved in docs/matching-experiments/func_80059A60-*. OPEN/revisitable; no live source/profile/ABI/judge edits or selectedC changes. External claim belongs to another agent and is untouched.",
+   "by": "you"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Saved1155 draft uses added volatile reads. Reusing real Packet bitfields from matched adjacent encoder8006E8A0 restores halfword reloads without volatile,1350; audited static inline offset helper yields1200, still nonexact. Native externalinline emits unwanted global16-byte helper; static emitsnone withsame1200score. Parent fixing generator-only linkage. Two independent1000 compiled/linked lanes (clean2395 and Packet1350) found noexact; directedlayout,width,scope,flag,inline tests preserved. RTL indicates aggregate/scalar classification affects initialCSE reuse, not generalalias proof. Source assumes valid decodedslots<4 and validrecord/pointers; no arbitraryguard orABI changes. Actual matched Game/Entry layoutneutral; decoderPacketreadable/privatehelper alternatives and detailednegative evidence in docs/matching-experiments/func_8006E394-*. OPEN/revisitable; no selectedC/profile/header/target/judge changes.",
    "by": "you"
   }
  ],
