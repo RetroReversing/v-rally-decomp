@@ -1,6 +1,6 @@
-extern int D_800D0634;
-s32 func_8006B9E0();
-s32 func_8006BF30();
+extern u8 *D_800D0634;
+u8 func_8006B9E0(u8,u8);
+void func_8006BF30(s32,s32,s32,s32);
 extern s32 D_8009D540;
 extern f64 D_800A5878;
 extern f64 D_800A5880;
@@ -22,17 +22,16 @@ void func_8006C024(s32 arg0, s32 arg1)
   s32 temp_s0_2;
   s32 __repair_phase_temp_s0_2;
   s32 temp_s5;
-  s32 temp_s6;
+  u8 *temp_s6;
+  u8 *frame_record;
   s32 var_a0;
   s32 var_s3;
-  u32 temp_a0_3;
   u32 temp_t0;
   u8 temp_t1;
   int new_var4;
   u8 temp_t1_2;
-  char *new_var;
   void *temp_v0;
-  volatile unsigned short pad;
+
   s8 new_var2;
   int new_var3;
   void *temp_v0_2;
@@ -44,23 +43,10 @@ void func_8006C024(s32 arg0, s32 arg1)
   temp_s6 = D_800D0634 + (var_a0 * 0x2C4);
   temp_s5 = func_8006B9E0(var_a0, temp_s0) & 0xFF;
   var_s3 = 0;
-  if (1)
-  {
-    if (new_var5)
-    {
-      sp14 = (char *) (temp_s5 * 2);
-      sp14 += (s32) (D_800C02AE + 0x5A8A);
-      new_var5 = temp_s5;
-      temp_fs1 = ((f64) new_var5) * D_800A5880;
-    }
-    else
-    {
-      sp14 = (char *) (temp_s5 * 2);
-      sp14 += (s32) (D_800C02AE + 0x5A8A);
-      new_var5 = temp_s5;
-      temp_fs1 = ((f64) new_var5) * D_800A5880;
-    }
-  }
+  sp14 = (u16 *)(D_800C02AE + 0x5A8A + temp_s5 * 2);
+  frame_record = ((temp_s0 * 4) + temp_s6);
+  new_var5 = temp_s5;
+  temp_fs1 = (f64)temp_s5 * D_800A5880;
   do
   {
     __repair_phase_temp_s0_2 = var_s3 & 0xFF;
@@ -72,19 +58,13 @@ void func_8006C024(s32 arg0, s32 arg1)
     }
     else
     {
-      do
-      {
-        do
-        {
-          do
-          {
- do { do { var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 |= 0x80000000; } while (0); } while (0);
-          }
-          while (0);
-        }
-        while (0);
-      }
-      while (0);
+      
+        
+          
+   var_a0 = (s32) (temp_fv1 - temp_fs0); var_a0 |= 0x80000000;  
+          
+        
+      
       temp_s0_2 = new_var5 * 8;
     }
     temp_a0 = 0xFF;
@@ -94,9 +74,9 @@ void func_8006C024(s32 arg0, s32 arg1)
     if ((((((temp_s0_2 * 3) + new_var3) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
     {
       temp_v0 = (D_800C02AE + 0x6E77) + temp_a0;
-      temp_s5 = *((u8 *) (((char *) temp_v0) + 0));
+      temp_t0 = *((u8 *) (((char *) temp_v0) + 0));
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));
-      temp_t0 = (u8) temp_s5;
+      
       temp_t0 = (temp_a0 = temp_t0 >> 4);
       temp_t0 = temp_t0 & 0xC;
       if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
@@ -146,23 +126,17 @@ void func_8006C024(s32 arg0, s32 arg1)
 
         *((s32 *) (((char *) var_a2) + 0x2C)) = (s32) temp_a1;
         *((s8 *) (((char *) var_a2) + 0x30)) = (s8) ((((u16) (*((u16 *) (((char *) var_s1) + 2)))) >> 0xC) + ((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xF) * 0x10));
-        *((s8 *) (((char *) var_a2) + 0x36)) = (s8) (((u32) (((*((s32 *) (((char *) ((temp_s0 *= 4) + temp_s6)) + 0x22C))) * D_8009D540) * 0xE10)) / ((u32) (temp_a1 * 0x3E8)));
+        *((s8 *) (((char *) var_a2) + 0x36)) = (s8) (((u32) (((*((u32 *) (((char *) frame_record) + 0x22C))) * (u32)D_8009D540) * 0xE10)) / ((u32) (temp_a1 * 0x3E8)));
       }
     }
-    do
-    {
-      do
-      {
-        var_a2 = temp_s6 + ((temp_s0_2 * 0x10) + (temp_s0 << 6));
-        do
-        {
+    
+      
+
+        
           var_s3 += 1;
-        }
-        while (0);
-      }
-      while (0);
-    }
-    while (0);
+        
+      
+    
   }
   while (((u32) (var_s3 & 0xFF)) < 3U);
 }

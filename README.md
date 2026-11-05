@@ -34,6 +34,11 @@ retained only in portable progress. See the
 [investigation](docs/matching-experiments/func_8006BA44-investigation.md) for the
 remaining runtime-data and raw-memory assumptions.
 
+The related `func_8006C024` draft is now corrected **OPEN 2454**, replacing a
+historical lower score with known uninitialized and loop-mutation errors. This
+changes no matched function; its corrected C and review evidence are saved in
+portable progress. See its [investigation](docs/matching-experiments/func_8006C024-investigation.md).
+
 
 ### Empty-callee contract and parameter lifetime — 5 November 2026
 
