@@ -1,7 +1,7 @@
 extern u8 D_800C02AE[];
 extern u8 D_800AE850[];
 extern u8 D_800A4B48[];
-s32 func_80022318(void *, void *);
+void *func_80022318(void **, u8 *);
 void *func_8004240C(s32);
 void func_8003F11C(u8 *arg0)
 {
@@ -53,7 +53,7 @@ void func_8003F11C(u8 *arg0)
         if (var_a1 == 0)
         {
           temp_v0 = func_8004240C(((*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0xE))) * 2) + 2);
-          if (func_80022318(temp_v0 + 0x28, D_800A4B48) != 0)
+          if (func_80022318((void **)(temp_v0 + 0x28), (u8 *)(D_800A4B48)) != 0)
           {
             *((u32 *) (arg0 + 0x80)) |= 4;
           }

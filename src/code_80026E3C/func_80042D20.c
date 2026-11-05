@@ -1,7 +1,7 @@
-#include "snapshot31_verified.h"
-
+#include "decompdecomp_terminal_80042d20.h"
+#line 1 "func.c"
 extern s8 D_800ADFA8;
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 s32 *func_8004D784();
 extern s32 D_8009D538;
 extern char D_800A4DEC[];
@@ -19,7 +19,7 @@ void func_80042D20(void)
     D_800ADFA8 = 0;
     while (var_s0 != NULL) {
         *(u16 *)((char *)var_s0 + 0x20) &= 0xFFBF;
-        temp_v1 = func_80022318((char *)var_s0 + 0x28, D_800A4DEC);
+        temp_v1 = func_80022318((void **)((char *)var_s0 + 0x28), (u8 *)(D_800A4DEC));
         if (temp_v1 != NULL) {
             temp_v1 = *(void **)((char *)temp_v1 + 0x10);
             temp_inner = *(s32 **)temp_v1;
@@ -30,3 +30,4 @@ void func_80042D20(void)
     }
     D_8009D538 = (D_8009D538 & ~0x80) | 1;
 }
+

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_terminal_8000f660.h"
 #line 1 "func.c"
 typedef struct Game { u8 pad0[0xE]; u16 e; u8 pad10[0xE]; u16 mode; u8 pad20[0xC]; u16 flags; } Game;
 extern s32 *D_800C8048;
@@ -47,7 +47,7 @@ s32 func_80015780();
 s32 func_8001B8CC();
 s32 func_8001FC14();
 s32 func_8001FF80();
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 s32 func_800234AC();
 s32 func_800234E0();
 s32 func_80023604();
@@ -358,12 +358,12 @@ void func_8000F660(void)
       D_800C7F84 = temp_v0_3 = func_8004240C(temp_s2 + 4);
       func_8000E8B8(((struct { u8 pad[0x178]; s32 x; } *) temp_v0_3)->x);
       func_80005500(*((s32 *) (((char *) D_800C7F84) + 0x178)), D_8009B5A4);
-      temp_v0_4 = func_80022318(D_800C7F84 + 0x28, &D_800A3FB8);
+      temp_v0_4 = func_80022318((void **)(D_800C7F84 + 0x28), (u8 *)(&D_800A3FB8));
       if (temp_v0_4 != NULL)
       {
         (*((s32 (**)(s32)) (((char *) temp_v0_4) + 0x14)))(*((s32 *) (((char *) temp_v0_4) + 0x10)));
       }
-      temp_v0_5 = func_80022318(D_800C7F84 + 0x28, &D_800A3FC0);
+      temp_v0_5 = func_80022318((void **)(D_800C7F84 + 0x28), (u8 *)(&D_800A3FC0));
       if (temp_v0_5 != NULL)
       {
         (*((s32 (**)(s32)) (((char *) temp_v0_5) + 0x14)))(*((s32 *) (((char *) temp_v0_5) + 0x10)));

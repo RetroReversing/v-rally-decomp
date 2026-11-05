@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_terminal_800446d0.h"
+#line 1 "func.c"
 extern s32 D_800B5B48;
 extern char D_800AE850[];
 extern char D_800A4E20[];
@@ -8,7 +8,7 @@ void func_800447A0();
 s32 func_8000BF2C();
 s32 func_8000C1EC();
 void func_8000C200(s32, f32, f32, f32);
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 void *func_800223B4();
 void *func_800801D0();
 
@@ -18,7 +18,7 @@ void func_800446D0(char *arg0) {
     s32 a0;
 
     s0 = arg0 + 0x28;
-    v0 = func_80022318(s0, D_800A4E20);
+    v0 = func_80022318((void **)(s0), (u8 *)(D_800A4E20));
     if (v0 != NULL) {
         goto block_5;
     }
@@ -36,3 +36,4 @@ block_6:
     func_8000C200(*(s32 *)(s0 + 0x10), 1.0f, 1.0f, 1.0f);
     func_8000C1EC(*(s32 *)(s0 + 0x10), 0x80, 0x33);
 }
+

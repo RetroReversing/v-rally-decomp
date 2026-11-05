@@ -1,50 +1,54 @@
-# Controller completion investigation
+# Controller timeout transition: exact match
 
-OPEN and revisitable. No new match or selected C.
+The normal app judge accepts `func_80043A78`: **1,272 bytes**, KMC GCC 2.7.2
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. The neighboring selected profile already
+uses `-g3`; only this previously open function's live profile changed.
+The complete **12,582,912-byte cartridge** remains byte-identical, SHA-256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+There are now **2,071 matched / 16 open / 34 assembly** functions in the app.
+All 2,070 previously selected profiles are preserved in both their respective
+app and standalone checkpoints. The 2,052 other selected C objects are unchanged.
 
-## Current corrected alternative
+## Reusable matching change
 
-The saved score-265 draft is unsuitable: one completion path skips the global-zero
-store, and it uses a car pointer as a player index. Correcting those issues in that
-text scores 1310. The earlier corrected alternative scores 655 with the current
-compiler profile.
+A real inline timeout helper uses an inverted outer guard, performs the original
+state-flag/timer updates and returns; its other original arm follows the guard.
+This gives the required annulled branch and delay-slot fill. A positive terminal
+layout scores 260; the inverse layout is exact. No runtime helper call, dummy
+operation, fake condition, register directive or instruction padding is needed.
+Ordinary and diagnostic linked bytes agree. Native controls cover the state/timer
+transition; the shared app generator independently reproduces scores 260 and 0
+with the final corrected signatures. App PR
+[#635](https://github.com/RetroReversing/decompdecomp/pull/635) automates the bounded
+terminal layouts across the shared repair pipeline.
 
-The [phase alternative](func_80043A78-phase-nonmatching-alternative.c) uses a genuine
-integer-index to car-node active-member union, then a real slot base followed by
-`+= index` and its field store. It never reinterprets an active union member. This
-recovers all register differences: score **460** with the current profile, **240**
-with the neighboring `-g3` profile. Five instruction positions remain different in
-the latter, all in one branch/delay-slot cluster. This is not an accepted source or
-compiler setting. Every immediate accepted neighbor uses the same KMC profile plus
-`-g3`, but that alone cannot establish this function's original settings.
+## Existing contracts corrected with the match
 
-Candidate SHA-256: `fca92d19f650ac0b7f66edc02e21cf017f918fc83a123e00cc768868071aad48`.
-Frozen input SHA-256: `225c3efff33503a23409a8e0ee35cd1a97279aa0e16ccd8808e3d4002b696607`.
+The lookup takes both its list and name and explicitly forwards both to its
+callees. Its update wrapper takes list/name/value, returns an integer, and uses
+an ordinary positive nonnull branch. All 17 inventoried selected direct lookup
+and updater functions are corrected; the focal caller also has compatible
+incomplete Car/Pad tags and explicit pointer views. These 18 existing source
+corrections remain exact under their original profiles. They are not new matches.
+The focal also agrees with its selected getter and byte-output callee signatures.
 
-## Exhausted controls
+## Concrete domain audit and limits
 
-The November 5 revisit tested reverse active-member phases, both-branch index
-reuse, slot-address lifetimes, state/mask/result lifetimes and ordering, flag-flow
-forms, inline helpers, and signed/unsigned state types. It exhausted 128 physical
-line-boundary partitions of the positive-polarity branch. None matched. Twenty-eight
-installed period compiler/profile controls on two corrected sources also found no
-exact result. Earlier native and offset/helper families should not be repeated
-without a new grounded hypothesis.
+The relevant body field is entry 10 in a 12-word grid-column array. All 55 retail
+track files, containing 2,255 grid records, were checked against the actual loader
+layout. Centers are 2..6, columns 5..12; initialization, guarded stepping and
+accepted/restored transitions retain columns 0..10. Thus the magnitude input is
+-8..6 in normal initialized retail state, excluding INT_MIN. This is not a proof
+for injected or corrupt values. Defined unsigned/wide alternatives scored 700
+or worse and were not selected merely to improve a score.
 
-Ordinary and `-da` diagnostic builds produce identical linked candidate bytes.
-Compiler RTL confirms the remaining gap is nonannulled branch scheduling versus
-the target's annulled equality branch and different delay-slot/arm order. This does
-not justify forcing an instruction with assembly, volatile or dummy operations.
+The provisional sound-list name actually refers to UI items. Normal setup creates
+and associates these items before controller dispatch. The source retains the
+game's successful initialized-UI contract: consistent eligible player/view counts,
+valid allocated records, and no interleaved teardown or reassignment. It does not
+invent a valid null-plus-offset fallback. Existing object/effective-type assumptions,
+allocation failure and unrelated selected-source defects remain outside this focused
+proof. No whole-program memory-soundness claim is made.
 
-## Correctness limits
-
-The target rebinds its state pointer during the other-car traversal and reads that
-state in the final pad update; the alternative preserves this behavior. Sound-list
-membership, initialized track/car objects and bounded track/speed arithmetic remain
-explicit game-domain assumptions, not a proved whole-game invariant. Signed `abs`
-of `INT_MIN` and speed-addition overflow are excluded cases in this unaccepted
-research source. No invented null fallback is used. A future exact candidate still
-needs a semantic audit, normal linked-byte acceptance and a complete cartridge check.
-
-Detailed compiler receipts, frozen inputs and negative controls remain private;
-no game image, extracted assembly or build output is included here.
+All portable progress was saved after acceptance and compared against the live
+matched sources, allowing only the save format's trailing newline normalization.

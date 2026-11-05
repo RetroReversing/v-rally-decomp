@@ -1,7 +1,7 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_terminal_80010468.h"
 #line 1 "func.c"
 s32 func_8001095C();
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 s32 func_80022668();
 void *func_8004240C();
 f32 sqrtf(f32);
@@ -31,7 +31,7 @@ void func_80010468(void)
   {
     D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);
     s1 = func_8004240C((i - 1) * 2 + 2);
-    cb = func_80022318(D_800C7F84 + 0x28, D_800A3FF0);
+    cb = func_80022318((void **)(D_800C7F84 + 0x28), (u8 *)(D_800A3FF0));
     if (cb == NULL)
       continue;
     cb->fn(cb->arg);

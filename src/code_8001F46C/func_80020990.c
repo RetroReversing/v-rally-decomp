@@ -1,8 +1,8 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_terminal_80020990.h"
+#line 1 "func.c"
 u16 func_80022648(void *);
 void func_80012F7C(void *);
-void func_80022374(s32, void *, s32);
+s32 func_80022374(void **, u8 *, s32);
 void func_80042D20(s32, void *);
 s32 func_80046398(void *);
 void func_80047474(void *);
@@ -51,7 +51,7 @@ void func_80020990(void *arg0) {
     *(s32 *)((u8 *)arg0 + 0x14) = flags;
     temp_v0 = func_80046398(arg0);
     if (temp_v0 != 0) {
-        func_80022374(temp_v0 + 0x28, D_800A4900, 0);
+        func_80022374((void **)(temp_v0 + 0x28), (u8 *)(D_800A4900), 0);
     }
     *(s32 *)(*(u8 **)((u8 *)arg0 + 0x70) + 0x28) = *(s32 *)(*(u8 **)((u8 *)arg0 + 0x44) + 0x28);
     *(s32 *)(*(u8 **)((u8 *)arg0 + 0x70) + 4) = 1;
@@ -62,3 +62,4 @@ void func_80020990(void *arg0) {
     *(s32 *)(*(u8 **)((u8 *)arg0 + 0x70) + 0x24) = 0;
     *(s32 *)(*(u8 **)((u8 *)arg0 + 0x9C) + 0x34) = 0;
 }
+

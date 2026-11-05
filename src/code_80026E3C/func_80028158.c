@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_terminal_80028158.h"
+#line 1 "func.c"
 typedef struct S2
 {
   u8 f0;
@@ -29,11 +29,12 @@ void func_800280EC(S1 *, S2 *);
 void func_800347A4(S1 *, S2 *);
 void func_80043150(S1 *, S2 *);
 void func_800437B8(S1 *, S2 *);
-void func_80043A78(S1 *, S2 *);
+struct Car; struct Pad;
+void func_80043A78(struct Car *, struct Pad *);
 void func_8007B204(S1 *);
 s32 func_80077724(void);
 void func_80077214(S1 *, S2 *);
-void func_80097E30(S2 *, s32, s32);
+void memset(S2 *, s32, s32);
 void func_80028158(S1 *arg0, s32 arg1, S2 *arg2, s32 arg3)
 {
   unsigned short new_var;
@@ -72,7 +73,7 @@ void func_80028158(S1 *arg0, s32 arg1, S2 *arg2, s32 arg3)
       return;
 
     case 4:
-      func_80043A78(arg0, arg2);
+      func_80043A78((struct Car *)arg0, (struct Pad *)arg2);
       return;
 
     case 5:
@@ -110,9 +111,10 @@ void func_80028158(S1 *arg0, s32 arg1, S2 *arg2, s32 arg3)
       }
       else
       {
-        func_80097E30(arg2, 0, 8);
+        memset(arg2, 0, 8);
         arg2->f3 |= 0x10;
       }
     }
   }
 }
+

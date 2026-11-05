@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_terminal_80042f40.h"
 #line 1 "func.c"
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -20,7 +20,7 @@ extern void **D_800B5C40;
 
 
 s32 func_8000E8B8();
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 s32 func_8002FE78();
 void *func_8004240C();
 s32 func_80042DE0();
@@ -51,7 +51,7 @@ void func_80042F40(void) {
     D_8009D538 |= 1;
     temp_v0 = func_8004240C((temp_a0 * 2) | 1);
     D_800C7F84 = temp_v0;
-    node = M2C_FIELD(func_80022318(temp_v0 + 0x28, &D_800A4DF4), void **, 0x10);
+    node = M2C_FIELD(func_80022318((void **)(temp_v0 + 0x28), (u8 *)(&D_800A4DF4)), void **, 0x10);
     config = D_800C35A0;
     M2C_FIELD(node, s32 *, 8) = 1;
     temp_v0_2 = func_8004240C((M2C_FIELD(config, u16 *, 0xE) * 2) + 2);

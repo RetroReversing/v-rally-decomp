@@ -20,6 +20,15 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Controller timeout transition — 5 November 2026
+
+`func_80043A78` adds **1,272 byte-exact C bytes**, bringing the app to
+**2,071 matched functions / 16 open / 34 assembly**. Eighteen existing direct-call
+source contracts were corrected alongside it, retaining their matches and profiles.
+The full **12,582,912-byte cartridge** still rebuilds byte for byte. All portable
+progress is included. See the [matching investigation](docs/matching-experiments/func_80043A78-investigation.md)
+for the automated terminal-branch repair and the audited runtime assumptions.
+
 ### Promoted byte-argument contracts — 5 November 2026
 
 Five existing matched sources now agree on the packed-record helper's integer interface while retaining its byte conversions. Typed byte

@@ -82,11 +82,12 @@ extern Car **D_800B5C40;
 extern s32 D_800B6880; extern u8 D_800AE850[];
 extern Slot44 *D_800A1234;
 extern u8 D_800A4DFC[];
-extern s32 func_8001FEE8(Car *, Ctl *);
-extern void func_80022374(u8 *, u8 *, s32);
-extern void func_800347A4(Car *, Pad *);
+extern s32 func_8001FEE8(void *);
+extern s32 func_80022374(void **, u8 *, s32);
+extern void func_800347A4(void *, s8 *);
 extern void func_80042F40(void);
 extern void func_80085778(s32, s32);
+static __inline__ void expired(s32 *st,u32 *timer) {s32 v=*st;if(!(v&8)){if(v&4){*st=(v|2)&~4;}else{*st=(v|4)&~2;} *timer=50; *st|=8;return;}*st=v|0x20;}
 void func_80043A78(Car *car, Pad *pad)
 {
   Ctl *ctl;
@@ -98,9 +99,8 @@ void func_80043A78(Car *car, Pad *pad)
   s32 v;
   s32 d;
   u32 q;
-  s32 r;
   Snd *s;
-  Car *n;
+  union { s32 player; Car *node; } n;
   s16 cnt;
   s16 k;
   s32 all;
@@ -113,7 +113,7 @@ void func_80043A78(Car *car, Pad *pad)
   if (!((*st) & 0x20))
   {
     timer = &ctl->timer;
-    speed = func_8001FEE8(car, ctl);
+    speed = func_8001FEE8(car);
     if (!(car->flags & 0x80))
     {
       if ((*car->player) < 4)
@@ -126,7 +126,7 @@ void func_80043A78(Car *car, Pad *pad)
           }
         }
 
-        func_80022374(s->data, D_800A4DFC, 2);
+        func_80022374((void **)((u8*)s + 0x28), D_800A4DFC, 2);
       }
       car->flags |= 0x80;
       d = car->info->x8;
@@ -157,7 +157,7 @@ void func_80043A78(Car *car, Pad *pad)
           *timer = 12;
           v = *st;
           *st = v | 1;
-          if (pos < (trk->x4C - 1))
+          if (pos < ((u32)trk->x4C - 1U))
           {
             *st = v | 5;
           }
@@ -168,7 +168,7 @@ void func_80043A78(Car *car, Pad *pad)
         }
         else
         {
-          func_800347A4(car, pad);
+          func_800347A4(car, (s8*)pad);
         }
       }
       else
@@ -193,7 +193,7 @@ void func_80043A78(Car *car, Pad *pad)
           q = 4 - abs(trk->x4C - pos);
           if (q != 0)
           {
-            t = ((u32) (speed + 27)) / q;
+            t = ((u32)speed + 27U) / q;
           }
           else
           {
@@ -218,17 +218,7 @@ void func_80043A78(Car *car, Pad *pad)
     }
     else
     {
-      v = *st;
-      if (v & 8)
-      {
-        *st = v | 0x20;
-      }
-      else
-      {
-        *st = !(v & 4) ? ((v | 4) & (~2)) : ((v | 2) & (~4));
-        *timer = 50;
-        *st |= 8;
-      }
+expired(st,timer);
     }
     if (!((*st) & 0x20))
     {
@@ -243,24 +233,24 @@ void func_80043A78(Car *car, Pad *pad)
     pad->b3 = pad->b1;
     if ((D_800C35A0->state != 0) & (D_800C35A0->state != 5))
     {
-      n = (Car *) (*car->player);
-      { Slot44 *sl = &D_800A1234[(s32) n]; sl->hA = 2; }
+      n.player = *car->player;
+      { Slot44 *slot = D_800A1234 + n.player; slot->hA = 2; }
       cnt = D_800C35A0->players;
       k = 0;
-      for (n = *D_800B5C40; n != NULL; n = n->next)
+      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
       {
-        if ((*n->player) < 4)
+        if ((*n.node->player) < 4)
         {
-          st = &n->ctl->state;
-          if (n->flags & 0x100)
+          st = &n.node->ctl->state;
+          if (n.node->flags & 0x100)
           {
-            if (n->ctl->state & 0x20)
+            if (n.node->ctl->state & 0x20)
             {
               cnt--;
             }
           }
           else
-            if ((((speed >= (-5)) && (speed <= 5)) && (n->info->x10 == 0)) && (n->flags & 0x200))
+            if ((((speed >= (-5)) && (speed <= 5)) && (n.node->info->x10 == 0)) && (n.node->flags & 0x200))
           {
             k++;
             cnt--;
@@ -277,24 +267,24 @@ void func_80043A78(Car *car, Pad *pad)
     {
       if ((*car->player) < 4)
       {
-        D_800A1234[*car->player].hA = 2;
+        { Slot44 *slot=D_800A1234; slot += *car->player; slot->hA=2; }
       }
       cnt = 1;
-      for (n = *D_800B5C40; n != NULL; n = n->next)
+      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
       {
-        if ((*n->player) < 4)
+        if ((*n.node->player) < 4)
         {
-          all = -((n->flags & 0x100) != 0);
+          all = -((n.node->flags & 0x100) != 0);
           cnt &= all;
         }
       }
 
       if (cnt)
       {
-        D_800B6880 = 0;
         finish:
-        func_80042F40();
+        *(s32 *)(D_800AE850 + 0x8030) = 0;
 
+        func_80042F40();
         func_80085778(0, 0x1000);
         func_80085778(0, 0x8000);
       }

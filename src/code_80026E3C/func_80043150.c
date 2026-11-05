@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_terminal_80043150.h"
 #line 1 "func.c"
 extern int D_800B6880;
 extern unsigned int D_800AE44C;
@@ -6,7 +6,7 @@ extern float D_800C35E0;
 extern signed char D_800C8120;
 s32 func_8000E8B8();
 s32 func_8001FEE8();
-void *func_80022318();
+void *func_80022318(void **, u8 *);
 s32 func_80022F78();
 s32 func_80027C64();
 s32 func_80027E8C();
@@ -165,7 +165,7 @@ void func_80043150(void *arg0, void *arg1)
                 }
 
               }
-              temp_v0_4 = func_80022318(var_a0 + 0x28, &D_800A4DFC);
+              temp_v0_4 = func_80022318((void **)(var_a0 + 0x28), (u8 *)(&D_800A4DFC));
               {
                 s32 two = 2;
                 if (temp_v0_4 != NULL)
@@ -236,7 +236,7 @@ void func_80043150(void *arg0, void *arg1)
                 D_8009D538 |= 1;
                 temp_v0_7 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (D_800C02AE + 0x32F2))))->e * 2) | 1);
                 *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_7;
-                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) func_80022318(temp_v0_7 + 0x28, &D_800A4DF4)) + 0x10))))->v = 1;
+                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) func_80022318((void **)(temp_v0_7 + 0x28), (u8 *)(&D_800A4DF4))) + 0x10))))->v = 1;
                 temp_v0_8 = func_8004240C((((struct { u8 pad[0xE]; u16 e; } *) D_800C35A0)->e * 2) + 2);
                 *((void **) (D_800C02AE + 0x7CD6)) = temp_v0_8;
                 func_8000E8B8(((struct { u8 pad[0x178]; s32 x; } *) temp_v0_8)->x);

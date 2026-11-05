@@ -1,23 +1,6 @@
-/* identical to func_80021804 in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_80022374 in V-RALLY (matched), with its names changed by decompdecomp */
-
-void *func_80022318();
-s32 func_80022374(s32 arg0, s32 arg1, s32 arg2)
-{
-  void *temp_v0;
-  temp_v0 = func_80022318();
-  if (temp_v0 == NULL)
-  {
-    return 0;
-  }
-  if (temp_v0)
-  {
-    *((s32 *) (((char *) (*((void **) (((char *) temp_v0) + 0x10)))) + 8)) = arg2;
-    return 1;
-  }
-  else
-  {
-    *((s32 *) (((char *) (*((void **) (((char *) temp_v0) + 0x10)))) + 8)) = arg2;
-    return 1;
-  }
+void *func_80022318(void **, u8 *);
+s32 func_80022374(void **list, u8 *name, s32 value) {
+void *node;
+node=func_80022318(list,name);
+if(node!=NULL){*(s32 *)((u8 *)*(void **)((u8 *)node + 0x10) + 8) = value;return 1;}else{return 0;}
 }

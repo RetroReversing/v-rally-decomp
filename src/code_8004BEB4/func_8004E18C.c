@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_terminal_8004e18c.h"
+#line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80022318(s32, M2C_UNK *);                /* extern */
+void *func_80022318(void **, u8 *);                /* extern */
 M2C_UNK func_800804C4(s32, M2C_UNK *);              /* extern */
 extern M2C_UNK D_800A4F20;
 extern M2C_UNK D_800A4F28;
@@ -28,11 +28,11 @@ void func_8004E18C(s32 arg0) {
     void *temp_v1;
 
     temp_s0 = arg0 + 0x28;
-    temp_v0 = func_80022318(temp_s0, &D_800A4F20);
+    temp_v0 = func_80022318((void **)(temp_s0), (u8 *)(&D_800A4F20));
     if (temp_v0 != NULL) {
         func_800804C4(M2C_FIELD(temp_v0, s32 *, 0x10), &func_8004E094);
     }
-    temp_v0_2 = func_80022318(temp_s0, &D_800A4F28);
+    temp_v0_2 = func_80022318((void **)(temp_s0), (u8 *)(&D_800A4F28));
     if (temp_v0_2 != NULL) {
         temp_v0_3 = M2C_FIELD(temp_v0_2, void **, 0x10);
         temp_v1 = M2C_FIELD(temp_v0_3, void **, 0);
@@ -43,3 +43,4 @@ void func_8004E18C(s32 arg0) {
         M2C_FIELD(temp_v1, u16 *, 0x68) = (u16) (M2C_FIELD(temp_v1, u16 *, 0x68) | 1);
     }
 }
+

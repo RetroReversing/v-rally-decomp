@@ -1,7 +1,7 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_terminal_800437b8.h"
+#line 1 "func.c"
 s32 func_8001FEE8(void *);
-s32 func_80022374(void *, s32 *, s32);
+s32 func_80022374(void **, u8 *, s32);
 s32 func_800347A4(void *, void *);
 s32 func_80042F40(void);
 s32 func_80085778(s32, s32);
@@ -42,7 +42,7 @@ void func_800437B8(void *arg0, void *arg1)
         }
 
       }
-      func_80022374(var_a0 + 0x28, &D_800A4DFC, 2);
+      func_80022374((void **)(var_a0 + 0x28), (u8 *)(&D_800A4DFC), 2);
       *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x50)))) + 4)) = 1;
       temp_v1 = *((void **) (((char *) arg0) + 0x50));
       if ((*((s32 *) (((char *) temp_v1) + 0))) < 2)
@@ -132,3 +132,4 @@ void func_800437B8(void *arg0, void *arg1)
     }
   }
 }
+
