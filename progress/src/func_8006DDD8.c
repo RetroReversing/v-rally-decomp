@@ -11,21 +11,20 @@ s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {
   f64 bound = D_800A58A8;
-  u8 *p = D_800C35A0;
+  s32 code = (s32)D_800C35A0;
   u8 *tab = D_800C7125;
   s32 i = 0;
-  u8 *base = *(u8 **)0x800D0634 + (p[0x21] * 0x2c4);
+  u8 *base = *(u8 **)0x800D0634 + (((u8 *)code)[0x21] * 0x2c4);
   u32 idx;
   u32 x;
   s32 raw;
   u32 twice;
   s16 off;
   s32 delta;
-  s32 code;
   s32 stride;
   f64 b;
   int new_var;
-  code = func_8006B9E0(p[0x21], p[0x23]);
+  code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);
   stride = D_800C35A0[0x23] * 64;
   idx = (u8) code;
   twice = idx * 2;

@@ -722,3 +722,14 @@ or claim taken over.
 preserved. `func_8007ED48` passed standalone and full cartridge checks using the
 existing repair. `func_8007EBF4` is now matched in the live app too; only ED48
 awaits its existing worker claim before live application.
+
+
+### Pointer/scalar lifetime checkpoint
+
+`func_8006DDD8` now matches all **268 instructions / 1,072 bytes**. Reusing
+the initial pointer identity for a later scalar recovered the target allocation
+with KMC GCC 2.7.2 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. The live app accepted
+score zero; the standalone check and complete **12,582,912-byte** cartridge
+comparison passed, with all prior compiled objects unchanged. The standalone
+tree now selects **2,049 C functions / 75 assembly units**. All current app
+progress, including drafts and notes, is preserved in `progress/`.

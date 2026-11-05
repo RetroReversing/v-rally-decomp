@@ -68,7 +68,7 @@ void func_80046E54(Stat *s)
     D_800ADFDE = 0x10;
   }
   i = 0;
-  D_800ADFDE = 0;
+  ((s16 *) &D_800ADFDC)[1] = 0;
   D_800B55E0 = s[2].v;
   do
   {

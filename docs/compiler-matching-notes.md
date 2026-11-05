@@ -311,3 +311,16 @@ before repair and0 afterward. Full cartridge comparison passed with all prior
 objects unchanged. No additional rewrite family was needed. Its live application
 is pending an existing CPU worker claim. `func_8007EBF4` has now also passed the
 live app judge after its worker released the claim.
+
+
+### Disjoint pointer and scalar lifetimes
+
+For `func_8006DDD8`, the initial pointer is dead after its final call arguments,
+then the same word-sized identity holds a scalar result. Reusing that identity
+changed the initial register allocation and recovered all 268 instructions.
+KMC GCC 2.7.2 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3` was retained.
+The original draft scored 30; the accepted source passes linked byte/data checks
+and the full cartridge comparison. A symbolic relocation display difference
+remained in one private disassembly score but did not change linked bytes; the
+normal app judge reported zero. This is a controlled compiler allocation result,
+not evidence for the original source spelling.

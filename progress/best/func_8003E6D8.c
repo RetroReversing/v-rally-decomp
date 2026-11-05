@@ -57,7 +57,6 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   Mgr *m;
   Spr *s;
   void *new_var2;
-  s32 x0;
   s32 x;
   s32 y;
   u32 i;
@@ -72,7 +71,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   s16 x2;
   s16 x3;
   pos = D_800C7F84->pos;
-  x = (x0 = pos->x) + 0x14;
+  x = (x = pos->x) + 0x14;
   y = pos->y + 6;
   state = D_800C35A0->state;
   if (state == 7)
@@ -92,12 +91,12 @@ void func_8003E6D8(s32 arg0, s32 arg1)
         s->tex = func_80034FF0(new_var2, 0);
         s->part = 0;
         s->owner = D_800C7F84;
-        s = func_80040260(arg0, x0 + 0x1C, y, 5, func_8003ED04, mode);
+        s = func_80040260(arg0, x + 0x1C, y, 5, func_8003ED04, mode);
         new_var = (void *) (arg1 + 0x4C);
         s->tex = func_80034FF0(new_var, 0);
         s->part = 1;
         s->owner = D_800C7F84;
-        s = func_80040260(arg0, x0 + 0x24, y, 5, func_8003ED04, mode);
+        s = func_80040260(arg0, x + 0x24, y, 5, func_8003ED04, mode);
         s->tex = func_80034FF0(new_var, 0);
         s->part = 2;
         s->owner = D_800C7F84;
@@ -209,3 +208,4 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   }
 
 }
+

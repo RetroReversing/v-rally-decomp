@@ -52,13 +52,14 @@ void func_80040CF4(u8 arg0)
   h = (s16) D_8009FFD8.h;
   if (n != 0)
   {
+    Item *it0;
     r.x = x;
     r.y = y;
     r.w = w;
     r.h = h;
-    it = func_80042078(&r, 5, D_8009FF38[idx].v[0], D_8009FF38[idx].v[1], 2);
-    func_800424A4(it, D_800A4C30);
-    it->id = 0;
+    it0 = func_80042078(&r, 5, D_8009FF38[idx].v[0], D_8009FF38[idx].v[1], 2);
+    func_800424A4(it0, D_800A4C30);
+    it0->id = 0;
   }
   switch (n)
   {
@@ -66,8 +67,8 @@ void func_80040CF4(u8 arg0)
       p = &r;
       p->x = x;
       p->y = y;
-      p->w = w;
       p->h = h;
+      p->w = w;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], 2);
       func_800424A4(it, D_800A4C38);
       it->id = 1;
@@ -83,7 +84,9 @@ void func_80040CF4(u8 arg0)
       s16 x2 = x + 0x20;
       s16 w2 = w - 0x38;
       s32 hh = h / 2;
-      s16 h2 = hh - 1;
+      s16 h2;
+      h = hh - 1;
+      h2 = h;
       p = &r;
       p->x = x2;
       p->y = y;
@@ -96,8 +99,8 @@ void func_80040CF4(u8 arg0)
       it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
       func_800424A4(it, D_800A4C40);
       it->id = 2;
-      p->y = (hh = (y + hh) + 1);
       p->x = x2;
+      p->y = (hh = (y + hh) + 1);
       p->w = w2;
       p->h = h2;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
@@ -122,10 +125,12 @@ void func_80040CF4(u8 arg0)
       it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
       func_800424A4(it, D_800A4C40);
       it->id = 2;
-      p->x = (x + hw) + 1;
+      p->x = hw;
+      p->x = x + p->x;
+      p->x = p->x + 1;
       p->y = y;
-      p->w = w2;
       p->h = h;
+      p->w = w2;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
       func_800424A4(it, D_800A4C48);
       it->id = 3;

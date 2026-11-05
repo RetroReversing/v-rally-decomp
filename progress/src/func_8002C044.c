@@ -119,9 +119,9 @@ int __repair_literal;
         }
         else
         {
-          W(P(a, 96), (i * 4) + 48) = oldcol;
+          W(P(a, 96), (i * 4) + 48) = oldcol + oldcol - oldcol;
           W(P(a, 96), i * 4) = oldrow;
-          g = old;
+          g = (char *)((int)old + (int)old - (int)old);
           P(P(a, 140), i * 4) = g;
           pos = save;
           result = -__repair_literal;
@@ -165,8 +165,8 @@ int __repair_literal;
         {
           int k = shift[0] * 4;
           W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);
-          W(P(a, 96), i * 4) = W(P(a, 96), k);
-          P(P(a, 140), i * 4) = P(P(a, 140), k);
+          W(P(a, 96), i * 4) = *(int *)(k + (int)P(a, 96));
+          P(P(a, 140), i * 4) = *(char **)(k + (int)P(a, 140));
         }
         func_80029AA8(a, q, &pos, i);
       }

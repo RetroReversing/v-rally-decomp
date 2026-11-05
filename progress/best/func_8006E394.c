@@ -124,14 +124,7 @@ void func_8006E394(void)
     {
       do
       {
-        if ((m & (1 << i)) == (1 << i))
-        {
-          D_800B6600.flag[base + i] = 1;
-        }
-        else
-        {
-          D_800B6600.flag[base + i] = 0;
-        }
+ do { if ((m & (1 << i)) == (1 << i)) { D_800B6600.flag[base + i] = 1; } else { D_800B6600.flag[base + i] = 0; } } while (0);
       }
       while (0);
     }
@@ -192,4 +185,3 @@ void func_8006E394(void)
     D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
   }
 }
-

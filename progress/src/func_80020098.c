@@ -5,6 +5,7 @@ void func_80020098(u8 *arg0, u8 arg1)
   u8 prev, cur;
   u8 *dst;
   k = 0;
+
   cur = arg0[0x93];
   for (i = 0; i < *(s32 *)(arg0 + 0x44) - 1; i++)
   {
@@ -12,9 +13,8 @@ void func_80020098(u8 *arg0, u8 arg1)
     cur = arg0[i * 0x4C + 0xDF];
     for (j = 0; j < 10; j++)
     {
-      dst = (D_800C02AE + 0x5BAA) + arg1 + (arg1 << 7);
-      dst[k] = prev + j * (cur - prev) / 10;
-      if (dst[k] >= 0x80) dst[k] = 0x7F;
+      D_800C02AE[0x5BAA + arg1 * 0x81 + k] = prev + j * (cur - prev) / 10;
+      if (D_800C02AE[0x5BAA + arg1 * 0x81 + k] >= 0x80) D_800C02AE[0x5BAA + arg1 * 0x81 + k] = 0x7F;
       if (k < 0x80) k++;
     }
   }

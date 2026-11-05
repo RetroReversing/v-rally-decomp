@@ -308,7 +308,9 @@
     "src/code_80017B38/func_800199DC.c": "b64cf8408d2dad7e825d5f28b4d61beb7fcaba9d30462da7aac554a77a1a4234",
     "src/code_80026E3C/func_8002B180.c": "1c6b7ef0823c990828a92283ed89cc5e07de6832cef2555b35d7b6e27f36d962",
     "src/code_80026E3C/func_8003D9C8.c": "abf188e8f12556e5e7e8bc738f7b3ec02c029bebc11d4b366400b57730a916f7",
-    "src/code_8007E9D4/func_80084C0C.c": "2f6f68556a61146b3021b02fcf734243aabfbab2a95e12e64cb8feb425bc194a"
+    "src/code_8007E9D4/func_80084C0C.c": "2f6f68556a61146b3021b02fcf734243aabfbab2a95e12e64cb8feb425bc194a",
+    "src/code_8004BEB4/func_8006DDD8.c": "58002f945dc389b314e1f34d898b67a2f685328d3a70eb3b111cd944b4ecef8c",
+    "include/decompdecomp_pointer_scalar_6ddd8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -623,7 +625,8 @@
     "guS2DInitBg",
     "huft_build",
     "inflate_codes",
-    "inflate_dynamic"
+    "inflate_dynamic",
+    "func_8006DDD8"
   ],
   "skipped": [
     {
@@ -640,20 +643,21 @@
     }
   ],
   "verified_build": true,
-  "matched_app": 2050,
+  "matched_app": 2054,
   "last_verification": {
-    "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
     "bytes": 12582912,
+    "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_800199DC",
-      "func_8002B180",
-      "func_8003D9C8",
-      "func_80084C0C"
+      "func_8006DDD8"
     ],
-    "note": "The app restarted during the isolated build. After that process ended, resumed the frozen staged build using its unchanged compiled C objects and the normal build/link pipeline. The resumed build succeeded, and its complete cartridge was compared byte for byte before publication. No live database writes."
+    "note": "268 instructions: disjoint pointer/scalar identity lifetime repair. Ordinary live app score zero, standalone check and complete cartridge byte comparison passed; all prior object hashes unchanged. All current portable app progress saved."
   },
   "not_integrated_after_checkpoint": [
-    "func_8007EAA0",
+    "func_8000C9B0",
+    "func_80020098",
+    "func_8002C044",
+    "func_800450B8",
+    "func_800603B4",
     "func_8007EE9C"
   ],
   "pending_app_verification": [

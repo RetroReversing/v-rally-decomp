@@ -33,7 +33,7 @@ void func_8007B4A4(LObj *o)
     s32 m[12];
     f32 dx, dy, dz, len, s;
     f32 ex, ey, ez, dot, f, amb, k;
-    s32 i, j, n;
+    s32 i, j, n, j2;
     s32 full;
     s32 c;
     s32 lo, hi;
@@ -120,7 +120,7 @@ void func_8007B4A4(LObj *o)
         }
         w = o->v24[i];
         n = o->n24[i];
-        j = 0;
+        j2 = 0;
         if (n != 0) {
             do {
                 k = 255.0f;
@@ -154,8 +154,8 @@ void func_8007B4A4(LObj *o)
                 lo += c << 24;
                 w->col = lo;
                 w++;
-                j++;
-            } while (j < n);
+                j2++;
+            } while (j2 < n);
         }
     }
 }

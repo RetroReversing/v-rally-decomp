@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793845361.442185,
- "revision": 14972,
+ "saved_at": 1793848875.241119,
+ "revision": 15242,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -3444,8 +3444,8 @@
   },
   "func_80020098": {
    "vram": 2147614872,
-   "best_score": 70,
-   "best_by": "claude-opus-7"
+   "matched_by": "claude-opus-3",
+   "readable": false
   },
   "func_800201B0": {
    "vram": 2147615152,
@@ -4169,8 +4169,8 @@
   },
   "func_8002C044": {
    "vram": 2147663940,
-   "best_score": 205,
-   "best_by": "claude-opus-7"
+   "matched_by": "claude-opus-12",
+   "readable": false
   },
   "func_8002C6EC": {
    "vram": 2147665644,
@@ -5069,8 +5069,8 @@
   },
   "func_8003BBDC": {
    "vram": 2147728348,
-   "best_score": 120,
-   "best_by": "permuter"
+   "best_score": 60,
+   "best_by": "claude-opus-3"
   },
   "func_8003BE44": {
    "vram": 2147728964,
@@ -5204,8 +5204,8 @@
   },
   "func_8003E6D8": {
    "vram": 2147739352,
-   "best_score": 650,
-   "best_by": "claude-opus-12"
+   "best_score": 635,
+   "best_by": "permuter"
   },
   "func_8003ED04": {
    "vram": 2147740932,
@@ -5359,8 +5359,8 @@
   },
   "func_80040CF4": {
    "vram": 2147749108,
-   "best_score": 620,
-   "best_by": "permuter"
+   "best_score": 534,
+   "best_by": "Rr.permuter-837"
   },
   "func_800412FC": {
    "vram": 2147750652,
@@ -5709,8 +5709,8 @@
   },
   "func_80046E54": {
    "vram": 2147774036,
-   "best_score": 310,
-   "best_by": "claude-opus-5"
+   "best_score": 200,
+   "best_by": "claude-opus-7"
   },
   "func_800471B0": {
    "vram": 2147774896,
@@ -6949,8 +6949,8 @@
   },
   "func_80059A60": {
    "vram": 2147850848,
-   "best_score": 610,
-   "best_by": "permuter"
+   "best_score": 220,
+   "best_by": "claude-opus-7"
   },
   "func_80059F80": {
    "vram": 2147852160,
@@ -7574,8 +7574,8 @@
   },
   "func_800603B4": {
    "vram": 2147877812,
-   "best_score": 195,
-   "best_by": "claude-opus-7"
+   "matched_by": "claude-opus-7",
+   "readable": false
   },
   "func_800607F0": {
    "vram": 2147878896,
@@ -8419,8 +8419,8 @@
   },
   "func_8006DDD8": {
    "vram": 2147933656,
-   "best_score": 30,
-   "best_by": "claude-opus-5"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8006E208": {
    "vram": 2147934728,
@@ -8439,8 +8439,8 @@
   },
   "func_8006E394": {
    "vram": 2147935124,
-   "best_score": 1160,
-   "best_by": "Rr.permuter-1453"
+   "best_score": 1155,
+   "best_by": "permuter"
   },
   "func_8006E8A0": {
    "vram": 2147936416,
@@ -8989,8 +8989,8 @@
   },
   "func_8007B4A4": {
    "vram": 2147988644,
-   "best_score": 380,
-   "best_by": "claude-opus-6"
+   "best_score": 330,
+   "best_by": "claude-opus-12"
   },
   "func_8007BA1C": {
    "vram": 2147990044,
@@ -161578,7 +161578,7 @@
   },
   {
    "function": "func_80046E54",
-   "text": "Deep permuter: score 320 \u2192 320; 0 improvements; 44 candidates tested; 96 cached skips; 0 rejected; 114s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 374s elapsed. Variant limit reached.",
    "by": "Rr.permuter-907"
   },
   {
@@ -161593,7 +161593,7 @@
   },
   {
    "function": "func_80029AA8",
-   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 91 cached skips; 0 rejected; 634s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 130 \u2192 130; 0 improvements; 300 candidates tested; 111 cached skips; 0 rejected; 557s elapsed. Variant limit reached.",
    "by": "Rr.permuter-580"
   },
   {
@@ -161608,7 +161608,7 @@
   },
   {
    "function": "func_8003E6D8",
-   "text": "Deep permuter: score 650 \u2192 650; 0 improvements; 37 candidates tested; 0 cached skips; 0 rejected; 163s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
+   "text": "Deep permuter: score 635 \u2192 635; 0 improvements; 300 candidates tested; 158 cached skips; 0 rejected; 559s elapsed. Variant limit reached.",
    "by": "Rr.permuter-806"
   },
   {
@@ -161618,12 +161618,12 @@
   },
   {
    "function": "func_80059A60",
-   "text": "Deep permuter: score 610 \u2192 610; 0 improvements; 47 candidates tested; 66 cached skips; 0 rejected; 82s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 220 \u2192 220; 0 improvements; 1 candidates tested; 149 cached skips; 0 rejected; 44s elapsed. Stopped: host connection temporarily unavailable (HTTP 502); try again when the connection recovers.",
    "by": "Rr.permuter-1155"
   },
   {
    "function": "func_80086F40",
-   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 300 candidates tested; 131 cached skips; 0 rejected; 546s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 265 \u2192 265; 0 improvements; 300 candidates tested; 190 cached skips; 0 rejected; 578s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1756"
   },
   {
@@ -161668,7 +161668,7 @@
   },
   {
    "function": "func_800603B4",
-   "text": "Deep permuter: score 195 \u2192 195; 0 improvements; 33 candidates tested; 64 cached skips; 0 rejected; 115s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 55 \u2192 55; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 2s elapsed. Stopped: func_800603B4 is claimed by claude-opus-7 for another 29 min.",
    "by": "Rr.permuter-1280"
   },
   {
@@ -161713,7 +161713,7 @@
   },
   {
    "function": "func_8007B4A4",
-   "text": "Deep permuter: score 380 \u2192 380; 0 improvements; 300 candidates tested; 86 cached skips; 0 rejected; 519s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 330 \u2192 330; 0 improvements; 300 candidates tested; 155 cached skips; 0 rejected; 565s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1564"
   },
   {
@@ -161753,12 +161753,12 @@
   },
   {
    "function": "func_80040CF4",
-   "text": "Deep permuter: score 620 \u2192 620; 0 improvements; 35 candidates tested; 0 cached skips; 0 rejected; 162s elapsed. Stopped: the room's host isn't reachable right now: can't reach the host (ReadTimeout).",
+   "text": "Deep permuter: score 534 \u2192 534; 0 improvements; 300 candidates tested; 151 cached skips; 0 rejected; 561s elapsed. Variant limit reached.",
    "by": "Rr.permuter-837"
   },
   {
    "function": "func_8006BA44",
-   "text": "Deep permuter: score 1040 \u2192 1040; 0 improvements; 300 candidates tested; 82 cached skips; 0 rejected; 517s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1015 \u2192 1015; 0 improvements; 300 candidates tested; 168 cached skips; 0 rejected; 372s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1434"
   },
   {
@@ -161768,7 +161768,7 @@
   },
   {
    "function": "func_8003BBDC",
-   "text": "Deep permuter: score 120 \u2192 120; 0 improvements; 300 candidates tested; 74 cached skips; 0 rejected; 596s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 300 candidates tested; 170 cached skips; 0 rejected; 555s elapsed. Variant limit reached.",
    "by": "Rr.permuter-779"
   },
   {
@@ -161783,7 +161783,7 @@
   },
   {
    "function": "func_8006603C",
-   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 40 candidates tested; 80 cached skips; 0 rejected; 82s elapsed. Budget rotation: repeated function output without improvement.",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 300 candidates tested; 161 cached skips; 0 rejected; 533s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1343"
   },
   {
@@ -161798,12 +161798,12 @@
   },
   {
    "function": "func_8002C044",
-   "text": "Deep permuter: score 205 \u2192 205; 0 improvements; 300 candidates tested; 154 cached skips; 0 rejected; 631s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 0s elapsed. Stopped: func_8002C044 is claimed by claude-opus-12 for another 29 min.",
    "by": "Rr.permuter-599"
   },
   {
    "function": "func_80058E28",
-   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 300 candidates tested; 141 cached skips; 0 rejected; 565s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 60 \u2192 60; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_80058E28 is claimed by claude-opus-3 for another 29 min.",
    "by": "Rr.permuter-1138"
   },
   {
@@ -161813,7 +161813,7 @@
   },
   {
    "function": "func_8007ED48",
-   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 300 candidates tested; 39 cached skips; 0 rejected; 489s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 5 \u2192 5; 0 improvements; 300 candidates tested; 78 cached skips; 0 rejected; 572s elapsed. Variant limit reached.",
    "by": "Rr.permuter-1576"
   },
   {
@@ -161828,7 +161828,7 @@
   },
   {
    "function": "func_8006E394",
-   "text": "Deep permuter: score 1330 \u2192 1160; 1 improvements; 300 candidates tested; 102 cached skips; 0 rejected; 524s elapsed. Variant limit reached.",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 0 candidates tested; 0 cached skips; 0 rejected; 1s elapsed. Stopped: func_8006E394 is claimed by permuter for another 2 min.",
    "by": "Rr.permuter-1453"
   },
   {
@@ -163425,6 +163425,256 @@
    "function": "func_8007EBF4",
    "text": "Independently verified exact source/profile pair is committed in canonical repo3589775: src/code_8007E9D4/func_8007EBF4.c (raw source after #line). Use KMC GCC2.7.2 flags -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -fno-schedule-insns. Replace only uninitialized global-store value with (s32)__builtin_mips_live_return_address(), preserve scopes/lines. Full cartridge byte comparison and standalone check passed. Saved -g3 profile scores5 baseline/65 repaired; correct profile75 baseline/0 repaired. Do not repeat random source-only search. Live pair application pending existing worker claim; do not steal claims.",
    "by": "you"
+  },
+  {
+   "function": "func_8003BBDC",
+   "text": "Saved best now 60 (was 120): moving func_800556C4(pack) into BOTH branches of case 2's if/else (cross-jump merges them) fixed the 'sw s0,0xa4(v0)' vs 'move a0,s0' order. Remaining 2 rows: target loads switch value 'lhu v1,0xE(fp)' BEFORE 'sw a0,D_800C7F84' (right after lw 0x178(a0)); ours loads after the store (u8* g aliases the global). Tried: moving D_800C7F84 store before r=obj->rect or after x/w/y loads (no change, 60); volatile on switch read (270); a 'u16 sel = *(u16*)(g+0xE)' read before the store in an inner block + switch(sel) fixes the order but blows regalloc (435: extra lh order, t2 vs t1, a2 vs a0). Next ideas: sel as s32/int or u32 instead of u16; declare sel at function top; make g a struct pointer with u16 fields; read sel then keep D_800C7F84 store after the x/w/y loads.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006185C",
+   "text": "The rechecked best is still 190 (saved ternary form). New this session, all worse: `center=offset; if(offset<0){center=-center;center-=result;}` 795; `center=offset; if(center<0) center=-center-result` 700 (offset and x get coalesced into s2, so the delay-slot move is lost and everything after shifts by one insn); `-(offset+result)` ternary 990; ternary negate then `if(offset<0) center-=result` 795; moving extent after the offset load: no change; `(s32)` casts in the ternary: no change. `center=offset; center=(center<0)?-center-result:center;` = 190 (same). y block: swapping the mult operands (lhu*lbu) 415. It gets the mult regs right (mult a0,v1 pattern) but loads D_800C02AE+0x32F2 before D_800A14D0, the reverse of the target. Swapping the addition order: 190; reordering the h/c/w decls or moving height=h after y: no change; CV directly into height 445. Idea left: mult swap with the D_800A14D0 load forced first (e.g. a pointer local `p = D_800A14D0` read before, or `n = p[8]` in a temp, then y = p[2] + lhu*n).\n\nStill 190 (saved ternary). I tried the self-cancelling `x + x - x` priority trick (it matched func_8002C044) and found no gain here. No change (190): `x = offset + offset - offset - 12`, `extent = result+result-result+24`, `height = h+h-h`, `-offset - (result+result-result)`, and `center=offset; if(center<0) center=-center-result; x = center + offset - offset - 12` (if-form with offset kept live = same code as the ternary). Worse: `x=offset; if(offset<0) x=-x-result; x = x-12+offset-offset` 200 (offset ends up in s2, otherwise the target pattern of a separate copy plus in-place negate; close!); `center=offset; if(offset<0){center=-center;center-=result;} x=(center-12)+offset-offset` 505; adding `+offset-offset` inside the ternary arm 500; `width = width+width-width` after height=h 250. The remaining diffs are caller-saved (v0/a1/a2) local/global alloc, so the priority trick has less leverage. Next: from the 200 variant, stop offset coalescing into s2 (e.g. a separate x2 = x - 12 variable).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80020098",
+   "text": "Best stays 70 (only diff: target computes v1=(arg1<<7)+arg1 then t8=v1+base(a0); ours computes base+(arg1<<7) then +arg1). Tried ~15 reorderings of the dst expression: '(D+0x5BAA)+((arg1<<7)+arg1)', '+arg1*0x81', '&D[0x5BAA+arg1*0x81]', '(s32)(...)' all ~425-565; 'arg1+(D+0x5BAA)+(arg1<<7)', '(arg1<<7)+((D+0x5BAA)+arg1)', '(u8)arg1' stay 70; '(D+arg1)+0x5BAA+..'=515; 'dst+=arg1<<7' split=2115. 2D-array cast '#define D_800C5E58 ((u8(*)[0x81])(D_800C02AE+0x5BAA)); dst=D_800C5E58[arg1]' gives the RIGHT multiply order (sll;addu;addu t8,v1,base) but base lands in v0 instead of a0, so arg0 is no longer copied to t5 (score 425, mostly regalloc). Next idea: combine 2D-array form with something that makes arg0 move to another reg (e.g. a local copy 'u8 *src = arg0;', or compute the 2D row pointer before the outer loop as a local, or read the 0x44 bound via a different expression).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8002C044",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007ED48",
+   "text": "Independently verified exact source/profile pair is committed in canonical repoabc83c4: src/code_8007E9D4/func_8007ED48.c (raw source after #line). KMC GCC2.7.2 flags -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -fno-schedule-insns. Existing live_return_address first proposal replaces uninitialized global-store value with (s32)__builtin_mips_live_return_address(); preserve scopes/lines. Standalone and full cartridge byte comparison passed. Saved -g3 profile scores5 baseline/65 repaired; exact profile75 baseline/0 repaired. Application awaits existing claim release. Do not repeat source-only random search or take another worker claim.",
+   "by": "you"
+  },
+  {
+   "function": "func_800603B4",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 15; 13 differing rows (8 register, 5 operand; advisory).\nTarget: lui $v1, %hi(D_800C02AE+0x132f2)\nCandidate: lui $v1, 0x800d\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = sll $v0, $v0, 4\n  = addu $v0, $v0, $v1\ni T: lui $v1, %hi(D_800C02AE+0x132f2) | C: lui $v1, 0x800d\n  = addu $v1, $v1, $a0\n  = lw $v1, 0x634($v1)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nBest 90 (was 195). Key: model Stage as {pad0[0x15]; u8 first; pad[0xA]; Rec rec[8][4] (at 0x20, Rec={pad[0xC]; s32 time}); pad[0x2C]; Info info[8]; pad[8]} and write loop as D_800A14DC += base0[sel->course].rec[sel->stage][i].time / q->rec[q->first + st][i].time with '{ s32 st = sel->stage - 2; ...}' / D_800D0634[mode][sel->course].rec[sel->stage][i].time. Remaining: 5 reloc-artifact operand rows (keep (Stage**)0x800D0634 casts; plain extern scores 100/540) + course>=8 branch regalloc: target i&0xff in a1, st in a0, and 'addu v0,v0,t0' (idx+base) for q=&base0[D_800A1548[..]]. No effect: q=base0+idx, idx+base0, (u16)/(s32) idx cast, swapping n/i decls, st declared before q. Worse: u16 st, Rec* row pointer, raw byte offset forms.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 45; 3 differing rows (1 opcode, 2 operand; advisory).\nTarget: beql $v1, $zero, 0xc8\nCandidate: beqz $v1, 0xc8\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = beql $v0, $zero, 0x114\n  = addiu $s4, $s4, 1\n| T: beql $v1, $zero, 0xc8 | C: beqz $v1, 0xc8\n  = addiu $a0, $zero, 2\n  = bne $v1, $s0, 0xc8\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\n610 -> 220 (saved). Two fixes: (1) dead hoisted `addiu s2,zero,4` reproduced by duplicating the call under an i==4 test that crossjump later merges: after the switch write `if (i == 4) { D_800C7F84 = func_8004240C(which); } else D_800C7F84 = func_8004240C(which);`. (2) Dropped permuter hack `j = 255` (pass a plain 255), so 0xFF gets hoisted into s6 as in target. What's left: one `beql v1,zero` (target) vs `beqz` (ours) at the switch's i==0 test, plus the known 2-row D_800C8328 %hi reloc artifact. Tried without gain: switch case reorder or default first (same 220); if-chain / ternary / which=1 pre-init (480); `case 0: case 1:` merged (1075); i==4 split moved around the switch or the whole tail (880-2075); a constant 1 in the i==4 call (960); `i != 4` form (same 220); which as u8 (same 220). Hypothesis: reorg annuls because a0 looks live on the fall-through, maybe from a path where which is undefined at flow time.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Saved best rechecks at 210 now. The only real diff is in the D_800A16D4==0 block's compare: target 'andi v0,v0,0xffff; bne v0,2' AND 'andi v1,a1,0xffff; bne v1,4' (both saved1E(s0) and saved22(s1) re-masked). Saved best's '(saved22 & saved1E)==4' hack yields 'andi v1,a1,2' (wrong operand), so it is 1 deleted row short. Tried: plain 'saved1E==2 && saved22==4' or (u16) casts -> 2465 (whole function restructures!); '(x&0xFFFF)' or '(saved22&saved22)' -> 300 (second andi missing, bne a1 directly). A clean rewrite (switch(D_800A16D4) case 0/1/2, D_800D0634[] extern) scored 2820 \u2014 keep the saved-best skeleton (inline_fn2 volatile double-test, row computation). Next ideas: make saved22 an int/s32 holding sc->unk22 then compare '(u16)saved22 == 4'; or compare via 'saved22 & saved1E' style but with a different mask var; or put saved values through a u32 temp.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Still 145. I tried the self-cancelling-ref priority trick (`s + s - s`, `(s32)s+(s32)s-(s32)s`, `s*2-s` in the sums/total stores, inside the loop add, and after the stores). All gave identical output, so the s(a1)/laps-giv(v1) swap is not a refs-priority tie. `flag = (u8*)((int)new_var+(int)new_var-(int)new_var)` 695; `*(u8*)((int)flag+...)=1` 270; `new_var = (u8*)((int)&D_800C81FC + i - i)` no change. Not a priority problem; the hard-reg preference/giv pseudo ordering in loop.c is a likelier cause.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Score 620 is pure regalloc (114 reg rows); saved best unchanged. Target mapping: x->fp, w->s5, h->s3, (w<<16)->s1, (h<<16)->s0, it->s6, o->s2, and p(&r) REUSES s2 in case 2; x2=x+0x20 -> s4, w2 overwrites s5; h/2 uses 'srl s0,s0,31' straight from h<<16. Ours: x->s6, w->s3, h->fp, it->s4, p->s5. Tried (all worse): x as s16 (815), w/h as s16 (4455), separate x init (11439), swapping h/w load order (2591), dropping p and using &r directly (14655, frame shrinks 0x68->0x60, so p is essential). Remaining ideas: scope 'o' tighter so its reg frees for p; make 'it' per-case locals; let the permuter vary decl order. Large structural rewrites are a dead end.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80046E54",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 172; 18 differing rows (18 register; advisory).\nTarget: andi $v1, $a1, 0xff\nCandidate: andi $a0, $a1, 0xff\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = bne $v0, $v1, 0x2f0\n  = move $a1, $zero\nr T: andi $v1, $a1, 0xff | C: andi $a0, $a1, 0xff\nr T: lui $a0, 0x800b | C: lui $v1, 0x800b\nr T: addu $a0, $a0, $v1 | C: addu $v1, $v1, $a0\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\n310/320 -> 200 (saved). Fix: write the store as `((s16 *) &D_800ADFDC)[1] = 0;` instead of `D_800ADFDE = 0;`. Going through the same symbol as the D_800ADFDC=-1 store changes alias/scheduling, and the sh zero now lands right after the ori as in target. Left: only the v1/a0 swap in the two final j-loops (target: index andi in v1, addr/value in a0) plus reloc artifacts. No change (still 200): sized extern [5], (u32)j index, pointer-arith form, j=0 before the if, u8 *q decl, a (u8) cast, n=j temp, j&0xFF, /2, continue-form cnt loop, cnt init in the for, n=players compare, decl reorder, while/for-without-increment loop forms. Worse: p=&arr[j] (1020), s32 v temp (730), u16 t temp (320), flag/cnt as loop index (290-660). Idea for later: an alias trick for the final loops too, e.g. reading through D_800B6FF6-relative or D_800B55E0-relative pointers (watch the reloc rows).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80043A78",
+   "text": "FIXED the finish delay-slot problem: move func_80042F40() into finish (`D_800B6880=0; func_80042F40(); func_80085778...`) and write the store as `*(s32 *)0x800B6880 = 0;` (constant address). Now `sw; jal; nop` matches; the only diff left there is the lui reloc artifact. That rev (7ddf78c7) scores 500 with the old toggle order (`if(!(v&4)) |4&~2 else |2&~4`), and 520 with the `if (v&4)` order, which gets the block order right but gives beqz + ori 2 in the slot instead of the target's beql + ori 4 (likely slot); that variant is 1 insn short. The saved 460 still has func_80042F40 at the start of the else branch (wrong structure). Remaining: (1) why reorg fills from the taken path with beql in the target: maybe v0 (the v&4 result) is live on the taken path in the original; (2) the D_800A1234[...].hA=2 addu operand order at both sites (try the `*(T*)(off + (int)base)` int-cast trick that fixed the addu order in func_8002C044). Next: start from rev a1ec7990 (520), apply the int-cast trick to both hA stores.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8008188C",
+   "text": "Best is still 190 (saved source). Tried, all worse: using the symbol-relative `*(s32*)((u8*)&D_800AE850+off)` form as in matched func_800819B4 (3432: cse pulls the base into a register s2); getState(arg0) (470); s=getState(&arg0) before the call (1365); decl order s before e with the first assignment dropped (580); getState(&e) (1188). No change: adding new_var=&e->x20 early. The target reloc rows (%hi(D_800AE850+0x1235c)) show with raw casts and seem to be artifacts. Still left: the s0=&D_800C3338 lui/addiu should sit just before `lw a1,0(s0)`. Dropping the first `s = getState(e)` gets the placement right but swaps s0/s1 (e must be s1, s must be s0).",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Short session: still 295, pure regalloc (see the earlier notes). Tried and much worse: a `v = &verts[right]` pointer for the c[] rows (980); a `v = (Vertex*)P(g,84)` base for c[]/b[] (2430). Pointer rewrites of the c/b block change the code, not just the priorities, so don't repeat them. Remaining idea: the tail temp version (380) combined with ref-count tweaks for height/slot.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_800885CC",
+   "text": "Still 175 (rev f7dc6dce). Retested `p[0xBF] = (u8)t` = 445: p goes to a1 and 0xFF to a2. In global-alloc priority terms, the target allocates the 0xFF pseudo BEFORE p (0xFF=a1, then p=a2), but p has about 33 refs over the whole function, so it always wins the floor_log2(refs)*refs/live_length priority. Theory: in the target, p's refs are split, or 0xFF has many refs or a short life. Also, the 0x7F local must take v1, so something allocated to v0 has to overlap its life after sched1. Untried ideas: a struct pointer re-derived after the loop (e.g. a second pointer var for the post-loop stores, so p has fewer refs); 0xFF via an inline helper used at C4/B6/BF; 0xFF used more often (e.g. extra stores written as t). try_local_repairs timed out during proposal generation.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_800502D4",
+   "text": "Rechecks at 210. Only real miss: `sb zero, D_800C8120` scheduled after lbu players (target) vs after D_8009D538&-2 (ours). Tried this session: D_800C8120[0]=0 (no change); writing 0x800B6880 store as *(u32*)(D_800AE850+0x8030) (220, worse; 0x800B6880 == D_800AE850+0x8030, same var; reloc artifact anyway); D_800C8120[0]=players&0 (no change). Untried: move C8120 store earlier in source (before g+0x12 store or before copy loop), make store volatile, or reorder D_8009D538 read (f) after stores.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Improved 620 -> 550 (saved best, pure regalloc). Wins: (1) flagged branch: `s16 h2; h = hh - 1; h2 = h;` (reuse h's pseudo; target writes h2 into h's reg s3) 620->565; (2) second block store p->x = x2 BEFORE p->y = (hh = y+hh+1) 565->555; (3) first `if (n != 0)` block uses its own block-local `Item *it0` 555->550. Remaining at 550: w in s3 vs target s5, h in s5 vs s3, h<<16 tmp s4 vs s0, it s4 vs s6, p s6 vs s2, x2 s2 vs s4; idx*20 temp s0/s1 swapped. Target observation: x2 (flagged) and y2 (else, lhu 0x2e reload) share s4 -> maybe one shared variable, but sharing a single `s16 t` across both case-2 branches inside a case block scored 10960 (also reorders the initial loads). No effect: decl reorders, `h2 = h = hh-1`, else `w = hw-1; w2 = w`. Worse: flagged `w = w-0x38; w2 = w` (4780), dropping `hh =` (4452), `h = y+hh+1` (2321), separate it3 in final block (585), gObj->flags in case 2 (2155), o->mode in end check (1711), n==2 in end check (1165).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006DDD8",
+   "text": "Score 30: only diffs are p (D_800C35A0) allocated to v0 instead of a1 at entry (4 rows) + 0x800D0634 reloc artifact (plain D_800D0634 extern scored 40, worse). Tried with no change: reload p for 2nd arg, temp locals for args (a, c / c only / q copy), D_800C35A0 direct in call or base, prototype (s32,s32) and (), swapping decl order of p/bound, p=0 after call. Swapping tab/i decl order -> 300. Untried: different type of D_800C35A0 (struct pointer), compute base after args via separate statement order, search_flags.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "VALID 650 base: rev 9eec14760977d23be902. It is the saved best plus `new_var2 = (void *)(arg1 + 0x4C);` just before the j do-loop, and the loop must keep using new_var (not new_var2). Using `new_var = ...` there instead gives 860. All six yy forms without the (u16)j cast scored exactly 3102: plain j*11, (j*3)*4-j, shifts, (s16)y+(s16)(j*11), (s32)j*11 and (u16)(j*11). loop.c strength-reduces y+11j into a new biv (move s3,s0, frame 0x50). In the target the giv stays unreduced, with y reloaded from its 0x1C(sp) reload spill inside the loop, so loop.c judged the giv not worth reducing (lifetime*threshold*benefit < insn_count) or did not see it as a giv. Untried: j as the biv with the multiply on a separately assigned copy (`jj = j;` set twice in the loop so n_times_set>1); computing yy only in some branch; a separate function-pointer variable plus a goto loop (earlier goto attempt 1925 lost hoisting of func_8003ED94/1/arg1+0x4C).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007FC44",
+   "text": "Saved C (hist 120) rechecks 320 now. Two misses: (1) target `jal func_8008DD00; sw; lw a0,0x10(sp); jal osSpTaskStartGo; nop` \u2014 target keeps msg reload BEFORE jal with nop in delay slot (118 insns, ours 117 since our reorg puts lw into delay). Suggests a label/barrier before the StartGo call or a different arg source. (2) osSpTaskYielded `beqz` delay slot: target fills with `move a0,s2` (from join), ours nop then move a0,s2 after the j. Tried: msg volatile (795), while(result==-1) loop around func_8007F73C (882), dummy goto label before func_8007F73C (520), inverted Yielded branch (930), u32/s32 action (no change). Untried: osSpTaskStartGo via local fn pointer, splitting msg into a second local (task = msg) used for StartGo, label right before osSpTaskStartGo.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8000A5EC",
+   "text": "Best 300 (saved C). Remaining: final `o->f24 = t2 = -1` gives ori 0xffff (target addiu -1), but any change of that line (f24=-1, t3/t5/t6/t7=-1, (s16) casts, -(t2=1)) flips im from a1 to t0 and an extra move -> 765 or 945 \u2014 the u16 t2 reuse is what keeps im in a1. Also f10=0x30 vs f38 store order (target: li -1; sw f3C; sw f38(v1); li 0x30; sw f10) and the idx/type lhu load order at top. Swapping f10/f38 source lines, o->f3C = t3 = -1: no change. Next idea: find a different way to keep im in a1 (e.g. use `img` local everywhere, or a5/a4 arg types) and then write f24 = -1 plainly.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "380 -> 330 (saved best): give the second inner loop its own counter `j2` (separate from loop1's j). That fixed loop1's v/j a2/a3 swap. Left at 330: (a) hoisted lui 0x4f00/mtc1 f22 placement before `addiu t6,0xff`; (b) c/hi v0/v1 swap in both colour blocks (target c=v0, hi=v1); (c) loop2 w a2 vs target a1 (giv w+8 target a2). Tried at 330: loop1 block-local `f32 g` instead of f gives the same score but fixes loop1's FP f2/f4 rows and moves the mismatch to loop2's `add.s f2,f4,f8` (f+amb result should be f2). Next step: combine loop1 g with loop2 changes, e.g. explicit temp for `f + amb` or g in loop2 too (loop2-only g was also 330 with 8 rows changed). No gain: n2 copy, n/w load swap in loop2 (340), j2++ before w++ (345), V24/V16 decl swap, separate c2/lo2/hi2 in loop2 (360), `while (j2 < o->n24[i])` (810).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007ED48",
+   "text": "The saved best is 5, and the remaining diff is the live `sw $ra`. With __builtin_mips_live_return_address (rev 844a8e76) the score is 65: the only rows left are s1/s2 swapped between result and the constant 1. Both tries were worse: removing `result = 0` from the declaration (270), and setting `result = 0` just before `if (q)` (692). An earlier note says an exact source/profile pair exists, waiting to be applied once the claim is released. I released for that reason.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Score 1160; diffs from row 177 on (n/base flag loop + j/i map loop), mostly regalloc. Key target facts: inner-loop guard tests n directly (`andi s1,t5,0xff; beqz s1`) where ours emits sltu t9; target computes `or v0,(b1<<1),b0`, stores sb v0, then `move v1,v0` and switches on v1 with no andi 0xff (ours andi); target reloads &D_800B6600.cnt (lui/addiu D_800AE850+0x7db0) inside the j loop; target t9 = D_800B6600+0x10 (flag base), t8 = +0x28 (map). Note D_800B6600 == D_800AE850+0x7DB0. Tried (all worse or equal): new_var=&D_800B6600.cnt[j] (1355), cnt zeroing via D_800AE850 offsets (1370), v=(b1<<1)|b0 (1395), int v (1440), switch(map=v) (1300), map store inside block (1350), switch((int)v) (same). Next: restructure inner loop so v is a fresh int temp and map gets (u8) of it; or test `i < n` via while-loop form.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007AD68",
+   "text": "Still 60 (saved rev c039417d). New trials this session: these all stay at 60: idx local inside the dup-if, `= (s8)x + 1`, a comma increment in arg0 or in arg1 (inside the dup), a void or K&R prototype for func_8005A388, and an ((s8*)) increment. Worse: removing the dup (145, base goes to a2), the dup with only the increment and the call outside (590), the dup condition `if (arg0)` (630), a u8 arg1 (1000), and a `0*(store)` trick in the arg plus idx (215). Not tried: making arg0 or arg1 live differently (e.g. arg1 copied into a local before the if), or a different body for the else-of-dup (e.g. else returning the same call result).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Saved best 295 rechecked (rev 3fe8c22f). Pure regalloc among right/down+1/slot-copy: target right=s3, (down+1)=s0, slot copy=s2; ours right=s0, down+1=s2, slot=s3. Tried this session: dropping the end `right = local[1]*16` in favor of `height = local[1]*16; if(height<=0)` -> 385 (worse; shifts down to s0). Untried: a fresh block-scoped temp for the end value (`{int t = local[1]*16; if (t<=0) ...}`), or reusing `slot` instead of `height` for down+1 (swap roles of height/slot in the sign swap).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80029AA8",
+   "text": "Saved best 130 (rev 1bb31665). Target swap after func_8002D75C: `diag=down+1; tmp=right (delay slot, s2); if(sign<0){base=diag; right=down; down=tmp;}` (right=s3, down=s1, diag=s0, base=s5). Writing it that natural way (with a fresh temp, or new_var3 as temp) gives 816-1031: the frame shrinks 0x100 -> 0xf8 and index stays in $fp instead of being spilled to 0xC4(sp). The saved best's odd `right = count` inside the do{}while(0) keeps count live across the call, which keeps the 0x100 frame and the index spill. Next idea: use the natural tmp swap AND keep a different value live across the call to restore the 0x100 frame (e.g. reuse count after the call, or make index live in a way that forces the spill). Same prelude/swap pattern as func_80029EAC.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Saved best (rechecked 210): the only real defect is the second compare in the `D_800A16D4==0` block. The target does `andi v1,a1(saved22),0xffff; li v0,4; bne`. The candidate's `(saved22 & saved1E)==4` hack gives `andi v1,a1,2`, an operand diff (the first compare's `(saved1E&saved1E)` already gives the right andi 0xffff). The reloc rows on base=[0x10386] are a known target artifact. Tried, all worse: plain `saved1E==2 && saved22==4` (2465, upstream regalloc blowup); `(saved22&saved22)==4` and `(saved22&0xFFFF)==4` (300, andi dropped); `(u16)(saved22&saved22)` (300); saved22 as s32 or u32 (345); `(saved22&0xFFFF&saved1E)` (210, same). Ideas left: make saved22 come from a separate local copy re-read (e.g. `t = saved22; if ((t & t) == 4)` with t u16 declared in the inner scope), or a different int type only for the compare via an inline helper returning u32 that is compared with `(u16)`.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Score 534 (98.6%), only regalloc left. Target allocation: o and later &r in s2, x=fp, w=s5 (its sll temp s1), h=s3 (sll temp s0, which is reused for the h/2 srl), it=s6 everywhere (including first it0), n=s7, x2/y-reload=s4. Our build puts w in s3, h in s5, &r in s6 and it in s4. The permuter's case-1 order (p->h before p->w) is a fake: the target stores w then h, but switching to w,h order scores 542. These were neutral: swapping w/h declaration order, `register x`, splitting w=hw-1;w2=w, simplifying p->x=x+hw+1 (same 534), moving the Rect *p declaration. Worse: one `it` instead of it0 (539), swapping the h/w load order (579), w-=0x38 in place (4781), a full natural rewrite with s16 locals (12242). Untried idea: make &r share a pseudo with o so it lands in s2.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Semantics: car=*(*0x800B5C40); game=*0x800C35A0; p=car->x6c->x24; if game->0xE==2 {car=car->next(+4); if game->0x1A==1 car=car->next; q=car->x6c->x24; if(*p!=15000) return 1; return *q!=15000;} return *p!=15000. Clean struct version scores 80 (regalloc only: target car=a1, game=a2, p=a0, *p loaded into a0, q into a1; mine car=a0). Variant `p=(s32*)*p; q=...; if((s32)p!=15000)return 1;` scores 60. Swapping car/game decl order: no change. Merging q into p with separate v var: 365 (control flow merges tails, avoid). Saved best 20 uses xor-noop hacks \u2014 not plausible C; next try: reuse the car variable for q (car-typed u8* holding q) in clean struct form, as saved best does.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Best is still 505 (saved C). This session I tested on the k*3-first q form (910 with the current judge; an older note said 1035), which keeps n*9 inside the loop as the target does. Its problems: the a/b lbu regs are swapped at the top (a gets v1 instead of a0), the slti branch is bnez instead of bnel, and there is an extra `move s5,v0` after andi n. No help: `b += j; n = b;` (no change), loading b before a (no change), `b*9` in q (no change), a as s32 (no change). Worse: s6 load before b (945), a&b s32 or b s32 (1420, also pulls in a .rodata switch table). Semantic hint: q is probably a 12-bit packed bit offset (idx=n*3+k, bit=idx*12, j=byte, q=bit-j*8 is 0 or 4). Untried: computing the switch result straight into n (n=b; switch adds), or j as an s32 temp for the switch with n=(u8)(b+j). A pointer temp p=D_800C35A0 for the a/b loads is also untried.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Clean readable rewrite at rev 640ce5b8 scores 585 (saved best is still permuter 462, which is messy). Structure of the clean version matches: idx = *(s32*)(o+0x4C) + arg1 * *(u16*)(o+0x8A) (this order is needed); t=arg2; prev=idx-2; next=idx+2; branch t<50: base=*(u8**)(o+0x54); a=idx*6; b=prev*6; s16 d0 = PTS(a)-PTS(b) (byte offsets, d0 must be s16 local, not d[0], so cse reuses the register after the join); else a=next*6, b=idx*6, same d0, t-=50. After the join: d[0]=d0; d[1],d[2] use the PTS macro (reload base each time); then d[i]=d[i]*t/50; out[i]=PTS(b+2i)+d[i]. A `u8 *o = o0;` copy of arg0 helped (1070->620). What's left is only regalloc (57 rows): target has o in t2, t in t1, idx in a0 (reusing arg0's reg), a in a1, b in a3, prev in t0. Tried with no effect: u32 a/b, t assigned after prev/next, arg2 in the condition, t-=50 before d0. s16 idx made it worse. Next ideas: give prev/next no separate vars (compute idx-2 inline), or reuse arg1 as the idx variable.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8005E49C",
+   "text": "Saved best (45) is SEMANTICALLY WRONG: it omits the s1=0 reset before the second loop (target has `addu s1,zero,zero` in jal func_80084AF4 delay slot); its score 45 = 4 known D_800C8328 reloc-artifact rows + that slot row. Adding `s1 = 0;` as first stmt in `if (s2 & 0xFF)` gives 160: reorg puts s1=0 into beqz slot instead of `move a0,s4` (target fills beqz slot from the else target, then else's j lands +0x1cc). Need RTL order a0=s4 THEN s1=0 then jal. Tried: s1=0 after AF4 (245), after FB64 (245), comma `(s1=0,s4)` arg / `s4+(s1=0)` (160, same), separate u8/s32 loop var i (745/215), arg0 instead of s4 (886). Ideas left: make s4 not a separate copy of arg0 in then-path; restructure so both branches share func_8005A338 tail; for-loop with i declared in if-block but initialised via giv.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007F050",
+   "text": "Rechecked 145 (pure-C ceiling, see prior notes: live `sw $ra` needs asm macro). One compile, no new idea.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Best is still 62 (saved). Confirmed again: tbl declared first with pad[2] scores 70; no pad (or an unused extra pointer scalar in pad's place) scores 82, frame 0x58. Untested hypothesis for the unused 5th 8-byte slot at 0x30: in 2.7.2 reload, setup_save_areas (the caller-save area) runs INSIDE the reload loop AFTER alter_reg gives the spilled pseudos their slots. So a caller-save area for a call-clobbered hard reg would land right after the 4 spill slots. It stays unused if that pseudo is later kicked out of the reg, or if no save insn is finally needed. Next step: on tbl-first/no-pad, find a pseudo that global alloc puts in a call-clobbered reg while crossing a call (flag_caller_saves; refs are high compared with calls crossed). Candidates: the sign-extended (s8)i copies, tbl/arr in the inner loop, or m2/a2 in the tail.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8006D564",
+   "text": "Saved C rechecks at 230 now (the historical 145 is not reproducible). 20 of the 26 diff rows are the known D_800D0634 %hi-reloc artifact (lui %hi(0x800D35A0)/lw 0x634..0x644), which can't be fixed. The only real diff is the 0x5B store: target has `addu v1,v1(base),v0(off); li v0,0x5b; sb v0,0x44(v1)` and ours swaps v0/v1. No change from: raw-offset forms in either order, (&b44)[n*0x28], a Game cast, ptr+(u8)arg0, or a u8 arg0 parameter. `{Slot *s=(Slot*)D_800C35A0; s+=(u8)arg0; s->pad00[0x44]=0x5B;}` fixes that store, but it moves `move a0,s0` after the store and changes regalloc in the later D_800D0634[2]/[3] loops (v0 instead of s2), so it scores 275. Next: try that s+= form together with an explicit local `u8 n = arg0;` used for the three calls.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007F050",
+   "text": "Skipped without compiling. This is the record-caller family: the target stores the live $ra (`sw $ra`) into D_800B5B40, and pure C cannot name that register. 145 with __builtin_return_address(0) is the documented pure-C ceiling.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80030180",
+   "text": "Saved best 435 looks semantically dubious (uninitialised __repair_addr in cond, `*(u8**)arg0 + (a1+0x54)` access). Clean semantics: Spl{+0x4C s32 base; +0x54 u8* pts (6-byte u16 xyz records); +0x8A u16 stride}; i=arg1*stride+base; prev=i-2,next=i+2 computed before branch; if(t<500){p=pts;a=i*6;b=prev*6;d0=p[a]-p[b];} else {p=pts;a=next*6;b=i*6;d0=..;t-=500;} d[3] s16 on stack, d[k]=d[k]*t/500; out[k]=pts[b+2k]+d[k] (u16 loads). This clean version (revision 3dea64e8f125a7411dd1) scores 1070: structure matches (120 vs 119 insns), remaining diffs mostly regalloc (target arg0 copy t2, t in t1, prev t0, i a0, a->a1, b->a3; mine arg0 t1, t t3, i a1). Tried: d[0] directly in branches (1385), decl reorder (same), stride temp before t (1160). Last compile (1740) was broken by me (dropped initialisers) \u2014 ignore it.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Tried the untried goto-built loop (`loop: ... i++; if (i<3) goto loop;`) in a clean rewrite, with a u8 arg1 param, `b = arg1` copied after the func_8006B9E0 call, and w=(s32*)(rec+b*4) computed before the loop. It scored 11630 (216 insns, frame 0x58). Cross-jump still merges both branch bodies from the func_8006BF30 call onward. The u8 arg1 param also adds `move v0,a1; andi s0,v0` and an extra fp copy. Renaming branch 2's t1 to nib alone did nothing (11625). Conclusion: the goto loop doesn't stop the merge, and the u8 param is wrong (keep s32 arg1 with &0xFF). Saved best 2760 is still the permuter source. Analysis in case it helps: target loop.c hoists only fp; the 'sll v1,s5,3' copies in both float-conversion arms come from reorg delay-slot filling from the join label, not from the source.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Rechecked 62. Re-confirmed tbl-first (70) and no-pad (92 in this baseline). No new compile ideas beyond the opus-7 caller-save hypothesis (untested: needs a pseudo put in a call-clobbered reg across a call to create a save slot after the 4 spill slots).",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_8007F050",
+   "text": "Skipped without compiling. This is the record-caller family: the live `sw $ra` into D_800B5B40 can't be expressed in pure C, and 145 is the documented ceiling (see the earlier notes).",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Wrote clean semantic versions (rev 8d6432d7c2 score 5822): b=arg1&0xFF, base=D_800D0634+(arg0&0xFF)*0x2C4, n=func_8006B9E0()&0xFF, tab=(u16*)(D_800C02AE+0x5A8A)+n, do-loop i<3: x=fs1+i*D_800A5888; manual u32 conversion `if (lim > x) idx=(s32)x; else idx=(s32)(x-lim)|0x80000000;` with `n8=n*8` in both arms (matches c.le/bc1tl); then if (((k*3+(n8+n))*4-idx*8)&0xFF)==4 two branches sharing a tail via goto into else-branch. Remaining problem: my compiles hoist b<<6 into a callee-saved reg (frame 0x58 vs 0x50, extra s-reg) while target hoists only fp=base+b*4 (for 0x22C load) and keeps b in s4 as a copy of s0 (s0 then reused as k=i&0xFF). Saved best 2760 (permuter) gets this via semantically wrong `temp_s0 *= 4` in the tail and a bogus sp14 pointer \u2014 need a legit way to stop b*64 hoisting (try: compute rec offset via a non-invariant expression, e.g. `(k + b*4) * 16`, or b in a variable reassigned in the loop like `b = arg1 & 0xFF` re-read; or arg1 kept as param copy). Struct Obj/Ent typed version scored 6225 (worse). u8 params scored 6133.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Best 62 = 6 reloc-artifact operand rows (D_800D0658 %hi pair, known unfixable) + tbl spill slot (0x34 vs target 0x14). Finding: spill slots are assigned in pseudo (declaration) order, 8 bytes each with word at +4. Declaring `u8 *tbl;` FIRST (before ent,cnt,q) and removing `s32 pad[2]` gives exactly the target spill offsets (tbl 0x14, ent 0x1c, cnt 0x24, q 0x2c) \u2014 only diff left is frame 0x58 vs 0x60 (score 82). Target has 8 more bytes ABOVE the spill slots (0x30-0x37, never referenced), so it's a 5th spill slot / late-allocated thing, not a declared array (arrays land below spills, giving 70). Next: find a 5th pseudo that gets spilled after q (declared after q) whose slot is unused, e.g. a variable whose spill store is deleted by reload, or keep another value live across calls (ctx/base/a2/m2) and check offsets.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80086F40",
+   "text": "This is libultra-style __amDma (dma buffer list: HEAD=firstUsed, FREE=firstFree, SIZE=buffer len, D_800A1BA4=audFrameCt). The saved best (265) is right except for regalloc: target has walker/dmaPtr=s1 and lastDmaPtr(old)=s0, and delta=addr&1 also goes in s0. Swapping the declaration order of walker/old changes nothing (still 265). A natural rewrite (separate delta/foundBuffer vars, `addrEnd <= buffEnd` inside the loop with SIZE read in the loop) scored 605-805: the SIZE load shares the HEAD base address (addiu), and the delta andi moved. Types: the target uses sltu for start>addr (start u32) and slt for the end compare (s32 addrEnd/buffEnd). Next to try on the saved best: give delta its own variable instead of reusing old; make old a Node* rather than s32; write walker->next=... with the HEAD temp in a fresh local.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80058E28",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 2; 98 differing rows (5 opcode, 27 register, 11 stack, 34 branch target, 6 operand, 4 reordered, 8 inserted, 3 deleted; advisory).\nTarget: addiu $sp, $sp, -0x38\nCandidate: addiu $sp, $sp, -0x40\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\n  = lui $v0, %hi(D_800A1468)\n  = lw $v0, %lo(D_800A1468)($v0)\ns T: addiu $sp, $sp, -0x38 | C: addiu $sp, $sp, -0x40\n> T:  | C: move $a1, $zero\ni T: sw $s5, 0x2c($sp) | C: sw $s2, 0x28($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.\n\nThe saved best (60) passes `out` (always 0) to func_80084C0C in loop1, which is semantically wrong: the target passes i&0xff (andi s0,s1). Replacing out with i in the compare and both calls scores 70, and the only remaining diffs are v0/v1 swaps in both loop headers. The target puts the lbu of D_800B65A0 in v1 and (s8)i in v0, and reuses that v0 for the xor. Variants that made no difference: `N > i`, `(s32)` casts, `!(i>=N)`, `i==c`, a dead copy, initialization order. Much worse: rewriting the goto loops as for/while/do-while (2000-3000), `c >= 0 && c==i` instead of the pos& form, and s8 c. Still untried: changing the extern type of D_800B65A0 (s32 load with a mask?), or reading it as a struct field of D_800AE850.",
+   "by": "claude-opus-3"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Private investigation retained this function open at score20 (four register operands: second pointer-chain temporary and15000 literal usev0 instead of targetv1). 2000 native variants/567s and300 typed-source variants found no exact; ordinary-output-parity RTL shows the local allocator choosesv0 before global allocation. Common local pass/profile/storage/type/scope knobs did not fix it. A plain early result=1 tends toaddafinalmove; not a proven repair. Current exact candidate does not exist. Evidence remains /Volumes/Data/Codex/tmp/func80049DB0/evidence.json; revisit with new compiler/source context rather than treat as impossible or pause it.",
+   "by": "you"
+  },
+  {
+   "function": "func_8007F050",
+   "text": "The saved best (145) uses __builtin_return_address(0) and emits an extra `lw $v0,4($sp)`, then stores $v0 where the target stores $ra. Swapping in __builtin_mips_live_return_address() fixes the $ra store but scores 270: the scheduler hoists `lui $v0,0xffff; and $v0,$s0,$v0` (the arg0&0xffff0000 test) above the `lui $at/sw $ra` store to D_800B5B40, while the target keeps the store first. Only those 5 rows differ. Variants tried against the live-ra version, all worse or equal: (u32)arg0<0x10000 400; >>16 340; &~0xffff 270 (same); volatile store to B5B40 360; volatile store to A19B0 415; if/else branches swapped 995; ra store before A19B0=1 300; ra copied into a block-local first 270; ra local at function top 750; p=arg0&0xffff0000 test 415; extra p=arg0 535. Ideas left: something that makes the and depend on the store (e.g. reload arg0 through a pointer/global after the store), or a different statement layout for the sp10/p if.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "The saved best is still 20, using the xor-trick source; its only diff is v0 vs v1 on the second ->6C/0x24 load and the 15000 compare. A clean rewrite scored 805: car=**B5C40; a=car->6C->24; if game->E==2 { car=car->4; if (game->1A==1) car=car->4; b=car->6C->24; return *a!=15000 || *b!=15000; } return *a!=15000. It swaps a0/a1/a2 and adds 3 insns. That suggests the target's real code reads *a inside the if (p=*a before computing b), as the best attempt does. Untried: the best structure with the 15000 compare value in its own local, or with the second chain as one expression without the `game = root` reuse.",
+   "by": "claude-opus-7"
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Best stays 295 (saved_best rev 6d5c9a1c). What's left is register allocation only. Target registers: base=s5, right=s3, down=s1, down+1 temp=s0 (this same reg later holds slot), saved-right temp=s2 (later holds height, and &c at the end), index^10 cse=s1. At the end of the target, local[1]*16 sits in v0/a1, not in an s-reg. Tried: swapping the roles (slot=down+1; height=right; base=slot; down=height) gives 335, and that fixes the s0/s2 mapping, but right still lands in s0 because it is reused at the end (`right = local[1]*16`). Replacing that end reuse with height/slot/down/dot, a fresh local, or an inline expression gives 355-410 in both versions. Idea not yet tried: in the swapped version, keep right live without reusing it at the end, e.g. re-use base, or move the right/down computations after the call. Also try a separate variable for the xori index^10 result.",
+   "by": "claude-opus-12"
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Score 220 = 2 reloc-artifact rows (D_800C02AE+0x807A, known unfixable) + target `beql v1,zero` vs our `beqz` in the which=2/1 selection. Tried (all worse or equal): if/else-if chains, ||, ternaries, switch with fallthrough case 0:case 1:, explicit case 2/3/4, reordered cases, default without break, u8 which, per-case calls, dropping the i==4 dead-branch hack (770; the hack is load-bearing). Left: change how reorg sees a0 liveness, e.g. which as a separate var per path, or a do/while/goto form for the 5-task loop.",
+   "by": "claude-opus-3"
   }
  ],
  "set_aside": [
@@ -170278,6 +170528,94 @@
     "unit": "code_8001F46C",
     "mode": "rom"
    },
+   "func_80020098": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793848763.22671,
+    "attempt_id": 292601,
+    "source_sha256": "d22cbbf0e3b76f39585fc04f2535433a0aeffd1270579036a71ed2722610a5a0",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "acf5a617e23ff0d2760b30ec704b186c96475a00d28c40cdc9cc60cc6cdab921",
+    "relocations_sha256": "71708e2daa4bf0bd445831d2b5072678a113fc44eda7ce94cd506a63d120a3bc",
+    "vram": 2147614872,
+    "unit": "code_8001F46C",
+    "mode": "rom"
+   },
    "func_80020428": {
     "format": 1,
     "verdict": "exact",
@@ -172209,6 +172547,94 @@
     "target_sha256": "e014d13ab2c44570188dcb614a694da535a1a64678c1de005586e51ea5414401",
     "relocations_sha256": "b94b1c9fb7702691b6ba37a95247541f5f31ef871095bcada38e6fbf6052820d",
     "vram": 2147663168,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8002C044": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793845652.854414,
+    "attempt_id": 292013,
+    "source_sha256": "c95ad94fe61b0cfadad81ae3c367d93ff4de23c1a4c1094042cd97d033718816",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "8efd623500b4682e477298caa6974b2935a626da1c8e7acccf003cf7e47feb70",
+    "relocations_sha256": "2ab3c0e4f11fcde5a2764b4f1186be160d71bc4c237490d83f5196f33f7002e9",
+    "vram": 2147663940,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -182244,6 +182670,94 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
+   "func_800603B4": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793846603.486389,
+    "attempt_id": 292330,
+    "source_sha256": "49bd17621e16019be0a66a21121e8a3a9bdc6709af5d8577a7cf92500c25117b",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "5e0e5a08d2a9f51db6b35702b055a7d1629fe01e7915eb57aa90768965544553",
+    "relocations_sha256": "b5ee80c0263033bccb4620e8a2a2fd185e25c6f186aa1582f9b5a6b0f27d20a6",
+    "vram": 2147877812,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
    "func_80061F34": {
     "format": 1,
     "verdict": "exact",
@@ -184529,6 +185043,94 @@
     "target_sha256": "a57b708f3ada6ef03e5fba9a6f1dd5200376565abdccf5110940b988ac667f07",
     "relocations_sha256": "2efa6ba78a0c6a72dabe1feb71003ec7b70950980849b7c9084ea9404207a9c5",
     "vram": 2147929980,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
+   "func_8006DDD8": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793848828.959751,
+    "attempt_id": 292626,
+    "source_sha256": "1ef654372987dc4af13a8abd9b723324f593f27e3ab8aaa6bf635cc78915b725",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "675271cb2b6535e19ba3c371617611560e70e12242ef396c330dc91fabddb435",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "e207bbb08f8da14370e704f4dc25f3ba253cd9449ea3f8ae073c363845fb58e2",
+    "relocations_sha256": "9127a95bf9aa32a34f1b56fb1683d6870bd9ef44de0cb1ffcba65fcbdc6582d5",
+    "vram": 2147933656,
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
@@ -191208,6 +191810,7 @@
    "41be3e0365631a756eaa26fb0b9e8b064f39ca4e7491af9ed7c89d96149bf188": "extern s32 D_8009FF38;\ntypedef struct { u8 pad[0x44]; s32 v; u8 pad2[4]; } S76;\nvoid func_8001CB88(S76 *arg0) {\n u16 i=2; s16 (*tbl)[10]=(s16 (*)[10])&D_8009FF38;\n s16 *dst = tbl[*(u16 *)((u8 *)arg0+0x92)];\n do { dst[i]=arg0[i].v; i++; } while(i<10);\n}",
    "ebb3cff0daf8b364398ef43d7bbcf7f181c388961fb701891cd2def06419178f": "extern char D_800AE850[];\nextern char D_800C02AE[];\ns32 func_80041F24(void *, u8);\nvoid func_8001CFD0(void *arg0);\n\nvoid func_8001D07C(void *arg0)\n{\n    u8 n;\n    u32 i;\n    s32 flag;\n    s32 v;\n\n    n = *(u8 *)(*(char **)(D_800C02AE + 0x32F2) + 0xF);\n    v = *(s32 *)((char *)arg0 + 0x90);\n    for (i = 1; i <= n; i++) {\n        if (i < 2 || (v != 0 && v != 3)) {\n            *(s32 *)(D_800AE850 + 0x252C) = func_80041F24(arg0, i);\n            func_8001CFD0(arg0);\n        }\n    }\n}",
    "49f8806b9db55c56a9aa89ac41246abf7a166cb90ba87b798785b6db5ae20116": "typedef struct Vec3s {\n    s16 x;\n    s16 y;\n    s16 z;\n} Vec3s;\n\ntypedef struct S1 {\n    u8 pad0[0x24];\n    s32 unk24;\n    s32 unk28;\n    s32 unk2C;\n    u8 pad30[0x4C - 0x30];\n    s32 unk4C;\n    u8 pad50[0x54 - 0x50];\n    Vec3s *unk54;\n    u8 pad58[0x88 - 0x58];\n    u16 unk88;\n    u16 unk8A;\n} S1;\n\nvoid func_8002D2C8(s32, s32);\n\nvoid func_8001FFC4(s32 *arg0, S1 *arg1, s32 arg2, s32 arg3) {\n    s32 i;\n    s32 off;\n    s32 t;\n    s32 x;\n    Vec3s *base;\n    Vec3s *w;\n\n    i = (s16)arg3;\n    i *= arg1->unk8A; t = (s16)arg2;\n    i += arg1->unk4C; i += t;\n    x = arg1->unk24;\n    base = arg1->unk54;\n    off = i * 6;\n    arg0[0] = ((Vec3s *)(off + (int)base))->x + x;\n    arg0[1] = ((Vec3s *)(off + (int)arg1->unk54))->y + arg1->unk28;\n    arg0[2] = ((Vec3s *)(off + (int)arg1->unk54))->z + arg1->unk2C;\n    i += arg1->unk8A;\n    w = (Vec3s *)(i * 6 + (int)arg1->unk54);\n    func_8002D2C8(w->x - ((Vec3s *)(off + (int)arg1->unk54))->x, w->z - ((Vec3s *)(off + (int)arg1->unk54))->z);\n}\n",
+   "d22cbbf0e3b76f39585fc04f2535433a0aeffd1270579036a71ed2722610a5a0": "extern u8 D_800C02AE[];\nvoid func_80020098(u8 *arg0, u8 arg1)\n{\n  u8 i, j, k;\n  u8 prev, cur;\n  u8 *dst;\n  k = 0;\n\n  cur = arg0[0x93];\n  for (i = 0; i < *(s32 *)(arg0 + 0x44) - 1; i++)\n  {\n    prev = cur;\n    cur = arg0[i * 0x4C + 0xDF];\n    for (j = 0; j < 10; j++)\n    {\n      D_800C02AE[0x5BAA + arg1 * 0x81 + k] = prev + j * (cur - prev) / 10;\n      if (D_800C02AE[0x5BAA + arg1 * 0x81 + k] >= 0x80) D_800C02AE[0x5BAA + arg1 * 0x81 + k] = 0x7F;\n      if (k < 0x80) k++;\n    }\n  }\n  D_800C02AE[0x5C2A + arg1 * 0x81] = cur;\n}",
    "40ffd841f2522b6bb66c0e3b65d4f3fd59d242326dcf9cf95b27d7cca06bffd6": "typedef struct Sub80020428\n{\n  s32 *f0;\n  s32 f4;\n  s32 f8;\n  s32 fC;\n  s32 f10;\n  void *f14;\n  s32 *f18;\n  s32 f1C;\n  s32 f20;\n  s32 *f24;\n  s32 *f28;\n  s32 f2C;\n} Sub80020428;\ntypedef struct Obj80020428\n{\n  u8 pad[0x40];\n  Sub80020428 *f40;\n} Obj80020428;\ntypedef struct Cfg80020428\n{\n  u8 pad[0xE];\n  u16 mode;\n  u8 pad10[0xE];\n  u16 f1E;\n} Cfg80020428;\ntypedef struct Res80020428\n{\n  u8 pad[0x12];\n  u16 f12;\n} Res80020428;\nextern u8 D_800ADFE0;\nextern u16 D_800ADFE4;\nextern Cfg80020428 *D_800C35A0;\nextern s32 D_8009D534;\nRes80020428 *func_80041564(void);\ns32 *func_8007EAA0(s32, s32);\nvoid func_80020428(Obj80020428 *arg0)\n{\n  Res80020428 *res;\n  s32 *a;\n  s32 *b;\n  s32 n;\n  u32 i;\n  res = func_80041564();\n  if (D_800C35A0->f1E != 0)\n    arg0->f40->f0 = func_8007EAA0(1, (D_800ADFE0 + 1) * 4);\n  else\n    arg0->f40->f0 = func_8007EAA0(1, 0x10);\n  switch (D_800C35A0->mode)\n  {\n  case 1:\n    arg0->f40->f24 = func_8007EAA0(1, 0x1C);\n    arg0->f40->f28 = func_8007EAA0(1, 0x1C);\n    break;\n  case 2:\n    arg0->f40->f24 = func_8007EAA0(1, 0x10);\n    arg0->f40->f28 = func_8007EAA0(1, 0x10);\n    break;\n  case 3:\n  case 4:\n    arg0->f40->f24 = func_8007EAA0(1, 4);\n    arg0->f40->f28 = func_8007EAA0(1, 4);\n    break;\n  }\n  arg0->f40->f2C = 0;\n  arg0->f40->f14 = res;\n  arg0->f40->f4 = 0;\n  arg0->f40->f8 = 1;\n  arg0->f40->fC = 0;\n  arg0->f40->f10 = D_800ADFE4;\n  arg0->f40->f20 = 0;\n  if (res->f12 == 0)\n    arg0->f40->f18 = func_8007EAA0(1, 4);\n  else\n    arg0->f40->f18 = func_8007EAA0(1, res->f12 * 4);\n  a = arg0->f40->f24;\n  b = arg0->f40->f28;\n  n = 0;\n  switch (D_800C35A0->mode)\n  {\n  case 1:\n    n = 6;\n    break;\n  case 2:\n    n = 3;\n    break;\n  case 3:\n  case 4:\n    n = 1;\n    break;\n  }\n  while (n--)\n  {\n    *a++ = D_8009D534;\n    *b++ = 0;\n  }\n  a = arg0->f40->f0;\n  if (D_800C35A0->f1E != 0)\n  {\n    u8 *bp = &D_800ADFE0;\n    for (n = 0; n < (u32)(*bp + 1); n++)\n      *a++ = 0;\n  }\n  else\n  {\n    for (n = 0; n < 4U; n++)\n      *a++ = 0;\n  }\n}",
    "42c02f25c926a245c0a174c33a3bf1b228888e7c5038f8406260cc1cb792f1a0": "extern void *D_8009D6B0;\nextern char D_800AE850[];\nextern char D_800C02AE[];\n\nvoid func_80028158(void *, s32, void *, s32);\ns32 func_80027CB4(u8, u8, u8, s8);\nvoid func_80050048(s32);\nvoid func_8004F3C4(void);\ns32 func_8001FFC4(void *, s32, s32, s32);\nvoid func_80023134(void *, void *, void *);\nvoid func_80024B28(void *);\n\ntypedef struct {\n    s32 a;\n    s32 b;\n    s32 c;\n    s32 d;\n} Quad20B04;\n\ntypedef struct {\n    s32 a;\n    s32 b;\n    s32 c;\n} Tri20B04;\n\nvoid func_80020B04(void **arg0) {\n    void *node;\n    s32 mask;\n    void *pay;\n    u8 *bytes;\n    s32 hi;\n    s32 word;\n    void *p54;\n    Quad20B04 quad;\n    Tri20B04 tri;\n    s32 kind;\n    u16 flag;\n\n    node = *arg0;\n    if (D_8009D6B0 != NULL) {\n        node = D_8009D6B0;\n    }\n    if (node != NULL) {\n        mask = 0xFFFF0000;\n        do {\n            pay = *(void **)((char *)node + 0x48);\n            D_8009D6B0 = NULL;\n            bytes = (u8 *)pay + 4;\n            func_80028158(node, *(s32 *)pay, bytes, *(s32 *)((char *)pay + 0x20));\n            if ((*(s32 *)(*(s32 *)(D_800AE850 + 0x73F0) + 8) & 1) != 0) {\n                D_8009D6B0 = node;\n                return;\n            }\n            kind = *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x20);\n            if ((kind == 0) || (kind == 9)) {\n                flag = *(u16 *)(*(s32 *)(D_800C02AE + 0x32F2) + 0x1E);\n                if (flag != 0) {\n                    u8 b8 = bytes[4];\n                    u8 b9 = bytes[5];\n                    s32 fl = *(s32 *)((char *)node + 0x14);\n                    s8 b4 = (s8)bytes[0];\n                    u8 b5 = bytes[1];\n                    if ((fl & 0x10) == 0) {\n                        func_80050048(func_80027CB4(b5, b8, b9, b4));\n                    }\n                } else {\n                    func_80050048(func_80027CB4(bytes[1], bytes[4], bytes[5], (s8)bytes[0]));\n                }\n            }\n            p54 = *(void **)((char *)node + 0x54);\n            {\n                s32 w = *(s32 *)((char *)p54 + 0x20);\n                hi = w >> 16;\n                if (hi != 0) {\n                    *(s32 *)((char *)p54 + 0x20) = w + mask;\n                }\n            }\n            if (hi == 1) {\n                func_8004F3C4();\n            }\n            if ((bytes[1] & 0x80) != 0) {\n                {\n                    s32 p = *(s32 *)((char *)node + 0x54);\n                    s32 w = *(s32 *)(p + 0x20);\n                    if ((w & 0xFFFF) != 0) {\n                        *(s32 *)(p + 0x20) = w - 1;\n                    if (*(u16 *)(*(s32 *)((char *)node + 0x54) + 0x22) != 0) {\n                            goto join20;\n                        }\n                        if (hi != 0) {\n                            goto join20;\n                        }\n                        if (1) {\n                        {\n                            s32 p8c = *(s32 *)((char *)node + 0x8C);\n                            s32 p60 = *(s32 *)((char *)node + 0x60);\n                            s32 a1v = *(s32 *)(p8c + 0x28);\n                            s32 a3v = *(s32 *)(p60 + 0x28);\n                            tri.a = 0;\n                            tri.b = func_8001FFC4(&quad, a1v, 0, (s16)a3v);\n                        }\n                        tri.c = 0;\n                        quad.b -= 0x5A;\n                        func_80023134(node, &quad, &tri);\n                        func_80024B28(node);\n                        *(s32 *)(*(s32 *)((char *)node + 0x54) + 0x20) = 0x320000;\n                        *(s32 *)((char *)node + 0x14) |= 0x40;\n                    }\n                }\n            }\n            } else {\n                p54 = *(void **)((char *)node + 0x54);\n                *(s32 *)((char *)p54 + 0x20) &= mask;\n                p54 = *(void **)((char *)node + 0x54);\n                *(s32 *)((char *)p54 + 0x20) |= 0x14;\n            }\n            join20:\n            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x14) = (s8)bytes[0];\n            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x1C) = bytes[3];\n            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0xC) = bytes[4];\n            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x10) = bytes[5];\n            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x18) = 0;\n            node = *(void **)((char *)node + 4);\n        } while (node != NULL);\n    }\n}\n",
    "e45b37bdc0b0e2206c26b456077e35eafdf1bb2be53ac1d3b9bbbd11f7ffb0d4": "typedef struct VR210Manager\n{\n  char *contacts;\n  u16 threshold;\n  u8 flags[4];\n  u8 pad0a[10];\n  u16 capacity;\n  u8 pad16[2];\n  u16 head;\n} VR210Manager;\nextern u8 D_8009D6A8[];\nextern s32 D_8009EB80;\nextern s32 D_800AFA6C;\nextern char *D_800C35A0;\nextern char *D_800C811C;\nvoid func_8002FD68(void);\nu64 osGetTime(void);\nvoid func_800980C4(u32);\nint func_80098090(void);\nvoid *func_8002EB34(void *, int, void *);\nvoid func_8002E514(void *, void *, void *);\nvoid func_8002D3AC(void *, void *, int, int, void *);\nint func_8001FEE8(void *);\nvoid func_8002FBD4(void *, int, int);\nvoid func_8002E778(void *, void *);\nvoid func_8002EC5C(void *, void *, void *);\nvoid func_80021064(void *list)\n{\n  s16 a[3];\n  int new_var;\n  int new_var2;\n  s16 b[3];\n  s16 c[3];\n  char *obj;\n  int new_var3;\n  VR210Manager *manager;\n  char *snapshot;\n  char *particle;\n  char *contact;\n  char *flags;\n  unsigned i;\n  unsigned n;\n  int effect = 0;\n  int type;\n  int x;\n  int z;\n  int y;\n  int j;\n  long v;\n  int extra;\n  int trigger;\n  int wx;\n  int wy;\n  int wz;\n  int world[3];\n  func_8002FD68();\n  obj = *((char **) (((char *) list) + 0));\n  if ((*((u16 *) (((char *) D_800C35A0) + 0xe))) < 3)\n  {\n    do\n    {\n      for (; obj; obj = *((char **) (((char *) obj) + 4)))\n      {\n        int velocity;\n        extra = (int)*((char **)(((char *)obj)+0x38)); snapshot = (char *)extra + 12; manager = *(VR210Manager **)extra;\n        velocity = *((int *) (((char *) (*((char **) (((char *) obj) + 0x58)))) + 0));\n        for (i = D_800AFA6C & 1; i < 4; i += 2)\n        {\n          if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x310 + (i * 4))))) >= 0)\n          {\n            continue;\n          }\n          v = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x1dc + (i * 4))));\n          x = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x100 + (i * 20))));\n          type = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))));\n          z = *((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x108 + (i * 20))));\n          y = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + 4))) + 30;\n          switch (type)\n          {\n            case 7:\n              effect = 3;\n              break;\n\n            case 6:\n              effect = (D_8009EB80 == 7) ? (1) : (4);\n              break;\n\n            case 4:\n\n            case 8:\n              effect = (D_8009EB80 == 3) ? (4) : (1);\n              break;\n\n            case 9:\n              effect = 2;\n              break;\n\n            case 5:\n\n            case 10:\n\n            case 11:\n\n            default:\n              goto special;\n\n          }\n\n          if ((velocity > 1000) && (D_800AFA6C & 2))\n          {\n            func_800980C4(osGetTime());\n            b[0] = 0;\n            b[1] = 0;\n            b[2] = 0;\n            particle = func_8002EB34(manager, effect, b);\n            new_var2 = func_80098090();\n            *((s16 *) (((char *) particle) + 6)) = y;\n            *((s16 *) (((char *) particle) + 4)) = (x + (new_var2 % 31)) - 15;\n            *((s16 *) (((char *) particle) + 8)) = (z + (func_80098090() % 31)) - 15;\n          }\n          special:\n          if (((((*((u16 *) (((char *) D_800C35A0) + 0x1e))) == 0) && ((*((u16 *) (((char *) D_800C35A0) + 0xe))) == 1)) && (((*((u16 *) (((char *) D_800C811C) + 4))) == 3) & (type == 2))) && (((u32) (v + 100)) > 200))\n          {\n            b[0] = 0;\n            b[1] = 0;\n            b[2] = 0;\n            particle = func_8002EB34(manager, effect, b);\n            if (effect) { *((s16 *) (((char *) particle) + 4)) = x; } else { *((s16 *) (((char *) particle) + 4)) = x; }\n            *((s16 *) (((char *) particle) + 6)) = y;\n            *((s16 *) (((char *) particle) + 8)) = z;\n            continue;\n          }\n\n          if (((u32) (v + 2000)) <= 4000)\n          {\n            continue;\n          }\n          switch (type)\n          {\n            case 6:\n              effect = (D_8009EB80 == 7) ? (1) : (4);\n              a[0] = 0;\n              a[1] = 0;\n              a[2] = -256;\n              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, a);\n              goto velocity_scale;\n\n            case 4:\n              effect = (D_8009EB80 == 3) ? (4) : (1);\n              break;\n\n            case 5:\n\n            case 8:\n              effect = 1;\n              break;\n\n            case 7:\n              effect = 3;\n              break;\n\n            case 9:\n              effect = 2;\n              break;\n\n            case 10:\n              effect = 1;\n              continue;\n\n            case 2:\n\n            case 3:\n\n            case 11:\n              effect = 0;\n              break;\n\n            default:\n              continue;\n\n          }\n\n          goto zero_velocity;\n          velocity_scale:\n          if (v > 0)\n          {\n            func_8002D3AC(a, a, 0, v, b);\n            goto emit_particle;\n          }\n\n          zero_velocity:\n          b[0] = 0;\n\n          b[1] = 0;\n          b[2] = 0;\n          emit_particle:\n          particle = func_8002EB34(manager, effect, b);\n\n          *((s16 *) (((char *) particle) + 4)) = x;\n          *((s16 *) (((char *) particle) + 6)) = y;\n          *((s16 *) (((char *) particle) + 8)) = z;\n        }\n\n        {\n          int five;\n          for (i = 0; i < 4; i++)\n          {\n            if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x310 + (i * 4))))) >= 0)\n            {\n              if (manager->flags[i]) { manager->flags[i] = 0; } goto next_flag;\n            }\n            v = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x1dc + (i * 4))));\n            if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 2)\n            {\n              extra = (v < 0) ? (-v) : (v);\n              *((int *) (((char *) (*((char **) (((char *) obj) + 0x68)))) + (8 + (i * 4)))) = extra;\n            }\n            else\n            {\n              *((int *) (((char *) (*((char **) (((char *) obj) + 0x68)))) + (8 + (i * 4)))) = 0;\n            }\n            if ((((!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4)))) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x48)))) + 0))) < 4)) && (func_8001FEE8(obj) >= 76)) && ((D_8009EB80 != 3) & (D_8009EB80 != 7)))\n            {\n              func_8002FBD4(obj, 65, 2);\n            }\n            if (((u32) (v + 2000)) > 4000)\n            {\n              if (!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4))))\n              {\n                goto clear_flag;\n              }\n              five = i * 5; new_var3 = five; new_var3 += five;\n              contact = manager->contacts;\n              contact += manager->head * 36;\n              {\n                a[0] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (0 * 4))));\n                a[1] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (1 * 4))));\n                a[2] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (2 * 4))));\n              }\n              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);\n              {\n                wx = (*((int *) (((char *) contact) + (0 * 4))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (0 * 4))))) + b[0]);\n                wy = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (1 * 4))))) + b[1];\n                *((int *) (((char *) contact) + (1 * 4))) = wy;\n                wz = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (2 * 4))))) + b[2];\n                *((int *) (((char *) contact) + (2 * 4))) = wz;\n              }\n              *((s16 *) (((char *) contact) + 0x12)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x12c + (i * 40))))) - wx;\n              *((s16 *) (((char *) contact) + 0x14)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x130 + (i * 40))))) - wy;\n              *((s16 *) (((char *) contact) + 0x16)) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x134 + (i * 40))))) - wz;\n              new_var3 += 5;\n              new_var3 *= 4;\n              {\n                a[0] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + new_var3) + (0 * 4))));\n                a[1] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + new_var3) + (1 * 4))));\n                a[2] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + new_var3) + (2 * 4))));\n              }\n              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, c);\n              {\n                new_var = (u16)(c[0]); extra = (u16)(b[0]); *((s16 *) (((char *) contact) + (12 + (0 * 2)))) = new_var - extra;\n                new_var = (u16)(c[1]); extra = (u16)(b[1]); *((s16 *) (((char *) contact) + (12 + (1 * 2)))) = new_var - extra;\n                new_var = (u16)(c[2]); extra = (u16)(b[2]); *((s16 *) (((char *) contact) + (12 + (2 * 2)))) = new_var - extra;\n                *((s16 *) (((char *) contact) + (24 + (0 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (0 * 4))))) - wx;\n                *((s16 *) (((char *) contact) + (24 + (1 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (1 * 4))))) - wy;\n                *((s16 *) (((char *) contact) + (24 + (2 * 2)))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x12c + new_var3) + (2 * 4))))) - wz;\n              }\n              *((int *) (((char *) contact) + 32)) |= 1;\n              manager->flags[i] = 1;\n              new_var = (*((s16 *) (((char *) contact) + 24))); extra = (*((s16 *) (((char *) contact) + 12))); world[0] = new_var - extra;\n              new_var = (*((s16 *) (((char *) contact) + 26))); extra = (*((s16 *) (((char *) contact) + 14))); world[1] = new_var - extra;\n              new_var = (*((s16 *) (((char *) contact) + 28))); extra = (*((s16 *) (((char *) contact) + 16))); world[2] = new_var - extra;\n              func_8002E778(world, world);\n              world[0] = world[0] + (world[1] + world[2]);\n              trigger = manager->threshold < world[0];\n              if (trigger)\n              {\n                manager->flags[i] = 0;\n                manager->head++;\n                if (manager->head == manager->capacity)\n                {\n                  manager->head = 0;\n                }\n              }\n            }\n            else\n            {\n              trigger = manager->flags[i];\n              if (trigger)\n              {\n                manager->flags[i] = 0;\n                manager->head++;\n                if (manager->head == manager->capacity)\n                {\n                  manager->head = 0;\n                }\n              }\n            }\n            goto next_flag;\n            clear_flag:\n            if (manager->flags[i])\n            {\n              manager->flags[i] = 0;\n            }\n\n            next_flag:\n            ;\n\n            ;\n          }\n\n        }\n        for (i = 0; i < 4; i++)\n        {\n          if (!manager->flags[i])\n          {\n            for (n = 0; n < 2; n++)\n            {\n              {\n                a[0] = ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x23 + (i * 10)) + (n * 5)) + 0];\n                a[1] = ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x23 + (i * 10)) + (n * 5)) + 1];\n                a[2] = ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x23 + (i * 10)) + (n * 5)) + 2];\n              }\n              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);\n              {\n                ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x4b + (i * 10)) + (n * 5)) + 0] = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (0 * 4))))) + b[0];\n                ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x4b + (i * 10)) + (n * 5)) + 1] = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (1 * 4))))) + b[1];\n                ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x4b + (i * 10)) + (n * 5)) + 2] = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (2 * 4))))) + b[2];\n              }\n            }\n\n          }\n        }\n\n        func_8002EC5C(obj, manager, snapshot);\n        *((int *) (((char *) snapshot) + 0x14)) = *((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + 0x54));\n        *((int *) (((char *) snapshot) + 0x18)) = *((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + 0x58));\n        *((int *) (((char *) snapshot) + 0x1c)) = *((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + 0x5c));\n      }\n\n    }\n    while (0);\n  }\n  else\n  {\n    for (; obj; obj = *((char **) (((char *) obj) + 4)))\n    {\n      for (i = 0; i < 4; i++)\n      {\n        if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x310 + (i * 4))))) < 0)\n        {\n          v = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + (0x1dc + (i * 4))));\n          if ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 2)\n          {\n            extra = (v < 0) ? (-v) : (v);\n            *((int *) (((char *) (*((char **) (((char *) obj) + 0x68)))) + (8 + (i * 4)))) = extra;\n          }\n          else\n          {\n            *((int *) (((char *) (*((char **) (((char *) obj) + 0x68)))) + (8 + (i * 4)))) = 0;\n          }\n          if ((((u32) (v + 2000)) > 4000) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 2))\n          {\n            func_8002FBD4(obj, 130, 2);\n          }\n        }\n      }\n\n    }\n\n  }\n}\n\n",
@@ -191230,6 +191833,7 @@
    "c9765a2d2e63307c528337f28d172fa0f074e6df2dc6506d0bcd53a7c211fc4c": "static __inline__ s32 __repair_inline(s32 a) { return a; }\ntypedef struct { s32 x, y, z, w; } V4;\ntypedef struct { s16 x, y, z; } P3;\ntypedef struct {\n    u8 pad0[0x24];\n    s32 x;\n    s32 y;\n    s32 z;\n    u8 pad30[0x4C - 0x30];\n    s32 base;\n    u8 pad50[4];\n    P3 *pts;\n    u8 pad58[0x8A - 0x58];\n    u16 n;\n} Track;\nextern void func_8002D6E0(V4 *, V4 *);\n\nvoid func_8002B7D4(u8 *arg0)\n{\n    V4 pos;\n    V4 dir;\n    V4 rel;\n    Track *t;\n    u8 *p58;\n    s32 idx;\n    s32 a;\n    s32 b;\n    s32 s;\n    s32 d;\n\n    t = **(Track ***)(arg0 + 0x8C);\n    p58 = *(u8 **)(arg0 + 0x58);\n    idx = __repair_inline(**(s32 **)(arg0 + 0x60));\n    idx = idx * t->n + t->base;\n    pos.x = *(s32 *)(p58 + 0xC);\n    pos.z = *(s32 *)(*(u8 **)(arg0 + 0x58) + 0x14);\n    pos.x -= t->x;\n    pos.z -= t->z;\n    b = idx - 2;\n    a = idx + 2;\n    dir.x = t->pts[a].x - t->pts[b].x;\n    dir.z = t->pts[a].z - t->pts[b].z;\n    rel.x = pos.x - t->pts[b].x;\n    rel.z = pos.z - t->pts[b].z;\n    s = dir.x * rel.x + dir.z * rel.z;\n    func_8002D6E0(&dir, &dir);\n    d = dir.x + dir.z;\n    s = s * 100 / d;\n    *(s32 *)(*(u8 **)(arg0 + 0x60) + 0x17C) = s;\n}\n",
    "a547fd954f5b4ea17e998dbb6128f049d09fab076d89b1e66f85afa83c16d3cf": "#define I(p,o) (*(s32 *)((u8 *)(p)+(o)))\n#define H(p,o) (*(u16 *)((u8 *)(p)+(o)))\n#define P(p,o) (*(u8 **)((u8 *)(p)+(o)))\nextern s32 D_800AE850[];\nextern s32 D_800C02AE[];\nextern u8 *D_8009C230;\nextern s32 D_8009F500[];\nextern s32 D_8009F504[];\nextern s32 D_8009F508[];\nextern s32 D_8009F50C[];\nextern s32 D_8009F518[];\nextern s32 D_8009F51C[];\nextern void func_8002D8A0(s32, void *, void *);\nstatic inline void add3(s32 *d, s32 *a, s32 *b)\n{\n  d[0] = a[0] + b[0];\n  d[1] = a[1] + b[1];\n  d[2] = a[2] + b[2];\n}\nvoid func_8002B970(u8 *arg0, u8 *arg1)\n{\n  struct \n  {\n    s32 x;\n    s32 y;\n    s32 z;\n  } sp;\n  s32 temp_a0; \n  s32 gv;\n  s32 v0a;\n  s32 temp_a0_5;\n  s32 temp_a1;\n  s32 temp_a2;\n  s32 temp_v0_2;\n  s32 temp_v0_3;\n  u8 *new_var;\n  s32 temp_v0_4;\n  s32 var_a3;\n  s32 var_s1;\n  u8 *new_var2;\n  s32 var_s2;\n  s32 var_s3;\n  s32 var_s4;\n  void *temp_a0_2;\n  void *temp_a0_3;\n  void *temp_a0_4;\n  u8 *new_var3;\n  void *temp_a1_2;\n  void *temp_a1_3;\n  void *temp_a2_2;\n  void *temp_a2_3;\n  void *temp_v0;\n  u8 *var_t0;\n  struct Row { u8 pad[0x44]; s32 v; s32 w; } *r;\n  gv = I(D_800AE850, 0x82AC);\n  v0a = I(arg0, 0x90);\n  gv -= 0x1E;\n  v0a += gv;\n  I(P(arg1, 0x80), 0x4) = v0a;\n  var_s2 = 4;\n  I(P(arg1, 0x80), 0x8) = (s32) (I(arg0, 0xDC) + I(D_800C02AE, 0x3246));\n  var_a3 = 0x50;\n  temp_v0_4 = 4;\n  I(P(arg1, 0x80), 0xC) = (s32) I(arg0, 0x128);\n  do\n  {\n    temp_a0 = ((struct Row *) arg0)[temp_v0_4].v;\n    temp_a1 = ((struct Row *) arg0)[temp_v0_4 + 1].v;\n    temp_a2 = ((struct Row *) arg0)[temp_v0_4 + 2].v;\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x10) = (s32) (-temp_a0);\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x14) = temp_a1;\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x18) = temp_a2;\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x24) = temp_a0;\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x28) = temp_a1;\n    temp_v0_4 += 3;\n    var_s2 += 2;\n    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x2C) = temp_a2;\n    var_a3 += 0x28;\n  }\n  while (var_s2 <= (0xC - 1));\n  var_s2 = 0;\n  var_s4 = 0x100;\n  var_s3 = 0x10;\n  var_s1 = 0;\n  do\n  {\n    temp_a2_2 = P(arg1, 0x80);\n    func_8002D8A0(I(arg1, 0x5C) + 0x40, temp_a2_2 + var_s3, temp_a2_2 + var_s4);\n    temp_a0_2 = P(arg1, 0x80);\n    temp_a2_3 = P(arg1, 0x58);\n    add3((s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x1F0), (s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x100), (s32 *) ((u8 *) temp_a2_3 + 0xC));\n    temp_v0 = (u8 *) (var_s1 + (s32) P(arg1, 0x80));\n    sp = *((typeof(sp) *) (temp_v0 + 0x1F0));\n    { s32 tx; I(var_s1 + (s32) P(arg1, 0x60), 0x60) = (tx = sp.x, var_t0 = D_8009C230, tx); }\n    I(var_s1 + (s32) P(arg1, 0x60), 0x64) = sp.y;\n    var_s4 += 0x14;\n    I(var_s1 + (s32) P(arg1, 0x60), 0x68) = sp.z;\n    temp_a0_5 = var_s2 * 4;\n    I((var_s2 * 4) + (s32) P(arg1, 0x60), 0x30) = (s32) (I(var_t0, 0x4C) - 1);\n    var_s3 += 0x14;\n    new_var3 = var_t0;\n    I(temp_a0_5 + (s32) P(arg1, 0x34), 0x30) = (s32) (I(new_var3, 0x4C) - 1);\n    var_s2 += 1;\n    new_var2 = new_var3;\n    I(temp_a0_5 + (s32) P(arg1, 0x60), 0) = ((u16) H(new_var3, 0x88)) >> 1;\n    I(temp_a0_5 + (s32) P(arg1, 0x34), 0) = ((u16) H(new_var2, 0x88)) >> 1;\n    var_s1 += 0x14;\n  }\n  while (var_s2 < 0xC);\n  I(P(arg1, 0x8C), 0x578) = (s32) I(D_8009F500, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);\n  I(P(arg1, 0x8C), 0x57C) = (s32) I(D_8009F504, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);\n  temp_v0_2 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;\n  I(D_8009F500, temp_v0_2) = I(D_8009F500, temp_v0_2) + I(D_8009F508, temp_v0_2);\n  temp_v0_3 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;\n  new_var = new_var3;\n  I(D_8009F504, temp_v0_3) = I(D_8009F504, temp_v0_3) + I(D_8009F50C, temp_v0_3);\n  I(P(arg1, 0x34), 0x170) = (s32) I(D_8009F518, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);\n  temp_v0_4 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;\n  I(D_8009F518, temp_v0_4) = I(D_8009F518, temp_v0_4) + I(D_8009F51C, temp_v0_4);\n  I(P(arg1, 0x34), 0x160) = 1;\n  I(P(arg1, 0x34), 0x158) = 0;\n  I(P(arg1, 0x34), 0x164) = 0;\n  I(P(arg1, 0x34), 0x168) = 0;\n  I(P(arg1, 0x34), 0x16C) = 0x1F4;\n  I(P(arg1, 0x34), 0x154) = 0;\n  P(P(arg1, 0x34), 0x150) = new_var3;\n  I(P(arg1, 0x60), 0x160) = 0;\n  I(P(arg1, 0x60), 0x158) = 0;\n  I(P(arg1, 0x60), 0x164) = 0;\n  I(P(arg1, 0x60), 0x168) = 0;\n  I(P(arg1, 0x60), 0x16C) = 0x1F4;\n  I(P(arg1, 0x60), 0x154) = 0;\n  P(P(arg1, 0x60), 0x150) = new_var;\n  I(P(arg1, 0x60), 0x178) = 0;\n  I(P(arg1, 0x60), 0x174) = 0;\n}\n\n",
    "badd0e9cf670956996583e7a0a4839e171aeaeec6ea6b085211f5c9e86e4c8be": "typedef struct { s32 x, y, z; } Vec3S32;\ntypedef struct { s16 x, y, z; } Vec3S16;\ntypedef struct { Vec3S32 v; s32 pad[2]; } Rec;\ntypedef struct { u8 pad[0x10]; Rec c[12]; Rec a[12]; Rec b[12]; } RecSet;\nvoid *func_80028E24(s32, Vec3S32 *);\nvoid func_80028E94(void *, Vec3S16 *, u32);\nvoid func_8002C044(void *);\nvoid func_8002D8A0(s32, Rec *, Rec *);\nextern s32 D_8009C230;\n\nstatic inline void vec_add(Vec3S32 *a, Vec3S32 *b, Vec3S32 *d)\n{\n  d->x = a->x + b->x;\n  d->y = a->y + b->y;\n  d->z = a->z + b->z;\n}\n\nvoid func_8002BD40(u8 *arg0)\n{\n  Vec3S32 sp10;\n  Vec3S16 sp20;\n  u32 i;\n  u8 *t;\n\n  *(s32 *)(*(u8 **)(arg0 + 0x8C) + 0x334) = 0;\n  *(s32 *)(*(u8 **)(arg0 + 0x8C) + 0x100) = 0;\n  for (i = 0; i < 12; i++)\n  {\n    func_8002D8A0(*(s32 *)(arg0 + 0x5C) + 0x40, &(*(RecSet **)(arg0 + 0x80))->c[i], &(*(RecSet **)(arg0 + 0x80))->a[i]);\n    vec_add(&(*(RecSet **)(arg0 + 0x80))->a[i].v, (Vec3S32 *)(*(u8 **)(arg0 + 0x58) + 0xC), &(*(RecSet **)(arg0 + 0x80))->b[i].v);\n    sp10 = *(&(*(RecSet **)(arg0 + 0x80))->b[i].v);\n    t = func_80028E24(D_8009C230, &sp10);\n    *(u8 **)(*(u8 **)(arg0 + 0x8C) + i * 4) = t;\n    sp20.x = sp10.x - *(s32 *)(t + 0x24);\n    sp20.y = sp10.y - *(s32 *)(t + 0x28);\n    sp20.z = sp10.z - *(s32 *)(t + 0x2C);\n    func_80028E94(arg0, &sp20, i);\n  }\n  func_8002C044(arg0);\n}\n",
+   "c95ad94fe61b0cfadad81ae3c367d93ff4de23c1a4c1094042cd97d033718816": "#define W(p,o) (*(int*)((char*)(p)+(o)))\n#define U(p,o) (*(u16*)((char*)(p)+(o)))\n#define P(p,o) (*(char**)((char*)(p)+(o)))\ntypedef struct \n{\n  s16 x;\n  s16 y;\n  s16 z;\n} Vec;\ntypedef struct { s32 v[3]; s32 pad[2]; } E20;\ntypedef struct { s32 x, y, z; } V3;\ntypedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;\nextern char *D_800B5C40;\nvoid func_8002D8A0(void *, void *, void *);\nint func_80028E94(void *, void *, int);\nchar *func_80028D74(void *, void *);\nvoid func_80029AA8(void *, void *, void *, int);\nvoid func_8002A4C4(void *, void *, int, int);\nvoid func_80029EAC(void *, void *, int);\nvoid func_8002D7E4(int, int *);\nvoid func_8002E778(void *, void *);\nvoid func_8002C6EC(void *, void *);\nvoid func_8002B7D4(void *);\nstatic __inline__ void vadd(E20 *d, E20 *s, int *t)\n{\n  d->v[0] = s->v[0] + t[0];\n  d->v[1] = s->v[1] + t[1];\n  d->v[2] = s->v[2] + t[2];\n}\nvoid func_8002C044(char *a)\n{\nint __repair_literal;\n\n  int v[3];\n  int q[3];\n  Vec pos;\n  Vec save;\n  int shift[3];\n  unsigned i;\n  char *g;\n  char *old;\n  char *b;\n  int result;\n  int row;\n  int col;\n  int oldrow;\n  int oldcol;\n  \n  int w;\n  int k;\n  for (i = 0; i < 12; i++)\n  {\n    func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);\n    vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));\n  }\n  old = 0;\n\n  for (i = 0; i < 12; i++)\n  {\n    *(V3 *) v = *(V3 *) &((Blk20 *) P(a, 0x80))->o[i];\n    g = ((char **) P(a, 0x8c))[i];\n    pos.x = v[0] - W(g, 36);\n    pos.y = v[1] - W(g, 40);\n    pos.z = v[2] - W(g, 44);\n    result = func_80028E94(a, &pos, i);\n    if (result > 0)\n    {\n      int oldrow;\n      int oldcol;\n      int __repair_literal;\n      col = 0;\n      row = 0;\n      oldcol = ((int *) P(a, 0x60))[i + 12];\n      oldrow = ((int *) P(a, 0x60))[i];\n      save = pos;\n      __repair_literal = result;\n      g = func_80028D74(old = g, v);\n      if (g != old)\n      {\n        switch (result)\n        {\n          case 1:\n          case 4:\n          case 5:\n          case 6:\n          case 7:\n          case 8:\n            row = -1;\n            col = -1;\n            break;\n          case 2:\n            row = 0;\n            col = oldcol - (W(old, 76) - W(g, 76));\n            break;\n          case 3:\n            row = U(g, 136) - 2;\n            col = oldcol - (W(old, 76) - W(g, 76));\n            break;\n        }\n\n        w = U(g, 138) - 1; k = row * w;\n        if (!((u16 *) P(g, 112))[k + col])\n        {\n          col = -1;\n        }\n        if (row >= 0 && col >= 0 && row < U(g, 136) - 1 && col < U(g, 138) - 1)\n        {\n          W(P(a, 96), (i * 4) + 48) = col;\n          W(P(a, 96), i * 4) = row;\n          P(P(a, 140), i * 4) = g;\n          pos.x = v[0] - W(g, 36);\n          pos.y = v[1] - W(g, 40);\n          pos.z = v[2] - W(g, 44);\n          result = func_80028E94(a, &pos, i);\n          if (result)\n          {\n            result = -result;\n          }\n        }\n        else\n        {\n          W(P(a, 96), (i * 4) + 48) = oldcol + oldcol - oldcol;\n          W(P(a, 96), i * 4) = oldrow;\n          g = (char *)((int)old + (int)old - (int)old);\n          P(P(a, 140), i * 4) = g;\n          pos = save;\n          result = -__repair_literal;\n        }\n      }\n      else\n      {\n        result = -result;\n      }\n    }\n    if (i < 4)\n    {\n      func_8002D8A0(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);\n      v[0] <<= 2;\n      v[1] <<= 2;\n      v[2] <<= 2;\n      v[0] += W(P(a, 88), 232);\n      v[1] += W(P(a, 88), 236);\n      v[2] += W(P(a, 88), 240);\n      q[0] = v[0] - (W(g, 36) << 4);\n      q[1] = v[1] - (W(g, 40) << 4);\n      q[2] = v[2] - (W(g, 44) << 4);\n      if (result < 0)\n      {\n        if (i == 0)\n        {\n          shift[0] = 11;\n        }\n        if (i == 1)\n        {\n          shift[0] = 10;\n        }\n        if (i == 2)\n        {\n          shift[0] = 5;\n        }\n        if (i == 3)\n        {\n          shift[0] = 4;\n        }\n        {\n          int k = shift[0] * 4;\n          W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);\n          W(P(a, 96), i * 4) = *(int *)(k + (int)P(a, 96));\n          P(P(a, 140), i * 4) = *(char **)(k + (int)P(a, 140));\n        }\n        func_80029AA8(a, q, &pos, i);\n      }\n      else\n        func_80029AA8(a, q, &pos, i);\n    }\n    else if (result < 0)\n    {\n      func_8002A4C4(a, &pos, i, result);\n    }\n    else\n    {\n      func_80029EAC(a, &pos, i);\n    }\n  }\n\n  for (b = P(D_800B5C40, 0); b; b = P(b, 4))\n  {\n    if (((b == a) || (W(b, 20) & 64)) || (W(a, 20) & 64))\n    {\n      continue;\n    }\n    v[0] = W(P(a, 92), 84) - W(P(b, 92), 84);\n    v[1] = W(P(a, 92), 88) - W(P(b, 92), 88);\n    v[2] = W(P(a, 92), 92) - W(P(b, 92), 92);\n    func_8002D7E4(v[0], shift);\n    func_8002D7E4(v[1], shift + 1);\n    func_8002D7E4(v[2], shift + 2);\n    if (((shift[0] < 17) || (shift[1] < 17)) || (shift[2] < 17))\n    {\n      if (shift[0] > shift[1])\n      {\n        shift[0] = shift[1];\n      }\n      if (shift[0] > shift[2])\n      {\n        shift[0] = shift[2];\n      }\n      shift[0] = 17 - shift[0];\n      v[0] >>= shift[0];\n      v[1] >>= shift[0];\n      v[2] >>= shift[0];\n    }\n    func_8002E778(v, v);\n    v[0] += v[1] + v[2];\n    if (v[0] <= 0x4e1ff)\n    {\n      func_8002C6EC(a, b);\n    }\n  }\n\n  func_8002B7D4(a + i - i);\n}\n",
    "39491578c96b04395bab49eca618af12e6e3c3d73b187bf314141ff2bf692bef": "#line 1 \"reference.c\"\nu8 func_8002C6EC(void *arg0, void *arg1)\n{\n  Scratch frame; Vec3 *vp;\n  char *faceBase;\n  char *other;\n  int oldCount;\n  int otherCount;\n  char *new_var3;\n  char *new_var;\n  u16 new_var2;\n  int k; unsigned more;\n  int count;\n  int faceIndex;\n  unsigned int i;\n  unsigned int vertex;\n  unsigned int j;u32 x0,x1,x2,x3;\n  char *a;\n  char *b;\n  char *rot;char *raw;\n\n\n  s8 *table,*table0,*table1,*table2;\n  raw = (*(char *volatile *)((char *)arg1+0x5c));\n  a = (*(char *volatile *)((char *)arg1+0x8c));\n  b = P(arg0, 0x8c);\n  faceBase = a + 0x104;\n  other = b + 0x338;\n  oldCount = W(a, 0x100);\n  otherCount = W(b, 0x334);\n  rot=raw+0x40;\n  func_8002DA98(rot, &frame.mat);\n  frame.bounds[2] = W(P(arg1, 0x80), 0xec) + 15;\n  frame.bounds[3] = W(P(arg1, 0x80), 0xf0) + 15;\n  frame.bounds[5] = W(P(arg1, 0x80), 0xf4) + 15;\n  frame.bounds[0] = W(P(arg1, 0x80), 0x88) - 15;\n  frame.bounds[1] = W(P(arg1, 0x80), 0x8c) - 15;\n  frame.bounds[4] = W(P(arg1, 0x80), 0x90) - 50;\n  {\n    s8 one=1;\n    s8 *p = frame.flags;\n    do\n    {\n      *(p++) = one;\n    }\n    while (p < (frame.flags + 6));\n  }\n  frame.delta[0] = W(P(arg0, 0x5c), 0x54) - W(rot, 0x14);\n  frame.delta[1] = W(P(arg0, 0x5c), 0x58) - W(rot, 0x18);\n  frame.delta[2] = W(P(arg0, 0x5c), 0x5c) - W(rot, 0x1c);\n  func_8002E530(&frame.mat, frame.delta, &frame.out);\n  if (frame.out.x > 0)\n  {\n    frame.flags[1] = 0;\n  }\n  else\n    if (frame.out.x == 0)\n  {\n    frame.flags[3] = (frame.flags[1] = 0);\n  }\n  else\n    if (frame.out.x < 0)\n  {\n    frame.flags[3] = 0;\n  }\n  if (frame.out.y > 0)\n  {\n    frame.flags[4] = 0;\n  }\n  else\n    if (frame.out.y == 0)\n  {\n    frame.flags[4] = 0;\n    frame.flags[5] = 0;\n  }\n  else\n    if (frame.out.y < 0)\n  {\n    frame.flags[5] = 0;\n  }\n  if (frame.out.z > 0)\n  {\n    frame.flags[0] = 0;\n  }\n  else\n    if (frame.out.z == 0)\n  {\n    frame.flags[0] = 0;\n    frame.flags[2] = 0;\n  }\n  else\n    if (frame.out.z < 0)\n  {\n    frame.flags[2] = 0;\n  }\n  frame.zero.p.x = 0;\n  frame.zero.p.z = 0;\n  frame.dir.p.x = frame.out.x;\n  frame.dir.p.z = frame.out.z;\ni=0;\n{ int *test0=&frame.test;\n  for (table0 = D_8009E270; i < 4; i++, table0 += 2)\n  {\n    if (frame.flags[i])\n    {\n      frame.pair.p.x = W(P(arg1, 0x80), (table0[0] * 20) + 0x60);\n      frame.pair.p.z = W(P(arg1, 0x80), (table0[0] * 20) + 0x68);\n      func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test0);\n      x0=i*2;\n      if (frame.test > 0)\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (D_8009E271[x0] * 20) + 0x60);\n        frame.pair.p.z = W(P(arg1, 0x80), (D_8009E271[x0] * 20) + 0x68);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test0);\n        if (frame.test < 0)\n        {\n          break;\n        }\n        frame.flags[i] = 0;\n      }\n    }\n  }\n}\n\n\n  for (x0 = i + 1; x0 < 4; x0++)\n  {\n    frame.flags[x0] = 0;\n  }\n\n  if ((i == 2) || (i == 0))\n  {\n    x1 = i;\n    frame.dir.p.x = frame.out.y;\n    frame.dir.p.z = frame.out.z;\n    if (x1 < 6)\n    {\nint *test1=&frame.test;\n    table1 = D_8009E278 + i * 2;\n    for (; x1 < 6; x1++, table1 += 2)\n    {\n      if (frame.flags[x1])\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (table1[0] * 20) + 0x64);\n        frame.pair.p.z = W(P(arg1, 0x80), (table1[0] * 20) + 0x68);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test1);\n        i=x1*2;\n        if (frame.test > 0)\n        {\n          frame.pair.p.x = W(P(arg1, 0x80), (D_8009E279[i] * 20) + 0x64);\n          frame.pair.p.z = W(P(arg1, 0x80), (D_8009E279[i] * 20) + 0x68);\n          func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test1);\n          if (frame.test < 0)\n          {\n            break;\n          }\n          frame.flags[x1] = 0;\n        }\n      }\n    }\n    }\n\n  }\n  else\n  {\n    x1 = i;\n    frame.dir.p.x = frame.out.x;\n    frame.dir.p.z = frame.out.y;\n    if (x1 < 6)\n    {\nint *test2=&frame.test;\n    table2 = D_8009E284 + i * 2;\n    for (; x1 < 6; x1++, table2 += 2)\n    {\n      if (frame.flags[x1])\n      {\n        frame.pair.p.x = W(P(arg1, 0x80), (table2[0] * 20) + 0x60);\n        frame.pair.p.z = W(P(arg1, 0x80), (table2[0] * 20) + 0x64);\n        func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test2);\n        i=x1*2;\n        if (frame.test < 0)\n        {\n          frame.pair.p.x = W(P(arg1, 0x80), (D_8009E285[i] * 20) + 0x60);\n          frame.pair.p.z = W(P(arg1, 0x80), (D_8009E285[i] * 20) + 0x64);\n          func_8002D75C(frame.pair.word, frame.zero.word, frame.dir.word, test2);\n          if (frame.test > 0)\n          {\n            break;\n          }\n          frame.flags[x1] = 0;\n        }\n      }\n    }\n    }\n\n  }\nfaceIndex=x1;count=0;i=0;vp=&frame.v;if(vp){x0=oldCount+(((u32)(u8)faceIndex)>>8);}else{x0=oldCount;}x2=(x0<<3)-x0;x2<<=3;x0=x2+(u32)faceBase;\nfor (;(more=i<12);i++)\n  {\n    frame.v = *((Vec3 *)(P(arg0, 0x80) + 0x1f0 + i*20));\n    frame.v.x -= W(rot, 0x14);\n    frame.v.y -= W(rot, 0x18);\n    frame.v.z -= W(rot, 0x1c);\n    func_8002E778(vp, &frame.out);\n    frame.out.x += frame.out.y + frame.out.z;\n    if (frame.out.x > 0x270ff)\n    {\n      continue;\n    }\n    frame.delta[0] = frame.v.x;\n    frame.delta[1] = frame.v.y;\n    frame.delta[2] = frame.v.z;\n    func_8002E530(&frame.mat, frame.delta, vp);\n    if (!((((((frame.v.x < frame.bounds[2]) && (frame.bounds[0] < frame.v.x)) && (frame.v.y < frame.bounds[3])) && (frame.bounds[1] < frame.v.y)) && (frame.v.z < frame.bounds[5])) && (frame.bounds[4] < frame.v.z)))\n    {\n      continue;\n    }\n    switch (faceIndex)\n    {\n      case 0:\n        frame.out.x = frame.bounds[4] - frame.v.z;\n        frame.face.m[0] = H(rot, 0);\n        frame.face.m[3] = H(rot, 6);\n        frame.face.m[6] = H(rot, 12);\n        frame.face.m[1] = -H(rot, 4);\n        frame.face.m[4] = -H(rot, 10);\n        frame.face.m[7] = -H(rot, 16);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 2:\n        frame.out.x = frame.v.z - frame.bounds[5];\n        frame.face.m[0] = -H(rot, 0);\n        frame.face.m[3] = -H(rot, 6);\n        frame.face.m[6] = -H(rot, 12);\n        frame.face.m[1] = H(rot, 4);\n        frame.face.m[4] = H(rot, 10);\n        frame.face.m[7] = H(rot, 16);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 1:\n        frame.out.x = frame.bounds[0] - frame.v.x;\n        frame.face.m[0] = -H(rot, 4);\n        frame.face.m[3] = -H(rot, 10);\n        frame.face.m[6] = -H(rot, 16);\n        frame.face.m[1] = -H(rot, 0);\n        frame.face.m[4] = -H(rot, 6);\n        frame.face.m[7] = -H(rot, 12);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 3:\n        frame.out.x = frame.v.x - frame.bounds[2];\n        frame.face.m[0] = H(rot, 4);\n        frame.face.m[3] = H(rot, 10);\n        frame.face.m[6] = H(rot, 16);\n        frame.face.m[1] = H(rot, 0);\n        frame.face.m[4] = H(rot, 6);\n        frame.face.m[7] = H(rot, 12);\n        frame.face.m[2] = H(rot, 2);\n        frame.face.m[5] = H(rot, 8);\n        frame.face.m[8] = H(rot, 14);\n        break;\n\n      case 4:\n        frame.out.x = frame.bounds[1] - frame.v.y;\n        new_var = rot;\n        frame.face.m[0] = H(new_var, 4);\n        frame.face.m[3] = H(rot, 10);\n        frame.face.m[6] = H(rot, 16);\n        frame.face.m[1] = -H(rot, 2);\n        frame.face.m[4] = -H(rot, 8);\n        frame.face.m[7] = -H(rot, 14);\n        frame.face.m[2] = H(rot, 0);\n        frame.face.m[5] = H(rot, 6);\n        frame.face.m[8] = H(rot, 12);\n        break;\n\n      case 5:\n        frame.out.x = frame.v.y - frame.bounds[3];\n        frame.face.m[0] = -H(rot, 4);\n        frame.face.m[3] = -H(rot, 10);\n        frame.face.m[6] = -H(rot, 16);\n        frame.face.m[1] = H(new_var3 = rot, 2);\n        frame.face.m[4] = H(rot, 8);\n        frame.face.m[7] = H(rot, 14);\n        frame.face.m[2] = H(rot, 0);\n        frame.face.m[5] = H(rot, 6);\n        frame.face.m[8] = H(rot, 12);\n        break;\n\n    }\n\n    if (frame.out.x > 0)\n    {\n      frame.out.x = 0;\n    }\n    else\n      if (i >= 4)\n    {\n      u32 p = (u32)otherCount*48+(u32)other;\n      W(p, 0x28) = frame.out.x << 4;\n      W(p, 0x24) = i;\n      P(p, 0x20) = arg1;\n      *((Matrix32 *) p) = frame.face;\n      W(p, 0x2c) = 1;\n      W(P(arg0, 0x8c), 0x334) = otherCount + 1;\n    }\n    if (i < 4)\n    {\n      W(P(arg0, 0x80), 0x310 + (i * 4)) = frame.out.x;\n      W(P(arg0, 0x80), 0x320 + (i * 4)) = 1;\n      {Matrix32 *base=(Matrix32 *)(P(arg0,0x8c)+0x30); base[i]=frame.face;}\n    }\n    if (frame.out.x < 0)\n    {\n      count++;\n      W(((char *)x0), 0x30) = frame.out.x << 4;\n      W(((char *)x0), 0x34) = 1;\n      W(((char *)x0), 0x2c) = i;\n      P(((char *)x0), 0x28) = arg0;\n      if (faceIndex == 0) H(((char *)x0), 0) = 0; else H(((char *)x0), 0) = frame.v.x;\n      H(((char *)x0), 2) = frame.v.y;\n      H(((char *)x0), 4) = frame.v.z;\n      frame.face.m[1] = -frame.face.m[1];\n      frame.face.m[4] = -frame.face.m[4];\n      frame.face.m[7] = -frame.face.m[7];\n      new_var2 = frame.face.m[2];\n      frame.face.m[2] = -new_var2;\n      frame.face.m[5] = -frame.face.m[5];\n      frame.face.m[8] = -frame.face.m[8];\n      *((Matrix32 *) (((char *)x0) + 8)) = frame.face;\n      if (oldCount < 10)\n      {\n        W(P(arg1, 0x8c), 0x100) = oldCount + 1;\n      }\n    }\n  }\n\n  { u8 finalCount=(u8)count; if(finalCount) return more | ((finalCount<<8)>>16); else return more; }\n}\n",
    "066b097494e8c0d93ef5a2252f9f1054015979b6385509a38eaa2860a9ec91ab": "void func_8002DB18();\ns16 *func_8002DE00(s16 *arg0, s16 *arg1)\n{\n  s16 sp10[16];\n  s16 sp30[16];\n  s16 sp50[16];\n  s16 sp70[16];\n  s16 *var_s6;\n  s16 s5;\n  s16 s2;\n  s16 s3;\n  s16 s1;\n  s16 s0;\n  s16 last;\n  var_s6 = arg1;\n  s2 = arg0[0];\n  s5 = func_8002D2E4(s2);\n  s2 = func_8002D348(arg0[0]);\n  s3 = func_8002D2E4(arg0[1]);\n  s1 = func_8002D348(arg0[1]);\n  s0 = func_8002D2E4(arg0[2]);\n  last = func_8002D348(arg0[2]);\n  sp10[0] = s3;\n  sp10[1] = 0;\n  {\n    s16 positive = s1;\n    ;\n    sp10[2] = positive;\n  }\n  sp10[3] = 0;\n  sp10[4] = 0x1000;\n  sp10[5] = 0;\n  sp10[6] = -s1;\n  sp10[7] = 0;\n  sp10[8] = s3;\n  sp30[0] = 0x1000;\n  sp30[1] = 0;\n  sp30[2] = 0;\n  sp30[3] = 0;\n  sp30[4] = s5;\n  sp30[5] = -s2;\n  sp30[6] = 0;\n  sp30[7] = s2;\n  sp30[8] = s5;\n  sp50[0] = s0;\n  sp50[1] = -last;\n  sp50[2] = 0;\n  sp50[3] = last;\n  sp50[4] = s0;\n  sp50[5] = 0;\n  sp50[6] = 0;\n  sp50[7] = 0;\n  sp50[8] = 0x1000;\n  func_8002DB18(sp10, sp30, sp70);\n  func_8002DB18(sp70, sp50, var_s6);\n  return var_s6;\n}\n\n",
    "3848ce72907d4eb645622f639c10cb8dfc88edf4684207fa7975292eb87eaa25": "s32 func_8002E688(s32 *arg0, s32 *arg1)\n{\n  f32 v[3];\n  f32 len;\n  f32 fn;\n  f32 s;\n  s32 n;\n  v[0] = (f32) arg0[0];\n  v[1] = (f32) arg0[1];\n  v[2] = (f32) arg0[2];\n  len = ((v[0] * v[0]) + (v[1] * v[1])) + (v[2] * v[2]);\n  if (len != 0.0f)\n  {\n    n = (s32) __builtin_sqrtf(len);\n  }\n  else\n  {\n    n = 0;\n  }\n  if (n == 0)\n  {\n    n = 1;\n  }\n  s = 4096.0f; arg1[0] = (s32) ((((f32) arg0[0]) / ((f32) n)) * s);\n  arg1[1] = (s32) ((((f32) arg0[1]) / ((f32) n)) * s);\n  s = (((f32) arg0[2]) / ((f32) n)) * s;\n  arg1[2] = (s32) s;\n  return n;\n}",
@@ -191344,6 +191948,7 @@
    "52ea0a388e7b50dd74ae28912f1dfd479166f8a981c9e286be67a00afa14487b": "typedef struct {\n    u8 pad0[6];\n    s16 x;\n    s16 y;\n    u8 padA;\n    u8 b;\n    u8 c;\n    u8 d;\n    u8 e;\n} Win;\ntypedef struct {\n    u8 pad0[0x37];\n    u8 id;\n    u8 pad38[8];\n} Sub;\ntypedef struct {\n    Sub sub[8];\n    u8 pad200[0x2C];\n    u32 vals[38];\n} Rec;\ntypedef struct {\n    u8 pad0[0x1E];\n    u16 a;\n    u16 b;\n    u16 c;\n    u8 pad24[0xC];\n    u8 n;\n    u8 pad31[0x1F];\n    u16 mode;\n} Cfg;\nextern s32 D_800B5C60;\nextern s32 D_800D05D8;\nextern f32 D_800C6CF8;\nextern s32 D_800C8328;\nextern Cfg *D_800C35A0;\nextern Rec *D_800D0634[];\nextern u8 D_800A14D5;\nextern u8 D_800A1548;\nextern char D_800A5418[];\nextern char D_800A541C[];\nextern char D_800A5428[];\nextern char D_800A5434[];\nextern f64 D_800A5440;\ns32 func_8004240C();\ns32 func_80047B54();\nvoid func_8004CF7C(s32 arg0, u16 arg1, s16 arg2, s16 arg3, f32 arg4, u8 arg5, u16 arg6);\nchar *func_80057918();\nWin *func_800592D0();\nvoid func_80059618(Win *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);\ns32 func_800596F4();\ns32 func_8005A6BC();\ns32 func_8005A6E0();\ns32 memset();\ns32 func_80099DF8();\n\nvoid func_8005D0B0(void)\n{\n    char buf1[16];\n    char buf3[8];\n    char buf2[16];\n    Win *w;\n    u32 val;\n\n    memset(buf1, 0, 16);\n    D_800B5C60 = 0;\n    if (D_800A1548 != 0) {\n        func_80047B54(func_8004240C(0), 0, 0, 0);\n        D_800A1548--;\n    }\n    func_8004CF7C(D_800D05D8, 0, 0x68, 0x4A, D_800C6CF8, 0, 0xFF);\n    w = func_800592D0(0);\n    func_80059618(w, w->b, w->c, w->d, 0xFF);\n    func_80099DF8(buf1, D_800A5418, func_80057918(D_800C8328, D_800D0634[D_800C35A0->a][D_800C35A0->b].sub[D_800C35A0->c].id + 0x1E4));\n    func_800596F4(w, w->x, w->y, buf1);\n    memset(buf2, 0, 10);\n    w = func_800592D0(2);\n    val = D_800D0634[D_800C35A0->a][D_800C35A0->b].vals[D_800C35A0->c];\n    if (D_800C35A0->mode == 0) {\n        func_80099DF8(buf2, D_800A541C, (u16)(val / 1000), (u16)(val % 1000 / 100));\n    } else {\n        val = val * D_800A5440;\n        func_80099DF8(buf2, D_800A5428, (u16)(val / 1000), (u16)(val % 1000 / 100));\n    }\n    func_80059618(w, w->b, w->c, w->d, w->e);\n    func_800596F4(w, w->x, w->y, buf2);\n    if (D_800A14D5 != 0) {\n        func_8005A6BC(0xD);\n        w = func_800592D0(0xE);\n        memset(buf3, 0, 2);\n        func_80059618(w, w->b, w->c, w->d, w->e);\n        if (D_800C35A0->a == 0) {\n            if (D_800C35A0->n == 0) {\n                func_800596F4(w, w->x, w->y, func_80057918(D_800C8328, 0x174));\n            } else {\n                func_80099DF8(buf3, D_800A5434, D_800C35A0->n);\n                func_800596F4(w, w->x, w->y, buf3);\n            }\n        } else {\n            func_80099DF8(buf3, D_800A5434, 3);\n            func_800596F4(w, w->x, w->y, buf3);\n        }\n    } else {\n        func_8005A6E0(0xD);\n    }\n}\n",
    "96ec1bb6191998b565b3dedccbb2d1b72926da2635fa6474184fa298fb789453": "typedef struct Tex\n{\n  char pad0[6];\n  u16 w;\n  u16 h;\n} Tex;\ntypedef struct Img\n{\n  s32 pad0;\n  Tex **tex;\n} Img;\ntypedef struct Elem\n{\n  char pad0[0x24];\n  Img **imgs;\n  char pad28[0x37 - 0x28];\n  u8 alpha;\n} Elem;\nextern u8 **D_800B55E4;\nextern void *func_8004240C(s32);\nextern void func_8004CEB4(s32, Tex *, s16 *, u8, s32, s32, s32, s32, s32);\nvoid func_8005D4A4(s32 arg0)\n{\n  s16 rect[4];\n  f32 scale;\n  s32 new_var2;\n  u8 *base;\n  Tex **new_var;\n  Elem *e;\n  Tex *new_var3;\n  scale = 1.25f;\n  if (arg0 & 0xFF)\n  {\n    scale = 0.625f;\n  }\n  base = *D_800B55E4;\n  e = (Elem *) (base + 12);\n  rect[0] = 0;\n  rect[1] = (arg0 & 0xFF) ? (135) : (269);\n  rect[2] = (*e->imgs[3]->tex)->w * scale;\n  rect[3] = (*e->imgs[3]->tex)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 0, 0, 100, 100, 0);\n  e = (Elem *) (base + 68);\n  rect[0] = 0;\n  rect[1] = (arg0 & 0xFF) ? (187) : (375);\n  rect[2] = (*e->imgs[3]->tex)->w * scale;\n  new_var = e->imgs[3]->tex;\n  rect[3] = (*new_var)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 100, 100, 200, 200, 0);\n  e = (Elem *) (base + 12);\n  if (arg0 & 0xFF)\n  {\n    rect[0] = 160;\n    rect[1] = 135;\n  }\n  else\n  {\n    rect[0] = 320;\n    rect[1] = 269;\n  }\n  rect[2] = (*e->imgs[0x17]->tex)->w * scale;\n  rect[3] = (*e->imgs[0x17]->tex)->h * scale;\n  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[0x17]->tex, rect, e->alpha, 0, 0, 100, 100, 0);\n  e = (Elem *) (base + 68);\n  if (arg0 & 0xFF)\n  {\n    rect[0] = 160;\n    rect[1] = 187;\n  }\n  else\n  {\n    rect[0] = 320;\n    rect[1] = 375;\n  }\n  rect[2] = (*e->imgs[0x17]->tex)->w * scale;\n  rect[3] = (*e->imgs[0x17]->tex)->h * scale;\n  new_var2 = *((s32 *) (((u8 *) func_8004240C(1)) + 0x178));\n  func_8004CEB4(new_var2, *e->imgs[0x17]->tex, rect, e->alpha, 100, 100, 200, 200, 0);\n}\n\n",
    "5b9e0eb43f427b955596b112ba0404a2f371661a315651ef0e8ff57da6527edd": "#define TA ((Rec5F *) (&D_800C02AE + 0x37A2))\n#define TB ((Rec5F *) (&D_800C02AE + 0x38A2))\n#define TC ((Rec5F *) (&D_800C02AE + 0x3862))\ntypedef struct Obj5F\n{\n  u8 p[6];\n  s16 x;\n  s16 y;\n  u8 pA;\n  u8 b;\n  u8 c;\n  u8 d;\n  u8 e;\n} Obj5F;\ntypedef struct Rec5F\n{\n  s32 time;\n  u8 pad[2];\n  char name[10];\n} Rec5F;\nextern u8 D_800A14E0;\nextern u8 D_800A14E1;\nextern u8 D_800A14E2;\nextern char D_800A5490[];\nextern char D_800A54FC[];\nextern char D_800A5508[];\nextern s16 D_800A5504;\nextern s8 D_800A5506;\nextern u8 D_800C02AE;\nextern Rec5F D_800C3A50[];\nextern Rec5F D_800C3B50[];\nextern Rec5F D_800C3B10[];\nextern Obj5F *func_800592D0(s32);\nextern void func_80052E94(s32, char *);\nextern void func_80059618(Obj5F *, u8, u8, u8, s32);\nextern void func_800596F4(Obj5F *, s16, s16, char *);\nextern void func_8006874C(s32);\nextern void func_80097E30(char *, s32, s32);\nextern void func_800980D0(char *, char *);\nextern void func_80099DF8(char *, char *, ...);\nvoid func_8005F5C4(void)\n{\n  char buf[16];\n  s32 t = 0;\n  s32 best = 0;\n  u8 i = 0;\n  char *p = buf;\n  u8 j;\n  Obj5F *obj;\n  Obj5F *obj2;\n  do\n  {\n    obj = func_800592D0((i * 4) + 5);\n    func_80097E30(buf, 0, 15);\n    j = 0;\n    do\n    {\n      if (i == 0)\n      {\n        func_80099DF8(buf, D_800A54FC, j + 1, TA[j].name);\n      }\n      else\n        if (i == 1)\n      {\n        func_80099DF8(buf, D_800A54FC, j + 1, TB[j].name);\n      }\n      else\n        if (i == 2)\n      {\n        func_80099DF8(buf, D_800A54FC, j + 1, TC[j].name);\n      }\n      func_80059618(obj, obj->b, obj->c, obj->d, obj->e);\n      func_800596F4(obj, obj->x, obj->y + (j * 22), buf);\n      j++;\n    }\n    while (j < 3);\n    obj = func_800592D0((i * 4) + 7);\n    obj2 = func_800592D0((i * 4) + 6);\n    j = 0;\n    do\n    {\n      if (i == 0)\n      {\n        t = D_800C3A50[j].time;\n      }\n      else\n        if (i == 1)\n      {\n        t = D_800C3B50[j].time;\n      }\n      else\n        if (i == 2)\n      {\n        t = D_800C3B10[j].time;\n      }\n      func_80097E30(buf, 0, 15);\n      func_80052E94(t, buf);\n      func_800596F4(obj, obj->x, obj->y + (j * 22), buf);\n      if (j == 0)\n      {\n        best = t;\n      }\n      else\n      {\n        func_80097E30(buf, 0, 15);\n        {\n          s32 h = D_800A5504;\n          s32 c = D_800A5506;\n          do { *((s16 *) buf) = h; } while (0);\n          buf[2] = c;\n        }\n        func_80052E94(t - best, buf + 2);\n        func_800980D0(p, D_800A5508);\n        func_800596F4(obj2, obj2->x, obj2->y + ((j - 1) * 22), p);\n      }\n      j++;\n    }\n    while (j < 3);\n    i++;\n  }\n  while (i < 3);\n  obj = func_800592D0(17);\n  func_80059618(obj, obj->b, obj->c, obj->d, obj->e);\n  func_80097E30(buf, 0, 15);\n  func_80099DF8(buf, D_800A5490, D_800A14E0);\n  func_800596F4(obj, obj->x, obj->y, buf);\n  obj = func_800592D0(18);\n  func_80059618(obj, obj->b, obj->c, obj->d, obj->e);\n  func_80097E30(buf, 0, 15);\n  func_80099DF8(buf, D_800A5490, D_800A14E1);\n  func_800596F4(obj, obj->x, obj->y, buf);\n  obj = func_800592D0(19);\n  func_80059618(obj, obj->b, obj->c, obj->d, obj->e);\n  func_80097E30(buf, 0, 15);\n  func_80099DF8(buf, D_800A5490, D_800A14E2);\n  func_800596F4(obj, obj->x, obj->y, buf);\n  obj = func_800592D0(20);\n  func_80059618(obj, obj->b, obj->c, obj->d, obj->e);\n  func_80097E30(buf, 0, 15);\n  func_80099DF8(buf, D_800A5490, ((D_800A14E0 + D_800A14E1) + D_800A14E2) / 3);\n  func_800596F4(obj, obj->x, obj->y, buf);\n  func_8006874C(-1);\n}\n",
+   "49bd17621e16019be0a66a21121e8a3a9bdc6709af5d8577a7cf92500c25117b": "typedef struct Info\n{\n  u16 h[7];\n} Info;\ntypedef struct Rec\n{\n  u8 pad[0xC];\n  s32 time;\n} Rec;\ntypedef struct Stage\n{\n  u8 pad0[0x15];\n  u8 first;\n  u8 pad16[0xA];\n  Rec rec[8][4];\n  u8 pad220[0x2C];\n  Info info[8];\n  u8 pad2BC[8];\n} Stage;\ntypedef struct Sel\n{\n  u8 pad0[0x1E];\n  u16 mode;\n  u16 course;\n  u16 stage;\n  u8 pad24[0xA];\n  u8 car;\n} Sel;\ntypedef struct CarInfo\n{\n  u8 a;\n  u8 b;\n  u8 c;\n  u8 pad;\n  f32 speed;\n  u8 pad8[0x14];\n} CarInfo;\ntypedef struct Item\n{\n  u8 pad[4];\n  u16 val;\n} Item;\ntypedef struct Hdr\n{\n  u8 pad[2];\n  s16 type;\n} Hdr;\nextern struct \n{\n  u8 pad[0x1300];\n  CarInfo cars[16];\n} D_800AE850;\nextern Sel *D_800C35A0;\nextern Hdr *D_800C3508;\nextern Stage *D_800D0634[];\nextern u8 D_800C832C[];\nextern u8 D_800A1530[];\nextern u8 D_800A1548[];\nextern u16 D_800A1504[];\nextern u16 D_800A150C[];\nextern u16 D_800A1514[];\nextern u16 D_800A1520[];\nextern u16 D_800A1528;\nextern u16 D_800A152A;\nextern u16 D_800A152C;\nextern s8 *D_800A1468;\nextern u8 D_800A14D5;\nextern volatile u32 D_800A14DC;\nvoid func_800584D4(void);\nItem *func_800592D0(s32);\nvoid func_8005A05C(s32);\nu8 func_800602F4(Info *);\nvoid func_800603B4(void)\n{\n  u8 n;\n  u8 i;\n\n  u16 mode;\n  Sel *sel;\n  Stage *base0;\n  Stage *q;\n  short new_var;\n  Item *it;\n  n = func_800602F4(&((Stage **) 0x800D0634)[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);\n  func_800584D4();\n  D_800A1468[0x233] = -1;\n  func_800592D0(5)->val = D_800A1504[D_800A1530[n]];\n  func_800592D0(13)->val = D_800A150C[D_800AE850.cars[D_800C35A0->car].a];\n  func_800592D0(9)->val = D_800A1514[D_800AE850.cars[D_800C35A0->car].b];\n  func_800592D0(7)->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];\n  it = func_800592D0(11);\n  {\n    if (D_800AE850.cars[D_800C35A0->car].speed <= 118.0f)\n    {\n      it->val = D_800A1528;\n    }\n    else\n      if (D_800AE850.cars[D_800C35A0->car].speed <= 132.0f)\n    {\n      it->val = D_800A152A;\n    }\n    else\n    {\n      it->val = D_800A152C;\n    }\n  }\n  mode = D_800C35A0->mode;\n  if (((((u32) (mode - 1)) < 2) || (((u32) (mode - 3)) < 2)) || ((D_800C35A0->course < 8) && ((((u8 *) 0x800C832C)[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage))))\n  {\n    D_800A14D5 = 1;\n  }\n  else\n  {\n    D_800A14D5 = 0;\n  }\n  sel = D_800C35A0;\n  base0 = *((Stage **) 0x800D0634);\n  D_800A14DC = 0;\n  mode = sel->mode;\n  for (i = 0; i < 3; i++)\n  {\n    if (mode == 5)\n    {\n      if (sel->course < 8)\n      {\n        D_800A14DC += base0[sel->course].rec[sel->stage][i].time;\n      }\n      else\n      {\n        q = (Stage *) (D_800A1548[sel->course] * sizeof(Stage) + (u32) base0);\n        {\n          s32 st = sel->stage - 2;\n          new_var = i;\n          D_800A14DC += q->rec[q->first + st][new_var].time;\n        }\n      }\n    }\n    else\n    {\n      D_800A14DC += D_800D0634[mode][sel->course].rec[sel->stage][i].time;\n    }\n  }\n\n  if ((D_800C35A0->mode != 5) || (D_800A14D5 == 0))\n  {\n    D_800A14DC /= 3;\n  }\n  if ((D_800C3508->type == 4) && (D_800C35A0->stage == 0))\n  {\n    func_8005A05C(1);\n  }\n  D_800A1468[0x22B] = -1;\n}\n\n",
    "c6659258e52129d58b3b2dd9fe6bae00de33f57787646de53936d727f96d76f1": "extern void func_8004C7F0(void *);\nextern void func_8004D31C(void);\nextern s32 func_800602F4(void *);\nextern void func_80081540(void *);\nextern void func_800980D0(void *, void *);\nextern void *memset(void *, int, u32);\nextern u8 D_800A5408[];\nextern u8 D_800A564C[];\nextern u8 D_800A5654[];\nextern u8 D_800A565C[];\nextern u8 *D_800A14E4[];\nextern u8 D_800AE850[];\nextern u8 *D_800C35A0;\nextern u8 *D_800D0634[];\n\nvoid func_80061F34(void) {\n    u8 temp[12];\n    u8 *p;\n    u32 index;\n    func_80081540(D_800A5408);\n    func_8004D31C();\n    func_8004C7F0(D_800AE850 + 0x130C + D_800C35A0[0x2E] * 28);\n    p = D_800C35A0;\n    index = func_800602F4(D_800D0634[*(u16 *)(p + 0x1E)] + *(u16 *)(p + 0x20) * 0x2C4 + (*(u16 *)(p + 0x22) * 14 + 0x24C));\n    memset(temp, 0, 12);\n    func_800980D0(temp, D_800A564C);\n    func_800980D0(temp, D_800A14E4[index & 0xFF]);\n    func_800980D0(temp, D_800A5654);\n    func_8004C7F0(temp);\n    func_8004C7F0(D_800A565C);\n}",
    "ae4ea205ea0286136ba3f12faeedc65d1bcc415ddfbaf96c109541f36508871e": "#define sp18 buf.h\n#define sp1A buf.c\ntypedef struct \n{\n  u8 p[6];\n  s16 x;\n  u16 y;\n  u8 pad;\n  u8 q;\n  u8 r;\n  u8 g;\n  u8 b;\n  u8 a;\n} Sp;\ntypedef struct \n{\n  u8 p[0x20];\n  u16 a;\n  u16 b;\n} Sel;\nextern u8 *D_800D0634;\nextern Sel *D_800C35A0;\ns32 func_80052E94(u16, void *);\nSp *func_800592D0(s32);\ns32 func_80059618(void *, s32, s32, s32, s32);\ns32 func_800596F4(void *, s16, s16, void *);\ns32 func_80097E30(void *, s32, s32);\ns32 func_800980D0(void *, void *);\ns32 func_80099DF8(void *, void *, s32, void *);\nextern char D_800A5684[];\nextern s16 D_800A568C;\nextern s8 D_800A568E;\nextern char D_800A5690[];\nstatic inline s32 *inline_fn(u8 *arg0, unsigned char arg1, int arg2)\n{\n  return (s32 *) ((arg0 + ((arg1 * 0x10) + (D_800C35A0->b << arg2))) + 0x2C);\n}\n\nvoid func_80062E68(void)\n{\n  struct \n  {\n    s16 h;\n    s8 c;\n    s8 pad[13];\n  } buf;\n  s32 first = 0;\n  s16 *new_var2;\n  void *bp;\n  Sp *u;\n  s32 *new_var;\n  Sp *s;\n  unsigned char i;\n  s32 v;\n  s32 n;\n  s = func_800592D0(0x10);\n  func_80097E30(&sp18, 0, 0xF);\n  n = 0;\n  do\n  {\n    i = n & 0xFF;\n    func_80099DF8(&sp18, D_800A5684, i + 1, (((D_800D0634 + (D_800C35A0->a * 0x2C4)) + ((D_800C35A0->b << 6) + 0x2C)) + (i * 0x10)) + 6);\n    n++;\n    func_80059618(s, s->q, s->r, s->g, s->b);\n    func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);\n  }\n  while (3U > ((u32) (n & 0xFF)));\n  s = func_800592D0(0x12);\n  u = func_800592D0(0x11);\n  n = 0;\n  bp = &buf;\n  do\n  {\n    i = n & 0xFF;\n    new_var = inline_fn(D_800D0634 + (177 * (D_800C35A0->a * 4)), i, 6);\n    new_var2 = &u->x;\n    v = *new_var;\n    func_80097E30(&sp18, 0, 0xF);\n    func_80052E94(v, &sp18);\n    func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);\n    if (i == 0)\n    {\n      first = v;\n    }\n    else\n    {\n      func_80097E30(&sp18, 0, 0xF);\n      {\n        s32 t1 = D_800A568C;\n        s32 t2 = D_800A568E;\n        sp18 = t1;\n        sp1A = t2;\n      }\n      if (s)\n      {\n        func_80052E94(v - first, &sp1A);\n        func_800980D0(bp, D_800A5690);\n        func_800596F4(u, *new_var2, u->y + (((i) - 1) * 0x16), bp);\n      }\n      else\n      {\n        func_80052E94(v - first, &sp1A);\n        func_800980D0(bp, D_800A5690);\n        func_800596F4(u, *new_var2, u->y + ((((unsigned int) i) - 1) * 0x16), bp);\n      }\n    }\n    n++;\n  }\n  while (((u32) (n & 0xFF)) < 3U);\n}\n",
    "549c08bf086e783dd0c850605c33f24bfb575fd7bf261516dcf55fba298bc942": "typedef struct \n{\n  s32 w[177];\n} Block635;\nextern u8 D_800C02AE[];\nextern u8 D_800AE850[];\nextern u8 *D_800A1468;\nextern u16 D_800D061E;\nextern Block635 *D_800D0634;\nvoid func_8005BC60(void);\nvoid func_8005BB5C(void);\nvoid func_80063328(void);\nvoid func_8005937C(s32, s32);\nvoid func_8005A05C(s32);\nvoid func_8005A6E0(s32);\nvoid func_80061740(Block635);\nvoid func_800635A0(void)\n{\n  Block635 b;\n  s32 i;\n  s32 j;\n  u8 *mgr;\n  u8 *obj;\n  int new_var;\n  short new_var2;\n  u8 *row;\n  func_8005BC60();\n  func_8005BB5C();\n  func_80063328();\n  obj = *((u8 **) (D_800C02AE + 0x32F2));\n  mgr = *((u8 **) (D_800C02AE + 0x325A));\n  *((s16 *) (obj + 0x20)) = 0;\n  *((s16 *) (obj + 0x22)) = 0;\n  new_var = (new_var2 = 0);\n  if ((*((s16 *) (mgr + 2))) == 1)\n  {\n    i = new_var2;\n    if (D_800D061E > new_var2)\n    {\n      j = new_var2;\n      do\n      {\n        func_8005937C(i + 6, *((u16 *) ((j + (int)D_800D0634) + 0x14)));\n        i += 1;\n        j += 0x2C4;\n      }\n      while (i < D_800D061E);\n    }\n    func_8005A05C(0);\n    func_8005A6E0(19);\n    func_8005A6E0(20);\n    func_8005A6E0(21);\n    func_8005A6E0(22);\n  }\n  else\n  {\n    i = new_var2;\n    if (D_800D061E > new_var)\n    {\n      j = 0;\n      do\n      {\n        func_8005937C(i + 15, *((u16 *) ((j + (int)D_800D0634) + 0x14)));\n        i += 1;\n        j += 0x2C4;\n      }\n      while (i < D_800D061E);\n    }\n  }\n  b = *D_800D0634;\n  func_80061740(b);\n  row = (*((u8 **) ((*((u8 **) (D_800C02AE + 0x325A))) + 16))) + ((*((s16 *) ((*((u8 **) (D_800C02AE + 0x325A))) + 2))) * 20);\n  row[14] = row[13] + D_800A1468[0x23B];\n  *((s32 *) (D_800AE850 + 0x5550)) = 0;\n}\n",
@@ -191370,6 +191975,7 @@
    "df89b312fe5808902a9a9b37943c34d5d607f34561e4a6a2c7dc10460a8a3c40": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[96];\n  u16 w[3];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(u8 a, u8 b, u8 c, u8 d);\n\nvoid func_8006CCD0(void)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->w[j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30(j, 0x18, 0, 0);\n      D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[16][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[16] - v;\n      D_800C3650[16][j].val = v;\n      D_800C3650[16][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
    "cc9dc3f34e867e7ea8f33680207b205a8540cb44c9846e5a8c26be29c2f5f08b": "typedef struct { s32 v; s32 pad[3]; } Sample;\nextern Sample D_800C3650[4][4];\nextern s32 D_800ADF30[4];\nextern u16 D_800C7206[12];\nu8 func_8006B924(Sample *);\n\nvoid func_8006CE1C(void)\n{\n  u16 *out;\n  u8 i;\n  u8 j;\n  u8 code;\n  s32 d;\n\n  out = D_800C7206;\n  for (i = 0; i < 4; i++) {\n    for (j = 0; j < 3; j++) {\n      code = func_8006B924(&D_800C3650[i][j]);\n      if (code == 5) {\n        out[i * 3 + j] = 0xFFFF;\n      } else {\n        d = D_800ADF30[i] - D_800C3650[i][j].v;\n        if (d >= 0) {\n          if (d >= 0x4000) d = 0x3FFE;\n          d &= ~1;\n        } else {\n          d = -d;\n          if (d >= 0x4000) d = 0x3FFE;\n          d |= 1;\n        }\n        out[i * 3 + j] = d | (code << 14);\n      }\n    }\n  }\n}",
    "ab773a41854bdd5e0309476604158985ab56132afe453e22b8aeb41786383ff1": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[1];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(u8 a, u8 b, u8 c, u8 d);\n\nvoid func_8006CF7C(u8 i)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->v[i * 3 + j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30(j, 0x17, i, i);\n      D_800C3650[i][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[i][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[i][j].cC = 1;\n      D_800C3650[i][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[i] - v;\n      D_800C3650[i][j].val = v;\n      D_800C3650[i][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
+   "1ef654372987dc4af13a8abd9b723324f593f27e3ab8aaa6bf635cc78915b725": "extern u8 D_800C02AE[];\nextern u8 *D_800C35A0;\nextern u8 *D_800D0634;\nextern u16 D_800C5D38[];\nextern u8 D_800C7125[];\nextern f64 D_800A58A8;\nextern f64 D_800A58B0;\nextern f64 D_800A58B8;\ns32 func_8006B9E0(u8, u8);\ns32 func_8006B924(void *, int);\nlong func_8006DDD8(void)\n{\n  f64 bound = D_800A58A8;\n  s32 code = (s32)D_800C35A0;\n  u8 *tab = D_800C7125;\n  s32 i = 0;\n  u8 *base = *(u8 **)0x800D0634 + (((u8 *)code)[0x21] * 0x2c4);\n  u32 idx;\n  u32 x;\n  s32 raw;\n  u32 twice;\n  s16 off;\n  s32 delta;\n  s32 stride;\n  f64 b;\n  int new_var;\n  code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);\n  stride = D_800C35A0[0x23] * 64;\n  idx = (u8) code;\n  twice = idx * 2;\n  b = ((f64) ((s32) idx)) * D_800A58B0;\n  new_var = 0x40;\n  loop:\n  {\n    {\n      f64 value = b + (((f64) (i & 255)) * D_800A58B8);\n      if (!(bound <= value))\n      {\n        raw = (s32) value;\n      }\n      else\n      {\n        raw = ((s32) (value - bound)) | 0x80000000;\n      }\n      x = raw;\n    }\n    off = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);\n    { s32 i16;\n    code = func_8006B924((base + (stride + 0x2c)) + (i16 = (i & 255) * 16), i & 255); }\n    if (((u8) code) == 5)\n    {\n      if ((u8) off)\n      {\n do { tab[((u8) x) + 1] = 255; tab[(u8) x] |= 0xf0; } while (0);\n      }\n      else\n      {\n        do { tab[(u8) x] = 255; tab[((u8) x) + 1] |= 15; } while (0);\n      }\n    }\n    else\n    {\n      if (code)\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      else\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      if (delta >= 0)\n      {\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta &= ~1;\n      }\n      else\n      {\n        delta = -delta;\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta |= 1;\n      }\n      if ((u8) off)\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[(u8) x] &= 0xcf;\n            break;\n\n          case 1:\n            off = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);\n            break;\n\n          case 2:\n            tab[(u8) x] = (tab[(u8) x] & 0xef) | 0x20;\n            break;\n\n          case 3:\n            tab[(u8) x] |= 0x30;\n            break;\n\n        }\n\n        if (delta & 1)\n        {\n          tab[(u8) x] |= new_var;\n        }\n        else\n        {\n          tab[(u8) x] &= 0xbf;\n        }\n        if (delta & 2)\n        {\n          tab[(u8) x] |= 0x80;\n        }\n        else\n        {\n          tab[(u8) x] &= 0x7f;\n        }\n        tab[((u8) x) + 1] = delta >> 2;\n      }\n      else\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[((u8) x) + 1] &= 0xf3;\n            break;\n\n          case 1:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] | 4) & 0xf7;\n            break;\n\n          case 2:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] & 0xfb) | 8;\n            break;\n\n          case 3:\n            tab[((u8) x) + 1] |= 12;\n            break;\n\n        }\n\n        if (delta & 0x100)\n        {\n          tab[((u8) x) + 1] |= 1;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfe;\n        }\n        if (delta & 0x200)\n        {\n          tab[((u8) x) + 1] |= 2;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfd;\n        }\n        tab[(u8) x] = delta;\n      }\n    }\n    i++;\n  }\n\n  if (((u32) (i & 255)) < 3)\n  {\n    goto loop;\n  }\n}\n",
    "341c99033e3f11d89266dc3efd13f4778a55f2110122c295d1c4996015cf43b0": "typedef struct {\n    u16 f15 : 1;\n    u16 f14 : 1;\n    u16 f13 : 1;\n    u16 pad : 3;\n    u16 f8 : 2;\n    u16 f4 : 4;\n    u16 f0 : 4;\n    u16 g12 : 4;\n    u16 g8 : 4;\n    u8 b3;\n    u8 b4;\n    u8 b5;\n    u8 b6;\n    u8 b7;\n    u8 b8;\n    u8 b9;\n    s16 sums[4];\n    u8 pad12[0x1BA - 0x12];\n    s8 code;\n} Packet;\ntypedef struct {\n    u8 pad0[0xA];\n    union {\n        u16 w;\n        u8 b[2];\n    } v;\n    u8 pad0C[0x28 - 0xC];\n} Entry;\ntypedef struct {\n    u8 pad0[0xE];\n    u16 mode;\n    u8 pad10[0x32 - 0x10];\n    u8 sel0;\n    u8 sel1;\n    u8 sel2;\n    u8 sel3;\n    u8 pad36[0x44 - 0x36];\n    Entry e[1];\n} Game;\ntypedef struct { u8 a; u8 b; u8 c; } Flags3;\nextern Packet D_800C7112;\nextern Game *D_800C35A0;\nextern Flags3 D_800B6818;\nextern u16 D_800B6610[];\nextern u8 D_800B6628[][4];\nextern s32 D_800B6768;\nextern s32 D_800B676C;\n\nvoid func_8006E8A0(void)\n{\n    Packet *p;\n    u8 n;\n    u8 base;\n    u8 i;\n    u8 j;\n    s8 bits;\n    s16 sum;\n\n    if (D_800B6818.b != 0)\n    {\n        n = 4;\n        base = 8;\n    }\n    else\n    {\n        n = 8;\n        base = 0;\n    }\n    p = &D_800C7112;\n    p->f14 = D_800B6818.c;\n    p->f13 = D_800B6818.a;\n    p->f15 = D_800B6818.b;\n    p->f8 = D_800C35A0->mode;\n    p->f4 = D_800C35A0->sel0;\n    D_800C7112.code = D_800C35A0->e[D_800C35A0->sel0].v.b[1] & 0xF;\n    if (D_800C35A0->mode == 2)\n    {\n        p->f0 = D_800C35A0->sel1;\n        D_800C7112.code += (D_800C35A0->e[D_800C35A0->sel1].v.b[1] & 0xF) << 4;\n    }\n    else\n    {\n        p->f0 = D_800C35A0->e[D_800C35A0->sel1].v.w;\n    }\n    p->g12 = D_800C35A0->e[D_800C35A0->sel2].v.w & 0xF;\n    p->g8 = D_800C35A0->e[D_800C35A0->sel3].v.w;\n    bits = 0;\n    for (i = 0; i < n; i++)\n    {\n        if (D_800B6610[base + i] == 1)\n        {\n            bits |= 1 << i;\n        }\n    }\n    p->b9 = bits;\n    for (j = 0; j < 4; j++)\n    {\n        sum = 0;\n        for (i = 0; i < n; i++)\n        {\n            sum += D_800B6628[base + i][j] << (i * 2);\n        }\n        p->sums[j] = sum;\n    }\n    {\n        s32 t = D_800B6768;\n        p->b3 = t;\n        p->b5 = t >> 16;\n        p->b4 = t >> 8;\n        t = D_800B676C;\n        p->b8 = t >> 16;\n        p->b7 = t >> 8;\n        p->b6 = t;\n    }\n}\n",
    "cfaa09bf034ee41794a1e9040742231eb2f80ad605ba325c9a8a3820d8679402": "extern u8 D_800C02AE[];\ntypedef struct\n{\n  u16 b15 : 1;\n  u16 b14 : 1;\n  u16 b13 : 1;\n  u16 b12 : 1;\n  u16 b10 : 2;\n  u16 b8 : 2;\n  u16 b4 : 4;\n  u16 b0 : 4;\n} Flags;\ntypedef struct\n{\n  Flags f;\n  u16 h2;\n  s16 h4;\n} State;\ntypedef struct\n{\n  u32 hi : 4;\n  u32 f24 : 4;\n  u32 lo : 24;\n} Word;\nvoid func_8006FA8C(void);\n#define WD (*(Word *)(D_800C02AE + 0x6E76))\n#define OBJ (*(u8 **)(D_800C02AE + 0x32F2))\nvoid func_8006ECB4(void)\n{\n  f32 scale = 8.0f;\n  State *s = (State *)(D_800C02AE + 0x6E5E);\n  Word w = WD;\n  w.f24 = (s32)(*(f32 *)(D_800C02AE + 0x3332) * scale);\n  s->f.b4 = (s32)(*(f32 *)(D_800C02AE + 0x333A) * scale);\n  s->f.b0 = (s32)(*(f32 *)(D_800C02AE + 0x332E) * scale);\n  WD = w;\n  s->f.b12 = *(u16 *)(OBJ + 0x50);\n  s->h2 = *(u16 *)(OBJ + 0x2A);\n  if (*(u16 *)(OBJ + 0x38))\n    s->f.b15 = 1;\n  else\n    s->f.b15 = 0;\n  s->h4 = OBJ[0x2F];\n  s->f.b14 = *(u16 *)(D_800C02AE + 0x32A8);\n  s->f.b13 = *(u16 *)(OBJ + 0x12);\n  s->f.b10 = *(u16 *)(OBJ + 0x16);\n  s->f.b8 = *(u32 *)(D_800C02AE + 0x32AA);\n  func_8006FA8C();\n}",
    "9a0eac3c5a63c611f424b1c44c07ef42d680988016048617481788460a1f4429": "extern u8 *D_800C35A0;\nextern char D_800A16F4[];\nextern char D_800C02AE[];\nvoid func_8006EE3C(u8 arg0)\n{\n  s32 temp_a0;\n  s32 temp_a3;\n  s32 temp_v1;\n  u16 temp_a0_3;\n  u8 temp_v0;\n  u32 temp_a2_2;\n  void *temp_a0_2;\n  void *temp_a1;\n  void *temp_a2;\n  void *temp_t0;\n  void *dest;\n  u16 value;\n  temp_a0 = arg0;\n  temp_t0 = (temp_a0 * 0xE) + (D_800C02AE + 0x6E26);\n  temp_a2 = D_800C35A0;\n  temp_a3 = temp_a0 * 0x28;\n  temp_a2 += temp_a3;\n  *((u16 *) (((char *) temp_a2) + 0x52)) = (u16) (*((u16 *) (((char *) temp_t0) + 8)));\n  *((s32 *) (((char *) temp_a2) + 0x68)) = (s32) ((*((u16 *) (((char *) temp_t0) + 0xA))) + ((*((u16 *) (((char *) temp_t0) + 0xC))) << 0x10));\n  temp_v0 = ((u16) (*((u16 *) (((char *) temp_t0) + 4)))) >> 8;\n  temp_v1 = temp_v0 & 0x7F;\n  *((s8 *) (((char *) temp_a2) + 0x48)) = (s8) (temp_v1 & 0x1F);\n  *(D_800A16F4 + temp_a0) = (s8) (((s32) (temp_v1 - (temp_v0 & 0x1F))) >> 5);\n  dest = D_800C35A0;\n  value = *((u16 *) (((char *) temp_t0) + 4));\n  dest += temp_a3;\n  *((s8 *) (((char *) dest) + 0x4D)) = value >> 15;\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x44)) = (s8) (((unsigned long long) ((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 0xA) & 0x1F)) + 0x41);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x45)) = (s8) (((((u16) (*((u16 *) (((char *) temp_t0) + 0)))) >> 5) & 0x1F) + 0x41);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x46)) = (s8) (((*((u8 *) (((char *) temp_t0) + 1))) & 0x1F) + 0x41);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x47)) = 0;\n  value = *((u16 *) (((char *) temp_t0) + 2));\n  temp_a0_2 = D_800C35A0;\n  {\n    u16 hi = *((u16 *) (((char *) temp_t0) + 0));\n    u16 v12 = value >> 0xC;\n    temp_a0_2 += temp_a3;\n    *((s16 *) (((char *) temp_a0_2) + 0x4E)) = (s16) (v12 + (hi >> 0xF) * 0x10);\n  }\n  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 5));\n  value = *((u16 *) (((char *) temp_t0) + 2));\n  *((s8 *) (((char *) temp_a0_2) + 0x54)) = (s8) (temp_a2_2 & 3);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x55)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x56)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x57)) = (s8) (temp_a2_2 >> 6);\n  temp_a0_3 = *((u16 *) (((char *) temp_t0) + 2));\n  temp_a1 = D_800C35A0 + temp_a3;\n  *((s16 *) (((char *) temp_a1) + 0x60)) = (s16) (((temp_a0_3 & 7) * 0xA) - 0x14);\n  *((s16 *) (((char *) temp_a1) + 0x62)) = (s16) (((((u32) (temp_a0_3 & 0x38)) >> 3) * 0xA) - 0x14);\n  *((s16 *) (((char *) temp_a1) + 0x64)) = (s16) (((((u32) (temp_a0_3 & 0x1C0)) >> 6) * 0xA) - 0x14);\n  *((s16 *) (((char *) temp_a1) + 0x66)) = (s16) (((((u32) (temp_a0_3 & 0xE00)) >> 9) * 0xA) - 0x14);\n  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 6));\n  *((s8 *) (((char *) temp_a1) + 0x58)) = (s8) (temp_a2_2 & 3);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x59)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5A)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5B)) = temp_a2_2 >> 6;\n  temp_a2_2 = *((u8 *) (((char *) temp_t0) + 7));\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5C)) = (s8) (temp_a2_2 & 3);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) - -0x5D)) = (s8) (((u32) (temp_a2_2 & 0xC)) >> 2);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5E)) = (s8) (((u32) (temp_a2_2 & 0x30)) >> 4);\n  *((s8 *) (((char *) (D_800C35A0 + temp_a3)) + 0x5F)) = (s8) (temp_a2_2 >> 6);\n}",
