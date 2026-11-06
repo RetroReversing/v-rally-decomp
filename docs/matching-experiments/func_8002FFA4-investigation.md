@@ -375,3 +375,46 @@ USE slots, but repeated index*6 calculations and allocation differences worsen
 the body. Frame geometry alone is not a solution. No source was adopted and no
 further native/type/profile sweep was run. Private storage-nov6 retains the
 loader/caller/domain evidence, source/diff, debug layout and paired raw outputs.
+
+
+## November 6: exact-current-source SN compiler comparison
+
+The current selected draft remains score107, source SHA256
+1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41,
+under KMC GCC2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3.
+Its476-byte linked object differs from target in23 words:21 register choices
+and two stack adjustments. The target reserves8 bytes; the candidate reserves32.
+The current-root native search was interrupted after4842 consumed raw receipts
+and2181 compiles, not completed at10000. Its planned SN comparison never ran.
+An audit of449 hydrated focal attempts and9711 available private JSON receipts
+found no subsequent SN result bound to this exact current source.
+
+Six new calls compare three already-installed, accepted SN GCC2.7.2 builds using
+their registered defaults: -G0 -mips3 -O2 -mgas -meb -mhard-float. The actual
+shared header and unchanged current source were retained, with empty SN prelude.
+Ordinary and diagnostic outputs agree separately for each build:
+
+| Build | Score | Bytes | Linked SHA256 |
+| --- | ---: | ---: | --- |
+| 0001 | 1286 | 440 | 809a582577754ed387af9445f1d9f91861f24d71e45eeeb302105158a205c3a2 |
+| 0004 | 1286 | 440 | 95894b80957d645472a44e00f422c503570af401c47cba09783ec53e5cca79e4 |
+| 0006 | 4665 | 432 | 79e04650cca7e8773f310b5f750eec948fe389153496a2745c1ce2001a0de7a7 |
+
+Build0004 reduces the frame to16 but changes the body substantially. Equal scores
+for0001/0004 do not mean identical bytes. No source or compiler profile was
+adopted, no new random generation occurred, and the judge was unchanged.
+A20-second/2GiB process-tree watcher bounded each call, including wrapper/wibo
+children; wrapper contents were pinned and checked. Private current107-nov6
+retains actual configuration, linked objects, diffs and resource receipts.
+
+
+One final causal KMC control removes only -g3 from the unchanged current profile,
+with actual source/header/prelude preserved. Ordinary/diagnostic outputs agree
+at1127/436bytes, SHA256
+`ebc936972c00af7f2a5e60530d0b88b4069cf45265fe7c8a0ac5a97e04195602`.
+The frame stays32. Thus debug output does affect this compiler's generated body,
+but disabling it neither removes the24 extra frame bytes nor improves the match.
+This is consistent with the compiler guide's existing warning that old debug
+line labels affect instruction scheduling; it is not evidence that debug flags
+are generally irrelevant. No -g0/-g2/optimization combinations were enumerated.
+The investigation used exactly eight new compiler calls in total.
