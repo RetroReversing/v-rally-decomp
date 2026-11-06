@@ -661,7 +661,9 @@
     "include/decompdecomp_contract_func_80040260.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_80040328.c": "b5960012c8a040e36d45845cb94f42fce138899820d641ab0a2fbd0d3fd58150",
     "include/decompdecomp_contract_func_80040328.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "include/decompdecomp_contract_func_8000f660.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_contract_func_8000f660.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_8005322C.c": "194c332d99a3b5f41b2c184211ea37376289eb3fd75c3ce8c76018cb32c97698",
+    "include/decompdecomp_contract_func_8005322c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1096,11 +1098,11 @@
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [],
     "contract_corrections": [
-      "func_8000F660"
+      "func_8005322C"
     ],
     "all_2071_profiles_preserved": true,
     "other_2070_selected_c_objects_preserved": true,
-    "note": "Sole direct UI constructor caller now declares actual void(u8) entry; two literal-zero calls, unused returns. Existing C remains exact; focal OPEN518 corrected mapped-address draft, not a new match."
+    "note": "Sole direct caller now declares actual void(void) entry and removes three pure local argument reads; byte scratch and explicit final word store remove prior pointer warning. Existing selected C remains exact; focal OPEN135 unchanged, not a new match."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -1108,7 +1110,7 @@
     "matched": 2071,
     "all_function_addresses_integrated": true,
     "source_hashes_confirmed": true,
-    "note": "One normal saved-source exact rejudge; corrected OPEN518 draft; ALL portable progress saved."
+    "note": "One normal saved-source exact rejudge; unchanged OPEN135 draft; ALL portable progress saved."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

@@ -70,3 +70,29 @@ No new native, flag, declaration or whitespace sweep was run; earlier explicit
 if/do controls were not repeated. Live source remains OPEN1155 and unclaimed,
 with the historical invented-volatile warning intact. No exact result or generic
 repair is established. Normal project notes retain this new phase evidence.
+
+## November 6: actual saved draft versus reviewed storage model
+
+A fresh hydrated audit found the live1155 draft still used invented volatile
+reads and declared func_80053C28 as void(u8,u16), rather than the actual selected
+void(s32,s32). The selected serializer func_8006E8A0 establishes an ordinary RAM
+Packet view at800C7112. The sole raw direct caller, func_80052BB0, agrees with
+the focal void(void) interface. This evidence supersedes the old low-score
+source; volatile cannot be retained solely to improve register allocation.
+
+The corrected nonvolatile Packet draft has SHA256
+`ce810760308848a369be6bcf3ea5135b31ed8ff03b013d3c33115d6fd1303787`.
+Independent ordinary and diagnostic runs agree on1292 linked bytes at1200,
+SHA256 `e1623e8600bd92ee548aaa3f27f07f17d633651f0d2ba2f6fac30f155f3c0a5d`.
+It remains unmatched. No exhausted native, formatting or profile search was
+repeated. These declarations do not prove all backing allocations, indirect
+uses or arithmetic domains; existing explicit storage/alignment/lifetime and
+integer-domain premises still apply. The immutable private handoff manifest
+SHA256 is `aeef537f0e9e86c9c3ff3d90d422954dd5574476a89977f0f5e26be184a59c55`.
+
+Parent independently reproduced1200, then normal source-scoped reporting and
+adoption retained this exact source in the live project. A fresh ALL-progress
+save confirmed the portable best draft agrees. All2071 selected matched C
+sources remain unchanged by this unmatched-draft correction. Source formatting
+(including existing whitespace) is retained exactly as judged, because debug
+line structure can affect this period compiler's output.

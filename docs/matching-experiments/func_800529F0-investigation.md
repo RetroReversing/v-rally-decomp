@@ -120,3 +120,36 @@ Ordinary/-da linked bytes agree for baseline and representative traversal.
 No new reusable source repair is established. Source/header/target/relocations/
 profile/symbols and ownership remain unchanged. Prior flat native, helper, count,
 line and flag controls remain negative; no such sweep was repeated.
+
+## November 6: caller interface and genuine pointer phases
+
+The fresh hydrated857-attempt history still has minimum135; the actual saved
+focal draft and ordinary/diagnostic448-byte output are unchanged. Global
+allocation prioritizes the row over the accumulator; the accumulator also
+conflicts with the initial count. Prior grounded count, scope, traversal and
+helper controls already cover these relationships, so no new blind sweep ran.
+
+The sole visible matched caller, func_8005322C, declared a three-argument
+interface and passed three pure local reads to the actual void(void) entry.
+Removing these invented arguments preserves all340 linked bytes. A separate
+follow-up keeps the scratch pointer byte-typed for H's byte-offset halfword
+accesses, then uses an explicit s32 pointer for the existing final word store.
+This removes the old incompatible-pointer assignment warning without adding
+storage or operations. Combined source SHA256:
+`9febe0896c23072a1175ed6494281bd64faa5da49e5c024c6b6d2f8c7ce5cdd5`.
+Ordinary and diagnostic linked bytes agree, SHA256
+`cd01eefeed5ade0a23691ddb70538596a7d95cc0a29a671b2c3b648d9a9d6e62`.
+
+Actual raw linked equality takes precedence over the advisory score20 for
+symbolic operands. This correction does not resolve the focal135 mismatch.
+It retains existing storage/alignment/effective-type premises for the raw
+configuration object and the final word store; no whole-program safety claim.
+Full-cartridge and normal-import acceptance are recorded after their gates.
+
+Parent acceptance: the combined declaration and pointer-phase correction passed
+the complete12,582,912-byte cartridge comparison, SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All2071 compiler profiles and other2070 selected C objects were preserved.
+Normal saved-source import independently rejudged the combined caller exact;
+all2071 matches remain. The earlier declaration-only version was also gated
+but was not imported as a separate intermediate source.

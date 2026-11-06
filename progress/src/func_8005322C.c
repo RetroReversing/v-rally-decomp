@@ -3,7 +3,7 @@
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern u8 *D_800D0634[];
-void func_800529F0(void *, s32, s32);
+void func_800529F0(void);
 void func_80052FA0(void);
 void func_800783A8(void);
 extern u8 *D_800C35A0;
@@ -14,7 +14,7 @@ void func_8005322C(void)
   u8 *row;
   u8 **new_var5;
   u16 a;
-  s32 *new_var2;
+  u8 *new_var2;
   u8 *new_var4;
   u8 *new_var;
   u16 b;
@@ -35,7 +35,7 @@ void func_8005322C(void)
     *((s16 *) ((new_var3 + off) + 0x10)) = 1;
     new_var = row;
     H(row, 0x10) |= 2;
-    func_800529F0(new_var, c, off);
+    func_800529F0();
     func_80052FA0();
     func_800783A8();
     m = M;
@@ -77,8 +77,8 @@ void func_8005322C(void)
     }
     while (0);
     new_var4 = D_800AE850 + 0x8030;
-    new_var2 = (s32 *) new_var4;
-    *new_var2 = 6;
+    new_var2 = new_var4;
+    *(s32 *)new_var2 = 6;
     H(M, 0x20) = 0;
   }
 }

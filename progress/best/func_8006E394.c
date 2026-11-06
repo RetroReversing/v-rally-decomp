@@ -1,6 +1,27 @@
 #define H(p) (*(u16*)(p))
-#define VH(p) (*(volatile u16*)(p))
 #define R D_800C35A0
+typedef struct 
+{
+  u16 f15 : 1;
+  u16 f14 : 1;
+  u16 f13 : 1;
+  u16 pad : 3;
+  u16 f8 : 2;
+  u16 f4 : 4;
+  u16 f0 : 4;
+  u16 g12 : 4;
+  u16 g8 : 4;
+  u8 b3;
+  u8 b4;
+  u8 b5;
+  u8 b6;
+  u8 b7;
+  u8 b8;
+  u8 b9;
+  s16 sums[4];
+  u8 pad12[0x1BA - 0x12];
+  s8 code;
+} Packet;
 typedef struct 
 {
   u16 v;
@@ -25,20 +46,23 @@ extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern Blk D_800B6600;
 extern s32 D_800B6768[4];
-extern void func_80053C28(u8, u16);
+extern void func_80053C28(s32, s32);
 extern RS *D_800C35A0;
+static __inline__ int inline_fn(u8 arg0)
+{
+  return 0x7DB0 + (arg0 * 4);
+}
+
 void func_8006E394(void)
 {
   u8 used[4];
   u16 m;
-  unsigned int new_var2;
-  u8 *s;
+  Packet *p;
   u8 j;
   u8 i;
   u8 n;
   u8 base;
   u8 *new_var;
-  u32 x;
   u16 q;
   u8 v;
   int b;
@@ -47,21 +71,19 @@ void func_8006E394(void)
     used[i] = 0;
   }
 
-  s = D_800C02AE + 0x6E64;
-  x = H(s);
-  D_800AE850[0x7FCA] = (x >> 14) & 1;
+  p = (Packet *) (D_800C02AE + 0x6e64);
+  D_800AE850[0x7FCA] = p->f14;
   if (D_800AE850[0x7FCA])
   {
-    D_800AE850[0x7FC8] = (x >> 13) & 1;
-    D_800AE850[0x7FC9] = x >> 15;
-    R->mode = (x >> 8) & 3;
-    R->slot[0] = (VH(s) >> 4) & 15;
+    D_800AE850[0x7FC8] = p->f13;
+    D_800AE850[0x7FC9] = p->f15;
+    R->mode = p->f8;
+    R->slot[0] = p->f4;
     used[R->slot[0]] = 1;
     R->e[R->slot[0]].v = D_800C02AE[0x701e] & 15;
     if (R->mode >= 2)
     {
-      n = *((volatile u16 *) s);
-      R->slot[1] = n & 15;
+      R->slot[1] = p->f0;
       used[R->slot[1]] = 1;
       R->e[R->slot[1]].v = D_800C02AE[0x701e] >> 4;
     }
@@ -76,10 +98,9 @@ void func_8006E394(void)
         }
       }
 
-      new_var2 = 1;
-      R->slot[new_var2] = i;
-      R->e[R->slot[1]].v = H(s) & 15;
-      func_80053C28(R->slot[1], H(s) & 15);
+      R->slot[1] = i;
+      R->e[R->slot[1]].v = p->f0;
+      func_80053C28(R->slot[1], p->f0);
     }
     for (i = 0; i < 4; i++)
     {
@@ -91,8 +112,8 @@ void func_8006E394(void)
     }
 
     R->slot[2] = i;
-    R->e[R->slot[2]].v = (*((volatile u16 *) (s + 2))) >> 12;
-    func_80053C28(R->slot[2], H(s + 2) >> 12);
+    R->e[R->slot[2]].v = p->g12;
+    func_80053C28(R->slot[2], p->g12);
     for (i = 0; i < 4; i++)
     {
       if (!used[i])
@@ -103,8 +124,8 @@ void func_8006E394(void)
     }
 
     R->slot[3] = i;
-    R->e[R->slot[3]].v = (H(s + 2) >> 8) & 15;
-    func_80053C28(R->slot[3], (H(s + 2) >> 8) & 15);
+    R->e[R->slot[3]].v = p->g8;
+    func_80053C28(R->slot[3], p->g8);
     if (D_800AE850[0x7fc9])
     {
       n = 4;
@@ -112,19 +133,26 @@ void func_8006E394(void)
     }
     else
     {
-      do
-      {
-        n = 8;
-        base = 0;
-      }
-      while (0);
+      n = 8;
+      base = 0;
     }
-    m = s[9];
+    m = ((u8 *) p)[9];
     for (i = 0; i < n; i++)
     {
       do
       {
- do { if ((m & (1 << i)) == (1 << i)) { D_800B6600.flag[base + i] = 1; } else { D_800B6600.flag[base + i] = 0; } } while (0);
+        do
+        {
+          if ((m & (1 << i)) == (1 << i))
+          {
+            D_800B6600.flag[base + i] = 1;
+          }
+          else
+          {
+            D_800B6600.flag[base + i] = 0;
+          }
+        }
+        while (0);
       }
       while (0);
     }
@@ -135,7 +163,7 @@ void func_8006E394(void)
     D_800B6600.cnt[3] = 0;
     for (j = 0; j < 4; j++)
     {
-      q = H((s + 10) + (j * 2));
+      q = H((((u8 *) p) + 10) + (j * 2));
       for (i = 0; i < n; i++)
       {
         b = base + i;
@@ -155,7 +183,7 @@ void func_8006E394(void)
         }
         while (0);
         D_800B6600.map[b][j] = v;
-        new_var = &D_800AE850[0x7DB0 + (j * 4)];
+        new_var = &D_800AE850[inline_fn(j)];
         switch (v)
         {
           case 0:
@@ -181,7 +209,8 @@ void func_8006E394(void)
       D_800B6768[i] = 0;
     }
 
-    D_800B6768[0] = (s[3] + (s[4] << 8)) + (s[5] << 16);
-    D_800B6768[1] = (s[6] + (s[7] << 8)) + (s[8] << 16);
+    D_800B6768[0] = (((u8 *) p)[3] + (((u8 *) p)[4] << 8)) + (((u8 *) p)[5] << 16);
+    D_800B6768[1] = (((u8 *) p)[6] + (((u8 *) p)[7] << 8)) + (((u8 *) p)[8] << 16);
   }
 }
+
