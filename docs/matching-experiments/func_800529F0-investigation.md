@@ -153,3 +153,20 @@ All2071 compiler profiles and other2070 selected C objects were preserved.
 Normal saved-source import independently rejudged the combined caller exact;
 all2071 matches remain. The earlier declaration-only version was also gated
 but was not imported as a separate intermediate source.
+
+
+## November 6: current seed already exposes every field
+
+A fresh read-only freeze confirms OPEN135,857 hydrated attempt rows, and source
+SHA25677abee0e749b35cfa3c738d5aa663dddbc745b3b99c1900bcd5cabb257597d54.
+This is byte-identical to the historical native sound-start.c seed. Both previous
+and PR664 macro expansion leave it unchanged: actual ChCfg/ChRec/ChTable field
+and array expressions are already visible. The focal AST contains15 struct
+references,13 array references,4 for loops,23 assignments and zero calls.
+There is no hidden H/F accessor in this actual source and thus no new macro
+coverage to search. No compiler or new native run was justified by this audit.
+All2071 selected records/profiles and seven input groups remain unchanged.
+Historical native-safe outputs were saved only after screening and did not
+fully constrain derived temporary types; do not claim exhaustive safe-grammar
+coverage from that old run. Private macro-audit-nov6/REPORT.md retains the
+current source/parser comparisons. No caller contract was reopened.

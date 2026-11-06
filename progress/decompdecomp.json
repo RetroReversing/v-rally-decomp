@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793965440.380058,
- "revision": 19092,
+ "saved_at": 1793968114.6505432,
+ "revision": 19098,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250143,6 +250143,38 @@
    "created_at": 1793965365.634607,
    "score_before": 177,
    "score_after": 177
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "SourceSHA256 c4f8462e1b35641fdb411002210f28881f378922b1d06b8ea1cb21ce3f07b263. Accessor exposure audit completed. Pinned preprocessing exposes 44 W/U/P accesses, including 7 assignment lvalues; only 11 genuine helper calls remain. Full-TU AST and bindings agree. Exposed and printer ordinary/diagnostic outputs preserve original 1560 bytes, score295, frame0x108. Native budget exhausted: 420 initial +420 deterministic reconstruction +160 new =1000 physical emissions, 580 raw sources retained. Invalid modern-Clang alignment gate and deleted-source recovery are documented; original hashes/lineages verified, genuine bad-name cases still reject. 464 period judgments, 23 retrospectively excluded for internal temporary-type randomization; 441 pass screens, minimum295, no exact or improvement. Screens are not semantic proofs. PR664 merged71cb16eb enables conservative shared accessor expansion; its actual output passed separate 2-call full byte/AST proof. No source/profile adoption; all2071 selected records unchanged. Canonical investigation and private current-seed-nov6 reports retain full accounting.",
+   "by": "you",
+   "created_at": 1793967383.447058,
+   "score_before": 295,
+   "score_after": 295
+  },
+  {
+   "function": "func_800529F0",
+   "text": "SourceSHA256 77abee0e749b35cfa3c738d5aa663dddbc745b3b99c1900bcd5cabb257597d54. Fresh macro/native-seed audit: actual typed source exactly equals historical sound-start.c seed. Prior and PR664 expansion leave it unchanged; zero H/F accessors, all fields already visible (15 StructRef,13 ArrayRef,4 For,23 Assignment,0 calls). No new macro coverage or justified compiler/native control. 857 hydrated attempt rows and all2071 selected records preserved. Old native-safe workflow did not retain every raw rejected source or fully constrain derived temporary types; do not treat it as exhaustive safe grammar coverage. Resolved caller interface remains unchanged. Private macro-audit-nov6 report and canonical investigation retain comparisons; no compilation or live source change.",
+   "by": "you",
+   "created_at": 1793967387.6755068,
+   "score_before": 135,
+   "score_after": 135
+  },
+  {
+   "function": "func_8006603C",
+   "text": "SourceSHA256 cca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103. Word-producer audit: historical word3 already retains masks but scores625 with LW rather than required LHU. One new diagnostic compile exactly reproduces its ordinary620 bytes. Producer LOG_LINK belongs to earlier byte extraction; later halfword extraction has REG_DEAD but no producer link. Signed alternatives are historical negatives. No eligible real reconvergent branch at snapshots; exit guards and earlier calls prevent justified read motion. No new source adopted. Canonical investigation and private word-producer-nov6 report record phase evidence; all2071 selected records unchanged.",
+   "by": "you",
+   "created_at": 1793968079.6514199,
+   "score_before": 30,
+   "score_after": 30
+  },
+  {
+   "function": "func_8006E394",
+   "text": "SourceSHA256 ce810760308848a369be6bcf3ea5135b31ed8ff03b013d3c33115d6fd1303787. PR664 visibility audit: current and both historical native seeds remain byte-identical. One-argument H arithmetic already visible; dereference and object-like R opacity covered by directed raw/Packet controls. No compiler or native generation, no new justified lane. All2071 selected records/profiles unchanged. Canonical investigation and private visibility-nov6 report retain provenance. Function remains open.",
+   "by": "you",
+   "created_at": 1793968098.419292,
+   "score_before": 1155,
+   "score_after": 1155
   }
  ],
  "set_aside": [

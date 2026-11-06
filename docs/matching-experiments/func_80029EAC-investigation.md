@@ -156,3 +156,45 @@ Source SHA256 c4f8462e1b35641fdb411002210f28881f378922b1d06b8ea1cb21ce3f07b263;
 private triangle-control-nov6/REPORT.md and parity.json retain the individual
 controls, profile and header hashes. No native/profile/declaration sweep,
 source adoption, exact match or new automated repair follows.
+
+
+## November 6: expose memory accessors and retain search evidence
+
+The actual corrected295 source still used44 W/U/P accessors. Native parsing
+represented these as calls, including seven assignment destinations; their byte
+address arithmetic and dereferences were hidden. Pinned preprocessing exposes
+all44 with full translation-unit AST/helper-binding equivalence. Both exposed
+and unmutated-printer ordinary/diagnostic pairs preserve all1560 bytes and frame
+0x108, SHA25643749f2981db46d5d60b9c55e197097bba5947a7dafd3438477eafc777a86291.
+Only11 actual helper calls remain. Four baseline compiler calls established this.
+
+The bounded search initially used an invalid modern-Clang layout gate: its
+unnamed-bitfield alignment rejects the unchanged MatrixAlignCheck accepted by
+the period compiler. No period judgments occurred in those420 initial emissions.
+Correcting only the syntax-only assertion handling leaves the actual Matrix,
+all real layout assertions and original compiler input unchanged. A source
+retention mistake required explicitly authorized deterministic reconstruction;
+all original available source hashes, lineages and RNG seeds matched, and the
+captured420th source hash matched. Genuine undeclared-variable cases still fail
+under the corrected screen. This recovery was charged, not a quota reset.
+
+Final physical accounting:420 original+420 reconstructed+160 new emissions =1000.
+All580 recovered/explored raw sources and lineages now survive before screening.
+There are464 period judgments;23 are excluded after a conservative introduced
+local-type audit because temp_for_expr internally randomizes types despite a
+six-method allowlist. The441 judgments passing these screens have minimum295,
+zero exact matches and no improvement. These screens are not equivalence proofs.
+All original local types/array extents, global types, helper bindings and public
+entry remain unchanged. Full source/object/linked/diff/stack-reference receipts
+are retained for338 target-frame cases; matching a frame does not establish a
+match. No extra quota, source adoption or changed selected C/profile follows.
+
+Shared app PR664 now exposes this supported simple two-argument accessor shape
+automatically. A separate two-call ordinary/diagnostic validation of the app's
+actual output preserves all1560 bytes; pinned full-TU AST/declarations/helper
+bindings and all physical lines agree. App-expanded source SHA256:
+7124cf448c762d853b0bedbdfab958b52cc8ffab258f9c50deac881f25c9e675.
+This is verified parser visibility, not a new exact match or measured speedup.
+The source remains OPEN295 and all2071 selected records/profiles are unchanged.
+Private current-seed-nov6 reports retain initial failures, authorized recovery,
+negative results, type exclusions and app-expansion proof without publishing data.

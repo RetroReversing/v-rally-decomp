@@ -128,3 +128,30 @@ No duplicate contract compilation was needed. The ordinary/diagnostic baseline
 recheck retains612 linked bytes and SHA256
 0a7b03fe163c92a11dc7e602b02eed5b3600a0455175a6704a2de34bdc781dac.
 No exact match, live source edit or new automatic repair is claimed.
+
+## November 6: word producers, signed snapshots and combine links
+
+A further history audit found that the proposed full-word producer was already
+covered by focused-after-contracts/word3.c. It retains both masks but scores625
+with620 bytes: LW1C/20 remain where the target uses LHU1E/22. A single new
+ diagnostic compile reproduced its ordinary linked SHA256
+81d6e9e1584fe37a40c81056dc6237d9b093176c9f34cc0b82cdac84c7760dfd.
+The full-word snapshots have only real narrow consumers, with no full-word escape.
+RTL shows the producer LOG_LINK attached to the earlier byte extraction while the
+saved word remains live. The later halfword extraction has REG_DEAD but no
+producer LOG_LINK, so this compile cannot combine that chain into LHU. This is
+an observed phase explanation, not a general claim about all GCC code.
+
+Signed-producer alternatives were also already covered: actual signed-halfword
+snapshots score1605; the cleaner cast-based signed getter scores625 and uses LH
+rather than LHU. No new source variant was compiled. Scene alignment/effective-type
+provenance does not justify adopting a full-word view merely to retain masks.
+No eligible real reconvergent branch exists at the snapshot point: preceding
+conditions exit, and moving reads into failed paths introduces accesses. Earlier
+reconvergence crosses actual calls, without a proved safe motion contract.
+
+Current source remains OPEN305, SHA256
+cca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103.
+All2071 selected records/profiles and the seven protected input groups are unchanged.
+Private word-producer-nov6/REPORT.md retains the source-bound history and RTL evidence.
+No match or automatic repair is claimed.

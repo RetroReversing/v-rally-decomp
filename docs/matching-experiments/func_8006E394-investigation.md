@@ -113,3 +113,15 @@ Accepted ce810760 source stays OPEN1200. No new native/profile/format sweep,
 source adoption or positive automatic repair is justified. Private evidence:
 serializer-nov6/REPORT.md and RESULT.json. These negative controls do not rule
 out other valid matching source representations.
+
+## November 6: accessor visibility audit
+
+Current OPEN1200 source ce810760 remains unchanged and unclaimed. PR664 leaves
+the current source and both historical native seeds byte-identical: its supported
+two-argument accessors do not cover this source's one-argument H or object-like R.
+H argument arithmetic was already visible to the native AST; the remaining opacity
+is the dereference and R identity. Existing directed raw/Packet controls cover
+those forms. This closes only a PR664-based repeat, not the function's search.
+No compiler, preprocessing or native candidate generation ran. All2071 selected
+rows/profiles remain unchanged. Private visibility-nov6/REPORT.md retains frozen
+provenance and parser comparisons.
