@@ -307,3 +307,47 @@ therefore recovers an already-known representation, not a new frontier.
 Two other ties also share those bytes. A distinct tied candidate combines the
 same constant across different units and was not selected or additionally
 compiled. All experiments remain private; retained source107 is unchanged.
+
+### Remaining tied candidate and branch-binding composition
+
+Candidate173 is legitimate immutable constant capture: pinned typed-AST
+comparison recovers the325 seed after propagating2 at seven existing consumers
+and removing only its declaration/assignment. No added effects or interface
+change. Ordinary/diagnostic parity confirms107/476bytes, frame24, one obsolete
+USE. Its body bytes equal the live107; only stack adjustments change.
+SHA256063e0a8b55d8b7dfad36098442a4cdad6036fabd22528cd6cf17f53ec1c2a632.
+It is not preferred to the known frame16 tie and is not adopted.
+
+One focused composition of branch-local base bindings with the unsigned325
+representation reaches540/484bytes, frame8. It preserves the recovered root a0,
+next-index delay slot and target magic-divisor LUI placement, but other allocation
+and scheduling differences worsen the overall result. Both branch pointer loads,
+halfword-read order and later output-stage field reloads remain; no padding or
+artificial dependency was added. Ordinary/diagnostic outputs agree, SHA256
+8953c29e2acbe105553bf21f7ad60736a3944f5add1391737c1a782de42fc776. Neither this control nor
+candidate173 is a new match. The next eligibility audit concerns real halfword
+coordinate units and must preserve the original pointer/storage domain.
+
+The typed halfword-array alternative was rejected before compilation: actual
+storage may contain nested point arrays or scalar fields, so array arithmetic
+would strengthen unproven provenance/bounds assumptions. The safe alternative
+keeps byte-pointer addressing and converts the actual even offsets through word
+units at the four branch pointer constructions. It leaves every runtime body
+byte unchanged, but expands the frame8→40 through four obsolete compiler USE
+slots (542 versus540). This is a controlled cause of extra compiler storage,
+not permission to add unused padding or arbitrary rounding expressions.
+
+Splitting the actual pa/pb bindings into separate per-arm locals preserves the
+full typed AST after alpha-renaming and removing only uninitialized declarations.
+It regresses540→560, frame8, and does not fix the base register. No adoption.
+
+A final ordinary C register-storage-class eligibility audit found no optimized
+allocation preference in available GNU2.7.2 reference source: both ordinary and
+register pointer locals receive register RTL and REG_USERVAR. The vendor KMC
+source was unavailable, so this is reference evidence only. No compiler probe
+was justified or run. This investigation remains OPEN107; its new measured
+word-unit/storage lesson is being investigated at a separate otherwise
+instruction-identical function with an eight-byte frame deficit.
+
+The word-unit control's linked SHA256 is
+38f0964c5ae22a83ae919dbb37104e1a870600a3da7ab2549a10f7138bc1ba89; ordinary/diagnostic parity verified.
