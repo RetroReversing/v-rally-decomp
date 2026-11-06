@@ -167,3 +167,16 @@ bounded pipeline emits the validated source; the exported arm64 alpha.4 app
 reproduces it too.274 targeted tests pass. This remains a controlled replay of
 an existing match, not an additional game match or measured token saving. No
 automatic global interface rewrite is claimed.
+
+
+### Current 750 draft: consumed countdown control
+
+A fresh signed countdown in the first loop (`remaining = 4`, tested against
+zero, decremented in the existing loop update) visits exactly indices 0 through
+4, including the original continue path. It worsened the score to 1475 with
+ordinary/diagnostic byte parity. Its initialization stays live in s0 and the
+latch becomes BGEZ, rather than explaining the target's residual dead s2=4 and
+unsigned index latch. This is negative evidence against another countdown sweep;
+the 750 draft remains selected. No artificial branch or unused operation was
+introduced. Private proof and paired receipts are retained in
+`current750-nov6/countdown-control`.
