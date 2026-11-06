@@ -20,6 +20,17 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Current unmatched drafts — 6 November 2026
+
+`func_8002FFA4` improves from177 to **OPEN107** after grouping the real
+else-arm interval calculations. The original macro-retaining source passes
+independent ordinary/diagnostic byte parity and the normal app judge. It is
+still nonmatching; all **2,071 matched functions** are preserved.
+The current `func_8006C024` draft is **OPEN1733**, superseding its earlier
+correction checkpoints below. See the individual
+[interpolation](docs/matching-experiments/func_8002FFA4-investigation.md) and
+[packed-record](docs/matching-experiments/func_8006C024-investigation.md) investigations.
+
 ### Controller timeout transition — 5 November 2026
 
 `func_80043A78` adds **1,272 byte-exact C bytes**, bringing the app to

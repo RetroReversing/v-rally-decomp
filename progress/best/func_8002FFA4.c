@@ -31,11 +31,7 @@ void func_8002FFA4(void *o, s32 arg1, s16 arg2, void *out)
   {
     base = *((u8 **) (arg0 + 0x54));
     a = next * 6;
-    b = arg1 * 6;
-    pa = (u16 *) (a + base);
-    pb = (u16 *) (b + base);
-    d0 = (*pa) - (*pb);
-    t -= 50;
+    do { b = arg1 * 6; pa = (u16 *) (a + base); pb = (u16 *) (b + base); d0 = (*pa) - (*pb); t -= 50; } while (0);
   }
   d[0] = d0;
   new_var = 1;

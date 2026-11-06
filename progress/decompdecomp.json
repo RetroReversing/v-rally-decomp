@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793939544.884275,
- "revision": 19055,
+ "saved_at": 1793940158.342114,
+ "revision": 19059,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4561,8 +4561,8 @@
   },
   "func_8002FFA4": {
    "vram": 2147680164,
-   "best_score": 177,
-   "best_by": "manual-48bf4abd52cf491e"
+   "best_score": 107,
+   "best_by": "manual-cb73722f548f4c8a"
   },
   "func_80030180": {
    "vram": 2147680640,
@@ -249999,6 +249999,22 @@
    "created_at": 1793939527.035979,
    "score_before": 20,
    "score_after": 20
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-cb73722f548f4c8a",
+   "created_at": 1793940008.6868732,
+   "score_before": 177,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Retained OPEN107 from exposedseedlane622:1000raw/16done,700linked703compiled,21duplicate180text96preflight3symbolreject0compilefail0exact. Nonempty singlepassgroup5existingelseassignments, sameorder/types/reads/no newvalueops/runtime loopop. Same-line plaincompound/no-wrapper both177, so groupingphase NOTmerejoin. OutsideCOORD; donotclaimmacrovisibilitycausedgain. Parentminimaloriginalmacrobackport ordinary/-da476bytes107 SHA214a6c59, normalattempt313964 retained despitepostcommitMCPresponseerror, noresubmit; all2071selectedCsame andownclaimrevoked. Residual21reg+2frameadjust(target8vs32). No newexact/cartclaim/profilechange. Parent107 proofs and layout-replay-nov6 raw/attributionreceipts; canonicaldoc updated.",
+   "by": "you",
+   "created_at": 1793940132.04019,
+   "score_before": 177,
+   "score_after": 177
   }
  ],
  "set_aside": [

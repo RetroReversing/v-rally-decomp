@@ -118,3 +118,38 @@ up to1000 raw emissions and separate lineage/safety/preflight/link accounting.
 This is not another macro-opaque starting point. No search result, improved
 source or exact match is claimed until its recorded run completes and reviewed
 ordinary judging confirms it.
+
+## November 6: expanded-seed result and retained107 draft
+
+The lane completed normally:1000 raw emissions and16 completion receipts,
+21 duplicates,180 text/current-safety rejections,96 Clang preflight failures,
+703 compiled,3 new-symbol rejections and700 linked. No compiler failures or
+exact match. Current guard module paths/checksums, raw variants, lineage and
+receipts are retained in exposed-lane. Filters are not a complete C proof.
+
+Candidate622 improves177 to107 with only perm_ins_block lineage: a nonempty
+single-pass do/while(0) groups the existing else-arm interval calculations.
+Its five assignments keep their original order, reads, types and arithmetic;
+there is no break, continue, declaration, call, new value operation or runtime
+loop operation. Removing precisely this DoWhile node recovers the original
+focal AST. Both same-line plain braces and same-line unwrapped statements
+return177, isolating the control-group compiler phase rather than line joining.
+The mutation is outside COORD, so this result does not prove that macro visibility
+caused the gain; the expanded-seed lane found it.
+
+Parent independently backported only the group onto the original readable
+macro-retaining source. Ordinary/-da476 linked bytes agree at107, SHA256
+214a6c593abbd38500961001781af585057904adf7ab0f95751ea4fae9666e74.
+Source SHA2561ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41.
+Remaining differences are21 register operands and two frame adjustments
+(target8 bytes versus candidate32), with no added/missing/different opcode.
+No whole-cartridge acceptance is claimed for an unmatched draft.
+
+The normal app compile committed attempt313964 and selected OPEN107. Its MCP
+response failed after the successful database commit; read-only verification
+confirmed the exact source/score instead of resubmitting. All2071 selected C
+sources equal the prior portable snapshot, and the parent's connection/claim
+was revoked. No quality override, target or compiler change was used.
+Private parent107/proof.json and normal-retain-result.json retain the independent
+proof and post-error verification. Native tests and attribution receipts remain
+in layout-replay-nov6.
