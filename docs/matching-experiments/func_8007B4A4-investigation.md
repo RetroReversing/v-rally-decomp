@@ -152,3 +152,48 @@ starts at310 and reports zero tested candidates. Neither record establishes
 native coverage of current d457155e52. A future bounded run from this corrected
 source is therefore a different starting point, rather than repetition of the
 old source. This is a coverage finding, not a new match or a native-run result.
+
+### Current52 native run, November 6
+
+A new independent raw-protocol run completed16 requested jobs and16 completion
+receipts, totaling1000 persisted raw candidates. Work counts:21 duplicates,
+192 initial lineage rejections,85 text/safety rejections,75 Clang preflight
+failures,67 game-compiler failures,3 new-symbol rejections,560 compiled and557
+linked. A supplemental full-history audit excludes31 linked candidates with
+duplicate/remove transformations;526 linked candidates remain after that audit.
+These filters are not a complete semantic or undefined-behavior proof.
+
+There is no exact match or improvement over the unchanged52 seed. Remaining
+linked candidates have minimum222. The expanded native input independently
+reproduces52 and its known linked hash: macro expansion itself does not explain
+the candidate regression. Native AST rendering changes physical source layout;
+restoring just the known setup line in one292 sample worsens it to372. That
+single control does not establish a universal NOP or scheduling explanation.
+
+A separate bounded function-body layout diagnostic is investigating whether
+actual token changes can be backported while preserving unchanged input layout.
+It must preserve preprocessing semantics and pass ordinary judging; no success,
+automatic repair or new match is claimed for that pending diagnostic. Native
+manifest SHA256:
+`3c16f2b26cba424efb2bd076fedda1d32b54cfed6ff9b3496ec7a6220bb01004`.
+
+The bounded layout follow-up is now complete:11 genuine body-AST mutations and
+one layout-identity control were judged, with no additional native emissions.
+The first exact-token nonbody guard conservatively rejected all candidates,
+because the printer also splits declarations, moves inline spelling and adds
+helper-expression parentheses. A second scoped prototype compares all parsed
+C structure outside the focal body, then requires complete emitted/restored
+AST equality after backporting the changed body tokens into the original layout.
+Actual pinned KMC preprocessed artifacts strengthen that comparison; source
+coordinates alone are ignored. Line-observer/directive handling remains bounded,
+not a general C/C++ rewriting guarantee.
+
+For genuine block-mutation candidate577 this restores222 to52, with ordinary
+and diagnostic linked parity. Other tested candidates recover52 or score72/347;
+none improves on the saved52 or matches exactly. This demonstrates printer-noise
+removal, not a new match or an automatic repair for the remaining frame/register
+differences. A future conservative pipeline could keep token-mutation proposals
+in the original layout while retaining deliberate layout families separately;
+no default app behavior was changed on this evidence alone.
+Final private evidence manifest SHA256:
+`2d0932d1270edf2dbcac408ecc5cabba323acbd864291f41d07c4f968ac4b87e`.
