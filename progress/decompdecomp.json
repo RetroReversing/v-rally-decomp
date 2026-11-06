@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793927227.032005,
- "revision": 18978,
+ "saved_at": 1793927513.101613,
+ "revision": 18983,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8936,8 +8936,8 @@
   },
   "func_8007A29C": {
    "vram": 2147984028,
-   "best_score": 2,
-   "best_by": "claude-opus-3"
+   "best_score": 22,
+   "best_by": "candidate-review"
   },
   "func_8007A688": {
    "vram": 2147985032,
@@ -249719,6 +249719,30 @@
    "created_at": 1793927218.559642,
    "score_before": 420,
    "score_after": 420
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-f8ac825b63fd49f7",
+   "created_at": 1793927356.168589,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Review selected corrective alternative attempt 311203; rejudged score 22, replacing reported source 679a49a24434c584da1f. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793927460.400783,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Reviewed correction now OPEN22 source0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841, replacing misleading padded2 through source-scoped quality report and normal rejudge. No unusedlocalpad; actual dependency declarations restored. Independent ordinary/-da parity; all body instructions and four actual pointer spills already targetexact. RTLframe88=vars32+regs40+args16, target96 has8unusedbytes30..37 below same10savedregs. No evidence for genuine fifthvalue/8byteobject; do not fabricate padding or repeat exhausted initializer/helper/flag/native controls. Still unmatched; bounded raw-object/table/node lifetime/arithmetic assumptions not globallyproven. Private rtl-allocation-current/REPORT.md. All2071 selectedsources unchanged.",
+   "by": "you",
+   "created_at": 1793927506.027173,
+   "score_before": 2,
+   "score_after": 2
   }
  ],
  "set_aside": [

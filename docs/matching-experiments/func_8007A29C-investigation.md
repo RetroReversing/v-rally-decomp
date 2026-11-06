@@ -47,3 +47,22 @@ five debug-level combinations, plus four successfully compiled installed SN pack
 still find no exact object. No setting was adopted. These results require a new
 allocation/lifetime explanation before repeating the same families. The function
 remains OPEN; the app now carries a note explaining why saved score 2 is misleading.
+
+
+## November 6: corrected draft selected and frame gap isolated
+
+The live OPEN draft is now the current-contract padding-free22 alternative,
+source SHA256 `0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841`.
+A source-scoped quality report and normal corrective rejudge replaced the
+misleading score2 padded draft. All2071 selected matched sources are unchanged.
+The old corrected-contract-draft file above is historical and must not be used
+as the current seed merely because of its filename.
+
+Ordinary and diagnostic compiles agree. All body instructions and four genuine
+pointer spill positions14/1c/24/2c already match. RTL reports an88-byte frame:
+32 local bytes,40 saved-register bytes and16 outgoing argument bytes. The target
+has the same ten saved registers but an eight-byte unused gap30..37 before them,
+for a96-byte frame. No independently grounded fifth persistent value or genuine
+eight-byte local object was found. Do not manufacture padding or repeat the
+exhausted lifetime/helper/profile/native controls. This remains an unmatched,
+revisitable function with explicit runtime storage and arithmetic assumptions.

@@ -38,3 +38,12 @@ as well as the effective context and per-function flags. The normal app compiler
 injects fixed intrinsic templates itself; a passing `check` does not prove a
 direct build has those definitions. Verify the direct object and full cartridge,
 and do not compensate for a missing intrinsic by enlarging target boundaries.
+
+
+## Reading compressed investigation history
+
+For read-only SQLite research, register `decompnet.header_storage.Codec` and query
+`attempt_details` when source text is needed. Recent physical `attempts.source`
+may be NULL while `source_hash` points to compressed content; a NULL physical
+field does not mean no candidate was saved. Bind corrective alternatives by the
+complete source hash, not merely an equal score or the latest attempt ID.

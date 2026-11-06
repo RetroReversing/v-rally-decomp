@@ -2,17 +2,17 @@
 #define P(p,o) (*(void **)((u8 *)(p)+(o)))
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))
-void func_8004C7F0(void *);
-void func_8004D31C();
-u8 *func_800592AC(s8);
-u8 *func_800592D0(s32);
-void func_8005937C(s32, u8);
-void func_8005BB5C();
-void func_8005BC60();
-void func_80069974(u8, void *);
-void func_8007EE9C(void *);
-void func_80081540(void *);
-void func_8008A0D8(void *, s32, s32);
+void func_8004C7F0(s32);
+void func_8004D31C(void);
+void *func_800592AC(u32);
+void *func_800592D0(u32);
+void func_8005937C(s32, s32);
+void func_8005BB5C(void);
+void func_8005BC60(void);
+void func_80069974(void);
+s32 func_8007EE9C(void *);
+s32 func_80081540(u8 *);
+void func_8008A0D8(s32, s32, s8);
 extern u8 *D_800A1468;
 extern u8 D_800A5F7C[];
 extern u8 D_800A5F8C[];
@@ -33,10 +33,10 @@ extern u8 *D_800C35A0;
 extern u8 *D_800D0658;
 void func_8007A29C(void)
 {
+  u8 *tbl;
   u8 *ent;
   u8 *cnt;
   u8 *q;
-  u8 *tbl;
   u8 *ctx;
   u8 *base;
   u8 *node;
@@ -48,8 +48,6 @@ void func_8007A29C(void)
   s8 i;
   s8 j;
   s32 n;
-  s32 pad[2];
-
   u8 t;
   func_8004D31C();
   func_8005BC60();
@@ -125,7 +123,7 @@ void func_8007A29C(void)
     if (cnt[i] == 0)
     {
       B(func_800592AC(i), 0x41) = 0;
-      func_8008A0D8(D_800C3508, (B(P(D_800C3508, 0x10) + (SH(D_800C3508, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
+      func_8008A0D8((s32)D_800C3508, (B(P(D_800C3508, 0x10) + (SH(D_800C3508, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
       if (B(D_800A1468, 0x238) == i)
       {
         {
@@ -144,11 +142,11 @@ void func_8007A29C(void)
     u8 *a2 = P(D_800C3508, 0x10);
     s32 m2 = B(D_800A1468, 0x238);
     B(a2 + (SH(D_800C3508, 2) * 0x14), 0xE) = B(a2 + (SH(D_800C3508, 2) * 0x14), 0xD) + m2;
-    func_80069974(m2, a2);
+    func_80069974();
   }
   B(D_800A1468, 0x2BD) = 1;
   func_80081540(D_800A5F7C);
-  func_8004C7F0(D_800A5F8C);
+  func_8004C7F0((s32)D_800A5F8C);
   node = func_800592D0(0x38);
   H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);
 }
