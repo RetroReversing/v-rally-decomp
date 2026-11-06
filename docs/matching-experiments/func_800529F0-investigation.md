@@ -194,3 +194,23 @@ graph without recovering target allocation. No improvement or exact match.
 All2077 matched-source hashes/profiles and complete focal inputs remained
 unchanged. No source adoption, app update or cartridge claim. Private
 focused-allocation-nov6 retains the before/after snapshots and paired outputs.
+
+
+## November 6: current-root compiler coverage reconciliation
+
+A fresh read-only capture finds859 hydrated attempts and the same77abee0e source,
+with all2077 selected full sources/profiles and complete focal inputs preserved.
+No compiler calls or random generation were performed in this audit. The apparent
+missing SN coverage is already present in private registered-sn0004-nov6 and
+registered-sn-alternatives-nov6 receipts, bound to this exact source/header.
+Original registered defaults yield0001 score295/452bytes,0004 score2745/432bytes,
+and0006 score4270/432bytes, each with ordinary/diagnostic linked parity. None
+repairs the accumulator/row allocation.
+
+The same current source is also bound to parent-profiles/debug-opt-results.json:
+g0/g1/g2/ggdb each yield295/452bytes; O1 yields4845/460bytes and O3 retains
+135/448bytes. Those older debug result summaries do not retain complete per-command
+or paired diagnostic receipts; this limitation is explicit rather than treating
+them as a newly verified compiler pair. Count, scope, traversal and scalar-phase
+proposals duplicate prior real controls, so no further quota was justified.
+Private current135-causal-nov6/REPORT.md and audit.json retain the reconciliation.
