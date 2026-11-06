@@ -166,3 +166,37 @@ Exactly two compiler calls were made. All2071 selected rows/profiles and seven
 protected input groups remain unchanged; current draft stays OPEN695/unclaimed.
 No automatic improvement or match is claimed. Private phase-nov6/REPORT.md
 retains full source/diff, branch mapping, objects and phase evidence.
+
+
+## November 6: current695 SN backend and flag controls
+
+Fresh source-bound read-only capture confirms the corrected546e06d5 source,
+825 hydrated attempts and the unchanged695 KMC draft. Prior native controls are
+already current-source coverage; no random generation was repeated. Available
+focal receipts supplied no SN result bound to this corrected source.
+
+The actual saved KMC profile is -G8 -mips3 -mgp32 -mfp32 -O2 -ffast-math
+-fno-strength-reduce -g3. First comparing installed SN registered defaults changes
+both backend and flags. That produced0001 score3525/1040bytes,0004 score4022/1020,
+and0006 score5532/1020. This alone cannot isolate a compiler-backend effect.
+
+A second paired comparison copies all the actual KMC flags and adds the registered
+SN assembler/dialect flags -mgas -meb -mhard-float. All flags were accepted without
+removal or retries; emitted SN assembly banners retain them and real .loc records.
+Correct32-bit big-endian ELF and successful linking are measured; flag acceptance
+is not a general proof of every ABI edge case.
+
+| Build | Score with current flags | Bytes | Linked SHA256 |
+| --- | ---: | ---: | --- |
+| 0001 | 3525 | 1040 | d6123ea814ef9eb9e869133e278abc5c6fe6926210dc7a44a24c6cc5ef48045d |
+| 0004 | 3817 | 1020 | 86612dea830a6cd5469a03849297fc29899b122341b2f6a407d8d70337195b1b |
+| 0006 | 5327 | 1020 | a4b197d8c346e26ad84fa762c450146cb3aedb8c2f5031b085f489a383762efc |
+
+All six ordinary/diagnostic pairs agree in raw and linked bytes, with frame80 and
+no unresolved links. SN0001 is unchanged by these flags;0004/0006 change, confirming
+why defaults could not substitute for the second comparison. All results remain
+worse than695. Exactly12 bounded compiler calls ran, with no new source variant,
+profile adoption or game-data changes. All825 attempts,2077 full matched sources
+and effective profiles, and complete focal inputs are preserved. Workers reaped.
+Private current695-causal-nov6/REPORT.md, individual result files and
+currentflags-summary.json retain commands, manifests, resource and byte receipts.
