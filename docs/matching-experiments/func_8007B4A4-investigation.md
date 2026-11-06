@@ -95,3 +95,13 @@ range, alignment and effective-type/lifetime assumptions remain explicit. Actual
 ambient writers do not prove a global0..255 bound, so no signed-conversion shortcut
 or elided high-range branch is justified. Private evidence is retained separately;
 no cartridge data or compiler dumps are published here.
+
+Final bounded-revisit source SHA256:
+`d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd`.
+Ordinary and diagnostic builds produce identical1,400-byte linked code, SHA256
+`edcd5058b3efeaf8838b3ffbb7cbc761c69350a8cfa9a3edc4f0bc9fe3b2268a`.
+Two genuine Vec3-by-value normalization helper controls retain aggregate traffic
+and regress to3559/3142, with frames0x78/0x80. An indexed-vertex control also fails.
+No justified exact frame/pointer repair was found. Live inputs and ownership are
+unchanged; retain the function as OPEN and revisitable without calling this52 an
+accepted match or repeating these failed controls.
