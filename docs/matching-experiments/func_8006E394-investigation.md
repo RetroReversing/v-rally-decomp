@@ -125,3 +125,23 @@ those forms. This closes only a PR664-based repeat, not the function's search.
 No compiler, preprocessing or native candidate generation ran. All2071 selected
 rows/profiles remain unchanged. Private visibility-nov6/REPORT.md retains frozen
 provenance and parser comparisons.
+
+
+## November 6: serializer-backed separate storage objects
+
+The matched serializer supplies independent named halfword flags and byte-map
+arrays, while the decoder's current source models them as members of one inferred
+aggregate. A previously untested control used separate s32 counters[4], u16
+flags[12], and u8 map[12][4] objects at the same fixed RAM addresses. The existing
+n/base branches bound indices to 0..7 or 8..11, and map columns to 0..3. Access
+order, reads, stores, calls and physical source lines were preserved. Existing
+raw byte-alias/storage assumptions remain; this is not a whole-program lifetime
+proof or an invented overlapping object layout.
+
+The ordinary and diagnostic results both score 1640, worse than the retained
+1200. Their 1292 raw linked bytes agree, SHA256
+ d25532994600715a6a816c5ac025e17ed335e5fbeb75c87c4e455820621ac724.
+Separate symbols stop aggregate-base address sharing, but do not recover the
+target's unused flag-base initialization or the count representation. No source
+was adopted and no native/profile sweep followed. Private evidence, source/diff,
+range audit and compiler artifacts are retained in cause-nov6.
