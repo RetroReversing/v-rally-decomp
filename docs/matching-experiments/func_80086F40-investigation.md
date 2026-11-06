@@ -121,3 +121,29 @@ and phase-union controls already cover these observations. No new native,
 formatting or profile sweep was justified. No accepted repair or new match
 resulted; the function remains OPEN325. Runtime allocation/callback assumptions
 and the broader historical SDK factory chain remain explicit limitations.
+
+## November 6: local donor and machine-code coverage
+
+The next audit hashed23 local callback-containing C files, explicitly retaining
+fork/region duplicates rather than claiming23 independent implementations.
+Named __amDMA search found15 files across12 projects. Most submit via the
+seven-argument osPiStartDma or explicit OSIoMesg/osEPiStartDma interfaces,
+which cannot replace this function's verified six-word Packet ABI.
+
+The read-only database ranking inspected38976 rows, with4812 actual target
+byte bodies available. PROJECT rows without target bytes were recorded as
+not disassembled, not scored as dissimilar. Above0.70 mnemonic similarity,
+the regional V-Rally callback has no source and the South Park candidate is
+OPEN3215, so neither is a verified donor. The named matched Turok callback
+scores0.396 mnemonic similarity; its name alone supplies no exact transfer.
+
+One distinct source lifetime from Snowboard Kids was tested: cache the initial
+list head for the no-free-buffer return, before any list mutation/call on that
+route. Submission and all current contracts are unchanged. The control scores
+1985 with444 linked bytes versus current325/468. Ordinary/diagnostic bytes
+agree, SHA256d53ab0f53275984e5723192e200c0805ffea6d1111830d023532d47ad2b1f140.
+Frame0x38 and saved registers are unchanged; walker/predecessor remain in the
+wrong s0/s1 allocation. Common physical-address returns fold and the independent
+head reload disappears, producing the shorter body. This is negative evidence,
+not an accepted replacement or automatic repair. Private donor-audit-nov6 holds
+source inventory, target ranking, exact-history check and linked receipts.
