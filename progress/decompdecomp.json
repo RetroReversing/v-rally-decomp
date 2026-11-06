@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793938584.4298172,
- "revision": 19045,
+ "saved_at": 1793938742.207254,
+ "revision": 19047,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249959,6 +249959,14 @@
    "created_at": 1793938557.061026,
    "score_before": 52,
    "score_after": 52
+  },
+  {
+   "function": "func_8006603C",
+   "text": "SourceSHA256 cca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103. Fresh first-CSE audit: target masks661B8/661C4 follow LHU1E/22; intervening unrelatedbyte/fieldE stores do not change halfwordproducer. InitialRTLzeroextends removed by getter equivalences at firstCSE. No new meaningful control justified;772attempt rows/529uniquecomplete sources checked. IMPORTANT historical contract blockers already resolved: selected592AC void*(u32),61F34 void(void*,void*),5C0E8 void(s32,u32,u32), allmatched0. Baseline ordinary/-da612byte SHA0a7b03fe parity. Private cse-dataflow-nov6/current-contracts.json and canonical investigation updated. No new source/native/profile sweep.",
+   "by": "you",
+   "created_at": 1793938724.348842,
+   "score_before": 30,
+   "score_after": 30
   }
  ],
  "set_aside": [

@@ -106,3 +106,25 @@ allocation. Ordinary and diagnostic canonical linked bytes agree (SHA256
 although raw ELF diagnostic metadata differs. No new exact match or successful
 automatic repair is claimed. Keep open and avoid repeating final-allocation or
 mask-spelling sweeps without a new first-CSE hypothesis.
+
+## November 6: first-CSE dataflow and resolved interfaces
+
+A fresh read-only capture confirms current source/context/profile/target unchanged,
+OPEN305 and unclaimed. The history contains772 attempt-detail rows and529 unique
+complete sources. Target masks at0x800661B8 and0x800661C4 follow the actual LHU
+loads of fields1E/22 and copies to saved values. Intervening writes affect the
+unrelated byte flag and fieldE; they do not supply a changed halfword producer.
+Initial RTL still has both zero extensions. First CSE substitutes the already
+narrowed getter values before combine. No new producer, alias barrier or meaningful
+narrowing operation was established, so another mask-spelling sweep was not run.
+
+The interface warnings earlier in this historical note are now resolved, not
+remaining acceptance blockers. Current selected definitions are matched at0:
+func_800592AC returns void* from u32 index; func_80061F34 accepts the actual
+scene/base pointers; func_8005C0E8 takes the actual three arguments. Their selected
+source SHA256 prefixes are d8234b15,10520bb1 and922183b1 respectively. Current
+callers and full hashes are recorded in private cse-dataflow-nov6/current-contracts.json.
+No duplicate contract compilation was needed. The ordinary/diagnostic baseline
+recheck retains612 linked bytes and SHA256
+0a7b03fe163c92a11dc7e602b02eed5b3600a0455175a6704a2de34bdc781dac.
+No exact match, live source edit or new automatic repair is claimed.
