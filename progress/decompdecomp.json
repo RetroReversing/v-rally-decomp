@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793940930.025166,
- "revision": 19063,
+ "saved_at": 1793959078.148743,
+ "revision": 19068,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250029,6 +250029,22 @@
    "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Frame8/475 alternative originalmacroprinter/actualexposed/nativeprinted all475 withAST+normal/-da parity. One real earlyxscaling reorder preservesmemoryread/outputorder/localtypes and movesmagicLUIearlier but regresses1840/460bytes/frame8 SHA2a2ee819, NOTadopted. One bounded1000raw lane nowrunning from provenexposedframe8/475, notearlyx, asnewstructuralfrontier previousfixedmethods couldnotgenerate evenalgebra. No resultclaimedpending. Bestremainsnormal107; docs/currentproofs inlayout-replay-nov6.",
    "by": "you",
    "created_at": 1793940893.054662,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Completed frame8/475 lane:1000 raw,644 linked,240 safety/group rejects,95 preflight,21 duplicates; best405, no exact or improvement over retained107. Subsequent scheduler/base-cache/sample-index/branch-local/binding/interleave controls all negative (3780/940/475/760/670/690/690/950). Separate unsigned word-unit107 control ties107 but frame32to16; only two SP instructions change, ordinary/-da parity SHA685e262e0a2a34a0bf0bec91a651e4068b9d5cf2334d298027a1c66812dff2ff;199686 defined boundary oracle cases. Two signed-correction USEs removed; remaining unsigned word-index+component USE under investigation. Explicit period MIPS32 signed conversion premise. None adopted; no new exact. Full evidence layout-replay-nov6 REPORT; canonical investigation updated.",
+   "by": "you",
+   "created_at": 1793958999.9673228,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Follow-up immutable component propagation on private unsigned-word107 completed before helper usage-limit interruption: only substitute literal1 for never-modified new_var at both consumers, remove declaration/assignment. Historical12161 files no exact composition. Ordinary/-da parity325/484bytes SHAa6e66974df829b3b15d43d7be40fccef6329cfcfc206961f1217d14cd750a5c3; frame8 and last obsolete USE removed, but2 extra instructions/regalloc regress. No adoption; retained107 unchanged. Source7b0ccb4b684517767e71d164c24d24168d60cd33703da20f5e6ae518b6ecbe72. Current remaining frame mechanism grounded, exact still unachieved.",
+   "by": "you",
+   "created_at": 1793959060.763252,
    "score_before": 107,
    "score_after": 107
   }

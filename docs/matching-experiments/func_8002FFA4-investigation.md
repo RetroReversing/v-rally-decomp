@@ -206,4 +206,70 @@ One bounded1000-raw lane is now authorized from the proven compiler-exposed
 frame8/475 representation, not the failed early-scaling variant. Earlier fixed
 methods did not supply the exact-even algebra rewrite; this is a distinct
 structural frontier with the target frame, despite its worse scalar score.
-Original107 remains selected. No result is claimed for the pending lane.
+Original107 remains selected. The lane has since completed; results follow.
+
+
+### Completed frame and scheduling controls — 6 November
+
+The frame8/475 lane completed exactly 1,000 raw emissions: 644 linked candidates,
+240 safety/grouping rejections, 95 preflight rejections and 21 duplicates.
+No exact match or improvement over the retained107. Its best private candidate
+scored405 with a frame8, still worse overall. No additional search was queued.
+
+Focused ordinary/diagnostic pairs then tested these real source representations:
+
+| Control | Score | Frame bytes | Result |
+| --- | ---: | ---: | --- |
+| Disable pre-register scheduling on475 | 3780 | 8 | Negative; live flags unchanged |
+| Reuse existing base value for four pre-output coordinate reads | 940 | 8 | Removes loads required by the target |
+| Immutable formal plus consumed sample-index local | 475 | 8 | Identical linked bytes |
+| Compute next index only in the else arm | 760 | 8 | Correct root register, wrong delay-slot operation |
+| Compute previous index only in the if arm | 670 | 8 | Correct next-index delay slot, wrong root register |
+| Split the base binding into two branch-local pointer values | 690 | 8 | Recovers root register and delay slot, other allocation differs |
+| Separate those declarations from their first assignments | 690 | 8 | Identical to initialized branch bindings |
+| Construct first pointer before computing second offset | 950 | 8 | Scheduling hypothesis disproved |
+
+These controls retain the original defined arithmetic and object-bound domain,
+actual read/write order and interface. The limited base-value reuse crosses no
+output write or call; output-stage pointer-field reloads remain. No dummy loads,
+padding, fixed registers or artificial runtime dependencies were introduced.
+None was adopted. Precise pinned allocator internals remain uninstrumented.
+
+A separate control on the retained107 preserves the divide/add/scale tree but
+uses unsigned32 word-offset arithmetic, converting the final relative byte offset
+to signed32 at the pointer boundary. For the original even offsets and defined
+signed domain, modular arithmetic recovers the same offset, including negative
+interior offsets. This explicitly relies on the period MIPS32 unsigned-to-signed
+conversion behavior. A UBSan host oracle passed199,686 defined boundary cases;
+it supplements the arithmetic proof and is not a whole-game storage proof.
+
+This control ties at107 but reduces the frame32→16. Ordinary/diagnostic outputs
+agree:476 bytes, SHA256
+685e262e0a2a34a0bf0bec91a651e4068b9d5cf2334d298027a1c66812dff2ff.
+Only the two stack-adjustment instructions differ from the retained107; every
+other linked byte is identical. Two signed-correction scratch USEs disappear;
+the remaining USE comes from the unsigned word-index plus component expression.
+Source SHA256
+070fa57ef5ec04ebc73a2a26dd442c4137c3c84a45fe8114a6e4e10e093438a2.
+This private tie is not selected and is not a new match. The next investigation
+isolates the remaining immutable component-index binding in this representation.
+
+
+### Immutable component propagation
+
+The helper completed the authorized control before its usage-limit interruption:
+replace the initialized, never-modified component index with literal1 at both
+consumers and remove its declaration/assignment. A parent source comparison
+confirmed those are the only changes. No actual coordinate read, output write,
+interface or arithmetic domain changed. A historical scan of12,161 private C
+files found no exact unsigned-word/grouped composition.
+
+Result325/484bytes, ordinary/diagnostic parity, linked SHA256
+ a6e66974df829b3b15d43d7be40fccef6329cfcfc206961f1217d14cd750a5c3.
+The frame reaches the target8 bytes and the remaining obsolete USE disappears,
+but two additional instructions and register allocation differences worsen the
+whole result. Source SHA256
+7b0ccb4b684517767e71d164c24d24168d60cd33703da20f5e6ae518b6ecbe72.
+No live adoption. This establishes a concrete compiler-lifetime cause for the
+remaining scratch reservation, not an exact match or a generally safe unsigned
+rewrite for arbitrary offsets.
