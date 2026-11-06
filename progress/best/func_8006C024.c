@@ -79,7 +79,7 @@ void func_8006C024(s32 arg0, s32 arg1)
       temp_t0 = *((u8 *) (((char *) temp_v0) + 0));
       temp_t1 = *((u8 *) (((char *) temp_v0) + 1));
       
-      temp_t0 = (temp_a0 = temp_t0 >> 4);
+      temp_t0 = (temp_a0 = (u8)(temp_t0 >> 4));
       temp_t0 = temp_t0 & 0xC;
       if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)
       {

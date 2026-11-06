@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793935108.195911,
- "revision": 19029,
+ "saved_at": 1793935636.947577,
+ "revision": 19033,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8386,8 +8386,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 1848,
-   "best_by": "manual-323479afb0e44e32"
+   "best_score": 1733,
+   "best_by": "manual-c2e7a626c7ff4a86"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -249895,6 +249895,22 @@
    "created_at": 1793935097.803518,
    "score_before": 1155,
    "score_after": 1155
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-c2e7a626c7ff4a86",
+   "created_at": 1793935517.388171,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006C024",
+   "text": "SourceSHA256 8c509f910f6587fb430aa8c28e3685c27f0102ab81f39fb0ae1328703793808c. Supersedes earlier review-only disposition after semantic byte-phase audit: explicit u8 conversion at actual packed-byte highnibble extraction is meaningful decodedbyte representation, not dummy scaffolding. Actual u8load0..255 ->unsignedshift4 ->0..15 ->byteconversion ->existing integercarriers. Same assignments/evaluations/real consumers, no addedread/call/local/deadstore/control. No claim uniqueoriginaltype. Negative whole-byte declarations/separatebyte local do not invalidate this different reconstruction. Parent independentordinary1733,980linkedbytes dd2cc335... ordinary/-da parity. NormalMCP retained; all2071matched sources unchanged. Still OPEN, not exact. Private byte-phase-review/RESULT.json.",
+   "by": "you",
+   "created_at": 1793935631.6946812,
+   "score_before": 1465,
+   "score_after": 1465
   }
  ],
  "set_aside": [

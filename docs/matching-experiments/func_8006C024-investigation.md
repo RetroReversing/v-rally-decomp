@@ -96,3 +96,27 @@ the exact source in private diagnose-1848/RESULT.json.
 App PR652 now generates the genuine common-tail edit from the frozen2238 input,
 independently reproducing2043;125 focused tests passed. This is not a new exact
 match and does not attribute the separate table capture to the same family.
+
+
+## November 6: byte-phase review and retained1733 draft
+
+The earlier1733 review-only disposition is superseded by a source-level audit.
+The conversion `(u8)(temp_t0 >> 4)` occurs at the actual unsigned-byte packed
+field extraction. The load is0..255, the unsigned shift produces0..15, and the
+conversion expresses the byte-sized decoded value before widening into the
+existing signed/unsigned integer carriers. Both existing assignments and all
+validity, channel-bit and table-offset consumers remain. No read, call, local,
+dead store or control operation is added. This is coherent reconstructed C,
+not proof of the unique original type. A conversion is not dummy scaffolding
+merely because the inferred input range makes it value-preserving.
+
+Whole-function byte declarations scored2133/2008; a separate byte local2193
+and storage-first splitting4358 were negative. Those different models do not
+invalidate the meaningful conversion at the actual decoding expression.
+Parent independently reproduced1733; ordinary/-da agree on980 linked bytes,
+SHA256 dd2cc3353257d93b212c98bbc1b96b78358044ee9ecf5667511b81a779e3e9b8.
+Source SHA256 8c509f910f6587fb430aa8c28e3685c27f0102ab81f39fb0ae1328703793808c.
+Normal MCP compilation retained it as an OPEN draft, preserving all2071 matched
+sources. This is not an exact match or complete-cartridge acceptance. Existing
+storage and arithmetic premises remain unchanged. Private byte-phase-review/
+RESULT.json retains the range/evaluation audit and fresh parity evidence.
