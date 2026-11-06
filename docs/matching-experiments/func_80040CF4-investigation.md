@@ -106,3 +106,22 @@ All2071 compiler profiles and other2070 selected C objects were preserved.
 Normal saved-source verification independently rejudged the corrected caller
 exact; all2071 matches remain. The corrected focal518 draft was retained through
 the normal source-scoped quality/adoption path. Neither correction adds a match.
+
+## November 6: explicit pointer-macro exposure
+
+The current source remains OPEN518 (SHA256
+81a0eaa8119b2e5cb40ee9800b18fd0a0df11023e5e187b11d1f3d427988b3d0).
+Explicit gObj/gItem expansion exposes six global pointer accesses to the native
+parser, but no hidden rectangle geometry. Full pinned-preprocessor TU AST and
+binding structure agree, with physical lines preserved. Exactly two new exposed
+ordinary/diagnostic builds both retain all1544 original bytes and SHA256
+987595106b20b7aa1d4715573b633add774d0aac057311791555132302176df1.
+No native run or printer compilation followed: no new supported allocation
+transform emerged. The exposed seed is retained privately for a future specific
+pointer-address hypothesis, rather than another broad replay.
+
+The old unsafe native-independent-valid candidates444 and459 are already rejected
+by the current initialization guard with either original or exposed macros.
+That historical safety follow-up is resolved; it does not need another app fix.
+All2071 selected rows/profiles and the protected input groups remain unchanged.
+Private cause-nov6/REPORT.md retains comparisons and allocation-phase limits.

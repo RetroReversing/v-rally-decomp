@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793968114.6505432,
- "revision": 19098,
+ "saved_at": 1793968362.040718,
+ "revision": 19099,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250175,6 +250175,14 @@
    "created_at": 1793968098.419292,
    "score_before": 1155,
    "score_after": 1155
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "SourceSHA256 81a0eaa8119b2e5cb40ee9800b18fd0a0df11023e5e187b11d1f3d427988b3d0. Explicit pointer macro exposure preserves full preprocessed TU AST/bindings, physical lines and all1544 linked bytes in ordinary and diagnostic builds, score518. Six macro pointer accesses newly visible but no new supported allocation transform; no native replay. Current initialization guard already rejects historical unsafe native-independent-valid444/459 with original and exposed macros. All2071 selected records unchanged. Canonical investigation and private cause-nov6 report retain evidence.",
+   "by": "you",
+   "created_at": 1793968340.146531,
+   "score_before": 518,
+   "score_after": 518
   }
  ],
  "set_aside": [
