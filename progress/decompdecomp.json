@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793938270.814076,
- "revision": 19040,
+ "saved_at": 1793938371.610661,
+ "revision": 19043,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249933,6 +249933,22 @@
    "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Historical profile-frame inventory:20recordedreceipts,19linked1CDKfail;15KMC+SN0001 frames88, SN0004/0006/970404 frames72, none96. IMPORTANT receipts usehistoricalc1fbef6fsource, NOTthiscurrent0992source; header/profile/targetequal butdeclorder/blankline differ. Not new current-sourceprofileevidence or body-equivalenceproof. No new compiles/sweep. Private profile-frame-audit-nov6/results.json. Eight low-scored currentnative candidates werepreviouslyframechecked; notall610.",
    "by": "you",
    "created_at": 1793936808.188562,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "SourceSHA256 d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd. Consumed raw-direction Float3 record read by divisions after sqrt reproduces target frame0x70/local64/two FPRpairs, but retains three raw-field SWC1 stores: score890, ordinary/-da raw parity. Plain register aggregate neutral890; scoped initializer constructor copy4707/frame0x80. Not accepted over52, no padding/flags/native sweep. See canonical investigation November6 consumed storage and private phase-raw-direction/phase-storage-controls.",
+   "by": "you",
+   "created_at": 1793938350.255061,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Five recorded storage replays frames/scores104/2837,88/397,96/3110,88/597,96/1020. Target-frame candidates contain unsupported count/global hoists. Callback closure includes unresolved JALR in7EE9C, so no global stability proof. Remove unsafe capture returns88/267. Actual two-phase pointer reads/reload acrosscallbacks gives88/122 with ordinary/-da parity, no improvement over22. Canonical investigation and current-nov6-storage/storage-frame-audit hold details. No live source/profile changed.",
+   "by": "you",
+   "created_at": 1793938361.357156,
    "score_before": 2,
    "score_after": 2
   }

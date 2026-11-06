@@ -121,3 +121,27 @@ pointer declaration order and a blank line differ. Header/profile/target agree,
 but this is not fresh current-source profile evidence or alignment-aware body
 equivalence. No new compiler run or sweep was performed. Private evidence:
 profile-frame-audit-nov6/REPORT.md, results.json and audit.py.
+
+## November 6: recorded storage lifetimes and callback barriers
+
+The610 linked native receipts do not retain objects, so their complete frame
+inventory cannot be inferred without recompilation. Five structurally relevant
+recorded candidates were replayed. Frames/scores:104/2837,88/397,96/3110,
+88/597 and96/1020. The two target-sized frames are not acceptable seeds:
+one substitutes nonconstant integer nulls and caches a count across calls;
+the other hoists a global pointer across unresolved callbacks.
+
+The latter's immediate global capture and genuinely consumed local pointer
+copy are safe in isolation, but removing only the unsupported early global
+capture returns frame88/267. Eleven direct callee checks and a seven-function
+closure do not establish global stability: func_8007EE9C invokes three
+unresolved callbacks. Absence of a direct named writer is insufficient.
+
+A two-phase table pointer captures each read at its original phase, consumes
+both definitions and reloads after callbacks. It produces88/122,1004 linked
+bytes with ordinary/diagnostic parity. Its differences are22 frame offsets
+and20 register allocations, with no opcode, branch or inserted-operation
+differences. It does not improve selected22 or justify unused frame padding.
+No live source or compiler profile was changed. Private evidence:
+current-nov6-storage/storage-frame-audit/REPORT.md and
+0992-consumed-table-phases artifacts.

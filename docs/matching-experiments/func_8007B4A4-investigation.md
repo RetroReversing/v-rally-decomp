@@ -197,3 +197,34 @@ in the original layout while retaining deliberate layout families separately;
 no default app behavior was changed on this evidence alone.
 Final private evidence manifest SHA256:
 `2d0932d1270edf2dbcac408ecc5cabba323acbd864291f41d07c4f968ac4b87e`.
+
+## November 6: consumed storage and compiler phases
+
+The target's real coordinate buffers start at stack offsets0x10 and0x18,
+with the32-byte matrix at0x20. A16-byte coordinate type would contradict
+those observed addresses. The selected score52 source has frame0x60 versus
+0x70 in the target; both save two floating-register pairs.
+
+Five admissible recorded storage candidates were replayed. Genuine scalar
+copies retain48 local bytes; two larger frames instead add a third saved
+floating-register pair, the wrong mechanism. Two current-source Float3
+transfers also regress: grouping normalized direction gives3002 and removes
+both saved floating-register pairs; grouping vertex direction gives2667 and
+adds a third pair. Neither supplies the target layout.
+
+A distinct three-field raw-direction record, read directly by the divisions
+only after sqrt, does allocate the target64 local bytes and complete0x70
+frame/save layout. All three fields and normalized scalar results have real
+consumers; no padding or extra arithmetic was introduced. Score890 remains
+worse than52. Initial RTL writes the three raw fields; CSE forwards their
+reads but leaves three SWC1 stores at0x40/44/48, absent from the target.
+Ordinary and diagnostic full linked bytes agree. This is evidence about a
+possible storage phase, not an accepted replacement or exact match.
+
+Plain C register on that non-addressed record is byte-neutral. A scoped
+aggregate initializer introduces a constructor temporary and12-byte copy,
+regressing to4707/frame0x80. Seven total compiler calls for these controls
+include three rejected C89 compatibility attempts, not seven successful
+compiles. No new native sweep, live source change or automatic repair followed.
+Private reports: current-nov6-grounded/frame-diagnostic, float-storage-current,
+phase-raw-direction and phase-storage-controls.
