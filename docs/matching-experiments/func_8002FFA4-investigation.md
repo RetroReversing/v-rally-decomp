@@ -351,3 +351,27 @@ instruction-identical function with an eight-byte frame deficit.
 
 The word-unit control's linked SHA256 is
 38f0964c5ae22a83ae919dbb37104e1a870600a3da7ab2549a10f7138bc1ba89; ordinary/diagnostic parity verified.
+
+
+## November 6: loader-backed point-record representation
+
+The grid loader func_800180FC relocates the +0x54 pointer from the serialized
+file base and processes rows*columns records at six-byte stride with signed
+halfword components at 0/2/4. Matched func_80028740 copies and transforms whole
+x/y/z records and adjusts the interior index when reversing a grid. This grounds
+a point-record array model; it does not justify flattening scalar struct members
+into a C halfword array. All ten raw direct calls agree with the three known
+callers. Serialized extent, alignment and queried-endpoint margins remain
+explicit valid-grid premises; the scan does not exclude dynamic indirect calls.
+
+One new control uses named signed16 point fields converted to unsigned16 at each
+existing read, with point-indexed branch bindings and later pointer reloads
+preserved. Its real nonempty do/while group and output-store order remain intact.
+The pinned compiler's debug data confirms size6 and member offsets0/2/4. Ordinary
+and diagnostic output agree on516 bytes, SHA256
+ 4f35dbf503cc0aab0da157a60f86b73c9f7a2281ce1272dd6e339b024cadbe23.
+It scores3320, worse than the retained107. The frame is correctly8 with no obsolete
+USE slots, but repeated index*6 calculations and allocation differences worsen
+the body. Frame geometry alone is not a solution. No source was adopted and no
+further native/type/profile sweep was run. Private storage-nov6 retains the
+loader/caller/domain evidence, source/diff, debug layout and paired raw outputs.
