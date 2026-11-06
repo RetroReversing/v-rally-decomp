@@ -26496,7 +26496,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148062944,
    "rom": 582368,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_8008D6E0.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_8008D6E0.s",
+   "c": "src/code_8007E9D4/func_8008D6E0.c",
+   "own": {}
   },
   {
    "name": "osSetThreadPri",

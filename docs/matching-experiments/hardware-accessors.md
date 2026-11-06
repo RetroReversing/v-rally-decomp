@@ -52,3 +52,14 @@ The separately exact Status return-spacing accessor is not yet adopted in this
 checkpoint. That narrower operation avoids a documented ITS immediate-branch
 stall; it is not a general Status completion barrier. Handwritten provenance
 and privilege/hazard caveats continue to apply to every accessor.
+
+
+## Status return-spacing adoption
+
+The narrow Status return-spacing operation is now accepted normally as
+`func_8008D6E0`, with its signed caller contract preserved. Live and standalone
+checkpoints contain 2,076 matched functions, 16 open and 29 assembly. Ordinary
+and diagnostic bytes agree, the full cartridge remains exact, and all prior
+2,075 selected sources and profiles are preserved. The operation addresses a
+documented immediate-return spacing concern; it is not a general Status
+completion barrier or proof of the original SDK implementation language.

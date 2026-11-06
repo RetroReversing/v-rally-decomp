@@ -738,7 +738,9 @@
     "src/code_8007E9D4/func_800937C0.c": "9e226ffdd144f2aec2a302ed3147a2bb6fefe8eab2042c63d737c55a4c15f841",
     "src/code_8007E9D4/func_800958F0.c": "38b1e8f46881f71a3080d286b9d09859af6c66661338c054ee8a42d4ac6aae76",
     "include/decompdecomp_status_8008bb80.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "include/decompdecomp_compare_800958f0.h": "5df130d42a7ec567160e7f1aec8c67173cd0fe59c0d2c1ffac6d18665714105a"
+    "include/decompdecomp_compare_800958f0.h": "5df130d42a7ec567160e7f1aec8c67173cd0fe59c0d2c1ffac6d18665714105a",
+    "src/code_8007E9D4/func_8008D6E0.c": "8624d0b1ce996d4d0d6089e75f344ce6da9458710ca476cfb7b6373f058ea719",
+    "include/decompdecomp_status_return_8008d6e0.h": "f4f6a2bef68d2b416966aacfdb839fcc0b3022eebd2fb5231f69e8c98af7795f"
   },
   "accepted": [
     "MusInitialize",
@@ -1161,6 +1163,7 @@
     "func_80089704",
     "func_80089C48",
     "func_8008A31C",
+    "func_8008D6E0",
     "func_8008DFB0",
     "func_8008F810",
     "func_8008FBC0",
@@ -1182,26 +1185,22 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2075,
+  "matched_app": 2076,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_800937C0",
-      "func_800958F0"
+      "func_8008D6E0"
     ],
-    "contract_corrections": [
-      "func_8008BB80"
-    ],
-    "note": "Fixed architectural Status read and Compare write. Ordinary/diagnostic and full cartridge exact; prior profiles and unaffected selected objects preserved. Original handwritten provenance retained."
+    "note": "Registered architectural Status return-spacing operation; ordinary/diagnostic and full cartridge exact. All 2075 previous profiles and selected objects preserved."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "matched": 2075,
+    "matched": 2076,
     "all_function_addresses_integrated": true,
     "corrected_source_hashes_confirmed": true,
-    "note": "Full normal portable snapshot exported; prior audited standalone variants retained."
+    "note": "Complete portable progress snapshot exported after normal live acceptance."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

@@ -20,6 +20,15 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Status return spacing — 6 November 2026
+
+The latest verified checkpoint contains **2,076 matched functions / 16 open /
+29 retained as assembly**. The registered Status return-spacing accessor is now
+accepted normally in the live app. All previous 2,075 selected sources remain
+unchanged, and the complete 12,582,912-byte cartridge remains byte-identical.
+The complete portable snapshot is saved in `progress/`.
+
+
 ### Status and timer-compare accessors — 6 November 2026
 
 The live app and independently verified cartridge now contain **2,075 matched
