@@ -33,7 +33,7 @@ extern char D_800A5D08[];void *func_800592D0(u32);
 extern char *func_80057918(s32, u16);
 extern void func_80052E94(s32, char *);
 extern void func_80059618(Obj71 *, u8, u8, u8, s32);
-extern void func_800596F4(Obj71 *, s16, s16, char *);
+void func_800596F4(void *, s16, s16, void *);
 extern void memset(char *, s32, s32);
 extern void func_800980D0(char *, char *);
 extern void func_80099DF8(char *, char *, ...);
@@ -51,13 +51,13 @@ void func_800710F0(void)
   j = 0;
   s = func_80057918(D_800C8328, D_800A171C[D_800C35A0->idx]);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
-  func_800596F4(obj, obj->x, obj->y, s);
+  func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(s));
   memset(buf, 0, 15);
   obj = func_800592D0(0x10);
   do
   {
     func_80099DF8(buf, D_800A5CFC, j + 1, D_800C3750[D_800C35A0->idx][j].name);
-    func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+    func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     j++;
   }
   while (j < 3);
@@ -70,7 +70,7 @@ void func_800710F0(void)
     t = D_800C3750[D_800C35A0->idx][j].time;
     memset(buf, 0, 15);
     func_80052E94(t, buf);
-    func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+    func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     if (j == 0)
     {
       best = t;
@@ -87,7 +87,7 @@ void func_800710F0(void)
       }
       func_80052E94(t - best, &buf[2]);
       func_800980D0(p, D_800A5D08);
-      func_800596F4(obj2, obj2->x, obj2->y + ((j - 1) * 22), p);
+      func_800596F4((void *)(obj2), (s16)(obj2->x), (s16)(obj2->y + ((j - 1) * 22)), (void *)(p));
     }
     j++;
   }
@@ -114,7 +114,7 @@ void func_800710F0(void)
     {
       func_80099DF8(buf, D_800A5CFC, j + 1, D_800C3A90[j + 4].name);
     }
-    func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+    func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     j++;
   }
   while (j < 3);
@@ -134,7 +134,7 @@ void func_800710F0(void)
       t = D_800C3AD0[j].time;
     }
     func_80052E94(t, buf);
-    func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+    func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     if (j == 0)
     {
       best = t;
@@ -151,7 +151,7 @@ void func_800710F0(void)
       }
       func_80052E94(t - best, &buf[2]);
       func_800980D0(p, D_800A5D08);
-      func_800596F4(obj2, obj2->x, obj2->y + ((j - 1) * 22), p);
+      func_800596F4((void *)(obj2), (s16)(obj2->x), (s16)(obj2->y + ((j - 1) * 22)), (void *)(p));
     }
     j++;
   }

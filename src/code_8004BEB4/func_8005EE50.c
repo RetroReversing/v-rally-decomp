@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005ee50.h"
+#include "decompdecomp_contract_8005ee50.h"
 #line 1 "func.c"
 void func_8004CF7C(s32, s32, s16, s16, f32, s32, s32);
 void func_80059618(void *, u8, u8, u8, s32);
@@ -50,7 +50,7 @@ void func_8005EE50(s32 arg0, s32 arg1)
   }
   else
   {
-    func_800596F4(((u8 *) temp_v0) + 4, (s16) var_s1, (s16) var_s2, &D_800A54D4);
+    func_800596F4((void *)(((u8 *) temp_v0) + 4), (s16)((s16) var_s1), (s16)((s16) var_s2), (void *)(&D_800A54D4));
   }
 }
 

@@ -9,9 +9,9 @@ void func_80006298();
 volatile unsigned long long func_800068C0();
 int func_80006B4C();
 void func_800072F4();
-void func_8000C22C();
+void func_8000C22C(void *, s32, s32, s32, u8);
 void func_8000C244();
-int func_8000C9B0(void *, void *, int, float, int);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 void func_80052E94();
 char *func_80057918();
 void func_80073108();
@@ -100,7 +100,7 @@ temp_v0 = func_80006008(arg1);
   func_80099DF8(&sp40, &D_800A5DC8);
   temp_s4 = arg0 + 0x40;
   temp_s3 = D_800C7F90;
-  temp_s1 = func_8000C9B0(temp_s4, &sp40, 1, 1.0f, 1);
+  temp_s1 = func_8000C9B0((void *)(temp_s4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));
   sp106 = 0x4B;
   text = spE8;
   temp_s0_2 = 0xA0 - (((u32) (temp_s1 & 0xFFFF)) >> 1);
@@ -111,37 +111,37 @@ temp_v0 = func_80006008(arg1);
   text = (char *) (((u32) text) ^ ((u32) arg0));
   text = (char *) (((u32) text) ^ ((u32) arg0));
   text = (char *) (((u32) text) ^ ((u32) arg0));
-  sp10C = func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1);
+  sp10C = func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1));
   new_var = 5;
-  temp_s0_3 = func_8000C9B0(temp_s4, func_80057918(D_800C8328, 0xD0), 1, 1.0f, 1);
+  temp_s0_3 = func_8000C9B0((void *)(temp_s4), (void *)(func_80057918(D_800C8328, 0xD0)), (u8)(1), (f32)(1.0f), (u8)(1));
   base74=D_800A17EA+sp10C;temp_s0_8=(base74+temp_s0_3);
   func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x3A, (temp_s1 + 0xD) & 0xFFFF, 0x11);
-  func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
+  func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
   temp_s0_4 = ((u32) (temp_s0_8 & 0xFFFF)) >> 1;
   temp_s1_2 = temp_s0_4 & 0xFFFF;
   func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s1_2, 0x3C, temp_s3, 1);
-  func_80073108(arg1, (s16) (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) - (temp_s0_4 - 0xA0)), 0x3B, *((s32 *)dp74), (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (func_8000C9B0(temp_s4, temp_s3, 1, 1.0f, 1) + (0xA0 - temp_s1_2)) + D_800A17EA, 0x3C, func_80057918(D_800C8328, 0xD0), 1);
-  func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
+  func_80073108(arg1, (s16) (func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1)) - (temp_s0_4 - 0xA0)), 0x3B, *((s32 *)dp74), (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
+  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1)) + (0xA0 - temp_s1_2)) + D_800A17EA, 0x3C, func_80057918(D_800C8328, 0xD0), 1);
+  func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
   do
   {
     temp_s1_3 = var_s6 & 0xFFFF;
     new_var3 = &D_800A5DF0;
     if (temp_s1_3 == 6)
     {
-      temp_v0_2 = func_8000C9B0(arg0 + 0x40, func_80057918(D_800C8328, 0xD1), 1, 1.0f, 1);
+      temp_v0_2 = func_8000C9B0((void *)(arg0 + 0x40), (void *)(func_80057918(D_800C8328, 0xD1)), (u8)(1), (f32)(1.0f), (u8)(1));
       temp_s0_6 = ((u32) (temp_v0_2 & 0xFFFF)) >> 1;
       func_8007347C(arg1, (0x97 - temp_s0_6) & 0xFFFF, 0xBC, (temp_v0_2 + 0xF) & 0xFFFF, 0x11);
-      func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x80, 0xFF);
+      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
       sp106 = 0xCD;
       func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s0_6, 0xBE, func_80057918(D_800C8328, 0xD1), 1);
-      func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
+      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
       var_v0 = temp_s1_3 * 2;
     }
     temp_s0_7 = temp_s1_3 * 24;
     if (((*((u32 *) ((D_800C02AE + 0x7CE6) + temp_s0_7))) == (*((s32 *) (D_800C02AE + 0x7D76)))) & (temp_s1_3 != 6))
     {
-      func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xDC, 0xDC, 0x10, 0xFF);
+      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
     }
     func_80052E94(*((u32 *) ((D_800C02AE + 0x7CE6) + temp_s0_7)), &spB8);
     func_80052E94(*((u32 *) ((D_800C02AE + 0x7CEA) + temp_s0_7)), &spD0);
@@ -220,16 +220,16 @@ temp_v0 = func_80006008(arg1);
 
     if ((*((u32 *) inline_fn(0x7CE6, var_v0_4))) != 0)
     {
-      func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - (((u32) (func_8000C9B0(arg0 + 0x40, &sp40, 1, 1.0f, 1) & 0xFFFF)) >> 1), (s16) sp106, &sp40, 1);
+      func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - (((u32) (func_8000C9B0((void *)(arg0 + 0x40), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1)) & 0xFFFF)) >> 1), (s16) sp106, &sp40, 1);
     }
-    func_8000C22C(*((s32 *) (((char *) arg0) + 0x40)), 0xFF, 0xFF, 0xFF, 0xFF);
+    func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
     var_s6 += 1;
     sp106 += 0xF;
   }
   while (((u32) (var_s6 & 0xFFFF)) < 7U);
   temp_s3_2 = arg0 + 0x40;
-  temp_s0_9 = func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD3), 1, 1.0f, 1);
-  temp_s0_10 = (((D_800A17E8 + temp_s0_9) + (D_800A17E8 + new_var)) + func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD7), 1, 1.0f, 1)) + 0x10;
+  temp_s0_9 = func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
+  temp_s0_10 = (((D_800A17E8 + temp_s0_9) + (D_800A17E8 + new_var)) + func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD7)), (u8)(1), (f32)(1.0f), (u8)(1))) + 0x10;
   {
     u16 xx = 0x140 - temp_s0_10;
     s32 *pp = &D_800D0664;
@@ -237,7 +237,7 @@ temp_v0 = func_80006008(arg1);
     func_80073108(arg1, (s16) xx, 0xDC, *pp, 2);
     xx += D_800A17E8;
     func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD3), 1);
-    xx += func_8000C9B0(temp_s3_2, func_80057918(D_800C8328, 0xD3), 1, 1.0f, 1);
+    xx += func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
     func_80073108(arg1, (s16) xx, 0xDC, *pp, 0);
     xx += D_800A17E8;
     func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD7), 1);

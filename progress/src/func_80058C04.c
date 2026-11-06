@@ -30,7 +30,7 @@ s32 func_80081664(s32, void *);
 s32 func_8000BF2C(s32);
 void func_8000C200(s32, f32, f32, f32);
 void func_8000C1EC(s32, s32, s32);
-void func_8000C22C(s32, s32, s32, s32, s32);
+void func_8000C22C(void *, s32, s32, s32, u8);
 void func_80058C04(VRItem *arg0)
 {
   s32 var_s1;
@@ -63,7 +63,7 @@ void func_80058C04(VRItem *arg0)
       func_8000C200(((VRResultBlock *) D_800A1468)->results[D_800A1468->current], 1.0f, 1.0f, 1.0f);
       var_s1++;
       func_8000C1EC(((VRResultBlock *) D_800A1468)->results[D_800A1468->current], *((s32 *) ((temp_s0 + ((s32) arg0)) + 0xDC)), *((s32 *) ((temp_s0 + ((s32) arg0)) + 0x128)));
-      func_8000C22C(((VRResultBlock *) D_800A1468)->results[D_800A1468->current], 200, 200, 200, 255);
+      func_8000C22C((void *)(((VRResultBlock *) D_800A1468)->results[D_800A1468->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
       D_800A1468->current++;
     }
     while (((u8) var_s1) < (arg0->count / 3));

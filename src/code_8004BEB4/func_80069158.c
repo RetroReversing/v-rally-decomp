@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80069158.h"
+#include "decompdecomp_contract_80069158.h"
 #line 1 "func.c"
 void func_8004CEB4(s32, void *, u16 *, s32, s32, s32, s32, s32, s32);
 void func_800596F4(void *, s16, s16, void *);
@@ -68,7 +68,7 @@ void func_80069158(void)
       r[2] = (*p)->b->image->x;
       new_var = (*p)->b->image->y;
       r[3] = new_var;
-      func_800596F4(((unsigned char *)n + 4), r[0] - 12, im->y + 6, D_800A57B4);
+      func_800596F4((void *)(((unsigned char *)n + 4)), (s16)(r[0] - 12), (s16)(im->y + 6), (void *)(D_800A57B4));
       func_8004CEB4(*((s32 *) (D_800C02AE + 0x1032a)), (*p)->b->image, r, 0, 255, 255, 255, 255, 0);
       sel = indices[5];
     }

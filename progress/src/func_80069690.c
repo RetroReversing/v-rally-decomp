@@ -1,6 +1,6 @@
 extern int D_800C35A0;void *func_800592AC(u32);
 s32 func_80059618();
-s32 func_800596F4();
+void func_800596F4(void *, s16, s16, void *);
 s32 func_8006874C();
 extern void *D_800A1468;
 extern char D_800C02AE[];
@@ -27,6 +27,6 @@ void func_80069690(void)
     var_a3 = *((u8 *) (((char *) temp_s0) + 0xD));
   }
   func_80059618(temp_s0, var_a1, var_a2, var_a3, 0xFF);
-  func_800596F4(temp_s0, *((s16 *) (((char *) temp_s0) + 6)), *((s16 *) (((char *) temp_s0) + 8)), D_800C35A0 + (((*((s8 *) (((char *) D_800A1468) + 0x22A))) * 0x28) + (new_var = 0x44)));
+  func_800596F4((void *)(temp_s0), (s16)(*((s16 *) (((char *) temp_s0) + 6))), (s16)(*((s16 *) (((char *) temp_s0) + 8))), (void *)(D_800C35A0 + (((*((s8 *) (((char *) D_800A1468) + 0x22A))) * 0x28) + (new_var = 0x44))));
   func_8006874C(*((s8 *) (((char *) D_800A1468) + 0x22A)));
 }

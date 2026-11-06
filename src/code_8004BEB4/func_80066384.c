@@ -1,8 +1,8 @@
-#include "decompdecomp_snapshot_80066384.h"
+#include "decompdecomp_contract_80066384.h"
 #line 1 "func.c"
 void *func_800592AC(u32);
 s32 func_80059618();
-s32 func_800596F4();
+void func_800596F4(void *, s16, s16, void *);
 s32 func_8006090C();
 s32 func_8006A438();
 extern char D_800C02AE[];
@@ -48,8 +48,8 @@ void func_80066384(void)
       var_v0 = *((u8 *)temp_s0 + 0xE);
       func_80059618(temp_s0, var_a1, var_a2, var_a3, var_v0);
     }
-    func_800596F4(temp_s0, *((s16 *)((char *)temp_s0 + 6)), *((s16 *)((char *)temp_s0 + 8)),
-                  *((char **)(D_800C02AE + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(D_800C02AE + 0x32F2)) + (var_s1 & 0xFF) + 0x32));
+    func_800596F4((void *)(temp_s0), (s16)(*((s16 *)((char *)temp_s0 + 6))), (s16)(*((s16 *)((char *)temp_s0 + 8))),
+                  (void *)(*((char **)(D_800C02AE + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(D_800C02AE + 0x32F2)) + (var_s1 & 0xFF) + 0x32)));
     var_s1 += 1;
     var_s2 = *((void **)var_s2);
   } while ((u32)(var_s1 & 0xFF) < (u32)*inline_fn(D_800C02AE));

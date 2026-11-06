@@ -16,7 +16,7 @@ extern int D_800ADF80;
 
 
 s32 func_800056FC();
-s32 func_8000C22C();
+void func_8000C22C(void *, s32, s32, s32, u8);
 s32 func_8000C244();
 extern void *D_800A1468;
 extern char D_800A51A8[];
@@ -95,7 +95,7 @@ block_18:
     }
     var_s0 = &D_800A51EC;
 block_20:
-    func_8000C22C(*(s32 *)((char *)D_800A1468 + 0xE4), 0xFF, 0, 0, 0xFF);
+    func_8000C22C((void *)(*(s32 *)((char *)D_800A1468 + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
     func_8000C244(*(s32 *)((char *)D_800A1468 + 0xE4), func_800056FC(D_800ADF80), arg0, arg1, var_s0, 0);
     return;
 }

@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005d0b0.h"
+#include "decompdecomp_contract_8005d0b0.h"
 #line 1 "func.c"
 typedef struct {
     u8 pad0[6];
@@ -48,7 +48,7 @@ s32 func_80047B54();
 void func_8004CF7C(s32 arg0, u16 arg1, s16 arg2, s16 arg3, f32 arg4, u8 arg5, u16 arg6);
 char *func_80057918();void *func_800592D0(u32);
 void func_80059618(Win *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
-s32 func_800596F4();void func_8005A6BC(u32);void func_8005A6E0(u32);
+void func_800596F4(void *, s16, s16, void *);void func_8005A6BC(u32);void func_8005A6E0(u32);
 s32 memset();
 s32 func_80099DF8();
 
@@ -70,7 +70,7 @@ void func_8005D0B0(void)
     w = func_800592D0(0);
     func_80059618(w, w->b, w->c, w->d, 0xFF);
     func_80099DF8(buf1, D_800A5418, func_80057918(D_800C8328, D_800D0634[D_800C35A0->a][D_800C35A0->b].sub[D_800C35A0->c].id + 0x1E4));
-    func_800596F4(w, w->x, w->y, buf1);
+    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf1));
     memset(buf2, 0, 10);
     w = func_800592D0(2);
     val = D_800D0634[D_800C35A0->a][D_800C35A0->b].vals[D_800C35A0->c];
@@ -81,7 +81,7 @@ void func_8005D0B0(void)
         func_80099DF8(buf2, D_800A5428, (u16)(val / 1000), (u16)(val % 1000 / 100));
     }
     func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4(w, w->x, w->y, buf2);
+    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf2));
     if (D_800A14D5 != 0) {
         func_8005A6BC(0xD);
         w = func_800592D0(0xE);
@@ -89,14 +89,14 @@ void func_8005D0B0(void)
         func_80059618(w, w->b, w->c, w->d, w->e);
         if (D_800C35A0->a == 0) {
             if (D_800C35A0->n == 0) {
-                func_800596F4(w, w->x, w->y, func_80057918(D_800C8328, 0x174));
+                func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, 0x174)));
             } else {
                 func_80099DF8(buf3, D_800A5434, D_800C35A0->n);
-                func_800596F4(w, w->x, w->y, buf3);
+                func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf3));
             }
         } else {
             func_80099DF8(buf3, D_800A5434, 3);
-            func_800596F4(w, w->x, w->y, buf3);
+            func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf3));
         }
     } else {
         func_8005A6E0(0xD);

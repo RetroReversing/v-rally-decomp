@@ -3,7 +3,7 @@ extern u8 *D_800A1468;
 extern s32 D_800C8328;
 s32 func_80057918(s32, s32);void *func_800592D0(u32);
 void func_80059618(void *, u32, u32, u32, u32);
-void func_800596F4(void *, s16, s16, s32);
+void func_800596F4(void *, s16, s16, void *);
 void func_800620F0(s32);
 
 typedef struct {
@@ -30,7 +30,7 @@ void func_80062184(Args args, s32 arg4, s32 arg5) {
                     func_80059618(obj, obj[0xB], obj[0xC], obj[0xD], obj[0xE]);
                 }
             }
-            func_800596F4(obj, *(s16 *)(obj + 6), *(s16 *)(obj + 8), func_80057918(D_800C8328, ((u8 *)&args)[i * 64 + 0x37] + 0x1E4));
+            func_800596F4((void *)(obj), (s16)(*(s16 *)(obj + 6)), (s16)(*(s16 *)(obj + 8)), (void *)(func_80057918(D_800C8328, ((u8 *)&args)[i * 64 + 0x37] + 0x1E4)));
             i++;
         } while (i < *(u16 *)&arg5);
     }

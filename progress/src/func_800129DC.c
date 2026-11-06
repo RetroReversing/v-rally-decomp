@@ -17,7 +17,7 @@ extern char D_800A40DC[];
 s32 func_8000BF2C();
 void func_8000C1EC();
 void func_8000C200(s32, f32, f32, f32);
-void func_8000C22C();
+void func_8000C22C(void *, s32, s32, s32, u8);
 s32 func_80034FF0();
 void func_80081540();
 s32 func_80081664();
@@ -42,7 +42,7 @@ void func_800129DC(void *arg0)
     D_800C820C = temp_v0_2;
     func_8000C200(temp_v0_2, 1.0f, 1.0f, 1.0f);
     obj = D_800C820C;
-    func_8000C22C(obj, alpha, alpha, alpha, alpha);
+    func_8000C22C((void *)(obj), (s32)(alpha), (s32)(alpha), (s32)(alpha), (u8)(alpha));
     func_8000C1EC(D_800C820C, 0x80, 0x30);
     temp_v0_3 = func_80081664(6, &D_800A40D0);
     D_800C8208 = temp_v0_3;
@@ -50,7 +50,7 @@ void func_800129DC(void *arg0)
     D_800C8210 = temp_v0_4;
     func_8000C200(temp_v0_4, 1.0f, 1.0f, 1.0f);
     obj = D_800C8210;
-    func_8000C22C(obj, alpha, alpha, alpha, alpha);
+    func_8000C22C((void *)(obj), (s32)(alpha), (s32)(alpha), (s32)(alpha), (u8)(alpha));
     func_8000C1EC(D_800C8210, 0x80, 0x33);
     if (D_800C81FD == 5) {
         func_80081540(&D_800A40DC);

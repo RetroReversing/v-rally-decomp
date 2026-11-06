@@ -48,6 +48,6 @@ void func_8005EE50(s32 arg0, s32 arg1)
   }
   else
   {
-    func_800596F4(((u8 *) temp_v0) + 4, (s16) var_s1, (s16) var_s2, &D_800A54D4);
+    func_800596F4((void *)(((u8 *) temp_v0) + 4), (s16)((s16) var_s1), (s16)((s16) var_s2), (void *)(&D_800A54D4));
   }
 }

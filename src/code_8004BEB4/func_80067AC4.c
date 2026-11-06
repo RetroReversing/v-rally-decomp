@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80067ac4.h"
+#include "decompdecomp_contract_80067ac4.h"
 #line 1 "func.c"
 typedef struct Draw { s32 pad[4]; s32 x[4]; s32 y[4]; s32 id[4]; u8 r[4]; u8 g[4]; u8 b[4]; u8 a[4]; s32 pad2[2]; } Draw;
 typedef struct TextObj { char pad0[6]; s16 x; s16 y; char padA; u8 r; u8 g; u8 b; u8 a; } TextObj;
@@ -7,7 +7,7 @@ typedef struct GameState { char pad0[0x228]; s8 cfg; char pad229[0x24D - 0x229];
 extern char *func_80057918(s32, s32);
 extern char *func_8004240C(s32);
 extern void func_80059618(TextObj *, u8, u8, u8, u8);
-extern void func_800596F4(TextObj *, s16, s16, char *);
+void func_800596F4(void *, s16, s16, void *);
 extern void func_8004C370(s32, Draw *);
 extern void func_8006874C(s8);
 extern s32 func_8002D2E4(s32);
@@ -42,7 +42,7 @@ void func_80067AC4(void) {
         D_800C6F12--;
         msg = func_80057918(D_800C8328, 0x136);
         func_80059618(obj, 0xFF, 0, 0, D_800C6F12 * 255 / (D_8009D540 * 2));
-        func_800596F4(obj, obj->x, obj->y, msg);
+        func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(msg));
     }
     gs = D_800A1468;
     obj = func_800592D0(5);
@@ -97,7 +97,7 @@ void func_80067AC4(void) {
                 }
             }
             func_80059618(obj, r, g, b, 0xFF);
-            func_800596F4(obj, obj->x - dx, obj->y - dy, str);
+            func_800596F4((void *)(obj), (s16)(obj->x - dx), (s16)(obj->y - dy), (void *)(str));
             if (k != 0) {
                 if (cur == 0) cur = 25;
                 else cur--;
@@ -130,7 +130,7 @@ void func_80067AC4(void) {
         } else {
             func_80059618(obj, obj->r, obj->g, obj->b, obj->a);
         }
-        func_800596F4(obj, obj->x + i * 20, obj->y, str);
+        func_800596F4((void *)(obj), (s16)(obj->x + i * 20), (s16)(obj->y), (void *)(str));
     }
     func_8006874C(((struct { char pad[0x32]; s8 arr[1]; } *)D_800C35A0)->arr[D_800A1468->cfg]);
 }

@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80062e68.h"
+#include "decompdecomp_contract_80062e68.h"
 #line 1 "func.c"
 #define sp18 buf.h
 #define sp1A buf.c
@@ -24,7 +24,7 @@ extern u8 *D_800D0634;
 extern Sel *D_800C35A0;
 s32 func_80052E94(u16, void *);void *func_800592D0(u32);
 s32 func_80059618(void *, s32, s32, s32, s32);
-s32 func_800596F4(void *, s16, s16, void *);
+void func_800596F4(void *, s16, s16, void *);
 s32 memset(void *, s32, s32);
 s32 func_800980D0(void *, void *);
 s32 func_80099DF8(void *, void *, s32, void *);
@@ -63,7 +63,7 @@ void func_80062E68(void)
     func_80099DF8(&sp18, D_800A5684, i + 1, (((D_800D0634 + (D_800C35A0->a * 0x2C4)) + ((D_800C35A0->b << 6) + 0x2C)) + (i * 0x10)) + 6);
     n++;
     func_80059618(s, s->q, s->r, s->g, s->b);
-    func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);
+    func_800596F4((void *)(s), (s16)(s->x), (s16)(s->y + (i * 0x16)), (void *)(&sp18));
   }
   while (3U > ((u32) (n & 0xFF)));
   s = func_800592D0(0x12);
@@ -78,7 +78,7 @@ void func_80062E68(void)
     v = *new_var;
     memset(&sp18, 0, 0xF);
     func_80052E94(v, &sp18);
-    func_800596F4(s, s->x, s->y + (i * 0x16), &sp18);
+    func_800596F4((void *)(s), (s16)(s->x), (s16)(s->y + (i * 0x16)), (void *)(&sp18));
     if (i == 0)
     {
       first = v;
@@ -96,13 +96,13 @@ void func_80062E68(void)
       {
         func_80052E94(v - first, &sp1A);
         func_800980D0(bp, D_800A5690);
-        func_800596F4(u, *new_var2, u->y + (((i) - 1) * 0x16), bp);
+        func_800596F4((void *)(u), (s16)(*new_var2), (s16)(u->y + (((i) - 1) * 0x16)), (void *)(bp));
       }
       else
       {
         func_80052E94(v - first, &sp1A);
         func_800980D0(bp, D_800A5690);
-        func_800596F4(u, *new_var2, u->y + ((((unsigned int) i) - 1) * 0x16), bp);
+        func_800596F4((void *)(u), (s16)(*new_var2), (s16)(u->y + ((((unsigned int) i) - 1) * 0x16)), (void *)(bp));
       }
     }
     n++;

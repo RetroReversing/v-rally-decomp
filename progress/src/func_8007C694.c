@@ -58,7 +58,7 @@ void func_80006014(void *, u32 *);
 void *func_8001BD1C(void);
 void func_800061FC(void *, void *);
 void func_80006298(void *);
-void func_8000C22C(void *, s32, s32, s32, s32);
+void func_8000C22C(void *, s32, s32, s32, u8);
 void func_8000C244(void *, void *, s32, s32, char *, s32);
 void func_8007C3E0(s32, s32, s32, s32, s32);
 VpCtx *func_8004240C(s32);
@@ -66,7 +66,7 @@ s32 func_80084DD4(s32);
 void func_8000A5EC(void *, void *, s32, s32, s32, s32, s32);
 void D_8000A840(Vp178 *, s16, s16, void *, s32, s32);
 
-#define COL(r,g,b) func_8000C22C(D_800B0550, r, g, b, 0xE1)
+#define COL(r,g,b) func_8000C22C((void *)(D_800B0550), (s32)(r), (s32)(g), (s32)(b), (u8)(0xE1))
 #define W COL(0xFF,0xFF,0xFF)
 #define O COL(0xFF,0x94,0x05)
 #define PR(y,s) func_8000C244(D_800B0550, gfx, 0x18, y, s, 2)
@@ -92,7 +92,7 @@ void func_8007C694(void) {
         guOrthoF(mf, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);
         guMtxF2L(mf, m);
         func_800061FC(gfx, m);
-        func_8000C22C(D_800B0550, 0xFF, 0xFF, 0xFF, 0xFF);
+        func_8000C22C((void *)(D_800B0550), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
         if (--D_800B0554 == 0) {
             if (++D_800B0556 >= 16) {
                 D_800B0556 = 0;
@@ -194,7 +194,7 @@ void func_8007C694(void) {
                 break;
             }
         } else {
-            func_8000C22C(D_800B0550, 0xFF, 0xFF, 0xFF, 0xFF);
+            func_8000C22C((void *)(D_800B0550), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
             switch (D_800B0556) {
             case 0:
                 PR(0x40, D_800A65D4);

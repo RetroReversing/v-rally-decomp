@@ -1,11 +1,11 @@
-#include "common.h"
-
+#include "decompdecomp_contract_80073640.h"
+#line 1 "func.c"
 extern char D_800AE850[];
 extern char D_800C02AE[];
 s32 func_8000BF2C();
 s32 func_8000C1EC();
 void func_8000C200(s32, f32, f32, f32);
-s32 func_8000C22C();
+void func_8000C22C(void *, s32, s32, s32, u8);
 
 void func_80073640(char *arg0) {
     s32 temp;
@@ -15,7 +15,7 @@ void func_80073640(char *arg0) {
     *(s32 *)(arg0 + 0x44) = *(s32 *)(D_800C02AE + 0x103BA);
     *(s32 *)(arg0 + 0x40) = func_8000BF2C(*(s32 *)(D_800C02AE + 0x103BA));
     func_8000C200(*(s32 *)(arg0 + 0x40), 1.0f, 1.0f, 1.0f);
-    func_8000C22C(*(s32 *)(arg0 + 0x40), 0xFF, 0xFF, 0xFF, 0xFF);
+    func_8000C22C((void *)(*(s32 *)(arg0 + 0x40)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
     func_8000C1EC(*(s32 *)(arg0 + 0x40), 0x80, 0x30);
     i = 0;
     y = -0x140;
@@ -33,3 +33,4 @@ void func_80073640(char *arg0) {
     }
     *(s32 *)(arg0 + 0x48) = 1;
 }
+

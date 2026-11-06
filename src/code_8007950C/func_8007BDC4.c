@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_8007bdc4.h"
 #line 1 "func.c"
-extern char D_800C8380[];
+void func_8000C22C(void *, s32, s32, s32, u8); extern char D_800C8380[];
 extern char *D_800C35A0;
 extern char *D_800C7F84;
 extern u32 D_800C34DC;
@@ -53,7 +53,7 @@ void func_8007BDC4(void) {
             guMtxF2L(&sp20, temp_s0_2);
             func_800061FC(temp_v0, temp_s0_2);
             func_8000C200(W(D_800A0384,0x4), 0.7f, 0.7f, 0.7f);
-            func_8000C22C(W(D_800A0384,0x4), 0xFF, 0xFF, 0xFF, 0xFF);
+            func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
             temp_v1 = P(temp_s1,0x80);
             if ((W(temp_v1,0x310) >= 0) && (W(temp_v1,0x314) >= 0) && (W(temp_v1,0x318) >= 0) && (W(temp_v1,0x31C) >= 0)) {
                 { u32 *pc = &D_800C34DC; *pc += 1; }
@@ -87,9 +87,9 @@ void func_8007BDC4(void) {
             func_8000C244(W(D_800A0384,0x4), temp_v0, 0x16, 0x16, &D_800A5FDC, 0);
             if (D_800C34F2 != 0) {
                 D_800C34F2--;
-                func_8000C22C(W(D_800A0384,0x4), 0xDC, 0xDC, 0x10, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
             } else {
-                func_8000C22C(W(D_800A0384,0x4), 0xFF, 0xFF, 0xFF, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
             }
             func_80052E94(D_800C34E8, &spD8);
             func_80099DF8(&sp60, &D_800A5FE8, &spD8);
@@ -99,9 +99,9 @@ void func_8007BDC4(void) {
             ypos+=10;
             if (D_800C34F3 != 0) {
                 D_800C34F3--;
-                func_8000C22C(W(D_800A0384,0x4), 0xDC, 0xDC, 0x10, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
             } else {
-                func_8000C22C(W(D_800A0384,0x4), 0xFF, 0xFF, 0xFF, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
             }
             func_80099DF8(&sp60, &D_800A5FF8,  D_800C34EE);
             if (!(((u8) D_800C34F3 >> 3) & 1)) {
@@ -110,9 +110,9 @@ void func_8007BDC4(void) {
             ypos+=10;
             if (D_800C34F1 != 0) {
                 D_800C34F1--;
-                func_8000C22C(W(D_800A0384,0x4), 0xDC, 0xDC, 0x10, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
             } else {
-                func_8000C22C(W(D_800A0384,0x4), 0xFF, 0xFF, 0xFF, 0xFF);
+                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
             }
             func_80099DF8(&sp60, &D_800A6008,  D_800C34E6);
             if (!(((u8) D_800C34F1 >> 3) & 1)) {

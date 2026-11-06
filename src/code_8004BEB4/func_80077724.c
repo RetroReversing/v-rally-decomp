@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_80077724.h"
 #line 1 "func.c"
 typedef struct { s32 a; u8 pad[0x30]; u16 flags; } TextObj;
 typedef struct { u8 pad[0x22]; u16 track; } RaceInfo;
@@ -27,7 +27,7 @@ s32 *func_80006008(s32);
 s32 func_80006014(s32, s32 *);
 s32 func_800061FC(s32, s32);
 s32 func_8000C244(s32, s32, s16, s32, void *, s32);
-s32 func_8000C9B0(void *, void *, s32, f32, s32);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 s32 func_8000E8B8(s32);
 s32 func_8001BD1C(void);
 Ctx *func_8004240C(s32);
@@ -99,7 +99,7 @@ s32 func_80077724(void)
         }
       }
       func_80078724(gfx);
-      w = func_8000C9B0(&D_800C820C, &D_800A5EAC, 1, 1.0f, 1);
+      w = func_8000C9B0((void *)(&D_800C820C), (void *)(&D_800A5EAC), (u8)(1), (f32)(1.0f), (u8)(1));
       dp = D_800D0664;
       x = 0x131 - (D_800A17E8 + w);
       func_80073108(gfx, x, 0xDA, dp, 0);
@@ -109,9 +109,9 @@ s32 func_80077724(void)
     m = D_800C81FD;
     if (m != 5) {
       if ((m ^ 2) == 0) {
-        w = D_800A17E8 + func_8000C9B0((char *)fl - 0x34, func_80057918(D_800C8328, 0xD6), 1, scale, 1) + 0x15;
+        w = D_800A17E8 + func_8000C9B0((void *)((char *)fl - 0x34), (void *)(func_80057918(D_800C8328, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
       } else {
-        w = D_800A17E8 + func_8000C9B0((char *)fl - 0x34, func_80057918(D_800C8328, 0xD7), 1, scale, 1) + 0x15;
+        w = D_800A17E8 + func_8000C9B0((void *)((char *)fl - 0x34), (void *)(func_80057918(D_800C8328, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
       }
     } else {
       ok = 1;
@@ -132,7 +132,7 @@ s32 func_80077724(void)
         str = func_80057918(D_800C8328, 0xD5);
       else
         str = func_80057918(D_800C8328, 0xD7);
-      w = D_800A17E8 + func_8000C9B0(&D_800C820C, str, 1, 1.0f, 1) + 0x15;
+      w = D_800A17E8 + func_8000C9B0((void *)(&D_800C820C), (void *)(str), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
     }
     if (D_800A1814[D_800C35A0->track] > D_800AFA6C) {
       s32 xm, xs;
@@ -177,9 +177,9 @@ end1:
   m = D_800C81FD;
   if (m != 5) {
     if ((m ^ 2) == 0) {
-      w = D_800A17E8 + func_8000C9B0((char *)fl - 0x34, func_80057918(D_800C8328, 0xD6), 1, scale, 1) + 0x15;
+      w = D_800A17E8 + func_8000C9B0((void *)((char *)fl - 0x34), (void *)(func_80057918(D_800C8328, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
     } else {
-      w = D_800A17E8 + func_8000C9B0((char *)fl - 0x34, func_80057918(D_800C8328, 0xD7), 1, scale, 1) + 0x15;
+      w = D_800A17E8 + func_8000C9B0((void *)((char *)fl - 0x34), (void *)(func_80057918(D_800C8328, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
     }
   } else {
     ok = 1;
@@ -200,7 +200,7 @@ end1:
       str = func_80057918(D_800C8328, 0xD5);
     else
       str = func_80057918(D_800C8328, 0xD7);
-    w = D_800A17E8 + func_8000C9B0(&D_800C820C, str, 1, 1.0f, 1) + 0x15;
+    w = D_800A17E8 + func_8000C9B0((void *)(&D_800C820C), (void *)(str), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
   }
   {
     s32 xm, xs;

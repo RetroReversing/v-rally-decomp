@@ -19,7 +19,7 @@ typedef struct
 extern s32 func_8008E118(u8 *);
 extern void func_8008E3A0(char *, s32);
 extern char D_800A3F28[];
-s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
+s32 func_8000C9B0(void *fonts, void *str, u8 nfonts, f32 scale, u8 mode)
 {
   s32 kern = 0;
   u8 fi = 0;
@@ -44,7 +44,7 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
   {
     sp = 1;
   }
-  f = fonts[fi];
+  f = ((Font **)fonts)[fi];
   x = 0;
   len = func_8008E118(str);
   if ((len == 0) | (len > 0xA0))
@@ -54,7 +54,7 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
   }
   for (i = 0; i < len; i++)
   {
-    c = str[i];
+    c = ((u8 *)str)[i];
     c -= 0x20;
     n = 0;
     if (c)
@@ -66,7 +66,7 @@ s32 func_8000C9B0(Font **fonts, u8 *str, u8 nfonts, f32 scale, u8 mode)
         {
           fi = 0;
         }
-        f = fonts[fi];
+        f = ((Font **)fonts)[fi];
         n++;
       }
 

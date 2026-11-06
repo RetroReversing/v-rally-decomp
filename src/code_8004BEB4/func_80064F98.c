@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80064f98.h"
+#include "decompdecomp_contract_80064f98.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -31,7 +31,7 @@ typedef struct
 void func_80052E94(u16, char *);
 char *func_80057918(s32, s32);void *func_800592D0(u32);
 void func_80059618(Win64F98 *, u8, u8, u8, u8);
-void func_800596F4(Win64F98 *, s16, s16, char *);void func_8005A6BC(u32);void func_8005A6E0(u32);
+void func_800596F4(void *, s16, s16, void *);void func_8005A6BC(u32);void func_8005A6E0(u32);
 void memset(char *, s32, s32);
 void func_800980D0(char *, char *);
 void func_80099DF8(char *, char *, s32, char *);
@@ -64,7 +64,7 @@ void func_80064F98(void)
     {
       char *nm = D_800C3650[D_800C35A0->x20][i].name;
       func_80099DF8(buf, D_800A56C4, i + 1, nm);
-      func_800596F4(w, w->x, w->y + (i * 22), buf);
+      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
     }
 
     w = func_800592D0(0x12);
@@ -74,7 +74,7 @@ void func_80064F98(void)
       t = D_800C3650[D_800C35A0->x20][i].time;
       memset(buf, 0, 15);
       func_80052E94(t, buf);
-      func_800596F4(w, w->x, w->y + (i * 22), buf);
+      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
       if (i == 0)
       {
         first = t;
@@ -89,13 +89,13 @@ void func_80064F98(void)
  do { *((s16 *) buf) = h; buf[2] = c; } while (0);
         func_80052E94(t - first, buf + 2);
         func_800980D0(text, D_800A56D0);
-        func_800596F4(w2, w2->x, w2->y + ((i - 1) * 22), text);
+        func_800596F4((void *)(w2), (s16)(w2->x), (s16)(w2->y + ((i - 1) * 22)), (void *)(text));
       }
     }
 
     w = func_800592D0(0x13);
     func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4(w, w->x, w->y, func_80057918(D_800C8328, D_800C35A0->x20 + 0x1CD));
+    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x20 + 0x1CD)));
     func_8005A6E0(0x15);
     a = 0x14;
   }
@@ -105,7 +105,7 @@ void func_80064F98(void)
     for (i = 0; i < 3; i++)
     {
       func_80099DF8(buf, D_800A56C4, i + 1, D_800D0634[D_800A1468[0x23C]]->rec[D_800C35A0->x22][i].name);
-      func_800596F4(w, w->x, w->y + (i * 22), buf);
+      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
     }
 
     w = func_800592D0(0x12);
@@ -114,7 +114,7 @@ void func_80064F98(void)
     {
       t = tbl[D_800A1468[0x23C]]->rec[D_800C35A0->x22][i].time;
       func_80052E94(t, buf);
-      func_800596F4(w, w->x, w->y + (i * 22), buf);
+      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
       if (i == 0)
       {
         first = t;
@@ -129,13 +129,13 @@ void func_80064F98(void)
  do { *((s16 *) buf) = h; buf[2] = c; } while (0);
         func_80052E94(t - first, buf + 2);
         func_800980D0(text, D_800A56D0);
-        func_800596F4(w2, w2->x, w2->y + ((i - 1) * 22), text);
+        func_800596F4((void *)(w2), (s16)(w2->x), (s16)(w2->y + ((i - 1) * 22)), (void *)(text));
       }
     }
 
     w = func_800592D0(0x13);
     func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4(w, w->x, w->y, func_80057918(D_800C8328, D_800C35A0->x22 + 0x21A));
+    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x22 + 0x21A)));
     func_8005A6E0(0x14);
     a = 0x15;
   }

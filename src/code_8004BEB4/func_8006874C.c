@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8006874c.h"
+#include "decompdecomp_contract_8006874c.h"
 #line 1 "func.c"
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 typedef struct 
@@ -6,7 +6,7 @@ typedef struct
   u32 words[9];
 } Style;void *func_800592D0(u32);
 extern void func_80059618(Style *, u8, u8, u8, s32);
-extern void func_800596F4(Style *, s16, s16, void *);
+void func_800596F4(void *, s16, s16, void *);
 extern void func_80098290(void *, void *);
 extern s32 func_80099DF8(void *, void *, ...);
 extern void *func_80057918(s32, s32);
@@ -89,7 +89,7 @@ void func_8006874C(s8 selected)
       func_80059618(style, *((u8 *) (((u8 *) style) + 11)), *((u8 *) (((u8 *) style) + 12)), *((u8 *) (((u8 *) style) + 13)), *((u8 *) (((u8 *) style) + 14)));
       rec = list + (i * 40);
       func_80098290(text, rec);
-      func_800596F4(style, (s16) x, (s16) y, text);
+      func_800596F4((void *)(style), (s16)((s16) x), (s16)((s16) y), (void *)(text));
       if ((*((u16 *) (((u8 *) rec) + 12))) == 0)
       {
         value = *((u16 *) (((u8 *) rec) + 14));
@@ -101,8 +101,8 @@ void func_8006874C(s8 selected)
         func_80099DF8(text, D_800A5704, ((*((u16 *) (((u8 *) rec) + 14))) * 100) / 160);
         unit = D_800A570C;
       }
-      func_800596F4(style, (s16) (-(x + 88)), (s16) y, text);
-      func_800596F4(style, (s16) (x + 104), (s16) y, unit);
+      func_800596F4((void *)(style), (s16)((s16) (-(x + 88))), (s16)((s16) y), (void *)(text));
+      func_800596F4((void *)(style), (s16)((s16) (x + 104)), (s16)((s16) y), (void *)(unit));
       average = ((f64) ((((D_800B0D80[i].a + D_800B0D80[i].b) + D_800B0D80[i].c) + D_800B0D80[i].d) + D_800B0D80[i].e)) * D_800A5720;
       digit = (u16) ((u32) (average * 10.0f));
       fraction = digit % 10;
@@ -116,7 +116,7 @@ void func_8006874C(s8 selected)
         func_80099DF8(text, D_800A5718, (u8) whole);
       }
       unit = text;
-      func_800596F4(style, (s16) (-(x + 194)), (s16) y, unit);
+      func_800596F4((void *)(style), (s16)((s16) (-(x + 194))), (s16)((s16) y), (void *)(unit));
       y += 14;
       shown += 1;
     }
@@ -129,7 +129,7 @@ void func_8006874C(s8 selected)
     unit = func_80057918(D_800C8328, 341);
     new_var = y;
     shown += 1;
-    func_800596F4(style, (s16) x, (s16) new_var, unit);
+    func_800596F4((void *)(style), (s16)((s16) x), (s16)((s16) new_var), (void *)(unit));
     y += 14;
   }
 

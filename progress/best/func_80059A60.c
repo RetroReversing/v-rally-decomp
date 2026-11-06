@@ -86,7 +86,7 @@ typedef struct { u8 pad0[0xA]; s8 group; } GroupOwner;
 extern void func_80059618(GroupOwner *, u8, u8, u8, u8);
 extern s32 func_80057918(s32 *, s32);
 typedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;
-extern void func_800596F4(Arg *, s16, u16, s32);
+void func_800596F4(void *, s16, s16, void *);
 void func_80059A60(void)
 {
   u8 i;
@@ -136,7 +136,7 @@ void func_80059A60(void)
               {
                 func_80059618((GroupOwner *)s, s->r, s->g, s->b, s->a);
               }
-              func_800596F4((Arg *)s, s->x, (u16)s->y, func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id));
+              func_800596F4((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id)));
             }
           }
 

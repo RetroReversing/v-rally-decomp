@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80057d5c.h"
+#include "decompdecomp_contract_80057d5c.h"
 #line 1 "func.c"
 typedef struct Node {
     void *next;
@@ -10,13 +10,13 @@ typedef struct Node {
 } Node;
 typedef struct { char pad[0xD]; u8 base; char pad2[6]; } Ent;
 typedef struct { s16 pad0; s16 idx; char pad4[0xC]; Ent *tab; } Ctx;
-typedef struct { char pad[4]; u16 id; s16 pad6; s16 w; s8 sel; char padB[5]; s32 v; } Item;
-typedef struct { char pad[8]; u16 id; s16 padA; s16 w; s8 sel; char padF[5]; s32 v; } Seg;
+typedef struct { char pad[4]; u16 id; s16 pad6; s16 w; s8 sel; char padB[5]; f32 v; } Item;
+typedef struct { char pad[8]; u16 id; s16 padA; s16 w; s8 sel; char padF[5]; f32 v; } Seg;
 typedef struct { char pad[0x18]; void *head; void *tail; s32 count; char pad24[0xAC]; u8 pair[0x14][2]; } Mgr;
 
 void *func_8007EAA0(s32, s32);void *func_800592D0(u32);void *func_800592AC(u32);
 s32 func_80057918(s32, u16);
-s32 func_8000C9B0(void *, s32, u8, s32, s32);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 extern Mgr *D_800A1468;
 extern u8 D_800C02AE[];
 extern s32 D_800C8328;
@@ -44,20 +44,20 @@ void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
     for (i = 0; i < node->n; i++) {
         id = func_80057918(D_800C8328, item->id);
         m = D_800A1468;
-        v = func_8000C9B0(TABP(m, item->sel), id, m->pair[item->sel][1], item->v, 0);
+        v = func_8000C9B0((void *)(TABP(m, item->sel)), (void *)(id), (u8)(m->pair[item->sel][1]), (f32)(item->v), (u8)(0));
         if (v > hi) hi = v;
         if (item->w < lo) lo = item->w;
     }
     seg = func_800592AC((u16)(node->a));
     id = func_80057918(D_800C8328, seg->id);
     m = D_800A1468;
-    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
+    v = func_8000C9B0((void *)(TABP(m, seg->sel)), (void *)(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
     if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     seg = func_800592AC((u16)(node->b));
     id = func_80057918(D_800C8328, seg->id);
     m = D_800A1468;
-    v = func_8000C9B0(TABP(m, seg->sel), id, m->pair[seg->sel][1], seg->v, 0);
+    v = func_8000C9B0((void *)(TABP(m, seg->sel)), (void *)(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
     if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     if (hi > lo) {

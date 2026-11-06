@@ -128,3 +128,39 @@ This audit changed no selected C or compiler profile and found no new match.
 The underlying allocation, lifetime and indirect-callback assumptions remain
 explicit limitations. Private evidence manifest SHA256:
 `46071ce0b756bb34ba3ee42a62964454de3e0b08e4b1c12b380558f1f5bfa874`.
+
+## November 6: complete drawing-interface correction and guarded values
+
+The signed-coordinate lead is now integrated. A coordinated50-source correction
+makes the drawing function, four implementation interfaces and their actual
+caller declarations compatible. Public opaque pointer interfaces retain typed
+views at existing accesses. Three register colour inputs use integer formals
+and actual byte stores; the stack alpha input stays byte-sized. Four scale
+arguments now read the same-offset floating fields rather than numerically
+converting loaded integer bits. Existing narrowing is retained explicitly.
+
+New early pointer-view initializers changed scheduling; casts at existing
+accesses preserved exactness. Promoted stack count/mode locals or entry
+assignments changed homes/allocation, so those controls were rejected. The last
+caller instead propagates values already proved by its existing equality guards
+into six call arguments. No configuration read, condition, capture or observable
+call is removed. The locals are unescaped, unchanged and dominated by their
+guards; the sibling label cannot enter the true arm. That caller returns from
+825 to exact. This is a correction of an existing match, not an additional one.
+
+All50 selected sources independently pass ordinary/diagnostic raw-byte equality.
+The full12,582,912-byte cartridge comparison passes, SHA256
+ d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7.
+All2071 profiles and the other2021 selected objects are unchanged. Normal saved
+source verification independently accepted all50. The normal scoped compile
+path retains the improved OPEN750 focal draft, SHA256
+ e56b4b68c62f2ff061ffc358f42ed9240dcbae1e902e8b0aa5a3000cd53219cd.
+All2071 matches remain;16 functions are open and34 remain assembly.
+
+The helper retained148 compiler invocations, including rejected controls, in its
+private contracts-nov6 report and handoff manifest. Parent independent cartridge
+and normal-import receipts are in parent-gate. Direct-JAL and literal-address
+audits do not exclude dynamically built indirect references. Existing raw-storage,
+lifecycle and private layout assumptions remain explicit. A shared automatic
+guarded-call repair is being validated separately; no automatic global interface
+rewrite is claimed.

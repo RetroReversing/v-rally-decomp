@@ -1,7 +1,7 @@
 extern unsigned char D_800B6819;
 extern int D_800C35A0;void *func_800592D0(u32);
 s32 func_80059618();
-s32 func_800596F4();
+void func_800596F4(void *, s16, s16, void *);
 s32 func_80099DF8();
 extern s32 D_800A1468;
 extern char D_800A5D30[];
@@ -52,13 +52,13 @@ void func_80072984(void)
     var_s2_2 = var_s4;
     func_80099DF8(&sp18, &D_800A5D30, *((u16 *) ((D_800AE850 + 0x7DB2) + (var_s2_2 * 4))));
     func_80059618(temp_s1, 0xFFU, 0xFFU, 0x40U, (s32) (*((u8 *) (((char *) temp_s1) + 0xE))));
-    func_800596F4(temp_s7, *((s16 *) (((char *) temp_s7) + 6)), (s16) ((*((u16 *) (((char *) temp_s7) + 8))) + ((temp_fp + var_s2_2)[1] << 5)), &sp18);
+    func_800596F4((void *)(temp_s7), (s16)(*((s16 *) (((char *) temp_s7) + 6))), (s16)((s16) ((*((u16 *) (((char *) temp_s7) + 8))) + ((temp_fp + var_s2_2)[1] << 5))), (void *)(&sp18));
     root = D_800C35A0;
     index = *((u8 *) (((char *) (root + var_s2_2)) + 0x32));
     offset = index * 0x28;
     offset += 0x44;
     func_80099DF8(&sp18, &D_800A5D38, temp_fp[var_s2_2 + 1] + 1, root + offset);
-    func_800596F4(temp_s1, *((s16 *) (((char *) temp_s1) + 6)), (s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (temp_fp[var_s2_2 + 1] << 5)), &sp18);
+    func_800596F4((void *)(temp_s1), (s16)(*((s16 *) (((char *) temp_s1) + 6))), (s16)((s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (temp_fp[var_s2_2 + 1] << 5))), (void *)(&sp18));
     var_s3 = 0;
     if (sp5C != 0)
     {
@@ -71,7 +71,7 @@ void func_80072984(void)
         {
           func_80099DF8(&sp18, &D_800A5D40, (u16) (*((u8 *) (((char *) (((var_s2_2 * 4) + temp_fp) + temp_s2)) + 9))));
           func_80059618(temp_s1, *((u8 *) (((char *) temp_s1) + 0xB)), *((u8 *) (((char *) temp_s1) + 0xC)), *((u8 *) (((char *) temp_s1) + 0xD)), (s32) (*((u8 *) (((char *) temp_s1) + 0xE))));
-          func_800596F4(temp_s1, (s16) ((((u16) (*((s16 *) (((char *) temp_s1) + 6)))) + (var_s2_2 * 0x2A)) + 0x44), (s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (savedp[1] << 5)), &sp18);
+          func_800596F4((void *)(temp_s1), (s16)((s16) ((((u16) (*((s16 *) (((char *) temp_s1) + 6)))) + (var_s2_2 * 0x2A)) + 0x44)), (s16)((s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (savedp[1] << 5))), (void *)(&sp18));
         }
         var_s3 += 1;
       }

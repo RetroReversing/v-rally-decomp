@@ -1,7 +1,7 @@
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 #define CV(out,val,threshold) {f64 d=(val);if(!((threshold)<=d))out=(s32)d;else out=(s32)(d-(threshold))|0x80000000;}
 extern s32 func_80057918(s32, u16);
-extern s32 func_8000C9B0(void *, s32, u8, s32, s32);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 extern void func_8004C100(s32, s32, s32, s32, s32);
 extern void func_8004C1B4(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_800A73E0[];
@@ -49,7 +49,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
   u8 *node;
   font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) arg0) + 8)));
   table = D_800A1468 + ((*((s8 *) (((u8 *) arg0) + 14))) * 2);
-  result = func_8000C9B0(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4), font, *((u8 *) (((u8 *) table) + 0xd1)), *((s32 *) (((u8 *) arg0) + 20)), 0);
+  result = func_8000C9B0((void *)(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4)), (void *)(font), (u8)(*((u8 *) (((u8 *) table) + 0xd1))), (f32)(*((f32 *) (((u8 *) arg0) + 20))), (u8)(0));
   extent = result + 24;
   offset = *((s16 *) (((u8 *) arg0) + 10));
   do {center=offset; if(offset<0){offset=0;center=-center-result;}} while(0); offset=center;
@@ -85,7 +85,7 @@ void func_8006185C(u8 *arg0, s32 arg1)
         {
           font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) node) + 4)));
           table = D_800A1468 + ((*((s8 *) (((u8 *) node) + 10))) * 2);
-          width = func_8000C9B0(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4), font, *((u8 *) (((u8 *) table) + 0xd1)), *((s32 *) (((u8 *) node) + 16)), 0);
+          width = func_8000C9B0((void *)(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4)), (void *)(font), (u8)(*((u8 *) (((u8 *) table) + 0xd1))), (f32)(*((f32 *) (((u8 *) node) + 16))), (u8)(0));
           break;
         }
         ++i;

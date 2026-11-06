@@ -34,7 +34,7 @@ extern void func_8001C108(f32 *m, f32 x, f32 y, f32 z, f32 *ox, f32 *oy, f32 *oz
 extern s32 func_8000665C(GfxState *, s32);
 extern void func_800068C0(GfxState *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
 extern void func_80008B28(GfxState *, u16, u16, u16, u16, u16, u16, u16, u16, u16);
-s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 
 #define LOAD_TEX(font) \
     { Gfx *_g = gs->gfx++; _g->w0 = 0xFD900000; _g->w1 = osVirtualToPhysical(font->tex->addr); } \
@@ -50,7 +50,7 @@ s32 func_8000C9B0(Font **arg0, u8 *arg1, u8 arg2, f32 arg3, u8 arg4);
     { Gfx *_g = gs->gfx++; _g->w0 = 0xF2000000; \
       _g->w1 = (((font->tex->width - 1) << 2) & 0xFFF) << 12 | (((font->tex->height - 1) << 2) & 0xFFF); }
 
-u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, f32 sx, f32 sy, u16 angle, u8 mode)
+u16 func_8000CC04(void *fonts, void *st, s16 x, s16 y, void *str, u8 nfonts, f32 sx, f32 sy, u16 angle, u8 mode)
 {
     f32 mtx[16];
     f32 v0x, v0y, z, v1x, v1y, v2x, v2y, v3x, v3y;
@@ -84,13 +84,13 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
     if (x < 0) {
         s32 w;
         s32 nx = x;
-        w = func_8000C9B0(fonts, str, nfonts, sx, mode);
+        w = func_8000C9B0((void *)(fonts), (void *)(str), (u8)(nfonts), (f32)(sx), (u8)(mode));
         fixed = 1;
         ox = (s16)-nx;
         oy = y;
         x = -nx - w;
     }
-    font = fonts[0];
+    font = ((Font **)fonts)[0];
     if (mode == 0) {
         shrink = 1;
         { Gfx *_g = gs->gfx++; _g->w0 = 0xDE000000; _g->w1 = (u32)D_8009B680; }
@@ -111,13 +111,13 @@ u16 func_8000CC04(Font **fonts, GfxState *st, s16 x, s16 y, u8 *str, u8 nfonts, 
         
     }
     for (i = 0; i < len; i++) {
-        c = str[i];
+        c = ((u8 *)str)[i];
         c -= 0x20;
         n = 0;
         if (c != 0) {
             while ((font->glyphs[c].code == -0x80) & ((n & 0xFF) != nfonts)) {
                 if (((cur + 1) & 0xFF) == nfonts) cur = 0; else cur++;
-                font = fonts[cur & 0xFF];
+                font = ((Font **)fonts)[cur & 0xFF];
                 LOAD_TEX(font)
                 n++;
             }

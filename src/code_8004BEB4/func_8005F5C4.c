@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005f5c4.h"
+#include "decompdecomp_contract_8005f5c4.h"
 #line 1 "func.c"
 #define TA ((Rec5F *) (&D_800C02AE + 0x37A2))
 #define TB ((Rec5F *) (&D_800C02AE + 0x38A2))
@@ -34,7 +34,7 @@ extern Rec5F D_800C3B50[];
 extern Rec5F D_800C3B10[];void *func_800592D0(u32);
 extern void func_80052E94(s32, char *);
 extern void func_80059618(Obj5F *, u8, u8, u8, s32);
-extern void func_800596F4(Obj5F *, s16, s16, char *);
+void func_800596F4(void *, s16, s16, void *);
 extern void func_8006874C(s32);
 extern void memset(char *, s32, s32);
 extern void func_800980D0(char *, char *);
@@ -71,7 +71,7 @@ void func_8005F5C4(void)
         func_80099DF8(buf, D_800A54FC, j + 1, TC[j].name);
       }
       func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
-      func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+      func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
       j++;
     }
     while (j < 3);
@@ -96,7 +96,7 @@ void func_8005F5C4(void)
       }
       memset(buf, 0, 15);
       func_80052E94(t, buf);
-      func_800596F4(obj, obj->x, obj->y + (j * 22), buf);
+      func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
       if (j == 0)
       {
         best = t;
@@ -112,7 +112,7 @@ void func_8005F5C4(void)
         }
         func_80052E94(t - best, buf + 2);
         func_800980D0(p, D_800A5508);
-        func_800596F4(obj2, obj2->x, obj2->y + ((j - 1) * 22), p);
+        func_800596F4((void *)(obj2), (s16)(obj2->x), (s16)(obj2->y + ((j - 1) * 22)), (void *)(p));
       }
       j++;
     }
@@ -124,22 +124,22 @@ void func_8005F5C4(void)
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E0);
-  func_800596F4(obj, obj->x, obj->y, buf);
+  func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = func_800592D0(18);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E1);
-  func_800596F4(obj, obj->x, obj->y, buf);
+  func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = func_800592D0(19);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E2);
-  func_800596F4(obj, obj->x, obj->y, buf);
+  func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = func_800592D0(20);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, ((D_800A14E0 + D_800A14E1) + D_800A14E2) / 3);
-  func_800596F4(obj, obj->x, obj->y, buf);
+  func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   func_8006874C(-1);
 }
 

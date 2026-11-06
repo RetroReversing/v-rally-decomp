@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_800131c0.h"
 #line 1 "func.c"
 static inline s32 part_y(u32 y){return y|0xF6000000;}
 extern char D_800B56F0[];
@@ -31,7 +31,7 @@ void *func_800056FC();
 void *func_80006008();
 s32 func_80006014();
 s32 func_800061FC();
-s32 func_8000C22C();
+void func_8000C22C(void *, s32, s32, s32, u8);
 s32 func_8000C244();
 void func_800131B4(void *, s16, s32);
 s32 func_8001BD1C();
@@ -554,7 +554,7 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
     guMtxF2L(&sp88, temp_s0_5);
     combined_index3 = 0;
     func_800061FC(spD4, temp_s0_5);
-    func_8000C22C(*((s32 *) (((char *) D_800A0384) + 4)), 0xFF, 0xFF, 0xFF, 0xFF);
+    func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
     if (temp_s7 != 0)
     {
 text_buffer=sp20;

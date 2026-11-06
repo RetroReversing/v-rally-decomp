@@ -25,7 +25,7 @@ struct N { int p0; struct N *next; int p8; int key; };
 extern struct N *func_8004240C(int);
 extern void func_8004C370(s32, void *);
 extern void func_800599D0(void *, s32);
-extern void func_800596F4(void *, s16, s16, void *);
+void func_800596F4(void *, s16, s16, void *);
 extern void func_8004CEB4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 void func_8005BCD4(void)
 {
@@ -139,7 +139,7 @@ void func_8005BCD4(void)
       register u8 idx;
       v1 = D_800C35A0;
       idx = *((u8 *)((s32) v1 + (s32) i + 0x32));
-      func_800596F4(x.text, x.xy[0] - 48, *((s16 *) (x.text + 8)), v1 + ((idx * 40) + 68));
+      func_800596F4((void *)(x.text), (s16)(x.xy[0] - 48), (s16)(*((s16 *) (x.text + 8))), (void *)(v1 + ((idx * 40) + 68)));
     }
     if (D_800A1468->active && (save == D_800A1468->selected))
     {

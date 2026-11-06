@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005dd2c.h"
+#include "decompdecomp_contract_8005dd2c.h"
 #line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 #endif
 void *func_800592D0(u32);                       /* extern */
 M2C_UNK func_80059618(void *, u8, u8, u8, s32);     /* extern */
-M2C_UNK func_800596F4(void *, s16, s16, char *); /* extern */
+void func_800596F4(void *, s16, s16, void *); /* extern */
 void *func_8005A744(u32, void *);                  /* extern */
 s32 func_80084BF0(M2C_UNK);                         /* extern */
 M2C_UNK func_8008A0D8(void *, M2C_UNK, u8);         /* extern */
@@ -78,6 +78,6 @@ void func_8005DD2C(void) {
     } else {
         func_80099DF8(sp18, &D_800A5490, var_a2 & 0xFF);
     }
-    func_800596F4(temp_v0, M2C_FIELD(temp_v0, s16 *, 6), M2C_FIELD(temp_v0, s16 *, 8), sp18);
+    func_800596F4((void *)(temp_v0), (s16)(M2C_FIELD(temp_v0, s16 *, 6)), (s16)(M2C_FIELD(temp_v0, s16 *, 8)), (void *)(sp18));
 }
 

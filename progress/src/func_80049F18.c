@@ -9,12 +9,12 @@ typedef struct {
     u8 obj[6];
     Rec recs[4];
     u8 pad1[0x3A4 - 0x382];
-    s32 x3A4;
+    f32 x3A4;
 } Mgr;
 extern Mgr *D_800A0384;
 void memset(void *, s32, s32);
 void func_80098290(void *, void *);
-s16 func_8000C9B0(void *, void *, s32, s32, s32);
+s32 func_8000C9B0(void *, void *, u8, f32, u8);
 
 void func_80049F18(void)
 {
@@ -33,7 +33,7 @@ void func_80049F18(void)
     for (i = 0; i < 4; i++) {
         for (j = 0; j < D_800A0384->recs[i].count; j++) {
             func_80098290(buf, D_800A0384->recs[i].data[j]);
-            D_800A0384->recs[i].vals[j] = func_8000C9B0(D_800A0384->pad0 + 4, buf, 1, D_800A0384->x3A4, 0);
+            D_800A0384->recs[i].vals[j] = func_8000C9B0((void *)(D_800A0384->pad0 + 4), (void *)(buf), (u8)(1), (f32)(D_800A0384->x3A4), (u8)(0));
         }
     }
 }
