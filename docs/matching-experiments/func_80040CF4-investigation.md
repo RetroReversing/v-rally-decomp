@@ -163,3 +163,30 @@ and is rejected by Clang. Neither the guard nor syntax checks prove semantic
 safety. No live state or selected source/profile changed: all 2,077 matched
 sources/profiles and the complete focal inputs were preserved. Private receipts
 are in func80040CF4/typed-layout-nov6/REPORT.md and lane/reconciled-summary.json.
+
+
+### Follow-up: address capture versus pointee capture
+
+Review of the saved candidates distinguished caching a fixed symbolic address
+from moving a memory read. Two sources (raw118/119) only cache
+`(Obj **)(D_800C02AE + 0x32F2)`, optionally through a second pointer local.
+Both original short-circuit Obj pointer loads remain at their original uses.
+The BSS symbol and offset resolve to the same four-byte-aligned slot at
+0x800C35A0; these sources retain the original mapped-address/storage assumptions.
+After substituting the immutable address captures, all46 actual preprocessed TU
+roots agree. Their ordinary/diagnostic builds both score638,1544bytes, SHA256
+`8f730c2b558d941a7ecb6092ff87415739c515c6ad06b7d1de4f99268012dea9`.
+Neither is an improvement. A separate existing control using six immediately
+consumed per-use slot-address captures scores518 and reproduces baseline bytes
+in both modes. No additional random generation occurred.
+
+The private effect checker was corrected to distinguish actual lexical bindings
+from record fields/prototype parameters. Baseline and the six-capture control
+pass; fourteen unary-identity controls cover qualifiers, retained single
+side effects, evaluation paths and negative bitfield/register/cast cases.
+Rechecking196 previously unjudged effect rejects and28 typed guard rejects
+finds none admissible under its strict immediate-use rule. That rule deliberately
+does not prove immutable-address motion; the two638 controls above required
+separate manual review rather than treating the filter as a semantic proof.
+The shared app guard is unchanged. Private address118119-proof.json and
+typed-fixture-proof.json retain source, type, binding and compiler receipts.
