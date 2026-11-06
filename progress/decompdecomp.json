@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793939225.619605,
- "revision": 19051,
+ "saved_at": 1793939544.884275,
+ "revision": 19055,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249983,6 +249983,22 @@
    "created_at": 1793939176.380401,
    "score_before": 265,
    "score_after": 265
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 c9eb9bba2ab18bf55f17feb610007d0d89a926402635533ad10a1f720a4fd279. Original/seed-expanded/pinnedCandidateprinted baseline identical476bytes177 SHA3ad2a855 ordinary/-da parity. No printerregression. IMPORTANT expand_macros leaves functionlikeCOORD/PTS intact; Candidate sees COORD ascall, KMC expands later, so native coverage doesnotexposehiddenarithmetic. New z-only actualcomponentindex control997/488 reproduceshistorical314/315/479 bytes061608a9; noimprovement.8compiler calls, zero newnativejobs/emissions. Private layout-replay-nov6/REPORT.md; canonicaldoc updated. Possible futureactualpreprocessedseed mustfirstprove pinnedsemantics/context/layout parity, notyettested.",
+   "by": "you",
+   "created_at": 1793939483.8455229,
+   "score_before": 177,
+   "score_after": 177
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "SourceSHA256 ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216. Resolveddocambiguity: separate terminal native40-nov6 lane ALL16batchjobs exactcurrent40;1000raw independentlyrecounted,452linked/min40/253score40/noexact.88duplicate239lineage153text68preflight. No newnativequota. Original/expandedbyteidentical, freshordinary/-da120bytes40 SHAfd57a65f parity;3compiler calls. Protected6inputgroupsunchanged, unclaimed. Private seed-audit-nov6/REPORT.md/result.json; canonicalexplicitcurrent40section added. Olddoc60lane notsolecoverage.",
+   "by": "you",
+   "created_at": 1793939527.035979,
+   "score_before": 20,
+   "score_after": 20
   }
  ],
  "set_aside": [

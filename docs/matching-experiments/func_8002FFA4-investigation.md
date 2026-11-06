@@ -73,3 +73,48 @@ scores and no improvement. Raw generator emissions were not captured: the
 wrapper filters some candidates before delivery. Do not report this as1000 raw
 emissions or restart the exhausted lane without new grounded evidence. Detailed
 private receipts remain in current-nov6/closure3035C and the parent cartridge gate.
+
+## November 6: native printer and component-index coverage
+
+The current177 source SHA256 is
+c9eb9bba2ab18bf55f17feb610007d0d89a926402635533ad10a1f720a4fd279.
+Original source, lane seed-expanded.c and the pinned native Candidate's
+unmutated printed source all reproduce the same476 linked bytes, score177,
+SHA2563ad2a8555f67f4c9d76475f869a89a66a52b9b4c07e450f02d99435ae83af9a1.
+Each ordinary/diagnostic pair agrees. There is no baseline printer regression,
+so no formatting backport matrix was run.
+
+The lane's named expanded seed is actually byte-identical to the original:
+m2cfix.expand_macros leaves PTS/COORD function-like macros intact. Candidate
+parses their uses as calls, and reinserts directives; only KMC expands them.
+Thus this lane does not establish mutation coverage of arithmetic hidden inside
+COORD. That is a source-visibility distinction, not a new match or proof that a
+fully preprocessed seed will improve the function.
+
+Existing native records314/315/479 capture component index2 and score997/488
+bytes, but also abstract the unrelated y-output byte offset2. One new control
+isolates the actual z component's coordinate loads, delta/scaling and output,
+preserving the y offset and current y-index carrier. It produces exactly those
+historical997 linked bytes, SHA256
+061608a9c4103405e1eb718a29aab1174a1c019ad89ff3c6a013f79a53590fad.
+A partial z capture already stays177 and a historical y capture scores757.
+Eight successful compiler calls cover three baseline pairs and one z pair;
+zero new native emissions/jobs. Private layout-replay-nov6/REPORT.md preserves
+fresh inputs and exact pinned printer provenance. Selected source is unchanged.
+
+The subsequent visibility check establishes a genuinely different eligible seed.
+The actual pinned KMC preprocessor's focal function body was reinserted into the
+original header and original physical body line layout. Full preprocessed tokens,
+including header, match the original. Its printed expanded form changes redundant
+parentheses but preserves the full parsed header/body AST signature. Both forms
+independently retain177/476 and the same linked SHA above, with ordinary/-da parity.
+Candidate now sees zero calls instead of seven COORD calls,68 binary operations
+instead of33,25 unary operations instead of11 and29 casts instead of15. Assignment,
+array-reference and compound counts remain27/12/3. No effect or interface was added.
+Private exposed-audit.json, visibility.json and full-ast-parity.json retain proof.
+
+A newly bounded native lane from this actual exposed seed is authorized, with
+up to1000 raw emissions and separate lineage/safety/preflight/link accounting.
+This is not another macro-opaque starting point. No search result, improved
+source or exact match is claimed until its recorded run completes and reviewed
+ordinary judging confirms it.

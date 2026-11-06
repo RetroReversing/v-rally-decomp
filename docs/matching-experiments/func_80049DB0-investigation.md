@@ -65,3 +65,24 @@ remain bounded negative evidence, not proof that all C is exhausted. Keep this
 function open; a further experiment needs a new grounded source/allocation cause.
 Private evidence: nov6-contract-audit/REPORT.md and evidence.json, source
 `ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216`.
+
+## November 6: explicit current40 native provenance
+
+The earlier score60 lane described above is not the only completed native run.
+A separate native40-nov6 lane already uses exact current ea647ba1 source in all
+16 persisted batch jobs. Independent receipt audit recounts1000 raw emissions
+(15 batches of64 and one40), each with result/lineage; scored source hashes agree.
+Counts:88 duplicates,239 forbidden-lineage,153 forbidden-text,68 preflight
+failures,452 compiled/linked. Minimum40, including253 score40 candidates;
+no exact. These filters are not a complete semantic proof. Batches do not
+promote an earlier candidate into the next seed; in-batch chained mutation
+lineages remain recorded. The lane is terminal and was not restarted.
+
+Fresh ordinary/-da120 linked bytes agree at40, SHA256
+fd57a65fbf7ca4e513da7ed31de59cd9ff6f170cbbdf7a6c8d21f810604125e1.
+The macro-expanded seed is byte-identical to current source and reproduces
+those bytes. Three successful compiler calls audit provenance, not a new search.
+All six protected input groups are unchanged and the function remains unclaimed.
+Private seed-audit-nov6/REPORT.md and result.json resolve the documentation
+ambiguity; neither old60 nor current40 native quota needs repeating without a
+new source/compiler mechanism.
