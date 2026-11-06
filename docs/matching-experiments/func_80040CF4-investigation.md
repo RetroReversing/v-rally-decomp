@@ -125,3 +125,41 @@ by the current initialization guard with either original or exposed macros.
 That historical safety follow-up is resolved; it does not need another app fix.
 All2071 selected rows/profiles and the protected input groups remain unchanged.
 Private cause-nov6/REPORT.md retains comparisons and allocation-phase limits.
+
+
+## November 6: typed slot-address search
+
+A later native type-API audit established a concrete gap: the six opaque global
+pointer identifiers raise KeyError in build_typemap/decayed_expr_type, whereas
+per-use expansion exposes Obj*/Item* values and Obj**/Item** slot addresses.
+The 737 hydrated attempts (616 distinct sources) contained no explicit Obj slot
+dereference or Obj** local. Item-only exposure already occurs in earlier work.
+Original, expanded and printed full translation units retain the same 46 AST
+roots, including declaration binding, attributes and qualifiers. Expanded and
+printed ordinary/diagnostic builds all reproduce score518 and the linked hash
+above.
+
+One fixed 1,000-raw-variant lane used six existing transformations, with internal
+random type changes disabled and all sources/lineages saved before filtering.
+Its reconciled outcomes are 736 initialization/inventory guard rejects, 203
+conservative effect rejects, 38 retained compiler judgments, eight parser rejects
+and 15 source duplicates. There were 45 actual compiler calls; seven early calls
+were retrospectively excluded when effect review identified unproved movement.
+Of the 38 retained results, 37 score518 and one scores11271. No improvement or
+exact match was accepted. Thirty-five retained judgments reproduce baseline
+bytes; the remaining two share another score518 object.
+
+Thirty-five raw sources reached the newly typed double-pointer family, but all
+were rejected (28 guard, seven effect). This therefore does not establish that
+safe slot-address captures cannot help. Several captures hoist or reuse slot
+addresses across statements, calls or control flow. The effect filter also
+initially excludes inverse address/dereference spellings; a separate review of
+those exclusions is pending, using only saved, previously unjudged sources.
+
+The shared initialization guard from app PR715 catches loss of an existing
+recognized integer local's initialization, but does not track every record
+pointer. A constructed conditional Obj** initialization loss passes that guard
+and is rejected by Clang. Neither the guard nor syntax checks prove semantic
+safety. No live state or selected source/profile changed: all 2,077 matched
+sources/profiles and the complete focal inputs were preserved. Private receipts
+are in func80040CF4/typed-layout-nov6/REPORT.md and lane/reconciled-summary.json.
