@@ -200,3 +200,10 @@ profile adoption or game-data changes. All825 attempts,2077 full matched sources
 and effective profiles, and complete focal inputs are preserved. Workers reaped.
 Private current695-causal-nov6/REPORT.md, individual result files and
 currentflags-summary.json retain commands, manifests, resource and byte receipts.
+
+
+Resource-method clarification: these twelve calls used the shared macOS watchdog
+with a20-second wall ceiling and a2GiB limit per descendant process. Inspection
+of its implementation shows that it does not sum the tree's RSS; earlier private
+wording describing an aggregate limit was incorrect. This correction changes no
+source, command, linked-byte, parity or preservation result. No calls were rerun.
