@@ -77,3 +77,14 @@ The remaining obligations and exact declaration proof are retained privately in
 current-nov6-grounded/RESULT.md, caller-contract-scan.json and caller-5A790/proof.json.
 Future work should close coherent actual interfaces before accepting a broader
 caller correction, retaining all selected neighbors and runtime storage premises.
+
+
+## November 6: consumed byte-position phase controls
+
+Three further range/evaluation-grounded models were absent from3380 historical
+source hashes: capture the actual output-byte cursor7270, modulo256 byte-position
+arithmetic1015, and their combination7335. All have complete ordinary/-da linked
+parity. None improves the current initialized505 source or supplies a successful
+new automatic family. No native/profile/format/declaration sweep or live source
+change occurred. Private bytephase-nov6/RESULT.md and results.json retain scope,
+source hashes and judgments; this does not rule out other reconstructions.

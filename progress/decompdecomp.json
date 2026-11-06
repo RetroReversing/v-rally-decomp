@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793936349.679569,
- "revision": 19035,
+ "saved_at": 1793936811.4612339,
+ "revision": 19038,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249919,6 +249919,22 @@
    "created_at": 1793936341.828514,
    "score_before": 1465,
    "score_after": 1465
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "SourceSHA256 6dd89f6e9c0f6bbef3bad5ec7d0287437f29034edd3b356be766c8f9f0a895b0. Three new consumed byte-position/address models absent from3380history: outputcursor7270, modulo256phase1015, combination7335. All full ordinary/-da parity. No improvement/exact or new automaticfamily. No new native/profile/format/decl sweep. Private bytephase-nov6/RESULT.md.",
+   "by": "you",
+   "created_at": 1793936800.6754172,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Historical profile-frame inventory:20recordedreceipts,19linked1CDKfail;15KMC+SN0001 frames88, SN0004/0006/970404 frames72, none96. IMPORTANT receipts usehistoricalc1fbef6fsource, NOTthiscurrent0992source; header/profile/targetequal butdeclorder/blankline differ. Not new current-sourceprofileevidence or body-equivalenceproof. No new compiles/sweep. Private profile-frame-audit-nov6/results.json. Eight low-scored currentnative candidates werepreviouslyframechecked; notall610.",
+   "by": "you",
+   "created_at": 1793936808.188562,
+   "score_before": 2,
+   "score_after": 2
   }
  ],
  "set_aside": [

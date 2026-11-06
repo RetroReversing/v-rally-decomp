@@ -107,3 +107,17 @@ That diagnostic review replayed eight recorded candidates at distinct low scores
 none provides the target96-byte frame. This scope does not establish the frame
 of every candidate in the lane. No further source proposal or generic app repair
 was demonstrated by these results.
+
+
+## November 6: historical profile frame inventory
+
+All20 recorded padding-free profile receipts were inventoried separately for
+frame/save/restore and positional differences:19 successful linked outputs and
+one CDK failure. Fifteen KMC controls plus SN0001 use88-byte frames;
+SN0004/0006/970404 use72. None allocates96.
+
+These receipts bind historical c1fbef6f source, not current0992fd5f; the table
+pointer declaration order and a blank line differ. Header/profile/target agree,
+but this is not fresh current-source profile evidence or alignment-aware body
+equivalence. No new compiler run or sweep was performed. Private evidence:
+profile-frame-audit-nov6/REPORT.md, results.json and audit.py.
