@@ -108,3 +108,46 @@ the source's actual data accesses but do not establish a new loop dependence or
 alias restriction. No new source change or compiler run was justified by this
 audit. These are bounded negative findings, not proof that no C can match.
 Private cause-audit-nov6/RESULT.md and final-readonly-equality.json retain evidence.
+
+
+## November 6: current-declaration backedge and SN compiler controls
+
+Fresh capture retains initialized505 source6dd89f6e and740 complete hydrated
+attempt rows. Its actual KMC flags are -G0 -mips3 -mgp32 -mfp32 -O2 -g3, with an
+empty prelude. The invalid older325 draft is not a starting point.
+
+An explicit-backedge form exists in prior history, but only with a different
+local declaration order (2642). One finite current-root composition changes only
+do/while into a label and conditional goto, preserving every declaration,
+statement, condition, floating evaluation and counter operation. It is absent
+from3405 private C files and the hydrated attempts. Ordinary/diagnostic builds
+both score2642/1104bytes, SHA256
+`1f248a8dffc8e1d218a85b889584289df6039996f986df6b75ed3cc31bdff3b8`.
+LOOP no longer has structured loop notes and n*9 stays inside the real backedge,
+but other lifetimes diverge much further. This confirms the intended mechanism
+without establishing an improvement; the result equals the older goto score.
+
+A separate finite compiler comparison uses the unchanged505 source with all its
+actual KMC flags plus registered SN dialect/assembler flags -mgas -meb
+-mhard-float. Installed/license-accepted binaries and the wrapper are pinned.
+No SN defaults or extra optimization combinations are substituted.
+
+| SN build | Score | Bytes | Linked SHA256 |
+| --- | ---: | ---: | --- |
+| 0001 | 3475 | 1128 | 730fe6a709a27bf976c744e82d553c5a48af6d088267cc8288741ac69241fbbd |
+| 0004 | 2717 | 1116 | 3c80231ade32fda9e42f7a7c686b81742431d8f5d53af73060ba33c72bbce182 |
+| 0006 | 4336 | 1116 | d9334dca722cafdd88fb36bd5d758686f5e9d11d261763b37727317b507938cd |
+
+Each ordinary/diagnostic pair has full linked parity. All three still move n*9
+out of the loop. Build0001 saves floating registers with separate swc1 halves;
+0004/0006 use sdc1 pairs but retain other extra saves and mismatches. The0001
+save behavior must not be generalized to the other binaries.
+
+Exactly eight calls ran, no new random lane or source/profile adoption. An
+independent20-second/2GiB aggregate descendant-RSS watcher bounded each call;
+all completed without resource kills. Private current505-causal-nov6 retains
+actual commands, source/context bindings, linked bytes, RTL and resource receipts.
+
+Final independent read-only equality checks preserve all2077 matched rows and
+effective profiles,740 complete hydrated attempt records and every focal input.
+The initialized505 draft remains unchanged; workers are terminal and reaped.
