@@ -182,7 +182,7 @@ in both modes. No additional random generation occurred.
 
 The private effect checker was corrected to distinguish actual lexical bindings
 from record fields/prototype parameters. Baseline and the six-capture control
-pass; fourteen unary-identity controls cover qualifiers, retained single
+pass; seventeen unary-identity controls cover qualifiers, retained single
 side effects, evaluation paths and negative bitfield/register/cast cases.
 Rechecking196 previously unjudged effect rejects and28 typed guard rejects
 finds none admissible under its strict immediate-use rule. That rule deliberately
