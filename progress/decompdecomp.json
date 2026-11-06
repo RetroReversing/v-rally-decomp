@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793970939.66889,
- "revision": 19110,
+ "saved_at": 1793972755.05406,
+ "revision": 19113,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250215,6 +250215,22 @@
    "created_at": 1793970913.079178,
    "score_before": 200,
    "score_after": 200
+  },
+  {
+   "function": "func_80059A60",
+   "text": "SourceSHA256 e56b4b68c62f2ff061ffc358f42ed9240dcbae1e902e8b0aa5a3000cd53219cd. AppPR667 merged5e19c7bd adds shared guarded_call_value. Bounded sharedpipeline independently reproduces exact825to0 corrected76060 caller with ordinary/diagnostic parity; source727d393d. It preserves capturedloads/guards/copies, uses unescaped equality facts, rejects ambiguouswrites/escapes/shadows/macros/labelentry/C++reference-or-overloadedcalls, preserves capturedcastsemantics.274 targeted tests+Ruff pass. Shareablearm64alpha4app exportedandbundledgeneratorreproducesexactsource; runningappnotrestarted. Controlled replayexistingmatch, no newgamecount. Focal remainsOPEN750; all2071selectedmatches preserved.",
+   "by": "you",
+   "created_at": 1793972491.8750231,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Released because its agent stopped (the app restarted); its attempts are kept.",
+   "by": "codex-gpt-6.1-sol-3",
+   "created_at": 1793972751.101792,
+   "score_before": 295,
+   "score_after": 295
   }
  ],
  "set_aside": [

@@ -132,8 +132,8 @@ explicit limitations. Private evidence manifest SHA256:
 ## November 6: complete drawing-interface correction and guarded values
 
 The signed-coordinate lead is now integrated. A coordinated50-source correction
-makes the drawing function, four implementation interfaces and their actual
-caller declarations compatible. Public opaque pointer interfaces retain typed
+makes four implementation interfaces and their actual caller declarations
+compatible. Public opaque pointer interfaces retain typed
 views at existing accesses. Three register colour inputs use integer formals
 and actual byte stores; the stack alpha input stays byte-sized. Four scale
 arguments now read the same-offset floating fields rather than numerically
@@ -161,6 +161,9 @@ The helper retained148 compiler invocations, including rejected controls, in its
 private contracts-nov6 report and handoff manifest. Parent independent cartridge
 and normal-import receipts are in parent-gate. Direct-JAL and literal-address
 audits do not exclude dynamically built indirect references. Existing raw-storage,
-lifecycle and private layout assumptions remain explicit. A shared automatic
-guarded-call repair is being validated separately; no automatic global interface
-rewrite is claimed.
+lifecycle and private layout assumptions remain explicit. App PR667 is merged (5e19c7bd): the shared guarded_call_value family independently
+reproduces the exact825-to0 repair, with ordinary/diagnostic parity. The actual
+bounded pipeline emits the validated source; the exported arm64 alpha.4 app
+reproduces it too.274 targeted tests pass. This remains a controlled replay of
+an existing match, not an additional game match or measured token saving. No
+automatic global interface rewrite is claimed.
