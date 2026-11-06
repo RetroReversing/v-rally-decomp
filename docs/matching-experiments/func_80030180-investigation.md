@@ -109,3 +109,63 @@ manual address/unit/helper controls overlap many expanded forms. A missing
 current177/exposed lane alone is not proof of a new compiler mechanism or a
 claim of success. Private phase-audit-nov6 reports retain full comparisons and
 source/target/header/profile/symbol/prelude binding checks.
+
+
+The subsequent single unsigned-coordinate model retains the real captured
+component and all original accesses. For even signed byte offsets x, unsigned
+halfword division followed by scale-back recovers x+2c modulo2^32; the final
+pinned s32 conversion recovers the signed byte displacement before pointer
+arithmetic. This does not use huge unsigned array indexing or convert the base
+pointer to an integer. Representable final displacement, valid aligned backing
+storage and the pinned signed conversion remain explicit premises.
+Ordinary/diagnostic output is177/476bytes/frame16, SHA256
+`df94a93f58700c59ccf6f288b63b8a2d02f2d266035269f45f12013d29e5589d`.
+Only the two SP-adjustment words differ from the selected177 output; all other
+468 bytes are identical. It is a structural tie, not a selected improvement.
+
+Two single-use attribution controls then isolate the last reservation. Propagate
+component1 only in the coordinate expression, retaining its real delta-array use:
+395/484bytes/frame8, no late USE. Propagate only in the delta read, retaining its
+coordinate use:177/476bytes/frame16, identical to the unsigned model. All four
+compiler calls have full ordinary/diagnostic parity. This directly identifies
+the coordinate intermediate as the remaining temporary reservation; removing
+it also changes allocation/body length adversely, so it does not solve the match.
+No broader literal/type/scope sweep followed.
+
+Before the newly authorized bounded native run, actual pinned preprocessing
+exposes all COORD arithmetic. Original, physical-layout exposed and unmodified
+native-printer source have the same full-TU AST. Both new baseline forms have
+ordinary/diagnostic177/476bytes/frame32 and exactly the original linked bytes.
+No lexical layout backport is required. The run uses this exposed original177,
+not the unsigned structural tie; results are recorded separately on completion.
+
+
+## Exposed current177 native lane completed
+
+The single independent run completed its exact1000 raw-emission quota over16
+batches. Each batch starts the same frozen exposed original177; ordinary native
+within-batch KEEP evolution is recorded. Six bounded source-rewrite methods were
+used without an external-type, ABI, qualifier or fixed-register search. All raw
+emissions and16 done receipts reconcile. Counts:660 compiler attempts,658 linked
+numeric scores,272 guard rejects,57 preflight rejects and11 duplicates. Two
+compiled candidates require the unsupported __divdi3 helper and are symbol rejects,
+not numeric negative judgments. No ordinary compiler failures or exact matches.
+The best remains177; no candidate improved it. Ten frame8 cases retain complete
+source/object/linked bytes/diff/stack references, but none improves the body.
+
+All seven source/header/profile/target/assembly/symbol/prelude input groups remain
+unchanged after the run. It was not restarted or extended, and no candidate was
+promoted as the next batch seed. This is bounded coverage, not proof that every
+valid source transformation has been exhausted. Private exposed177-lane receipts
+and final input guards remain outside the repository.
+
+
+The final single declaration-only s16 component control is also negative.
+Value1, assignment position and both real consumers remain unchanged. Initial
+RTL now represents the component as HI and explicitly promotes it to SI at
+both consumers; CSE removes those promotions. Ordinary/diagnostic476 linked
+bytes are exactly the selected177 bytes, frame32 with the same three late USEs.
+One ordinary and one diagnostic compile close this measured mode control.
+No aliases, QI/signedness matrix, unsigned composition or extra native quota
+followed. The selected draft remains OPEN177; all2071 matched sources/profiles
+are preserved. Private NARROW-ELIGIBILITY.md retains the range and phase evidence.
