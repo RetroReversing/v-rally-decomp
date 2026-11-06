@@ -143,3 +143,18 @@ It requires a known32-bit C profile, a visible unsigned-byte load, unchanged
 unescaped local range and existing chained scalar assignments. It adds no reads,
 locals, assignments or control.124 focused tests and whole Ruff passed, including
 a host-C exhaustive byte/shift equivalence check. No new exact match is claimed.
+
+## November 6: repair composition coverage
+
+The current1733 source already combines the shared multiplication, real table
+capture and byte-decoding conversion. Both current bounded generators emit zero
+further candidates on this source; there was no missing broad composition.
+One distinct placement from the earlier common-tail generator remained untested:
+the existing consumed multiplication before, rather than after, the independent
+literal assignment. It was absent from all440 hydrated attempt sources and the
+private C inventory. Ordinary/diagnostic compilation produces the same980 linked
+bytes, score1733 and SHA256dd2cc3353257d93b212c98bbc1b96b78358044ee9ecf5667511b81a779e3e9b8.
+No new source, match or automatic family was accepted. This closes that specific
+composition hypothesis without another native/profile/type sweep. Private
+composition-audit-nov6/REPORT.md and history/before-literal receipts retain the
+fresh context/profile/target/symbol checks.

@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793938742.207254,
- "revision": 19047,
+ "saved_at": 1793938920.888216,
+ "revision": 19049,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249967,6 +249967,14 @@
    "created_at": 1793938724.348842,
    "score_before": 30,
    "score_after": 30
+  },
+  {
+   "function": "func_8006C024",
+   "text": "SourceSHA256 8c509f910f6587fb430aa8c28e3685c27f0102ab81f39fb0ae1328703793808c. Composition audit: current1733 already sharedmultiplication+tablecapture+bytedecode; bothcurrentgenerators zerooutputs. One new before-literal placement absentall440hydratedattempts/privateC compiled ordinary/-da identical980bytes/SHA dd2cc335, score1733. No missedbroadcomposition/newautomaticfamily, no native/flags/type sweep. Private composition-audit-nov6/REPORT.md; canonicalnote updated. No source change.",
+   "by": "you",
+   "created_at": 1793938907.295934,
+   "score_before": 1465,
+   "score_after": 1465
   }
  ],
  "set_aside": [
