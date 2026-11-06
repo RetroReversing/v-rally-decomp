@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793959078.148743,
- "revision": 19068,
+ "saved_at": 1793959620.613407,
+ "revision": 19070,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250045,6 +250045,14 @@
    "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Follow-up immutable component propagation on private unsigned-word107 completed before helper usage-limit interruption: only substitute literal1 for never-modified new_var at both consumers, remove declaration/assignment. Historical12161 files no exact composition. Ordinary/-da parity325/484bytes SHAa6e66974df829b3b15d43d7be40fccef6329cfcfc206961f1217d14cd750a5c3; frame8 and last obsolete USE removed, but2 extra instructions/regalloc regress. No adoption; retained107 unchanged. Source7b0ccb4b684517767e71d164c24d24168d60cd33703da20f5e6ae518b6ecbe72. Current remaining frame mechanism grounded, exact still unachieved.",
    "by": "you",
    "created_at": 1793959060.763252,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Coordinate-only propagation retaining d[new_var] and distributed word/byte scaling each produced identical325/frame8; array-index consumer is not regression cause. Distinct unsigned325 frontier compiler-exposure/nativeprinter preserved484bytes+fullAST. One terminal1000raw fixed-method lane:664linked,665compiled,234safety/group rejects,81preflight,20dups,1symbolreject,0exact/best107. Candidate3 consumed relative-byte-offset temp independently normal/-da107/476/frame16/oneUSE; exact same linkedSHA685e262e as prior unsigned-word107, not new frontier. Other two ties samebytes; distinct mixed-unitconstant tie not selected. No more quota queued; no live adoption. All2071 selected source files verified equal committed snapshot. Full REPORT and canonical investigation updated.",
+   "by": "you",
+   "created_at": 1793959591.1790779,
    "score_before": 107,
    "score_after": 107
   }

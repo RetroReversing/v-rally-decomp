@@ -273,3 +273,37 @@ whole result. Source SHA256
 No live adoption. This establishes a concrete compiler-lifetime cause for the
 remaining scratch reservation, not an exact match or a generally safe unsigned
 rewrite for arbitrary offsets.
+
+
+### Coordinate-only attribution and completed unsigned frontier
+
+Propagating literal1 only at COORD(b,new_var), while retaining the declaration,
+initialization and d[new_var] output consumer, produces the identical325 bytes.
+The regression is therefore caused by the coordinate expression, not by the
+array-index consumer. Distributing byte scaling over the actual word offset
+and component at that same coordinate use also produces the identical325.
+Both controls preserve actual memory effects, interface and the explicitly
+stated arithmetic domain; ordinary/diagnostic outputs agree. No live adoption.
+
+The distinct unsigned325/frame8 frontier was then tested in one bounded local
+lane. Actual compiler-preprocessed focal source and its native printer both
+preserved325/484 bytes/SHAa6e66974..., with full header/body AST equality
+SHA25615c1bf8f64aeb36d68bb3d193c6aed1ba9707e89a6ffe3057ffdcd46d7a603f2.
+This was not the earlier475 frontier with different divisor scheduling.
+
+The lane completed exactly1,000 raw emissions:664 linked candidates,
+234 safety/grouping rejects,81 preflight rejects,20 duplicates and one symbol
+rejection. All665 compiler invocations succeeded. The six fixed methods,
+current safety guards and single nonempty real-assignment grouping were retained;
+previous same-context source hashes seeded duplicate detection. Each batch
+started from the same325 seed; no extra quota or replacement run was used.
+No exact match and no result below the live107. An early consumed offset
+temporary returned107; its final independent frame audit is recorded separately.
+
+Candidate3's independent ordinary/diagnostic audit confirms107/476bytes,
+frame16 and one obsolete USE slot: its linked bytes equal the prior unsigned
+word-offset107 control exactly (SHA685e262e...). The consumed offset temporary
+therefore recovers an already-known representation, not a new frontier.
+Two other ties also share those bytes. A distinct tied candidate combines the
+same constant across different units and was not selected or additionally
+compiled. All experiments remain private; retained source107 is unchanged.
