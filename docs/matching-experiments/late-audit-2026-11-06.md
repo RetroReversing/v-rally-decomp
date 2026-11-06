@@ -115,6 +115,35 @@ These random candidates remain semantic hypotheses. In particular, moving a
 global read across a call requires alias/effect review, even when types match.
 No candidate from either search was adopted.
 
+## Focused follow-up controls
+
+The score-215 `func_80029EAC` still differs at four tail positions. Reusing an
+existing union member scored 270; assigning the depth in the condition scored
+275. Replacing its genuine 32-byte matrix assignment with `__builtin_memcpy`
+produced exactly the existing 215 bytes: the initial pointer plumbing disappears
+during optimization.
+
+A separate return-contract audit found one direct caller, which ignores the
+result, and no recognized address-taking reference. This does not exclude every
+computed indirect call. A private, consistently declared `int` fallthrough
+control added no invented return expression. It also produced exactly the
+baseline bytes, with identical saved compiler phases through delay scheduling.
+Changing the return type therefore supplies no repair for this source.
+
+Installed original SN alternatives also failed to improve the selected sources:
+
+| Function | Current score | SN 0001 | SN 0004 | SN 0006 |
+|---|---:|---:|---:|---:|
+| `func_80049DB0` | 40 | 40, identical bytes | 50 | 265 |
+| `func_800529F0` | 135 | 295 | 2,745 | 4,270 |
+| `func_80029EAC` | 215 | 1,040 | 3,005 | 11,633 |
+
+Each reported alternative has ordinary/diagnostic byte parity. These are paired
+frontend/assembler results, not proof that every assembler or flag combination
+has been tested. In particular, SN 0001 reproducing the score-40 bytes rules out
+the reconstructed frontend alone as the explanation for that discrepancy.
+No source or compiler selection was adopted.
+
 ## Preservation and evidence
 
 Read-only packed-storage-aware database snapshots before and after each audit
