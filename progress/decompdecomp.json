@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793960513.600075,
- "revision": 19074,
+ "saved_at": 1793962046.821514,
+ "revision": 19079,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250069,6 +250069,30 @@
    "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Two grounded actualhalfwordflagtableword-unitcontrols closed: directwordindex+field8 andconsumedC89fieldindexlocal eachordinary/-da22/frame88/1004bytes SHA2bac576f07fa5f85ac2a35fe22658dc2c859d96c47c41f917d5ced4aec2784b7 exactlybaseline. Directfieldfoldedbeforelateallocation; namedfieldreg146/wordaddition survivesinitialRTLbutnoUSElreg/greg/noextraslot. Originalsigned-byteoperandrange/evenoffsetdomain,MIPS32unsignedtosignedconversion/bytepointermodel preserved; parent65536operandpairproof. Historical782attempts3531localCnonequivalent. OnefailedC99declarationplacement correctedonlyC89decl/assignpoints thenpair. Noextraarraypremise/dummyops/storage; noliveadoption. Fullprivateword-units-nov6REPORT andcanonicalinvestigation. OPEN22retained.",
    "by": "you",
    "created_at": 1793960459.10007,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Frameorigin audit all13pinnedRTL stages onlyQI/HI/SI, noDI/floating/lateUSE/extraobject. Actualfourhomes20/28/36/44 same in88baseline/96target; targetunusedgap48..55beforesavearea56vs48. Noevidencefifthvalue/instrumentedrequest. Realfreshctxphasereusingexistinglocalaftercallbacks597/frame88 negative, callbacks/reloadsunchanged andnoinvalidglobalhoist. Solecurrentoffcarrieru16tou32 controlnormal/-da22/frame88/fullbaselineSHA2bac576f07fa5f85ac2a35fe22658dc2c859d96c47c41f917d5ced4aec2784b7: actualmodeHItoSIbuthardregs5/spillshomesunchanged. Low16observedonlyatu16store/unsignedwrapproof foralliterations; fieldwidthunchanged. No adoption. NowauditingcustomB/P/H/SHvisibilityofoldnativebeforeanynewsearch; noresultclaimed. Fullprivateframe-origin-nov6REPORT/canonicalinvestigation.",
+   "by": "you",
+   "created_at": 1793961051.284493,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Completedcompiler-exposedcurrent0992lane:1000raw16done675linked/compiled262guard/group40preflight23duplicates0compile/symbolfailure0exactbest22. Full675SPgeometry:435frame88,191frame96(145distinctbodies),36frame104,11frame112,2frame80; all19196objects/bins/sourcekept. Badstalenode/globalhoist/conditionalpointercapturesrejectedmanual. Validpotential28fieldaddress+lateentry hasACTUAL5thhome52, nottargetunusedgap. Lateentrycomponentalreadyrecorded27/157frame88; field-onlyisolationprepareduncompiled. Newsharedpointerinitializationguard fromthisevidence replay10previouslycompiledpossiblebadpointers; confirmed429/430rejected,valid28allowed.158tests/Ruff/diffpass. PR661mergedffba8794,nochecksreported; stablearm64exportverifiedv1.0.9-alpha.3,runningappuntouched. No liveadoption/newmatch, OPEN22unchanged. Fullprivatevisibility-nov6REPORT+canonicalinvestigation.",
+   "by": "you",
+   "created_at": 1793961884.901432,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Finalfield-address-onlyisolationf5d5c099 ordinary/-da461/frame96/1016bytes SHAd9a946d64ad1457513dbcdbf575dae30635e20a6895c2d4ae3bb3152ba1d1211. Actual5homes tbl20 ent28 node_head36 cnt44 q52;3extra runtimeinstructions materialize/spill/reloadactualfieldaddress. LateentryphaseNOTrequiredforfifthhome; targetunusedgapunrecovered. Candidate isvalidonoriginalobjectdomain/pstable/addresscontentnotcached/originalstorepointpreserved, butnotmatch/improvementandnotadopted. Newsourcecontrol/searchclosed, OPEN22same0992source. PR661mergedguard/fullartifactverified separately; runningapphealthycurrentd7a883ff observedexternally,no parentrestart. Canonicalinvestigationupdated.",
+   "by": "you",
+   "created_at": 1793961981.530533,
    "score_before": 2,
    "score_after": 2
   }

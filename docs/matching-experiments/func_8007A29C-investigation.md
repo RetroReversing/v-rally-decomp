@@ -176,3 +176,101 @@ the identical baseline bytes and frame88. Although register146=8 and the word
 addition survive initial RTL, no standalone USE remains at late allocation.
 This precise unit/lifetime hypothesis is closed; neither source is adopted.
 Private receipts: func8007A29C/word-units-nov6, including full RTL and prelude.
+
+## Frame origin and fresh context phases — 6 November
+
+An actual target/compiled stack map identifies the gap precisely. Both have
+four real SI pointer homes at20/28/36/44, with actual stores and reloads.
+The current16-byte outgoing area and32-byte local area are followed by ten
+saved registers at48..84. The target retains the same homes but saves those
+registers at56..92, leaving48..55 unused. The22 unequal instructions are two
+frame adjustments and20 register saves/restores. No target access identifies
+a fifth value. All13 retained pinned RTL stages contain only QI/HI/SI modes,
+no DI/floating conversion, no standalone USE, and no visible local stack
+aggregate or fifth scratch request. GNU reference allocator code cannot prove
+the unavailable vendor binary's internal allocation history.
+
+One fresh two-phase context binding reloads D_800C3508 into the existing ctx
+local immediately before the final block, consuming it there in place of that
+block's three global reads. The initial ctx definition remains consumed by ent;
+all earlier callback barriers and inside-loop global reloads remain unchanged.
+There is no call or write between the fresh final capture and its consumers.
+Undoing only this edit recovers the current source exactly. Ordinary/diagnostic
+parity gives597/1004bytes/frame88; the same four homes remain, and body changes
+regress overall. No adoption. This differs from the earlier D_800C35A0 table
+phase experiment, which captured a different global.
+
+An additional eligibility audit identifies a genuine arithmetic carrier model:
+off has only its declaration, initial u16 load, existing u16 store and +=20.
+Its address never escapes and no intermediate value is compared or used as an
+index. A u32 carrier preserves all observed low16 values through unsigned
+wrapping arithmetic, with the actual load/store widths unchanged. The target
+uses lhu/addiu/sh without masking that carrier. Prior wide-offset82 receipts
+are different source compositions; the exact current-source control is being
+measured separately, without asserting improvement in advance.
+
+The sole current-source off declaration change u16→u32 compiled with
+ordinary/diagnostic parity but reproduces22/frame88 and exactly the baseline
+linked bytes. Off's RTL mode changes HI→SI and remains in s5; its actual field
+load/store are still halfwords. The same four pointer spill homes remain.
+Thus local arithmetic width is ambiguous from these bytes, but this valid
+carrier model does not explain the missing frame space and is not adopted.
+No inferred allocator-request instrumentation is claimed.
+
+## Compiler-expanded search visibility — 6 November
+
+The recorded current-source native batch retains B/P/H/SH as opaque calls:
+25 byte,10 pointer,7 unsigned-halfword and4 signed-halfword macro uses. Actual
+m2cfix processing leaves this input unchanged. The pinned native AST sees59
+calls, of which only13 are real calls,33 binary operators,8 casts and6 unary
+operators. Actual compiler preprocessing of the focal body exposes those46
+macro uses:13 real calls,79 binary operators,100 casts and52 unary operators.
+Assignments48, declarations44, compounds13, array references6 and the three
+original do constructs remain unchanged.
+
+Both the expanded source and unmodified native printer reproduce the baseline
+22/frame88/1004bytes with ordinary/diagnostic parity. Full preprocessed header
+and body ASTs also agree. This establishes a distinct search input, not a new
+match or a claim that every macro expansion preserves code generation.
+One bounded1,000-raw lane is authorized from this proven exposed seed with six
+fixed meaningful transformations and current safety guards. Every linked
+candidate records actual frame and SP geometry; target-sized candidates retain
+objects so their frame inventory can be reviewed without recompiling or
+selecting solely by scalar diff score. No result is claimed while it runs.
+
+The exposed lane completed exactly1,000 raw emissions and16 done receipts:
+675 linked/compiled,262 safety/grouping rejects,40 preflight rejects and23
+duplicates; no compiler/symbol failure, exact match or result below22. Every
+linked candidate has recorded geometry:435 frames88,191 frames96,36 frames104,
+11 frames112 and2 frames80. Objects/bytes/source for all191 frame96 outputs
+are retained. There are145 distinct linked frame96 bodies.
+
+Manual review rejects stale-node capture, unsupported global hoisting and
+conditionally initialized pointers among the apparent frame frontiers.
+Candidate28's field-address capture and late entry-pointer phase appear valid
+on the original object domain, but its96-byte frame has a real fifth spill
+at52, unlike the target's unused gap. It does not solve the geometry. The
+late-entry-only component already exists as candidate27 (157/frame88), so it
+should not be recompiled as a new experiment. A field-address-only isolation
+is prepared but has not been compiled or adopted.
+
+This run exposed a reusable app defect: the shared initialization guard checked
+introduced integer locals but missed pointer captures. PR661 extends the same
+bounded analysis to known integer/void pointer types and distinguishes a
+pointee write from initializing the pointer itself. Replay flags ten additional
+possible uninitialized pointer captures that previously reached compilation;
+two manually confirmed bad captures are rejected while the reviewed valid
+field-address capture remains allowed. This is not a complete C equivalence
+checker or a general performance estimate.158 related tests, whole-tree Ruff
+and diff checks passed; PR661 was inspected and merged asffba8794 (no CI checks
+were reported). A shareable arm64 v1.0.9-alpha.3 app was exported and verified;
+the running app was not updated or restarted. Live function remains OPEN22.
+
+The prepared field-address-only isolation was subsequently tested once with
+ordinary/diagnostic parity:461/frame96/1016bytes, linked SHA256
+ d9a946d64ad1457513dbcdbf575dae30635e20a6895c2d4ae3bb3152ba1d1211.
+It introduces an actual fifth home for node_head at36; cnt/q shift to44/52,
+with tbl/ent at20/28. The pointer-address materialization, spill and reload add
+three runtime instructions. The original late-entry phase is not required for
+this additional slot. This controlled result closes the field-capture path;
+it does not recover the target's unused gap. No draft or selected C changed.
