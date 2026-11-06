@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793968575.067703,
- "revision": 19102,
+ "saved_at": 1793968764.909329,
+ "revision": 19104,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250191,6 +250191,14 @@
    "created_at": 1793968481.766431,
    "score_before": 565,
    "score_after": 565
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "SourceSHA256 546e06d57cd3af8ab046b04ee6804ab740a7c1d692d6217d383256f9f0be93de. One genuine early common-tail control preserves branches, narrowing and all actual stores but worsens695 to2819 with ordinary/diagnostic parity1036bytes. Current baseline already joins in jump2 after allocation; early join allows CSE/loop to hoist slot-shift and byte constant, increases allocation pressure31vs29 and spills invariant output base, frame50to58. Separate residual mask is removed in combine, not parser. Exactly2compiles, no native/matrix or sourceadoption. All2071selected rows unchanged. Canonical investigation/private phase-nov6 report retain evidence.",
+   "by": "you",
+   "created_at": 1793968755.834642,
+   "score_before": 695,
+   "score_after": 695
   }
  ],
  "set_aside": [

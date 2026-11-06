@@ -143,3 +143,26 @@ controls or replacement candidates were generated. This exact starting source
 now has recorded native coverage; another run requires a new grounded cause.
 No live source, compiler profile or selected C changed. Private receipts are
 current-nov6-native/RESULT.md, RESULT.json and coverage-audit.json.
+
+## November 6: early common-tail phase control
+
+The current695 source already obtains the target shared tail in jump2, after
+register allocation. One new control ports only the real four-statement tail
+into an early source goto/join, preserving both arms' signed decoded values,
+narrowing, load/store order, addresses and initialized locals. No artificial
+condition, local, interface or compiler setting was introduced. Its source SHA256
+is2a0e0a3ad478380d70ef8cd7d93d92a082099006155a741779cd2ddd1e6ca968.
+Ordinary and diagnostic builds agree at2819,1036bytes, linked SHA256
+433a238cba754fe6e2d07e2a861dcc0cdaa8b806800948a5d30a917070609d9c.
+
+The early join lets CSE share slot-shift pseudo173; loop hoists it and byte
+constant195. Global allocation uses31 rather than29 registers;173 takes s6,
+and invariant output base95 loses its fp allocation and spills atsp1C. Frame
+increases0x50 to0x58. This measured control shows why merely making this join
+earlier is not a repair. A separate residual mask is present in initial/loop
+RTL and removed in combine, not lost by parsing. No mask-spelling sweep followed.
+
+Exactly two compiler calls were made. All2071 selected rows/profiles and seven
+protected input groups remain unchanged; current draft stays OPEN695/unclaimed.
+No automatic improvement or match is claimed. Private phase-nov6/REPORT.md
+retains full source/diff, branch mapping, objects and phase evidence.
