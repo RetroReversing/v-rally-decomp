@@ -196,3 +196,20 @@ The current residual includes the target's extra initialization to 4 and a
 branch-likely difference; displaced branch operands account for much of the score.
 Private preparation evidence: `current750-nov6/exposure-proof.json` and paired
 `exposed-control` / `printer-control` receipts.
+
+
+### Valid typed-source native search
+
+A bounded run from the validated typed alias expansion retained all 1,000 raw
+emissions and their lineage before filtering. It scored 377 candidates, with all
+377 linked byte outputs retained. None was exact or improved on the 630 printer
+baseline. Filtering recorded 372 temporary-type incompatibilities, 133 changed
+signatures/call inventories, 55 preflight failures, 28 safety failures, 29
+duplicates and six forbidden forms. Five generation exceptions produced no C
+and were recorded separately, rather than counted as raw variants. The six
+allowed operations covered temporary extraction, statement/declaration ordering,
+block insertion, assignment splitting and commutation. This closes a concrete
+coverage gap in the old lane's source/interface assumptions; it does not prove
+that every possible valid rewrite has been tested. The parent independently
+recounted 1,000 saved source hashes, 377 scores and linked outputs, and zero exact
+results. Private evidence is in `current750-nov6/native-exposed`.
