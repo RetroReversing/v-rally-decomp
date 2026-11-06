@@ -729,11 +729,16 @@
     "include/decompdecomp_contract_6ddd8.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "include/decompdecomp_fcsr_8008d630.h": "de5b50905555a941917b90d3d5e92d75a2c7e87fb484af2331dd7d1e8c8c5804",
     "src/code_8007E9D4/func_8008D630.c": "3e696abba61cc5ea882c4ae9ecfdca199383ee4e04c22c37bde667ffc8c29e97",
-    "src/code_8007E9D4/func_8008BB80.c": "deafd476e596880c450adc922909c198957a61e550263a8f3804fb9a67e7f17f",
+    "src/code_8007E9D4/func_8008BB80.c": "ec520b75d62735769e80cef49084938d335d1aa48758cda66acf11bdc2e8a2cd",
     "src/code_8007E9D4/func_800937B0.c": "d61e60944627914b83ca2cc607f3b590474da0ed854a555de97cc7c4290e61e9",
     "include/decompdecomp_count_800937b0.h": "590eb11004d2c6351c96cd594b655eaa3495364cfdc21bd6291bdd2f31e851fc",
     "include/decompdecomp_fcsr_8008bb80.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "include/decompdecomp_count_80095e18.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_count_80095e18.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_status_800937c0.h": "174c3022878d218f2fe16b91d72742614a199ec2ae452b31764519e8678747f3",
+    "src/code_8007E9D4/func_800937C0.c": "9e226ffdd144f2aec2a302ed3147a2bb6fefe8eab2042c63d737c55a4c15f841",
+    "src/code_8007E9D4/func_800958F0.c": "38b1e8f46881f71a3080d286b9d09859af6c66661338c054ee8a42d4ac6aae76",
+    "include/decompdecomp_status_8008bb80.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_compare_800958f0.h": "5df130d42a7ec567160e7f1aec8c67173cd0fe59c0d2c1ffac6d18665714105a"
   },
   "accepted": [
     "MusInitialize",
@@ -1161,6 +1166,8 @@
     "func_8008FBC0",
     "func_800911B0",
     "func_800937B0",
+    "func_800937C0",
+    "func_800958F0",
     "func_80097A34",
     "func_80098560",
     "func_80098B7C",
@@ -1175,27 +1182,26 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2073,
+  "matched_app": 2075,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "__osSetFpcCsr",
-      "func_800937B0"
+      "func_800937C0",
+      "func_800958F0"
     ],
     "contract_corrections": [
-      "func_8008BB80",
-      "__osRepairPackId"
+      "func_8008BB80"
     ],
-    "note": "Registered architectural intrinsic sources; original handwritten assembly provenance retained. Ordinary/diagnostic and full cartridge exact. All previous profiles and unaffected selected objects preserved."
+    "note": "Fixed architectural Status read and Compare write. Ordinary/diagnostic and full cartridge exact; prior profiles and unaffected selected objects preserved. Original handwritten provenance retained."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "matched": 2073,
+    "matched": 2075,
     "all_function_addresses_integrated": true,
     "corrected_source_hashes_confirmed": true,
-    "note": "All normal portable progress exported; prior independently audited standalone variants retained."
+    "note": "Full normal portable snapshot exported; prior audited standalone variants retained."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

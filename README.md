@@ -20,6 +20,19 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Status and timer-compare accessors — 6 November 2026
+
+The live app and independently verified cartridge now contain **2,075 matched
+functions / 16 open / 30 retained as assembly**. This adds fixed CP0 Status read
+and Compare write operations, plus a coherent unsigned Status-read declaration
+in the existing initialization caller. Compare writes retain their timer-interrupt
+clearing effect. The full **12,582,912-byte cartridge remains byte-identical**.
+All prior profiles and unaffected selected objects are preserved, and `progress/`
+contains the complete latest save. The separately verified Status return-spacing
+accessor is still pending live deployment and is not counted here.
+See [hardware accessor verification](docs/matching-experiments/hardware-accessors.md).
+
+
 ### Fixed SDK hardware accessors — 6 November 2026
 
 The live app and independently rebuilt cartridge now include **2,073 matched

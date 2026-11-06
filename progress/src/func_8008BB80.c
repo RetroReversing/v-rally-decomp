@@ -1,4 +1,4 @@
-extern s32 func_800937C0(void);
+extern u32 func_800937C0(void);
 extern void func_8008D6E0(s32);
 extern u32 __osSetFpcCsr(u32);
 extern s32 func_8008DB50(s32,s32*);
