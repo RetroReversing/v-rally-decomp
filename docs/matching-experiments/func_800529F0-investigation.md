@@ -170,3 +170,27 @@ Historical native-safe outputs were saved only after screening and did not
 fully constrain derived temporary types; do not claim exhaustive safe-grammar
 coverage from that old run. Private macro-audit-nov6/REPORT.md retains the
 current source/parser comparisons. No caller contract was reopened.
+
+
+## November 6: consuming the lap count inside each competitor iteration
+
+One new control captured rec->n separately for each outer iteration and consumed
+it as a remaining count alongside the increasing lap index. The inner loop has
+only reads; lap reads and unsigned additions retain their order, and the count
+is read anew after each outer sum/total write. Existing valid-object premises,
+idx<12 and n<=5 remain explicit. Remaining reaches zero without underflow.
+The hydrated/private audit found no earlier countdown spelling in2268 source
+units; no syntax or profile sweep followed.
+
+Ordinary/diagnostic baselines agree at135/448bytes. The control agrees at
+1450/436bytes, linked SHA256
+cd04a5b421b5393d8463ee280b3db0541c92242bc2fb6190dd8ae2c98bd458d9.
+Initial RTL and CSE retain decrement/nonzero control rather than the target's
+increasing unsigned comparison. Global allocation still gives the row v1;
+remaining takes a1 and the accumulator moves to a2. The control also loses the
+8-byte frame. Removing the old bound lifetime therefore changes the instruction
+graph without recovering target allocation. No improvement or exact match.
+
+All2077 matched-source hashes/profiles and complete focal inputs remained
+unchanged. No source adoption, app update or cartridge claim. Private
+focused-allocation-nov6 retains the before/after snapshots and paired outputs.
