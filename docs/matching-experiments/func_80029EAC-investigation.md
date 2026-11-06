@@ -108,3 +108,39 @@ unchanged. No candidate was adopted or new full-cartridge claim made. Normal
 project notes and the portable snapshot retain these results. This function
 remains OPEN295 and revisitable; repeating the prior native sweeps or these
 identical lifetime controls is not a new hypothesis.
+
+
+## November 6: pass diagnosis and actual saved-source correction
+
+A fresh live freeze exposed that the saved295 draft still had historical
+`h[10]/int pad[3]` Matrix fields and obsolete helper declarations. Earlier private
+padding-model probes and helper acceptance did **not** establish that this focal
+caller source had been adopted. Those descriptions must not be used as a live
+source fingerprint.
+
+Normal source-scoped review has now retained the corrected OPEN295 source,
+SHA256 `c4f8462e1b35641fdb411002210f28881f378922b1d06b8ea1cb21ce3f07b263`.
+It uses nine meaningful halfwords with genuine unnamed Matrix padding, verified
+size32/alignment4, the actual seven selected helper signatures, real delta[3]
+and mat.h arrays, a caller-compatible void-pointer entry and scalar halfword
+point accesses at byte offsets0/2/4. E530 remains its actual s16-pointer API;
+it was not changed to an opaque interface. The transpose API is opaque.
+
+Parent ordinary reproduction and diagnostic capture agree across1560 linked
+bytes, hash `43749f2981db46d5d60b9c55e197097bba5947a7dafd3438477eafc777a86291`.
+The output remains295/nonexact and all2071 matched sources are unchanged. This
+removes concrete model/interface problems without claiming whole-game storage,
+lifecycle or arithmetic safety. Valid grid indices and complete live objects,
+helper output initialization and nonoverlap assumptions remain explicit.
+
+Historical-live pass evidence locates deletion of the final depth copy in
+combine, before scheduling; global allocation chooses the early vertex-role
+cycle. Two new copy-before-condition controls both remain295. Earlier152 source
+and19 profile controls were not repeated, and no new native lane was justified.
+Do not automatically transfer historical pseudo/insn IDs to another source's
+capture merely because its linked bytes are equal. Private proofs and corrected
+source: rtl-revisit/REPORT.md and corrected-byte-point.c.
+
+The approved dev-app update/restart reached mainc1ede929 on port6474. Independent
+pre/post checks confirmed all2071 selected source hashes and compiler profiles
+unchanged before the focal correction; its normal adoption preserved them too.

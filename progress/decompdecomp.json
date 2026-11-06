@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793928811.4787688,
- "revision": 18993,
+ "saved_at": 1793929614.596868,
+ "revision": 18998,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4107,7 +4107,7 @@
   "func_80029EAC": {
    "vram": 2147655340,
    "best_score": 295,
-   "best_by": "claude-opus-6"
+   "best_by": "candidate-review"
   },
   "func_8002A4C4": {
    "vram": 2147656900,
@@ -249783,6 +249783,30 @@
    "created_at": 1793928805.065569,
    "score_before": 565,
    "score_after": 565
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-9c82a3fd5e674aaa",
+   "created_at": 1793929569.4129422,
+   "score_before": 295,
+   "score_after": 295
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "Review selected corrective alternative attempt 312397; rejudged score 295, replacing reported source 6d5c9a1c15a02d67d50f. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793929574.294101,
+   "score_before": 295,
+   "score_after": 295
+  },
+  {
+   "function": "func_80029EAC",
+   "text": "After approved devapp restart toc1ede929, normal source-scoped quality/adoption retained corrected OPEN295 c4f8462e1b35641fdb411002210f28881f378922b1d06b8ea1cb21ce3f07b263. Priorlive source was historical h10/intpad3, not previously reviewed private genuinepadding model; oldnotes were not acceptanceproof. Currentsource has genuine9halfword Matrix with unnamedpadding sizeof32/align4, actual7callee signatures, mat.h/real delta[3]/local arrays, commonvoidpointerentrymatching2C044 and scalar bytepointreads. Ordinary-da linked parity1560bytes same43749fhash/295; noexact. Historical-live RTL: combine deletes finaldepthcopy before scheduling; gregfixesearlyvertexcycle. Two new genuine copy-before-condition controls both295; old152/19/native lanes not repeated. Do not reuse misleading historical source or claim copiedpassUIDs are automaticallycurrent. Existing storage/lifecycle/arithmetic premises explicit. All2071 matchedsources unchanged. rtl-revisit/REPORT.md.",
+   "by": "you",
+   "created_at": 1793929611.979403,
+   "score_before": 295,
+   "score_after": 295
   }
  ],
  "set_aside": [

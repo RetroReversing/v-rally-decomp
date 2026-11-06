@@ -9,9 +9,15 @@ typedef struct
 } Vertex;
 typedef struct 
 {
-  s16 h[10];
-  int pad[3];
+  s16 h[9];
+  unsigned int :16;
+  unsigned int :32;
+  unsigned int :32;
+  unsigned int :32;
 } Matrix;
+typedef char MatrixSizeCheck[sizeof(Matrix)==32?1:-1];
+typedef struct { char c; Matrix m; } MatrixAlignmentCheck;
+typedef char MatrixAlignCheck[sizeof(MatrixAlignmentCheck)==36?1:-1];
 typedef union 
 {
   struct 
@@ -26,10 +32,10 @@ void func_8002D724(int *, int *, int *);
 void func_8002D740(int *, int *, int *);
 void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
-void func_8002DA98(void *, void *);
-void func_8002E530(void *, void *, void *);
-void func_8002E688(int *, int *);
-void func_80029EAC(char *a, Vertex *point, int index)
+void *func_8002DA98(void *, void *);
+int *func_8002E530(s16 *, s16 *, int *);
+int func_8002E688(int *, int *);
+void func_80029EAC(void *a, void *point, int index)
 {
   Pair p;
   Pair q;
@@ -41,18 +47,12 @@ void func_80029EAC(char *a, Vertex *point, int index)
   int normal[4];
   Matrix mat;
   Matrix inv;
-  struct 
-  {
-    s16 x;
-    s16 y;
-    s16 z;
-  } delta;
+  s16 delta[3];
   int sign;
   int row;
   int col;
   int base;
   int right;
-  int __repair_phase_right;
   int down;
   int slot;
   int height;
@@ -69,8 +69,8 @@ void func_80029EAC(char *a, Vertex *point, int index)
   w = U(g, 138);
   indices = P(g, 112);
   base = (w * row) + col;
-  r.p.x = point->x;
-  r.p.z = point->z;
+  r.p.x = (*(s16 *)((unsigned char *)point + 0));
+  r.p.z = (*(s16 *)((unsigned char *)point + 4));
   right = base + 1;
   p.p.x = ((Vertex *) P(g, 84))[right].x;
   p.p.z = ((Vertex *) P(g, 84))[right].z;
@@ -93,7 +93,7 @@ void func_80029EAC(char *a, Vertex *point, int index)
   b[0] = ((Vertex *) P(g, 84))[down].x - ((Vertex *) P(g, 84))[base].x;
   b[1] = ((Vertex *) P(g, 84))[down].y - ((Vertex *) P(g, 84))[base].y;
   b[2] = ((Vertex *) P(g, 84))[down].z - ((Vertex *) P(g, 84))[base].z;
-  if (((((unsigned) (index - 4)) < 2) | (index == 10)) || (index == 11))
+  if (((((unsigned) index - 4U) < 2) | (index == 10)) || (index == 11))
   {
     int sx;
     int sy;
@@ -129,19 +129,19 @@ void func_80029EAC(char *a, Vertex *point, int index)
       normal[2] >>= sx;
     }
     v = (Vertex *) P(g, 84);
-    dot = ((v[base].x * normal[0]) + (v[base].y * normal[1])) + (v[base].z * normal[2]);
+    dot = ((unsigned)v[base].x * normal[0] + (unsigned)v[base].y * normal[1]) + (unsigned)v[base].z * normal[2];
     do
     {
       if (normal[1])
       {
         height = normal[2];
-        height = ((((-normal[0]) * r.p.x) - (height * r.p.z)) + dot) / normal[1];
+        height = (int)(((0U - normal[0]) * r.p.x - (unsigned)height * r.p.z) + (unsigned)dot) / normal[1];
       }
     }
     while (0);
-    W(P(a, 140), (slot * 20) + 176) = point->x;
+    W(P(a, 140), (slot * 20) + 176) = (*(s16 *)((unsigned char *)point + 0));
     W(P(a, 140), (slot * 20) + 180) = height;
-    W(P(a, 140), (slot * 20) + 184) = point->z;
+    W(P(a, 140), (slot * 20) + 184) = (*(s16 *)((unsigned char *)point + 4));
   }
   func_8002E688(c, c);
   func_8002E688(b, b);
@@ -156,13 +156,13 @@ void func_80029EAC(char *a, Vertex *point, int index)
   mat.h[6] = c[0];
   mat.h[7] = c[1];
   mat.h[8] = c[2];
-  delta.x = point->x - ((Vertex *) P(g, 84))[base].x;
-  delta.y = point->y - ((Vertex *) P(g, 84))[base].y;
-  delta.z = point->z - ((Vertex *) P(g, 84))[base].z;
-  func_8002E530(&mat, &delta, local);
+  delta[0] = (*(s16 *)((unsigned char *)point + 0)) - ((Vertex *) P(g, 84))[base].x;
+  delta[1] = (*(s16 *)((unsigned char *)point + 2)) - ((Vertex *) P(g, 84))[base].y;
+  delta[2] = (*(s16 *)((unsigned char *)point + 4)) - ((Vertex *) P(g, 84))[base].z;
+  func_8002E530(mat.h, delta, local);
   func_8002DA98(&mat, &inv);
   mat = inv;
-  right = local[1] * 16;
+  right = (unsigned)local[1] * 16U;
   if (right <= 0)
   {
     height = right;
