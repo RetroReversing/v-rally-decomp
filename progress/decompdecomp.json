@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793968362.040718,
- "revision": 19099,
+ "saved_at": 1793968575.067703,
+ "revision": 19102,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250183,6 +250183,14 @@
    "created_at": 1793968340.146531,
    "score_before": 518,
    "score_after": 518
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "SourceSHA256 6ed43a854dbff1896d1279f58447fd6c939881b3a97f2d952e1b401823587296. Fresh body coverage audit: current body equals previously tested contracts.c after removing only historical callback casts; PR664 macro expansion unchanged. Prior RTL HI zeroextend of BIV83 atUID272 explains mask, and actual-backedge580 plus preheader/native lane already covers its removal tradeoff. No new grounded cause or control, so no compiler/generator calls. All2071 selected records unchanged. Function remains open; canonical investigation and private cause-nov6 report retain evidence.",
+   "by": "you",
+   "created_at": 1793968481.766431,
+   "score_before": 565,
+   "score_after": 565
   }
  ],
  "set_aside": [

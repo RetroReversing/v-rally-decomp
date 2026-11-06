@@ -128,3 +128,16 @@ explicit callback formals with selected definitions; the cheap claim receipt onl
 cues casts and defers the lookup. This does not rewrite a signature or audit a whole
 macro/typedef/indirect registry automatically. Private package receipts remain in
 current-nov6-contracts/ready-registry36 and parent-registry-cartridge-gate.
+
+## November 6: current-body coverage closure
+
+Fresh hydrated audit confirms OPEN565 source6ed43a85 and725 attempt rows.
+After removing only historical SpriteHook casts, the current body equals the
+previous contracts.c body; PR664 expansion leaves it byte-identical. Existing
+RTL's HI zero extension of induction variable83 at UID272 explains the retained
+mode-1 mask. The already tested real-backedge580 source removes that mask but
+does not recover target allocation; its preheader scheduling and native search
+are recorded above. No new compiler phase cause or admissible source control
+was established, so no compiler or generator ran. This closes a repeat of those
+specific lanes, not the function. All2071 selected rows/profiles remain unchanged.
+Private cause-nov6/REPORT.md retains fresh hashes and comparisons.
