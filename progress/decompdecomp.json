@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793924588.913824,
- "revision": 18963,
+ "saved_at": 1793925315.501941,
+ "revision": 18966,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249655,6 +249655,22 @@
    "created_at": 1793924581.260745,
    "score_before": 1155,
    "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Fresh cd710019 pass capture: corrected505 expression CSE creates single-def n*9 temp111; loop explicitly hoists insns131/133, greg111=s7. Statement-split600 uses multi-def q77; product stays in-loop but separate normalized n copy108=97 survives as v0->s5. First loss is expansion/CSE pseudo identity before loop motion, not merely final allocator choice. Three NEW grounded controls10961/620/680, all ordinary/-da full linked parity; intermediate/reuse controls checked3359 prior exact/token sources and not duplicates. Real position helper inlines but actual consumed outputs stay stack-backed. No exact/improvement;505 source unchanged, no native/profile/whitespace/declaration sweep. Private rtl-cause-20261106/RESULT.md. Do not repeat these controls or infer a universal optimizer threshold. Existing bounded normal-game arithmetic/storage assumptions retained.",
+   "by": "you",
+   "created_at": 1793925304.733089,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80030180",
+   "text": "Fresh cd710019 pass capture reproduces357 with full ordinary/-da linked parity. Earliest residual move is combine insn138: repeated signed offset/2 scale-back collapses to reg121=reg/v82; greg makes v1<-a1. Three genuine once-bound quotient variants emit IDENTICAL linked357; consuming original offsets as halfword phase1215. Frame diagnostic vars24, regs0,args0,extra0 excludes outgoing-call-area theory, not proof of precise extra slot cause; allocator source only suggests reload reservation. Prior index*3/halfword ownership815/945 controls found and NOT repeated. Valid signed-negative-even/array/alignment/effective-type assumptions retained. No exact or source/profile/claim mutation. Private current-nov6/REPORT.md. Parent separately checks whether a single new guarded native lane from corrected357 has never previously run; no claim of its result here.",
+   "by": "you",
+   "created_at": 1793925310.64926,
+   "score_before": 357,
+   "score_after": 357
   }
  ],
  "set_aside": [

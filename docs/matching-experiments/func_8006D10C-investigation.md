@@ -33,3 +33,25 @@ register lifetime. No native or whitespace sweep was repeated. The invalid old
 325 draft remains rejected. A source-hash-bound summary was also added through
 the app's normal note interface to help subsequent agents start from this
 verified packing structure. No live source/profile/target change is claimed.
+
+## November 6: expression identity before loop motion
+
+Fresh ordinary/-da linked parity reproduces initialized505 and the older
+statement-split600. In505, CSE creates a single-definition n*9 temporary111;
+the loop pass explicitly moves its shift/product out of the loop and global
+allocation assigns it s7 across iterations/calls. In600 the product writes the
+same q pseudo overwritten by the final subtraction; it stays in the loop, but
+its source identity ties it to across-call q. A separate normalized-byte copy
+arises in the second CSE and survives with different v0/s5 allocations. This
+locates earlier causes instead of attributing everything to the final scheduler.
+
+Three new phase-driven controls fail: a real two-output packed-position helper
+inlines but its consumed output locals stay stack-backed (10961); a genuine
+intermediate position accumulator keeps the multiply inside the loop but uses
+the wrong sum/shift register (620); reusing that temporary for the real byte-cursor
+bit term is680. The latter two were checked against3,359 historical exact/token
+source hashes and are new. All ordinary/diagnostic FULL linked bytes agree.
+No native/profile/whitespace/declaration sweep was repeated. No new generic repair
+or exact result is established; do not repeat these forms solely because their
+loop placement is closer. Valid505 remains selected and unclaimed. Normal-game
+record bounds, alignment and representable signed-difference assumptions remain.

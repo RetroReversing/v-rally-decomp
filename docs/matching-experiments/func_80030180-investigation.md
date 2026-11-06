@@ -57,3 +57,23 @@ output array supplies its output extent. An automatic byte-to-element rewrite
 would need those type/alignment/bounds/divisibility facts before being generalized.
 Keep the function open and preserve these controls instead of repeating prior
 formatting, profile and native sweeps.
+
+## November 6: combine move and local frame storage
+
+Fresh ordinary/-da full linked parity reproduces compatible357. The earliest
+residual move is combine instruction138: repeated signed byte-offset division
+by two and scale-back arithmetic becomes a separate pseudo copy. It survives
+scheduling/local allocation; global allocation assigns the pair to v1/a1.
+Three genuine once-bound signed quotient controls emit identical357 linked code;
+consuming the original offsets as halfword-index phase variables scores1215.
+Previously tested signed index*3 ownership815/945 forms were found and not repeated.
+
+The saved assembly diagnostic describes the24-byte frame as local vars24,
+register saves0, outgoing args0 and extra0. It excludes an outgoing-call-area
+explanation. A reference allocator suggests spill reservation, but the precise
+extra slot cause is not proven without the pinned allocator's actual decision.
+No exact/better source is found, no compiler profile changes, and all existing
+signed-negative-even, array extent, alignment and effective-type assumptions stay
+explicit. The parent is separately checking historical seed provenance before
+any newly authorized bounded native search; this phase report does not claim a
+native result or a new accepted function.
