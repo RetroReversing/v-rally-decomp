@@ -96,3 +96,20 @@ save confirmed the portable best draft agrees. All2071 selected matched C
 sources remain unchanged by this unmatched-draft correction. Source formatting
 (including existing whitespace) is retained exactly as judged, because debug
 line structure can affect this period compiler's output.
+
+
+## November 6: serializer-grounded component decoding
+
+The actual serializer accumulates each two-bit component shifted by twice its
+index. The decoder target instead uses two complemented-mask equality booleans.
+Six new controls tested real alternative encodings without new memory effects:
+if-bit accumulation2571, ternary2945, direct inverse extraction3168, complement
+pair3483, and pure static-inline component helpers returning byte/int1200 each.
+Both helpers preserve baseline linked hash e1623e86; all six ordinary/diagnostic
+comparisons agree and have no link problems. Local inverse equivalence was
+checked over524288 byte/index cases, not as proof of whole-record safety.
+
+Accepted ce810760 source stays OPEN1200. No new native/profile/format sweep,
+source adoption or positive automatic repair is justified. Private evidence:
+serializer-nov6/REPORT.md and RESULT.json. These negative controls do not rule
+out other valid matching source representations.

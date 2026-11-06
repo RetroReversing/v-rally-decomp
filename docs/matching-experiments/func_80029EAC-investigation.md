@@ -144,3 +144,15 @@ source: rtl-revisit/REPORT.md and corrected-byte-point.c.
 The approved dev-app update/restart reached mainc1ede929 on port6474. Independent
 pre/post checks confirmed all2071 selected source hashes and compiler profiles
 unchanged before the focal correction; its normal adoption preserved them too.
+
+
+## November 6: actual triangle-selection control flow
+
+Four grounded encodings of the existing triangle selection retain all1560 linked
+bytes of the corrected295 source, both ordinary and diagnostic. Thus neither
+the early vertex-role register cycle nor the combine-deleted final depth copy
+changes. This excludes these four spellings, not all valid source reconstruction.
+Source SHA256 c4f8462e1b35641fdb411002210f28881f378922b1d06b8ea1cb21ce3f07b263;
+private triangle-control-nov6/REPORT.md and parity.json retain the individual
+controls, profile and header hashes. No native/profile/declaration sweep,
+source adoption, exact match or new automated repair follows.
