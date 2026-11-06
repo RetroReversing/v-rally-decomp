@@ -180,3 +180,19 @@ unsigned index latch. This is negative evidence against another countdown sweep;
 the 750 draft remains selected. No artificial branch or unused operation was
 introduced. Private proof and paired receipts are retained in
 `current750-nov6/countdown-control`.
+
+
+### Typed alias visibility and printer baseline
+
+The native parser sees 31 uses of the object-like MENU alias without its typed
+pointer expansion. Expanding each use at its original location preserves every
+global reload. Three pinned preprocessor runs confirmed identical current and
+expanded tokens, and complete translation-unit AST equality including declarations
+for the current, expanded and native-printer forms. The expanded source retains
+score 750 with ordinary/diagnostic parity. The native printer alone scores 630,
+but adds seven operand and two reordered differences; this is a formatting
+baseline, not evidence of a better source repair or a new match. It was not adopted.
+The current residual includes the target's extra initialization to 4 and a
+branch-likely difference; displaced branch operands account for much of the score.
+Private preparation evidence: `current750-nov6/exposure-proof.json` and paired
+`exposed-control` / `printer-control` receipts.
