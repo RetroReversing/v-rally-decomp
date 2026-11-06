@@ -100,3 +100,23 @@ exact match, source adoption or cartridge claim is made. These results are saved
 in the ordinary app notes and full portable progress. Keep this function OPEN
 and revisitable; further work needs a new actual data-flow or allocation cause,
 not another repetition of the same line edits or flat native search.
+
+## November 6: enclosing-object row induction
+
+Fresh cd710019 inputs reproduce OPEN135 and ordinary/diagnostic linked parity.
+Six new byte traversal controls start at the real enclosing ChTable object,
+advance16 bytes per lap and access the existing lap subobject at0x118+i*4.
+The previous traversal controls began at the lap array; these use a different
+source ownership model without forming an invalid interior fictitious struct.
+Within the retained idx<12 and n<=5 domain, the byte addresses stay within the
+actual table. Scores345/345/500/500/515/520: no exact result or improvement.
+
+RTL gives a more precise allocation observation: the row pseudo has11 weighted
+uses across8 instructions; the accumulator has12 across22. The row is allocated
+first. The extra initial-count conflict is real, but it is not alone a proven
+cause of the undesired ordering. Explicit traversal also changes initialization
+relative to the count guard; it is not the target graph with a register fixed.
+Ordinary/-da linked bytes agree for baseline and representative traversal.
+No new reusable source repair is established. Source/header/target/relocations/
+profile/symbols and ownership remain unchanged. Prior flat native, helper, count,
+line and flag controls remain negative; no such sweep was repeated.

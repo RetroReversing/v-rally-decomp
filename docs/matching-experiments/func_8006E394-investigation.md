@@ -53,3 +53,20 @@ Parent compilation-symbol audit (parent-inline-symbols.json) found that the nati
 ## November 5 bounded revisit
 
 Eleven new packed-field and limit-lifetime controls were nonexact. The actual selected helper contract is void(s32,s32), whereas the earlier decoder declared void(u8,u16). Correcting the nonvolatile research prototype retains1200; this is not an exact match and does not establish the original interface independently. PR609 now flags bounded simple explicit prototype discrepancies in full briefs. No live source or profile change was made. Private frozen inputs, source hashes and raw linked evidence remain on the Data volume; no game data is included here.
+
+## November 6: masked-limit Boolean phase
+
+Fresh inputs under app cd710019 reproduce the nonvolatile real-Packet/current
+void(s32,s32) callee-contract baseline1200. CSE emits a0<n Boolean; loop invariant
+motion hoists it; combine rewrites it as ne(subreg(n),0), materializing an extra
+sltu instead of retaining the target's masked integer count. This identifies
+where the representation differs; it does not prove the original source shape.
+
+Three new bounded controls were negative. A genuine equality-sentinel loop
+removes the Boolean but uses a wrong lower-backedge representation, score1350.
+Two genuine consumed pointer-output range helpers spill count/base and score4247.
+Ordinary and diagnostic linked bytes agree for the baseline and all three controls.
+No new native, flag, declaration or whitespace sweep was run; earlier explicit
+if/do controls were not repeated. Live source remains OPEN1155 and unclaimed,
+with the historical invented-volatile warning intact. No exact result or generic
+repair is established. Normal project notes retain this new phase evidence.

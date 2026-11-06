@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_opaque_8001a340.h"
 #line 1 "func.c"
 typedef struct { s32 words[8]; } Copy32;
 typedef struct { u32 w0; u32 w1; } Gfx;
@@ -36,7 +36,7 @@ void func_80010BFC(void *, s32, Matrix *);
 void func_8001AAB4(void);
 u32 osVirtualToPhysical(void *);
 void func_8007B2A4(void *, Matrix *);
-void func_8007B4A4(ModelLists *, s32);
+void func_8007B4A4(void *, s32);
 s32 func_80006230(Render *);
 s32 func_80009964(Render *, s32);
 s32 func_80016B3C(Actor *, s32, s32);

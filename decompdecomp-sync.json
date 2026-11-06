@@ -280,7 +280,7 @@
     "src/code_80026E3C/func_80036C48.c": "81e0ddbc0a905340d5ae6a13e52d97a512804e0ffa4f314b0261c90e1e81a4d1",
     "src/code_80005098/func_80007CA0.c": "7b1f774ecaa50d05857f3f66fb96bef52d7279edd03836ab3034613f38895125",
     "src/code_8004BEB4/func_8006786C.c": "a69b3b485d14180b4647ca5df147bd46512b230b1560771c41186c2fac38a9d1",
-    "src/code_80017B38/func_8001A340.c": "eb5d36a273b933d434732eae534ba61ad1724a261cbd5be2941da9adaa131402",
+    "src/code_80017B38/func_8001A340.c": "850e00ce0a43db8cc803fcb2d6f0ee669d5a239f60e9b4dcb266dd8cfe676f77",
     "src/code_80026E3C/func_8002BD40.c": "faf8fd6e8ae286663191548d8adc905722b197f00a9218cf90f7aebe8dc12207",
     "src/code_8004BEB4/func_80074BF8.c": "5904b88f6e28406ac1f0a0d7c6c9e6879849134b80bb2dcdd789c6c7c34f9cce",
     "src/code_80026E3C/func_800347A4.c": "41a81b285e55b1fa0f9f129cae7186bb7cabd12a917f94a7ebb9320523d0015f",
@@ -611,7 +611,8 @@
     "src/code_80026E3C/func_80028158.c": "40f9d79949c18d578b4756d40068afd0439c82b490aad9cf1bcab27a592edf58",
     "include/decompdecomp_terminal_80028158.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_80043A78.c": "0af600a41b94d5de61fd91d57b361327c9aa64117591c4dad49745306357aa9a",
-    "include/decompdecomp_terminal_80043a78.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_terminal_80043a78.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_opaque_8001a340.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1044,32 +1045,13 @@
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
-    "added": [
-      "func_80043A78"
-    ],
+    "added": [],
     "contract_corrections": [
-      "func_8000F660",
-      "func_80010468",
-      "func_80020990",
-      "func_80022374",
-      "func_800223B4",
-      "func_8003F11C",
-      "func_800405D8",
-      "func_80042A7C",
-      "func_80042D20",
-      "func_80042F40",
-      "func_80043150",
-      "func_800437B8",
-      "func_800446D0",
-      "func_800447A0",
-      "func_8004E18C",
-      "func_80076E7C",
-      "func_80022318",
-      "func_80028158"
+      "func_8001A340"
     ],
-    "all_2070_prior_profiles_preserved": true,
-    "other_2052_selected_c_objects_preserved": true,
-    "note": "Exact terminal timeout transition, typed direct-call closure and compatible focal caller. Normal initialized retail grid/UI lifecycle assumptions and inherited raw-storage limitations remain explicit; not whole-program C soundness."
+    "all_2071_profiles_preserved": true,
+    "other_2070_selected_c_objects_preserved": true,
+    "note": "Compatible opaque two-argument declaration for open lighting renderer; caller body unchanged. All2071 selected C preserved, focal is provisional OPEN52, not a new match or whole-program effective-type proof."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -1077,7 +1059,7 @@
     "matched": 2071,
     "all_function_addresses_integrated": true,
     "source_hashes_confirmed": true,
-    "note": "ALL portable progress saved; previous standalone variants retained."
+    "note": "ALL portable progress saved after normal exact caller rejudge and normal OPEN52 corrected-candidate retention; previous independently verified standalone variants retained."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

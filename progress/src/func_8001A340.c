@@ -34,7 +34,7 @@ void func_80010BFC(void *, s32, Matrix *);
 void func_8001AAB4(void);
 u32 osVirtualToPhysical(void *);
 void func_8007B2A4(void *, Matrix *);
-void func_8007B4A4(ModelLists *, s32);
+void func_8007B4A4(void *, s32);
 s32 func_80006230(Render *);
 s32 func_80009964(Render *, s32);
 s32 func_80016B3C(Actor *, s32, s32);

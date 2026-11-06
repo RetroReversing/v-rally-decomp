@@ -105,3 +105,23 @@ and regress to3559/3142, with frames0x78/0x80. An indexed-vertex control also fa
 No justified exact frame/pointer repair was found. Live inputs and ownership are
 unchanged; retain the function as OPEN and revisitable without calling this52 an
 accepted match or repeating these failed controls.
+
+### Corrected draft retained through normal review
+
+The sole selected caller's declaration is now `void func_8007B4A4(void *,s32)`;
+its actual call and body are unchanged. The copied full cartridge is exactly
+12,582,912 bytes, SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All2,071 selected profiles and the other2,070 C objects are preserved. Normal
+saved-source import rejudged the corrected caller exact before publication.
+Caller raw source SHA256:
+`281e92ef93c7dd52a878d9a9e9775a273592cbfcb264f5d432cf26046763a3c6`.
+
+A normal project-scoped claim/compile retained the audited52 draft, and a
+source-scoped quality report records the old310 issues. Only the parent's own
+connection/claim was revoked. Read-only confirmation is now **OPEN52**, superseding
+the historical OPEN310 observations above. All2,071 matched source records are
+unchanged except the independently verified declaration correction. The focal
+remains portable research C, not selected standalone C and not a new match.
+All current progress, names, contexts, profiles, notes and review data are saved.
+The broader dynamic storage/domain preconditions above are retained explicitly.
