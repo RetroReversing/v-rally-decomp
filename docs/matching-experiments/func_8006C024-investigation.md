@@ -179,3 +179,35 @@ other 2,070 selected objects and all 2,071 compiler profiles preserved. Normal
 saved-source verification accepted the correction. This repairs an existing
 match's C interface; it is not an additional function match or a C024 repair.
 Private evidence is retained in cause-nov6/ddd8 and ddd8-parent-gate.
+
+
+## November 6: shared tail outside both decoder arms
+
+The current1733 source has no macro calls, so the nearby decoder's opaque-macro
+type eligibility gap does not transfer. All440 hydrated attempts and2557 available
+private C files were audited for the actual shared-tail scope. Prior renamed
+join/tail labels remain nested in the second successful decoder arm; outer labels
+only govern loop/backedge control. None places the four shared tail statements
+after both arms.
+
+One new source does exactly that, replacing each invalid path with a jump to the
+unchanged increment. Both successful paths retain their original reads, BF30
+call, writes, sign handling and definitions of var_s1/var_a2/var_s0 before the
+tail. The first/second path's different 0x34/0x38 store order is preserved.
+Floating conversion, declaration types, u8 loop counter, increment and loop test
+are unchanged. Parent independently reviewed the source diff and path coverage.
+
+Exactly two bounded calls, ordinary and diagnostic, produce identical current
+bytes: score1733,980bytes, SHA256
+`dd2cc3353257d93b212c98bbc1b96b78358044ee9ecf5667511b81a779e3e9b8`.
+The same LOOP invariants remain: table6E77, table6E26 and QI literal1. Moving this
+shared tail therefore does not resolve the invariant lifetimes or frame spill.
+No candidate was adopted, and no random lane or additional compiler test ran.
+A proposed common char-pointer anchor is textually absent from history, but
+current RTL already models the bases as CONST(symbol+offset); there is no new
+phase mechanism justifying another equivalent constant-address spelling.
+
+Fresh before/after captures preserve all2077 matched full sources/profiles,
+complete focal inputs and440 hydrated attempt records. Private
+current1733-structure-nov6 retains shared-tail.c/diff, result.json, RTL, source
+path proof and preservation receipts. No live state or runtime was changed.
