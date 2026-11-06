@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793934225.916353,
- "revision": 19023,
+ "saved_at": 1793934804.831336,
+ "revision": 19026,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249861,6 +249861,22 @@
    "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
    "by": "manual-323479afb0e44e32",
    "created_at": 1793933823.791061,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "SourceSHA256 ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216. Fresh November6 contract audit confirms source/header/target/assembly/profile/symbols unchanged. Ordinary120-byte linking reproduces40 with eight register differences. Sole direct caller49E28 takes no arguments and consumes byte-cast boolean return: no legitimate parameter/lifetime bridge. Prior current-source native and inline/lifetime controls cover apparent approaches; no repeated sweep or new candidate. Revisit on new actual algorithm/allocation evidence; no pause or claim of all C exhausted. Private nov6-contract-audit/REPORT.md.",
+   "by": "you",
+   "created_at": 1793934759.4832451,
+   "score_before": 20,
+   "score_after": 20
+  },
+  {
+   "function": "func_8006C024",
+   "text": "SourceSHA256 d5f948d6b4dbfe727396e6d8bedce0963fd988d38c3f3b58c6c1ff266a56a9e9. November6 diagnosis of this exact1848 source: old2454 channel-shift hoist is absent. Current loop hoists two actual table bases and byte constant1; allocation spills frame_record, frame88 vs target80. Removing/delaying consumed record offset2054, phase sharing2913, decoded consolidation2473/4213, field pointer1948: negative. Explicit redundant nibble narrowing1733 stays review-only, NOT adopted; real consumed byte local2193 did not reproduce benefit. No generic native rerun or padding/identity repair. App common_scalar_tail generated frozen2238 to2043; later1848 includes separate table capture. Private diagnose-1848/RESULT.json. All2071 matched sources unchanged.",
+   "by": "you",
+   "created_at": 1793934766.672487,
    "score_before": 1465,
    "score_after": 1465
   }

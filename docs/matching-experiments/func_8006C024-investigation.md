@@ -75,3 +75,24 @@ App PR651 rejects newly introduced literal-zero empty-do scaffolding before
 random/deep judging, preserving existing wrappers, actual nonempty blocks and
 dynamic waits. It is a bounded source-shape guard, not a C equivalence checker.
 Private evidence: current-nov6-native and refinement-2238 under func8006C024.
+
+
+## November 6: diagnose the accepted1848 revision
+
+For source d5f948d6, the older2454 channel-shift hoist is no longer present.
+Loop optimization hoists the two table bases and byte constant1. Global allocation
+spills frame_record, with an88-byte frame versus target80. This is an observation,
+not a proven recipe for restoring the target allocation. Removing/delaying the
+consumed offset scores2054; phase sharing2913, decoded consolidation2473/4213,
+and actual field-pointer capture1948 are negative controls.
+
+An explicit narrowing of the already0..15 high nibble scores1733, but remains
+review-only and is not retained: a genuine consumed byte-local control scores2193,
+so the cast alone does not establish recovered original storage. No padding,
+dead assignments or identity-only scheduling rule is introduced. The accepted
+unmatched draft remains1848. No further native quota ran. Evidence is bound to
+the exact source in private diagnose-1848/RESULT.json.
+
+App PR652 now generates the genuine common-tail edit from the frozen2238 input,
+independently reproducing2043;125 focused tests passed. This is not a new exact
+match and does not attribute the separate table capture to the same family.

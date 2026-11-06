@@ -51,3 +51,17 @@ profile or source was adopted and no new automatic rule is demonstrated. The
 function remains OPEN40 and revisitable. Normal app notes and a full portable
 progress snapshot retain the results; historical cancellation/OOB20 remains
 rejected. No full-cartridge claim is made for an unmatched candidate.
+
+
+## November 6: current contract audit
+
+A fresh read-only audit confirms the six protected input groups unchanged:
+source, header, target, assembly, compiler profile and symbols. Ordinary linking
+reproduces40 over120 bytes with eight register differences. The sole direct
+matched caller49E28 invokes the actual no-argument entry and consumes its byte-cast
+boolean result; it provides no legitimate extra parameter or lifetime bridge.
+No new candidate or repeated native/inline/flag sweep was run. Previous controls
+remain bounded negative evidence, not proof that all C is exhausted. Keep this
+function open; a further experiment needs a new grounded source/allocation cause.
+Private evidence: nov6-contract-audit/REPORT.md and evidence.json, source
+`ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216`.
