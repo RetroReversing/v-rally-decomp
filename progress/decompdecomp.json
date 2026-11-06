@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793930884.7428071,
- "revision": 19010,
+ "saved_at": 1793931142.6701581,
+ "revision": 19012,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249829,6 +249829,14 @@
    "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
    "by": "manual-4982eb3be57b44ae",
    "created_at": 1793930839.555021,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Review selected corrective alternative attempt 312551; rejudged score 1200, replacing reported source 40d7371c0668000e0791. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793930896.342504,
    "score_before": 1155,
    "score_after": 1155
   }

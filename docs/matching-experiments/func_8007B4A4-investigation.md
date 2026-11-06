@@ -125,3 +125,21 @@ unchanged except the independently verified declaration correction. The focal
 remains portable research C, not selected standalone C and not a new match.
 All current progress, names, contexts, profiles, notes and review data are saved.
 The broader dynamic storage/domain preconditions above are retained explicitly.
+
+## November 6: genuine consumed position snapshots
+
+Fresh actual-source audit confirmed reviewed52 and all caller/callee contracts;
+838 hydrated attempts have no better score. Ordinary/diagnostic linked parity
+still matches SHA256
+`edcd5058b3efeaf8838b3ffbb7cbc761c69350a8cfa9a3edc4f0bc9fe3b2268a`.
+Three new fully consumed vertex-position snapshots score1047/1047/847. The
+six-byte snapshot starts as an initial-RTL block copy and increases frame0x60
+to0x68, with real stores and reloads absent from the target. It does not justify
+extra unused storage to reach target0x70. The selected matrix transpose copies
+translation words20/24/28 in addition to the nine rotation halfwords:32 bytes
+are required, with no evidence for a48-byte replacement.
+
+No exact candidate, accepted source change or reusable successful rewrite was
+found. No exhausted native/format/profile sweep was repeated. Private evidence
+manifest SHA256:
+`f26df90c3af0880d1a6eed06bc80ded181f446d12977769b214ac462190107b5`.
