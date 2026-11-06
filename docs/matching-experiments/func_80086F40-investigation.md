@@ -98,3 +98,26 @@ adopted and no new repair family was demonstrated. The results are retained
 in normal app notes and portable progress; this function remains OPEN325 and
 revisitable. Do not restart the old native sweep or use the incompatible265
 draft as an apparent improvement baseline.
+
+## November 6: compiler-stage origin, without a new source sweep
+
+Fresh saved-source hydration confirmed the reviewed325 draft, SHA256
+`4fd369c155ee0c1911ce715a03ff34e7b7f6aaf563083c3213098f2bb11f4ae5`.
+Ordinary and diagnostic builds agree on all468 linked bytes, SHA256
+`629f7e0135af0b13cc1fd48fbdfc417152d3593192871c69488df9ff6623ad13`.
+The647 hydrated attempts include obsolete lower-scoring contracts; those do
+not supersede the reviewed source.
+
+The walker and predecessor/parity remain global pseudos through local
+allocation. Global allocation visits the walker first and assigns s0, then
+assigns s1 to the predecessor; the target uses the reverse. Separately, initial
+argument expansion copies the aggregate's final20 bytes and loads its first
+word into a3 before assigning scalar a0. The copy temporaries therefore precede
+the scalar argument's lifetime, before scheduling. This separates expansion
+and allocation causes from a generic scheduler mismatch.
+
+Previously tested genuine call staging, lifetime reuse, initialization, loop
+and phase-union controls already cover these observations. No new native,
+formatting or profile sweep was justified. No accepted repair or new match
+resulted; the function remains OPEN325. Runtime allocation/callback assumptions
+and the broader historical SDK factory chain remain explicit limitations.
