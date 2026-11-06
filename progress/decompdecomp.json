@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793981487.754627,
- "revision": 19150,
+ "saved_at": 1793986290.812841,
+ "revision": 19154,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1166,6 +1166,19 @@
     "-O2",
     "-g3"
    ]
+  },
+  "634544:2148115120": {
+   "vram": 2148115120,
+   "function": "func_8009A2B0",
+   "toolchain": "gcc-4.4.0-n64",
+   "flags": [
+    "-G0",
+    "-march=vr4300",
+    "-mabi=32",
+    "-mno-abicalls",
+    "-fno-pic",
+    "-O2"
+   ]
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1215,6 +1228,7 @@
   "local_source_1891": "common_local_source_1891.h",
   "local_source_1975": "common_local_source_1975.h",
   "local_source_2029": "common_local_source_2029.h",
+  "local_source_2109": "common_local_source_2109.h",
   "local_source_599": "common_local_source_599.h",
   "local_source_894": "common_local_source_894.h"
  },
@@ -11701,8 +11715,8 @@
   },
   "func_8009A2B0": {
    "vram": 2148115120,
-   "best_score": 820,
-   "best_by": "autopilot"
+   "matched_by": "manual-be73c12cf6e4406c",
+   "readable": false
   },
   "func_8009A2D0": {
    "vram": 2148115152,
@@ -24418,7 +24432,7 @@
    "name": "func_8009A2B0",
    "vram": 2148115120,
    "size": 24,
-   "status": "asm"
+   "status": "open"
   },
   {
    "name": "func_8009A2D0",
@@ -250307,6 +250321,14 @@
    "created_at": 1793981438.802772,
    "score_before": null,
    "score_after": null
+  },
+  {
+   "function": "func_8009A2B0",
+   "text": "Verified modern-compiler reconstruction: caller and both callees establish unsigned64 division forwarding. Registered GCC4.4 sibling lowering produces ordinary/diagnostic raw equality and full cartridge equality. Original handwritten SDK provenance retained; no assertion GCC4.4 built the retail game.",
+   "by": "you",
+   "created_at": 1793986148.331491,
+   "score_before": 820,
+   "score_after": 820
   }
  ],
  "set_aside": [
@@ -250650,28 +250672,6 @@
     }
    },
    "asm_code": "3 agents (codex-gpt-5.6-luna-low, codex-gpt-6-luna, codex-gpt-6-luna-high) found no C makes it: Target is hand-written MIPS rather than compiler-generated C: 89 instructions, frameless despite multiple calls, manually preserves $ra in $t5 around jal, uses explicit 64-bit sign-magnitude carry sequences, and contains adjacent duplicated routine bodies. Prior agents repeatedly compiled plausible long-long C and it immediately emitted stack frame. This cannot be represented by pure C under project compiler."
-  },
-  {
-   "name": "func_8009A2B0",
-   "vram": 2148115120,
-   "not_c": {
-    "codex-gpt-6-luna-1": {
-     "model": "codex-gpt-6-luna",
-     "why": "Compiled a direct three-argument if/else dispatch; best score remains the existing 820. Target is a six-instruction branch followed by two absolute tail jumps with no frame or link-register save. KMC GCC emits stack setup and linked calls for all ordinary C call forms per repeated prior attempts. This matches a hand-written assembly dispatcher.",
-     "t": 1793018910.4009569
-    },
-    "codex-gpt-5.6-luna-low-3": {
-     "model": "codex-gpt-5.6-luna-low",
-     "why": "Compiled the direct C dispatch again; score remained 820 with a 12-instruction framed call sequence versus the target's 6 bare instructions. Multiple prior agents and compiler/flag variants reached the same limit. Target is a hand-written tail dispatcher: bnez a2 followed by two absolute j instructions with no frame or jal; no plausible KMC GCC C form reproduces it.",
-     "t": 1793024993.206899
-    },
-    "codex-gpt-6.1-sol-low-1": {
-     "model": "codex-gpt-6.1-sol-low",
-     "why": "Direct 3-argument returning dispatch compiles1210 with KMC framed jal sequence. Retried IDO7.1 O2 mips2 G0:1830, still frame and calls, not bare jumps. Target is no-frame branch/two absolute jumps forwarding registers unchanged, consistent assembly signed/unsigned division dispatcher. No ordinary C sibling-call output under project compiler.",
-     "t": 1793028491.943681
-    }
-   },
-   "asm_code": "3 agents (codex-gpt-5.6-luna-low, codex-gpt-6-luna, codex-gpt-6.1-sol-low) found no C makes it: Direct 3-argument returning dispatch compiles1210 with KMC framed jal sequence. Retried IDO7.1 O2 mips2 G0:1830, still frame and calls, not bare jumps. Target is no-frame branch/two absolute jumps forwarding registers unchanged, consistent assembly signed/unsigned division dispatcher. No ordinary C sibling-call output under project compiler."
   },
   {
    "name": "func_8009A2D0",
@@ -290727,6 +290727,91 @@
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
+   "func_8009A2B0": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1793986278.665477,
+    "attempt_id": 324938,
+    "source_sha256": "f63f5cbf6d9fc72f7e711dd5cae4208aae5bbbb19487d63a6476892d2c2e4b29",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 48,
+    "compiler": {
+     "toolchain": "gcc-4.4.0-n64",
+     "flags": [
+      "-G0",
+      "-march=vr4300",
+      "-mabi=32",
+      "-mno-abicalls",
+      "-fno-pic",
+      "-O2"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-4.4.0-n64",
+     "registry_sha256": "4fee52e2c98a2ef08f0ea987e889a260a899396d06f78e5c9f04b96f5854a93d",
+     "install_sha256": "280782bf7dbb4c95bf6167250b319e78d3c9317e13425ca8f7bd1bea4d091536",
+     "executables": {}
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-4.4.0-n64",
+      "flags": [
+       "-G0",
+       "-march=vr4300",
+       "-mabi=32",
+       "-mno-abicalls",
+       "-fno-pic",
+       "-O2"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/usr/bin/env",
+      "LD_LIBRARY_PATH=/tools/5d4fe6a66ed514be05f85d47040d3dbb/1",
+      "/tools/5d4fe6a66ed514be05f85d47040d3dbb/0/bin/mips64-elf-gcc",
+      "-c",
+      "-G0",
+      "-march=vr4300",
+      "-mabi=32",
+      "-mno-abicalls",
+      "-fno-pic",
+      "-O2",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "local_source_2109",
+     "scoring_revision": "410a938219f799f42a41bcf80063f29ed792577587a651bc895e31f6e56c0fb1",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "cc87c69098fc6a8104999b71446ce47d63b2fb6ffef558834c28eb4a68096ea3",
+    "relocations_sha256": "c243026961467689421941429a311dc0780e661566407a26487316caab067442",
+    "vram": 2148115120,
+    "unit": "local_source_2109",
+    "mode": "rom"
+   },
    "guLookAtReflectF": {
     "format": 1,
     "verdict": "exact",
@@ -291787,6 +291872,7 @@
    "a810d3d00eda33eef697102e15274d3e2c3a575ca13cae4e71f82cd6b595ed6f": "char *func_80098560(char *dst, char *src, u32 n)\n{\n    char *d = dst;\n    u32 w;\n    u32 x;\n\n    if (((u32)(src - dst)) & 3) {\nbytes:\n        while (n-- != 0) {\n            if ((*d++ = *src++) == 0) {\n                return dst;\n            }\n        }\n        return dst;\n    }\n    w = n >> 2;\n    if ((u32)d & 3) {\n        do {\n            if (n-- == 0) {\n                return dst;\n            }\n            if ((*d++ = *src++) == 0) {\n                return dst;\n            }\n        } while ((u32)d & 3);\n        w = n >> 2;\n    }\n    while (w-- != 0) {\n        x = *(u32 *)src;\n        src += 4;\n        if (!(x & 0xFF000000)) {\n            *d = 0;\n            return dst;\n        }\n        if (!(x & 0xFF0000)) {\n            *(u16 *)d = x >> 16;\n            return dst;\n        }\n        if (!(x & 0xFF00)) {\n            x >>= 16;\n            *(u16 *)d = x;\n            d[2] = 0;\n            return dst;\n        }\n        *(u32 *)d = x;\n        d += 4;\n        if (!(x & 0xFF)) {\n            return dst;\n        }\n    }\n    n &= 3;\n    goto bytes;\n}\n",
    "6742009044853caf231f1105bb8e898ac87b1c0ff6e7db96a44ce6f55863f751": "extern char D_800ADF08[];\ns32 func_80098998(s8 *arg0, s32 arg1, s32 arg2);\nf64 func_8009A590(f64 arg0, f64 *arg2);\nextern f64 D_800A3DB8;\nextern f64 D_800A3E00;\nextern char D_800A7290[];\nextern char D_800A7294[];\nextern f64 D_800A7298;\nextern f64 D_800A72A0;\nextern f64 D_800A72A8;\nextern f64 D_800A72B0;\nextern f64 D_800A72B8;\n\ntypedef union {\n    f64 d;\n    u32 w[2];\n} DBits;\n\nchar *func_80098B7C(f64 value, s32 ndigit, s32 *decpt, s32 *sign) {\n    DBits bits;\n    volatile f64 x;\n    f64 ip;\n    f64 ten;\n    s32 exp10;\n    s32 bit;\n    s32 n;\n    s32 i;\n    f64 *pp;\n    f64 *np;\n    char *p;\n\n    exp10 = 0; \n    bit = 0x100;\n    n = ndigit;\n    *sign = 0;\n    if (ndigit >= 20) {\n        ndigit = 20;\n        n = 19;\n    }\n    bits.d = value; switch (bits.w[0] & 0x7FF00000) {\n    case 0:\n        p = D_800ADF08;\n        for (i = 0; i < ndigit; i++) {\n            *p++ = '0';\n        }\n        *decpt = 1;\n        return D_800ADF08;\n    case 0x7FF00000:\n        *decpt = 0x7FFFFFFF;\n        if ((bits.w[0] & 0xFFFFF) || bits.w[1]) {\n            __builtin_memcpy(D_800ADF08, D_800A7290, 4);\n            *sign = 0;\n            return D_800ADF08;\n        }\n        __builtin_memcpy(D_800ADF08, D_800A7294, 4); return D_800ADF08;\n    }\n    if (value < 0.0) {\n        *sign = 1;\n        value = -value;\n    }\n    if (value >= D_800A7298) {\n        np = &D_800A3E00;\n        pp = &D_800A3DB8;\n        for (i = 8; i >= 0; i--) {\n            if (value >= *pp) {\n                exp10 += bit; value *= *np;\n            }\n            bit >>= 1;\n            np--;\n            pp--;\n        }\n    } else {\n        np = &D_800A3DB8;\n        pp = &D_800A3E00;\n        for (i = 8; i >= 0; i--) {\n            if (value < *pp) {\n                exp10 -= bit; value *= *np;\n            }\n            bit >>= 1;\n            np--;\n            pp--;\n        }\n        exp10--; value *= D_800A72A0;\n    }\n    x = value;\nagain:\n    if (x >= D_800A72A8) {\n        exp10++;\n        x *= D_800A72B0; goto again;\n    }\n    if (x < D_800A72B8) {\n        exp10--;\n        x *= D_800A72A8; goto again;\n    }\n    ten = D_800A72A8;\n    p = D_800ADF08;\n    do {\n        x = func_8009A590(x, &ip) * ten;\n        *p++ = (s32)ip + '0';\n    } while (--n >= 0);\n    if (ndigit >= 20) {\n        *decpt = exp10 + 1;\n    } else {\n        *decpt = func_80098998(D_800ADF08, exp10, ndigit) + 1;\n    }\n    return D_800ADF08;\n}\n",
    "ff235dc2f70bf19d6f5ace408b4657b09db42ab78fc5958c232737d72996524a": "extern char D_800A73E0[], D_800AE850[], D_800A3D50[], D_800A3D64[], D_800A3E10[], D_800A3D76, jtbl_800A72C0[];\nint func_8008E118(char *);\nvoid *func_8008E13C(void *,void *,int);\nint func_800987C0(int);\nchar *func_80098884(u32,int);\nchar *func_800988C8(u64,int);\nchar *func_80098E88(double,int,int *,int *);\nchar *func_80098B7C(double,int,int *,int *);\nchar *func_80098F34(double,int,char *);\nvoid func_80098290(char *,char *);\nextern int D_800ADEF0; extern char *D_800ADEF8, *D_800ADF00; extern char D_800ADF04;\n#define CNT D_800ADEF0\n#define OUT D_800ADEF8\n#define DIG D_800ADF00\n#define ALT D_800ADF04\n#define PUT(c) (--CNT == 0 ? func_800987C0(c) : (*OUT++=(c)))\n#define ARG(t,n) (*(t *)((ap=(char *)(((u32)ap+(n)-1)&-(n))+(n))-(n)))\nint func_8009912C(int unused, const char *fmt, char *ap) {\n char c; int len;\n char *str;\n int prec, flags, fprec, width, prefix, total=0;\n int issigned, base, isfloat, dec, sign, dec2, sign2, i;\nchar *digits, *p;\n u32 val; u64 wide; double f; double gf;\n for (;;) {\n  if ((c=*fmt++)!='%') {\n   if (!(signed char)c) { ALT=0; return total; }\n   if (D_800A3E10[(u8)c]&0x80) { PUT(c); total++; c=*fmt++; }\n   PUT(c); total++; continue;\n  }\n  flags=0; ALT=0;\n flag_loop:\n  switch (c=*fmt++) {\n   case '-': flags|=1; goto flag_loop;\n   case '+': flags|=2; goto flag_loop;\n   case '0': flags|=4; goto flag_loop;\n   case ' ': flags|=8; goto flag_loop;\n   case '#': ALT=1; goto flag_loop;\n  }\n  if ((signed char)c=='*') { width=ARG(int,4); if(width<0) { flags|=1; width=-width; } c=*fmt++; }\n  else { width=0; while(D_800A3E10[(u8)c]&8) { width=width*10+((signed char)c-48); c=*fmt++; } }\n  prec=0; fprec=6;\n  if ((signed char)c=='.') {\n   if ((c=*fmt++)=='*') { prec=ARG(int,4); c=*fmt++; }\n   else { while(D_800A3E10[(u8)c]&8) { prec=prec*10+((signed char)c-48); c=*fmt++; } }\n   fprec=prec;\n  }\n  isfloat=0; issigned=0; DIG=D_800A3D50; base=10;\n convert:\n  switch ((signed char)c) {\n  case 'd': case 'i': issigned=1; goto integer;\n  case 'o': base=8; goto clearflags;\n  case 'X': DIG=D_800A3D64;\n  case 'x': base=16;\n clearflags: flags&=~10; goto integer;\n  case 'u': goto integer;\n  case 'c': str=D_800AE850+0x86A0; *str=ARG(int,4); len=1; goto emit;\n  case 's': str=ARG(char *,4); if (!str) str=jtbl_800A72C0; len=func_8008E118(str); if(prec!=0 && prec<len) len=prec; goto emit;\n  case 'f':\n   f=ARG(double,8); digits=func_80098E88(f,fprec,&dec,&sign); if(sign) flags|=0x100;\n   str=D_800AE850+0x86A1; p=str;\n   if (dec==0x7fffffff) func_80098290(str,digits);\n   else if(dec<=0) {\n    *p++='0'; *p++='.'; i=0;\n    while(dec) { *p++='0'; i++; dec++; if(i==fprec) break; }\n    while(i!=fprec) { *p++=*digits++; i++; }\n    *p=0;\n   } else {\n    if(dec+fprec<40) {\n     func_8008E13C(p,digits,dec); digits+=dec; p+=dec;\n     if(fprec) { *p++='.'; func_8008E13C(p,digits,fprec); }\n     else if(ALT) *p++='.';\n     p[fprec]=0;\n    } else if(dec+fprec<255) {\n     __builtin_memcpy(p,digits,40);\n     if(dec<=40) p+=dec; else { p+=40; i=dec-40; do { *p++='0'; } while(--i); }\n     if(fprec) { *p++='.'; i=fprec; do { *p++='0'; } while(--i); } else if(ALT) *p++='.';\n     *p=0;\n    } else { fprec=20; c='e'; goto exponential; }\n   }\n   len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'e': case 'E':\n   f=ARG(double,8);\n exponential:\n   { char *s=func_80098B7C(f,fprec,&dec2,&sign2); str=D_800AE850+0x86A1; if(sign2) flags|=0x100;\n     if(dec2==0x7fffffff) func_80098290(str,s); else { D_800A3D76=c; func_80098A1C((u8 *)s,fprec,dec2-1,(s8 *)str); D_800A3D76='e'; }\n   } len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'g': case 'G':\n   gf=ARG(double,8); if(gf<0.0) { flags|=0x100; gf=-gf; }\n   D_800A3D76=c-2; str=func_80098F34(gf,fprec,D_800AE850+0x86A1); D_800A3D76='e';\n   len=func_8008E118(str); prec=0; isfloat=1; goto pad;\n  case 'n': *ARG(int *,4)=total; continue;\n  case 'p': flags=0; prec=8; DIG=D_800A3D64; base=16; goto integer;\n  case 'h': flags|=0x40; c=*fmt++; goto convert;\n  case 'l': if ((c=*fmt++)=='l') { flags|=0x20; c=*fmt++; } goto convert;\n  case 'L': flags|=0x80; c=*fmt++; goto convert;\n  default: PUT(c); total++; continue;\n  }\n integer:\n  if(prec) flags&=~4;\n  if(flags&0x20) { wide=ARG(u64,8); if(issigned) if((s64)wide<0) { wide=-wide; flags|=0x100; } str=func_800988C8(wide,base); }\n  else { val=ARG(u32,4); if(flags&0x40) { if(issigned) val=(s16)val; else val=(u16)val; }\n   if(issigned) if((s32)val<0) { val=-val; flags|=0x100; } str=func_80098884(val,base);\n  }\n  len=(D_800AE850+0x87A0)-str;\n pad:\n  prefix=0;\n  if(ALT && base!=10 && !issigned && *str!='0') { prefix=1; if(base==16) prefix=2; }\n  if((flags&5)==4) prec=width;\n  if(prec) {\n   if(flags&0x10A) {\n    prec--;\n    if(isfloat) {\n     width--; total++;\n     if(flags&0x100) { PUT('-'); }\n     else if(--CNT==0) func_800987C0((flags&2)?'+':' '); else *OUT++=(flags&2)?'+':' ';\n     flags&=~0x10A;\n    }\n   }\n   prec-=prefix;\n   while(len<prec) {\n    if(isfloat) { PUT('0'); width--; total++; prec--; }\n    else { *--str='0'; len++; }\n   }\n  }\n  if(prefix) { if(prefix==2) *--str=DIG[16]; *--str='0'; len+=prefix; }\n  if(flags&0x10A) { len++; --str; if(flags&0x100) *str='-'; else *str=(flags&2)?'+':' '; }\n emit:\n  if(!(flags&1)) { while(len<width) { PUT(' '); width--; total++; } }\n  width-=len; total+=len;\n  while(len-- !=0) { PUT(*str++); }\n  while(width>0) { PUT(' '); width--; total++; }\n }\n}\n\n",
+   "f63f5cbf6d9fc72f7e711dd5cae4208aae5bbbb19487d63a6476892d2c2e4b29": "extern unsigned long long func_8009A074(unsigned long long,unsigned long long);\nextern unsigned long long func_80099F78(unsigned long long,unsigned long long);\nunsigned long long func_8009A2B0(unsigned long long n,unsigned long long d) { if (d >> 32) return func_80099F78(n,d); return func_8009A074(n,d); }\n",
    "ae474deefc41f5b463fc253d527b0d8e54d73b7abed92b623c31a14d3c79e429": "typedef struct { u8 col[3]; s8 pad1; u8 colc[3]; s8 pad2; s8 dir[3]; s8 pad3; s32 pad4; } LightT;\ntypedef struct { LightT l[2]; } LookAtT;\nvoid guMtxIdentF(f32 mf[4][4]);\nf32 sqrtf(f32);\n\nvoid guLookAtReflectF(f32 mf[4][4], LookAtT *l, f32 xEye, f32 yEye, f32 zEye,\n                      f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp)\n{\n  f32 len, xLook, yLook, zLook, xRight, yRight, zRight;\n\n  guMtxIdentF(mf);\n\n  xLook = xAt - xEye;\n  yLook = yAt - yEye;\n  zLook = zAt - zEye;\n  len = -1.0 / sqrtf(xLook * xLook + yLook * yLook + zLook * zLook);\n  xLook *= len;\n  yLook *= len;\n  zLook *= len;\n\n  xRight = yUp * zLook - zUp * yLook;\n  yRight = zUp * xLook - xUp * zLook;\n  zRight = xUp * yLook - yUp * xLook;\n  len = 1.0 / sqrtf(xRight * xRight + yRight * yRight + zRight * zRight);\n  xRight *= len;\n  yRight *= len;\n  zRight *= len;\n\n  xUp = yLook * zRight - zLook * yRight;\n  yUp = zLook * xRight - xLook * zRight;\n  zUp = xLook * yRight - yLook * xRight;\n  len = 1.0 / sqrtf(xUp * xUp + yUp * yUp + zUp * zUp);\n  xUp *= len;\n  yUp *= len;\n  zUp *= len;\n\n  l->l[0].dir[0] = (xRight * 128.0f < 127.0f) ? (s32)(xRight * 128.0f) : 127;\n  l->l[0].dir[1] = (yRight * 128.0f < 127.0f) ? (s32)(yRight * 128.0f) : 127;\n  l->l[0].dir[2] = (zRight * 128.0f < 127.0f) ? (s32)(zRight * 128.0f) : 127;\n  l->l[1].dir[0] = (xUp * 128.0f < 127.0f) ? (s32)(xUp * 128.0f) : 127;\n  l->l[1].dir[1] = (yUp * 128.0f < 127.0f) ? (s32)(yUp * 128.0f) : 127;\n  l->l[1].dir[2] = (zUp * 128.0f < 127.0f) ? (s32)(zUp * 128.0f) : 127;\n\n  l->l[0].col[0] = 0;\n  l->l[0].col[1] = 0;\n  l->l[0].col[2] = 0;\n  l->l[0].pad1 = 0;\n  l->l[0].colc[0] = 0;\n  l->l[0].colc[1] = 0;\n  l->l[0].colc[2] = 0;\n  l->l[0].pad2 = 0;\n  l->l[1].col[0] = 0;\n  l->l[1].col[1] = 0x80;\n  l->l[1].col[2] = 0;\n  l->l[1].pad1 = 0;\n  l->l[1].colc[0] = 0;\n  l->l[1].colc[1] = 0x80;\n  l->l[1].colc[2] = 0;\n  l->l[1].pad2 = 0;\n\n  mf[0][0] = xRight;\n  mf[1][0] = yRight;\n  mf[2][0] = zRight;\n  mf[3][0] = -(xEye * xRight + yEye * yRight + zEye * zRight);\n\n  mf[0][1] = xUp;\n  mf[1][1] = yUp;\n  mf[2][1] = zUp;\n  mf[3][1] = -(xEye * xUp + yEye * yUp + zEye * zUp);\n\n  mf[0][2] = xLook;\n  mf[1][2] = yLook;\n  mf[2][2] = zLook;\n  mf[3][2] = -(xEye * xLook + yEye * yLook + zEye * zLook);\n\n  mf[0][3] = 0;\n  mf[1][3] = 0;\n  mf[2][3] = 0;\n  mf[3][3] = 1;\n}",
    "e36c25759231617375cdac0efbd69d9213e76507041f5128fe0287e0ecb7d315": "typedef struct \n{\n  s32 m[4][4];\n} Mtx;\nstatic __inline__ void identF(float mf[4][4])\n{\n  int i, j;\n  for (i = 0; i < 4; i++)\n    for (j = 0; j < 4; j++)\n      if (i == j) mf[i][j] = 1.0;\n      else mf[i][j] = 0.0;\n}\nstatic __inline__ void f2l(float mf[4][4], Mtx *m)\n{\n  int i, j;\n  int e1, e2;\n  int *ai, *af;\n  ai = (int *) &m->m[0][0];\n  af = (int *) &m->m[2][0];\n  for (i = 0; i < 4; i++)\n    for (j = 0; j < 2; j++)\n    {\n      e1 = (long) (mf[i][j * 2] * (float) 0x00010000);\n      e2 = (long) (mf[i][j * 2 + 1] * (float) 0x00010000);\n      *(ai++) = (e1 & 0xffff0000) | ((e2 >> 16) & 0xffff);\n      *(af++) = ((e1 << 16) & 0xffff0000) | (e2 & 0xffff);\n    }\n}\nvoid guMtxIdent(Mtx *m)\n{\n  float mf[4][4];\n  identF(mf);\n  f2l(mf, m);\n}",
    "ebc9f6c83b27a775dec4bb4043ed32eee979e109be1aa27e5ab5c04a15d23c7b": "typedef struct { f32 m[4][4]; } Mtx;\nextern f32 D_800A1CE0;\nvoid guNormalize(f32 *,f32 *,f32 *);\nvoid guMtxIdentF(f32 [4][4]);\nvoid guMtxF2L(f32 [4][4],Mtx *);\nf32 __sinf(f32); f32 __cosf(f32);\nvoid guRotate(Mtx *m,f32 a,f32 x,f32 y,f32 z){\n f32 mf[4][4]; f32 axis_pad[2]; f32 sp58,sp5C,sp60; f32 sine,cosine,ab,bc,ca,t; f32 (*p)[4];\n sp58=x; sp5C=y; sp60=z; guNormalize(&sp58,&sp5C,&sp60);\n a=a*D_800A1CE0; sine=__sinf(a); cosine=__cosf(a);\n t=1.0f-cosine; ab=(sp58*sp5C)*t; bc=(sp5C*sp60)*t; ca=(sp60*sp58)*t; p = mf; guMtxIdentF(p); t=sp58*sp58;\n p[0][0]=t+(cosine*(1.0f-t)); p[2][1]=bc-(sp58*sine); p[1][2]=bc+(sp58*sine);\n t=sp5C*sp5C; p[1][1]=t+(cosine*(1.0f-t)); p[2][0]=ca+(sp5C*sine); p[0][2]=ca-(sp5C*sine);\n t=sp60*sp60; p[2][2]=t+(cosine*(1.0f-t)); p[1][0]=ab-(sp60*sine); p[0][1]=ab+(sp60*sine); guMtxF2L(p,m);\n}\n",

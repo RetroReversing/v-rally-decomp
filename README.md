@@ -20,6 +20,17 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Unsigned 64-bit tail dispatcher — 6 November 2026
+
+The latest checkpoint contains **2,077 matched functions / 16 open / 28 retained
+as assembly**. `func_8009A2B0` now has caller-backed unsigned 64-bit forwarding C,
+compiled byte-exactly with registered GCC 4.4 default settings. This is a modern
+reconstruction, not a claim about the original retail toolchain. The full
+12,582,912-byte cartridge remains identical and all prior 2,076 selected sources
+and compiler profiles are preserved. All portable progress is in `progress/`.
+See [the evidence](docs/matching-experiments/tail-dispatch.md).
+
+
 ### Status return spacing — 6 November 2026
 
 The latest verified checkpoint contains **2,076 matched functions / 16 open /

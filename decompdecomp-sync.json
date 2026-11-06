@@ -740,7 +740,9 @@
     "include/decompdecomp_status_8008bb80.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "include/decompdecomp_compare_800958f0.h": "5df130d42a7ec567160e7f1aec8c67173cd0fe59c0d2c1ffac6d18665714105a",
     "src/code_8007E9D4/func_8008D6E0.c": "8624d0b1ce996d4d0d6089e75f344ce6da9458710ca476cfb7b6373f058ea719",
-    "include/decompdecomp_status_return_8008d6e0.h": "f4f6a2bef68d2b416966aacfdb839fcc0b3022eebd2fb5231f69e8c98af7795f"
+    "include/decompdecomp_status_return_8008d6e0.h": "f4f6a2bef68d2b416966aacfdb839fcc0b3022eebd2fb5231f69e8c98af7795f",
+    "src/code_8007E9D4/func_8009A2B0.c": "c9f9ebf90e4683c45d0b8121524e028d15a1bb9cb06e66c234536b6e40d46f6d",
+    "include/decompdecomp_tail_dispatch.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1175,6 +1177,7 @@
     "func_80098560",
     "func_80098B7C",
     "func_8009912C",
+    "func_8009A2B0",
     "guLookAtReflectF",
     "guMtxIdent",
     "guRotate",
@@ -1185,22 +1188,22 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2076,
+  "matched_app": 2077,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8008D6E0"
+      "func_8009A2B0"
     ],
-    "note": "Registered architectural Status return-spacing operation; ordinary/diagnostic and full cartridge exact. All 2075 previous profiles and selected objects preserved."
+    "note": "Unsigned64 tail dispatcher reconstructed with registered modern GCC4.4 default settings; not historical retail compiler attribution. Actual-header ordinary/diagnostic and full cartridge exact; all2076 prior selections/profiles preserved."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "matched": 2076,
+    "matched": 2077,
     "all_function_addresses_integrated": true,
     "corrected_source_hashes_confirmed": true,
-    "note": "Complete portable progress snapshot exported after normal live acceptance."
+    "note": "All portable progress exported after normal function-scoped live acceptance."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",
