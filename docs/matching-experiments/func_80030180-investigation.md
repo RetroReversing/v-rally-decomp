@@ -77,3 +77,35 @@ signed-negative-even, array extent, alignment and effective-type assumptions sta
 explicit. The parent is separately checking historical seed provenance before
 any newly authorized bounded native search; this phase report does not claim a
 native result or a new accepted function.
+
+
+## November 6: current177 provenance and component phase controls
+
+The selected draft is now OPEN177, not the historical357 above: source SHA256
+`e3ff993950c6a02527594ca6e606c459599e9ea6433534e90db5596401193b87`.
+It originated as native357 candidate120 and retains a genuine component index
+shared by a coordinate macro and local array read. Ordinary and diagnostic
+476-byte output agree, SHA256
+`ee856cf06f933c466971785191ad79d76115d8a2fefa203708fb1ab8cd986e3f`.
+All actual delta stack accesses remain at0/2/4. The current frame is32 versus
+8 in the target; compiler-added late memory USEs occupy12/20/28, not real loads
+or stores in those locations. The earlier literal ablation397 retains24 bytes
+and two such USEs. This associates temporary reservation with source expression
+handling without proving the exact allocator routine responsible.
+
+Two bounded same-layout controls isolate constant propagation from initializer
+placement. Declaring the real component as const int initialized to1 produces
+397/484bytes/frame24, exactly the prior literal-ablation bytes. Plain int with
+that same entry initializer produces1202/512bytes/frame24 and retains indexed
+stack-address computation. Both have full ordinary/diagnostic parity; neither
+improves177. Exactly two ordinary and two diagnostic compiler calls. No new
+selected source, ABI, compiler profile or dummy operation was introduced.
+
+Provenance audit distinguishes the completed native357 lane from an actual177
+seed. Each batch began357, with evolving native variants within the batch.
+Its saved parser input still contains COORD calls: the arguments are mutable,
+but the macro's address arithmetic is hidden from native AST rewrites. Historical
+manual address/unit/helper controls overlap many expanded forms. A missing
+current177/exposed lane alone is not proof of a new compiler mechanism or a
+claim of success. Private phase-audit-nov6 reports retain full comparisons and
+source/target/header/profile/symbol/prelude binding checks.

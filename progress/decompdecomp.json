@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793964257.1650581,
- "revision": 19086,
+ "saved_at": 1793964749.4049542,
+ "revision": 19090,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250119,6 +250119,22 @@
    "created_at": 1793964230.927829,
    "score_before": 52,
    "score_after": 52
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "SourceSHA256 6dd89f6e9c0f6bbef3bad5ec7d0287437f29034edd3b356be766c8f9f0a895b0. Fresh readonly causeaudit freezes740hydratedattempts andactualempty sourceprelude; all2071selectedmatchedrows unchanged throughindependentquery. KnownRTL n*9 singledefinitionpseudo111 movesoutside loop intos7; split600preventsLICMbuttiesqlifetimeandaddsnormalizedncopy. Existingaccumulator/helper/cursor/bytephase/typecontrolsalreadycovergroundedalternatives. Donorcontractsunchanged,nojustifiednewaliasrestriction/loopdependence; no compile/livechanges. OPEN505unchanged, notuniversalexhaustionproof. Private cause-audit-nov6RESULT.md; canonicalinvestigationupdated.",
+   "by": "you",
+   "created_at": 1793964447.922086,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80030180",
+   "text": "SourceSHA256 e3ff993950c6a02527594ca6e606c459599e9ea6433534e90db5596401193b87. Current177provenance native357candidate120,476linkedSHAee856cf06f933c466971785191ad79d76115d8a2fefa203708fb1ab8cd986e3f ordinary/diagnosticparity. Actuald accesses0/2/4, frame32target8; latememoryUSE12/20/28 reservedonly. Twoauthorizedcomponentcontrols const-entry397/484/frame24 matchesoldliteralablation, plain-entry1202/512/frame24; bothfullparity, noimprovement. Fourtotalcompiler calls. native357batchesfrozen357withevolvingwithinbatchKEEP; COORDargsvisiblebutbodyarithmeticopaque. No current177/exposedlane found; overlappingmanualcontrolsnotuniversalexhaustionproof. OPEN177unchanged; canonicalinvestigationcorrected, privatephase-audit-nov6 bindingchecks retained.",
+   "by": "you",
+   "created_at": 1793964702.597588,
+   "score_before": 177,
+   "score_after": 177
   }
  ],
  "set_aside": [

@@ -88,3 +88,23 @@ parity. None improves the current initialized505 source or supplies a successful
 new automatic family. No native/profile/format/declaration sweep or live source
 change occurred. Private bytephase-nov6/RESULT.md and results.json retain scope,
 source hashes and judgments; this does not rule out other reconstructions.
+
+
+## November 6: hydrated cause and contract audit
+
+A fresh read-only capture retains OPEN505, source SHA256
+`6dd89f6e9c0f6bbef3bad5ec7d0287437f29034edd3b356be766c8f9f0a895b0`.
+All740 hydrated attempt sources and the effective source/header/profile/target,
+assembly, symbols and actual empty source prelude were checked. All2071 selected
+matched rows remained identical through a final independent read-only query.
+
+Existing RTL establishes the source of the residual: a single-definition n*9
+pseudo moves out of the loop and occupies the target table-address register.
+The split600 source prevents that motion but ties the product to a different
+live value and adds a normalized-n copy. Real accumulators, consumed helper
+outputs, cursor/byte phases, widening and selector-offset controls already cover
+the grounded alternatives. Selected callee and neighboring record layouts support
+the source's actual data accesses but do not establish a new loop dependence or
+alias restriction. No new source change or compiler run was justified by this
+audit. These are bounded negative findings, not proof that no C can match.
+Private cause-audit-nov6/RESULT.md and final-readonly-equality.json retain evidence.
