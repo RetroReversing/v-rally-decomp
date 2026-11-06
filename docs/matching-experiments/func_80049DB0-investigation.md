@@ -86,3 +86,18 @@ All six protected input groups are unchanged and the function remains unclaimed.
 Private seed-audit-nov6/REPORT.md and result.json resolve the documentation
 ambiguity; neither old60 nor current40 native quota needs repeating without a
 new source/compiler mechanism.
+
+
+### Allocation-priority audit
+
+Saved actual KMC dumps rule out initial pseudo identity alone as the global
+priority rule: current order is77,72,75, while the separate-result control
+orders79,72,77,75. The return-preferred79 gets v0, but root then precedes p
+and their required allocation reverses. Local chain/sentinel temporaries are
+already assigned v0 before global allocation; return preference does not fix
+that separate obstacle. Use/lifetime and preference-sensitive priority are
+supported, but the exact comparator/tie-break formula was not independently
+established. Existing grounded source families cover these mechanisms; no
+new admissible candidate or compiler call followed. All2077 selected hashes/
+profiles and focal inputs remained unchanged. Private phase-priority-audit-nov6
+retains the source-bound dump references and preservation hashes.

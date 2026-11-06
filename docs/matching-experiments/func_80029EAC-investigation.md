@@ -277,3 +277,32 @@ immutable744-file app snapshot, all2077 selected source hashes/profiles and
 the focal live inputs remained unchanged. No return-contract change, selected
 C adoption, runtime update or cartridge-match claim follows from this search.
 Private early-return20-native1000-nov6 contains the reconciled receipts.
+
+
+### Direct positive-return expression composition
+
+A single new control combined positive-return flow with direct signed32 depth
+expressions. It removed only the final slot assignment, used the existing
+unsigned scale/signed interpretation in the guard and positive return, then
+assigned the same expression to height before the unchanged negative body.
+Earlier slot/height declarations and uses remain. No writes or calls intervene
+between the repeated depth reads. The partial-return contract is private and
+limited to the known result-discarding caller, not a general int API claim.
+An AST-aware audit of1166 hydrated attempts and15825 private/source records
+found no earlier direct-depth value-return shape.
+
+Ordinary and diagnostic output agree at75/1560bytes, worse than the private20
+root. First CSE shares the direct expressions into pseudo435 and retains both
+the positive return move and negative height copy. Combination then deletes
+the height copy; global allocation gives435 a1. The store uses the desired a1,
+but shift/branch use a1 rather than v0 and the delay-slot move is reversed.
+Twelve earlier register differences also appear. This closes the proposed
+short-lived-expression mechanism without a syntax sweep. Direct field storage
+was not separately compiled: the explicit height copy was already eliminated,
+so no distinct compiler cause justified that further control.
+
+The cached private caller proof was rebound to unchanged inputs; no caller
+recompile was needed. Exactly two compiler invocations tested the new control.
+All2077 matched-source hashes/profiles, complete focal inputs and the live
+OPEN215 draft remained unchanged. No adoption or full-cartridge claim follows.
+Private direct-positive-return-nov6 retains input bindings and paired outputs.
