@@ -198,3 +198,26 @@ This is verified parser visibility, not a new exact match or measured speedup.
 The source remains OPEN295 and all2071 selected records/profiles are unchanged.
 Private current-seed-nov6 reports retain initial failures, authorized recovery,
 negative results, type exclusions and app-expansion proof without publishing data.
+
+
+## November 6: live lifetime/address draft advances to 215
+
+The live claimant improved the saved draft through 245 to 215. The actual saved
+245 identity is cb6d11a579b883c9166e848e9344ee819b151ab992961ab0ca132e3266fed3ec;
+it contains no register keyword. Its changes split the existing down+1 evaluation
+and consistently reuse unescaped scalar carriers over disjoint phases. The fresh
+215 identity is b4bf2e530440ceaaaf9d1f7d94093194bc3c8c6bdf449ec4cbc9657fe8b0787b.
+Relative to 245 it changes only final record-address construction to an explicit
+32-bit integer-address sum. Its equivalence requires the pinned implementation's
+pointer/integer correspondence, valid record storage and representability of the
+signed offset sum. This is a provisional open draft, not a generic provenance
+proof or a new exact match.
+
+The claimant's note reports four remaining tail register/copy differences; this
+audit did not independently reproduce a linked 215 object and does not promote
+that note to a raw-byte proof. A proposed fresh final-depth carrier composition
+was already tested by the live claimant on the exact 215 address expression,
+with scores 580/370/580/580. The private audit therefore avoided duplicate
+compilation and did not interfere with the active claim. Typed contact records,
+several carrier and scope controls were also already recorded. Private evidence:
+current245-nov6/REPORT.md, hydrated attempts, notes and transcript snapshot.

@@ -167,8 +167,7 @@ void func_80029EAC(void *a, void *point, int index)
   if (slot <= 0)
   {
     height = slot;
-    record = P(a, 140) + 824;
-    record += W(P(a, 140), 820) * 48;
+    record = (char *)(824 + W(P(a, 140), 820) * 48 + (u32)P(a, 140));
     W(record, 40) = height;
     W(record, 36) = index;
     W(record, 32) = 0;
