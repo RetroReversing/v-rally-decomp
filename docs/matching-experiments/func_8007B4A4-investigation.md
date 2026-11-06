@@ -228,3 +228,15 @@ include three rejected C89 compatibility attempts, not seven successful
 compiles. No new native sweep, live source change or automatic repair followed.
 Private reports: current-nov6-grounded/frame-diagnostic, float-storage-current,
 phase-raw-direction and phase-storage-controls.
+
+The subsequent single scope-lifetime control is also negative. Its actual raw
+record scope ends immediately after the last division, and pinned RTL emits
+BLOCK_BEG/BLOCK_END notes at that lifetime boundary. All three stores survive
+flow/scheduling unchanged:890, frame0x70 and identical1412 linked bytes,
+SHA25611563cd0ce6156683987f258b724ad08edb58c6392020247c1487d24d8e1000b.
+Two compiler calls establish ordinary/diagnostic parity. Upstream GNU2.7.2
+flow/statement code offers explanatory context about memory-store removal and
+BLKmode records, but is not identity proof for the pinned KMC compiler.
+No further scope or initializer sweep is justified by this control.
+Private phase-scope-control report manifest SHA256:
+d9f56836e4638517e0ba58c7ba658b4868777916593cda428cf2874672999d3e.

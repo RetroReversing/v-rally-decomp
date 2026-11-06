@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793938371.610661,
- "revision": 19043,
+ "saved_at": 1793938584.4298172,
+ "revision": 19045,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249951,6 +249951,14 @@
    "created_at": 1793938361.357156,
    "score_before": 2,
    "score_after": 2
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "SourceSHA256 d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd. One actual raw-record scope ends after lastdivision; pinned RTL BLOCK_BEG/BLOCK_END do not eliminate three stores. Score890/frame0x70/full linkedSHA11563cd0 identical to previousrawphase, ordinary/-da parity two compiler calls. No accepted source or further sweep. UpstreamGNU2.7.2 memoryDSE explanation is context, not pinnedKMC identity proof. Private phase-scope-control/REPORT.md manifest d9f56836e4638517e0ba58c7ba658b4868777916593cda428cf2874672999d3e.",
+   "by": "you",
+   "created_at": 1793938557.061026,
+   "score_before": 52,
+   "score_after": 52
   }
  ],
  "set_aside": [
