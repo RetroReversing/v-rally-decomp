@@ -48,3 +48,50 @@ above 0.85 similarity for any of the 18 remaining PAL functions; this is a searc
 result, not proof of semantic dissimilarity. Revisit only with a new grounded stack
 allocation, source or compiler mechanism. Function-specific app notes retain these
 negatives and the unsafe signed-packing warning.
+
+## November 6: measured packing and conversion progress
+
+Current live source remains OPEN310, unclaimed and unchanged. That score is not a
+correctness baseline: the saved source still has signed overflowing color shifts
+and an unsupported 48-byte matrix extent. The corrected 32-byte matrix and
+unsigned-packing draft scores322. A fresh compiler-phase investigation now gives
+new evidence, rather than another profile/native/whitespace sweep.
+
+Preserving low-first order, split each `hi = (c << 16) + tag` into
+`hi = c << 16; hi += tag;`. Across all six packing sites this removes30 register
+differences, score172. Individual-site edits remain322. Initial RTL creates a local
+shifted temporary for the expression, whereas the staged form reuses the global
+high pseudo. Its use count rises24 to60; allocator order changes and color loses a
+hard-register2 conflict. The earlier FP-conversion-clobber explanation was rejected
+by the live ranges. Ordinary and `-da` builds link identically for each input.
+Parent independently reproduced322/172 and the final generated combined repair172.
+App PR639 (`cd710019`) implements bounded `unsigned_shift_staging` through shared
+repair generation, with visible unsigned-int bindings and invocation/escape guards.
+231 focused/shared tests pass; compiler-guide/ledger updates distinguish this
+improvement from an exact match.
+
+A further full unsigned conversion helper preserves both low and high range paths,
+including the2^31 subtraction and high-bit OR. A genuinely consumed early boundary
+value fixes constant-load ordering. Compiler assembly shows a debug-line label
+causing the assembler to add a NOP; putting the two actual independent setup
+assignments on the same physical line removes that barrier. Staging the converted
+high value before its OR fixes four more register positions. Parent independently
+reproduces score52, with the correct350 instruction count. It is still NOT exact:
+eight vertex-root/derived-position register differences and twelve frame offsets
+remain; actual frame0x60 versus target0x70.
+
+Real address-taken normalization components produce the desired rounded frame but
+retain six stores and regress. No dummy escape, invented matrix padding or
+uninitialized storage is a valid remedy. The private API correction also needs the
+sole selected caller1A340 to declare `void(void *,s32)`; its actual `(lists,0)` call
+is preserved and that declaration-only caller test is exact under its own profile.
+The focal API consumes `void *owner` and has the observed unused second formal.
+A flat nine-halfword matrix rotation and three-element p/q arrays preserve172.
+Neither caller correction nor focal draft is accepted into the live project yet;
+a future exact result requires the joint contract and whole-cartridge gates.
+
+The usual live-object bounds, nonzero finite vector normalization, float conversion
+range, alignment and effective-type/lifetime assumptions remain explicit. Actual
+ambient writers do not prove a global0..255 bound, so no signed-conversion shortcut
+or elided high-range branch is justified. Private evidence is retained separately;
+no cartridge data or compiler dumps are published here.

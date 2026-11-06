@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793922551.4425442,
- "revision": 18953,
+ "saved_at": 1793924020.488988,
+ "revision": 18955,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249615,6 +249615,14 @@
    "created_at": 1793922547.077607,
    "score_before": 565,
    "score_after": 565
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Nov6 independent parent proof: genuine Matrix32 and unsigned packing baseline322; preserve lo-first statement order and split hi=(c<<16)+tag into hi=c<<16;hi+=tag at six sites =>172, removes30registerdifferences. Shared unsigned_shift_staging generated combined proposal independently172; singles322. PR639 merged cd710019. Dumps prove expression localtemp vs globalhipseudo/usecount24to60, not FPconversionclobber. Later private full unsigned conversion helper retains both low/high paths; early actual2^31 boundary plus samephysicalstatementline avoids measured assemblerdebuglabelNOP, stagedhighOR gives52 independently, correct350instructioncount. Still NOT exact:8vertexroot/derivedregister differences and12frame offsets, frame60vs70. No invented48byte matrix/padding. Exactcallermodernization1A340 void(void*,s32) private only; focal void*owner+observedunusedmode, flatMatrixrotation9/pq3 shape neutral172. Known dynamicarray/finite/nonzero/conversion-domain assumptions remain. Do not repeat old reversed-high-before-lo negatives or flags/native/whitespace sweeps. Source310 stillOPEN unchanged, not correctness proof (signedshift/unsupportedmatrixextent). Research private current-nov5-grounded; no selected C/profile changed.",
+   "by": "you",
+   "created_at": 1793924014.280468,
+   "score_before": 310,
+   "score_after": 310
   }
  ],
  "set_aside": [
