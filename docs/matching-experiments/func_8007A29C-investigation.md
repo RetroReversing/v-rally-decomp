@@ -18,7 +18,7 @@ Two final parent-directed controls also failed: pointer-to-const-pointer table_f
 
 ## Bounded native experiment
 
-One independent native lane from the contract-corrected baseline completed1000 actual generated attempts:48 duplicates,72 preflight rejects,123 forbidden-token rejects,757 compiled/scored. Best remains2; no improvement or exact result. Each distinct candidate has an independent Clang file, initialization diagnostics, retained lineage and separate attempted/compiled/preflight counts. This is not a complete UB checker; any exact candidate still requires semantic audit and parent independent full 12582912-byte cartridge verification preserving prior2065 objects/profiles.
+One independent native lane from the contract-corrected baseline completed1000 candidates delivered by the Generator.batch wrapper:48 duplicates,72 preflight rejects,123 forbidden-token rejects,757 compiled/scored. Best remains2; no improvement or exact result. Each distinct candidate has an independent Clang file, initialization diagnostics, retained lineage and separate attempted/compiled/preflight counts. This is not a complete UB checker; any exact candidate still requires semantic audit and parent independent full 12582912-byte cartridge verification preserving prior2065 objects/profiles.
 
 No second native lane was run. No exact candidate was found, so the full-cartridge gate was not run. No match/acceptance claim is made. Final readonly check remains open score2 and unclaimed. The concrete remaining lead is genuine early addressable local allocation changing stack placement, with the controlled getter variants above as negative evidence. Further work requires a new source-shape hypothesis, not repetition of padding or these controls.
 
@@ -66,3 +66,44 @@ for a96-byte frame. No independently grounded fifth persistent value or genuine
 eight-byte local object was found. Do not manufacture padding or repeat the
 exhausted lifetime/helper/profile/native controls. This remains an unmatched,
 revisitable function with explicit runtime storage and arithmetic assumptions.
+
+
+## November 6: outgoing-area audit and native coverage correction
+
+A fresh frozen source/header/profile/target audit confirms the current
+padding-free22 draft. Across13 target JAL sites there are no outgoing stack
+argument stores: stack writes are the ten saved registers plus the four genuine
+pointer spills. Eleven current direct callee definitions show no incoming-stack
+argument reads or aggregate/variadic evidence. A24-byte outgoing area is therefore
+not a grounded explanation for the missing eight frame bytes.
+
+The older native runner explicitly seeds the padded contracts.c score2 draft.
+It does not establish coverage of current0992 padding-free22. Its1000 iterations
+count candidates delivered by Generator.batch; raw internal emission count is
+not established by that runner. Treating the old lane as exhausting the current
+source was an overstatement. A new independent bounded lane from the corrected
+source is justified, with separate emission/delivery/rejection/compiler counts
+and full source/linked review required before acceptance. No result is claimed
+for that new lane until its recorded process finishes.
+
+The corrected-source lane finished without improvement or exact match:1000
+received/persisted candidates,610 distinct candidates fully linked. Classification:
+51 duplicates,214 lineage rejections,100 safety/text rejections and25 Clang
+preflight failures. Requested jobs total1016; an interrupted batch leaves16
+possible unobserved outputs, so1000 is not a proven raw-generation count.
+An initial over-narrow symbol guard rejected85 compiled candidates that used
+legitimate baseline address aliases. Those85 and two interrupted candidates
+were rejudged from their recorded sources with the exact baseline undefined-symbol
+allowlist.695 successful compiler invocations include these87 replay invocations;
+they are not695 distinct candidates. The guard failures are not matching negatives.
+
+Current source, header, profile, target and dependencies were revalidated unchanged;
+no live project mutation or match acceptance occurred. A final bounded diagnostic
+review of recorded candidates checks frame versus body differences separately,
+rather than assuming the lowest total score is always the only useful seed.
+
+That diagnostic review replayed eight recorded candidates at distinct low scores
+26/27/30/32/42/46/50/52. Each retains the88-byte frame and1004-byte linked size;
+none provides the target96-byte frame. This scope does not establish the frame
+of every candidate in the lane. No further source proposal or generic app repair
+was demonstrated by these results.

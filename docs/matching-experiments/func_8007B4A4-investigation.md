@@ -143,3 +143,12 @@ No exact candidate, accepted source change or reusable successful rewrite was
 found. No exhausted native/format/profile sweep was repeated. Private evidence
 manifest SHA256:
 `f26df90c3af0880d1a6eed06bc80ded181f446d12977769b214ac462190107b5`.
+
+### Source-specific native coverage audit
+
+The old private native runner seeds clean.c at330, not the corrected full
+unsigned-conversion/Vec3 score52 source. The last recorded app deep pass also
+starts at310 and reports zero tested candidates. Neither record establishes
+native coverage of current d457155e52. A future bounded run from this corrected
+source is therefore a different starting point, rather than repetition of the
+old source. This is a coverage finding, not a new match or a native-run result.
