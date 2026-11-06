@@ -157,3 +157,26 @@ Detailed private receipts are retained under the investigation directories
 `current565-native200-nov6`. They include raw candidates, lineage, compiler
 outputs and preservation snapshots; these game-derived artifacts are not
 published in this repository.
+
+
+## Five-instruction service-stub audit
+
+The assembly-marked func_8009A670 is not an overlooked straightforward C win.
+Its actual ROM body copies a0 to the assembler temporary at, copies a1 to v0,
+executes a nop and returns with at copied to v0 in the delay slot. The first
+v0 value is overwritten without a use. No memory, FP, HI/LO or privileged
+operation supplies a hardware reason to retain that dead copy.
+
+All nine hydrated attempts already cover direct identity, temporary identity,
+dead assignment and old-value/comma forms, each score305. The three actual
+callers pass command values FE00/FE01/FE02 and immediately restore ra/return;
+none consumes a secondary at/v1/FP/HI/LO output. A service/debug purpose is
+plausible but unproven. This supports an intentionally assembled stub, not
+a universal proof that no compiler can emit it or a custom ABI claim.
+
+The full cartridge contains exactly three aligned direct calls and no raw
+big-endian target-address word. A bounded LUI+ORI/ADDIU scan of function streams
+finds no address producer; arbitrary computed indirect references are not
+excluded. No new grounded family justified compilation: zero compiler calls.
+All2077 matched-source hashes/profiles and complete focal inputs were preserved.
+Private vrally-8009a670-abi-audit-nov6 retains the ROM/caller/history receipts.
