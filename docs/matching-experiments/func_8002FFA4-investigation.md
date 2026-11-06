@@ -153,3 +153,57 @@ was revoked. No quality override, target or compiler change was used.
 Private parent107/proof.json and normal-retain-result.json retain the independent
 proof and post-error verification. Native tests and attribution receipts remain
 in layout-replay-nov6.
+
+## Focused107 search and controlled frame mechanism
+
+Both original-macro and exposed107 printer baselines preserve107. Only one raw
+emission in the earlier lane has622's exact grouping; the next resets lineage,
+so no visible descendants explored the improved seed. This does not reconstruct
+unseen internal generator states. A focused exposed107 lane therefore ran with
+the same fixed methods, current guards and preserved single nonempty group.
+It completed1000 raw emissions/16 receipts:696 compiled/linked,216 text/safety
+rejections,72 preflight failures,16 duplicates and no exact/improvement. Earlier
+lane source hashes seed the duplicate cache; duplicate emissions remain charged.
+Observation timeouts poll the same process, and none occurred.
+
+Pinned RTL identifies the actual origin of three late USE references: address
+intermediates for signed COORD off/2 and b/2+component. They are SImode, not
+hypothesized DImode constant-divide-by50 products. Actual d-array memory atsp0/2/4
+is present and must remain; residual-only diff rendering did not show it because
+it already matches. Extra USE references map tosp12/20/28 after global allocation.
+Their allocator alignment policy was not instrumented.
+
+One controlled composition replaces only ((off/2+c)*2) with off+2*c in COORD.
+All a/b definitions are representable index*6, hence even; c is0/1/2, including
+the unchanged immutable index1. Negative even offsets divide exactly. On the
+original defined arithmetic/storage domain, offsets and overflow constraints
+agree, and both expressions perform one final pointer addition from the same
+backing allocation. No unsigned cast, shift, extra read/store or intermediate
+out-of-object pointer was introduced. A scan of9284 private C files found no
+prior grouped107/division-free composition.
+
+The result has the target8-byte frame and removes all three obsolete USE slots,
+while preserving the real6-byte array. This directly links the extra24-byte
+reservation to the signed-half-offset representation in this context. It does
+not establish every internal allocator decision. Overall code regresses to475,
+480 bytes, including one extra NOP and register/scheduling differences, so it is
+not selected over107. Ordinary/-da agree, source SHA256
+6dc0fad0dd45db2ce0493439866d02bceea31a1368ba5ec9363917a1e4706af5,
+linked SHA256f9f4aa559248ccce0e282a9ef8376bc8253cded240332f84d481cae968227dd0.
+Private rtl-group107-even-address and group107-even-address.json hold the proof.
+
+The frame8/475 frontier also preserves its score, bytes and full preprocessed
+header/body AST after actual macro exposure and native printing. One targeted
+local reorder moves only x scaling after x-delta initialization, before y/z
+input loads; it preserves coordinate read order, output writes and local types,
+with no escaped local array address or call crossed. It moves the divisor's
+LUI earlier as intended, but regresses to1840/460bytes, frame8. Ordinary/-da
+agree, linked SHA256
+2a2ee819b500f6b0b86de63656c310cc19391ea606027569350aa10eabd06bab.
+No source is adopted from that control.
+
+One bounded1000-raw lane is now authorized from the proven compiler-exposed
+frame8/475 representation, not the failed early-scaling variant. Earlier fixed
+methods did not supply the exact-even algebra rewrite; this is a distinct
+structural frontier with the target frame, despite its worse scalar score.
+Original107 remains selected. No result is claimed for the pending lane.

@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793940158.342114,
- "revision": 19059,
+ "saved_at": 1793940930.025166,
+ "revision": 19063,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250015,6 +250015,22 @@
    "created_at": 1793940132.04019,
    "score_before": 177,
    "score_after": 177
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Focused exposed107lane terminal1000raw/16done/696linkedcompiled,216text72preflight16dup,0improve/exact. Earlier177lane showedzero visible622descendants; both107printers retain107. ConcreteRTLcorrectsDIguess:3lateSImode USEs arise fromCOORD signedoff/2,+component. One defined-domain exactevenoffsetsimplification (a/b=index*6,c0/1/2; negativeeven andoverflow/pointerdomain preserved) removes3USEslots/frame32->target8 whileactuald[3]sp0/2/4 remains. Regresses475/480bytes/extraNOP, ordinary/-daSHAf9f4aa55, NOTadopted. Provenaddressrepresentationcause ofextra24bytes here, allocatorinternalpolicy notinstrumented. Private group107-even-address proof/report; canonicaldoc updated. Bestremains107, allmatchedunchanged.",
+   "by": "you",
+   "created_at": 1793940678.618562,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SourceSHA256 1ca0e9baf9af8dffa7940587000666889c0fe7c5f3d1356089d8dce114decd41. Frame8/475 alternative originalmacroprinter/actualexposed/nativeprinted all475 withAST+normal/-da parity. One real earlyxscaling reorder preservesmemoryread/outputorder/localtypes and movesmagicLUIearlier but regresses1840/460bytes/frame8 SHA2a2ee819, NOTadopted. One bounded1000raw lane nowrunning from provenexposedframe8/475, notearlyx, asnewstructuralfrontier previousfixedmethods couldnotgenerate evenalgebra. No resultclaimedpending. Bestremainsnormal107; docs/currentproofs inlayout-replay-nov6.",
+   "by": "you",
+   "created_at": 1793940893.054662,
+   "score_before": 107,
+   "score_after": 107
   }
  ],
  "set_aside": [
