@@ -1,6 +1,6 @@
 # func_8007B4A4 — private investigation
 
-No exact match. The function remains OPEN, score 330, unclaimed at the final readonly check. No live project, canonical repository, runtime or profile edits were made.
+Latest verified state: OPEN52. Historical sections below retain their original scores and inputs; later sections record corrections and controls. No exact match has been accepted.
 
 Frozen app revision 045c7eb2, effective header and symbols/target/profile in frozen/inputs.json (SHA256 d3ccd904b74ce81c1712740a522a08e9a63e0901d7552c661149a8ff28c12b8e). Compiler gcc-2.7.2-kmc: -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -g3. ROM SHA256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7.
 
@@ -298,3 +298,38 @@ as the closed floating-record control, not an exact match. No further record,
 array, union, scope or type sweep followed. Two successful compiler calls.
 Private integer-difference manifest SHA256:
 `6d8f546b089fa5fbd249ff68d43ade86f2a402f6f4d6062b943e6571203e0c03`.
+
+
+## November 6: current52 source-bound SN stack-layout comparison
+
+The old48-profile runner uses matrix-translated.c (88ed0bfd), not the actual
+current52 source (d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd).
+The changes are substantial: p/q[4] become[3], rotation[3][3] becomes[9],
+the owner/mode contract is corrected, and explicit conversion/limit and six
+packing sites are staged differently. The header and effective flags agree,
+but those older results do not prove current-source compiler coverage.
+Fresh current source_prelude is empty; no missing intrinsic explains the frame.
+
+A finite comparison uses unchanged current52 C/header and its actual KMC flags
+-G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -g3, adding only the registered SN
+assembler/dialect flags -mgas -meb -mhard-float. All three binaries were already
+installed with license acceptance recorded. Exactly six ordinary/diagnostic
+calls ran under independent20s/2GiB aggregate descendant-RSS caps.
+
+| SN build | Score | Bytes | Frame | Linked SHA256 |
+| --- | ---: | ---: | ---: | --- |
+| 0001 | 6547 | 1272 | 96 | 5d6d010ef83c41324cd920ad9980e382bb367a1995825b67d77be1b983827455 |
+| 0004 | 11366 | 1240 | 104 | a1e4acdfcb2bb85d57ad8ca371e43f9d27b52f6b7af8e1cc598f8740ae524200 |
+| 0006 | 18545 | 1220 | 96 | 41d0aed1771abe0840bf4b99b3eefd334c5bbf6a6a996d5367653d5349427826 |
+
+Each pair has identical linked bytes. All retain48 local bytes, p at16, q at24
+and m at32. Register saves occupy the target's unused64..79 region. The larger
+0004 frame comes from saves, not the required local gap. No result is accepted,
+no source or profile is changed, and no further random or flag quota follows.
+A wider p/q union would contradict the observed eight-byte spacing and was
+rejected without compilation; it is not permission to add unused storage.
+
+All2077 complete matched records/effective profiles,838 hydrated attempts and
+complete focal inputs compare unchanged before/after; processes are reaped.
+Private current52-provenance-nov6 retains complete SP-reference inventories,
+commands, paired bytes, source bindings and the final report/manifest.
