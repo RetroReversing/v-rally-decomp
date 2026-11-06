@@ -22,6 +22,28 @@ token-identical transfer. Older measurements below remain historical evidence;
 they do not describe the new best draft. Private receipts are retained in
 `current-sibling-transfer-nov6`.
 
+## Bounded search from the improved 107 draft
+
+The new root received one separate 1,000-emission local search. Original,
+macro-expanded and AST-printed C first reproduced the same 107/476-byte output
+in ordinary and diagnostic builds. Full-translation-unit type information and
+positive/negative guard controls were checked before generation.
+
+Outcomes: 20 source duplicates, 437 guard rejections, 58 preflight rejections,
+291 linked duplicates and 194 new linked results. Thus 485 generated candidates
+compiled; none improved 107 or matched. The best newly scored result was 112.
+The single generator completed its fixed quota and was reaped, with explicit
+time and memory limits and no extension. Historical byte deduplication covers
+only available receipts; these guards are conservative screens, not a complete
+semantic proof. All 2,077 selected sources/profiles and the focal draft remained
+unchanged. Private `current107-native1000-nov6` retains the terminal accounting.
+
+Two controlled compositions also failed: replacing the known coordinate index
+with literal 1 scored 327 with a 24-byte frame; simplifying the signed byte
+address using the proven even point offset scored 480 with the target's
+eight-byte frame. Both had ordinary/diagnostic parity. Fixing the frame alone
+therefore did not repair the body; neither was adopted.
+
 # Coordinate interpolation with a 500-step interval
 
 The previous score435 draft was invalid: __repair_addr was read uninitialized and the second coordinate loaded through *(u8 **)arg0 rather than *(u8 **)(arg0+0x54). A sound related-function transfer (denominator500) judged420 through normal API, still nonexact. Cleaner same420 research alternative SHA256 0802eb1468b0ed22a0a9b8e42e55b16d07752a0cc050f1ae9a2d24ef5331c74b removes unused locals and dead post-use assignment; Clang initialization checks pass, unlike original. 1000 guarded native candidates,176 helper manual trials,144 parent probes (including declaration duplicates) found no exact match. Residual register allocation and arithmetic scheduling remain; no target/profile/ABI/judge changes. OPEN and revisitable; not selected as standalone C. Clean source: docs/matching-experiments/func_80030180-nonmatching-alternative.c.
