@@ -285,3 +285,16 @@ Private macro-visibility-nov6 reports contain linked objects, complete stack
 references, diagnostics, source/AST identity and ordinary compiler receipts.
 Boundary-pass manifest SHA256:
 `d362f233e85497ac638c4d391978ad126973991cc993cd83384bc70537c8f0af`.
+
+
+The final single signed-integer difference-record control is also negative.
+The existing coordinate subtractions produce values in[-65535,65535], exactly
+representable as both s32 and f32; recording them in three s32 fields preserves
+subtraction/conversion/square order without padding or extra arithmetic. Ordinary
+and diagnostic results agree at1225/1412bytes, frame112 with the target save
+positions. Three extra integer stores remain at64/68/72 after CSE, flow,
+combination and final scheduling. This is the same retained-memory-store cause
+as the closed floating-record control, not an exact match. No further record,
+array, union, scope or type sweep followed. Two successful compiler calls.
+Private integer-difference manifest SHA256:
+`6d8f546b089fa5fbd249ff68d43ade86f2a402f6f4d6062b943e6571203e0c03`.
