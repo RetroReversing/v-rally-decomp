@@ -120,3 +120,26 @@ Normal MCP compilation retained it as an OPEN draft, preserving all2071 matched
 sources. This is not an exact match or complete-cartridge acceptance. Existing
 storage and arithmetic premises remain unchanged. Private byte-phase-review/
 RESULT.json retains the range/evaluation audit and fresh parity evidence.
+
+
+## November 6: focused1733 search and automatic repair
+
+One newly frozen1733 lane completed normally:256 requested and received, four
+completion receipts,179 linked, no exact match or improvement. The seven fixed
+methods were expression temporaries, statement reorder, assignment splitting,
+factor multiplication/shift, commutative order and real block insertion. Current
+shared safety guards ran before compilation; no declaration/type/flag methods
+or replacement quota were used. Private native-1733-focused/RESULT.json retains
+lineage and raw accounting.
+
+A printed baseline scores1833. Restoring its original conversion statement
+boundary recovers1733. The best real field-pointer staging candidate similarly
+recovers only1733 after that one boundary restoration. This is a measured
+formatting effect, not a general printer limitation or a hidden improvement.
+
+App PR653 adds the bounded decoded_byte_normalization local/deep hypothesis:
+the generated edit independently reproduces1848 to1733 from the copied witness.
+It requires a known32-bit C profile, a visible unsigned-byte load, unchanged
+unescaped local range and existing chained scalar assignments. It adds no reads,
+locals, assignments or control.124 focused tests and whole Ruff passed, including
+a host-C exhaustive byte/shift equivalence check. No new exact match is claimed.

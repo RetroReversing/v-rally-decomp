@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793935636.947577,
- "revision": 19033,
+ "saved_at": 1793936349.679569,
+ "revision": 19035,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249909,6 +249909,14 @@
    "text": "SourceSHA256 8c509f910f6587fb430aa8c28e3685c27f0102ab81f39fb0ae1328703793808c. Supersedes earlier review-only disposition after semantic byte-phase audit: explicit u8 conversion at actual packed-byte highnibble extraction is meaningful decodedbyte representation, not dummy scaffolding. Actual u8load0..255 ->unsignedshift4 ->0..15 ->byteconversion ->existing integercarriers. Same assignments/evaluations/real consumers, no addedread/call/local/deadstore/control. No claim uniqueoriginaltype. Negative whole-byte declarations/separatebyte local do not invalidate this different reconstruction. Parent independentordinary1733,980linkedbytes dd2cc335... ordinary/-da parity. NormalMCP retained; all2071matched sources unchanged. Still OPEN, not exact. Private byte-phase-review/RESULT.json.",
    "by": "you",
    "created_at": 1793935631.6946812,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006C024",
+   "text": "SourceSHA256 8c509f910f6587fb430aa8c28e3685c27f0102ab81f39fb0ae1328703793808c. Focused current1733 native lane completed256requested/received,4done,179linked,0exact/noimprove;7fixedmethods, currentemptydo/updateguards, no type/decl/flags/replacementquota. Printedbaseline1833 ->originalconversionstatementboundary1733; best genuinefieldpointer candidate alsoonly1733 aftersameboundaryrestoration. Not blanketprinterfailure. New appPR653 decoded_byte_normalization automaticallyreproduces frozen1848->1733;124 tests inclhostC byte/shift equivalence. Currentaccepted1733 preserved, noexact/fullcartclaim. Private native-1733-focused/RESULT.json.",
+   "by": "you",
+   "created_at": 1793936341.828514,
    "score_before": 1465,
    "score_after": 1465
   }
