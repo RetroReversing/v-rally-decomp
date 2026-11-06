@@ -55,3 +55,25 @@ No native/profile/whitespace/declaration sweep was repeated. No new generic repa
 or exact result is established; do not repeat these forms solely because their
 loop placement is closer. Valid505 remains selected and unclaimed. Normal-game
 record bounds, alignment and representable signed-difference assumptions remain.
+
+## November 6: wider caller-contract audit
+
+The actual saved initialized505 source and all four previously captured selected
+caller/callee sources are unchanged. Fresh input SHA256:
+`32bb62b2af5da882b29a8b94a3df8591e8fa6799b48494d855c041ff11a6e86f`. No new source
+relationship justified repeating native, formatting or profile sweeps.
+
+A bounded declaration-only correction in selected caller func_8005A790 changes
+its erroneous s32-returning declaration of this actual void(void) entry. Its
+statement-only calls and other source are unchanged; ordinary and diagnostic
+builds preserve all3100 linked bytes, exact against target. This private proof
+is not accepted selected C: the wider caller scan identified unresolved pointer
+return/storage, SDK matrix and extra-argument contracts. Correcting only the
+focal declaration does not close those known obligations. No live source or
+compiler profile was changed, no match was added, and no cartridge acceptance
+is claimed for the private caller alternative.
+
+The remaining obligations and exact declaration proof are retained privately in
+current-nov6-grounded/RESULT.md, caller-contract-scan.json and caller-5A790/proof.json.
+Future work should close coherent actual interfaces before accepting a broader
+caller correction, retaining all selected neighbors and runtime storage premises.
