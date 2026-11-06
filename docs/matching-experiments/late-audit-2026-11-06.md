@@ -64,6 +64,57 @@ route was found, so no speculative quotient-return candidate was compiled.
 This is a bounded capability finding, not a proof that every possible compiler
 or calling convention is incapable of reproducing the bytes. Assembly remains.
 
+## Additional local coverage: func_80049DB0
+
+A deliberately larger search added 10,000 raw emissions on the actual score-40
+source (`ea647ba17af5ef82350d47c9b2e13d28a3e2325a058a8ba8781612f88abe9216`).
+This was additional finite coverage, not a newly discovered compiler cause.
+Original and printed roots passed ordinary/diagnostic linked-byte parity before
+launch. The one generator completed in about 19 minutes with no restart,
+extension or watchdog failure.
+
+Accounting: 2,972 normalized-source duplicates, 3,917 guard rejects, 262 preflight
+rejects, and 2,849 successful compilations/links. The compiled set contained
+2,521 previously seen linked outputs and 328 distinct scored outputs. None
+improved 40 or matched exactly. The historical source filter includes the old
+1,000-emission lane; historical byte deduplication is incomplete because its
+452 judged records did not retain all linked bytes/hashes. No old compilation
+was replayed solely to rebuild that missing cache.
+
+Two new score-45 outputs were replayed ordinary and diagnostic, four compiler
+calls total, with matching bytes in each pair. One changes the selected-value
+load preference but moves its pointer to the wrong register; the other retains
+the correct pointer register but the wrong value/result registers. Both retain
+nine register-only differences instead of the baseline eight. Neither supplies
+a better seed. This result does not justify repeating the same search without
+new evidence or an explicitly larger search plan.
+
+## Corrected-contract local coverage: func_8003E6D8
+
+The current callback-contract source differs from the older native seeds even
+though its ordinary output also scores 565. Original, expanded and printed
+forms produced identical 1,580-byte output, SHA-256
+`81939f9e2c8d53d7b473c79ca8840f3c242f506ae73b2978ffce9d91089f3c19`.
+Exactly 200 new raw variants were generated once.
+
+An inherited private runner guard initially mistook an existing global write
+for an introduced local temporary and rejected every candidate. The corrected
+guard was checked against baseline/legitimate-capture positives and changed-type
+and cast negatives, then evaluated the same retained 200 candidates. Production
+app code was not affected or changed.
+
+The completed recorded replay rejected 78 at guards and 18 at preflight, then
+compiled 104: 66 linked duplicates and 38 newly scored outputs. None improved
+565 or matched. A preceding corrected replay failed while writing its receipt;
+its extra compiler-call count is unaccounted. The duplicate evaluation is
+explicitly retained in the private report, rather than counted as new emissions
+or hidden inside a purported exact total. Future runners must persist outcomes
+incrementally and test that the unchanged baseline passes their guards.
+
+These random candidates remain semantic hypotheses. In particular, moving a
+global read across a call requires alias/effect review, even when types match.
+No candidate from either search was adopted.
+
 ## Preservation and evidence
 
 Read-only packed-storage-aware database snapshots before and after each audit
@@ -73,6 +124,7 @@ source adoption or runtime deployment occurred.
 
 Detailed private receipts are retained under the investigation directories
 `current215-native200-nov6`, `abi-wide-origin-nov6`, and
-`vrally-remainder-2110-nov6`. They include raw candidates, lineage, compiler
+`vrally-remainder-2110-nov6`, `additional40-native10k`, and
+`current565-native200-nov6`. They include raw candidates, lineage, compiler
 outputs and preservation snapshots; these game-derived artifacts are not
 published in this repository.
