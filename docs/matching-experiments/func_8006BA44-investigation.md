@@ -122,3 +122,24 @@ attempt history was checked before testing; physical NULL source fields are not
 missing history. No additional native/profile/declaration sweep was run. Existing
 valid runtime category/slot/storage and finite nonzero arithmetic premises remain
 explicit and are not a whole-game C-conformance proof.
+
+## November 6: corrected695 native coverage
+
+The previous native scripts start from older1030/1035/3004 models, and the last
+app deep pass starts at1000. They do not establish coverage of the current
+corrected695 source. A fresh capture confirmed its exact source hash and
+ordinary/diagnostic parity:1028 linked bytes, SHA256
+`44f1eac0a47b73c507baa853c1952341ba2b4592006a8a223f1253f7492879c4`.
+
+One independent raw-protocol run completed16 jobs and1000 received candidates:
+21 duplicates,343 forbidden-history rejections,97 text/current-safety rejections,
+44 Clang failures and495 linked comparisons. No game-compiler or symbol failures
+occurred after those guards. No candidate improved695 or matched exactly;
+177 reproduced695. These bounded guards do not constitute a complete C proof.
+
+Several native layouts preserve baseline code, so the lighting function's
+formatter regression is not a blanket explanation here. No extra layout
+controls or replacement candidates were generated. This exact starting source
+now has recorded native coverage; another run requires a new grounded cause.
+No live source, compiler profile or selected C changed. Private receipts are
+current-nov6-native/RESULT.md, RESULT.json and coverage-audit.json.

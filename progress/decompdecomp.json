@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793932769.963916,
- "revision": 19016,
+ "saved_at": 1793934225.916353,
+ "revision": 19023,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8386,8 +8386,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 2454,
-   "best_by": "candidate-review"
+   "best_score": 1848,
+   "best_by": "manual-323479afb0e44e32"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -249839,6 +249839,30 @@
    "created_at": 1793930896.342504,
    "score_before": 1155,
    "score_after": 1155
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Source546e06d57cd3af8ab046b04ee6804ab740a7c1d692d6217d383256f9f0be93de corrected695 now has independent current-source native coverage:1000 raw received across16 completed jobs,21duplicate343forbiddenhistory97safety44Clangfail495linked,0exact/noimprove,177same695. Ordinary/-da1028bytes44f1eac0... unchanged. Old1030/1035/3004 lanes did not cover this source; this new lane does. No artificial padding/duplicate arms/type/ABI tricks admitted. Many native layouts preserve695, so do not blame blanket ASTformatting. This is bounded negative evidence, not proof all C or all mutations exhausted; revisit with a new grounded cause. current-nov6-native/RESULT.md; no live source/profile change.",
+   "by": "you",
+   "created_at": 1793933113.32198,
+   "score_before": 695,
+   "score_after": 695
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-550f76bd77964b35",
+   "created_at": 1793933450.457908,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-323479afb0e44e32",
+   "created_at": 1793933823.791061,
+   "score_before": 1465,
+   "score_after": 1465
   }
  ],
  "set_aside": [

@@ -1,7 +1,47 @@
 # Unmatched source alternatives
 
 These sources are experiments, not selected build inputs or claimed matches.
-Keep the better saved app draft and revisit these independently.
+Historical scores do not establish valid C or current selection. Revalidate the
+actual source, header, compiler profile and linked target before revisiting.
+
+
+## Current open-function snapshot — 6 November 2026
+
+The live project has 2,071 matched functions, 16 open functions and 34 retained
+assembly functions. The table lists current saved research drafts, not selected
+standalone C or proofs of whole-program correctness. The older sections below
+are historical: some functions have since matched, and several lower-scoring sources
+have been rejected for concrete C defects. Start with the linked investigation
+and its latest source hash rather than an old alternative filename.
+
+| Function | Current score | Investigation |
+| --- | ---: | --- |
+| `func_80049DB0` | 40 | [Current evidence](func_80049DB0-investigation.md) |
+| `func_800529F0` | 135 | [Current evidence](func_800529F0-investigation.md) |
+| `func_80086F40` | 325 | [Current evidence](func_80086F40-investigation.md) |
+| `func_8002FFA4` | 177 | [Current evidence](func_8002FFA4-investigation.md) |
+| `func_80030180` | 177 | [Current evidence](func_80030180-investigation.md) |
+| `func_8006603C` | 305 | [Current evidence](func_8006603C-investigation.md) |
+| `func_8006C024` | 1848 | [Current evidence](func_8006C024-investigation.md) |
+| `func_8007A29C` | 22 | [Current evidence](func_8007A29C-investigation.md) |
+| `func_8006BA44` | 695 | [Current evidence](func_8006BA44-investigation.md) |
+| `func_8006D10C` | 505 | [Current evidence](func_8006D10C-investigation.md) |
+| `func_8006E394` | 1200 | [Current evidence](func_8006E394-investigation.md) |
+| `func_80059A60` | 950 | [Current evidence](func_80059A60-investigation.md) |
+| `func_8007B4A4` | 52 | [Current evidence](func_8007B4A4-investigation.md) |
+| `func_80040CF4` | 518 | [Current evidence](func_80040CF4-investigation.md) |
+| `func_80029EAC` | 295 | [Current evidence](func_80029EAC-investigation.md) |
+| `func_8003E6D8` | 565 | [Current evidence](func_8003E6D8-investigation.md) |
+
+Current 695/1200/22 drafts supersede historical drafts for 6BA44/6E394/7A29C
+respectively; do not reinstate an old source merely because it scores lower.
+Removing unsupported qualifiers, padding or invalid dataflow may worsen a score while correcting the source model. Native coverage also belongs
+to a particular starting source: the old padded 7A29C lane did not cover its
+current 22 draft, while 6D10C's old initialized 505 lane does use the current source.
+Check the per-function ledger before commissioning another search.
+
+## Historical alternatives
+
 
 ## func_8007AD68
 

@@ -45,3 +45,33 @@ were checked; no native, flag or arbitrary declaration sweep was run. No new
 positive automated repair follows from these controls. Do not repeat this phase
 copy family without new source/domain evidence. Existing runtime bounds and
 raw-storage assumptions remain explicit. Private receipts: current-nov6/REPORT.md.
+
+
+## November 6: consumed offset and shared table staging (OPEN1848)
+
+A genuine consumed record-offset local improved2454 to2238. The byte selector
+bounds its shift to0..16320. Removing both identical branch-tail multiplications
+and evaluating once at their common successor improved2238 to2043. Capturing
+the actual char-array table base before use then improved2043 to1848. Existing
+raw-storage, alignment, effective-type and nonzero-divisor premises still apply.
+This is a retained unmatched draft, not an additional exact match.
+
+Parent ordinary linking independently reproduced1848; ordinary/-da agree on976
+linked bytes, SHA256
+`49ef27fc54e7c9d887c939136d0672dcba160eedc3a6d5935b4d013fed9c1f92`.
+Source SHA256:
+`d5f948d6b4dbfe727396e6d8bedce0963fd988d38c3f3b58c6c1ff266a56a9e9`.
+Normal app compilation retained this source; all2071 selected matches remain.
+
+The initial current-source native lane persisted549 candidates, including one
+interrupted in-flight candidate, and linked224. Two empty-do scaffolding
+candidates were excluded, leaving222 audited linked candidates.576 outputs were
+requested;27 unobserved outputs are not counted as received. The terminated lane
+was not restarted. A separate refinement from2238 completed451 received and214
+linked comparisons, with no exact match. A candidate retaining an overwritten
+duplicate assignment was rejected. Six grounded controls yielded1848.
+
+App PR651 rejects newly introduced literal-zero empty-do scaffolding before
+random/deep judging, preserving existing wrappers, actual nonempty blocks and
+dynamic waits. It is a bounded source-shape guard, not a C equivalence checker.
+Private evidence: current-nov6-native and refinement-2238 under func8006C024.
