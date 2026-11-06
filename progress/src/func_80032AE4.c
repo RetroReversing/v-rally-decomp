@@ -27,16 +27,20 @@ typedef struct Car
 {
   u8 pad0[0xA];
   u16 flags;
-  u8 padC[0x4C];
+  u8 padC[0x40];
+  s32 index4C;
+  u8 pad50[4];
+  u8 *points54;
   struct Car *target;
   struct Car *next;
   u8 pad60[0x18];
   Info *info;
   u8 pad7C[0xC];
   u16 count;
+  u16 stride8A;
 } Car;
-extern void func_8002FFA4(Car *, s32, s16, Vec3s *);
-extern s16 func_8003035C(Car *, s32, Vec3s *);
+extern void func_8002FFA4(void *, s32, s16, void *);
+extern s32 func_8003035C(void *, s32, void *);
 void func_80032AE4(Car *arg0)
 {
   Vec3s a;
@@ -129,7 +133,7 @@ void func_80032AE4(Car *arg0)
       t->info->nodes[i].pos.x = c.x;
       t->info->nodes[i].pos.y = c.y;
       t->info->nodes[i].pos.z = c.z;
-      t->info->nodes[i].val = func_8003035C(t, i, &c);
+      t->info->nodes[i].val = (s16) func_8003035C(t, i, &c);
     }
 
     b = a;
@@ -148,7 +152,7 @@ void func_80032AE4(Car *arg0)
       t->info->nodes[i].pos.x = c.x;
       t->info->nodes[i].pos.y = c.y;
       t->info->nodes[i].pos.z = c.z;
-      t->info->nodes[i].val = func_8003035C(t, i, &c);
+      t->info->nodes[i].val = (s16) func_8003035C(t, i, &c);
     }
 
     next:

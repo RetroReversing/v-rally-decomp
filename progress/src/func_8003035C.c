@@ -10,7 +10,7 @@ typedef struct
   u16 stride;
 } O303;
 s32 func_8002D2A0(s32);
-s32 func_8003035C(O303 *o, s32 row, V303 *pos)
+s32 func_8003035C(void *o, s32 row, void *pos)
 {
   SV303 a;
   SV303 b;
@@ -18,17 +18,17 @@ s32 func_8003035C(O303 *o, s32 row, V303 *pos)
   s32 n;
   s32 d;
   s32 e;
-  n = row * o->stride + o->base;
-  c.x = o->table[n - 2].x - o->table[n].x;
-  c.z = o->table[n - 2].z - o->table[n].z;
-  a.x = pos->x - o->table[n].x;
-  a.z = pos->z - o->table[n].z;
+  n = row * (*(u16 *)((u8 *)o + 0x8A)) + (*(s32 *)((u8 *)o + 0x4C));
+  c.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+  c.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
+  a.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+  a.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
   if (c.x * a.x + c.z * a.z > 0)
   {
-    a.x = o->table[n - 2].x - o->table[n].x;
-    a.z = o->table[n - 2].z - o->table[n].z;
-    b.x = pos->x - o->table[n].x;
-    b.z = pos->z - o->table[n].z;
+    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
+    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
     d = func_8002D2A0(a.x * a.x + a.z * a.z);
     e = func_8002D2A0(b.x * b.x + b.z * b.z);
     d = e * 1000 / d;
@@ -36,10 +36,10 @@ s32 func_8003035C(O303 *o, s32 row, V303 *pos)
   }
   else
   {
-    a.x = o->table[n + 2].x - o->table[n].x;
-    a.z = o->table[n + 2].z - o->table[n].z;
-    b.x = pos->x - o->table[n].x;
-    b.z = pos->z - o->table[n].z;
+    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
+    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
+    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
     d = func_8002D2A0(a.x * a.x + a.z * a.z);
     e = func_8002D2A0(b.x * b.x + b.z * b.z);
     d = e * 1000 / d;

@@ -1,4 +1,4 @@
-extern void func_8002FFA4(void *, s32, s32, s32);
+extern void func_8002FFA4(void *, s32, s16, void *);
 void func_800316C4(void *arg0)
 {
   s32 temp_a1_2;
@@ -27,7 +27,7 @@ void func_800316C4(void *arg0)
   var_s4 = (var_s1 << 2) + var_s1;
   loop_2:
   temp_a1_2 = var_s3 & 0xFFFF;
-  func_8002FFA4(arg0, temp_a1_2, (s16) var_s1, ((*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C))) + (temp_a1_2 * 0xC)) + 6);
+  func_8002FFA4(arg0, temp_a1_2, (s16) var_s1, (void *) (((*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C))) + (temp_a1_2 * 0xC)) + 6));
   var_s3 += 1;
   new_var = ((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C;
   *((s16 *) (((char *) ((temp_a1_2 * 0xC) + (*((s32 *) new_var)))) + 4)) = (s16) (var_s4 * 2);

@@ -22,13 +22,18 @@ typedef struct
 } PDef;
 typedef struct 
 {
-  u8 pad[0x78];
+  u8 pad[0x4C];
+  s32 index4C;
+  u8 pad50[4];
+  u8 *points54;
+  u8 pad58[0x20];
   PDef *def;
   u8 pad7C[0xC];
   u16 n;
+  u16 stride8A;
 } PObj;
-void func_8002FFA4(PObj *, s32, s32, u16 *);
-s16 func_8003035C(PObj *, s32, u16 *);
+extern void func_8002FFA4(void *, s32, s16, void *);
+extern s32 func_8003035C(void *, s32, void *);
 static inline s32 lerp(s32 to, s32 from, s32 num, s32 den)
 {
   s32 q = (((s16) (to - from)) * num) / den;
@@ -66,8 +71,8 @@ void func_800317D4(PObj *o)
   }
   if (a != 0)
   {
-    func_8002FFA4(o, 0, v0, p0);
-    func_8002FFA4(o, a, va, p1);
+    func_8002FFA4(o, 0, v0, &p0);
+    func_8002FFA4(o, a, va, &p1);
     for (i = 0; i < a; i++)
     {
       cur[0] = lerp(p1[0], p0[0], i, a);
@@ -76,7 +81,7 @@ void func_800317D4(PObj *o)
       o->def->tbl[i].x = cur[0];
       o->def->tbl[i].y = cur[1];
       o->def->tbl[i].z = cur[2];
-      o->def->tbl[i].h = func_8003035C(o, i, cur);
+      o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
     }
 
   }
@@ -86,14 +91,14 @@ void func_800317D4(PObj *o)
   }
   if (b != 0)
   {
-    func_8002FFA4(o, a, va, p0);
-    func_8002FFA4(o, b, (s16) vb, p1);
+    func_8002FFA4(o, a, va, &p0);
+    func_8002FFA4(o, b, (s16) vb, &p1);
     if (a == b)
     {
       o->def->tbl[i].x = p1[0];
       o->def->tbl[i].y = p1[1];
       o->def->tbl[i].z = p1[2];
-      o->def->tbl[i].h = func_8003035C(o, b, p1);
+      o->def->tbl[i].h = (s16) func_8003035C(o, b, &p1);
     }
     else
     {
@@ -106,7 +111,7 @@ void func_800317D4(PObj *o)
         o->def->tbl[i].x = cur[0];
         o->def->tbl[i].y = cur[1];
         o->def->tbl[i].z = cur[2];
-        o->def->tbl[i].h = func_8003035C(o, i, cur);
+        o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
       }
 
     }
@@ -116,8 +121,8 @@ void func_800317D4(PObj *o)
     vb = va;
     b = a;
   }
-  func_8002FFA4(o, b, (s16) vb, p0);
-  func_8002FFA4(o, o->n - 1, vend, p1);
+  func_8002FFA4(o, b, (s16) vb, &p0);
+  func_8002FFA4(o, o->n - 1, vend, &p1);
   if (b == (o->n - 1))
   {
     o->def->tbl[i].x = p1[0];
@@ -143,7 +148,7 @@ void func_800317D4(PObj *o)
     o->def->tbl[i].x = cur[0];
     o->def->tbl[i].y = cur[1];
     o->def->tbl[i].z = cur[2];
-    o->def->tbl[i].h = func_8003035C(o, i, cur);
+    o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
   }
   }
 }

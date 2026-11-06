@@ -14,7 +14,7 @@
     "src/code_80026E3C/func_80049F18.c": "9e4f1cb054fa0e03622379664a4fdba06a2f75f6a06f8844f7618b876f512a01",
     "src/code_8001F46C/func_80022BE8.c": "92309035613dfaa0c617dd322f8b9e2141001f08b59ee16c15865b62a8554a36",
     "src/code_80026E3C/func_80026ED4.c": "fcbea9aba00fe119ca6d6bf1e3e8662fd6a56a69e1c88449d6ae12569df976d6",
-    "src/code_80026E3C/func_8003035C.c": "334c7cb50c06968e41f26f6b8c6809842ca1aab6d194efd8fca1e776444b3161",
+    "src/code_80026E3C/func_8003035C.c": "8b3a6e6a17e4fdeeb65476f46890ac975b2fd737023b70c1810eb001cc02a7bf",
     "src/code_8004BEB4/func_80053F44.c": "eb932528639cf2ce4813e3f59805e57c42e3ffdd1dd03b3c3797e171a0401502",
     "src/code_80026E3C/func_8003E4A8.c": "15bba29558186f5315287dce60628bb087449bd9a9d1def322064e81608a00b7",
     "src/code_8007E9D4/func_8009912C.c": "7384b9df839d4f8533b1506a75beecb1520ca12854983aa9b1e5bf87163ac11f",
@@ -263,9 +263,9 @@
     "src/code_80017B38/func_800180FC.c": "fdd17cf3a535b28220e5b0d9ceed910b4ddcc6d609e538eb9f7b5435cc6d7db1",
     "src/code_80026E3C/func_8002EE00.c": "3c3e10f1b1cff858d4d812f19b77e5fa9f89acdb8de646f784b79515e0feafb7",
     "src/code_8004BEB4/func_80073708.c": "2e65cccbcb721beafc0137f54c4c5748d96829d6f8867dc6754ee0e7026756f7",
-    "src/code_80026E3C/func_80032AE4.c": "24efe28e7da8defe846e927ee4ee10840da93618feb00f7b1a10437842532221",
+    "src/code_80026E3C/func_80032AE4.c": "23635b7ddfbad84301e9556402aefd3d06486628f62b80a30ffa069670240405",
     "src/code_8007E9D4/func_800871FC.c": "e1c7b917a35aa40adade4f88928adaa7b07b1cb53736953a331a2fa1967f739d",
-    "src/code_80026E3C/func_800317D4.c": "21d652bf9d176333c16979562beae11f5796b102bebc4918b77a7a43cdeb6287",
+    "src/code_80026E3C/func_800317D4.c": "2205f98c8502dd96465965e12bed82e8ad779a9d91ba17cee4a14132b124a962",
     "src/code_80012114/func_8001477C.c": "b0a0a07ebe9e824227d6fc797e04be2f20c0b150a565505f4778084d5c4af904",
     "src/code_80026E3C/func_8002AA6C.c": "75ed344fc5988dfa7a1c662f8e7f7c17004b6ef66dfaf0bdad60d6399e5407a2",
     "src/code_80026E3C/func_8003C0CC.c": "3ef2afedcb30192bd06e21af3fa525a60e525b46e4b734f4fbe6c4c1587db20b",
@@ -612,7 +612,12 @@
     "include/decompdecomp_terminal_80028158.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_80043A78.c": "0af600a41b94d5de61fd91d57b361327c9aa64117591c4dad49745306357aa9a",
     "include/decompdecomp_terminal_80043a78.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "include/decompdecomp_opaque_8001a340.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_opaque_8001a340.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_contract_func_8003035c.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_80026E3C/func_800316C4.c": "e78591e165d8d53cc117a4ea179253d825040af1375851d0d82ee84a2c81fb71",
+    "include/decompdecomp_contract_func_800316c4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_contract_func_80032ae4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_contract_func_800317d4.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1047,11 +1052,14 @@
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [],
     "contract_corrections": [
-      "func_8001A340"
+      "func_8003035C",
+      "func_800316C4",
+      "func_80032AE4",
+      "func_800317D4"
     ],
     "all_2071_profiles_preserved": true,
-    "other_2070_selected_c_objects_preserved": true,
-    "note": "Compatible opaque two-argument declaration for open lighting renderer; caller body unchanged. All2071 selected C preserved, focal is provisional OPEN52, not a new match or whole-program effective-type proof."
+    "other_2067_selected_c_objects_preserved": true,
+    "note": "Common coordinate entry and scalar byte-addressed storage corrections; caller result narrowing explicit. Four existing C remain exact,2FFA4 OPEN177 not a new match. Runtime allocation/arithmetic assumptions and unknown indirect callers not globally proven."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -1059,7 +1067,7 @@
     "matched": 2071,
     "all_function_addresses_integrated": true,
     "source_hashes_confirmed": true,
-    "note": "ALL portable progress saved after normal exact caller rejudge and normal OPEN52 corrected-candidate retention; previous independently verified standalone variants retained."
+    "note": "Four saved-source normal exact rejudges; normal OPEN177 draft retention; ALL portable progress saved. Previous independent standalone variants retained."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

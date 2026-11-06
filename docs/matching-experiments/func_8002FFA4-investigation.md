@@ -40,3 +40,36 @@ profile was adopted. Existing caller, valid-grid and aggregate-bound caveats
 remain; these tests do not prove whole-program type safety. Findings are saved
 in normal app notes and portable progress. Keep the function OPEN420 and
 revisitable; no new automatic repair or cartridge acceptance is claimed.
+
+
+## November 6 component capture and joint coordinate contracts
+
+The normal app now retains an OPEN177 draft (previously420), 476 bytes, with a
+genuinely consumed component-index local. It is not exact. A 1200-case host
+oracle screen covers complete scalar-field records and s16-array outputs,
+negative interior-base indices and signed fraction boundaries; that screen does
+not establish all game storage lifetimes or arithmetic bounds.
+
+Four existing selected functions were corrected jointly: 3035C,316C4,32AE4 and
+317D4. The common coordinate helper uses void-pointer object/output contracts,
+actual scalar field accesses at4C/54/8A and complete record/array addresses.
+3035C returns s32; its callers explicitly preserve s16 narrowing. All known ten
+direct2FFA4 calls and six direct3035C calls are covered; unknown indirect callers
+and complete allocation/initialization evidence remain unproven.
+
+Each corrected selected function independently links exactly, with ordinary/-da
+parity. The complete 12,582,912-byte cartridge equals the original SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All2071 selected profiles and other2067 selected C objects are preserved. Normal
+saved-source verification accepted all four before the draft was retained.
+
+A bounded qualifier control is informative: adding const to3035C's new position
+formal and byte/halfword read casts scores790/824 bytes; removing those added
+qualifications restores exact844 bytes. This does not isolate a single qualifier
+or justify blanket const removal. PR642 records the evidence in the KMC guide.
+
+One frozen177 native search delivered1000 charged wrapper candidates,392 linked
+scores and no improvement. Raw generator emissions were not captured: the
+wrapper filters some candidates before delivery. Do not report this as1000 raw
+emissions or restart the exhausted lane without new grounded evidence. Detailed
+private receipts remain in current-nov6/closure3035C and the parent cartridge gate.
