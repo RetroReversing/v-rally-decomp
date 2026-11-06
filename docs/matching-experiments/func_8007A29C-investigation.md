@@ -145,3 +145,34 @@ differences. It does not improve selected22 or justify unused frame padding.
 No live source or compiler profile was changed. Private evidence:
 current-nov6-storage/storage-frame-audit/REPORT.md and
 0992-consumed-table-phases artifacts.
+
+## Real word-unit address controls — 6 November
+
+A distinct compiler-slot observation from another function motivated one actual
+halfword table-flags read expressed as a word index plus field index8. The
+original byte offset is (signed-byte-index + signed-byte-loop-index)*708 +16.
+Both operand ranges give a bounded even product; unsigned32 divide/add/scale
+then the period MIPS32 signed conversion recovers precisely the same signed
+byte offset, including negative offsets. One final byte-pointer addition and
+the original halfword read remain. No typed-array provenance assumption, dummy
+storage, extra memory operation or interface change was introduced. Parent
+arithmetic checking covered all65,536 signed-byte operand pairs; this does not
+prove whole-game storage bounds, which remain the original model's premise.
+
+A fresh full live input binding and historical782-attempt/3,531-source audit
+found no equivalent composition. Ordinary and diagnostic builds both produce
+score22, frame88,1004 bytes, linked SHA256
+2bac576f07fa5f85ac2a35fe22658dc2c859d96c47c41f917d5ced4aec2784b7,
+exactly the baseline bytes. Initial RTL folds the word field back into byte16
+before late allocation; no new USE or scratch slot appears.
+
+One follow-up captures the actual field index8 in a fully consumed ordinary
+integer local. The initial declaration-after-statement form failed C89 parsing;
+only its syntax was corrected by declaring at the start of the existing inner
+do block and assigning at the same intended point, without adding scope.
+Removing that declaration/assignment and propagating8 exactly recovers the
+approved first control. The successful ordinary/diagnostic pair still produces
+the identical baseline bytes and frame88. Although register146=8 and the word
+addition survive initial RTL, no standalone USE remains at late allocation.
+This precise unit/lifetime hypothesis is closed; neither source is adopted.
+Private receipts: func8007A29C/word-units-nov6, including full RTL and prelude.

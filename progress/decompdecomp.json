@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793960179.999212,
- "revision": 19072,
+ "saved_at": 1793960513.600075,
+ "revision": 19074,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250063,6 +250063,14 @@
    "created_at": 1793960155.487371,
    "score_before": 107,
    "score_after": 107
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Two grounded actualhalfwordflagtableword-unitcontrols closed: directwordindex+field8 andconsumedC89fieldindexlocal eachordinary/-da22/frame88/1004bytes SHA2bac576f07fa5f85ac2a35fe22658dc2c859d96c47c41f917d5ced4aec2784b7 exactlybaseline. Directfieldfoldedbeforelateallocation; namedfieldreg146/wordaddition survivesinitialRTLbutnoUSElreg/greg/noextraslot. Originalsigned-byteoperandrange/evenoffsetdomain,MIPS32unsignedtosignedconversion/bytepointermodel preserved; parent65536operandpairproof. Historical782attempts3531localCnonequivalent. OnefailedC99declarationplacement correctedonlyC89decl/assignpoints thenpair. Noextraarraypremise/dummyops/storage; noliveadoption. Fullprivateword-units-nov6REPORT andcanonicalinvestigation. OPEN22retained.",
+   "by": "you",
+   "created_at": 1793960459.10007,
+   "score_before": 2,
+   "score_after": 2
   }
  ],
  "set_aside": [
