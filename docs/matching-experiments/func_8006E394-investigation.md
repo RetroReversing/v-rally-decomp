@@ -145,3 +145,70 @@ Separate symbols stop aggregate-base address sharing, but do not recover the
 target's unused flag-base initialization or the count representation. No source
 was adopted and no native/profile sweep followed. Private evidence, source/diff,
 range audit and compiler artifacts are retained in cause-nov6.
+
+
+## November 6: range copy-out and typed memory visibility
+
+The previous two-byte aggregate-return range helper was already tested with
+direct member consumers. One distinct control copied its count/base fields
+back into the original u8 n/base locals before the unchanged loops. It reads
+the mode once at the original branch point and introduces no new memory
+access to game state. Ordinary/diagnostic output agrees at2673/1328bytes,
+SHA256 d9481072334dcb3e364a39c3c776f2acd9a920fb59b303f9cca91e169db5b650.
+CSE still emits a zero-extended count comparison; invariant motion hoists it
+and combination retains ne(subreg(n),0). The scalar copy-out does not repair
+the masked-limit mechanism. No range/profile sweep followed.
+
+A separate parser-API check refines the earlier visibility audit. The H call's
+argument arithmetic was visible, but native type inference raises KeyError H
+and classifies the call as effectful/non-lvalue. R is absent from its type map.
+Thus those seeds did not expose a well-typed halfword lvalue or the alias's
+field types for native load/address temporary selection. This is a concrete
+search-coverage distinction, not evidence that the original count diagnosis
+is solved or that historical native candidates were all safe.
+
+Manual expansion at each use preserves all22 global pointer uses and physical
+lines. Actual pinned-preprocessor full translation-unit ASTs, including header,
+qualifiers, bitfields, local scopes and static helper, are identical for original,
+expanded and printer forms (41 root declarations, AST SHA256
+bbde938923fcace967cdd9cea0b9a2dfa8475ae923e9bc6473c866724f4d5bd0).
+Both expanded and printer ordinary/diagnostic pairs retain the original1200
+and exact linked hash e1623e86. The native API now recognises a pure u16
+dereference lvalue and the actual aliased field types. These preparation
+checks do not constitute equivalence proofs for subsequent mutations.
+Private current1200-coverage-nov6 retains the snapshots and paired receipts.
+
+
+### Fixed typed-source search and rejected apparent improvement
+
+One fixed expanded-source lane completed1000 raw emissions:464 compiled,
+459 guard rejections,64 syntax rejections and13 lane-source duplicates.
+All raw sources and prefilter lineage records reconcile; compiled output
+contains291 distinct linked hashes. The historical byte cache is explicitly
+incomplete. Type-aware temporary generation actually ran on the newly exposed
+loads/addresses, rather than merely repeating opaque argument arithmetic.
+A missing private helper import failed before any output; its zero-raw receipts
+were retained. After the explicit import-only correction, the same fixed seeds,
+root and1000 quota ran without a replacement lane or score feedback.
+
+There was no exact match. The sole sub1200 result,1195, moved the mask load
+into only the n=8/base=0 else arm; the n=4 arm then reads uninitialized m.
+The parent independently reviewed that exact one-statement move and rejected
+it. No validation compile, draft adoption or normal app mutation followed.
+Warning preflight and the private new-temporary guard missed this existing-
+local path regression; passing other screens is not a semantics proof.
+
+The actual shared native guard also excluded existing locals. App PR715
+(merged26ed3628) now compares supported per-binding initialization verdicts
+against the parent. Unknown/unsafe parents remain distinct from initialized
+parents. Synthetic scalar/pointer and traced-wrapper cases pass; replay rejects
+the invalid1195 witness and flags four other previously compiled proposals,
+while allowing the unchanged parent.141 related tests, whole-tree Ruff and
+diff checks passed after current-main integration; GitHub reported no CI jobs.
+Matching notes and the KMC guide were updated. This is a guard improvement,
+not a new game match or a complete C-equivalence check.
+
+All2077 selected full rows/profiles and complete focal inputs were preserved;
+the live draft remains OPEN1200. The driver, generator and watchdog were
+reaped. No app deployment/restart or cartridge claim. Private receipts remain
+in current1200-coverage-nov6, including shared-existing-init-replay.json.
