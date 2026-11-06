@@ -1,5 +1,39 @@
 # func_80029EAC private investigation
 
+## Latest return-flow controls — 6 November 2026
+
+The live draft remains **OPEN 215**. A private positive-depth return control
+scores **20**, with only four register differences and no instruction-count,
+opcode, frame or other body discrepancy. It returns the already-computed depth
+on the positive clipping edge, where the target also leaves that value in `v0`.
+The known caller discards the result. This is a provisional, consistently
+declared private `int` interface, not proof of the original signature; its
+negative fallthrough result must not be consumed. It has not been adopted.
+
+The new return emits a real delay-slot move, but in the wrong direction:
+candidate `v0 <- s2`, target `a1 <- v0`. Combine still deletes the separate
+negative-path height copy. Further bounded controls did not repair it:
+
+| Control | Score | Measured result |
+|---|---:|---|
+| Existing height as guard/positive return | 80 | Changes earlier allocation too |
+| Explicit observed return on both paths | 135 | Returns the existing final counter increment without extra memory operations |
+| One shared conditional return expression | 135 | Exactly the same bytes as the preceding control |
+| Original void interface, direct guard/field depth expressions | 350 | Store uses `a1`, but shift/branch also use `a1`; move remains absent |
+
+Each compiled control has ordinary/diagnostic linked-byte parity under pinned
+KMC GCC 2.7.2, `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. A genuine append-record
+inline helper was audited without compiling: GCC maps its readonly depth
+parameter directly to the existing user-variable pseudo, so it supplies no
+separate carrier. Older append helpers were also found in retained history.
+All 2,077 selected source hashes/profiles and the live focal inputs were
+preserved. No caller correction, source adoption or cartridge claim follows.
+Private receipts: `early-depth-return-nov6`, `early-height-return-nov6`,
+`complete-observed-return-nov6`, `shared-value-return-nov6`,
+`append-helper-audit-nov6`, and `direct-depth-field-nov6`.
+
+## Earlier investigation history
+
 Frozen from the live read-only project 1 database while OPEN, score 295 and unclaimed. No live/canonical writes, claims, compiler changes, app restarts or acceptance.
 
 Private app checkout: b60a4174cd6da3cdaa274071ac5b15ad95be2c62. Original profile: gcc-2.7.2-kmc, `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
@@ -221,3 +255,25 @@ with scores 580/370/580/580. The private audit therefore avoided duplicate
 compilation and did not interfere with the active claim. Typed contact records,
 several carrier and scope controls were also already recorded. Private evidence:
 current245-nov6/REPORT.md, hydrated attempts, notes and transcript snapshot.
+
+
+### Bounded search from the private positive-depth return control
+
+The real return move in the private score20 control was retained as the root
+of one fixed1000-emission search. Original, macro-exposed and AST-printer
+baselines each preserved ordinary/diagnostic score20 and1560 linked bytes.
+The consistently declared private caller also retained exact1704-byte output.
+These are private contract controls; the live void source remains OPEN215.
+
+The quota reconciles as503 guarded proposals,47 preflight rejections,16 source
+duplicates and434 compiled candidates. Of the compiled outputs,199 repeated
+available linked hashes and235 were newly scored. The best new output scored24;
+none improved the root20 or matched exactly. All1000 raw sources and lineage
+records are retained privately. Historical linked-hash coverage is incomplete,
+so this is not a claim that every newly scored body was historically unseen.
+
+The sole generator was reaped without timeout or memory-limit failure. The
+immutable744-file app snapshot, all2077 selected source hashes/profiles and
+the focal live inputs remained unchanged. No return-contract change, selected
+C adoption, runtime update or cartridge-match claim follows from this search.
+Private early-return20-native1000-nov6 contains the reconciled receipts.
