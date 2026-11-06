@@ -1,3 +1,27 @@
+# Current sibling transfer — 6 November 2026
+
+The best draft now scores **107**, improved from 177. A transfer of the current
+`func_8002FFA4` representation changes the five interpolation constants from 50
+to 500 and retains this function's declared `s16 *` output. Its byte-addressed
+coordinate accesses and six-byte output preserve the existing defined storage
+and arithmetic assumptions. This is a draft improvement, not an exact match.
+
+Pinned KMC GCC 2.7.2, `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`, produces 476 bytes
+with ordinary/diagnostic parity, SHA-256
+`4e2ec3233b8a89afc8a1a973687bfd2c5524e954ef962f3bd40b66a124e1beee`.
+The first mismatch remains the 32-byte frame versus the target's eight bytes;
+early register allocation also differs. The normal live judge reproduced 107
+and saved it as the best draft. All 2,077 selected source hashes and compiler
+profiles were preserved before and after judging and the complete portable save.
+No selected cartridge source changed or new exact-match claim was made.
+
+Source SHA-256:
+`d7be21356dd4e1ffcfb94fb85c201ccd389a28d8613e6a1db8027325ade8c9d2`.
+The available 465 hydrated attempts and private source inventory contained no
+token-identical transfer. Older measurements below remain historical evidence;
+they do not describe the new best draft. Private receipts are retained in
+`current-sibling-transfer-nov6`.
+
 # Coordinate interpolation with a 500-step interval
 
 The previous score435 draft was invalid: __repair_addr was read uninitialized and the second coordinate loaded through *(u8 **)arg0 rather than *(u8 **)(arg0+0x54). A sound related-function transfer (denominator500) judged420 through normal API, still nonexact. Cleaner same420 research alternative SHA256 0802eb1468b0ed22a0a9b8e42e55b16d07752a0cc050f1ae9a2d24ef5331c74b removes unused locals and dead post-use assignment; Clang initialization checks pass, unlike original. 1000 guarded native candidates,176 helper manual trials,144 parent probes (including declaration duplicates) found no exact match. Residual register allocation and arithmetic scheduling remain; no target/profile/ABI/judge changes. OPEN and revisitable; not selected as standalone C. Clean source: docs/matching-experiments/func_80030180-nonmatching-alternative.c.

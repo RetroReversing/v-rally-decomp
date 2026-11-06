@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793986290.812841,
- "revision": 19154,
+ "saved_at": 1793995885.57218,
+ "revision": 19158,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -4580,8 +4580,8 @@
   },
   "func_80030180": {
    "vram": 2147680640,
-   "best_score": 177,
-   "best_by": "manual-aff94436b1324103"
+   "best_score": 107,
+   "best_by": "manual-0c4951961f7d4f1a"
   },
   "func_8003035C": {
    "vram": 2147681116,
@@ -250329,6 +250329,14 @@
    "created_at": 1793986148.331491,
    "score_before": 820,
    "score_after": 820
+  },
+  {
+   "function": "func_80030180",
+   "text": "Reviewed sibling transfer improves177 to107, ordinary/diagnostic476B parity. Still nonexact: frame32 versus target8, early register allocation differs. Complete s16[3] output contract retained. No no-C verdict; keep eligible.",
+   "by": "manual-0c4951961f7d4f1a",
+   "created_at": 1793995832.290099,
+   "score_before": 177,
+   "score_after": 107
   }
  ],
  "set_aside": [

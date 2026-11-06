@@ -20,7 +20,7 @@ and its latest source hash rather than an old alternative filename.
 | `func_800529F0` | 135 | [Current evidence](func_800529F0-investigation.md) |
 | `func_80086F40` | 325 | [Current evidence](func_80086F40-investigation.md) |
 | `func_8002FFA4` | 107 | [Current evidence](func_8002FFA4-investigation.md) |
-| `func_80030180` | 177 | [Current evidence](func_80030180-investigation.md) |
+| `func_80030180` | 107 | [Current evidence](func_80030180-investigation.md) |
 | `func_8006603C` | 305 | [Current evidence](func_8006603C-investigation.md) |
 | `func_8006C024` | 1733 | [Current evidence](func_8006C024-investigation.md) |
 | `func_8007A29C` | 22 | [Current evidence](func_8007A29C-investigation.md) |
