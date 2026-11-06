@@ -2,7 +2,8 @@ s32 func_8001FEE8(s32);
 void func_80099DF8(u8 *, void *, s32);
 extern u8 D_800A4B3C[];
 
-void func_8003C254(u8 *arg0) {
+void func_8003C254(void *object) {
+    u8 * arg0 = object;
     u8 buf[4];
     s32 temp_a0;
     s32 temp_v0;

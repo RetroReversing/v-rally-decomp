@@ -21,8 +21,8 @@ extern u8 D_8009D544;
 extern u8 D_8009FE00[];
 extern u32 D_800AFA6C;
 
-void func_8003B660(Obj *o)
-{
+void func_8003B660(void *object) {
+    Obj * o = object;
     u8 col[4];
     Node *n;
     s32 c;

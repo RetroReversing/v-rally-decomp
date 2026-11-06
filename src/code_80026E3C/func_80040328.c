@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_contract_func_80040328.h"
+#line 1 "func.c"
 typedef struct Node Node;
 typedef struct Asset Asset;
 typedef struct Root Root;
@@ -14,7 +14,7 @@ struct Node
   Node *next;
   char pad8[0x78];
   u32 flags;
-  void (*callback)(Node *);
+  void (*callback)(void *);
   u32 draw;
   u32 unk8c;
   u8 b90[4];
@@ -104,3 +104,4 @@ void func_80040328(Root *arg0)
   }
   while (p != NULL);
 }
+

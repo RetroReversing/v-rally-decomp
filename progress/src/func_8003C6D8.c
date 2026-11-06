@@ -1,8 +1,8 @@
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 s32 func_80034FF0();
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 void *func_8004240C();
-void func_8003C698();
+void func_8003C698(void *);
 extern void *D_800C7F84;
 extern char *D_800C35A0;
 void func_8003C6D8(s32 arg0, s32 arg1, s32 arg2)
@@ -31,7 +31,7 @@ void func_8003C6D8(s32 arg0, s32 arg1, s32 arg2)
   switch (*((u16 *) (D_800C35A0 + 0xE)))
   {
     case 1:
-      var_s0 = (s32) ((void *)func_80040260((void *)(var_s1), (s16) (var_s0 - 0x26), (s16) (var_s2 - 0x22), 3, (SpriteHook)(func_8003C698), 0));
+      var_s0 = (s32) ((void *)func_80040260((void *)(var_s1), (s16) (var_s0 - 0x26), (s16) (var_s2 - 0x22), 3, func_8003C698, 0));
       temp_a0 = (new_var = func_80034FF0(var_s3 + 0x4C, 0));
       temp_v1 = D_800C7F84;
       *((s32 *) (((char *) var_s0) + 0xA4)) = temp_a0;
@@ -48,7 +48,7 @@ void func_8003C6D8(s32 arg0, s32 arg1, s32 arg2)
       var_s0 -= 0x10;
       var_a2 = (-((*new_var2) == 1)) & 0x14;
     }
-      var_s0 = (s32) ((void *)func_80040260((void *)(var_s1), (s16) ((var_s0 + 0xFFEEU) + var_a2), (s16) (var_s2 - 0x1A), 3, (SpriteHook)(func_8003C698), 0));
+      var_s0 = (s32) ((void *)func_80040260((void *)(var_s1), (s16) ((var_s0 + 0xFFEEU) + var_a2), (s16) (var_s2 - 0x1A), 3, func_8003C698, 0));
       temp_a0 = func_80034FF0(var_s3 + 0x4C, 0);
       temp_v1 = D_800C7F84;
       *((s32 *) (((char *) var_s0) + 0xA4)) = temp_a0;

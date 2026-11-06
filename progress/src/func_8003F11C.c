@@ -3,8 +3,8 @@ extern u8 D_800AE850[];
 extern u8 D_800A4B48[];
 void *func_80022318(void **, u8 *);
 void *func_8004240C(s32);
-void func_8003F11C(u8 *arg0)
-{
+void func_8003F11C(void *object) {
+    u8 * arg0 = object;
   u8 *temp_a2;
   s32 temp_v1;
   s32 var_a1;

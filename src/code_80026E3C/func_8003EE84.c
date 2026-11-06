@@ -1,7 +1,8 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_func_8003ee84.h"
 #line 1 "func.c"
 extern u8 *D_800C35A0;
-void func_8003EE84(u8 *a1){
+void func_8003EE84(void *object) {
+    u8 * a1 = object;
     s32 a2 = *(s32*)(*(s32*)(a1+0xA8)+0x24);
     u8 *a0;
     s32 v1;

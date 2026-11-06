@@ -1,6 +1,6 @@
 extern char D_800AE850[];
-void func_8003E134(char *arg0)
-{
+void func_8003E134(void *object) {
+    char * arg0 = object;
   char *var_v1;
   char *var_v0;
   char *var_a1;

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_func_8003b008.h"
 #line 1 "func.c"
 extern char D_800AE850[];
 extern char D_800C02AE[];
@@ -47,7 +47,8 @@ typedef struct Game {
 
 #define GAME (*(Game **)(D_800C02AE + 0x32F2))
 
-void func_8003B008(Car *car) {
+void func_8003B008(void *object) {
+    Car * car = object;
     Node *n;
 
     if (GAME->unk1E == 0) {

@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_8003cd18.h"
+#include "decompdecomp_contract_func_8003cd18.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct { u8 pad[0x7A]; s16 x7A; u8 pad2[0x28]; s32 xA4; void *xA8; } Btn3CD18;
 typedef struct { u8 pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect3CD18;
 typedef struct { u8 pad[0xC]; s32 type; u8 pad2[0x168]; Rect3CD18 *rect; } Obj3CD18;
@@ -8,9 +8,9 @@ typedef struct { u8 pad[0xE]; u16 mode; u8 pad2[2]; u16 flags; u8 pad3[0xA]; u16
 s32 func_80034FF0(void *, s32);
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 Obj3CD18 *func_8004240C(s32);
-void func_8003CB8C();
-void func_8003CC0C();
-void func_8003CC50();
+void func_8003CB8C(void *);
+void func_8003CC0C(void *);
+void func_8003CC50(void *);
 extern char D_800A73E0[];
 extern Mgr3CD18 *D_800C35A0;
 extern Obj3CD18 *D_800C7F84;

@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8003a794.h"
+#include "decompdecomp_contract_func_8003a794.h"
 #line 1 "func.c"
 typedef struct
 {
@@ -14,9 +14,9 @@ typedef struct
 } Spr;
 extern void *D_800C7F84;
 s32 func_80034FF0(void *, s32);
-void *func_80040260(void *, s16, s16, s32, void (*)(void), s32);
-extern void func_8003A73C(void);
-void func_8003A794(s32 arg0, s32 x, s32 y, void (*fn)(void), u8 *arg4, u16 n, u8 *col)
+void *func_80040260(void *, s16, s16, s32, void (*)(void *), s32);
+extern void func_8003A73C(void *);
+void func_8003A794(s32 arg0, s32 x, s32 y, void (*fn)(void *), u8 *arg4, u16 n, u8 *col)
 {
   Spr *s;
   u32 i;

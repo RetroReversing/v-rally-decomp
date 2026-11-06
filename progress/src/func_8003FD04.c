@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8003FD04(void) {
+void func_8003FD04(void *object) {
 
 }

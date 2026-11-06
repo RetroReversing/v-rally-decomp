@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_func_8003b660.h"
 #line 1 "func.c"
 typedef struct { char pad[0x14]; s32 flags; char pad18[0x54]; char *def; } Node; /* def at 0x6C */
 typedef struct { char pad[0x24]; Node *node; } Link;
@@ -23,8 +23,8 @@ extern u8 D_8009D544;
 extern u8 D_8009FE00[];
 extern u32 D_800AFA6C;
 
-void func_8003B660(Obj *o)
-{
+void func_8003B660(void *object) {
+    Obj * o = object;
     u8 col[4];
     Node *n;
     s32 c;

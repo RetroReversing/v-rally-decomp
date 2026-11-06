@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_8003e4a8.h"
+#include "decompdecomp_contract_func_8003e4a8.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct Cfg3E {
     u8 pad0[8];
     s16 x;
@@ -24,7 +24,7 @@ typedef struct Game3E {
 extern View3E *D_800C7F84;
 extern Game3E *D_800C35A0;
 void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);
-void func_8003B7BC();
+void func_8003B7BC(void *);
 
 void func_8003E4A8(void *arg0, s32 arg1)
 {
@@ -67,7 +67,7 @@ void func_8003E4A8(void *arg0, s32 arg1)
                 col[3] = 0xFF;
                 break;
             }
-            func_8003A794((s32)(arg0), x, y + h - (6 - i) * 10 + 2, (SpriteHook)(func_8003B7BC), (u8 *)(arg1), i, col);
+            func_8003A794((s32)(arg0), x, y + h - (6 - i) * 10 + 2, func_8003B7BC, (u8 *)(arg1), i, col);
         }
     }
 }

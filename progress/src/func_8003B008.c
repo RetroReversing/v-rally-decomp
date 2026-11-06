@@ -45,7 +45,8 @@ typedef struct Game {
 
 #define GAME (*(Game **)(D_800C02AE + 0x32F2))
 
-void func_8003B008(Car *car) {
+void func_8003B008(void *object) {
+    Car * car = object;
     Node *n;
 
     if (GAME->unk1E == 0) {

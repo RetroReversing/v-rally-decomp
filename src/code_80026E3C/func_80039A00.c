@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_80039a00.h"
+#include "decompdecomp_contract_func_80039a00.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct { u8 flags; u8 pad[0x27]; } GEntry;
 typedef struct {
     u8 pad0[0xE]; u16 count; u8 pad10[2]; u16 flags12; u8 pad14[0xA]; u16 mode; u8 pad20[0x11]; u8 sel[0x17]; GEntry entries[1];
@@ -16,10 +16,10 @@ typedef void (*Cb)();
 Node *func_8004240C(s32);
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 void *func_80034FF0(s32, s32);
-void func_8003B614();
-void func_8003B884();
-void func_8003CC50();
-void func_8003CC98();
+void func_8003B614(void *);
+void func_8003B884(void *);
+void func_8003CC50(void *);
+void func_8003CC98(void *);
 
 void func_80039A00(s32 ctx, s32 menu)
 {
@@ -62,14 +62,14 @@ void func_80039A00(s32 ctx, s32 menu)
                     if (!(g->entries[g->sel[1]].flags & 1)) goto flags4; {
                         px = w - 0x47;
                         py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), (SpriteHook)(func_8003CC50), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC50, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unk7A = 5;
                         obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unkA8 = D_800C7F84;
                     }
@@ -90,7 +90,7 @@ flags4:
                 g = D_800C35A0;
                 {s32 index=((volatile GState*)g)->sel[1]; index=index*5; index <<=3; g=(GState*)((u8*)g+index); if(g->entries[0].flags & 4) {
                     by = yy + hh;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix, by - 0x12, (s16)(5), (SpriteHook)(func_8003B884), 1));
+                    obj = ((Obj *)func_80040260((void *)(ctx), ix, by - 0x12, (s16)(5), func_8003B884, 1));
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj->unk76 = 4;
                     obj->unkA8 = D_800C7F84;
@@ -105,14 +105,14 @@ flags4:
                     if (D_800ADFE1) {
                         px = w - 0x47;
                         py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unk7A = 5;
                         obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), (SpriteHook)(func_8003CC50), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC50, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unkA8 = D_800C7F84;
                     } else {
@@ -121,11 +121,11 @@ flags4:
                         obj->unkA8 = D_800C7F84;
                     }
                     py = (u16)(yy + hh) + (u16)-0x17;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0xA, py, (s16)(5), (SpriteHook)(func_8003B614), 1));
+                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0xA, py, (s16)(5), func_8003B614, 1));
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj->unk7A = 1;
                     obj->unkA8 = D_800C7F84;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x21, py, (s16)(5), (SpriteHook)(func_8003B614), 1));
+                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x21, py, (s16)(5), func_8003B614, 1));
                     obj->unkA4 = func_80034FF0(base, 0);
                     obj->unkA8 = D_800C7F84;
                 }
@@ -137,11 +137,11 @@ flags4:
                     ix = x;
                     if (g->entries[g->sel[i]].flags & 1) {
                         py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unk7A = 5;
                         obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                        obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), func_8003CC98, 1));
                         obj->unkA4 = func_80034FF0(base, 0);
                         obj->unkA8 = D_800C7F84;
                         obj = ((Obj *)func_80040260((void *)(ctx), ix - off, y + 7, (s16)(5), (SpriteHook)(NULL), 1));
@@ -155,11 +155,11 @@ flags4:
                             if (D_800ADFE1) {
                                 s32 sx = ix + ww;
                                 py = y + 0x11;
-                                obj = ((Obj *)func_80040260((void *)(ctx), sx - 0x46, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                                obj = ((Obj *)func_80040260((void *)(ctx), sx - 0x46, py, (s16)(5), func_8003CC98, 1));
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unk7A = 5;
                                 obj->unkA8 = D_800C7F84;
-                                obj = ((Obj *)func_80040260((void *)(ctx), (u16)sx + (u16)-0x2F, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                                obj = ((Obj *)func_80040260((void *)(ctx), (u16)sx + (u16)-0x2F, py, (s16)(5), func_8003CC98, 1));
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unkA8 = D_800C7F84;
                             }
@@ -169,11 +169,11 @@ flags4:
                         }break;default:{
                             if (D_800ADFE1) {
                                 py = y + 0x11;
-                                obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                                obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unkA8 = D_800C7F84;
                                 obj->unk7A = 5;
-                                obj = ((Obj *)func_80040260((void *)(ctx), x + 0x2B, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                                obj = ((Obj *)func_80040260((void *)(ctx), x + 0x2B, py, (s16)(5), func_8003CC98, 1));
                                 obj->unkA4 = func_80034FF0(base, 0);
                                 obj->unkA8 = D_800C7F84;
                             }
@@ -190,11 +190,11 @@ flags4:
                             yy = y + 8;
                         if (D_800ADFE1) {
                             py = yy + hh - 0x15;
-                            obj = ((Obj *)func_80040260((void *)(ctx), x, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                            obj = ((Obj *)func_80040260((void *)(ctx), x, py, (s16)(5), func_8003CC98, 1));
                             obj->unkA4 = func_80034FF0(base, 0);
                             obj->unkA8 = D_800C7F84;
                             obj->unk7A = 5;
-                            obj = ((Obj *)func_80040260((void *)(ctx), x + 0x17, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                            obj = ((Obj *)func_80040260((void *)(ctx), x + 0x17, py, (s16)(5), func_8003CC98, 1));
                             obj->unkA4 = func_80034FF0(base, 0);
                             obj->unkA8 = D_800C7F84;
                         }
@@ -205,11 +205,11 @@ flags4:
                             ix = x + 6;
                         if (D_800ADFE1) {
                             py = (u16)hh + (u16)-0x1D;
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                            obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
                             obj->unkA4 = func_80034FF0(base, 0);
                             obj->unk7A = 5;
                             obj->unkA8 = D_800C7F84;
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), (SpriteHook)(func_8003CC98), 1));
+                            obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), func_8003CC98, 1));
                             obj->unkA4 = func_80034FF0(base, 0);
                             obj->unkA8 = D_800C7F84;
                         }

@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_8003c0cc.h"
+#include "decompdecomp_contract_func_8003c0cc.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 extern u8 D_800C02AE[];
 typedef struct { u16 h0, h2, type, width, height; } Tex;
 typedef struct { u8 count, pad[3]; Tex **tex; } Pack;
@@ -47,7 +47,7 @@ void func_8003C0CC(void *list, s32 arg1)
         car = func_8004240C((GAME->count << 1) | 1);
         d = car->dim;
         CUR_CAR = car;
-        spr = func_80040260(list, (s16)d->w / 2, (s16)d->h / 2, (s16)(4), (SpriteHook)(func_8003BEBC), 0);
+        spr = func_80040260(list, (s16)d->w / 2, (s16)d->h / 2, (s16)(4), func_8003BEBC, 0);
         spr->sx = 0x100;
         spr->sy = 0x100;
         spr->flags |= 4;

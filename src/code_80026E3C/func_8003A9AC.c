@@ -1,10 +1,10 @@
-#include "decompdecomp_snapshot_8003a9ac.h"
+#include "decompdecomp_contract_func_8003a9ac.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 extern s32 D_800C7F84;
 s32 func_80034FF0();
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-extern void func_8003A73C();
+extern void func_8003A73C(void *);
 
 void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, SpriteHook arg3, s32 arg4, u16 arg5, u8 *arg6)
 {
@@ -40,7 +40,7 @@ void func_8003A9AC(s32 arg0, s32 arg1, s32 arg2, SpriteHook arg3, s32 arg4, u16 
             var_s0[0x93] = arg6[3];
         }
         if (var_s3 == 1) {
-            var_s0 = ((void *)func_80040260((void *)(arg0), (s16)var_s2, (s16)var_s5, 2, (SpriteHook)(func_8003A73C), 0));
+            var_s0 = ((void *)func_80040260((void *)(arg0), (s16)var_s2, (s16)var_s5, 2, func_8003A73C, 0));
             ret = func_80034FF0(var_s4, 0);
             d = D_800C7F84;
             var_s2 += 4;

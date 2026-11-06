@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_8003bbdc.h"
+#include "decompdecomp_contract_func_8003bbdc.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct { u8 p[0xE]; u16 count; } State;
 typedef struct Tex3 {u16 h0,h2,type,width,height;u8 a,b;u32 c;u8 **pal,**image;u32 x,y;} Tex3;
 typedef struct {u8 count,pad[3];Tex3 **tex;} Pack3;
@@ -14,8 +14,8 @@ extern u8 func_800556C4(void *arg0);
 extern void func_80055738(void *);
 extern u8 *D_800C35A0;
 extern Obj *D_800C7F84;
-extern void func_8003BB6C(void);
-extern void func_8003C864(void);
+extern void func_8003BB6C(void *);
+extern void func_8003C864(void *);
 static inline u8 *inline_fn(u8 arg0)
 {
   return D_800C35A0 + (arg0 * 40);
@@ -64,11 +64,11 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
       switch (g->count)
       {
         case 1:
-          ((Widget *)func_80040260((void *)(arg0), inline_fn2(inline_fn2(k, width), 0x18), 0x1B, (u16)(arg2), (SpriteHook)(func_8003BB6C), 0))->pack = pack;
+          ((Widget *)func_80040260((void *)(arg0), inline_fn2(inline_fn2(k, width), 0x18), 0x1B, (u16)(arg2), func_8003BB6C, 0))->pack = pack;
           func_800556C4(pack);
           if (inline_fn(D_800C35A0[0x32])[0x48] & 1)
           {
-            wd = ((Widget *)func_80040260((void *)(arg0), inline_fn2(w, 0x66), y + 7, (u16)(arg2), (SpriteHook)(func_8003C864), 0));
+            wd = ((Widget *)func_80040260((void *)(arg0), inline_fn2(w, 0x66), y + 7, (u16)(arg2), func_8003C864, 0));
             wd->pack = pack;
             wd->obj = D_800C7F84;
             func_800556C4(pack);
@@ -77,7 +77,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
         case 2:
           if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
           {
-            ((Widget *)func_80040260((void *)(arg0), inline_fn2(w, 0x12), y + 7, (u16)(arg2), (SpriteHook)(func_8003BB6C), 0))->pack = pack;
+            ((Widget *)func_80040260((void *)(arg0), inline_fn2(w, 0x12), y + 7, (u16)(arg2), func_8003BB6C, 0))->pack = pack;
             func_800556C4(pack);
           }
           else
@@ -86,7 +86,7 @@ void func_8003BBDC(s32 arg0, s32 arg1, s32 arg2)
             {
               xa = x + 6;
             }
-            ((Widget *)func_80040260((void *)(arg0), xa, h + 0xFFF7, (u16)(arg2), (SpriteHook)(func_8003BB6C), 0))->pack = pack;
+            ((Widget *)func_80040260((void *)(arg0), xa, h + 0xFFF7, (u16)(arg2), func_8003BB6C, 0))->pack = pack;
             func_800556C4(pack);
           }
           break;

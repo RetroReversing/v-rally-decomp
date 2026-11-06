@@ -12,7 +12,7 @@ struct Node
   Node *next;
   char pad8[0x78];
   u32 flags;
-  void (*callback)(Node *);
+  void (*callback)(void *);
   u32 draw;
   u32 unk8c;
   u8 b90[4];

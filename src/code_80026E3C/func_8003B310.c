@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_contract_func_8003b310.h"
 #line 1 "func.c"
 typedef struct Info {
     u8 pad00[8];
@@ -41,8 +41,8 @@ extern s32 D_8009D538;
 extern u8 D_8009FE24[];
 extern void func_8003AC30(s32, u8 *);
 
-void func_8003B310(Hud *h)
-{
+void func_8003B310(void *object) {
+    Hud * h = object;
     Node *n;
     s32 v;
     u8 c;

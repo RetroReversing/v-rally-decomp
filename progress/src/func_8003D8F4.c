@@ -1,7 +1,7 @@
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);
 extern char D_800C02AE[];
-void func_8003B660();
+void func_8003B660(void *);
 void func_8003D8F4(s32 arg0, s32 arg1)
 {
   char *obj;
@@ -24,7 +24,7 @@ void func_8003D8F4(s32 arg0, s32 arg1)
       if ((*((u16 *) (temp_a3 + 0x1E))) == 0)
       {
         var_a1 += 0x4A;
-        func_8003A794((s32)(arg0), var_a1, var_a2, (SpriteHook)(&func_8003B660), (u8 *)(arg1), 0, 0);
+        func_8003A794((s32)(arg0), var_a1, var_a2, &func_8003B660, (u8 *)(arg1), 0, 0);
         return;
       }
       else
@@ -32,7 +32,7 @@ void func_8003D8F4(s32 arg0, s32 arg1)
         var_a1 += 0x1C;
         var_a2 = var_a2 + temp_t0 - 0xE;
       }
-      func_8003A794((s32)(arg0), var_a1, var_a2, (SpriteHook)(&func_8003B660), (u8 *)(arg1), 0, 0);
+      func_8003A794((s32)(arg0), var_a1, var_a2, &func_8003B660, (u8 *)(arg1), 0, 0);
       break;
     case 2:
       if ((*((u16 *) (temp_a3 + 0x1E))) != 0)
@@ -53,7 +53,7 @@ void func_8003D8F4(s32 arg0, s32 arg1)
         var_a2 += temp_t0;
       }
       var_a2 -= 0x1A;
-      func_8003A794((s32)(arg0), var_a1, var_a2, (SpriteHook)(&func_8003B660), (u8 *)(arg1), 0, 0);
+      func_8003A794((s32)(arg0), var_a1, var_a2, &func_8003B660, (u8 *)(arg1), 0, 0);
       break;
   }
 }

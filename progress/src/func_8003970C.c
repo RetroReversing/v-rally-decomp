@@ -1,4 +1,4 @@
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct Pos
 {
   u8 pad00[8];
@@ -42,7 +42,7 @@ typedef struct Game
 } Game;
 extern Game *D_800C35A0;
 extern Obj *D_800C7F84;
-extern void func_8003BA9C();
+extern void func_8003BA9C(void *);
 extern s32 func_80034FF0(s32, s32);
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern Obj *func_8004240C(s32);
@@ -75,7 +75,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
       x = D_800C7F84->pos->xC;
       y = D_800C7F84->pos->x8;
       ey = y - 0x10;
-      w = ((Widget *)func_80040260((void *)(arg0), x - 0x32, ey, (u16)(arg2), (SpriteHook)(func_8003BA9C), 0));
+      w = ((Widget *)func_80040260((void *)(arg0), x - 0x32, ey, (u16)(arg2), func_8003BA9C, 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->obj = D_800C7F84;
       w = ((Widget *)func_80040260((void *)(arg0), x - 0x46, y - 0x20, (u16)(arg2), (SpriteHook)(0), 0));
@@ -101,7 +101,7 @@ void func_8003970C(s32 arg0, s32 arg1, s32 arg2)
           x = pos->xC - 0x20;
           dx = (obj->type == 1) ? (0x14) : (0);
         }
-        w = ((Widget *)func_80040260((void *)(arg0), ((px + x) - 0x1A) + dx, (py + ey) - 0xA, (u16)(arg2), (SpriteHook)(func_8003BA9C), 0));
+        w = ((Widget *)func_80040260((void *)(arg0), ((px + x) - 0x1A) + dx, (py + ey) - 0xA, (u16)(arg2), func_8003BA9C, 0));
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         w->kind = 4;
         w->obj = D_800C7F84;

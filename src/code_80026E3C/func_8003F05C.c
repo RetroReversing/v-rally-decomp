@@ -1,6 +1,7 @@
-#include "common.h"
-
-void func_8003F05C(u8 *arg0) {
+#include "decompdecomp_contract_func_8003f05c.h"
+#line 1 "func.c"
+void func_8003F05C(void *object) {
+    u8 * arg0 = object;
     u8 *a1;
     u8 *a2;
     s32 a3;
@@ -35,3 +36,4 @@ void func_8003F05C(u8 *arg0) {
         *(s16 *)(arg0 + 0x70) = -(*(u16 *)(v0 + 6) >> 1);
     }
 }
+

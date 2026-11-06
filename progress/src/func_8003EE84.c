@@ -1,5 +1,6 @@
 extern u8 *D_800C35A0;
-void func_8003EE84(u8 *a1){
+void func_8003EE84(void *object) {
+    u8 * a1 = object;
     s32 a2 = *(s32*)(*(s32*)(a1+0xA8)+0x24);
     u8 *a0;
     s32 v1;

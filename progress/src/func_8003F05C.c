@@ -1,4 +1,5 @@
-void func_8003F05C(u8 *arg0) {
+void func_8003F05C(void *object) {
+    u8 * arg0 = object;
     u8 *a1;
     u8 *a2;
     s32 a3;

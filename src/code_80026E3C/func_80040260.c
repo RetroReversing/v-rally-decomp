@@ -1,8 +1,8 @@
-#include "decompdecomp_snapshot_80040260.h"
+#include "decompdecomp_contract_func_80040260.h"
 #line 1 "func.c"
 extern u32 D_8000A840;
 void *func_800802A0(void *, s32);
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct { u8 r; u8 g; u8 b; u8 a; } Color4;
 
 void *func_80040260(void *arg0, s16 arg1, s16 arg2, s32 arg3, SpriteHook arg4, s32 unused_mode) {

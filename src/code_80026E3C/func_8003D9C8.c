@@ -1,6 +1,6 @@
-#include "decompdecomp_snapshot_8003d9c8.h"
+#include "decompdecomp_contract_func_8003d9c8.h"
 #line 1 "func.c"
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 typedef struct Pos
 {
   u8 pad00[8];
@@ -37,12 +37,12 @@ typedef struct Game
 } Game;
 extern Game *D_800C35A0;
 extern Obj *D_800C7F84;
-extern void func_8003B310();
-extern void func_8003B008();
-extern void func_8003B240();
-extern void func_8003AE84();
-extern void func_8003B2C0();
-extern void func_8003AF74();
+extern void func_8003B310(void *);
+extern void func_8003B008(void *);
+extern void func_8003B240(void *);
+extern void func_8003AE84(void *);
+extern void func_8003B2C0(void *);
+extern void func_8003AF74(void *);
 extern void func_8003A9AC(s32, s32, s32, SpriteHook, s32, u16, u8 *);
 extern s32 func_80034FF0(s32, s32);
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
@@ -72,9 +72,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       if (g->state == 0)
     {
       s32 local_y;
-      arg2 = make_label(arg0, x + 0x4D, (local_y = y + h - 0x12), (SpriteHook)func_8003B310, arg1, arg2);
+      arg2 = make_label(arg0, x + 0x4D, (local_y = y + h - 0x12), func_8003B310, arg1, arg2);
       base = (s16)local_y;
-      w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x44, base, (s16)(2), (SpriteHook)(func_8003B008), 0));
+      w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x44, base, (s16)(2), func_8003B008, 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->id = arg2;
       w->obj = D_800C7F84;
@@ -85,8 +85,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       i = 2;
       do
       {
-        func_8003A9AC(arg0, D_800C7F84->pos->f8 + 0x5F, base + step, (SpriteHook)func_8003B310, arg1, i, 0);
-        w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x56, step + base, (s16)(2), (SpriteHook)(func_8003B008), 0));
+        func_8003A9AC(arg0, D_800C7F84->pos->f8 + 0x5F, base + step, func_8003B310, arg1, i, 0);
+        w = ((Widget *)func_80040260((void *)(arg0), D_800C7F84->pos->f8 + 0x56, step + base, (s16)(2), func_8003B008, 0));
         w->text = func_80034FF0(arg1 + 0x4C, 0);
         step += 11;
         w->id = i;
@@ -114,9 +114,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       local_y = pos->fA;
       local_y += pos->fE;
       local_y -= 0x12;
-      arg2 = make_label(arg0, ((s32)w) + 0x39, local_y, (SpriteHook)func_8003B310, arg1, cnt);
+      arg2 = make_label(arg0, ((s32)w) + 0x39, local_y, func_8003B310, arg1, cnt);
       base = (s16)local_y;
-      w = ((Widget *)func_80040260((void *)(arg0), ((s32)w) + 0x2E, base, (s16)(2), (SpriteHook)(func_8003B008), 0));
+      w = ((Widget *)func_80040260((void *)(arg0), ((s32)w) + 0x2E, base, (s16)(2), func_8003B008, 0));
       w->text = func_80034FF0(arg1 + 0x4C, 0);
       w->id = arg2;
       w->obj = D_800C7F84;
@@ -125,9 +125,9 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
     {
       tx = ((s32)w) + 0x31;
       ty = base + 10;
-      func_8003A9AC(arg0, tx, ty, (SpriteHook)func_8003B240, arg1, i, 0);
+      func_8003A9AC(arg0, tx, ty, func_8003B240, arg1, i, 0);
       tx2 = (s16) (((s32)w) + 0x28);
-      w = ((Widget *)func_80040260((void *)(arg0), tx2, ty, (s16)(2), (SpriteHook)(func_8003AE84), 0));
+      w = ((Widget *)func_80040260((void *)(arg0), tx2, ty, (s16)(2), func_8003AE84, 0));
       res = arg1 + 0x4C;
       w->text = func_80034FF0(res, 0);
       current = D_800C7F84;
@@ -136,8 +136,8 @@ void func_8003D9C8(s32 arg0, s32 arg1, s32 arg2)
       w->col[2] = 0x1E;
       w->col[3] = 0xFF;
       w->obj = current;
-      func_8003A9AC(arg0, tx, base, (SpriteHook)func_8003B2C0, arg1, i, 0);
-      w = ((Widget *)func_80040260((void *)(arg0), tx2, base, (s16)(2), (SpriteHook)(func_8003AF74), 0));
+      func_8003A9AC(arg0, tx, base, func_8003B2C0, arg1, i, 0);
+      w = ((Widget *)func_80040260((void *)(arg0), tx2, base, (s16)(2), func_8003AF74, 0));
       w->text = func_80034FF0(res, 0);
       w->obj = D_800C7F84;
     }

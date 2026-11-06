@@ -89,3 +89,42 @@ must be closed before accepting a future exact source; retain the existing
 source-quality and raw-storage limitations rather than describing the casts as
 proof. Private immutable evidence manifest SHA-256:
 `b746a7682c1d6d2e9737bd059c5047caec7e0a72a749f41eaa0645d546646bf8`.
+
+
+## November 6: coherent callback registry and direct-call contracts
+
+A coordinated36-source correction now gives the constructor's stored hook and
+its dispatcher the common callable type `void(void*)`. All19 direct constructor
+callers, four additional upstream forwarders and twelve previously incompatible
+callback definitions were audited together, covering42 registered callbacks.
+Genuine typed object views preserve each callback's accesses. Two local-view
+forms changed allocation and failed exactness; cast-at-use byte views preserved
+the corresponding original objects. The empty callback accepts the actual object
+argument supplied by dispatch, without an invented call or dummy operation.
+
+Every corrected selected source independently links exactly with ordinary/-da
+parity. The full12,582,912-byte cartridge is identical, SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All2071 selected profiles and other2035 selected C objects remain unchanged.
+Normal saved-source verification accepted all36 before repository publication.
+This corrects existing matches; it does not increase the matched count.
+
+The focal draft remains OPEN565, now with compatible callback declarations and
+actual texture-loader integer arguments/structural pointer return, plus the
+selected manager return declaration. Source hash:
+`6ed43a854dbff1896d1279f58447fd6c939881b3a97f2d952e1b401823587296`.
+Its ordinary linked output is independently reproduced and agrees with the
+diagnostic capture. Source-scoped quality review replaced the obsolete cast-based
+draft, preserving all2071 matched sources.
+
+The audit found no directJAL callers for the twelve changed callback definitions;
+selected callback references lie in the audited constructor/forwarder sources.
+That evidence does not disprove every possible indirect use in arbitrary data.
+Existing allocation/lifecycle/selector/effective-type premises and legacy callback
+volatile/numeric-pointer representations remain explicit, not globally proven.
+
+App PR645 adds read-only callback contract hints: the full brief compares bounded
+explicit callback formals with selected definitions; the cheap claim receipt only
+cues casts and defers the lookup. This does not rewrite a signature or audit a whole
+macro/typedef/indirect registry automatically. Private package receipts remain in
+current-nov6-contracts/ready-registry36 and parent-registry-cartridge-gate.

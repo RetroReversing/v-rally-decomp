@@ -1,4 +1,4 @@
-typedef void (*SpriteHook)(void);
+typedef void (*SpriteHook)(void *);
 #define G D_800C35A0
 #define P D_800C7F84
 #define H(p,o) (*(s16 *)((u8*)(p)+(o)))
@@ -26,7 +26,7 @@ extern u8 *D_800C7F84;
 extern u8 *func_8004240C(s32);
 void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 extern Spr *func_80034FF0(void *, s32);
-extern void func_8003B980(void);
+extern void func_8003B980(void *);
 void func_8003946C(s32 a, u8 *b, s32 c)
 {
   u8 *g = G;
@@ -56,7 +56,7 @@ void func_8003946C(s32 a, u8 *b, s32 c)
         x = H(A(r, 0x178), 0xc);
         y = H(A(r, 0x178), 0xe);
         P = r;
-        o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), (SpriteHook)(func_8003B980), 1));
+        o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), func_8003B980, 1));
         o->x9c = x - 63;
         o->x9e = y - 42;
         s = func_80034FF0(b + 0x4c, 0);
@@ -91,7 +91,7 @@ void func_8003946C(s32 a, u8 *b, s32 c)
               x -= 16;
               off = (-(W(p, 0xc) == 1)) & 20;
             }
-            o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), (SpriteHook)(func_8003B980), 1));
+            o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), func_8003B980, 1));
             o->spr = func_80034FF0(b + 0x4c, 0);
             o->x9c = (u16)(z + x) - 35 + off;
             o->x9e = sum - 32;
