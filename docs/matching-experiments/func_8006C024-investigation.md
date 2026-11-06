@@ -158,3 +158,24 @@ No new source, match or automatic family was accepted. This closes that specific
 composition hypothesis without another native/profile/type sweep. Private
 composition-audit-nov6/REPORT.md and history/before-literal receipts retain the
 fresh context/profile/target/symbol checks.
+
+
+## November 6: remaining invariant lifetimes and byte-return declaration
+
+A fresh source-bound audit locates the current remaining invariant motion in the
+two actual table bases and output-byte constant 1. These conflict with the
+frame-record pointer, which spills; the frame is 88 bytes rather than the target's
+80. This is distinct from the old 2454 channel-shift diagnosis. Existing direct
+unsigned floating conversion, channel/index reuse and three-phase/backedge
+controls already cover the obvious hypotheses. No further C024 compiler or
+native quota was justified, and the selected draft remains 1733.
+
+The audit found a separate real declaration mismatch: the selected byte-input
+selector returns u8, while caller func_8006DDD8 declared an s32 return. Changing
+only that declaration to u8 preserves all 1,072 target bytes in ordinary and
+diagnostic builds (SHA256 e207bbb08f8da14370e704f4dc25f3ba253cd9449ea3f8ae073c363845fb58e2).
+The parent independently verified the full 12,582,912-byte cartridge, with the
+other 2,070 selected objects and all 2,071 compiler profiles preserved. Normal
+saved-source verification accepted the correction. This repairs an existing
+match's C interface; it is not an additional function match or a C024 repair.
+Private evidence is retained in cause-nov6/ddd8 and ddd8-parent-gate.

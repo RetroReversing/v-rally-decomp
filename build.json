@@ -22415,7 +22415,8 @@
    "vram": 2147933656,
    "rom": 453080,
    "asm": "asm/nonmatchings/code_8004BEB4/func_8006DDD8.s",
-   "c": "src/code_8004BEB4/func_8006DDD8.c"
+   "c": "src/code_8004BEB4/func_8006DDD8.c",
+   "own": {}
   },
   {
    "name": "func_8006E208",

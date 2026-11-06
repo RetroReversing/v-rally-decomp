@@ -6,7 +6,7 @@ extern u8 D_800C7125[];
 extern f64 D_800A58A8;
 extern f64 D_800A58B0;
 extern f64 D_800A58B8;
-s32 func_8006B9E0(u8, u8);
+u8 func_8006B9E0(u8, u8);
 s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {

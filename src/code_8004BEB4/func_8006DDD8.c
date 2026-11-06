@@ -1,4 +1,4 @@
-#include "decompdecomp_pointer_scalar_6ddd8.h"
+#include "decompdecomp_contract_6ddd8.h"
 #line 1 "func.c"
 extern u8 D_800C02AE[];
 extern u8 *D_800C35A0;
@@ -8,7 +8,7 @@ extern u8 D_800C7125[];
 extern f64 D_800A58A8;
 extern f64 D_800A58B0;
 extern f64 D_800A58B8;
-s32 func_8006B9E0(u8, u8);
+u8 func_8006B9E0(u8, u8);
 s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {

@@ -79,7 +79,8 @@ void func_80029EAC(void *a, void *point, int index)
   q.p.z = ((Vertex *) P(g, 84))[down].z;
   cell = (row * (w - 1)) + col;
   func_8002D75C(p.word, q.word, r.word, &sign);
-  height = down + 1;
+  height = down;
+  height++;
   slot = right;
   if (sign < 0)
   {
@@ -98,17 +99,17 @@ void func_80029EAC(void *a, void *point, int index)
     int sx;
     int sy;
     int sz;
-    height = 0;
+    slot = 0;
     func_8002D724(c, b, normal);
-    slot = (index == 4) * 2;
+    height = (index == 4) * 2;
     if (index == 5)
     {
-      slot = 3;
+      height = 3;
     }
-    slot &= -(index != 10);
+    height &= -(index != 10);
     if (index == 11)
     {
-      slot = 1;
+      height = 1;
     }
     func_8002D7E4(normal[0], &sx);
     func_8002D7E4(normal[1], &sy);
@@ -134,14 +135,14 @@ void func_80029EAC(void *a, void *point, int index)
     {
       if (normal[1])
       {
-        height = normal[2];
-        height = (int)(((0U - normal[0]) * r.p.x - (unsigned)height * r.p.z) + (unsigned)dot) / normal[1];
+        slot = normal[2];
+        slot = (int)(((0U - normal[0]) * r.p.x - (unsigned)slot * r.p.z) + (unsigned)dot) / normal[1];
       }
     }
     while (0);
-    W(P(a, 140), (slot * 20) + 176) = (*(s16 *)((unsigned char *)point + 0));
-    W(P(a, 140), (slot * 20) + 180) = height;
-    W(P(a, 140), (slot * 20) + 184) = (*(s16 *)((unsigned char *)point + 4));
+    W(P(a, 140), (height * 20) + 176) = (*(s16 *)((unsigned char *)point + 0));
+    W(P(a, 140), (height * 20) + 180) = slot;
+    W(P(a, 140), (height * 20) + 184) = (*(s16 *)((unsigned char *)point + 4));
   }
   func_8002E688(c, c);
   func_8002E688(b, b);
@@ -162,10 +163,10 @@ void func_80029EAC(void *a, void *point, int index)
   func_8002E530(mat.h, delta, local);
   func_8002DA98(&mat, &inv);
   mat = inv;
-  right = (unsigned)local[1] * 16U;
-  if (right <= 0)
+  slot = (unsigned)local[1] * 16U;
+  if (slot <= 0)
   {
-    height = right;
+    height = slot;
     record = P(a, 140) + 824;
     record += W(P(a, 140), 820) * 48;
     W(record, 40) = height;
@@ -176,4 +177,3 @@ void func_80029EAC(void *a, void *point, int index)
     W(P(a, 140), 820)++;
   }
 }
-
