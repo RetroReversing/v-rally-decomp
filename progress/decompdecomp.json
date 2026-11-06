@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793927513.101613,
- "revision": 18983,
+ "saved_at": 1793927964.232116,
+ "revision": 18986,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -8371,8 +8371,8 @@
   },
   "func_8006BA44": {
    "vram": 2147924548,
-   "best_score": 705,
-   "best_by": "you"
+   "best_score": 695,
+   "best_by": "manual-712eb47c973f4765"
   },
   "func_8006BE50": {
    "vram": 2147925584,
@@ -249743,6 +249743,22 @@
    "created_at": 1793927506.027173,
    "score_before": 2,
    "score_after": 2
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-712eb47c973f4765",
+   "created_at": 1793927843.065092,
+   "score_before": 705,
+   "score_after": 695
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Normal split initialization retained OPEN695 (previous705), source546e06d57cd3af8ab046b04ee6804ab740a7c1d692d6217d383256f9f0be93de. InitialRTL chain var_a2=(var_t0=0) reverses target initialization order; separate real independentzero stores fix earliestdifference. Generated guarded split_local_zero_chain exactly reproduces source/score695, merged PR644478b3f86. Full ordinary/-da linked parity1028bytes, noexact. Three new grounded controls negative: actual u8slot895, separate conversion-index role725, actualgroup-phase local2340. Do not repeat those or oldflag/native/declaration sweeps. No type/interface/profile changes or fakepadding. Existing valid category/slot, finite/nonzero arithmetic and raw-storage assumptions remain explicit. ALL2071 matchedsources unchanged. nov6-rtl-init/REPORT.md.",
+   "by": "you",
+   "created_at": 1793927963.471426,
+   "score_before": 705,
+   "score_after": 705
   }
  ],
  "set_aside": [

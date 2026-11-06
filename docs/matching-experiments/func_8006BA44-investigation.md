@@ -98,3 +98,27 @@ excluded. A prototype automatic typed-entry-local transformation reproduces 705
 from the 1100 entry-mask control in two proposals. It remains private pending
 type-inspection, language and promotion guards; no new app repair is claimed
 enabled by this checkpoint. All current progress is saved normally.
+
+
+## November 6: independent zero initialization and shared repair
+
+The current-contract OPEN draft improves705 to695 by splitting
+`var_a2 = (var_t0 = 0);` into two actual independent zero initializations, in the
+target's a2-then-t0 order. No local, interface, profile, guard or unused operation
+is added. Ordinary and diagnostic linked output agree across1028 bytes. This is
+not an exact match; register, control and conversion residuals remain.
+
+The bounded shared `split_local_zero_chain` generator reproduces exactly the
+researched source SHA256
+`546e06d57cd3af8ab046b04ee6804ab740a7c1d692d6217d383256f9f0be93de`
+and score695. PR644 adds direct C32 invocation/type/binding/escape guards and175
+focused tests. It is merged; the normal app judge retained the draft, preserving
+all2071 selected matched sources. The compiler guide records the limits rather
+than suggesting arbitrary assignment chains can be reversed.
+
+Three further grounded controls were negative: actual byte slot local895,
+separate conversion-index role725 and genuine group-phase local2340. Hydrated
+attempt history was checked before testing; physical NULL source fields are not
+missing history. No additional native/profile/declaration sweep was run. Existing
+valid runtime category/slot/storage and finite nonzero arithmetic premises remain
+explicit and are not a whole-game C-conformance proof.

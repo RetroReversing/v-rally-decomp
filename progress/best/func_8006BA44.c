@@ -33,7 +33,8 @@ void func_8006BA44(s32 incoming_category, s32 arg1)
   int new_var;
   void *var_a2_2;
   void *var_s1;
-  var_a2 = (var_t0 = 0);
+  var_a2 = 0;
+  var_t0 = 0;
   var_v1 = arg1;
   temp_s6 = ((s32 *) 0x800D0634)[arg0];
   switch (arg0)

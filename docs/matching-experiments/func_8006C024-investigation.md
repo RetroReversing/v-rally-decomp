@@ -29,3 +29,19 @@ selector and three iterations bound the floating conversion to finite 0..1150.5;
 this is not a proof of every game's storage declaration. Keep the function open.
 The next useful hypothesis concerns real channel/iteration interference under
 the backedge, rather than another copy-width or layout sweep.
+
+
+## November 6: grounded three-phase register reuse
+
+A fresh current-contract freeze reproduces OPEN2454 with full ordinary/-da
+linked parity. Compiler dumps locate the channel shift in ordinary CSE inside
+the conditional body; loop optimization moves insn222 to541 before the loop and
+shares371. This is earlier than final register allocation.
+
+Four new controls reuse one genuine value across initial channel, loop index
+and signed-delta phases: SI structured4009, SI goto3205, HI structured3033 and
+HI goto2635. None improves2454, and none is adopted. Hydrated437 saved attempts
+were checked; no native, flag or arbitrary declaration sweep was run. No new
+positive automated repair follows from these controls. Do not repeat this phase
+copy family without new source/domain evidence. Existing runtime bounds and
+raw-storage assumptions remain explicit. Private receipts: current-nov6/REPORT.md.
