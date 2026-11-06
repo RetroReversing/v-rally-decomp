@@ -56,7 +56,7 @@ s32 func_800354F4();
 s32 func_80038D1C();
 s32 func_80038D40();
 s32 func_800405D8();
-s32 func_80040CF4();
+void func_80040CF4(u8);
 s32 func_800412FC();
 s32 func_80041E0C();
 s32 func_80042264();

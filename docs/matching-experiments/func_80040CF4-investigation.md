@@ -74,3 +74,35 @@ All matched neighbors from 80040084 through 800424C0 use the original KMC
 profile. The prior compiler controls already covered no-debug, g/g2, strength
 reduction, delayed branches and both scheduling passes. No new profile evidence,
 exact match, native search or live source change resulted from this revisit.
+
+## November 6: saved-source reconciliation and caller declaration
+
+A fresh hydrated audit found the actual saved518 draft still used the old
+`D_8009FFDA - 2` expression and obsolete constructor/copy declarations. The
+current corrected draft uses unsigned target-address subtraction and the actual
+selected helper signatures. Ordinary and diagnostic builds agree at518 with
+linked SHA256 `987595106b20b7aa1d4715573b633add774d0aac057311791555132302176df1`.
+This is a target-specific mapped-address model with object, alignment, lifetime
+and integer-pointer assumptions; it does not establish portable C provenance.
+The direct-root object expression remains a separate818 alternative.
+
+The sole direct caller, func_8000F660, declared this void(u8) entry as an
+old-style s32-returning function. Both concrete calls pass literal zero and
+ignore the result. A declaration-only correction to void(u8) independently
+matches all2760 linked bytes under that caller's own profile, including the
+ordinary/diagnostic parity check. Full-cartridge and normal-import evidence is
+recorded separately before accepting the selected-source correction.
+
+New controls using a real consumed scratch pointer (void pointer or union)
+scored614; naming the actual game-object/item root symbols independently and
+together scored518. These controls do not explain the saved-register mismatch.
+The733 hydrated historical attempts supply no admissible lower-scoring seed.
+No blind native, formatting or compiler-profile sweep was repeated.
+
+Parent acceptance completed: the declaration correction passed the complete
+12,582,912-byte cartridge comparison, SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+All2071 compiler profiles and other2070 selected C objects were preserved.
+Normal saved-source verification independently rejudged the corrected caller
+exact; all2071 matches remain. The corrected focal518 draft was retained through
+the normal source-scoped quality/adoption path. Neither correction adds a match.

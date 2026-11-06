@@ -68,7 +68,7 @@
     "src/code_80026E3C/func_80043150.c": "4db41c433b438ecf86c5e10d76597a0a67fe57b7e01b3a0b863cf36c41428b3c",
     "src/code_8004BEB4/func_8006CE1C.c": "0ccc9aebc9b028a3ea72460fb194318a568e8cd2579e4cb663e5effd06cae62f",
     "src/code_8007E9D4/func_8008A31C.c": "2b0e96c29589ab4284622695fffd356f682d047c6e1adaf75da2cb8ecbdb468e",
-    "src/code_8000D9A0/func_8000F660.c": "7bd52302327295646a52cd961fceb203d29d9eead58b8989666cdd9b066d859d",
+    "src/code_8000D9A0/func_8000F660.c": "3339fae6782050b51fa909e579959fb919ff45ec7ec0488be46d70d4b1e5955f",
     "src/code_80026E3C/func_80028E94.c": "f7c2f0e570e2b9f78e8d30396f1b607e886bbe33774146cb5f9ecf21dbe596e9",
     "src/code_8004BEB4/func_8006C640.c": "328dd6fba69a3109113a523d2febf14c5a018866093d29e00b5acefd6c6f0ff6",
     "src/code_8007E9D4/guLookAtReflectF.c": "7cdf9ff309ec4971bf90b24fa6d35978125231807b18a62c05b5b81f59d7172d",
@@ -660,7 +660,8 @@
     "include/decompdecomp_contract_func_80040084.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "include/decompdecomp_contract_func_80040260.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_80040328.c": "b5960012c8a040e36d45845cb94f42fce138899820d641ab0a2fbd0d3fd58150",
-    "include/decompdecomp_contract_func_80040328.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_contract_func_80040328.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "include/decompdecomp_contract_func_8000f660.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -1095,46 +1096,11 @@
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [],
     "contract_corrections": [
-      "func_80039134",
-      "func_8003946C",
-      "func_8003970C",
-      "func_80039A00",
-      "func_8003A794",
-      "func_8003A9AC",
-      "func_8003B008",
-      "func_8003B310",
-      "func_8003B660",
-      "func_8003BBDC",
-      "func_8003C0CC",
-      "func_8003C254",
-      "func_8003C354",
-      "func_8003C6D8",
-      "func_8003C8A4",
-      "func_8003C968",
-      "func_8003CC50",
-      "func_8003CD18",
-      "func_8003D780",
-      "func_8003D8F4",
-      "func_8003D9C8",
-      "func_8003E134",
-      "func_8003E1BC",
-      "func_8003E3E0",
-      "func_8003E4A8",
-      "func_8003EE84",
-      "func_8003F05C",
-      "func_8003F11C",
-      "func_8003F2CC",
-      "func_8003F3BC",
-      "func_8003F834",
-      "func_8003FB48",
-      "func_8003FD04",
-      "func_80040084",
-      "func_80040260",
-      "func_80040328"
+      "func_8000F660"
     ],
     "all_2071_profiles_preserved": true,
-    "other_2035_selected_c_objects_preserved": true,
-    "note": "Concrete constructor/dispatcher registry uses common void(void*) callbacks;36 existing selected C corrections remain exact,3E6D8 OPEN565 not a new match. Runtime allocation/lifecycle/effective-type assumptions and unknown indirect callers not globally proven."
+    "other_2070_selected_c_objects_preserved": true,
+    "note": "Sole direct UI constructor caller now declares actual void(u8) entry; two literal-zero calls, unused returns. Existing C remains exact; focal OPEN518 corrected mapped-address draft, not a new match."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -1142,7 +1108,7 @@
     "matched": 2071,
     "all_function_addresses_integrated": true,
     "source_hashes_confirmed": true,
-    "note": "36 saved-source normal exact rejudges; source-scoped corrected OPEN565 draft adoption; ALL portable progress saved. Previous independent standalone variants retained."
+    "note": "One normal saved-source exact rejudge; corrected OPEN518 draft; ALL portable progress saved."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",

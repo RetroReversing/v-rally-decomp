@@ -1,4 +1,4 @@
-#define func_80042078(a,b,c,d,e) ((Item *)func_80042078(a,b,c,d,e))
+extern void *func_80042078(void *, u16, s32, s32, u16);
 #define gObj (*(Obj **)(D_800C02AE + 0x32F2))
 #define gItem (*(Item **)(D_800C02AE + 0x7CD6))
 typedef struct 
@@ -24,7 +24,7 @@ typedef struct
 {
   u16 v[10];
 } LayoutTbl;
-extern void func_800424A4(Item *, void *);
+extern void func_800424A4(void *, void *);
 extern u8 D_800C02AE[];
 extern Rect D_8009FFD8;
 extern LayoutTbl D_8009FF38[];
@@ -157,7 +157,7 @@ void func_80040CF4(u8 arg0)
     it->id = (n * 2) | 1;
     {
       extern u8 D_8009FFDA[];
-      r = *((Rect *) (D_8009FFDA - 2));
+      r = *((Rect *) ((u32)D_8009FFDA - 2U));
     }
     if ((gObj->mode == 2) && (gObj->flags & 1))
     {
