@@ -240,3 +240,48 @@ BLKmode records, but is not identity proof for the pinned KMC compiler.
 No further scope or initializer sweep is justified by this control.
 Private phase-scope-control report manifest SHA256:
 d9f56836e4638517e0ba58c7ba658b4868777916593cda428cf2874672999d3e.
+
+
+## November 6: expose macros before mutation, preserve physical body layout
+
+The original score52 source remains selected (source SHA256
+`d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd`).
+Its 1400 linked bytes hash to
+`edcd5058b3efeaf8838b3ffbb7cbc761c69350a8cfa9a3edc4f0bc9fe3b2268a`.
+The old native input hid six camera macro calls, eight global-view uses and one
+ambient-light use. Actual preprocessing exposes their expressions without changing
+the complete translation-unit AST. Exposed source preserves52/frame96. The native
+printer alone changes this to432/frame96 despite full AST equality. Restoring the
+original physical body layout, while retaining the printer's exact focal tokens,
+recovers the original52 bytes. Restoring only the function prefix does not.
+This establishes formatting sensitivity, not the reason for the target's extra
+16 local bytes; all these baselines retain frame96 rather than target112.
+
+One exposed-source lane completed exactly1000 emissions:640 ordinary compiler
+calls,505 linked candidates,135 compiler parse failures; the remaining proposals
+were duplicates, guarded, failed preflight or could not be safely backported.
+All193 score52 ties reproduce the original bytes. No improvement or exact match.
+Every emitted body was checked against pinned full-translation-unit preprocessing
+and AST equivalence before layout restoration. Native C89 declaration-order failures
+were not retried or replaced to extend the quota.
+
+All nine frame112 candidates were inspected. Seven enlarge the saved-register area
+rather than producing the target's unused local gap64..79. Two introduce an actual
+home at64 plus extra saves/stores. None reproduces the target mechanism. Several
+candidates additionally alter rounding, overwrite a live value or capture a pointer
+only in a possibly empty earlier loop; these are not admissible replacements.
+The pointer case exposed a conservative initialization-guard gap: an inert local
+record typedef prevents CFG construction, and an unrelated embedded assignment can
+cancel a different binding's verdict. App-side fixes are tracked separately; none
+changes the selected game source or weakens the judge.
+
+A final original-source debug-boundary pass classified124 proposals, skipped two
+already known source hashes and compiled122 new variants. All122 passed full-TU
+lexical token identity and linked.108 reproduced the original52 bytes;14 produced
+worse bodies (scores212 through502). Every frame remained96. No exact match,
+additional native lane or expanded-source boundary lane followed.
+
+Private macro-visibility-nov6 reports contain linked objects, complete stack
+references, diagnostics, source/AST identity and ordinary compiler receipts.
+Boundary-pass manifest SHA256:
+`d362f233e85497ac638c4d391978ad126973991cc993cd83384bc70537c8f0af`.

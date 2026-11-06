@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793962439.719917,
- "revision": 19081,
+ "saved_at": 1793964108.494806,
+ "revision": 19084,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250103,6 +250103,14 @@
    "created_at": 1793962359.981272,
    "score_before": 2,
    "score_after": 2
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "SourceSHA256 d457155effea643fb9755e667a9d39969d566c516432f4c80995f8ab41b646cd. Macro-visibility audit complete: actual expansion preserves52; native printer432 with identical fullTU AST, lexical body backport recovers original52bytes/frame96. Exposed1000raw lane640compiler505linked135C89parsefail;193ties allsamebaseline; noimprovement/exact. Nineframe112 candidates allwronggeometry/stores/saves; targetunusedgap64..79 absent. Final124boundaryproposals2knownskipped122new tokenidentitychecks+ordinarylinked;108same52bytes14worse212..502, allframe96. Noextraquota/expandedlane. Candidate997 conditionalpointercapture guardgap investigated separately. OPEN52 unchanged. Canonical investigation and private macro-visibility-nov6 reports retain evidence; boundarymanifestd362f233e85497ac638c4d391978ad126973991cc993cd83384bc70537c8f0af.",
+   "by": "you",
+   "created_at": 1793964079.994421,
+   "score_before": 52,
+   "score_after": 52
   }
  ],
  "set_aside": [
