@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793962046.821514,
- "revision": 19079,
+ "saved_at": 1793962439.719917,
+ "revision": 19081,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -250093,6 +250093,14 @@
    "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Finalfield-address-onlyisolationf5d5c099 ordinary/-da461/frame96/1016bytes SHAd9a946d64ad1457513dbcdbf575dae30635e20a6895c2d4ae3bb3152ba1d1211. Actual5homes tbl20 ent28 node_head36 cnt44 q52;3extra runtimeinstructions materialize/spill/reloadactualfieldaddress. LateentryphaseNOTrequiredforfifthhome; targetunusedgapunrecovered. Candidate isvalidonoriginalobjectdomain/pstable/addresscontentnotcached/originalstorepointpreserved, butnotmatch/improvementandnotadopted. Newsourcecontrol/searchclosed, OPEN22same0992source. PR661mergedguard/fullartifactverified separately; runningapphealthycurrentd7a883ff observedexternally,no parentrestart. Canonicalinvestigationupdated.",
    "by": "you",
    "created_at": 1793961981.530533,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "SourceSHA256 0992fd5f932c882374207447c72f8454725febfb28fc93cd329ba0a3dda51841. Complete191frame96audit:185accessactualtargetunusedgap48..55. Only6receipts/3bodies same4homes+targetsavearea:186/187700 movesrequirednode22writeonlyonepath;547/616/685500 hoistsactualrowaddressacrossnode22store(aliasunproven);587845 hoistsnestedRSfieldaddressacrossearlierbytewrite(aliasunproven). Noneaccepted. FixedderivedsaveclassificationheuristicwhichmislabeledbodySWsavedregasprologuesave; rawSPrefsretainedcorrect. Correct547moveafterstorealreadyoldcurrent107successfulreplay27/frame88/1004/SHA23e1b908695ba59fcc702c9b2ce8555b32be18020b3b6ecd7dfbc3b86c7d48b3 andexposed961samebody. NOrepeatcompiler/nootherjobs. 7AOPEN22unchanged; parentmovesonlyactivehelperto7Bmacrovisibilityaudit,notclaimedmatched. Fullvisibility-nov6REPORT/corrected-frame96-geometry.json; canonicalinvestigationupdated.",
+   "by": "you",
+   "created_at": 1793962359.981272,
    "score_before": 2,
    "score_after": 2
   }

@@ -274,3 +274,28 @@ with tbl/ent at20/28. The pointer-address materialization, spill and reload add
 three runtime instructions. The original late-entry phase is not required for
 this additional slot. This controlled result closes the field-capture path;
 it does not recover the target's unused gap. No draft or selected C changed.
+
+### Complete frame96 geometry review
+
+Reviewing every retained target-sized output finds185/191 receipts accessing
+the target's unused48..55 region. Six receipts, representing three distinct
+bodies, retain only the original four homes and the target save area:
+186/187 (700),547/616/685 (500),587 (845). Their source changes are not accepted:
+186 moves the required node-byte store onto only one branch;547 captures a row
+address before the original node-byte write and can change a later aliased index
+read;587 moves a nested record-field address before an earlier byte write.
+The latter two require alias separation not established by the existing model.
+No valid unused-gap representation was found.
+
+The derived save-slot classifier previously treated any store from a saved
+register as a callee save, potentially hiding a body spill into the gap. Raw
+SP-reference receipts were always retained and correct; the final inventory
+classifies by actual offsets and save/restore placement instead.
+
+Moving547's row capture after the byte store would preserve the original read
+point. History checking found this exact meaningful model already recorded as
+old current-source candidate107: successful replay27/frame88/1004bytes, linked
+SHA25623e1b908695ba59fcc702c9b2ce8555b32be18020b3b6ecd7dfbc3b86c7d48b3.
+The exposed lane also contains the same body as961. It was not recompiled as
+new work. This closes the gap-preserving candidates from this lane; OPEN22
+remains unchanged while a different function's macro visibility is investigated.
