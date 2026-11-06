@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793926665.666646,
- "revision": 18969,
+ "saved_at": 1793926813.59265,
+ "revision": 18973,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -249679,6 +249679,30 @@
    "created_at": 1793925749.394857,
    "score_before": 357,
    "score_after": 177
+  },
+  {
+   "function": "func_80030180",
+   "text": "Corrected357 fixed-seed native search retained genuine consumed component-index177 through normal compile API; still OPEN,476 bytes, frame/register residuals. Independent replay,1200-case screen and same-format ablation397 recorded in current-nov6/native357. Bounded deterministic component_index_capture generates277; existing statement-boundary repair then177. PR641 merged bcc68306 with C32 invocation/macro/CFG guards. No exact or full-program semantic proof. Native ledger has936 persisted rows plus64 charged interrupted reservation,512 linked scores,0exact;16 batches total charged1000. Do not repeat same fixed357 lane. Shared pointer/output assumptions remain explicit.",
+   "by": "you",
+   "created_at": 1793926795.0522199,
+   "score_before": 357,
+   "score_after": 357
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Fresh valid40 lane completed: exactly1000 raw emissions,88 duplicates,239 lineage rejects,153 text rejects,68 Clang failures,452 compiled+linked,0exact/no scorebelow40. Every scored candidate preserved s32(void) entry and72286/66514 actual external extents. One immutable seed,16 bounded batches, no frontier/quota fill. No live candidate adopted. Current-nov6 native40 REPORT and freshness prove unchanged/unclaimed. Do not repeat old60 or new40 lane without new grounded evidence; invalid historical20 cancellation/OOB remains forbidden.",
+   "by": "you",
+   "created_at": 1793926804.570796,
+   "score_before": 20,
+   "score_after": 20
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Fresh136cbdb5 revalidation reproduces OPEN305,612 bytes versus620target, ordinary/-da linked parity. Historical callee contract gaps are now corrected in selected61F34(void*,void*),5C0E8(s32,u32,u32),592AC void*(u32); these are not current blockers. FirstCSE zeroextension substitution/removal remains. Three proof/parity compiles only; no new nonrepeated safe candidate or automatic family justified. current-nov6/REPORT.md. Preserve existing runtime storage/bounds caveats; no native retry without new authentic operation evidence.",
+   "by": "you",
+   "created_at": 1793926808.0865011,
+   "score_before": 30,
+   "score_after": 30
   }
  ],
  "set_aside": [
