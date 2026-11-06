@@ -107,3 +107,24 @@ score 750. That callee has additional concrete direct-callee contract defects,
 so neither the signed interface nor the score-750 caller is selected. Future
 work must close those contracts and preserve all selected callers before any
 such adoption. Continue from the reviewed 950 draft, not the invalid 200 seed.
+
+## November 6: current-source and compiler-stage audit
+
+The actual saved OPEN950 source was hydrated and matched the reviewed baseline
+(SHA256 `51ea779e856af16f83bfe157f916705ace2cd72d49ee285fce446ca7c2272407`).
+Ordinary and diagnostic builds produced identical linked code. The latest lower
+460/940 histories still contain the rejected duplicate task branch and old type
+contracts; they are not admissible seeds merely because their scores are lower.
+
+Three residuals arise at different stages: the unused task-4 assignment is
+already absent from initial RTL; the first selector's ordinary versus annulled
+delay slot is chosen in the late `dbr` pass; and the signed versus unsigned
+halfword load follows the selected drawing callee's unsigned coordinate formal.
+A private signed-coordinate callee control requires closure of its other direct
+call contracts before adoption. These facts do not establish a safe automatic
+rewrite, and no invented guard or repeated native/profile sweep was run.
+
+This audit changed no selected C or compiler profile and found no new match.
+The underlying allocation, lifetime and indirect-callback assumptions remain
+explicit limitations. Private evidence manifest SHA256:
+`46071ce0b756bb34ba3ee42a62964454de3e0b08e4b1c12b380558f1f5bfa874`.
