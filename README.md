@@ -20,6 +20,19 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Fixed SDK hardware accessors — 6 November 2026
+
+The live app and independently rebuilt cartridge now include **2,073 matched
+functions / 16 open / 32 retained as assembly**. This adds the FCSR exchange
+and CP0 Count read through registered architectural intrinsics, plus two
+byte-neutral unsigned caller declaration corrections. These are hardware I/O
+accessors; their original handwritten-assembly provenance remains explicit.
+The complete **12,582,912-byte cartridge is byte-identical**, with prior compiler
+profiles and unaffected selected objects preserved. The refreshed `progress/`
+snapshot retains all drafts, notes, names, headers and profiles.
+See [hardware accessor verification](docs/matching-experiments/hardware-accessors.md).
+
+
 ### Current unmatched drafts — 6 November 2026
 
 `func_8002FFA4` improves from177 to **OPEN107** after grouping the real

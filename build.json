@@ -26480,7 +26480,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148062768,
    "rom": 582192,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_8008D630.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_8008D630.s",
+   "c": "src/code_8007E9D4/func_8008D630.c",
+   "own": {}
   },
   {
    "name": "func_8008D640",
@@ -27468,7 +27470,9 @@
    "seg": "code_8007E9D4",
    "vram": 2148087728,
    "rom": 607152,
-   "asm": "asm/nonmatchings/code_8007E9D4/func_800937B0.s"
+   "asm": "asm/nonmatchings/code_8007E9D4/func_800937B0.s",
+   "c": "src/code_8007E9D4/func_800937B0.c",
+   "own": {}
   },
   {
    "name": "func_800937C0",

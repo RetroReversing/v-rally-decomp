@@ -1,8 +1,8 @@
-#include "snapshot29_0433f7af8f6d.h"
-
+#include "decompdecomp_fcsr_8008bb80.h"
+#line 1 "func.c"
 extern s32 func_800937C0(void);
 extern void func_8008D6E0(s32);
-extern s32 __osSetFpcCsr(s32);
+extern u32 __osSetFpcCsr(u32);
 extern s32 func_8008DB50(s32,s32*);
 extern s32 func_8008DBE0(s32,s32);
 extern void osWritebackDCache(s32,s32);
@@ -35,3 +35,4 @@ void func_8008BB80(void) {
  else if(D_80000300==2) D_800A1CC8=0x2e6025c;
  else D_800A1CC8=0x2e6d354;
 }
+
