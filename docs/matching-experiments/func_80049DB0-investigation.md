@@ -312,3 +312,28 @@ registers remain. No compiler or generator ran and no live state changed.
 Preserve OPEN20 pending a new causal mechanism rather than repeat the existing
 return-mode, CSE, constant and expression-shape searches. Private revisit-nov7
 retains the source references and byte-identical preservation receipts.
+
+
+## 2026-11-07: current-root pointer/value separation
+
+Two isolated controls preserved the actual pointer loads, branch conditions and
+signed 32-bit return contract while separating the pointer carrier from loaded
+integer values. Neither improved the selected score of 20:
+
+| Control | Source SHA-256 | Ordinary / diagnostic score | Linked bytes |
+| --- | --- | ---: | ---: |
+| Reuse returned-value carrier | `612d93c16734ac25e33c5dbde5898ee5e98e3092e4f13d29ef5d4676365b4b12` | 75 / 75 | 120 |
+| Separate pointer-loaded value | `320b5c189726f1affe8156a0167583ccc6840426aa13604bb10dce39bd6a6e62` | 60 / 60 | 120 |
+
+Both assigned the root to a0 and the pointer to a1, opposite the target. The
+second obtained a v1 loaded-value local but retained v0 for the link and sentinel;
+getting one desired local register does not establish the complete role mapping.
+The first extended the returned value across the chain and also changed its
+return register. These are finite negative controls, not a new automatic repair.
+
+Exactly four compiler calls and four independent persisted-object relinks agreed.
+The bounded controller completed without surviving owned processes. Fresh read-only
+snapshots preserved all 2,079 complete selected rows/effective profiles, all 910
+hydrated focal attempts, source, context, symbols and configuration. No live write,
+new match or cartridge acceptance is claimed. Private pointer-value-roles-nov7
+retains sources, pinned tools, watchdogs and relink receipts.
