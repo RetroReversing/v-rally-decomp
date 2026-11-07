@@ -174,3 +174,34 @@ for that CSE path. The actual retained RTL already locates the deletion in first
 CSE. No new narrow flag or genuine producer contract justifies another matrix.
 Preserve the current draft and revisit when new source/data-flow evidence exists.
 Private current305-normalization-nov7 retains the report and unchanged snapshots.
+
+
+## November 7: producer contracts and initialized16-bit local records
+
+Fresh read-only capture preserves OPEN305,774 hydrated attempts and all2,077
+selected sources/profiles. The saved halfwords come from direct inlined u16
+field loads, not an external return or snapshot argument. Late byte conversion
+already appears in737 historical sources; it does not address the two missing
+pre-call halfword comparison masks. An8-bit snapshot replacement would change
+comparisons above255 and was not tested.
+
+One finite control represents each actual full16-bit snapshot with a single
+unsigned-int:16 local field. Every field is initialized before use; no padding
+value is observed in C, no union raw view or dummy member is added, and all
+65,536 possible input values and later byte conversions are retained. This
+differs from earlier memory-field controls. Compiler-source inspection predicts
+a scalar record mode but partial-register field insertion on big-endian MIPS.
+
+Ordinary/-da and independent relinks agree at945/632 bytes, SHA256
+5d8dbb25ae1fe05254cb464f31d9e24e4589b72d9eca553726b68a84b79ed510;
+sourcef1881bc0d36937dc1ced52fc9c7e66048e6f1182e962e6b24e9fa2657bbcf78c.
+The predicted partial-register AND/SLL/OR/extraction path occurs. Comparison
+zero extensions now survive first CSE, but combine removes both using the
+resulting known upper bits. Extra packing operations remain, saved roles change
+and the frame grows0x20→0x28. Moving a deletion to a later pass is not a fix.
+
+Exactly two compiler calls completed under20-second/2GiB aggregate limits,
+with independent relinks and unchanged full focal/history/selected snapshots.
+No further signedness, width, flag or record-layout matrix follows. Preserve305.
+Private current305-contract-phase-nov7/REPORT.md retains all phase evidence,
+compiler identities, source review and final receipts.
