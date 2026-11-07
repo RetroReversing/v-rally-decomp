@@ -333,3 +333,30 @@ All2077 complete matched records/effective profiles,838 hydrated attempts and
 complete focal inputs compare unchanged before/after; processes are reaped.
 Private current52-provenance-nov6 retains complete SP-reference inventories,
 commands, paired bytes, source bindings and the final report/manifest.
+
+
+## November 7: installed compiler temporary-slot high-water proof
+
+A read-only audit of the actual installed cc1 (SHA256
+3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a)
+confirms the earlier upstream explanation. assign_stack_local advances the
+frame offset; BLK temporaries round to eight bytes. assign_stack_temp reuses an
+unused compatible slot or allocates a new one. free_temp_slots, pop_temp_slots
+and combine_temp_slots clear/coalesce slot records without reclaiming the frame
+high-water mark. A genuine12-byte temporary can therefore reserve16 bytes even
+if later optimization removes its accesses. Target112 alone does not prove a
+16-byte source data type.
+
+This does not identify such a temporary in the game. Existing genuine direction
+records retain stores; aggregate initializers retain a constructor/copy and
+produce a larger frame. Current source has no aggregate-valued expression that
+grounds an untested slot request followed by elimination. The global-register
+priority rule does not itself explain the additional local reservation. No new
+candidate, compiler call or generation was justified. Preserve OPEN52.
+
+Private current52-causal-nov7 retains the extracted installed-binary functions,
+identity hashes and byte-identical before/final snapshots of all2077 selected
+sources/effective profiles,838 focal attempts and complete focal inputs. No
+live change or cartridge claim. A revisit needs a real expression/inline
+expansion with proven allocation and elimination, rather than padding or a
+repeated layout sweep.
