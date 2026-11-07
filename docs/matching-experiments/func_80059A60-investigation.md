@@ -213,3 +213,27 @@ coverage gap in the old lane's source/interface assumptions; it does not prove
 that every possible valid rewrite has been tested. The parent independently
 recounted 1,000 saved source hashes, 377 scores and linked outputs, and zero exact
 results. Private evidence is in `current750-nov6/native-exposed`.
+
+
+## November 7: score-policy and raw instruction accounting
+
+A fresh read-only audit and parent independent relink bind both baselines to the
+current header, contracts, prelude and profile. Printer630 is valid full-TU
+AST-identical formatting, not a stale or invalid candidate. It improves advisory
+percent97.7134→98.0793 and identical aligned rows281→301 of328. However, raw
+sequence-matched words fall323→315; candidate instruction count327→328 occurs
+because a load moves out of a jump delay slot and an additional NOP is emitted.
+The target's missing li s2,4 is still absent. Restored downstream offsets explain
+much of the same-offset word increase37→215. These metrics measure different
+things; the earlier statement 'not a better repair' must name the metric.
+
+The app's lower-score policy would retain630 on normal submission. Keep750 as
+the simpler causal comparison baseline and preserve630 as a reviewed private
+alternative. Neither is exact. Initial printer RTL contains no real task4
+assignment to reposition; nearby4 constants are address REG_EQUAL notes. Existing
+real bound/type/loop/case grouping controls are covered; the rejected artificial
+duplicate task4 branch remains inadmissible. No new candidate or compiler call
+was justified. All2077 selected full sources/profiles,621 attempts and complete
+focal inputs remain unchanged. Private current750-causal-nov7 retains raw metrics,
+current-object relinks, provenance and preservation. Normal live submission is
+pending separately; no adoption, new match or cartridge claim.
