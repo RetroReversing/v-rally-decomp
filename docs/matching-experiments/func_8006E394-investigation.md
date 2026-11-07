@@ -366,3 +366,38 @@ rather than target t5, constant 2 moves to t9 rather than t7, and the decoded
 store/copy/branch order still differs. All 2,078 selected sources/profiles and
 the 690-attempt focal snapshot remain byte-identical before/after. This is
 partial causal evidence despite the worse aggregate advisory score.
+
+
+## November 7: close the value-copy and late flag-base leads
+
+The score2015 candidate is preserved separately in
+`func_8006E394-count-lifetime-frontier.c` (source hash d88d5c84 above). It is
+unmatched research source, excluded from the build manifest. Retain the live
+1200 draft as the aggregate-score leader; retain this alternative because its
+actual guard/backedge/frame roles agree with the target.
+
+A read-only value-copy audit covers534 OR-to-switch history records and152
+distinct phase fragments, including map reloads, store assignment expressions,
+byte/word casts and ordinary dispatcher aliases. The current initial RTL already
+defines the dispatcher directly with IOR; it has no producer/copy boundary to
+preserve. Prior byte boundaries retain unwanted truncation, while ordinary
+equal-value aliases offer no demonstrated protection against CSE. No duplicate
+alias control or manufactured dependency followed.
+
+The target defines t9 once at8006E6EC as the counter base plus16, with no actual
+instruction use. Current flag-base pseudo310 is genuinely consumed by the first
+flag loop and dies there. GCC `combine.c`10829–10843 can insert a standalone
+USE at a label when redistributing a REG_DEAD note, which could in principle
+preserve an otherwise unused definition. However, none of22 retained combine
+dumps, nor the retained flow/scheduling/local-allocation dumps, demonstrates
+such a USE here. `loop.c`5106/5295 USE nodes are internal induction-expression
+markers, not emitted liveness instructions. No corresponding diagnostic dump
+exists for the older all-member shared-structure-pointer control, so this audit
+neither proves nor disproves its late behavior. An unused flag pointer must not
+be added merely to copy the target artifact.
+
+No new compiler, Clang, generator, live write or claim followed these audits.
+All2,078 selected sources/profiles remain preserved. Private evidence:
+`typed-distinct-unsigned-nov7/READONLY-FINAL-AUDIT.md` and
+`combine-use-audit.json`. Continue another function until a real producer or
+later transformation supplies a new causal lead.
