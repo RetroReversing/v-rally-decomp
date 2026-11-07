@@ -258,3 +258,37 @@ Complete before/after focal inputs,774 hydrated attempts and all2,078 selected
 full sources/effective profiles are byte-identical. Zero compiler, native-worker,
 live API, claim, app-update or restart actions. Keep OPEN305. Private evidence:
 `repair-coverage-nov7/REPORT.md`, generator audit and preservation receipts.
+
+
+## November 7: compiler provenance bounds
+
+The pinned decompals v0.1 compiler is a rebuilt KMC-compatible port, not an
+authenticated original vendor executable. Its release names source commit
+[e6271f14](https://github.com/decompals/mips-gcc-2.7.2/releases/tag/v0.1),
+matching the investigated source checkout. That association alone does not prove
+binary reproducibility or complete vendor-output equivalence.
+
+The pinned [build workflow](https://github.com/decompals/mips-gcc-2.7.2/blob/e6271f14b095d7d8b2638c2b5e07d0d5cd05bc14/.github/workflows/build.yml)
+uses32-bit Linux compilation and a64-bit Mac build, with a smoke compilation
+rather than a vendor differential corpus. Real host fixes for CONST_DOUBLE
+representation already precede v0.1. No documented HI/SI CSE incompatibility was
+found in the reviewed release, README and14-commit history. The host difference
+alone is not a counterexample and does not justify a profile matrix.
+
+One apparent independent Windows reference was traced to its actual
+[reproduction manifest](https://github.com/rempred/OB64-Decomp/blob/main/docs/external-intake/phase6-kmc-reproduction-20260801/reproduction-manifest.json):
+it identifies another decompals rebuild, not a proven vendor original. Bounded
+inspection of existing local Gex, Banjo and Evangelion binaries likewise finds
+modern rebuild evidence. No vendor original was authenticated or downloaded.
+
+Local Gex/DrMario documentation does identify missing pointer-return declarations
+in host64 reorg/stack-layout code and corresponding patched Mac builds. The
+Gex failure concerns delay-slot scheduling; it does not explain this function's
+already-observed first-CSE deletion. A recorded crash on that path could justify
+a separately reviewed retry elsewhere; a working baseline must not be declared
+wrong merely because another host patch exists.
+
+All2,078 selected sources/profiles,774 focal attempts and complete inputs are
+preserved. No binary execution, installation, VM creation or live app change.
+Private PROVENANCE.md and local-compilers.json retain bounded provenance,
+identities, links and preservation receipts.
