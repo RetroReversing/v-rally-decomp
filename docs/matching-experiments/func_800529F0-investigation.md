@@ -282,3 +282,17 @@ before any worker/compiler; the receipt and corrected successful retry are
 retained separately. Fresh read-only checks preserve859 attempts, full focal
 inputs and all2,077 selected sources/profiles; live135 remains unchanged. Private
 isolated-update-nov7/REPORT.md retains source, RTL, bytes and watchdog receipts.
+
+
+A final isolated decision-staging control evaluated the genuinely used rank==1/2/3
+booleans before the flag copy and retained branch order1,0,2,3. It scores2725
+on464 bytes, with ordinary/diagnostic and independent-relink agreement. Initial
+RTL uses XOR/LTU immediate operations, not three movable constant-register
+definitions. Those operations stay in the loop, while the flag copy disappears
+and its original address remains before the first loop. Thus naming comparisons
+does not establish the desired loop-invariant visitation order. Preserve100.
+
+The complete investigation now has eight actual compiler calls and four
+independent relinks; all bounded processes are terminal, and fresh snapshots
+still preserve859 attempts and all2,077 selected sources/profiles. No further
+control or exact-match claim follows from these negative results.
