@@ -338,3 +338,31 @@ helper was retained to keep this a one-expression experiment. Previous pointer
 controls existed on older source shapes; this result applies to the composed
 word-value/balanced-dispatch frontier. It is not a new type-recovery discovery.
 The saved live score1200 remains selected. Evidence: `typed-counter-frontier-nov7`.
+
+
+### Separate unsigned bound with the typed counter
+
+A bounded composition then retains the typed counter address, captures an
+ordinary integer guard after the first flag loop, and captures a separately
+consumed `unsigned int` backedge bound inside the guarded inner loop. Both
+copies represent the same unchanged count (4 or 8). The unsigned type targets
+the prior signed-SLT deviation without changing comparisons in this range;
+no dispatch, constant staging, or memory effect changes accompany it.
+
+Source `d88d5c840534873a2e4d106f1cf81d470f8933733c3b052ea8d8f4a32b7a5a5f`
+produces score2015/1276bytes, linked SHA-256
+`e00d947780712a39e1f2a8cd805cd23ab9828002e1ece1abaf01a97521753985`.
+Ordinary and diagnostic bodies agree, each independently reloaded/relinked;
+both bounded workers exit normally with no owned survivors. It still does not
+beat the live1200 draft and is not adopted. Private evidence:
+`typed-distinct-unsigned-nov7`. A controlled representation improvement is not
+proof of a complete match or a generally useful automatic repair family.
+
+Phase inspection confirms a useful partial result: the guard now occupies s1,
+the separate unsigned backedge bound occupies t4, and the first flag-loop bound
+stays in t3. The 40-byte frame saves the correct guard value rather than a RAM
+base. Counter and map bases remain separately hoisted, however; n moves to t6
+rather than target t5, constant 2 moves to t9 rather than t7, and the decoded
+store/copy/branch order still differs. All 2,078 selected sources/profiles and
+the 690-attempt focal snapshot remain byte-identical before/after. This is
+partial causal evidence despite the worse aggregate advisory score.
