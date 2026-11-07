@@ -366,3 +366,12 @@ full sources/profiles,1166 hydrated attempts and complete focal source/config/
 context/symbol/prelude/profile snapshots remain unchanged. No live adoption,
 cartridge build or new-match claim. Private revisit-nov7 retains exact prior
 source diffs, coverage evidence and fresh-depth receipts.
+
+Phase closure for the isolated depth control: first CSE removes the explicit
+depth assignment and uses its producer for both the guard and height copy.
+Second CSE retains the latter copy, but combine deletes it and forwards the
+producer into the final store. Global allocation chooses a1, recovering that
+store operand but changing the shift/branch away from target v0 and leaving
+a NOP rather than the desired v0-to-a1 move. Removing the old slot's late use
+also changes earlier s2/s3 allocation. A short-lived source name alone cannot
+preserve the required machine copy across these transformations.
