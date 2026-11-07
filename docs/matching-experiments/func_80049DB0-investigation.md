@@ -101,3 +101,32 @@ established. Existing grounded source families cover these mechanisms; no
 new admissible candidate or compiler call followed. All2077 selected hashes/
 profiles and focal inputs remained unchanged. Private phase-priority-audit-nov6
 retains the source-bound dump references and preservation hashes.
+
+
+### 7 November: exact installed allocator rule
+
+Read-only inspection of the actual registered macOS x86_64 KMC-compatible
+`cc1`, SHA-256
+`3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a`,
+resolves the earlier comparator uncertainty. Its priority is
+`trunc(((double)(floor_log2(refs) * refs) / live_length) * 10000.0 * size)`.
+Higher values sort first; ties use allocation number, not necessarily the raw
+pseudo number. References are summed per allocation unit, live length is their
+maximum, and size is mode size rounded to target register words.
+
+Current p77/root72/game75 priorities are16666/15882/4285. The separate-result
+control gives result79/root72/p77/game75 priorities20000/15882/7142/4285.
+These reproduce both retained compiler dump orders without executing a compiler.
+The installed comparator does not read preferences; sorting precedes preference
+pruning. The earlier phrase “preference-sensitive priority” is therefore corrected:
+reference/lifetime/size inputs determine sorting, while hard-register preferences
+can affect later assignment. Local v0 assignments remain a separate obstacle.
+
+No admissible new source control emerged and none was invented to manipulate
+reference counts. Strict read-only before/after snapshots preserve all2,077
+selected sources/profiles,907 hydrated attempts and the complete OPEN40 inputs.
+No compiler, Clang or generator calls, live writes or new match occurred.
+The compiler guide and learning log now document this verified rule and its
+build-specific limits in merged decompdecomp PR
+[#743](https://github.com/RetroReversing/decompdecomp/pull/743).
+Private exact-binary and preservation evidence stays in `allocator-cause-nov7`.
