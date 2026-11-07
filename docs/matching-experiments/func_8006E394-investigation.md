@@ -242,3 +242,22 @@ Private current1200-causal-nov7 retains reviews, range/definition-use evidence,
 phase dumps and receipts. Outer worker commands were recorded; compiler flag
 and executable templates were reconstructed, not literal ephemeral temp paths.
 No live writes, generation, new match, cartridge or app deployment claim.
+
+## November 7: identify the saved value before repairing allocation
+
+A fresh read-only audit leaves the same 690 attempts and all 2,077 selected
+sources and effective profiles unchanged. Reused diagnostic dumps identify the
+baseline's saved `s1` value as the hoisted whole-RAM base, not the masked count
+held in `s1` by the target. A matching frame size or saved-register name therefore
+does not establish a matching lifetime. Initial CSE and loop motion introduce the
+Boolean count guard before scheduling; the base-address expression is also
+separated before allocation.
+
+The decoded-byte local already occupies `a0` through local allocation, before
+global allocation. A global-priority or scalar-copy repair alone cannot explain
+its truncation. The earlier explicit guard and guard-plus-word controls already
+test the relevant representation changes, without recovering the target layout.
+No new justified source control emerged, so this audit made zero compiler,
+Clang or candidate-generator calls. Keep the valid 1200 draft and investigate
+another function. Private evidence: `current1200-stage-phase-nov7/REPORT.md`
+and `phase-provenance.json`; the reused dumps are not a fresh compiler replay.
