@@ -272,3 +272,23 @@ or generator calls were justified. Complete focal/history/selected snapshots
 agree before/after; no claim or live write. Private evidence:
 `frontier-audit-nov7/REPORT.md` and its phase inventory. Preserve both630 and
 the separately committed750 causal frontier.
+
+## November 7: current-root formatting coverage and task context
+
+Fresh read-only evidence confirms current630 source347ea11e exactly equals the
+old native printer root. The original-line formatter finds zero qualifying
+assignment pairs and changes nothing. The existing fixed lane already retained
+1,000 raw variants (970 distinct), judged377, with no result below630. This is
+not a new unsearched root warranting another identical quota.
+
+The task creator uses context0 for slot4, but the actual dispatcher chooses
+context2 for indices0/1 and context1 for indices2/3/4. Its unsigned loop visits
+0..4 and skips only null tasks. Creation context therefore does not justify
+changing the dispatcher or omitting the fifth slot. The table is reloaded after
+the helper call; callbacks may mutate it, so caching is not justified here.
+
+All2,078 selected full sources/effective profiles and624 focal attempts remain
+unchanged. No compiler, preprocessing, Clang or native generation ran. Keep
+OPEN630. Private boundary-cause-nov7/REPORT.md retains source bindings,
+coverage and target evidence. A separate source-validity lead in func_8005A05C
+requires its own target/domain audit and is not accepted as a dispatch invariant.
