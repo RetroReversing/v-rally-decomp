@@ -566,3 +566,31 @@ repair/liveness tests passed77. Full Ruff and diff checks passed. The compiler
 ledger and KMC guide explain the allocation tradeoff and nonexact result. The
 shareable macOS app is rebuilt separately; this PR does not deploy to the live
 runtime. Private pure proof: store-frontier-revisit-nov7/production-store-result-proof.json.
+
+### The other store-result operand is worse (November 7)
+
+The merged generator's other f5af565 proposal captures the same second-Y sum in
+its existing y operand instead of hh. Source343725c6 changes only
+`p->y=(y+hh)+1` to `p->y=(y=(y+hh)+1)` with the original association and physical
+lines preserved. A bounded8,452-file/739 hydrated-attempt audit found no exact
+or whitespace duplicate; the earlier fixed1,000-raw lane has no corresponding
+y-assignment spelling. Both original inputs derive from signed16 geometry;
+the sum fits signed32, and old y is dead on every outgoing vertical path.
+
+Ordinary/-da both score8,233 with1,436 linked bytes, SHA256
+`f1cc4fa88b5b18a0e5f7069256c132dfa07cbbfd965d7d3abd9786771e969835`.
+The independently reloaded persisted objects reproduce those verdicts/bytes.
+This is worse: keep the live485 draft. The y binding becomes global S7 rather
+than the previous stack-resident original y, and the frame grows0x68→0x70.
+There are still25 source calls through second scheduling; later jump sharing
+leaves22 statically present calls versus f5af24, rather than removing source
+side effects. Two valid operand choices need not help the allocator equally.
+
+Exactly two compiler calls and two separate relinks ran under20s/2GiB child
+watchdogs and an180s/2GiB outer watch. Outer8.138s/566,716KiB, terminal0 with no
+errors, limit failures or owned survivors. Full post-relink read-only snapshots
+preserve all2,078 complete selected rows/profiles,739 focal attempts and full
+project/focal inputs byte-for-byte. No live write, new match or cartridge claim.
+Evidence: private store-result-y-nov7/REPORT.md and pinned resource, object,
+phase-count and preservation receipts. This closes both emitted choices from
+this research root without another random quota.
