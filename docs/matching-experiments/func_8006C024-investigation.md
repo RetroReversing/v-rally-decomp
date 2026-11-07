@@ -280,3 +280,32 @@ case: the original still has a read after the copy assignment. A reusable alias
 removal would need to prove same types, value equality and definite assignment
 on every relevant CFG edge, with no intervening source writes, escaping storage,
 shadowing or macro effects; textual substitution alone is insufficient.
+
+## 7 November: mode/index phase sharing is rescheduled before the call
+
+On the retained1700 draft, one control places the initial masked mode in the
+existing later-loop index local, passes it unchanged to `func_8006B9E0`, then
+copies it into the persistent mode local immediately afterward. The two same-type
+locals have disjoint intended source phases; the index is overwritten before
+its first loop consumer. No call, access, arithmetic value or ABI is changed.
+
+Result1915/960 bytes, frame80, paired ordinary/diagnostic and independent relink
+SHA-256 `0d4c7b83bcd297bca47f00f420599b3acbde44ef54f04e69b8790aaa5249add3`.
+The initial mode does occupy s0 and a real s4 copy exists. However first scheduling
+hoists that copy before the first call, while first CSE reuses the initial index
+pseudo for frame-offset calculation. Target register roles alone do not establish
+the required copy order. Keep1700. Two bounded compiler calls; all442 hydrated
+attempts and2,077 selected source hashes/profiles remain unchanged. Private
+receipts: `current1700-phase-nov7`.
+
+### Automatic alias removal available on app main
+
+RetroReversing/decompdecomp [PR #749](https://github.com/RetroReversing/decompdecomp/pull/749)
+adds `cfg_equal_value_alias`, reproducing exactly the reviewed1715→1700 source
+and the independently linked956-byte output. It uses bounded must-equal and
+must-initialization facts, visible ordinary integer types and conservative
+context/escape checks. The shared pipeline proposes at most four candidates and
+the normal judge remains mandatory. Synthetic/integration coverage passes137
+tests; this does not claim a new exact function or general proof for arbitrary C.
+The separately built shareable macOS app includes the change at4e565105; the
+running dev app has not been updated or restarted by this change.
