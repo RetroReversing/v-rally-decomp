@@ -230,3 +230,90 @@ selected sources/profiles,737 history records and focal inputs remain unchanged.
 Private current518-causal-nov7 retains prior-coverage audits, exact binding/effects
 review, commands, phase dumps and preservation. No live writes, new match or
 cartridge acceptance claimed.
+
+
+## November 7: split item phases and recover local layout roles
+
+Fresh capture retains737 hydrated attempts and all2,078 selected sources and
+effective profiles. One genuine CFG item-result phase split leaves only the
+case2 final result in the outer binding, with separate case1/vertical/horizontal
+and final-tail bindings. Calls, arguments, stores and common-join definitions
+are unchanged. Source0155e117e2b7ff6960508aa3540129d5f00ccc02a9ffde9fcdb88d9fed2ce897
+scores533/1544bytes; paired linked SHA-256
+5c8ce3295d4ce630b49030871490b9c0b033937591a79ad3bf05217abdfb92e8.
+It changes17 to21 global allocnos but does not remove the coordinate/width local
+conflicts. Keep518. Evidence: `fresh-reconcile-nov7`.
+
+A second source-reviewed composition uses branch-local rectangle pointers,
+removes the unobserved overwrite in `p->y=(hh=(y+hh)+1)`, and captures the
+horizontal signed-halfword height at its first store for reuse by the second.
+The original vertical h/h2 calculation is preserved: existing RTL already
+makes h2 local and kills the initial full height at division, so a proposed
+non-destructive height rewrite was rejected without compilation.
+
+The composition sourcef5af7681242e19297f34a15c8314c0d769ed7a39d7cb799cd90f88ee1f968af6
+produces565/1548bytes, ordinary/diagnostic linked SHA-256
+4a0adeef523ea3474f2e6477d1eb824920d1a0c621ce808a9db5f50e572d9371.
+It is a worse aggregate score but a useful causal frontier: register differences
+fall from roughly102 to17, with one extra instruction. The horizontal branch
+now has the target roles: table s0, half-width s1, rectangle s2, height s3,
+y coordinate s4 and width s5. Vertical half-height becomes local s0, table s1,
+rectangle s2 and width s5, while x2/h2 occupy s3/s4 in the opposite target order.
+The common item result now occupies target s6. The initial object pointer,
+initial height and first constructor result still differ.
+
+Actual vertical local x2 and h2 each have three references over43 instructions;
+the earlier quantity wins their density tie. Removing the dead hh overwrite also
+changes the second-y expression to anonymous temporaries. First scheduling moves
+the x2 store before the two y additions, unlike the target. This is a measured
+remaining scheduling/lifetime cause, not proof that arbitrary declaration order
+will repair it. The sole extra move captures the horizontal height from the
+initial height's still-wrong register.
+
+Four compiler calls total across these two controls, each bounded20s/2GiB with
+no owned survivors; saved objects independently reload/relink identically.
+All frozen focal inputs/history and all2,078 selected source/profile records
+remain byte-identical. No live adoption or cartridge claim. Evidence:
+`local-layout-nov7/REPORT.md`.
+
+
+A named second-y temporary alone was tested as a separate control.
+Sourcec3a557a28b9accf1b7964d72218ddd4fe6a4952391cd4055d0ee9d19a70b6669
+produces exactly the same565/1548-byte linked body as f5af above, ordinary and
+diagnostic with independent relinks. Its REG_USERVAR marker survives CSE and
+local allocation, but scheduling and the vertical quantity tie are unchanged.
+Naming is therefore not the cause; do not repeat a name-only temporary control.
+All focal inputs/history and2,078 selected source/profile records are preserved.
+Evidence: `second-y-nov7/REPORT.md`.
+
+
+The f5af source is committed separately as
+`func_80040CF4-local-layout-frontier.c`, unmatched research material excluded
+from the build manifest. Preserve it alongside the live score518 draft.
+
+A further finite control splits the actual second-y arithmetic into
+`hh=y+hh; hh+=1; p->y=hh`, at the same original evaluation point.
+Source861f73cee924322af448d8e17beac353b372fa2ff8d3ca6692bd8e96fccec3c6
+produces6655/1428bytes, linked SHA-256
+b9728ac2145600ba76eb7ccaacfaef9d1a5810ed5241dd4a364cfd362d1e62b7.
+Ordinary/diagnostic and independent relinks agree. First CSE retains self-SETs,
+flow records only one final death for hh, and it becomes locally allocatable.
+This confirms the specific `flow.c` dead-or-set rule and `local-alloc.c`472
+one-death eligibility rule. It does not establish a successful repair.
+
+Vertical rectangle/height/coordinate/width roles now match, but half-height
+and table swap s1/s0, other global roles regress, and late cross-jumping shares
+more calls than the target. CSE, flow, combine, first scheduling and local
+allocation retain equal instruction counts between the two controls. Reload
+first removes nine additional instructions; late jump optimization reduces
+24 statically present calls to22 by tail sharing. This is not evidence of
+missing source calls or changed intended behavior. The frame becomes0x60,
+wrong for the target0x68. All2,078 selected source/profile records and the737
+focal history remain unchanged; watchdogs are clean. Evidence:
+`self-update-nov7/REPORT.md` and `phase-counts.json`.
+
+Printed per-pseudo reference/lifetime values must not be substituted for local
+quantity priorities: local allocation can merge several pseudos and sum their
+references while extending the interval. The observed order is authoritative;
+exact merged quantities require additional evidence. No priority claim based
+only on the individual register summaries is used to select a further rewrite.
