@@ -298,3 +298,17 @@ No compiler, preflight, generator, claim, live write, adoption or match.
 Private return-mode-nov7/REPORT.md records source references, caller evidence and
 coverage limitations. App PR755 documents both this return-mode limit and the
 separate measured local-quantity birth controls in the compiler guide/ledger.
+
+## November 7: block-lifetime revisit
+
+Fresh strict read-only before/after snapshots preserve valid20 source6c1afd73,
+910 hydrated attempts and all2,078 complete selected sources/effective profiles.
+The remaining four differing operands at body offsets0x40,0x48,0x4c and0x50
+use local link/sentinel v0 where the target uses v1. A meaningful branch-
+distributed link could cross a block boundary, but existing allocator evidence
+supplies neither the required v1 preference nor a solution for the separate
+local sentinel. A global preference cannot evict local v0 while usable free
+registers remain. No compiler or generator ran and no live state changed.
+Preserve OPEN20 pending a new causal mechanism rather than repeat the existing
+return-mode, CSE, constant and expression-shape searches. Private revisit-nov7
+retains the source references and byte-identical preservation receipts.
