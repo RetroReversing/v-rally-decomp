@@ -1,3 +1,116 @@
+# func_80029EAC: terrain-contact allocation match
+
+## Accepted result — 7 November 2026
+
+The ordinary running-app API accepted all **390 instructions / 1,560 bytes**
+as byte-identical. The retained source SHA-256 is
+`7e11424d0cef12f9f56478d07d060ac4c6e6beeb360cd058e390ffabc768fb3b`.
+Attempt **345533** and repair example **36991** retain the ordinary result and
+explanation. A separate diagnostic with `-da` also remained exact; `-da` was not
+added to the saved build profile.
+
+The compiler remains **gcc-2.7.2-kmc**, with
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+No target bytes, addresses, header context or compiler flags were modified.
+The separate caller declaration change is described below.
+
+## What made it match
+
+The previous saved void draft scored 215. It reused an earlier plane/triangle
+scratch for the final scaled local depth. A genuine distinct late scoped depth,
+with a positive-depth integer return, recovered the final branch, delay-slot
+copy and depth-field store. This gave score 60, with only twelve earlier
+register differences: the triangle index and plane scratch used s2/s3 in the
+opposite order to the target.
+
+Read-only copies of compiler dumps produced by live API diagnostics exposed the
+allocation priorities:
+
+| Quantity | Weighted references | Live length | Priority |
+|---|---:|---:|---:|
+| Triangle index | 7 | 41 | 3,414 |
+| Original plane scratch | 10 | 91 | 3,296 |
+| Plane scratch with quotient scope | 12 | 91 | 3,956 |
+| Other live quantity | 8 | 58 | 4,137 |
+
+The accepted source gives the existing quotient assignment its own
+`do { ... } while (0)` scope within the existing single-pass calculation. KMC
+retains loop-depth weights in allocation analysis, although no runtime loop
+survives. The scratch now ranks between the two other quantities and receives
+s2; the triangle index receives s3. A numerator temporary's weight also changes
+3 to 4 while retaining its correct argument register. The instruction sequence
+and complete linked bytes now match.
+
+This adds no arithmetic, dummy references, volatile operations, fixed-register
+bindings, artificial storage, assembly substitution or altered target boundary.
+It is a source reconstruction that matches this compiler, not proof of the
+original source spelling. The 32-byte/4-aligned matrix representation, actual
+`s16 delta[3]` array and wrapped 32-bit plane arithmetic remain intact.
+
+## Return contract and caller
+
+The sole decoded direct caller is `func_8002C044`. It invokes the function as
+an expression statement and discards its result. Its declaration now consistently
+uses `int func_80029EAC(void *, void *, int)`; the ordinary app `make_readable`
+path verified that the caller still matches all **426 instructions / 1,704 bytes**.
+Its retained source SHA-256 is
+`f88005d09dfd8d325aefdbf6ab87f20442ebcef190f1294b0ec8808c5dc8ec10`.
+
+The positive-depth path returns the computed depth. The contact-writing path
+falls through without returning a value. In C89 this is supported when the result
+is discarded, as in the observed caller; it does not define a value for a new
+caller that consumes the negative-path result. The earlier raw-ROM audit found
+one direct JAL and no literal function pointer or bounded same-base address
+construction. That is evidence about observed uses, not an exhaustive proof
+against arbitrary encoded/computed indirect calls or the original return type.
+An explicit negative-path counter return was separately tested and did not match.
+
+## Useful negative controls
+
+- A 620-candidate live CPU permuter pass from the saved void-215 source found no
+  improvement. Its completed job was `29c5d497c36d`.
+- Reusing the plane scratch for the first product reached score 10, but assigned
+  that earlier product to s2 instead of the target's a1.
+- Reusing the row variable reached 40, but misplaced the initial row/width/product
+  registers. Declaration hints and independent initial load ordering did not fix it.
+- Wrapping the complete plane calculation worsened to 280. An early-break form
+  scored 70. These controls do not justify arbitrary nested wrappers.
+- Disabling caller saves, strength reduction or follow-jumps CSE did not repair
+  the related 40-point control; disabling scheduling worsened it.
+
+Inspect actual local allocation, global order and conflicts before increasing a
+random-search budget. An apparent 100.0% rounded score is not exact: the 10-point
+control still differed. The ordinary linked judge, not rounding, accepted this
+match. No additional paid helper agents were started for this investigation.
+
+## Standalone and portable checkpoint
+
+The app's repository-sync job `7316dc8a5598` independently checked both changed
+functions, rebuilt the complete cartridge in a private copy, and compared every
+byte with the original before publishing. The result is **12,582,912 bytes**,
+SHA-256 `d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+
+The standalone build now selects **2,079 of 2,124 entries as C**,
+leaving **45 assembly entries**. All **2,078** previous C selections
+and their effective compiler profiles are retained. Existing source/context
+variants from the app were refreshed only through the sync's independent checks;
+this does not claim that every older source file is textually unchanged.
+The staged focal and caller source bodies exactly equal the accepted live C.
+The portable `progress/` save includes all current drafts, notes, names, headers
+and profiles as captured by the sync, not just this function.
+
+The synchronized app checkpoint contains **2,079 matched / 14 open / 28 assembly**
+functions. Its boundaries differ from the standalone build's entry list.
+Compiler guidance is recorded in
+[decompdecomp PR #775](https://github.com/RetroReversing/decompdecomp/pull/775).
+
+---
+
+## Earlier investigations (historical)
+
+These notes predate the exact result above. Their open-status conclusions are
+superseded; the earlier experiments remain recorded to avoid repeating them.
+
 # func_80029EAC private investigation
 
 ## Latest return-flow controls — 6 November 2026

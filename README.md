@@ -20,6 +20,20 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Terrain-contact quotient allocation — 7 November 2026
+
+`func_80029EAC` now matches all **390 instructions / 1,560 bytes** with its
+original KMC GCC 2.7.2 profile. A scoped depth lifetime and a single-pass quotient
+block recovered the remaining register allocation; the compatible caller
+declaration also remains byte-exact. See
+[the investigation](docs/matching-experiments/func_80029EAC-investigation.md).
+
+The synchronized app checkpoint has **2,079 matched / 14 open / 28 assembly**
+functions. The standalone build selects **2,079 of 2,124 entries as C**, leaving
+**45 assembly entries**, and the complete **12,582,912-byte cartridge is identical**.
+All previous C selections and compiler profiles are retained. The full portable
+`progress/` snapshot is included.
+
 ### Rank dispatch and invariant setup — 7 November 2026
 
 `func_800529F0` now matches all **112 instructions / 448 bytes** with its existing
