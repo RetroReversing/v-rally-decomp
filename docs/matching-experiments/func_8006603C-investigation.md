@@ -231,3 +231,30 @@ Zero compiler, Clang, preprocessor or generator calls; complete before/after
 focal/history/selected snapshots agree. Preserve305. Private evidence:
 `mask-frontier-nov7/REPORT.md`, `donor-audit.json`, `profile-neighbors.json` and
 `preservation.json`.
+
+
+## November 7: shared repair coverage and register-word-size hypothesis
+
+Eight bounded pure shared generators were checked against current305 and its
+actual context. Integer lifetimes yielded one limit/one phase merge; captured
+control yielded12 member-store replays. The other six yielded none. These13
+exact-text-new sources do not change the halfword snapshot producer or the
+known upper-bit facts responsible for deleting the masks. Duplicate RAM writes
+may be idempotent on the stated object domain, but there is no target evidence
+for adding them here; they are not characterized as universally unsafe. None
+was compiled. This checks captured_control, not every possible goto family.
+
+A distinct source-only hypothesis examined -mgp64: it changes the compiler's
+register word size independently of the default32-bit C integer/pointer types,
+so earlier integer-flag audits alone had not excluded it. However, the actual
+same-word CSE conditions for the observed HI2/SI4 modes evaluate identically
+with a4-byte or8-byte register word: both modes still occupy one word.
+Relevant guards at cse.c7385–7393,4855–4856 and5009 do not distinguish this case.
+No demonstrated expansion-mode difference supplies a second causal path.
+Therefore no GP-width diagnostic or ABI-changing profile was tested or adopted.
+This rejects that specific explanation, not all possible backend differences.
+
+Complete before/after focal inputs,774 hydrated attempts and all2,078 selected
+full sources/effective profiles are byte-identical. Zero compiler, native-worker,
+live API, claim, app-update or restart actions. Keep OPEN305. Private evidence:
+`repair-coverage-nov7/REPORT.md`, generator audit and preservation receipts.
