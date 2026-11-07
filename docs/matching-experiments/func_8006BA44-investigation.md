@@ -254,3 +254,31 @@ records and focal inputs remain unchanged. Private current695-causal-nov7
 retains full source/effects reviews, commands, phase dumps, paired objects/raw
 linked bodies and terminal/preservation receipts. No live edits, adoption,
 new match or complete-cartridge claim.
+
+
+## November 7: normalized signed-byte decoder control
+
+A three-expression control read the first packed byte as signed char before
+shifting, normalized its validity nibble with&15, and indexed the descriptor
+with&3. All declarations, actual byte access order, callbacks and output effects
+were retained. Exhaustive integer checks covered256 raw bytes and65,536 sentinel
+pairs; the signed right-shift model is specific to the pinned MIPS compiler.
+This was a causal mask-range test, not a claim that the target used signed loads.
+
+Exact source SHA256
+`52f7958fc4935a4590dca8d411d280d42fa1e6583b83136fcad4a8318dcd0207`
+scored4191/928bytes with an88-byte frame, worse than695. Ordinary/diagnostic
+bodies and two independent persisted-object relinks agree, linked SHA256
+`a88fc86906747dcd8e76241c9d2eaa1911fbb567ab658fbb68f4fe62007fcba2`.
+Actual extraction was LBU/SLL24/SRA28, not LB. Combine followed the underlying
+raw-byte producer and replaced the flag mask/extraction with SRL30, removing
+AND12 again. The desired first-arm s16 chain also disappeared. A signed source
+carrier therefore does not by itself hide the producer's bit information.
+
+Exactly two compiler calls and two fresh-process relinks completed with bounded
+aggregate/orphan-aware watchdogs. Full2,079 selected rows/profiles,827 hydrated
+focal attempts and complete focal inputs were preserved before, after compilation
+and after relinking;787 pinned inputs/tools also remained unchanged. No live
+write, new match or general automatic signedness repair is justified. Private
+decoder-roles-nov7 retains the source delta, exhaustive arithmetic receipt,
+phase dumps, terminal results and resource/preservation evidence.
