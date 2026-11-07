@@ -141,3 +141,32 @@ are recorded above. No new compiler phase cause or admissible source control
 was established, so no compiler or generator ran. This closes a repeat of those
 specific lanes, not the function. All2071 selected rows/profiles remain unchanged.
 Private cause-nov6/REPORT.md retains fresh hashes and comparisons.
+
+
+## November 7: propagated allocation preferences explain the backedge tradeoff
+
+Fresh read-only capture confirms OPEN 565, 725 hydrated attempts and all 2,077
+selected sources/profiles unchanged. No compiler, Clang or generator ran. The
+actual profile remains KMC -G0 -mips3 -mgp32 -mfp32 -O2 -g3, empty prelude.
+
+Retained 580 RTL assigns mode-1 counter p86 to s2 and resource p76 to s1, opposite
+the target. Although p86 has higher allocation priority and no hard s1 conflict,
+p76 prefers s1. Compiler-source corroboration explains the chain: the earlier
+local resource p81 uses s1; set_preference passes that preference to argument p73
+through its addition; a later resource definition has REG_DEAD p73, allowing
+expand_preferences to propagate the preference to p76 before pruning. The
+allocator then avoids a lower-priority conflicting value's preferred register.
+This is corroborated source plus retained RTL, not a newly disassembled proof
+of every corresponding installed-binary routine. Priority-only reasoning would
+miss this mechanism.
+
+The proposed in-place argument lifetime change already scored 675. Existing
+first-resource sharing scores a 565 tie: its linked output repairs the mode-1
+counter/resource registers and removes the mask, but displaces first-branch
+callback/resource and other-arm values. No RTL for that sharing variant was
+retained, so its observed roles do not prove a particular preference bitmap.
+Equal scores can hide different repaired and newly introduced mismatches.
+
+No repeated controls or new source adoption were justified. Keep 565. Private
+current565-causal-nov7/REPORT.md records provenance, historical linked hashes,
+coverage and unchanged state.
