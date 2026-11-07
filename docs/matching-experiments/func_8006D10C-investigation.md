@@ -212,3 +212,29 @@ owned survivors. All2,078 full selected rows/effective profiles,740 focal attemp
 and complete focal inputs remain unchanged. No selected source, live app,
 compiler profile or cartridge-progress change. Evidence: private
 `repair-coverage-nov7/REPORT.md`, `baseline-parity.json` and preservation receipts.
+
+## November 7: compensated-product arithmetic control
+
+A fresh audit confirms that the target normalizes n once and uses the same
+normalized byte for both table lookup and floating conversion. It does not
+reload or mutate n inside the loop. Existing factored twelve-bit entry forms
+and running-position controls were checked before choosing one uncovered
+composition: replace only n*9+k*3 with (n+k)*9-k*6. All memory accesses, calls,
+conversions, conditions and declarations remain unchanged. With n in0..255
+and loop k in0..2, every intermediate is representable; independent exhaustive
+integer checks agree for all196,608 combinations including j in0..255.
+This algebraic check does not prove unrelated pointer/object preconditions.
+
+Source SHA256
+`a6af2310abe68ce7b134008f075c7b40f408c6fd10c497159197d07fbaa30635`
+regresses to1085 on1124 bytes under the unchanged KMC profile. Ordinary and
+-da outputs agree, linked SHA256
+`61f30990c93ba9a9c970b23a6aa27033e3e8f6cfa88d3fa255f9005e0341aa32`;
+both persisted objects were independently reopened, relinked and rescored.
+Exactly two compiler calls ran, without Clang, generation or a profile sweep.
+The outer watchdog completed normally in12.43seconds with166,432KiB peak
+aggregate RSS, no errors and no owned survivors; child calls had20-second/2GiB
+limits. Full source/context/config/symbol/prelude/profile snapshots,740 hydrated
+attempts and all2,078 selected rows/profiles compare unchanged. Preserve OPEN505;
+no live adoption, cartridge build or new-match claim. Private revisit-nov7
+retains the single-source delta, linked outputs and preservation/resource receipts.
