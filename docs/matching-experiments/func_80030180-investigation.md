@@ -313,3 +313,40 @@ sources/profiles remain unchanged. No live adoption or new match is claimed.
 Private domain-revisit-nov7 retains both controls, full RTL and receipts. The
 frame16 tie and frame8 research alternative remain private pending a grounded
 follow-up; no replacement quota was automatically generated.
+
+## November 7: bounded search of the frame-eight alternative
+
+The exact production printer seed, including its two original directive lines,
+was independently compiled in ordinary and diagnostic modes: source SHA256
+`6028219fc98634b050e3efc3ede9cc8484618e5657fb79681ce79c5356a21849`.
+Both reproduce score325,484 bytes and linked SHA256
+`0157d153cf02f8525324c089ac87076a583dd6e1449d37f95ed4691803b8b53e`.
+Saved objects were independently reopened and relinked. This closes the printer
+fidelity check; a different printed source is not assumed equivalent merely
+because its C AST agrees. The final outer watchdog completed in4.54seconds,
+without errors or surviving workers.
+
+A fixed, nonadaptive batch generated256 distinct candidates from this alternative
+using six existing local rewrite families and preserved physical line groups.
+The conservative semantic and initialization guards rejected234. Of22 Clang
+checks, one failed syntax;21 candidates compiled, linked and were independently
+relinked, yielding nine distinct outputs and twelve duplicates. The best score
+remained325, worse than live107. Rejections limit coverage: this is not evidence
+that every possible combination was compiled or that no valid solution exists.
+The generation and judging controllers had aggregate memory/time and orphan
+watchdogs; both completed normally. An earlier formatted-reference pair had
+child watchdogs but inadvertently lacked the additional controller watchdog;
+that receipt limitation is retained in the private report.
+
+A separate exact control commuted only the two pure operands of the initial
+index sum. It scored375 on484 bytes in ordinary/diagnostic modes, linked SHA256
+`b14f4d8976febc8ee1f72427422e4431836206d4c9945199b4df3162c089a894`.
+RTL shows this adds an explicit a1 preference to the sum, not the desired a0
+ownership; the extra copy remains. The global order/conflict sets do not support
+a priority-based repair claim. No new quota or production repair is justified
+by this negative result alone.
+
+All2,078 selected sources and effective profiles,468 focal attempts and frozen
+focal inputs remained unchanged. No live candidate was adopted and no new match
+is claimed. Full private evidence is in domain-revisit-nov7/REPORT.md and its
+native256 and initial-sum-commute receipts.
