@@ -489,3 +489,62 @@ start/end checks. Root independently compared full before/after snapshots:
 all2,078 selected sources/profiles and737 focal attempts remain byte-identical.
 No live update or match. Private quantity-order-controls-nov7 retains complete
 diffs, coverage limits, phase evidence, object receipts and preservation checks.
+
+## November 7: isolate first store order and restore the original Y binding
+
+Retained native631 is already exactly one first-rectangle width/height store
+swap on f5af565 (after macro exposure), giving550. Older storeorder.c swapped
+all corresponding pairs on a different root; it did not isolate the first
+pair on current518. Two separate source-reviewed controls were therefore run:
+
+| Control | Score | Bytes | Linked SHA256 |
+| --- | ---: | ---: | --- |
+| First width/height pair only, current518 |526|1544|3245782c71a8564bf9af1907530437c6d29c53b2c47b29a94a9860025aa8eaaf|
+| Restore original hh assignment only, f5af565 |485|1548|320a4eb9f1036ad55ac5e8a157ccb9262258417faf31e12ccf85adeb49af1403|
+
+The first source is ca20e40c. The second source is
+`22607e89d950da008cf8763912845dbcf4c638aab93a2595869f7c9fbcb574d0`.
+It restores only p->y=(hh=(y+hh)+1), retaining the branch-local rectangle
+pointers and genuine horizontal height capture. No dummy computation, alias
+qualifier, extra access, call or target/profile change was introduced.
+
+The485 result restores the target ordering of both Y additions before the ID
+and X stores, but makes the old hh pseudo global again. It now has16 global
+allocnos rather than15; several rectangle/table/extent roles diverge again.
+There are43 advisory register differences versus roughly17 for f5af, still an
+extra horizontal height move and a0x68 frame. A lower score does not mean every
+structural role improved: retain both sources as useful frontiers. A fresh
+second_y capture is not an untested cure; its existing c3a557a2 control already
+reproduces565/f5af bytes and leaves the wrong ordering. REG_USERVAR presence
+alone does not explain the restored hh lifetime's effect.
+
+Four ordinary/diagnostic compiler calls and four separately watched persisted-
+object relinks/rescores agree. Every20s/2GiB child and the180s outer controller
+finishes normally; outer19.93s,411,984KiB peak aggregate RSS, no errors or owned
+survivors. Root's final independent read-only capture after all relinks confirms
+all2,078 complete selected rows/profiles,738 focal attempts and complete focal/
+project inputs unchanged. The first launch stopped before any compiler because
+an old project copy differed only in save_folder and progress_revision; its
+receipt and exact delta remain private, and fresh metadata was rebound without
+loosening the configuration guard.
+
+The485 draft was subsequently submitted through a temporary project-scoped
+manual MCP connection and the ordinary compile_variants judge. Read-only
+verification confirms OPEN485 with exact source hash22607e89,739 focal attempts,
+all2,078 selected rows/profiles preserved and the temporary connection revoked.
+An initial SDK result-field error occurred after project_info only; no claim or
+compile had occurred, and that temporary connection was revoked too. No new
+match or selected standalone C is claimed.
+
+A normal full-save HTTP observation timed out. The resulting normal portable
+snapshot was independently checked against all current matched sources, open
+best files, headers and compiler settings, allowing only an optional single EOF
+newline. Revision19178 was copied with identical before/after file inventories;
+all previous notes remain and one note is added. This commit retains the entire
+snapshot, not only the discussed draft. No standalone source/profile changed;
+the existing complete cartridge artifact still has SHA256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+It was not rebuilt for this open-draft-only change. Private evidence:
+store-frontier-revisit-nov7, including failed preparation, resource/relink,
+live-draft-adoption and portable-snapshot receipts. No automatic repair family
+is claimed from inserting an otherwise unnecessary source assignment.

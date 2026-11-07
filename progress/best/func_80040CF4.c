@@ -45,7 +45,6 @@ void func_80040CF4(u8 arg0)
   u8 n = o->mode;
   u8 idx = n - 1;
   Item *it;
-  Rect *p;
   Rect r;
   y = D_8009FFD8.y;
   w = (s16) D_8009FFD8.w;
@@ -64,6 +63,8 @@ void func_80040CF4(u8 arg0)
   switch (n)
   {
     case 1:
+    {
+      Rect *p;
       p = &r;
       p->x = x;
       p->y = y;
@@ -77,10 +78,12 @@ void func_80040CF4(u8 arg0)
       func_800424A4(it, D_800A4C40);
       it->id = 2;
       break;
+    }
 
     case 2:
       if (o->flags & 1)
     {
+      Rect *p;
       s16 x2 = x + 0x20;
       s16 w2 = w - 0x38;
       s32 hh = h / 2;
@@ -110,13 +113,16 @@ void func_80040CF4(u8 arg0)
     }
     else
     {
+      Rect *p;
+      s16 horizontal_height;
       s32 hw = w / 2;
       s16 w2 = hw - 1;
       s16 y2 = y;
       p = &r;
       p->x = x;
       p->y = y2;
-      p->h = h;
+      horizontal_height = h;
+      p->h = horizontal_height;
       p->w = w2;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
       func_800424A4(it, D_800A4C38);
@@ -129,7 +135,7 @@ void func_80040CF4(u8 arg0)
       p->x = x + p->x;
       p->x = p->x + 1;
       p->y = y;
-      p->h = h;
+      p->h = horizontal_height;
       p->w = w2;
       it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
       func_800424A4(it, D_800A4C48);
