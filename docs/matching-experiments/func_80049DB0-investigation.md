@@ -271,3 +271,30 @@ Exactly two compiler calls completed under20-second/2GiB aggregate process and
 orphan limits, with no survivors. No live writes, claims or new match. Private
 `current20-return-cfg-nov7` retains the paired receipts, complete preservation
 audit, `REPORT.md` and `FLAG-AUDIT.md`.
+
+
+## November 7: narrow return-mode mechanism audit
+
+Fresh read-only freeze confirms valid20 source6c1afd73,910 hydrated attempts
+and all2078 complete selected sources/effective profiles. A bounded16232-file
+private C scan finds no exact current-root byte/halfword-return control. This
+alone is not reason to repeat the older valid40 controls: both u8 and u16 already
+retained40 and the same local-v0 obstacle.
+
+Actual compiler code preserves narrow modes: convert.c145–153 retags comparison
+expressions to QI/HI, and mips.h1906 retains TYPE_MODE in FUNCTION_VALUE. It is
+incorrect to dismiss narrow returns as automatically SI at every compiler phase.
+The obstruction is later: stmt.c2638 sets cleanups, and2853–2868 evaluates the
+nonvoid scalar RHS with a null target before the late return move. expr.c4110
+strips hard targets when CSE is expected regardless of mode;9891 creates a pseudo
+for a null store-flag target. No demonstrated interaction with the staged link
+load changes this mechanism. No duplicate compile or diagnostic-only replay ran.
+
+The known caller still declares s32 and consumes the result through ANDI0xff;
+byte consumption does not establish original return type or permit inconsistent
+C prototypes. Full indirect-call closure remains unproved. Root independently
+compared before/after frozen and selected snapshot files byte-for-byte: unchanged.
+No compiler, preflight, generator, claim, live write, adoption or match.
+Private return-mode-nov7/REPORT.md records source references, caller evidence and
+coverage limitations. App PR755 documents both this return-mode limit and the
+separate measured local-quantity birth controls in the compiler guide/ledger.
