@@ -205,3 +205,29 @@ with independent relinks and unchanged full focal/history/selected snapshots.
 No further signedness, width, flag or record-layout matrix follows. Preserve305.
 Private current305-contract-phase-nov7/REPORT.md retains all phase evidence,
 compiler identities, source review and final receipts.
+
+
+## November 7: fresh donor and compiler-range reconciliation
+
+A strict read-only audit retains774 hydrated attempts, OPEN305 and all2,078
+selected sources/effective profiles. No new focal history exists since the
+16-bit local-record control. Ranking3,805 matched imported functions of130–180
+instructions finds no exact mnemonic donor; the nearest are the already known
+scene functions63FFC and71B3C. Their actual byte/fullword producers do not
+justify transplanting qualifiers or a wider field view into this function.
+
+Actual baseline zero extensions263/267 disappear in first CSE; the local-record
+control retains them until combine, which can prove the extracted values have
+zero upper16 bits. No genuine widening, reconvergent producer or storage contract
+was found that retains both masks while producing the target LHU instructions.
+
+Historical profile scripts bind valid safe300, not current305; they cover KMC
+flag variants and do not establish SN/PM coverage. That gap alone is not target
+evidence. The nearest20 matched same-unit neighbors,800654AC–80066B88, all use
+the current KMC2.7.2 profile. Other installed binaries have no demonstrated
+provenance for this function, so no alternate-compiler matrix followed.
+
+Zero compiler, Clang, preprocessor or generator calls; complete before/after
+focal/history/selected snapshots agree. Preserve305. Private evidence:
+`mask-frontier-nov7/REPORT.md`, `donor-audit.json`, `profile-neighbors.json` and
+`preservation.json`.
