@@ -271,3 +271,45 @@ with independent relinks, no surviving workers and unchanged468 hydrated attempt
 full focal inputs and all2,077 selected sources/profiles. Preserve OPEN107; no
 cartridge or new-match claim. Private current107-phase-nov7 and
 current107-fresh-field-nov7 reports retain complete provenance and receipts.
+
+## November 7: isolate signed-division and component frame reservations
+
+Fresh read-only evidence preserves current107 source d7be2135,468 hydrated
+attempts and all2,078 selected sources/effective profiles. The sole observed
+direct caller forwards a signed16 coefficient without proving nonnegativity.
+The target uses signed interpolation arithmetic and has no missing argument mask;
+the new loop-argument-mask repair is not justified here.
+
+Every coordinate byte offset is six times an index on the existing defined
+arithmetic domain. Replacing only COORD's signed division by two with arithmetic
+right shift therefore preserves even offsets, including negative ones, on the
+actual MIPS implementation. It adds no unsigned-domain assumption, array bounds
+or memory operation. The older array-index shift control used a different source
+root and interface and did not cover this exact composition.
+
+| Controlled source change | Score | Linked bytes | Frame | Remaining late USEs |
+| --- | ---: | ---: | ---: | ---: |
+| Current selected draft | 107 | 476 | 32 | 3 |
+| Division by two to arithmetic right shift | 107 | 476 | 16 | 1 |
+| Shift plus literal1 only in the known component address | 325 | 484 | 8 | 0 |
+
+The first control removes the two signed-division correction reservations while
+retaining the other body instructions. Its source SHA256 is
+`66c40ed8931fbf59afdc7ab8bdc3805e42d5b5a871328b65eb579a307d06988c`,
+linked SHA256 `301904c6ae30e457fd903304cf078c1b700725b84353c541258f4fb7116727c4`.
+The remaining initial-RTL dynamic component addition explains the last
+reservation. The second control replaces only COORD(b,new_var) with COORD(b,1),
+retaining new_var=1 and its real d[new_var] output consumer. Source SHA256
+`fa8781e432f32c928d6f89105438a21b69203b3d53f3fdf1f26809527dd52cee`,
+linked SHA256 `0157d153cf02f8525324c089ac87076a583dd6e1449d37f95ed4691803b8b53e`.
+It recovers the target frame but worsens the body by eight bytes. Frame identity
+alone is not an exact match or a reason to replace the live draft.
+
+Exactly four period compiler calls ran with the unchanged KMC2.7.2 profile,
+ordinary/diagnostic parity and independent saved-object relinks. No Clang or
+native generation ran. Aggregate/orphan-aware watchdogs completed normally;
+all dependency/tool pins, full focal inputs,468 attempts and2,078 selected
+sources/profiles remain unchanged. No live adoption or new match is claimed.
+Private domain-revisit-nov7 retains both controls, full RTL and receipts. The
+frame16 tie and frame8 research alternative remain private pending a grounded
+follow-up; no replacement quota was automatically generated.
