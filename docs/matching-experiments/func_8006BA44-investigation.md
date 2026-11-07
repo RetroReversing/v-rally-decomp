@@ -207,3 +207,50 @@ with a20-second wall ceiling and a2GiB limit per descendant process. Inspection
 of its implementation shows that it does not sum the tree's RSS; earlier private
 wording describing an aggregate limit was incorrect. This correction changes no
 source, command, linked-byte, parity or preservation result. No calls were rerun.
+
+
+## November 7: local preferences and loop-motion composition
+
+Fresh actual profile/source freeze preserves corrected695,825 hydrated attempts
+and all2077 selected full sources/effective profiles. Profile remains G8/O2/
+ffast-math/fno-strength-reduce/g3. Four individually reviewed controls ran exactly
+eight compiler calls, with ordinary/-da byte parity and independent relinking:
+
+| Control | Score | Bytes | Frame |
+| --- | ---: | ---: | ---: |
+| Shared first/second decoded magnitude local |1445|1028|80|
+| Earlier shared tail plus equivalent explicit outer backedge |1602|1012|72|
+| Same backedge, genuine immutable threshold captured before product |1110|1020|80|
+| Same threshold form plus shared magnitude |2050|1020|80|
+
+The magnitude merge removes the promoted first-byte local's s0 preference and
+recovers index s0, record s1, decoded magnitude s2, but changes other scheduling.
+The explicit backedge prevents unwanted slot-shift/byte-constant loop hoists,
+while also losing the useful threshold hoist. Capturing the existing extern-const
+finite2^31 value recovers threshold f20/product f22 and output base fp. This uses
+the existing const-object contract, not a newly established readonly-section
+proof. No calls are crossed and no arithmetic/rounding operation changes.
+Recovering these structural properties is insufficient for an exact match.
+
+Target AND12 at8006BC04 remains a real residual. It exists in initial/loop RTL;
+combine deletes its chain and uses the prior narrowed value directly. A known
+mask-sink control retains it but loses needed sign extension and changes calls.
+A newly suggested conversion-carrier merge was not compiled: combine's current
+last-value/label-tick information takes precedence over global all-definition
+bit bounds, so a preceding unknown value does not establish the desired effect.
+The new explicit-backedge forms also common table addresses in first CSE rather
+than preserving the target's separate address formation. No artificial barrier,
+volatile qualifier or type/width sweep follows. Retain695.
+
+A host-width hypothesis was checked and rejected without compiler execution:
+Mac release is Mach-O64, but configure selects i386/xm-linux.h and xm-i386.h
+sets HOST_BITS_PER_INT/LONG to32; installed floor_log2_wide uses32-bit storage
+and shifts. Mach-O64 therefore does not establish HOST_WIDE_INT64. No Linux VM,
+new compiler or cross-host comparison was started or claimed.
+
+All eight owned compiler trees completed within20s/2GiB aggregate limits with
+no surviving owned processes. Complete selected sources/profiles,825 history
+records and focal inputs remain unchanged. Private current695-causal-nov7
+retains full source/effects reviews, commands, phase dumps, paired objects/raw
+linked bodies and terminal/preservation receipts. No live edits, adoption,
+new match or complete-cartridge claim.
