@@ -319,3 +319,22 @@ Private evidence is under `guard-word-dispatch-nov7`,
 Compiler workers were bounded by 20 seconds and 2 GiB aggregate process memory;
 the final pair exited normally with no owned survivors. No artificial case 3,
 fixed-register operand, new memory effect, or uninitialized mask was introduced.
+
+
+### Typed counter address on the dispatch frontier
+
+A separate one-expression control on the score-1993 frontier replaces
+`&D_800AE850[inline_fn(j)]` with `(u8 *)&D_800B6600.cnt[j]`, retaining
+the original pointer declaration and final signed-word accesses. The actual
+addresses are equal: `0x800AE850 + 0x7DB0 + 4*j == 0x800B6600 + 4*j`.
+The existing four counter stores and `j` range 0..3 establish the object view;
+no extent was inferred solely from an unsized raw-memory declaration.
+
+Source `0ffa52745913d90f5404c669a8a7146ced72a520a0c034a43a4da7a193484518`
+produces score2128/1264bytes in both ordinary and diagnostic compilation,
+linked SHA-256 `0b88beca77428f4b290c55ec7477bc32d984238dcc0073c719c183f3182b91d7`.
+Both saved objects independently reload/relink to that body. The unused inline
+helper was retained to keep this a one-expression experiment. Previous pointer
+controls existed on older source shapes; this result applies to the composed
+word-value/balanced-dispatch frontier. It is not a new type-recovery discovery.
+The saved live score1200 remains selected. Evidence: `typed-counter-frontier-nov7`.
