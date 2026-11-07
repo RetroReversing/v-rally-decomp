@@ -238,3 +238,10 @@ limits. Full source/context/config/symbol/prelude/profile snapshots,740 hydrated
 attempts and all2,078 selected rows/profiles compare unchanged. Preserve OPEN505;
 no live adoption, cartridge build or new-match claim. Private revisit-nov7
 retains the single-source delta, linked outputs and preservation/resource receipts.
+
+Diagnostic closure: the compensated arithmetic does keep n+k, multiplication
+by nine, k*6 and the subtraction inside the loop. The preloop table pointer
+therefore recovers the target s7 role. However, the separate normalized-n
+copy survives and three extra arithmetic instructions remain; the compiler
+does not cancel the algebra back to the desired target sequence. Recovering
+one register role is not an improvement when these new instructions persist.
