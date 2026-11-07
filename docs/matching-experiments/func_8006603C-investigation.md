@@ -155,3 +155,22 @@ cca3426471e1197ebc26bcb291294268c1e20b7a1579e76f47ae5b59d4ab9103.
 All2071 selected records/profiles and the seven protected input groups are unchanged.
 Private word-producer-nov6/REPORT.md retains the source-bound history and RTL evidence.
 No match or automatic repair is claimed.
+
+
+## November 7: targeted CSE flag coverage audit
+
+Fresh packed read-only capture preserves OPEN305,774 hydrated attempts and all2077
+selected full sources/effective profiles. No compiler or generator calls occurred.
+Historical flags300.py binds the earlier valid safe300 source, not current305;
+no-cse-follow-jumps, no-cse-skip-blocks and no-expensive-optimizations each retained
+score300 and the two missing masks. These are not current-source flag receipts.
+
+The local GCC source's same-word SUBREG/ZERO_EXTEND equivalence path has no
+integer flag guard for those switches. Follow/skip controls extend basic blocks;
+rerun-cse controls a later pass; function-cse controls forcing call addresses into
+pseudos rather than general scalar CSE. Installed binary symbols corroborate the
+named functions/flags, but this audit does not claim full binary/source identity
+for that CSE path. The actual retained RTL already locates the deletion in first
+CSE. No new narrow flag or genuine producer contract justifies another matrix.
+Preserve the current draft and revisit when new source/data-flow evidence exists.
+Private current305-normalization-nov7 retains the report and unchanged snapshots.
