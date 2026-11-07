@@ -418,3 +418,26 @@ This is consistent with the compiler guide's existing warning that old debug
 line labels affect instruction scheduling; it is not evidence that debug flags
 are generally irrelevant. No -g0/-g2/optimization combinations were enumerated.
 The investigation used exactly eight new compiler calls in total.
+
+
+## November 7: current-root allocation and temporary audit
+
+Fresh read-only capture confirms the signed-coordinate source1ca0e9ba remains
+OPEN107; the unsigned070fa57e form is only a private equal-score alternative.
+All2,077 selected sources/profiles and focal history remain unchanged.
+
+Current sum pseudo73 already ranks first globally. It has no own preference,
+and its actual conflicts exclude hard v0 but not v1; the conflicting coordinate
+pseudo82 prefers a1. The v1-preferring pointer/difference values do not conflict
+with73, so their preferences cannot reserve v1 against it. Natural allocation
+places the sum in v1 and the later base in a0. This rejects transferring the
+other function's lower-priority preference-reservation explanation here; a
+priority boost would not address the observed cause. No genuine additional
+value overlap was established, and synthetic uses would be inadmissible.
+
+The extra frame temporaries originate in signed coordinate division correction
+and the indexed coordinate expression. Prior unsigned/literal controls already
+measure their removal and resulting allocation regressions. They do not prove
+that arbitrary signed offsets can be replaced by unsigned arithmetic. No new
+compiler, Clang or generator calls were justified. Private
+current107-preference-nov7/REPORT.md retains the fresh state and causal audit.
