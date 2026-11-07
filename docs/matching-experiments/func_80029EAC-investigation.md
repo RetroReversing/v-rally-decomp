@@ -336,3 +336,33 @@ mechanism was established; scheduling boundaries cannot restore an already
 removed copy by assumption. No compiler, generator, live or profile changes.
 Private current215-contract-nov7 retains caller bytes, closure limits, exact
 residual positions, dump provenance and unchanged full snapshots.
+
+## November 7: isolate the actual current-void depth lifetime
+
+A refreshed source-bound history audit corrects the earlier coverage summary.
+Attempts321586/321589/321596/321599 use the215 final address expression but
+also change the earlier plane division; some additionally change other carriers.
+Their580/370 results therefore do not isolate a fresh final-depth variable on
+the exact b4bf2e53 void body. Separately, current215-native200-nov6 already
+tested this actual void root:200 raw proposals reconcile as103 guard rejects,
+six preflight rejects,41 linked duplicates and50 newly scored outputs, best226.
+That lane is distinct from the private partial-int-return1000 search.
+
+One newly isolated control adds a plain initialized int depth for the final
+scaled local[1], guard and height input. Every earlier declaration/use, plane
+division, public void contract, record-address expression and memory/call order
+is retained. Source SHA256
+`90a51df91fea9b2e20f05518229c8df6d35e69d17d29c30b69a9dd98ec830cc6`
+produces270/1560bytes, worse than selected215. Ordinary/-da outputs and both
+independent persisted-object relinks/rescores agree, linked SHA256
+`2a9f9828b6ab70de9727c78a293af905c7c4c2ccb4da358e6a00e8cdc1bb957e`.
+This closes the precise missing composition without extending the return ABI
+or claiming globally resolved legacy matrix-object preconditions.
+
+Exactly two compiler calls, no Clang or generation. Child20-second/2GiB
+aggregate/orphan limits and the outer controller finish normally; outer15.71s,
+234,284KiB peak aggregate RSS, no errors or owned survivors. All2,078 selected
+full sources/profiles,1166 hydrated attempts and complete focal source/config/
+context/symbol/prelude/profile snapshots remain unchanged. No live adoption,
+cartridge build or new-match claim. Private revisit-nov7 retains exact prior
+source diffs, coverage evidence and fresh-depth receipts.
