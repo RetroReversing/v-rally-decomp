@@ -214,3 +214,35 @@ or paired diagnostic receipts; this limitation is explicit rather than treating
 them as a newly verified compiler pair. Count, scope, traversal and scalar-phase
 proposals duplicate prior real controls, so no further quota was justified.
 Private current135-causal-nov6/REPORT.md and audit.json retain the reconciliation.
+
+
+## November 7: isolated late-consumer allocation-priority control
+
+The installed KMC comparator audit distinguished weighted-reference priority from
+hard-register preferences. Current135 gives row pseudo199 11 references over
+8 live instructions (priority41250), versus accumulator99 12/22 (16363).
+The actual target accumulator is v1, with row in a1. Earlier v0 descriptions were
+incorrect. The installed flow pass counts references by linear loop depth.
+
+One previously uncovered control wrapped only the two existing late sum stores
+in six nested single-execution do/while(0) scopes. It added no references,
+storage, effects or control transfers and preserved evaluation order. The
+prediction was that the two real sum uses would raise its priority above row.
+Exactly two compiler calls, ordinary and diagnostic, produced identical448-byte
+linked bodies, score410 (worse than135), SHA256
+c2a9fc03f3bab1bdc1992ae8a607f6b956cdb22d16c62c3565843045ba91aa6d.
+
+The causal prediction was partly confirmed: accumulator99 became24 references
+with live length21 (priority45714), took target v1, and row took target a1.
+However, the scopes also increased the column/total-pointer priorities and
+changed other allocations and increment scheduling. The separate flag scheduling
+residual remained. A desired register pair alone is not an overall improvement;
+retain current135. This does not justify a generic scope-depth sweep or adoption.
+
+Each owned compiler tree completed normally within20 seconds and2GiB aggregate
+memory, with no surviving owned processes. Private current135-priority-nov7
+retains candidate/source-effects review, ordinary/diagnostic objects, raw linked
+bodies, RTL, watchdog receipts and the full preservation audit. No live writes or
+new match are claimed. The existing app loop_weight_scope family covers scalar
+increments at depths1/3; it cannot generate this late indirect-store group, but
+this negative control does not establish that extending it would gain matches.
