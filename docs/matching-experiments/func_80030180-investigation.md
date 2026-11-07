@@ -215,3 +215,30 @@ One ordinary and one diagnostic compile close this measured mode control.
 No aliases, QI/signedness matrix, unsigned composition or extra native quota
 followed. The selected draft remains OPEN177; all2071 matched sources/profiles
 are preserved. Private NARROW-ELIGIBILITY.md retains the range and phase evidence.
+
+
+## 7 November: close the literal/direct-byte interaction
+
+A fresh read-only audit confirmed the same current107 source and468 hydrated
+attempts. Its completed exposed1,000-candidate search already covered COORD
+arithmetic; macro visibility was not a new search opportunity.
+
+The previously prepared but uncompiled direct-byteB was then tested as one
+bounded interaction control, not as a newly established compiler mechanism.
+It combines the proven-even signed byte-address formula with literal1 in the
+coordinate producer, retaining the genuine `d[new_var]` consumer. Existing valid
+storage, aligned halfword access and representable arithmetic premises remain;
+no new type, ABI, padding, alias assertion or memory operation was introduced.
+Source SHA-256:
+`69dba155aa4197d6af64501bdb7329fb2c158927086f9f9b726ec587bcfaae94`.
+
+Exactly two compiler calls produced ordinary/diagnostic480/480bytes/frame8.
+The linked output is byte-identical to the earlier direct-byteA, SHA-256
+`794fa0ca5e422ac7c6c8f7cf6156f170272bf0e582519eb9b7dfb547b941ddc5`.
+The additional literal propagation therefore has no machine-code effect in
+this combination. This closes the outstanding interaction without a broader
+literal/scope/profile or native sweep. Both20-second/2GiB aggregate watchdogs
+ended normally with no errors or surviving owned processes. Full focal and
+selected-state snapshots compare equal; all2,077 selected matches/profiles and
+OPEN107 remain unchanged. Private receipts are retained in
+`direct-byte-literal-interaction-nov7`; no new cartridge progress is claimed.
