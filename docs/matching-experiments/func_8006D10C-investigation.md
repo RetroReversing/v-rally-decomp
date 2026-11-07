@@ -151,3 +151,32 @@ actual commands, source/context bindings, linked bytes, RTL and resource receipt
 Final independent read-only equality checks preserve all2077 matched rows and
 effective profiles,740 complete hydrated attempt records and every focal input.
 The initialized505 draft remains unchanged; workers are terminal and reaped.
+
+
+## November 7: immutable conversion threshold with explicit backedge
+
+The initialized505 root and all740 hydrated attempts remain unchanged. An audit
+of3413 private candidate sources found prior explicit unsigned conversions and
+goto combinations, but no literal2147483648.0 threshold control. Prior versions
+used a mutable external threshold and often changed several other bindings.
+
+One finite control adds a genuinely consumed immutable f64 threshold before the
+current-root goto loop and expands the conversion into signed low/high branches.
+Mutable coefficient loads remain per iteration. The expansion preserves the
+original defined finite f64-to-u32 domain and the final u8 conversion; it does
+not establish equivalence on inputs for which the original conversion is undefined.
+Actual KMC flags remain -G0 -mips3 -mgp32 -mfp32 -O2 -g3, empty prelude.
+
+Ordinary and -da builds independently relink to identical1100-byte outputs,
+score3055, SHA256046b1619c09f12158a2bb3a74cb271a341ad1878511890d9fdc04f47944f922e.
+The intended threshold lifetime is recovered before the backedge, and the frame
+returns to72bytes. However, threshold/fs1 occupy f22/f20, opposite target roles.
+Explicit conversion also removes the high-bit OR before byte narrowing and
+changes branch scheduling. Recovering a single lifetime is therefore insufficient
+for a closer match. Preserve505; this is not a new match or adopted draft.
+
+Exactly two compiler calls completed under independent20-second/2GiB aggregate
+limits, with ordinary/diagnostic parity and independent relinks. All2077 selected
+full sources/profiles,740 attempts and focal inputs remain identical. No live
+operations or further matrix ran. Private current505-phase-nov7 retains source
+delta, actual linked bytes, RTL and resource receipts.
