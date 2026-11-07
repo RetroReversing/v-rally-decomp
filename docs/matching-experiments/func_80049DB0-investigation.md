@@ -337,3 +337,22 @@ snapshots preserved all 2,079 complete selected rows/effective profiles, all 910
 hydrated focal attempts, source, context, symbols and configuration. No live write,
 new match or cartridge acceptance is claimed. Private pointer-value-roles-nov7
 retains sources, pinned tools, watchdogs and relink receipts.
+
+
+## November 7: independent local-role obstacle
+
+A fresh read-only phase confirms the retained staged-link diagnostic source is
+byte-identical to current20. In lreg, link80 and sentinel87 are independent,
+nonoverlapping block-local values, both allocated v0. Sentinel87 is not the
+earlier branch's one86; that earlier value dies before these locals. A later
+scheduled return-one cannot retroactively reserve v0 during allocation.
+Branch-distributing only the link therefore does not solve the separate sentinel
+or establish a v1 preference. Existing shared-one/CSE2 and pointer/value controls
+remain the relevant negative evidence. No new compiler control was justified;
+this is not a claim that other source representations are impossible.
+
+All910 hydrated attempts,2,079 full selected rows/effective profiles and frozen
+focal/context/configuration/symbol inputs remained byte-identical. No compiler,
+generator or live write ran. Private branch-local-roles-nov7 retains the exact
+RTL bindings and preservation receipts. Retain20 while pursuing a different
+producer mechanism rather than repeating the same incomplete role argument.
