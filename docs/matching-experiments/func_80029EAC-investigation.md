@@ -306,3 +306,33 @@ recompile was needed. Exactly two compiler invocations tested the new control.
 All2077 matched-source hashes/profiles, complete focal inputs and the live
 OPEN215 draft remained unchanged. No adoption or full-cartridge claim follows.
 Private direct-positive-return-nov6 retains input bindings and paired outputs.
+
+
+## November 7: return-contract and root20 interference audit
+
+Fresh packed read-only capture confirms the public entry is void, not int:
+sourceb4bf2e53, OPEN215,1166 hydrated attempts, all2077 selected full sources and
+profiles unchanged. The sole decoded direct call is at VRAM8002C508
+(ROM offset2D108) in func_8002C044. Its following instructions do not consume v0;
+8002C528 overwrites v0. The selected caller declares the same void interface;
+the shared header adds no declaration. Whole-ROM direct jump/call, literal
+pointer (including unaligned bytes) and bounded LUI/low construction scans find
+no additional reference, but do not prove every computed indirect-call target.
+
+The private partial-int-return20 control is not intrinsically invalid C when
+consistently declared and invoked only by the known result-discarding caller.
+That limited contract must not be described as an arbitrary public int API, nor
+as proven exhaustive indirect-call closure. A defined observed-v0 negative-return
+control already exists at135; adding it again is not a fresh proposal.
+
+Root20 still differs at four raw offsets54C/550/554/574. Its slot pseudo81 has
+hard-register conflicts2..6 from earlier live phases and receives s2. The target
+uses v0 for the late shift/branch and a1 for the store. Raising allocation priority
+cannot assign this same long-lived pseudo to a conflicting hard register.
+Combination already deletes the genuine height copy before allocation. The
+previous direct-expression75 control creates a later carrier but also changes
+other roles and loses the copy. No new real value transport or debug-line-only
+mechanism was established; scheduling boundaries cannot restore an already
+removed copy by assumption. No compiler, generator, live or profile changes.
+Private current215-contract-nov7 retains caller bytes, closure limits, exact
+residual positions, dump provenance and unchanged full snapshots.
