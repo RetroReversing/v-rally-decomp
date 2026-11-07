@@ -414,3 +414,34 @@ outer loop counter alone provides no demonstrated frame-gap mechanism, so no
 random type probe was run. Before/after frozen evidence agrees byte-for-byte.
 No compiler, preflight, generator or live mutation ran. Preserve OPEN22; the
 private revisit-nov7/REPORT.md records this bounded coverage decision.
+
+## November 7: constant-table coverage and late-slot provenance
+
+A fresh full read-only audit preserves OPEN22,782 hydrated attempts and all2,078
+selected rows/profiles. Actual eight-byte count/offset table recipes already
+exist, including const/nonconst paired arrays and count/offset structures.
+Their historical root differs from current0992 in pointer declaration order
+and one blank line; unresolved .rodata references prevent treating their scores
+as clean linked negatives. The exact current-root explicit eight-field scalar
+initializer is separately negative at3886/frame96: its real byte storage shifts
+all four pointer homes, rather than leaving the target's unused48..55 gap above
+unchanged homes20/28/36/44. Exact current-root array recipes remain unmeasured;
+no newly observed late elimination mechanism justified repeating the family.
+
+Pinned KMC-compatible compiler source places second CSE after loop optimization
+and before flow/allocation/reload. It cannot remove a slot first created by
+reload. Reload-local elimination and later jump optimization could theoretically
+leave frame high water, but current retained dumps show no fifth home, wide/FP
+transfer, caller-save scratch or standalone USE. The genuine r/arr addresses are
+four bytes apart and both consumed; their relationship alone supplies no late
+elimination proof. Existing191 target-sized frame outputs were reviewed rather
+than rerun:185 use the alleged gap, and the six gap-free controls already have
+rejected effect/alias changes. No valid new candidate or compiler call followed.
+
+Source provenance: decompals/mips-gcc-2.7.2 commit e6271f14, toplev.c SHA256
+3d14cc1f9cdc145e21c9acb86e2027d9d6475d1fc9d956a6297378a9221479b2.
+This is compiler-source evidence, not instrumentation of the original vendor
+binary. Private table-lifetime-nov7/REPORT.md binds source, receipts, exact
+coverage limits and preservation. The audit also found that app phase capture
+included CSE2 while its comparison omitted it; that diagnostic fix is separate
+from the unresolved game function. No live mutation or new match is claimed.
