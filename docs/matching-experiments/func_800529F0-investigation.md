@@ -246,3 +246,39 @@ bodies, RTL, watchdog receipts and the full preservation audit. No live writes o
 new match are claimed. The existing app loop_weight_scope family covers scalar
 increments at depths1/3; it cannot generate this late indirect-store group, but
 this negative control does not establish that extending it would gain matches.
+
+
+## November 7: isolate operand references and counter placement,135→100
+
+A source-reviewed control loads the existing lap contribution into an unescaped
+u32 scalar, then places only s+=contribution inside six one-shot scopes. The
+conversion preserves unsigned modular addition; no new memory access is added.
+Unlike the earlier late-store group, row/address operands remain outside the
+scopes. Actual accumulator references become24/life22 (priority43636), above
+row11/8 (41250). Row, column and total-pointer references remain unchanged; the
+contribution is local v0. The desired global register roles are recovered.
+
+This alone scores160 because accumulation moves before the counter update. A
+second control moves the genuine m++ from the for-update clause to immediately
+after the operand load and before the scoped addition. It preserves observable
+accesses and loop-exit behavior. Ordinary/diagnostic builds and independent
+relinks agree on448 bytes at score100, SHA256
+8a194cc90a0f576aa418a6c644bcfc44fe3de7e98491ea685ca8be8f06a841a8.
+The valid source is6ede78c63539a29941de339704992f6a2618e7c2277e72d5b573a94075375bfe.
+The entire first accumulation loop now agrees. Five words at0xC8..0xD8 differ
+only in constant1/2/3 versus flag-address materialization order. This is reviewed
+private progress, not a match or live source adoption.
+
+Actual loop diagnostics establish the remaining cause: move_movables moves the
+unconditional flag copy before three generated constants; reload subsequently
+rematerializes its address in that order. Moving the case0 flag store into a
+post-switch rank==0 block is equivalent in observable store order but scores1090.
+The conditional flag copy is no longer hoisted; its original definition stays
+before the first loop and changes allocation/CFG. Preserve100, not this control.
+
+Exactly six actual compiler calls and three independent relinks completed under
+20-second/2GiB aggregate watchdogs. One mistyped diagnostic launcher path exited
+before any worker/compiler; the receipt and corrected successful retry are
+retained separately. Fresh read-only checks preserve859 attempts, full focal
+inputs and all2,077 selected sources/profiles; live135 remains unchanged. Private
+isolated-update-nov7/REPORT.md retains source, RTL, bytes and watchdog receipts.
