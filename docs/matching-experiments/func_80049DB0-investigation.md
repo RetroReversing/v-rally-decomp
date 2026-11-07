@@ -157,3 +157,35 @@ remain identical. Live score40 is unchanged; normal app import is pending.
 No cartridge gate or new matched-count claim is warranted. Private
 current40-contract-phase-nov7 retains complete source delta, linked outputs,
 RTL, independent relinks and preservation receipts.
+
+
+### November 7: staged chain reaches a valid20
+
+Three source-reviewed followups preserve actual memory effects and ABI.
+
+| Control from reviewed35 | Score | Observation |
+| --- | ---: | --- |
+| Move the whole chain before the weighted p load | 35 | Trades which two loads are reordered |
+| Name the real intermediate link; load p between the two chain reads | 20 | Target instruction order and global roles recovered |
+| Initialize the existing returned default after mode choice, with a common return | 300 | Local v0 remains; return value moves to v1 and adds a terminal copy |
+
+The valid20 source is6c1afd73395fb0dc9e112992912acf1c52ff7cd9ab76647e2483a48c33eb9309.
+Ordinary/diagnostic and independent relinks agree on120 bytes, SHA256
+e5a6b361d7a334e1b208ae84997183b483d4db8b9e8fabccad0486815719d97d.
+This is not the historical invalid XOR/out-of-bounds20 source. The explicit
+link is consumed once; no extra read, storage padding or alias assumption is
+introduced. Four register operands differ at+0x40/+0x48/+0x4C/+0x50.
+
+The late-default control demonstrates the remaining allocation obstacle:
+local link and sentinel retain v0; returned value79 has8 references/lifetime11
+but a hard-v0 conflict, so higher global rank still allocates it to v1. The
+real default assignment sinks into the branch delay slot, but that scheduling
+change does not undo earlier local allocation. Its paired output is124 bytes,
+SHA2569f38ab22c5cf365a0a4d4754aa280073e416e025bf4048e5255073d84a50a5ee.
+
+Exactly six followup calls completed under independent20-second/2GiB aggregate
+limits. Independent relinks and fresh read-only snapshots preserve907 hydrated
+attempts, complete focal state and all2,077 selected sources/profiles. Retain
+valid20 as reviewed private progress pending normal app verification; live40
+and matched count remain unchanged. No cartridge acceptance is claimed. Private
+load-order/staged-link/late-default reports retain complete source-bound receipts.
