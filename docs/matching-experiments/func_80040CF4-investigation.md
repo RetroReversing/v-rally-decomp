@@ -548,3 +548,21 @@ It was not rebuilt for this open-draft-only change. Private evidence:
 store-frontier-revisit-nov7, including failed preparation, resource/relink,
 live-draft-adoption and portable-snapshot receipts. No automatic repair family
 is claimed from inserting an otherwise unnecessary source assignment.
+
+### Automatic store-result reuse (November 7)
+
+App PR772, merged as3d18e243, adds a bounded `store_result_reuse` family.
+Independent pure generation from f5af7681 with its frozen header emits two
+proposals, one exactly equal to measured22607e89. This reproduces the earlier
+565→485 source edit; no new game compiler or cartridge acceptance is claimed.
+The rule reuses only a definitely initialized, unescaped signed-int operand
+whose old value is dead on every CFG successor, preserving the complete RHS
+association and member store. Unknown types, narrow/mixed arithmetic, shadows,
+escapes and opaque macros are declined. Shared liveness now distinguishes a
+member named y from a real local y read.
+
+Broader shared-dataflow/draft tests passed706 with1 skipped; the final focused
+repair/liveness tests passed77. Full Ruff and diff checks passed. The compiler
+ledger and KMC guide explain the allocation tradeoff and nonexact result. The
+shareable macOS app is rebuilt separately; this PR does not deploy to the live
+runtime. Private pure proof: store-frontier-revisit-nov7/production-store-result-proof.json.
