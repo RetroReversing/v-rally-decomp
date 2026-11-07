@@ -387,3 +387,34 @@ void*(void*,void*) interface. It is recorded separately for a coordinated source
 correction, not used as ABI proof or silently changed during this audit. Keep52.
 Private real-temporary-nov7/REPORT.md retains exact sources, frame references,
 compiler-source provenance and final unchanged-state snapshots.
+
+
+## November 7: retained compiler-failure classification
+
+The67 corrected-source native compiler failures and135 macro-exposed/layout
+failures were audited individually, binding all202 persisted sources to their
+recorded SHA-256 and diagnostics. Every record contains a concrete parser
+rejection; neither set has a recorded signal, segmentation fault or internal
+compiler-error marker. Each set also contains one initializer-not-constant
+error. Missing independent child exit statuses limit what can be inferred about
+host failures; these logs are not a proof the compiler never crashes.
+
+A representative source assigns to a generated temporary before declaring
+`V24 *w` in that block. Modern Clang's gnu89 mode accepts mixed declarations as
+an extension; the period C parser rejects them. Future C89 preflight should use
+`-Werror=declaration-after-statement` explicitly, alongside the existing
+initialization and source-effect checks. This does not prove that this warning
+alone diagnoses every error in the202 records, or that preflight proves C
+semantic equivalence.
+
+Known local host64 compiler patches repair pointer-return declarations in
+reorg/stack-layout code. They do not fix C grammar. No recorded admissible
+candidate here is shown failing either affected optimizer path, so no binary
+swap, source regeneration or retry was justified. In particular, these202 errors
+must not be reclassified as untested crash-recovery candidates.
+
+All2,078 complete selected sources/effective profiles,838 focal attempts and
+complete focal inputs compare unchanged. Zero compiler/preprocessor/Clang/native
+executions, downloads, installs, live writes or restarts. Keep OPEN52. Private
+`compiler-failures-nov7/REPORT.md` retains the complete source/error inventory,
+lineage bindings, binary identities and preservation receipts.
