@@ -130,3 +130,30 @@ The compiler guide and learning log now document this verified rule and its
 build-specific limits in merged decompdecomp PR
 [#743](https://github.com/RetroReversing/decompdecomp/pull/743).
 Private exact-binary and preservation evidence stays in `allocator-cause-nov7`.
+
+
+### November 7: isolated pointer-load reference weighting improves to35
+
+The previous separate-result control scores60. One new control wraps only its
+existing branch p=*(s32*)p statement in two nested one-shot do/while(0) scopes.
+No expression, memory access or runtime operation is added. Previous scope
+controls also enclosed the subsequent root chain and did not isolate this load.
+
+Actual p references rise5→9 with lifetime14, priority19285; root remains9refs
+with lifetime18. Global order becomes result79,p77,root72,game75, recovering
+target resultv0/pa0/roota1/gamea2. This confirms the measured reference-weight
+mechanism, not a general guarantee that scopes improve allocation.
+
+Ordinary/-da and independent relinks agree on120 bytes at score35, SHA256
+106b50062ea6ca0352e90b7e08dbe588e5d68a45d84a7fabc98538825dd5dc70.
+Five raw positions remain different: two loads are reordered at+0x40/+0x44,
+and chain/sentinel/compare use localv0 instead ofv1 at+0x48/+0x4C/+0x50.
+The candidate is valid reviewed private progress, not an exact match. Its source
+SHA256 is5299eb5c188e409e7ffe82abb1e9092f16b750d1e20623c545a711bd32346b0b.
+
+Exactly two compiler calls completed under20-second/2GiB aggregate limits.
+All907 hydrated attempts, complete focal inputs and2,077 selected sources/profiles
+remain identical. Live score40 is unchanged; normal app import is pending.
+No cartridge gate or new matched-count claim is warranted. Private
+current40-contract-phase-nov7 retains complete source delta, linked outputs,
+RTL, independent relinks and preservation receipts.
