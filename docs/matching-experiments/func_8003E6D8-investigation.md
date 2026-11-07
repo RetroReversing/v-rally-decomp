@@ -170,3 +170,48 @@ Equal scores can hide different repaired and newly introduced mismatches.
 No repeated controls or new source adoption were justified. Keep 565. Private
 current565-causal-nov7/REPORT.md records provenance, historical linked hashes,
 coverage and unchanged state.
+
+
+## November 7: measured shared-resource preference tradeoff
+
+A fresh read-only audit retains OPEN565 source6ed43a85, 725 hydrated attempts,
+and all2,078 selected sources/effective profiles. A constant-first addition is
+not a new way to break the preference chain: the compiler canonicalizes constants
+to the second operand in optabs and CSE before global allocation. No such control
+was compiled.
+
+The historical first-resource-sharing result had a score/rendered diff, but no
+retained linked object/hash or diagnostic RTL. Its body was reconstructed with
+the already accepted common callback contract, source SHA-256
+`06a1c5eb54446c13100867f0111ab8a9b64ce581f9e68603a3ad295372af76d1`.
+The branch-exclusive resource definitions remain initialized at their actual
+uses. Bounded loop arithmetic and non-addressed local increment motion preserve
+values and call/store order. Exactly two current-context compiler calls,
+ordinary and diagnostic, establish565/1580bytes, linked SHA-256
+`828d67668a7e12d897cab1479d77db768cd8a1df13b42dd9e60711a7470381cc`.
+Independent saved-object relinks agree. This establishes fresh paired equality,
+not an unsupported equality claim against missing historical raw bytes.
+
+The diagnostic directly prints post-pruning preferences and conflicts:
+
+- Shared resource p80 is global, has no remaining preference, conflicts with
+  hard register17 and is assigned18 (s2).
+- First-branch callback p122 is local and occupies17 (s1), causing that conflict.
+- Mode-1 counter p85 has no17 conflict or preference and is assigned17 (s1).
+- Loop callback p74 and constant p75 retain target s6/s3.
+- Entry arg1 p73 and base-x p82 occupy fp/s7; the mode-2 ordinal carried in
+  arg1 is fp and its constant-one p219 is s7. These remain opposite target roles.
+
+Thus sharing really removes the loop resource's s1 reservation and fixes that
+loop's counter/resource allocation. It simultaneously globalizes a resource
+whose first-branch target role is s1, displacing that branch's callback. The
+single global pseudo cannot reproduce both target resource roles by merely
+changing its priority. Printed post-pruning preferences are direct evidence;
+the earlier propagation path remains compiler-source plus RTL reasoning, not
+an observation of an unprinted intermediate bitmap.
+
+Both20-second/2-GiB aggregate watchdogs finish cleanly (1.19s/0.89s), with no
+owned survivors. All2,078 selected sources/profiles and complete725-row focal
+history/input snapshots are unchanged. No live adoption, selected C change or
+cartridge-progress claim. Keep current565. Private evidence and retained RTL:
+`preferences-fresh-nov7/`.
