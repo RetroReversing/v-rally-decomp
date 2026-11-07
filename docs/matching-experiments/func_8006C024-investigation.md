@@ -505,3 +505,33 @@ but neither beats the selected1700. Strict C89 preflight passed. All444 attempts
 no generator, live adoption or new match. Private lineage-revisit-nov7/raw24
 retains domain review, full source bindings and terminal watchdog receipts.
 This completes the four changed-pair dispositions from the fixed256 batch.
+
+
+## November 7: actual unsigned conversion carrier reuse
+
+One exact-current control retained the floating expression, threshold compare,
+signed casts and high-bit OR, but stored both conversion arms in the existing
+unsigned temp_t0 instead of reusing the initial selector var_a0. The byte mask
+consumed that actual result; decoder loads overwrite temp_t0 before its later
+uses. All field reads, callbacks, output effects and shared physical conversion
+line were preserved. This does not require newly immutable coefficients or a
+replacement unsigned-cast lowering.
+
+Source SHA256
+`214d4e616b42b5678d9975ed5f9752a5d2cfd6ebbe6fc89d2eb07b2df610a059`
+scored1855/956bytes in both ordinary/diagnostic modes, worse than1700. Fresh
+processes reopened and relinked both saved objects with the same score and
+linked SHA256
+`96c8e2c8206feac6652dfff565e5414189f19bbceb4034b9256c01779f433d23`.
+The conversion moved to pseudo92/hard t0 rather than baseline pseudo90/a0;
+its actual byte mask still moved the result to a0. The80-byte frame, mode-copy
+and table-address discrepancies remained. No adoption or automatic repair follows.
+
+Two setup gates stopped before compilation on separate external progress-revision
+updates; their raw receipts remain preserved. The successful phase used exactly
+two compiler calls and two independent relinks, outer7.94s/415,392KiB with clean
+aggregate/orphan-aware watchdogs. All694 pins,2,079 complete selected rows/profiles,
+444 hydrated focal attempts and actual source/context/symbol/prelude/profile
+inputs remained unchanged. Only external configuration.progress_revision changed
+19193→19194; complete configuration snapshots are therefore not called identical.
+Private conversion-flow-nov7 retains full receipts and the explicit external delta.
