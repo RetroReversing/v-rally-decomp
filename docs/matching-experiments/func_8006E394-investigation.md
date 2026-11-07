@@ -428,3 +428,34 @@ generator, live mutation or claim ran. Full before/final freezes, including690
 hydrated attempts and all2,078 selected full rows/profiles, are byte-identical.
 Keep OPEN1200 and the separate score2015 lifetime frontier. Private evidence:
 `donor-audit-nov7/REPORT.md`, `homolog-comparison.json` and `preservation.json`.
+
+
+## November 7: shared aggregate on the role-correct frontier
+
+One previously unmeasured composition applied a genuine shared Blk pointer to
+all existing flag, counter and map consumers on source d88d5c84/score2015.
+Actual member addresses, callback order, guard/backedge, dispatch and physical
+line count were retained. Existing reconstructed aggregate-storage premises
+remain explicit; the serializer corroborates flag/map addresses but does not
+independently establish an original source-level Blk allocation.
+
+Candidate SHA256
+`f994c143cf792558a634826e799bef5c83f070497161a167b844ea7a9dcbad3c`
+scored3718/1244bytes in ordinary and diagnostic modes; two fresh-process saved
+object relinks agree, linked SHA256
+`1e6bb5f531ea09e510e9f8c38c2bf8fac7697de49bd40d61e9524d8711d0f12a`.
+Frame40 shrank to32; the correct s1 count guard moved to t9. The actual shared
+block occupied t2, flags used+16 memory displacements, and the map added40
+inside the loop. The target's late unused flag-base calculation did not return.
+Prior2015 CSE2 already shared map/counter address expressions, so this is not
+evidence of a missing common-subexpression optimization.
+
+Exactly two compiler calls and two fresh-process relinks ran. All795 pinned
+inputs/tools,2,079 full matched rows/profiles and actual focal inputs remained
+unchanged. An initial gate stopped with zero compiler calls on external
+progress_revision19196→19203; those raw receipts are retained separately.
+Successful execution before/after snapshots, including revision19203 and690
+hydrated attempts, agree exactly. No live adoption or new automatic repair.
+Private producer-lifetime-nov7 retains complete coverage, storage-provenance
+limits, phase findings and execution receipts. Preserve selected1200 and the
+separate2015 frontier.
