@@ -400,3 +400,17 @@ was proven that permits replacing it by a record index. Manufacturing quotient
 and remainder carriers solely to create stack space would not recover such a
 source model. Preserve the current draft and remaining eight-byte frame gap.
 Private current22-phase-nov7/REPORT.md retains the evidence and preservation audit.
+
+## November 7: fresh frame-gap coverage check
+
+The current0992fd5f draft remains OPEN22 after a fresh strict read-only audit
+of782 hydrated attempts and all2,078 selected source/profile records. Real
+aggregate and field captures have already produced measured spills with the
+wrong geometry; unit rewrites leave no late USE, and callback effects prevent
+assuming freely hoistable global reads. Coordinate provenance still supplies
+no record-index invariant. The historical unused pad artifact was not treated
+as the current source or as a legitimate missing object. Widening the bounded
+outer loop counter alone provides no demonstrated frame-gap mechanism, so no
+random type probe was run. Before/after frozen evidence agrees byte-for-byte.
+No compiler, preflight, generator or live mutation ran. Preserve OPEN22; the
+private revisit-nov7/REPORT.md records this bounded coverage decision.
