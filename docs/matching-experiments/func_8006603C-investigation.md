@@ -44,7 +44,8 @@ invalid for the reasons in the canonical investigation; it was not optimized.
 - Five inline equality helpers with genuine comparison semantics. Best910; they
   select xor/branch forms rather than the target compare sequence.
 - Twelve word/doubleword local and getter types. Best305 with ordinary word types;
-  doubleword types add register traffic rather than the two required masks.
+  some doubleword controls retain both required masks but add register traffic.
+  These historical compositions are not exact current305 coverage.
 - Nine properly aligned union word getters returning masked/cast low halfwords.
   All305: late narrowing still optimizes away. No fabricated volatile or asm.
 - Three byte-pointer row formulations. All nonexact; ordinary pointer arithmetic
@@ -218,8 +219,9 @@ justify transplanting qualifiers or a wider field view into this function.
 
 Actual baseline zero extensions263/267 disappear in first CSE; the local-record
 control retains them until combine, which can prove the extracted values have
-zero upper16 bits. No genuine widening, reconvergent producer or storage contract
-was found that retains both masks while producing the target LHU instructions.
+zero upper16 bits. This audit found no new current-source widening, reconvergent
+producer or storage contract recovering the masks and target allocation. A later
+historical-receipt audit below corrects the broader mask-coverage claim.
 
 Historical profile scripts bind valid safe300, not current305; they cover KMC
 flag variants and do not establish SN/PM coverage. That gap alone is not target
@@ -308,3 +310,28 @@ or real loop dependence was established. No compiler or generator ran and all
 six before/after capture groups agree. This closes that specific lifetime/CFG
 route, not the function. Private revisit-nov7/REPORT.md retains the actual
 def/use and branch evidence. Preserve305.
+
+
+## November 7: historical doubleword masks and expansion timing
+
+Fresh six-part before/after captures preserve OPEN305/sourcecca34264,774
+hydrated attempts and all2,078 selected sources/effective profiles. The selected
+snapshot here includes complete source strings and profiles, not every physical
+function-row column. No compiler, generator, live write or new candidate ran.
+
+The older revisit2/wide-0 sourcef4ba6095 really retains both required ANDI0xffff
+masks with LHU producers, at740, alongside extra upper-word zero moves and
+changed allocation. The prior summary saying doubleword types add traffic
+rather than masks was too broad. Its older row expression and callback
+interfaces differ from current305; it proves a historical mask-preserving
+representation, not current-source coverage, fresh ordinary/-da parity or
+independent relink acceptance. Receipt424103de binds the copied source.
+
+Pinned gp32 compiler expansion explicitly writes the low word and upper fill
+for multiword conversion before CSE (expr.c881–983), rather than first creating
+them in a late split. Each actual saved value feeds only a16-bit equality and
+byte restore; neither crosses a wide call ABI. A new packed doubleword pair
+would introduce packing/shifts, without a demonstrated late-only consumer or
+elimination mechanism. No speculative width/pressure sweep followed. Preserve305
+and the accurate historical alternative. Private late-zero-audit-nov7/REPORT.md,
+evidence-identities.json and preservation.json retain complete bindings.
