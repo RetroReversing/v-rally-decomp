@@ -443,3 +443,40 @@ on merged main e3cc68e5; health reports that revision. The arm64 macOS
 1.0.9-alpha.4 shareable app was rebuilt from the same clean commit and both
 production helper files verified against the source.
 Private current-root-search-nov7 retains full proofs, objects, protocol and receipts.
+
+## November 7: preserve original parents through expression rewrites
+
+The retained256-candidate audit finds246 candidates with the original pair keys,
+four changed adjacent keys and six cases where adjacency is lost. None of the
+changed adjacent pairs had reached compilation: a source-bound boundary gate
+rejected them first. That rejection alone was not measured scheduling evidence.
+
+Candidate232 captures the conversion's actual f64 subtraction into an initialized
+local immediately before use. The conversion assignment parent remains adjacent
+to its high-bit mask, but its expression AST changes, so the old text-key-only
+formatter loses the known shared line. The candidate passes the strengthened
+initialization/effect guards. Joining only that whitespace preserves its complete
+AST. A strict C89 preflight passed; four ordinary/-da compiler calls then show:
+
+| Retained candidate232 layout | Score | Bytes | Linked SHA256 |
+| --- | ---: | ---: | --- |
+| Split |1760|960|6c6854b0a15e4e1b6e283076d1dbfe274a8040db02a0dc492f321175a2a02183|
+| Original shared boundary |1700|956|23d669f77eadaeea39d9e333aef312ae70c951d69d1e4e3fc84150454fb95304|
+
+All four persisted objects were independently reopened, relinked and rescored.
+The joined output is exactly the existing baseline, not a newly better function
+or a new match. Child20s/2GiB aggregate/orphan watchers and the outer controller
+finish normally; outer14.08s/529,216KiB peak aggregate RSS, no errors or survivors.
+Full before/after state preserves2,078 selected sources/profiles and444 attempts.
+
+Native AST deep copies preserve original assignment-parent coordinates even when
+a child expression changes. A pure fixture models precisely retained232 without
+randomization and proves the production origin API emits the measured joined
+sourcecacbe248d5e314093624fed815b8ec6841c2ffd9df33d67029cbdb8d19d0e2ae
+with an identical complete AST. App PR764, merged14f53a54, binds only unique
+original parents and restores a group only while they remain unique and adjacent.
+Duplicated, separated, reordered or new coordinate-less parents are declined;
+printed pair uniqueness, preprocessor exclusions and final AST verification remain.
+61 formatting/related tests and full Ruff passed. GitHub reported no CI checks.
+No live candidate adoption, runtime restart or game-progress change occurred.
+Private lineage-revisit-nov7 retains the bounded audit, origin proof and receipts.
