@@ -369,3 +369,77 @@ all focal inputs are unchanged. Zero compiler/native-worker calls, live writes,
 claims, restarts or selected-source changes. Keep OPEN1700. Private
 `repair-coverage-nov7/REPORT.md` retains generated diffs, source bindings,
 coverage bounds, scheduler evidence and final preservation receipts.
+
+
+## November 7: preserve the current native baseline before search
+
+Current1700 source41e45e53 has a materially different selector/interference graph
+from the older1733 native roots, not just a new formatting hash. Removing the
+must-equal alias eliminated a local selector and its global copy. A bounded6899-
+record audit found only audit/control copies of the current source, no native
+batch rooted there. Existing app searches already support improvement feedback;
+adding feedback was not a missing feature identified by this audit.
+
+The actual Candidate/to_c printer failed byte parity: original ordinary/-da
+1700/956bytes linked23d669f77eadaeea39d9e333aef312ae70c951d69d1e4e3fc84150454fb95304;
+printed ordinary/-da1760/960bytes linked
+6c6854b0a15e4e1b6e283076d1dbfe274a8040db02a0dc492f321175a2a02183.
+A single extra NOP follows MFC1 when the printer splits the original two conversion
+assignments onto different physical lines. Restoring only that original boundary
+produces source7750b13595da122189e52a496337bf80bfc162369166ea0905a77ec8f33ea7aa
+and recovers exact original1700 bytes in another ordinary/-da pair. All six saved
+objects independently relinked. Two preprocessing and two strict-C89 checks ran;
+an earlier pure AST gate stopped before tools because the normalizer braced a
+single final goto. The revised check permits only that exact transparent wrapper,
+not arbitrary AST changes. Raw AST/tokens are not claimed identical.
+
+App PR757 merged ase5d2063c. Its generic native formatter preserves unique
+unchanged adjacent assignments that shared an original physical line. It retains
+physical coordinates through comments, changes whitespace only, verifies the
+candidate AST, and declines ambiguous or preprocessing-sensitive contexts. The
+production helper reproduces the measured7750 source byte-for-byte.68 related
+tests and final18 formatting cases (including actual native generation) passed,
+with whole-tree Ruff. No game match is claimed for this baseline repair.
+
+### Fixed256 protocol retained; unsafe score improvement rejected
+
+Exactly one job, seed60241700, emitted256 distinct raw sources plus complete
+lineages and one done record. Six allowed families: expression capture,
+statement/declaration order, assignment splitting, commutation and block insertion.
+Type randomization was identity; no feedback, portfolio or replacement quota.
+The unchanged KEEP0.6/four-try loop permits at most1024 internal iterations;
+574 recorded lineage events are not the raw-emission count. Protocol SHA256:
+ed4d7d23afc234abc75e125dc381149f6aecda595560fdde5a9446a193e3451e.
+Generation completed normally in7.22seconds (12.33seconds including outer work),
+with no surviving owned processes or resource failure.
+
+Judging stopped as prescribed at raw210's apparent1505/964byte improvement.
+Review rejects it: the new pointer is assigned only inside the first decoder arm
+and read in the alternate arm, without established initialization on that path.
+It was never adopted or promoted. At this stop:175 guard rejects,7 boundary
+rejects,28 Clang calls and28 compiled/linked outputs (12 distinct/16 duplicates).
+The remaining46 raw sources211–256 are retained but UNJUDGED; no exhaustion claim.
+The judging outer watcher finished normally in82.54seconds, sampled peak aggregate
+RSS406416KiB, with no cleanup error or survivors. All2078 selected complete
+sources/effective profiles and442 focal attempts/full context remain preserved.
+
+The initialization checker previously returned unknown for a pointer capture
+embedded in another local assignment's arithmetic RHS. App PR758 adds a bounded
+unconditional-copy CFG transfer; it rejects this exact candidate while accepting
+a control initialized before the branch. Conditional evaluation, calls, other
+writes and unsupported shapes remain unknown.234 related tests and whole-tree
+Ruff passed. This is a safety correction, not a generally valid1505 frontier.
+The separately approved continuation processed only retained211–256:31 guard
+rejects,3 boundary rejects,12 strict-C89/ordinary linked results,5 new distinct
+outputs and7 linked duplicates. Best score1700 equals the starting source; no
+valid improvement or exact match. The continuation completed in29.35seconds,
+peak aggregate RSS465580KiB, with no errors, resource failure or surviving owned
+processes. End pins and read-only all2078/focal442/claims preservation passed.
+All256 original candidates are now resolved, with210 explicitly rejected; no
+replacement generation or source promotion occurred.
+
+Live source remains OPEN1700. After explicit user approval the dev app restarted
+on merged main e3cc68e5; health reports that revision. The arm64 macOS
+1.0.9-alpha.4 shareable app was rebuilt from the same clean commit and both
+production helper files verified against the source.
+Private current-root-search-nov7 retains full proofs, objects, protocol and receipts.
