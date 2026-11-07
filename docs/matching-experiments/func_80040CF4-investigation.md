@@ -262,8 +262,9 @@ rectangle s2 and width s5, while x2/h2 occupy s3/s4 in the opposite target order
 The common item result now occupies target s6. The initial object pointer,
 initial height and first constructor result still differ.
 
-Actual vertical local x2 and h2 each have three references over43 instructions;
-the earlier quantity wins their density tie. Removing the dead hh overwrite also
+The initial per-pseudo summaries showed equal x2/h2 reference counts and
+lifetimes. The merged-quantity observation below independently confirms this
+particular tie; those summaries alone did not establish it. Removing the dead hh overwrite also
 changes the second-y expression to anonymous temporaries. First scheduling moves
 the x2 store before the two y additions, unlike the target. This is a measured
 remaining scheduling/lifetime cause, not proof that arbitrary declaration order
@@ -317,3 +318,46 @@ quantity priorities: local allocation can merge several pseudos and sum their
 references while extending the interval. The observed order is authoritative;
 exact merged quantities require additional evidence. No priority claim based
 only on the individual register summaries is used to select a further rewrite.
+
+
+## Direct observation of merged local quantities (November 7)
+
+A private, read-only observer now records the pinned KMC compiler's actual
+local-allocation quantity arrays immediately before and after its existing sort.
+It leaves comparator results and compiler data unchanged. Its executable-path,
+architecture, comparator-address, array-shape and pinned compiler-hash gates are
+specific to the investigated toolchain. It is not an installed app feature.
+A nongame sorting fixture validates forwarding and path rejection. Injected dyld
+images can precede the executable, so image zero was an invalid assumption;
+locating the unique MH_EXECUTE image fixed the diagnostic without relaxing gates.
+
+One diagnostic replay of each unchanged candidate reproduces its cached ordinary
+and diagnostic linked bytes, including independent saved-object relinks. Both
+runs preserve all 2,078 selected sources/profiles and 737 focal history records.
+No candidate was adopted. Each ran under the 20-second/2-GiB aggregate watchdog,
+with no owned survivors.
+
+The compiler's density is truncated from
+`floor_log2(refs) * refs * size / (death - birth) * 10000`.
+These are actual merged quantities, not individual pseudo-register summaries:
+
+| Vertical value | f5af refs / interval / density | 861f refs / interval / density |
+| --- | --- | --- |
+| Half-height | 11 / 6..92 / 3837 | 11 / 6..92 / 3837 |
+| Table address | 13 / 26..128 / 3823 | 13 / 30..128 / 3979 |
+| x2 | 3 / 2..86 / 357 | 3 / 2..90 / 340 |
+| h2 | 3 / 12..96 / 357 | 3 / 12..96 / 357 |
+
+Thus the table/half-height reversal is caused by the table quantity's later
+birth, not a higher reference count. Half-height's merged chain loses the two
+anonymous add-result pseudos in 861f, but its total references and interval stay
+identical. The x2/h2 reversal comes from x2's later death: f5af genuinely ties
+and quantity number breaks that tie; 861f gives h2 higher density. Both pairs
+have no hard-register suggestions. Rectangle pointers have suggestions, so
+raw density alone does not explain the complete allocation order.
+
+Evidence: private `quantity-executable-f5af-nov7/quantities.log` and
+`quantity-executable-selfupdate-nov7/vertical-quantities.json`, with watchdog,
+source/profile preservation and independent relink receipts alongside them.
+Keep live score 518 and the unmatched f5af research frontier. The next source
+control must explain these real intervals rather than adding artificial uses.
