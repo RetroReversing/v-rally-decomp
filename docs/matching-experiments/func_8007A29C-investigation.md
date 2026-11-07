@@ -299,3 +299,83 @@ SHA25623e1b908695ba59fcc702c9b2ce8555b32be18020b3b6ecd7dfbc3b86c7d48b3.
 The exposed lane also contains the same body as961. It was not recompiled as
 new work. This closes the gap-preserving candidates from this lane; OPEN22
 remains unchanged while a different function's macro visibility is investigated.
+
+
+### Fixed 10,000-candidate search, 6–7 November 2026
+
+A separate fixed batch started from the proven macro-exposed current source,
+with seed `20261106729001`, 16 jobs (15 × 640 plus 400), and no feedback from
+scores into generation. It used temporary-expression capture, statement and
+declaration ordering, assignment splitting, commutation and block insertion;
+internal type randomization was disabled. All 10,000 sources and complete
+transformation lineages were saved before filtering. Neither an interrupted
+preflight nor a partial compiler result was counted as a completed negative.
+
+The batch is now fully judged, rather than merely generated:
+
+| Outcome | Count |
+| --- | ---: |
+| Scored linked outputs | 5,932 |
+| Unscored compiler/link outcomes | 9 |
+| Guard rejections | 3,173 |
+| Clang preflight rejections | 373 |
+| Exact source duplicates | 513 |
+| **Total saved candidates** | **10,000** |
+
+The nine unscored outcomes are retained `.rodata` relocation/link failures,
+not score-zero matches. Scored outputs represent 2,314 distinct linked bodies.
+None beat score 22 or matched exactly. Every scored object/binary hash and every
+raw source/job/lineage was independently checked. Four complete results at the
+last time limit were validated, relinked and rescored from retained objects,
+then recovered without recompilation.
+
+Judging used four sequential execution phases. The later phases allowed four
+independent compiler subprocesses for this one function, with at most four
+admitted but uncommitted candidates and ordered durable results. Per-call
+limits were 20 seconds/2 GiB; each outer judging phase had an 1,800-second/2 GiB
+aggregate limit. The final phase finished normally in 1,396.63 seconds, with
+peak aggregate RSS 1,226,628 KiB and no cleanup errors or surviving owned
+processes. Phase 2 was deliberately cancelled; its final outer receipt was
+not written after a cleanup exception. Its aggregate peak remains **unknown**.
+That interruption was reconciled through independent source/result, PID/start
+and snapshot audits; later measurements do not replace the missing measurement.
+
+A target-sized frame alone was again misleading. Many 96-byte outputs spill
+into the target's unused gap or move memory reads across potentially aliased
+writes. Other candidates read a captured pointer on a path that bypasses its
+initialization. These were not promoted. The embedded pointer-initialization
+case led to app PR #730, merged as `c95ae389`; it checks that specific class of
+initialization paths, not general C equivalence or alias separation.
+
+Two additional source-reviewed controls were then compiled with ordinary/`-da`
+parity, exactly four game compiler calls total:
+
+| Control | Score | Result |
+| --- | ---: | --- |
+| Join the entire function body onto one physical line | 22 | Same 88-byte frame and exact baseline linked bytes |
+| Correct candidate 6007's integer-temporary/null-pointer comparison | 445 | Worse; ordinary and diagnostic bytes agree |
+
+The first control preserves preprocessing tokens and the complete actual
+compiler-preprocessed AST, including the header. It therefore closes this
+specific whole-body line-layout hypothesis for this root/profile; it does not
+establish that line layout never affects this compiler. Its linked SHA-256 is
+`2bac576f07fa5f85ac2a35fe22658dc2c859d96c47c41f917d5ced4aec2784b7`.
+The corrected control changes only `prev == new_var` back to `prev == 0`,
+retaining the initialized, unaddressed integer-zero temporary in integer
+comparison and byte-offset uses. Its linked SHA-256 is
+`64f59b07f03ad89aef91ca2aa138491c9faa4c6d782d4e0797e56ee3c8b8bcc4`.
+Its actual full preprocessing AST also passes the reviewed-source check.
+
+This exposes a useful limitation of expression capture: replacing identical
+literal-zero ASTs in every context can lose the null pointer constant property.
+Likewise, a clean preflight log does not prove equivalence: pointer/integer
+comparison has a separate diagnostic from assignment conversion. These controls
+were checked against all 782 hydrated historical attempts, the initial exact
+source cache and the fixed batch before compiling.
+
+All before/after snapshots retain the same 2,077 selected matched records and
+782 focal history entries. No selected source, profile, header or live app
+record was changed; no new cartridge-progress claim is made. `func_8007A29C`
+remains **OPEN at score 22**. Private evidence stays outside the repository;
+ROM bytes, extracted assembly, compiler outputs and local databases are not
+published here.
