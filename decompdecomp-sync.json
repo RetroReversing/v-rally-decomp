@@ -742,7 +742,9 @@
     "src/code_8007E9D4/func_8008D6E0.c": "8624d0b1ce996d4d0d6089e75f344ce6da9458710ca476cfb7b6373f058ea719",
     "include/decompdecomp_status_return_8008d6e0.h": "f4f6a2bef68d2b416966aacfdb839fcc0b3022eebd2fb5231f69e8c98af7795f",
     "src/code_8007E9D4/func_8009A2B0.c": "c9f9ebf90e4683c45d0b8121524e028d15a1bb9cb06e66c234536b6e40d46f6d",
-    "include/decompdecomp_tail_dispatch.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    "include/decompdecomp_tail_dispatch.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "src/code_8004BEB4/func_800529F0.c": "a55a7e4b1cac75378a2ec18416924177c2ad8308effe076a1a7cec43840a4309",
+    "include/func_800529F0-context.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
   },
   "accepted": [
     "MusInitialize",
@@ -962,6 +964,7 @@
     "func_80051D10",
     "func_800526E4",
     "func_800528A4",
+    "func_800529F0",
     "func_80052CF4",
     "func_80053380",
     "func_800535F4",
@@ -1188,22 +1191,23 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2077,
+  "matched_app": 2078,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8009A2B0"
+      "func_800529F0"
     ],
-    "note": "Unsigned64 tail dispatcher reconstructed with registered modern GCC4.4 default settings; not historical retail compiler attribution. Actual-header ordinary/diagnostic and full cartridge exact; all2076 prior selections/profiles preserved."
+    "note": "Consumed constant operands and real forward case graph; unchanged KMC profile and header. Ordinary/diagnostic, independent linked bodies and complete copied cartridge exact. All2077 earlier selected sources/profiles preserved."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "matched": 2077,
+    "matched": 2078,
     "all_function_addresses_integrated": true,
     "corrected_source_hashes_confirmed": true,
-    "note": "All portable progress exported after normal function-scoped live acceptance."
+    "portable_revision": 19171,
+    "note": "Normal live judge accepted same source; automatic claim release verified. Fresh full portable progress save."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",
@@ -1367,5 +1371,23 @@
     },
     "selected_sources_and_profiles_preserved": true,
     "note": "Normal app judge retained reviewed drafts; no new exact C. Fresh complete portable save and full cartridge equality. Prior750 causal alternative retained separately."
+  },
+  "last_match": {
+    "date": "2026-11-07",
+    "function": "func_800529F0",
+    "source_sha256": "51a4c79ad8b3c41cf6e2fa4bde94302464beb00d4f775f025643714f07397ca7",
+    "linked_sha256": "44b149307a851be3f92fde3448761728857305055b5a54805e93ef21d3d14fbe",
+    "size": 448,
+    "selected_c": 2078,
+    "standalone_functions": 2124,
+    "assembly_entries": 46,
+    "app_matched": 2078,
+    "app_open": 15,
+    "app_assembly": 28,
+    "portable_revision": 19171,
+    "tool_revision": "3bf62439318c0a48f93cf85c736f85142a885e94",
+    "repair_pr": 751,
+    "repair_commit": "c392089ea49f889e7d73f1dbea6aa7516757887f",
+    "all_prior_selected_sources_and_profiles_preserved": true
   }
 }

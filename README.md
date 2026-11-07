@@ -20,6 +20,23 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Rank dispatch and invariant setup — 7 November 2026
+
+`func_800529F0` now matches all **112 instructions / 448 bytes** with its existing
+KMC GCC 2.7.2 profile. The live project has **2,078 matched functions / 15 open /
+28 retained as assembly**. All earlier selected sources and compiler profiles
+are preserved, and the complete **12,582,912-byte** cartridge is byte-identical.
+The standalone build selects 2,078 of 2,124 entries as C, leaving 46 assembly
+entries; its entry boundaries differ from the app's function list.
+
+The fix stages genuinely consumed comparison constants before the invariant
+pointer copy and preserves the switch's forward case graph. A structured
+`if`/`else` control fixed setup order but changed the dispatch instructions.
+[PR #751](https://github.com/RetroReversing/decompdecomp/pull/751) automates the
+successful composition for eligible loops, with 138 local tests and an exact
+replay of this function. See [the investigation](docs/matching-experiments/func_800529F0-investigation.md).
+The complete portable progress snapshot is retained in `progress/`.
+
 ### Reviewed draft improvements — 7 November 2026
 
 The complete cartridge still compares byte for byte, with **2,077 matched

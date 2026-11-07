@@ -1,5 +1,52 @@
 # Championship accumulation investigation
 
+## Matched — 7 November 2026
+
+The current 100 draft is superseded by exact source
+`51a4c79ad8b3c41cf6e2fa4bde94302464beb00d4f775f025643714f07397ca7`.
+Ordinary compilation, diagnostic compilation and independent object relinking
+agree on all 448 target bytes, SHA-256
+`44b149307a851be3f92fde3448761728857305055b5a54805e93ef21d3d14fbe`.
+The original KMC 2.7.2 `-G0 -mips3 -mgp32 -mfp32 -O2 -g3` profile, header,
+8-byte frame and target boundaries remain unchanged.
+
+Two new reviewed controls isolated the remaining cause:
+
+1. Initialize three ordinary integer operands to 1, 2 and 3 at the second
+   loop's entry, before the flag-pointer copy. Direct comparisons genuinely
+   consume them. Unlike earlier precomputed Boolean controls, these assignments
+   survive initial CSE: the nonzero equality branches require register operands.
+   Loop motion visits their assignments before the pointer copy, repairing the
+   complete invariant setup. A structured `if`/`else` dispatch nevertheless
+   changes later branch orientation and introduces an arithmetic selection,
+   worsening the overall score to 1650 on 456 bytes.
+2. Retain those operands and use forward branches to the real case bodies,
+   comparing in order 1, 0, 2, 3, with physical case bodies in order 0, 1, 2, 3
+   and a shared points-update join. This preserves the default edge, original
+   memory effects and case operations while recovering the target's branch
+   graph and delay slots. It is exact; no dummy references, extra memory access,
+   inline assembly, ABI change or compiler-profile change is involved.
+
+The copied complete cartridge was rebuilt and compared independently: all
+12,582,912 bytes agree, SHA-256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`.
+The normal live judge subsequently accepted the same source. All previous 2,077
+matched sources and effective profiles remain unchanged. The standalone tree
+selects 2,078 C entries, leaving 46 assembly entries; the live project has 15
+open functions and 28 assembly functions.
+
+[decompdecomp PR #751](https://github.com/RetroReversing/decompdecomp/pull/751)
+implements the bounded `switch_constant_dispatch` proposal and updates compiler
+guidance. Its AST-generated spelling independently reproduces the same exact
+448 bytes. There are 138 passing local tests, including executed effect traces
+and conservative scope, macro and control-flow rejection checks. External
+PROJECT/custom builds remain disabled pending proof of invocation context.
+Private `current100-movable-nov7` retains frozen inputs, complete hydrated
+history, phase dumps, watchdog receipts and cartridge evidence. The older
+sections below are historical, not the current match verdict.
+
+## Historical 135 draft
+
 The saved score-135 draft is semantically sound; audited layout sums=0x58, laps=0x118, total=0x168. The clean alternative only removes unused locals, remains 135/nonexact, SHA256 3e63cc2d3f1051e701f8a1ebdf88af2a96b5f08ce5ed141e7e5acd4a25b737f2. 1000 native candidates,59 generic repairs and targeted probes (including61 parent probes, some overlapping helper probes) found no exact match. Residuals: first summing loop accumulator v1 versus candidate a1 and row pointer a1 versus candidate v1; flag address hoists before rather than after switch constants. Sum commutation/scope/type/reuse, bound capture, address forms, independent bindings, switch order, flag lifetime placement, total accumulation forms and simple source-line changes did not improve135. Full minification changes scheduling but worsens295; do not infer formatting is inert. OPEN/revisitable, no compiler/profile/target/ABI/judge changes, no selected standalone C. Clean source: docs/matching-experiments/func_800529F0-nonmatching-alternative.c.
 
 ## Register-lifetime and scheduling revisit
