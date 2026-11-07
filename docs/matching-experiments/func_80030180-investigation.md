@@ -242,3 +242,32 @@ ended normally with no errors or surviving owned processes. Full focal and
 selected-state snapshots compare equal; all2,077 selected matches/profiles and
 OPEN107 remain unchanged. Private receipts are retained in
 `direct-byte-literal-interaction-nov7`; no new cartridge progress is claimed.
+
+
+## November 7: named point fields and reload placement
+
+Loader-backed signed16 x/y/z records permit named-field controls without
+flattening scalar members into a fictitious halfword array. Two finite controls
+retain the original byte-offset branch arithmetic and else-do scope.
+
+Caching named pa/pb fields only for the pre-output differences scores1327 on
+452 bytes/frame16. It eliminates two intermediate USE homes, but also eliminates
+actual target base/address reloads and extends pointer lifetimes. The output
+COORD expression still leaves one temporary home. Sourcecdcdc4ce2164954226b724740150016aeee696f3d5d50af50cb8b0a6cd2eb6ca
+links to016a270e238e62777a854796d00fc83aa7d2148ac04095e671bf3227000230a7.
+
+A second control changes only the seven COORD producers into fresh named-field
+reads at their original read points, preserving every later reload/store and
+the real d[new_var] consumer. Its initial RTL has MEM_IN_STRUCT on these reads,
+unlike the old raw direct-byte form. The compiler source consults that flag in
+CSE and scheduling, so a measured interaction control was warranted. Nonetheless,
+ordinary/diagnostic and independent relinks produce exactly the earlier
+direct-byteA/B output: score480,480 bytes/frame8, SHA256
+794fa0ca5e422ac7c6c8f7cf6156f170272bf0e582519eb9b7dfb547b941ddc5.
+A real initial-RTL distinction need not change final machine code.
+
+Exactly four compiler calls completed under20-second/2GiB aggregate watchdogs,
+with independent relinks, no surviving workers and unchanged468 hydrated attempts,
+full focal inputs and all2,077 selected sources/profiles. Preserve OPEN107; no
+cartridge or new-match claim. Private current107-phase-nov7 and
+current107-fresh-field-nov7 reports retain complete provenance and receipts.
