@@ -236,3 +236,38 @@ loads was established under the actual O2 profile. Do not repeat comma versus
 statement-expression syntax as if only `safe_from_p` caused the failure. This
 second two-call control preserved all selected hashes/profiles and the valid20
 draft. No live or canonical source changes; only this negative record is added.
+
+## November 7: shared constant survives first CSE, not second CSE
+
+A fresh audit preserves valid20, all 910 hydrated attempts and all 2,078
+selected sources/effective profiles. A bounded regional size/assembly scan
+found no newly exact donor; nearest `func_80049F50` remains open at745 with a
+different global sentinel. This is bounded donor evidence, not an exhaustive
+semantic search of every imported function.
+
+One source-reviewed control adds an ordinary `s32 one = 1` at the mode2 body
+entry and consumes it in the existing mode1 comparison and early return. It
+changes no memory access, branch meaning or ABI. Earlier shared-one controls
+used different pointer/return shapes or the rejected XOR/OOB lineage; they did
+not establish the outcome on the current valid source.
+
+The new source, SHA-256
+`fcc71de65639fc0dd48883e48c64692aaeda919a444e87a19d089aab6d7664f2`,
+still produces20/120bytes. Ordinary/diagnostic and independent relinks reproduce
+the current linked body `e5a6b361d7a334e1b208ae84997183b483d4db8b9e8fabccad0486815719d97d`.
+The shared constant survives first CSE and loop motion, but second CSE folds
+the return copy back to literal1. Its lifetime then ends at the earlier mode
+comparison; local link and sentinel temporaries still choose v0.
+
+The installed compiler supports CSE follow-jump/skip-block controls. The actual
+propagation crosses a skip-block edge, so disabling jump-following alone would
+not target it. More importantly, `global.c` attempts local-register eviction only
+after failing its ordinary/preferred/alternate searches. A global return
+preference alone cannot evict local v0 while other usable registers remain.
+Retaining the constant therefore does not establish the desired allocation.
+No speculative flag sweep followed; the current verified profile is unchanged.
+
+Exactly two compiler calls completed under20-second/2GiB aggregate process and
+orphan limits, with no survivors. No live writes, claims or new match. Private
+`current20-return-cfg-nov7` retains the paired receipts, complete preservation
+audit, `REPORT.md` and `FLAG-AUDIT.md`.

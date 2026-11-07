@@ -261,3 +261,61 @@ No new justified source control emerged, so this audit made zero compiler,
 Clang or candidate-generator calls. Keep the valid 1200 draft and investigate
 another function. Private evidence: `current1200-stage-phase-nov7/REPORT.md`
 and `phase-provenance.json`; the reused dumps are not a fresh compiler replay.
+
+## November 7: eligibility after the rank-dispatch match
+
+After `func_800529F0` matched and PR #751 added `switch_constant_dispatch`, a
+fresh read-only audit tested this decoder's eligibility using its real compiler
+invocation scope. The generator correctly returned no proposals: its switch
+has cases 0, 1 and 2, with an implicit no-op default, whereas the proven family
+requires four real cases. The function's `H` and `R` macros independently fail
+the context guard. No empty case or guard bypass was introduced to force a fit.
+
+All 690 attempts were hydrated, representing 580 distinct sources. The target
+already consumes constant 1 for shifts and dispatch and constant 2 for dispatch;
+the rank function's operand-order result alone does not explain this decoder's
+earlier Boolean/count and RAM-base motion. No new candidate or compiler call
+followed. OPEN1200 and all 2,078 selected sources/profiles remain unchanged.
+Private evidence: `switch-dispatch-audit-nov7/REPORT.md` and `eligibility.json`.
+
+
+## November 7: staged dispatch and separate count lifetimes
+
+All controls below are private, use the same pinned KMC profile/header/prelude,
+and retain the live valid score-1200 draft. Each received one ordinary and one
+`-da` compilation, with independent saved-object reload/relink equality. These
+are causal controls, not additional matches or changes to the live project.
+
+| Source change from the preceding control | Score | Linked bytes | Source SHA-256 |
+| --- | ---: | ---: | --- |
+| Word decoded value and explicit guard seed | 1803 | 1272 | `c918a9cb61726bb361b4af92db8daab2f4ce2300ad58e390d41d46a859e4d0e6` |
+| Stage constants inside guarded inner loop; straight forward dispatch | 2658 | 1252 | `a54fd7d8b0ac862270057a9af9af1a78803d87aadc5b2f52e7928eb4e05d6155` |
+| Stage constants in outer loop; balanced dispatch | 2193 | 1272 | `80c2c8f867c7603fa27ee2bf4f5432fdea2ee24a93a21960dcd8cd0412912a3d` |
+| Use literal 2 for the less-than branch | 1998 | 1272 | `d921c4a9934b85ea0b656cf2d5e2354dac6aad765656be9a52b72e6ab7c1f830` |
+| Commute the two pure OR operands | 1993 | 1272 | `0b975ee621a0fb34c8987cd5b0314f35546b3a2be44dea3f325ba7225a1623fc` |
+| Separate outer integer guard and inner integer backedge bound | 2090 | 1284 | `d3dd3d75cb857b1ac8fdbc7a2c0c53b58b6d67511517bcfb55de10d525f4faa9` |
+
+The first two dispatch controls show why the rank-function repair does not
+transfer mechanically. Constants defined behind the guard cannot cross it during
+outer loop motion. Moving them before the guard changes that lifetime. Replacing
+the named less-than operand with literal 2 restores SLTI and reduces the constant
+2's weighted references, recovering its target register, but does not match the
+function. The OR operand order changes GCC's first-operand preference and moves
+the decoded value from a0 to v1; it still lacks the target's v0 store followed by
+v1 copy, and the equality branch remains scheduled before the map store.
+
+The target's first flag loop uses t3 for its bound. Only after that loop does it
+form the later outer guard in s1; the inner loop separately forms its backedge
+bound in t4. A proposed cache across both loops was rejected on this evidence
+without compilation. The narrower separate-guard/bound control retained a
+distinct inner mask, but s1 still held the whole-RAM base rather than the guard.
+It also introduced signed SLT where the target uses SLTU. Its paired linked body
+is `e88f86cd117e9250298841a1c5cd7b60d64602fe765e01cf5d48a3499167334a`.
+Thus matching the saved-register name or frame alone remains insufficient.
+
+Private evidence is under `guard-word-dispatch-nov7`,
+`outer-balanced-dispatch-nov7`, `outer-balanced-immediate-nov7`,
+`outer-balanced-or-first-nov7` and `distinct-guard-bound-nov7`.
+Compiler workers were bounded by 20 seconds and 2 GiB aggregate process memory;
+the final pair exited normally with no owned survivors. No artificial case 3,
+fixed-register operand, new memory effect, or uninitialized mask was introduced.
