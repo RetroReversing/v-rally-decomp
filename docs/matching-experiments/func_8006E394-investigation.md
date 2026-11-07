@@ -212,3 +212,33 @@ All2077 selected full rows/profiles and complete focal inputs were preserved;
 the live draft remains OPEN1200. The driver, generator and watchdog were
 reaped. No app deployment/restart or cartridge claim. Private receipts remain
 in current1200-coverage-nov6, including shared-existing-init-replay.json.
+
+
+## November 7: current count-guard and decoded-word composition
+
+Fresh read-only capture preserves current valid1200 sourcece810760,690 hydrated
+attempts and all2077 selected full sources/effective profiles. The reviewed
+explicit-guard control already retains the desired masked count at entry and
+unsigned lower backedge (1613), but loses the target frame/register arrangement.
+Earlier word-valued decoded-v tests used older seeds. One uncovered composition
+changed only that guard control's local v declaration from u8 to s32.
+Its only definition ORs two equality booleans, giving0..3; its map-byte store and
+switch therefore retain the same values. Mask initialization remains before both
+loops and after both count branches; no invalid1195 path regression is reused.
+
+Exactly two bounded compiler calls produce ordinary/-da raw linked parity at1803,
+1272bytes, SHA256
+77869948d77bed105a5941f0c38b116f2bf36abe186fe280e178ff6b7c391a29.
+Source SHA256c918a9cb61726bb361b4af92db8daab2f4ce2300ad58e390d41d46a859e4d0e6.
+The count remains a hoisted zero-extended integer rather than a Boolean and the
+switch no longer truncates v, but frame32/absent s1 and other allocation remain
+wrong. Fixing these two representations together is not sufficient. Keep1200;
+no further type/guard quota or adoption follows.
+
+Objects independently reload/relink to the saved bodies. Both owned-process
+watchdogs complete within20s/2GiB aggregate limits with no survivors. All selected
+sources/profiles,690 history records and full focal inputs remain unchanged.
+Private current1200-causal-nov7 retains reviews, range/definition-use evidence,
+phase dumps and receipts. Outer worker commands were recorded; compiler flag
+and executable templates were reconstructed, not literal ephemeral temp paths.
+No live writes, generation, new match, cartridge or app deployment claim.
