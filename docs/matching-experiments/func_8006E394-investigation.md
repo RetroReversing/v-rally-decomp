@@ -401,3 +401,30 @@ All2,078 selected sources/profiles remain preserved. Private evidence:
 `typed-distinct-unsigned-nov7/READONLY-FINAL-AUDIT.md` and
 `combine-use-audit.json`. Continue another function until a real producer or
 later transformation supplies a new causal lead.
+
+## November 7: cross-region decoder donor audit
+
+A fresh strict read-only audit found a real machine homolog in the separate
+`v-rally-2` import: `func_8006ECEC`. All323 instruction lines agree after
+normalizing relocation expressions, call names and local labels to offsets
+from each function start. Register operands, other immediates, local branch
+destinations and instruction order remain equal. This establishes the machine
+shape, not semantic identity of relocated objects or callees.
+
+The homolog uses the same effective KMC profile, but has zero attempts and no
+saved best/matched C. Its stored machine seed is available and was inspected;
+it still contains unknown types and guesses an additional callback argument.
+Its guard, masked count, unsigned backedge and balanced dispatch repeat existing
+reviewed representations and supply no independent ABI proof or new defined-source
+control. It also reproduces the late unused flag-base artifact without explaining
+its compiler-phase producer.
+
+The heuristic donor inventory covers72 projects and290,042 function rows, with
+assembly exposed for31,574; a separate screen covers32,940 saved C sources across
+27 projects. These availability-limited opcode/text screens do not establish
+exhaustive semantic coverage of all imported on-disk projects. No suitable
+additional C donor or justified fresh compiler control emerged. No compiler,
+generator, live mutation or claim ran. Full before/final freezes, including690
+hydrated attempts and all2,078 selected full rows/profiles, are byte-identical.
+Keep OPEN1200 and the separate score2015 lifetime frontier. Private evidence:
+`donor-audit-nov7/REPORT.md`, `homolog-comparison.json` and `preservation.json`.
