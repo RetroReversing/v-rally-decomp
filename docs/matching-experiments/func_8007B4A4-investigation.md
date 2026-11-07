@@ -434,3 +434,26 @@ store tracking through SP. No new producer/elimination cause justified another
 compile. No compiler, generator or live operation ran; this artifact-only audit
 does not claim a fresh full database snapshot. Private value-record-revisit-nov7
 retains input hashes, direct RTL/final references and these coverage limits.
+
+
+## 2026-11-07: isolated quotient scopes on current score-52 source
+
+Two one-factor controls were tested on source `d457155e`, after auditing retained
+sources and 840 hydrated attempts for duplicates. Wrapping only entry `dx /= len`
+in a one-shot do/while scope produced score 767, frame 96; wrapping only the first
+`g1` fade quotient produced 1379, frame 88. Both bodies were 1,400 bytes, worse
+than selected 52. Ordinary and diagnostic builds agreed, as did independent
+persisted-object reopen/relink/rescores (four compiler calls, four relinks).
+
+The scopes changed actual loop reference weights: entry dx 11→13 and len 34→35;
+fade g1 and dot each 24→25. Entry changed floating-register assignments; fade
+removed a saved floating-register pair. Neither supplied the missing 16-byte
+local reservation or the target general-register roles. Do not repeat a quotient
+scope sweep or infer an FP automation success from these negative controls.
+
+Full before/after snapshots preserved all 2,079 selected rows/profiles, 840 focal
+attempts and focal context/configuration/symbols/claims. The bounded controller
+completed normally in 10.14 seconds, peak aggregate RSS 400,532 KiB, without owned
+survivors. Private quotient-scope-nov7 retains hashes, exact sources and receipts;
+compiler binary identity was checked after the phase, while the isolated runner
+and source snapshot were pinned before/after. No live adoption or new-match claim.
