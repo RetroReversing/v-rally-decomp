@@ -247,3 +247,28 @@ as `func_80059A60-current750-causal-frontier.c` (SHA-256
 It remains useful for causal work: the lower numeric score630 includes another
 NOP and matches fewer words under sequence alignment. Neither source is exact;
 this file is research material and is not selected for the cartridge build.
+
+
+## November 7: fresh history and late-consumer audit
+
+Fresh read-only capture preserves live630,624 hydrated attempts (394 distinct
+sources), and all2,078 selected sources/effective profiles. The three entries
+added since the previous audit contain the retained formatting baseline, an830
+Style.id signedness variant, and a650 layout-swapping variant; none is an
+overlooked admissible improvement on the current layout and score630.
+
+The late-consumer explanation was already demonstrated in
+`current-nov5-grounded/AUDIT.md`: the rejected identical-arm i==4 branch hoists
+4, then post-allocation jump optimization tail-merges its duplicate arms and
+leaves the materialization. This is not a new discovery or permission to restore
+that branch. A fresh inventory finds the legitimate ladder controls retain
+their comparisons through delay-slot reorganization, and the genuine countdown
+retains its bound consumer. No retained valid control demonstrates a real
+consumer disappearing late while leaving the desired dead4.
+
+A bounded screen of305 other comparable1200–1400-byte targets finds no raw exact
+donor; it is not semantic or relocation-equivalence proof. No compiler, Clang
+or generator calls were justified. Complete focal/history/selected snapshots
+agree before/after; no claim or live write. Private evidence:
+`frontier-audit-nov7/REPORT.md` and its phase inventory. Preserve both630 and
+the separately committed750 causal frontier.
