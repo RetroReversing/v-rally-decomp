@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794027977.479105,
- "revision": 19171,
+ "saved_at": 1794040078.313483,
+ "revision": 19174,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -7011,7 +7011,7 @@
   "func_8005A05C": {
    "vram": 2147852380,
    "matched_by": "restored",
-   "readable": false
+   "readable": true
   },
   "func_8005A0A8": {
    "vram": 2147852456,

@@ -1,4 +1,4 @@
-# V-RALLY-PAL: decompdecomp progress
+# V-RALLY: decompdecomp progress
 
 This is a saved decompilation project created with [decompdecomp](https://github.com/n-delic/decompdecomp).
 AI agents were used during the decompilation; their C attempts were kept only when decompdecomp's byte-for-byte
@@ -6,11 +6,9 @@ judge accepted them as matches.
 
 ## Project details
 
-<!-- decompdecomp:details:start -->
-- **Game:** V-RALLY-PAL
+- **Game:** V-RALLY
 - **Platform:** n64
 - **Compiler:** gcc-2.7.2-kmc
-<!-- decompdecomp:details:end -->
 <!-- decompdecomp:progress:start -->
 - **Progress:** 2078 matching function(s), 31 best attempt(s)
 - **Completion:** 2,078 / 2,093 functions (99.3%). 28 set aside, excluded from completion.
@@ -36,12 +34,6 @@ README.md             this file
 Open decompdecomp, choose **New project → Open a saved project**, then pick this folder (or paste its git
 repository's address) and your own copy of the game. decompdecomp checks it's the same game and judges every saved
 function again: a match counts because it matches, not because a file says so.
-
-## Collaborate
-
-This folder is the source of truth. Edit its C, headers, names, notes or settings and pull or merge contributions
-here. decompdecomp picks up changes automatically and judges changed code again. Deleted sources reopen their
-functions. Keep git conflict markers out of these files; unresolved conflicts pause synchronization.
 
 <!-- decompdecomp:visuals:start -->
 ## Progress map
