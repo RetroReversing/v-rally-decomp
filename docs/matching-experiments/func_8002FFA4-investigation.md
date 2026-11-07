@@ -441,3 +441,32 @@ measure their removal and resulting allocation regressions. They do not prove
 that arbitrary signed offsets can be replaced by unsigned arithmetic. No new
 compiler, Clang or generator calls were justified. Private
 current107-preference-nov7/REPORT.md retains the fresh state and causal audit.
+
+
+## November 7: existing byte offsets consumed as record quotients
+
+One exact-current composition retained a/b's signed index*6 definitions and
+first x-pointer reads, but expressed the seven later coordinate reads through
+named signed-halfword record fields indexed by off/6, converting each value to
+u16. For representable original products, signed division recovers the original
+record index even when negative. Every base-field reload and output-store alias
+point was preserved. This differs from the earlier direct record-index source.
+The added typedef also shifts debug lines, so this measures the whole pinned
+composition rather than isolating an index-only scheduling effect.
+
+Source SHA256
+`a760573801169d6e8987e235663c7bfb6024a7013a474c5621c2075f24477fc3`
+scored2770/560bytes in ordinary and diagnostic modes; frame8 is correct but
+reciprocal-multiply/divide-by-six address work makes the body worse than107.
+Both retained14LHU/0LH/9SH, agreeing with target access widths. Two fresh-process
+persisted-object relinks agree on linked SHA256
+`8247bcb194c17ced698a135a28360d61a1b05ed17b20da81d07f84761efe2f6f`.
+No source was adopted and no new automatic repair is justified.
+
+The bounded phase used exactly two compiler calls and two independent relinks;
+outer11.19s/191,040KiB finished without surviving owned workers. All701 pinned
+inputs/tools and the actual test's complete focal/configuration,1,541 hydrated
+attempts and2,079 selected rows/effective profiles remained unchanged. Earlier
+read-only audit captures grew from1,529 to1,538 to1,541 attempts through separate
+activity; those snapshots are not claimed identical. Private object-model-audit-nov7
+retains proposal, coverage limits, raw external deltas and finite-test receipts.
