@@ -410,3 +410,40 @@ with no survivors. All2,078 selected sources/profiles and737 focal attempts/full
 inputs remain unchanged. Source files and compiler/native/app implementation
 pins are private under `frontier-native-nov7/`; judging requires its separate
 reviewed phase and no matching result is claimed here.
+
+
+### Fixed batch completed
+
+All1,000 raw emissions were judged without feedback or a replacement quota:
+407 delivery-guard rejects,88 strict-Clang preflight rejects, and505 compiled
+and linked outputs. Those505 represent252 distinct linked bodies and253 duplicate
+linked bodies. No output matched or beat the live score518. Each successful
+GCC-command launch produced a retained linked output; this is not an inference
+from wrapper invocation counts alone.
+
+The judging watchdog finished normally in687.82seconds, peak sampled aggregate
+RSS458,464KiB, with no remembered orphan RSS, cleanup errors or surviving owned
+processes. Raw sources, complete lineages, objects, linked bytes and individual
+preflight/compiler receipts remain private. This closes the fixed quota; it
+does not establish exhaustion of possible C rewrites.
+
+One numerically promising555 variant moved a rectangle-width store past calls
+that consume the rectangle. It is semantically rejected. A reviewed550 variant
+only swaps disjoint local rectangle width/height stores before the first
+constructor; it remains worse than518. The genuine horizontal arithmetic
+capture at560 likewise remains a private structural observation, not a new match.
+
+The batch exposed an app guard defect: field spelling such as p->x made the
+verdict for local x unknown. Shared initialization checks now hide member names
+from binding-specific write checks while retaining base/index/RHS reads and
+opaque macros. PR754 merged as1cf13e62;173 related tests passed, followed by117
+initialization tests including the final macro regression, and whole-tree Ruff.
+Read-only replay rejects the previously missed local-x initialization loss in
+candidate43. Candidate6's separate temporary remains unknown: this is bounded
+initialization analysis, not a complete equivalence proof. The pinned judging
+runner was not changed mid-batch, and the running app was not updated.
+
+Root independently compared the before/after-judge selected and focal snapshot
+files byte-for-byte: all2,078 complete selected sources/effective profiles and
+all737 hydrated focal attempts/full inputs are preserved. No live draft,
+selected source or compiler profile was adopted. Function remains OPEN518.
