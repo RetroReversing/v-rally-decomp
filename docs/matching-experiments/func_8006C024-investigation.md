@@ -211,3 +211,42 @@ Fresh before/after captures preserve all2077 matched full sources/profiles,
 complete focal inputs and440 hydrated attempt records. Private
 current1733-structure-nov6 retains shared-tail.c/diff, result.json, RTL, source
 path proof and preservation receipts. No live state or runtime was changed.
+
+
+## November 7: current-root lifetime composition (private1715)
+
+A fresh read-only audit binds current1733 source8c509f91,440 hydrated attempts,
+and all2077 selected full sources/effective profiles. Installed cc1 disassembly
+confirms loop motion runs before the strength-reduction flag is consulted; the
+actual39-option table has no selective loop-motion switch. Current-root native
+coverage is256 emissions/179 linked candidates, not the older1000-emission root.
+
+The previous hoist explanation needs qualification: table pseudos140/156 and
+literal188 already have REG_EQUIV constants and are rematerialized, not saved
+register occupants. The real extra saved carrier is the mode<<6 offset computed
+before the decoder call. One scope around the final genuine store raises the
+record pointer's priority but still spills it (1838). Moving the pure bounded
+offset after the call removes that carrier, but loop optimization then hoists
+mode<<6 into fp (1939). Both are negative, ordinary/diagnostic byte-identical.
+
+Combining the delayed offset with the already proven equivalent goto backedge
+on this actual current root prevents that motion, recovers target80-byte frame,
+960-byte output and fp record pointer, but reverses iterator/mode registers
+(1765). One single-execution scope around the existing increment raises the
+iterator's measured references6→8, priority662→1325 above mode765. This recovers
+all target saved-register roles and improves the score to1715. Ordinary/-da and
+independent raw relink agree, SHA256
+ d81931bcc6aea5910edc72a938ac186c0142502cfcfa1570144af0902bc2e5ab.
+Source SHA2569f7cd6b0e5db777975887833b89983acadba4befe09489b3ea17b559ad31c32d.
+This remains nonmatching:57 advisory register rows and other operand/scheduling
+issues remain. Existing app loop_weight_scope can produce the increment scope;
+this is a measured composition, not proof of a new repair family.
+
+A fifth conversion-preserving index/delta phase reuse worsens the result to2150,
+956bytes. Its longer merged lifetime changes interference; keep1715 privately.
+Ten individually authorized compiler calls total, ordinary/diagnostic pairs,
+20-second/2GiB aggregate owned-process guards; no random generation or live writes
+by the helper. Parent normal app retention is a separate operation, not yet
+claimed completed here. No exact match, selected standalone C or cartridge claim.
+Private current1733-invariant-nov7 retains source/effects reviews, phase dumps,
+raw objects, independently relinked bodies and preservation/terminal receipts.
