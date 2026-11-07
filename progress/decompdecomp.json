@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1793995885.57218,
- "revision": 19158,
+ "saved_at": 1794024145.0133,
+ "revision": 19169,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5950,8 +5950,8 @@
   },
   "func_80049DB0": {
    "vram": 2147786160,
-   "best_score": 40,
-   "best_by": "candidate-review"
+   "best_score": 20,
+   "best_by": "manual-49308026962141bb"
   },
   "func_80049E28": {
    "vram": 2147786280,
@@ -6425,8 +6425,8 @@
   },
   "func_800529F0": {
    "vram": 2147822064,
-   "best_score": 135,
-   "best_by": "claude-opus-7"
+   "best_score": 100,
+   "best_by": "manual-49308026962141bb"
   },
   "func_80052BB0": {
    "vram": 2147822512,
@@ -6990,8 +6990,8 @@
   },
   "func_80059A60": {
    "vram": 2147850848,
-   "best_score": 750,
-   "best_by": "manual-41fda8e0f3c34bff"
+   "best_score": 630,
+   "best_by": "manual-49308026962141bb"
   },
   "func_80059F80": {
    "vram": 2147852160,
@@ -8400,8 +8400,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 1733,
-   "best_by": "manual-c2e7a626c7ff4a86"
+   "best_score": 1700,
+   "best_by": "manual-456b41083c0a44de"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -250337,6 +250337,46 @@
    "created_at": 1793995832.290099,
    "score_before": 177,
    "score_after": 107
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Retained reviewed private improvement through normal judge. Independent ordinary/diagnostic linked bytes verified; still nonmatching.",
+   "by": "manual-49308026962141bb",
+   "created_at": 1794023350.8871958,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Retained reviewed private improvement through normal judge. Independent ordinary/diagnostic linked bytes verified; still nonmatching. Preserve750 causal frontier: lower numeric score630 has additional NOP and less matching raw sequence; valid AST-identical alternative, not exact.",
+   "by": "manual-49308026962141bb",
+   "created_at": 1794023405.332086,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Retained reviewed private improvement through normal judge. Independent ordinary/diagnostic linked bytes verified; still nonmatching. New valid20, independently linked paired equality; not historical invalid20. All target instruction order recovered, four local register operands remain.",
+   "by": "manual-49308026962141bb",
+   "created_at": 1794023459.613483,
+   "score_before": 20,
+   "score_after": 20
+  },
+  {
+   "function": "func_800529F0",
+   "text": "Retained reviewed private improvement through normal judge. Independent ordinary/diagnostic linked bytes verified; still nonmatching. Isolated consumed contribution with six accumulation scopes and real counter advanced afterload/beforeaccum; paired/relinked448B exactfirstloop, onlyfivepreheaderorderwords differ. Notexact.",
+   "by": "manual-49308026962141bb",
+   "created_at": 1794023475.309979,
+   "score_before": 135,
+   "score_after": 100
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Retained reviewed private improvement through normal judge. Independent ordinary/diagnostic linked bytes verified; still nonmatching. Delete redundant initialized s32 alias; selector now global s5 from original call, eliminating local-to-global register move. Actual-header ordinary/diagnostic independent relinks agree at1700/956B,frame80. Still nonmatching.",
+   "by": "manual-456b41083c0a44de",
+   "created_at": 1794024101.838998,
+   "score_before": 1465,
+   "score_after": 1465
   }
  ],
  "set_aside": [

@@ -296,3 +296,26 @@ The complete investigation now has eight actual compiler calls and four
 independent relinks; all bounded processes are terminal, and fresh snapshots
 still preserve859 attempts and all2,077 selected sources/profiles. No further
 control or exact-match claim follows from these negative results.
+
+## 7 November: unconditional post-switch copy is still not movable
+
+After normal live retention of100, a fresh audit hydrated862 attempts. Moving
+case0's flag store after the switch was already negative when the pointer copy
+was conditional. One new control instead places `flag = new_var` unconditionally
+immediately after the switch, before the unchanged conditional flag store and
+points update. This preserves actual memory operations and their order; only
+local assignments and the rank retest move.
+
+It scores1090/448 bytes, exactly the same linked bytes as the earlier split-case
+negative: SHA-256
+`d9b2af20da684fa7c218f55649dba46d594776ecacb0a657466479a10e4250e3`.
+Ordinary/diagnostic and independent relink agree. The loop pass retains the
+unconditional pointer copy UID399 but does not add it to its movables. Constants
+383/389/392 hoist to505/507/509; the original flag address remains before the
+first loop. The inspected loop scan treats user-variable copies after labels
+or jumps conservatively (`maybe_never`); lexical unconditionality alone does
+not remove that control-join restriction. This is not a late scheduler failure.
+
+Exactly two20s/2GiB-bounded compiler calls, no surviving processes; all2,077
+selected hashes/profiles and focal inputs unchanged. Preserve100. Private
+receipts: `current100-preheader-phase-nov7`. No new repair family is enabled.

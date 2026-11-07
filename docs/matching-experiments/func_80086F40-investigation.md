@@ -147,3 +147,45 @@ wrong s0/s1 allocation. Common physical-address returns fold and the independent
 head reload disappears, producing the shorter body. This is negative evidence,
 not an accepted replacement or automatic repair. Private donor-audit-nov6 holds
 source inventory, target ranking, exact-history check and linked receipts.
+
+
+## 7 November: distinguish global priority from earlier local allocation
+
+The fresh audit hydrated 647 attempts (455 unique sources). Selected `alLink`
+uses the same `N *, N **` interface as this draft, `alUnlink` uses its existing
+backlinks, `func_80081040` accepts the six-word aggregate, and
+`osVirtualToPhysical` is `s32(s32)`. Substituting a different SDK interface is
+not justified. Actual profile remains KMC GCC 2.7.2,
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`.
+
+Eight nested one-shot scopes around each existing parity assignment genuinely
+raise its weighted references from 17 to 33 and move it ahead of the walker in
+global allocation order. Nevertheless the result is byte-identical to the
+325 baseline: 468 bytes, SHA-256
+`629f7e0135af0b13cc1fd48fbdfc417152d3593192871c69488df9ff6623ad13`.
+The call-lived data pointer was already locally assigned `s0`; parity overlaps
+it and cannot use that register regardless of global priority. Walker dies at
+the data load and can reuse `s0`. Rank-only controls cannot remove this cause.
+
+Binding the existing raw data load to the same consumed C local in both return
+paths makes it global and removes the earlier hard-register reservation. It
+also creates a real walker/data overlap before the cache-hit start load, adding
+`s3` and growing the frame from 0x38 to 0x40. Result: 888, 476 bytes, SHA-256
+`6dfc01d2f01ab94ee6c0866f236ec2504edbc3397b30168d146e38212e472435`.
+
+A third control stages the existing start-field load before data in the hit
+path and combines this with the consumed parity-assignment scopes. Flow analysis
+ends the walker lifetime at the data load, but first scheduling moves the tail
+data load before both node stores and recreates the overlap. Walker `s1` and
+parity `s0` are recovered, while data still needs `s3`. Result: 1013, 476 bytes,
+frame 0x40, SHA-256
+`17be2dfb3c7ae52d34ae1c9d1f8bbad6e32e73c18671b8e6e824a7ef7e8d9291`.
+
+These six bounded compiler calls have ordinary/diagnostic parity and independent
+relinks. No added memory reads, dummy values, ABI changes or accepted C. All
+2,077 selected source hashes/profiles remain unchanged. A further read-only compiler audit rules out raw field spelling as a way to
+restore this dependency: `true_dependence` calls `memrefs_conflict_p` before
+consulting `MEM_IN_STRUCT`, and the identical base with distinct fixed offsets
+(+16 versus +8/+12) already proves the accesses disjoint. No additional compile
+is warranted by that flag alone. Do not repeat a flat register-priority or raw
+field-flag sweep for this cause. Private receipts: `current325-contract-phase-nov7`.

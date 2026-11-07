@@ -237,3 +237,13 @@ was justified. All2077 selected full sources/profiles,621 attempts and complete
 focal inputs remain unchanged. Private current750-causal-nov7 retains raw metrics,
 current-object relinks, provenance and preservation. Normal live submission is
 pending separately; no adoption, new match or cartridge claim.
+
+### Retaining both November 7 continuations
+
+The normal live judge now retains the formatting-only630 draft and the fresh
+portable snapshot includes it. The previous750 source is also retained exactly
+as `func_80059A60-current750-causal-frontier.c` (SHA-256
+`e56b4b68c62f2ff061ffc358f42ed9240dcbae1e902e8b0aa5a3000cd53219cd`).
+It remains useful for causal work: the lower numeric score630 includes another
+NOP and matches fewer words under sequence alignment. Neither source is exact;
+this file is research material and is not selected for the cartridge build.

@@ -250,3 +250,33 @@ by the helper. Parent normal app retention is a separate operation, not yet
 claimed completed here. No exact match, selected standalone C or cartridge claim.
 Private current1733-invariant-nov7 retains source/effects reviews, phase dumps,
 raw objects, independently relinked bodies and preservation/terminal receipts.
+
+## 7 November: remove a redundant consumed selector alias
+
+The normal app judge retained the earlier1715 draft. A fresh read-only audit
+hydrated441 attempts and identified a local/global source lifetime split:
+`temp_s5` was assigned once and then copied into a separate same-type `s32`
+local. The original remained read by a floating conversion, while the copy
+served two later arithmetic uses. The compiler retained the copy and locally
+allocated the first pseudo to v0 before moving it into global s5.
+
+Deleting only the redundant declaration and assignment, and replacing the two
+later uses with the unchanged original, yields1700/956 bytes, frame80. The
+selector becomes one global pseudo (five references, lifetime168, two crossed
+calls) assigned directly to s5; the extra register move disappears. Actual shared
+header/profile ordinary and diagnostic builds independently relink identically:
+SHA-256 `23d669f77eadaeea39d9e333aef312ae70c951d69d1e4e3fc84150454fb95304`.
+The source hash is
+`41e45e53829b102b0aae06bede6b927f36687ec6764ad52dea3046bf9e5d4ea1`.
+
+The normal live judge also retained1700 and a fresh portable snapshot includes
+it. All2,077 selected source hashes and effective profiles remain unchanged.
+This is an improvement, not an exact match; mode-register copies, table commoning
+and local output-address scheduling still differ. Exactly two bounded compiler
+calls; no surviving processes. Private receipts: `current1715-phase-nov7`.
+
+Existing non-overlapping integer lifetime merges do not directly cover this
+case: the original still has a read after the copy assignment. A reusable alias
+removal would need to prove same types, value equality and definite assignment
+on every relevant CFG edge, with no intervening source writes, escaping storage,
+shadowing or macro effects; textual substitution alone is insufficient.

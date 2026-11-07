@@ -189,3 +189,26 @@ attempts, complete focal state and all2,077 selected sources/profiles. Retain
 valid20 as reviewed private progress pending normal app verification; live40
 and matched count remain unchanged. No cartridge acceptance is claimed. Private
 load-order/staged-link/late-default reports retain complete source-bound receipts.
+
+## 7 November: returned statement expression does not reserve v0
+
+After normal live retention of the valid staged score20 draft, a fresh audit
+hydrated910 attempts. None combined the consumed nested pointer-load scopes
+with a GNU statement expression as the first operand of a returned logical OR.
+The control preserves the actual load order and short-circuits the root load
+exactly as before; its purpose was to make the genuine Boolean return live in
+v0 while the remaining chain temporaries were allocated.
+
+The result is negative:1040/136 bytes, ordinary/diagnostic parity and independent
+relink SHA-256
+`b880466ca3aba73b5ba64559d841ba06fc8dedd663f0ffad9e95167c759b5bcd`.
+The compiler's `safe_from_p` explicitly rejects the statement expression's
+`RTL_EXPR` instruction sequence, so logical-OR lowering initializes a new
+pseudo93 rather than hard v0. Initial RTL then copies that result to v0 only
+at the return. Local link80 stays in v0; result93 becomes a2 and extra Boolean
+branches/moves appear. This does not repair the four local-register differences.
+
+Exactly two compiler calls under20s/2GiB descendant-aware watchdogs, no survivors;
+all2,077 selected source hashes/profiles and all910 attempts preserved. Keep
+valid20, distinct from the older invalid XOR/OOB20. Private receipts:
+`current20-local-phase-nov7`. No new automatic repair family is justified.

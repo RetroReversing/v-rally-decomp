@@ -48,9 +48,24 @@ void func_800529F0(void)
     {
       u32 s;
       s = 0;
-      for (m = 0; m < rec->n; m++)
+      for (m = 0; m < rec->n; )
       {
-        s += t->laps[m][i];
+        u32 contribution;
+        contribution = t->laps[m][i];
+        m++;
+        do {
+        do {
+        do {
+        do {
+        do {
+        do {
+          s += contribution;
+        } while (0);
+        } while (0);
+        } while (0);
+        } while (0);
+        } while (0);
+        } while (0);
       }
 
       t->sums[cfg->idx][i] = s;

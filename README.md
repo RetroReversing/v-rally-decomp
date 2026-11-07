@@ -20,6 +20,21 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Reviewed draft improvements — 7 November 2026
+
+The complete cartridge still compares byte for byte, with **2,077 matched
+functions / 16 open / 28 retained as assembly** in the app. The fresh portable
+snapshot retains four reviewed improvements: `func_80049DB0`40→20,
+`func_800529F0`135→100, `func_80059A60`750→630, and
+`func_8006C024`1733→1715→1700. These are nonmatching drafts, not added C matches.
+All previously selected sources and compiler profiles are preserved.
+The earlier750 causal continuation is also retained as a named research file;
+its instruction sequence remains useful despite the lower numeric630 score.
+Compiler-phase notes record why several further scope, lifetime and control-flow
+variants did not improve the remaining functions. The app compiler guidance is
+updated in RetroReversing/decompdecomp PR #748.
+
+
 ### Unsigned 64-bit tail dispatcher — 6 November 2026
 
 The latest checkpoint contains **2,077 matched functions / 16 open / 28 retained
@@ -683,13 +698,13 @@ for integration exceptions; previous standalone sources are preserved.
 
 ## Build
 
-Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The combined export was verified using tool revision `4030a3ba87fe583be8506a712da167f1c7696746` and its pinned toolchains. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
+Use Python 3.12+, uv and a platform supported by [RetroReversing/decompdecomp](https://github.com/RetroReversing/decompdecomp). The current checkpoint uses tool revision `0817ba7596f44e1b64efabbc2185577c4fc58077` and its pinned toolchains. Earlier environment revisions can drop same-address symbol aliases during entry extraction; use this revision or newer rather than changing the game symbols to bypass that error. Most functions use KMC-compatible GCC 2.7.2; per-function ranges also select IDO 5.3 and SN GCC 2.8.1. Install required proprietary tools only after accepting their licensing conditions. This is a working compiler hypothesis, not proof of the game's original compiler release.
 
 ```sh
 git clone https://github.com/RetroReversing/v-rally-decomp.git
 cd v-rally-decomp
 uv venv --python 3.12
-uv pip install --python .venv/bin/python "decompnet @ git+https://github.com/RetroReversing/decompdecomp.git@4030a3ba87fe583be8506a712da167f1c7696746"
+uv pip install --python .venv/bin/python "decompnet @ git+https://github.com/RetroReversing/decompdecomp.git@0817ba7596f44e1b64efabbc2185577c4fc58077"
 .venv/bin/decomp setup
 .venv/bin/python tools/prepare.py "/path/to/your/V-Rally Europe ROM"
 .venv/bin/python build.py

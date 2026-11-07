@@ -1346,5 +1346,26 @@
     "func_80089A7C",
     "__osLeoAbnormalResume",
     "__osPackReadData"
-  ]
+  ],
+  "last_draft_refresh": {
+    "date": "2026-11-07",
+    "exact": true,
+    "size": 12582912,
+    "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
+    "selected_c": 2077,
+    "standalone_functions": 2124,
+    "app_matched": 2077,
+    "app_open": 16,
+    "app_assembly": 28,
+    "tool_revision": "0817ba7596f44e1b64efabbc2185577c4fc58077",
+    "portable_revision": 19169,
+    "reviewed_best_scores": {
+      "func_8006C024": 1700,
+      "func_80059A60": 630,
+      "func_80049DB0": 20,
+      "func_800529F0": 100
+    },
+    "selected_sources_and_profiles_preserved": true,
+    "note": "Normal app judge retained reviewed drafts; no new exact C. Fresh complete portable save and full cartridge equality. Prior750 causal alternative retained separately."
+  }
 }

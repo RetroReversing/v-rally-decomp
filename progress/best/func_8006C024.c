@@ -15,7 +15,6 @@ void func_8006C024(s32 arg0, s32 arg1)
   s16 temp_a1;
   s16 temp_s2;
   s16 temp_s2_2;
-  s32 new_var5;
   s16 var_s0;
   s32 record_offset;
   s32 temp_a0;
@@ -48,9 +47,8 @@ void func_8006C024(s32 arg0, s32 arg1)
   frame_table = D_800C02AE + 0x5A8A;
   sp14 = (u16 *)(frame_table + temp_s5 * 2);
   frame_record = ((temp_s0 * 4) + temp_s6);
-  new_var5 = temp_s5;
   temp_fs1 = (f64)temp_s5 * D_800A5880;
-  do
+  decode_next:
   {
     __repair_phase_temp_s0_2 = var_s3 & 0xFF;
     temp_fv1 = temp_fs1 + (((f64) __repair_phase_temp_s0_2) * D_800A5888);
@@ -69,8 +67,8 @@ void func_8006C024(s32 arg0, s32 arg1)
       
     }
     temp_a0 = 0xFF;
-    temp_s0_2 = new_var5 * 8;
-    new_var3 = temp_s0_2 + new_var5;
+    temp_s0_2 = temp_s5 * 8;
+    new_var3 = temp_s0_2 + temp_s5;
     temp_a0 = var_a0 & temp_a0;
     temp_s0_2 = var_s3 & 0xFF;
     if ((((((temp_s0_2 * 3) + new_var3) * 4) - (temp_a0 * 8)) & 0xFF) == 4)
@@ -105,13 +103,13 @@ void func_8006C024(s32 arg0, s32 arg1)
     {
       temp_v0_2 = temp_a0 + (D_800C02AE + 0x6E77);
       temp_t1_2 = *((u8 *) (((char *) temp_v0_2) + 0));
-      record_offset = temp_s0 << 6;
       temp_t0 = (*((u8 *) (((char *) temp_v0_2) + 1))) & 0xF;
       if (((temp_t1_2 < 0xFFU) | (temp_t0 < 0xFU)) != 0)
       {
         var_s1 = ((temp_t0 >> 2) * 0xE) + (D_800C02AE + 0x6E26);
         temp_s2_2 = temp_t1_2 | ((temp_t0 & 3) << 8);
         func_8006BF30(temp_s0_2, 0, arg0 & 0xFF, temp_s0);
+        record_offset = temp_s0 << 6;
         var_a2 = temp_s6 + ((temp_s0_2 * 0x10) + record_offset);
         *((s8 *) (((char *) var_a2) + 0x32)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 0xA) & 0x1F) + 0x41);
         *((s8 *) (((char *) var_a2) + 0x33)) = (s8) (((((u16) (*((u16 *) (((char *) var_s1) + 0)))) >> 5) & 0x1F) + 0x41);
@@ -136,10 +134,10 @@ void func_8006C024(s32 arg0, s32 arg1)
       
 
         
-          var_s3 += 1;
+          do { var_s3 += 1; } while (0);
         
       
     
   }
-  while (((u32) (var_s3 & 0xFF)) < 3U);
+  if (((u32) (var_s3 & 0xFF)) < 3U) goto decode_next;
 }
