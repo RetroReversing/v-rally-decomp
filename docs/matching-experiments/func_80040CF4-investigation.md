@@ -374,3 +374,39 @@ it is not merely an ordering difference next to the second rectangle stores.
 No legitimate dependency that retains one-death eligibility while preventing
 that early hoist has been established. Do not add fake barriers, aliasing or
 unused reads to manufacture one. No additional compiler call was made.
+
+
+## November 7: fixed search preparation from the new layout frontier
+
+The f5af causal frontier had no exact-source native coverage:4,724 bounded
+private source files contained only its five direct/observer baseline copies,
+and737 hydrated live attempts contained no exact root. Older native lanes used
+different sources. This justifies a single independent fixed batch, not another
+quota from the old roots or a score-selected portfolio.
+
+The two object macros were expanded token-for-token. Whole-translation-unit
+preprocessing yields the same1,785 tokens; native printing preserves the full
+AST. The printed seed SHA-256 is
+`25860eb76a7eeaeefd85ce694bc80e2fdae9af9e34869d84dc7740083a3198fa`.
+Strict C89 preflight includes declaration-after-statement errors. Ordinary/-da
+builds and independent saved-object relinks retain565/1548bytes and the exact
+f5af linked hash4a0adeef523ea3474f2e6477d1eb824920d1a0c621ce808a9db5f50e572d9371.
+Thus the printer does not silently replace this search root's machine behavior.
+
+Generation completed one fixed job, seed0x40cf4565, with1,000 distinct raw
+protocol emissions and one done record. Every source, cumulative transformation
+lineage and protocol line was retained before delivery guards or judging.
+Only temporary expression capture, statement/declaration order, assignment
+splitting, commutation and block insertion were enabled; external type mutation
+was disabled. Native internal retries/deduplication remain bounded by4,000 loop
+iterations:1,000 emitted sources is not a claim of1,000 internal proposals.
+There is no score feedback, replacement quota or source portfolio.
+
+The generation protocol SHA-256 is
+`c4866e7da7a81dec4f318f3e284f6449d206d348eae0f91a30c387a0da52171f`.
+At generation completion zero candidates had been judged. Generation took24.02s,
+peak aggregate sampled RSS127,984KiB; inner/outer watchdogs completed normally
+with no survivors. All2,078 selected sources/profiles and737 focal attempts/full
+inputs remain unchanged. Source files and compiler/native/app implementation
+pins are private under `frontier-native-nov7/`; judging requires its separate
+reviewed phase and no matching result is claimed here.
