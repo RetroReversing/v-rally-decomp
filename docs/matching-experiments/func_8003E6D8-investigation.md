@@ -215,3 +215,29 @@ owned survivors. All2,078 selected sources/profiles and complete725-row focal
 history/input snapshots are unchanged. No live adoption, selected C change or
 cartridge-progress claim. Keep current565. Private evidence and retained RTL:
 `preferences-fresh-nov7/`.
+
+## November 7: cross-arm ordinal and resource phase sharing
+
+Three new source-reviewed controls reuse genuine branch-exclusive mode-1 and
+mode-2 locals while preserving initialization, bounded arithmetic, callbacks,
+call/store order and the actual KMC profile. Sharing the mode-1 counter with
+mode-2 `i` or `k` scores3678/3686; sharing the loop resource with mode-2 `p`
+scores735. All three have ordinary/-da linked parity and independently reopened
+saved-object relinks. None improves current565.
+
+The resource-sharing control fixes the mode-1 counter to target s1 but assigns
+the shared resource s5, callback s3 and constant s2. Its diagnostic global
+allocation explicitly gives resource p88 no remaining preference and hard
+conflicts with17/18/19 from mode2 live ranges. The hard18(s2) conflict means
+priority tuning alone cannot restore target resource s2 for this shared pseudo.
+The counter-sharing controls instead spill the incoming resource argument and
+cause broader changes. No complementary role improvement justified combining
+these controls or spending the unused compiler allowance.
+
+Six actual game compiler calls; no generator, Clang, profile sweep or live
+adoption. One setup-only attempt stopped before compilation when the app's
+bookkeeping progress_revision advanced; full revalidation preserved all other
+state, and the fresh successful phase preserved complete config as well.
+All2078 selected full rows/profiles and727 hydrated focal attempts remain
+unchanged. All aggregate/orphan-aware20-second/2-GiB child watches and600-second
+controller watch finished cleanly. Private receipts: phase-search-nov7/.
