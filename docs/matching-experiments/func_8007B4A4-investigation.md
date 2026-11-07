@@ -360,3 +360,30 @@ sources/effective profiles,838 focal attempts and complete focal inputs. No
 live change or cartridge claim. A revisit needs a real expression/inline
 expansion with proven allocation and elimination, rather than padding or a
 repeated layout sweep.
+
+
+## November 7: neighboring frame is a positive accounting control
+
+A fresh read-only audit preserves OPEN52, 838 hydrated attempts and all2,077
+selected sources/profiles. No compiler, Clang, generator or candidate ran.
+
+Neighbor func_8007BA1C has three genuine halfword vectors at16/24/32, a32-byte
+matrix at40..71 and saves beginning72. Its112-byte frame is fully accounted
+for by56 local bytes,16 outgoing-argument bytes,16 GPR-save bytes and24 FPR-save
+bytes. The third vector actually escapes through func_8002E514. The same scalar
+sqrt/div normalization does not leave an unexplained gap in that function.
+This does not supply a temporary for the focal matrix32..63/gap64..79 layout.
+
+An unescaped flat three-float array spelling was not literally tested on the
+current root. However, the retained compiler source sends constant ARRAY_REF
+and COMPONENT_REF through the same inner-reference/address/MEM_IN_STRUCT path.
+No new store-elimination mechanism distinguishes it from measured negative
+record forms. Scalar sqrt SAVE_EXPR uses registers; BLKmode is the relevant
+stack-temporary case. This is bounded source/phase evidence, not proof that no
+legitimate temporary can ever match. No diagnostic repetition was warranted.
+
+The neighbor's legacy DA98 declaration also differs from the selected producer's
+void*(void*,void*) interface. It is recorded separately for a coordinated source
+correction, not used as ABI proof or silently changed during this audit. Keep52.
+Private real-temporary-nov7/REPORT.md retains exact sources, frame references,
+compiler-source provenance and final unchanged-state snapshots.
