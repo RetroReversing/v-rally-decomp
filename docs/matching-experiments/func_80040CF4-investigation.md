@@ -361,3 +361,16 @@ Evidence: private `quantity-executable-f5af-nov7/quantities.log` and
 source/profile preservation and independent relink receipts alongside them.
 Keep live score 518 and the unmatched f5af research frontier. The next source
 control must explain these real intervals rather than adding artificial uses.
+
+
+A proposed move of the two real hh self-updates before the second x store was
+withdrawn without compiling. The existing 861f first-scheduling dump already
+hoists update instructions 457/460 before the first vertical constructor 372,
+after initial table loads 345/359. The second copy 446, item-id store 451,
+x store 454 and y store 463 occur later. Moving the source statements would
+not establish a new dependency. This early hoist also ends the original y
+value's lifetime early and helps explain the global allocation/frame regression;
+it is not merely an ordering difference next to the second rectangle stores.
+No legitimate dependency that retains one-death eligibility while preventing
+that early hoist has been established. Do not add fake barriers, aliasing or
+unused reads to manufacture one. No additional compiler call was made.
