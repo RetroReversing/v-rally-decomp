@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8007a7d0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Obj { void *next; u16 id,x,y; u8 a,b,c,d,e; u8 padf; f32 sx,sy; u8 pad18[2]; u8 active; } Obj;
 typedef struct { u8 pad[0x1e4]; void *p; u8 pad2[0x4f]; u8 mode; u8 pad3[0x11]; u8 flag; } State;

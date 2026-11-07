@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80035c4c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Part { s16 x; s16 t; s16 z; s16 w; } Part;
 typedef struct Ent { f32 x; f32 y; f32 z; } Ent;

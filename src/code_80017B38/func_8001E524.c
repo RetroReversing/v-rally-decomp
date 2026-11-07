@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8001e524.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Stat Stat;
 extern void func_80046E54(Stat *);

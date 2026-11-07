@@ -1,4 +1,4 @@
-#include "decompdecomp_promoted_8006c780.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern void func_8006BF30(s32,s32,s32,s32);
 extern u8 D_800A73E0[];

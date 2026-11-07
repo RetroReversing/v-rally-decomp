@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8007ad68.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*Callback)(void);
 typedef struct { u8 pad[0x2c]; s32 state; } Object;

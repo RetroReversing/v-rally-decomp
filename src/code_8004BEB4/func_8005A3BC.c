@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005a3bc.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 /* identical to func_8005B0FC in V-RALLY (matched), with its names changed by decompdecomp */
 /* identical to func_8005A3BC in V-RALLY (matched), with its names changed by decompdecomp */

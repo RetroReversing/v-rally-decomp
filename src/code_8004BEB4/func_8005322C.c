@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8005322c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define M D_800C35A0

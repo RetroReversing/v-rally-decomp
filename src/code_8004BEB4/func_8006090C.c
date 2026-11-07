@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8006090c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern s32 D_800A159C[16];
 typedef struct { u32 w0,w1; } Command;

@@ -5235,10 +5235,10 @@
       "name": "code_80026E3C/func_80029EAC",
       "target_path": "build/asm/nonmatchings/code_80026E3C/func_80029EAC.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80026E3C/func_80029EAC.s"
+        "complete": true,
+        "source_path": "src/code_80026E3C/func_80029EAC.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80026E3C/func_80029EAC.o"
     },
     {
       "name": "code_80026E3C/func_8002A4C4",

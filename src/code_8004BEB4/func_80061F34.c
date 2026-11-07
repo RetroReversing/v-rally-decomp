@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80061f34.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern void func_8004C7F0(void *);
 extern void func_8004D31C(void);
@@ -31,4 +31,3 @@ void func_80061F34(void *scene, void *base) {
     func_8004C7F0(temp);
     func_8004C7F0(D_800A565C);
 }
-

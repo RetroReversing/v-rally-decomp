@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800802a0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 s32 func_8007EAA0(s32, s32, ...);
 s32 memset(s32, s32, u32);

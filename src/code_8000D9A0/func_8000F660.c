@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8000f660.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Game { u8 pad0[0xE]; u16 e; u8 pad10[0xE]; u16 mode; u8 pad20[0xC]; u16 flags; } Game;
 extern s32 *D_800C8048;

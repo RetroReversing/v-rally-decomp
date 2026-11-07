@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8007ee9c.h"
+#include "decompdecomp_sync_72635f1f065f43374cdd.h"
 #line 1 "func.c"
 extern s32 D_800A19B0;
 extern volatile s32 D_800B5B40;

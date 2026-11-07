@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_800129dc.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern signed char D_800C8200;
 extern short D_800C8202;

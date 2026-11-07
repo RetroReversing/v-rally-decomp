@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8004a0a0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 static inline static static static static static static static static static static static static static static static static static s32 right_coord(u32 x)
 {

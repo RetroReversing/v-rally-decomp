@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005e49c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct LayoutRecord { s32 a; u8 b; u8 pad[3]; s32 c; } LayoutRecord;
 typedef struct Entry { void (*fn)(s32,s32,s32); LayoutRecord *data; u8 count,a,b,pad; } Entry;

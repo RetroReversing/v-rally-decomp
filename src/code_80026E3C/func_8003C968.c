@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003c968.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct Ent { u8 pad[8]; s16 x; s16 y; s16 w; s16 h; } Ent;

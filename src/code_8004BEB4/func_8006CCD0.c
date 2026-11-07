@@ -1,4 +1,4 @@
-#include "decompdecomp_promoted_8006ccd0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Slot6C
 {

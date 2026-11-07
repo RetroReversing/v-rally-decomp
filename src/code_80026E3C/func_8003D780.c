@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003d780.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);

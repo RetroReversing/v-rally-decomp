@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003f3bc.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 static inline s32 carflag(u8 *g, u32 i) { u8 *c = g + (g + i)[0x31] * 40; return c[0x48] & 8; }

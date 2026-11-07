@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8005f5c4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #define TA ((Rec5F *) (&D_800C02AE + 0x37A2))
 #define TB ((Rec5F *) (&D_800C02AE + 0x38A2))

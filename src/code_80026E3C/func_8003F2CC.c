@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003f2cc.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 void func_8003F2CC(void *arg0) {
   u8 *temp_a0;

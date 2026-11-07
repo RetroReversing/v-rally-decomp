@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005e928.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { s32 pad10[4]; s32 w20,w24,w28,w2C,w30,w34,w38,w3C,w40,w44,w48,w4C; u8 b50[12]; u8 b5C[4]; s32 pad60[2]; } FuncBuf;
 void func_8004C370(s32, FuncBuf *, s32, s32);

@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_800316c4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern void func_8002FFA4(void *, s32, s16, void *);
 void func_800316C4(void *arg0)

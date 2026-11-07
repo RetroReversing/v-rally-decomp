@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800592f4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 void *func_800592AC(u32);
 extern char D_800C02AE[];

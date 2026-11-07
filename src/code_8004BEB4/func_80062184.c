@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80062184.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern u8 D_800C02AE[];
 extern u8 *D_800A1468;

@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80073b64.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #define CFG(o) (*(u16 *)(*(char **)(D_800C02AE+0x32F2)+(o)))
 void *func_80006008(void *);

@@ -1,4 +1,4 @@
-#include "decompdecomp_opaque_8001a340.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { s32 words[8]; } Copy32;
 typedef struct { u32 w0; u32 w1; } Gfx;

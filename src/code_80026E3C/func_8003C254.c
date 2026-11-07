@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003c254.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 s32 func_8001FEE8(s32);
 void func_80099DF8(u8 *, void *, s32);

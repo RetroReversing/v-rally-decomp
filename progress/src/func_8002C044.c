@@ -16,7 +16,7 @@ int func_80028E94(void *, void *, int);
 char *func_80028D74(void *, void *);
 void func_80029AA8(void *, void *, void *, int);
 void func_8002A4C4(void *, void *, int, int);
-void func_80029EAC(void *, void *, int);
+int func_80029EAC(void *, void *, int);
 void func_8002D7E4(int, int *);
 void func_8002E778(void *, void *);
 void func_8002C6EC(void *, void *);

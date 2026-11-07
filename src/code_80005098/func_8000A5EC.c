@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8000a5ec.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 void func_8000B910(void *, s32, s32);
 void osWritebackDCache(void *, s32);

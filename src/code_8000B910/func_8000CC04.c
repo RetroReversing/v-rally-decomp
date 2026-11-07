@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8000cc04.h"
+#include "decompdecomp_sync_3c8b0fa010453a530754.h"
 #line 1 "func.c"
 typedef struct { u32 w0, w1; } Gfx;
 typedef struct { u8 pad0[0x14]; Gfx *gfx; } GfxState;

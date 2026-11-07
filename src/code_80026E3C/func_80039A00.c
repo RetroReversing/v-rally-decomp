@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_80039a00.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct { u8 flags; u8 pad[0x27]; } GEntry;

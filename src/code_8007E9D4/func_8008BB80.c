@@ -1,4 +1,4 @@
-#include "decompdecomp_status_8008bb80.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern u32 func_800937C0(void);
 extern void func_8008D6E0(s32);

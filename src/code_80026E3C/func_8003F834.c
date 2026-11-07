@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003f834.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct { u16 h0, h2, type, width, height; u8 a, b; u32 c; u8 **pal, **image; u32 x, y; } Tex3;

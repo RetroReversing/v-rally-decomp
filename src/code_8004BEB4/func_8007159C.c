@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8007159c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #define U(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define H(p,o) (*(s16 *)((u8 *)(p)+(o)))

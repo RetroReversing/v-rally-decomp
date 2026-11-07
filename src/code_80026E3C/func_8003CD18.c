@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_func_8003cd18.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct { u8 pad[0x7A]; s16 x7A; u8 pad2[0x28]; s32 xA4; void *xA8; } Btn3CD18;

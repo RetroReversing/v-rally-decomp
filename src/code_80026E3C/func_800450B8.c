@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800450b8.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern char *D_800C35A0;
 extern s32 D_8009D540;

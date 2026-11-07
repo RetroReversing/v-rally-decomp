@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_8005a790.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { char pad[0x14]; void *commands; } CommandObject;
 typedef struct { char pad[0x178]; s32 field; } ViewObject;

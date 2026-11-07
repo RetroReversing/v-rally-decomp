@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_800596f4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { u8 pad0[4]; u8 r, g, b; } Col;
 typedef struct { u8 start, count; } Rng;

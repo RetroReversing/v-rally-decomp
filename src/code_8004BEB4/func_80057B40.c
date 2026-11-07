@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80057b40.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { s16 pad0; s16 idx; s32 pad4[3]; u8 *tbl; } Hdr;
 typedef struct { void *next; s16 x; u16 y; u8 a; u8 b; u8 c; u8 pad; } Node;

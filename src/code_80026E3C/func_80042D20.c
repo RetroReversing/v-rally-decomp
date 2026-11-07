@@ -1,4 +1,4 @@
-#include "decompdecomp_terminal_80042d20.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern s8 D_800ADFA8;
 void *func_80022318(void **, u8 *);

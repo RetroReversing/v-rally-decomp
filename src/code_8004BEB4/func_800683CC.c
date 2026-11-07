@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_800683cc.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 void *func_800592AC(s32); void func_80059618(void*,u8,u8,u8,s32); void func_800596F4(void *, s16, s16, void *); void func_8006874C(s8); extern u8 *D_800A1468; extern s32 D_800A1630; extern u8 D_800C02AE[];
 void func_800683CC(void) {

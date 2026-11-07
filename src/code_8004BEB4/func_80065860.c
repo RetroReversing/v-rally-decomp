@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80065860.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct {u32 w[177];} Scene658;
 extern u8 *D_800C3508,*D_800C35A0,*D_800A1468,*D_800A14D0;

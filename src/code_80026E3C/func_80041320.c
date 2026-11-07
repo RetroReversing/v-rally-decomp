@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80041320.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern void func_800424A4(void *, void *);
 typedef struct { u8 b[8]; } Buf8;

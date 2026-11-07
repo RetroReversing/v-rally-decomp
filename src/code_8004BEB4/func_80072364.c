@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80072364.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 /* identical to func_80064504 (matched), with its names changed by decompdecomp */
 void *func_800592AC(u32);

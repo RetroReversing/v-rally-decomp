@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80076060.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern s32 D_800A5E24;
 s32 func_800056FC(s32);

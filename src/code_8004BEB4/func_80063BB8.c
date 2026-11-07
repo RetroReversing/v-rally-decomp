@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80063bb8.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 s32 func_800593FC();
 s32 func_8005946C();

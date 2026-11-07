@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_80067ac4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Draw { s32 pad[4]; s32 x[4]; s32 y[4]; s32 id[4]; u8 r[4]; u8 g[4]; u8 b[4]; u8 a[4]; s32 pad2[2]; } Draw;
 typedef struct TextObj { char pad0[6]; s16 x; s16 y; char padA; u8 r; u8 g; u8 b; u8 a; } TextObj;

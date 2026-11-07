@@ -35,7 +35,7 @@ void func_8002D7E4(int, int *);
 void *func_8002DA98(void *, void *);
 int *func_8002E530(s16 *, s16 *, int *);
 int func_8002E688(int *, int *);
-void func_80029EAC(void *a, void *point, int index)
+int func_80029EAC(void *a, void *point, int index)
 {
   Pair p;
   Pair q;
@@ -136,7 +136,9 @@ void func_80029EAC(void *a, void *point, int index)
       if (normal[1])
       {
         slot = normal[2];
+        do {
         slot = (int)(((0U - normal[0]) * r.p.x - (unsigned)slot * r.p.z) + (unsigned)dot) / normal[1];
+        } while (0);
       }
     }
     while (0);
@@ -163,10 +165,11 @@ void func_80029EAC(void *a, void *point, int index)
   func_8002E530(mat.h, delta, local);
   func_8002DA98(&mat, &inv);
   mat = inv;
-  slot = (unsigned)local[1] * 16U;
-  if (slot <= 0)
+  { int depth;
+  depth = (unsigned)local[1] * 16U;
+  if (depth > 0) return depth;
   {
-    height = slot;
+    height = depth;
     record = (char *)(824 + W(P(a, 140), 820) * 48 + (u32)P(a, 140));
     W(record, 40) = height;
     W(record, 36) = index;
@@ -174,5 +177,6 @@ void func_80029EAC(void *a, void *point, int index)
     *((Matrix *) record) = mat;
     W(record, 44) = U(indices, cell * 2);
     W(P(a, 140), 820)++;
+  }
   }
 }

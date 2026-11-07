@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_800131c0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 static inline s32 part_y(u32 y){return y|0xF6000000;}
 extern char D_800B56F0[];

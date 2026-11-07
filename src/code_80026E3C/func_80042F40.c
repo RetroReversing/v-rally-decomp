@@ -1,4 +1,4 @@
-#include "decompdecomp_terminal_80042f40.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 #ifndef M2C_DEFINES
 #define M2C_DEFINES

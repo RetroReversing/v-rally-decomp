@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_80011178.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { s32 x, y, z; } Vec3i;
 

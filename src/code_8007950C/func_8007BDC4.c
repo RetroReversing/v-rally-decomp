@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8007bdc4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 void func_8000C22C(void *, s32, s32, s32, u8); extern char D_800C8380[];
 extern char *D_800C35A0;

@@ -1,4 +1,4 @@
-#include "decompdecomp_contract_8007950c.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct { char name[4]; u32 first, second, third; u8 flag, pad17, icon, pad19[5]; } ScoreRow;
 extern ScoreRow D_800C7F90[5];

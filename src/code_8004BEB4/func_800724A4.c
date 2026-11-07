@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800724a4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern u8 *D_800A1468;extern u8 D_800AE850[],D_800C02AE[];extern u8 *D_800C35A0;
 typedef struct Node{void *next;u16 id;u8 pad[20];u8 active;}Node;void *func_800592D0(u32);extern u8 *func_80057918(void*,int);extern int func_8008E118(u8*);

@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800586f8.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef s32 M2C_UNK;
 M2C_UNK *func_8007EAA0(M2C_UNK, M2C_UNK);

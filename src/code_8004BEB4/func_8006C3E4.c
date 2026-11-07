@@ -1,4 +1,4 @@
-#include "decompdecomp_promoted_8006c3e4.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 typedef struct Lap { s32 time; u8 c4; u8 pad5; char name[3]; u8 pad9; u8 speed; u8 padB; u8 valid; u8 padD[3]; } Lap;
 typedef struct Drv { u16 w0; u16 w2; char pad[10]; } Drv;

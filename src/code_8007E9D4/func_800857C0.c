@@ -1,4 +1,4 @@
-#include "decompdecomp_snapshot_800857c0.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
 #line 1 "func.c"
 extern s32 D_800A1B70;
 static inline s8 *inline_fn(s8 *arg0, int arg1)

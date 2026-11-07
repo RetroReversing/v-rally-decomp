@@ -1,4 +1,5 @@
-#include "func_800529F0-context.h"
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct ChRec
 {
   char pad0[0x14];
@@ -115,4 +116,5 @@ rank_done:
 
   }
 }
+
 
