@@ -447,3 +447,45 @@ Root independently compared the before/after-judge selected and focal snapshot
 files byte-for-byte: all2,078 complete selected sources/effective profiles and
 all737 hydrated focal attempts/full inputs are preserved. No live draft,
 selected source or compiler profile was adopted. Function remains OPEN518.
+
+
+### Two finite vertical-order controls
+
+The completed batch contains990 parseable raw sources (ten malformed sources
+were already guard-rejected); none declared or defined vertical h2 before x2.
+A broader7,569-record/6,996-source audit finds no exact A/B control. One older
+native source has an earlier declaration but a different prefix/root. This was
+a bounded coverage gap, not a claim of exhaustive semantic novelty.
+
+Two source-reviewed controls then ran under the unchanged KMC profile/context:
+
+| Control | Score | Bytes | Observation |
+| --- | ---: | ---: | --- |
+| h2 declaration before x2, actual calculations unchanged |565|1548|Exact f5af baseline bytes |
+| Existing independent hh/h/h2 calculations before x2/w2 |3821|1448|Worse, not adopted |
+
+A source SHA25636f4a9b7a98d01ccff0d9023b2dc37397c0032418d118463e74bdff75c14316f
+links to4a0adeef523ea3474f2e6477d1eb824920d1a0c621ce808a9db5f50e572d9371.
+B source SHA2566d6e56ffdc216e9d189735c779c232e744e2a616e48963c588228878eb76af5d
+links to3f6b46fe989290691b034f9ce53190c5401981881d7bf14712d77ef790cc44f0.
+Both preserve scalar calculations, types, memory accesses, calls and ABI; B only
+reorders independent unaddressed local arithmetic before the same stores.
+
+The causal limit matters: local quantities are created at scheduled first birth,
+not C declaration order. A changes pseudo identities but keeps physical roles
+(h2=s4,x2=s3). B truly constructs h2 before x2, yet assigns h2=s5,x2=s3. Its
+per-pseudo lifetimes become45/39 rather than43/43; those are not newly observed
+merged-quantity densities. Earlier definition can lengthen a live interval and
+lose priority instead of merely exchanging a tie. Both forms have25 calls
+through second scheduling; late jump sharing reduces A to24 and B to22, helping
+explain the shorter B body. No observer or further ordering grid was run.
+
+Exactly two strict-C89 preflights and four ordinary/diagnostic game calls ran.
+All four saved objects were independently reloaded/relinked with paired raw-byte
+agreement. The outer phase completed in7.458seconds, sampled peak aggregate
+RSS622,728KiB; every20-second/2GiB child and180-second outer watcher completed
+normally with no resource failure, error or surviving owned process. Pins passed
+start/end checks. Root independently compared full before/after snapshots:
+all2,078 selected sources/profiles and737 focal attempts remain byte-identical.
+No live update or match. Private quantity-order-controls-nov7 retains complete
+diffs, coverage limits, phase evidence, object receipts and preservation checks.
