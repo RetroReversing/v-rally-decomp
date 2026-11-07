@@ -292,3 +292,19 @@ All2,078 selected sources/profiles,774 focal attempts and complete inputs are
 preserved. No binary execution, installation, VM creation or live app change.
 Private PROVENANCE.md and local-compilers.json retain bounded provenance,
 identities, links and preservation receipts.
+
+## November 7: acyclic snapshot lifetime closure
+
+Fresh strict read-only snapshots retain OPEN305 sourcecca34264,774 hydrated
+attempts and all2,078 complete selected sources/profiles. The actual source has
+no loops/gotos and all nine target-local branches are forward. Each disputed
+snapshot has one unsigned-halfword producer; the two distinct restore bytes
+and the independent E snapshot remain simultaneously live across416EC.
+Coalescing them would lose a real value, while reusing dead limit/boolean locals
+does not remove the producer's known-zero upper bits. The only earlier real
+reconvergence crosses603B4 and changes the scene-access paths; later branches
+already modify the snapshotted fields. No eligible convergent full-word producer
+or real loop dependence was established. No compiler or generator ran and all
+six before/after capture groups agree. This closes that specific lifetime/CFG
+route, not the function. Private revisit-nov7/REPORT.md retains the actual
+def/use and branch evidence. Preserve305.
