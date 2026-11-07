@@ -445,3 +445,31 @@ binary. Private table-lifetime-nov7/REPORT.md binds source, receipts, exact
 coverage limits and preservation. The audit also found that app phase capture
 included CSE2 while its comparison omitted it; that diagnostic fix is separate
 from the unresolved game function. No live mutation or new match is claimed.
+
+
+## November 7: consumed-address reconstruction controls
+
+On the exact current score-22 source, two isolated, defined same-object pointer
+representations were tested: `r = arr - 4` in place of `r = cnt + i`, and
+`q = cnt + 4` in place of `q = base + 0x241`. Existing captured pointers share
+one allocation, with cnt at base+0x23d, q at base+0x241 and i in0..3. Neither
+change adds storage, accesses, calls or a global-read caching assumption.
+A bounded retained-source/history check found no exact current-source duplicate.
+
+The first scored222; the second reproduced22. Both remained1004 bytes with an
+88-byte frame. The first introduced an actual subtract-four instruction rather
+than the target's move; neither created a fifth stack home. The four existing
+homes stayed20/28/36/44. Ordinary/diagnostic pairs and independent persisted
+object relinks agreed across four compiler calls and four relinks. Complete
+focal/history and all2,079 selected rows/profiles remained unchanged before,
+after and at the final check. Pinned compiler binaries preceded the tests;
+outer7.19s/293,520KiB completed without owned survivors. No live adoption.
+
+The table-linking audit separately confirmed normal judge behavior: unnamed
+candidate-local data requires a corresponding target relocation or known named
+symbol. Historical table candidates retain extra blockcopy loads with no target
+address reference. Inventing a ROM placement would not make those instructions
+match. Their unresolved references are not evidence of an importer bug or a
+clean linked negative. Current array composition remains unmeasured; no valid
+late allocation mechanism was established. Private table-lifetime-nov7/address-phase
+retains exact sources, receipts and preservation snapshots.
