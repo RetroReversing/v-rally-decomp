@@ -190,3 +190,43 @@ does not prove immutable-address motion; the two638 controls above required
 separate manual review rather than treating the filter as a semantic proof.
 The shared app guard is unchanged. Private address118119-proof.json and
 typed-fixture-proof.json retain source, type, binding and compiler receipts.
+
+
+## November 7: local hard conflicts and isolated branch-binding control
+
+Fresh packed read-only capture confirms current518 source81a0eaa8,737 hydrated
+attempts and all2077 selected full sources/effective profiles unchanged. Exact
+installed global-priority calculations reproduce all17 allocation priorities:
+item is already highest22560, height2758, rectangle2689. However local allocation
+has already placed vertical x2/horizontal y2 in s2 and both widths in s3. Their
+hard conflicts block the target rectangle/item mapping; merely raising a global
+priority cannot allocate a conflicting hard register.
+
+The proposed second horizontal y2 store was rejected without compilation:
+current RTL already uses HI269 for both stores, across all four calls, despite
+the second source spelling y. Thus no lifetime extension would occur. Shared
+item was previously523; destructive full-to-half width reuse does not correspond
+to the target's actual sharing. These were not repeated as fresh tests.
+
+One isolated control unifies only the two branch-local coordinate bindings and
+the two width bindings into outer s16 scratches. Older combined controls also
+changed height, item, stores and geometry, so did not isolate this mechanism.
+All definitions remain at their original evaluation positions and retain the
+same narrowing; branches are exclusive and every use is dominated by its branch
+definition. Necessary C89 declaration movement adds no initialized operation.
+No other fields, calls, loads or store order change.
+
+Source70350f0975093b2f56380a0ba92a55269262b54d1df67b10d2067b34c2a3d5aa
+scores4563 in ordinary/-da,1544bytes, linked SHA256
+12ff8257fab0e1438384f9b552fcd1a07331418f796b601f87e7127b2831cf3d.
+The causal prediction is confirmed: both new bindings become global and remove
+the hard s2/s3 conflicts. That is insufficient: highest-priority item takes s2,
+height s3, rectangle s4, coordinate s7, and width spills. Preserve518 rather than
+adopting a structurally motivated but worse result.
+
+Both saved objects independently relink identically. Two compiler calls total,
+20-second/2GiB aggregate owned-tree bounds, terminal0/no survivors. All2077 full
+selected sources/profiles,737 history records and focal inputs remain unchanged.
+Private current518-causal-nov7 retains prior-coverage audits, exact binding/effects
+review, commands, phase dumps and preservation. No live writes, new match or
+cartridge acceptance claimed.
