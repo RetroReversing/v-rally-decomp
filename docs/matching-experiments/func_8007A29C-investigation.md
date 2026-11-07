@@ -379,3 +379,24 @@ record was changed; no new cartridge-progress claim is made. `func_8007A29C`
 remains **OPEN at score 22**. Private evidence stays outside the repository;
 ROM bytes, extracted assembly, compiler outputs and local databases are not
 published here.
+
+
+## November 7: coordinate provenance constrains unit rewrites
+
+Fresh read-only audit preserves OPEN22 source0992fd5f, 782 hydrated attempts
+and all 2,077 selected sources/profiles. No compiler or generator ran.
+
+The consumed eight-byte initializer-record hypothesis already scored3886 with
+a96-byte frame, but moved all four spill homes rather than leaving the target
+gap unused. Table word-unit literal and variable-component controls also exist
+and leave the baseline bytes unchanged. These are not new eligible tests.
+
+A proposed alternative interpretation of local off was checked against actual
+consumers. Selected func_800683CC obtains the same node through
+func_800592AC(0), reads node+8 as s16 and passes it through func_800596F4 as a
+coordinate to func_8000CC04. The increment20 therefore does not establish that
+the value is a record byte offset or divisible by20. No initialization invariant
+was proven that permits replacing it by a record index. Manufacturing quotient
+and remainder carriers solely to create stack space would not recover such a
+source model. Preserve the current draft and remaining eight-byte frame gap.
+Private current22-phase-nov7/REPORT.md retains the evidence and preservation audit.
