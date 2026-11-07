@@ -335,3 +335,37 @@ an exhaustive semantic donor search. No new candidate, compiler, Clang or
 generator calls followed. Complete before/after frozen inputs agree; no live
 claim or write. Private evidence: `call-return-audit-nov7/REPORT.md` and
 `preservation.json`. Keep1700 and seek a different causal mechanism.
+
+
+## November 7: current-root repair coverage and scheduling priorities
+
+Eight bounded pure shared generators from app main d978ff39 produced16 source
+variants: eight phase-lifetime, seven integer-lifetime and one conversion-tail
+candidate. Five other generators produced none. All16 are token-new in the
+bounded442-attempt plus2,576-private-source inventory; novelty alone does not
+establish a repair. The conversion wrapper covers an already matching trunc/mfc1
+pair. The local phase merges have no demonstrated connection to the remaining
+mode-copy/output-address mismatches. None was compiled or adopted.
+
+A separate source-only proposal on the retained1915 control moves the existing
+selector-dependent `temp_fs1` setup immediately after the real selector call,
+before the mode copy. It crosses no call or memory write and changes no load
+value. The exact composition was absent from3,018 bounded history/source records.
+Source SHA-256:
+`9220fd71d3e3b80e755b556d71de8a78c3b4997231106231c1e37c970802c2bd`.
+It remains an untested proposal, not a negative compiler result.
+
+Retained scheduling evidence explains why this is not a justified tie control:
+mode copy49 has priority1, call43 priority3. The compiler's rank_for_schedule
+compares priority before dependency class and original instruction order.
+Moving the coefficient setup changes no relevant dependency graph; source order
+alone therefore does not target the deciding priority difference. This narrows
+the next experiment without claiming that all legal schedules or source shapes
+are exhausted. The earlier missing last-call dependency explains freedom to
+hoist; these priorities explain the observed choice within that freedom.
+
+All2,078 selected complete sources/effective profiles,442 focal attempts and
+all focal inputs are unchanged. Zero compiler/native-worker calls, live writes,
+claims, restarts or selected-source changes. Keep OPEN1700. Private
+`repair-coverage-nov7/REPORT.md` retains generated diffs, source bindings,
+coverage bounds, scheduler evidence and final preservation receipts.
