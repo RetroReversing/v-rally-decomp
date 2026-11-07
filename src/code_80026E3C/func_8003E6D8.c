@@ -1,3 +1,5 @@
+#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#line 1 "func.c"
 typedef struct 
 {
   s16 pad0[4];
@@ -57,6 +59,10 @@ extern void func_8003EE84(void *);
 extern void func_8003EF20(void *);
 void func_8003E6D8(s32 arg0, s32 arg1)
 {
+  SpriteHook loop_callback;
+  s32 loop_one;
+  s32 mode2_one;
+  s32 loop_resource;
   Pos *pos;
   Pos *start_pos;
   Mgr *m;
@@ -67,6 +73,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   s32 y;
   u32 i;
   u32 j;
+  u32 row_number;
   s32 new_var;
   s32 k;
   s32 p;
@@ -111,31 +118,34 @@ void func_8003E6D8(s32 arg0, s32 arg1)
     }
     else
     {
-      new_var = (s32) ((u32)arg1 + 0x4CU);
       j = 0;
       if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)
       {
-        do
+        loop_callback = func_8003ED94;
+        loop_one = 1;
+        loop_resource = (s32)((u32)arg1 + 0x4CU);
+mode1_rows:
         {
-          yy = y + (((u16) j) * 11);
-          j++;
-          s = func_80040260((void *)arg0, 0x1C, yy, 5, func_8003ED94, 1);
-          s->tex = func_80034FF0(new_var, 0);
+          yy = y + (j * 11);
+          s = func_80040260((void *)arg0, 0x1C, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
           s->part = 0;
-          s->n = j;
+          row_number = j + 1;
+          s->n = row_number;
           s->owner = D_800C7F84;
-          s = func_80040260((void *)arg0, 0x24, yy, 5, func_8003ED94, 1);
-          s->tex = func_80034FF0(new_var, 0);
-          s->part = 1;
-          s->n = j;
+          s = func_80040260((void *)arg0, 0x24, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
+          s->part = loop_one;
+          s->n = row_number;
           s->owner = D_800C7F84;
-          s = func_80040260((void *)arg0, 0x2C, yy, 5, func_8003ED94, 1);
-          s->tex = func_80034FF0(new_var, 0);
+          s = func_80040260((void *)arg0, 0x2C, yy, 5, loop_callback, loop_one);
+          s->tex = func_80034FF0(loop_resource, 0);
           s->part = 2;
-          s->n = j;
+          s->n = row_number;
           s->owner = D_800C7F84;
         }
-        while (j < 4);
+        j = row_number;
+        if (j < 4) goto mode1_rows;
       }
     }
       break;
@@ -144,6 +154,7 @@ void func_8003E6D8(s32 arg0, s32 arg1)
       i = 1;
       k = 1;
       p = (u32)arg1 + 0x4CU;
+      mode2_one = 1;
       arg1 = 0;
       do
     {
@@ -162,23 +173,23 @@ void func_8003E6D8(s32 arg0, s32 arg1)
       }
       if ((D_800C35A0->state != 0) && (D_800C35A0->slots[D_800C35A0->sel[i]].flags & 4))
       {
-        x1 = x + 8;
+        loop_resource = (s16)(x + 8);
         yy = y + 10;
-        s = func_80040260((void *)arg0, x1, yy, 5, func_8003EF20, 1);
+        s = func_80040260((void *)arg0, loop_resource, yy, 5, func_8003EF20, mode2_one);
         x2 = x + 0x10;
         s->tex = func_80034FF0(p, 0);
         s->part = 0;
         s->owner = D_800C7F84;
-        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EF20, 1);
+        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EF20, mode2_one);
         x3 = x + 0x18;
         s->tex = func_80034FF0(p, 0);
-        s->part = 1;
+        s->part = mode2_one;
         s->owner = D_800C7F84;
-        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EF20, 1);
+        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EF20, mode2_one);
         s->tex = func_80034FF0(p, 0);
         s->part = 2;
         s->owner = D_800C7F84;
-        s = func_80040260((void *)arg0, x1, yy, 5, func_8003EE84, 1);
+        s = func_80040260((void *)arg0, loop_resource, yy, 5, func_8003EE84, mode2_one);
         s->tex = func_80034FF0(p, 0);
         s->owner = D_800C7F84;
         s->part = 0;
@@ -187,16 +198,16 @@ void func_8003E6D8(s32 arg0, s32 arg1)
         s->g = 0xD5;
         s->b = 0x1E;
         s->a = 0xFF;
-        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EE84, 1);
+        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EE84, mode2_one);
         s->tex = func_80034FF0(p, 0);
         s->owner = D_800C7F84;
-        s->part = 1;
+        s->part = mode2_one;
         s->n = arg1;
         s->r = 0xFE;
         s->g = 0xD5;
         s->b = 0x1E;
         s->a = 0xFF;
-        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EE84, 1);
+        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EE84, mode2_one);
         s->tex = func_80034FF0(p, 0);
         s->owner = D_800C7F84;
         s->part = 2;
@@ -216,4 +227,5 @@ void func_8003E6D8(s32 arg0, s32 arg1)
   }
 
 }
+
 

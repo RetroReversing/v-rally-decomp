@@ -1,3 +1,111 @@
+# Sprite setup: allocation across mutually exclusive branches
+
+## Verified function result — 7 November 2026
+
+The ordinary live decompdecomp judge accepts `func_8003E6D8`: **395 instructions /
+1,580 linked bytes**. The standalone `build.py check func_8003E6D8` check also
+passes. Full-cartridge integration is recorded below after its comparison finishes.
+
+The compiler and flags remain **KMC GCC 2.7.2**,
+`-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. No target bytes, function boundaries or
+verification rules changed. The accepted source SHA-256 is
+`91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8`.
+Its shared-header SHA-256 is
+`dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212`.
+
+## Complete-cartridge integration
+
+The independent full build succeeded and every byte compares equal to the
+original: **12,582,912 bytes**, SHA-256
+`d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7`. The standalone tree selects
+**2,080 of 2,124 entries as C**, leaving **44 assembly entries**.
+Every earlier C selection, effective profile and other manifest entry is retained.
+The portable checkpoint and the live accepted source agree on the focal source.
+The live app has **2,080 matched / 13 open / 28 assembly** functions; its boundary
+list differs from the standalone entries.
+
+## What recovered the match
+
+The successful composition retains the real sprite constructors, resource loads
+and field writes, while changing the storage and control-flow representation:
+
+- A backward row label avoids the strength-reduced loop form that produced a
+  different multiplication sequence. The row still executes four times.
+- `row_number = j + 1` supplies the three sprite number fields; `j = row_number`
+  commits the next row at the bottom. Every use is initialized and the values
+  remain 1 through 4.
+- An explicitly initialized `mode2_one` is genuinely consumed by constructor
+  arguments and the part-one stores. Its lifetime affects old GCC allocation.
+- In the mutually exclusive mode-two arm, `loop_resource` is reassigned the
+  first coordinate, `(s16)(x + 8)`, and supplies its two constructor arguments.
+  Its mode-one resource value is dead on this path. The signed 16-bit
+  normalization preserves the old `s16 x1` conversion before each use.
+
+This last representation retains ordinary literal callback arguments. The
+result has the target register allocation and callback-load scheduling without
+an inline-assembly barrier, fixed-register declaration, volatile access or fake
+value use. Unused declarations are left as compiled; this is the exact accepted
+source, not a subsequent formatting or cleanup rewrite.
+
+These observations establish a working composition. They do not prove that each
+individual transformation is necessary, or that this was the original source.
+The run used live target assembly, retained drafts/investigations and the local
+GPL compiler implementation as evidence.
+
+## Source audit
+
+Both uses of the reused scalar are initialized within their respective mode
+arms; there is no cross-arm read. In mode two its coordinate is normalized to
+signed 16 bits at assignment, as the former `s16 x1` was, then passed through
+the unchanged signed-halfword constructor parameter. The resource pack remains
+in the separate `p` value on this path. Row arithmetic is bounded to four
+iterations; `row_number` is assigned before every number-field store and before
+the bottom-of-row counter assignment. All constructor/loader calls retain their
+order. The existing target-platform pointer/integer and signed narrowing
+conventions, valid object pointers and non-null constructor results remain
+assumptions of this low-level reconstruction. No new uninitialized or escaped
+local is introduced.
+
+## Useful negative evidence
+
+The starting valid draft scored 565. Live improvements reached 540 and 315.
+A different 330-score draft had only six rendered differing positions near the
+first callback load, with the remaining sequence aligned. Its callback/resource
+union was useful for understanding allocation, but kept the callback load too
+early. A lower advisory score was therefore not the only useful search frontier.
+
+Moving that callback assignment between operands or to a preceding statement,
+changing scalar storage spellings, hoisting the resource expression and adding
+register qualifiers did not resolve the six-position difference. Disabling the
+first or second scheduler made the output worse (12565 and 2860 respectively);
+these diagnostic profiles were never applied. Reusing the row counter for a
+mode-two coordinate also failed (1010). Reusing the resource for the other
+coordinate is part of the successful source.
+
+## Implications for automatic matching
+
+A useful bounded repair family would reuse a scalar across mutually exclusive
+arms when target evidence indicates the same physical register for both roles.
+It must prove that the old value is dead, preserve conversions at the assignment
+and call sites, and judge the complete result normally. Here the resource and
+coordinate are both represented by the target's saved register, even though
+neither their names nor their source types make the relationship obvious.
+
+Search should retain a few structurally distinct near misses, including candidates
+with fewer rendered differences but a slightly worse numeric score. Allocation
+and scheduling repairs can interact; applying either alone can worsen the score.
+This evidence is a lead for a generic repair, not an automatically enabled rule.
+
+When reading old GCC global priorities, use its actual heuristic:
+`floor(log2(references)) * references / live_length` (with the implementation's
+size and scaling factors), not simply references divided by lifetime. Earlier
+notes that treated the incoming resource and base coordinate as the direct
+priority competition were incomplete: the mode-two constant's lifetime matters.
+
+## Earlier investigation retained
+
+The following record predates the match above; its unresolved status statements are historical.
+
 # func_8003E6D8 private investigation
 
 Frozen read-only from project1/id805, OPEN635/unclaimed,395 instructions. Source/header/target/profile are in frozen/inputs.json; all compiles use the captured gcc-2.7.2-kmc profile -G0 -mips3 -mgp32 -mfp32 -O2 -g3.

@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794049434.7818298,
- "revision": 19190,
+ "saved_at": 1794057501.289,
+ "revision": 19207,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -5245,8 +5245,8 @@
   },
   "func_8003E6D8": {
    "vram": 2147739352,
-   "best_score": 565,
-   "best_by": "candidate-review"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8003ED04": {
    "vram": 2147740932,
@@ -250465,6 +250465,118 @@
    "created_at": 1794049417.770473,
    "score_before": 107,
    "score_after": 107
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Resuming focused matching through the running app API. Current baseline OPEN565; reviewing recorded allocator-preference and loop controls before testing new defined C alternatives. Target bytes, boundaries, shared headers and judge unchanged.",
+   "by": "you",
+   "created_at": 1794050885.6287732,
+   "score_before": 565,
+   "score_after": 565
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-db8c9a1a52874042",
+   "created_at": 1794051743.152852,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-db8c9a1a52874042",
+   "created_at": 1794051879.606575,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-db8c9a1a52874042",
+   "created_at": 1794051957.47295,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-6bbe377b528f4404",
+   "created_at": 1794052323.45689,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-f407b20ad19b411d",
+   "created_at": 1794052568.265559,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Investigation progress: typed pair/workspace helpers and safe split 16-bit subtractions failed to improve score107. Testing a new bounded private control: dependency-valid branch pointer construction orders and local pointer lifetimes. Current saved source/profile remain unchanged; no agent model was started. Formatting sweep remains stopped at its unchanged-output limit.",
+   "by": "you",
+   "created_at": 1794053624.156354,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Completed additional isolated controls: typed index/workspace helper5, safe split subtraction6, C89 branch pointer orders192, branch-local base orders64, mixed coordinate field views127, inline address helpers36, dead-index reuse18, integer base casts6. All454 variants compiled; no exact or score improvement. Best remains107. Initial non-C89 generator was interrupted after144 parse failures and24 successful shared-pointer cases; excluded from those454. The127 mixed-view cases get as low as112 but still wrong frame/registers. No source/profile/header/target changes promoted. Detailed receipts: /Volumes/Data/Codex/tmp/func8002FFA4/nov7-additional-controlled-probes.md. Formatting sweep remains stopped at its safeguard. No AI model or other user claim touched.",
+   "by": "you",
+   "created_at": 1794053941.166303,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "New search direction: bounded private prefix-frontier search, retaining candidates that improve the first0xa8 bytes even if full-function score temporarily worsens. This addresses a different local minimum from the exhausted full-score pass. Safety guards preserve original types/control/casts/narrow stores, reject uninitialized reads, and use only5 previously vetted native rewrite methods. Baseline107 and root4 source592 must verify first. Only the normal full-function judge can grant a match. Will send novel promising outputs through the live API; no work-limit reset or app update.",
+   "by": "you",
+   "created_at": 1794054162.728658,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-e7441bd9cbba4bc0",
+   "created_at": 1794054352.6441972,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-65ef2e8ea76a44f2",
+   "created_at": 1794054922.45448,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Matched through the live app on 7 Nov 2026: 395 instructions / 1580 linked bytes, unchanged gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3. Accepted source SHA-256 91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8. The successful composition uses a real backward row edge, an explicitly consumed mode-two constant, row_number staging, and reuse of loop_resource as the signed-16-normalized first x coordinate in mutually exclusive mode two. This retains literal callback operands and fixes both allocation and scheduling. The six-position score330 callback/resource union was a useful structural lead, but remained nonmatching; disabling schedulers was worse. All accepted locals are initialized before use; no inline asm, fake uses, volatile, target edits or profile changes. Independent build.py check passed. Full cartridge verification is running; do not equate the function match alone with completed cartridge integration.",
+   "by": "you",
+   "created_at": 1794056219.4225762,
+   "score_before": 565,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "SAFETY CORRECTION: native perm_reorder_stmts produced INVALID v0385 (SHAf3eb3d9b29b25242e9b7b1b366c8ed994d74518897833899c96dba47fac72a81). It changed else b=arg1*2; b+=arg1; b*=2 (6x) into b=arg1*2; b*=2; b+=arg1 (5x). Its605 score is NOT progress and must not be reused. Saved107 stays selected; representative /api/try returned HTTPError and no matching result. Prior native type/narrow-store/init guards did not prove dependency preservation. All native search receipts require effect audit; no exact was found. New private symbolic per-binding/observable-effect guard rejects this mutation and accepts unchanged source, independent reordering and a genuine expression temporary. Hand-authored early-load690/665 controls remain semantically grounded and normally verified; not saved winners.",
+   "by": "you",
+   "created_at": 1794056262.786544,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8003E6D8",
+   "text": "Final integration verification passed: independent build.py check and the complete 12,582,912-byte cartridge compare byte for byte, SHA-256 d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7. All 2,079 earlier selected C entries and their compiler profiles are retained. Standalone: 2,080 C / 44 assembly entries of 2,124; live app: 2,080 matched / 13 open / 28 assembly functions. Source and original compiler profile remain exact. See docs/matching-experiments/func_8003E6D8-investigation.md in the V-Rally repository for the successful scalar-lifetime composition and negative controls.",
+   "by": "you",
+   "created_at": 1794057496.751158,
+   "score_before": 0,
+   "score_after": 0
   }
  ],
  "set_aside": [
@@ -264803,6 +264915,94 @@
     "target_sha256": "7ad50569cbd14ad72a9c01721146cac9a333501f9d6ecd82f60a220fd7b68a77",
     "relocations_sha256": "ecfbeeafbce7f0821a3264458a494b6f704e5cd516937d49060a17d47b90af52",
     "vram": 2147738792,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8003E6D8": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794055943.61762,
+    "attempt_id": 346549,
+    "source_sha256": "91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "ac9e1d37029eca71113354eca311a27a8738e146a13eb7b9ad1e8a26af688d84",
+    "relocations_sha256": "a3e91a7ba26888be5b4b456c64eb633cf440d24922fb1d6c4254761fe9fd4975",
+    "vram": 2147739352,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -291888,6 +292088,7 @@
    "0f7d4072701343fb9f1381e7df4a29a08d245720160107568393c7e4c165951b": "typedef void (*SpriteHook)(void *);\ntypedef struct Pos {\n    u8 pad00[8];\n    s16 x8;\n    s16 xA;\n    s16 xC;\n    s16 xE;\n} Pos;\ntypedef struct Obj {\n    u8 pad00[0xC];\n    s32 type;\n    u8 pad10[0x178 - 0x10];\n    Pos *pos;\n} Obj;\ntypedef struct Widget {\n    u8 pad00[0x7A];\n    s16 kind;\n    u8 pad7C[0x90 - 0x7C];\n    u8 r, g, b, a;\n    u8 pad94[0xA4 - 0x94];\n    s32 text;\n    Obj *obj;\n} Widget;\ntypedef struct Game {\n    u8 pad00[0xE];\n    u16 mode;\n    u8 pad10[2];\n    u16 opts;\n    u8 pad14[0x1E - 0x14];\n    u16 state;\n} Game;\nextern Game *D_800C35A0;\nextern Obj *D_800C7F84;\nextern void func_8003E06C(void *);\nextern void func_8003E0D4(void *);\nextern void func_8003E134(void *);\nextern s32 func_80034FF0(s32, s32);\nvoid *func_80040260(void *, s16, s16, s32, SpriteHook, s32);\n\nvoid func_8003E1BC(s32 arg0, s32 arg1)\n{\n    Obj *obj;\n    Pos *pos;\n    Widget *w;\n    u32 i;\n    s32 x;\n    s32 y;\n    s32 px;\n\n    obj = D_800C7F84;\n    pos = obj->pos;\n    x = pos->x8;\n    y = pos->xA + 6;\n    px = x + 0x14;\n    switch (D_800C35A0->mode) {\n    case 1:\n        if (D_800C35A0->state != 0) {\n            for (i = 0; i < 4; i++) {\n                w = ((Widget *)func_80040260((void *)(arg0), px, y + i * 0xB, (u16)(5), func_8003E06C, 1));\n                w->text = func_80034FF0(arg1 + 0x4C, 0);\n                w->kind = i + 1;\n                w->obj = D_800C7F84;\n            }\n        }\n        break;\n    case 2:\n        if (D_800C35A0->state != 0) {\n            if (!(D_800C35A0->opts & 1)) {\n                if (obj->type == 3) {\n                    px = x + 6;\n                }\n            } else {\n                px = x;\n            }\n            w = ((Widget *)func_80040260((void *)(arg0), px, y + 0xA, (u16)(5), func_8003E0D4, 1));\n            w->text = func_80034FF0(arg1 + 0x4C, 0);\n            w->obj = D_800C7F84;\n            w->r = 0xFE;\n            w->g = 0xD5;\n            w->b = 0x1E;\n            w->a = 0xFF;\n            w = ((Widget *)func_80040260((void *)(arg0), px, y, (u16)(5), func_8003E134, 1));\n            w->text = func_80034FF0(arg1 + 0x4C, 0);\n            w->obj = D_800C7F84;\n        }\n        break;\n    }\n}\n",
    "345e852f586568ce006d8aa704a6c6c53b2d842e12e2dad5e33e3e207787678d": "typedef void (*SpriteHook)(void *);\nvoid func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);\nextern char D_800C02AE[];\nvoid func_8003B574(void *);\nvoid func_8003E3E0(s32 arg0, s32 arg1)\n{\n  char *temp_t2;\n  char *temp_v0;\n  char *temp_a3;\n  s32 temp_t3;\n  s32 temp_a2;\n  s32 var_a1;\n  s32 var_t4;\n  s16 temp_v1;\n  s16 temp_t0;\n  s32 mode;\n  temp_t2 = *((char **) (D_800C02AE + 0x7CD6));\n  temp_v0 = *((char **) (temp_t2 + 0x178));\n  var_a1 = *((s16 *) (temp_v0 + 8));\n  temp_v1 = *((s16 *) (temp_v0 + 0xA));\n  temp_t0 = *((s16 *) (temp_v0 + 0xC));\n  temp_a3 = *((char **) (D_800C02AE + 0x32F2));\n  var_t4 = var_a1 + 0x14;\n  temp_a2 = temp_v1 + 6;\n  temp_t3 = temp_t0 - 0x10;\n  mode = *((u16 *) (temp_a3 + 0xE));\n  switch (mode)\n  {\n    case 1:\n      if ((*((u16 *) (temp_a3 + 0x1E))) != 0)\n      {\n        return;\n      }\n      var_a1 = temp_t0 - 0x4A;\n      func_8003A794((s32)(arg0), var_a1, temp_a2, &func_8003B574, (u8 *)(arg1), 0, 0);\n      return;\n    case 2:\n      if ((*((u16 *) (temp_a3 + 0x1E))) != 0)\n      {\n        return;\n      }\n      if ((*((u16 *) (temp_a3 + 0x12))) & 1)\n      {\n        var_a1 += 0x18;\n        func_8003A794((s32)(arg0), var_a1, temp_a2, &func_8003B574, (u8 *)(arg1), 0, 0);\n        return;\n      }\n      else if ((*((s32 *) (temp_t2 + 0xC))) == 3)\n      {\n        var_a1 = var_t4 + temp_t3;\n        var_a1 = var_a1 - 0x48;\n        func_8003A794((s32)(arg0), var_a1, temp_a2, &func_8003B574, (u8 *)(arg1), 0, 0);\n        return;\n      }\n      else\n      {\n        var_a1 += 0x2C;\n      }\n      break;\n    default:\n      return;\n  }\n  func_8003A794((s32)(arg0), var_a1, temp_a2, &func_8003B574, (u8 *)(arg1), 0, 0);\n}\n",
    "0aa322b3a00a18f4d682f0719304380708579d02af8e54d00b2d46352275f8d8": "typedef void (*SpriteHook)(void *);\ntypedef struct Cfg3E {\n    u8 pad0[8];\n    s16 x;\n    s16 y;\n    u8 padC[2];\n    s16 h;\n} Cfg3E;\n\ntypedef struct View3E {\n    u8 pad0[0x178];\n    Cfg3E *cfg;\n} View3E;\n\ntypedef struct Game3E {\n    u8 pad0[0xE];\n    u16 mode;\n    u8 pad10[0xE];\n    u16 state;\n} Game3E;\n\nextern View3E *D_800C7F84;\nextern Game3E *D_800C35A0;\nvoid func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);\nvoid func_8003B7BC(void *);\n\nvoid func_8003E4A8(void *arg0, s32 arg1)\n{\n    u8 col[4];\n    u32 i;\n    s32 x;\n    s32 y;\n    s32 h;\n    Cfg3E *cfg = D_800C7F84->cfg;\n\n    x = cfg->x + 0x14;\n    y = cfg->y + 6;\n    h = cfg->h;\n    if (D_800C35A0->mode == 1 && D_800C35A0->state == 0) {\n        h -= 8;\n        for (i = 0; i < 4; i++) {\n            switch (i) {\n            case 0:\n                col[0] = 0x78;\n                col[1] = 0x78;\n                col[2] = 0x78;\n                col[3] = 0xFF;\n                break;\n            case 1:\n                col[0] = 0xA0;\n                col[1] = 0xA0;\n                col[2] = 0xA0;\n                col[3] = 0xFF;\n                break;\n            case 2:\n                col[0] = 0xC8;\n                col[1] = 0xC8;\n                col[2] = 0xC8;\n                col[3] = 0xFF;\n                break;\n            case 3:\n                col[0] = 0xF0;\n                col[1] = 0xF0;\n                col[2] = 0xF0;\n                col[3] = 0xFF;\n                break;\n            }\n            func_8003A794((s32)(arg0), x, y + h - (6 - i) * 10 + 2, func_8003B7BC, (u8 *)(arg1), i, col);\n        }\n    }\n}\n",
+   "91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8": "typedef struct \n{\n  s16 pad0[4];\n  s16 x;\n  s16 y;\n} Pos;\ntypedef struct \n{\n  u8 pad0[0xC];\n  s32 type;\n  u8 pad10[0x168];\n  Pos *pos;\n} Mgr;\ntypedef struct \n{\n  u8 flags;\n  u8 pad[0x27];\n} Slot;\ntypedef struct \n{\n  u8 pad0[0xE];\n  u16 mode;\n  u8 pad10[2];\n  u16 flags12;\n  u8 pad14[0xA];\n  u16 state;\n  u8 pad20[0x11];\n  u8 sel[0x17];\n  Slot slots[4];\n} Game;\ntypedef struct Tex3 {u16 h0,h2,type,width,height;u8 a,b;u32 c;u8 **pal,**image;u32 x,y;} Tex3;\ntypedef struct {u8 count,pad[3];Tex3 **tex;} Pack3;\ntypedef void (*SpriteHook)(void *);\ntypedef struct \n{\n  u8 pad0[0x76];\n  u16 n;\n  s16 part;\n  u8 pad7A[0x16];\n  u8 r;\n  u8 g;\n  u8 b;\n  u8 a;\n  u8 pad94[0x10];\n  Pack3 *tex;\n  Mgr *owner;\n} Spr;\nextern Game *D_800C35A0;\nextern Mgr *D_800C7F84;\nPack3 *func_80034FF0(s32, s32);\nvoid *func_80040260(void *, s16, s16, s32, SpriteHook, s32);\nstruct N;\nstruct N *func_8004240C(s32);\nextern void func_8003ED04(void *);\nextern void func_8003ED94(void *);\nextern void func_8003EE84(void *);\nextern void func_8003EF20(void *);\nvoid func_8003E6D8(s32 arg0, s32 arg1)\n{\n  SpriteHook loop_callback;\n  s32 loop_one;\n  s32 mode2_one;\n  s32 loop_resource;\n  Pos *pos;\n  Pos *start_pos;\n  Mgr *m;\n  Spr *s;\n  s32 new_var2;\n  s32 x;\n  s32 base_x;\n  s32 y;\n  u32 i;\n  u32 j;\n  u32 row_number;\n  s32 new_var;\n  s32 k;\n  s32 p;\n  u16 state;\n  u16 mode;\n  s16 yy;\n  s16 x1;\n  s16 x2;\n  s16 x3;\n  start_pos = D_800C7F84->pos;\n  base_x = start_pos->x;\n  x = base_x + 0x14;\n  y = start_pos->y + 6;\n  state = D_800C35A0->state;\n  if (state == 7)\n  {\n    return;\n  }\n  mode = D_800C35A0->mode;\n  switch (mode)\n  {\n    case 1:\n      if (state == 0)\n    {\n      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 1)\n      {\n        s = func_80040260((void *)arg0, x, y, 5, func_8003ED04, mode);\n        new_var2 = (s32) ((u32)arg1 + 0x4CU);\n        s->tex = func_80034FF0(new_var2, 0);\n        s->part = 0;\n        s->owner = D_800C7F84;\n        s = func_80040260((void *)arg0, base_x + 0x1C, y, 5, func_8003ED04, mode);\n        new_var = (s32) ((u32)arg1 + 0x4CU);\n        s->tex = func_80034FF0(new_var, 0);\n        s->part = 1;\n        s->owner = D_800C7F84;\n        s = func_80040260((void *)arg0, base_x + 0x24, y, 5, func_8003ED04, mode);\n        s->tex = func_80034FF0(new_var, 0);\n        s->part = 2;\n        s->owner = D_800C7F84;\n      }\n    }\n    else\n    {\n      j = 0;\n      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)\n      {\n        loop_callback = func_8003ED94;\n        loop_one = 1;\n        loop_resource = (s32)((u32)arg1 + 0x4CU);\nmode1_rows:\n        {\n          yy = y + (j * 11);\n          s = func_80040260((void *)arg0, 0x1C, yy, 5, loop_callback, loop_one);\n          s->tex = func_80034FF0(loop_resource, 0);\n          s->part = 0;\n          row_number = j + 1;\n          s->n = row_number;\n          s->owner = D_800C7F84;\n          s = func_80040260((void *)arg0, 0x24, yy, 5, loop_callback, loop_one);\n          s->tex = func_80034FF0(loop_resource, 0);\n          s->part = loop_one;\n          s->n = row_number;\n          s->owner = D_800C7F84;\n          s = func_80040260((void *)arg0, 0x2C, yy, 5, loop_callback, loop_one);\n          s->tex = func_80034FF0(loop_resource, 0);\n          s->part = 2;\n          s->n = row_number;\n          s->owner = D_800C7F84;\n        }\n        j = row_number;\n        if (j < 4) goto mode1_rows;\n      }\n    }\n      break;\n\n    case 2:\n      i = 1;\n      k = 1;\n      p = (u32)arg1 + 0x4CU;\n      mode2_one = 1;\n      arg1 = 0;\n      do\n    {\n      m = (Mgr *)func_8004240C(k);\n      pos = m->pos;\n      D_800C7F84 = m;\n      x = pos->x;\n      y = pos->y + 6;\n      if (!(D_800C35A0->flags12 & 1))\n      {\n        x += 0x14;\n        if (m->type == 3)\n        {\n          x -= 0xE;\n        }\n      }\n      if ((D_800C35A0->state != 0) && (D_800C35A0->slots[D_800C35A0->sel[i]].flags & 4))\n      {\n        loop_resource = (s16)(x + 8);\n        yy = y + 10;\n        s = func_80040260((void *)arg0, loop_resource, yy, 5, func_8003EF20, mode2_one);\n        x2 = x + 0x10;\n        s->tex = func_80034FF0(p, 0);\n        s->part = 0;\n        s->owner = D_800C7F84;\n        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EF20, mode2_one);\n        x3 = x + 0x18;\n        s->tex = func_80034FF0(p, 0);\n        s->part = mode2_one;\n        s->owner = D_800C7F84;\n        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EF20, mode2_one);\n        s->tex = func_80034FF0(p, 0);\n        s->part = 2;\n        s->owner = D_800C7F84;\n        s = func_80040260((void *)arg0, loop_resource, yy, 5, func_8003EE84, mode2_one);\n        s->tex = func_80034FF0(p, 0);\n        s->owner = D_800C7F84;\n        s->part = 0;\n        s->n = arg1;\n        s->r = 0xFE;\n        s->g = 0xD5;\n        s->b = 0x1E;\n        s->a = 0xFF;\n        s = func_80040260((void *)arg0, x2, yy, 5, func_8003EE84, mode2_one);\n        s->tex = func_80034FF0(p, 0);\n        s->owner = D_800C7F84;\n        s->part = mode2_one;\n        s->n = arg1;\n        s->r = 0xFE;\n        s->g = 0xD5;\n        s->b = 0x1E;\n        s->a = 0xFF;\n        s = func_80040260((void *)arg0, x3, yy, 5, func_8003EE84, mode2_one);\n        s->tex = func_80034FF0(p, 0);\n        s->owner = D_800C7F84;\n        s->part = 2;\n        s->n = arg1;\n        s->r = 0xFE;\n        s->g = 0xD5;\n        s->b = 0x1E;\n        s->a = 0xFF;\n      }\n      k += 2;\n      arg1++;\n      i++;\n    }\n    while (i < 3);\n      break;\n\n  }\n\n}\n\n",
    "2d65f311a7f64364642e0148c2adb0f2fcedcf3d8dbbd91f1a493418cd1a5517": "extern u8 *D_800C35A0;\nvoid func_8003EE84(void *object) {\n    u8 * a1 = object;\n    s32 a2 = *(s32*)(*(s32*)(a1+0xA8)+0x24);\n    u8 *a0;\n    s32 v1;\n    if (a2 != 0) {\n        a0 = D_800C35A0;\n        a0 = a0 + (*(u16*)(a1+0x76) + a0)[0x32]*0x28;\n        a0 = a0 + *(u16*)(a1+0x78);\n        v1 = a0[0x44];\n        if (v1 < 0x41) *(s16*)(a1+0x7A) = v1-0x16; else *(s16*)(a1+0x7A) = v1-0x41;\n        if (*(s32*)(*(s32*)(a2+0x6C)+8) == 1) {\n            *(s16*)(a1+0xE) = *(u16*)(*(s32*)(*(s32*)(a1+0xA8)+0x178)+0xA) + 6;\n        } else {\n            *(s16*)(a1+0xE) = *(u16*)(*(s32*)(*(s32*)(a1+0xA8)+0x178)+0xA) + 0x10;\n        }\n    }\n}",
    "bb845bdb539de72a4cb45376530463cdabe30bad1e3f383c8a0fdff29ddd2bee": "void func_8003F05C(void *object) {\n    u8 * arg0 = object;\n    u8 *a1;\n    u8 *a2;\n    s32 a3;\n    s32 v1;\n    u8 *v0;\n    u8 *p;\n    s32 i;\n\n    a1 = *(u8 **)(*(u8 **)(arg0 + 0xA8) + 0x24);\n    if (a1 != 0) {\n        a3 = *(s32 *)(arg0 + 0x80) | 4;\n        *(s32 *)(arg0 + 0x80) = a3;\n        a2 = *(u8 **)(a1 + 0x70);\n        v1 = *(s32 *)(a2 + 0x18);\n        if (v1 >= 0x65) {\n            *(s32 *)(arg0 + 0x80) = a3 & ~4;\n            *(s16 *)(arg0 + 0x7A) = *(s32 *)(*(u8 **)(a1 + 0x70) + 0x10);\n            if (*(s32 *)(*(u8 **)(a1 + 0x70) + 0x14) == 2) {\n                *(s32 *)(arg0 + 0xA0) |= 0x40;\n            } else {\n                *(s32 *)(arg0 + 0xA0) &= ~0x40;\n            }\n            *(s32 *)(*(u8 **)(a1 + 0x70) + 0x18) -= 1;\n        } else {\n            if (v1 > 0) {\n                *(s32 *)(a2 + 0x18) = v1 - 1;\n            }\n        }\n        p = *(u8 **)(arg0 + 0xA4);\n        i = *(s16 *)(arg0 + 0x7A);\n        v0 = *(u8 **)(*(s32 *)(p + 4) + i * 4);\n        *(s16 *)(arg0 + 0x70) = -(*(u16 *)(v0 + 6) >> 1);\n    }\n}\n",
    "969414a551842723abe3d9585a61fe84a9fdfb9c90ce588f9e2b3b1d61b35792": "extern u8 D_800C02AE[];\nextern u8 D_800AE850[];\nextern u8 D_800A4B48[];\nvoid *func_80022318(void **, u8 *);\nvoid *func_8004240C(s32);\nvoid func_8003F11C(void *object) {\n    u8 * arg0 = object;\n  u8 *temp_a2;\n  s32 temp_v1;\n  s32 var_a1;\n  u8 *var_a0;\n  u8 *temp_v0;\n  u8 *temp_a0;\n  u8 *temp_v1_2;\n  s16 temp_a0_2;\n  s16 temp_a1;\n  temp_a2 = *((u8 **) ((*((u8 **) (arg0 + 0xA8))) + 0x24));\n  if (temp_a2 != NULL)\n  {\n    *((u32 *) (arg0 + 0x80)) |= 4;\n    temp_v1 = *((s32 *) (temp_a2 + 0x14));\n    if (temp_v1 & 0x80)\n    {\n      var_a1 = *((s32 *) ((*((u8 **) (temp_a2 + 0x6C))) + 8));\n      if ((var_a1 == 1) && (temp_v1 & 0x100))\n      {\n        *((s16 *) (arg0 + 0x7A)) = 1;\n        temp_a0 = *((u8 **) (D_800C02AE + 0x32F2));\n        *((u32 *) (arg0 + 0x80)) &= ~4;\n        if ((*((u16 *) (temp_a0 + 0xE))) == var_a1)\n        {\n          if ((*((s16 *) (arg0 + 0xE))) >= 0x47)\n          {\n            *((s16 *) (arg0 + 0xE)) = 0x3C;\n          }\n        }\n      }\n      else\n        if (!(temp_v1 & 0x100))\n      {\n        var_a1 = 0;\n        for (var_a0 = *((u8 **) (*((u8 **) (D_800AE850 + 0x73F0)))); var_a0 != NULL; var_a0 = *((u8 **) (var_a0 + 4)))\n        {\n          if (((*((s32 *) (*((u8 **) (var_a0 + 0x48))))) < 4) && (var_a0 != temp_a2))\n          {\n            if ((*((s32 *) (var_a0 + 0x14))) & 0x100)\n            {\n              var_a1 = 1;\n            }\n          }\n        }\n\n        if (var_a1 == 0)\n        {\n          temp_v0 = func_8004240C(((*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0xE))) * 2) + 2);\n          if (func_80022318((void **)(temp_v0 + 0x28), (u8 *)(D_800A4B48)) != 0)\n          {\n            *((u32 *) (arg0 + 0x80)) |= 4;\n          }\n          else\n          {\n            *((s16 *) (arg0 + 0x7A)) = 0;\n            temp_v1_2 = *((u8 **) ((*((u8 **) (arg0 + 0xA8))) + 0x178));\n            temp_a0_2 = *((s16 *) (temp_v1_2 + 0xE));\n            temp_a1 = *((s16 *) (temp_v1_2 + 0xA));\n            *((u32 *) (arg0 + 0x80)) &= ~4;\n            *((s16 *) (arg0 + 0xE)) = temp_a1 + (temp_a0_2 / 2);\n          }\n        }\n      }\n      ;\n      *((s16 *) (arg0 + 0x70)) = -((*((u16 *) ((*((u8 **) ((*((u8 **) ((*((u8 **) (arg0 + 0xA4))) + 4))) + ((*((s16 *) (arg0 + 0x7A))) * 4)))) + 6))) >> 1);\n    }\n  }\n}\n",

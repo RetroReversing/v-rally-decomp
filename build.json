@@ -19845,7 +19845,9 @@
    "seg": "code_80026E3C",
    "vram": 2147739352,
    "rom": 258776,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8003E6D8.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8003E6D8.s",
+   "c": "src/code_80026E3C/func_8003E6D8.c",
+   "own": {}
   },
   {
    "name": "func_8003ED04",

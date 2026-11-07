@@ -20,6 +20,20 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Sprite-setup branch allocation — 7 November 2026
+
+`func_8003E6D8` now matches **395 instructions / 1,580 bytes** with its
+unchanged KMC GCC 2.7.2 profile. Reusing a dead resource local for a later
+coordinate in a mutually exclusive branch completes a row-counter and
+constant-lifetime repair. Both the ordinary live judge and independent function
+check passed. See [the investigation](docs/matching-experiments/func_8003E6D8-investigation.md).
+
+The complete **12,582,912-byte cartridge is byte-identical**. The build selects
+**2,080 of 2,124 entries as C**, leaving **44 assembly entries**; all 2,079
+previous C selections and profiles are retained. The live app has **2,080 matched /
+13 open / 28 assembly** functions, with different entry boundaries. The portable
+`progress/` snapshot includes the new match and all current saved progress.
+
 ### Terrain-contact quotient allocation — 7 November 2026
 
 `func_80029EAC` now matches all **390 instructions / 1,560 bytes** with its

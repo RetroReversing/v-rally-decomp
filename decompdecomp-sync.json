@@ -745,7 +745,8 @@
     "include/decompdecomp_tail_dispatch.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_8004BEB4/func_800529F0.c": "1019081a11c4641f62b93585cbd01a51b4d35fa31315d95cce66a6fc6761dc5a",
     "include/func_800529F0-context.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
-    "src/code_80026E3C/func_80029EAC.c": "d02bff2d84097ee5e03db7bda4cf7cfdebaec0f3001c620eb01732d4f5998a02"
+    "src/code_80026E3C/func_80029EAC.c": "d02bff2d84097ee5e03db7bda4cf7cfdebaec0f3001c620eb01732d4f5998a02",
+    "src/code_80026E3C/func_8003E6D8.c": "6d1e611a8feaad3a3af22e147106e725a3b3c2380efaec21881a8af9c4d3e5d2"
   },
   "accepted": [
     "MusInitialize",
@@ -919,6 +920,7 @@
     "func_8003E1BC",
     "func_8003E3E0",
     "func_8003E4A8",
+    "func_8003E6D8",
     "func_8003EE84",
     "func_8003F05C",
     "func_8003F11C",
@@ -1219,14 +1221,14 @@
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2079,
+  "matched_app": 2080,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_80029EAC"
+      "func_8003E6D8"
     ],
-    "note": "App API sync independently verified changed C and full private cartridge before publishing; compatible caller also exact. All earlier C selections and effective profiles retained."
+    "note": "Ordinary live app judge, independent build.py check, and complete cartridge comparison passed. All earlier selected sources and compiler profiles retained; complete portable progress saved through app API."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
@@ -1405,23 +1407,19 @@
   },
   "last_match": {
     "date": "2026-11-07",
-    "function": "func_80029EAC",
-    "source_sha256": "7e11424d0cef12f9f56478d07d060ac4c6e6beeb360cd058e390ffabc768fb3b",
-    "size": 1560,
-    "instructions": 390,
-    "selected_c": 2079,
+    "function": "func_8003E6D8",
+    "source_sha256": "91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8",
+    "size": 1580,
+    "instructions": 395,
+    "selected_c": 2080,
     "standalone_functions": 2124,
-    "assembly_entries": 45,
-    "app_matched": 2079,
-    "app_open": 14,
+    "assembly_entries": 44,
+    "app_matched": 2080,
+    "app_open": 13,
     "app_assembly": 28,
-    "attempt": 345533,
-    "repair_example": 36991,
     "compiler": "gcc-2.7.2-kmc",
     "flags": "-G0 -mips3 -mgp32 -mfp32 -O2 -g3",
-    "compiler_evidence_pr": 775,
-    "all_prior_selections_and_profiles_preserved": true,
-    "repository_sync_job": "7316dc8a5598"
+    "all_prior_selections_and_profiles_preserved": true
   },
   "previous_live_reconciliation": {
     "matched": 2078,
