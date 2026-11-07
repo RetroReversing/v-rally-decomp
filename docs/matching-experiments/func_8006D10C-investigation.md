@@ -180,3 +180,35 @@ limits, with ordinary/diagnostic parity and independent relinks. All2077 selecte
 full sources/profiles,740 attempts and focal inputs remain identical. No live
 operations or further matrix ran. Private current505-phase-nov7 retains source
 delta, actual linked bytes, RTL and resource receipts.
+
+
+## November 7: exact-root shared repair coverage
+
+Eight bounded pure repair generators from app main d978ff39 were checked on
+initialized505 source6dd89f6e with the actual context/profile. Six yielded no
+candidate. Four conversion-tail materializations did not address the established
+hoist and were not compiled. One integer-lifetime repair was genuinely new to
+740 hydrated attempts and2,426 retained private source files: reuse dead u8
+selector b as the real loop counter after all selector uses, resetting it at
+the original i=0 point. No extra operation, memory access or iteration is added.
+
+Candidate36c235ca3153c3b98434493fdddb3fce4dd5e29adaba414c649d44830462db76
+was tested exactly twice, ordinary/-da. Both independently saved-object relinks
+produce505/1112bytes, SHA-256
+`a6f59a70c198a0812c99c0b12fa5a85b9bf7bc9418cf86078f3489b48e02bdd4`.
+Independently relinking the retained exact-root baseline object proves identical
+raw bytes, rather than only an equal score. The merged source binding survives,
+but its initial value dies before the reset, allowing the same physical roles.
+The n*9 product is still hoisted into s7; counter remains s4 and initial
+normalization v1. This lifetime merge supplies no new repair mechanism here.
+
+The earlier literal-threshold setup-order suggestion was not compiled: actual
+liveness ranks fs1 ahead of the longer-lived threshold, so placing the threshold
+earlier does not establish a fix. Genuine three-iteration early-exit loop forms
+were already covered; no artificial barrier or threshold use was added.
+
+Both20-second/2-GiB aggregate watchers finish cleanly under one second, with no
+owned survivors. All2,078 full selected rows/effective profiles,740 focal attempts
+and complete focal inputs remain unchanged. No selected source, live app,
+compiler profile or cartridge-progress change. Evidence: private
+`repair-coverage-nov7/REPORT.md`, `baseline-parity.json` and preservation receipts.
