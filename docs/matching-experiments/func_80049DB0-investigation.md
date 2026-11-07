@@ -202,9 +202,10 @@ v0 while the remaining chain temporaries were allocated.
 The result is negative:1040/136 bytes, ordinary/diagnostic parity and independent
 relink SHA-256
 `b880466ca3aba73b5ba64559d841ba06fc8dedd663f0ffad9e95167c759b5bcd`.
-The compiler's `safe_from_p` explicitly rejects the statement expression's
-`RTL_EXPR` instruction sequence, so logical-OR lowering initializes a new
-pseudo93 rather than hard v0. Initial RTL then copies that result to v0 only
+The compiler initializes a new pseudo93 rather than hard v0. A subsequent
+pure-comma control below establishes that O2 CSE discards the hard target
+earlier; `safe_from_p` rejecting the statement expression's `RTL_EXPR` is an
+additional restriction, not the primary cause. Initial RTL then copies that result to v0 only
 at the return. Local link80 stays in v0; result93 becomes a2 and extra Boolean
 branches/moves appear. This does not repair the four local-register differences.
 
@@ -212,3 +213,26 @@ Exactly two compiler calls under20s/2GiB descendant-aware watchdogs, no survivor
 all2,077 selected source hashes/profiles and all910 attempts preserved. Keep
 valid20, distinct from the older invalid XOR/OOB20. Private receipts:
 `current20-local-phase-nov7`. No new automatic repair family is justified.
+
+
+### Pure comma expression isolates the earlier hard-target restriction
+
+The next control uses an ordinary comma expression for the same chain loads in
+the first operand of the returned OR, within two real one-shot scopes. It has
+no GNU statement expression or additional access. Result785/132 bytes, paired
+ordinary/diagnostic and independent relink SHA-256
+`19821b42916de802d482974b25542c92b73a180c236146f162134e539864ef8f`.
+
+This corrects the earlier causal explanation: with CSE expected, `expr.c`
+4110–4118 strips the hard return target into a null subtarget (4058–4062 already
+clears a hard subtarget). Even the pure expression initializes pseudo87, then
+copies it to hard v0 at the return; the link and sentinel remain local v0.
+The whole-expression scopes also raise root references to15 versus p14, changing
+their global order, rather than preserving the isolated load's weighting. The
+extra result pseudo takes v1 and further branches/moves remain.
+
+No source-only Boolean-expression mechanism for reserving hard v0 across these
+loads was established under the actual O2 profile. Do not repeat comma versus
+statement-expression syntax as if only `safe_from_p` caused the failure. This
+second two-call control preserved all selected hashes/profiles and the valid20
+draft. No live or canonical source changes; only this negative record is added.
