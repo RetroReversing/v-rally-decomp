@@ -418,3 +418,19 @@ complete focal inputs compare unchanged. Zero compiler/preprocessor/Clang/native
 executions, downloads, installs, live writes or restarts. Keep OPEN52. Private
 `compiler-failures-nov7/REPORT.md` retains the complete source/error inventory,
 lineage bindings, binary identities and preservation receipts.
+
+## November 7: aggregate-return elimination hypothesis
+
+The proposed scalar-input, genuine three-float aggregate-return normalization
+already exists as normalize-return-sqrt.c (source8f827b1e). Its retained
+ordinary/diagnostic result is3142/1472bytes with a128-byte frame; the divide
+spelling is3559/frame120. These are historical source-bound controls, not newly
+measured compositions with the current52 packing-staged root. Initial RTL writes
+three fields and performs a12-byte BLK copy; final code still loads SP80/84/88
+and stores SP64/68/72. The actual temporary does not become an unused high-water
+reservation in that measured lowering. Retained flow.c dead-insn handling is
+not a general escaping-aggregate DSE proof, and explicitly limits redundant
+store tracking through SP. No new producer/elimination cause justified another
+compile. No compiler, generator or live operation ran; this artifact-only audit
+does not claim a fresh full database snapshot. Private value-record-revisit-nov7
+retains input hashes, direct RTL/final references and these coverage limits.

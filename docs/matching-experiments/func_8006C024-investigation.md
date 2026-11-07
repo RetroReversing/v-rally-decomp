@@ -480,3 +480,28 @@ printed pair uniqueness, preprocessor exclusions and final AST verification rema
 61 formatting/related tests and full Ruff passed. GitHub reported no CI checks.
 No live candidate adoption, runtime restart or game-progress change occurred.
 Private lineage-revisit-nov7 retains the bounded audit, origin proof and receipts.
+
+### Close the other source-valid changed adjacent pair
+
+Retained candidate24 is the only other changed adjacent pair passing the
+strengthened initialization/effect guard;233/234 fail initialization and were
+not compiled. Its subtraction capture precedes the conversion branch, unlike
+232. The actual game coefficient values2^31,4.5,1.5 and masked integer factors
+put the floating input in exact half-steps from0 through1530. On the existing
+premise that those coefficient objects retain their cartridge values, the
+additional subtraction is exact and introduces no floating status exception.
+This does not prove const qualification or equivalence for arbitrary mutable
+coefficients/NaNs. Candidate24 also carries one byte load through an existing
+signed32 local; paired split/join changes only the conversion/mask whitespace.
+
+Four bounded ordinary/-da calls with independent persisted-object relinks give
+split1965/960bytes (sourcefabe9140, linked
+`f9d1e649cc52cbde172cecbedb28e2ec107007b22a149605db6c754df38eb702`)
+and joined1905/956bytes (sourcece96247a, linked
+`ebdaa1019015889c5ee62839b99d4f7978e380f7bade95133d2d758cc333ee11`).
+Thus the same known boundary recovers60points/four bytes in a distinct body,
+but neither beats the selected1700. Strict C89 preflight passed. All444 attempts,
+2,078 selected sources/profiles and complete before/after inputs remain unchanged;
+no generator, live adoption or new match. Private lineage-revisit-nov7/raw24
+retains domain review, full source bindings and terminal watchdog receipts.
+This completes the four changed-pair dispositions from the fixed256 batch.
