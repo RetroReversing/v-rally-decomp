@@ -309,3 +309,29 @@ the normal judge remains mandatory. Synthetic/integration coverage passes137
 tests; this does not claim a new exact function or general proof for arbitrary C.
 The separately built shareable macOS app includes the change at4e565105; the
 running dev app has not been updated or restarted by this change.
+
+
+## November 7: call-boundary dependency audit
+
+Fresh strict read-only capture retains OPEN1700, all442 hydrated attempts
+(376 distinct sources), and all2,078 selected sources/effective profiles. The
+actual `u8 func_8006B9E0(u8,u8)` return is consumed as the selector; it cannot
+be replaced by a fictional void call or by returning the input mode.
+
+The existing1915 control already has a post-call mode copy in initial RTL
+(call43, selector capture45/46, mode copy49). First scheduling moves49 before43.
+Actual GCC `sched.c`1730 adds a last-call dependency to a pseudo destination
+only when `reg_n_calls_crossed` is zero; the analogous read rule is at1889.
+This persistent mode already crosses later calls. A scalar inline wrapper's
+ordinary argument/result remapping (`integrate.c`1545–1632) therefore does not
+provide the missing dependency. No wrapper compile was justified, and no
+artificial barrier, extra output storage or ABI change was introduced.
+
+A bounded mnemonic screen of12,061 other-project functions of720–1200bytes
+finds only two high-similarity regional drafts, both unmatched:960-byte
+`func_8006C954` at7272 and1036-byte `func_8006C374` at8149. The same-shape
+regional machine transfer was already negative in earlier work. This is not
+an exhaustive semantic donor search. No new candidate, compiler, Clang or
+generator calls followed. Complete before/after frozen inputs agree; no live
+claim or write. Private evidence: `call-return-audit-nov7/REPORT.md` and
+`preservation.json`. Keep1700 and seek a different causal mechanism.
