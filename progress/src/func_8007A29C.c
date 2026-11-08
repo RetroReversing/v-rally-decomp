@@ -31,6 +31,7 @@ typedef struct
 } RS;
 extern u8 *D_800C35A0;
 extern u8 *D_800D0658;
+static inline s16 normalize_field(s32 x) { x=(u32)x<<16; x=(s32)x>>16; return x; }
 void func_8007A29C(void)
 {
   u8 *tbl;
@@ -111,7 +112,7 @@ void func_8007A29C(void)
         }
         else
         {
-          H(node, 8) = off;
+          H(node, 8) = normalize_field(off);
           off += 0x14;
           prev = node;
           node = P(node, 0);

@@ -1,3 +1,4 @@
+extern f64 D_800A5890;
 extern f64 D_800A58A0;
 extern f64 D_800A5898;
 extern u8 *D_800C35A0;
@@ -18,6 +19,13 @@ void func_8006D10C(void)
   u8 b;
   s32 k;
   u8 *out;
+  s32 group_index;
+  u16 *level;
+  u16 *lookup_base;
+  f64 conversion_bound;
+  s32 raw;
+  u8 *item;
+  s32 row_product;
   b = D_800C35A0[31];
   n = D_800C35A0[35];
   s6 = D_800D0634[b];
@@ -43,30 +51,46 @@ void func_8006D10C(void)
 
   n += j;
   i = 0;
-  fs1 = ((f64) n) * D_800A5898;
-  do
+  conversion_bound = D_800A5890;
+  group_index = n;
+  fs1 = ((f64) group_index) * D_800A5898;
+  lookup_base = D_800C5D9C;
+  level = lookup_base + group_index;
+packed_loop:
   {
-    j = (u32) (fs1 + (((f64) (i & 255)) * D_800A58A0));
+    { f64 value = fs1 + (((f64)(i & 255)) * D_800A58A0);
+      if (!(conversion_bound <= value)) raw = (s32)value;
+      else raw = ((s32)(value - conversion_bound)) | 0x80000000U;
+      j = raw;
+    }
+    row_product = group_index * 9;
     k = i & 255;
-    q = (((n * 9) + (k * 3)) * 4) - ((j & 255) * 8);
-    code = func_8006B924((s6 + (((*((u16 *) (D_800C35A0 + 34))) << 6) + 44)) + (k * 16));
+    q = (((k * 3) + row_product) * 4) - ((j & 255) * 8);
+    item = (s6 + (((*((u16 *) (D_800C35A0 + 34))) << 6) + 44)) + (k * 16);
+    do {
+      code = func_8006B924(item);
+    } while (0);
     out = D_800C721E;
     if ((code & 255) == 5)
     {
       if (q & 255)
       {
+        do {
         out[(j & 255) + 1] = 255;
         out[j & 255] |= 240;
+        } while (0);
       }
       else
       {
+        do {
         out[j & 255] = 255;
         out[(j & 255) + 1] |= 15;
+        } while (0);
       }
     }
     else
     {
-      r = D_800C5D9C[n] - (*((s32 *) ((s6 + ((k * 16) + ((*((u16 *) (D_800C35A0 + 34))) << 6))) + 44)));
+      r = *level - (*((s32 *) ((s6 + ((k * 16) + ((*((u16 *) (D_800C35A0 + 34))) << 6))) + 44)));
       if (r >= 0)
       {
         if (r >= 1024)
@@ -167,6 +191,6 @@ void func_8006D10C(void)
     }
     i++;
   }
-  while ((i & 255) < 3);
+  if ((i & 255) < 3) goto packed_loop;
 }
 

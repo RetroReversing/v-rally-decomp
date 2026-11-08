@@ -60,8 +60,8 @@ void func_8006603C(void)
   u8 *base;
   u8 *row;
   u16 savedE;
-  u32 saved1E;
-  u32 saved22;
+  u16 saved1E;
+  u16 saved22;
   u8 new_var2;
   s32 one;
   s32 limit;
@@ -70,7 +70,7 @@ void func_8006603C(void)
   D_800A1468->unk23C = D_800C35A0->unk1E;
   sc = D_800C35A0;
   base = D_800D0634[inline_fn23(sc)];
-  row = base + sc->unk20 * 0x2C4;
+  row = (u8 *)(sc->unk20 * 0x2C4 + (u32)base);
   sc->unk2E = *((row + ((inline_fn(sc) << 1) << 5)) + 0x37);
   func_80061F34(sc, base);
   D_800A1468->unk28C = func_80066384;
@@ -96,20 +96,23 @@ void func_8006603C(void)
       {
         sc = D_800C35A0;
         savedE = sc->unkE;
-        saved1E = inline_fn23(sc);
-        new_var3 = (u8) saved1E;
-        saved22 = inline_fn(sc);
+        saved1E = sc->unk1E;
+        saved22 = sc->unk22;
         D_8009E260 = 4;
         one = 1;
+        new_var3 = (u8) saved1E;
         sc->unkE = one;
         new_var2 = (u8) saved22;
-        if ((((u16) saved1E) == 2) && (((u16) saved22) == 4))
+        if (((u16)saved1E) != 2) goto alternate;
+        if (((u16)saved22) != 4) goto alternate;
+
         {
           sc->unk1E = 5;
           sc->unk20 = one;
           sc->unk22 = 2;
         }
-        else
+        goto finished_selection;
+alternate:
         {
           SceneState *alt;
           alt = D_800C35A0;
@@ -120,6 +123,7 @@ void func_8006603C(void)
             alt->unk22 = 0;
           }
         }
+finished_selection:;
         D_800A14D6 = D_800C35A0->unk1E;
         D_800A14D7 = D_800C35A0->unk20;
         D_800A14D8 = inline_fn(D_800C35A0);
