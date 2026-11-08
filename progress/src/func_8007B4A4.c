@@ -43,6 +43,7 @@ void func_8007B4A4(void *owner, s32 mode)
     s16 q[3];
     typedef struct { s16 rotation[9]; s16 alignment; s32 translation[3]; } Matrix;
     Matrix m;
+    u8 stack_padding[16];
     f32 dx, dy, dz, len, s;
     f32 integer_limit;
     f32 ex, ey, ez, dot, f, amb, k, g1;
@@ -152,6 +153,7 @@ void func_8007B4A4(void *owner, s32 mode)
                 if (L->t1 < dot) {
                     lo = c << 8;
                     hi = c << 16; hi += 1;
+                    lo += hi; lo += c << 24; w->col = lo;
                 } else if (L->t2 < dot) {
                     amb = *ap;
                     f = k - amb; f -= (L->t1 - dot) * f / (L->t1 - L->t2);
@@ -159,14 +161,14 @@ void func_8007B4A4(void *owner, s32 mode)
                     c = (u8)brightness_to_u32(g1, integer_limit);
                     lo = c << 8;
                     hi = c << 16; hi += 2;
+                    lo += hi; lo += c << 24; w->col = lo;
                 } else {
                     c = (u8)*ap;
                     lo = c << 8;
                     hi = c << 16; hi += 4;
+                    lo += hi; lo += c << 24; w->col = lo;
                 }
-                lo += hi;
-                lo += c << 24;
-                w->col = lo;
+
                 w++;
                 j2++;
             } while (j2 < n);

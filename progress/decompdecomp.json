@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794057510.5896802,
- "revision": 19208,
+ "saved_at": 1794151915.179074,
+ "revision": 19363,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1178,6 +1178,21 @@
     "-mno-abicalls",
     "-fno-pic",
     "-O2"
+   ]
+  },
+  "199588:2147680164": {
+   "vram": 2147680164,
+   "function": "func_8002FFA4",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3",
+    "-fno-cse-follow-jumps",
+    "-fno-cse-skip-blocks"
    ]
   }
  },
@@ -4580,8 +4595,8 @@
   },
   "func_80030180": {
    "vram": 2147680640,
-   "best_score": 107,
-   "best_by": "manual-0c4951961f7d4f1a"
+   "best_score": 102,
+   "best_by": "Rr.permuter-673-lane-3"
   },
   "func_8003035C": {
    "vram": 2147681116,
@@ -5400,8 +5415,8 @@
   },
   "func_80040CF4": {
    "vram": 2147749108,
-   "best_score": 485,
-   "best_by": "manual-b55469f0d3dc49f9"
+   "matched_by": "you",
+   "readable": false
   },
   "func_800412FC": {
    "vram": 2147750652,
@@ -5950,8 +5965,8 @@
   },
   "func_80049DB0": {
    "vram": 2147786160,
-   "best_score": 20,
-   "best_by": "manual-49308026962141bb"
+   "matched_by": "manual-622d10ab08d14404",
+   "readable": false
   },
   "func_80049E28": {
    "vram": 2147786280,
@@ -6990,8 +7005,8 @@
   },
   "func_80059A60": {
    "vram": 2147850848,
-   "best_score": 630,
-   "best_by": "manual-49308026962141bb"
+   "matched_by": "you",
+   "readable": false
   },
   "func_80059F80": {
    "vram": 2147852160,
@@ -8385,8 +8400,8 @@
   },
   "func_8006BA44": {
    "vram": 2147924548,
-   "best_score": 695,
-   "best_by": "manual-712eb47c973f4765"
+   "best_score": 645,
+   "best_by": "Rr.permuter-1434-lane-4"
   },
   "func_8006BE50": {
    "vram": 2147925584,
@@ -8400,8 +8415,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 1700,
-   "best_by": "manual-456b41083c0a44de"
+   "best_score": 680,
+   "best_by": "permuter-1436"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -9030,8 +9045,8 @@
   },
   "func_8007B4A4": {
    "vram": 2147988644,
-   "best_score": 52,
-   "best_by": "manual-bbbfb5e34f09453f"
+   "matched_by": "you",
+   "readable": false
   },
   "func_8007BA1C": {
    "vram": 2147990044,
@@ -9990,8 +10005,8 @@
   },
   "func_80086F40": {
    "vram": 2148036416,
-   "best_score": 325,
-   "best_by": "candidate-review"
+   "matched_by": "you",
+   "readable": false
   },
   "func_80087114": {
    "vram": 2148036884,
@@ -11779,6 +11794,7 @@
    "readable": false
   }
  },
+ "function_headers": {},
  "layout": [
   {
    "name": "func_80005098",
@@ -250577,6 +250593,958 @@
    "created_at": 1794057496.751158,
    "score_before": 0,
    "score_after": 0
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "New controlled hypothesis: complete interpolation code is duplicated in the two branches, with branch-local offsets/pointers. GCC merges it to476bytes/frame8 and now recovers target a1/a3 offset registers plus t0 magic divider together (private445; saved107 is still better). Testing48 combinations of genuine early coordinate loads, base-pointer scope and branch output aliases. All keep the original void/four-argument interface and ordered output stores. No native unchecked statement reordering or fake uses. Other work/claims untouched.",
+   "by": "you",
+   "created_at": 1794058181.672213,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Controlled duplicated-tail breakthrough: shared PA plus branch-local PB and genuine unsigned address arithmetic recover target base v0, root a0, A a1, B a3, divider t0, output t4, first quotient t3 together; 476 bytes/frame8. Best private candidate score255 (3 register operands and8 reordered markers), not better than saved107. Residual is prev a2 vs target t0 and entry/first LHU scheduling. Submitted255 once through /api/try; observation timed out, so reconciling instead of retrying. Saved107 remains selected. No source, compiler profile, shared header or app changes promoted. Testing real fraction lifetimes and neighbor scopes next.",
+   "by": "you",
+   "created_at": 1794059445.346837,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-036667d02630477f",
+   "created_at": 1794060319.2570722,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Live compiler experiment confirmed score75 (NOT exact), trial2513f958d19157159509, source773457896bb42bb6a49fe6b97eb933b60e505cd6db11425136c8e6ac7220c494, headerdbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212. Exact profile: gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 -fno-cse-follow-jumps -fno-cse-skip-blocks. 476bytes/frame8; remaining prev uses a2 instead of t0 (3 operands), and one early LHU reordered around the other pointer addition (2 markers). Disabling both branch-CSE passes fixes entry scheduling; either flag alone does not. Candidate revision and selected function profile remain unchanged; no saved75 or claimed match. Dedicated diagnostic connection7745 revoked and absence confirmed. 174 controlled residual-source and48 neighbor-relation variants did not beat75. Guarded private native continuation uses unique binding names plus original type/control/narrow-store/initialization guards AND per-binding symbolic effects on both paths, rejecting dependency-changing native mutations before compile.",
+   "by": "you",
+   "created_at": 1794060468.777292,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Continuing from live diagnostic75/trial2513f958d19157159509. Current saved107/default profile still unchanged. New complementary-if source also gets75 with branch CSE disabled, but only255/285 under project defaults, so it does not remove the need for the diagnostic flags. Extended private symbolic guard to the exhaustive reference paths (true,false)/(false,true), retaining identical conditions plus typed effects; regression checks reject changed predicates, subtraction and5x instead of6x scaling. Its bounded native pass ended172 compiler calls/240s, best75, not exact. Additional200 real pointer/fraction lifetime controls and128 asymmetric arm-binding controls have no score improvement. Next causal tests: real tail-local copies of offsets/fraction and a common-tail inline helper to change copy preferences without fake values or ABI changes. All experiments use isolated ROM copies/read-only live DB; only this function\u2019s ordinary API records and notes are touched.",
+   "by": "you",
+   "created_at": 1794061209.081134,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Live continuation: best 485 \u2192 450 by sharing the initial/result Item pointer and ordering width/height stores. Explicit object/rectangle pointer reuse worsened (~3485), rejected. Testing typed extent-lifetime reuse next; compiler/profile/header/target unchanged. All trials through the normal API.",
+   "by": "you",
+   "created_at": 1794090614.305156,
+   "score_before": 485,
+   "score_after": 450
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-622d10ab08d14404",
+   "created_at": 1794090680.4488761,
+   "score_before": 20,
+   "score_after": 20
+  },
+  {
+   "function": "func_80049DB0",
+   "text": "Matched through the running API: score20 ->10 ->0, 30 instructions/120 bytes. Saved source 978ea35c532ffcdb12fc2d1626949c48d38cc4cfd2b948898d3368ce151857ef. Successful change reuses one signed-word scratch for the actual initial mode load, second pointer-chain link and sentinel comparison/XOR. This makes disjoint values use target v1 while retaining existing root/p/result roles. No dummy reads/uses, fixed registers, assembly, changed signature, changed target, shared header, or compiler profile. Independent ordinary saved-source recheck and layout check recorded; no complete cartridge rebuild claimed. Wide-carrier and distributed-link controls were not improvements. Evidence in /Volumes/Data/Codex/tmp/func80049DB0/live-goal.",
+   "by": "manual-622d10ab08d14404",
+   "created_at": 1794090918.438476,
+   "score_before": 20,
+   "score_after": 0
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Manual live trials improved OPEN485 to OPEN410: merged initial Item result with shared Item lifetime, corrected width-before-height stores in initial/case1/horizontal rectangles. Typed extent reuse, explicit object/rectangle pointer reuse, wider/narrower captures did not improve. Starting a CPU-only single-function deep pass from the retained best, one compiler profile; no AI agents.",
+   "by": "you",
+   "created_at": 1794091099.5597188,
+   "score_before": 450,
+   "score_after": 410
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Further live API controls retained best 410. CPU deep pass f5c7f639afb3 completed 725 candidates (14 cached misses), no improvement. Constructor and nested matched func_800051B4 inspect Rect without modifying it. Tested genuine rectangle-field reads, signed/narrow height reuse, result scopes, call embedding, initialization/store staging, if/switch shapes, field signedness and source layout; no better candidate. Alternative height-reuse-incoming has exact instruction count but wrong allocation (515); s16 narrow equivalent has 103 register-only rendered differences (1340), not exact. Current 410 has initial Obj s3 vs target s2, initial height s0 vs target s3/raw shifted s2 vs target s0, width s4 vs target s5; vertical roles rotate, horizontal/tail largely align except inserted move s3,s0 and one commuted addition. No target, ABI, profile or judge changes.",
+   "by": "you",
+   "created_at": 1794091798.800378,
+   "score_before": 410,
+   "score_after": 410
+  },
+  {
+   "function": "func_80040CF4",
+   "text": "Exact normal-API match: func_80040CF4, 386 instructions / 1544 bytes, score 0, unchanged KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3. Accepted source SHA256 78589432c0ee74b75322bca6a9ef3823df6e1a30040418a27100b5f7fe1de73f. Breakthrough: dead hh reassignment kept half-height global (two deaths); removing it made the value locally allocatable. Independent second-rectangle store ordering exposed a tied x2/h2 allocation priority (410 -> 205). A scoped s16 next_y = y + hh + 1 before item id/store setup restored target allocation and scheduling with normal x/y/w/h stores (205 -> 5). Final horizontal p->x = x + hw + 1 replaced repeated narrow field updates and fixed the last commuted addu operands (5 -> 0). No fixed registers, inline asm, volatile barriers, compiler/profile/ABI/target/judge changes. Linked bytes and instructions verified exact by live judge; full standalone ROM rebuild not claimed.",
+   "by": "you",
+   "created_at": 1794092163.390746,
+   "score_before": 410,
+   "score_after": 0
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-9ce9b245473841ec",
+   "created_at": 1794098560.449614,
+   "score_before": 265,
+   "score_after": 265
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Matching investigation Nov 8: live ordinary judge improved 325 -> 230 -> 185 (98.4%), first 79/117 target instructions exact. Best source SHA256 3ddd1042869b59907a80803e7c6f795921673c24f11472f8c6cb9968c95bc881. Same KMC -G0 -mips3 -mgp32 -mfp32 -O2 -g3, same ABI/header. Pointer predecessor + separate delta + consumed computed hit-address binding gives target s0/s1 allocation; one single-pass delta scope fixes andi scheduling; moving real start assignment/alignment into first call argument delays subtract and improves185. Remaining: first scalar arg copy removed by first CSE, aggregate partial-copy scratch registers then use a0 rather than a1. Private -da output equals ordinary allocated output. Actual dataflow/lifetime issue; no fixed registers or extra arithmetic inserted. 213-compile app deep pass no further improvement. Tail line partitions, declaration/register hints, compatible prototypes, field captures and helper packet captures negative. Goal remains active; best185 freshly rechecked after app restart.",
+   "by": "manual-9ce9b245473841ec",
+   "created_at": 1794100319.690399,
+   "score_before": 265,
+   "score_after": 265
+  },
+  {
+   "function": "func_80086F40",
+   "text": "Continuation controls: 30 live API source trials and 8 diagnostic compiler-option trials did not beat ordinary score185. Argument mask925/xor385/direct185; update/reload capture185/680, store-capture365, start-field subassign565, pointer-to-start715. Packet union or six scalar fields same185. Dual single-pass copy/update blocks600/425; branch prealignment230/665 and scoped245. Return expressions using original addr lowbit or addr-aligned yielded1283; do not repeat. Pointer-valued local/formal address and Node.start all reproduce185. -fno-force-mem190; -fno-schedule-insns1803, -fforce-addr1863, -fno-delayed-branch1875; -fno-function-cse/-fno-inline/-fno-strength-reduce unchanged185; -fno-regmove unsupported. Fresh GET confirmed saved best source unchanged and baseline current. Still open, not exact. Evidence scripts and results in nov8-live/{argument,scope,return-lifetime,pointer,profile}-controls.py. Remaining mechanism still early arg0 capture eliminated by first CSE; avoid repeating inert spelling/type/single-pass scope controls.",
+   "by": "manual-9ce9b245473841ec",
+   "created_at": 1794100646.302128,
+   "score_before": 185,
+   "score_after": 185
+  },
+  {
+   "function": "func_80086F40",
+   "text": "EXACT MATCH through live GUI /api/try, score0, 117 instructions/468 linked bytes, fresh GET status matched/best0/source identical, and independent frozen normal-compiler link exact. Flags unchanged KMC GCC2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3. Breakthrough: use an inline scalar/pointer dispatch helper that dereferences the six-word Packet immediately for the verified callee; combine actual field stores/data extraction and table counter postincrement in its arguments. This recovered all register choices at score60; removing the formerly useful do{delta=a&1;}while(0) block gave exact. Aggregate-by-value helper parameters did NOT inline and produced unresolved local calls; scalar/pointer helper did inline, ELF contains only focal468-byte function, no helper body/data. Signature of actual callee unchanged. Exact source final-expr-plain-delta.c, proof EXACT-PROOF.json under private nov8-live evidence. Do not generalize that one-pass scopes always help: re-evaluate them after structural repairs. No whole-ROM rebuild claimed.",
+   "by": "manual-9ce9b245473841ec",
+   "created_at": 1794100958.444606,
+   "score_before": 185,
+   "score_after": 185
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 92 candidates tested; 2 cached skips; 0 rejected; 2999s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-0",
+   "created_at": 1794143506.800691,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 99 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-1",
+   "created_at": 1794143509.9194582,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 98 candidates tested; 7 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-7",
+   "created_at": 1794143651.625699,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 112 candidates tested; 5 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-6",
+   "created_at": 1794143621.97865,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 114 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-2",
+   "created_at": 1794143472.673795,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 123 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-3",
+   "created_at": 1794143678.650867,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 84 candidates tested; 1 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-5",
+   "created_at": 1794143628.839415,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 91 candidates tested; 5 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-672-lane-4",
+   "created_at": 1794143472.697015,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 82 differing rows (42 register, 22 stack, 10 branch target, 4 reordered, 3 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794141690.5476449,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 24 differing rows (2 register, 22 stack; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794141841.582189,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 36 differing rows (1 opcode, 10 register, 22 stack, 1 branch target, 1 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142055.8258371,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142090.602581,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142139.893343,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 25 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 96 differing rows (2 opcode, 36 register, 24 stack, 9 branch target, 3 operand, 4 inserted, 18 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142194.771101,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142289.210461,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 32 differing rows (10 register, 22 stack; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142347.827311,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-1",
+   "created_at": 1794142411.7824278,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 70 candidates tested; 0 cached skips; 0 rejected; 1942s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-0",
+   "created_at": 1794142416.713084,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 67 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-5",
+   "created_at": 1794142425.625966,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-7",
+   "created_at": 1794142425.637415,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-2",
+   "created_at": 1794142425.644989,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-3",
+   "created_at": 1794142425.65311,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-4",
+   "created_at": 1794142434.510944,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Deep permuter: score 52 \u2192 52; 0 improvements; 69 candidates tested; 0 cached skips; 0 rejected; 1939s elapsed. Matched.",
+   "by": "Rr.permuter-1564-lane-6",
+   "created_at": 1794142438.0084531,
+   "score_before": 52,
+   "score_after": 52
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 31 differing rows (9 register, 22 stack; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142467.9973152,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007B4A4",
+   "text": "Nov8 LIVE MATCH verified via /api/try and fresh /api/function plus /api/diff: score52 ->40 ->0, 350 instructions /1400 linked bytes identical; saved source SHA256 eaebece0b84e3d09a7f172eeb42f1f95cc9de904fb217d64f460d92aaf765f86, attempt4294968158. Compiler/profile/target/header unchanged (KMC2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -ffast-math -g3). Honest inferred layout control: explicit u8 stack_padding[16] after actual32-byte Matrix accounts for the unaccessed frame gap; no evidence establishes its original purpose. This differs from earlier source-recovery audits: padding is an explicit matching placeholder, not a recovered aggregate or new ABI. Remaining pointer registers fixed by duplicating unsigned lo+=hi;lo+=c<<24;w->col=lo into each of three second-loop branches, leaving w++/j2++ shared. Compiler emits identical shared target tail; phase attribution not yet measured. Cursor aliases, indexed/reversed induction, narrow store helpers and increment order alone failed. Full cartridge equality not run. Private sources/attempts/proof at Data/Codex/tmp/func8007B4A4/live-nov8.",
+   "by": "you",
+   "created_at": 1794142473.163918,
+   "score_before": 52,
+   "score_after": 0
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 27 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 54 differing rows (30 register, 22 stack, 2 reordered; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142540.519435,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 93 differing rows (55 register, 22 stack, 10 branch target, 4 reordered, 1 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794142594.711467,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "2026-11-08 API investigation: saved valid C candidate remains OPEN22. Fresh live late-scratch/domain/bitfield controls did not improve it. A C++ translation reproduces22. A real scope-lifetime object representing the existing func_80069974 cleanup (or the three existing startup calls) reaches diagnostic score10 with the same KMC flags plus -x c++; no padding fields or dummy reads. Trial10660cf1ca5f601b0744 (refresh) / ea0479c1cebe233ab579 (setup). The frame now agrees, but all four persistent pointer spill homes are +8, leaving10 stack-reference differences. These are diagnostic alternatives, not matches or applied compiler choices. Normal call order/arguments are preserved on ordinary game paths; this does not prove the original was C++. Ongoing records/cleanup scope controls are in /Volumes/Data/Codex/tmp/func8007A29C/goal-20261108.",
+   "by": "you",
+   "created_at": 1794143388.10932,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 86 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-5",
+   "created_at": 1794143467.969313,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 645; 2 improvements; 116 candidates tested; 0 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-4",
+   "created_at": 1794143472.663359,
+   "score_before": 695,
+   "score_after": 645
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 95 candidates tested; 2 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-4",
+   "created_at": 1794143472.680963,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 1 improvements; 105 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-1",
+   "created_at": 1794143475.5750568,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 108 candidates tested; 5 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-6",
+   "created_at": 1794143481.590114,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 98 candidates tested; 2 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-3",
+   "created_at": 1794143493.841611,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 102; 1 improvements; 130 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-3",
+   "created_at": 1794143497.8201768,
+   "score_before": 107,
+   "score_after": 102
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 69 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-1",
+   "created_at": 1794143500.983652,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 92 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-7",
+   "created_at": 1794143503.95031,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 2 improvements; 82 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-6",
+   "created_at": 1794143514.266287,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 79 candidates tested; 5 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-1",
+   "created_at": 1794143517.5642948,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 83 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-2",
+   "created_at": 1794143521.325661,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 81 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-7",
+   "created_at": 1794143524.6362848,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 79 candidates tested; 6 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-5",
+   "created_at": 1794143530.503551,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 68 candidates tested; 1 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-7",
+   "created_at": 1794143534.601553,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 82 candidates tested; 8 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-6",
+   "created_at": 1794143537.547584,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 87 candidates tested; 1 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-3",
+   "created_at": 1794143540.739413,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 103 candidates tested; 11 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-6",
+   "created_at": 1794143543.7779598,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 120 candidates tested; 7 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-2",
+   "created_at": 1794143547.615972,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 86 candidates tested; 2 cached skips; 0 rejected; 2999s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-0",
+   "created_at": 1794143551.387754,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 73 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-2",
+   "created_at": 1794143555.404514,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 91 candidates tested; 5 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-2",
+   "created_at": 1794143558.279944,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 104 candidates tested; 1 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-1",
+   "created_at": 1794143561.615037,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 98 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-7",
+   "created_at": 1794143564.477298,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 90 candidates tested; 2 cached skips; 0 rejected; 2998s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-0",
+   "created_at": 1794143567.7951481,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 75 candidates tested; 5 cached skips; 0 rejected; 2998s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-0",
+   "created_at": 1794143570.569071,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 103 candidates tested; 2 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-6",
+   "created_at": 1794143575.2066681,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 92 candidates tested; 1 cached skips; 0 rejected; 2998s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-0",
+   "created_at": 1794143578.149489,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 1 improvements; 113 candidates tested; 4 cached skips; 0 rejected; 2998s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-0",
+   "created_at": 1794143581.213203,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 71 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-4",
+   "created_at": 1794143584.726814,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 40 candidates tested; 0 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-3",
+   "created_at": 1794143587.865202,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 102 candidates tested; 1 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-5",
+   "created_at": 1794143591.388853,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 108 candidates tested; 3 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-4",
+   "created_at": 1794143600.498742,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 90 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-7",
+   "created_at": 1794143603.763572,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 98 candidates tested; 1 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-7",
+   "created_at": 1794143607.113038,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 108 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-3",
+   "created_at": 1794143609.88767,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 98 candidates tested; 7 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-3",
+   "created_at": 1794143613.526947,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 84 candidates tested; 0 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-6",
+   "created_at": 1794143621.9816809,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 105 candidates tested; 3 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-4",
+   "created_at": 1794143621.990699,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 88 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-1",
+   "created_at": 1794143622.005553,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 83 candidates tested; 2 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-5",
+   "created_at": 1794143625.6877508,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 88 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-1",
+   "created_at": 1794143631.67818,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 105 candidates tested; 4 cached skips; 0 rejected; 3000s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-0",
+   "created_at": 1794143635.6629791,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006603C",
+   "text": "Deep permuter: score 210 \u2192 210; 0 improvements; 78 candidates tested; 4 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1343-lane-6",
+   "created_at": 1794143638.6833642,
+   "score_before": 210,
+   "score_after": 210
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 85 candidates tested; 1 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-1",
+   "created_at": 1794143641.8433468,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 113 candidates tested; 3 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-5",
+   "created_at": 1794143645.2593348,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 2 improvements; 104 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-5",
+   "created_at": 1794143648.796788,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 99 candidates tested; 2 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-4",
+   "created_at": 1794143654.900874,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 125 candidates tested; 6 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-4",
+   "created_at": 1794143658.095977,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Deep permuter: score 1155 \u2192 1155; 0 improvements; 89 candidates tested; 5 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1453-lane-4",
+   "created_at": 1794143660.882475,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 125 candidates tested; 7 cached skips; 0 rejected; 2999s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-0",
+   "created_at": 1794143664.784427,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 79 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-2",
+   "created_at": 1794143672.700157,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 120 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-3",
+   "created_at": 1794143672.708798,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 91 candidates tested; 3 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-2",
+   "created_at": 1794143672.718213,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 124 candidates tested; 0 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-6",
+   "created_at": 1794143675.618829,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 1 improvements; 88 candidates tested; 3 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-2",
+   "created_at": 1794143681.6878211,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 88 candidates tested; 6 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-5",
+   "created_at": 1794143684.389826,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Deep permuter: score 325 \u2192 325; 0 improvements; 94 candidates tested; 4 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1446-lane-1",
+   "created_at": 1794143687.310433,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 3 improvements; 71 candidates tested; 4 cached skips; 0 rejected; 2996s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-3",
+   "created_at": 1794143691.523266,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_80030180",
+   "text": "Deep permuter: score 107 \u2192 107; 0 improvements; 75 candidates tested; 0 cached skips; 0 rejected; 2999s elapsed. Time limit reached.",
+   "by": "Rr.permuter-673-lane-0",
+   "created_at": 1794143694.280241,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Deep permuter: score 1465 \u2192 1465; 0 improvements; 100 candidates tested; 1 cached skips; 0 rejected; 2995s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1437-lane-5",
+   "created_at": 1794143697.525057,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_80059A60",
+   "text": "Deep permuter: score 200 \u2192 200; 0 improvements; 93 candidates tested; 6 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1155-lane-7",
+   "created_at": 1794143700.417665,
+   "score_before": 200,
+   "score_after": 200
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Deep permuter: score 2 \u2192 2; 0 improvements; 91 candidates tested; 0 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1548-lane-2",
+   "created_at": 1794143703.961636,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "Deep permuter: score 695 \u2192 650; 2 improvements; 81 candidates tested; 1 cached skips; 0 rejected; 2997s elapsed. Time limit reached.",
+   "by": "Rr.permuter-1434-lane-7",
+   "created_at": 1794143707.2603252,
+   "score_before": 695,
+   "score_after": 650
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 93 differing rows (55 register, 22 stack, 10 branch target, 4 reordered, 1 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794144007.77285,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 78 differing rows (32 register, 23 stack, 10 branch target, 4 operand, 6 reordered, 2 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794144057.737756,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 69 differing rows (32 register, 22 stack, 10 branch target, 4 operand, 1 inserted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794144116.368323,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Live API continuation: ordinary baseline recompiled as attempt 4294968302: score22, 251/251 instructions, all remaining differences frame/save/restore offsets (target96 vs candidate88). Nested helpers, 24 flag controls, 32 alignment controls, 30 real assignment scopes, 10 installed period compiler checks, 12 last-mode return diagnostics and 14 consumed-width controls found no exact result. No source/interface/profile changes adopted. Current follow-up combines two output-equivalent unsigned storage forms with real assignment scopes, through compiler_experiments. Full evidence under /Volumes/Data/Codex/tmp/func8007A29C/goal-20261108. Still open; no match claim.",
+   "by": "you",
+   "created_at": 1794144972.248263,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8002FFA4",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-bb3710c698364dad",
+   "created_at": 1794147095.9292428,
+   "score_before": 107,
+   "score_after": 107
+  },
+  {
+   "function": null,
+   "text": "Live investigation: saved baseline independently rechecked at score630, still unmatched. 24 new normal API source trials: 6 scalar select/dispatch inline wrappers and 6 real table-stride wrappers all630; 6 inline loop-bound comparisons1600/1640; 6 return-based selector wrappers865/1210. All retain task calls/guards and real table accesses; generated-helper checks require full inlining. Pinned GCC -da frozen analysis: stride4 formal assignments exist in initial RTL but vanish in first CSE, so they do not explain dead s2=4. Loop-bound helper retains real s2=4, but it remains a consumed comparison operand and adds head tests, unlike target. -fno-jump-tables is unsupported by pinned KMC2.7.2. No dummy task4 branch, ABI, compiler-profile, target or judge changes. App restarted externally during one interrupted stride request; retried successfully on new healthy server. Best source SHA347ea11e78343c11f935db012827d451438ce6dcc7116da92b3e7f00b648eb7d unchanged; private receipts /Volumes/Data/Codex/tmp/func80059A60/nov8-live. Keep goal open; these finite controls do not establish impossibility or family exhaustion.",
+   "by": "you",
+   "created_at": 1794147440.676699,
+   "score_before": null,
+   "score_after": null
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Live API continuation Nov8: normal judge1700\u21921380 using signed16 initial mode/delta lifetime (var_s0=arg1&255; first call; temp_s0=var_s0). Then1380\u21921200 using plain C extern char D_800C70D4[] and D_800C7125[] for existing palette/packed-table addresses. No header/profile/target edits; still OPEN, 242 vs240 instructions, not exact. API attempt4294968339 saved1200. Private artifacts /Volumes/Data/Codex/tmp/func8006C024/live-nov8. Separate manual connection retains own claim; unrelated you/func_80059A60 claim untouched. New tested controls: all-index/delta reuse, nibble direct phase, unsigned float conversion, tail distribution, numerator capture did not beat1200. Next investigate register lifetime and merged decode tails from this improved root.",
+   "by": "you",
+   "created_at": 1794147834.039757,
+   "score_before": 1465,
+   "score_after": 1465
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-13c4efe7757640e8",
+   "created_at": 1794148005.843437,
+   "score_before": 1465,
+   "score_after": 1200
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "API recovery follow-up: fresh normal compile attempt4294968338 confirmed score22/251instructions. Further grouped scopes(36), per-byte initialization pipelines(16), const/plain binding lifetimes(30), compiler flag checks(12), pointer carrier/handle controls and twelve real selection-record models found no exact result. Initial C++ pointer trials omitted -x c++; eighteen corrected C++ trials were subsequently compiled, all nonmatching. No source/profile/interface change or unsupported padding adopted. Reports/evidence: /Volumes/Data/Codex/tmp/func8007A29C/goal-20261108/resume-results.md. Still open; current best22.",
+   "by": "you",
+   "created_at": 1794148245.131846,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_80059A60",
+   "text": "EXACT LIVE MATCH verified: score0, all328instructions/1312linkedbytes, source SHA010d699692415c867ebda8724112a63e54f2c6ef29e70ac09e5a089e058331bf. Generic four-argument inline context dispatch (index; primary,last,fallback IDs) with actual mapping2,1,1 preserves every original lookup/store/callback and table reload, fully inlines, and reproduces dead4 plus first BEQL. Formatted source gives440; combining audited compact750 layout fixes later highlight LBU/NOP scheduling and gives0. Preserve line layout. No old dummy identical-arm task4 guard, volatile, asm, extra data, ABI/profile/target changes. Independent ordinary/-da linked bytes equal original SHA500a9b79e9ea9e8c6dec80fc27f570ede202347eb114de9a2356f0dd7b53ae39; one body/no allocated game data. Repeat API matched=false means already-matched scratch; exact checks remain true and fresh saved state matched0. No complete cartridge rebuild claimed. Private receipts and semantic proof: /Volumes/Data/Codex/tmp/func80059A60/nov8-live/FINAL-LEARNINGS.md.",
+   "by": "you",
+   "created_at": 1794148766.5566568,
+   "score_before": 200,
+   "score_after": 0
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-3c7aef734403474d",
+   "created_at": 1794151794.343921,
+   "score_before": 975,
+   "score_after": 750
   }
  ],
  "set_aside": [
@@ -266326,6 +267294,94 @@
     "unit": "code_80026E3C",
     "mode": "rom"
    },
+   "func_80040CF4": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794092119.6073,
+    "attempt_id": 4294967569,
+    "source_sha256": "78589432c0ee74b75322bca6a9ef3823df6e1a30040418a27100b5f7fe1de73f",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "627356c4b07a9a2848febfca0be91899b699c58c37a967be4cc3e4cbf46ff408",
+    "relocations_sha256": "26c0c7a1c68100507a0dc1e13bcac8891a5ab96285450e664dcca493f9bc1574",
+    "vram": 2147749108,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
    "func_80041320": {
     "format": 1,
     "verdict": "exact",
@@ -268787,6 +269843,94 @@
     "target_sha256": "254f0755af864689510daacd4ee8d6b694d82d46186e23af6ec2ce02d3441fac",
     "relocations_sha256": "602f72141f22149a3c07593d9327db79ae54cdcd2f5cfb1dc8c516bc8e292c51",
     "vram": 2147781964,
+    "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_80049DB0": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794090843.8187299,
+    "attempt_id": 4294967351,
+    "source_sha256": "978ea35c532ffcdb12fc2d1626949c48d38cc4cfd2b948898d3368ce151857ef",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "07e3b5101e5ef68334a711db1f7b36f2bf7357ff57c0f807bf390b25d278b9ec",
+    "relocations_sha256": "02209c2e47de7d8095dacabdfcb2f18d3ad666013779cc6fb63a04a5dbd9cafd",
+    "vram": 2147786160,
     "unit": "code_80026E3C",
     "mode": "rom"
    },
@@ -274238,6 +275382,94 @@
     "target_sha256": "54636e92867a6bc6557d603582a77d332d23966eaf70b7e84b2fe291e7ba76db",
     "relocations_sha256": "063cd841d91bbef70bd0a512db4ee60271d92a058af6247f5178f2f99ddce808",
     "vram": 2147850704,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
+   "func_80059A60": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794148582.4674911,
+    "attempt_id": 4294968360,
+    "source_sha256": "010d699692415c867ebda8724112a63e54f2c6ef29e70ac09e5a089e058331bf",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "500a9b79e9ea9e8c6dec80fc27f570ede202347eb114de9a2356f0dd7b53ae39",
+    "relocations_sha256": "b5b40c8dc465a2248671d39a5a5bb332af2bb6299b4e63471772faffbb7fb874",
+    "vram": 2147850848,
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
@@ -285065,6 +286297,97 @@
     "unit": "code_8007950C",
     "mode": "rom"
    },
+   "func_8007B4A4": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794142399.85519,
+    "attempt_id": 4294968158,
+    "source_sha256": "eaebece0b84e3d09a7f172eeb42f1f95cc9de904fb217d64f460d92aaf765f86",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-ffast-math",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "cae1f12d49d5b7a7138a5d9b38e100d5160b35f212de06c13fd013e86c587db8",
+    "relocations_sha256": "a2647ecc7bee2b7994ff0cdc12d339b3d2156e9f128776be63582fea2966c6a3",
+    "vram": 2147988644,
+    "unit": "code_8007950C",
+    "mode": "rom"
+   },
    "func_8007BA1C": {
     "format": 1,
     "verdict": "exact",
@@ -288517,6 +289840,94 @@
     "target_sha256": "d8a324a038ff2495a7de91a0699790f7f7fccbc1b922f1f2f184c6e18a82d8cd",
     "relocations_sha256": "3e1c9b2fac5f0b9f35af26123ae6512258de19a37d7d4426c6bbdbb090d2d7c6",
     "vram": 2148035124,
+    "unit": "code_8007E9D4",
+    "mode": "rom"
+   },
+   "func_80086F40": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794100908.158216,
+    "attempt_id": 4294967900,
+    "source_sha256": "96db165ed380dee03d69a3fdcc2754c2e53b5932ef10dfac1206ef3429e92e04",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "d0c6b13685813d41ad892d1ad55dc8072f8fabf3b97d28f01e7dd9f435d1f648",
+    "relocations_sha256": "36690b2c1a81389f24ebc0b9a98c6888d6306526120d81221a9e43c5bb25688c",
+    "vram": 2148036416,
     "unit": "code_8007E9D4",
     "mode": "rom"
    },
@@ -292104,6 +293515,7 @@
    "f4eda97b4c4eb34a454e453495fa440c25db931f73fa99dcd101fa7e6f4fc618": "typedef struct Node Node;\ntypedef struct Asset Asset;\ntypedef struct Root Root;\nstruct Asset\n{\n  char pad0[4];\n  void *table;\n};\nstruct Node\n{\n  u32 unk0;\n  Node *next;\n  char pad8[0x78];\n  u32 flags;\n  void (*callback)(void *);\n  u32 draw;\n  u32 unk8c;\n  u8 b90[4];\n  char pad94[4];\n  u16 val98;\n  u16 val9a;\n  s16 x9c;\n  s16 y9e;\n  s32 argA0;\n  Asset *assetA4;\n  char padA8[0xD0];\n  s32 arg178;\n};\nstruct Root\n{\n  Node *head;\n  char pad4[4];\n  s32 busy;\n};\nextern Root *D_800C35A0;\nextern void *D_800C7F84;\nextern s32 D_8009FEDC;\nextern f64 D_800A4C10;\nextern void *D_800B65F8;\nextern void *func_8004240C(s32);\nextern void func_8000A5EC(void *, s32, s32, s32, s32, s32, s32);\nextern void func_8004CEB4(s32, s32, s16 *, s32, s32, s32, s32, s32, s32);\nvoid func_80040328(Root *arg0)\n{\n  u8 count;\n  s32 new_var;\n  Node *p;\n  Node *next;\n  void *saved;\n  s16 rect[4];\n  s32 index;\n  f64 scale;\n  count = *(((u8 *) D_800C35A0) + 0xf);\n  if (arg0->busy != 0)\n  {\n    return;\n  }\n  p = arg0->head;\n  saved = D_800C7F84;\n  D_800B65F8 = arg0;\n  if (p == NULL)\n  {\n    return;\n  }\n  index = (count - 1) * 2;\n  scale = D_800A4C10;\n  do\n  {\n    next = p->next;\n    if (p->flags & 1)\n    {\n      if (p->callback != NULL)\n      {\n        D_800C7F84 = func_8004240C(index + 1);\n        p->callback(p);\n      }\n      *((u16 *) ((((u8 *) p) + (D_8009FEDC * 2)) + 0x7C)) = *((u16 *) (((u8 *) p) + 0x7A));\n      D_800C7F84 = saved;\n      if (!(p->flags & 4))\n      {\n        \n        void *q = ((u8 *) p) + 0x10;\n        func_8000A5EC(q, ((s32 *) p->assetA4->table)[*((s16 *) (((u8 *) p) + 0x7A))], 0, p->argA0, p->x9c, p->y9e, 0);\n        *((u16 *) (((u8 *) p) + 0x52)) = p->val98;\n        *((u16 *) (((u8 *) p) + 0x5a)) = p->val9a;\n        if (p->flags & 0x80)\n        {\n          rect[0] = (*((u16 *) (((u8 *) p) + 0xc))) + *((u16 *) (((u8 *) p) + 0x70));\n          rect[1] = (*((u16 *) (((u8 *) p) + 0xe))) + (*((u16 *) (((u8 *) p) + 0x72)));\n          rect[2] = ((*((u16 *) (((u8 *) ((s32 *) p->assetA4->table)[*((s16 *) (((u8 *) p) + 0x7A))]) + 6))) * (*((s16 *) (((u8 *) p) + 0x98)))) * scale;\n          rect[3] = ((*((u16 *) (((u8 *) ((s32 *) p->assetA4->table)[*((s16 *) (((u8 *) p) + 0x7A))]) + 8))) * (*((s16 *) (((u8 *) p) + 0x9a)))) * scale;\n          new_var = ((s32 *) saved)[0x178 / 4];\n          func_8004CEB4(new_var, ((s32 *) p->assetA4->table)[*((s16 *) (((u8 *) p) + 0x7A))], rect, 0, p->b90[0], p->b90[1], p->b90[2], p->b90[3], 0);\n        }\n        else\n        {\n          ((void (*)(s32, s32, s32, void *, s32, void *)) (*((u32 *) (((u8 *) p) + 0x88))))(((s32 *) saved)[0x178 / 4], (*((s16 *) (((u8 *) p) + 0xc))) + (*((s16 *) (((u8 *) p) + 0x70))), (*((s16 *) (((u8 *) p) + 0xe))) + (*((s16 *) (((u8 *) p) + 0x72))), q, p->argA0, ((u8 *) p) + 0x90);\n        }\n      }\n    }\n    p = next;\n  }\n  while (p != NULL);\n}\n",
    "fa3815be428b90e65c634335b208986af8dc47689a6517c9379cef675c861440": "s32 func_80005500();\ns32 func_8000E8B8();\nvoid *func_80022318(void **, u8 *);\ns32 func_8003FD0C();\nvoid *func_8004240C();\nextern s32 D_8009B5A4;\nextern s32 D_800A1468;\nextern char D_800A4C18[];\nextern void *D_800C35A0;\nextern void *D_800C7F84;\nstatic inline char *inline_fn()\n{\n  return (char *) D_800C35A0;\n}\n\nvoid func_800405D8(void)\n{\n  void *temp_v0;\n  void *temp_v0_2;\n  char *new_var;\n  temp_v0 = func_8004240C(((*((u16 *) (inline_fn() + 0xE))) * 2) | 1);\n  { s32 arg = *((s32 *) (((char *) temp_v0) + 0x178));\n  D_800C7F84 = temp_v0;\n  func_8000E8B8(arg);\n  }\n  func_80005500(*((s32 *) (((char *) temp_v0) + 0x178)), D_8009B5A4);\n  if (D_800A1468 == 0)\n  {\n    func_8003FD0C(0);\n  }\n  if ((*((u16 *) (new_var = ((char *) D_800C35A0) + 0x1E))) != 7)\n  {\n    D_800C7F84 = temp_v0;\n    temp_v0_2 = func_80022318((void **)(((char *) temp_v0) + 0x28), (u8 *)(D_800A4C18));\n    if (temp_v0_2 != NULL)\n    {\n      (*((s32 (**)(s32)) (((char *) temp_v0_2) + 0x14)))(*((s32 *) (((char *) temp_v0_2) + 0x10)));\n    }\n  }\n}\n",
    "3cbc030b192e1052e8b96e47e559c8d7f6b9dd9025cd49eb1d220081c2fae5db": "typedef struct Car40 { u8 pad0[0x10]; u16 flags; u8 pad12[2]; u16 cls; u8 pad16[0x2C4 - 0x16]; } Car40;\ntypedef struct Pl40 { u8 name[4]; u8 pad[6]; u16 car; u8 pad2[0x28 - 0xC]; } Pl40;\ntypedef struct Race40 {\n  u8 pad0[0xE]; u16 nplayers; u8 pad10[0xE]; u16 flag; u8 pad20[0x12];\n  u8 slot[4]; u8 pad36[4]; u16 car[4]; u8 pad42[2]; Pl40 pl[4];\n} Race40;\ntypedef struct Db40 { u8 pad[0x78]; Car40 *cars; } Db40;\nextern Race40 *D_800C35A0;\nextern u16 D_800D0630;\nextern Db40 D_800D05E0;\nextern char D_800A4C20[];\nextern char D_800A4C28[];\nu64 osGetTime(void);\nvoid func_80053C28(s32, s32);\nu32 func_80098090(void);\nvoid func_800980C4(u32);\nvoid func_80099DF8(s32 *, char *, char *, s32);\nvoid func_800407D0(void)\n{\n  s32 cls[4];\n  s32 name[2];\n  u32 count;\n  u32 n;\n  u16 i;\n  u32 k;\n  u32 j;\n  u16 *cars;\n  Db40 *dbs;\n  Car40 *db;\n  s32 *p;\n  s32 *q;\n  s32 done;\n  u32 r;\n  s32 ok;\n\n  count = D_800D0630;\n  n = D_800C35A0->nplayers;\n  cars = D_800C35A0->car;\n  dbs = &D_800D05E0;\n  func_800980C4(osGetTime());\n  if (count == 0)\n    return;\n  for (i = 0; i < n; i++)\n  {\n    cars[i] = D_800C35A0->pl[D_800C35A0->slot[i]].car;\n    if (D_800C35A0->pl[D_800C35A0->slot[i]].name[0] == 0)\n    {\n      func_80099DF8(name, D_800A4C20, D_800A4C28, i + 1);\n      *(s32 *) D_800C35A0->pl[D_800C35A0->slot[i]].name = name[0];\n    }\n  }\n  if (D_800C35A0->flag == 0)\n    return;\n  db = dbs->cars;\n  for (i = 0; i < n; i++)\n    cls[i] = db[D_800C35A0->pl[D_800C35A0->slot[i]].car].cls;\n  i = n;\n  if (i < 4)\n  {\n    p = cls;\n    do\n    {\n      switch (D_800C35A0->nplayers)\n      {\n        case 1:\n          if (cls[0] == 2)\n            cls[0] = 0;\n          done = 0;\n          q = p;\n          j = i;\n          do\n          {\n            r = func_80098090() % count;\n            ok = 1;\n            if (db[r].cls == *q)\n            {\n              u32 lim = j;\n              for (k = 0; k < lim; k++)\n                ok &= -(cars[k] != r);\n              if (ok && !(db[r].flags & 8))\n              {\n                cars[j] = r;\n                done = 1;\n                func_80053C28(D_800C35A0->slot[j], r & 0xFF);\n              }\n            }\n          }\n          while (!done);\n          break;\n        case 2:\n          if (cls[0] == 2)\n            cls[0] = 0;\n          if (cls[1] == 2)\n            cls[1] = 0;\n          done = 0;\n          j = i;\n          do\n          {\n            r = func_80098090() % count;\n            ok = 1;\n            if (db[r].cls == *p)\n            {\n              u32 lim = j;\n              for (k = 0; k < lim; k++)\n                ok &= -(cars[k] != r);\n              if (ok && !(db[r].flags & 8))\n              {\n                done = 1;\n                cars[j] = r;\n                func_80053C28(D_800C35A0->slot[j], r & 0xFF);\n                p++;\n              }\n            }\n          }\n          while (!done);\n          break;\n        case 3:\n          break;\n      }\n      i++;\n    }\n    while (i < 4);\n  }\n  for (i = 0; i < 4; i++)\n    D_800C35A0->pl[D_800C35A0->slot[i]].car = D_800C35A0->car[i];\n}\n",
+   "78589432c0ee74b75322bca6a9ef3823df6e1a30040418a27100b5f7fe1de73f": "extern void *func_80042078(void *, u16, s32, s32, u16);\n#define gObj (*(Obj **)(D_800C02AE + 0x32F2))\n#define gItem (*(Item **)(D_800C02AE + 0x7CD6))\ntypedef struct \n{\n  s16 x;\n  s16 y;\n  u16 w;\n  u16 h;\n} Rect;\ntypedef struct \n{\n  u8 pad[12];\n  s32 id;\n} Item;\ntypedef struct \n{\n  u8 pad[14];\n  u16 mode;\n  u16 pad10;\n  u16 flags;\n} Obj;\ntypedef struct \n{\n  u16 v[10];\n} LayoutTbl;\nextern void func_800424A4(void *, void *);\nextern u8 D_800C02AE[];\nextern Rect D_8009FFD8;\nextern LayoutTbl D_8009FF38[];\nextern u8 D_800A4C30[];\nextern u8 D_800A4C38[];\nextern u8 D_800A4C40[];\nextern u8 D_800A4C48[];\nextern u8 D_800A4C50[];\nextern u8 D_800A4C58[];\nextern u8 D_800A4C60[];\nvoid func_80040CF4(u8 arg0)\n{\n  Obj *o = gObj;\n  s32 x = D_8009FFD8.x;\n  s32 y;\n  s32 w;\n  s32 h;\n  u8 n = o->mode;\n  u8 idx = n - 1;\n  Item *it;\n  Rect r;\n  y = D_8009FFD8.y;\n  w = (s16) D_8009FFD8.w;\n  h = (s16) D_8009FFD8.h;\n  if (n != 0)\n  {\n    /* shared result pointer */\n    r.x = x;\n    r.y = y;\n    r.w = w;\n    r.h = h;\n    it = func_80042078(&r, 5, D_8009FF38[idx].v[0], D_8009FF38[idx].v[1], 2);\n    func_800424A4(it, D_800A4C30);\n    it->id = 0;\n  }\n  switch (n)\n  {\n    case 1:\n    {\n      Rect *p;\n      p = &r;\n      p->x = x;\n      p->y = y;\n      p->w = w;\n      p->h = h;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], 2);\n      func_800424A4(it, D_800A4C38);\n      it->id = 1;\n      gItem = it;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], 2);\n      func_800424A4(it, D_800A4C40);\n      it->id = 2;\n      break;\n    }\n\n    case 2:\n      if (o->flags & 1)\n    {\n      Rect *p;\n      s16 x2 = x + 0x20;\n      s16 w2 = w - 0x38;\n      s32 hh = h / 2;\n      s16 h2;\n      h = hh - 1;\n      h2 = h;\n      p = &r;\n      p->x = x2;\n      p->y = y;\n      p->w = w2;\n      p->h = h2;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);\n      func_800424A4(it, D_800A4C38);\n      it->id = 1;\n      gItem = it;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);\n      func_800424A4(it, D_800A4C40);\n      {\n      s16 next_y = y + hh + 1;\n      it->id = 2;\n      p->x = x2;\n      p->y = next_y;\n      p->w = w2;\n      p->h = h2;\n      }\n      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);\n      func_800424A4(it, D_800A4C48);\n      it->id = 3;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);\n    }\n    else\n    {\n      Rect *p;\n      s16 horizontal_height;\n      s32 hw = w / 2;\n      s16 w2 = hw - 1;\n      s16 y2 = y;\n      p = &r;\n      p->x = x;\n      p->y = y2;\n      horizontal_height = h;\n      p->w = w2;\n      p->h = horizontal_height;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);\n      func_800424A4(it, D_800A4C38);\n      it->id = 1;\n      gItem = it;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);\n      func_800424A4(it, D_800A4C40);\n      it->id = 2;\n      p->x = x + hw + 1;\n      p->y = y;\n      p->w = w2;\n      p->h = horizontal_height;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);\n      func_800424A4(it, D_800A4C48);\n      it->id = 3;\n      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);\n    }\n      func_800424A4(it, D_800A4C50);\n      it->id = 4;\n      break;\n\n  }\n\n  if (!(n != 0))\n  {\n    return;\n  }\n  if (!(arg0 == 0))\n  {\n    return;\n  }\n  {\n    r = D_8009FFD8;\n    it = func_80042078(&r, 5, D_8009FF38[idx].v[6], D_8009FF38[idx].v[7], 2);\n    func_800424A4(it, D_800A4C58);\n    it->id = (n * 2) | 1;\n    {\n      extern u8 D_8009FFDA[];\n      r = *((Rect *) ((u32)D_8009FFDA - 2U));\n    }\n    if ((gObj->mode == 2) && (gObj->flags & 1))\n    {\n      r.x += 0x18;\n      r.w -= 0x30;\n    }\n    it = func_80042078(&r, 0, D_8009FF38[idx].v[8], D_8009FF38[idx].v[9], 2);\n    func_800424A4(it, D_800A4C60);\n    it->id = (n * 2) + 2;\n  }\n}\n\n",
    "460fbeeb5b6c246cd7d81b59fcc0379249a1862c08086f8fdf32df284ed6ae57": "extern void func_800424A4(void *, void *);\ntypedef struct { u8 b[8]; } Buf8;\n\nextern u8 *D_8009B5A4;\nextern f32 D_8009BB94, D_8009BB98, D_8009BB9C, D_8009BBA0;\nextern u16 D_8009FF88, D_8009FF8A, D_8009FF8C, D_8009FF8E;\nextern u16 D_8009FF90, D_8009FF92, D_8009FF94, D_8009FF96;\nextern u16 D_8009FF98, D_8009FF9A;\nextern char D_800A4C60[], D_800A4C68[], D_800A4C74[], D_800A4C7C[], D_800A4C88[];\nextern void *D_800C7F84;\n\nvoid func_80041320(void) {\n    s32 s0;\n    void *s2;\n    u16 mode;\n    u16 t0;\n    u16 t1;\n    u16 half2;\n    u16 v1;\n    u8 stackbuf[8];\n\n    s0 = 2;\n    mode = (u16)s0;\n    t0 = *(u16 *)(D_8009B5A4 + 0);\n    t1 = *(u16 *)(D_8009B5A4 + 2);\n    half2 = *(u16 *)(D_8009B5A4 + 4);\n    v1 = *(u16 *)(D_8009B5A4 + 6);\n    *(u16 *)(stackbuf + 0) = t0;\n    *(u16 *)(stackbuf + 2) = t1;\n    *(u16 *)(stackbuf + 4) = half2;\n    *(u16 *)(stackbuf + 6) = v1;\n    *(Buf8 *)&stackbuf[0] = *(Buf8 *)D_8009B5A4;\n\n    s2 = func_80042078(stackbuf, 5, D_8009FF88, D_8009FF8A, mode);\n    func_800424A4(s2, D_800A4C68);\n    {\n        u8 *p;\n        p = D_8009B5A4;\n        *(s32 *)((u8 *)s2 + 12) = 0;\n        *(Buf8 *)&stackbuf[0] = *(Buf8 *)p;\n    }\n    s2 = func_80042078(stackbuf, 2, D_8009FF94, D_8009FF96, mode);\n    func_800424A4(s2, D_800A4C74);\n    *(s32 *)((u8 *)s2 + 12) = 3;\n    *(f32 *)((u8 *)s2 + 0x18C) = 250.0f;\n    *(f32 *)((u8 *)s2 + 0x190) = 2000.0f;\n    D_8009BB94 = 250.0f;\n    D_8009BB9C = 2000.0f;\n    D_8009BB98 = 250.0f;\n    D_8009BBA0 = 2000.0f;\n\n    s2 = func_80042078(stackbuf, 2, D_8009FF8C, D_8009FF8E, mode);\n    func_800424A4(s2, D_800A4C7C);\n    *(s32 *)((u8 *)s2 + 12) = 1;\n\n    D_800C7F84 = s2;\n    s2 = func_80042078(stackbuf, 5, D_8009FF90, D_8009FF92, mode);\n    func_800424A4(s2, D_800A4C88);\n    *(s32 *)((u8 *)s2 + 12) = s0;\n\n    s2 = func_80042078(stackbuf, 2, D_8009FF98, D_8009FF9A, mode);\n    func_800424A4(s2, D_800A4C60);\n    *(s32 *)((u8 *)s2 + 12) = 4;\n}\n",
    "3ac412adc135fdd10e464eb7665c588b68b24dee8d0b4fe3bd394bc3f6f0b2ce": "typedef struct Obj\n{\n  u8 pad0[0x10];\n  u16 flags;\n  u8 pad12[0x2C4 - 0x12];\n} Obj;\n\nObj *func_800415A8(Obj *arr, s32 n)\n{\n  while (n != 0)\n  {\n    if (!(arr->flags & 1))\n    {\n      arr->flags |= 1;\n      return arr;\n    }\n    arr++;\n    n--;\n  }\n  return 0;\n}\n",
    "83bed617c4cb3ec16a3cd33dbed44ab47c4e657eb6397e131e771f67061ce41c": "typedef struct { char pad[8]; void (*cb)(s32, void *); s32 a, b; } Entry;\ntypedef struct {\n  u8 pad[0x90];\n  s32 slot;\n  u8 pad94[4];\n  u8 name[0x174 - 0x98];\n  s32 extra;\n} Obj41;\nextern char D_800A0130[];\nextern u8 *D_800C35A0;\nextern u8 *D_800C7F84;\nu8 *func_8004240C(s32);\nEntry *func_8002255C(void *, void *);\ns32 func_800223B4(void *, s32, s32, Entry *, s32);\n\ns32 func_80041F24(Obj41 *arg0, u8 player)\n{\n  s32 slot;\n  u8 idx;\n  u8 *node;\n  u8 *p28;\n  Entry *entry;\n  s32 result;\n  u16 mode;\n\n  slot = arg0->slot;\n  idx = slot;\n  mode = *(u16 *)(D_800C35A0 + 0xE);\n  if ((u8)idx == 3) {\n    idx = (mode * 2) | 1;\n  } else if ((u8)idx != 0) {\n    idx = player * 2 - slot;\n  }\n  node = func_8004240C(idx);\n  p28 = node + 0x28;\n  D_800C7F84 = node;\n  entry = func_8002255C(D_800A0130, arg0->name);\n  result = func_800223B4(p28, entry->a, entry->b, entry, arg0->extra);\n  if (entry->cb) {\n    entry->cb(result, arg0);\n  }\n  return result;\n}",
@@ -292132,6 +293544,7 @@
    "20b1ddbed668c05c057275f81d350579f2fdeb53b54a192e902ff85dbae41255": "typedef struct \n{\n  u8 r;\n  u8 g;\n  u8 b;\n  u8 a;\n} Color4;\ntypedef struct \n{\n  s16 x0;\n  s16 y0;\n  s16 x1;\n  s16 y1;\n} Rect;\ntypedef struct \n{\n  u8 pad0[0x2C];\n  Rect *rect;\n  Color4 col;\n} Arg2;\ntypedef struct \n{\n  u8 pad0[8];\n  s16 x0;\n  s16 y0;\n  s16 x1;\n  s16 y1;\n} Box;\ntypedef struct \n{\n  u8 pad0[0x178];\n  Box *box;\n} Arg3;\ntypedef struct \n{\n  u32 w0;\n  u32 w1;\n} Gfx;\nextern Arg3 *D_800C7F84;\nextern s32 func_800056FC(void *);\nextern Gfx *func_80006008(s32);\nextern void func_80006014(s32, Gfx *);\n#define CMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\nvoid func_800485F8(s32 arg0, s32 arg1, Arg2 *arg2, Arg3 *arg3)\n{\n  Color4 c;\n  Gfx *g;\n  s32 h;\n  u32 col;\n  if ((arg1 > 0) && (arg0 < (D_800C7F84->box->y0 + D_800C7F84->box->y1)))\n  {\n    arg2->rect->x0 = arg3->box->x0;\n    arg2->rect->y0 = arg0;\n    arg2->rect->x1 = arg3->box->x0 + arg3->box->x1;\n    arg2->rect->y1 = arg0 + arg1;\n    c = arg2->col;\n    h = func_800056FC(D_800C7F84->box);\n    g = func_80006008(h);\n    CMD(g++, 0xE7000000, 0);\n    CMD(g++, 0xE3000A01, 0x300000);\n    CMD(g++, (0xED000000 | ((((s32) (D_800C7F84->box->x0 * 4.0f)) & 0xFFF) << 12)) | (((s32) (D_800C7F84->box->y0 * 4.0f)) & 0xFFF),\n        ((((s32) (D_800C7F84->box->x1 * 4.0f)) & 0xFFF) << 12) | (((s32) (D_800C7F84->box->y1 * 4.0f)) & 0xFFF));\n#define C16 ((((arg2->col.r << 8) & 0xF800) | ((arg2->col.g << 3) & 0x7C0)) | ((arg2->col.b >> 2) & 0x3E) | 1)\n    CMD(g++, 0xF7000000, (C16 << 16) | C16);\n    CMD(g++, (0xF6000000 | (((arg2->rect->x1 - 1) & 0x3FF) << 14)) | (((arg2->rect->y1 - 1) & 0x3FF) << 2),\n        ((arg2->rect->x0 & 0x3FF) << 14) | ((arg2->rect->y0 & 0x3FF) << 2));\n    CMD(g++, 0xE7000000, 0);\n    func_80006014(h, g);\n  }\n}\n",
    "75b24f088a0dff620ae25632c2803fc41939c75409c382d5b385351c68112aaf": "typedef struct { u8 pad[8]; u16 n; } FrmB;\ntypedef struct { FrmB *f; } Anim0B;\ntypedef struct { u8 pad[4]; Anim0B *a; } AnimB;\ntypedef struct { u8 pad[0xC]; AnimB *anim; } ItemB;\ntypedef struct { u8 pad[0xA]; s16 x; u8 padC[2]; s16 y; } BoxB;\ntypedef struct { u8 pad[0x178]; BoxB *box; } ObjB;\ntypedef struct {\n  u8 pad0[0xC];\n  u8 sub0[4];\n  u16 ang;\n  u8 pad12[2];\n  s32 dang;\n  s32 x18;\n  u8 pad1C[0x14];\n  ItemB *i30;\n  u8 pad34[0x10];\n  u8 sub1[4];\n  s16 ang2;\n  u8 pad4A[0x1E];\n  ItemB *i68;\n  u8 pad6C[0x10];\n  s32 x7C;\n} SprB;\nvoid func_80048394(void *, void *, void *, s32, s32);\nvoid func_800485F8(s32, s32, void *, void *);\nvoid func_80048878(ObjB *obj, SprB *s)\n{\n  s16 a;\n  s32 d;\n  s32 w1;\n  s32 w0;\n  s32 n;\n  void *p;\n\n  a = s->ang + s->dang;\n  if (a < 0) a += 0x1000;\n  a = (a * 0x600) / 0x1000;\n  s->ang = a;\n  s->ang2 = a;\n  d = -s->x7C - s->x18;\n  w0 = s->i68->anim->a->f->n;\n  w1 = s->i30->anim->a->f->n;\n  p = s->sub0;\n  func_80048394(s, p, obj, obj->box->x + d, 0);\n  if (d != 0)\n    func_800485F8(obj->box->x, d, p, obj);\n  {\n    void *q = s->sub1;\n    func_80048394(s, q, obj, obj->box->x + d + w1, 0);\n    n = d + w1 + w0;\n    if (n < 0) n = 0;\n    func_800485F8(obj->box->x + n, obj->box->y, q, obj);\n  }\n}\n",
    "a678be6aacb0580ce50938cb5ece59d2a567979ba988f46d367d830ff9cd5c64": "typedef struct Node { s32 a; struct Node *next; s32 rest[18]; } Node;\ntypedef struct { Node **list; s32 pad4[3]; u32 count; u8 digits[16]; Node *t24; Node *t28; s32 x2c; } Grp;\ntypedef struct { u32 count; u8 digits[1]; } Cnt;\ns32 func_8007EAA0(s32, s32);\nu32 func_8008E118(u8 *);\ns32 func_80098180(const u8 *, const u8 *);\nextern u8 D_800A4E4C[];\nextern u8 D_800A4E50[];\nextern u8 D_800AE850[];\nextern u8 D_800C02AE[];\n\nvoid func_80048D4C(u8 *arg0) {\n    Cnt *cnt;\n    Grp *grp;\n    u8 *s2;\n    u8 *p;\n    u8 n;\n    u32 j;\n    u32 i;\n    u8 k;\n    Node *node;\n\n    cnt = NULL;\n    grp = NULL;\n    n = *(u8 *)(*(u8 **)(D_800C02AE + 0x32F2) + 0xF);\n    s2 = **(u8 ***)(D_800AE850 + 0x6D94);\n    for (j = 1; j <= n; j++) {\n        if (func_80098180(arg0 + 0x4C, D_800A4E4C) == 0) {\n            s2[0x3C] = *(s32 *)(arg0 + 0x128);\n            s2[0x3D] = *(s32 *)(arg0 + 0x174);\n            cnt = (Cnt *)(s2 + 0x1C);\n            grp = (Grp *)(s2 + 0xC);\n            s2[0x3E] = *(s32 *)(arg0 + 0x1C0);\n        } else if (func_80098180(arg0 + 0x4C, D_800A4E50) == 0) {\n            s2[0x74] = *(s32 *)(arg0 + 0x128);\n            s2[0x75] = *(s32 *)(arg0 + 0x174);\n            cnt = (Cnt *)(s2 + 0x54);\n            grp = (Grp *)(s2 + 0x44);\n            s2[0x76] = *(s32 *)(arg0 + 0x1C0);\n        }\n        grp->x2c = func_8007EAA0(1, 8);\n        cnt->count = func_8008E118(arg0 + 0x98);\n        grp->t24 = (Node *)func_8007EAA0(6, cnt->count * 0xF0);\n        grp->t28 = (Node *)func_8007EAA0(6, cnt->count * 0xF0);\n        p = arg0 + 0x98;\n        for (i = 0; i < cnt->count; i++) {\n            cnt->digits[i] = *p - '0';\n            k = cnt->digits[i];\n            node = *grp->list;\n            while (k) {\n                node = node->next;\n                k--;\n            }\n            __builtin_memcpy(&grp->t24[i], node, sizeof(Node));\n            __builtin_memcpy(&grp->t24[i + cnt->count], node, sizeof(Node));\n            __builtin_memcpy(&grp->t24[cnt->count * 2 + i], node, sizeof(Node));\n            __builtin_memcpy(&grp->t28[i], node, sizeof(Node));\n            __builtin_memcpy(&grp->t28[i + cnt->count], node, sizeof(Node));\n            __builtin_memcpy(&grp->t28[cnt->count * 2 + i], node, sizeof(Node));\n            p++;\n        }\n        s2 = *(u8 **)(s2 + 4);\n    }\n}\n",
+   "978ea35c532ffcdb12fc2d1626949c48d38cc4cfd2b948898d3368ce151857ef": "extern u8 D_800AE850[72286];\nextern u8 D_800C02AE[66514];\ns32 func_80049DB0(void)\n{\n  u8 *root = *(*((u8 ***) (((u8 *) D_800AE850) + 0x73F0)));\n  u8 *game = *((u8 **) (((u8 *) D_800C02AE) + 0x32F2));\n  s32 p = (s32) *((s32 **) ((*((u8 **) (root + 0x6C))) + 0x24));\n  \n  s32 value;\n  s32 scratch;\n  scratch = *((u16 *) (game + 0xE));\n  if (scratch == 2)\n  {\n    root = *((u8 **) (root + 4));\n    if ((*((u16 *) (game + 0x1A))) == 1)\n    {\n      root = *((u8 **) (root + 4));\n    }\n    game = root;\n    scratch = (s32)*((u8 **) (game + 0x6C));\n    do { do { p=*(s32*)p; } while (0); } while (0);\n    root = (u8*) *((s32 **) ((u8*)scratch + 0x24));\n    scratch = 0x3A98;\n    if (p != scratch)\n    {\n      return 1;\n    }\n    value = *(s32*)root ^ scratch;\n    goto done;\n  }\n  value=*(s32*)p;\n  value = value ^ 0x3A98;\n  done:\n  return value != 0;\n\n}\n",
    "0046e20d0584400f4fdb246f53f211ac8b2b04c725386ff62a33fcb66fc4297f": "extern s32 D_8009D538;\nextern s32 D_8009F640;\nextern s32 D_800B6880;\nextern char D_800C02AE[];\nextern char *D_800A0384;\nextern void func_80042F40();\nextern void func_80049450();\nextern void func_80054838();\nextern s32 func_80049DB0();\ntypedef struct { char pad0[0x1e]; u16 state; char pad20[0x16]; u16 f36; } Obj49E28;\ns32 func_80049E28(void)\n{\n  Obj49E28 *p;\n  int a;\n  s32 z;\n  D_8009F640 = (D_8009F640 | 3) & ~8;\n  p = *((Obj49E28 **) (D_800C02AE + 0x32F2));\n  a = p->state;\n  p->f36 = 0;\n  if ((a == 5) | (a == 0) || (z = (a >> 16) == 0))\n  {\n    u16 b = p->state;\n    D_800B6880 = 2;\n    if (b == 0 && (u8)func_80049DB0() == 1)\n    {\n      func_80042F40();\n      func_80054838();\n      D_800A0384[0x384] = 0;\n      return 0;\n    }\n  }\n  else\n  {\n    D_800B6880 = 5;\n  }\n  D_800A0384[0x384] = 0;\n  if (D_8009D538 & 0x4000)\n  {\n    func_80049450();\n  }\n  *(u8 *)(D_800C02AE + 0x7E72) = 0;\n  return 1;\n}\n",
    "aa3be8fbf6a5f332d675094beefa1500f687641cb46dea90ca78c2e03208bbc5": "typedef struct {\n    u8 data[5][0x2A];\n    s16 vals[5];\n    u8 count;\n    u8 pad;\n} Rec;\ntypedef struct {\n    u8 pad0[4];\n    u8 obj[6];\n    Rec recs[4];\n    u8 pad1[0x3A4 - 0x382];\n    f32 x3A4;\n} Mgr;\nextern Mgr *D_800A0384;\nvoid memset(void *, s32, s32);\nvoid func_80098290(void *, void *);\ns32 func_8000C9B0(void *, void *, u8, f32, u8);\n\nvoid func_80049F18(void)\n{\n    u8 buf[0x2A];\n    u8 i;\n    u8 j;\n    Mgr *m;\n    s16 v;\n\n    memset(buf, 0, 0x2A);\n    for (i = 0; i < 4; i++) {\n        for (j = 0; j < 5; j++) {\n            D_800A0384->recs[i].vals[j] = 0;\n        }\n    }\n    for (i = 0; i < 4; i++) {\n        for (j = 0; j < D_800A0384->recs[i].count; j++) {\n            func_80098290(buf, D_800A0384->recs[i].data[j]);\n            D_800A0384->recs[i].vals[j] = func_8000C9B0((void *)(D_800A0384->pad0 + 4), (void *)(buf), (u8)(1), (f32)(D_800A0384->x3A4), (u8)(0));\n        }\n    }\n}\n",
    "ff0cc999050e68e3ed524b8602b3f2d29561ac899396a4f60646326b2d29e0b9": "static inline static static static static static static static static static static static static static static static static static s32 right_coord(u32 x)\n{\n  return 0x140 - (x & 0xff);\n}\n\ns32 func_800056FC(s32);\nvoid *func_80006008(s32);\ns32 func_80006014(s32, s32);\ns32 func_80006298(s32);\ns32 func_800068C0(s32, s32, s16, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);\ns32 func_80006CF8(s32, s32);\ns32 func_80007404(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);\nvoid func_8000C200(s32, f32, f32, f32);\nvoid func_8000C22C(void *, s32, s32, s32, u8);\ns32 func_8000C244(s32, s32, s32, s32, void *, s32);\ns32 func_8000C9B0(void *, void *, u8, f32, u8);\ns32 func_8004CF7C(s32, s32, s32, s32, f32, s32, s32);\ns32 *func_80057918(s32, u16);\nu8 func_8006204C(u8, u8, u8);\ns32 func_800857C0(s32, s32);\ns32 memset(s32 *, s32, s32);\ns32 func_800980D0(s32 *, s32 *);\ns32 func_80098290(void *, void *);\nextern char *D_800A0384;\nextern char *D_800C35A0;\nextern s32 D_800A0390;\nextern s32 D_800A4EC0;\nextern f64 D_800A4EC8;\nextern f64 D_800A4ED0;\nextern f64 D_800A4ED8;\nextern char D_800AE850[];\nextern char D_800C02AE[];\nstatic inline static static static static static static static static static static static char *inline_fn(s32 arg0)\n{\n  return (char *) (D_800A0384 + (arg0 * 2));\n}\n\nstatic inline static static static static static static static static static static char *inline_fn2(int arg0, char *arg1)\n{\n  return (arg0 * 2) + arg1;\n}\n\nstatic inline static static static char *row_index(u8 idx, char *base)\n{\n  return (idx * 2) + base;\n}\n\nstatic inline s32 short_scale(s16 value)\n{\nstruct {unsigned pad:16; signed lo:16;} x; x.lo=value; return x.lo*2;\n}\n\nstatic inline s32 read_menu_field(char *base,s32 off) {return *(u16*)((base+902)+(off));}\n\nstatic inline s32 read_option_width(s32 idx,char *base) {return *(u16*)((base+0xDC)+idx*2);}\n\nvoid func_8004A0A0(void)\n{\n  char sp48[0x30];\n  char sp78[0x18];\n  char sp90[0x18];\n  char *new_var6;\n  s32 var_a1_11;\n  s32 spAC; s32 call_width; u16 panel_flag;\n  s32 loop_n;\n  char *menu_ptr;\n  s32 var_a1_12;\n  s32 var_a1_13;\n  s32 var_a1_14;\n  s32 var_a1_2;\n  u8 *new_var10;\n  s32 var_a1_4;\n  s32 var_a1_6;\n  s32 var_a1_8;\n  s32 var_a2;\n  s32 var_a2_10;\n  s32 var_a2_4;\n  int new_var11;\n  s32 var_a2_5;\n  s32 var_a2_6;\n  s32 var_a2_7;\n  s32 var_a2_8;\n  s32 var_a2_9;\n  s32 var_a3_10;\n  s32 var_a3_11;\n  s32 var_a3_2;\n  s32 var_a3_5;\n  s32 var_a3_7;\n  s32 var_a3_6;\n  char *new_var13;\n  s32 var_a3_8;\n  s32 var_a3_9;\n  s16 temp_s0_4;\n  s16 temp_s1_2;\n  s16 temp_v0_2;\n  s32 temp_a3;\n  s16 temp_a3_2;\n  u16 temp_a3_3;\n  s32 temp_a3_4;\n  s16 temp_fp;\n  s32 temp_fp_2;\n  s32 temp_fv1;\n  f64 temp_d0;\n  s32 temp_s0_2;\n  s32 temp_s0_3;\n  s32 temp_s0_5;\n  s32 temp_s0_6;\n  s32 temp_s0_7;\n  u16 temp_s0_9;\n  s32 temp_s1;\n  int new_var;\n  char *new_var7;\n  u8 temp_s1_3;\n  u16 temp_s2_2;\n  int new_var4;\n  s32 temp_s3;\n  s32 temp_s3_2;\n  s32 temp_s5;\n  s32 temp_s7;\n  s32 var_a0;\n  s32 var_a0_2;\n  char *new_var3;\n  s32 var_a1_10;\n  s32 var_a1_5;\n  s32 var_a1_7;\n  s32 var_a2_2;\n  s32 var_a2_3;\n  char *new_var2;\n  s32 var_a3;\n  u16 *new_var5;\n  s32 var_a3_3;\n  s32 var_a3_4;\n  u16 var_fp;\n  char *new_var9;\n  s32 var_fp_2;\n  u8 var_s2;\n  u8 var_s2_2;\n  s32 temp_v1_2;\n  u16 var_a1;\n  u16 var_a1_3;\n  u16 var_a1_9;\n  u32 temp_a2_2;\n  u32 temp_a2_3;\n  u32 temp_a2_4;\n  u8 temp_a0_2;\n  u8 temp_s0;\n  u8 *new_var8;\n  u8 temp_s0_10;\n  u8 temp_s0_11;\n  char *new_var12;\n  u16 temp_s0_8;\n  s32 temp_s2;\n  u8 temp_v1;\n  void *temp_a0;\n  void *temp_a2;\n  void *temp_v0;\n  var_s2 = 0;\n  do\n  {\n    var_a0 = var_s2 & 0xFF;\n    temp_s1 = var_a0 * 0x10;\n    temp_s0 = *((D_800AE850 + 0x239C) + temp_s1);\n    if (temp_s0 != func_800857C0(var_a0, 2))\n    {\n      *((D_800AE850 + 0x239D) + temp_s1) = 1;\n      *((s32 *) ((D_800AE850 + 0x2394) + temp_s1)) = 0;\n    }\n    var_s2 += 1;\n  }\n  while (((u32) (var_s2 & 0xFF)) < 4U);\n  spAC = func_800056FC(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)));\n  temp_v0 = func_80006008(spAC);\n  *((s32 *) (((char *) temp_v0) + 0x0)) = 0xDE000000;\n  *((s32 *) (((char *) temp_v0) + 0x4)) = &D_800A0390;\n  func_80006014(spAC, temp_v0 + 8);\n  call_width = func_80006CF8(spAC, 0);\n  var_a3 = 0;\n  if (1)\n  {\n    if ((panel_flag=(*((u16 *) (((char *) D_800C35A0) + 0xE))), temp_s3=call_width, panel_flag) == 2)\n    {\n      var_a3 = ((*((u16 *) (((char *) D_800C35A0) + 0x12))) & 1) << 5;\n    }\n    new_var2 = D_800A0384 + ((*((u8 *) (((char *) D_800A0384) + 0x8))) * 0xDE);\n    temp_s3_2 = temp_s3 & 0xFFFF;\n    temp_s2 = *((u8 *) (((char *) new_var2) + 0xE6));\n    temp_v0_2 = var_a3;\n    temp_v0_2 = temp_v0_2 & 0xFF;\n    temp_s5 = right_coord(var_a3);\n    temp_s0_2 = ((s32) (0xE8 - (temp_s2 * 0x10))) >> 1;\n    var_fp = temp_s0_2;\n    temp_a3 = temp_s0_2 - 0x22;\n    temp_s2_2 = (temp_s2 * 8) + 0x14;\n    temp_s0_3 = temp_s0_2 + 0xFFDE;\n    temp_s1_2 = temp_s2_2 + temp_s0_3;\n    func_800068C0(spAC, temp_s3_2, temp_v0_2, temp_a3, 0, (s32) temp_v0_2, (s32) temp_s1_2, 0, temp_s5, (s32) temp_s1_2, 0, temp_s5, temp_a3, 0);\n    func_80007404(spAC, temp_s3_2, 0, 0x4A, 0xA5, 0x32, 0, 0x4A, 0xA5, 0xA0, 0, 0x4A, 0xA5, 0xA0, 0, 0x4A, 0xA5, 0x32);\n    func_80006298(spAC);\n    temp_s7 = func_80006CF8(spAC, 0) & 0xFFFF;\n    temp_s0_4 = temp_s0_3 + (temp_s2_2 * 2);\n    func_800068C0(spAC, temp_s7, temp_v0_2, (s32) temp_s1_2, 0, (s32) temp_v0_2, (s32) temp_s0_4, 0, temp_s5, (s32) temp_s0_4, 0, temp_s5, (s32) temp_s1_2, 0);\n    func_80007404(spAC, temp_s7, 0, 0x4A, 0xA5, 0xA0, 0, 0x4A, 0xA5, 0x32, 0, 0x4A, 0xA5, 0x32, 0, 0x4A, 0xA5, 0xA0);\n    func_80006298(spAC);\n    memset(&sp48, 0, 0x2A);\n    memset(&sp78, 0, 0x14);\n    memset(&sp90, 0, 0x14);\n    if ((*((u8 *) (((char *) D_800A0384) + 0x382))) == 0)\n    {\n      func_80098290((var_s2_2=0,&sp90), func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x126));\n    }\n    else\n    {\n      func_80098290((var_s2_2=0,&sp90), func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x128));\n    }\n    func_800980D0(&sp90, D_800C35A0 + (((*((u8 *) (((char *) (D_800C35A0 + (*((u8 *) (((char *) D_800A0384) + 0x382))))) + 0x32))) * 0x28) + 0x44));\n    temp_s0_5 = func_8000C9B0((void *)(D_800A0384 + 4), (void *)(&sp90), (u8)(1), (f32)(0.8f), (u8)(0));\n    func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));\n    func_8000C200(*((s32 *) (((char *) D_800A0384) + 0x4)), 0.8f, 0.8f, 0.8f);\n    if(temp_s0_5) {var_a1_11=(s32)(u32)spAC;} else {var_a1_11=spAC;}\n    var_a0 = (s32)D_800A0384;\n    temp_s0_7=(u16)temp_s0_5; temp_s3 = ((s32) (0x140 - temp_s0_7)) / 2;\n    temp_s0_6 = func_8000C244(*((s32 *) (var_a0 + 0x4)), var_a1_11, temp_s3, (var_fp & 0xFFFF) - 0x16, &sp90, 0);\n    func_8000C200(*((s32 *) (((char *) D_800A0384) + 0x4)), *((f32 *) (D_800A0384 + 0x3A4)), 1.0f, 1.0f);\n    menu_ptr = D_800A0384;\n    new_var12 = menu_ptr + ((*((u8 *) (((char *) menu_ptr) + 0x8))) * 0xDE);\n    if ((*((u8 *) (((char *) new_var12) + 0xE6))) != 0)\n    {\n      do\n      {\n        if ((var_s2_2 & 0xFF) == (*((u8 *) (((char *) menu_ptr) + 0x383))))\n        {\n          func_8000C22C((void *)(*((s32 *) (((char *) menu_ptr) + 4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n        }\n        else\n        {\n          func_8000C22C((void *)(*((s32 *) (((char *) menu_ptr) + 4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n        }\n        temp_s0_7 = var_s2_2 & 0xFF;\n        temp_a2 = D_800A0384 + (((*((u8 *) (((char *) D_800A0384) + 0x8))) * 0xDE) + 0xA);\n        func_80098290(&sp48, temp_a2 + (temp_s0_7 * 0x2A));\n        temp_v1 = *((u8 *) (((char *) D_800A0384) + 0x8));\n        if (temp_v1 == 0)\n        {\n          var_a3_3 = var_fp & 0xFFFF;\n          temp_a2_2 = 0x140 - (read_option_width(temp_s0_7,D_800A0384));\n          var_a2_2 = ((s32) (temp_a2_2 + (temp_a2_2 >> 0x1F))) >> 1;\n          block_44:\n          func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, 0);\n\n          goto menu_end;\n        }\n        else\n          if (temp_v1 == 1)\n        {\n          if (temp_s0_7 != 3)\n          {\n            var_a3_3 = var_fp & 0xFFFF;\n            new_var5 = (u16 *) (inline_fn(temp_s0_7) + 0x1BA);\n            var_a2_2 = 0xA6 - (*new_var5);\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, 0);\n          }\n          else\n          {\n            var_a3_3 = var_fp & 0xFFFF;\n            temp_a2_3 = 0x140 - (*((u16 *) (((char *) D_800A0384) + 0x1C0)));\n            var_a2_2 = ((s32) (temp_a2_3 + (temp_a2_3 >> 0x1F))) >> 1;\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, 0);\n          }\n          goto menu_end;\n        }\n        else\n          if (temp_v1 == 2)\n        {\n          if (temp_s0_7 != 4)\n          {\n            var_a3_3 = var_fp & 0xFFFF;\n            var_a2_2 = 0xA6 - (*((u16 *) (inline_fn(temp_s0_7) + 0x298)));\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, 0);\n          }\n          else\n          {\n            var_a3_3 = var_fp & 0xFFFF;\n            temp_a2_4 = 0x140 - (*((u16 *) (((char *) D_800A0384) + 0x2A0)));\n            var_a2_2 = ((s32) (temp_a2_4 + (temp_a2_4 >> 0x1F))) >> 1;\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, 0);\n          }\n          goto menu_end;\n        }\n        else\n          if (temp_v1 == 3)\n        {\n          if (temp_s0_7 == 0)\n          {\n            var_a2_3 = temp_s3 + 4;\n            var_a3_4 = (var_fp & 0xFFFF) + 0x10;\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_3, var_a3_4, sp48, 0);\n          }\n          else\n          {\n            var_a3_4 = var_fp & 0xFFFF;\n            var_a2_3 = ((((u16) temp_s0_6) + temp_s3) - (*((u16 *) (((char *) ((temp_s0_7 * 2) + D_800A0384)) + 0x376)))) - 4;\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_3, var_a3_4, sp48, 0);\n          }\n          func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n          temp_v1_2 = *((u16 *) (((char *) D_800C35A0) + 0x1E));\n          switch (temp_v1_2)\n          {\n            case 1:\n\n            case 2:\n\n            case 3:\n\n            case 4:\n              func_80098290(&sp48, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x1B3));\n              break;\n\n            case 0:\n              func_80098290(&sp48, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x1B2));\n              break;\n\n            case 5:\n              func_80098290(&sp48, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x1B0));\n              break;\n\n          }\n\n          func_800980D0(&sp48, &D_800A4EC0);\n          if (!(var_s2_2 & 0xFF))\n          {\n            var_a2_2 = (s32) (((u32) (0x140 - func_8000C9B0((void *)(D_800A0384 + 4), (void *)(&sp48), (u8)(1), (f32)(*((f32 *) (D_800A0384 + 0x3A4))), (u8)(0)))) >> 1);\n            var_a3_3 = var_fp & 0xFFFF;\n            func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, var_a2_2, var_a3_3, sp48, var_s2_2);\n            goto menu_end;\n          }\n          goto menu_end;\n        }\n        menu_end:\n        var_fp += 0x10;\n\n        new_var13 = D_800A0384 + ((*((u8 *) (((char *) D_800A0384) + 0x8))) * 0xDE);\n        menu_ptr = D_800A0384;\n        loop_n = (u8) (*((u8 *) (((char *) new_var13) + 0xE6)));\n        var_s2_2 += 1;\n      }\n      while (((u32) (var_s2_2 & 0xFF)) < loop_n);\n    }\n  }\n  temp_a0_2 = *((u8 *) (((char *) D_800A0384) + 0x8));\n  new_var8 = (u8 *) (((char *) (D_800A0384 + (temp_a0_2 * 0xDE))) + 0xE6);\n  temp_a3_2 = ((s32) (0xE8 - ((*new_var8) * 0x10))) >> 1;\n  var_fp = temp_a3_2;\n  switch (temp_a0_2)\n  {\n    case 0:\n      break;\n\n    case 1:\n      temp_d0 = ((f64) (*((f32 *) (D_800C02AE + 0x3332)))) * D_800A4EC8;\n      temp_fv1 = (s32) temp_d0;\n      new_var = 0x10;\n      if ((temp_fv1 << new_var) == 0)\n    {\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 0)\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n      }\n      else\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n      }\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x1C5U), 0);\n    }\n    else\n      if ((*((u8 *) (D_800A0384 + 0x383))) == 0)\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 + 7) & 0xFFFF, 0xAE, temp_a3_2 - 2, 1.0f, 0, 0xFF);\n    }\n    else\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 - 1) & 0xFFFF, 0xAE, temp_a3_2 - 2, 1.0f, 0, 0xFF);\n    }\n      temp_a3_2 = var_fp + new_var;\n      var_fp = temp_a3_2;\n      temp_fv1 = (s32) (((f64) (*((f32 *) (D_800C02AE + 0x333A)))) * D_800A4ED0);\n      if ((temp_fv1 << new_var) == 0)\n    {\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 1)\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n      }\n      else\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n      }\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), 0x1C5U), 0);\n    }\n    else\n      if ((*((u8 *) (D_800A0384 + 0x383))) == 1)\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 + 7) & 0xFFFF, 0xAE, (s16) (var_fp - 2), 1.0f, 0, 0xFF);\n    }\n    else\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 - 1) & 0xFFFF, 0xAE, (s16) (var_fp - 2), 1.0f, 0, 0xFF);\n    }\n      temp_a3_2 = new_var;\n      temp_a3_2 = (var_fp = var_fp + temp_a3_2);\n      temp_fv1 = (s32) (((f64) (*((f32 *) (D_800C02AE + 0x332E)))) * D_800A4ED8);\n      if ((temp_fv1 << new_var) == 0)\n    {\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 2)\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n      }\n      else\n      {\n        func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n      }\n      var_a1_9 = 0x1C5;\n      block_96:\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), var_a1_9), 0);\n\n    }\n    else\n      if ((*((u8 *) (D_800A0384 + 0x383))) == 2)\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 + 7) & 0xFFFF, 0xAE, (s16) (var_fp - 2), 1.0f, 0, 0xFF);\n    }\n    else\n    {\n      func_8004CF7C(*((s32 *) (((char *) (*((char **) (D_800C02AE + 0x7CD6)))) + 0x178)), (temp_fv1 - 1) & 0xFFFF, 0xAE, (s16) (var_fp - 2), 1.0f, 0, 0xFF);\n    }\n      break;\n\n    case 2:\n      temp_s1_3 = func_8006204C(*((u8 *) (((char *) D_800C35A0) + 0x1F)), *((u8 *) (((char *) D_800C35A0) + 0x21)), *((u8 *) (((char *) D_800C35A0) + 0x23)));\n      new_var3 = D_800C35A0 + ((*((u8 *) (((char *) (D_800C35A0 + (*((u8 *) (((char *) D_800A0384) + 0x382))))) + 0x32))) * 0x28);\n      temp_s0_8 = *((u8 *) (((char *) (new_var3 + (temp_s1_3 & 0xFF))) + 0x54));\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 0)\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n    }\n    else\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n    }\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), read_menu_field(D_800A0384,(((s32)(temp_s0_8 << new_var)) >> 15))), 0);\n      var_a0 = (s32)D_800C35A0;\n      new_var11 = *(u8*)(var_a0 + *(u8*)(D_800A0384+0x382) + 0x32);\n      new_var11 = new_var11 * 40;\n      var_a0 += new_var11;\n      temp_s0_9 = *(u16*)(var_a0 + (temp_s1_3 & 255)*2 + 0x60);\n      temp_s0_9 = 2 - (((s16) temp_s0_9) / 10);\n      var_fp += new_var;\n      if ((*((u8 *) (D_800A0384 + 0x383))) == 1)\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n    }\n    else\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n    }\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((char *) (D_800A0384 + short_scale(temp_s0_9))) + 0x38C))), 0);\n      temp_s0_10 = *(new_var10 = &(*((u8 *) (((char *) ((D_800C35A0 + ((*((u8 *) (((char *) (D_800C35A0 + (*((u8 *) (((char *) D_800A0384) + 0x382))))) + 0x32))) * 0x28)) + (temp_s1_3 & 0xFF))) + 0x5C))));\n      var_fp += new_var;\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 2)\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n    }\n    else\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n    }\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((char *) (D_800A0384 + (((s32) (temp_s0_10 << new_var)) >> 0xF))) + 0x396))), 0);\n      new_var7 = D_800C35A0 + ((*((u8 *) (((char *) (D_800C35A0 + (*((u8 *) (((char *) D_800A0384) + 0x382))))) + 0x32))) * 0x28);\n      temp_s0_11 = *((u8 *) (((char *) (new_var7 + (temp_s1_3 & 0xFF))) + 0x58));\n      var_fp += new_var;\n      if ((*((u8 *) (((char *) D_800A0384) + 0x383))) == 3)\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFE), (s32)(0xD5), (s32)(0x1E), (u8)(0xFF));\n    }\n    else\n    {\n      func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n    }\n      var_a1_9 = *((u16 *) (((char *) (D_800A0384 + (((s32) (temp_s0_11 << new_var)) >> 0xF))) + 0x39C));\n      func_8000C244(*((s32 *) (((char *) D_800A0384) + 0x4)), spAC, 0xAE, var_fp & 0xFFFF, func_80057918(*((s32 *) (D_800C02AE + 0x807A)), var_a1_9), 0);\n\n  }\n\n  func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 0x4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n}\n\n",
@@ -292194,6 +293607,7 @@
    "49106f8064fece2dbf7cfd68533f7fb28d5b4472992a6e055073b81008346228": "typedef struct { u8 start; u8 count; } Group;\ntypedef struct {\n    u8 pad0[0xD0];\n    Group groups[10];\n    void *items[1];\n} GroupTable;\ntypedef struct {\n    u8 pad0[0xA];\n    s8 group;\n} GroupOwner;\n\nvoid func_8000C22C(void *, s32, s32, s32, u8);\nextern GroupTable *D_800A1468;\n\nvoid func_80059618(GroupOwner *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4) {\n    u8 i;\n\n    for (i = D_800A1468->groups[arg0->group].start;\n         i < D_800A1468->groups[arg0->group].start + D_800A1468->groups[arg0->group].count; i++) {\n        func_8000C22C((void *)(D_800A1468->items[i]), (s32)((u8)(arg1)), (s32)((u8)(arg2)), (s32)((u8)(arg3)), (u8)(arg4));\n    }\n}\n",
    "9ffb5cd7a23114036866ea714619bbdb903a583894152c306cd4f7e3e863d7af": "typedef struct { u8 pad0[4]; u8 r, g, b; } Col;\ntypedef struct { u8 start, count; } Rng;\ntypedef struct { u8 p0[0xD0]; Rng rng[1]; u8 p1[0x14-0+0]; } GX;\ntypedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;\nextern u8 *D_800A1468;\nextern struct { u8 p[4]; s16 w; } *D_8009B5A4;\nextern u8 D_800A73E0[];\ns32 func_800056FC(void *);\nvoid func_8000C22C(void *, s32, s32, s32, u8);\ns32 func_8000C9B0(void *, void *, u8, f32, u8);\nu16 func_8000CC04(void *, void *, s16, s16, void *, u8, f32, f32, u16, u8);\n#define RNG(g, a) ((Rng *)((g) + (s16)(((Arg *)(a))->idx * 2) + 0xD0))\n#define COL(g, i) (*(Col **)((g) + (i) * 4 + 0xE4))\nvoid func_800596F4(void *arg0, s16 arg1, s16 arg2, void *arg3) {\n    u8 i;\n    u8 r = 0, g = 0, b = 0;\n    if (arg1 == 0x7FFF) {\n        Rng *rg = RNG(D_800A1468, arg0);\n        s16 w = func_8000C9B0((void *)(D_800A1468 + (rg->start * 4 + 0xE4)), (void *)(arg3), (u8)(rg->count), (f32)(((Arg *)arg0)->w10), (u8)(0));\n        if (D_8009B5A4->w == 0x280) { u32 u = D_8009B5A4->w - w; arg1 = (s16)((u + (u >> 31)) >> 1); }\n        else { u32 u = 0x140 - w; arg1 = (s16)((u + (u >> 31)) >> 1); }\n    }\n    if (D_800A1468[0x24D] != 0) {\n        Rng *rg = RNG(D_800A1468, arg0);\n        Col *c;\n        c = COL(D_800A1468, rg->start);\n        i = rg->start;\n        r = c->r; g = c->g; b = c->b;\n        while (i < RNG(D_800A1468, arg0)->start + RNG(D_800A1468, arg0)->count) {\n            func_8000C22C((void *)(COL(D_800A1468, i)), (s32)(r >> 3), (s32)(g >> 3), (s32)(b >> 3), (u8)(((Arg *)arg0)->r));\n            i++;\n        }\n    }\n    func_8000CC04((void *)(D_800A1468 + (RNG(D_800A1468, arg0)->start * 4 + 0xE4)), (void *)(func_800056FC((void *)(*(s32*)(D_800A73E0+0x6ba0)))), (s16)(arg1), (s16)(arg2), (void *)(arg3), (u8)(RNG(D_800A1468, arg0)->count), (f32)(((Arg *)arg0)->w10), (f32)(((Arg *)arg0)->f14), (u16)(((Arg *)arg0)->h18), (u8)(0));\n    if (D_800A1468[0x24D] != 0) {\n        i = RNG(D_800A1468, arg0)->start;\n        while (i < RNG(D_800A1468, arg0)->start + RNG(D_800A1468, arg0)->count) {\n            func_8000C22C((void *)(COL(D_800A1468, i)), (s32)(r), (s32)(g), (s32)(b), (u8)(((Arg *)arg0)->r));\n            i++;\n        }\n    }\n}\n",
    "858440e2dd7511c9408d09ac3352840cf7763f8d69df8bd34f0b2f78bb398dce": "extern char D_800C02AE[];\ns32 func_80057918();\ns32 func_80059618();\nvoid func_800596F4(void *, s16, s16, void *);\n\nvoid func_800599D0(u8 *arg0, s32 arg1) {\n    if (*(u16 *)(arg0 + 4) != 0x1C7) {\n        if (arg1 & 0xFF) {\n            func_80059618(arg0, 0xDC, 0xDC, 0xE, 0xFF);\n        } else {\n            func_80059618(arg0, arg0[0xB], arg0[0xC], arg0[0xD], arg0[0xE]);\n        }\n        func_800596F4((void *)(arg0), (s16)(*(s16 *)(arg0 + 6)), (s16)(*(s16 *)(arg0 + 8)), (void *)(func_80057918(*(s32 *)(D_800C02AE + 0x807A), *(u16 *)(arg0 + 4))));\n    }\n}\n",
+   "010d699692415c867ebda8724112a63e54f2c6ef29e70ac09e5a089e058331bf": "typedef struct Style\n{\n  struct Style *next;\n  u16 id;\n  s16 x;\n  s16 y;\n  u8 pad0A;\n  u8 r;\n  u8 g;\n  u8 b;\n  u8 a;\n  u8 pad0F[0x1A - 0xF];\n  u8 visible;\n  u8 mode;\n} Style;\ntypedef struct Widget\n{\n  struct Widget *next;\n  u8 sub[0x24];\n  Style *styles;\n  u8 pad2C[0x41 - 0x2C];\n  u8 active;\n  u8 mode;\n  u8 pad43[0x4D - 0x43];\n  u8 nstyles;\n  u8 useStyleMode;\n} Widget;\ntypedef struct Group\n{\n  struct Group *next;\n  u16 w0;\n  u16 w1;\n  u8 b8;\n  s8 b9;\n  u8 active;\n} Group;\ntypedef struct Task\n{\n  u8 pad[0x10];\n  void *arg;\n  void (*fn)(void *);\n} Task;\ntypedef struct Menu\n{\n  Style *styles;\n  u8 pad4[4];\n  s32 nstyles;\n  Widget *widgets;\n  u8 pad10[4];\n  s32 nwidgets;\n  Group *groups;\n  u8 pad1C[4];\n  s32 ngroups;\n  Group *groups2;\n  u8 pad28[4];\n  s32 ngroups2;\n  u8 pad30[0x222 - 0x30];\n  s16 f222;\n  u8 pad224[0x232 - 0x224];\n  u8 f232;\n  s8 f233;\n  u8 pad234[0x249 - 0x234];\n  u8 f249;\n  u8 pad24A;\n  s8 f24B;\n  u8 pad24C;\n  u8 f24D;\n  u8 pad24E[0x28C - 0x24E];\n  void (*callback)(void);\n  u8 pad290[0x2BD - 0x290];\n  s8 f2BD;\n} Menu;\nextern u8 *D_800A1468;\n#define MENU ((Menu *)D_800A1468)\nextern Task *D_800C5D20[];\nextern void *D_800C7F84;\nextern u8 D_800C02AE[];\nstruct N { int p0; struct N *next; int p8; int key; };\nextern struct N *func_8004240C(int);\nextern void func_80047B54(void *, s32, s16, s16);\nextern void func_8005BCD4(void);\nextern void func_800599D0(u8 *, s32);\nextern void *func_800592D0(u32);\nextern void *func_800592AC(u32);\ntypedef struct { u8 pad0[0xA]; s8 group; } GroupOwner;\nextern void func_80059618(GroupOwner *, u8, u8, u8, u8);\nextern s32 func_80057918(s32 *, s32);\ntypedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;\nvoid func_800596F4(void *, s16, s16, void *);\nstatic __inline__ void __repair_aggregate_call_context_groups(u8 idx,s32 primary,s32 last,s32 other) {\nif(idx==0) { D_800C7F84=func_8004240C(primary); }\nelse if(idx==1) { D_800C7F84=func_8004240C(primary); }\nelse if(idx==4) { D_800C7F84=func_8004240C(last); }\nelse { D_800C7F84=func_8004240C(other); }\n}\nvoid func_80059A60(void)\n{\n  u8 i;\n  u8 j;\n  u8 n;\n  s32 which;\n  Style *s;\n  Widget *w;\n  Group *g;\n  u8 *flags;\n  if (MENU->f232 && (MENU->f233 >= 0))\n  {\n    func_80047B54(func_8004240C(0), (u16)MENU->f233, 0, 0);\n  }\n  if (MENU->f249)\n  {\n    for (i = 0; i < 5; i++)\n    {\n      if (D_800C5D20[i] == NULL)\n      {\n        continue;\n      }\n      __repair_aggregate_call_context_groups(i,2,1,1);\n      if ((i != 1) || (!MENU->f24D))\n      {\n        D_800C5D20[(unsigned int) i]->fn(D_800C5D20[i]->arg);\n      }\n    }\n\n  }\n  if (MENU->callback)\n  {\n    MENU->callback();\n  }\n  if (MENU->f249 && (MENU->f222 >= 0))\n  {\n    func_8005BCD4();\n  }\n  if (MENU->nstyles && MENU->f249)\n  {\n    n = MENU->nstyles;\n    s = MENU->styles;\n for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0((u8 *)s, s->mode); } } } if (MENU->nwidgets) { n = MENU->nwidgets; w = MENU->widgets; for (i = 0; i < n; i++, w = w->next) { flags = (u8 *)w + 0x41; if (*flags) { func_800599D0(w->sub, w->mode); if ((!w->useStyleMode) || w->mode) { s = w->styles; for (j = 0; j < w->nstyles; s = s->next, j++) { if (s->visible) { u8 hl; if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; } if (hl) { func_80059618((GroupOwner *)s, 220, 220, 14, 255);\n              }\n              else\n              {\n                func_80059618((GroupOwner *)s, s->r, s->g, s->b, s->a);\n              }\n              func_800596F4((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id)));\n            }\n          }\n\n        }\n      }\n    }\n\n  }\n  if (MENU->ngroups)\n  {\n    n = MENU->ngroups;\n    g = MENU->groups;\n    for (i = 0; i < n; i++)\n    {\n      if (g->active)\n      {\n        MENU->f24D = 0;\n        s = func_800592D0(g->b9);\n        for (j = 0; j < g->b8; j++, s = s->next)\n        {\n          func_800599D0((u8 *)s, s->mode);\n        }\n\n        w = func_800592AC(g->w0);\n        func_800599D0(w->sub, w->mode);\n        which = g->w1;\n        w = func_800592AC((u16)which);\n        func_800599D0(w->sub, w->mode);\n        MENU->f24D = 1;\n      }\n    }\n\n  }\n  if (MENU->ngroups2)\n  {\n    n = MENU->ngroups2;\n    g = MENU->groups2;\n    for (i = 0; i < n; i++)\n    {\n      if (g->active)\n      {\n        MENU->f24D = 0;\n        if (g->b9)\n        {\n          s = func_800592D0(g->b8);\n          for (j = 0; j < g->b9; j++, s = s->next)\n          {\n            func_800599D0((u8 *)s, s->mode);\n          }\n\n        }\n        w = func_800592AC(g->w0);\n        for (j = 0; j < g->w1; j++, w = w->next)\n        {\n          func_800599D0(w->sub, w->mode);\n        }\n\n        MENU->f24D = 1;\n      }\n    }\n\n  }\n  if (MENU->f24B >= 0)\n  {\n    MENU->f24B--;\n  }\n  if ((MENU->f2BD >= 0) && MENU->f249)\n  {\n    MENU->f249--;\n  }\n}\n",
    "a941bb81b86b0f3fbb4dd483496179b4fbc145579b6315f77c47006c0a6e9009": "typedef struct Node\n{\n  void *next;\n} Node;\ntypedef struct Grp\n{\n  void *next;\n  char pad4[0x28 - 4];\n  void *subs;\n  char pad2C[0x4C - 0x2C];\n  u8 nsub;\n} Grp;\ntypedef struct Ctx\n{\n  void *list0;\n  void *x4;\n  s32 cnt0;\n  void *grp;\n  void *x10;\n  s32 cnt1;\n  void *list2;\n  void *x1C;\n  s32 cnt2;\n  void *list3;\n  void *x28;\n  s32 cnt3;\n  char pad30[0x222 - 0x30];\n  s16 sel;\n  char pad224[0x294 - 0x224];\n  void (*cb)(void);\n} Ctx;\nextern void func_80059154(s32);\nextern void func_80059FB4(void);\nextern void func_8005A0A8(void);\nextern void func_8007EE9C(void *);\nextern Ctx *D_800A1468;\nvoid func_8005A100(void)\n{\n  s32 m;\n  Grp *g;\n  Grp *gn;\n  Node *p;\n  s32 n;\n  Node *q;\n  if (D_800A1468->cb != NULL)\n  {\n    D_800A1468->cb();\n    D_800A1468->cb = NULL;\n  }\n  n = D_800A1468->cnt1;\n  D_800A1468->sel = -1;\n  if (n != 0)\n  {\n    gn = D_800A1468->grp;\n    while (n--)\n    {\n      g = gn;\n do { m = g->nsub; gn = g->next; } while (0);\n      p = g->subs;\n      if (m != 0)\n      {\n        while (m--)\n        {\n          q = p;\n          p = q->next;\n          func_8007EE9C(q);\n        }\n\n      }\n      func_8007EE9C(g);\n    }\n\n    D_800A1468->cnt1 = 0; D_800A1468->x10 = NULL;\n  }\n  n = D_800A1468->cnt0;\n  if (n != 0)\n  {\n    p = D_800A1468->list0;\n    while (n--)\n    {\n      q = p;\n      p = q->next;\n      func_8007EE9C(q);\n    }\n\n    D_800A1468->cnt0 = 0;\n    D_800A1468->x4 = 0;\n  }\n  n = D_800A1468->cnt2;\n  if (n != 0)\n  {\n    Node *r = D_800A1468->list2;\n    while (n--)\n    {\n      Node *t = r;\n      r = t->next;\n      func_8007EE9C(t);\n    }\n\n    D_800A1468->cnt2 = 0;\n    D_800A1468->x1C = 0;\n  }\n  n = D_800A1468->cnt3;\n  if (n != 0)\n  {\n    Node *r = D_800A1468->list3;\n    while (n--)\n    {\n      Node *t = r;\n      r = t->next;\n      func_8007EE9C(t);\n    }\n\n    D_800A1468->cnt3 = 0;\n    D_800A1468->x28 = 0;\n  }\n  func_80059154(1);\n  func_80059154(4);\n  func_80059FB4();\n  func_8005A0A8();\n}\n",
    "4d2c825f0af10aae9780e7324ec5e714a6ec18c9b9d1397ca360ac7b930c077c": "/* adapted from similar verified C in func_8005B0C8 in V-RALLY (matched), with its names changed by decompdecomp */\n/* adapted from similar verified C in func_8005A388 in V-RALLY (matched), with its names changed by decompdecomp */\nvoid *func_800592AC(u32); void func_80098290(char *a, int b); void func_800595EC(char *a);\nint func_8005A388(int arg0, int arg1) { char buf[16]; func_80098290(buf, (int)func_800592AC(arg1) + 48); func_800595EC(buf); return 0; }\n",
    "d5e1263f133efebdc056db52f61ef7564eb964df02522a8a27c84000847cbc58": "/* identical to func_8005B0FC in V-RALLY (matched), with its names changed by decompdecomp */\n/* identical to func_8005A3BC in V-RALLY (matched), with its names changed by decompdecomp */\nvoid func_8005A6E0(u32);void func_8005A6BC(u32);\nvoid func_8005A3BC(int arg0, int arg1, int arg2) { int i; for (i = 0; i < arg1; i++) { func_8005A6E0(arg0 + i); } func_8005A6BC(arg0 + arg2); }\n",
@@ -292317,6 +293731,7 @@
    "cb1be96fdf2ab22781141f95020d141ce64b9abb3118fe71339fb81aec29e823": "void *func_800592AC(u32);\ns32 func_8005937C();\ns32 func_8006185C();\ns32 func_80069A08();\ns32 func_8007A688();\ns32 func_8007A7D0();\nextern void *D_800A1468;\nextern char D_800C02AE[];\n\nvoid func_8007A9A8(void)\n{\n    void *temp_s;\n    u8 *temp_a1;\n    u8 *temp_a0_2;\n    u8 *base;\n    void *temp_v0;\n    s32 temp_a0;\n    void *d;\n\n    temp_s = *(void **)(D_800C02AE + 0x325A);\n    temp_a1 = *(u8 **)((u8 *)temp_s + 0x10) + *(s16 *)((u8 *)temp_s + 2) * 0x14;\n    d = D_800A1468;\n    temp_a0 = *((u8 *)d + 0x245);\n    if (temp_a0 == 0) {\n        *((u8 *)D_800A1468 + 0x238) = temp_a1[0xE] - temp_a1[0xD];\n        func_8005937C(temp_a1[0xE], *((u8 *)D_800A1468 + *((u8 *)D_800A1468 + 0x238) + 0x23D), d);\n        base = *(u8 **)(D_800C02AE + 0x32F2);\n        temp_a0_2 = base + *(u8 *)(base + *(s8 *)((u8 *)D_800A1468 + 0x228) + 0x32) * 0x28;\n        temp_v0 = D_800A1468;\n        *((u8 *)temp_v0 + 0x237) = *(u16 *)(temp_a0_2 + 0x4E);\n        func_80069A08(temp_a0_2, temp_v0);\n    } else {\n        func_8007A688(temp_a0, temp_a1, D_800A1468);\n        func_80069A08();\n        func_8006185C((s32)func_800592AC(*((u8 *)D_800A1468 + 0x238)), 1);\n    }\n    func_8007A7D0(*((u8 *)D_800A1468 + 0x237));\n}\n",
    "73b6a34833f17a93fb1dc278f8c166f5926b61e7b59ff25bec0c31942468b8c0": "void *func_800592AC(u32);\ns32 func_800593FC(s32, s32);\ns32 func_8005946C(s32, u8);\ns32 func_8007A688(u8, void *);\ns32 func_8007A6D0();\nextern void *D_800A1468;\nextern char D_800C02AE[];\n\ns32 func_8007AAFC(s32 arg0) {\n    char *base;\n    char *p;\n    char *rec;\n    char *var_v1;\n    char *pa;\n    s32 var_a0;\n    u8 s0;\n    u8 s1;\n    u8 temp_a0;\n\n    *((u8 *)D_800A1468 + 0x2BC) = 4;\n    *((u8 *)D_800A1468 + 0x245) = 1;\n    pa = D_800A1468;\n    base = *(char **)(D_800C02AE + 0x32F2);\n    p = base + *((s8 *)pa + 0x228);\n    rec = base + *(u8 *)(p + 0x32) * 0x28;\n    s1 = *(u8 *)(rec + 0x4F);\n    s0 = s1;\n    temp_a0 = *(u8 *)(*(char **)(D_800C02AE + 0x103AA) + s0 * 0x2C4 + 0x15);\n    if (temp_a0 == *(u8 *)(pa + 0x238)) {\n        var_v1 = *(char **)((char *)func_800592AC((u8)(temp_a0)) + 0x28);\n        var_a0 = 0;\n        if (*(u8 *)(var_v1 + 0x22) != s0) {\n            do {\n                var_v1 = *(char **)var_v1;\n                var_a0 += 1;\n            } while (*(u8 *)(var_v1 + 0x22) != s0);\n        }\n        *((u8 *)D_800A1468 + 0x239) = var_a0;\n        *((u8 *)D_800A1468 + 0x237) = s1;\n    } else {\n        *(pa + 0x239) = 0;\n        func_8007A688(temp_a0, pa);\n    }\n    func_8007A6D0();\n    *((u8 *)D_800A1468 + 0x2BD) = 1;\n    p = *(char **)(D_800C02AE + 0x325A);\n    func_800593FC(arg0, *(u8 *)(*(char **)(p + 0x10) + *(s16 *)(p + 2) * 0x14 + 0xD) + 4);\n    func_8005946C(arg0, *((u8 *)D_800A1468 + 0x239));\n    return 0;\n}\n",
    "52735d3eda7a2a6fdabe224c924b1d4eb5820278c9e924988ae6dd9797d3320c": "typedef void (*Callback)(void);\ntypedef struct { u8 pad[0x2c]; s32 state; } Object;\ntypedef struct { s32 pad; Object *obj; s32 pad8; } Slot;\ntypedef struct { u8 pad[8]; Slot *slots; u8 pad2[8]; } Team;\ntypedef struct { u8 pad[3]; u8 current; u8 pad4[12]; Team *teams; } League;\nvoid func_800407D0(void);                            /* extern */\nvoid func_800595EC(s32);           /* extern */\ns32 func_8005A388(s32,s32);                    /* extern */\nvoid func_8006F0E0(u8);                  /* extern */\nvoid func_8007A688(void);                            /* extern */\nextern void *D_800A1468;\nextern u8 D_800A5FB8[];\nextern u8 D_800A5FC4[];\nextern u8 D_800A5FD0[];\nextern u8 *D_800C35A0; extern League *D_800C3508;\nextern void func_800635A0(void);\nextern void func_80063790(void);\nextern void func_8006556C(void);\nextern void func_80065860(void);\nextern void func_80070C34(void);\nextern void func_8007159C(void);\nextern void func_8007A29C(void);\nextern void func_8007A9A8(void);\nextern void func_8007AA94(void);\n\ns32 func_8007AD68(s32 arg0, s32 arg1) {\n    char *__repair_addr; s8 temp_v1;\n    u16 temp_v1_2;\n    u16 temp_v1_3;\n    u8 temp_s1;\n\n    (*(s8 *)((char *)(D_800A1468) + 0x245)) = 0;\n    func_8007A688();\n  __repair_addr = (char *) ((D_800C35A0 + ((D_800C35A0 + ((s8) ((u8 *)D_800A1468)[0x228]))[0x32] * 0x28)) + 0x4E);\n  *((s16 *) __repair_addr) = ((u8 *)D_800A1468)[0x237];\n    func_8006F0E0((u8) (*(s8 *)((char *)(D_800A1468) + 0x228)));\n    temp_v1 = (*(s8 *)((char *)(D_800A1468) + 0x228));\n    temp_s1 = D_800C3508->current;\n    if (temp_v1 >= ((*(u16 *)((char *)(D_800C35A0) + 0xE)) - 1)) {\n        goto block_11;\n    }\n    ++((u8 *)D_800A1468)[0x228];\n    func_8005A388(arg0, arg1);\n    { u8 *state = (u8 *)D_800A1468; u8 *record = D_800C35A0;\n    *((Callback *)(state + 0x288)) = func_8007A29C;\n    *((Callback *)(state + 0x28C)) = func_8007A9A8;\n    *((Callback *)(state + 0x290)) = func_8007AA94;\n    temp_v1_2 = *((u16 *)(record + 0x1E)); }\n    switch (temp_v1_2) {\ncase 1: case 2: case 3: case 4:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 5;\nbreak;\ncase 0:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 5;\nbreak;\ncase 5:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 7;\nbreak;\ndefault: return 0;\n} goto block_22;\nblock_11:\n    (*(s8 *)((char *)(D_800A1468) + 0x228)) = 0;\n    (*(s8 *)((char *)(D_800A1468) + 0x22B)) = -1;\n    temp_v1_3 = (*(u16 *)((char *)(D_800C35A0) + 0x1E));\n    switch (temp_v1_3) {\ncase 1: case 2: case 3: case 4: goto block_19;\ncase 0: goto block_20;\ncase 5: goto block_21;\ndefault: return 0;\n}\nblock_19:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 2;\n    func_800595EC((s32)D_800A5FB8);\n    (*(Callback *)((char *)D_800A1468 + 0x288)) = &func_8006556C;\n    (*(Callback *)((char *)D_800A1468 + 0x28C)) = &func_80065860;\n    goto block_22;\nblock_20:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 2;\n    func_800595EC((s32)D_800A5FC4);\n    (*(Callback *)((char *)D_800A1468 + 0x288)) = &func_800635A0;\n    (*(Callback *)((char *)D_800A1468 + 0x28C)) = &func_80063790;\n    goto block_22;\nblock_21:\n    D_800C3508->teams[temp_s1].slots[arg1].obj->state = 3;\n    func_800595EC((s32)D_800A5FD0);\n    (*(Callback *)((char *)D_800A1468 + 0x288)) = &func_80070C34;\n    (*(Callback *)((char *)D_800A1468 + 0x28C)) = &func_8007159C;\n    func_800407D0();\nblock_22:\n    return 0;\n}\n",
+   "eaebece0b84e3d09a7f172eeb42f1f95cc9de904fb217d64f460d92aaf765f86": "extern s32 D_800A1860;\nextern s32 D_800A1864;\nextern s32 D_800A1868;\nextern s32 D_800A186C;\nextern s32 D_800A1870;\nextern s32 D_800A1874;\nextern f32 D_800A1878;\nextern f32 D_800A187C;\nextern u8 D_800A73E0[];\nextern u8 D_800AE850[];\nextern u8 D_800C02AE[];\nvoid *func_8002DA98(void *arg0, void *arg1);\nvoid *func_8002E514(void *arg0, void *arg1, void *arg2);\ntypedef struct { s32 b[3]; s32 c[3]; f32 t1; f32 t2; } LookS;\n#define G (*(LookS *)(D_800C02AE + 0x5D32))\n#define CAM(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])\n#define AMB (*(u16 *)(D_800A73E0 + 0x6BE6))\n\ntypedef struct { s16 x, y, z, pad; s32 unk8; u32 col; } V16;\ntypedef struct { u32 col; s16 x, y, z; s16 pad; u8 rest[12]; } V24;\ntypedef struct {\n    u8 pad0[0x30];\n    V24 *v24[12];\n    V16 *v16[12];\n    u16 n16[12];\n    u16 n24[12];\n} LObj;\n\nstatic inline u32 brightness_to_u32(f32 brightness, f32 integer_limit) {\n    u32 converted;\n    if (!(brightness >= integer_limit))\n        converted = (u32)(s32)brightness;\n    else {\n        converted = (u32)(s32)(brightness-integer_limit);\n        converted |= 0x80000000u;\n    }\n    return converted;\n}\nvoid func_8007B4A4(void *owner, s32 mode)\n{\n    LObj *o = owner;\n    s16 p[3];\n    s16 q[3];\n    typedef struct { s16 rotation[9]; s16 alignment; s32 translation[3]; } Matrix;\n    Matrix m;\n    u8 stack_padding[16];\n    f32 dx, dy, dz, len, s;\n    f32 integer_limit;\n    f32 ex, ey, ez, dot, f, amb, k, g1;\n    s32 i, j, n, j2;\n    s32 full;\n    u32 c;\n    u32 lo, hi;\n    LookS *L;\n    u16 *ap;\n    V16 *v;\n    V24 *w;\n\n    func_8002DA98(D_800AE850 + 0x6E78, &m);\n    p[0] = (u32)D_800A1860 - (u32)CAM(0);\n    p[1] = (u32)D_800A1864 - (u32)CAM(1);\n    p[2] = (u32)D_800A1868 - (u32)CAM(2);\n    func_8002E514(&m, p, p);\n    q[0] = (u32)D_800A186C - (u32)CAM(0);\n    q[1] = (u32)D_800A1870 - (u32)CAM(1);\n    q[2] = (u32)D_800A1874 - (u32)CAM(2);\n    func_8002E514(&m, q, q);\n    dx = p[0] - q[0];\n    s = dx * dx;\n    dy = p[1] - q[1];\n    s += dy * dy;\n    dz = p[2] - q[2];\n    s += dz * dz;\n    len = __builtin_sqrtf(s);\n    dx /= len;\n    dy /= len;\n    dz /= len;\n    integer_limit=2147483648.0f; full = 0xFF;\n    ap = &AMB;\n    {\n    LookS *g = &G;\n    g->b[0] = p[0];\n    L = g;\n    }\n    G.b[1] = p[1];\n    G.b[2] = p[2];\n    G.c[0] = q[0];\n    G.c[1] = q[1];\n    G.c[2] = q[2];\n    G.t1 = D_800A1878;\n    G.t2 = D_800A187C;\n    for (i = 0; i < 12; i++) {\n        n = o->n16[i];\n        v = o->v16[i];\n        j = 0;\n        if (n != 0) {\n            do {\n                k = 255.0f;\n                ex = L->b[0] - v->x;\n                s = ex * ex;\n                ey = L->b[1] - v->y;\n                s += ey * ey;\n                ez = L->b[2] - v->z;\n                s += ez * ez;\n                len = __builtin_sqrtf(s);\n                ex /= len;\n                ey /= len;\n                ez /= len;\n                dot = ex * dx + ey * dy + ez * dz;\n                c = full;\n                if (L->t1 < dot) {\n                    lo = c << 8;\n                    hi = c << 16; hi += 1;\n                } else if (L->t2 < dot) {\n                    g1 = (dot - L->t2) / (1.0f - L->t2);\n                    amb = *ap;\n                    if (len < 1200.0f) {\n                        g1 = len * g1 * 0.00083333335f;\n                    }\n                    c = (u8)brightness_to_u32(g1 * (k - amb) + amb, integer_limit);\n                    lo = c << 8;\n                    hi = c << 16; hi += 2;\n                } else {\n                    c = (u8)*ap;\n                    lo = c << 8;\n                    hi = c << 16; hi += 4;\n                }\n                lo += hi;\n                lo += c << 24;\n                v->col = lo;\n                v++;\n                j++;\n            } while (j < n);\n        }\n        w = o->v24[i];\n        n = o->n24[i];\n        j2 = 0;\n        if (n != 0) {\n            do {\n                k = 255.0f;\n                ex = L->b[0] - w->x;\n                s = ex * ex;\n                ey = L->b[1] - w->y;\n                s += ey * ey;\n                ez = L->b[2] - w->z;\n                s += ez * ez;\n                len = __builtin_sqrtf(s);\n                ex /= len;\n                ey /= len;\n                ez /= len;\n                dot = ex * dx + ey * dy + ez * dz;\n                c = full;\n                if (L->t1 < dot) {\n                    lo = c << 8;\n                    hi = c << 16; hi += 1;\n                    lo += hi; lo += c << 24; w->col = lo;\n                } else if (L->t2 < dot) {\n                    amb = *ap;\n                    f = k - amb; f -= (L->t1 - dot) * f / (L->t1 - L->t2);\n                    g1 = f + amb;\n                    c = (u8)brightness_to_u32(g1, integer_limit);\n                    lo = c << 8;\n                    hi = c << 16; hi += 2;\n                    lo += hi; lo += c << 24; w->col = lo;\n                } else {\n                    c = (u8)*ap;\n                    lo = c << 8;\n                    hi = c << 16; hi += 4;\n                    lo += hi; lo += c << 24; w->col = lo;\n                }\n\n                w++;\n                j2++;\n            } while (j2 < n);\n        }\n    }\n}\n",
    "44fa7ee060048df409d0f7cca719c750081d78fc12bdb328467118ea0d5b57f5": "extern s32 D_800A1860;\nextern s32 D_800A1864;\nextern s32 D_800A1868;\nextern s32 D_800A186C;\nextern s32 D_800A1870;\nextern s32 D_800A1874;\nextern f32 D_800A1878;\nextern f32 D_800A187C;\nextern u8 D_800A73E0[];\nextern u8 D_800AE850[];\nextern u8 D_800C02AE[];\ns32 func_8002DA98(u8 *arg0, s32 *arg1);\nvoid *func_8002E514(void *, void *, void *);\nf32 sqrtf(f32);\n#define ORG(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])\n#define G(i) (((s32 *)(D_800C02AE + 0x5D32))[i])\n#define GF(i) (((f32 *)(D_800C02AE + 0x5D32))[i])\n\nu8 func_8007BA1C(u8 *arg0)\n{\n  s16 a[3];\n  s16 b[3];\n  s16 c[3];\n  s32 m[8];\n  f32 dx, dy, dz, len, s;\n  f32 ex, ey, ez, len2, dot;\n  s32 r;\n\n  func_8002DA98(D_800AE850 + 0x6E78, m);\n  b[0] = D_800A1860 - ORG(0);\n  b[1] = D_800A1864 - ORG(1);\n  b[2] = D_800A1868 - ORG(2);\n  func_8002E514(m, b, b);\n  c[0] = D_800A186C - ORG(0);\n  c[1] = D_800A1870 - ORG(1);\n  c[2] = D_800A1874 - ORG(2);\n  func_8002E514(m, c, c);\n  dx = b[0] - c[0];\n  dy = b[1] - c[1];\n  dz = b[2] - c[2];\n  s = dx * dx;\n  s += dy * dy;\n  s += dz * dz;\n  len = sqrtf(s);\n  dx /= len;\n  dy /= len;\n  dz /= len;\n  G(0) = b[0];\n  G(1) = b[1];\n  G(2) = b[2];\n  G(3) = c[0];\n  G(4) = c[1];\n  G(5) = c[2];\n  GF(6) = D_800A1878;\n  GF(7) = D_800A187C;\n  a[0] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[0] - ORG(0);\n  a[1] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[1] - ORG(1);\n  a[2] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[2] - ORG(2);\n  func_8002E514(m, a, a);\n  ex = G(0) - a[0];\n  ey = G(1) - a[1];\n  r = G(2) - a[2];\n  ez = r;\n  s = ex * ex;\n  s += ey * ey;\n  s += ez * ez;\n  len2 = sqrtf(s);\n  ex /= len2;\n  ey /= len2;\n  ez /= len2;\n  dot = ex * dx;\n  dot += ey * dy;\n  dot += ez * dz;\n  r = 0xFF;\n  if (!(GF(6) < dot) && !(GF(7) < dot)) {\n    r = D_800A73E0[0x6BE7];\n  }\n  return r;\n}\n",
    "1405b4eadeeb050291471a26b0396ee82498a9ea8361ee5189469583264c0620": "void func_8000C22C(void *, s32, s32, s32, u8); extern char D_800C8380[];\nextern char *D_800C35A0;\nextern char *D_800C7F84;\nextern u32 D_800C34DC;\nextern u8 D_800C34F0;\nextern u32 D_800C34E0;\nextern u32 D_800C34D8;\nextern u32 D_800C34E8;\nextern u8 D_800C34F2[1];\n#define D_800C34F2 D_800C34F2[0]\nextern u32 D_800C34EC;\nextern u8 D_800C34F3;\nextern u32 D_800C34E4;\nextern u8 D_800C34F1;\nextern u16 D_800C34EE;\nextern u16 D_800C34E6;\n#define W(p,o) (*(s32*)((char*)(p)+(o)))\n#define H(p,o) (*(s16*)((char*)(p)+(o)))\n#define B(p,o) (*(u8*)((char*)(p)+(o)))\n#define P(p,o) (*(char**)((char*)(p)+(o)))\nextern char D_800C02AE[],D_800A5FDC[],D_800A5FE8[],D_800A5FF8[],D_800A6008[];extern char *D_800A0384,*D_800B5C40;extern int D_800AFA6C,D_800A18D0;\nint func_800056FC(int);char *func_80006008(int);int func_8001BD1C(void);void func_8000C200(int,float,float,float);\nvoid guOrthoF(void*,float,float,float,float,float,float,float);\nvoid func_8007BDC4(void) {\n    float sp20[16];s16 ypos;int xpos;\n    char sp60[120];\n    char spD8[24];\n    s32 temp_s0_2;\n    s32 temp_v0;\n    s32 var_v0;\n    s32 var_v1;\n    char *temp_s0;\n    char *temp_s1;\n    char *temp_v0_2;\n    char *temp_v1;\n    char *temp_v1_2;\n    u8 *pf;\n\n    if ((u32) D_800AFA6C >= 0xAU) {\n        temp_s1 = P(D_800B5C40,0);\n        if (((*(u16 *)(D_800C35A0+0xE)) == 1) && (W(P(temp_s1,0x48),0) == 0) && (D_800A18D0 & 1) && ((*(u16 *)(D_800C35A0+0x1E)) == 0)) {\n            temp_s0 = &D_800C8380[0];\n            guMtxIdent(temp_s0);\n            temp_v0 = func_800056FC(W(D_800C7F84,0x178));\n            temp_v0_2 = func_80006008(temp_v0);\n            W(temp_v0_2,0x0) = 0xDA380003;\n            W(temp_v0_2,0x4) = temp_s0;\n            func_80006014(temp_v0, temp_v0_2 + 8);\n            temp_s0_2 = func_8001BD1C();\n            guOrthoF(sp20, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);\n            guMtxF2L(&sp20, temp_s0_2);\n            func_800061FC(temp_v0, temp_s0_2);\n            func_8000C200(W(D_800A0384,0x4), 0.7f, 0.7f, 0.7f);\n            func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n            temp_v1 = P(temp_s1,0x80);\n            if ((W(temp_v1,0x310) >= 0) && (W(temp_v1,0x314) >= 0) && (W(temp_v1,0x318) >= 0) && (W(temp_v1,0x31C) >= 0)) {\n                { u32 *pc = &D_800C34DC; *pc += 1; }\n                if (D_800C34F0 == 0) {\n                    D_800C34E0 = (s32) W(P(temp_s1,0x88),0x84);\n                    D_800C34D8 = (s32) W(P(temp_s1,0x5C),0x58);\n                }\n                D_800C34F0 = 1U;\n            } else if (*(pf = &D_800C34F0) != 0) {\n                *pf = 0U;\n                if ((u32) D_800C34DC > (u32) D_800C34E8) {\n                    D_800C34E8 = (u32) D_800C34DC;\n                    D_800C34F2 = 0x32U;\n                }\n                D_800C34DC = 0U;\n                var_v0 = abs(W(P(temp_s1,0x88),0x84) - (s32)D_800C34E0);\n                if ((u32) D_800C34EC < (u32) var_v0) {\n                    D_800C34EC = (u32) var_v0;\n                    D_800C34F3 = 0x32U;\n                }\n                D_800C34E0 = 0;\n                temp_v1_2 = P(temp_s1,0x8C);\n                { f32 s = (f32) H(temp_v1_2,0xB6); s += (f32) H(temp_v1_2,0xCA); s += (f32) H(temp_v1_2,0xDE); s += (f32) H(temp_v1_2,0xF2);\n                var_v1 = abs((s32) (((s * 0.25f) - (f32) W(P(temp_s1,0x80),0x4)) - (f32) W(P(temp_s1,0x5C),0x58))); }\n                if ((u32) D_800C34E4 < (u32) var_v1) {\n                    D_800C34E4 = (u32) var_v1;\n                    D_800C34F1 = 0x32U;\n                }\n            }\n            xpos=22; ypos=32;\n            func_8000C244(W(D_800A0384,0x4), temp_v0, 0x16, 0x16, &D_800A5FDC, 0);\n            if (D_800C34F2 != 0) {\n                D_800C34F2--;\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));\n            } else {\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n            }\n            func_80052E94(D_800C34E8, &spD8);\n            func_80099DF8(&sp60, &D_800A5FE8, &spD8);\n            if (!(((u8) D_800C34F3 >> 3) & 1)) {\n                func_8000C244(W(D_800A0384,0x4), temp_v0, xpos, ypos, &sp60, 0);\n            }\n            ypos+=10;\n            if (D_800C34F3 != 0) {\n                D_800C34F3--;\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));\n            } else {\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n            }\n            func_80099DF8(&sp60, &D_800A5FF8,  D_800C34EE);\n            if (!(((u8) D_800C34F3 >> 3) & 1)) {\n                func_8000C244(W(D_800A0384,0x4), temp_v0, xpos, ypos, &sp60, 0);\n            }\n            ypos+=10;\n            if (D_800C34F1 != 0) {\n                D_800C34F1--;\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));\n            } else {\n                func_8000C22C((void *)(W(D_800A0384,0x4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n            }\n            func_80099DF8(&sp60, &D_800A6008,  D_800C34E6);\n            if (!(((u8) D_800C34F1 >> 3) & 1)) {\n                func_8000C244(W(D_800A0384,0x4), temp_v0, xpos, ypos, &sp60, 0);\n            }\n            func_8000C200(W(D_800A0384,0x4), 0.8f, 0.8f, 0.8f);\n        }\n    }\n}\n",
    "fe7d9866b5451925b9ca8e7511f946d8f7477df181d8f7a52518369e7267249a": "typedef struct { u8 pad[0xC]; u16 unkC; u16 unkE; } Vp178;\ntypedef struct { u8 pad[0x178]; Vp178 *unk178; } VpCtx;\ntypedef struct { u8 pad[6]; u16 unk6; } TexHdr;\ntypedef struct { TexHdr *t[4]; } TexSet;\ntypedef struct { u8 pad[4]; TexSet *unk4; } TexOwner;\ntypedef struct { u8 pad[0xE]; u16 unkE; u8 pad2[0xE]; u16 unk1E; } GameState;\n\nextern GameState *D_800C35A0;\nextern VpCtx *D_800C7F84;\nextern u8 D_800C8380[];\nextern u8 D_800C83C4[];\n#define D_800C8385 D_800C83C4[1]\nextern u8 D_800C8170[];\ntypedef struct { u8 pad[0x1D00]; void *font; u16 timer; u16 page; } DbgBlk;\nextern DbgBlk D_800AE850;\n#define D_800B0550 D_800AE850.font\n#define D_800B0554 D_800AE850.timer\n#define D_800B0556 D_800AE850.page\nextern TexOwner *D_800AFA50;\nextern u32 D_800AFA6C;\nextern u8 D_800B5580[];\nextern u8 D_800B6888[];\nextern s32 D_800A18D0;\n\nextern char D_800A6018[], D_800A6030[], D_800A604C[], D_800A605C[], D_800A6068[], D_800A6074[], D_800A6080[], D_800A608C[], D_800A60A0[];\nextern char D_800A60AC[], D_800A60BC[], D_800A60CC[], D_800A60D8[];\nextern char D_800A60E4[], D_800A60F4[], D_800A6104[], D_800A6118[], D_800A6130[], D_800A6144[], D_800A6154[];\nextern char D_800A6168[], D_800A6178[], D_800A6180[], D_800A618C[], D_800A6198[], D_800A61A0[], D_800A61AC[], D_800A61B4[], D_800A61C4[];\nextern char D_800A61D0[], D_800A61DC[], D_800A61E8[], D_800A61F8[], D_800A6204[], D_800A620C[], D_800A6218[], D_800A6228[];\nextern char D_800A6238[], D_800A6250[], D_800A6258[], D_800A6260[], D_800A626C[], D_800A6278[];\nextern char D_800A6284[], D_800A6298[], D_800A62A4[], D_800A62AC[], D_800A62B8[], D_800A62C4[], D_800A62D0[], D_800A62D8[];\nextern char D_800A62E4[], D_800A62FC[], D_800A6308[], D_800A6318[], D_800A6328[];\nextern char D_800A6334[], D_800A6350[], D_800A635C[], D_800A6364[], D_800A6370[];\nextern char D_800A637C[], D_800A6394[], D_800A63A0[], D_800A63B0[], D_800A63C8[], D_800A63D4[];\nextern char D_800A63E0[], D_800A63F0[], D_800A63F8[], D_800A6404[], D_800A6410[], D_800A641C[], D_800A6428[], D_800A6440[], D_800A644C[], D_800A6458[];\nextern char D_800A6468[], D_800A6474[], D_800A6484[], D_800A648C[], D_800A6498[], D_800A64A4[], D_800A64B0[], D_800A64BC[], D_800A64C8[];\nextern char D_800A64D4[], D_800A64E4[], D_800A6508[], D_800A6528[], D_800A653C[];\nextern char D_800A655C[], D_800A656C[], D_800A6578[], D_800A658C[], D_800A6594[], D_800A65B0[];\nextern char D_800A65D4[], D_800A65EC[], D_800A6608[], D_800A6620[];\nextern char D_800A6638[], D_800A6650[], D_800A6668[], D_800A6674[];\nextern char D_800A6694[], D_800A66B0[], D_800A66C8[], D_800A66DC[], D_800A66EC[], D_800A6710[], D_800A6738[];\nextern char D_800A675C[], D_800A6770[], D_800A6790[], D_800A67AC[], D_800A67CC[], D_800A67E8[], D_800A67FC[];\nextern char D_800A6820[], D_800A6830[], D_800A6840[];\nextern char D_800A685C[], D_800A6868[], D_800A6874[];\nextern char D_800A6884[], D_800A689C[], D_800A68C8[], D_800A68DC[], D_800A68F8[], D_800A691C[];\nextern char D_800A693C[], D_800A6950[], D_800A6960[], D_800A6970[], D_800A697C[], D_800A6990[];\nextern char D_800A699C[], D_800A69B4[], D_800A69C4[], D_800A69E4[], D_800A6A00[], D_800A6A20[], D_800A6A3C[];\nextern char D_800A6A60[], D_800A6A78[], D_800A6A98[], D_800A6AB8[], D_800A6ADC[], D_800A6B00[], D_800A6B20[];\nextern char D_800A6B3C[], D_800A6B58[], D_800A6B7C[], D_800A6B90[];\nextern char D_800A6B9C[], D_800A6BB0[], D_800A6BC8[], D_800A6BEC[], D_800A6C04[], D_800A6C1C[], D_800A6C38[];\n\nvoid guMtxIdent(void *m);\nvoid guOrthoF(f32 mf[4][4], f32 l, f32 r, f32 b, f32 t, f32 n, f32 f, f32 scale);\nvoid guMtxF2L(f32 mf[4][4], void *m);\nvoid *func_800056FC(void *);\nu32 *func_80006008(void *);\nvoid func_80006014(void *, u32 *);\nvoid *func_8001BD1C(void);\nvoid func_800061FC(void *, void *);\nvoid func_80006298(void *);\nvoid func_8000C22C(void *, s32, s32, s32, u8);\nvoid func_8000C244(void *, void *, s32, s32, char *, s32);\nvoid func_8007C3E0(s32, s32, s32, s32, s32);\nVpCtx *func_8004240C(s32);\ns32 func_80084DD4(s32);\nvoid func_8000A5EC(void *, void *, s32, s32, s32, s32, s32);\nvoid D_8000A840(Vp178 *, s16, s16, void *, s32, s32);\n\n#define COL(r,g,b) func_8000C22C((void *)(D_800B0550), (s32)(r), (s32)(g), (s32)(b), (u8)(0xE1))\n#define W COL(0xFF,0xFF,0xFF)\n#define O COL(0xFF,0x94,0x05)\n#define PR(y,s) func_8000C244(D_800B0550, gfx, 0x18, y, s, 2)\n#define PR1(y,s) func_8000C244(D_800B0550, gfx, 0x18, y, s, 1)\n\nvoid func_8007C694(void) {\n    f32 mf[4][4];\n    void *gfx;\n    u32 *p;\n    void *m;\n    s32 x0;\n    s32 x1;\n\n    if (D_800C35A0->unk1E == 7) {\n        guMtxIdent(D_800C8380);\n        x1 = 0;\n        gfx = func_800056FC(D_800C7F84->unk178);\n        p = func_80006008(gfx);\n        p[0] = 0xDA380003;\n        p[1] = (u32)D_800C8380;\n        func_80006014(gfx, p + 2);\n        m = func_8001BD1C();\n        guOrthoF(mf, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);\n        guMtxF2L(mf, m);\n        func_800061FC(gfx, m);\n        func_8000C22C((void *)(D_800B0550), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n        if (--D_800B0554 == 0) {\n            if (++D_800B0556 >= 16) {\n                D_800B0556 = 0;\n            }\n            D_800B0554 = 100;\n        }\n        func_80006298(gfx);\n        if (!(D_800A18D0 & 4)) {\n            func_8007C3E0(0x30, 2, 1, 0x30, 0x2000);\n            switch (D_800B0556) {\n            case 0:\n                W; PR(0x40, D_800A6018);\n                O; PR(0x4C, D_800A6030);\n                break;\n            case 1:\n                W; PR(0x40, D_800A604C); PR(0x4C, D_800A605C);\n                O; PR(0x58, D_800A6068);\n                W; PR(0x64, D_800A6074);\n                O; PR(0x70, D_800A6080);\n                W; PR(0x7C, D_800A608C);\n                O; PR(0x88, D_800A60A0);\n                break;\n            case 2:\n                W; PR(0x40, D_800A60AC);\n                O; PR(0x4C, D_800A60BC);\n                W; PR(0x58, D_800A60CC);\n                O; PR(0x64, D_800A60D8);\n                break;\n            case 3:\n                func_8007C3E0(0x200, 0x100, 0x8000, 0xC000, 0x8000);\n                W; PR(0x40, D_800A60E4);\n                O; PR(0x4C, D_800A60F4); PR(0x58, D_800A6104); PR(0x64, D_800A6118); PR(0x70, D_800A6130); PR(0x7C, D_800A6144); PR(0x88, D_800A6154);\n                break;\n            case 4:\n                func_8007C3E0(0x800, 0x400, 0x8000, 2, 1);\n                W; PR(0x40, D_800A6168);\n                O; PR(0x4C, D_800A6178); PR(0x58, D_800A6180); PR(0x64, D_800A618C); PR(0x70, D_800A6198); PR(0x7C, D_800A61A0); PR(0x88, D_800A61AC);\n                W; PR(0x94, D_800A61B4);\n                O; PR(0xA0, D_800A61C4);\n                break;\n            case 5:\n                func_8007C3E0(0x20, 0x10, 0x2000, 0x4000, 4);\n                W; PR(0x40, D_800A61D0);\n                O; PR(0x4C, D_800A61DC);\n                W; PR(0x64, D_800A61E8);\n                O; PR(0x70, D_800A61F8);\n                W; PR(0x7C, D_800A6204);\n                O; PR(0x88, D_800A620C); PR(0x94, D_800A6218); PR(0xA0, D_800A6228);\n                break;\n            case 6:\n                func_8007C3E0(8, 4, 0x2000, 0x10, 2);\n                W; PR(0x40, D_800A6238);\n                O; PR(0x4C, D_800A6250); PR(0x58, D_800A6258); PR(0x64, D_800A6260); PR(0x70, D_800A626C); PR(0x7C, D_800A6278);\n                break;\n            case 7:\n                func_8007C3E0(0x800, 8, 0x400, 4, 8);\n                PR(0x40, D_800A6284);\n                O; PR(0x4C, D_800A6298); PR(0x58, D_800A62A4); PR(0x64, D_800A62AC); PR(0x70, D_800A62B8); PR(0x7C, D_800A62C4); PR(0x88, D_800A62D0); PR(0x94, D_800A62D8);\n                break;\n            case 8:\n                func_8007C3E0(0x800, 0x200, 4, 1, 0x10);\n                W; PR(0x40, D_800A62E4);\n                O; PR(0x4C, D_800A62FC); PR(0x58, D_800A6308); PR(0x64, D_800A6318); PR(0x70, D_800A6328);\n                break;\n            case 9:\n                W; PR(0x40, D_800A6334);\n                O; PR(0x4C, D_800A6350); PR(0x58, D_800A635C); PR(0x64, D_800A6364); PR(0x70, D_800A6370);\n                break;\n            case 10:\n                W; PR(0x40, D_800A637C);\n                O; PR(0x4C, D_800A6394); PR(0x58, D_800A63A0);\n                W; PR(0x64, D_800A63B0);\n                O; PR(0x70, D_800A63C8); PR(0x7C, D_800A63D4);\n                break;\n            case 11:\n                W; PR(0x40, D_800A63E0);\n                O; PR(0x4C, D_800A63F0); PR(0x58, D_800A63F8); PR(0x64, D_800A6404); PR(0x70, D_800A6410); PR(0x7C, D_800A641C);\n                W; PR(0x88, D_800A6428);\n                O; PR(0x94, D_800A6440); PR(0xA0, D_800A644C); PR(0xAC, D_800A6458);\n                break;\n            case 12:\n                W; PR(0x40, D_800A6468);\n                O; PR(0x4C, D_800A6474); PR(0x58, D_800A6484); PR(0x64, D_800A648C); PR(0x70, D_800A6498);\n                W; PR(0x7C, D_800A64A4);\n                O; PR(0x88, D_800A64B0); PR(0xA0, D_800A64BC); PR(0x94, D_800A64C8);\n                break;\n            case 13:\n                W; PR(0x40, D_800A64D4);\n                O; PR(0x4C, D_800A64E4); PR(0x58, D_800A6508); PR(0x64, D_800A6528); PR(0x70, D_800A653C);\n                break;\n            case 14:\n                W; PR1(0x40, D_800A655C);\n                O; PR1(0x4C, D_800A656C); PR1(0x58, D_800A6578);\n                W; PR1(0x64, D_800A658C);\n                O; PR1(0x70, D_800A6594);\n                W; PR(0x88, D_800A65B0);\n                break;\n            case 15:\n                break;\n            }\n        } else {\n            func_8000C22C((void *)(D_800B0550), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n            switch (D_800B0556) {\n            case 0:\n                PR(0x40, D_800A65D4);\n                break;\n            case 1:\n                PR(0x40, D_800A65EC); PR(0x4C, D_800A6608); PR(0x58, D_800A6620);\n                break;\n            case 2:\n                PR(0x40, D_800A6638); PR(0x4C, D_800A6650); PR(0x58, D_800A6668); PR(0x64, D_800A6674);\n                break;\n            case 3:\n                PR(0x40, D_800A6694); PR(0x4C, D_800A66B0); PR(0x58, D_800A66C8); PR(0x70, D_800A66DC); PR(0x7C, D_800A66EC); PR(0x88, D_800A6710); PR(0x94, D_800A6738);\n                func_8007C3E0(0x30, 2, 1, 0x30, 8);\n                break;\n            case 4:\n                func_8007C3E0(0x200, 0x100, 0x8000, 0xC000, 0x8000);\n                PR(0x40, D_800A675C); PR(0x4C, D_800A6770); PR(0x58, D_800A6790); PR(0x64, D_800A67AC); PR(0x70, D_800A67CC); PR(0x7C, D_800A67E8); PR(0x88, D_800A67FC);\n                break;\n            case 5:\n                func_8007C3E0(0x800, 0x400, 0x8000, 2, 1);\n                PR(0x40, D_800A6820); PR(0x4C, D_800A6830); PR(0x58, D_800A6840);\n                break;\n            case 6:\n                func_8007C3E0(0x20, 0x10, 0x2000, 0x4000, 4);\n                PR(0x40, D_800A685C); PR(0x4C, D_800A6868); PR(0x58, D_800A6874);\n                break;\n            case 7:\n                func_8007C3E0(8, 4, 0x2000, 0x10, 2);\n                PR(0x40, D_800A6884); PR(0x4C, D_800A689C); PR(0x58, D_800A68C8); PR(0x64, D_800A68DC); PR(0x70, D_800A68F8); PR(0x7C, D_800A691C);\n                break;\n            case 8:\n                func_8007C3E0(0x800, 8, 0x400, 4, 8);\n                PR(0x40, D_800A693C); PR(0x58, D_800A6950); PR(0x64, D_800A6960); PR(0x70, D_800A6970); PR(0x7C, D_800A697C); PR(0x88, D_800A6990);\n                break;\n            case 9:\n                func_8007C3E0(0x800, 0x200, 4, 1, 0x10);\n                PR(0x40, D_800A699C); PR(0x58, D_800A69B4); PR(0x64, D_800A69C4); PR(0x70, D_800A69E4); PR(0x7C, D_800A6A00); PR(0x88, D_800A6A20); PR(0x94, D_800A6A3C);\n                break;\n            case 10:\n                PR(0x58, D_800A6A60); PR(0x64, D_800A6A78); PR(0x70, D_800A6A98); PR(0x7C, D_800A6AB8); PR(0x88, D_800A6ADC); PR(0x94, D_800A6B00); PR(0xB8, D_800A6B20);\n                break;\n            case 11:\n                PR(0x40, D_800A6B3C); PR(0x58, D_800A6B58); PR(0x64, D_800A6B7C);\n                break;\n            case 12:\n                PR(0x40, D_800A6B90);\n                break;\n            case 13:\n                PR(0x40, D_800A6B9C); PR(0x58, D_800A6BB0); PR(0x70, D_800A6BC8); PR(0x7C, D_800A6BEC); PR(0x88, D_800A6C04); PR(0x94, D_800A6C1C);\n                break;\n            case 14:\n                PR(0x40, D_800A6C38);\n                break;\n            }\n        }\n        func_80006298(gfx);\n        D_800C7F84 = func_8004240C((D_800C35A0->unkE << 1) | 1);\n        if (func_80084DD4(0) == 0) {\n            func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[3], 0, 0, 0, 0, 0);\n            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[3]->unk6 >> 1);\n            func_8000A5EC(D_800B6888, D_800AFA50->unk4->t[2], 0, 0, 0, 0, 0);\n            x1 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[2]->unk6 >> 1);\n        } else {\n            func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[1], 0, 0, 0, 0, 0);\n            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[1]->unk6 >> 1);\n        }\n        func_8000A5EC(D_800C8170, D_800AFA50->unk4->t[0], 0, 0, 0, 0, 0);\n        if ((D_800AFA6C >> 3) & 1) {\n            if (func_80084DD4(0) == 0) {\n                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);\n                D_8000A840(D_800C7F84->unk178, x1, D_800C7F84->unk178->unkE - 0x1A, D_800B6888, 1, 0);\n            } else {\n                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);\n            }\n        }\n        D_8000A840(D_800C7F84->unk178, 0x10, 0x10, D_800C8170, 1, 0);\n    }\n    if (D_800C8385) {\n        D_800C8385--;\n    }\n}\n",
@@ -292356,6 +293771,7 @@
    "7d58e54a2acda352f02f5582b9235296855cc7cc8dc3f770d994a3e3e5bda8e4": "typedef struct Track {\n    s32 count;\n    s32 *a;\n    s32 *b;\n    s32 *c;\n} Track;\ntypedef struct Ent {\n    s32 x0;\n    u8 pad04[0x2C];\n    s32 x30;\n    s32 x34;\n    u8 pad38[8];\n    s32 x40;\n    u8 pad44[0x2C];\n    Track *owner;\n    u8 pad74[4];\n    s32 x78;\n    u8 pad7C[4];\n    s32 x80;\n    s32 x84;\n    u8 pad88[0x134 - 0x88];\n} Ent;\nextern s32 D_800B0100;\nextern Ent *D_800B68F0;\nextern void func_8008989C(void *, void *, s32);\nextern void func_800885CC(Ent *);\nextern s32 func_80089554(Track *, s32);\n\ns32 func_80086854(Track *t)\n{\n    s32 n;\n    s32 i;\n    s32 stamp;\n    Ent *e;\n    s32 n2;\n\n    n = t->count;\n    if ((u32)t->a < 0x400) {\n        func_8008989C(&t->a, t, 5);\n        func_8008989C(t->a, t, n);\n        func_8008989C(t->b, t, n);\n        func_8008989C(t->c, t, n);\n    }\n    stamp = D_800B0100++;\n    for (i = 0; i < n; i++) {\n        if (t->a[i] != 0) {\n            e = &D_800B68F0[func_80089554(t, i)];\n            func_800885CC(e);\n            e->owner = t;\n            e->x34 = e->x84 = t->b[i];\n            e->x30 = e->x80 = t->c[i];\n            n2 = t->a[i];\n            e->x40 = stamp;\n            e->x0 = e->x78 = n2;\n        }\n    }\n    return stamp;\n}\n",
    "8ede4cba6e782f70e30bd182e118b809fab936996730c1d08be2dcfbbe5dcd14": "typedef struct Trk {\n    u8 pad00[0x30];\n    s32 x30;\n    s32 x34;\n    u8 pad38[0x6C - 0x38];\n    f32 f6C;\n    u8 pad70[0x78 - 0x70];\n    s32 x78;\n    u8 pad7C[4];\n    s32 x80;\n    s32 x84;\n    u8 pad88[0x9A - 0x88];\n    u16 h9A;\n    u16 h9C;\n    u8 pad9E[0xB4 - 0x9E];\n    u8 bB4;\n    u8 padB5[0xD3 - 0xB5];\n    u8 depth;\n    u8 *ret[5];\n    s32 e8[5];\n    s32 fc[5];\n    u16 h110[5];\n    u16 h11A[5];\n    u8 b124[5];\n    u8 b129[5];\n    u8 b12E[5];\n} Trk;\n\nu8 *func_80087DE4(Trk *t, u8 *p)\n{\n    u8 idx = t->depth;\n\n    t->b124[idx] = *p++;\n    t->ret[idx] = p;\n    t->e8[idx] = t->x34;\n    t->fc[idx] = t->x30;\n    t->b129[idx] = t->bB4;\n    t->b12E[idx] = t->f6C;\n    t->h110[idx] = t->h9A;\n    t->h11A[idx] = t->h9C;\n    t->depth++;\n    return p;\n}\n\ntypedef struct Ent {\n    s32 active;\n    u8 pad04[0x9A];\n    u16 h9E;\n    u8 padA0[0x134 - 0xA0];\n} Ent;\nextern s32 D_800C782C;\nextern Ent *D_800B68F0;\n\ns32 func_800869B8(s32 arg0)\n{\n    u8 pad[1];\n    s32 i;\n    s32 hits;\n    Ent *e;\n\n    i = 0;\n    hits = 0;\n    e = D_800B68F0;\n    for (; i < D_800C782C; i++, e++) {\n        if (e->active == 0) {\n            continue;\n        }\n        if (e->h9E != 0) {\n            if (arg0 & 1) {\n                goto hit;\n            }\n            continue;\n        } else if (!(arg0 & 2)) {\n            continue;\n        }\n    hit:\n        hits++;\n    }\n    return hits;\n}\n\nextern s32 D_800A19B0;\nextern s32 D_800B5B40;\nextern s32 *D_800C5BB0[];\nextern void (*D_800C8090)(s32);\nextern void (*D_800C80A8)(s32);\n\ns32 func_8007EE9C(void *arg0)\n{\n    s32 result = 0;\n\n    if (D_800A19B0 == 1) {\n        D_800C80A8(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 1;\n    D_800B5B40 = (s32)__builtin_return_address(0);\n    if (arg0 != 0) {\n        result = ((s32 (*)(void *))D_800C5BB0[*(s32 *)((u8 *)arg0 - 8)][1])(arg0);\n    } else {\n        D_800C8090(D_800B5B40 - 4);\n    }\n    D_800A19B0 = 0;\n    return result;\n}\n\ns32 func_80088008(Trk *t, u8 *p)\n{\n    s32 a;\n    s32 b;\n    s32 c;\n    s32 d;\n\n    a = *p++;\n    b = *p++;\n    c = *p++;\n    d = *p++;\n    t->h9A = 1;\n    t->x34 = t->x84 + ((c << 8) + d);\n    t->h9C = 1;\n    t->x30 = t->x80 + ((p[0] << 8) + p[1]);\n    return t->x78 + ((a << 8) + b);\n}\n",
    "53ae1fec040c259e15e368d6926a6061a5bf5168bc38449708274d95d94e252b": "extern s8 D_800AE850[];\nextern s8 D_800C02AE[];\nvoid func_80086A34(s32 arg0)\n{\n  char pad[8];\n  s32 i;\n  s32 count;\n  s32 saved;\n  s32 unused = 0;\n  s32 orig;\n  char *rec;\n  (void) pad;\n  arg0 &= 0xFFFF;\n  unused = arg0;\n  saved = unused;\n  if (arg0 == 0)\n  {\n    arg0 = 1;\n  }\n\n  count=*(s32*)0x800C782C;\n  rec=*(char**)0x800B68F0;\n  i=0;\n\n  if (count > 0)\n  {\n    orig = unused;\n    saved = count;\n    rec += 0x18;\n    do\n    {\n      if ((*((u16 *) (rec + 0x86))) == 0)\n      {\n        *((s32 *) (rec - 0xC)) = orig;\n        *((s32 *) rec) = arg0;\n      }\n      i++;\n      rec += 0x134;\n    }\n    while (i < saved);\n  }\n}\n\n",
+   "96db165ed380dee03d69a3fdcc2754c2e53b5932ef10dfac1206ef3429e92e04": "#define HEAD (*(Node **)(D_800A73E0 + 0x4564))\n#define FREE (*(Node **)(D_800A73E0 + 0x4568))\n#define SIZE (*(s32 *)(D_800A73E0 + 0x4578))\n#define TABLE (*(Packet **)(D_800A73E0 + 0x457C))\ntypedef struct N { struct N *next; struct N **prev; } N;\ntypedef struct Node\n{\n  N link;\n  u32 start;\n  s32 phys;\n  void *data;\n} Node;\ntypedef struct Packet { s32 w[6]; } Packet;\nextern u8 D_800A73E0[];\nextern u8 D_800C02AE[];\nextern u32 D_800A1BA4;\nextern u32 D_800A1BA8;\nextern s32 osVirtualToPhysical(s32);\nextern void alLink(N *, N **);\nextern void alUnlink(void *);\nextern void func_80081040(s32, s32, u32, Packet);\nstatic __inline__ void dispatch(u32 address,s32 data,u32 size,Packet * packet) { func_80081040(address,data,size,*packet); }\ns32 func_80086F40(s32 addr, s32 b, void *state)\n{\n  u32 a=(u32)addr;\n  s32 end;\n  s32 chunk;\n  s32 start;\n  s32 sum;\n  void *data;\n  u32 n;\n  Node *walker;\n  Node *old;\n  s32 delta;\n  if ((*((u32 *) (D_800C02AE + 0x339A))) & 1)\n  {\n    return osVirtualToPhysical((s32)a);\n  }\n  end = a + b;\n  old = 0;\n  walker = HEAD;\n  if (walker != 0)\n  {\n    chunk = SIZE;\n    while (walker != 0)\n    {\n      start = walker->start;\n      sum = start + chunk;\n      if (a < ((u32) start))\n      {\n        break;\n      }\n      if (sum >= end)\n      {\n        walker->phys = D_800A1BA4;\n        data=(void *)((u32)walker->data + a - walker->start);\n        return osVirtualToPhysical((s32)data);\n      }\n      old = walker;\n      walker = (Node *)walker->link.next;\n    }\n  }\n  walker = FREE;\n  if (walker == 0)\n  {\n    return osVirtualToPhysical((s32)HEAD);\n  }\n  FREE = (Node *)walker->link.next;\n  alUnlink(walker);\n  if (old != 0)\n  {\n    alLink(&walker->link, &old->link.next);\n  }\n  else\n  {\n    if (HEAD != 0)\n    {\n      old = HEAD;\n      HEAD = walker;\n      walker->link.next = &old->link;\n      walker->link.prev = 0;\n      old->link.prev = &walker->link.next;\n    }\n    else\n    {\n      HEAD = walker;\n      walker->link.next = 0;\n      walker->link.prev = 0;\n    }\n  }\n  delta = a & 1;\n  dispatch((walker->start=(a-=delta)),(walker->phys=D_800A1BA4, (s32)(data=walker->data)),SIZE,&TABLE[D_800A1BA8++]);\n  return osVirtualToPhysical((s32)data) + delta;\n}\n",
    "d93a357272d7b6b07af800d9edced20069b402000269d6cb11ab89603b453d06": "typedef struct \n{\n  s32 data;\n  s16 size;\n} Arg1;\ntypedef struct \n{\n  s32 x0;\n  s16 size;\n  s16 pad6;\n  s32 x8;\n  s32 xC;\n  s32 x10;\n  s32 x14;\n  s32 x18;\n  s32 x1C;\n  s32 x20;\n  s32 x24;\n  s32 x28;\n  s32 x2C;\n  s32 x30;\n  s32 x34;\n  s32 x38;\n  s32 x3C;\n  s32 x40;\n  s32 x44;\n  s32 x48;\n  void *p4C;\n  s16 n50;\n  s16 n52;\n} Arg0;\nextern u32 D_800A1BAC;\nextern s32 D_800A73E0[];\nextern s32 D_800AE850[];\nextern s32 D_800C8320;\nextern s32 D_80001D10;\nextern s32 D_80001DE0;\nextern s32 D_8009AAB0;\nvoid func_80087114(void);\ns32 osVirtualToPhysical(s32);\nvoid func_8008A6D0(s32, s32);\nu32 func_8008A590(void);\ns32 alAudioFrame(s32, s32 *, s32, s16);\nvoid func_8007F6E0(s32);\nvoid osSetThreadPri(s32, s32);\nvoid func_8007F798(s32, s32, void *);\nstatic inline s32 *getSlot(void)\n{\n  return &D_800AE850[(0x2278 / 4) + D_800A1BAC % 3];\n}\ns32 func_800871FC(Arg0 *a, Arg1 *b)\n{\n  Arg0 *new_var4;\n  s32 *new_var2;\n  s32 samples[2];\n  u8 *new_var5;\n  int new_var;\n  s16 count;\n  s32 phys;\n  s32 wrote;\n  s32 *slot;\n  s16 new_var3;\n  s32 frame;\n  s32 idx;\n  new_var4 = a;\n  func_80087114();\n  phys = osVirtualToPhysical(a->x0);\n  if (b != NULL)\n  {\n    new_var3 = b->size;\n    func_8008A6D0(b->data, 2 * (2 * new_var3));\n  }\n  count = (s16) (((D_800A73E0[0x4570 / 4] - (func_8008A590() >> 2)) + 0x100) & 0xFFF0);\n  a->size = count;\n  new_var2 = &D_800A73E0[0x4574 / 4];\n  if (((u32) count) < ((u32) (*new_var2)))\n  {\n    a->size = (s16) (*new_var2);\n  }\n  slot = &D_800AE850[(0x2278 / 4) + D_800A1BAC % 3];\n  wrote = alAudioFrame(*slot, samples, phys, a->size);\n  if (samples[0] == 0)\n  {\n    return 0;\n  }\n  {\n    a->p4C = ((u8 *) a) + 0x58;\n    a->n50 = 4;\n    a->n52 = 0;\n    slot = getSlot();\n    a->x38 = *slot;\n    frame = *slot;\n    new_var5 = (u8 *) (&D_80001D10);\n    a->x8 = 2;\n    a->x14 = (s32) (((u8 *) (&D_80001DE0)) - new_var5);\n    new_var4->x18 = (s32) (new_var5 + 0xd0);\n    a->x20 = (s32) (&D_8009AAB0);\n    a->x10 = (s32) (&D_80001D10);\n    a->xC = 0;\n    a->x24 = 0x800;\n    a->x28 = 0;\n    a->x2C = 0;\n    a->x30 = 0;\n    a->x34 = 0;\n    a->x40 = 0;\n    a->x44 = 0;\n    a->x3C = ((wrote - frame) >> 3) << 3;\n    func_8007F6E0(*(s32 *)0x800C8320);\n    osSetThreadPri(D_800AE850[0x2290 / 4], 6);\n    func_8007F798(0x26, 0, ((u8 *) a) + 8);\n    D_800A1BAC++;\n    return 1;\n  }\n  return 0;\n}\n",
    "1eaffc1374100493e8742deaab9974787ff0f804f079b62dbff7e1341bfb6cf9": "extern s32 D_800B0AE0;\ntypedef struct AudioConfig875 {s32 pad[4]; void *loader; s32 heap; s32 freq;} AudioConfig875;\nextern s32 D_800AB964;\nextern s32 D_800AB960;\nextern void * D_800AB95C;\nextern s32 D_800AB958;\nextern s32 D_800AB954;\nextern u32 D_800AB950;\nextern void * D_800AB94C;\nextern s8 D_800AB940;\n/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\ns32 func_8007FB3C(M2C_UNK *, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */\ns32 osAiSetFrequency(s32);                             /* extern */\nvoid *alHeapDBAlloc(M2C_UNK, M2C_UNK, s32, M2C_UNK, s32); /* extern */\nM2C_UNK alInit(void *, void *);              /* extern */\nM2C_UNK alLink(void *, void *);              /* extern */\nextern s32 D_800A1BB0;\nextern f64 D_800A6CF0;\nextern f64 D_800A6CF8;\nextern M2C_UNK D_800A73E0;\nextern char D_800AE850[];\nextern M2C_UNK initAudioDriveAndGetLoader;\nextern M2C_UNK func_80087470;\n\nvoid func_80087594(AudioConfig875 *arg0, M2C_UNK arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {\n    s32 pad[2];\n    f32 temp_ft0;\n    u32 var_s1;\n    f64 var_fv1_2;\n    s32 temp_fv0;\n    s32 temp_v1;\n    unsigned int temp_v0;\n    s32 var_s0;\n    register void **var_s0_2;\n    s32 size;\n    s32 rate;\n    f64 var_fv1;\n    s32 var_s2;\n    void *temp_v0_2;\n    void *temp_v1_2;\n\n    D_800AB940 = 0;\n    arg0->loader = &initAudioDriveAndGetLoader;\n    rate = M2C_FIELD(arg2, s32 *, 0);\n    D_800AB958 = arg4;\n    arg0->freq = osAiSetFrequency(rate);\n    D_800AB94C = alHeapDBAlloc(0, 0, arg0->heap, 1, arg3 * 0x14);\n    temp_v0_2 = alHeapDBAlloc(0, 0, arg0->heap, 1, arg3 * 0x30);\n    temp_v1 = M2C_FIELD(arg2, s32 *, 4);\n    D_800AB95C = temp_v0_2;\n    var_fv1 = (f64) temp_v1;\n    if (temp_v1 < 0) {\n        var_fv1 += D_800A6CF0;\n    }\n    temp_ft0 = ((f32) var_fv1 * (f32) arg0->freq) / (f32) arg5;\n    temp_fv0 = (s32) temp_ft0;\n    D_800AB950 = temp_fv0;\n    var_fv1_2 = (f64) temp_fv0;\n    if (temp_fv0 < 0) {\n        var_fv1_2 += D_800A6CF8;\n    }\n    if ((f32) var_fv1_2 < temp_ft0) {\n        D_800AB950 = (s32) (temp_fv0 + 1);\n    }\n    if (D_800AB950 & 0xF) {\n        D_800AB950 = (s32) ((D_800AB950 & ~0xF) + 0x10);\n    }\n    D_800AB954 = (s32) (D_800AB950 - 0x10);\n    D_800AB960 = (s32) (D_800AB950 + 0x100);\n    alInit(D_800AE850 + 0x2304, arg0);\n    M2C_FIELD(D_800AB94C, s32 *, 4) = 0;\n    M2C_FIELD(D_800AB94C, s32 *, 0) = 0;\n    temp_v0 = arg3 - 1;\n    var_s1 = 0;\n    if (temp_v0 != 0) {\n        u32 n = temp_v0;\n        var_s2 = 0x14;\n        var_s0 = 0;\n        do {\n            alLink(D_800AB94C + var_s2, D_800AB94C + var_s0);\n            var_s2 += 0x14;\n            var_s1 += 1;\n            *(void **)(var_s0 + 0x10 + (char *)D_800AB94C) = alHeapDBAlloc(0, 0, arg0->heap, 1, arg4);\n            var_s0 += 0x14;\n        } while (var_s1 < n);\n    }\n    M2C_FIELD(((var_s1 * 0x14) + D_800AB94C), void **, 0x10) = alHeapDBAlloc(0, 0, arg0->heap, 1, arg4);\n    var_s0_2 = (void **)(D_800AE850 + 0x2278);\n    var_s1 = 0;\n    do {\n        *var_s0_2 = alHeapDBAlloc(0, 0, arg0->heap, 1, M2C_FIELD((int)arg2, s32 *, 8) * 8);\n        var_s1 += 1;\n        var_s0_2++;\n    } while (var_s1 < 3U);\n    var_s1 = 0;\n    var_s2 = 0x60;\n    D_800AB964 = (s32) M2C_FIELD(arg2, s32 *, 8);\n    var_s0_2 = D_800AE850 + 0x2284;\n    do {\n        temp_v0_2 = alHeapDBAlloc(0, 0, arg0->heap, 1, var_s2);\n        *var_s0_2 = temp_v0_2;\n        M2C_FIELD(temp_v0_2, s16 *, 0x58) = 0;\n        temp_v1_2 = *var_s0_2;\n        size = D_800AB960 * 4;\n        M2C_FIELD(temp_v1_2, void **, 0x5C) = temp_v1_2;\n        var_s1 += 1;\n        M2C_FIELD(*var_s0_2, void **, 0) = alHeapDBAlloc(0, 0, arg0->heap, 1, size);\n        var_s0_2++;\n    } while (var_s1 < 3U);\n    if (D_800A1BB0 == 0) {\n        D_800B0AE0 = func_8007FB3C(&func_80087470, 0x2000, arg1, 0);\n    }\n    D_800A1BB0 = 1;\n}\n",
    "68487b5ec3f0c6c12edf21c46b7afe5bdabfbfa9fb0a1e390bdcc80252f564db": "typedef struct S_func_80087AB8_arg0\n{\n  u8 pad0[0x70];\n  s32 f70;\n  u8 pad1[0x1C];\n  s16 f90;\n  u8 pad2[2];\n  s16 f94;\n  u8 pad3[8];\n  u16 f9E;\n} S_func_80087AB8_arg0;\ntypedef struct Rec\n{\n  u8 pad0[0x70];\n  s32 f70;\n  u8 pad74[0x20];\n  s16 f94;\n  u8 pad96[0xA];\n  s16 fA0;\n  u8 padA2[0x134 - 0xA2];\n} Rec;\nextern s32 D_800B68EC;\nextern Rec *D_800B68F0;\nextern s32 D_800C782C;\nu8 *func_80087AB8(S_func_80087AB8_arg0 *arg0, u8 *arg1)\n{\n  s32 pad[1];\n  s32 q;\n  s32 s;\n  s32 i;\n  Rec *p;\n  q = ((*arg1 * 0x6000) / 120) / D_800B68EC;\n  s = (q * arg0->f90) >> 7;\n  arg1++;\n  if (arg0->f9E != 0)\n  {\n    arg0->f94 = q;\n  }\n  else\n  {\n    p = D_800B68F0;\n    for (i = 0; i < D_800C782C; i++, p++)\n    {\n      if (p->f70 == arg0->f70)\n      {\n        p->fA0 = q;\n        p->f94 = s;\n      }\n    }\n  }\n  return arg1;\n}\n",

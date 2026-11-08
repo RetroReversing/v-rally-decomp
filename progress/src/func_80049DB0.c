@@ -7,8 +7,9 @@ s32 func_80049DB0(void)
   s32 p = (s32) *((s32 **) ((*((u8 **) (root + 0x6C))) + 0x24));
   
   s32 value;
-  u8 *link;
-  if ((*((u16 *) (game + 0xE))) == 2)
+  s32 scratch;
+  scratch = *((u16 *) (game + 0xE));
+  if (scratch == 2)
   {
     root = *((u8 **) (root + 4));
     if ((*((u16 *) (game + 0x1A))) == 1)
@@ -16,14 +17,15 @@ s32 func_80049DB0(void)
       root = *((u8 **) (root + 4));
     }
     game = root;
-    link = *((u8 **) (game + 0x6C));
+    scratch = (s32)*((u8 **) (game + 0x6C));
     do { do { p=*(s32*)p; } while (0); } while (0);
-    root = (u8*) *((s32 **) (link + 0x24));
-    if (p != 0x3A98)
+    root = (u8*) *((s32 **) ((u8*)scratch + 0x24));
+    scratch = 0x3A98;
+    if (p != scratch)
     {
       return 1;
     }
-    value = *(s32*)root ^ 0x3A98;
+    value = *(s32*)root ^ scratch;
     goto done;
   }
   value=*(s32*)p;

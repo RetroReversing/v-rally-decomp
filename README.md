@@ -20,6 +20,21 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### All app progress — 8 November 2026
+
+This checkpoint integrates five newly matched functions: `func_80040CF4`,
+`func_80049DB0`, `func_80059A60`, `func_8007B4A4` and `func_80086F40`.
+Each passed an independent linked byte comparison with its saved compiler profile.
+All 2,080 previous standalone C selections are retained. The build now selects
+**2,085 of 2,124 entries as C**, leaving **39 assembly entries**. The app's
+separate boundaries report **2,085 matched / 8 open / 28 assembly** functions.
+
+The complete **12,582,912-byte cartridge is byte-identical**. The refreshed
+portable `progress/` snapshot preserves all saved matches, 24 best drafts,
+notes, names, headers and compiler profiles. Saved drafts are not counted as
+matched standalone C.
+
+
 ### Sprite-setup branch allocation — 7 November 2026
 
 `func_8003E6D8` now matches **395 instructions / 1,580 bytes** with its

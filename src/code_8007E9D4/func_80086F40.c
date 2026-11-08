@@ -1,3 +1,5 @@
+#include "snapshot_nov8_dbba70193bdbe4bf.h"
+#line 1 "func.c"
 #define HEAD (*(Node **)(D_800A73E0 + 0x4564))
 #define FREE (*(Node **)(D_800A73E0 + 0x4568))
 #define SIZE (*(s32 *)(D_800A73E0 + 0x4578))
@@ -19,6 +21,7 @@ extern s32 osVirtualToPhysical(s32);
 extern void alLink(N *, N **);
 extern void alUnlink(void *);
 extern void func_80081040(s32, s32, u32, Packet);
+static __inline__ void dispatch(u32 address,s32 data,u32 size,Packet * packet) { func_80081040(address,data,size,*packet); }
 s32 func_80086F40(s32 addr, s32 b, void *state)
 {
   u32 a=(u32)addr;
@@ -29,7 +32,8 @@ s32 func_80086F40(s32 addr, s32 b, void *state)
   void *data;
   u32 n;
   Node *walker;
-  s32 old;
+  Node *old;
+  s32 delta;
   if ((*((u32 *) (D_800C02AE + 0x339A))) & 1)
   {
     return osVirtualToPhysical((s32)a);
@@ -48,12 +52,13 @@ s32 func_80086F40(s32 addr, s32 b, void *state)
       {
         break;
       }
-      old = (s32) walker;
       if (sum >= end)
       {
         walker->phys = D_800A1BA4;
-        return osVirtualToPhysical((s32)((u32)walker->data + a - walker->start));
+        data=(void *)((u32)walker->data + a - walker->start);
+        return osVirtualToPhysical((s32)data);
       }
+      old = walker;
       walker = (Node *)walker->link.next;
     }
   }
@@ -66,18 +71,17 @@ s32 func_80086F40(s32 addr, s32 b, void *state)
   alUnlink(walker);
   if (old != 0)
   {
-    alLink(&walker->link, &((Node *)old)->link.next);
-    old = a & 1;
+    alLink(&walker->link, &old->link.next);
   }
   else
   {
     if (HEAD != 0)
     {
-      old = (s32) HEAD;
+      old = HEAD;
       HEAD = walker;
-      walker->link.next = &((Node *)old)->link;
+      walker->link.next = &old->link;
       walker->link.prev = 0;
-      ((Node *)old)->link.prev = &walker->link.next;
+      old->link.prev = &walker->link.next;
     }
     else
     {
@@ -85,14 +89,9 @@ s32 func_80086F40(s32 addr, s32 b, void *state)
       walker->link.next = 0;
       walker->link.prev = 0;
     }
-    old = a & 1;
   }
-  a -= old;
-  walker->start = a;
-  walker->phys = D_800A1BA4;
-  data = walker->data;
-  n = D_800A1BA8;
-  D_800A1BA8 = n + 1;
-  func_80081040((s32)a, (s32)data, (u32)SIZE, TABLE[n]);
-  return osVirtualToPhysical((s32)data) + old;
+  delta = a & 1;
+  dispatch((walker->start=(a-=delta)),(walker->phys=D_800A1BA4, (s32)(data=walker->data)),SIZE,&TABLE[D_800A1BA8++]);
+  return osVirtualToPhysical((s32)data) + delta;
 }
+
