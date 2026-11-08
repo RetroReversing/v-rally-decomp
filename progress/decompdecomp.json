@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794151915.179074,
- "revision": 19363,
+ "saved_at": 1794154612.01284,
+ "revision": 19364,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -251545,6 +251545,14 @@
    "created_at": 1794151794.343921,
    "score_before": 975,
    "score_after": 750
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-e8f5aee2816b48f9",
+   "created_at": 1794154608.962241,
+   "score_before": 680,
+   "score_after": 680
   }
  ],
  "set_aside": [
