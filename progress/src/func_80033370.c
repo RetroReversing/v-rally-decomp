@@ -1,5 +1,5 @@
-s32 func_80031F2C(void *);
-void func_80032AE4(void *);
+s32 car_set_sfx_params(void *);
+void car_fix_path_ends(void *);
 void func_80032FE8(void *);
 void func_8003310C(void *);
 void func_800324B4(void *);
@@ -17,7 +17,7 @@ void func_80033370(void *arg0) {
 
     var_s0 = arg0;
     do {
-        if (func_80031F2C(var_s0) == 0) {
+        if (car_set_sfx_params(var_s0) == 0) {
             p = *(u8 **)((u8 *)var_s0 + 0x78);
             x = *(s16 *)(p + 4);
             y = *(s16 *)(p + 6);
@@ -35,7 +35,7 @@ void func_80033370(void *arg0) {
     } while (var_s0 != arg0 && var_s0 != NULL);
     func_80032FE8(arg0);
     func_8003310C(arg0);
-    func_80032AE4(arg0);
+    car_fix_path_ends(arg0);
     func_800324B4(arg0);
     func_8003354C();
 }

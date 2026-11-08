@@ -5,7 +5,7 @@ typedef struct Cam { char pad0[0xD8]; f32 dirx; char padDC[4]; f32 dirz; char pa
 
 extern s32 func_8002D2C8(s32, s32);
 extern void func_8002E148(s16 *, s32 *);
-void *func_8002E514(void *, void *, void *);
+void *mtx3_transform_vec3(void *, void *, void *);
 extern u64 osGetTime(void);
 extern s32 func_80098090(void);
 extern void func_800980C4(u32);
@@ -43,7 +43,7 @@ void func_80035C4C(Part *p, u8 idx) {
             r = ang - 0x200;
             rot[1] = r + func_80098090() % 1023;
             func_8002E148(rot, mtx);
-            func_8002E514(mtx, vec, p);
+            mtx3_transform_vec3(mtx, vec, p);
         }
         p->x = p->x + fdx;
         p->t += 20;

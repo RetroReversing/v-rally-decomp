@@ -93,15 +93,18 @@ static inline static void copyfinal4(void *source, void *destination, u32 bytes)
   }
 }
 
+/* Loads the saved game/track state from file 'arg0': copies the 0x118-byte
+ * header to the state block at D_800A1234, then the entry bodies (sizes
+ * rounded up to 4) into their allocations, then the 0xF4-byte record at
+ * D_800C35A0 with overlap-safe copies, and finally sets the state flags. */
 void func_80050FC4(s32 arg0)
 {
-  u8 *base;
+  u8 *hdr;
   u8 *file;
-  s32 new_var;
-  u8 *p;
-  Entry4 *e;
+  u8 *data;
+  Entry4 *ent;
   u8 i;
-  u8 n;
+  u8 count;
   void *state = D_800AE850 + 0x7320;
   if (!func_80022184(state))
   {
@@ -109,40 +112,39 @@ void func_80050FC4(s32 arg0)
   }
   if (func_80022184(state))
   {
-    base = D_800A1234;
+    hdr = D_800A1234;
     func_80081540(D_800A4FE4);
     file = func_80081664(1, arg0);
-    p = file;
-    __builtin_memcpy(base, file, 0x118);
-    n = base[0x111];
-    p += 0x118;
-    for (i = 0; i < n; i++)
+    data = file;
+    __builtin_memcpy(hdr, file, 0x118);
+    count = hdr[0x111];
+    data += 0x118;
+    for (i = 0; i < count; i++)
     {
-      e = (Entry4 *) (base + (i * 0x44));
-      e->p4 = func_8007EAA0(1, (e->size4 + 3) & (~3));
-      e = e;
-      copy4(e->p4, p, (e->size4 + 3) & (~3));
-      e->mode = 4;
-      e->zero = 0;
-      e->flags = (e->flags & 0xfbff) | 0x200;
-      p += (e->size4 + 3) & (~3);
+      ent = (Entry4 *) (hdr + (i * 0x44));
+      ent->p4 = func_8007EAA0(1, (ent->size4 + 3) & (~3));
+      copy4(ent->p4, data, (ent->size4 + 3) & (~3));
+      ent->mode = 4;
+      ent->zero = 0;
+      ent->flags = (ent->flags & 0xfbff) | 0x200;
+      data += (ent->size4 + 3) & (~3);
     }
 
-    for (i = 0; i < n; i++)
+    for (i = 0; i < count; i++)
     {
-      e = (Entry4 *) (base + (i * 0x44));
-      e->p0 = func_8007EAA0(1, (e->size0 + 3) & (~3));
-      copy4(e->p0, p, (e->size0 + 3) & (~3));
-      p += (e->size0 + 3) & (~3);
+      ent = (Entry4 *) (hdr + (i * 0x44));
+      ent->p0 = func_8007EAA0(1, (ent->size0 + 3) & (~3));
+      copy4(ent->p0, data, (ent->size0 + 3) & (~3));
+      data += (ent->size0 + 3) & (~3);
     }
 
     *((Block4 *) (D_800C02AE + 0x7f66)) = *((Block4 *) D_800C35A0);
     {
       u32 dest = (u32) D_800C35A0;
-      u32 end = ((u32) p) + 0xf4;
+      u32 end = ((u32) data) + 0xf4;
       u32 *src, *dst;
       s32 n;
-      if ((dest < end) & (((u32) p) < dest))
+      if ((dest < end) & (((u32) data) < dest))
       {
         src = (u32 *) end;
         dst = (u32 *) (dest + 0xf4);
@@ -157,7 +159,7 @@ void func_80050FC4(s32 arg0)
       }
       else
       {
-        src = (u32 *) p;
+        src = (u32 *) data;
         dst = (u32 *) dest;
         n = 61;
         do
@@ -170,7 +172,7 @@ void func_80050FC4(s32 arg0)
       }
     }
     *((u16 *) (D_800C35A0 + 0x2c)) = (*((u16 *) (D_800C02AE + 0x7f92))) | 0x10;
-    base[0x114] = 0;
+    hdr[0x114] = 0;
     func_8007EE9C(file);
     *((u16 *) (D_800C35A0 + 0xe)) = 1;
     if (D_800C02AE[0x38f1])

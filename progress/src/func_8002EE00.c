@@ -40,6 +40,12 @@ extern s32 D_800AFA8C;
 #define CLMP(v) ((v) >= 256 ? 255 : (v))
 #define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
 
+/* Draws a list of sprite entries for one object. `count` entries are walked
+ * (every second one when `twice` is set). The first active entry opens the
+ * display list and sets the tint from the colour table D_800ADFC6 (doubled,
+ * clamped to 255) according to the config mode. Then, if the object is within
+ * range of the camera, its transform is loaded once, and each active entry is
+ * drawn with its texture and size. */
 void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice)
 {
     f32 mf[4][4];

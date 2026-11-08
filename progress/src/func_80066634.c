@@ -1,17 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
 typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
 M2C_UNK func_8008A1CC(s32, s32, M2C_UNK, M2C_UNK *); /* extern */
 M2C_UNK func_8008A290(s32, M2C_UNK, M2C_UNK, M2C_UNK *); /* extern */
 extern void *D_800A1468;
@@ -51,12 +38,16 @@ extern M2C_UNK func_8006951C;
 extern M2C_UNK func_800695D0;
 extern M2C_UNK func_80069734;
 
+/* Registers the handlers for the script/event table at D_800C3508: each call
+ * binds one handler to a (group, slot) pair; the loop registers the eight
+ * per-group handlers for groups 0x12..0x19. Also clears the state flags at
+ * D_800A1468 and stores the two dispatch callbacks at +0x288 and +0x28C. */
 void func_80066634(void) {
     s32 temp_a1;
     s32 temp_s0;
     u8 var_s1;
 
-    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;
+    *(s8 *)((s8 *)D_800A1468 + 0x245) = 0;
     func_8008A1CC(D_800C3508, 0, 0x10, &func_800695D0);
     func_8008A1CC(D_800C3508, 1, 0x10, &func_800695D0);
     func_8008A1CC(D_800C3508, 2, 0x10, &func_80067474);
@@ -105,7 +96,7 @@ void func_80066634(void) {
     func_8008A1CC(D_800C3508, 0xF, 0x10, &func_800685C0);
     func_8008A1CC(D_800C3508, 0x10, 0x10, &func_800684F4);
     func_8008A290(D_800C3508, 3, 0x20, &func_80067108);
-    M2C_FIELD(D_800A1468, s8 *, 0x228) = 0;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x288) = &func_80066E20;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x28C) = &func_80066EBC;
+    *(s8 *)((s8 *)D_800A1468 + 0x228) = 0;
+    *(M2C_UNK **)((s8 *)D_800A1468 + 0x288) = &func_80066E20;
+    *(M2C_UNK **)((s8 *)D_800A1468 + 0x28C) = &func_80066EBC;
 }

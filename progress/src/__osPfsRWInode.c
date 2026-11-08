@@ -16,7 +16,7 @@ typedef struct {
 
 s32 __osPfsSelectBank(OSPfsX *, u8);
 u32 __osContRamRead(void *, s32, u16, u8 *);
-u32 func_80096A10(void *, s32, u16, u8 *, s32);
+u32 __osContRamWrite(void *, s32, u16, u8 *, s32);
 void func_80091600(void *, void *, s32);
 extern s32 D_800A3B30;
 extern u8 D_800A3B34;
@@ -59,8 +59,8 @@ s32 __osPfsRWInode(OSPfsX *pfs, u8 *inode, u8 flag, u8 bank)
     for (j = 0; j < 8; j++) {
         addr = inode + j * 32;
         if (flag == 1) {
-            ret = func_80096A10(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr, 0);
-            ret = func_80096A10(pfs->queue, pfs->channel, pfs->minode_table + bank * 8 + j, addr, 0);
+            ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr, 0);
+            ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->minode_table + bank * 8 + j, addr, 0);
         } else {
             ret = __osContRamRead(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr);
         }
@@ -81,7 +81,7 @@ s32 __osPfsRWInode(OSPfsX *pfs, u8 *inode, u8 flag, u8 bank)
             }
             for (j = 0; j < 8; j++) {
                 addr = inode + j * 32;
-                ret = func_80096A10(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr, 0);
+                ret = __osContRamWrite(pfs->queue, pfs->channel, pfs->inode_table + bank * 8 + j, addr, 0);
             }
         }
     }

@@ -21,7 +21,7 @@ extern void func_8005C198(void);
 extern void func_80061740(Blob);
 extern void func_80062184(Blob, s32);void *func_800592AC(u32);
 extern void func_8006185C(s32, s32);
-extern void func_800710F0(void);
+extern void draw_best_times_screen(void);
 extern void func_8004D08C(s32, s32, s16, s16, f32, f32, u8, u8);
 void func_8007159C(void)
 {
@@ -55,7 +55,7 @@ void func_8007159C(void)
     }
     if (H(D_800C3508, 2) == 2)
     {
-      func_800710F0();
+      draw_best_times_screen();
     }
     blob = D_800D0648[U(D_800C35A0, 32)];
     func_80062184(blob, 0);

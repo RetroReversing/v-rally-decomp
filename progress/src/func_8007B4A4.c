@@ -10,7 +10,7 @@ extern u8 D_800A73E0[];
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 void *func_8002DA98(void *arg0, void *arg1);
-void *func_8002E514(void *arg0, void *arg1, void *arg2);
+void *mtx3_transform_vec3(void *arg0, void *arg1, void *arg2);
 typedef struct { s32 b[3]; s32 c[3]; f32 t1; f32 t2; } LookS;
 #define G (*(LookS *)(D_800C02AE + 0x5D32))
 #define CAM(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
@@ -36,6 +36,14 @@ static inline u32 brightness_to_u32(f32 brightness, f32 integer_limit) {
     }
     return converted;
 }
+
+/* Lights a light object's vertices. Two sets are lit: 12 groups of 16-bit
+ * vertices (v16, n16) and 12 groups of 24-bit vertices (v24, n24). For each
+ * vertex, the light direction (from the light position toward the light
+ * target) is compared with the direction to the vertex: inside the cone the
+ * colour is full brightness, in the falloff ring it is blended toward the
+ * ambient level, and outside it is ambient. The result is packed into the
+ * vertex's colour word. */
 void func_8007B4A4(void *owner, s32 mode)
 {
     LObj *o = owner;
@@ -60,11 +68,11 @@ void func_8007B4A4(void *owner, s32 mode)
     p[0] = (u32)D_800A1860 - (u32)CAM(0);
     p[1] = (u32)D_800A1864 - (u32)CAM(1);
     p[2] = (u32)D_800A1868 - (u32)CAM(2);
-    func_8002E514(&m, p, p);
+    mtx3_transform_vec3(&m, p, p);
     q[0] = (u32)D_800A186C - (u32)CAM(0);
     q[1] = (u32)D_800A1870 - (u32)CAM(1);
     q[2] = (u32)D_800A1874 - (u32)CAM(2);
-    func_8002E514(&m, q, q);
+    mtx3_transform_vec3(&m, q, q);
     dx = p[0] - q[0];
     s = dx * dx;
     dy = p[1] - q[1];

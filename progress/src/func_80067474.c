@@ -6,7 +6,7 @@ extern u8 D_800C02AE[];
 extern void func_8005A388(s32, s32);
 extern void func_800680F0(s32, s32);
 extern void func_800679D8(void);
-extern void func_80067AC4(void);
+extern void draw_name_entry_wheel(void);
 typedef struct { u8 pad0[0x10]; u8 *p10; } Hdr;
 typedef struct { u8 pad[8]; u8 *p8; } Row;
 s32 func_80067474(s32 arg0, s32 arg1)
@@ -32,7 +32,7 @@ s32 func_80067474(s32 arg0, s32 arg1)
     D_800A1468->unk228 = last;
     func_8005A388(arg0, arg1);
     D_800A1468->unk288 = func_800679D8;
-    D_800A1468->unk28C = func_80067AC4;
+    D_800A1468->unk28C = draw_name_entry_wheel;
     base = *(u8 **)(*(u8 **)(D_800C02AE + 0x325A) + 0x10);
     base = *(u8 **)(base + h * 20 + 8);
     e = *(s32 **)(base + arg1 * 12 + 4);

@@ -1,6 +1,6 @@
-#define H(p,o) (*(u16*)((p)+(o)))
-#define W(p,o) (*(s32*)((p)+(o)))
-#define P(p,o) (*(u8**)((p)+(o)))
+#define U16_AT(p, o) (*(u16*)((p)+(o)))
+#define S32_AT(p, o) (*(s32*)((p)+(o)))
+#define PTR_AT(p, o) (*(u8**)((p)+(o)))
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 extern u8 D_800A5E9C[];
@@ -19,9 +19,12 @@ typedef struct
 {
   u32 w[61];
 } SaveState;
+/* Loads the saved-game block for the current slot: a 0x118-byte header, a 6000-byte
+ * block and a sized data block, into the working buffers. The saved mode picks the
+ * track index; an unknown version word resets the track fields. */
 void func_80077280(void)
 {
-  u8 *file = 0;
+  u8 *saveFile = 0;
   u8 *src;
   u8 *dst;
   u8 *state;
@@ -37,64 +40,64 @@ void func_80077280(void)
   {
     dst = D_800A1234;
     func_80081540(D_800A5E9C);
-    file = func_80081664(1, D_800A17F4[H(D_800C35A0, 0x22)]);
-    src = file;
+    saveFile = func_80081664(1, D_800A17F4[U16_AT(D_800C35A0, 0x22)]);
+    src = saveFile;
     __builtin_memcpy(dst, src, 0x118);
     allocation = func_8007EAA0(1, 6000);
     state = dst;
-    P(state, 4) = allocation;
-    P(state, 0) = func_8007EAA0(1, (W(state, 16) + 3) & (~3));
-    H(state, 8) |= 1;
+    PTR_AT(state, 4) = allocation;
+    PTR_AT(state, 0) = func_8007EAA0(1, (S32_AT(state, 16) + 3) & (~3));
+    U16_AT(state, 8) |= 1;
     src += 0x118;
-    __builtin_memcpy(P(state, 4), src, 6000);
+    __builtin_memcpy(PTR_AT(state, 4), src, 6000);
     src += 6000;
-    H(state, 12) = 0;
-    func_8008E13C(P(state, 0), src, (W(state, 16) + 3) & (~3));
-    src += (W(state, 16) + 3) & (~3);
+    U16_AT(state, 12) = 0;
+    func_8008E13C(PTR_AT(state, 0), src, (S32_AT(state, 16) + 3) & (~3));
+    src += (S32_AT(state, 16) + 3) & (~3);
     *((SaveState *) (D_800C02AE + 0x7f66)) = *((SaveState *) D_800C35A0);
     __builtin_memcpy(D_800C35A0, src, 0xf4);
-    H(D_800C35A0, 0x1e) = 8;
+    U16_AT(D_800C35A0, 0x1e) = 8;
     for (i = 0; i < 4; i++)
     {
       k = i * 40;
-      car = H(D_800C02AE, k + 0x7fb4);
-      H(k + D_800C35A0, 0x4e) = car;
+      car = U16_AT(D_800C02AE, k + 0x7fb4);
+      U16_AT(k + D_800C35A0, 0x4e) = car;
       func_80098290(D_800C35A0 + (k + 0x44), (D_800C02AE + k) + 0x7faa, car);
     }
 
-    if ((D_800C02AE[0x7f4f] != 5) && (!(H(D_800C02AE, 0x7f92) & 0x800)))
+    if ((D_800C02AE[0x7f4f] != 5) && (!(U16_AT(D_800C02AE, 0x7f92) & 0x800)))
     {
       switch (D_800C02AE[0x7f4f])
       {
         case 2:
-          H(D_800C35A0, 0x20) = 0;
-          H(D_800C35A0, 0x22) = 3;
+          U16_AT(D_800C35A0, 0x20) = 0;
+          U16_AT(D_800C35A0, 0x22) = 3;
           break;
 
         case 4:
-          H(D_800C35A0, 0x20) = 0;
-          H(D_800C35A0, 0x22) = 6;
+          U16_AT(D_800C35A0, 0x20) = 0;
+          U16_AT(D_800C35A0, 0x22) = 6;
           break;
 
         case 3:
 
         case 8:
-          H(D_800C35A0, 0x20) = 0;
-          H(D_800C35A0, 0x22) = 1;
+          U16_AT(D_800C35A0, 0x20) = 0;
+          U16_AT(D_800C35A0, 0x22) = 1;
           break;
 
       }
 
     }
   }
-  func_8007EE9C(file);
+  func_8007EE9C(saveFile);
   {
   u8 *tail = D_800C35A0;
-  if (H(tail, 0x1e) != 8)
+  if (U16_AT(tail, 0x1e) != 8)
   {
-    H(tail, 0x1e) = 8;
-    H(tail, 0x20) = 0;
-    H(tail, 0x22) = 0;
+    U16_AT(tail, 0x1e) = 8;
+    U16_AT(tail, 0x20) = 0;
+    U16_AT(tail, 0x22) = 0;
     D_800C02AE[0x7f4e] = 0;
   }
   }

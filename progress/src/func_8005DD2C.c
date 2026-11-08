@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592D0(u32);                       /* extern */
+void *text_obj_get(u32);                       /* extern */
 M2C_UNK func_80059618(void *, u8, u8, u8, s32);     /* extern */
 void func_800596F4(void *, s16, s16, void *); /* extern */
 void *func_8005A744(u32, void *);                  /* extern */
@@ -48,7 +48,7 @@ void func_8005DD2C(void) {
         M2C_FIELD(func_8005A744(5, (void *)(M2C_FIELD(D_800A1468, void **, 0xC))), u8 *, 0x41) = (u8) M2C_FIELD(D_800A1468, u8 *, 0x248);
     }
     if (M2C_FIELD(D_800A1468, u16 *, 0x220) != 0) {
-        temp_v0 = func_800592D0(0);
+        temp_v0 = text_obj_get(0);
         var_v1 = 0;
         do {
             M2C_FIELD(temp_v0, s8 *, 0x1A) = 1;
@@ -57,7 +57,7 @@ void func_8005DD2C(void) {
         } while ((u32) (var_v1 & 0xFF) < 3U);
         M2C_FIELD(D_800A1468, u16 *, 0x220) = (u16) (M2C_FIELD(D_800A1468, u16 *, 0x220) - 1);
     } else {
-        temp_v0 = func_800592D0(0);
+        temp_v0 = text_obj_get(0);
         var_v1_2 = 0;
         do {
             M2C_FIELD(temp_v0, s8 *, 0x1A) = 0;
@@ -65,7 +65,7 @@ void func_8005DD2C(void) {
             var_v1_2 += 1;
         } while ((u32) (var_v1_2 & 0xFF) < 3U);
     }
-    temp_v0 = func_800592D0(4);
+    temp_v0 = text_obj_get(4);
     func_80059618(temp_v0, M2C_FIELD(temp_v0, u8 *, 0xB), M2C_FIELD(temp_v0, u8 *, 0xC), M2C_FIELD(temp_v0, u8 *, 0xD), (s32) M2C_FIELD(temp_v0, u8 *, 0xE));
     sp18[4] = 0;
     var_a2 = (u32)D_800A14CC;

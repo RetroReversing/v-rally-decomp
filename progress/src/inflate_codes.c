@@ -1,6 +1,6 @@
 #define MASK(x) (*(u16 *)(D_800A19F0+(x)*2))
-#define NEED(x) while(k<(x)){s32 c;if(--*(s32 *)(D_800C02AE+0x3092)>=0)c=*(*(u8 **)((s32 *)(D_800C02AE+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;b|=(u32)c<<k;k+=8;}
-#define DUMP(x) b>>=(x);k-=(x)
+#define NEED(x) while(bitcnt<(x)){s32 c;if(--*(s32 *)(D_800C02AE+0x3092)>=0)c=*(*(u8 **)((s32 *)(D_800C02AE+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;bitbuf|=(u32)c<<bitcnt;bitcnt+=8;}
+#define DUMP(x) bitbuf>>=(x);bitcnt-=(x)
 typedef struct Huft
 {
   u8 e;
@@ -43,113 +43,119 @@ static inline void wcopy(u32 *to, u32 *from, u32 len)
     }
   }
 }
-s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
+
+/* Inflate (DEFLATE) compressed-block decoder: decodes literal/length and
+ * distance codes from the bit buffer kept in the global decoder state, writes
+ * the output into the 32 KB sliding window at D_800AE850+0x8AE8 (flushing it
+ * through func_800821A4 when full), and saves the state back. Returns 0 at end
+ * of block, 1 on a bad code. */
+s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
 {
-  u32 b;
+  u32 bitbuf;
   int new_var2;
-  u32 k;
-  u32 w;
-  u32 e;
-  u32 n;
-  u32 d;
+  u32 bitcnt;
+  u32 wpos;
+  u32 extra;
+  u32 copy_len;
+  u32 dist;
   int new_var3;
-  u32 ml;
+  u32 lit_mask;
   u8 *new_var;
-  u32 md;
+  u32 dist_mask;
   Huft *t;
-  b = *((u32 *) (D_800C02AE + 0x310E));
-  k = *((u32 *) (D_800C02AE + 0x3112));
-  w = *((u32 *) (D_800C02AE + 0x310A));
-  ml = MASK(bl);
+  bitbuf = *((u32 *) (D_800C02AE + 0x310E));
+  bitcnt = *((u32 *) (D_800C02AE + 0x3112));
+  wpos = *((u32 *) (D_800C02AE + 0x310A));
+  lit_mask = MASK(lit_bits);
   new_var3 = 0x3112;
   new_var = D_800C02AE + new_var3;
-  md = MASK(bd);
+  dist_mask = MASK(dist_bits);
   for (;;)
   {
-    NEED(bl);
-    t = tl + (b & ml);
-    e = t->e;
-    while (e > 16)
+    NEED(lit_bits);
+    t = lit_tbl + (bitbuf & lit_mask);
+    extra = t->e;
+    while (extra > 16)
     {
-      if (e == 99)
+      if (extra == 99)
       {
         return 1;
       }
       DUMP(t->b);
-      e -= 16;
-      NEED(e);
-      t = t->v.t + (b & MASK(e));
-      e = t->e;
+      extra -= 16;
+      NEED(extra);
+      t = t->v.t + (bitbuf & MASK(extra));
+      extra = t->e;
     }
 
     DUMP(t->b);
-    if (e == 16)
+    if (extra == 16)
     {
-      ((u8 *) (D_800AE850 + 0x8AE8))[w++] = t->v.n;
-      if (w == 0x8000)
+      ((u8 *) (D_800AE850 + 0x8AE8))[wpos++] = t->v.n;
+      if (wpos == 0x8000)
       {
         func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);
-        w = 0;
+        wpos = 0;
       }
       continue;
     }
-    if (e == 15)
+    if (extra == 15)
     {
       break;
     }
-    NEED(e);
-    n = t->v.n + (b & MASK(e));
-    DUMP(e);
-    NEED(bd);
-    t = td + (b & md);
-    e = t->e;
-    while (e > 16)
+    NEED(extra);
+    copy_len = t->v.n + (bitbuf & MASK(extra));
+    DUMP(extra);
+    NEED(dist_bits);
+    t = dist_tbl + (bitbuf & dist_mask);
+    extra = t->e;
+    while (extra > 16)
     {
-      if (e == 99)
+      if (extra == 99)
       {
         return 1;
       }
       DUMP(t->b);
-      e -= 16;
-      NEED(e);
-      t = t->v.t + (b & MASK(e));
-      e = t->e;
+      extra -= 16;
+      NEED(extra);
+      t = t->v.t + (bitbuf & MASK(extra));
+      extra = t->e;
     }
 
     DUMP(t->b);
-    NEED(e);
-    d = (w - t->v.n) - (b & MASK(e));
-    DUMP(e);
-    d &= 0x7fff;
+    NEED(extra);
+    dist = (wpos - t->v.n) - (bitbuf & MASK(extra));
+    DUMP(extra);
+    dist &= 0x7fff;
     do
     {
       u32 chunk;
-      if (w < d)
+      if (wpos < dist)
       {
-        chunk = 0x8000 - d;
+        chunk = 0x8000 - dist;
       }
       else
       {
-        chunk = 0x8000 - w;
+        chunk = 0x8000 - wpos;
       }
       {
         u32 amount = chunk;
-        if (n < amount)
+        if (copy_len < amount)
         {
-          amount = n;
+          amount = copy_len;
         }
         chunk = amount;
       }
-      n -= chunk;
-      if ((w - d) >= chunk)
+      copy_len -= chunk;
+      if ((wpos - dist) >= chunk)
       {
-        u32 *to = (u32 *) ((w + D_800AE850) + 0x8AE8);
+        u32 *to = (u32 *) ((wpos + D_800AE850) + 0x8AE8);
         u8 *src0;
-        if ((!(((u32) to) & 3)) && (!(((u32) ((d + D_800AE850) + 0x8AE8)) & 3)))
+        if ((!(((u32) to) & 3)) && (!(((u32) ((dist + D_800AE850) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
           {
-            u32 *from = (u32 *) ((d + D_800AE850) + 0x8AE8);
+            u32 *from = (u32 *) ((dist + D_800AE850) + 0x8AE8);
             u32 len = words * 4;
             u32 *end = (u32 *) ((u8 *) from + len);
             u32 n2;
@@ -170,44 +176,43 @@ s32 inflate_codes(Huft *tl, Huft *td, u32 bl, u32 bd)
                 *(to++) = *(s++);
             }
           }
-          w += words * 4;
-          d += words * 4;
-          to = (u32 *) ((w + D_800AE850) + 0x8AE8);
-          src0 = (d + D_800AE850) + 0x8AE8;
+          wpos += words * 4;
+          dist += words * 4;
+          to = (u32 *) ((wpos + D_800AE850) + 0x8AE8);
+          src0 = (dist + D_800AE850) + 0x8AE8;
           chunk &= 3;
         }
         else
-          src0 = (d + D_800AE850) + 0x8AE8;
+          src0 = (dist + D_800AE850) + 0x8AE8;
         func_8008E13C(to, src0, chunk);
-        w += chunk;
-        d += chunk;
+        wpos += chunk;
+        dist += chunk;
       }
       else
       {
-        u8 *dst = (w + D_800AE850) + 0x8AE8;
-        u8 *src = (d + D_800AE850) + 0x8AE8;
+        u8 *dst = (wpos + D_800AE850) + 0x8AE8;
+        u8 *src = (dist + D_800AE850) + 0x8AE8;
         do
         {
           *(dst++) = *(src++);
-          d++;
-          w++;
+          dist++;
+          wpos++;
           chunk--;
         }
         while (chunk);
       }
-      if (w == 0x8000)
+      if (wpos == 0x8000)
       {
         func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);
-        w = 0;
+        wpos = 0;
       }
-      d &= 0x7fff;
+      dist &= 0x7fff;
     }
-    while (n);
+    while (copy_len);
   }
 
-  *((u32 *) (D_800C02AE + 0x310A)) = w;
-  *((u32 *) (D_800C02AE + 0x310E)) = b;
-  *((u32 *) new_var) = k;
+  *((u32 *) (D_800C02AE + 0x310A)) = wpos;
+  *((u32 *) (D_800C02AE + 0x310E)) = bitbuf;
+  *((u32 *) new_var) = bitcnt;
   return 0;
 }
-

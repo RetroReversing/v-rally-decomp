@@ -5,7 +5,7 @@
 void func_8004C7F0(s32);
 void func_8004D31C(void);
 void *func_800592AC(u32);
-void *func_800592D0(u32);
+void *text_obj_get(u32);
 void func_8005937C(s32, s32);
 void func_8005BB5C(void);
 void func_8005BC60(void);
@@ -148,7 +148,7 @@ void func_8007A29C(void)
   B(D_800A1468, 0x2BD) = 1;
   func_80081540(D_800A5F7C);
   func_8004C7F0((s32)D_800A5F8C);
-  node = func_800592D0(0x38);
+  node = text_obj_get(0x38);
   H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);
 }
 

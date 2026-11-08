@@ -8,6 +8,11 @@ extern f64 D_800A58B0;
 extern f64 D_800A58B8;
 u8 func_8006B9E0(u8, u8);
 s32 func_8006B924(void *, int);
+
+/* Fills the lookup cells in D_800C7125 for the car's record: three rows, each
+ * stepping through 256 entries. Every cell is written from the row's value
+ * (its bound check picks the high or low bits), and the cell's delta is
+ * clamped to 0..1022 with its sign in bit 0. */
 long func_8006DDD8(void)
 {
   f64 bound = D_800A58A8;
@@ -18,22 +23,22 @@ long func_8006DDD8(void)
   u32 idx;
   u32 x;
   s32 raw;
-  u32 twice;
-  s16 off;
+  u32 idx2;
+  s16 nibble_sel;
   s32 delta;
   s32 stride;
-  f64 b;
-  int new_var;
+  f64 base_val;
+  int bit40;
   code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);
   stride = D_800C35A0[0x23] * 64;
   idx = (u8) code;
-  twice = idx * 2;
-  b = ((f64) ((s32) idx)) * D_800A58B0;
-  new_var = 0x40;
+  idx2 = idx * 2;
+  base_val = ((f64) ((s32) idx)) * D_800A58B0;
+  bit40 = 0x40;
   loop:
   {
     {
-      f64 value = b + (((f64) (i & 255)) * D_800A58B8);
+      f64 value = base_val + (((f64) (i & 255)) * D_800A58B8);
       if (!(bound <= value))
       {
         raw = (s32) value;
@@ -44,12 +49,12 @@ long func_8006DDD8(void)
       }
       x = raw;
     }
-    off = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);
-    { s32 i16;
-    code = func_8006B924((base + (stride + 0x2c)) + (i16 = (i & 255) * 16), i & 255); }
+    nibble_sel = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);
+    { s32 off16;
+    code = func_8006B924((base + (stride + 0x2c)) + (off16 = (i & 255) * 16), i & 255); }
     if (((u8) code) == 5)
     {
-      if ((u8) off)
+      if ((u8) nibble_sel)
       {
  do { tab[((u8) x) + 1] = 255; tab[(u8) x] |= 0xf0; } while (0);
       }
@@ -62,11 +67,11 @@ long func_8006DDD8(void)
     {
       if (code)
       {
-        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
+        delta = (*((u16 *) (((u8 *) D_800C5D38) + idx2))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
       }
       else
       {
-        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
+        delta = (*((u16 *) (((u8 *) D_800C5D38) + idx2))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));
       }
       if (delta >= 0)
       {
@@ -85,7 +90,7 @@ long func_8006DDD8(void)
         }
         delta |= 1;
       }
-      if ((u8) off)
+      if ((u8) nibble_sel)
       {
         switch ((u8) code)
         {
@@ -94,7 +99,7 @@ long func_8006DDD8(void)
             break;
 
           case 1:
-            off = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);
+            nibble_sel = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);
             break;
 
           case 2:
@@ -109,7 +114,7 @@ long func_8006DDD8(void)
 
         if (delta & 1)
         {
-          tab[(u8) x] |= new_var;
+          tab[(u8) x] |= bit40;
         }
         else
         {

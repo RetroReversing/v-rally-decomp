@@ -6,16 +6,20 @@ typedef struct Params {u8 pad[24];s32 rate;u8 type;u8 pad1d[3];s32 *params;} Par
 extern s32 D_800A3710[],D_800A3778[],D_800A3800[],D_800A3828[],D_800A3850[],D_800A3878[];
 extern void alFxPull(void),alFxParamHdl(void),func_80094F90(void),func_80093790(void*,s32,void*,s32);
 extern void *alHeapDBAlloc(s32,s32,void*,s32,s32);
+
+/* Sets up an effect (delay-line) object: picks the parameter table from
+ * config->type, allocates the delay buffer and the per-tap delay, resampler
+ * and lowpass state from the heap, and fills them from the table. */
 void alFxNew(Fx *fx,Params *config,void *heap){
-s32 *p;u16 i,j,clear;Delay *d;Lowpass *lp; s16 half; s32 k;f64 f,ratio;
+s32 *table;u16 pi,zi,di;Delay *dly;Lowpass *lp; s16 half; s32 k;f64 f,ratio;
 func_80093790(fx,0,func_80094F90,5);fx->pull=alFxPull;fx->handler=alFxParamHdl;
-switch(config->type){case 1:p=D_800A3710;break;case 2:p=D_800A3778;break;case 3:p=D_800A3800;break;case 4:p=D_800A3828;break;case 5:p=D_800A3850;break;case 6:p=config->params;break;default:p=D_800A3878;break;}
-fx->count=p[0];fx->length=p[1];fx->delay=alHeapDBAlloc(0,0,heap,fx->count,40);fx->base=alHeapDBAlloc(0,0,heap,fx->length,2);fx->write=fx->base;j=2;
-for(clear=0;clear<fx->length;clear++)fx->base[clear]=0;
-for(i=0;i<fx->count;i++){d=&fx->delay[i];d->input=p[j++];d->output=p[j++];d->fb=p[j++];d->ff=p[j++];d->gain=p[j++];
-if(p[j]){d->rsinc=((f32)p[j++]/1000.0f)*2.0/config->rate;d->depth=((f32)p[j++]/100.0)*(d->output-d->input);d->rsgain=1.0f;d->delta=0;d->rs=alHeapDBAlloc(0,0,heap,1,52);d->rs->state=alHeapDBAlloc(0,0,heap,1,32);d->rs->delta=0;d->rs->first=1;}else{d->rs=0;j+=2;}
-if(p[j]){d->lp=alHeapDBAlloc(0,0,heap,1,48);d->lp->state=alHeapDBAlloc(0,0,heap,1,8);d->lp->fc=p[j++];lp=d->lp;half=(lp->fc * 65536) >> 17;lp->fg=16384-half;lp->first=1;
+switch(config->type){case 1:table=D_800A3710;break;case 2:table=D_800A3778;break;case 3:table=D_800A3800;break;case 4:table=D_800A3828;break;case 5:table=D_800A3850;break;case 6:table=config->params;break;default:table=D_800A3878;break;}
+fx->count=table[0];fx->length=table[1];fx->delay=alHeapDBAlloc(0,0,heap,fx->count,40);fx->base=alHeapDBAlloc(0,0,heap,fx->length,2);fx->write=fx->base;pi=2;
+for(zi=0;zi<fx->length;zi++)fx->base[zi]=0;
+for(di=0;di<fx->count;di++){dly=&fx->delay[di];dly->input=table[pi++];dly->output=table[pi++];dly->fb=table[pi++];dly->ff=table[pi++];dly->gain=table[pi++];
+if(table[pi]){dly->rsinc=((f32)table[pi++]/1000.0f)*2.0/config->rate;dly->depth=((f32)table[pi++]/100.0)*(dly->output-dly->input);dly->rsgain=1.0f;dly->delta=0;dly->rs=alHeapDBAlloc(0,0,heap,1,52);dly->rs->state=alHeapDBAlloc(0,0,heap,1,32);dly->rs->delta=0;dly->rs->first=1;}else{dly->rs=0;pi+=2;}
+if(table[pi]){dly->lp=alHeapDBAlloc(0,0,heap,1,48);dly->lp->state=alHeapDBAlloc(0,0,heap,1,8);dly->lp->fc=table[pi++];lp=dly->lp;half=(lp->fc * 65536) >> 17;lp->fg=16384-half;lp->first=1;
 for(k=7;k>=0;k--)lp->coeff[k]=0;lp->coeff[8]=half;f=(s16)half/32768.0;ratio=f;for(k=9;k<16;k++){f*=ratio;lp->coeff[k]=f*32768.0;}}
-else{d->lp=0;j++;}
+else{dly->lp=0;pi++;}
 }
 }

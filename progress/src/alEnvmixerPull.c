@@ -1,11 +1,16 @@
-typedef struct Param {struct Param *next;s32 time;s16 type,reset;s32 value,value2,value3,value4;} Param;
-typedef struct Env {struct Env *input;s32 pad4;s32 (*handler)(struct Env *,s32,s32);u8 padc[12];s16 pan,volume,cvolL,cvolR;u16 dry,wet,rateL;s16 ratemL,targetL;u16 rateR;s16 ratemR,targetR;s32 delta,segEnd,first;Param *ctrl,*tail;} Env;
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 extern s16 D_800A38A0[];extern u8 D_800A7070[],D_800A7074[];extern void *D_800A2500;
 extern void func_800914E0(void *,void *,s32);extern void func_8008EC18(void *);extern void _freePVoice(void *,void *);
-extern void *_pullSubFrame(Env *,s16 *,s16 *,s32,s32,void *);extern f32 _getVol(f32,s32,s16,u16);
-void *alEnvmixerPull(Env *env, s16 *out,s32 count,s32 time,void *cmd){
-s16 left,right;s32 last=time,delta;Param *p,*freeParam,*done;Env *state;
+extern void *_pullSubFrame(VRALEnv *,s16 *,s16 *,s32,s32,void *);extern f32 _getVol(f32,s32,s16,u16);
+
+/* Mixes one audio frame of envelope state for `env`. Walks the env's control
+ * queue (VRALParam list) up to `time`: each event either starts a new voice
+ * segment (type 13), ramps volume/pan/reverb (11, 12, 16), sets pan or
+ * reverb directly (14, 15), frees a voice (0), or forwards to the handler. Between
+ * events the sub-frame is pulled into out-of-line buffers via _pullSubFrame.
+ * Returns the updated command list pointer. */
+void *alEnvmixerPull(VRALEnv *env, s16 *out,s32 count,s32 time,void *cmd){
+s16 left,right;s32 last=time,delta;VRALParam *p,*voice,*done;VRALEnv *state;
 right=0;left=0;
 while(env->ctrl){
 {s32 previous=last;last=env->ctrl->time;delta=last-previous;}if(count<delta)break;
@@ -41,7 +46,7 @@ env->first=1;break;
 case 14:
 p=env->ctrl;if(p->reset)env->handler(env,8,0);env->handler(env,5,p->value);env->handler(env,9,0);break;
 case 15:cmd=_pullSubFrame(env,&left,&right,delta,time,cmd);env->handler(env,4,0);break;
-case 0:{struct Voice {u8 pad[0xd8];s32 offset;};void *synth=D_800A2500;freeParam=env->ctrl;((struct Voice *)freeParam->value)->offset=0;_freePVoice(synth,(void *)freeParam->value);}break;
+case 0:{struct Voice {u8 pad[0xd8];s32 offset;};void *synth=D_800A2500;voice=env->ctrl;((struct Voice *)voice->value)->offset=0;_freePVoice(synth,(void *)voice->value);}break;
 default:cmd=_pullSubFrame(env,&left,&right,delta,time,cmd);env->handler(env,env->ctrl->type,env->ctrl->value);break;
 }
 done=env->ctrl;count-=delta;right+=delta*2;env->ctrl=done->next;if(!env->ctrl)env->tail=0;func_8008EC18(done);

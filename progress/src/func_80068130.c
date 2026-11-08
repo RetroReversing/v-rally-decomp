@@ -31,7 +31,7 @@ extern Manager *D_800C3508;
  extern u8 *D_800C35A0;
  extern State *D_800A1468;
 
-void func_80057D5C(s32,s32,s32,s32);void *func_800592AC(u32);void *func_800592D0(u32);
+void func_80057D5C(s32,s32,s32,s32);void *func_800592AC(u32);void *text_obj_get(u32);
  void func_8008A0D8(Manager *,s32,s32);
 
 s32 func_80068130(void) {
@@ -54,13 +54,13 @@ u.obj->f=0x50;
 u.obj->g=0x50;
 u.obj->h=0x50;
  D_800C3508->items[D_800C3508->count].value=12;
- tmp=func_800592D0(7);
+ tmp=text_obj_get(7);
 tmp->enabled=1;
 tmp=tmp->next;
 u.ret=12;
 tmp->enabled=1;
 }
- else {tmp=func_800592D0(7);
+ else {tmp=text_obj_get(7);
 tmp->enabled=0;
 tmp=tmp->next;
 tmp->enabled=0;

@@ -29,7 +29,8 @@ extern Rec71 D_800C3AD0[];
 extern char D_800A5CFC[];
 extern s16 D_800A5D04;
 extern s8 D_800A5D06;
-extern char D_800A5D08[];void *func_800592D0(u32);
+extern char D_800A5D08[];
+void *text_obj_get(u32);
 extern char *func_80057918(s32, u16);
 extern void func_80052E94(s32, char *);
 extern void func_80059618(Obj71 *, u8, u8, u8, s32);
@@ -37,7 +38,11 @@ void func_800596F4(void *, s16, s16, void *);
 extern void memset(char *, s32, s32);
 extern void func_800980D0(char *, char *);
 extern void func_80099DF8(char *, char *, ...);
-void func_800710F0(void)
+
+/* Draws the best-times screen for the current track: the track name, the
+ * top three times of the selected set (with gap to the best), and the
+ * player's own list. Track indices 8 and up use the second table. */
+void draw_best_times_screen(void)
 {
   char buf[16];
   s32 best = 0;
@@ -47,13 +52,13 @@ void func_800710F0(void)
   Obj71 *obj;
   Obj71 *obj2;
   char *s;
-  obj = func_800592D0(0x13);
+  obj = text_obj_get(0x13);
   j = 0;
   s = func_80057918(D_800C8328, D_800A171C[D_800C35A0->idx]);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(s));
   memset(buf, 0, 15);
-  obj = func_800592D0(0x10);
+  obj = text_obj_get(0x10);
   do
   {
     func_80099DF8(buf, D_800A5CFC, j + 1, D_800C3750[D_800C35A0->idx][j].name);
@@ -61,8 +66,8 @@ void func_800710F0(void)
     j++;
   }
   while (j < 3);
-  obj = func_800592D0(0x12);
-  obj2 = func_800592D0(0x11);
+  obj = text_obj_get(0x12);
+  obj2 = text_obj_get(0x11);
   j = 0;
   p = buf;
   do
@@ -95,13 +100,13 @@ void func_800710F0(void)
   if (obj->b)
   {
     memset(buf, 0, 15);
-    obj = func_800592D0(0x18);
+    obj = text_obj_get(0x18);
     j = 0;
   }
   else
   {
     memset(buf, 0, 15);
-    obj = func_800592D0(0x18);
+    obj = text_obj_get(0x18);
     j = 0;
   }
   do
@@ -118,8 +123,8 @@ void func_800710F0(void)
     j++;
   }
   while (j < 3);
-  obj = func_800592D0(0x1A);
-  obj2 = func_800592D0(0x19);
+  obj = text_obj_get(0x1A);
+  obj2 = text_obj_get(0x19);
   j = 0;
   p = buf;
   do

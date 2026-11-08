@@ -10,35 +10,34 @@ void func_800560E0(void *, s32);
 typedef struct 
 {
   u8 b[8];
-} B8;
+} Chunk8;
 typedef struct 
 {
   u8 b[12];
-} B12;
-typedef struct 
-{
-  u32 w[31];
-} B124;
+} Chunk12;
 typedef struct 
 {
   u32 w[4];
-} B16;
+} Chunk16;
 typedef struct 
 {
   u32 w[3];
-} Btail;
+} ChunkTail;
 typedef struct 
 {
   u32 w[5];
-} B20;
+} Chunk20;
 typedef struct 
 {
   u32 w[16];
-} B64;
-void *func_800163E4(void *arg0, u8 *arg1, u8 *arg2)
+} Chunk64;
+/* Adds a new entry to the table at tbl (count at 0x20, entries of 0x38 bytes):
+ * copies the template header, builds the per-part list of 0x94-byte nodes with a
+ * sound handle for each part, and links the five parts together. Returns the entry. */
+void *func_800163E4(void *owner, u8 *tbl, u8 *initData)
 {
-  char *new_var;
-  u8 *fp = func_80016204(arg0);
+  char *slotPtr;
+  u8 *info = func_80016204(owner);
   u8 *r;
   u8 *p;
   u8 *q;
@@ -46,10 +45,10 @@ void *func_800163E4(void *arg0, u8 *arg1, u8 *arg2)
   s32 i;
   s32 handle;
   s32 mode;
-  *((u16 *) (arg1 + 0x22)) = *((u16 *) (arg1 + 0x20));
-  new_var = D_800C02AE + 0x5dce;
-  r = arg1 + (((*((u16 *) (arg1 + 0x20))) * 0x38) + 0x3c);
-  *((B8 *) r) = *((B8 *) arg2);
+  *((u16 *) (tbl + 0x22)) = *((u16 *) (tbl + 0x20));
+  slotPtr = D_800C02AE + 0x5dce;
+  r = tbl + (((*((u16 *) (tbl + 0x20))) * 0x38) + 0x3c);
+  *((Chunk8 *) r) = *((Chunk8 *) initData);
   {
     u8 *dst = func_8007EAA0(1, 0x7c);
     u8 *src = D_800C7F80;
@@ -57,36 +56,36 @@ void *func_800163E4(void *arg0, u8 *arg1, u8 *arg2)
     *((void **) (r + 8)) = dst;
     do
     {
-      *((B16 *) dst) = *((B16 *) src);
+      *((Chunk16 *) dst) = *((Chunk16 *) src);
       src += 16;
       dst += 16;
     }
     while (src != end);
-    *((Btail *) dst) = *((Btail *) src);
+    *((ChunkTail *) dst) = *((ChunkTail *) src);
   }
   n = *((u16 *) ((*((u8 **) (r + 8))) + 0x28));
   *((void **) ((*((u8 **) (r + 8))) + 0x24)) = func_8007EAA0(1, n * 20);
   for (i = 0; i < n; i++)
   {
-    ((B20 *) (*((void **) ((*((u8 **) (r + 8))) + 0x24))))[i] = ((B20 *) (*((void **) (D_800C7F80 + 0x24))))[i];
+    ((Chunk20 *) (*((void **) ((*((u8 **) (r + 8))) + 0x24))))[i] = ((Chunk20 *) (*((void **) (D_800C7F80 + 0x24))))[i];
   }
 
-  *((u8 **) new_var) = r;
-  *((B12 *) (r + 0x20)) = *((B12 *) (D_800C7F80 + 4));
+  *((u8 **) slotPtr) = r;
+  *((Chunk12 *) (r + 0x20)) = *((Chunk12 *) (D_800C7F80 + 4));
   *((u16 *) (r + 0x2c)) = 1;
   r[0x2f] = 0;
-  ++(*((u16 *) (arg1 + 0x20)));
-  *((void **) (r + 0x10)) = func_8007EAA0(1, (*((u16 *) (fp + 4))) * 4);
-  *((u32 *) (r + 0xc)) = *((u16 *) (fp + 4));
+  ++(*((u16 *) (tbl + 0x20)));
+  *((void **) (r + 0x10)) = func_8007EAA0(1, (*((u16 *) (info + 4))) * 4);
+  *((u32 *) (r + 0xc)) = *((u16 *) (info + 4));
   for (i = 0; ((u32) i) < (*((u32 *) (r + 0xc))); i++)
   {
     handle = 0;
-    p = (*((u8 **) fp)) + (i * 0x6c);
+    p = (*((u8 **) info)) + (i * 0x6c);
     q = func_8007EAA0(1, 0x94);
     memset(q, 0, 0x94);
     *((u32 *) q) = 0;
-    *((B64 *) (q + 8)) = *((B64 *) (p + 0xc));
-    *((B64 *) (q + 0x48)) = *((B64 *) (p + 0xc));
+    *((Chunk64 *) (q + 8)) = *((Chunk64 *) (p + 0xc));
+    *((Chunk64 *) (q + 0x48)) = *((Chunk64 *) (p + 0xc));
     (*((u8 ***) (r + 0x10)))[i] = q;
     *((u8 **) ((*((u8 ***) (r + 0x10)))[i] + 0x8c)) = p;
     mode = (u8) D_800C02AE[0x7678];

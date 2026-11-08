@@ -15,104 +15,110 @@ void func_80053C28(s32, s32);
 u32 func_80098090(void);
 void func_800980C4(u32);
 void func_80099DF8(s32 *, char *, char *, s32);
+
+/* Chooses the car for each player in the race. Players without a name get a
+ * default one. When the race uses class rules, each remaining car slot is
+ * filled by a random car of the required class that no earlier slot has
+ * taken and that is not flagged in the car database. The chosen car
+ * indices are then copied back into the player records. */
 void func_800407D0(void)
 {
-  s32 cls[4];
-  s32 name[2];
-  u32 count;
-  u32 n;
+  s32 classes[4];
+  s32 name_buf[2];
+  u32 ncars;
+  u32 nplayers;
   u16 i;
   u32 k;
-  u32 j;
-  u16 *cars;
-  Db40 *dbs;
-  Car40 *db;
-  s32 *p;
-  s32 *q;
-  s32 done;
-  u32 r;
-  s32 ok;
+  u32 slot;
+  u16 *car_ids;
+  Db40 *db_root;
+  Car40 *cars_db;
+  s32 *cls_next;
+  s32 *cls_cur;
+  s32 picked;
+  u32 car;
+  s32 unique;
 
-  count = D_800D0630;
-  n = D_800C35A0->nplayers;
-  cars = D_800C35A0->car;
-  dbs = &D_800D05E0;
+  ncars = D_800D0630;
+  nplayers = D_800C35A0->nplayers;
+  car_ids = D_800C35A0->car;
+  db_root = &D_800D05E0;
   func_800980C4(osGetTime());
-  if (count == 0)
+  if (ncars == 0)
     return;
-  for (i = 0; i < n; i++)
+  for (i = 0; i < nplayers; i++)
   {
-    cars[i] = D_800C35A0->pl[D_800C35A0->slot[i]].car;
+    car_ids[i] = D_800C35A0->pl[D_800C35A0->slot[i]].car;
     if (D_800C35A0->pl[D_800C35A0->slot[i]].name[0] == 0)
     {
-      func_80099DF8(name, D_800A4C20, D_800A4C28, i + 1);
-      *(s32 *) D_800C35A0->pl[D_800C35A0->slot[i]].name = name[0];
+      func_80099DF8(name_buf, D_800A4C20, D_800A4C28, i + 1);
+      *(s32 *) D_800C35A0->pl[D_800C35A0->slot[i]].name = name_buf[0];
     }
   }
   if (D_800C35A0->flag == 0)
     return;
-  db = dbs->cars;
-  for (i = 0; i < n; i++)
-    cls[i] = db[D_800C35A0->pl[D_800C35A0->slot[i]].car].cls;
-  i = n;
+  cars_db = db_root->cars;
+  for (i = 0; i < nplayers; i++)
+    classes[i] = cars_db[D_800C35A0->pl[D_800C35A0->slot[i]].car].cls;
+  i = nplayers;
   if (i < 4)
   {
-    p = cls;
+    cls_next = classes;
     do
     {
       switch (D_800C35A0->nplayers)
       {
         case 1:
-          if (cls[0] == 2)
-            cls[0] = 0;
-          done = 0;
-          q = p;
-          j = i;
+          if (classes[0] == 2)
+            classes[0] = 0;
+          picked = 0;
+          cls_cur = cls_next;
+          slot = i;
           do
           {
-            r = func_80098090() % count;
-            ok = 1;
-            if (db[r].cls == *q)
+            car = func_80098090() % ncars;
+            unique = 1;
+            if (cars_db[car].cls == *cls_cur)
             {
-              u32 lim = j;
+              u32 lim = slot;
               for (k = 0; k < lim; k++)
-                ok &= -(cars[k] != r);
-              if (ok && !(db[r].flags & 8))
+                unique &= -(car_ids[k] != car);
+              if (unique && !(cars_db[car].flags & 8))
               {
-                cars[j] = r;
-                done = 1;
-                func_80053C28(D_800C35A0->slot[j], r & 0xFF);
+                car_ids[slot] = car;
+                picked = 1;
+                func_80053C28(D_800C35A0->slot[slot], car & 0xFF);
               }
             }
           }
-          while (!done);
+          while (!picked);
           break;
         case 2:
-          if (cls[0] == 2)
-            cls[0] = 0;
-          if (cls[1] == 2)
-            cls[1] = 0;
-          done = 0;
-          j = i;
+          if (classes[0] == 2)
+            classes[0] = 0;
+          if (classes[1] == 2)
+            classes[1] = 0;
+          picked = 0;
+          slot = i;
           do
           {
-            r = func_80098090() % count;
-            ok = 1;
-            if (db[r].cls == *p)
+            car = func_80098090() % ncars;
+            unique = 1;
+            if (cars_db[car].cls == *cls_next)
             {
-              u32 lim = j;
+              u32 lim = slot;
               for (k = 0; k < lim; k++)
-                ok &= -(cars[k] != r);
-              if (ok && !(db[r].flags & 8))
+                unique &= -(car_ids[k] != car);
+              if (unique && !(cars_db[car].flags & 8))
               {
-                done = 1;
-                cars[j] = r;
-                func_80053C28(D_800C35A0->slot[j], r & 0xFF);
-                p++;
+                picked = 1;
+                car_ids[slot] = car;
+                func_80053C28(D_800C35A0->slot[slot], car & 0xFF);
+                cls_next++;
               }
             }
           }
-          while (!done);
+          while (!picked);
           break;
         case 3:
           break;

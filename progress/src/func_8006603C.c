@@ -41,7 +41,7 @@ void func_8006A25C(void);
 void func_8008A0D8(s32 p, s32 a, char b);
 void *func_800592AC(u32);
 void func_8005C0E8(s32, u32, u32);
-void func_800603B4(void);
+void hud_setup_stage_results(void);
 void func_80057B40(s32, u16, u8, u8);
 inline static u16 inline_fn(SceneState *arg0)
 {
@@ -85,7 +85,7 @@ void func_8006603C(void)
     p->unk41 = 0;
     func_8005C0E8(2, 1, 4);
   }
-  func_800603B4();
+  hud_setup_stage_results();
   limit = 3;
   if (D_800A16D4 < limit)
   {

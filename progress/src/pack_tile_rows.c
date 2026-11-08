@@ -6,7 +6,12 @@ extern u8 *D_800D0634[];
 extern u16 D_800C5D9C[];
 extern u8 D_800C721E[];
 extern s32 func_8006B924(u8 *);
-void func_8006D10C(void)
+
+/* Packs one group of three rows into the byte buffer D_800C721E. Each column
+ * gets a code from func_8006B924 and a level from D_800C5D9C; code 5 writes a
+ * fixed pattern, other codes write the level as 2-bit flags plus a 10-bit
+ * value. The group base depends on the table selected by D_800C35A0[31]. */
+void pack_tile_rows(void)
 {
   s32 r;
   u8 n;
@@ -193,4 +198,3 @@ packed_loop:
   }
   if ((i & 255) < 3) goto packed_loop;
 }
-

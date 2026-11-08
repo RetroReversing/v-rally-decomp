@@ -1,4 +1,4 @@
-s32 func_80034FF0(s32, s32);void *func_800592AC(u32);void *func_800592D0(u32);
+s32 func_80034FF0(s32, s32);void *func_800592AC(u32);void *text_obj_get(u32);
 s32 func_800592F4(s32, s32);
 s32 func_80081540(void *);
 s32 func_8008A0D8(s32, s32, s32);
@@ -21,7 +21,7 @@ void func_80068FE0(void)
   s32 i;
   s32 idx8;
   u32 bits;
-  rec = func_800592D0(0);
+  rec = text_obj_get(0);
   sh_val = 3;
   if ((*(((s8 *) D_800A1468) + 0x228)) != 0)
   {

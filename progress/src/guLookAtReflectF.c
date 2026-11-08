@@ -3,7 +3,11 @@ typedef struct { LightT l[2]; } LookAtT;
 void guMtxIdentF(f32 mf[4][4]);
 f32 sqrtf(f32);
 
-void guLookAtReflectF(f32 mf[4][4], LookAtT *l, f32 xEye, f32 yEye, f32 zEye,
+/* Builds a reflection-style look-at matrix (the libultra guLookAtReflect
+ * variant): looks from eye toward at with up hint `up`, writes the 4x4 float
+ * matrix to mf, and fills the two directional lights in `lights` with the
+ * right and up axes (light 0 = right, light 1 = up, colour 0x80 green on up). */
+void guLookAtReflectF(f32 mf[4][4], LookAtT *lights, f32 xEye, f32 yEye, f32 zEye,
                       f32 xAt, f32 yAt, f32 zAt, f32 xUp, f32 yUp, f32 zUp)
 {
   f32 len, xLook, yLook, zLook, xRight, yRight, zRight;
@@ -34,29 +38,29 @@ void guLookAtReflectF(f32 mf[4][4], LookAtT *l, f32 xEye, f32 yEye, f32 zEye,
   yUp *= len;
   zUp *= len;
 
-  l->l[0].dir[0] = (xRight * 128.0f < 127.0f) ? (s32)(xRight * 128.0f) : 127;
-  l->l[0].dir[1] = (yRight * 128.0f < 127.0f) ? (s32)(yRight * 128.0f) : 127;
-  l->l[0].dir[2] = (zRight * 128.0f < 127.0f) ? (s32)(zRight * 128.0f) : 127;
-  l->l[1].dir[0] = (xUp * 128.0f < 127.0f) ? (s32)(xUp * 128.0f) : 127;
-  l->l[1].dir[1] = (yUp * 128.0f < 127.0f) ? (s32)(yUp * 128.0f) : 127;
-  l->l[1].dir[2] = (zUp * 128.0f < 127.0f) ? (s32)(zUp * 128.0f) : 127;
+  lights->l[0].dir[0] = (xRight * 128.0f < 127.0f) ? (s32)(xRight * 128.0f) : 127;
+  lights->l[0].dir[1] = (yRight * 128.0f < 127.0f) ? (s32)(yRight * 128.0f) : 127;
+  lights->l[0].dir[2] = (zRight * 128.0f < 127.0f) ? (s32)(zRight * 128.0f) : 127;
+  lights->l[1].dir[0] = (xUp * 128.0f < 127.0f) ? (s32)(xUp * 128.0f) : 127;
+  lights->l[1].dir[1] = (yUp * 128.0f < 127.0f) ? (s32)(yUp * 128.0f) : 127;
+  lights->l[1].dir[2] = (zUp * 128.0f < 127.0f) ? (s32)(zUp * 128.0f) : 127;
 
-  l->l[0].col[0] = 0;
-  l->l[0].col[1] = 0;
-  l->l[0].col[2] = 0;
-  l->l[0].pad1 = 0;
-  l->l[0].colc[0] = 0;
-  l->l[0].colc[1] = 0;
-  l->l[0].colc[2] = 0;
-  l->l[0].pad2 = 0;
-  l->l[1].col[0] = 0;
-  l->l[1].col[1] = 0x80;
-  l->l[1].col[2] = 0;
-  l->l[1].pad1 = 0;
-  l->l[1].colc[0] = 0;
-  l->l[1].colc[1] = 0x80;
-  l->l[1].colc[2] = 0;
-  l->l[1].pad2 = 0;
+  lights->l[0].col[0] = 0;
+  lights->l[0].col[1] = 0;
+  lights->l[0].col[2] = 0;
+  lights->l[0].pad1 = 0;
+  lights->l[0].colc[0] = 0;
+  lights->l[0].colc[1] = 0;
+  lights->l[0].colc[2] = 0;
+  lights->l[0].pad2 = 0;
+  lights->l[1].col[0] = 0;
+  lights->l[1].col[1] = 0x80;
+  lights->l[1].col[2] = 0;
+  lights->l[1].pad1 = 0;
+  lights->l[1].colc[0] = 0;
+  lights->l[1].colc[1] = 0x80;
+  lights->l[1].colc[2] = 0;
+  lights->l[1].pad2 = 0;
 
   mf[0][0] = xRight;
   mf[1][0] = yRight;

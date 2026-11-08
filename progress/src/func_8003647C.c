@@ -29,7 +29,7 @@ typedef struct {
 
 extern s32 func_8002D2C8(s32, s32);
 extern void func_8002E148(s16 *, s32 *);
-void *func_8002E514(void *, void *, void *);
+void *mtx3_transform_vec3(void *, void *, void *);
 extern s32 func_80098090(void);
 extern SmokeTable *D_800C811C;
 extern Car *D_800C7F84;
@@ -65,7 +65,7 @@ __repair_call_arithmetic = angle - 0x200;
 
             rot[1] = __repair_call_arithmetic + func_80098090() % 1023;
             func_8002E148(rot, mtx);
-            func_8002E514(mtx, vec, p);
+            mtx3_transform_vec3(mtx, vec, p);
         }
         p->px = p->x;
         p->pz = p->z;

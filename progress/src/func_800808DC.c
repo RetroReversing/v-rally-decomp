@@ -29,7 +29,7 @@ static inline s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
   return 1;
 }
 
-static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
+static inline u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
 {
   u8 *start = (u8 *) (h + 1);
   u32 gran;
@@ -68,6 +68,10 @@ static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s
   return NULL;
 }
 
+/* First-fit/best-fit heap allocator. Blocks are chained by Header; a block
+ * with used == 0 is free. Returns a pointer to 'size' bytes aligned to 'align',
+ * placed so the range avoids granules whose bits in D_800C33D0 overlap 'mask'
+ * (granule = 1 << shift). Splits the chosen free block around the result. */
 void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
 {
   Header *first;
@@ -83,9 +87,9 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   s32 mode;
   u32 bestMode;
   u32 i;
-  int new_var;
+  int zero;
   u32 e;
-  u8 *new_var2;
+  u8 *pm1;
   s32 k;
   u32 *t;
   u32 m;
@@ -102,8 +106,8 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   bestH = NULL;
   res = NULL;
-  new_var = 0;
-  bestMode = new_var;
+  zero = 0;
+  bestMode = zero;
   if (first->init == 0)
   {
     e = ((u8 *) first->next) - ((u8 *) (first + 1));
@@ -165,7 +169,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
           bestH = h;
           if (mode != 2)
           {
-            res = (u8 *) (((s32) ((new_var2 = p - 1) + align)) & (-align));
+            res = (u8 *) (((s32) ((pm1 = p - 1) + align)) & (-align));
           }
           else
           {
@@ -257,4 +261,3 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   return res;
 }
-

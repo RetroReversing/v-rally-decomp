@@ -80,19 +80,26 @@ extern struct N *func_8004240C(int);
 extern void func_80047B54(void *, s32, s16, s16);
 extern void func_8005BCD4(void);
 extern void func_800599D0(u8 *, s32);
-extern void *func_800592D0(u32);
+extern void *text_obj_get(u32);
 extern void *func_800592AC(u32);
 typedef struct { u8 pad0[0xA]; s8 group; } GroupOwner;
 extern void func_80059618(GroupOwner *, u8, u8, u8, u8);
 extern s32 func_80057918(s32 *, s32);
 typedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;
 void func_800596F4(void *, s16, s16, void *);
-static __inline__ void __repair_aggregate_call_context_groups(u8 idx,s32 primary,s32 last,s32 other) {
+
+/* Picks the current text context from the call slot: slots 0 and 1 use
+ * `primary`, slot 4 uses `last`, anything else uses `other`. */
+static __inline__ void set_group_ctx(u8 idx,s32 primary,s32 last,s32 other) {
 if(idx==0) { D_800C7F84=func_8004240C(primary); }
 else if(idx==1) { D_800C7F84=func_8004240C(primary); }
 else if(idx==4) { D_800C7F84=func_8004240C(last); }
 else { D_800C7F84=func_8004240C(other); }
 }
+
+/* Per-frame menu draw. Runs the five task slots (skipping slot 1 while
+ * MENU->f24D is set), the menu callback, then draws the style sprites, the
+ * widget and group text, and counts down the menu timers. */
 void func_80059A60(void)
 {
   u8 i;
@@ -115,13 +122,12 @@ void func_80059A60(void)
       {
         continue;
       }
-      __repair_aggregate_call_context_groups(i,2,1,1);
+      set_group_ctx(i,2,1,1);
       if ((i != 1) || (!MENU->f24D))
       {
         D_800C5D20[(unsigned int) i]->fn(D_800C5D20[i]->arg);
       }
     }
-
   }
   if (MENU->callback)
   {
@@ -135,7 +141,30 @@ void func_80059A60(void)
   {
     n = MENU->nstyles;
     s = MENU->styles;
- for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0((u8 *)s, s->mode); } } } if (MENU->nwidgets) { n = MENU->nwidgets; w = MENU->widgets; for (i = 0; i < n; i++, w = w->next) { flags = (u8 *)w + 0x41; if (*flags) { func_800599D0(w->sub, w->mode); if ((!w->useStyleMode) || w->mode) { s = w->styles; for (j = 0; j < w->nstyles; s = s->next, j++) { if (s->visible) { u8 hl; if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; } if (hl) { func_80059618((GroupOwner *)s, 220, 220, 14, 255);
+    for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0((u8 *)s, s->mode); } }
+  }
+  if (MENU->nwidgets)
+  {
+    n = MENU->nwidgets;
+    w = MENU->widgets;
+    for (i = 0; i < n; i++, w = w->next)
+    {
+      flags = (u8 *)w + 0x41;
+      if (*flags)
+      {
+        func_800599D0(w->sub, w->mode);
+        if ((!w->useStyleMode) || w->mode)
+        {
+          s = w->styles;
+          for (j = 0; j < w->nstyles; s = s->next, j++)
+          {
+            if (s->visible)
+            {
+              u8 hl;
+              if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; }
+              if (hl)
+              {
+                func_80059618((GroupOwner *)s, 220, 220, 14, 255);
               }
               else
               {
@@ -144,11 +173,9 @@ void func_80059A60(void)
               func_800596F4((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id)));
             }
           }
-
         }
       }
     }
-
   }
   if (MENU->ngroups)
   {
@@ -159,12 +186,11 @@ void func_80059A60(void)
       if (g->active)
       {
         MENU->f24D = 0;
-        s = func_800592D0(g->b9);
+        s = text_obj_get(g->b9);
         for (j = 0; j < g->b8; j++, s = s->next)
         {
           func_800599D0((u8 *)s, s->mode);
         }
-
         w = func_800592AC(g->w0);
         func_800599D0(w->sub, w->mode);
         which = g->w1;
@@ -173,7 +199,6 @@ void func_80059A60(void)
         MENU->f24D = 1;
       }
     }
-
   }
   if (MENU->ngroups2)
   {
@@ -186,23 +211,20 @@ void func_80059A60(void)
         MENU->f24D = 0;
         if (g->b9)
         {
-          s = func_800592D0(g->b8);
+          s = text_obj_get(g->b8);
           for (j = 0; j < g->b9; j++, s = s->next)
           {
             func_800599D0((u8 *)s, s->mode);
           }
-
         }
         w = func_800592AC(g->w0);
         for (j = 0; j < g->w1; j++, w = w->next)
         {
           func_800599D0(w->sub, w->mode);
         }
-
         MENU->f24D = 1;
       }
     }
-
   }
   if (MENU->f24B >= 0)
   {

@@ -1,7 +1,7 @@
 extern u8 D_800C02AE[];
 extern u8 *D_800A1468;
 extern s32 D_800C8328;
-s32 func_80057918(s32, s32);void *func_800592D0(u32);
+s32 func_80057918(s32, s32);void *text_obj_get(u32);
 void func_80059618(void *, u32, u32, u32, u32);
 void func_800596F4(void *, s16, s16, void *);
 void func_800620F0(s32);
@@ -19,7 +19,7 @@ void func_80062184(Args args, s32 arg4, s32 arg5) {
     i = 0;
     if (*(u16 *)&arg5 != 0) {
         do {
-            obj = func_800592D0(i);
+            obj = text_obj_get(i);
             if (i == *(u16 *)(*(u8 **)(D_800C02AE + 0x32F2) + 0x22) && D_800A1468[0x245] != 0) {
                 func_80059618(obj, 0xDC, 0xDC, 0xE, 0xFF);
             } else {

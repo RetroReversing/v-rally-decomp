@@ -38,7 +38,7 @@ typedef struct
 } Rec;
 extern Node **D_800B5C40;
 extern Game *D_800C35A0;
-extern Entry D_800C7F90[5];
+extern Entry gResultsTable[5];
 extern u8 D_800C3616[];
 extern u8 D_800C3654[];
 extern u8 D_800C365A[];
@@ -60,39 +60,39 @@ void func_80078018(void)
   s32 zz;
   s32 d;
 
-  memset(D_800C7F90, 0, 120);
+  memset(gResultsTable, 0, 120);
   while (node)
   {
     k = func_80077FA8(i);
-    if (D_800C7F90[k].node)
+    if (gResultsTable[k].node)
       k--;
-    D_800C7F90[k].node = node;
-    func_80098290(D_800C7F90[k].name, D_800C35A0->drivers[D_800C35A0->slot[i]].name);
+    gResultsTable[k].node = node;
+    func_80098290(gResultsTable[k].name, D_800C35A0->drivers[D_800C35A0->slot[i]].name);
     d = D_800C35A0->drivers[D_800C35A0->slot[i]].car;
-    D_800C7F90[k].idx = i;
-    D_800C7F90[k].car = d;
+    gResultsTable[k].idx = i;
+    gResultsTable[k].car = d;
     {
     u32 *lap = D_800B55FC->lap;
     u32 *dist = D_800B55FC->dist;
     Game *g = D_800C35A0;
 #define P(b) (*(u32 *)((u32)(b) + g->track * 4 + (s32)(i << 5)))
-    D_800C7F90[k].time = P(lap);
+    gResultsTable[k].time = P(lap);
     P(dist) /= 100;
-    D_800C7F90[k].speed = (P(dist) * D_8009D540 * 3600) / (P(lap) * 10);
+    gResultsTable[k].speed = (P(dist) * D_8009D540 * 3600) / (P(lap) * 10);
     }
-    D_800C7F90[k].type = *node->type;
+    gResultsTable[k].type = *node->type;
     node = node->next;
     i++;
   }
   for (zz = 0; (u8)zz < 4; zz++)
   {
-    if (D_800C7F90[(u8)zz].time)
+    if (gResultsTable[(u8)zz].time)
     {
-      s32 dd = D_800C7F90[(u8)zz].time - D_800C7F90[0].time;
-      D_800C7F90[(u8)zz].diff = __builtin_abs(dd); }
+      s32 dd = gResultsTable[(u8)zz].time - gResultsTable[0].time;
+      gResultsTable[(u8)zz].diff = __builtin_abs(dd); }
     else
     {
-      D_800C7F90[(u8)zz].diff = 0;
+      gResultsTable[(u8)zz].diff = 0;
     }
   }
   func_80098290(D_800C7FF0, D_800C3616 + D_800C35A0->track * 64);

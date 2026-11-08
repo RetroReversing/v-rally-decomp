@@ -41,11 +41,17 @@ typedef struct Car
 } Car;
 extern void func_8002FFA4(void *, s32, s16, void *);
 extern s32 func_8003035C(void *, s32, void *);
-void func_80032AE4(Car *arg0)
+
+/* For each car that is chasing a target (both flagged 0x800), rewrites the
+ * node positions at both ends of the target's path: the last few nodes ease
+ * from the target's point toward the far end, and the first nodes ease from
+ * the start point toward the near end. Walks the car ring once, stopping
+ * back at arg0 or at a NULL link. */
+void car_fix_path_ends(Car *arg0)
 {
-  Vec3s a;
-  Vec3s b;
-  Vec3s c;
+  Vec3s from;
+  Vec3s to;
+  Vec3s pt;
   Car *car;
   Car *t;
   struct Car *new_var;
@@ -116,43 +122,43 @@ void func_80032AE4(Car *arg0)
       s32 n = (i * 2) + 1;
       start = t->count - n;
     }
-    func_8002FFA4(t, start, v, &a);
-    func_8002FFA4(t, t->count - 1, far, &b);
+    func_8002FFA4(t, start, v, &from);
+    func_8002FFA4(t, t->count - 1, far, &to);
     for (i = start; i <= (t->count - 1); i++)
     {
       __repair_phase_v = start + 1;
-      c.x = b.x - a.x;
-      c.x = (c.x * (i - start)) / (t->count - __repair_phase_v);
-      c.x = c.x + a.x;
-      c.y = b.y - a.y;
-      c.y = (c.y * (i - start)) / (t->count - __repair_phase_v);
-      c.y = c.y + a.y;
-      c.z = b.z - a.z;
-      c.z = (c.z * (i - start)) / (t->count - __repair_phase_v);
-      c.z = c.z + a.z;
-      t->info->nodes[i].pos.x = c.x;
-      t->info->nodes[i].pos.y = c.y;
-      t->info->nodes[i].pos.z = c.z;
-      t->info->nodes[i].val = (s16) func_8003035C(t, i, &c);
+      pt.x = to.x - from.x;
+      pt.x = (pt.x * (i - start)) / (t->count - __repair_phase_v);
+      pt.x = pt.x + from.x;
+      pt.y = to.y - from.y;
+      pt.y = (pt.y * (i - start)) / (t->count - __repair_phase_v);
+      pt.y = pt.y + from.y;
+      pt.z = to.z - from.z;
+      pt.z = (pt.z * (i - start)) / (t->count - __repair_phase_v);
+      pt.z = pt.z + from.z;
+      t->info->nodes[i].pos.x = pt.x;
+      t->info->nodes[i].pos.y = pt.y;
+      t->info->nodes[i].pos.z = pt.z;
+      t->info->nodes[i].val = (s16) func_8003035C(t, i, &pt);
     }
 
-    b = a;
-    func_8002FFA4(t, 0, near, &a);
+    to = from;
+    func_8002FFA4(t, 0, near, &from);
     for (i = 0; i <= start; i++)
     {
-      c.x = b.x - a.x;
-      c.x = (c.x * i) / start;
-      c.x = c.x + a.x;
-      c.y = b.y - a.y;
-      c.y = (c.y * i) / start;
-      c.y = c.y + a.y;
-      c.z = b.z - a.z;
-      c.z = (c.z * i) / start;
-      c.z = c.z + a.z;
-      t->info->nodes[i].pos.x = c.x;
-      t->info->nodes[i].pos.y = c.y;
-      t->info->nodes[i].pos.z = c.z;
-      t->info->nodes[i].val = (s16) func_8003035C(t, i, &c);
+      pt.x = to.x - from.x;
+      pt.x = (pt.x * i) / start;
+      pt.x = pt.x + from.x;
+      pt.y = to.y - from.y;
+      pt.y = (pt.y * i) / start;
+      pt.y = pt.y + from.y;
+      pt.z = to.z - from.z;
+      pt.z = (pt.z * i) / start;
+      pt.z = pt.z + from.z;
+      t->info->nodes[i].pos.x = pt.x;
+      t->info->nodes[i].pos.y = pt.y;
+      t->info->nodes[i].pos.z = pt.z;
+      t->info->nodes[i].val = (s16) func_8003035C(t, i, &pt);
     }
 
     next:

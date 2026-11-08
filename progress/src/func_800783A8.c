@@ -1,5 +1,5 @@
 #define G D_800C35A0
-#define ENTS D_800C7F90
+#define ENTS gResultsTable
 #define TRACKS D_800C3750
 #define RECS D_800D0634
 #define STATS (&D_800B6600)
@@ -55,7 +55,7 @@ extern char D_800AE850[];
 extern char D_800C02AE[];
 extern s32 D_8009D540;
 extern u8 *D_800C35A0;
-extern Ent D_800C7F90[5];
+extern Ent gResultsTable[5];
 extern Track D_800C3750[];
 extern Rec *D_800D0634[];
 extern Stats D_800B6600;

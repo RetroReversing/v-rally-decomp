@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_80005810(void *, M2C_UNK);             /* extern */
 M2C_UNK func_8000A2C4(void *, s16, s16, M2C_UNK);   /* extern */
 void *func_80022668(s32, s32);                      /* extern */
-M2C_UNK func_800475E4(void *, void *);              /* extern */
+M2C_UNK draw_rect_strips(void *, void *);              /* extern */
 extern void *D_8009B5A4;
 extern M2C_UNK D_800C02AE;
 
@@ -37,6 +37,6 @@ void func_80047B54(void *arg0, s32 arg1, s16 arg2, s16 arg3) {
             return;
         }
         func_80005810(M2C_FIELD(arg0, void **, 0x178), 0);
-        func_800475E4(M2C_FIELD(arg0, void **, 0x178), temp_s1_2);
+        draw_rect_strips(M2C_FIELD(arg0, void **, 0x178), temp_s1_2);
     }
 }

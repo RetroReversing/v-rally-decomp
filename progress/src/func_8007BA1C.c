@@ -10,7 +10,7 @@ extern u8 D_800A73E0[];
 extern u8 D_800AE850[];
 extern u8 D_800C02AE[];
 s32 func_8002DA98(u8 *arg0, s32 *arg1);
-void *func_8002E514(void *, void *, void *);
+void *mtx3_transform_vec3(void *, void *, void *);
 f32 sqrtf(f32);
 #define ORG(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
 #define G(i) (((s32 *)(D_800C02AE + 0x5D32))[i])
@@ -30,11 +30,11 @@ u8 func_8007BA1C(u8 *arg0)
   b[0] = D_800A1860 - ORG(0);
   b[1] = D_800A1864 - ORG(1);
   b[2] = D_800A1868 - ORG(2);
-  func_8002E514(m, b, b);
+  mtx3_transform_vec3(m, b, b);
   c[0] = D_800A186C - ORG(0);
   c[1] = D_800A1870 - ORG(1);
   c[2] = D_800A1874 - ORG(2);
-  func_8002E514(m, c, c);
+  mtx3_transform_vec3(m, c, c);
   dx = b[0] - c[0];
   dy = b[1] - c[1];
   dz = b[2] - c[2];
@@ -56,7 +56,7 @@ u8 func_8007BA1C(u8 *arg0)
   a[0] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[0] - ORG(0);
   a[1] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[1] - ORG(1);
   a[2] = ((s32 *)(*(u8 **)(arg0 + 0x5C) + 0x54))[2] - ORG(2);
-  func_8002E514(m, a, a);
+  mtx3_transform_vec3(m, a, a);
   ex = G(0) - a[0];
   ey = G(1) - a[1];
   r = G(2) - a[2];

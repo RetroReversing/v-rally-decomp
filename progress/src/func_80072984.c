@@ -1,5 +1,5 @@
 extern unsigned char D_800B6819;
-extern int D_800C35A0;void *func_800592D0(u32);
+extern int D_800C35A0;void *text_obj_get(u32);
 s32 func_80059618();
 void func_800596F4(void *, s16, s16, void *);
 s32 func_80099DF8();
@@ -40,8 +40,8 @@ void func_80072984(void)
     var_s0 = 8;
     var_s2 = 0;
   }
-  temp_s1 = func_800592D0(0);
-  temp_s7 = func_800592D0(1);
+  temp_s1 = text_obj_get(0);
+  temp_s7 = text_obj_get(1);
   var_s4 = 0;
   temp_s0 = var_s0 & 0xFF;
   sp54 = temp_s0;

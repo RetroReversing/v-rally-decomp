@@ -9,7 +9,7 @@ extern void func_80091600(void *, void *, s32);
 extern s32 __osContAddressCrc(u32);
 extern s32 __osContDataCrc(void *);
 extern u32 func_80097420(s32, s32);
-u32 func_80096A10(s32 arg0, s32 arg1, u16 arg2, void *arg3, s32 arg4)
+u32 __osContRamWrite(s32 arg0, s32 arg1, u16 arg2, void *arg3, s32 arg4)
 {
   u8 scratch[8];
   u8 *p = D_800C02AE + 0x7e82;

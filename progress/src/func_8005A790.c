@@ -61,7 +61,7 @@ s32 func_80057AAC();
 s32 func_8005B6A8();
 s32 func_8005BB14();
 s32 func_8006C99C();
-s32 func_8006D10C();
+s32 pack_tile_rows();
 s32 func_8006DDD8();
 s32 func_8006E33C();
 s32 func_8006ECB4();
@@ -386,7 +386,7 @@ void func_8005A790(void)
         else
           if ((temp_a0_4 != 0) & (temp_a0_4 < 5U))
         {
-          func_8006D10C();
+          pack_tile_rows();
           func_8006F75C();
           D_800AFA5C = 1U;
           var_s1 = &D_800A5268;

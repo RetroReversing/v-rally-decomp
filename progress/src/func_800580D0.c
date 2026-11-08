@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 void *func_800592AC(u32);                           /* extern */
-void *func_800592D0(u32);                            /* extern */
+void *text_obj_get(u32);                            /* extern */
 void *func_8005A744(u32, void *);                      /* extern */
 extern void *D_800A1468;
 
@@ -25,7 +25,7 @@ void func_800580D0(s32 arg0, s8 arg1) {
 
     temp_v0 = func_8005A744(arg0 & 0xFF, (void *)(M2C_FIELD(D_800A1468, void **, 0x24)));
     if (M2C_FIELD(temp_v0, s8 *, 9) != 0) {
-        var_a1 = func_800592D0((u8)(M2C_FIELD(temp_v0, u8 *, 8)));
+        var_a1 = text_obj_get((u8)(M2C_FIELD(temp_v0, u8 *, 8)));
         var_a0 = 0;
         if (M2C_FIELD(temp_v0, s8 *, 9) > 0) {
             do {

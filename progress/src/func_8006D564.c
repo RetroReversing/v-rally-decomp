@@ -32,7 +32,7 @@ extern u8 D_800A57C0[];
 extern s32 func_8006F820(void *, s32);
 extern void func_8006DD04(void *);
 extern long func_8006DDD8(void);
-extern void func_8006D10C(void);
+extern void pack_tile_rows(void);
 extern void func_8006C640(void);
 extern void func_8006CE1C(void);
 extern void func_8006CB9C(void);
@@ -87,7 +87,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->mode = 1;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 5; j++) {
         r = D_800D0634[2];
@@ -99,7 +99,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->mode = 2;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 6; j++) {
         p = (u8 *)D_800D0634[3];
@@ -111,7 +111,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->mode = 3;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 3; j++) {
         p = (u8 *)D_800D0634[4];
@@ -123,7 +123,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->mode = 4;
         D_800C35A0->sel = 0;
         D_800C35A0->sub = j;
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (i = 0; i < 12; i++) {
         for (k = 0; k < 3; k++) {
@@ -175,7 +175,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->sub = j;
         p = (u8 *)D_800D0634[1];
         func_8006DD04(GROUP(p, j));
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 5; j++) {
         D_800C35A0->mode = 2;
@@ -183,7 +183,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->sub = j;
         p = (u8 *)D_800D0634[2];
         func_8006DD04(GROUP(p, j));
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 6; j++) {
         D_800C35A0->mode = 3;
@@ -191,7 +191,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->sub = j;
         p = (u8 *)D_800D0634[3];
         func_8006DD04(GROUP(p, j));
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (j = 0; j < 3; j++) {
         D_800C35A0->mode = 4;
@@ -199,7 +199,7 @@ void func_8006D564(s32 arg0)
         D_800C35A0->sub = j;
         p = (u8 *)D_800D0634[4];
         func_8006DD04(GROUP(p, j));
-        func_8006D10C();
+        pack_tile_rows();
     }
     for (i = 0; i < 12; i++) {
         D_800C35A0->sel = i;

@@ -75,6 +75,13 @@ extern Cursor D_800ADFDC;
 extern s32 D_800ADFE8;
 extern CarList *D_800B5C40;
 extern u8 *D_800C35A0;
+
+/* Updates one car's race standing. Before the race starts (flag at
+ * D_800C35A0+0x1E clear) it only records the car's split at a new checkpoint.
+ * Otherwise it updates the lap counter from the checkpoint change, counts how
+ * many other cars are ahead on track position (lap, then track segment, then
+ * the projection onto the segment direction), sets the gap to the car in
+ * front, and on a checkpoint change stores the split time. */
 void func_80044908(Car *car)
 {
   s32 va[4];
@@ -166,7 +173,7 @@ void func_80044908(Car *car)
           else
             if (seg == oseg)
           {
-#define k i
+#define seg_idx i
             u16 n;
             va[0] = car->body->x - trk->x;
             va[2] = car->body->z - trk->z;
@@ -174,9 +181,9 @@ void func_80044908(Car *car)
             vb[2] = other->body->z - trk->z;
             n = trk->n;
             seg = (seg * n) + (n >> 1);
-            k = seg;
-            vc[0] = trk->verts[(k + n) * 3] - trk->verts[k * 3];
-            vc[2] = trk->verts[((k + n) * 3) + 2] - trk->verts[(k * 3) + 2];
+            seg_idx = seg;
+            vc[0] = trk->verts[(seg_idx + n) * 3] - trk->verts[seg_idx * 3];
+            vc[2] = trk->verts[((seg_idx + n) * 3) + 2] - trk->verts[(seg_idx * 3) + 2];
             va[0] = vb[0] - va[0];
             va[2] = vb[2] - va[2];
             if (((vc[0] * va[0]) + (vc[2] * va[2])) <= 0)
@@ -256,4 +263,3 @@ void func_80044908(Car *car)
     }
   }
 }
-

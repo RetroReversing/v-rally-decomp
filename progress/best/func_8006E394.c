@@ -170,7 +170,7 @@ void func_8006E394(void)
       i=0;
       if(guard_n) { u8 bound_n=(u8)n; do {
 
-        b = base + i;
+{u16 *row=&D_800B6600.flag[base+i];b=row-D_800B6600.flag;}
         do
         {
           do
@@ -188,7 +188,7 @@ void func_8006E394(void)
         while (0);
         D_800B6600.map[b][j] = decoded;
         v = (u8)decoded;
-        new_var = &D_800AE850[inline_fn(j)];
+        new_var=(u8 *)(u32)((u64)(u32)&D_800B6600.map[j][0]-40);
         switch (v)
         {
           case 0:

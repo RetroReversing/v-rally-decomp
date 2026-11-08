@@ -15,7 +15,7 @@ void func_8002D8A0(void *, void *, void *);
 int func_80028E94(void *, void *, int);
 char *func_80028D74(void *, void *);
 void func_80029AA8(void *, void *, void *, int);
-void func_8002A4C4(void *, void *, int, int);
+void track_edge_add_point(void *, void *, int, int);
 int func_80029EAC(void *, void *, int);
 void func_8002D7E4(int, int *);
 void func_8002E778(void *, void *);
@@ -175,7 +175,7 @@ int __repair_literal;
     }
     else if (result < 0)
     {
-      func_8002A4C4(a, &pos, i, result);
+      track_edge_add_point(a, &pos, i, result);
     }
     else
     {

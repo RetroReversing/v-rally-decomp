@@ -19,7 +19,7 @@ extern u8 D_800C81FF;
 extern u16 D_800B5B52;
 extern void func_80053380(void);
 extern void func_8006CE1C(void);
-extern void func_8006D10C(void);
+extern void pack_tile_rows(void);
 extern void func_8006ECB4(void);
 extern void func_8006F75C(void);
 extern void func_80078018(void);
@@ -49,7 +49,7 @@ void func_80053784(void)
     u8 i;
     u8 ok;
 
-    func_8006D10C();
+    pack_tile_rows();
     func_8006F75C();
     p = D_800C35A0;
     step = p->step + 1;

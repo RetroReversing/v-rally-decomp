@@ -12,7 +12,7 @@ typedef struct { char pad[4]; u16 id; s16 pad6; s16 w; s8 sel; char padB[5]; f32
 typedef struct { char pad[8]; u16 id; s16 padA; s16 w; s8 sel; char padF[5]; f32 v; } Seg;
 typedef struct { char pad[0x18]; void *head; void *tail; s32 count; char pad24[0xAC]; u8 pair[0x14][2]; } Mgr;
 
-void *func_8007EAA0(s32, s32);void *func_800592D0(u32);void *func_800592AC(u32);
+void *func_8007EAA0(s32, s32);void *text_obj_get(u32);void *func_800592AC(u32);
 s32 func_80057918(s32, u16);
 s32 func_8000C9B0(void *, void *, u8, f32, u8);
 extern Mgr *D_800A1468;
@@ -38,7 +38,7 @@ void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
     node->b = arg1 - CTX->tab[CTX->idx].base;
     node->n = arg2;
     node->k = arg3;
-    item = func_800592D0((s8)(arg3));
+    item = text_obj_get((s8)(arg3));
     for (i = 0; i < node->n; i++) {
         id = func_80057918(D_800C8328, item->id);
         m = D_800A1468;

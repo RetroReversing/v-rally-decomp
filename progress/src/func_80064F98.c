@@ -27,7 +27,7 @@ typedef struct
   u8 e;
 } Win64F98;
 void func_80052E94(u16, char *);
-char *func_80057918(s32, s32);void *func_800592D0(u32);
+char *func_80057918(s32, s32);void *text_obj_get(u32);
 void func_80059618(Win64F98 *, u8, u8, u8, u8);
 void func_800596F4(void *, s16, s16, void *);void func_8005A6BC(u32);void func_8005A6E0(u32);
 void memset(char *, s32, s32);
@@ -42,100 +42,103 @@ extern Mgr64F98 *D_800C35A0;
 extern Rec64F98 D_800C3650[][4];
 extern s32 D_800C8328;
 extern Tbl64F98 *D_800D0634[];
+/* Fills the best-times screen: three rows of names, then times and gaps to the
+ * leader, then the track name and the next screen. Uses the built-in records
+ * when the flag at D_800A1468[0x245] is clear, otherwise the saved table. */
 void func_80064F98(void)
 {
-  char buf[16];
-  char *text;
-  Win64F98 *w;
-  Win64F98 *w2;
-  u8 i;
-  s32 t;
-  s32 first;
-  s32 a;
+  char line[16];
+  char *textOut;
+  Win64F98 *win;
+  Win64F98 *win2;
+  u8 row;
+  s32 time;
+  s32 firstTime;
+  s32 nextScreen;
   Tbl64F98 **tbl;
-  memset(buf, 0, 15);
-  first = 0;
+  memset(line, 0, 15);
+  firstTime = 0;
   if (D_800A1468[0x245] == 0)
   {
-    w = func_800592D0(0x10);
-    for (i = 0; i < 3; i++)
+    win = text_obj_get(0x10);
+    for (row = 0; row < 3; row++)
     {
-      char *nm = D_800C3650[D_800C35A0->x20][i].name;
-      func_80099DF8(buf, D_800A56C4, i + 1, nm);
-      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
+      char *nm = D_800C3650[D_800C35A0->x20][row].name;
+      func_80099DF8(line, D_800A56C4, row + 1, nm);
+      func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
     }
 
-    w = func_800592D0(0x12);
-    w2 = func_800592D0(0x11);
-    for (i = 0, text = buf; i < 3; i++)
+    win = text_obj_get(0x12);
+    win2 = text_obj_get(0x11);
+    for (row = 0, textOut = line; row < 3; row++)
     {
-      t = D_800C3650[D_800C35A0->x20][i].time;
-      memset(buf, 0, 15);
-      func_80052E94(t, buf);
-      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
-      if (i == 0)
+      time = D_800C3650[D_800C35A0->x20][row].time;
+      memset(line, 0, 15);
+      func_80052E94(time, line);
+      func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
+      if (row == 0)
       {
-        first = t;
+        firstTime = time;
       }
       else
       {
         s32 c;
         s32 h;
-        memset(buf, 0, 15);
+        memset(line, 0, 15);
         h = D_800A56CC;
         c = D_800A56CE;
- do { *((s16 *) buf) = h; buf[2] = c; } while (0);
-        func_80052E94(t - first, buf + 2);
-        func_800980D0(text, D_800A56D0);
-        func_800596F4((void *)(w2), (s16)(w2->x), (s16)(w2->y + ((i - 1) * 22)), (void *)(text));
+ do { *((s16 *) line) = h; line[2] = c; } while (0);
+        func_80052E94(time - firstTime, line + 2);
+        func_800980D0(textOut, D_800A56D0);
+        func_800596F4((void *)(win2), (s16)(win2->x), (s16)(win2->y + ((row - 1) * 22)), (void *)(textOut));
       }
     }
 
-    w = func_800592D0(0x13);
-    func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x20 + 0x1CD)));
+    win = text_obj_get(0x13);
+    func_80059618(win, win->b, win->c, win->d, win->e);
+    func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x20 + 0x1CD)));
     func_8005A6E0(0x15);
-    a = 0x14;
+    nextScreen = 0x14;
   }
   else
   {
-    w = func_800592D0(0x10);
-    for (i = 0; i < 3; i++)
+    win = text_obj_get(0x10);
+    for (row = 0; row < 3; row++)
     {
-      func_80099DF8(buf, D_800A56C4, i + 1, D_800D0634[D_800A1468[0x23C]]->rec[D_800C35A0->x22][i].name);
-      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
+      func_80099DF8(line, D_800A56C4, row + 1, D_800D0634[D_800A1468[0x23C]]->rec[D_800C35A0->x22][row].name);
+      func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
     }
 
-    w = func_800592D0(0x12);
-    w2 = func_800592D0(0x11);
-    for (i = 0, tbl = D_800D0634, text = buf; i < 3; i++)
+    win = text_obj_get(0x12);
+    win2 = text_obj_get(0x11);
+    for (row = 0, tbl = D_800D0634, textOut = line; row < 3; row++)
     {
-      t = tbl[D_800A1468[0x23C]]->rec[D_800C35A0->x22][i].time;
-      func_80052E94(t, buf);
-      func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y + (i * 22)), (void *)(buf));
-      if (i == 0)
+      time = tbl[D_800A1468[0x23C]]->rec[D_800C35A0->x22][row].time;
+      func_80052E94(time, line);
+      func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
+      if (row == 0)
       {
-        first = t;
+        firstTime = time;
       }
       else
       {
         s32 h;
         s32 c;
-        memset(buf, 0, 15);
+        memset(line, 0, 15);
         h = D_800A56CC;
         c = D_800A56CE;
- do { *((s16 *) buf) = h; buf[2] = c; } while (0);
-        func_80052E94(t - first, buf + 2);
-        func_800980D0(text, D_800A56D0);
-        func_800596F4((void *)(w2), (s16)(w2->x), (s16)(w2->y + ((i - 1) * 22)), (void *)(text));
+ do { *((s16 *) line) = h; line[2] = c; } while (0);
+        func_80052E94(time - firstTime, line + 2);
+        func_800980D0(textOut, D_800A56D0);
+        func_800596F4((void *)(win2), (s16)(win2->x), (s16)(win2->y + ((row - 1) * 22)), (void *)(textOut));
       }
     }
 
-    w = func_800592D0(0x13);
-    func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x22 + 0x21A)));
+    win = text_obj_get(0x13);
+    func_80059618(win, win->b, win->c, win->d, win->e);
+    func_800596F4((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(func_80057918(D_800C8328, D_800C35A0->x22 + 0x21A)));
     func_8005A6E0(0x14);
-    a = 0x15;
+    nextScreen = 0x15;
   }
-  func_8005A6BC(a);
+  func_8005A6BC(nextScreen);
 }

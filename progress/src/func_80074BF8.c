@@ -1,5 +1,5 @@
 extern u32 D_800C7F9C[];
-extern char D_800C7F90[];
+extern char gResultsTable[];
 extern s32 D_800C8328;
 extern s32 D_800D0660;
 extern s32 D_800D0664;
@@ -99,7 +99,7 @@ temp_v0 = func_80006008(arg1);
   func_80006298(arg1);
   func_80099DF8(&sp40, &D_800A5DC8);
   temp_s4 = arg0 + 0x40;
-  temp_s3 = D_800C7F90;
+  temp_s3 = gResultsTable;
   temp_s1 = func_8000C9B0((void *)(temp_s4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));
   sp106 = 0x4B;
   text = spE8;

@@ -24,7 +24,7 @@ void *func_8004240C();
 s32 func_80042DE0();
 s32 func_800528A4();
 s32 func_80073708();
-s32 func_800746C0();
+s32 results_table_fill();
 s32 func_80076E7C();
 extern s32 D_8009D538;
 extern char D_800A4DF4[];
@@ -58,7 +58,7 @@ void func_80042F40(void) {
     func_8000E8B8(temp_a0);
     temp_v1 = M2C_FIELD(D_800C35A0, u16 *, 0x1E);
     switch (temp_v1) {
-    case 0: func_800746C0(); break;
+    case 0: results_table_fill(); break;
     case 1: case 2: case 3: case 4: func_80042DE0(); goto mode_join;
     case 5: func_80042DE0(); func_800528A4();
 mode_join: func_80073708(); break;

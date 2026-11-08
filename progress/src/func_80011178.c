@@ -56,7 +56,7 @@ s32 func_8002D2E4(s32);
 s32 func_8002D348(s32);
 void func_8002D75C(s32, s32, s32, s32 *);
 void func_8002E148(s16 *, s16 *);
-void *func_8002E514(void *, void *, void *);
+void *mtx3_transform_vec3(void *, void *, void *);
 
 void func_80011178(Cam *cam) {
     Car *car;
@@ -162,13 +162,13 @@ void func_80011178(Cam *cam) {
         a[0] = 0x1000;
         a[1] = 0;
         a[2] = 0;
-        func_8002E514(car->obj->m, a, b);
+        mtx3_transform_vec3(car->obj->m, a, b);
         r = func_8002D2C8(b[2], b[0]);
         a[0] = 0;
         a[1] = r;
         a[2] = 0;
         func_8002E148(a, mtx);
-        func_8002E514(mtx, b, a);
+        mtx3_transform_vec3(mtx, b, a);
         r = func_8002D2C8(a[1], a[0]);
         p0[0] = car->obj->m[2];
         p0[1] = car->obj->m[8];
@@ -229,13 +229,13 @@ void func_80011178(Cam *cam) {
         a[0] = 0x1000;
         a[1] = 0;
         a[2] = 0;
-        func_8002E514(car->obj->m, a, b);
+        mtx3_transform_vec3(car->obj->m, a, b);
         r = func_8002D2C8(b[2], b[0]);
         a[0] = 0;
         a[1] = r;
         a[2] = 0;
         func_8002E148(a, mtx);
-        func_8002E514(mtx, b, a);
+        mtx3_transform_vec3(mtx, b, a);
         r = func_8002D2C8(a[1], a[0]);
         p0[0] = car->obj->m[2];
         p0[1] = car->obj->m[8];

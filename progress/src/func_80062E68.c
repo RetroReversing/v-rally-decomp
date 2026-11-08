@@ -20,7 +20,7 @@ typedef struct
 } Sel;
 extern u8 *D_800D0634;
 extern Sel *D_800C35A0;
-s32 func_80052E94(u16, void *);void *func_800592D0(u32);
+s32 func_80052E94(u16, void *);void *text_obj_get(u32);
 s32 func_80059618(void *, s32, s32, s32, s32);
 void func_800596F4(void *, s16, s16, void *);
 s32 memset(void *, s32, s32);
@@ -52,7 +52,7 @@ void func_80062E68(void)
   unsigned char i;
   s32 v;
   s32 n;
-  s = func_800592D0(0x10);
+  s = text_obj_get(0x10);
   memset(&sp18, 0, 0xF);
   n = 0;
   do
@@ -64,8 +64,8 @@ void func_80062E68(void)
     func_800596F4((void *)(s), (s16)(s->x), (s16)(s->y + (i * 0x16)), (void *)(&sp18));
   }
   while (3U > ((u32) (n & 0xFF)));
-  s = func_800592D0(0x12);
-  u = func_800592D0(0x11);
+  s = text_obj_get(0x12);
+  u = text_obj_get(0x11);
   n = 0;
   bp = &buf;
   do

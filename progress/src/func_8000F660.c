@@ -75,7 +75,7 @@ s32 func_80069424();
 s32 func_8006AC04();
 s32 func_8007301C();
 s32 func_80077054();
-s32 func_8007BDC4();
+s32 hud_draw_air_stats();
 s32 func_8007E9D4();
 s32 func_8007EAA0();
 s32 func_8007EE9C();
@@ -366,7 +366,7 @@ void func_8000F660(void)
       {
         (*((s32 (**)(s32)) (((char *) temp_v0_5) + 0x14)))(*((s32 *) (((char *) temp_v0_5) + 0x10)));
       }
-      func_8007BDC4();
+      hud_draw_air_stats();
       func_80049294();
       func_800516BC();
       func_80013F3C();

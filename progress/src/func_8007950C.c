@@ -1,5 +1,5 @@
 typedef struct { char name[4]; u32 first, second, third; u8 flag, pad17, icon, pad19[5]; } ScoreRow;
-extern ScoreRow D_800C7F90[5];
+extern ScoreRow gResultsTable[5];
 extern s32 D_800C8328;
 void *func_80006008();
 void func_80006014();
@@ -128,15 +128,15 @@ void func_8007950C(s32 arg0)
 
       goto row_color_done;
     }
-    new_var = &D_800C7F90[(var_fp & 0xFFFF)].first;
+    new_var = &gResultsTable[(var_fp & 0xFFFF)].first;
 
-    if ((*new_var) == D_800C7F90[4].first)
+    if ((*new_var) == gResultsTable[4].first)
     {
       func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
 
     }
 row_color_done:
-    temp_a0 = D_800C7F90[(var_fp & 0xFFFF)].first;
+    temp_a0 = gResultsTable[(var_fp & 0xFFFF)].first;
     if (temp_a0 != 0)
     {
       func_80052E94(temp_a0, &spB8);
@@ -147,8 +147,8 @@ row_color_done:
       func_80099DF8(&spB8, &D_800A5EE0);
 
     }
-    temp_a0_2 = D_800C7F90[(var_fp & 0xFFFF)].second;
-    if (D_800C7F90[( 0xFFFF & var_fp   )].second != 0)
+    temp_a0_2 = gResultsTable[(var_fp & 0xFFFF)].second;
+    if (gResultsTable[( 0xFFFF & var_fp   )].second != 0)
     {
       func_80052E94(temp_a0_2, &spD0);
 
@@ -158,7 +158,7 @@ row_color_done:
       func_80099DF8(&spD0, &D_800A5EE0);
 
     }
-    temp_v1_2 = D_800C7F90[(var_fp & 0xFFFF)].third;
+    temp_v1_2 = gResultsTable[(var_fp & 0xFFFF)].third;
     if (temp_v1_2 != 0)
     {
       if ((*((u16 *) (D_800C02AE + 0x7FB6))) != 0)
@@ -187,12 +187,12 @@ row_color_done:
     }
     if ((var_fp & 0xFFFF) != 4)
     {
-      func_80099DF8(&sp40, &D_800A5F0C, (var_fp & 0xFFFF) + 1, D_800C7F90[(var_fp & 0xFFFF)].name);
+      func_80099DF8(&sp40, &D_800A5F0C, (var_fp & 0xFFFF) + 1, gResultsTable[(var_fp & 0xFFFF)].name);
 
     }
     else
     {
-      func_80099DF8(&sp40, &D_800A5F14, D_800C7F90[4].name);
+      func_80099DF8(&sp40, &D_800A5F14, gResultsTable[4].name);
 
     }
     if ((var_fp & 0xFFFF) != 4)
@@ -203,7 +203,7 @@ row_color_done:
     temp_s4 = var_s7 -  new_var3 ;
     if ((((u32) (temp_s0_4 & 0xFFFF)) < 0x141U) & ((var_fp & 0xFFFF) != 4))
     {
-      func_80073108(arg0, temp_s0_4, temp_s4, *((s32 *) (D_800C02AE - (-0x103B2))), (s32) D_800C7F90[(var_fp & 0xFFFF)].icon);
+      func_80073108(arg0, temp_s0_4, temp_s4, *((s32 *) (D_800C02AE - (-0x103B2))), (s32) gResultsTable[(var_fp & 0xFFFF)].icon);
     }
     temp_s2_3 = temp_s4; ++temp_s2_3;
     temp_s0_5 = temp_s0_4 + D_800A17EA; temp_s0_5 ^= arg0; temp_s0_5 ^= arg0; 
@@ -223,7 +223,7 @@ row_color_done:
 
         if (((u32) (temp_s0_5 & 0xFFFF)) < 0x141U)
         {
-          func_80073108(arg0, (s16) (temp_s1_3 + (D_800A17E9 + 0xFFF1)), temp_s4, *((s32 *) (D_800C02AE + 0x103B2)), (s32) D_800C7F90[4].icon);
+          func_80073108(arg0, (s16) (temp_s1_3 + (D_800A17E9 + 0xFFF1)), temp_s4, *((s32 *) (D_800C02AE + 0x103B2)), (s32) gResultsTable[4].icon);
         }
         var_s7 = temp_s2_3 ^ arg0; var_s7 ^= arg0;
         func_80099DF8(sp40, &D_800A5ED8, &spB8, &spE8);
@@ -261,9 +261,9 @@ row_done:
   while ((u16)var_fp < 5U);
   temp_s1_4 = D_800C02AE + 0x7F62;
   func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F62))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
-  if (D_800C7F90[0].flag < 4U)
+  if (gResultsTable[0].flag < 4U)
   {
-    func_80099DF8(&sp40, &D_800A5ED8, func_80057918(D_800C8328, 0xD8), D_800C7F90[0].name);
+    func_80099DF8(&sp40, &D_800A5ED8, func_80057918(D_800C8328, 0xD8), gResultsTable[0].name);
     func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, 0xA0 - (((u32) (func_8000C9B0((void *)(temp_s1_4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(0)) & 0xFFFF)) >> 1), 0x14, &sp40, 0);
   }
   

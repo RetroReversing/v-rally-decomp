@@ -63,60 +63,64 @@ void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
 Node *func_8004240C(s32 arg0);
 void func_8003F05C(void *);
 void func_8003EFF8(void *);
-void func_8003F3BC(s32 arg0, s32 arg1)
+
+/* Draws the position sprite for each of the first few cars (sprite pack base_id+0x4C),
+ * plus a flag sprite beside it for cars with CARFLAG set. Skipped in the late race state
+ * when fewer than 3 cars are left. */
+void draw_race_position_sprites(s32 list, s32 base_id)
 {
-  u32 cnt;
+  u32 car_count;
   s32 dy;
-  Rect *r;
-  Spr *s0;
-  Spr *s1;
-  Tex3 *t;
+  Rect *rect;
+  Spr *pos_spr;
+  Spr *flag_spr;
+  Tex3 *tex;
   u32 n;
   u32 i;
   s16 x;
   s16 y;
-  s32 hw;
-  s32 hh;
+  s32 half_w;
+  s32 half_h;
   s32 few;
   dy = 0;
-  s1 = NULL;
+  flag_spr = NULL;
   if (((*((u16 *) (D_800C35A0 + 0x1E))) == 7) && ((*((u16 *) (D_800C35A0 + 0xE))) < 3))
   {
     return;
   }
-  cnt = D_800C35A0[0xF];
-  if (cnt < 3)
+  car_count = D_800C35A0[0xF];
+  if (car_count < 3)
   {
     i = 1;
-    if (i <= cnt)
-    for (n = cnt; i <= n; i++)
+    if (i <= car_count)
+    for (n = car_count; i <= n; i++)
     {
       few = n < 3;
       D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);
-      r = &D_800C7F84->rh->r;
-      x = r->x;
-      y = r->y;
+      rect = &D_800C7F84->rh->r;
+      x = rect->x;
+      y = rect->y;
       switch (n)
       {
 
         case 1:
           dy = 0x4C;
-          x = r->w / 2;
-          y = (r->h / 5) - 16;
+          x = rect->w / 2;
+          y = (rect->h / 5) - 16;
           break;
 
         case 2:
           if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
         {
           dy = 0x20;
-          x += r->w / 2;
-          y = (y + (r->h / 3)) - 20;
+          x += rect->w / 2;
+          y = (y + (rect->h / 3)) - 20;
         }
         else
         {
           dy = 0x5C;
-          x += r->w / 2;
-          y = (y + (r->h / 5)) + 12;
+          x += rect->w / 2;
+          y = (y + (rect->h / 5)) + 12;
         }
           break;
 
@@ -124,26 +128,26 @@ void func_8003F3BC(s32 arg0, s32 arg1)
 
       if (CARFLAG(i))
       {
-        s1 = ((Spr *)func_80040260((void *)(arg0), x, y + 10, (s16)(8), func_8003F05C, 1));
-        s1->pack = func_80034FF0(arg1 + 0x4C, 0);
-        s1->mode = 2;
-        s1->node = D_800C7F84;
-        s1->alpha = 0xB4;
+        flag_spr = ((Spr *)func_80040260((void *)(list), x, y + 10, (s16)(8), func_8003F05C, 1));
+        flag_spr->pack = func_80034FF0(base_id + 0x4C, 0);
+        flag_spr->mode = 2;
+        flag_spr->node = D_800C7F84;
+        flag_spr->alpha = 0xB4;
       }
-      s0 = ((Spr *)func_80040260((void *)(arg0), x, r->y + dy, (s16)(8), func_8003EFF8, 1));
-      s0->pack = func_80034FF0(arg1 + 0x4C, 0);
-      s0->frame = 5;
-      s0->node = D_800C7F84;
-      t = s0->pack->tex[s0->frame];
-      hw = t->width >> 1;
-      hh = t->height >> 1;
+      pos_spr = ((Spr *)func_80040260((void *)(list), x, rect->y + dy, (s16)(8), func_8003EFF8, 1));
+      pos_spr->pack = func_80034FF0(base_id + 0x4C, 0);
+      pos_spr->frame = 5;
+      pos_spr->node = D_800C7F84;
+      tex = pos_spr->pack->tex[pos_spr->frame];
+      half_w = tex->width >> 1;
+      half_h = tex->height >> 1;
       if (n < 2)
       {
-        s0->ox = -hw;
-        s0->oy = -hh;
+        pos_spr->ox = -half_w;
+        pos_spr->oy = -half_h;
         if (CARFLAG(i))
         {
-          s1->oy = -(s0->pack->tex[s1->frame]->height >> 1);
+          flag_spr->oy = -(pos_spr->pack->tex[flag_spr->frame]->height >> 1);
         }
       }
       else
@@ -151,32 +155,31 @@ void func_8003F3BC(s32 arg0, s32 arg1)
       {
         if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
         {
-          s0->sx = 0x480;
-          s0->sy = 0x480;
+          pos_spr->sx = 0x480;
+          pos_spr->sy = 0x480;
           if (CARFLAG(i))
           {
-            s1->sx = 0x480;
-            s1->sy = 0x480;
+            flag_spr->sx = 0x480;
+            flag_spr->sy = 0x480;
           }
-          s0->ox = (hw / 4) - hw;
+          pos_spr->ox = (half_w / 4) - half_w;
         }
         else
         {
-          s0->ox = -(s0->pack->tex[0]->width >> 1);
+          pos_spr->ox = -(pos_spr->pack->tex[0]->width >> 1);
         }
-        s0->oy = -(s0->pack->tex[0]->height >> 1);
+        pos_spr->oy = -(pos_spr->pack->tex[0]->height >> 1);
         if (CARFLAG(i))
         {
-          s1->oy = -(s0->pack->tex[0]->height >> 1);
+          flag_spr->oy = -(pos_spr->pack->tex[0]->height >> 1);
         }
       }
       else
       {
-        s0->sx = 0x800;
-        s0->sy = 0x800;
+        pos_spr->sx = 0x800;
+        pos_spr->sy = 0x800;
       }
     }
 
   }
 }
-

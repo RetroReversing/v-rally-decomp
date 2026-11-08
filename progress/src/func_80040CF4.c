@@ -35,32 +35,38 @@ extern u8 D_800A4C48[];
 extern u8 D_800A4C50[];
 extern u8 D_800A4C58[];
 extern u8 D_800A4C60[];
-void func_80040CF4(u8 arg0)
+
+/* Builds the HUD/menu widgets for the current menu mode from the screen rect
+ * D_8009FFD8, using the layout table row for that mode. Each widget is created
+ * with func_80042078, decorated with a graphic from D_800A4Cxx, and tagged with
+ * an id. Mode 1 and 2 build the item rows (2 splits the rect when flags&1 is
+ * clear); when arg0 is 0 and a mode is active it also adds the footer widgets. */
+void func_80040CF4(u8 skip_footer)
 {
-  Obj *o = gObj;
+  Obj *obj = gObj;
   s32 x = D_8009FFD8.x;
   s32 y;
   s32 w;
   s32 h;
-  u8 n = o->mode;
-  u8 idx = n - 1;
-  Item *it;
+  u8 mode = obj->mode;
+  u8 layout_idx = mode - 1;
+  Item *item;
   Rect r;
   y = D_8009FFD8.y;
   w = (s16) D_8009FFD8.w;
   h = (s16) D_8009FFD8.h;
-  if (n != 0)
+  if (mode != 0)
   {
     /* shared result pointer */
     r.x = x;
     r.y = y;
     r.w = w;
     r.h = h;
-    it = func_80042078(&r, 5, D_8009FF38[idx].v[0], D_8009FF38[idx].v[1], 2);
-    func_800424A4(it, D_800A4C30);
-    it->id = 0;
+    item = func_80042078(&r, 5, D_8009FF38[layout_idx].v[0], D_8009FF38[layout_idx].v[1], 2);
+    func_800424A4(item, D_800A4C30);
+    item->id = 0;
   }
-  switch (n)
+  switch (mode)
   {
     case 1:
     {
@@ -70,18 +76,18 @@ void func_80040CF4(u8 arg0)
       p->y = y;
       p->w = w;
       p->h = h;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], 2);
-      func_800424A4(it, D_800A4C38);
-      it->id = 1;
-      gItem = it;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], 2);
-      func_800424A4(it, D_800A4C40);
-      it->id = 2;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[2], D_8009FF38[layout_idx].v[3], 2);
+      func_800424A4(item, D_800A4C38);
+      item->id = 1;
+      gItem = item;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[4], D_8009FF38[layout_idx].v[5], 2);
+      func_800424A4(item, D_800A4C40);
+      item->id = 2;
       break;
     }
 
     case 2:
-      if (o->flags & 1)
+      if (obj->flags & 1)
     {
       Rect *p;
       s16 x2 = x + 0x20;
@@ -95,24 +101,24 @@ void func_80040CF4(u8 arg0)
       p->y = y;
       p->w = w2;
       p->h = h2;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
-      func_800424A4(it, D_800A4C38);
-      it->id = 1;
-      gItem = it;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
-      func_800424A4(it, D_800A4C40);
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[2], D_8009FF38[layout_idx].v[3], mode);
+      func_800424A4(item, D_800A4C38);
+      item->id = 1;
+      gItem = item;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[4], D_8009FF38[layout_idx].v[5], mode);
+      func_800424A4(item, D_800A4C40);
       {
       s16 next_y = y + hh + 1;
-      it->id = 2;
+      item->id = 2;
       p->x = x2;
       p->y = next_y;
       p->w = w2;
       p->h = h2;
       }
-      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
-      func_800424A4(it, D_800A4C48);
-      it->id = 3;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[2], D_8009FF38[layout_idx].v[3], mode);
+      func_800424A4(item, D_800A4C48);
+      item->id = 3;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[4], D_8009FF38[layout_idx].v[5], mode);
     }
     else
     {
@@ -127,41 +133,41 @@ void func_80040CF4(u8 arg0)
       horizontal_height = h;
       p->w = w2;
       p->h = horizontal_height;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
-      func_800424A4(it, D_800A4C38);
-      it->id = 1;
-      gItem = it;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
-      func_800424A4(it, D_800A4C40);
-      it->id = 2;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[2], D_8009FF38[layout_idx].v[3], mode);
+      func_800424A4(item, D_800A4C38);
+      item->id = 1;
+      gItem = item;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[4], D_8009FF38[layout_idx].v[5], mode);
+      func_800424A4(item, D_800A4C40);
+      item->id = 2;
       p->x = x + hw + 1;
       p->y = y;
       p->w = w2;
       p->h = horizontal_height;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[2], D_8009FF38[idx].v[3], n);
-      func_800424A4(it, D_800A4C48);
-      it->id = 3;
-      it = func_80042078(p, 0, D_8009FF38[idx].v[4], D_8009FF38[idx].v[5], n);
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[2], D_8009FF38[layout_idx].v[3], mode);
+      func_800424A4(item, D_800A4C48);
+      item->id = 3;
+      item = func_80042078(p, 0, D_8009FF38[layout_idx].v[4], D_8009FF38[layout_idx].v[5], mode);
     }
-      func_800424A4(it, D_800A4C50);
-      it->id = 4;
+      func_800424A4(item, D_800A4C50);
+      item->id = 4;
       break;
 
   }
 
-  if (!(n != 0))
+  if (!(mode != 0))
   {
     return;
   }
-  if (!(arg0 == 0))
+  if (!(skip_footer == 0))
   {
     return;
   }
   {
     r = D_8009FFD8;
-    it = func_80042078(&r, 5, D_8009FF38[idx].v[6], D_8009FF38[idx].v[7], 2);
-    func_800424A4(it, D_800A4C58);
-    it->id = (n * 2) | 1;
+    item = func_80042078(&r, 5, D_8009FF38[layout_idx].v[6], D_8009FF38[layout_idx].v[7], 2);
+    func_800424A4(item, D_800A4C58);
+    item->id = (mode * 2) | 1;
     {
       extern u8 D_8009FFDA[];
       r = *((Rect *) ((u32)D_8009FFDA - 2U));
@@ -171,9 +177,8 @@ void func_80040CF4(u8 arg0)
       r.x += 0x18;
       r.w -= 0x30;
     }
-    it = func_80042078(&r, 0, D_8009FF38[idx].v[8], D_8009FF38[idx].v[9], 2);
-    func_800424A4(it, D_800A4C60);
-    it->id = (n * 2) + 2;
+    item = func_80042078(&r, 0, D_8009FF38[layout_idx].v[8], D_8009FF38[layout_idx].v[9], 2);
+    func_800424A4(item, D_800A4C60);
+    item->id = (mode * 2) + 2;
   }
 }
-

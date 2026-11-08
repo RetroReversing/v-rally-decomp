@@ -27,6 +27,11 @@ extern void func_8004C370(s32, void *);
 extern void func_800599D0(void *, s32);
 void func_800596F4(void *, s16, s16, void *);
 extern void func_8004CEB4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
+
+/* Draws the four-slot strip for the active menu object: slides it into view,
+ * places each slot that has an asset (the first two get a sliding x), draws
+ * the slot icon and its label, and draws the label for the slot the cursor
+ * is on. The strip is skipped while the object is hidden. */
 void func_8005BCD4(void)
 {
   struct 
@@ -45,83 +50,83 @@ void func_8005BCD4(void)
     s16 z;
     u8 pad2[14];
     s16 xy[4];
-  } x;
-  Obj *o;
-  struct N *h;
+  } ds;
+  Obj *menu;
+  struct N *hud_list;
   u8 i;
-  u8 save;
+  u8 saved_sel;
   s8 k;
   s8 j;
-  o = D_800A1468;
-  if (o->hidden)
+  menu = D_800A1468;
+  if (menu->hidden)
   {
     return;
   }
-  x.col[0] = o->alpha;
-  x.col[2] = (x.col[1] = 0xdc);
-  x.col[3] = 0x80;
-  x.z = 0;
-  x.col[4] = 0xff;
-  x.g = (x.f = 1.0f);
-  if (o->slide < 0xc0)
+  ds.col[0] = menu->alpha;
+  ds.col[2] = (ds.col[1] = 0xdc);
+  ds.col[3] = 0x80;
+  ds.z = 0;
+  ds.col[4] = 0xff;
+  ds.g = (ds.f = 1.0f);
+  if (menu->slide < 0xc0)
   {
-    o->slide += 16;
+    menu->slide += 16;
   }
   for (j = 0; j < 4; j++)
   {
-    x.rec[12 + j] = 1;
-    x.aa[j] = 30;
-    x.bb[j] = 50;
-    x.cc[j] = 142;
+    ds.rec[12 + j] = 1;
+    ds.aa[j] = 30;
+    ds.bb[j] = 50;
+    ds.cc[j] = 142;
   }
 
-  x.q[0] = (x.q[1] = 210);
-  x.q[2] = (x.q[3] = 50);
-  h = func_8004240C(1);
+  ds.q[0] = (ds.q[1] = 210);
+  ds.q[2] = (ds.q[3] = 50);
+  hud_list = func_8004240C(1);
   for (i = 0; i < (*((u16 *) (D_800C35A0 + 14))); i++)
   {
-    register Obj *a0;
-    a0 = D_800A1468;
-    if (!a0->assets[i])
+    register Obj *obj;
+    obj = D_800A1468;
+    if (!obj->assets[i])
     {
       continue;
     }
     if (i < 2)
     {
-      register u16 a1;
-      a1 = (u16) a0->slide;
-      x.xy[1] = (22 * (i & 1)) + 0x1a8;
-      x.rec[5] = (x.rec[4] = (i & 2) * 400);
-      x.rec[7] = (x.rec[6] = x.rec[4] + 256);
-      x.rec[8] = ((i & 1) * 22) + 0x1aa;
-      x.rec[10] = (x.rec[9] = ((i & 1) * 22) + 0x1be);
-      x.rec[11] = ((i & 1) * 22) + 0x1aa;
-      x.xy[0] = a1;
+      register u16 slide_x;
+      slide_x = (u16) obj->slide;
+      ds.xy[1] = (22 * (i & 1)) + 0x1a8;
+      ds.rec[5] = (ds.rec[4] = (i & 2) * 400);
+      ds.rec[7] = (ds.rec[6] = ds.rec[4] + 256);
+      ds.rec[8] = ((i & 1) * 22) + 0x1aa;
+      ds.rec[10] = (ds.rec[9] = ((i & 1) * 22) + 0x1be);
+      ds.rec[11] = ((i & 1) * 22) + 0x1aa;
+      ds.xy[0] = slide_x;
     }
     else
     {
-      x.xy[0] = 400;
-      x.xy[1] = ((i & 1) * 22) + 0x1a8;
+      ds.xy[0] = 400;
+      ds.xy[1] = ((i & 1) * 22) + 0x1a8;
     }
-    func_8004C370(*((s32 *) (((u8 *) h) + 0x178)), x.rec);
-    x.xy[2] = (*((u16 *) (((u8 *) (*((Asset *) D_800A1468->assets[i])->node)) + 6))) * x.f;
-    x.xy[3] = (*((u16 *) (8 + ((u8 *) (*((Asset *) D_800A1468->assets[i])->node))))) * x.g;
-    *((s16 *) (x.text + 4)) = (i) ? (0x128) : (0x126);
-    *((s16 *) (x.text + 6)) = ((i & 2) * 256) + 42;
-    *((s16 *) (x.text + 8)) = ((i & 1) * 22) + 0x1ae;
-    func_800599D0(x.text, 0);
-    o = D_800A1468;
-    save = 255;
-    if (o->active && (i == o->selected))
+    func_8004C370(*((s32 *) (((u8 *) hud_list) + 0x178)), ds.rec);
+    ds.xy[2] = (*((u16 *) (((u8 *) (*((Asset *) D_800A1468->assets[i])->node)) + 6))) * ds.f;
+    ds.xy[3] = (*((u16 *) (8 + ((u8 *) (*((Asset *) D_800A1468->assets[i])->node))))) * ds.g;
+    *((s16 *) (ds.text + 4)) = (i) ? (0x128) : (0x126);
+    *((s16 *) (ds.text + 6)) = ((i & 2) * 256) + 42;
+    *((s16 *) (ds.text + 8)) = ((i & 1) * 22) + 0x1ae;
+    func_800599D0(ds.text, 0);
+    menu = D_800A1468;
+    saved_sel = 255;
+    if (menu->active && (i == menu->selected))
     {
-      save = i;
+      saved_sel = i;
       for (j = 3; j >= 0; j--)
       {
-        register u8 *a2;
-        register s8 v0;
-        a2 = D_800C35A0;
-        v0 = j;
-        if (*((u8 *)((s32) a2 + (s32) v0 + 0x32)) == o->type)
+        register u8 *game;
+        register s8 jv;
+        game = D_800C35A0;
+        jv = j;
+        if (*((u8 *)((s32) game + (s32) jv + 0x32)) == menu->type)
         {
           break;
         }
@@ -131,19 +136,19 @@ void func_8005BCD4(void)
     }
     if (D_800A1468->assets[i])
     {
-      func_8004CEB4(D_800D05D8, *((Asset *) D_800A1468->assets[i])->node, x.xy, 0, x.col[4], x.col[4], x.col[4], x.col[4], 0);
+      func_8004CEB4(D_800D05D8, *((Asset *) D_800A1468->assets[i])->node, ds.xy, 0, ds.col[4], ds.col[4], ds.col[4], ds.col[4], 0);
     }
-    if ((x.xy[0] - 64) >= 0)
+    if ((ds.xy[0] - 64) >= 0)
     {
-      register u8 *v1;
-      register u8 idx;
-      v1 = D_800C35A0;
-      idx = *((u8 *)((s32) v1 + (s32) i + 0x32));
-      func_800596F4((void *)(x.text), (s16)(x.xy[0] - 48), (s16)(*((s16 *) (x.text + 8))), (void *)(v1 + ((idx * 40) + 68)));
+      register u8 *game2;
+      register u8 car_idx;
+      game2 = D_800C35A0;
+      car_idx = *((u8 *)((s32) game2 + (s32) i + 0x32));
+      func_800596F4((void *)(ds.text), (s16)(ds.xy[0] - 48), (s16)(*((s16 *) (ds.text + 8))), (void *)(game2 + ((car_idx * 40) + 68)));
     }
-    if (D_800A1468->active && (save == D_800A1468->selected))
+    if (D_800A1468->active && (saved_sel == D_800A1468->selected))
     {
-      i = save;
+      i = saved_sel;
     }
   }
 

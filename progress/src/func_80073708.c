@@ -15,82 +15,86 @@ extern s32 D_800B55FC[][8];
 extern s32 D_800B560C[][8];
 extern RObj **D_800B5C40;
 extern RCfg *D_800C35A0;
-extern REntry D_800C7F90[4];
+extern REntry gResultsTable[4];
 extern RPlayer D_800C7FF0;
 
+/* Fills gResultsTable for the finished race, one entry per car in finish
+ * order: total and rate from the lap times, the car's name, and the diff to
+ * the leader. Also adds the class totals and the bonus for a tied last place,
+ * and copies the local player's record into D_800C7FF0. */
 void func_80073708(void) {
-    RData *data;
-    RObj *obj;
+    RData *race_data;
+    RObj *car_obj;
     u8 i;
     u8 j;
-    s32 *p;
-    s32 sum;
+    s32 *time_p;
+    s32 total;
     s32 place;
     RCfg *cfg;
     s32 n;
     u8 k;
-    s32 d;
+    s32 pick_val;
     s32 *tb;
 
-    data = func_80041564();
-    obj = *D_800B5C40;
+    race_data = func_80041564();
+    car_obj = *D_800B5C40;
     i = 0;
-    while (obj != NULL) {
+    while (car_obj != NULL) {
         tb = D_800B55FC[0];
         j = 0;
-        sum = 0;
+        total = 0;
         n = D_800ADFE0 - 1;
-        p = obj->res->times + 1;
+        time_p = car_obj->res->times + 1;
         while (j < n) {
             j++;
-            sum += *p++;
+            total += *time_p++;
         }
-        place = obj->res->place - 1;
+        place = car_obj->res->place - 1;
         cfg = D_800C35A0;
-        D_800C7F90[(u8)place].obj = obj;
-        func_80098290(D_800C7F90[(u8)place].name, cfg->names[cfg->order[i]].name);
-        d = D_800C35A0->names[D_800C35A0->order[i]].v;
-        D_800C7F90[(u8)place].idx = i;
-        D_800C7F90[(u8)place].total = sum;
-        D_800C7F90[(u8)place].b = d;
-        if (sum != 0) {
-            D_800C7F90[(u8)place].rate = (u32)(data->vals[D_800C35A0->sel] * D_8009D540 * 3600) / (u32)(sum * 1000); } else {
-            D_800C7F90[(u8)place].rate = 0;
+        gResultsTable[(u8)place].obj = car_obj;
+        func_80098290(gResultsTable[(u8)place].name, cfg->names[cfg->order[i]].name);
+        pick_val = D_800C35A0->names[D_800C35A0->order[i]].v;
+        gResultsTable[(u8)place].idx = i;
+        gResultsTable[(u8)place].total = total;
+        gResultsTable[(u8)place].b = pick_val;
+        if (total != 0) {
+            gResultsTable[(u8)place].rate = (u32)(race_data->vals[D_800C35A0->sel] * D_8009D540 * 3600) / (u32)(total * 1000); } else {
+            gResultsTable[(u8)place].rate = 0;
         }
         {
         RCfg *c2 = D_800C35A0;
         if (c2->cls != 5) {
-            *(s32 *)((u8 *)(tb + c2->cls) + (i << 5)) += sum;
-            if (sum != 0) {
+            *(s32 *)((u8 *)(tb + c2->cls) + (i << 5)) += total;
+            if (total != 0) {
                 s32 *tb2 = tb + 4;
-                *(s32 *)((u8 *)(tb2 + c2->cls) + (i << 5)) += data->vals[c2->sel];
+                *(s32 *)((u8 *)(tb2 + c2->cls) + (i << 5)) += race_data->vals[c2->sel];
             }
         }
         }
-        D_800C7F90[(u8)place].pos = *obj->pos;
-        if (D_800C7F90[(u8)place].pos < 4 && D_800C7F90[(u8)place].total != 0 && !(obj->flags & 0x200)) {
-            func_80045404(sum, data, D_800C7F90[(u8)place].b, &D_800C7F90[(u8)place], D_800C35A0->c17, D_800C7F90[(u8)place].rate);
+        gResultsTable[(u8)place].pos = *car_obj->pos;
+        if (gResultsTable[(u8)place].pos < 4 && gResultsTable[(u8)place].total != 0 && !(car_obj->flags & 0x200)) {
+            func_80045404(total, race_data, gResultsTable[(u8)place].b, &gResultsTable[(u8)place], D_800C35A0->c17, gResultsTable[(u8)place].rate);
         }
-        obj = obj->next;
+        car_obj = car_obj->next;
         i++;
     }
     for (k = 0; k < 4; k++) {
-        if (D_800C7F90[k].total != 0) {
-            D_800C7F90[k].diff = abs(D_800C7F90[k].total - D_800C7F90[0].total); } else {
-            D_800C7F90[k].diff = 0;
+        if (gResultsTable[k].total != 0) {
+            gResultsTable[k].diff = abs(gResultsTable[k].total - gResultsTable[0].total); } else {
+            gResultsTable[k].diff = 0;
         }
     }
-    if (D_800C35A0->mode == 2 && (u32)D_800C7F90[3].total < (u32)D_800C7F90[2].total) {
+    if (D_800C35A0->mode == 2 && (u32)gResultsTable[3].total < (u32)gResultsTable[2].total) {
         if (D_800C35A0->cls != 5) {
             s32 *tb3 = D_800B55FC[0];
-            *(s32 *)((u8 *)(tb3 + D_800C35A0->cls) + (D_800C7F90[3].idx << 5)) += 15000;
-            D_800C7F90[3].total = 0;
-            D_800C7F90[3].rate = 0;
-            D_800C7F90[3].diff = 0;
+            *(s32 *)((u8 *)(tb3 + D_800C35A0->cls) + (gResultsTable[3].idx << 5)) += 15000;
+            gResultsTable[3].total = 0;
+            gResultsTable[3].rate = 0;
+            gResultsTable[3].diff = 0;
         }
     }
-    func_80098290(D_800C7FF0.name, data->recs[D_800C35A0->sel].name);
-    D_800C7FF0.time = data->recs[D_800C35A0->sel].time;
-    D_800C7FF0.c = data->recs[D_800C35A0->sel].cA;
-    D_800C7FF0.d = data->recs[D_800C35A0->sel].c4;
+    func_80098290(D_800C7FF0.name, race_data->recs[D_800C35A0->sel].name);
+    D_800C7FF0.time = race_data->recs[D_800C35A0->sel].time;
+    D_800C7FF0.c = race_data->recs[D_800C35A0->sel].cA;
+    D_800C7FF0.d = race_data->recs[D_800C35A0->sel].c4;
 }

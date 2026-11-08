@@ -1,6 +1,7 @@
-#define TA ((Rec5F *) (&D_800C02AE + 0x37A2))
-#define TB ((Rec5F *) (&D_800C02AE + 0x38A2))
-#define TC ((Rec5F *) (&D_800C02AE + 0x3862))
+/* Record tables for the three classes (stride 40 bytes per record). */
+#define RECORDS_A ((Rec5F *) (&D_800C02AE + 0x37A2))
+#define RECORDS_B ((Rec5F *) (&D_800C02AE + 0x38A2))
+#define RECORDS_C ((Rec5F *) (&D_800C02AE + 0x3862))
 typedef struct Obj5F
 {
   u8 p[6];
@@ -29,7 +30,7 @@ extern s8 D_800A5506;
 extern u8 D_800C02AE;
 extern Rec5F D_800C3A50[];
 extern Rec5F D_800C3B50[];
-extern Rec5F D_800C3B10[];void *func_800592D0(u32);
+extern Rec5F D_800C3B10[];void *text_obj_get(u32);
 extern void func_80052E94(s32, char *);
 extern void func_80059618(Obj5F *, u8, u8, u8, s32);
 void func_800596F4(void *, s16, s16, void *);
@@ -37,6 +38,8 @@ extern void func_8006874C(s32);
 extern void memset(char *, s32, s32);
 extern void func_800980D0(char *, char *);
 extern void func_80099DF8(char *, char *, ...);
+/* Draws the best-times screen: for each of the three record classes, the names,
+ * times and gaps to the best time; then the three stat values and their average. */
 void func_8005F5C4(void)
 {
   char buf[16];
@@ -49,32 +52,32 @@ void func_8005F5C4(void)
   Obj5F *obj2;
   do
   {
-    obj = func_800592D0((i * 4) + 5);
+    obj = text_obj_get((i * 4) + 5);
     memset(buf, 0, 15);
     j = 0;
     do
     {
       if (i == 0)
       {
-        func_80099DF8(buf, D_800A54FC, j + 1, TA[j].name);
+        func_80099DF8(buf, D_800A54FC, j + 1, RECORDS_A[j].name);
       }
       else
         if (i == 1)
       {
-        func_80099DF8(buf, D_800A54FC, j + 1, TB[j].name);
+        func_80099DF8(buf, D_800A54FC, j + 1, RECORDS_B[j].name);
       }
       else
         if (i == 2)
       {
-        func_80099DF8(buf, D_800A54FC, j + 1, TC[j].name);
+        func_80099DF8(buf, D_800A54FC, j + 1, RECORDS_C[j].name);
       }
       func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
       func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
       j++;
     }
     while (j < 3);
-    obj = func_800592D0((i * 4) + 7);
-    obj2 = func_800592D0((i * 4) + 6);
+    obj = text_obj_get((i * 4) + 7);
+    obj2 = text_obj_get((i * 4) + 6);
     j = 0;
     do
     {
@@ -118,22 +121,22 @@ void func_8005F5C4(void)
     i++;
   }
   while (i < 3);
-  obj = func_800592D0(17);
+  obj = text_obj_get(17);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E0);
   func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
-  obj = func_800592D0(18);
+  obj = text_obj_get(18);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E1);
   func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
-  obj = func_800592D0(19);
+  obj = text_obj_get(19);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, D_800A14E2);
   func_800596F4((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
-  obj = func_800592D0(20);
+  obj = text_obj_get(20);
   func_80059618(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
   func_80099DF8(buf, D_800A5490, ((D_800A14E0 + D_800A14E1) + D_800A14E2) / 3);

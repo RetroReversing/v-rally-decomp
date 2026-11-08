@@ -17,7 +17,7 @@ extern s32 func_8006A24C;
 extern void func_800416EC();
 extern s32 func_80057B40(s32, s32, s32, s32);void *func_800592AC(u32);
 void func_8005C0E8(s32, u32, u32);
-extern s32 func_800603B4(void);
+extern s32 hud_setup_stage_results(void);
 void func_80061F34(void *, void *);
 extern s32 func_8006A25C(void);
 extern s32 func_8008A0D8(s32, s32, s32);
@@ -66,7 +66,7 @@ void func_80063FFC(void)
     *((s8 *) (((u8 *) func_800592AC(2)) + 0x41)) = 0;
     func_8005C0E8(2, 1, 4);
   }
-  func_800603B4();
+  hud_setup_stage_results();
   if ((s16) D_800A16D4 >= 3)
   {
     goto done;

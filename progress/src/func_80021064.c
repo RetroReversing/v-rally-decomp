@@ -18,7 +18,7 @@ u64 osGetTime(void);
 void func_800980C4(u32);
 int func_80098090(void);
 void *func_8002EB34(void *, int, void *);
-void *func_8002E514(void *, void *, void *);
+void *mtx3_transform_vec3(void *, void *, void *);
 void func_8002D3AC(void *, void *, int, int, void *);
 int func_8001FEE8(void *);
 void func_8002FBD4(void *, int, int);
@@ -142,7 +142,7 @@ void func_80021064(void *list)
               a[0] = 0;
               a[1] = 0;
               a[2] = -256;
-              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, a);
+              mtx3_transform_vec3((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, a);
               goto velocity_scale;
 
             case 4:
@@ -237,7 +237,7 @@ void func_80021064(void *list)
                 a[1] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (1 * 4))));
                 a[2] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + (i * 40)) + (2 * 4))));
               }
-              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);
+              mtx3_transform_vec3((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);
               {
                 wx = (*((int *) (((char *) contact) + (0 * 4))) = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (0 * 4))))) + b[0]);
                 wy = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (1 * 4))))) + b[1];
@@ -255,7 +255,7 @@ void func_80021064(void *list)
                 a[1] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + new_var3) + (1 * 4))));
                 a[2] = *((int *) (((char *) (*((char **) (((char *) obj) + 0x64)))) + ((0x8c + new_var3) + (2 * 4))));
               }
-              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, c);
+              mtx3_transform_vec3((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, c);
               {
                 new_var = (u16)(c[0]); extra = (u16)(b[0]); *((s16 *) (((char *) contact) + (12 + (0 * 2)))) = new_var - extra;
                 new_var = (u16)(c[1]); extra = (u16)(b[1]); *((s16 *) (((char *) contact) + (12 + (1 * 2)))) = new_var - extra;
@@ -320,7 +320,7 @@ void func_80021064(void *list)
                 a[1] = ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x23 + (i * 10)) + (n * 5)) + 1];
                 a[2] = ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x23 + (i * 10)) + (n * 5)) + 2];
               }
-              func_8002E514((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);
+              mtx3_transform_vec3((*((char **) (((char *) obj) + 0x5c))) + 0x40, a, b);
               {
                 ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x4b + (i * 10)) + (n * 5)) + 0] = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (0 * 4))))) + b[0];
                 ((s32 *) (*((char **) (((char *) obj) + 0x64))))[((0x4b + (i * 10)) + (n * 5)) + 1] = (*((int *) (((char *) (*((char **) (((char *) obj) + 0x5c)))) + (0x54 + (1 * 4))))) + b[1];

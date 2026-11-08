@@ -22,7 +22,12 @@ extern f64 D_800A5620;
 extern f64 D_800A5628;
 extern f64 D_800A5630;
 extern f64 D_800A5638;
-void func_8006185C(u8 *arg0, s32 arg1)
+
+/* Draws one row of the menu list box for `item` (a list entry with its own
+ * font, position and value bar). mode 0 draws the bar for the main item at
+ * D_800A14D0; any other mode draws the bar for the selected sub-entry and
+ * places the box according to the menu layout bytes at D_800A1468+0x238/0x239. */
+void func_8006185C(u8 *item, s32 mode)
 {
   u32 scratch[2];
   s32 result;
@@ -47,18 +52,18 @@ void func_8006185C(u8 *arg0, s32 arg1)
   u8 count;
   u32 new_var;
   u8 *node;
-  font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) arg0) + 8)));
-  table = D_800A1468 + ((*((s8 *) (((u8 *) arg0) + 14))) * 2);
-  result = func_8000C9B0((void *)(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4)), (void *)(font), (u8)(*((u8 *) (((u8 *) table) + 0xd1))), (f32)(*((f32 *) (((u8 *) arg0) + 20))), (u8)(0));
+  font = func_80057918(*((s32 *) (D_800C02AE + 0x807A)), *((u16 *) (((u8 *) item) + 8)));
+  table = D_800A1468 + ((*((s8 *) (((u8 *) item) + 14))) * 2);
+  result = func_8000C9B0((void *)(D_800A1468 + (((*((u8 *) (((u8 *) table) + 0xd0))) * 4) + 0xe4)), (void *)(font), (u8)(*((u8 *) (((u8 *) table) + 0xd1))), (f32)(*((f32 *) (((u8 *) item) + 20))), (u8)(0));
   extent = result + 24;
-  offset = *((s16 *) (((u8 *) arg0) + 10));
+  offset = *((s16 *) (((u8 *) item) + 10));
   do {center=offset; if(offset<0){offset=0;center=-center-result;}} while(0); offset=center;
   x = offset - 12;
   xend = x + extent;
-  top = (*((u16 *) (((u8 *) arg0) + 12))) - 8;
+  top = (*((u16 *) (((u8 *) item) + 12))) - 8;
   boxheight = 32;
   func_8004C1B4(D_800ADF80, (u16) x, (u16) top, (u16) x, (u16) (top + boxheight), (u16) xend, (u16) (top + boxheight), (u16) xend, (u16) top);
-  if (!(arg1 & 255))
+  if (!(mode & 255))
   {
     gap = (*((u16 *) (((u8 *) D_800A14D0) + 0))) - xend;
     CV(w, (((f64) (*((f32 *) (((u8 *) D_800A14D0) + 4)))) - D_800A55E8) * D_800A55F0, D_800A55F8);
@@ -75,8 +80,8 @@ void func_8006185C(u8 *arg0, s32 arg1)
 
     gap = 356 - xend;
     i = 0;
-    count = *((u8 *) (((u8 *) arg0) + 77));
-    node = *((u8 **) (((u8 *) arg0) + 40));
+    count = *((u8 *) (((u8 *) item) + 77));
+    node = *((u8 **) (((u8 *) item) + 40));
     if (count)
     {
       do
@@ -120,4 +125,3 @@ void func_8006185C(u8 *arg0, s32 arg1)
     func_8004C1B4(D_800ADF80, 352, (u16) (y - 4), 352, (u16) ((y + height) + 4), (u16) (width + 360), (u16) ((y + height) + 4), (u16) (width + 360), (u16) (y - 4));
   }
 }
-
