@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8006E8A0();                            /* extern */
-M2C_UNK func_8006F75C();                            /* extern */
-M2C_UNK func_8007102C(M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK buildLinkPacket();                            /* extern */
+M2C_UNK save_race_to_pak();                            /* extern */
+M2C_UNK select_state_reset_b(M2C_UNK, M2C_UNK);            /* extern */
 
 s32 func_800710BC(void) {
-    func_8006E8A0();
-    func_8006F75C();
-    func_8007102C(0, 0);
+    buildLinkPacket();
+    save_race_to_pak();
+    select_state_reset_b(0, 0);
     return 0;
 }

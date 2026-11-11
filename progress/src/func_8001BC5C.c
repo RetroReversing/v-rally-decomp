@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8001B97C(s32);                         /* extern */
-extern M2C_UNK D_800C02AE;
+M2C_UNK draw_player_views(s32);                         /* extern */
+extern M2C_UNK gStreamState;
 
 void func_8001BC5C(void) {
-    func_8001B97C(M2C_FIELD(&D_800C02AE, s32 *, 0x80C6));
+    draw_player_views(M2C_FIELD(&gStreamState, s32 *, 0x80C6));
 }

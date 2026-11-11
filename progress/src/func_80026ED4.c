@@ -40,15 +40,15 @@ static inline s32 lower_check(s32 a,s32 b) { return a < b; }
 #define spA8 slota8[0]
 s32 func_8002D2A0(s32);
 s32 func_8002D4E0(void *, s32 *, s32, s32, s32 *);
-s32 func_8002D594(s32 *, s32 *, s32 *);
-s32 func_8002D6E0(void *, void *);
+s32 vec3_cross(s32 *, s32 *, s32 *);
+s32 vec3_square(void *, void *);
 s32 func_8002D740(void *, void *, void *);
-s32 func_8002D8A0(void *, void *, void *);
+s32 mat3_mul_vec3_q12(void *, void *, void *);
 s32 func_8002DA98(void *, void *);
 extern void **D_8009BB10;
-extern char D_800AE850[];
+extern char gOrderState[];
 extern s32 D_800B6B00;
-extern char D_800C02AE[];
+extern char gStreamState[];
 extern s32 D_800C8370;
 void func_80026ED4(void **arg0)
 {
@@ -153,7 +153,7 @@ void func_80026ED4(void **arg0)
         *((s32 *) (((char *) var_s1) + 0x14)) &= ~0x2000;
       }
       func_8002DA98((*((char **) (((char *) var_s1) + 0x5C))) + 0x40, &spA8);
-      func_8002D8A0((*((char **) (((char *) var_s1) + 0x5C))) + 0x40, (*((char **) (((char *) var_s1) + 0x58))) + 0x5C, &sp58);
+      mat3_mul_vec3_q12((*((char **) (((char *) var_s1) + 0x5C))) + 0x40, (*((char **) (((char *) var_s1) + 0x58))) + 0x5C, &sp58);
       temp_v1 = *((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x84)))) + 0x44)); var_a2 = ((s32) (temp_v1 * sp58)) >> 0xC;
       var_t4 = ((s32) (temp_v1 * sp60)) >> 0xC;
       temp_a0_2 = (((s32) (temp_v1 * sp5C)) >> 0xC) + 0x500;
@@ -215,7 +215,7 @@ void func_80026ED4(void **arg0)
       sp88 = (*((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x58)))) + 0x70))) - sp98;
       sp8C = (*((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x58)))) + 0x74))) - sp9C;
       sp90 = (*((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x58)))) + 0x78))) - spA0;
-      func_8002D8A0((*((char **) (((char *) var_s1) + 0x84))) + 0x20, &sp88, &sp18);
+      mat3_mul_vec3_q12((*((char **) (((char *) var_s1) + 0x84))) + 0x20, &sp88, &sp18);
       temp_a0_4 = *((char **) (((char *) var_s1) + 0x58));
       *((s32 *) (((char *) temp_a0_4) + 0x98)) = (s32) ((*((s32 *) (((char *) temp_a0_4) + 0x98))) + (((s32) ((sp18 + (*((s32 *) (((char *) temp_a0_4) + 0x84)))) * D_800C8370)) >> 8));
       temp_a0_5 = *((char **) (((char *) var_s1) + 0x58));
@@ -252,7 +252,7 @@ void func_80026ED4(void **arg0)
         *((s32 *) (((char *) temp_v1_12) + 0x9C)) = 0;
       }
       temp_a1_5 = *((char **) (((char *) var_s1) + 0x58));
-      p78=&sp68; func_8002D594(temp_a1_5 + 0xC0, temp_a1_5 + 0xD4, p78); p78=0;
+      p78=&sp68; vec3_cross(temp_a1_5 + 0xC0, temp_a1_5 + 0xD4, p78); p78=0;
       sp68 /= 16384;
       sp6C /= 16384;
       sp70 /= 16384;
@@ -264,7 +264,7 @@ void func_80026ED4(void **arg0)
       {
         func_8002D4E0((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp28, 0x1000, 0x400, &sp68);
         temp_s0 = *((char **) (((char *) var_s1) + 0x58));
-        func_8002D6E0(&sp68, temp_s0 + 0xC0);
+        vec3_square(&sp68, temp_s0 + 0xC0);
         temp_v0_2 = func_8002D2A0(((*((s32 *) (((char *) temp_s0) + 0xC0))) + (*((s32 *) (((char *) temp_s0) + 0xC4)))) + (*((s32 *) (((char *) temp_s0) + 0xC8))));
         if (temp_v0_2 != 0)
         {
@@ -284,12 +284,12 @@ void func_80026ED4(void **arg0)
       {
         func_8002D4E0((*((char **) (((char *) var_s1) + 0x58))) + 0xD4, &sp38, 0x1000, 0x400, &sp88);
         p78=&sp78;
-func_8002D594((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
+vec3_cross((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
  p78=0;
         sp78 /= 16384;
         sp7C /= 16384;
         sp80 /= 16384;
-        func_8002D6E0(&sp78, &sp48);
+        vec3_square(&sp78, &sp48);
         temp_v0_4 = func_8002D2A0((sp48 + sp4C) + sp50);
         if (temp_v0_4 != 0)
         {
@@ -304,7 +304,7 @@ func_8002D594((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
           sp50 = 0;
         }
         temp_s0_2 = *((char **) (((char *) var_s1) + 0x58));
-        func_8002D594(&sp48, temp_s0_2 + 0xC0, temp_s0_2 + 0xD4);
+        vec3_cross(&sp48, temp_s0_2 + 0xC0, temp_s0_2 + 0xD4);
         var_v0_4 = *((s32 *) (((char *) temp_s0_2) + 0xD4));
         *((s32 *) (((char *) temp_s0_2) + 0xD4)) = var_v0_4 / 16384;
         var_a0_2 = *((s32 *) (((char *) temp_s0_2) + 0xD8));
@@ -315,7 +315,7 @@ func_8002D594((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
       else
       {
         temp_a1_6 = *((char **) (((char *) var_s1) + 0x58));
-        func_8002D594(temp_a1_6 + 0xC0, temp_a1_6 + 0xD4, &sp78);
+        vec3_cross(temp_a1_6 + 0xC0, temp_a1_6 + 0xD4, &sp78);
         do
         {
         }
@@ -323,7 +323,7 @@ func_8002D594((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
         sp78 /= 16384;
         sp7C /= 16384;
         sp80 /= 16384;
-        func_8002D6E0(&sp78, &sp48);
+        vec3_square(&sp78, &sp48);
         temp_v0_3 = func_8002D2A0((sp48 + sp4C) + sp50);
         if (temp_v0_3 != 0)
         {
@@ -389,7 +389,7 @@ func_8002D594((*((char **) (((char *) var_s1) + 0x58))) + 0xC0, &sp88, p78);
       *((s16 *) (((char *) temp_v1_14) + 0x106)) = (s16) sp4C;
       *((s16 *) (((char *) temp_v1_14) + 0x10C)) = (s16) sp50;
       temp_a2_3 = *((char **) (new_var + 0x58));
-      func_8002D8A0((*((char **) (new_var + 0x5C))) + 0x40, temp_a2_3 + 0x98, temp_a2_3 + 0xAC);
+      mat3_mul_vec3_q12((*((char **) (new_var + 0x5C))) + 0x40, temp_a2_3 + 0x98, temp_a2_3 + 0xAC);
       *((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x5C)))) + 0x54)) = (s32) (*((s32 *) (((char *) (*((char **) (new_var + 0x58)))) + 0xC)));
       *((char **) (((char *) (*((char **) (new_var + 0x5C)))) + 0x58)) = (s32) (*((s32 *) (((char *) (*((char **) (new_var + 0x58)))) + 0x10)));
       *((char **) (((char *) (*((char **) (new_var + 0x5C)))) + 0x5C)) = (s32) (*((s32 *) (((char *) (*((char **) (((char *) var_s1) + 0x58)))) + 0x14)));

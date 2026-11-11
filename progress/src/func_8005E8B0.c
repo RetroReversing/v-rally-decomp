@@ -1,24 +1,26 @@
-extern char D_800AE850[];
-extern char D_800C02AE[];
-extern void *D_800A1468;
-s32 func_800592F4(s32 a, s32 b, void *c);
+extern char gOrderState[];
+extern char gStreamState[];
+extern void *gSelectState;
+s32 slot_set_selected(s32 a, s32 b, void *c);
 s32 func_80066B88(void);
 
+/* Advances the select step counter while it is below the order's slot count, marking the
+ * next slot as selected; once the counter is 2 or more, sets the select timer to 60. */
 s32 func_8005E8B0(s32 arg0)
 {
-    void *p;
-    u16 n;
-    u16 t;
+    void *table;
+    u16 step;
+    u16 next;
 
-    p = *(void **)(D_800C02AE + 0x32F2);
-    n = *(u16 *)((char *)p + 0xE);
-    if ((u32)n < *(u8 *)(D_800AE850 + 0x7D50)) {
-        t = n + 1;
-        *(u16 *)((char *)p + 0xE) = t;
-        func_800592F4(arg0, (t & 0xFFFF) - 1, p);
+    table = *(void **)(gStreamState + 0x32F2);
+    step = *(u16 *)((char *)table + 0xE);
+    if ((u32)step < *(u8 *)(gOrderState + 0x7D50)) {
+        next = step + 1;
+        *(u16 *)((char *)table + 0xE) = next;
+        slot_set_selected(arg0, (next & 0xFFFF) - 1, table);
         func_80066B88();
-    } else if ((u32)n < 2) {
-        *(s16 *)((char *)D_800A1468 + 0x220) = 0x3C;
+    } else if ((u32)step < 2) {
+        *(s16 *)((char *)gSelectState + 0x220) = 0x3C;
     }
     return 0;
 }

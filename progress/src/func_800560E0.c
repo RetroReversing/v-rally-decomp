@@ -14,17 +14,20 @@ typedef struct
   u8 *records;
 } FuncArg0;
 extern u8 D_800A1310[];
-extern s32 func_8007EAA0(s32, s32);
+extern s32 poolAlloc(s32, s32);
 extern void func_80056FE4(s32 *);
-extern void func_80056AB8(s32, s32 *, s32);
-extern void *func_80006008(s32);
-extern void func_80006014(s32, void *);
-extern void func_8007EE9C(s32);
-void func_800560E0(FuncArg0 *arg0, s32 arg1)
+extern void gfx_draw_item_list(s32, s32 *, s32);
+extern void *gfx_get_dl(s32);
+extern void gfx_set_dl(s32, void *);
+extern void heapFreeBlock(s32);
+
+/* Builds a block of 8-byte records: sums their sizes to allocate a buffer, runs each
+ * record's handler from D_800A1310 to fill it, then appends a G_ENDDL to the display list. */
+void func_800560E0(FuncArg0 *arg0, s32 dlIndex)
 {
   FuncBlk blk;
   u32 *p;
-  s32 sum = 0;
+  s32 total = 0;
   s32 i = 0;
   s32 count = arg0->count;
   u8 *rec = arg0->records;
@@ -32,15 +35,15 @@ void func_800560E0(FuncArg0 *arg0, s32 arg1)
   {
     do
     {
-      sum += *((u16 *) (rec + 4));
+      total += *((u16 *) (rec + 4));
       i++;
       rec += 8;
     }
     while (i < count);
   }
-  i = func_8007EAA0(1, sum * 0x22);
+  i = poolAlloc(1, total * 0x22);
   blk.a = i;
-  blk.b = sum;
+  blk.b = total;
   blk.c = 0;
   rec = arg0->records;
   i = 0;
@@ -56,13 +59,13 @@ void func_800560E0(FuncArg0 *arg0, s32 arg1)
     while (i < count);
   }
   func_80056FE4(&blk.a);
-  func_80056AB8(arg1, &blk.a, *((s32 *) (((u8 *) arg0) + 0x50)));
+  gfx_draw_item_list(dlIndex, &blk.a, *((s32 *) (((u8 *) arg0) + 0x50)));
   if (arg0->records && arg0->records)
   {
   }
-  p = func_80006008(arg1);
+  p = gfx_get_dl(dlIndex);
   p[0] = 0xDF000000;
   p[1] = 0;
-  func_80006014(arg1, p + 2);
-  func_8007EE9C(blk.a);
+  gfx_set_dl(dlIndex, p + 2);
+  heapFreeBlock(blk.a);
 }

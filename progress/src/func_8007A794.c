@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80035438(s32);                         /* extern */
-extern void *D_800A1468;
+M2C_UNK streamReleaseEntry(s32);                         /* extern */
+extern void *gSelectState;
 
 void func_8007A794(void) {
     s32 temp_a0;
 
-    temp_a0 = M2C_FIELD(D_800A1468, s32 *, 0x1E4);
+    temp_a0 = M2C_FIELD(gSelectState, s32 *, 0x1E4);
     if (temp_a0 != 0) {
-        func_80035438(temp_a0);
-        M2C_FIELD(D_800A1468, s32 *, 0x1E4) = 0;
+        streamReleaseEntry(temp_a0);
+        M2C_FIELD(gSelectState, s32 *, 0x1E4) = 0;
     }
 }

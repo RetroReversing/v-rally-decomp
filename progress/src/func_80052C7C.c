@@ -1,9 +1,13 @@
-extern u8 D_800AE850;
+extern u8 gOrderState;
 extern u16 D_800D0628;
 extern u8 *D_800D0648;
+
+/* Walks the order entries (count in D_800D0628, 0x2C4 bytes apart, starting at the entry
+ * base +0x10): clears flag bit 1 on each, sets it again when the matching gOrderState
+ * halfword is nonzero, and returns how many were set. */
 s32 func_80052C7C(void)
 {
-  u16 *new_var;
+  u16 *count_ptr;
   s32 pad;
   u32 i;
   s32 count;
@@ -20,8 +24,8 @@ s32 func_80052C7C(void)
   count = 0;
   if (enabled)
   {
-    new_var = (u16 *) (pp - 0x20);
-    flag = (&D_800AE850) + 0x7DB0;
+    count_ptr = (u16 *) (pp - 0x20);
+    flag = (&gOrderState) + 0x7DB0;
     p = base + 0x10;
     do
     {
@@ -36,7 +40,7 @@ s32 func_80052C7C(void)
       i++;
       flag += 2;
     }
-    while (i < (*new_var));
+    while (i < (*count_ptr));
   }
   return count;
 }

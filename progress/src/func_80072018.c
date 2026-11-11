@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,21 +11,22 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8005C198();                            /* extern */
-M2C_UNK func_8005E28C(M2C_UNK, M2C_UNK);            /* extern */
-M2C_UNK func_8005E470(s32, M2C_UNK);                /* extern */
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern s32 D_800A14D0;
-extern s8 D_800A16D4;
+M2C_UNK func_8005C198();
+M2C_UNK func_8005E28C(M2C_UNK, M2C_UNK);
+M2C_UNK func_8005E470(s32, M2C_UNK);
+M2C_UNK heapFreeBlock(s32);
+extern s32 gSelectBuffer;
+extern s8 gStreamPhase;
 
+/* Stream-side counterpart of select_screen_setup: marks the screen shown, frees the text buffer if one is held, runs func_8005E470 with the arguments, sets the stream phase to 1 and resets func_8005E28C. */
 s32 func_80072018(s32 arg0, M2C_UNK arg1) {
     func_8005C198();
-    if (D_800A14D0 != 0) {
-        func_8007EE9C(D_800A14D0);
-        D_800A14D0 = 0;
+    if (gSelectBuffer != 0) {
+        heapFreeBlock(gSelectBuffer);
+        gSelectBuffer = 0;
     }
     func_8005E470(arg0, arg1);
-    D_800A16D4 = 1;
+    gStreamPhase = 1;
     func_8005E28C(0, 0);
     return 0;
 }

@@ -1,57 +1,60 @@
 s32 alLink();
 s32 alUnlink();
-extern u32 D_800A1BA4;
-extern u32 D_800A1BA8;
+extern u32 cacheTick;
+extern u32 cacheTableIndex;
 extern char D_800A73E0[];
+
+/* Ages the audio cache list: entries not used since cacheTick are unlinked and
+ * moved to the tail, then the table index is reset and cacheTick advances. */
 void func_80087114(void)
 {
   char pad[8];
-  void *temp_s1;
-  void *var_s0;
-  void *temp_a1;
-  u32 var_v1;
+  void *next;
+  void *entry;
+  void *tail;
+  u32 i;
 
-  var_v1 = 0;
-  if (D_800A1BA8 != 0)
+  i = 0;
+  if (cacheTableIndex != 0)
   {
     do
     {
-      var_v1 += 1;
-    } while (var_v1 < D_800A1BA8);
+      i += 1;
+    } while (i < cacheTableIndex);
   }
-  var_s0 = *((void **) (D_800A73E0 + 0x4564));
-  if (var_s0 != NULL)
+  entry = *((void **) (D_800A73E0 + 0x4564));
+  if (entry != NULL)
   {
     do
     {
-      temp_s1 = *((void **) var_s0);
-      if (((*((s32 *) ((char *) var_s0 + 0xC))) + 1) < D_800A1BA4)
+      next = *((void **) entry);
+      if (((*((s32 *) ((char *) entry + 0xC))) + 1) < cacheTick)
       {
-        if (*((void **) (D_800A73E0 + 0x4564)) == var_s0)
+        if (*((void **) (D_800A73E0 + 0x4564)) == entry)
         {
-          *((void **) (D_800A73E0 + 0x4564)) = temp_s1;
+          *((void **) (D_800A73E0 + 0x4564)) = next;
         }
-        alUnlink(var_s0);
-        temp_a1 = *((void **) (D_800A73E0 + 0x4564 + 4));
-        if (temp_a1 != NULL)
+        alUnlink(entry);
+        tail = *((void **) (D_800A73E0 + 0x4564 + 4));
+        if (tail != NULL)
         {
-          alLink(var_s0, temp_a1);
-          var_s0 = temp_s1;
+          alLink(entry, tail);
+          entry = next;
         }
         else
         {
-          *((void **) (D_800A73E0 + 0x4564 + 4)) = var_s0;
-          *((void **) var_s0) = NULL;
-          *((s32 *) ((char *) var_s0 + 4)) = 0;
-          var_s0 = temp_s1;
+          *((void **) (D_800A73E0 + 0x4564 + 4)) = entry;
+          *((void **) entry) = NULL;
+          *((s32 *) ((char *) entry + 4)) = 0;
+          entry = next;
         }
       }
       else
       {
-        var_s0 = temp_s1;
+        entry = next;
       }
-    } while (var_s0 != NULL);
+    } while (entry != NULL);
   }
-  D_800A1BA8 = 0;
-  D_800A1BA4 += 1;
+  cacheTableIndex = 0;
+  cacheTick += 1;
 }

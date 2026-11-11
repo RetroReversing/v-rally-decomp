@@ -1,28 +1,30 @@
-extern f32 D_8009F584;
-extern f32 D_8009F590;
+extern f32 gCamTiltOffset;
+extern f32 gCamPanOffset;
 
-void func_800101F8(s32 arg0)
+/* Nudges the camera offsets from the C-button bits in buttons: C-up and
+ * C-down change the tilt by 2, C-left and C-right change the pan by 1. */
+void func_800101F8(s32 buttons)
 {
   f32 *temp_v0;
 
-  if (arg0 & 0x800)
+  if (buttons & 0x800)
   {
-    temp_v0 = &D_8009F584;
+    temp_v0 = &gCamTiltOffset;
     *temp_v0 = *temp_v0 + 2.0f;
   }
-  if (arg0 & 0x400)
+  if (buttons & 0x400)
   {
-    temp_v0 = &D_8009F584;
+    temp_v0 = &gCamTiltOffset;
     *temp_v0 = *temp_v0 - 2.0f;
   }
-  if (arg0 & 0x200)
+  if (buttons & 0x200)
   {
-    temp_v0 = &D_8009F590;
+    temp_v0 = &gCamPanOffset;
     *temp_v0 = *temp_v0 + 1.0f;
   }
-  if (arg0 & 0x100)
+  if (buttons & 0x100)
   {
-    temp_v0 = &D_8009F590;
+    temp_v0 = &gCamPanOffset;
     *temp_v0 = *temp_v0 - 1.0f;
   }
 }

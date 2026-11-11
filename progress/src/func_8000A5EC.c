@@ -1,4 +1,4 @@
-void func_8000B910(void *, s32, s32);
+void updateRotatedTransform(void *, s32, s32);
 void osWritebackDCache(void *, s32);
 typedef struct 
 {
@@ -47,61 +47,64 @@ typedef struct
   u8 f56;
   u8 f57;
 } Obj;
-void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
+
+/* Fills an Obj's draw state from a texture descriptor. The tile layout depends on img->type:
+ * 16 and 256 are the two palette-indexed formats, anything else is treated as 16bpp.
+ * Mode bit 0 skips the per-tile setup. Flags bit 0x20 applies a transform at (x, y). */
+void func_8000A5EC(Obj *obj, Img *img, u8 mode, s32 flags, u16 x, u16 y, u16 idx)
 {
   u32 v;
   s32 m;
-  Img *img = im;
-  o->img = im;
+  obj->img = img;
   m = mode;
-  if (im->type == 16)
+  if (img->type == 16)
   {
-    u32 w = im->w;
-    o->f52 = 0;
-    o->f54 = 2;
-    o->f55 = 0;
-    o->f50 = w >> 4;
+    u32 w = img->w;
+    obj->f52 = 0;
+    obj->f54 = 2;
+    obj->f55 = 0;
+    obj->f50 = w >> 4;
     if (mode & 1)
     {
       goto fin;
     }
-    o->f30 = 0;
-    v = im->w >> 4;
+    obj->f30 = 0;
+    v = img->w >> 4;
   }
   else
-    if (im->type == 256)
+    if (img->type == 256)
   {
-    u32 w = im->w;
-    o->f54 = 2;
-    o->f55 = 1;
-    o->f52 = 0;
-    o->f50 = w >> 3;
+    u32 w = img->w;
+    obj->f54 = 2;
+    obj->f55 = 1;
+    obj->f52 = 0;
+    obj->f50 = w >> 3;
     if (mode & 1)
     {
       goto fin;
     }
-    o->f30 = 0;
-    v = im->w >> 3;
+    obj->f30 = 0;
+    v = img->w >> 3;
   }
   else
   {
-    u32 w = im->w;
-    o->f52 = 0;
-    o->f54 = 0;
-    o->f55 = 3;
-    o->f50 = w >> 2;
+    u32 w = img->w;
+    obj->f52 = 0;
+    obj->f54 = 0;
+    obj->f55 = 3;
+    obj->f50 = w >> 2;
     if (mode & 1)
     {
-      o->f30 = 0;
-      o->f32 = ((im->w * im->h) >> 1) - 1;
-      o->f34 = (0x7FF / (im->w >> 2)) + 1;
+      obj->f30 = 0;
+      obj->f32 = ((img->w * img->h) >> 1) - 1;
+      obj->f34 = (0x7FF / (img->w >> 2)) + 1;
       goto fin;
     }
-    o->f30 = 0;
-    v = im->w >> 1;
+    obj->f30 = 0;
+    v = img->w >> 1;
   }
-  o->f32 = (v * 4) - 1;
-  o->f34 = (im->size * 4) - 1;
+  obj->f32 = (v * 4) - 1;
+  obj->f34 = (img->size * 4) - 1;
   fin:
   {
     u16 t1;
@@ -111,41 +114,40 @@ void func_8000A5EC(Obj *o, Img *im, u8 mode, s32 flags, u16 a4, u16 a5, u16 idx)
     u32 t5;
     u32 t6;
     u32 t7;
-    o->f42 = 0x400;
-    t1 = im->w;
-    o->f46 = 0;
-    o->f4A = 0x400;
-    o->f44 = t1 << 5;
-    t2 = im->size;
-    o->f4E = 0;
-    o->f56 = 0;
-    o->f57 = 0;
-    o->f4C = t2 << 5;
-    o->f28 = (mode & 1) ? (0x1033) : (0xFC1034);
-    t3 = *im->ptr;
-    o->f36 = 0;
-    o->f2C = t3;
-    t4 = *im->ptr;
-    o->f3C = -1;
-    o->f38=t4;
-    do {t3=0x30;o->f10=t3;}while(0);
-    t5 = im->tab[idx];
-    o->f18 = 0x100;
-    o->f14 = t5;
+    obj->f42 = 0x400;
+    t1 = img->w;
+    obj->f46 = 0;
+    obj->f4A = 0x400;
+    obj->f44 = t1 << 5;
+    t2 = img->size;
+    obj->f4E = 0;
+    obj->f56 = 0;
+    obj->f57 = 0;
+    obj->f4C = t2 << 5;
+    obj->f28 = (mode & 1) ? (0x1033) : (0xFC1034);
+    t3 = *img->ptr;
+    obj->f36 = 0;
+    obj->f2C = t3;
+    t4 = *img->ptr;
+    obj->f3C = -1;
+    obj->f38=t4;
+    do {t3=0x30;obj->f10=t3;}while(0);
+    t5 = img->tab[idx];
+    obj->f18 = 0x100;
+    obj->f14 = t5;
     m = -1;
-    t6 = im->type;
-    o->f1C = 0;
-    o->f1E = 0;
-    o->f1A = t6 - 1;
-    t7 = im->tab[idx];
-    o->f24 = m;
-    o->f20 = t7;
+    t6 = img->type;
+    obj->f1C = 0;
+    obj->f1E = 0;
+    obj->f1A = t6 - 1;
+    t7 = img->tab[idx];
+    obj->f24 = m;
+    obj->f20 = t7;
   }
 
   if (flags & 0x20)
   {
-    func_8000B910(o, (s16) a4, (s16) a5);
+    updateRotatedTransform(obj, (s16) x, (s16) y);
   }
-  osWritebackDCache(o, 0x60);
+  osWritebackDCache(obj, 0x60);
 }
-

@@ -18,23 +18,26 @@ typedef struct
   u16 a;
   u16 b;
 } Sel;
-extern u8 *D_800D0634;
-extern Sel *D_800C35A0;
-s32 func_80052E94(u16, void *);void *text_obj_get(u32);
-s32 func_80059618(void *, s32, s32, s32, s32);
-void func_800596F4(void *, s16, s16, void *);
+extern u8 *gSlotTableB;
+extern Sel *gRecords;
+s32 func_80052E94(u16, void *);void *textObjGet(u32);
+s32 group_set_color(void *, s32, s32, s32, s32);
+void draw_palette_sprite(void *, s16, s16, void *);
 s32 memset(void *, s32, s32);
-s32 func_800980D0(void *, void *);
-s32 func_80099DF8(void *, void *, s32, void *);
+s32 appendString(void *, void *);
+s32 formatString(void *, void *, s32, void *);
 extern char D_800A5684[];
 extern s16 D_800A568C;
 extern s8 D_800A568E;
 extern char D_800A5690[];
 static inline s32 *inline_fn(u8 *arg0, unsigned char arg1, int arg2)
 {
-  return (s32 *) ((arg0 + ((arg1 * 0x10) + (D_800C35A0->b << arg2))) + 0x2C);
+  return (s32 *) ((arg0 + ((arg1 * 0x10) + (gRecords->b << arg2))) + 0x2C);
 }
 
+/* Draws the three-row label block and then the value column of the record table:
+ * each value is shown relative to the first row, with the first row's value shown
+ * as is. Rows are 0x16 apart. */
 void func_80062E68(void)
 {
   struct 
@@ -44,42 +47,42 @@ void func_80062E68(void)
     s8 pad[13];
   } buf;
   s32 first = 0;
-  s16 *new_var2;
-  void *bp;
-  Sp *u;
-  s32 *new_var;
-  Sp *s;
-  unsigned char i;
-  s32 v;
+  s16 *value_x;
+  void *value_buf;
+  Sp *value_text;
+  s32 *row_val;
+  Sp *row_text;
+  unsigned char row;
+  s32 val;
   s32 n;
-  s = text_obj_get(0x10);
+  row_text = textObjGet(0x10);
   memset(&sp18, 0, 0xF);
   n = 0;
   do
   {
-    i = n & 0xFF;
-    func_80099DF8(&sp18, D_800A5684, i + 1, (((D_800D0634 + (D_800C35A0->a * 0x2C4)) + ((D_800C35A0->b << 6) + 0x2C)) + (i * 0x10)) + 6);
+    row = n & 0xFF;
+    formatString(&sp18, D_800A5684, row + 1, (((gSlotTableB + (gRecords->a * 0x2C4)) + ((gRecords->b << 6) + 0x2C)) + (row * 0x10)) + 6);
     n++;
-    func_80059618(s, s->q, s->r, s->g, s->b);
-    func_800596F4((void *)(s), (s16)(s->x), (s16)(s->y + (i * 0x16)), (void *)(&sp18));
+    group_set_color(row_text, row_text->q, row_text->r, row_text->g, row_text->b);
+    draw_palette_sprite((void *)(row_text), (s16)(row_text->x), (s16)(row_text->y + (row * 0x16)), (void *)(&sp18));
   }
   while (3U > ((u32) (n & 0xFF)));
-  s = text_obj_get(0x12);
-  u = text_obj_get(0x11);
+  row_text = textObjGet(0x12);
+  value_text = textObjGet(0x11);
   n = 0;
-  bp = &buf;
+  value_buf = &buf;
   do
   {
-    i = n & 0xFF;
-    new_var = inline_fn(D_800D0634 + (177 * (D_800C35A0->a * 4)), i, 6);
-    new_var2 = &u->x;
-    v = *new_var;
+    row = n & 0xFF;
+    row_val = inline_fn(gSlotTableB + (177 * (gRecords->a * 4)), row, 6);
+    value_x = &value_text->x;
+    val = *row_val;
     memset(&sp18, 0, 0xF);
-    func_80052E94(v, &sp18);
-    func_800596F4((void *)(s), (s16)(s->x), (s16)(s->y + (i * 0x16)), (void *)(&sp18));
-    if (i == 0)
+    func_80052E94(val, &sp18);
+    draw_palette_sprite((void *)(row_text), (s16)(row_text->x), (s16)(row_text->y + (row * 0x16)), (void *)(&sp18));
+    if (row == 0)
     {
-      first = v;
+      first = val;
     }
     else
     {
@@ -90,17 +93,17 @@ void func_80062E68(void)
         sp18 = t1;
         sp1A = t2;
       }
-      if (s)
+      if (row_text)
       {
-        func_80052E94(v - first, &sp1A);
-        func_800980D0(bp, D_800A5690);
-        func_800596F4((void *)(u), (s16)(*new_var2), (s16)(u->y + (((i) - 1) * 0x16)), (void *)(bp));
+        func_80052E94(val - first, &sp1A);
+        appendString(value_buf, D_800A5690);
+        draw_palette_sprite((void *)(value_text), (s16)(*value_x), (s16)(value_text->y + (((row) - 1) * 0x16)), (void *)(value_buf));
       }
       else
       {
-        func_80052E94(v - first, &sp1A);
-        func_800980D0(bp, D_800A5690);
-        func_800596F4((void *)(u), (s16)(*new_var2), (s16)(u->y + ((((unsigned int) i) - 1) * 0x16)), (void *)(bp));
+        func_80052E94(val - first, &sp1A);
+        appendString(value_buf, D_800A5690);
+        draw_palette_sprite((void *)(value_text), (s16)(*value_x), (s16)(value_text->y + ((((unsigned int) row) - 1) * 0x16)), (void *)(value_buf));
       }
     }
     n++;

@@ -1,48 +1,51 @@
-extern u8 D_800C02AE[];
-extern u8 D_800AE850[];
+extern u8 gStreamState[];
+extern u8 gOrderState[];
 extern u8 D_800A4E4C[];
 extern u8 D_800A4E50[];
 s32 func_8000A188(void *, void *, s32, s32, s32);
-s32 func_80034FF0(void *, s32);
-void *func_8004240C(s32);
-void *func_80048C74(void *, s32, void *);
-s32 func_80098180(void *, void *);
+s32 getTexturePack(void *, s32);
+void *find_object_by_id(s32);
+void *listAppendDefaultNode(void *, s32, void *);
+s32 strCmp(void *, void *);
 
-void func_80048B38(u8 *arg0)
+/* For each entry of the per-object list (count from the table at gStreamState), reads the entry's name
+ * and stores the object's value into the matching slot (the "A" or "B" list, chosen by name), then
+ * sends the update to the object found by id. obj is the object being updated. */
+void func_80048B38(u8 *obj)
 {
-    u8 *arg1;
-    u8 *temp_s0;
-    u8 *temp_s2;
-    u8 *temp_s6;
-    s32 temp_s3;
-    s32 var_s4;
-    u32 var_s5;
-    u32 var_s7;
-    u8 temp_v0;
+    u8 *name_ptr;
+    u8 *slot;
+    u8 *entry;
+    u8 *name;
+    s32 value;
+    s32 obj_id;
+    u32 idx;
+    u32 count;
+    u8 count8;
 
-    arg1 = arg0;
-    temp_s2 = NULL;
-    temp_v0 = *(u8 *)(*(u8 **)&D_800C02AE[0x32F2] + 0xF);
-    temp_s0 = **(u8 ***)&D_800AE850[0x6D94];
-    var_s5 = 1;
-    if (temp_v0 != 0) {
-        temp_s6 = arg1 + 0x4C;
-        var_s7 = temp_v0;
-        var_s4 = 1;
+    name_ptr = obj;
+    slot = NULL;
+    count8 = *(u8 *)(*(u8 **)&gStreamState[0x32F2] + 0xF);
+    entry = **(u8 ***)&gOrderState[0x6D94];
+    idx = 1;
+    if (count8 != 0) {
+        name = name_ptr + 0x4C;
+        count = count8;
+        obj_id = 1;
         do {
-            temp_s3 = func_80034FF0(arg1 + 0x98, 0);
-            if (func_80098180(temp_s6, D_800A4E4C) == 0) {
-                temp_s2 = func_80048C74(temp_s0 + 0xC, 0, arg1);
-                *(s32 *)(temp_s0 + 0x40) = *(s32 *)(arg1 + 0x128);
-            } else if (func_80098180(temp_s6, D_800A4E50) == 0) {
-                temp_s2 = func_80048C74(temp_s0 + 0x44, 1, arg1);
-                *(s32 *)(temp_s0 + 0x78) = *(s32 *)(arg1 + 0x128);
+            value = getTexturePack(name_ptr + 0x98, 0);
+            if (strCmp(name, D_800A4E4C) == 0) {
+                slot = listAppendDefaultNode(entry + 0xC, 0, name_ptr);
+                *(s32 *)(entry + 0x40) = *(s32 *)(name_ptr + 0x128);
+            } else if (strCmp(name, D_800A4E50) == 0) {
+                slot = listAppendDefaultNode(entry + 0x44, 1, name_ptr);
+                *(s32 *)(entry + 0x78) = *(s32 *)(name_ptr + 0x128);
             }
-            *(s32 *)(temp_s2 + 0xC) = temp_s3;
-            func_8000A188(*(void **)((u8 *)func_8004240C(var_s4) + 0x178), temp_s2, *(arg1 + 0x12B), 0, 0);
-            var_s4 += 2;
-            var_s5 += 1;
-            temp_s0 = *(u8 **)(temp_s0 + 4);
-        } while (var_s7 >= var_s5);
+            *(s32 *)(slot + 0xC) = value;
+            func_8000A188(*(void **)((u8 *)find_object_by_id(obj_id) + 0x178), slot, *(name_ptr + 0x12B), 0, 0);
+            obj_id += 2;
+            idx += 1;
+            entry = *(u8 **)(entry + 4);
+        } while (count >= idx);
     }
 }

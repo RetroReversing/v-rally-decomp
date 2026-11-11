@@ -7,6 +7,10 @@ typedef struct
 } NameEnt;
 extern NameEnt D_8009CEE0[];
 extern u8 D_8009CEE8;
+
+/* Copies the next token from src (up to a space, tab, comma, CR, '#', or a "//" comment)
+   into a 16-char buffer, then looks it up in the name table D_8009CEE0 (ended by id 0xFF).
+   Returns the table index + 1 on a match, or 0 if the token is not in the table. */
 s32 func_8002AA6C(char *src, char *end)
 {
   char *look;

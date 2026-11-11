@@ -9,7 +9,7 @@ typedef struct {
     u8 unk32[0x22]; CarSetup set[1];
 } GameState;
 
-extern Menu *D_800A0384;
+extern Menu *gRaceCtx;
 extern u8 D_800A0389;
 extern u8 D_800A03D8;
 extern u8 D_800A03D9;
@@ -20,24 +20,24 @@ extern f64 D_800A4EF8;
 extern f64 D_800A4F00;
 extern f64 D_800A4F08;
 extern f64 D_800A4F10;
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 
-#define M D_800A0384
-extern GameState *D_800C35A0;
-#define G D_800C35A0
+#define M gRaceCtx
+extern GameState *gRecords;
+#define G gRecords
 extern f32 D_800C35D8;
 extern f32 D_800C35DC;
-extern f32 D_800C35E0;
+extern f32 gSpeedAccum;
 extern f32 D_800C35E8;
-#define F(off) ((off) == 0x332A ? &D_800C35D8 : (off) == 0x332E ? &D_800C35DC : (off) == 0x3332 ? &D_800C35E0 : &D_800C35E8)
+#define F(off) ((off) == 0x332A ? &D_800C35D8 : (off) == 0x332E ? &D_800C35DC : (off) == 0x3332 ? &gSpeedAccum : &D_800C35E8)
 #define CURSET (G->set[G->unk32[M->id]])
 
 void MusSetMasterVolume(s32, s32);
 void func_800494D4(u8);
-void func_80049D50(void);
-s32 func_80049E28(void);
+void raceResetSlots(void);
+s32 updateRaceStart(void);
 void func_8004E224(u8);
-u8 func_8006204C(u8, u8, u8);
+u8 select_stream_char(u8, u8, u8);
 s32 func_80084BF0(u8);
 s8 func_80084C0C(u8, s32);
 void func_80085778(u8, s32);
@@ -85,7 +85,7 @@ void func_8004AFB8(void) {
                 break;
             }
         } else if (page == 2) {
-            sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
+            sel = select_stream_char(G->unk1E, G->unk20, G->unk22);
             switch (M->cursor) {
             case 0: if (CURSET.a[sel] != 0) { CURSET.a[sel]--; func_800494D4(M->id); } break;
             case 1: if (CURSET.d[sel] > -20) { CURSET.d[sel] -= 10; func_800494D4(M->id); } break;
@@ -107,7 +107,7 @@ void func_8004AFB8(void) {
             case 2: p = F(0x332E); if (*p < 1.0f) *p += D_800A4EF0; break;
             }
         } else if (page == 2) {
-            sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
+            sel = select_stream_char(G->unk1E, G->unk20, G->unk22);
             switch (M->cursor) {
             case 0: if (CURSET.a[sel] < 2) { CURSET.a[sel]++; func_800494D4(M->id); } break;
             case 1: if (CURSET.d[sel] < 20) { CURSET.d[sel] += 10; func_800494D4(M->id); } break;
@@ -123,7 +123,7 @@ void func_8004AFB8(void) {
         page = M->page;
         if (page == 0) {
             if (M->cursor == 0) {
-                func_80049D50();
+                raceResetSlots();
                 MusSetMasterVolume(3, (s32)(*F(0x332A) * 32767.0f));
             } else if (G->unk1E == 0 && M->cursor == 1 && M->unk3A2 == 0) {
                 M->unk384 = 0;
@@ -169,12 +169,12 @@ void func_8004AFB8(void) {
                 M->cursor = 0;
                 M->page = 0;
             } else if (D_800A0389 == 0) {
-                func_80049E28();
+                updateRaceStart();
             }
         }
     } else if (btn & 0x4000) {
         if (M->page == 0) {
-            func_80049D50();
+            raceResetSlots();
             MusSetMasterVolume(3, (s32)(*F(0x332A) * 32767.0f));
         } else {
             M->cursor = 0;
@@ -214,7 +214,7 @@ void func_8004AFB8(void) {
                 case 2: p = F(0x332E); if (*p < 1.0f) *p += D_800A4F08; break;
                 }
             } else if (page == 2) {
-                sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
+                sel = select_stream_char(G->unk1E, G->unk20, G->unk22);
                 switch (M->cursor) {
                 case 0: if (CURSET.a[sel] < 2) { CURSET.a[sel]++; func_800494D4(M->id); } break;
                 case 1: if (CURSET.d[sel] < 20) { CURSET.d[sel] += 10; func_800494D4(M->id); } break;
@@ -245,14 +245,14 @@ void func_8004AFB8(void) {
                     break;
                 }
             } else if (page == 2) {
-                sel = func_8006204C(G->unk1E, G->unk20, G->unk22);
+                sel = select_stream_char(G->unk1E, G->unk20, G->unk22);
                 switch (M->cursor) {
                 case 0: if (CURSET.a[sel] != 0) { CURSET.a[sel]--; func_800494D4(M->id); } break;
                 case 1: if (CURSET.d[sel] > -20) { CURSET.d[sel] -= 10; func_800494D4(M->id); } break;
                 case 2: if (CURSET.c[sel] != 0) { CURSET.c[sel]--; func_800494D4(M->id); } break;
                 case 3:
-                    if (G->set[G->unk32[M->id]].b[func_8006204C(G->unk1E, G->unk20, G->unk22)] != 0) {
-                        G->set[G->unk32[M->id]].b[func_8006204C(G->unk1E, G->unk20, G->unk22)]--;
+                    if (G->set[G->unk32[M->id]].b[select_stream_char(G->unk1E, G->unk20, G->unk22)] != 0) {
+                        G->set[G->unk32[M->id]].b[select_stream_char(G->unk1E, G->unk20, G->unk22)]--;
                         func_800494D4(M->id);
                     }
                     break;

@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8005C198();                            /* extern */
 M2C_UNK func_8006A318();                            /* extern */
-M2C_UNK func_80047F94();                            /* extern */
+M2C_UNK asset_list_teardown();                            /* extern */
 
 void func_80071E08(void) {
     func_8005C198();
     func_8006A318();
-    func_80047F94();
+    asset_list_teardown();
 }

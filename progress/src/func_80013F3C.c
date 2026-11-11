@@ -1,23 +1,25 @@
 u64 osGetTime(void);
-u64 func_8009A2B0(u64, u64);
-extern char *D_800C7304;
+u64 __udivdi3(u64, u64);
+extern char *gTimeSampleState;
 
+/* Records a time sample: while fewer than four samples are stored, writes the elapsed time since the
+ * base value at +8 (scaled from osGetTime to a 3000-unit tick count) into the next sample slot. */
 void func_80013F3C(void)
 {
-    char *s1;
-    char *s0;
+    char *state;
+    char *slotBase;
     u32 idx;
     u64 t;
     u64 r;
 
-    if (*(u32 *)(D_800C7304 + 4) < 4) {
+    if (*(u32 *)(gTimeSampleState + 4) < 4) {
         t = osGetTime();
-        s1 = D_800C7304;
-        idx = *(u32 *)(s1 + 4);
-        s0 = (char *) (idx * 8);
-        s0 = s1 + (u32) s0;
-        r = func_8009A2B0(t << 6, 3000);
-        r = r - *(u64 *)(s1 + 8);
-        *(u64 *)(s0 + 0xD0) = r;
+        state = gTimeSampleState;
+        idx = *(u32 *)(state + 4);
+        slotBase = (char *) (idx * 8);
+        slotBase = state + (u32) slotBase;
+        r = __udivdi3(t << 6, 3000);
+        r = r - *(u64 *)(state + 8);
+        *(u64 *)(slotBase + 0xD0) = r;
     }
 }

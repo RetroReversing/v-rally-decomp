@@ -26,23 +26,23 @@ typedef struct { u16 count; u16 pad; Actor *items[1]; } ActorList;
 
 #define gCmd(pkt, a, b) { u32 *_g = (u32 *)(pkt); _g[0] = (a); _g[1] = (u32)(b); }
 
-Gfx *func_80006008(Render *);
-void func_80006014(Render *, Gfx *);
-void *func_8001BD1C(void);
-void func_8002DFF4(Matrix *, Matrix *);
-void func_80010BFC(void *, s32, Matrix *);
+Gfx *gfx_get_dl(Render *);
+void gfx_set_dl(Render *, Gfx *);
+void *mtx_pool_alloc(void);
+void buildPoseMatrix(Matrix *, Matrix *);
+void obj_mtx_visible(void *, s32, Matrix *);
 void func_8001AAB4(void);
 u32 osVirtualToPhysical(void *);
-void func_8007B2A4(void *, Matrix *);
+void checkNearPoint(void *, Matrix *);
 void func_8007B4A4(void *, s32);
-s32 func_80006230(Render *);
-s32 func_80009964(Render *, s32);
+s32 dlAddLoadChunk(Render *);
+s32 render_state_apply(Render *, s32);
 s32 func_80016B3C(Actor *, s32, s32);
 s32 func_80019F9C(void *, u16, Render *, s32);
 s32 isBoundingBoxVisible(s32, s16 *, s32);
-extern u8 D_800C7926;
+extern u8 g_dark_mode;
 extern u8 D_800C792E;
-extern Cam *D_800C7F84;
+extern Cam *g_camera;
 extern s32 D_800C72D0;
 extern ActorList D_800C5CF8;
 extern u8 D_800ADFB9;
@@ -61,7 +61,7 @@ extern LodEnt D_8009C5F4[][7][12];
 extern s16 D_8009CBBC;
 extern u8 D_8009CBC4[];
 extern u8 D_8009CBD0[][4][7][12];
-extern s32 D_8009FF30;
+extern s32 gShadeMode;
 
 s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
 {
@@ -80,22 +80,22 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   if (obj->lists == NULL) {
     func_8001AAB4();
   }
-  m = func_8001BD1C();
-  func_8002DFF4(&mtx, &obj->transform->matrix);
-  func_80010BFC(m, arg3, &mtx);
+  m = mtx_pool_alloc();
+  buildPoseMatrix(&mtx, &obj->transform->matrix);
+  obj_mtx_visible(m, arg3, &mtx);
   {
-  Gfx *start = func_80006008(r);
+  Gfx *start = gfx_get_dl(r);
   gfx = start;
   }
   D_8009CBBC = 0;
-  sel = D_800C7926;
+  sel = g_dark_mode;
   sel = (sel & -(D_800C792E & 1)) & 0xFF;
   sel &= 0xFF;
   switch (lod) {
   case 0:
   case 1:
   case 2:
-    if (D_8009FF30 == 2 && D_800C7926 == 0) {
+    if (gShadeMode == 2 && g_dark_mode == 0) {
       gCmd(gfx++, 0xDE000000, D_8009C390);
     } else {
       gCmd(gfx++, 0xDE000000, D_8009C328);
@@ -105,7 +105,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
   case 4:
   case 5:
   case 6:
-    if (D_8009FF30 == 2 && D_800C7926 == 0) {
+    if (gShadeMode == 2 && g_dark_mode == 0) {
       gCmd(gfx++, 0xDE000000, D_8009C460);
     } else {
       gCmd(gfx++, 0xDE000000, D_8009C3F8);
@@ -113,7 +113,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
     break;
   }
   gCmd(gfx++, 0xF8000000, (D_800ADFB9 << 24) | (D_800ADFBB << 16) | (D_800ADFBD << 8) | 0xFF);
-  if (D_8009FF30 == 5) {
+  if (gShadeMode == 5) {
     v = D_800ADFB4 + D_800ADFC0;
     if (v > 996) v = 996;
     if (v < 700) v = 700;
@@ -121,11 +121,11 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
     if (v > 996) v = 996;
     gCmd(gfx++, 0xDB080000, ((128000 / (1000 - v)) << 16) | (((500 - v) * 256 / (1000 - v)) & 0xFFFF));
   }
-  if (isBoundingBoxVisible(arg3, obj->bounds, D_800C7F84->vis) != 0 || lod == 0) {
+  if (isBoundingBoxVisible(arg3, obj->bounds, g_camera->vis) != 0 || lod == 0) {
     D_800B56C8 = *(Copy32 *)&obj->transform->matrix;
-    cam = D_800C7F84->player;
-    if (cam != NULL && (D_8009FF30 == 2) & (lod < 3) && D_800C7926 == 0) {
-      func_8007B2A4(cam, &obj->transform->matrix);
+    cam = g_camera->player;
+    if (cam != NULL && (gShadeMode == 2) & (lod < 3) && g_dark_mode == 0) {
+      checkNearPoint(cam, &obj->transform->matrix);
       func_8007B4A4(obj->lists, 0);
     }
     gCmd(gfx++, 0xDA380007, osVirtualToPhysical(m));
@@ -133,7 +133,7 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
     near = lod < 3;
     for (i = 0; i < 12; i++) {
       idx = D_8009CBC4[i];
-      ent = &D_8009C5F4[D_800C7926][lod][idx];
+      ent = &D_8009C5F4[g_dark_mode][lod][idx];
       if (obj->flags & ent->mask) {
         if (obj->lists->list[idx] != NULL && ent->a >= 0) {
           if (D_8009CBD0[D_800B5B50][sel][lod][idx] == 1) {
@@ -151,30 +151,30 @@ s32 func_8001A340(Object *obj, s32 lod, Render *r, s32 arg3)
           gCmd(gfx++, 0xE7000000, 0);
           gCmd(gfx++, 0xD9FFFFFF, 0x210405);
           gCmd(gfx++, 0xE200001C, 0xC8113078);
-          func_80006014(r, gfx);
-          func_80006230(r);
+          gfx_set_dl(r, gfx);
+          dlAddLoadChunk(r);
           r->mode &= ~0x04000000;
           lists = obj->lists;
           func_80019F9C(lists->objects[idx], lists->values[idx], r, arg3);
           if (near) {
             r->mode = (r->mode & ~0x04000000) | 0x04000000;
-            func_80009964(r, 0);
+            render_state_apply(r, 0);
           }
-          gfx = func_80006008(r);
+          gfx = gfx_get_dl(r);
         }
       }
     }
     if (!D_8009BBBC) {
-      func_80006014(r, gfx);
+      gfx_set_dl(r, gfx);
       for (i = 0; i < D_800C5CF8.count; i++) {
         Actor *a = D_800C5CF8.items[i];
-        if (a->body->transform == obj->transform && a != D_800C7F84->player) {
+        if (a->body->transform == obj->transform && a != g_camera->player) {
           func_80016B3C(a, D_800C72D0, arg3);
         }
       }
-      gfx = func_80006008(r);
+      gfx = gfx_get_dl(r);
     }
   }
-  func_80006014(r, gfx);
+  gfx_set_dl(r, gfx);
   return 1;
 }

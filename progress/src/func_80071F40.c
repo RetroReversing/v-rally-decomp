@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8006E8A0();                            /* extern */
-M2C_UNK func_8006F75C();                            /* extern */
-M2C_UNK func_80071EB4(M2C_UNK, M2C_UNK);            /* extern */
-extern void *D_800A1468;
+M2C_UNK buildLinkPacket();                            /* extern */
+M2C_UNK save_race_to_pak();                            /* extern */
+M2C_UNK select_screen_enter(M2C_UNK, M2C_UNK);            /* extern */
+extern void *gSelectState;
 
 s32 func_80071F40(void) {
-    M2C_FIELD(D_800A1468, s8 *, 0x2BD) = 1;
-    func_8006E8A0();
-    func_8006F75C();
-    func_80071EB4(0, 0);
+    M2C_FIELD(gSelectState, s8 *, 0x2BD) = 1;
+    buildLinkPacket();
+    save_race_to_pak();
+    select_screen_enter(0, 0);
     return 0;
 }

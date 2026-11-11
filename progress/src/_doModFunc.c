@@ -1,27 +1,31 @@
-
 extern f64 D_800A7208;
 extern f64 D_800A7210;
 extern f64 D_800A7218;
-f32 _doModFunc(void *arg0, s32 arg1)
+
+/* Advances a modulator by arg1 steps. The phase at +0x14 grows by the rate at +0x10 per
+ * step. When it passes the limit D_800A7208 it is wrapped down by D_800A7210, and the
+ * wrapped value is stored back. Returns the depth at +0x1C times the phase's absolute value
+ * minus D_800A7218. */
+f32 _doModFunc(void *mod, s32 steps)
 {
-  f32 var_ft0;
-  f64 new_var;
-  f32 var_fv1;
-  f64 temp_ft0;
-  var_fv1 = (*((f32 *) (((char *) arg0) + 0x14))) + ((*((f32 *) (((char *) arg0) + 0x10))) * ((f32) arg1));
-  temp_ft0 = (f64) var_fv1;
-  new_var = D_800A7208;
-  *((f32 *) (((char *) arg0) + 0x14)) = var_fv1;
-  if (new_var < temp_ft0)
+  f32 magnitude;
+  f64 limit;
+  f32 phase;
+  f64 phaseD;
+  phase = (*((f32 *) (((char *) mod) + 0x14))) + ((*((f32 *) (((char *) mod) + 0x10))) * ((f32) steps));
+  phaseD = (f64) phase;
+  limit = D_800A7208;
+  *((f32 *) (((char *) mod) + 0x14)) = phase;
+  if (limit < phaseD)
   {
-    var_fv1 = (f32) (temp_ft0 - D_800A7210);
+    phase = (f32) (phaseD - D_800A7210);
   }
-  var_ft0 = var_fv1;
-  *((f32 *) (((char *) arg0) + 0x14)) = var_fv1;
-  if (var_fv1 < 0.0f)
+  magnitude = phase;
+  *((f32 *) (((char *) mod) + 0x14)) = phase;
+  if (phase < 0.0f)
   {
-    var_ft0 = -var_fv1;
+    magnitude = -phase;
   }
-  var_fv1 = ((f64) var_ft0) - D_800A7218;
-  return (*((f32 *) (((char *) arg0) + 0x1C))) * ((f32) var_fv1);
+  phase = ((f64) magnitude) - D_800A7218;
+  return (*((f32 *) (((char *) mod) + 0x1C))) * ((f32) phase);
 }

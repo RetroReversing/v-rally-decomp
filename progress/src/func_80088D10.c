@@ -1,79 +1,84 @@
 typedef struct S_func_80088D10_arg0
 {
   u8 p0[8];
-  s32 unk_08;
+  s32 elapsed;
   u8 p1[0x30];
-  s32 unk_3C;
+  s32 start_time;
   u8 p2[0x10];
-  s32 unk_50;
-  f32 unk_54;
-  f32 unk_58;
-  f32 unk_5C;
-  s32 unk_60;
+  s32 end_time;
+  f32 rate_a;
+  f32 rate_b;
+  f32 rate_c;
+  s32 scale;
   u8 p3[0x53];
-  u8 unk_B7;
-  u8 unk_B8;
-  u8 unk_B9;
-  u8 unk_BA;
-  u8 unk_BB;
-  u8 unk_BC;
-  u8 unk_BD;
-  u8 unk_BE;
-  u8 unk_BF;
-  u8 unk_C0;
+  u8 interval;
+  u8 base_a;
+  u8 base_b;
+  u8 base_c;
+  u8 phase;
+  u8 out;
+  u8 timer;
+  u8 limit_a;
+  u8 limit_b;
+  u8 limit_c;
   u8 p4[4];
-  u8 unk_C5;
+  u8 saved_out;
 } S_func_80088D10_arg0;
+
+/* Steps a four-phase ramp on the state at arg0. The timer counts down one tick per call,
+ * and when it reaches zero the phase advances and the output value (out) is recomputed:
+ * phase 1 ramps up from base_a, phase 2 ramps from base_b, phase 3 holds, and phase 4 ramps
+ * back down to 0 from saved_out. Once elapsed passes end_time, phase 4 starts. */
 void func_80088D10(S_func_80088D10_arg0 *arg0)
 {
   u8 phase;
-  int value;
+  int progress;
   f32 amount;
-  f32 coef;
-  f32 fvalue;
-  if ((((u32) arg0->unk_08) >= ((u32) arg0->unk_50)) && (arg0->unk_BB < 4U))
+  f32 rate;
+  f32 progress_f;
+  if ((((u32) arg0->elapsed) >= ((u32) arg0->end_time)) && (arg0->phase < 4U))
   {
-    arg0->unk_BB = 4;
-    arg0->unk_BD = 1;
-    arg0->unk_C5 = arg0->unk_BC;
+    arg0->phase = 4;
+    arg0->timer = 1;
+    arg0->saved_out = arg0->out;
   }
-  arg0->unk_BD--;
-  if (arg0->unk_BD)
+  arg0->timer--;
+  if (arg0->timer)
   {
     return;
   }
-  phase = arg0->unk_BB;
-  arg0->unk_BD = arg0->unk_B7;
+  phase = arg0->phase;
+  arg0->timer = arg0->interval;
   if (1)
   {
     switch (phase)
     {
       case 1:
-        value = (s32) (((((u32) (arg0->unk_08 - arg0->unk_3C)) >> 8) * ((u32) arg0->unk_60)) >> 10);
-        if (value < arg0->unk_BE)
+        progress = (s32) (((((u32) (arg0->elapsed - arg0->start_time)) >> 8) * ((u32) arg0->scale)) >> 10);
+        if (progress < arg0->limit_a)
       {
-        fvalue = (f32) value;
-        coef = arg0->unk_54;
-        arg0->unk_BC = arg0->unk_B8 + ((s32) (coef * fvalue));
+        progress_f = (f32) progress;
+        rate = arg0->rate_a;
+        arg0->out = arg0->base_a + ((s32) (rate * progress_f));
       }
       else
       {
-        arg0->unk_BB = phase + 1;
-        arg0->unk_BC = arg0->unk_B9;
+        arg0->phase = phase + 1;
+        arg0->out = arg0->base_b;
       }
         break;
 
       case 2:
-        value = (s32) ((((((u32) (arg0->unk_08 - arg0->unk_3C)) >> 8) - arg0->unk_BE) * ((u32) arg0->unk_60)) >> 10);
-        if (value < arg0->unk_BF)
+        progress = (s32) ((((((u32) (arg0->elapsed - arg0->start_time)) >> 8) - arg0->limit_a) * ((u32) arg0->scale)) >> 10);
+        if (progress < arg0->limit_b)
       {
         ;
-        arg0->unk_BC = arg0->unk_B9 + ((s32) (arg0->unk_58 * ((f32) value)));
+        arg0->out = arg0->base_b + ((s32) (arg0->rate_b * ((f32) progress)));
       }
       else
       {
-        arg0->unk_BB = phase + 1;
-        arg0->unk_BC = arg0->unk_BA;
+        arg0->phase = phase + 1;
+        arg0->out = arg0->base_c;
       }
         break;
 
@@ -81,17 +86,17 @@ void func_80088D10(S_func_80088D10_arg0 *arg0)
         break;
 
       case 4:
-        value = (s32) (((((u32) (arg0->unk_08 - arg0->unk_50)) >> 8) * ((u32) arg0->unk_60)) >> 10);
-        if (value < arg0->unk_C0)
+        progress = (s32) (((((u32) (arg0->elapsed - arg0->end_time)) >> 8) * ((u32) arg0->scale)) >> 10);
+        if (progress < arg0->limit_c)
       {
         ;
-        amount = arg0->unk_5C * (f32)value;
-        arg0->unk_BC = arg0->unk_C5 - (s32)(amount * (f32)arg0->unk_C5);
+        amount = arg0->rate_c * (f32)progress;
+        arg0->out = arg0->saved_out - (s32)(amount * (f32)arg0->saved_out);
       }
       else
       {
-        arg0->unk_BB = phase + 1;
-        arg0->unk_BC = 0;
+        arg0->phase = phase + 1;
+        arg0->out = 0;
       }
         break;
 

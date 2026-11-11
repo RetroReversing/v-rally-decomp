@@ -1,16 +1,20 @@
-extern u8 *D_800C35A0;
-extern u8 D_800AE850[];
-u8 func_80078338(u8 arg0)
+extern u8 *gRecords;
+extern u8 gOrderState[];
+
+/* Returns the rank (0..3) of entry `slot` in the 4-entry time table of the
+   current record row (gOrderState+0x7E08, 16 bytes per row). Rank 0 is the
+   fastest time: each entry slower than slot lowers the rank by one. */
+u8 func_80078338(u8 slot)
 {
   u8 i;
   u8 n;
   u32 *tbl;
 
   n = 4;
-  tbl = (u32 *) (D_800AE850 + 0x7E08 + *(u16 *) (D_800C35A0 + 0x20) * 16);
+  tbl = (u32 *) (gOrderState + 0x7E08 + *(u16 *) (gRecords + 0x20) * 16);
   i = 0;
   do {
-    if (tbl[arg0] < tbl[i]) {
+    if (tbl[slot] < tbl[i]) {
       n--;
     }
     i++;

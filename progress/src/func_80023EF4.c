@@ -1,24 +1,15 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Copies eight 32-bit fields from obj (offsets 0x90, 0xDC, 0x128, ... 0x2A4, 0x4C apart)
+ * into the block that ctx points to through its +0x28 pointer, at +0xA8 to +0xC4. */
+#define CTX_BLOCK(ctx) (*(u8 **)((u8 *)(ctx) + 0x28))
 
-void func_80023EF4(void *arg0, void *arg1) {
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xA8) = (s32) M2C_FIELD(arg0, s32 *, 0x90);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xAC) = (s32) M2C_FIELD(arg0, s32 *, 0xDC);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xB0) = (s32) M2C_FIELD(arg0, s32 *, 0x128);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xB4) = (s32) M2C_FIELD(arg0, s32 *, 0x174);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xB8) = (s32) M2C_FIELD(arg0, s32 *, 0x1C0);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xBC) = (s32) M2C_FIELD(arg0, s32 *, 0x20C);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xC0) = (s32) M2C_FIELD(arg0, s32 *, 0x258);
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x28), s32 *, 0xC4) = (s32) M2C_FIELD(arg0, s32 *, 0x2A4);
+void func_80023EF4(void *obj, void *ctx)
+{
+    *(s32 *)(CTX_BLOCK(ctx) + 0xA8) = *(s32 *)((u8 *)obj + 0x90);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xAC) = *(s32 *)((u8 *)obj + 0xDC);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xB0) = *(s32 *)((u8 *)obj + 0x128);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xB4) = *(s32 *)((u8 *)obj + 0x174);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xB8) = *(s32 *)((u8 *)obj + 0x1C0);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xBC) = *(s32 *)((u8 *)obj + 0x20C);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xC0) = *(s32 *)((u8 *)obj + 0x258);
+    *(s32 *)(CTX_BLOCK(ctx) + 0xC4) = *(s32 *)((u8 *)obj + 0x2A4);
 }

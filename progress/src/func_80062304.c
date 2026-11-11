@@ -14,23 +14,23 @@ typedef s32 M2C_UNK32;
 
 extern unsigned short D_800C34FC;
 extern unsigned short D_800C836E;
-extern short D_800B6FF0;
+extern short gNumberBuf;
 
 
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 
 void func_80062304(void) {
     u16 var_a0;
     u16 var_v1;
     void *var_v0;
 
-    var_v0 = D_800C02AE + 0x32F2;
-    var_v0 = *(void * *)(D_800C02AE + 0x32F2);
+    var_v0 = gStreamState + 0x32F2;
+    var_v0 = *(void * *)(gStreamState + 0x32F2);
     var_v1 = *(u16 *)((char *)var_v0 + 0x1E);
     var_a0 = *(u16 *)((char *)var_v0 + 0x20);
     var_v0 = (void *) *(u16 *)((char *)var_v0 + 0x22);
     D_800C34FC = var_v1;
     D_800C836E = var_a0;
-    D_800B6FF0 = (s16) var_v0;
+    gNumberBuf = (s16) var_v0;
 }

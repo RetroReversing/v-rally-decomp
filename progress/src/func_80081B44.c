@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80081AEC();                            /* extern */
-M2C_UNK func_80084300();                            /* extern */
-extern M2C_UNK D_800AE850;
+M2C_UNK streamFreeBuffers();                            /* extern */
+extern M2C_UNK gOrderState;
 
 void func_80081B44(void) {
     func_80081AEC();
-    func_80084300();
-    M2C_FIELD(&D_800AE850, s32 *, 0x8ABC) = 0;
-    M2C_FIELD(&D_800AE850, s32 *, 0x8AC0) = 0;
+    streamFreeBuffers();
+    M2C_FIELD(&gOrderState, s32 *, 0x8ABC) = 0;
+    M2C_FIELD(&gOrderState, s32 *, 0x8AC0) = 0;
 }

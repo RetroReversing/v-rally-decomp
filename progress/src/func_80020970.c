@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002FA10(s32);                         /* extern */
+M2C_UNK obj_reset_records(s32);                         /* extern */
 
 void func_80020970(void *arg0) {
-    func_8002FA10(*M2C_FIELD(arg0, s32 **, 0x38));
+    obj_reset_records(*M2C_FIELD(arg0, s32 **, 0x38));
 }

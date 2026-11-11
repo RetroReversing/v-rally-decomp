@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern s32 D_800A19E0;
-extern s32 D_800A19E4;
+M2C_UNK heapFreeBlock(s32);                         /* extern */
+extern s32 heapRegionHead;
+extern s32 heapRegionFreeSize;
 
 void func_80080640(void) {
-    func_8007EE9C(D_800A19E0);
-    D_800A19E0 = 0;
-    D_800A19E4 = 0;
+    heapFreeBlock(heapRegionHead);
+    heapRegionHead = 0;
+    heapRegionFreeSize = 0;
 }

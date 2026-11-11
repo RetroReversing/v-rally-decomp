@@ -1,6 +1,3 @@
-/* identical to _collectPVoices in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_8008EC30 in V-RALLY (matched), with its names changed by decompdecomp */
-
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -14,22 +11,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-
-
 s32 alLink();
 s32 alUnlink();
 
-void _collectPVoices(void *arg0) {
-    s32 var_s0;
-    void *var_s1;
+/* Moves every voice on the list at +0x14 of the audio block onto the list at +0x4 (alUnlink then alLink). */
+void _collectPVoices(void *block) {
+    s32 voice;
+    void *blk;
 
-    var_s1 = arg0;
-    var_s0 = *(s32 *)((char *)var_s1 + 0x14);
-    if (var_s0 != 0) {
+    blk = block;
+    voice = *(s32 *)((char *)blk + 0x14);
+    if (voice != 0) {
         do {
-            alUnlink(var_s0);
-            alLink(var_s0, var_s1 + 4);
-            var_s0 = *(s32 *)((char *)var_s1 + 0x14);
-        } while (var_s0 != 0);
+            alUnlink(voice);
+            alLink(voice, blk + 4);
+            voice = *(s32 *)((char *)blk + 0x14);
+        } while (voice != 0);
     }
 }

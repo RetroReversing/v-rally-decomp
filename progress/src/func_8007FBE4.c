@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8007EE9C(s32);                         /* extern */
+M2C_UNK heapFreeBlock(s32);                         /* extern */
 M2C_UNK osDestroyThread();                            /* extern */
 
 s32 func_8007FBE4(s32 arg0) {
     osDestroyThread();
-    func_8007EE9C(arg0);
+    heapFreeBlock(arg0);
     return 1;
 }

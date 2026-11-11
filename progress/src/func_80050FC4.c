@@ -1,14 +1,14 @@
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
+extern u8 gOrderState[];
+extern u8 gStreamState[];
 extern u8 D_800A4FE4[];
-extern u8 *D_800A1234;
-extern u8 *D_800C35A0;
-s32 func_80022184(void *);
-void func_8002283C(void);
-void func_80081540(void *);
+extern u8 *gCarEntries;
+extern u8 *gRecords;
+s32 flag_test_bit0(void *);
+void initRaceSession(void);
+void resolve_path(void *);
 void *func_80081664(s32, s32);
-void *func_8007EAA0(s32, u32);
-void func_8007EE9C(void *);
+void *poolAlloc(s32, u32);
+void heapFreeBlock(void *);
 typedef struct 
 {
   u32 w[61];
@@ -94,9 +94,9 @@ static inline static void copyfinal4(void *source, void *destination, u32 bytes)
 }
 
 /* Loads the saved game/track state from file 'arg0': copies the 0x118-byte
- * header to the state block at D_800A1234, then the entry bodies (sizes
+ * header to the state block at gCarEntries, then the entry bodies (sizes
  * rounded up to 4) into their allocations, then the 0xF4-byte record at
- * D_800C35A0 with overlap-safe copies, and finally sets the state flags. */
+ * gRecords with overlap-safe copies, and finally sets the state flags. */
 void func_80050FC4(s32 arg0)
 {
   u8 *hdr;
@@ -105,15 +105,15 @@ void func_80050FC4(s32 arg0)
   Entry4 *ent;
   u8 i;
   u8 count;
-  void *state = D_800AE850 + 0x7320;
-  if (!func_80022184(state))
+  void *state = gOrderState + 0x7320;
+  if (!flag_test_bit0(state))
   {
-    func_8002283C();
+    initRaceSession();
   }
-  if (func_80022184(state))
+  if (flag_test_bit0(state))
   {
-    hdr = D_800A1234;
-    func_80081540(D_800A4FE4);
+    hdr = gCarEntries;
+    resolve_path(D_800A4FE4);
     file = func_80081664(1, arg0);
     data = file;
     __builtin_memcpy(hdr, file, 0x118);
@@ -122,7 +122,7 @@ void func_80050FC4(s32 arg0)
     for (i = 0; i < count; i++)
     {
       ent = (Entry4 *) (hdr + (i * 0x44));
-      ent->p4 = func_8007EAA0(1, (ent->size4 + 3) & (~3));
+      ent->p4 = poolAlloc(1, (ent->size4 + 3) & (~3));
       copy4(ent->p4, data, (ent->size4 + 3) & (~3));
       ent->mode = 4;
       ent->zero = 0;
@@ -133,14 +133,14 @@ void func_80050FC4(s32 arg0)
     for (i = 0; i < count; i++)
     {
       ent = (Entry4 *) (hdr + (i * 0x44));
-      ent->p0 = func_8007EAA0(1, (ent->size0 + 3) & (~3));
+      ent->p0 = poolAlloc(1, (ent->size0 + 3) & (~3));
       copy4(ent->p0, data, (ent->size0 + 3) & (~3));
       data += (ent->size0 + 3) & (~3);
     }
 
-    *((Block4 *) (D_800C02AE + 0x7f66)) = *((Block4 *) D_800C35A0);
+    *((Block4 *) (gStreamState + 0x7f66)) = *((Block4 *) gRecords);
     {
-      u32 dest = (u32) D_800C35A0;
+      u32 dest = (u32) gRecords;
       u32 end = ((u32) data) + 0xf4;
       u32 *src, *dst;
       s32 n;
@@ -171,17 +171,17 @@ void func_80050FC4(s32 arg0)
         while (n);
       }
     }
-    *((u16 *) (D_800C35A0 + 0x2c)) = (*((u16 *) (D_800C02AE + 0x7f92))) | 0x10;
+    *((u16 *) (gRecords + 0x2c)) = (*((u16 *) (gStreamState + 0x7f92))) | 0x10;
     hdr[0x114] = 0;
-    func_8007EE9C(file);
-    *((u16 *) (D_800C35A0 + 0xe)) = 1;
-    if (D_800C02AE[0x38f1])
+    heapFreeBlock(file);
+    *((u16 *) (gRecords + 0xe)) = 1;
+    if (gStreamState[0x38f1])
     {
-      *((u16 *) (D_800C35A0 + 0x12)) |= 1;
+      *((u16 *) (gRecords + 0x12)) |= 1;
     }
     else
     {
-      *((u16 *) (D_800C35A0 + 0x12)) &= 0xfffe;
+      *((u16 *) (gRecords + 0x12)) &= 0xfffe;
     }
   }
 }

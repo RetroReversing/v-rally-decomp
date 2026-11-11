@@ -1,38 +1,42 @@
-s32 func_800857C0(s32, s32);
+s32 cont_port_is_connected(s32, s32);
 s32 func_800858A4();
-extern char D_800AE850[];
+extern char gOrderState[];
 
+/* Per-channel timer update for the 4 channels in gOrderState+0x2390. Each 16-byte entry
+ * holds: limit (u8, +0), count (u16, +2), active flag (s32, +4), kind (u8, +0xC), and
+ * the new kind to store (u8, +0xD). A channel whose kind changed is restarted; an active
+ * channel counts up and is stopped when the count reaches its limit. */
 void func_8002FD68(void)
 {
-  s32 var_s4;
-  s32 var_s5;
-  u8 var_s3;
-  u8 idx;
-  s32 s1;
+  s32 chanBase;
+  s32 chanPtr;
+  u8 ch;
+  u8 chanIdx;
+  s32 off;
   s32 var_v1;
 
-  var_s3 = 0;
-  var_s5 = 1;
-  var_s4 = (s32)(D_800AE850 + 0x2390);
+  ch = 0;
+  chanBase = 1;
+  chanPtr = (s32)(gOrderState + 0x2390);
   do
   {
-    idx = var_s3;
-    s1 = idx << 4;
-    if (*((u8 *)(D_800AE850 + 0x239C + s1)) != func_800857C0(idx, 2))
+    chanIdx = ch;
+    off = chanIdx << 4;
+    if (*((u8 *)(gOrderState + 0x239C + off)) != cont_port_is_connected(chanIdx, 2))
     {
-      *((u8 *)(D_800AE850 + 0x239D + s1)) = var_s5;
-      *((s32 *)(D_800AE850 + 0x2394 + s1)) = 0;
+      *((u8 *)(gOrderState + 0x239D + off)) = chanBase;
+      *((s32 *)(gOrderState + 0x2394 + off)) = 0;
     }
-    if (*((s32 *)(D_800AE850 + 0x2394 + s1)) != 0)
+    if (*((s32 *)(gOrderState + 0x2394 + off)) != 0)
     {
-      var_v1 = s1 + var_s4;
-      *((s16 *)(var_v1 + 2)) = *((u16 *)(D_800AE850 + 0x2392 + s1)) + 1;
-      if (*((u8 *)(D_800AE850 + 0x2390 + s1)) <= *((u16 *)(D_800AE850 + 0x2392 + s1)))
+      var_v1 = off + chanPtr;
+      *((s16 *)(var_v1 + 2)) = *((u16 *)(gOrderState + 0x2392 + off)) + 1;
+      if (*((u8 *)(gOrderState + 0x2390 + off)) <= *((u16 *)(gOrderState + 0x2392 + off)))
       {
-        *((s32 *)(D_800AE850 + 0x2394 + s1)) = 0;
-        func_800858A4(idx, 2, 0);
+        *((s32 *)(gOrderState + 0x2394 + off)) = 0;
+        func_800858A4(chanIdx, 2, 0);
       }
     }
-    var_s3++;
-  } while (var_s3 < 4);
+    ch++;
+  } while (ch < 4);
 }

@@ -1,19 +1,22 @@
-extern s32 D_800A1B70;
-void func_80084EEC(s32 arg0, s32 arg1, s8 arg2, s8 arg3)
+extern s32 gContCtx;
+
+/* Stores two bytes into the controller context entry for `slot` (20-byte entries):
+   the pair at +0x5E/+0x60 for flag 0x20000, or at +0x63/+0x65 for flag 0x10000. */
+void func_80084EEC(s32 slot, s32 flags, s8 first, s8 second)
 {
   unsigned short off;
-  if (arg1 == 0x20000)
+  if (flags == 0x20000)
   {
-    s32 base = D_800A1B70;
-    off = (arg0 & 0xFF) * 0x14;
-    *((s8 *) ((base + off) + 0x5E)) = arg2;
-    *((s8 *) ((D_800A1B70 + off) + 0x60)) = arg3;
+    s32 base = gContCtx;
+    off = (slot & 0xFF) * 0x14;
+    *((s8 *) ((base + off) + 0x5E)) = first;
+    *((s8 *) ((gContCtx + off) + 0x60)) = second;
   }
-  else if (arg1 == 0x10000)
+  else if (flags == 0x10000)
   {
-    s32 base = D_800A1B70;
-    off = (arg0 & 0xFF) * 0x14;
-    *((s8 *) ((base + off) + 0x63)) = arg2;
-    *((s8 *) ((D_800A1B70 + off) + 0x65)) = arg3;
+    s32 base = gContCtx;
+    off = (slot & 0xFF) * 0x14;
+    *((s8 *) ((base + off) + 0x63)) = first;
+    *((s8 *) ((gContCtx + off) + 0x65)) = second;
   }
 }

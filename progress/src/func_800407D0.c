@@ -5,16 +5,16 @@ typedef struct Race40 {
   u8 slot[4]; u8 pad36[4]; u16 car[4]; u8 pad42[2]; Pl40 pl[4];
 } Race40;
 typedef struct Db40 { u8 pad[0x78]; Car40 *cars; } Db40;
-extern Race40 *D_800C35A0;
-extern u16 D_800D0630;
+extern Race40 *gRecords;
+extern u16 gTexPackCount;
 extern Db40 D_800D05E0;
 extern char D_800A4C20[];
 extern char D_800A4C28[];
 u64 osGetTime(void);
-void func_80053C28(s32, s32);
+void record_slot_init(s32, s32);
 u32 func_80098090(void);
-void func_800980C4(u32);
-void func_80099DF8(s32 *, char *, char *, s32);
+void rand_seed(u32);
+void formatString(s32 *, char *, char *, s32);
 
 /* Chooses the car for each player in the race. Players without a name get a
  * default one. When the race uses class rules, each remaining car slot is
@@ -39,34 +39,34 @@ void func_800407D0(void)
   u32 car;
   s32 unique;
 
-  ncars = D_800D0630;
-  nplayers = D_800C35A0->nplayers;
-  car_ids = D_800C35A0->car;
+  ncars = gTexPackCount;
+  nplayers = gRecords->nplayers;
+  car_ids = gRecords->car;
   db_root = &D_800D05E0;
-  func_800980C4(osGetTime());
+  rand_seed(osGetTime());
   if (ncars == 0)
     return;
   for (i = 0; i < nplayers; i++)
   {
-    car_ids[i] = D_800C35A0->pl[D_800C35A0->slot[i]].car;
-    if (D_800C35A0->pl[D_800C35A0->slot[i]].name[0] == 0)
+    car_ids[i] = gRecords->pl[gRecords->slot[i]].car;
+    if (gRecords->pl[gRecords->slot[i]].name[0] == 0)
     {
-      func_80099DF8(name_buf, D_800A4C20, D_800A4C28, i + 1);
-      *(s32 *) D_800C35A0->pl[D_800C35A0->slot[i]].name = name_buf[0];
+      formatString(name_buf, D_800A4C20, D_800A4C28, i + 1);
+      *(s32 *) gRecords->pl[gRecords->slot[i]].name = name_buf[0];
     }
   }
-  if (D_800C35A0->flag == 0)
+  if (gRecords->flag == 0)
     return;
   cars_db = db_root->cars;
   for (i = 0; i < nplayers; i++)
-    classes[i] = cars_db[D_800C35A0->pl[D_800C35A0->slot[i]].car].cls;
+    classes[i] = cars_db[gRecords->pl[gRecords->slot[i]].car].cls;
   i = nplayers;
   if (i < 4)
   {
     cls_next = classes;
     do
     {
-      switch (D_800C35A0->nplayers)
+      switch (gRecords->nplayers)
       {
         case 1:
           if (classes[0] == 2)
@@ -87,7 +87,7 @@ void func_800407D0(void)
               {
                 car_ids[slot] = car;
                 picked = 1;
-                func_80053C28(D_800C35A0->slot[slot], car & 0xFF);
+                record_slot_init(gRecords->slot[slot], car & 0xFF);
               }
             }
           }
@@ -113,7 +113,7 @@ void func_800407D0(void)
               {
                 picked = 1;
                 car_ids[slot] = car;
-                func_80053C28(D_800C35A0->slot[slot], car & 0xFF);
+                record_slot_init(gRecords->slot[slot], car & 0xFF);
                 cls_next++;
               }
             }
@@ -128,5 +128,5 @@ void func_800407D0(void)
     while (i < 4);
   }
   for (i = 0; i < 4; i++)
-    D_800C35A0->pl[D_800C35A0->slot[i]].car = D_800C35A0->car[i];
+    gRecords->pl[gRecords->slot[i]].car = gRecords->car[i];
 }

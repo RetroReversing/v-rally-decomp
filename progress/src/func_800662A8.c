@@ -1,42 +1,45 @@
-s32 func_80047F94();
-s32 func_80053A78();
-s32 func_8005A360();
+s32 asset_list_teardown();
+s32 records_restore_from_order();
+s32 select_reset_text();
 s32 func_8005C198();
-extern void *D_800A1468;
-extern s8 D_800A16D4;
-extern char D_800C02AE[];
+extern void *gSelectState;
+extern s8 gStreamPhase;
+extern char gStreamState[];
 extern s32 func_8006556C;
 extern s32 func_80065860;
+
+/* Ends the current stream phase: marks it done, installs the two select-screen callbacks,
+ * clears the asset-list flag and tears the asset list down. Returns 1. */
 s32 func_800662A8(s32 arg0, s32 arg1)
 {
-  char *new_var;
-  s16 *new_var2;
-  if (D_800A1468)
+  char *select;
+  s16 *list_flag;
+  if (gSelectState)
   {
     func_8005C198();
-    func_8005A360(arg0, arg1);
-    D_800A16D4 = 2;
-    new_var2 = (s16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x22);
-    new_var = (char *) D_800A1468;
-    *((s32 **) (new_var + 0x288)) = &func_8006556C;
-    *((s32 **) (((char *) D_800A1468) + 0x28C)) = &func_80065860;
-    *new_var2 = 0;
-    func_80047F94(*((void **) (D_800C02AE + 0x32F2)));
-    func_80053A78();
+    select_reset_text(arg0, arg1);
+    gStreamPhase = 2;
+    list_flag = (s16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x22);
+    select = (char *) gSelectState;
+    *((s32 **) (select + 0x288)) = &func_8006556C;
+    *((s32 **) (((char *) gSelectState) + 0x28C)) = &func_80065860;
+    *list_flag = 0;
+    asset_list_teardown(*((void **) (gStreamState + 0x32F2)));
+    records_restore_from_order();
     return 1;
   }
   else
   {
     func_8005C198();
-    func_8005A360(arg0, arg1);
-    D_800A16D4 = 2;
-    new_var2 = (s16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x22);
-    new_var = (char *) D_800A1468;
-    *((s32 **) (new_var + 0x288)) = &func_8006556C;
-    *((s32 **) (((char *) D_800A1468) + 0x28C)) = &func_80065860;
-    *new_var2 = 0;
-    func_80047F94(*((void **) (D_800C02AE + 0x32F2)));
-    func_80053A78();
+    select_reset_text(arg0, arg1);
+    gStreamPhase = 2;
+    list_flag = (s16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x22);
+    select = (char *) gSelectState;
+    *((s32 **) (select + 0x288)) = &func_8006556C;
+    *((s32 **) (((char *) gSelectState) + 0x28C)) = &func_80065860;
+    *list_flag = 0;
+    asset_list_teardown(*((void **) (gStreamState + 0x32F2)));
+    records_restore_from_order();
     return 1;
   }
 }

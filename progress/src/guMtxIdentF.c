@@ -1,28 +1,29 @@
-void guMtxIdentF(s32 *arg0)
+/* Writes the 4x4 identity matrix into mtx (row-major, 16 words): 1.0f on the diagonal, 0 elsewhere. */
+void guMtxIdentF(s32 *mtx)
 {
-  s32 i;
-  s32 j;
-  s32 *p;
+  s32 row;
+  s32 col;
+  s32 *cell;
   s32 *diag;
   f32 one;
 
-  i = 0;
+  row = 0;
   one = 1.0f;
-  diag = arg0;
+  diag = mtx;
   do {
-    j = 0;
-    p = arg0;
+    col = 0;
+    cell = mtx;
     do {
-      if (i == j) {
+      if (row == col) {
         *(f32 *)diag = one;
       } else {
-        *p = 0;
+        *cell = 0;
       }
-      j++;
-      p++;
-    } while (j < 4);
+      col++;
+      cell++;
+    } while (col < 4);
     diag += 5;
-    i++;
-    arg0 += 4;
-  } while (i < 4);
+    row++;
+    mtx += 4;
+  } while (row < 4);
 }

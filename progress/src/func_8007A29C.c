@@ -4,19 +4,19 @@
 #define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))
 void func_8004C7F0(s32);
 void func_8004D31C(void);
-void *func_800592AC(u32);
-void *text_obj_get(u32);
+void *select_get_entry(u32);
+void *textObjGet(u32);
 void func_8005937C(s32, s32);
 void func_8005BB5C(void);
-void func_8005BC60(void);
+void select_clear_slots(void);
 void func_80069974(void);
-s32 func_8007EE9C(void *);
-s32 func_80081540(u8 *);
+s32 heapFreeBlock(void *);
+s32 resolve_path(u8 *);
 void func_8008A0D8(s32, s32, s8);
-extern u8 *D_800A1468;
+extern u8 *gSelectState;
 extern u8 D_800A5F7C[];
 extern u8 D_800A5F8C[];
-extern u8 *D_800C3508;
+extern u8 *gLeague;
 typedef struct 
 {
   u8 pad0[0x32];
@@ -29,91 +29,95 @@ typedef struct
     u8 pad2[0x20];
   } e[4];
 } RS;
-extern u8 *D_800C35A0;
+extern u8 *gRecords;
 extern u8 *D_800D0658;
 static inline s16 normalize_field(s32 x) { x=(u32)x<<16; x=(s32)x>>16; return x; }
+
+/* Rebuilds the per-slot entry lists for the four slots of the current car: drops entries
+   whose flag bit 8 is set (unlinking them and releasing the node), renumbers the rest,
+   refreshes the slot counters, and updates the HUD object's state. */
 void func_8007A29C(void)
 {
-  u8 *tbl;
-  u8 *ent;
-  u8 *cnt;
-  u8 *q;
+  u8 *car_tbl;
+  u8 *entry;
+  u8 *counts;
+  u8 *slots;
   u8 *ctx;
-  u8 *base;
+  u8 *state;
   u8 *node;
   u8 *prev;
-  u8 *p;
-  u8 *arr;
-  u8 *r;
-  u16 off;
+  u8 *list;
+  u8 *idx_ptr;
+  u8 *cnt_ptr;
+  u16 y_off;
   s8 i;
   s8 j;
   s32 n;
   u8 t;
   func_8004D31C();
-  func_8005BC60();
+  select_clear_slots();
   func_8005BB5C();
   i = 0;
-  B(D_800A1468, 0x22B) = B(D_800A1468, 0x228);
-  t = ((RS *) D_800C35A0)->e[((RS *) D_800C35A0)->idx[(s8) B(D_800A1468, 0x228)]].b7;
-  B(D_800A1468, 0x237) = t;
-  ctx = D_800C3508;
-  ent = P(ctx, 0x10) + (SH(ctx, 2) * 0x14);
-  B(D_800A1468, 0x238) = H(D_800D0658 + (t * 0x2C4), 0x14);
-  base = D_800A1468;
-  cnt = base + 0x23D;
-  tbl = D_800D0658;
-  q = base + 0x241;
-  B(base, 0x23D) = 4;
-  B(base, 0x23E) = 8;
-  B(base, 0x23F) = 4;
-  B(base, 0x240) = 4;
-  B(base, 0x241) = 0;
-  B(base, 0x242) = 4;
-  B(base, 0x243) = 0xC;
-  B(base, 0x244) = 0x10;
+  B(gSelectState, 0x22B) = B(gSelectState, 0x228);
+  t = ((RS *) gRecords)->e[((RS *) gRecords)->idx[(s8) B(gSelectState, 0x228)]].b7;
+  B(gSelectState, 0x237) = t;
+  ctx = gLeague;
+  entry = P(ctx, 0x10) + (SH(ctx, 2) * 0x14);
+  B(gSelectState, 0x238) = H(D_800D0658 + (t * 0x2C4), 0x14);
+  state = gSelectState;
+  counts = state + 0x23D;
+  car_tbl = D_800D0658;
+  slots = state + 0x241;
+  B(state, 0x23D) = 4;
+  B(state, 0x23E) = 8;
+  B(state, 0x23F) = 4;
+  B(state, 0x240) = 4;
+  B(state, 0x241) = 0;
+  B(state, 0x242) = 4;
+  B(state, 0x243) = 0xC;
+  B(state, 0x244) = 0x10;
   do
   {
-    p = func_800592AC(i);
-    node = P(p, 0x28);
+    list = select_get_entry(i);
+    node = P(list, 0x28);
     j = 0;
-    n = cnt[i];
-    off = H(node, 8);
+    n = counts[i];
+    y_off = H(node, 8);
     prev = 0;
     if (n > 0)
     {
-      arr = q + i;
-      r = cnt + i;
+      idx_ptr = slots + i;
+      cnt_ptr = counts + i;
       do
       {
-        B(node, 0x22) = (*arr) + j;
-        if (H(tbl + ((((s8) (*arr)) + j) * 0x2C4), 0x10) & 8)
+        B(node, 0x22) = (*idx_ptr) + j;
+        if (H(car_tbl + ((((s8) (*idx_ptr)) + j) * 0x2C4), 0x10) & 8)
         {
           if (prev == 0)
           {
             prev = node;
             node = P(node, 0);
-            P(p, 0x28) = node;
-            func_8007EE9C(prev);
+            P(list, 0x28) = node;
+            heapFreeBlock(prev);
             prev = 0;
           }
           else
           {
             P(prev, 0) = P(node, 0);
-            func_8007EE9C(node);
+            heapFreeBlock(node);
             node = P(prev, 0);
           }
           do
           {
-            *r -= 1;
-            B(p, 0x4C) -= 1;
+            *cnt_ptr -= 1;
+            B(list, 0x4C) -= 1;
           }
           while (0);
         }
         else
         {
-          H(node, 8) = normalize_field(off);
-          off += 0x14;
+          H(node, 8) = normalize_field(y_off);
+          y_off += 0x14;
           prev = node;
           node = P(node, 0);
         }
@@ -121,34 +125,33 @@ void func_8007A29C(void)
       }
       while (j < n);
     }
-    if (cnt[i] == 0)
+    if (counts[i] == 0)
     {
-      B(func_800592AC(i), 0x41) = 0;
-      func_8008A0D8((s32)D_800C3508, (B(P(D_800C3508, 0x10) + (SH(D_800C3508, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
-      if (B(D_800A1468, 0x238) == i)
+      B(select_get_entry(i), 0x41) = 0;
+      func_8008A0D8((s32)gLeague, (B(P(gLeague, 0x10) + (SH(gLeague, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
+      if (B(gSelectState, 0x238) == i)
       {
         {
-          u8 *rs = D_800C35A0;
-          rs += (rs + ((s8) B(D_800A1468, 0x228)))[0x32] * 40;
+          u8 *rs = gRecords;
+          rs += (rs + ((s8) B(gSelectState, 0x228)))[0x32] * 40;
           H(rs, 0x4E) = 4;
         }
-        B(D_800A1468, 0x238) = H(D_800D0658, 0xB24);
+        B(gSelectState, 0x238) = H(D_800D0658, 0xB24);
       }
     }
-    func_8005937C(B(ent, 0xD) + i, cnt[i]);
+    func_8005937C(B(entry, 0xD) + i, counts[i]);
     i++;
   }
   while (i < 4);
   {
-    u8 *a2 = P(D_800C3508, 0x10);
-    s32 m2 = B(D_800A1468, 0x238);
-    B(a2 + (SH(D_800C3508, 2) * 0x14), 0xE) = B(a2 + (SH(D_800C3508, 2) * 0x14), 0xD) + m2;
+    u8 *a2 = P(gLeague, 0x10);
+    s32 m2 = B(gSelectState, 0x238);
+    B(a2 + (SH(gLeague, 2) * 0x14), 0xE) = B(a2 + (SH(gLeague, 2) * 0x14), 0xD) + m2;
     func_80069974();
   }
-  B(D_800A1468, 0x2BD) = 1;
-  func_80081540(D_800A5F7C);
+  B(gSelectState, 0x2BD) = 1;
+  resolve_path(D_800A5F7C);
   func_8004C7F0((s32)D_800A5F8C);
-  node = text_obj_get(0x38);
-  H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);
+  node = textObjGet(0x38);
+  H(node, 4) = ((*((s8 *) (gSelectState + 0x228))) == 0) ? (3) : (0x98);
 }
-

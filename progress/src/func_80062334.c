@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 
 extern unsigned short D_800C34FC;
 extern unsigned short D_800C836E;
-extern unsigned short D_800B6FF0;
+extern unsigned short gNumberBuf;
 
 
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 
 void func_80062334(void) {
     void *var_a0;
@@ -25,14 +25,14 @@ void func_80062334(void) {
     void *var_v0;
     void *var_v1;
 
-    var_v0 = D_800C02AE + 0x32F2;
-    var_v0 = *(void * *)(D_800C02AE + 0x32F2);
-    var_v1 = D_800C02AE + 0x324E;
+    var_v0 = gStreamState + 0x32F2;
+    var_v0 = *(void * *)(gStreamState + 0x32F2);
+    var_v1 = gStreamState + 0x324E;
     var_v1 = (void *) D_800C34FC;
-    var_a0 = D_800C02AE + 0x80C0;
+    var_a0 = gStreamState + 0x80C0;
     var_a0 = (void *) D_800C836E;
-    var_a1 = D_800AE850 + 0x87A0;
-    var_a1 = (void *) D_800B6FF0;
+    var_a1 = gOrderState + 0x87A0;
+    var_a1 = (void *) gNumberBuf;
     *(s16 *)((char *)var_v0 + 0x1E) = (s16) var_v1;
     *(s16 *)((char *)var_v0 + 0x20) = (s16) var_a0;
     *(s16 *)((char *)var_v0 + 0x22) = (s16) var_a1;

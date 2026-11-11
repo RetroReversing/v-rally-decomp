@@ -1,54 +1,56 @@
-void *func_800592AC(u32);
-s32 func_80059618();
-void func_800596F4(void *, s16, s16, void *);
+void *select_get_entry(u32);
+s32 group_set_color();
+void draw_palette_sprite(void *, s16, s16, void *);
 s32 func_8006090C();
 s32 func_8006A438();
-extern char D_800C02AE[];
-static inline u16 *inline_fn(char *arg0)
+extern char gStreamState[];
+static inline u16 *stream_count_ptr(char *stream)
 {
-  return (u16 *) (((char *) (*((void **) (arg0 + 0x32F2)))) + 0xE);
+  return (u16 *) (((char *) (*((void **) (stream + 0x32F2)))) + 0xE);
 }
 
+/* Draws list 1 the same way as draw_record_list, but only when the stream has at least one
+ * record. Runs the two finishing draw calls first. */
 void func_80066384(void)
 {
-  s32 var_s1;
-  void *var_s2;
-  void *temp_s0;
-  u8 var_a1;
-  u8 var_a2;
-  u8 var_a3;
-  u8 var_v0;
+  s32 index;
+  void *list_node;
+  void *item;
+  u8 red;
+  u8 green;
+  u8 blue;
+  u8 alpha;
 
   func_8006A438();
   func_8006090C();
-  var_s2 = func_800592AC(1);
-  var_s1 = 0;
-  if (*inline_fn(D_800C02AE) == 0)
+  list_node = select_get_entry(1);
+  index = 0;
+  if (*stream_count_ptr(gStreamState) == 0)
   {
     return;
   }
   do
   {
-    temp_s0 = *((void **)((char *)var_s2 + 0x28));
-    if (*((u8 *)var_s2 + 0x42) != 0)
+    item = *((void **)((char *)list_node + 0x28));
+    if (*((u8 *)list_node + 0x42) != 0)
     {
-      var_a1 = 0xDC;
-      var_a2 = 0xDC;
-      var_a3 = 0xE;
-      var_v0 = *((u8 *)temp_s0 + 0xE);
-      func_80059618(temp_s0, var_a1, var_a2, var_a3, var_v0);
+      red = 0xDC;
+      green = 0xDC;
+      blue = 0xE;
+      alpha = *((u8 *)item + 0xE);
+      group_set_color(item, red, green, blue, alpha);
     }
     else
     {
-      var_a1 = *((u8 *)temp_s0 + 0xB);
-      var_a2 = *((u8 *)temp_s0 + 0xC);
-      var_a3 = *((u8 *)temp_s0 + 0xD);
-      var_v0 = *((u8 *)temp_s0 + 0xE);
-      func_80059618(temp_s0, var_a1, var_a2, var_a3, var_v0);
+      red = *((u8 *)item + 0xB);
+      green = *((u8 *)item + 0xC);
+      blue = *((u8 *)item + 0xD);
+      alpha = *((u8 *)item + 0xE);
+      group_set_color(item, red, green, blue, alpha);
     }
-    func_800596F4((void *)(temp_s0), (s16)(*((s16 *)((char *)temp_s0 + 6))), (s16)(*((s16 *)((char *)temp_s0 + 8))),
-                  (void *)(*((char **)(D_800C02AE + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(D_800C02AE + 0x32F2)) + (var_s1 & 0xFF) + 0x32)));
-    var_s1 += 1;
-    var_s2 = *((void **)var_s2);
-  } while ((u32)(var_s1 & 0xFF) < (u32)*inline_fn(D_800C02AE));
+    draw_palette_sprite((void *)(item), (s16)(*((s16 *)((char *)item + 6))), (s16)(*((s16 *)((char *)item + 8))),
+                  (void *)(*((char **)(gStreamState + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(gStreamState + 0x32F2)) + (index & 0xFF) + 0x32)));
+    index += 1;
+    list_node = *((void **)list_node);
+  } while ((u32)(index & 0xFF) < (u32)*stream_count_ptr(gStreamState));
 }

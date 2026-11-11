@@ -1,10 +1,11 @@
 extern u8 D_80001D10[], D_80001DE0[];
 extern s32 D_8009B6F0[], D_8009B6F4[];
 extern u8 D_800C83D0[], D_800D03D0[];
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 void func_8007F798(s32, s32, void *);
 void osWritebackDCacheAll(void);
 
+/* The OSTask as libultra lays it out (RSP task header). */
 typedef struct {
     u32 type, flags;
     u8 *ucode_boot;
@@ -17,13 +18,15 @@ typedef struct {
     u8 *yield_data_ptr;
     s32 yield_data_size;
     u8 pad40[4];
-    s32 f44;
-    s16 f48;
-    s16 f4A;
+    s32 unk44;
+    s16 unk48;
+    s16 unk4A;
 } Task;
 
 typedef struct { u32 w0, w1; } G;
 
+/* Graphics context: display-list cursor and bounds, the task header and the
+ * ucode mode (selects the ucode pair from the tables). */
 typedef struct {
     u8 pad0[0xC];
     G *dl_end;
@@ -40,6 +43,8 @@ typedef struct {
     u16 f7A;
 } Ctx;
 
+/* Ends the display list with two end-of-list commands, fills the task header
+ * for the ucode picked by c->mode, writes back the data cache and submits it. */
 void func_8000DD40(Ctx *c)
 {
     G *g;
@@ -47,7 +52,7 @@ void func_8000DD40(Ctx *c)
     s32 start;
     s32 size;
 
-    c->task.f44 = 0;
+    c->task.unk44 = 0;
     { G *_g = c->dl++; _g->w0 = 0xE9000000; _g->w1 = 0; }
     { G *_g = c->dl++; _g->w0 = 0xDF000000; _g->w1 = 0; }
     t = &c->task;
@@ -70,18 +75,18 @@ void func_8000DD40(Ctx *c)
     t->ucode_data_size = 0x800;
     t->output_buff = D_800C83D0;
     t->output_buff_size = D_800D03D0;
-    t->yield_data_ptr = D_800C02AE + 0x5E32;
+    t->yield_data_ptr = gStreamState + 0x5E32;
     t->dram_stack = 0;
     t->dram_stack_size = 0;
     t->yield_data_size = 0xC00;
     switch (c->mode) {
     case 0: case 1: case 2: case 3: case 4:
-        t->f48 = 1;
-        t->f4A = -10;
+        t->unk48 = 1;
+        t->unk4A = -10;
         break;
     case 5:
-        t->f48 = 2;
-        t->f4A = 10;
+        t->unk48 = 2;
+        t->unk4A = 10;
         break;
     }
     osWritebackDCacheAll();

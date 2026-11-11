@@ -1,3 +1,3 @@
-extern char D_800C02AE[];
-void func_8005F014(int a, char *b);
-int func_8005F11C(int arg0) { func_8005F014(arg0, D_800C02AE + 0x333A); return 0; }
+extern char gStreamState[];
+void clampAboveThreshold(int a, char *b);
+int func_8005F11C(int arg0) { clampAboveThreshold(arg0, gStreamState + 0x333A); return 0; }

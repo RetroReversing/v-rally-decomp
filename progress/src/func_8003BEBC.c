@@ -1,96 +1,118 @@
-extern int D_800AE858;
+extern int gTimerEffectBusy;
 s32 func_80038A8C(s32);
-s32 func_8003BE44(void *);
+s32 timer_advance_stage(void *);
 extern s32 D_8009BA30;
-extern s32 D_8009D538;
-extern void *D_800A0384;
-extern char D_800AE850[];
-extern char D_800C02AE[];
-void func_8003BEBC(void *arg0)
+extern s32 gPadFlags;
+extern void *gRaceCtx;
+extern char gOrderState[];
+extern char gStreamState[];
+
+typedef struct Sprite {
+  u8 pad00[0x70];
+  s16 ofs_x;
+  s16 ofs_y;
+  u8 pad74[4];
+  u16 timer;
+  s16 kind;
+  u8 pad7C[4];
+  s32 flags;
+  u8 pad84[0xF];
+  u8 fade;
+  u8 pad94[4];
+  u16 scale;
+  u16 scale_out;
+  u8 pad9C[8];
+  void *desc;
+} Sprite;
+
+/* Per-frame update for a sprite object. While the sprite is armed and the game is not paused,
+ * it counts down a timer (flag bit 4 marks a pending tick). When the timer runs out, the slot is
+ * released. Otherwise it grows or shrinks its scale (kind 3 is the slow path), and recentres the
+ * sprite by half its size. If the sprite is not armed, flag bit 4 is set. */
+void func_8003BEBC(Sprite *o)
 {
-  f32 temp_ft0;
+  f32 scale_f;
   f32 x;
   f32 y;
   s32 var_v0;
-  char *new_var;
-  u16 temp_v1;
-  void *temp_v1_2;
-  if (((*((s32 *) (((char *) (*((void **) (D_800C02AE + 0x7CD6)))) + 0x24))) != 0) && ((*((u8 *) (((char *) D_800A0384) + 0x384))) == 0))
+  u16 timer;
+  void *tex;
+  if (((*((s32 *) (((char *) (*((void **) (gStreamState + 0x7CD6)))) + 0x24))) != 0) && ((*((u8 *) (((char *) gRaceCtx) + 0x384))) == 0))
   {
-    if (!(D_8009D538 & 2))
+    if (!(gPadFlags & 2))
     {
-      temp_v1 = *((u16 *) (((char *) arg0) + 0x78));
-      *((s32 *) (((char *) arg0) + 0x80)) = (s32) ((*((s32 *) (((char *) arg0) + 0x80))) & (~4));
-      if (temp_v1 != 0)
+      timer = o->timer;
+      o->flags = (s32) ((o->flags) & (~4));
+      if (timer != 0)
       {
-        *((u16 *) (((char *) arg0) + 0x78)) = (u16) (temp_v1 - 1);
-        *((s32 *) (((char *) arg0) + 0x80)) = (s32) ((*((s32 *) (((char *) arg0) + 0x80))) | 4);
-        if ((*((u16 *) (((char *) arg0) + 0x78))) == 0)
+        o->timer = (u16) (timer - 1);
+        o->flags = (s32) ((o->flags) | 4);
+        if ((o->timer) == 0)
         {
-          if (D_800AE858 == 0)
+          if (gTimerEffectBusy == 0)
           {
-            func_80038A8C(((*((u8 *) (((char *) arg0) + 0x7B))) + 7) & 0xFF);
-            D_800AE858 = 4;
+            func_80038A8C((((u8 *) o)[0x7B] + 7) & 0xFF);
+            gTimerEffectBusy = 4;
             D_8009BA30 = 0;
           }
-          var_v0 = (*((s32 *) (((char *) arg0) + 0x80))) & (~4);
+          var_v0 = (o->flags) & (~4);
           goto block_20;
         }
       }
       else
       {
-        if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)
+        if ((o->kind) == 3)
         {
-          *((u16 *) (((char *) arg0) + 0x98)) -= 0x20;
+          o->scale -= 0x20;
         }
         else
         {
-          *((u16 *) (((char *) arg0) + 0x98)) = (*((u16 *) (((char *) arg0) + 0x98))) + 0x20;
+          o->scale = (o->scale) + 0x20;
         }
-        *((u8 *) (((char *) arg0) + 0x93)) = (u8) ((*((u8 *) (((char *) arg0) + 0x93))) - 4);
-        if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)
+        o->fade = (u8) ((o->fade) - 4);
+        if ((o->kind) == 3)
         {
-          if (((s16) (*((u16 *) (((char *) arg0) + 0x98)))) < 0x201)
+          if (((s16) (o->scale)) < 0x201)
           {
-            func_8003BE44(arg0);
+            timer_advance_stage(o);
           }
         }
         else
-          if (((s16) (*((u16 *) (((char *) arg0) + 0x98)))) >= 0x400)
+          if (((s16) (o->scale)) >= 0x400)
         {
-          func_8003BE44(arg0);
-          if ((*((s16 *) (((char *) arg0) + 0x7A))) == 3)
+          timer_advance_stage(o);
+          if ((o->kind) == 3)
           {
-            *((u16 *) (((char *) arg0) + 0x98)) = 0x400;
+            o->scale = 0x400;
           }
           else
           {
-            *((u16 *) (((char *) arg0) + 0x98)) = 0x100;
+            o->scale = 0x100;
           }
         }
-        temp_ft0 = 1024.0f;
-        temp_ft0 = temp_ft0 / ((f32) ((s16) (*((u16 *) (((char *) arg0) + 0x98)))));
-        temp_v1_2 = *(*((void ***) (((char *) (*((void **) (((char *) arg0) + 0xA4)))) + 4)));
+        scale_f = 1024.0f;
+        scale_f = scale_f / ((f32) ((s16) (o->scale)));
+        tex = *(*((void ***) (((char *) (*((void **) (((char *) o) + 0xA4)))) + 4)));
         {
-        f32 w = (f32) (*((u16 *) (((char *) temp_v1_2) + 6)));
-        x = temp_ft0 * w;
+        f32 w = (f32) (*((u16 *) (((char *) tex) + 6)));
+        x = scale_f * w;
         }
-        y = (f32) (*((u16 *) (((char *) temp_v1_2) + 8)));
-        temp_ft0 = temp_ft0 * y;
+        y = (f32) (*((u16 *) (((char *) tex) + 8)));
+        scale_f = scale_f * y;
         x *= 0.5f;
-        temp_ft0 *= 0.5f;
-        y = temp_ft0;
-        *((u16 *) (((char *) arg0) + 0x9A)) = *((volatile s16 *) (((char *) arg0) + 0x98));
-        *((s16 *) (((char *) arg0) + 0x70)) = -x;
-        *((s16 *) (((char *) arg0) + 0x72)) = -y;
+        scale_f *= 0.5f;
+        y = scale_f;
+        o->scale_out = *((volatile s16 *) (&o->scale));
+        o->ofs_x = -x;
+        o->ofs_y = -y;
       }
     }
   }
   else
   {
-    var_v0 = (*((s32 *) (((char *) arg0) + 0x80))) | 4;
+    var_v0 = (o->flags) | 4;
     block_20:
-    *((s32 *) (((char *) arg0) + 0x80)) = var_v0;
+    o->flags = var_v0;
 
   }
 }

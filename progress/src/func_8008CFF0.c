@@ -1,22 +1,26 @@
-extern char D_80000308[];
-extern char D_800A6EA0[];
-extern char D_800A6EA4[];
+extern u32 osRomBase;
+extern char rom_read_assert_file[];
+extern char rom_read_assert_msg[];
 s32 func_800914E0(void *, void *, s32);
-s32 func_8008CFF0(s32 arg0, s32 *arg1)
+
+/* Reads one 32-bit word from the cartridge (ROM) at romOffset, relative to osRomBase,
+ * through the uncached cart window, into *dst. Waits until the PI DMA/IO is idle first.
+ * Asserts when dst is NULL. Always returns 0. */
+s32 func_8008CFF0(s32 romOffsetArg, s32 *dstArg)
 {
-  s32 *var_s0;
-  s32 var_s1;
-  var_s1 = arg0;
-  var_s0 = arg1;
-  if (var_s0 == NULL)
+  s32 *dst;
+  s32 romOffset;
+  romOffset = romOffsetArg;
+  dst = dstArg;
+  if (dst == NULL)
   {
-    func_800914E0(D_800A6EA0, D_800A6EA4, 0x3D);
+    func_800914E0(rom_read_assert_file, rom_read_assert_msg, 0x3D);
   }
   while ((*((vu32 *) 0xA4600010)) & 3)
   {
   }
 
-  *var_s0 = *((s32 *) (((*((u32 *) D_80000308)) | var_s1) | 0xA0000000));
- do { } while (0);
+  *dst = *((s32 *) (((*((u32 *) &osRomBase)) | romOffset) | 0xA0000000));
+  do { } while (0);
   return 0;
 }

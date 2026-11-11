@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8008A140(s32);                         /* extern */
-extern void *D_800A1468;
-extern M2C_UNK D_800C02AE;
+M2C_UNK league_set_flag14(s32);                         /* extern */
+extern void *gSelectState;
+extern M2C_UNK gStreamState;
 
 s32 func_80071A0C(void) {
-    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;
-    func_8008A140(M2C_FIELD(&D_800C02AE, s32 *, 0x325A));
-    return M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0x20) + 0x15;
+    M2C_FIELD(gSelectState, s8 *, 0x245) = 0;
+    league_set_flag14(M2C_FIELD(&gStreamState, s32 *, 0x325A));
+    return M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u16 *, 0x20) + 0x15;
 }

@@ -1,40 +1,42 @@
 extern char D_800A5008[];
-extern char D_800AE850[];
-s32 func_800520D4();
+extern char gOrderState[];
+s32 order_table_swap();
 
-void func_80052194(s32 arg0)
+/* Walks the first `count` entries of the 0x14-byte table at gOrderState+0x237C. Each entry whose first
+ * byte equals D_800A5008's address has its order slots swapped by order_table_swap, numbered from 0. */
+void func_80052194(s32 count)
 {
   char pad[8];
-  s32 *var_s4;
-  char (*new_var)[];
-  s32 var_a0;
-  s32 var_a1;
-  s32 var_s0;
-  s32 var_s1;
-  s32 var_s2;
-  s32 var_s3;
-  u8 *var_v0;
-  var_s3 = arg0;
-  var_s2 = 0;
-  var_s0 = 0;
-  if (var_s3 > 0)
+  s32 *entry_ptr;
+  char (*base)[];
+  s32 idx;
+  s32 match_no;
+  s32 entry_idx;
+  s32 offset;
+  s32 matches;
+  s32 limit;
+  u8 *entry;
+  limit = count;
+  matches = 0;
+  entry_idx = 0;
+  if (limit > 0)
   {
-    new_var = &D_800A5008;
-    var_s4 = (s32 *)new_var;
-    var_s1 = 0;
+    base = &D_800A5008;
+    entry_ptr = (s32 *)base;
+    offset = 0;
     do
     {
-      var_v0 = (u8 *)(var_s1 + *(u32 *)(D_800AE850 + 0x237C));
-      if (*var_v0 == (s32)new_var)
+      entry = (u8 *)(offset + *(u32 *)(gOrderState + 0x237C));
+      if (*entry == (s32)base)
       {
-        var_a1 = var_s2 & 0xFFFF;
-        var_s2 += 1;
-        var_a0 = var_s0 & 0xFFFF;
-        func_800520D4(var_a0, var_a1);
+        match_no = matches & 0xFFFF;
+        matches += 1;
+        idx = entry_idx & 0xFFFF;
+        order_table_swap(idx, match_no);
       }
-      var_s0 += 1;
-      var_s1 += 0x14;
+      entry_idx += 1;
+      offset += 0x14;
     }
-    while (var_s0 < var_s3);
+    while (entry_idx < limit);
   }
 }

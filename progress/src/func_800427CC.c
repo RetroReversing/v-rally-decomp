@@ -1,19 +1,21 @@
-s32 func_80022184();
-s32 func_800221D4();
-s32 func_80080440();
-extern char D_800AE850[];
-extern s32 func_8004276C;
+extern char gOrderState[];
+extern s32 order_check_and_release;
+s32 flag_test_bit0(void *);
+s32 flag_set_then_call(void *, s32 *);
+s32 poolAllocHeadNode(void);
+
+/* Returns 0 if the flag at gOrderState+0x73C0 is already set. Otherwise it stores poolAllocHeadNode()'s result at +0x87F4, registers order_check_and_release on that flag, and returns 1. */
 s32 func_800427CC(void)
 {
-    void *temp_s0;
+    void *flag;
     s32 ret;
 
-    temp_s0 = D_800AE850 + 0x73C0;
-    if (func_80022184(temp_s0)) {
+    flag = gOrderState + 0x73C0;
+    if (flag_test_bit0(flag)) {
         ret = 0;
     } else {
-        *((s32 *) (D_800AE850 + 0x87F4)) = func_80080440();
-        func_800221D4(temp_s0, &func_8004276C);
+        *((s32 *) (gOrderState + 0x87F4)) = poolAllocHeadNode();
+        flag_set_then_call(flag, &order_check_and_release);
         ret = 1;
     }
     return ret;

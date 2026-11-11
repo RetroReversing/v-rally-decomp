@@ -1,2 +1,6 @@
-extern float D_800C35E0; void func_8005F014(int a, float *b); void func_80086DE8(int a);
-int func_8005F0A4(int arg0) { float *p = &D_800C35E0; func_8005F014(arg0, p); func_80086DE8((int)(*p * 112.0f)); return 0; }
+extern float gSpeedAccum;
+void clampAboveThreshold(int unused, float *value);
+void voicesSetIdleValue(int value);
+
+/* Clamps gSpeedAccum against the threshold, then sends it to the voices scaled by 112. Returns 0. */
+int func_8005F0A4(int arg0) { float *p = &gSpeedAccum; clampAboveThreshold(arg0, p); voicesSetIdleValue((int)(*p * 112.0f)); return 0; }

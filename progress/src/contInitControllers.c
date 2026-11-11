@@ -13,44 +13,46 @@ typedef struct {
     u8 pad5C[0x39C - 0x5C];
     u8 flags;
 } ContCtx;
-extern s8 D_800AFA40;
+extern s8 gContPort0Found;
 extern u8 D_800B4288[];
-extern ContCtx *D_800A1B70;
+extern ContCtx *gContCtx;
 void func_80086138(s32, u8);
 void func_800862A0(s32);
 s32 osContInit(void *, u8 *, ContStatus *);
 
-s32 contInitControllers(s32 n)
+/* Initialises the controllers with osContInit and registers each connected pad
+   (up to want pads). Returns the number of pads registered. */
+s32 contInitControllers(s32 want)
 {
-    u8 pattern;
-    s32 i;
+    u8 connected_mask;
+    s32 port;
 
-    osContInit(D_800B4288, &pattern, D_800A1B70->status);
-    for (i = 0; i < 4; i++)
+    osContInit(D_800B4288, &connected_mask, gContCtx->status);
+    for (port = 0; port < 4; port++)
     {
-        if (((pattern >> i) & 1) && !(D_800A1B70->status[i].errnum & 8))
+        if (((connected_mask >> port) & 1) && !(gContCtx->status[port].errnum & 8))
         {
-            if (i == 0)
+            if (port == 0)
             {
-                D_800AFA40 = 1;
+                gContPort0Found = 1;
             }
-            D_800A1B70->ptrs[D_800A1B70->count] = &D_800A1B70->pads[i];
-            D_800A1B70->x8[i] = 0;
-            D_800A1B70->a[i] = 0;
-            D_800A1B70->b[i] = 0xFFFF;
-            D_800A1B70->c[i] = 0;
-            func_80086138(i, pattern);
-            func_800862A0(i);
+            gContCtx->ptrs[gContCtx->count] = &gContCtx->pads[port];
+            gContCtx->x8[port] = 0;
+            gContCtx->a[port] = 0;
+            gContCtx->b[port] = 0xFFFF;
+            gContCtx->c[port] = 0;
+            func_80086138(port, connected_mask);
+            func_800862A0(port);
             {
-                ContCtx *p = D_800A1B70;
-                p->flags |= 1;
-                p->count++;
+                ContCtx *ctx = gContCtx;
+                ctx->flags |= 1;
+                ctx->count++;
             }
-            if (D_800A1B70->count == n)
+            if (gContCtx->count == want)
             {
-                return D_800A1B70->count;
+                return gContCtx->count;
             }
         }
     }
-    return D_800A1B70->count;
+    return gContCtx->count;
 }

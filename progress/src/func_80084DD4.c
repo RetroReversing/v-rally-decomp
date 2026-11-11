@@ -1,19 +1,19 @@
 /* identical to func_8008A704 in V-RALLY (matched), with its names changed by decompdecomp */
 /* identical to func_80084DD4 in V-RALLY (matched), with its names changed by decompdecomp */
 
-extern unsigned char D_800AFA40;
-extern s32 D_800A1B70;
+extern unsigned char gContPort0Found;
+extern s32 gContCtx;
 extern char D_800B21D0[];
 s32 func_80084DD4(s32 arg0)
 {
   int new_var;
   u8 *new_var2;
-  if (D_800AFA40 != 0)
+  if (gContPort0Found != 0)
   {
-    new_var2 = (u8 *) (((char *) (D_800A1B70 + ((arg0 & 0xFF) * 4))) + 0xF);
+    new_var2 = (u8 *) (((char *) (gContCtx + ((arg0 & 0xFF) * 4))) + 0xF);
     return ((*new_var2) & (new_var = 8)) == 0;
   }
-  if (D_800AFA40 || D_800A1B70)
+  if (gContPort0Found || gContCtx)
   {
     return 0;
   }

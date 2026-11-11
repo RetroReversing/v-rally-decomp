@@ -39,11 +39,11 @@ typedef struct Road
 } Road;
 u16 func_8002D2A0(s32);
 s32 func_8002D2C8(s32, s32);
-void func_800306A8(Road *, s32, s32 *);
-void func_80033CD4(Road *, s32, s32 *);
-extern s32 D_8009EB80;
+void track_sample_lookup(Road *, s32, s32 *);
+void getTrackPoint(Road *, s32, s32 *);
+extern s32 gSnapIndex;
 extern char D_800A73E0[];
-extern char D_800C02AE[];
+extern char gStreamState[];
 void func_80033724(void);
 struct VolCount{char pad[136];volatile u16 count;};union VolRoad{Road road;};
 typedef union{Road *ptr;u32 bits;} RootBits;
@@ -152,19 +152,19 @@ s16 phase_i;
     {
       do
       {
-        func_80033CD4((Road *) var_s2, (s32) ((s16) phase_i), &p30[0]);
-        func_80033CD4((Road *) var_s2, ((s16) phase_i) + 1, &p40[0]);
+        getTrackPoint((Road *) var_s2, (s32) ((s16) phase_i), &p30[0]);
+        getTrackPoint((Road *) var_s2, ((s16) phase_i) + 1, &p40[0]);
         var_a0 = var_s2->next;
         if ((var_a0 != 0) && (((s16) phase_i) == (var_s2->count - 1)))
         {
           var_a1 = 1;
-          func_80033CD4(var_a0, var_a1, p50);
+          getTrackPoint(var_a0, var_a1, p50);
         }
         else
         {
           var_a0 = var_s2;
           var_a1 = ((s16) phase_i) + 2;
-          func_80033CD4(var_a0, var_a1, p50);
+          getTrackPoint(var_a0, var_a1, p50);
         }
         var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);
         var_a0_2 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);
@@ -192,9 +192,9 @@ new_var4=1;
       goto second_test;
       second_body:
       {
-        func_80033CD4((Road *) temp_a0, (s32) ((s16) var_s1), &p30[0]);
-        func_80033CD4((Road *) var_s2->next, ((s16) var_s1) + 1, &p40[0]);
-        func_80033CD4((Road *) var_s2->next, ((s16) var_s1) + 2, &p50[0]);
+        getTrackPoint((Road *) temp_a0, (s32) ((s16) var_s1), &p30[0]);
+        getTrackPoint((Road *) var_s2->next, ((s16) var_s1) + 1, &p40[0]);
+        getTrackPoint((Road *) var_s2->next, ((s16) var_s1) + 2, &p50[0]);
         var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);
         var_a0_3 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);
         if ((var_s0 < (-0x400)) & (var_a0_3 >= 0x401))
@@ -226,7 +226,7 @@ var_v0=var_s1+1;var_s1=var_v0;temp_a0=var_s2->next;{s32 load_once;for(load_once=
 
     }
     var_a1 = (s16) (*negative);
-    temp_v1_2 = (*((Stats **) (D_800C02AE + 0x7CD2)))->fall * 0x578;
+    temp_v1_2 = (*((Stats **) (gStreamState + 0x7CD2)))->fall * 0x578;
 {if(temp_v1_2>=0)var_v0=temp_v1_2;else var_v0=temp_v1_2+4095;{u32 identity_x=(u32)temp_v1_2;u32 identity_y=identity_x;identity_y+=0x13579bdfu;identity_y-=0x13579bdfu;var_v0=(s32)((u32)var_v0+(identity_y-identity_x));}var_a0_2=var_v0>>12;}
     if (var_a0_2 < var_a1)
     {
@@ -258,7 +258,7 @@ var_v0=var_s1+1;var_s1=var_v0;temp_a0=var_s2->next;{s32 load_once;for(load_once=
     {
       do
       {
-        func_80033CD4((Road *) var_s2, var_s1, &p30[0]);
+        getTrackPoint((Road *) var_s2, var_s1, &p30[0]);
 
         if (((var_s1 == 0) | (var_s1 == temp_s3)) != 0)
         {
@@ -317,7 +317,7 @@ var_s1=0;
         temp_s0_3 = (((s32) (temp_a0_3 << 0x10)) >> 0xE) + (s32)sp8C;
         do
         {
-          func_80033CD4((Road *) var_s2->next, var_s1, &p30[0]);
+          getTrackPoint((Road *) var_s2->next, var_s1, &p30[0]);
           if (var_s1 == 0)
           {
             sp6C = p30[1];
@@ -345,7 +345,7 @@ var_s1=0;
         while (var_s1 < temp_s3);
       }
     }
-    temp_a0_5 = (*((Stats **) (D_800C02AE + 0x7CD2)))->fall;
+    temp_a0_5 = (*((Stats **) (gStreamState + 0x7CD2)))->fall;
     var_v0_5 = temp_a0_5 * 0x2BC;
     if (var_v0_5 < 0)
     {
@@ -364,7 +364,7 @@ var_s1=0;
       var_v0_7 += 0xFFF;
     }
     var_a0_4 = var_v0_7 >> 0xC;
-    if (D_8009EB80 == 5)
+    if (gSnapIndex == 5)
     {
       var_a2 += 0x12C;
       var_a1_2 += 0x12C;
@@ -426,33 +426,33 @@ var_s1=0;
           var_a0_5 = var_s2->prev;
           if (var_a0_5)
           {
-            func_800306A8(var_a0_5, var_a0_5->count - 2, p30);
+            track_sample_lookup(var_a0_5, var_a0_5->count - 2, p30);
           }
           else
           {
-            func_800306A8(var_s2, 0, p30);
+            track_sample_lookup(var_s2, 0, p30);
           }
         }
         else
         {
-          func_800306A8(var_s2, var_s1 - 1, p30);
+          track_sample_lookup(var_s2, var_s1 - 1, p30);
         }
-        func_800306A8((Road *) var_s2, var_s1, &p40[0]);
+        track_sample_lookup((Road *) var_s2, var_s1, &p40[0]);
         if (var_s1 == (var_s2->count - 1))
         {
           var_a0_6 = var_s2->next;
           if (var_a0_6)
           {
-            func_800306A8(var_a0_6, 1, p50);
+            track_sample_lookup(var_a0_6, 1, p50);
           }
           else
           {
-            func_800306A8(var_s2, var_s1, p50);
+            track_sample_lookup(var_s2, var_s1, p50);
           }
         }
         else
         {
-          func_800306A8(var_s2, var_s1 + 1, p50);
+          track_sample_lookup(var_s2, var_s1 + 1, p50);
         }
         var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);
         var_a0_7 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);

@@ -1,9 +1,14 @@
-s32 func_8008BD90(); void func_8008BDB0(s32); u32 func_800937B0(); extern u8 D_800AE850[];
+s32 osDisableInt(); void osRestoreInt(s32); u32 func_800937B0(); extern u8 gOrderState[];
+
+/* Returns the current time: the saved base time at gOrderState+0x7918 plus the cycle count since
+ * the base was stored, read with interrupts masked. */
 u64 osGetTime(void) {
-s32 mask; u32 delta; u64 time;
-mask=func_8008BD90();
-delta=func_800937B0()-*(u32 *)(D_800AE850+4);
-time=*(u64 *)(D_800AE850+0x7918);
-func_8008BDB0(mask);
-return time+delta;
+    s32 saved_mask;
+    u32 elapsed;
+    u64 base_time;
+    saved_mask = osDisableInt();
+    elapsed = func_800937B0() - *(u32 *)(gOrderState + 4);
+    base_time = *(u64 *)(gOrderState + 0x7918);
+    osRestoreInt(saved_mask);
+    return base_time + elapsed;
 }

@@ -3,43 +3,45 @@ typedef struct {
     u32 w1;
 } Gfx;
 
-s32 func_800056FC(s32);
-void *func_80006008(s32);
-s32 func_80006014(s32, void *);
-void *func_8004240C(u32);
+s32 view_get_ctx_id(s32);
+void *gfx_get_dl(s32);
+s32 gfx_set_dl(s32, void *);
+void *find_object_by_id(u32);
 s32 guMtxIdent(void *);
-extern u8 *D_800C35A0;
+extern u8 *gRecords;
 extern u8 D_800C8380[];
 
+/* For each object in the record table, emits a G_MOVEWORD, a matrix load of the identity matrix, and a
+ * pipe sync into that object's view display list. */
 void func_80010AF4(void) {
-    u8 *p;
+    u8 *obj;
     Gfx *dl;
-    Gfx *q;
-    Gfx *r;
-    u8 *s4;
-    s32 s1;
-    u8 count;
-    u32 s3;
+    Gfx *cmd;
+    Gfx *cmd2;
+    u8 *identityMtx;
+    s32 ctxId;
+    u8 objCount;
+    u32 objId;
 
-    count = (*(u16 *)(D_800C35A0 + 0xE) * 2) & 0xFF;
-    s3 = 1;
-    if (count != 0) {
-        s4 = D_800C8380;
+    objCount = (*(u16 *)(gRecords + 0xE) * 2) & 0xFF;
+    objId = 1;
+    if (objCount != 0) {
+        identityMtx = D_800C8380;
         do {
-            p = func_8004240C(s3);
-            s3 += 1;
-            s1 = func_800056FC(*(s32 *)(p + 0x178));
-            dl = func_80006008(s1);
-            guMtxIdent(s4);
-            q = dl++;
-            q->w0 = 0xDB0E0000;
-            q->w1 = *(u16 *)(p + 0x104);
-            r = dl++;
-            r->w0 = 0xDA380003;
-            r->w1 = (u32)s4;
+            obj = find_object_by_id(objId);
+            objId += 1;
+            ctxId = view_get_ctx_id(*(s32 *)(obj + 0x178));
+            dl = gfx_get_dl(ctxId);
+            guMtxIdent(identityMtx);
+            cmd = dl++;
+            cmd->w0 = 0xDB0E0000;
+            cmd->w1 = *(u16 *)(obj + 0x104);
+            cmd2 = dl++;
+            cmd2->w0 = 0xDA380003;
+            cmd2->w1 = (u32)identityMtx;
             dl->w0 = 0xE7000000;
             dl->w1 = 0;
-            func_80006014(s1, dl + 1);
-        } while (count >= s3);
+            gfx_set_dl(ctxId, dl + 1);
+        } while (objCount >= objId);
     }
 }

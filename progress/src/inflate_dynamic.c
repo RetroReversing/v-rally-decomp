@@ -14,7 +14,7 @@ struct huft {
         struct huft *t;
     } v;
 };
-extern InflState D_800C333C;
+extern InflState inflateState;
 extern u16 D_800A19F0[];
 extern u32 D_800A1A20[];
 extern u16 D_800A1A6C[];
@@ -28,7 +28,7 @@ s32 huft_build(u32 *, u32, u32, u16 *, u16 *, struct huft **, s32 *);
 s32 huft_free(struct huft *);
 s32 inflate_codes(struct huft *, struct huft *, s32, s32);
 
-#define NEXTBYTE() (--D_800C333C.cnt >= 0 ? *D_800C333C.ptr++ : func_80082094())
+#define NEXTBYTE() (--inflateState.cnt >= 0 ? *inflateState.ptr++ : func_80082094())
 #define NEEDBITS(n) while (k < (n)) { c = NEXTBYTE(); if (c == -1) return 1; b |= (u32)c << k; k += 8; }
 #define DUMPBITS(n) { b >>= (n); k -= (n); }
 
@@ -51,8 +51,8 @@ s32 inflate_dynamic(void)
     u32 k;
     s32 c;
 
-    b = D_800C333C.bb;
-    k = D_800C333C.bk;
+    b = inflateState.bb;
+    k = inflateState.bk;
 
     NEEDBITS(5)
     nl = 257 + (b & 0x1f);
@@ -135,8 +135,8 @@ s32 inflate_dynamic(void)
 
     huft_free(tl);
 
-    D_800C333C.bb = b;
-    D_800C333C.bk = k;
+    inflateState.bb = b;
+    inflateState.bk = k;
 
     bl = D_800A1B64;
     i = huft_build(ll, nl, 257, D_800A1A6C, D_800A1AAC, &tl, &bl);

@@ -11,38 +11,31 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-
-
 void *__allocParam();
 
-void alSynStopVoice(void *arg0, void *arg1) {
-    s32 (*var_v0)(void *, s32, void *);
-    s32 var_a1;
-    s32 var_v1;
-    void *var_a0;
-    void *var_a2;
-    void *var_s0;
-    void *var_s1;
+/* Stops a voice by queuing a stop event: if the voice has a handler, allocates a parameter block, fills it with event type 0xF and the synth time plus the handler's offset, then sends it to the handler's owner as message 3. */
+void alSynStopVoice(void *synth, void *voice) {
+    s32 (*fn)(void *, s32, void *);
+    s32 time;
+    void *evt;
+    void *owner;
 
-    var_s0 = arg1;
-    var_v0 = M2C_FIELD(var_s0, s32 (**)(void *, s32, void *), 8);
-    var_s1 = arg0;
-    if (var_v0 != NULL) {
-        var_a2 = __allocParam();
-        if (var_a2 != NULL) {
-            var_v0 = M2C_FIELD(var_s0, s32 (**)(void *, s32, void *), 8);
-            var_v1 = *(s32 *)((char *)var_s1 + 0x1C);
-            var_a0 = *(void * *)((char *)var_v0 + 0xD8);
-            var_v0 = (s32 (*)(void *, s32, void *))0xF;
-            *(s16 *)((char *)var_a2 + 8) = 0xF;
-            *(s32 *)((char *)var_a2 + 0) = 0;
-            var_v1 += var_a0;
-            *(s32 *)((char *)var_a2 + 4) = var_v1;
-            var_v0 = M2C_FIELD(var_s0, s32 (**)(void *, s32, void *), 8);
-            var_a0 = *(void * *)((char *)var_v0 + 0xC);
-            var_v0 = M2C_FIELD(var_a0, s32 (**)(void *, s32, void *), 8);
-            var_a1 = 3;
-            var_v0(var_a0, 3, var_a2);
+    fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
+    if (fn != NULL) {
+        evt = __allocParam();
+        if (evt != NULL) {
+            fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
+            time = *(s32 *)((char *)synth + 0x1C);
+            owner = *(void * *)((char *)fn + 0xD8);
+            fn = (s32 (*)(void *, s32, void *))0xF;
+            *(s16 *)((char *)evt + 8) = 0xF;
+            *(s32 *)((char *)evt + 0) = 0;
+            time += owner;
+            *(s32 *)((char *)evt + 4) = time;
+            fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
+            owner = *(void * *)((char *)fn + 0xC);
+            fn = M2C_FIELD(owner, s32 (**)(void *, s32, void *), 8);
+            fn(owner, 3, evt);
         }
     }
 }

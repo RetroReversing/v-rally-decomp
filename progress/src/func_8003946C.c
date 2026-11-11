@@ -1,6 +1,4 @@
 typedef void (*SpriteHook)(void *);
-#define G D_800C35A0
-#define P D_800C7F84
 #define H(p,o) (*(s16 *)((u8*)(p)+(o)))
 #define U(p,o) (*(u16 *)((u8*)(p)+(o)))
 #define W(p,o) (*(s32 *)((u8*)(p)+(o)))
@@ -21,90 +19,94 @@ typedef struct {
   Spr *spr;
   u8 *owner;
 } Obj;
-extern u8 *D_800C35A0;
-extern u8 *D_800C7F84;
-extern u8 *func_8004240C(s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-extern Spr *func_80034FF0(void *, s32);
-extern void func_8003B980(void *);
-void func_8003946C(s32 a, u8 *b, s32 c)
+extern u8 *gRecords;
+extern u8 *g_camera;
+extern u8 *find_object_by_id(s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+extern Spr *getTexturePack(void *, s32);
+extern void updateStreamRate(void *);
+
+/* Creates the race-list sprite objects, unless the race stage (gRecords+0x1E) is 7.
+   With one player it adds one sprite for the current record row. With two players it adds
+   one sprite per active row, using camera indices 1, 3, 5, ... */
+void func_8003946C(s32 parent, u8 *spr_data, s32 spr_id)
 {
-  u8 *g = G;
-  u8 *p;
-  u8 *q;
-  u8 *r;
-  Spr *s;
-  Obj *o;
+  u8 *records = gRecords;
+  u8 *cam;
+  u8 *cam_info;
+  u8 *cam1;
+  Spr *spr;
+  Obj *obj;
   s32 x;
   s32 y;
   s32 z;
   s32 sum;
-  s32 off;
-  s32 n;
-  u32 i;
-  char *row;
+  s32 x_off;
+  s32 cam_index;
+  u32 row_index;
+  char *rec_row;
   char *lrow;
-  if (U(g, 0x1e) != 7)
+  if (U(records, 0x1e) != 7)
   {
-    if (U(g, 0xe) == 1)
+    if (U(records, 0xe) == 1)
     {
-      row = (char *) g;
-      row += B(g, 0x32) * 40;
-      if (row[0x48] & 2)
+      rec_row = (char *) records;
+      rec_row += B(records, 0x32) * 40;
+      if (rec_row[0x48] & 2)
       {
-        r = func_8004240C(1);
-        x = H(A(r, 0x178), 0xc);
-        y = H(A(r, 0x178), 0xe);
-        P = r;
-        o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), func_8003B980, 1));
-        o->x9c = x - 63;
-        o->x9e = y - 42;
-        s = func_80034FF0(b + 0x4c, 0);
-        o->spr = s;
-        o->xc = -(s->imgs[0]->w >> 1);
-        o->xe = -3;
-        o->flags |= 0x20;
-        o->owner = P;
+        cam1 = find_object_by_id(1);
+        x = H(A(cam1, 0x178), 0xc);
+        y = H(A(cam1, 0x178), 0xe);
+        g_camera = cam1;
+        obj = ((Obj *)sprite_create((void *)(parent), 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
+        obj->x9c = x - 63;
+        obj->x9e = y - 42;
+        spr = getTexturePack(spr_data + 0x4c, 0);
+        obj->spr = spr;
+        obj->xc = -(spr->imgs[0]->w >> 1);
+        obj->xe = -3;
+        obj->flags |= 0x20;
+        obj->owner = g_camera;
       }
     }
     else
     {
-      i = 1;
-      if (U(g, 0xe) == 2)
+      row_index = 1;
+      if (U(records, 0xe) == 2)
       {
-        n = 1;
+        cam_index = 1;
         do
         {
-          lrow = (char *) G;
-          lrow += B(((u8 *) G) + i, 0x31) * 40;
+          lrow = (char *) gRecords;
+          lrow += B(((u8 *) gRecords) + row_index, 0x31) * 40;
           if (lrow[0x48] & 2)
           {
-            p = func_8004240C(n);
-            q = A(p, 0x178);
-            off = 0;
-            P = p;
-            x = H(q, 0xc);
-            z = H(q, 8);
-            sum = H(q, 0xa) + H(q, 0xe);
-            if (!(U(G, 0x12) & 1))
+            cam = find_object_by_id(cam_index);
+            cam_info = A(cam, 0x178);
+            x_off = 0;
+            g_camera = cam;
+            x = H(cam_info, 0xc);
+            z = H(cam_info, 8);
+            sum = H(cam_info, 0xa) + H(cam_info, 0xe);
+            if (!(U(gRecords, 0x12) & 1))
             {
               x -= 16;
-              off = (-(W(p, 0xc) == 1)) & 20;
+              x_off = (-(W(cam, 0xc) == 1)) & 20;
             }
-            o = ((Obj *)func_80040260((void *)(a), 0, 0, (u16)((u16) c), func_8003B980, 1));
-            o->spr = func_80034FF0(b + 0x4c, 0);
-            o->x9c = (u16)(z + x) - 35 + off;
-            o->x9e = sum - 32;
-            o->xc = -(o->spr->imgs[0]->w >> 1);
-            o->xe = -2;
-            o->flags |= 0x20;
-            o->owner = P;
-            o->x7a = 1;
+            obj = ((Obj *)sprite_create((void *)(parent), 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
+            obj->spr = getTexturePack(spr_data + 0x4c, 0);
+            obj->x9c = (u16)(z + x) - 35 + x_off;
+            obj->x9e = sum - 32;
+            obj->xc = -(obj->spr->imgs[0]->w >> 1);
+            obj->xe = -2;
+            obj->flags |= 0x20;
+            obj->owner = g_camera;
+            obj->x7a = 1;
           }
-          i++;
-          n += 2;
+          row_index++;
+          cam_index += 2;
         }
-        while (U(g, 0xe) >= i);
+        while (U(records, 0xe) >= row_index);
       }
     }
   }

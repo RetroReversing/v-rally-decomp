@@ -35,27 +35,27 @@ typedef struct Cam {
 
 typedef struct { s32 x, y, z; } OffTbl;
 
-extern Game *D_800C7F84;
-extern u8 *D_800C35A0;
+extern Game *g_camera;
+extern u8 *gRecords;
 extern u8 D_800A16F4[];
 extern CamEntry *D_8009BEE0;
 extern OffTbl D_8009CE8C[];
-extern f32 D_8009F590;
+extern f32 gCamPanOffset;
 extern f64 D_800A4030;
 extern f64 D_800A4038;
 extern s32 D_8009BA38;
 extern s32 D_8009BA30;
 
-s32 func_80010DEC(s32, s32, s32);
-void func_80010E08(s32, s32, s32, s32 *, s32);
-void func_80010EC8(Cam *, Car *);
-void func_80010F90(Cam *, Car *);
+s32 lerp_q7(s32, s32, s32);
+void setObjectTransform(s32, s32, s32, s32 *, s32);
+void advanceStreamFrame(Cam *, Car *);
+void updatePlayerPauseInput(Cam *, Car *);
 s32 func_8001FD14(Car *);
 s32 func_8002D2C8(s16, s16);
-s32 func_8002D2E4(s32);
-s32 func_8002D348(s32);
+s32 cos_q12(s32);
+s32 sin_q12(s32);
 void func_8002D75C(s32, s32, s32, s32 *);
-void func_8002E148(s16 *, s16 *);
+void mat3x3_from_euler(s16 *, s16 *);
 void *mtx3_transform_vec3(void *, void *, void *);
 
 void func_80011178(Cam *cam) {
@@ -83,7 +83,7 @@ void func_80011178(Cam *cam) {
     s16 mtx[16];
     s32 sgn;
 
-    car = D_800C7F84->car;
+    car = g_camera->car;
     if (car == NULL) {
         return;
     }
@@ -92,7 +92,7 @@ void func_80011178(Cam *cam) {
         if (!(fl & 0x400)) {
             if (car->info->unk20 == 0) {
                 car->flags = fl | 0x400;
-                cam->mode = D_800A16F4[*(D_800C35A0 + car->info->unk0 + 0x32)];
+                cam->mode = D_800A16F4[*(gRecords + car->info->unk0 + 0x32)];
                 if (cam->mode >= 5) {
                     cam->mode = 2;
                 }
@@ -105,38 +105,38 @@ void func_80011178(Cam *cam) {
     tp = &D_8009BEE0;
     ent = *tp; ent += cam->mode;
     tp=(CamEntry**)((u32)tp^(u32)cam); tp=(CamEntry**)((u32)tp^(u32)cam);
-    cd = &D_800C7F84->cd;
-    if (D_800C7F84->flags & 0x100) {
-        if (!(D_800C7F84->flags & 0x200)) {
+    cd = &g_camera->cd;
+    if (g_camera->flags & 0x100) {
+        if (!(g_camera->flags & 0x200)) {
             cam->unk34 = cam->mode;
-            D_800C7F84->flags |= 0x200;
+            g_camera->flags |= 0x200;
         }
-        D_800C7F84->flags &= 0xFF77;
+        g_camera->flags &= 0xFF77;
         if (cam->mode == 0) {
-            func_80010EC8(cam, car);
+            advanceStreamFrame(cam, car);
             goto again;
         } else if (cam->mode == 1) {
         again:
-            func_80010EC8(cam, car);
+            advanceStreamFrame(cam, car);
         }
         if (car->state->unk39C == 4) {
-            if (D_800C7F84->flags & 0x200) {
-                D_800C7F84->flags &= 0xFEFF;
+            if (g_camera->flags & 0x200) {
+                g_camera->flags &= 0xFEFF;
                 cam->mode = cam->unk34;
-                D_800C7F84->flags &= 0xFDFF;
+                g_camera->flags &= 0xFDFF;
             }
         }
-    } else if (car->obj->m[4] < 0 && (*(u32 *)&D_800C7F84->flags & 0x880000)) {
-        D_800C7F84->flags |= 0x100;
+    } else if (car->obj->m[4] < 0 && (*(u32 *)&g_camera->flags & 0x880000)) {
+        g_camera->flags |= 0x100;
     }
 
     switch (cam->mode) {
     case 0:
-        D_800C7F84->flags |= 8;
+        g_camera->flags |= 8;
         cd->E0 = car->obj->x;
         cd->E4 = car->obj->y - 50;
         cd->E8 = car->obj->z;
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             cd->EC = cd->E0 - car->obj->m[2];
             cd->F0 = cd->E4 + car->obj->m[5];
             cd->F4 = cd->E8 - car->obj->m[8];
@@ -150,7 +150,7 @@ void func_80011178(Cam *cam) {
             cam->v[i].y = 0;
             cam->v[i].z = 0;
         }
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             d[0] = cd->EC - cd->E0;
             d[2] = cd->F4 - cd->E8;
             ang = -func_8002D2C8(d[2], d[0]);
@@ -167,7 +167,7 @@ void func_80011178(Cam *cam) {
         a[0] = 0;
         a[1] = r;
         a[2] = 0;
-        func_8002E148(a, mtx);
+        mat3x3_from_euler(a, mtx);
         mtx3_transform_vec3(mtx, b, a);
         r = func_8002D2C8(a[1], a[0]);
         p0[0] = car->obj->m[2];
@@ -185,25 +185,25 @@ void func_80011178(Cam *cam) {
         cd->F8 = car->obj->m[1];
         cd->FC = car->obj->m[4];
         cd->F100 = car->obj->m[7];
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             cd->D0 = -cd->D0;
         }
         break;
     case 1:
-        D_800C7F84->flags |= 0x88;
-        if (*(u16 *)(D_800C35A0 + 0x1E) == 7) {
+        g_camera->flags |= 0x88;
+        if (*(u16 *)(gRecords + 0x1E) == 7) {
             idx = 0;
         } else {
             idx = car->info->unk0;
         }
         cd->E0 = car->obj->x + D_8009CE8C[idx].x;
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             cd->E4 = car->obj->y + D_8009CE8C[idx].y - 40;
         } else {
             cd->E4 = car->obj->y + D_8009CE8C[idx].y;
         }
         cd->E8 = car->obj->z + D_8009CE8C[idx].z;
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             cd->EC = cd->E0 - car->obj->m[2];
             cd->F0 = cd->E4 + car->obj->m[5];
             cd->F4 = cd->E8 - car->obj->m[8];
@@ -217,7 +217,7 @@ void func_80011178(Cam *cam) {
             cam->v[i].y = 0;
             cam->v[i].z = 0;
         }
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             d[0] = cd->EC - cd->E0;
             d[2] = cd->F4 - cd->E8;
             ang = -func_8002D2C8(d[2], d[0]);
@@ -234,7 +234,7 @@ void func_80011178(Cam *cam) {
         a[0] = 0;
         a[1] = r;
         a[2] = 0;
-        func_8002E148(a, mtx);
+        mat3x3_from_euler(a, mtx);
         mtx3_transform_vec3(mtx, b, a);
         r = func_8002D2C8(a[1], a[0]);
         p0[0] = car->obj->m[2];
@@ -252,17 +252,17 @@ void func_80011178(Cam *cam) {
         cd->F8 = car->obj->m[1];
         cd->FC = car->obj->m[4];
         cd->F100 = car->obj->m[7];
-        if (D_800C7F84->flags & 0x40) {
+        if (g_camera->flags & 0x40) {
             cd->D0 = -cd->D0;
         }
-        D_800C7F84->flags &= 0xFFF7;
+        g_camera->flags &= 0xFFF7;
         break;
     case 2:
     case 3:
     case 6:
         {
         if (cam->unk68 & 1) { tgt = cam->unk60; } else {
-            tgt = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4030;
+            tgt = (func_8001FD14(car) + 0x800) + gCamPanOffset * D_800A4030;
         }
         cur = (cam->unk54 + 0x800) & 0xFFF;
         dd = tgt - cur;
@@ -277,32 +277,32 @@ void func_80011178(Cam *cam) {
             }
         }
 
-        cur = func_80010DEC(cur, tgt, cam->unk20) - 0x800;
+        cur = lerp_q7(cur, tgt, cam->unk20) - 0x800;
         if (cam->mode >= 2) {
-            cam->unk20 = func_80010DEC(cam->unk20, cam->unk10, cam->unk18);
-            cam->unk24 = func_80010DEC(cam->unk24, cam->unk14, cam->unk18);
+            cam->unk20 = lerp_q7(cam->unk20, cam->unk10, cam->unk18);
+            cam->unk24 = lerp_q7(cam->unk24, cam->unk14, cam->unk18);
         }
         cam->unk54 = cur;
-        if ((D_800C7F84->flags & 0x40) || (cam->unk68 & 2)) {
+        if ((g_camera->flags & 0x40) || (cam->unk68 & 2)) {
             cam->unk54 = (tgt + 0x800) & 0xFFF;
-            if (D_800C7F84->flags & 0x40) {
+            if (g_camera->flags & 0x40) {
                 ent += 5;
             }
         }
-        func_80010E08(cam->unk54, ent->unkE, ent->unk16, out, cam->unk6A);
+        setObjectTransform(cam->unk54, ent->unkE, ent->unk16, out, cam->unk6A);
         cam->v[1].x = out[0];
         cam->v[1].y = ent->unk10;
         cam->v[1].z = out[2];
-        if ((D_800C7F84->flags & 0x40) || (cam->unk68 & 2)) {
+        if ((g_camera->flags & 0x40) || (cam->unk68 & 2)) {
             cam->v[0] = cam->v[1];
         }
-        cam->v[0].x = func_80010DEC(cam->v[0].x, cam->v[1].x, cam->unk24);
-        cam->v[0].y = func_80010DEC(cam->v[0].y, cam->v[1].y, cam->unk24);
-        cam->v[0].z = func_80010DEC(cam->v[0].z, cam->v[1].z, cam->unk24);
+        cam->v[0].x = lerp_q7(cam->v[0].x, cam->v[1].x, cam->unk24);
+        cam->v[0].y = lerp_q7(cam->v[0].y, cam->v[1].y, cam->unk24);
+        cam->v[0].z = lerp_q7(cam->v[0].z, cam->v[1].z, cam->unk24);
         cd->E0 = cam->v[0].x;
         cd->E4 = cam->v[0].y;
         cd->E8 = cam->v[0].z;
-        func_80010E08(cam->unk54, ent->unk1A, ent->unk22, out, cam->unk6A);
+        setObjectTransform(cam->unk54, ent->unk1A, ent->unk22, out, cam->unk6A);
         cd->EC = out[0];
         cd->F0 = ent->unk1C;
         cd->F4 = out[2];
@@ -317,15 +317,15 @@ void func_80011178(Cam *cam) {
         cd->F100 = 0.0f;
         cd->DC = 1.0f;
         cd->D0 = 0.0f;
-        D_800C7F84->flags &= 0xFF77;
+        g_camera->flags &= 0xFF77;
         cam->unk68 &= 0xFFFD;
         }
         break;
     case 4:
         D_8009BA38 = (D_8009BA38 + 20) & 0xFFF;
-        D_800C7F84->flags &= 0xFF77;
-        s0 = func_8002D348(D_8009BA38) * 3048 / 32768;
-        s1 = func_8002D2E4(D_8009BA38) * 3048 / 32768;
+        g_camera->flags &= 0xFF77;
+        s0 = sin_q12(D_8009BA38) * 3048 / 32768;
+        s1 = cos_q12(D_8009BA38) * 3048 / 32768;
         cd->EC = car->obj->x;
         cd->F0 = car->obj->y;
         cd->F4 = car->obj->z;
@@ -339,7 +339,7 @@ void func_80011178(Cam *cam) {
         break;
     case 5:
         ent = *tp;
-        tgt = (func_8001FD14(car) + 0x800) + D_8009F590 * D_800A4038;
+        tgt = (func_8001FD14(car) + 0x800) + gCamPanOffset * D_800A4038;
         ent += 4;
         cur = (cam->unk54 + 0x800) & 0xFFF;
         dd = tgt - cur;
@@ -353,23 +353,23 @@ void func_80011178(Cam *cam) {
                 cur += 0x1000;
             }
         }
-        s0 = func_80010DEC(cur, tgt, cam->unk20) - 0x800;
+        s0 = lerp_q7(cur, tgt, cam->unk20) - 0x800;
         if (cam->mode >= 2) {
-            cam->unk20 = func_80010DEC(cam->unk20, cam->unk10, cam->unk18);
-            cam->unk24 = func_80010DEC(cam->unk24, cam->unk14, cam->unk18);
+            cam->unk20 = lerp_q7(cam->unk20, cam->unk10, cam->unk18);
+            cam->unk24 = lerp_q7(cam->unk24, cam->unk14, cam->unk18);
         }
         cam->unk54 = s0;
-        func_80010E08(cam->unk54, ent->unkE, ent->unk16, out, cam->unk6A);
+        setObjectTransform(cam->unk54, ent->unkE, ent->unk16, out, cam->unk6A);
         cam->v[1].x = out[0];
         cam->v[1].y = ent->unk10;
         cam->v[1].z = out[2];
-        cam->v[0].x = func_80010DEC(cam->v[1].x, cam->v[1].x, cam->unk24);
-        cam->v[0].y = func_80010DEC(cam->v[1].y, cam->v[1].y, cam->unk24);
-        cam->v[0].z = func_80010DEC(cam->v[1].z, cam->v[1].z, cam->unk24);
+        cam->v[0].x = lerp_q7(cam->v[1].x, cam->v[1].x, cam->unk24);
+        cam->v[0].y = lerp_q7(cam->v[1].y, cam->v[1].y, cam->unk24);
+        cam->v[0].z = lerp_q7(cam->v[1].z, cam->v[1].z, cam->unk24);
         cd->E0 = cam->v[0].x;
         cd->E4 = cam->v[0].y;
         cd->E8 = cam->v[0].z;
-        func_80010E08(cam->unk54, ent->unk1A, ent->unk22, out, cam->unk6A);
+        setObjectTransform(cam->unk54, ent->unk1A, ent->unk22, out, cam->unk6A);
         cd->EC = out[0];
         cd->F0 = ent->unk1C;
         cd->F4 = out[2];
@@ -383,11 +383,11 @@ void func_80011178(Cam *cam) {
         cd->FC = 1.0f;
         cd->F100 = 0.0f;
         cd->D0 = 0.0f;
-        D_800C7F84->flags &= 0xFF77;
+        g_camera->flags &= 0xFF77;
         cam->unk68 &= 0xFFFD;
         break;
     }
     if (D_8009BA30 == 0) {
-        func_80010F90(cam, car);
+        updatePlayerPauseInput(cam, car);
     }
 }

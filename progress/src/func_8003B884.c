@@ -1,49 +1,52 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 
-void func_8003B884(void *arg0) {
+/* Updates the 0x4 flag on this object and its partner, and its position. When any of the
+ * `count` entries in the flag list is set, the position is recomputed from the
+ * config bias values, and the flags are cleared; otherwise both get the flag set. */
+void func_8003B884(void *obj) {
     char pad[8];
-    u32 n;
-    s32 *ptr;
-    void *p;
-    void *q;
-    void *v0;
-    void *r;
-    u32 i;
-    u16 cnt;
-    s32 t2;
-    s32 t1;
-    s16 tmp;
+    u32 active;
+    s32 *flags;
+    void *ctx;
+    void *cfg;
+    void *item;
+    void *partner;
+    u32 k;
+    u16 count;
+    s32 bias2;
+    s32 bias1;
+    s16 pos;
 
-    p = *(void **)((u8 *)arg0 + 0xA8);
-    v0 = *(void **)((u8 *)p + 0x24);
-    if (v0 != NULL) {
-        i = 0;
-        q = *(void **)((u8 *)p + 0x178);
-        n = 0;
-        ptr = *(s32 **)(*(u8 **)((u8 *)v0 + 0x6C));
-        t2 = *(s16 *)((u8 *)q + 0xA) + 6;
-        t1 = *(s16 *)((u8 *)q + 0xE) - 8;
-        cnt = *(u16 *)((u8 *)arg0 + 0x76);
-        if (cnt != 0) {
+    ctx = *(void **)((u8 *)obj + 0xA8);
+    item = *(void **)((u8 *)ctx + 0x24);
+    if (item != NULL) {
+        k = 0;
+        cfg = *(void **)((u8 *)ctx + 0x178);
+        active = 0;
+        flags = *(s32 **)(*(u8 **)((u8 *)item + 0x6C));
+        bias2 = *(s16 *)((u8 *)cfg + 0xA) + 6;
+        bias1 = *(s16 *)((u8 *)cfg + 0xE) - 8;
+        count = *(u16 *)((u8 *)obj + 0x76);
+        if (count != 0) {
             do {
-                i++;
-                n += *ptr != 0;
-                ptr++;
-            } while (i < cnt);
+                k++;
+                active += *flags != 0;
+                flags++;
+            } while (k < count);
         }
-        if (n != 0) {
-            if ((*(u16 *)((u8 *)(*(void **)(D_800C02AE + 0x32F2)) + 0xE) >= 2) & (n >= 3)) {
-                n = 2;
+        if (active != 0) {
+            if ((*(u16 *)((u8 *)(*(void **)(gStreamState + 0x32F2)) + 0xE) >= 2) & (active >= 3)) {
+                active = 2;
             }
-            *(s32 *)((u8 *)arg0 + 0x80) &= ~4;
-            *(s32 *)((u8 *)(*(void **)((u8 *)arg0 + 0x8C)) + 0x80) &= ~4;
-            tmp = (t2 + t1) - ((n + 2) * 0xA) - 8;
-            *(s16 *)((u8 *)arg0 + 0xE) = tmp;
-            *(s16 *)((u8 *)(*(void **)((u8 *)arg0 + 0x8C)) + 0xE) = tmp;
+            *(s32 *)((u8 *)obj + 0x80) &= ~4;
+            *(s32 *)((u8 *)(*(void **)((u8 *)obj + 0x8C)) + 0x80) &= ~4;
+            pos = (bias2 + bias1) - ((active + 2) * 0xA) - 8;
+            *(s16 *)((u8 *)obj + 0xE) = pos;
+            *(s16 *)((u8 *)(*(void **)((u8 *)obj + 0x8C)) + 0xE) = pos;
             return;
         }
-        r = *(void **)((u8 *)arg0 + 0x8C);
-        *(s32 *)((u8 *)arg0 + 0x80) |= 4;
-        *(s32 *)((u8 *)r + 0x80) |= 4;
+        partner = *(void **)((u8 *)obj + 0x8C);
+        *(s32 *)((u8 *)obj + 0x80) |= 4;
+        *(s32 *)((u8 *)partner + 0x80) |= 4;
     }
 }

@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,20 +11,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80047DD0(M2C_UNK, s32);                /* extern */
-extern void *D_800A1468;
-extern M2C_UNK D_800C02AE;
+s32 list_remove_at(s32 index, void **listHead);
+extern void *gSelectState;
+extern M2C_UNK gStreamState;
 
+/* Drops the pending entries queued in the select state (count at +0x232) from the front of the stream list, then clears the count and sets the flag at +0x235. */
 void func_800584D4(void) {
-    s32 var_s0;
+    s32 i;
 
-    var_s0 = 0;
-    if (M2C_FIELD(D_800A1468, u8 *, 0x232) != 0) {
+    i = 0;
+    if (M2C_FIELD(gSelectState, u8 *, 0x232) != 0) {
         do {
-            func_80047DD0(0, M2C_FIELD(&D_800C02AE, s32 *, 0x7672));
-            var_s0 += 1;
-        } while ((u32) (var_s0 & 0xFF) < (u8) M2C_FIELD(D_800A1468, u8 *, 0x232));
+            list_remove_at(0, M2C_FIELD(&gStreamState, s32 *, 0x7672));
+            i += 1;
+        } while ((u32) (i & 0xFF) < (u8) M2C_FIELD(gSelectState, u8 *, 0x232));
     }
-    M2C_FIELD(D_800A1468, u8 *, 0x232) = 0U;
-    M2C_FIELD(D_800A1468, s8 *, 0x235) = 1;
+    M2C_FIELD(gSelectState, u8 *, 0x232) = 0U;
+    M2C_FIELD(gSelectState, s8 *, 0x235) = 1;
 }

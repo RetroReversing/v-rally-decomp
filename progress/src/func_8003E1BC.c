@@ -29,59 +29,61 @@ typedef struct Game {
     u8 pad14[0x1E - 0x14];
     u16 state;
 } Game;
-extern Game *D_800C35A0;
-extern Obj *D_800C7F84;
-extern void func_8003E06C(void *);
+extern Game *gRecords;
+extern Obj *g_camera;
+extern void marker_update_color(void *);
 extern void func_8003E0D4(void *);
 extern void func_8003E134(void *);
-extern s32 func_80034FF0(s32, s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
+extern s32 getTexturePack(s32, s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
 
-void func_8003E1BC(s32 arg0, s32 arg1)
+/* Adds the record-screen widgets next to the camera object. Mode 1 adds four numbered rows.
+ * Mode 2 adds a highlighted row and a plain row, shifted left unless the opts flag says otherwise. */
+void func_8003E1BC(s32 parent, s32 msg_base)
 {
-    Obj *obj;
+    Obj *cam;
     Pos *pos;
     Widget *w;
-    u32 i;
+    u32 row;
     s32 x;
     s32 y;
-    s32 px;
+    s32 col_x;
 
-    obj = D_800C7F84;
-    pos = obj->pos;
+    cam = g_camera;
+    pos = cam->pos;
     x = pos->x8;
     y = pos->xA + 6;
-    px = x + 0x14;
-    switch (D_800C35A0->mode) {
+    col_x = x + 0x14;
+    switch (gRecords->mode) {
     case 1:
-        if (D_800C35A0->state != 0) {
-            for (i = 0; i < 4; i++) {
-                w = ((Widget *)func_80040260((void *)(arg0), px, y + i * 0xB, (u16)(5), func_8003E06C, 1));
-                w->text = func_80034FF0(arg1 + 0x4C, 0);
-                w->kind = i + 1;
-                w->obj = D_800C7F84;
+        if (gRecords->state != 0) {
+            for (row = 0; row < 4; row++) {
+                w = ((Widget *)sprite_create((void *)(parent), col_x, y + row * 0xB, (u16)(5), marker_update_color, 1));
+                w->text = getTexturePack(msg_base + 0x4C, 0);
+                w->kind = row + 1;
+                w->obj = g_camera;
             }
         }
         break;
     case 2:
-        if (D_800C35A0->state != 0) {
-            if (!(D_800C35A0->opts & 1)) {
-                if (obj->type == 3) {
-                    px = x + 6;
+        if (gRecords->state != 0) {
+            if (!(gRecords->opts & 1)) {
+                if (cam->type == 3) {
+                    col_x = x + 6;
                 }
             } else {
-                px = x;
+                col_x = x;
             }
-            w = ((Widget *)func_80040260((void *)(arg0), px, y + 0xA, (u16)(5), func_8003E0D4, 1));
-            w->text = func_80034FF0(arg1 + 0x4C, 0);
-            w->obj = D_800C7F84;
+            w = ((Widget *)sprite_create((void *)(parent), col_x, y + 0xA, (u16)(5), func_8003E0D4, 1));
+            w->text = getTexturePack(msg_base + 0x4C, 0);
+            w->obj = g_camera;
             w->r = 0xFE;
             w->g = 0xD5;
             w->b = 0x1E;
             w->a = 0xFF;
-            w = ((Widget *)func_80040260((void *)(arg0), px, y, (u16)(5), func_8003E134, 1));
-            w->text = func_80034FF0(arg1 + 0x4C, 0);
-            w->obj = D_800C7F84;
+            w = ((Widget *)sprite_create((void *)(parent), col_x, y, (u16)(5), func_8003E134, 1));
+            w->text = getTexturePack(msg_base + 0x4C, 0);
+            w->obj = g_camera;
         }
         break;
     }

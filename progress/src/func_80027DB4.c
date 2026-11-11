@@ -1,59 +1,47 @@
-extern char D_800AE850[];
-extern char D_800C02AE[];
-s8 func_80027DB4(s32 arg0, s32 arg1, s32 arg2)
-{
-  s32 temp_a0;
-  s32 var_v1;
-  s32 step;
-  var_v1 = *((s32 *) ((D_800C02AE + 0x8062) + ((arg2 & 255) * 4)));
-  if (var_v1 >= 151)
-  {
-    var_v1 = 25;
-    step = 20;
-  }
-  else if (var_v1 >= 101)
-  {
-    var_v1 = 30;
-    step = 20;
-  }
-  else
-  {
-    var_v1 = 35;
-    step = 20;
-  }
-  if (arg1 == 0)
-  {
-    var_v1 = 0;
-  }
-  else if (arg1 > 0)
-  {
-    temp_a0 = *((s32 *) ((D_800AE850 + 0x58F8) + ((arg2 & 255) * 4)));
-    if (temp_a0 >= var_v1)
-    {
-      var_v1 = temp_a0 + step;
+extern char gOrderState[];
+extern char gStreamState[];
+
+/* Updates the level stored for channel chan from dir: 0 zeroes it, a positive dir raises it
+ * (up to 127) and a negative dir lowers it (down to -128), each step being at least 'step'
+ * above or below the stored value. Stores the new level and returns it. */
+s8 func_80027DB4(s32 unused, s32 dir, s32 chan) {
+    s32 level;
+    s32 current;
+    s32 step;
+
+    level = *((s32 *)((gStreamState + 0x8062) + ((chan & 255) * 4)));
+    if (level >= 151) {
+        level = 25;
+        step = 20;
+    } else if (level >= 101) {
+        level = 30;
+        step = 20;
+    } else {
+        level = 35;
+        step = 20;
     }
-    if (var_v1 >= 128)
-    {
-      var_v1 = 127;
+    if (dir == 0) {
+        level = 0;
+    } else if (dir > 0) {
+        current = *((s32 *)((gOrderState + 0x58F8) + ((chan & 255) * 4)));
+        if (current >= level) {
+            level = current + step;
+        }
+        if (level >= 128) {
+            level = 127;
+        }
+    } else if (dir < 0) {
+        current = *((s32 *)((gOrderState + 0x58F8) + ((chan & 255) * 4)));
+        level = -level;
+        if (level >= current) {
+            level = current - step;
+        }
+        if (level < (-128)) {
+            level = -128;
+        }
+    } else {
+        level = 0;
     }
-  }
-  else if (arg1 < 0)
-  {
-    temp_a0 = *((s32 *) ((D_800AE850 + 0x58F8) + ((arg2 & 255) * 4)));
-    var_v1 = -var_v1;
-    if (var_v1 >= temp_a0)
-    {
-      var_v1 = temp_a0 - step;
-    }
-    if (var_v1 < (-128))
-    {
-      var_v1 = -128;
-    }
-  }
-  else
-  {
-    var_v1 = 0;
-  }
-  *((s32 *) ((D_800AE850 + 0x58F8) + ((arg2 & 255) * 4))) = var_v1;
-  return var_v1;
+    *((s32 *)((gOrderState + 0x58F8) + ((chan & 255) * 4))) = level;
+    return level;
 }

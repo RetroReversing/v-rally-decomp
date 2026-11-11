@@ -11,12 +11,12 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *text_obj_get(u32);                              /* extern */
+void *textObjGet(u32);                              /* extern */
 
 void func_8005A5D4(s32 arg0, u16 *arg1, u16 *arg2) {
     void *temp_v0;
 
-    temp_v0 = text_obj_get(arg0);
+    temp_v0 = textObjGet(arg0);
     *arg1 = M2C_FIELD(temp_v0, u16 *, 6);
     *arg2 = M2C_FIELD(temp_v0, u16 *, 8);
 }

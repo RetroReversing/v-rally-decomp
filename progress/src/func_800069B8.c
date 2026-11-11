@@ -1,28 +1,17 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Writes three consecutive 16-byte records of the table at obj->+0x70, starting at record index.
+ * Each record's bytes at +0xC, +0xD, +0xE (and the next two records' +0xC..+0xE) are set from the
+ * arguments: r0* goes to record index, r1* to index+1, r2* to index+2. */
+void func_800069B8(void *obj, u16 index, s8 r0a, s8 r0b, u8 r0c, u8 r1a, u8 r1b, u8 r1c, u8 r2a, u8 r2b, u8 r2c) {
+    s32 off;
 
-void func_800069B8(void *arg0, s32 arg1, s8 arg2, s8 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10) {
-    s32 temp_a1;
-
-    temp_a1 = (arg1 & 0xFFFF) * 0x10;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xC) = arg2;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xD) = arg3;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0xE) = arg4;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1C) = arg5;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1D) = arg6;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1E) = arg7;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2C) = arg8;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2D) = arg9;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2E) = arg10;
+    off = (index & 0xFFFF) * 0x10;
+    *(s8 *)(off + *(s32 *)((char *)obj + 0x70) + 0xC) = r0a;
+    *(s8 *)(off + *(s32 *)((char *)obj + 0x70) + 0xD) = r0b;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0xE) = r0c;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x1C) = r1a;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x1D) = r1b;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x1E) = r1c;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x2C) = r2a;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x2D) = r2b;
+    *(u8 *)(off + *(s32 *)((char *)obj + 0x70) + 0x2E) = r2c;
 }

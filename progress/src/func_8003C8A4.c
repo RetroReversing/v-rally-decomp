@@ -1,27 +1,30 @@
 s32 func_8003A594(void *, s32, s32);
-s32 func_80099DF8(void *, void *, s32);
+s32 formatString(void *, void *, s32);
 extern u8 D_8009FE30[];
 extern u8 D_800A4B40[];
-extern u8 *D_800C7F84;
+extern u8 *g_camera;
 
-void func_8003C8A4(void *arg0) {
-    s32 temp_s1;
-    u8 *temp_a0;
-    s32 temp_v1;
+/* Updates a race HUD element from the camera's target. While the target's 0x300 flags are clear, it
+ * shows the target's place (formatting the digits the first time), and otherwise it flags the element
+ * as hidden (bit 4 of the HUD flags, cleared on the visible path). */
+void func_8003C8A4(void *hud) {
+    s32 place;
+    u8 *target;
+    s32 flags;
 
-    temp_a0 = *(u8 **)(D_800C7F84 + 0x24);
-    if (temp_a0 != NULL) {
-        temp_v1 = *(s32 *)(((u8 *)arg0) + 0x80) & ~4;
-        *(s32 *)(((u8 *)arg0) + 0x80) = temp_v1;
-        if (!(*(s32 *)(temp_a0 + 0x14) & 0x300)) {
-            temp_s1 = *(s32 *)(*(u8 **)(temp_a0 + 0x6C) + 0x10);
-            if (*(u16 *)(((u8 *)arg0) + 0x78) == 0) {
-                func_80099DF8(D_8009FE30, D_800A4B40, (s16) temp_s1);
+    target = *(u8 **)(g_camera + 0x24);
+    if (target != NULL) {
+        flags = *(s32 *)(((u8 *)hud) + 0x80) & ~4;
+        *(s32 *)(((u8 *)hud) + 0x80) = flags;
+        if (!(*(s32 *)(target + 0x14) & 0x300)) {
+            place = *(s32 *)(*(u8 **)(target + 0x6C) + 0x10);
+            if (*(u16 *)(((u8 *)hud) + 0x78) == 0) {
+                formatString(D_8009FE30, D_800A4B40, (s16) place);
             }
-            func_8003A594(((u8 *)arg0), (s16) temp_s1, 1 - *(u16 *)(((u8 *)arg0) + 0x78));
-            *(s16 *)(((u8 *)arg0) + 0x7A) = D_8009FE30[*(u16 *)(((u8 *)arg0) + 0x78)] - 0x30;
+            func_8003A594(((u8 *)hud), (s16) place, 1 - *(u16 *)(((u8 *)hud) + 0x78));
+            *(s16 *)(((u8 *)hud) + 0x7A) = D_8009FE30[*(u16 *)(((u8 *)hud) + 0x78)] - 0x30;
             return;
         }
-        *(s32 *)(((u8 *)arg0) + 0x80) = temp_v1 | 4;
+        *(s32 *)(((u8 *)hud) + 0x80) = flags | 4;
     }
 }

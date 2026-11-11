@@ -1,5 +1,5 @@
-extern u8 *D_800ADF00;
-extern u8 D_800AE850[];
+extern u8 *gDigitChars;
+extern u8 gOrderState[];
 
 u8 *func_80098884(u32 arg0, u32 arg1) {
     u8 *out;
@@ -8,12 +8,12 @@ u8 *func_80098884(u32 arg0, u32 arg1) {
     u32 r;
 
     n = arg0;
-    out = D_800AE850 + 0x87A0;
+    out = gOrderState + 0x87A0;
     do {
         q = n / arg1;
         r = n % arg1;
         out--;
-        *out = D_800ADF00[r];
+        *out = gDigitChars[r];
         n = q;
     } while (q != 0);
     return out;

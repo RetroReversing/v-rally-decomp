@@ -1,41 +1,44 @@
-void func_80072C94(void *arg0, u8 arg1)
+/* Resets the two slot tables (gCarEntries = active, gSlotTable = source) and
+ * copies the source slot for slot arg1 into the active table when the mode asks
+ * for it. Then clears the object's flags and hands the object to the scheduler. */
+void func_80072C94(void *obj, u8 slot_idx)
 {
-  extern s32 func_8002FA10(s32);
+  extern s32 obj_reset_records(s32);
   extern s32 func_80042D20(void);
   extern s32 func_8004F3C4(void *);
   extern s32 func_800804C4(s32, void *, ...);
   extern s32 func_80080514(s32, void *, s32);
   extern s32 func_8008E13C(s32, s32, s32);
-  extern void *D_800A1234;
-  extern void *D_800A1238;
-  extern void *D_800C35A0;
+  extern void *gCarEntries;
+  extern void *gSlotTable;
+  extern void *gRecords;
   extern s32 D_8009CE8C;
   extern s32 D_8009CE90;
   extern s32 D_8009CE94;
   extern s32 D_8009CE98;
   extern s32 D_8009CE9C;
   extern s32 D_8009CEA0;
-  extern s32 D_800AE850;
-  extern s32 D_800C02AE;
-  extern void func_8004F4BC(void);
+  extern s32 gOrderState;
+  extern s32 gStreamState;
+  extern void objSetStateFromMode(void);
   extern void func_80042A7C(void);
   u8 i;
   u16 mode;
   u16 count;
-  s32 *table = D_800A1234;
+  s32 *table = gCarEntries;
   s32 *mgr;
   s32 *a;
   s32 *b;
   s32 len;
   *((s8 *) (((char *) table) + 0x114)) = 0;
-  mgr = D_800A1238;
+  mgr = gSlotTable;
   *((s8 *) (((char *) mgr) + 0x114)) = 0;
-  mode = *((u16 *) (((char *) D_800C35A0) + 0x1E));
+  mode = *((u16 *) (((char *) gRecords) + 0x1E));
   if (!mode)
   {
-    if ((*((u16 *) (((char *) D_800C35A0) + 0x1A))) == 1)
+    if ((*((u16 *) (((char *) gRecords) + 0x1A))) == 1)
     {
-      i = (u8) arg1;
+      i = (u8) slot_idx;
       a = (s32 *) (((char *) table) + (i * 0x44));
       b = (s32 *) (((char *) mgr) + (i * 0x44));
       *((u16 *) (((char *) a) + 0xC)) = 0;
@@ -54,15 +57,15 @@ void func_80072C94(void *arg0, u8 arg1)
       len = *((s32 *) (((char *) b) + 0x18));
       if (len)
       {
-        *(*((s32 **) (((char *) arg0) + 0x88))) = len;
+        *(*((s32 **) (((char *) obj) + 0x88))) = len;
         *((s32 *) (((char *) a) + 0x18)) = *((s32 *) (((char *) b) + 0x18));
       }
       *((u16 *) (((char *) a) + 8)) = ((*((u16 *) (((char *) a) + 8))) & 0xFBFF) | 0xA00;
       *((u16 *) (((char *) b) + 0xC)) = 0;
       *((u16 *) (((char *) b) + 0xA)) = 3;
-      if (((*((u32 *) (((char *) arg0) + 0x14))) & 0x4000) && ((*((u16 *) (((char *) D_800C35A0) + 0xE))) == 2))
+      if (((*((u32 *) (((char *) obj) + 0x14))) & 0x4000) && ((*((u16 *) (((char *) gRecords) + 0xE))) == 2))
       {
-        i = *(((u8 *) (*((void **) (((char *) arg0) + 0x48)))) + 3);
+        i = *(((u8 *) (*((void **) (((char *) obj) + 0x48)))) + 3);
         if (i)
         {
           u32 len = i * 12;
@@ -108,27 +111,27 @@ void func_80072C94(void *arg0, u8 arg1)
     }
 
   }
-  func_800804C4(*((s32 *) (((char *) (&D_800AE850)) + 0x73F0)), func_8004F4BC);
+  func_800804C4(*((s32 *) (((char *) (&gOrderState)) + 0x73F0)), objSetStateFromMode);
   {
-    u32 x = *((u32 *) (((char *) arg0) + 0x14));
+    u32 x = *((u32 *) (((char *) obj) + 0x14));
     x &= ~0x20;
     x &= ~0x40;
     x &= ~0x80;
     x &= ~0x100;
     x &= ~0x200;
-    *((u32 *) (((char *) arg0) + 0x14)) = x;
+    *((u32 *) (((char *) obj) + 0x14)) = x;
   }
-  func_8002FA10(*(*((s32 **) (((char *) arg0) + 0x38))));
-  *((u32 *) (((char *) arg0) + 0x14)) &= ~0x10;
-  { s32 *obj = *((s32 **) (((char *) arg0) + 0x6C));
-  *((s32 *) (((char *) obj) + 0x34)) = 0;
-  func_8004F3C4(obj); }
+  obj_reset_records(*(*((s32 **) (((char *) obj) + 0x38))));
+  *((u32 *) (((char *) obj) + 0x14)) &= ~0x10;
+  { s32 *obj2 = *((s32 **) (((char *) obj) + 0x6C));
+  *((s32 *) (((char *) obj2) + 0x34)) = 0;
+  func_8004F3C4(obj2); }
   func_80042D20();
-  func_80080514(*((s32 *) (((char *) (&D_800AE850)) + 0x72FC)), func_80042A7C, 3);
-  i = (u8) arg1;
+  func_80080514(*((s32 *) (((char *) (&gOrderState)) + 0x72FC)), func_80042A7C, 3);
+  i = (u8) slot_idx;
   a = (s32 *) (((char *) table) + (i * 0x44));
   if ((*((u16 *) (((char *) a) + 0xE))) < 0x65)
   {
-    *((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x48)))) + 0x20)) = 4;
+    *((s32 *) (((char *) (*((void **) (((char *) obj) + 0x48)))) + 0x20)) = 4;
   }
 }

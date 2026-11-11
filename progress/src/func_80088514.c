@@ -1,25 +1,29 @@
+/* Runs a volume ramp: each pass adds the step (0xCC) to the accumulator (0xD1),
+ * carries whole 64-step units into the level at 0xB5 (rising or falling by
+ * the direction flag at 0xD2, clamped to 0..0x7F), and stops once the time
+ * counter at 0x8C reaches the end time at +8. */
 void func_80088514(void *arg0)
 {
-    u32 temp_a1;
-    u32 temp_v0;
-    u32 temp_v1;
+    u32 accum;
+    u32 carry;
+    u32 level;
     do
     {
-        temp_a1 = (*((u8 *) (((char *) arg0) + 0xD1))) + (*((u8 *) (((char *) arg0) + 0xCC)));
+        accum = (*((u8 *) (((char *) arg0) + 0xD1))) + (*((u8 *) (((char *) arg0) + 0xCC)));
         *((u32 *) (((char *) arg0) + 0x8C)) += 0x100;
-        if (temp_a1 < 0x40U)
+        if (accum < 0x40U)
         {
-            *((u8 *) (((char *) arg0) + 0xD1)) = temp_a1;
+            *((u8 *) (((char *) arg0) + 0xD1)) = accum;
         }
         else
         {
-            *((u8 *) (((char *) arg0) + 0xD1)) = temp_a1 & 0x3F;
-            temp_a1 = temp_a1 >> 6;
+            *((u8 *) (((char *) arg0) + 0xD1)) = accum & 0x3F;
+            accum = accum >> 6;
             if ((*((u8 *) (((char *) arg0) + 0xD2))) == 0)
             {
-                temp_v0 = (*((u8 *) (((char *) arg0) + 0xB5))) + temp_a1;
-                *((u8 *) (((char *) arg0) + 0xB5)) = temp_v0;
-                if (((temp_v0 & 0xFF)) >= 0x80U)
+                carry = (*((u8 *) (((char *) arg0) + 0xB5))) + accum;
+                *((u8 *) (((char *) arg0) + 0xB5)) = carry;
+                if (((carry & 0xFF)) >= 0x80U)
                 {
                     *((u8 *) (((char *) arg0) + 0xB5)) = 0x7FU;
                     *((u8 *) (((char *) arg0) + 0xD2)) = 1U;
@@ -27,10 +31,10 @@ void func_80088514(void *arg0)
             }
             else
             {
-                temp_v1 = (*((u8 *) (((char *) arg0) + 0xB5))) - temp_a1;
-                *((u8 *) (((char *) arg0) + 0xB5)) = temp_v1;
-                temp_v1 &= 0xFF;
-                if ((temp_v1 >= 0x80U) | (temp_v1 == 0))
+                level = (*((u8 *) (((char *) arg0) + 0xB5))) - accum;
+                *((u8 *) (((char *) arg0) + 0xB5)) = level;
+                level &= 0xFF;
+                if ((level >= 0x80U) | (level == 0))
                 {
                     *((u8 *) (((char *) arg0) + 0xB5)) = 0U;
                     *((u8 *) (((char *) arg0) + 0xD2)) = 0U;

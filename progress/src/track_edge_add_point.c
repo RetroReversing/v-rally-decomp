@@ -2,7 +2,7 @@
 #define W(p,o) (*(s32*)((u8*)(p)+(o)))
 #define P(p,o) (*(u8**)((u8*)(p)+(o)))
 #define H(p,o) (*(u16*)((u8*)(p)+(o)))
-extern void func_8002E688(s32 *, s32 *);
+extern void vec3_normalize_fixed(s32 *, s32 *);
 extern void func_8002E530(void *, void *, void *);
 extern void func_8002DA98(void *, void *);
 typedef struct 
@@ -94,7 +94,7 @@ void track_edge_add_point(u8 *obj, s16 *point, s32 idx, s32 edge)
       first = ((H(seg, 0x8a) * x) + z) + 1;
       break;
   }
-  func_8002E688(delta, delta);
+  vec3_normalize_fixed(delta, delta);
   mat.h[0] = -delta[0];
   mat.h[1] = 0;
   mat.h[2] = -delta[2];

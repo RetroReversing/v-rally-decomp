@@ -1,43 +1,34 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-void *func_80022318(void **, u8 *);                  /* extern */
-s32 func_800223B4(s32, M2C_UNK *, M2C_UNK *, M2C_UNK *, s32); /* extern */
-M2C_UNK func_80073640(s32);                         /* extern */
-s32 func_800801D0(s32, M2C_UNK);                    /* extern */
-s32 func_80084BF0(M2C_UNK);                         /* extern */
-M2C_UNK func_80085778(M2C_UNK, s32);                /* extern */
+void *named_entry_lookup(void **, u8 *);
+s32 named_entry_find_or_add(s32, s32 *, s32 *, s32 *, s32);
+s32 func_80073640(s32);
+s32 poolAllocNode(s32, s32);
+s32 func_80084BF0(s32);
+s32 func_80085778(s32, s32);
 extern s32 D_800A1740;
-extern void *D_800A1B70;
-extern M2C_UNK D_800A5E2C;
-extern M2C_UNK D_800AE850;
-extern M2C_UNK D_800C02AE;
-extern M2C_UNK func_80076D94;
-extern M2C_UNK func_80076F64;
+extern void *gContCtx;
+extern s32 D_800A5E2C;
+extern char gOrderState[];
+extern char gStreamState[];
+extern s32 func_80076D94;
+extern s32 stream_list_free;
 
-void func_80076E7C(s32 arg0) {
-    s32 temp_s0;
+/* One-time setup for the object at obj+0x28: when named_entry_lookup reports it is not yet
+   set up, it resets the controller context and creates its 0x4C-byte block. If the
+   stream's current record has no flag 0x1E and has flag 0x1A, it also sets bit 0x800
+   on the two task-table entries at 0x2410 and 0x2454. */
+void func_80076E7C(s32 obj)
+{
+    s32 subObj;
 
-    temp_s0 = arg0 + 0x28;
-    if (func_80022318((void **)(temp_s0), (u8 *)(&D_800A5E2C)) == 0) {
+    subObj = obj + 0x28;
+    if (named_entry_lookup((void **)(subObj), (u8 *)(&D_800A5E2C)) == 0) {
         func_80085778(0, func_80084BF0(0));
         D_800A1740 = 0;
-        M2C_FIELD(D_800A1B70, s16 *, 0x1C) = 0;
-        func_80073640(func_800801D0(func_800223B4(temp_s0, &func_80076D94, &func_80076F64, &D_800A5E2C, 0), 0x4C));
-        if ((M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0x1E) == 0) && (M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0x1A) != 0)) {
-            M2C_FIELD(&D_800AE850, u16 *, 0x2410) = (u16) (M2C_FIELD(&D_800AE850, u16 *, 0x2410) | 0x800);
-            M2C_FIELD(&D_800AE850, u16 *, 0x2454) = (u16) (M2C_FIELD(&D_800AE850, u16 *, 0x2454) | 0x800);
+        *(s16 *)((u8 *)gContCtx + 0x1C) = 0;
+        func_80073640(poolAllocNode(named_entry_find_or_add(subObj, &func_80076D94, &stream_list_free, &D_800A5E2C, 0), 0x4C));
+        if ((*(u16 *)((u8 *)*(void **)(gStreamState + 0x32F2) + 0x1E) == 0) && (*(u16 *)((u8 *)*(void **)(gStreamState + 0x32F2) + 0x1A) != 0)) {
+            *(u16 *)(gOrderState + 0x2410) = (u16) (*(u16 *)(gOrderState + 0x2410) | 0x800);
+            *(u16 *)(gOrderState + 0x2454) = (u16) (*(u16 *)(gOrderState + 0x2454) | 0x800);
         }
     }
 }

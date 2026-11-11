@@ -44,52 +44,54 @@ typedef struct A188
 } A188;
 void osWritebackDCache(void *, s32);
 void guS2DInitBg(void *, void *, s32);
-void func_8000A188(A188 *arg0, A188 *arg1, s32 arg2, s32 arg3)
+/* Fills the background-layer header `bg` from the source sprite chain `owner->unkC`, choosing the
+ * depth class from the source's unk4 size, then initialises the layer and writes its cache line back. */
+void func_8000A188(A188 *owner, A188 *bg, s32 arg2, s32 arg3)
 {
-  A188Src *temp_a1;
+  A188Src *src;
   s32 *temp_a3;
   s32 temp_v1;
-  arg0->unk2C = arg1;
-  temp_a1 = *arg1->unkC->unk4;
-  arg1->unk10 = 0;
-  arg1->unk18 = 0;
-  arg1->unk12 = temp_a1->unk6 * 4;
-  arg1->unk1A = temp_a1->unk8 * 4;
-  arg1->unk14 = 0;
-  arg1->unk1C = 0;
-  arg1->unk16 = temp_a1->unk6 * 4;
-  arg1->unk1E = temp_a1->unk8 * 4;
-  arg1->unk2A = 0;
-  arg1->unk24 = 0xFFF4;
-  arg1->unk28 = 0;
-  temp_a3 = temp_a1->unk14 - (-((u8) arg3));
-  arg1->unk20 = *temp_a3;
-  temp_v1 = temp_a1->unk4;
+  owner->unk2C = bg;
+  src = *bg->unkC->unk4;
+  bg->unk10 = 0;
+  bg->unk18 = 0;
+  bg->unk12 = src->unk6 * 4;
+  bg->unk1A = src->unk8 * 4;
+  bg->unk14 = 0;
+  bg->unk1C = 0;
+  bg->unk16 = src->unk6 * 4;
+  bg->unk1E = src->unk8 * 4;
+  bg->unk2A = 0;
+  bg->unk24 = 0xFFF4;
+  bg->unk28 = 0;
+  temp_a3 = src->unk14 - (-((u8) arg3));
+  bg->unk20 = *temp_a3;
+  temp_v1 = src->unk4;
   if ((u32)temp_v1 < 0x11)
   {
-    arg1->unk26 = 2;
-    arg1->unk27 = 0;
+    bg->unk26 = 2;
+    bg->unk27 = 0;
   }
   else
     if ((u32)temp_v1 < 0x101)
   {
-    arg1->unk26 = 2;
-    arg1->unk27 = 1;
+    bg->unk26 = 2;
+    bg->unk27 = 1;
   }
   else
   {
-    arg1->unk26 = 0;
-    arg1->unk27 = 2;
+    bg->unk26 = 0;
+    bg->unk27 = 2;
   }
-  arg1->unk38 = 0x30;
-  temp_v1 = temp_a1->unk10[(u8) arg2];
-  arg1->unk40 = 0x100;
-  arg1->unk3C = temp_v1;
-  arg1->unk42 = temp_a1->unk4 + (-1);
-  arg1->unk44 = 0;
-  arg1->unk46 = 0;
-  arg1->unk48 = temp_a1->unk10[(u8) arg2];
-  arg1->unk4C = -1;
-  guS2DInitBg(&arg1->unk10, temp_a1, arg2);
-  osWritebackDCache(arg1, 0x50);
+  bg->unk38 = 0x30;
+  temp_v1 = src->unk10[(u8) arg2];
+  bg->unk40 = 0x100;
+  bg->unk3C = temp_v1;
+  bg->unk42 = src->unk4 + (-1);
+  bg->unk44 = 0;
+  bg->unk46 = 0;
+  bg->unk48 = src->unk10[(u8) arg2];
+  bg->unk4C = -1;
+  guS2DInitBg(&bg->unk10, src, arg2);
+  osWritebackDCache(bg, 0x50);
 }

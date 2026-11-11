@@ -1,51 +1,55 @@
 extern s32 D_800A18E0[];
-extern s32 D_800AE850[];
+extern s32 gOrderState[];
 extern s32 D_800B0BA0;
 extern u8 D_800B4174[];
-extern s32 D_800C02AE[];
+extern s32 gStreamState[];
 extern void func_8007F270(void);
 extern s32 func_80080430(void *);
 extern s32 osCreateMesgQueue(void *, void *, s32);
 extern s32 func_8008BA40(s32);
 extern s32 osSetEventMesg(s32, void *, s32);
+
+/* Initialises the 56 stream slots (0x5C bytes each, from gOrderState+0x5910): clears the
+ * slot array, gives each slot a message queue and id, points each stream callback at
+ * func_8007F270, then registers the event messages listed in D_800A18E0 (0-terminated pairs). */
 s32 func_8007F278(void)
 {
-  volatile u16 *new_var;
+  volatile u16 *slotFlag;
   {
-    s32 *v1;
-    s32 v0;
-    v1 = (s32 *) (((u8 *) D_800AE850) + 0x5910);
-    v0 = 0xE;
+    s32 *clear;
+    s32 n;
+    clear = (s32 *) (((u8 *) gOrderState) + 0x5910);
+    n = 0xE;
     do
     {
-      *v1 = 0;
-      v0 = v0 - 1;
-      v1 = v1 + 1;
+      *clear = 0;
+      n = n - 1;
+      clear = clear + 1;
     }
-    while (v0 != 0);
+    while (n != 0);
   }
   {
-    u32 s1;
-    u8 *s0;
-    s32 *s2;
-    u32 s3;
-    s1 = 0;
-    s3 = (u32) (&func_8007F270);
-    s0 = ((u8 *) D_800AE850) + 0x5910;
-    s2 = (s32 *) (((u8 *) D_800C02AE) + 0x7D8A);
+    u32 i;
+    u8 *slot;
+    s32 *callback;
+    u32 handler;
+    i = 0;
+    handler = (u32) (&func_8007F270);
+    slot = ((u8 *) gOrderState) + 0x5910;
+    callback = (s32 *) (((u8 *) gStreamState) + 0x7D8A);
     do
     {
-      *s2 = (s32) s3;
-      func_80080430(s0);
-      osCreateMesgQueue(s0 + 0x14, s0 + 0x2C, 0xC);
-      new_var = (volatile u16 *) (s0 + 0xE);
-      *new_var = (u16) s1;
-      *((volatile u16 *) (s0 + 0xC)) = 0;
-      s0 = s0 + 0x5C;
-      s1 = s1 + 1;
-      s2 = s2 + 1;
+      *callback = (s32) handler;
+      func_80080430(slot);
+      osCreateMesgQueue(slot + 0x14, slot + 0x2C, 0xC);
+      slotFlag = (volatile u16 *) (slot + 0xE);
+      *slotFlag = (u16) i;
+      *((volatile u16 *) (slot + 0xC)) = 0;
+      slot = slot + 0x5C;
+      i = i + 1;
+      callback = callback + 1;
     }
-    while (s1 < 0x38);
+    while (i < 0x38);
   }
   {
     s32 *p;

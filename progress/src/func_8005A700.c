@@ -11,8 +11,8 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592AC(u32);                              /* extern */
+void *select_get_entry(u32);                              /* extern */
 
 void func_8005A700(u32 index) {
-    M2C_FIELD(func_800592AC(index), s8 *, 0x41) = 1;
+    M2C_FIELD(select_get_entry(index), s8 *, 0x41) = 1;
 }

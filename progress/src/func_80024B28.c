@@ -1,30 +1,33 @@
-typedef struct {u8 pad[0x54];s32 *p54; s32 *p58; s16 *p5c;u32 pad60;s32 *p64;} O24;
-extern u8 D_800AE850[];
-u16 func_8002D2C8(s16,s16);s32 func_80023648(O24 *);void func_8002E148(s16 *,void *);
-void func_80024B28(O24 *a){
-s16 ang[3];s32 *p;u32 i;s32 off;
-{s32 *q=a->p58;q[23]=0;q[24]=0;q[25]=0;}
-{s32 *q=a->p58;q[28]=0;q[29]=0;q[30]=0;}
-{s32 *q=a->p58;q[8]=0;q[9]=0;q[10]=0;}
-{s32 *q=a->p58;q[13]=0;q[14]=0;q[15]=0;}
-{s32 *q=a->p58;q[38]=0;q[39]=0;q[40]=0;}
-{s32 *q=a->p58;q[33]=0;q[34]=0;q[35]=0;}
-ang[0]=0; {extern s32 D_800B68F4; D_800B68F4++;}
-ang[1]=func_8002D2C8(a->p5c[0x44/2],a->p5c[0x50/2]);ang[2]=0;
-ang[1]+=func_80023648(a);func_8002E148(ang,(u8 *)a->p5c+0x40);
-a->p58[48]=a->p5c[32]<<2;
-a->p58[49]=a->p5c[35]<<2;
-a->p58[50]=a->p5c[38]<<2;
-a->p58[53]=a->p5c[33]<<2;
-a->p58[54]=a->p5c[36]<<2;
-a->p58[55]=a->p5c[39]<<2;
-a->p58[3]=((s32 *)a->p5c)[21]<<0;
-a->p58[4]=((s32 *)a->p5c)[22]<<0;
-a->p58[5]=((s32 *)a->p5c)[23]<<0;
-a->p58[58]=((s32 *)a->p5c)[21]<<4;
-a->p58[59]=((s32 *)a->p5c)[22]<<4;
-a->p58[60]=((s32 *)a->p5c)[23]<<4;
-p=a->p58;p[4]+=10;p=a->p58;p[59]=p[4]<<4;
-a->p58[8]=0;a->p58[9]=0;a->p58[10]=0;
-i=0;do{off=i*4;*(s32 *)(off + (int)a->p54)=0;*(s32 *)(off+(int)a->p54+16)=0;*(s32 *)(off+(int)a->p64+0x1cc)=0;i++;*(s32 *)(off+(int)a->p64+0x1dc)=0;}while(i<4);
+typedef struct {u8 pad[0x54];s32 *state; s32 *stateB; s16 *cfg;u32 pad60;s32 *fx;} Obj24;
+extern u8 gOrderState[];
+u16 func_8002D2C8(s16,s16);s32 car_heading_error(Obj24 *);void mat3x3_from_euler(s16 *,void *);
+
+/* Resets the object's state words, seeds the three-angle array from cfg,
+ * and copies the cfg fields into the state table (scaled by <<2 and <<4). */
+void func_80024B28(Obj24 *obj){
+s16 angles[3];s32 *p;u32 i;s32 off;
+{s32 *q=obj->stateB;q[23]=0;q[24]=0;q[25]=0;}
+{s32 *q=obj->stateB;q[28]=0;q[29]=0;q[30]=0;}
+{s32 *q=obj->stateB;q[8]=0;q[9]=0;q[10]=0;}
+{s32 *q=obj->stateB;q[13]=0;q[14]=0;q[15]=0;}
+{s32 *q=obj->stateB;q[38]=0;q[39]=0;q[40]=0;}
+{s32 *q=obj->stateB;q[33]=0;q[34]=0;q[35]=0;}
+angles[0]=0; {extern s32 D_800B68F4; D_800B68F4++;}
+angles[1]=func_8002D2C8(obj->cfg[0x44/2],obj->cfg[0x50/2]);angles[2]=0;
+angles[1]+=car_heading_error(obj);mat3x3_from_euler(angles,(u8 *)obj->cfg+0x40);
+obj->stateB[48]=obj->cfg[32]<<2;
+obj->stateB[49]=obj->cfg[35]<<2;
+obj->stateB[50]=obj->cfg[38]<<2;
+obj->stateB[53]=obj->cfg[33]<<2;
+obj->stateB[54]=obj->cfg[36]<<2;
+obj->stateB[55]=obj->cfg[39]<<2;
+obj->stateB[3]=((s32 *)obj->cfg)[21]<<0;
+obj->stateB[4]=((s32 *)obj->cfg)[22]<<0;
+obj->stateB[5]=((s32 *)obj->cfg)[23]<<0;
+obj->stateB[58]=((s32 *)obj->cfg)[21]<<4;
+obj->stateB[59]=((s32 *)obj->cfg)[22]<<4;
+obj->stateB[60]=((s32 *)obj->cfg)[23]<<4;
+p=obj->stateB;p[4]+=10;p=obj->stateB;p[59]=p[4]<<4;
+obj->stateB[8]=0;obj->stateB[9]=0;obj->stateB[10]=0;
+i=0;do{off=i*4;*(s32 *)(off + (int)obj->state)=0;*(s32 *)(off+(int)obj->state+16)=0;*(s32 *)(off+(int)obj->fx+0x1cc)=0;i++;*(s32 *)(off+(int)obj->fx+0x1dc)=0;}while(i<4);
 }

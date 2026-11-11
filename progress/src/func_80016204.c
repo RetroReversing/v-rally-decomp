@@ -1,12 +1,14 @@
-extern char D_800AE850[];
+extern char gOrderState[];
 extern u16 D_8009BBB6;
-s32 func_80015460();
+s32 add_pos_bias_words();
 static inline char **inline_fn(char *arg0)
 {
   return (char **) (arg0 + 0x50);
 }
 
-void *func_80016204(char *arg0)
+/* Adds a per-frame offset to the entries of each sub-object (0x6C bytes each) and to the
+   six-byte records of the list at obj->base, scaling by the float at +0x48. Returns obj. */
+void *func_80016204(char *obj)
 {
   s32 pad[4];
   s32 i;
@@ -23,11 +25,11 @@ void *func_80016204(char *arg0)
   char *base;
   char *p;
   char *s4;
-  func_80015460(arg0, 1);
-  s4 = arg0;
-  base = *((char **) arg0);
+  add_pos_bias_words(obj, 1);
+  s4 = obj;
+  base = *((char **) obj);
   i = 0;
-  cnt = *((u16 *) (arg0 + 4));
+  cnt = *((u16 *) (obj + 4));
   if (cnt > 0)
   {
     off1 = 0;
@@ -37,7 +39,7 @@ void *func_80016204(char *arg0)
       {
         p = base - (-off1);
         off = *((u16 *) (p + 0x64));
-        count = *((s32 *) (D_800AE850 + 0x6E9C));
+        count = *((s32 *) (gOrderState + 0x6E9C));
         t = (*((s32 *) (p + 0x68)));
         t += count;
         b = (*((s32 *) (p + 0x50))) + count;
@@ -47,7 +49,7 @@ void *func_80016204(char *arg0)
       }
       while (0);
       *((s32 *) (p + 0x68)) = t;
-      func_80015460(t, off, count);
+      add_pos_bias_words(t, off, count);
       i += 1;
       off1 += 0x6C;
     }
@@ -75,5 +77,5 @@ void *func_80016204(char *arg0)
     }
     while (i < ((s32) count));
   }
-  return arg0;
+  return obj;
 }

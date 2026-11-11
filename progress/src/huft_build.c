@@ -8,7 +8,7 @@ typedef struct huft
     struct huft *t;
   } v;
 } Huff;
-void *func_8007EAA0(int, int);
+void *poolAlloc(int, int);
 void memset(void *, int, int);
 extern u32 D_800C33A4;
 int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
@@ -147,7 +147,7 @@ int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
         }
         z = 1 << j;
         l[h] = j;
-        q = (Huff *) func_8007EAA0(6, (z + 1) * (sizeof(Huff)));
+        q = (Huff *) poolAlloc(6, (z + 1) * (sizeof(Huff)));
         D_800C33A4 += z + 1;
         *t = q + 1;
         *(t = &q->v.t) = 0;

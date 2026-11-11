@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800AE850;
+extern M2C_UNK gOrderState;
 
 void func_800490D4(void) {
     void *temp_v1;
 
-    temp_v1 = *M2C_FIELD(&D_800AE850, void ***, 0x6D94);
+    temp_v1 = *M2C_FIELD(&gOrderState, void ***, 0x6D94);
     M2C_FIELD(temp_v1, s32 *, 0x84) = (s32) (M2C_FIELD(temp_v1, s32 *, 0x84) | 1);
 }

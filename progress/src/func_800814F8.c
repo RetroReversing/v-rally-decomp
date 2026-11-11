@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800811E0();                            /* extern */
+M2C_UNK dma_thread_start();                            /* extern */
 
 void func_800814F8(void) {
-    func_800811E0();
+    dma_thread_start();
 }

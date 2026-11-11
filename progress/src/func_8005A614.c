@@ -11,12 +11,12 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592AC(u32);                              /* extern */
+void *select_get_entry(u32);                              /* extern */
 
 void func_8005A614(s32 arg0, u16 *arg1, u16 *arg2) {
     void *temp_v0;
 
-    temp_v0 = func_800592AC(arg0);
+    temp_v0 = select_get_entry(arg0);
     *arg1 = M2C_FIELD(temp_v0, u16 *, 0xA);
     *arg2 = M2C_FIELD(temp_v0, u16 *, 0xC);
 }

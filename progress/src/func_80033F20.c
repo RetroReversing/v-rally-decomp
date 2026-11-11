@@ -1,7 +1,7 @@
 extern s32 D_800D065C;
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 extern s32 D_800B6164;
-extern s32 D_8009EB80;
+extern s32 gSnapIndex;
 extern u8 D_8009EB90[];
 extern volatile unsigned long func_8001FEDC(void);
 typedef struct 
@@ -9,9 +9,9 @@ typedef struct
   u8 pad[0x60];
   void *motion;
   u8 p[8];
-  void *gate;
+  void *cfg;
   u8 q[0x1C];
-  void *ctx;
+  void *state;
 } A;
 typedef struct 
 {
@@ -36,81 +36,85 @@ static inline static static int inline_fn(C *arg0)
   return ~arg0->flags;
 }
 
+/* Drive/brake controller for one frame. Reads the speed and motion mode,
+ * computes the target speed from the track table (or the reverse-gear
+ * target when the mode is 3), and writes the throttle (c->lo) or brake
+ * (c->hi) with a rate limit. Stores the boost counter back to the motion
+ * block. */
 void func_80033F20(A *a, B *b, C *c)
 {
   s32 speed = func_8001FEDC();
-  s32 new_var3;
-  unsigned int new_var2;
-  s32 x;
-  s32 cap;
-  int new_var4;
-  s32 slew;
-  s32 t;
+  s32 cfgMode;
+  unsigned int req;
+  s32 target;
+  s32 maxVal;
+  int threshold;
+  s32 rate;
+  s32 boost;
   s32 mode;
   s32 rev;
   s32 delta;
-  s32 lim;
-  int new_var;
-  void *state = a->ctx;
+  s32 minVal;
+  void *st = a->state;
   void *motion = a->motion;
-  void *cfg = a->gate;
-  cap = *((s32 *) (((u8 *) state) + 0x578));
-  slew = *((s32 *) (((u8 *) state) + 0x57C));
-  t = *((s32 *) (((u8 *) motion) + 0x170));
+  void *cfg = a->cfg;
+  maxVal = *((s32 *) (((u8 *) st) + 0x578));
+  rate = *((s32 *) (((u8 *) st) + 0x57C));
+  boost = *((s32 *) (((u8 *) motion) + 0x170));
   mode = *((s32 *) (((u8 *) motion) + 0x160));
   rev = *((s32 *) (((u8 *) motion) + 0x164));
-  new_var4 = 1800;
-  new_var3 = *((s32 *) (((u8 *) cfg) + 0x34));
-  if (t)
+  threshold = 1800;
+  cfgMode = *((s32 *) (((u8 *) cfg) + 0x34));
+  if (boost)
   {
-    slew = 255;
-    cap = 12000;
-    t--;
+    rate = 255;
+    maxVal = 12000;
+    boost--;
   }
-  if (new_var3 < 50)
+  if (cfgMode < 50)
   {
     if (mode == 3)
     {
       goto special;
     }
-    x = b->value;
+    target = b->value;
     if (b->limit < 30)
     {
-      x = 12000;
+      target = 12000;
     }
     {
       u8 *p = *((u8 **) (((u8 *) b->root) + 0x78));
       u8 n = p[27];
-      if ((n && (b->index < n)) && (((s32) (*((u16 *) (p + 24)))) < x))
+      if ((n && (b->index < n)) && (((s32) (*((u16 *) (p + 24)))) < target))
       {
-        x = *((u16 *) (p + 24));
+        target = *((u16 *) (p + 24));
       }
     }
-    lim = *((s32 *) (D_8009EB90 + (D_8009EB80 * 24)));
-    new_var2 = x;
-    if (new_var2 < lim)
+    minVal = *((s32 *) (D_8009EB90 + (gSnapIndex * 24)));
+    req = target;
+    if (req < minVal)
     {
-      x = lim;
+      target = minVal;
     }
-    if (x > cap)
+    if (target > maxVal)
     {
-      x = cap;
+      target = maxVal;
     }
-    *(s32 *)((D_800C02AE + 0x10000) + 0x3AE) = x;
+    *(s32 *)((gStreamState + 0x10000) + 0x3AE) = target;
     D_800B6164 = b->limit;
-    delta = x - __builtin_abs(speed);
-    if (speed < new_var4)
+    delta = target - __builtin_abs(speed);
+    if (speed < threshold)
     {
-      slew = 255;
+      rate = 255;
     }
-    if (slew < delta)
+    if (rate < delta)
     {
-      delta = slew;
+      delta = rate;
     }
     else
-      if (delta < (-slew))
+      if (delta < (-rate))
     {
-      delta = -slew;
+      delta = -rate;
     }
     if (delta > 0)
     {
@@ -125,8 +129,8 @@ void func_80033F20(A *a, B *b, C *c)
     }
     goto done;
     special:
-    x = (rev == 3) ? (-2000) : 0;
-    delta = x - speed;
+    target = (rev == 3) ? (-2000) : 0;
+    delta = target - speed;
 
     if (delta > 255)
     {
@@ -157,5 +161,5 @@ void func_80033F20(A *a, B *b, C *c)
   c->status = c->status | ~c->flags | 16;
 
   c->result = c->flags & c->status;
-  *((s32 *) (((u8 *) a->motion) + 0x170)) = t;
+  *((s32 *) (((u8 *) a->motion) + 0x170)) = boost;
 }

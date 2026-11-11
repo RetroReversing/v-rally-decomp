@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8007F828();                            /* extern */
+M2C_UNK heapInitBlock();                            /* extern */
 
 void *func_8007F864(void *arg0) {
-    func_8007F828();
+    heapInitBlock();
     M2C_FIELD(arg0, s32 *, 0xC) = 1;
     return arg0 + 0x14;
 }

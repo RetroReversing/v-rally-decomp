@@ -1,5 +1,5 @@
-#define CFG32 ((Cfg *)(*(void **)(D_800C02AE + 0x32F2)))
-#define CFG25 ((Cfg *)(*(void **)(D_800C02AE + 0x325A)))
+#define CFG32 ((Cfg *)(*(void **)(gStreamState + 0x32F2)))
+#define CFG25 ((Cfg *)(*(void **)(gStreamState + 0x325A)))
 typedef struct
 {
   unsigned char b[0x2E];
@@ -9,52 +9,56 @@ typedef struct
   unsigned char b[0x250];
 } State;
 typedef struct { u32 w[40]; } Blk;
-extern State *D_800A1468;
-extern s32 D_800A14D0;
-extern u8 D_800C02AE[];
-extern unsigned char D_800AE850[];
-extern void func_800593FC(s32, s32);
-extern void func_8005946C(s32, s32);
-extern int func_8005A388(int, int);
+extern State *gSelectState;
+extern s32 gSelectBuffer;
+extern u8 gStreamState[];
+extern unsigned char gOrderState[];
+extern void select_copy_entry_state(s32, s32);
+extern void select_set_active_sub(s32, s32);
+extern int selectCopyEntryLabel(int, int);
 extern void func_8005C198(void);
-extern void func_8007EE9C(s32);
-extern void func_8006603C(void);
+extern void heapFreeBlock(s32);
+extern void init_stage_screen(void);
 extern void func_80066384(void);
 extern void func_80066470(void);
-s32 func_80065C04(s32 a0, s32 a1)
+
+/* Select-screen step: when the chosen entry is confirmed (flag bit 0x100 clear and the
+ * second config's mode is 2), it saves the entry's block, switches the screen to its stage
+ * callbacks and clears the pending stage id. Otherwise it shows the prompt for the mode. */
+s32 func_80065C04(s32 ctx, s32 arg)
 {
   s16 ver;
-  ver = D_800A1468->b[0x23c];
+  ver = gSelectState->b[0x23c];
   *((u16 *) (CFG32->b + 0x22)) = 0;
   *((s16 *) (CFG32->b + 0x1e)) = ver;
   if ((((*((u16 *) (CFG32->b + 0x2c))) & 0x100) == 0) && ((*((s16 *) (CFG25->b + 2))) == 2))
   {
-    *((Blk *) (D_800AE850 + 0x7F28)) = *((Blk *) (CFG32->b + 0x44));
-    D_800A1468->b[0x245] = 0;
-    func_8005A388(a0, a1);
-    *((void (**)(void)) (D_800A1468->b + 0x288)) = func_8006603C;
-    *((void (**)(void)) (D_800A1468->b + 0x28c)) = func_80066384;
-    *((void (**)(void)) (D_800A1468->b + 0x290)) = func_80066470;
+    *((Blk *) (gOrderState + 0x7F28)) = *((Blk *) (CFG32->b + 0x44));
+    gSelectState->b[0x245] = 0;
+    selectCopyEntryLabel(ctx, arg);
+    *((void (**)(void)) (gSelectState->b + 0x288)) = init_stage_screen;
+    *((void (**)(void)) (gSelectState->b + 0x28c)) = func_80066384;
+    *((void (**)(void)) (gSelectState->b + 0x290)) = func_80066470;
     func_8005C198();
-    if (D_800A14D0)
+    if (gSelectBuffer)
     {
-      func_8007EE9C(D_800A14D0);
-      D_800A14D0 = 0;
+      heapFreeBlock(gSelectBuffer);
+      gSelectBuffer = 0;
     }
     *((s16 *) (CFG32->b + 0x20)) = 0;
   }
   else
   {
-    D_800A1468->b[0x245] = 1;
+    gSelectState->b[0x245] = 1;
     if (*((s16 *) (CFG25->b + 2)) == 2)
     {
-      func_800593FC(a0, 13);
+      select_copy_entry_state(ctx, 13);
     }
     else
     {
-      func_800593FC(a0, 8);
+      select_copy_entry_state(ctx, 8);
     }
-    func_8005946C(a0, *((u16 *) (CFG32->b + 0x22)));
+    select_set_active_sub(ctx, *((u16 *) (CFG32->b + 0x22)));
   }
   return 1;
 }

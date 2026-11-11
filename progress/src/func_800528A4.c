@@ -1,36 +1,41 @@
-extern u8 D_800ADFE0;
+extern u8 gCurCount;
 extern u8 D_800ADFE1;
-extern u8 *D_800B5C40;
-extern u8 D_800B6600[];
-extern u8 *D_800C35A0;
+extern u8 *gCarList;
+extern u8 gDecodeBlk[];
+extern u8 *gRecords;
+
+/* For a record in state 5, sums each of the four cars' per-lap values (from the car list)
+   into the decode block row for this record, starting from the first lap or from the
+   record's lap count. Then, if the record's flag 0x4000 is set and the smallest row value is
+   at least 21, lowers the row's entry by 10. */
 void func_800528A4(void)
 {
-  u8 *obj;
+  u8 *record;
   u8 *base;
   u32 i;
   u8 *table;
   u8 *node;
   u8 *flag;
-  u8 *flag2;
+  u8 *row_addr;
   u32 sum;
   u32 k;
-  int new_var2;
+  int row_off;
   u32 *p;
   u32 n;
   u32 min;
   u32 *row;
   u8 *obj2;
-  obj = D_800C35A0;
-  if ((*((u16 *) (obj + 0x1E))) != 5)
+  record = gRecords;
+  if ((*((u16 *) (record + 0x1E))) != 5)
   {
     return;
   }
-  table = D_800B6600;
-  new_var2 = 0x118;
+  table = gDecodeBlk;
+  row_off = 0x118;
   i = 0;
-  node = *((u8 **) D_800B5C40);
+  node = *((u8 **) gCarList);
   flag = &D_800ADFE1;
-  base = obj;
+  base = record;
   for (; i < 4; i += 1)
   {
     if (node == 0)
@@ -53,19 +58,19 @@ void func_800528A4(void)
         k += 1;
         sum += *p++;
       }
-      while (k < (u32)(D_800ADFE0 - 1));
+      while (k < (u32)(gCurCount - 1));
     }
     n = (*((u16 *) (base + 0x22))) << 4;
-    flag2 = (u8 *) ((n + (u32) table) + 0x118);
-    *((u32 *) ((i << 2) + (u32) flag2)) = sum;
+    row_addr = (u8 *) ((n + (u32) table) + 0x118);
+    *((u32 *) ((i << 2) + (u32) row_addr)) = sum;
     node = *((u8 **) (node + 4));
   }
 
-  obj2 = D_800C35A0;
+  obj2 = gRecords;
   if ((*((u16 *) (obj2 + 0x2C))) & 0x4000)
   {
-    new_var2 = 0x118;
-    row = (u32 *) ((((*((u16 *) (obj2 + 0x22))) << 4) + (u32) table) + new_var2);
+    row_off = 0x118;
+    row = (u32 *) ((((*((u16 *) (obj2 + 0x22))) << 4) + (u32) table) + row_off);
     min = ~0U;
     for (i = 0; i < 4; i += 1)
     {
@@ -76,7 +81,7 @@ void func_800528A4(void)
     }
     if (min >= 21)
     {
-      *((u32 *) ((table + ((*((u16 *) (D_800C35A0 + 0x22))) << 4)) + 0x118)) = min - 10;
+      *((u32 *) ((table + ((*((u16 *) (gRecords + 0x22))) << 4)) + 0x118)) = min - 10;
     }
   }
 }

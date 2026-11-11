@@ -1,4 +1,4 @@
-s32 func_8007EE9C(void *);
+s32 heapFreeBlock(void *);
 
 typedef struct { s32 pad[3]; void *child; } ObjE2;
 
@@ -8,8 +8,8 @@ s32 func_8000E2B0(ObjE2 *arg0) {
     p = (s32 *)arg0;
     child = (void *)p[3];
     if (child) {
-        func_8007EE9C(child);
-        return func_8007EE9C(p);
+        heapFreeBlock(child);
+        return heapFreeBlock(p);
     }
     return 0;
 }

@@ -2,9 +2,11 @@ extern u8 *D_800C7F8C;
 extern void *D_800B5B44;
 extern void *D_800C3518;
 void func_8001A2E0(void *);
-void func_8007EE9C(void *);
-void func_80005E3C(void *);
+void heapFreeBlock(void *);
+void streamFreeObject(void *);
 
+/* Frees the table of 0x3C-byte entries at D_800C7F8C: for each entry with a block at +0x38, runs func_8001A2E0
+ * on it and frees that block. Then frees D_800B5B44 and clears the three globals. */
 void func_8001B140(void)
 {
   s32 i;
@@ -24,13 +26,13 @@ void func_8001B140(void)
       if (*(void **)(p + 0x38) != NULL)
       {
         func_8001A2E0(p);
-        func_8007EE9C(*(void **)(p + 0x38));
+        heapFreeBlock(*(void **)(p + 0x38));
       }
       p += 0x3C;
       i++;
     } while (i < *(u16 *)(info + 4));
   }
-  func_80005E3C(D_800B5B44);
+  streamFreeObject(D_800B5B44);
   D_800B5B44 = NULL;
   D_800C3518 = NULL;
   D_800C7F8C = NULL;

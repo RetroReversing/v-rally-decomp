@@ -12,24 +12,28 @@ typedef struct Cfg { char pad0[0x16]; u16 sel; } Cfg;
 extern s32 func_8001FEDC(Car *);
 extern s32 func_8002D2A0(s32);
 extern void func_8002E778(s32 *, s32 *);
-extern void func_800306A8(Node *, s32, s32 *);
-extern s32 D_8009EB80;
+extern void track_sample_lookup(Node *, s32, s32 *);
+extern s32 gSnapIndex;
 extern MinT D_8009EB90[];
 extern Pct D_8009F510[];
-extern Cfg *D_800C35A0;
+extern Cfg *gRecords;
 
+/* Fills the per-car position report: current checkpoint node and index, the target
+ * time (scaled by the difficulty percentage when flag is 0, clamped to the table minimum),
+ * the distance to that checkpoint, the rate of gain, and how many nodes behind the
+ * leader are flagged. */
 void func_800344F0(Out *out, Car *car) {
-    s32 v[3];
+    s32 pos[3];
     Node *first;
     s32 flag;
     s32 count;
     s32 idx;
     Node *cur;
     s32 now;
-    Node *n;
-    s32 i;
+    Node *node;
+    s32 steps;
     s32 t;
-    s32 d;
+    s32 dist_units;
 
     first = car->track->first;
     flag = car->state->flag;
@@ -55,38 +59,38 @@ void func_800344F0(Out *out, Car *car) {
     t = cur->info->time;
     out->time = t;
     if (flag == 0) {
-        out->time = t - t * D_8009F510[D_800C35A0->sel].pct / 100;
+        out->time = t - t * D_8009F510[gRecords->sel].pct / 100;
     }
-    if (out->time < D_8009EB90[D_8009EB80].min) {
-        out->time = D_8009EB90[D_8009EB80].min;
+    if (out->time < D_8009EB90[gSnapIndex].min) {
+        out->time = D_8009EB90[gSnapIndex].min;
     }
     out->dist = 0;
-    n = first;
-    i = 0;
-    while (n != cur) {
-        if (n->next == NULL) break;
-        n = n->next;
-        i++;
+    node = first;
+    steps = 0;
+    while (node != cur) {
+        if (node->next == NULL) break;
+        node = node->next;
+        steps++;
     }
-    if (i < 4) {
-        func_800306A8(cur, idx, v);
-        v[0] -= car->pos->x;
-        v[2] -= car->pos->z;
-        func_8002E778(v, v);
-        out->dist = func_8002D2A0(v[0] + v[2]);
+    if (steps < 4) {
+        track_sample_lookup(cur, idx, pos);
+        pos[0] -= car->pos->x;
+        pos[2] -= car->pos->z;
+        func_8002E778(pos, pos);
+        out->dist = func_8002D2A0(pos[0] + pos[2]);
     } else {
         out->dist = 65000;
     }
-    i = now - out->time;
-    d = out->dist / 128;
-    d += !d;
-    out->rate = i / d;
-    n = first;
-    i = 0;
-    while (n != cur) {
-        if (!(n->flags & 0x800)) break;
-        n = n->next;
-        i++;
+    steps = now - out->time;
+    dist_units = out->dist / 128;
+    dist_units += !dist_units;
+    out->rate = steps / dist_units;
+    node = first;
+    steps = 0;
+    while (node != cur) {
+        if (!(node->flags & 0x800)) break;
+        node = node->next;
+        steps++;
     }
-    out->cnt = i;
+    out->cnt = steps;
 }

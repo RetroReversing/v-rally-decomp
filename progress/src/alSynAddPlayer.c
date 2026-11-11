@@ -1,25 +1,12 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 osSetIntState(s32);
 
-s32 func_8008D640(s32);                             /* extern */
-
+/* Pushes player arg1 onto the front of the list headed at arg0 (next pointer at +0), copying the head's +0x20 word into the player's +0x10, with interrupts masked around the update. */
 void alSynAddPlayer(void *arg0, void *arg1) {
     s32 temp_v0;
 
-    temp_v0 = func_8008D640(1);
-    M2C_FIELD(arg1, s32 *, 0x10) = (s32) M2C_FIELD(arg0, s32 *, 0x20);
-    M2C_FIELD(arg1, void **, 0) = (void *) M2C_FIELD(arg0, void **, 0);
-    M2C_FIELD(arg0, void **, 0) = arg1;
-    func_8008D640(temp_v0);
+    temp_v0 = osSetIntState(1);
+    *(s32 *)((char *)arg1 + 0x10) = (s32) *(s32 *)((char *)arg0 + 0x20);
+    *(void **)((char *)arg1 + 0) = (void *) *(void **)((char *)arg0 + 0);
+    *(void **)((char *)arg0 + 0) = arg1;
+    osSetIntState(temp_v0);
 }

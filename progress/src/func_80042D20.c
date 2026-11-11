@@ -1,30 +1,34 @@
 extern s8 D_800ADFA8;
-void *func_80022318(void **, u8 *);
-s32 *func_8004D784();
-extern s32 D_8009D538;
+void *named_entry_lookup(void **, u8 *);
+s32 *findEntryById();
+extern s32 gPadFlags;
 extern char D_800A4DEC[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
+
+/* Marks the stream's current entry as active (bit 0 set, bit 1 cleared), clears the 0x40 flag on every
+ * node of the list at gOrderState+0x72FC, clears the 0x02 flag on the matching stream entry, and sets
+ * gPadFlags bit 0 while clearing bit 7. */
 void func_80042D20(void)
 {
-    s32 *temp_v0;
-    s32 *temp_inner;
-    void *temp_v1;
-    void *var_s0;
-    temp_v0 = func_8004D784(*(void **)(*(char **)(D_800C02AE + 0x326A) + 0x24));
-    temp_v0[4] = (temp_v0[4] & ~2) | 1;
-    var_s0 = **(void ***)(D_800AE850 + 0x72FC);
+    s32 *entry;
+    s32 *inner;
+    void *found;
+    void *node;
+    entry = findEntryById(*(void **)(*(char **)(gStreamState + 0x326A) + 0x24));
+    entry[4] = (entry[4] & ~2) | 1;
+    node = **(void ***)(gOrderState + 0x72FC);
     D_800ADFA8 = 0;
-    while (var_s0 != NULL) {
-        *(u16 *)((char *)var_s0 + 0x20) &= 0xFFBF;
-        temp_v1 = func_80022318((void **)((char *)var_s0 + 0x28), (u8 *)(D_800A4DEC));
-        if (temp_v1 != NULL) {
-            temp_v1 = *(void **)((char *)temp_v1 + 0x10);
-            temp_inner = *(s32 **)temp_v1;
-            temp_inner = *(s32 **)((char *)temp_inner+4);
-            *(u16 *)((char *)temp_inner + 0x68) &= 0xFFFD;
+    while (node != NULL) {
+        *(u16 *)((char *)node + 0x20) &= 0xFFBF;
+        found = named_entry_lookup((void **)((char *)node + 0x28), (u8 *)(D_800A4DEC));
+        if (found != NULL) {
+            found = *(void **)((char *)found + 0x10);
+            inner = *(s32 **)found;
+            inner = *(s32 **)((char *)inner + 4);
+            *(u16 *)((char *)inner + 0x68) &= 0xFFFD;
         }
-        var_s0 = *(void **)((char *)var_s0 + 4);
+        node = *(void **)((char *)node + 4);
     }
-    D_8009D538 = (D_8009D538 & ~0x80) | 1;
+    gPadFlags = (gPadFlags & ~0x80) | 1;
 }

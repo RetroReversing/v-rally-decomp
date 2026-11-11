@@ -70,31 +70,31 @@ typedef struct Menu
   u8 pad290[0x2BD - 0x290];
   s8 f2BD;
 } Menu;
-extern u8 *D_800A1468;
-#define MENU ((Menu *)D_800A1468)
+extern u8 *gSelectState;
+#define MENU ((Menu *)gSelectState)
 extern Task *D_800C5D20[];
-extern void *D_800C7F84;
-extern u8 D_800C02AE[];
+extern void *g_camera;
+extern u8 gStreamState[];
 struct N { int p0; struct N *next; int p8; int key; };
-extern struct N *func_8004240C(int);
-extern void func_80047B54(void *, s32, s16, s16);
+extern struct N *find_object_by_id(int);
+extern void stream_draw_entry(void *, s32, s16, s16);
 extern void func_8005BCD4(void);
-extern void func_800599D0(u8 *, s32);
-extern void *text_obj_get(u32);
-extern void *func_800592AC(u32);
+extern void draw_select_entry(u8 *, s32);
+extern void *textObjGet(u32);
+extern void *select_get_entry(u32);
 typedef struct { u8 pad0[0xA]; s8 group; } GroupOwner;
-extern void func_80059618(GroupOwner *, u8, u8, u8, u8);
-extern s32 func_80057918(s32 *, s32);
+extern void group_set_color(GroupOwner *, u8, u8, u8, u8);
+extern s32 pool_get_item(s32 *, s32);
 typedef struct { u8 p[0xA]; s8 idx; u8 q; u8 t; u8 s; u8 r; u8 pad; f32 w10; f32 f14; u16 h18; } Arg;
-void func_800596F4(void *, s16, s16, void *);
+void draw_palette_sprite(void *, s16, s16, void *);
 
 /* Picks the current text context from the call slot: slots 0 and 1 use
  * `primary`, slot 4 uses `last`, anything else uses `other`. */
 static __inline__ void set_group_ctx(u8 idx,s32 primary,s32 last,s32 other) {
-if(idx==0) { D_800C7F84=func_8004240C(primary); }
-else if(idx==1) { D_800C7F84=func_8004240C(primary); }
-else if(idx==4) { D_800C7F84=func_8004240C(last); }
-else { D_800C7F84=func_8004240C(other); }
+if(idx==0) { g_camera=find_object_by_id(primary); }
+else if(idx==1) { g_camera=find_object_by_id(primary); }
+else if(idx==4) { g_camera=find_object_by_id(last); }
+else { g_camera=find_object_by_id(other); }
 }
 
 /* Per-frame menu draw. Runs the five task slots (skipping slot 1 while
@@ -112,7 +112,7 @@ void func_80059A60(void)
   u8 *flags;
   if (MENU->f232 && (MENU->f233 >= 0))
   {
-    func_80047B54(func_8004240C(0), (u16)MENU->f233, 0, 0);
+    stream_draw_entry(find_object_by_id(0), (u16)MENU->f233, 0, 0);
   }
   if (MENU->f249)
   {
@@ -141,7 +141,7 @@ void func_80059A60(void)
   {
     n = MENU->nstyles;
     s = MENU->styles;
-    for (i = 0; i < n; i++, s = s->next) { if (s->visible) { func_800599D0((u8 *)s, s->mode); } }
+    for (i = 0; i < n; i++, s = s->next) { if (s->visible) { draw_select_entry((u8 *)s, s->mode); } }
   }
   if (MENU->nwidgets)
   {
@@ -152,7 +152,7 @@ void func_80059A60(void)
       flags = (u8 *)w + 0x41;
       if (*flags)
       {
-        func_800599D0(w->sub, w->mode);
+        draw_select_entry(w->sub, w->mode);
         if ((!w->useStyleMode) || w->mode)
         {
           s = w->styles;
@@ -164,13 +164,13 @@ void func_80059A60(void)
               if (w->useStyleMode) { hl = s->mode; } else { hl = flags[1]; }
               if (hl)
               {
-                func_80059618((GroupOwner *)s, 220, 220, 14, 255);
+                group_set_color((GroupOwner *)s, 220, 220, 14, 255);
               }
               else
               {
-                func_80059618((GroupOwner *)s, s->r, s->g, s->b, s->a);
+                group_set_color((GroupOwner *)s, s->r, s->g, s->b, s->a);
               }
-              func_800596F4((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(func_80057918((s32 *)*((s32 *) (D_800C02AE + 0x807A)), s->id)));
+              draw_palette_sprite((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(pool_get_item((s32 *)*((s32 *) (gStreamState + 0x807A)), s->id)));
             }
           }
         }
@@ -186,16 +186,16 @@ void func_80059A60(void)
       if (g->active)
       {
         MENU->f24D = 0;
-        s = text_obj_get(g->b9);
+        s = textObjGet(g->b9);
         for (j = 0; j < g->b8; j++, s = s->next)
         {
-          func_800599D0((u8 *)s, s->mode);
+          draw_select_entry((u8 *)s, s->mode);
         }
-        w = func_800592AC(g->w0);
-        func_800599D0(w->sub, w->mode);
+        w = select_get_entry(g->w0);
+        draw_select_entry(w->sub, w->mode);
         which = g->w1;
-        w = func_800592AC((u16)which);
-        func_800599D0(w->sub, w->mode);
+        w = select_get_entry((u16)which);
+        draw_select_entry(w->sub, w->mode);
         MENU->f24D = 1;
       }
     }
@@ -211,16 +211,16 @@ void func_80059A60(void)
         MENU->f24D = 0;
         if (g->b9)
         {
-          s = text_obj_get(g->b8);
+          s = textObjGet(g->b8);
           for (j = 0; j < g->b9; j++, s = s->next)
           {
-            func_800599D0((u8 *)s, s->mode);
+            draw_select_entry((u8 *)s, s->mode);
           }
         }
-        w = func_800592AC(g->w0);
+        w = select_get_entry(g->w0);
         for (j = 0; j < g->w1; j++, w = w->next)
         {
-          func_800599D0(w->sub, w->mode);
+          draw_select_entry(w->sub, w->mode);
         }
         MENU->f24D = 1;
       }

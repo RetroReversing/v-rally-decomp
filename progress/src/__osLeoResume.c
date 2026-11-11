@@ -1,30 +1,33 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 extern char D_800A2518[];
 
 typedef struct Ring {
-    s32 *unk0;
-    s32 unk4;
-    s32 unk8;
-    s32 unkC;
-    s32 unk10;
-    s32 *unk14;
+    s32 *wakeFlag;
+    s32 pad4;
+    s32 count;
+    s32 head;
+    s32 capacity;
+    s32 *items;
 } Ring;
 
 s32 func_8008B624(void *, void *);
 void func_8008B5DC(void *, s32);
 
+/* Pushes the word at gStreamState+0x763E onto the ring at gStreamState+0x763A
+ * when it has room, then wakes the waiter (func_8008B5DC on D_800A2518) if
+ * the ring's wake flag is set. */
 void __osLeoResume(void) {
-    Ring *r;
+    Ring *ring;
     s32 idx;
 
-    r = *(Ring **)(D_800C02AE + 0x763A);
-    if (r != NULL) {
-        if (r->unk8 < r->unk10) {
-            idx = (r->unkC + r->unk8) % r->unk10;
-            r->unk14[idx] = *(s32 *)(D_800C02AE + 0x763E);
-            r->unk8++;
-            if (*r->unk0 != 0) {
-                func_8008B5DC(D_800A2518, func_8008B624(r, r));
+    ring = *(Ring **)(gStreamState + 0x763A);
+    if (ring != NULL) {
+        if (ring->count < ring->capacity) {
+            idx = (ring->head + ring->count) % ring->capacity;
+            ring->items[idx] = *(s32 *)(gStreamState + 0x763E);
+            ring->count++;
+            if (*ring->wakeFlag != 0) {
+                func_8008B5DC(D_800A2518, func_8008B624(ring, ring));
             }
         }
     }

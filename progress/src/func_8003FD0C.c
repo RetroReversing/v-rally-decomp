@@ -1,7 +1,5 @@
-#define OBJ D_800C7F84
-#define STATE D_800C35A0
-extern u8 *D_800C35A0;
-extern struct O *D_800C7F84;
+extern u8 *gRecords;
+extern struct O *g_camera;
 typedef struct R
 {
   u8 pad[8];
@@ -15,44 +13,49 @@ typedef struct O
   u8 pad[0x178];
   R *r;
 } O;
-extern u8 D_800C02AE[];
-O *func_8004240C();
-void func_8000EF0C();
+extern u8 gStreamState[];
+O *find_object_by_id();
+void gfx_draw_fill_rect();
+
+/* Draws the viewport divider bar while the record state at gRecords+14 is 2. arg0 picks
+ * the view (0 uses view 5, otherwise view 6). If bit 0 of the flags at gRecords+18 is
+ * set, it draws a horizontal bar across the middle of the view, with an end cap at the
+ * right. Otherwise it draws a vertical bar at the view's centre. */
 void func_8003FD0C(s32 arg0)
 {
-  s16 rect[4];
-  u8 color[4];
-  color[0] = 0;
-  color[1] = 0;
-  color[2] = 0;
-  color[3] = 255;
-  if (*(u16 *)(STATE + 14) == 2)
+  s16 bar[4];
+  u8 bar_color[4];
+  bar_color[0] = 0;
+  bar_color[1] = 0;
+  bar_color[2] = 0;
+  bar_color[3] = 255;
+  if (*(u16 *)(gRecords + 14) == 2)
   {
     if (!(arg0 & 0xFF))
-      OBJ = func_8004240C(5);
+      g_camera = find_object_by_id(5);
     else
-      OBJ = func_8004240C(6);
-    if (*(u16 *)(STATE + 18) & 1)
+      g_camera = find_object_by_id(6);
+    if (*(u16 *)(gRecords + 18) & 1)
     {
-      rect[0] = OBJ->r->x + 32;
-      rect[1] = OBJ->r->y + (s16)OBJ->r->h / 2 - 1;
-      rect[2] = OBJ->r->w - 32;
-      rect[3] = OBJ->r->y + (s16)OBJ->r->h / 2 + 1;
-      OBJ = func_8004240C(5);
-      func_8000EF0C(OBJ->r, rect, color);
-      rect[0] = OBJ->r->x + OBJ->r->w - 32;
-      rect[1] = OBJ->r->y;
-      rect[2] = OBJ->r->x + OBJ->r->w - 16;
-      rect[3] = OBJ->r->h;
-      func_8000EF0C(OBJ->r, rect, color);
+      bar[0] = g_camera->r->x + 32;
+      bar[1] = g_camera->r->y + (s16)g_camera->r->h / 2 - 1;
+      bar[2] = g_camera->r->w - 32;
+      bar[3] = g_camera->r->y + (s16)g_camera->r->h / 2 + 1;
+      g_camera = find_object_by_id(5);
+      gfx_draw_fill_rect(g_camera->r, bar, bar_color);
+      bar[0] = g_camera->r->x + g_camera->r->w - 32;
+      bar[1] = g_camera->r->y;
+      bar[2] = g_camera->r->x + g_camera->r->w - 16;
+      bar[3] = g_camera->r->h;
+      gfx_draw_fill_rect(g_camera->r, bar, bar_color);
     }
     else
     {
-      rect[0] = OBJ->r->x + (s16)OBJ->r->w / 2 - 1;
-      rect[1] = OBJ->r->y;
-      rect[2] = OBJ->r->x + (s16)OBJ->r->w / 2 + 1;
-      rect[3] = OBJ->r->h;
-      func_8000EF0C(OBJ->r, rect, color);
+      bar[0] = g_camera->r->x + (s16)g_camera->r->w / 2 - 1;
+      bar[1] = g_camera->r->y;
+      bar[2] = g_camera->r->x + (s16)g_camera->r->w / 2 + 1;
+      bar[3] = g_camera->r->h;
+      gfx_draw_fill_rect(g_camera->r, bar, bar_color);
     }
   }
 }

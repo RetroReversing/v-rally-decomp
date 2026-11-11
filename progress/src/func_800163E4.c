@@ -1,7 +1,7 @@
-extern char D_800C02AE[];
-extern u8 *D_800C7F80;
+extern char gStreamState[];
+extern u8 *g_rec_val;
 void *func_80016204(void *);
-void *func_8007EAA0(s32, s32);
+void *poolAlloc(s32, s32);
 void memset(void *, s32, s32);
 s32 func_80005CB8(s32, s32, s32, s32, s32);
 void func_80005D98(s32);
@@ -46,12 +46,12 @@ void *func_800163E4(void *owner, u8 *tbl, u8 *initData)
   s32 handle;
   s32 mode;
   *((u16 *) (tbl + 0x22)) = *((u16 *) (tbl + 0x20));
-  slotPtr = D_800C02AE + 0x5dce;
+  slotPtr = gStreamState + 0x5dce;
   r = tbl + (((*((u16 *) (tbl + 0x20))) * 0x38) + 0x3c);
   *((Chunk8 *) r) = *((Chunk8 *) initData);
   {
-    u8 *dst = func_8007EAA0(1, 0x7c);
-    u8 *src = D_800C7F80;
+    u8 *dst = poolAlloc(1, 0x7c);
+    u8 *src = g_rec_val;
     u8 *end = src + 0x70;
     *((void **) (r + 8)) = dst;
     do
@@ -64,31 +64,31 @@ void *func_800163E4(void *owner, u8 *tbl, u8 *initData)
     *((ChunkTail *) dst) = *((ChunkTail *) src);
   }
   n = *((u16 *) ((*((u8 **) (r + 8))) + 0x28));
-  *((void **) ((*((u8 **) (r + 8))) + 0x24)) = func_8007EAA0(1, n * 20);
+  *((void **) ((*((u8 **) (r + 8))) + 0x24)) = poolAlloc(1, n * 20);
   for (i = 0; i < n; i++)
   {
-    ((Chunk20 *) (*((void **) ((*((u8 **) (r + 8))) + 0x24))))[i] = ((Chunk20 *) (*((void **) (D_800C7F80 + 0x24))))[i];
+    ((Chunk20 *) (*((void **) ((*((u8 **) (r + 8))) + 0x24))))[i] = ((Chunk20 *) (*((void **) (g_rec_val + 0x24))))[i];
   }
 
   *((u8 **) slotPtr) = r;
-  *((Chunk12 *) (r + 0x20)) = *((Chunk12 *) (D_800C7F80 + 4));
+  *((Chunk12 *) (r + 0x20)) = *((Chunk12 *) (g_rec_val + 4));
   *((u16 *) (r + 0x2c)) = 1;
   r[0x2f] = 0;
   ++(*((u16 *) (tbl + 0x20)));
-  *((void **) (r + 0x10)) = func_8007EAA0(1, (*((u16 *) (info + 4))) * 4);
+  *((void **) (r + 0x10)) = poolAlloc(1, (*((u16 *) (info + 4))) * 4);
   *((u32 *) (r + 0xc)) = *((u16 *) (info + 4));
   for (i = 0; ((u32) i) < (*((u32 *) (r + 0xc))); i++)
   {
     handle = 0;
     p = (*((u8 **) info)) + (i * 0x6c);
-    q = func_8007EAA0(1, 0x94);
+    q = poolAlloc(1, 0x94);
     memset(q, 0, 0x94);
     *((u32 *) q) = 0;
     *((Chunk64 *) (q + 8)) = *((Chunk64 *) (p + 0xc));
     *((Chunk64 *) (q + 0x48)) = *((Chunk64 *) (p + 0xc));
     (*((u8 ***) (r + 0x10)))[i] = q;
     *((u8 **) ((*((u8 ***) (r + 0x10)))[i] + 0x8c)) = p;
-    mode = (u8) D_800C02AE[0x7678];
+    mode = (u8) gStreamState[0x7678];
     if (i == 0)
     {
       switch (mode)

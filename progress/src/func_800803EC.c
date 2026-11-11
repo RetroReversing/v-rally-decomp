@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800803C0(s32, void *);                 /* extern */
+M2C_UNK list_unlink_free(s32, void *);                 /* extern */
 
 void func_800803EC(void *arg0) {
     if (M2C_FIELD(arg0, s32 *, 4) != 0) {
         do {
-            func_800803C0(M2C_FIELD(arg0, s32 *, 4), arg0);
+            list_unlink_free(M2C_FIELD(arg0, s32 *, 4), arg0);
         } while (M2C_FIELD(arg0, s32 *, 4) != 0);
     }
 }

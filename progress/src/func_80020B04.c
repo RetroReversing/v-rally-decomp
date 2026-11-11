@@ -1,8 +1,8 @@
 extern void *D_8009D6B0;
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 
-void func_80028158(void *, s32, void *, s32);
+void car_dispatch_cmd(void *, s32, void *, s32);
 s32 func_80027CB4(u8, u8, u8, s8);
 void func_80050048(s32);
 void func_8004F3C4(void);
@@ -23,62 +23,65 @@ typedef struct {
     s32 c;
 } Tri20B04;
 
-void func_80020B04(void **arg0) {
+/* Walks the linked list of active nodes from the list head (or from the node
+ * saved in D_8009D6B0 when a previous pass stopped early), runs each node's
+ * update, and feeds the node's state byte pattern to the sound/effects code.
+ * Stops early and saves the current node if the global check flag is set. */
+void func_80020B04(void **list_head) {
     void *node;
-    s32 mask;
-    void *pay;
-    u8 *bytes;
+    s32 hi_mask;
+    void *payload;
+    u8 *data;
     s32 hi;
-    s32 word;
-    void *p54;
-    Quad20B04 quad;
+    void *state;
+    Quad20B04 rect;
     Tri20B04 tri;
     s32 kind;
     u16 flag;
 
-    node = *arg0;
+    node = *list_head;
     if (D_8009D6B0 != NULL) {
         node = D_8009D6B0;
     }
     if (node != NULL) {
-        mask = 0xFFFF0000;
+        hi_mask = 0xFFFF0000;
         do {
-            pay = *(void **)((char *)node + 0x48);
+            payload = *(void **)((char *)node + 0x48);
             D_8009D6B0 = NULL;
-            bytes = (u8 *)pay + 4;
-            func_80028158(node, *(s32 *)pay, bytes, *(s32 *)((char *)pay + 0x20));
-            if ((*(s32 *)(*(s32 *)(D_800AE850 + 0x73F0) + 8) & 1) != 0) {
+            data = (u8 *)payload + 4;
+            car_dispatch_cmd(node, *(s32 *)payload, data, *(s32 *)((char *)payload + 0x20));
+            if ((*(s32 *)(*(s32 *)(gOrderState + 0x73F0) + 8) & 1) != 0) {
                 D_8009D6B0 = node;
                 return;
             }
             kind = *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x20);
             if ((kind == 0) || (kind == 9)) {
-                flag = *(u16 *)(*(s32 *)(D_800C02AE + 0x32F2) + 0x1E);
+                flag = *(u16 *)(*(s32 *)(gStreamState + 0x32F2) + 0x1E);
                 if (flag != 0) {
-                    u8 b8 = bytes[4];
-                    u8 b9 = bytes[5];
+                    u8 byte8 = data[4];
+                    u8 byte9 = data[5];
                     s32 fl = *(s32 *)((char *)node + 0x14);
-                    s8 b4 = (s8)bytes[0];
-                    u8 b5 = bytes[1];
+                    s8 sbyte0 = (s8)data[0];
+                    u8 byte1 = data[1];
                     if ((fl & 0x10) == 0) {
-                        func_80050048(func_80027CB4(b5, b8, b9, b4));
+                        func_80050048(func_80027CB4(byte1, byte8, byte9, sbyte0));
                     }
                 } else {
-                    func_80050048(func_80027CB4(bytes[1], bytes[4], bytes[5], (s8)bytes[0]));
+                    func_80050048(func_80027CB4(data[1], data[4], data[5], (s8)data[0]));
                 }
             }
-            p54 = *(void **)((char *)node + 0x54);
+            state = *(void **)((char *)node + 0x54);
             {
-                s32 w = *(s32 *)((char *)p54 + 0x20);
+                s32 w = *(s32 *)((char *)state + 0x20);
                 hi = w >> 16;
                 if (hi != 0) {
-                    *(s32 *)((char *)p54 + 0x20) = w + mask;
+                    *(s32 *)((char *)state + 0x20) = w + hi_mask;
                 }
             }
             if (hi == 1) {
                 func_8004F3C4();
             }
-            if ((bytes[1] & 0x80) != 0) {
+            if ((data[1] & 0x80) != 0) {
                 {
                     s32 p = *(s32 *)((char *)node + 0x54);
                     s32 w = *(s32 *)(p + 0x20);
@@ -97,11 +100,11 @@ void func_80020B04(void **arg0) {
                             s32 a1v = *(s32 *)(p8c + 0x28);
                             s32 a3v = *(s32 *)(p60 + 0x28);
                             tri.a = 0;
-                            tri.b = func_8001FFC4(&quad, a1v, 0, (s16)a3v);
+                            tri.b = func_8001FFC4(&rect, a1v, 0, (s16)a3v);
                         }
                         tri.c = 0;
-                        quad.b -= 0x5A;
-                        func_80023134(node, &quad, &tri);
+                        rect.b -= 0x5A;
+                        func_80023134(node, &rect, &tri);
                         func_80024B28(node);
                         *(s32 *)(*(s32 *)((char *)node + 0x54) + 0x20) = 0x320000;
                         *(s32 *)((char *)node + 0x14) |= 0x40;
@@ -109,16 +112,16 @@ void func_80020B04(void **arg0) {
                 }
             }
             } else {
-                p54 = *(void **)((char *)node + 0x54);
-                *(s32 *)((char *)p54 + 0x20) &= mask;
-                p54 = *(void **)((char *)node + 0x54);
-                *(s32 *)((char *)p54 + 0x20) |= 0x14;
+                state = *(void **)((char *)node + 0x54);
+                *(s32 *)((char *)state + 0x20) &= hi_mask;
+                state = *(void **)((char *)node + 0x54);
+                *(s32 *)((char *)state + 0x20) |= 0x14;
             }
             join20:
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x14) = (s8)bytes[0];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x1C) = bytes[3];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0xC) = bytes[4];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x10) = bytes[5];
+            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x14) = (s8)data[0];
+            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x1C) = data[3];
+            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0xC) = data[4];
+            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x10) = data[5];
             *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x18) = 0;
             node = *(void **)((char *)node + 4);
         } while (node != NULL);

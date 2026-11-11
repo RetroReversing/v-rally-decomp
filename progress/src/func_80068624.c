@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s8 func_800686D8(s8);                               /* extern */
-extern void *D_800A1468;
+s8 slot_find_upper_before(s8);                               /* extern */
+extern void *gSelectState;
 
 s32 func_80068624(void) {
-    M2C_FIELD(D_800A1468, s8 *, 0x229) = func_800686D8(M2C_FIELD(D_800A1468, s8 *, 0x229));
+    M2C_FIELD(gSelectState, s8 *, 0x229) = slot_find_upper_before(M2C_FIELD(gSelectState, s8 *, 0x229));
     return 0;
 }

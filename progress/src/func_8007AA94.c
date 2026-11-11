@@ -1,34 +1,24 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-M2C_UNK func_800699E4();                            /* extern */
-M2C_UNK func_8006F75C();                            /* extern */
-M2C_UNK func_8007A794();                            /* extern */
-extern void *D_8009B5A4;
+s32 func_800699E4();
+s32 save_race_to_pak();
+s32 func_8007A794();
+extern void *gSceneSlot0;
 extern s16 D_800A0370;
 extern s16 D_800A0372;
 extern u16 D_800A0374;
 extern u16 D_800A0376;
-extern void *D_800A1468;
+extern void *gSelectState;
 
+/* Resets the select screen's view state: clears D_800A0370/0372, copies the scene slot's
+   fields at +4 and +6 into D_800A0374/0376, runs the reset at func_800699E4, marks the
+   select state's entry at +0x2BD as unset (-1), then saves the race and releases the
+   select buffer. */
 void func_8007AA94(void) {
     D_800A0370 = 0;
     D_800A0372 = 0;
-    D_800A0374 = M2C_FIELD(D_8009B5A4, u16 *, 4);
-    D_800A0376 = M2C_FIELD(D_8009B5A4, u16 *, 6);
+    D_800A0374 = *(u16 *)((char *)gSceneSlot0 + 4);
+    D_800A0376 = *(u16 *)((char *)gSceneSlot0 + 6);
     func_800699E4();
-    M2C_FIELD(D_800A1468, s8 *, 0x2BD) = -1;
-    func_8006F75C();
+    *(s8 *)((char *)gSelectState + 0x2BD) = -1;
+    save_race_to_pak();
     func_8007A794();
 }

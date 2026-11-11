@@ -3,19 +3,22 @@ static inline int __repair_inline_sum(int left, int right)
   return left + right;
 }
 
-#define P (*(Obj **)(D_800C02AE+0x32F2))
-extern u8 D_800C02AE[];
-void func_80063264(s32);
+#define CUR_EVENT (*(RaceObj **)(gStreamState+0x32F2))
+extern u8 gStreamState[];
+void markStreamSlotsByTag(s32);
 typedef struct 
 {
   u8 pad[42];
   u16 flags;
   u32 word;
-} Obj;
+} RaceObj;
+
+/* Rebuilds the 8-byte per-slot table at gStreamState+0x327E from the current
+ * event object's flag bits, then queues the matching entries for the HUD. */
 void func_80063328(void)
 {
   u8 i;
-  u8 v;
+  u8 level;
   s32 flags;
   s32 w;
   s32 base;
@@ -25,55 +28,55 @@ void func_80063328(void)
   i = 0;
   do
   {
-    D_800C02AE[0x327E + i] = 0;
+    gStreamState[0x327E + i] = 0;
     i++;
   }
   while (i < 8);
   i = 0;
   do
   {
-    D_800C02AE[0x327E + i] |= 1;
+    gStreamState[0x327E + i] |= 1;
     i++;
   }
   while (i < 8);
-  flags = P->flags;
+  flags = CUR_EVENT->flags;
   w = flags & 0x1000;
-  v = w != 0;
+  level = w != 0;
   if (flags & 0x2000)
   {
-    v++;
+    level++;
   }
   if (flags & 0x4000)
   {
-    v++;
+    level++;
   }
-  switch ((u8) v)
+  switch ((u8) level)
   {
     case 3:
-      func_80063264(15);
-      func_80063264(16);
-      func_80063264(17);
+      markStreamSlotsByTag(15);
+      markStreamSlotsByTag(16);
+      markStreamSlotsByTag(17);
 
     case 2:
-      func_80063264(9);
-      func_80063264(10);
-      func_80063264(11);
-      func_80063264(12);
-      func_80063264(13);
-      func_80063264(14);
+      markStreamSlotsByTag(9);
+      markStreamSlotsByTag(10);
+      markStreamSlotsByTag(11);
+      markStreamSlotsByTag(12);
+      markStreamSlotsByTag(13);
+      markStreamSlotsByTag(14);
 
     case 1:
-      func_80063264(4);
-      func_80063264(5);
-      func_80063264(6);
-      func_80063264(7);
-      func_80063264(8);
+      markStreamSlotsByTag(4);
+      markStreamSlotsByTag(5);
+      markStreamSlotsByTag(6);
+      markStreamSlotsByTag(7);
+      markStreamSlotsByTag(8);
 
     case 0:
-      func_80063264(0);
-      func_80063264(1);
-      func_80063264(2);
-      func_80063264(3);
+      markStreamSlotsByTag(0);
+      markStreamSlotsByTag(1);
+      markStreamSlotsByTag(2);
+      markStreamSlotsByTag(3);
 
   }
 
@@ -83,36 +86,36 @@ void func_80063328(void)
   base2 = 42;
   for (; i < 12; i++)
   {
-    if ((P->flags & (bit << i)) == (bit << i))
+    if ((CUR_EVENT->flags & (bit << i)) == (bit << i))
     {
       if (i < 8)
       {
         off = i * 2;
         off += i;
         off = __repair_inline_sum(base, off);
-        func_80063264(off);
-        func_80063264(off + 1);
-        func_80063264(off + 2);
+        markStreamSlotsByTag(off);
+        markStreamSlotsByTag(off + 1);
+        markStreamSlotsByTag(off + 2);
       }
       else
       {
         off = i - 8;
         off = off * 2;
-        func_80063264(__repair_inline_sum(base, off + 24) & 65534);
+        markStreamSlotsByTag(__repair_inline_sum(base, off + 24) & 65534);
         off = __repair_inline_sum(base2, off);
-        func_80063264((off + 1) & 65535);
+        markStreamSlotsByTag((off + 1) & 65535);
         off += 2;
-        func_80063264(off & 65534);
+        markStreamSlotsByTag(off & 65534);
       }
     }
   }
 
-  if ((P->word & 0x3000000) == 0x3000000)
+  if ((CUR_EVENT->word & 0x3000000) == 0x3000000)
   {
     i = 0;
     do
     {
-      D_800C02AE[0x327E + i] = 255;
+      gStreamState[0x327E + i] = 255;
       i++;
     }
     while (i < 8);

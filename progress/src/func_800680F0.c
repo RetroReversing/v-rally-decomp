@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8005A388();                            /* extern */
-extern void *D_800A1468;
+M2C_UNK selectCopyEntryLabel();                            /* extern */
+extern void *gSelectState;
 extern M2C_UNK func_80068130;
 extern M2C_UNK func_800683CC;
 
 s32 func_800680F0(void) {
-    func_8005A388();
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x288) = &func_80068130;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x28C) = &func_800683CC;
+    selectCopyEntryLabel();
+    M2C_FIELD(gSelectState, M2C_UNK **, 0x288) = &func_80068130;
+    M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &func_800683CC;
     return 0;
 }

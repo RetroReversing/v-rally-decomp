@@ -1,74 +1,76 @@
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
-#define M D_800C35A0
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
-extern u8 *D_800D0634[];
+#define M gRecords
+extern u8 gOrderState[];
+extern u8 gStreamState[];
+extern u8 *gSlotTableB[];
 void func_800529F0(void);
-void func_80052FA0(void);
+void update_record_entries(void);
 void func_800783A8(void);
-extern u8 *D_800C35A0;
+extern u8 *gRecords;
+/* Advances the record counter at +0x22 and, when it reaches the entry's stored
+   target, marks the entry done, runs the refresh steps and resets the state. */
 void func_8005322C(void)
 {
-  u8 *m;
-  u8 *new_var3;
-  u8 *row;
-  u8 **new_var5;
-  u16 a;
-  u8 *new_var2;
-  u8 *new_var4;
-  u8 *new_var;
-  u16 b;
-  u16 c;
+  u8 *state;
+  u8 *flag_tbl;
+  u8 *entry;
+  u8 **slot_ptr;
+  u16 slot;
+  u8 *state2;
+  u8 *tbl2;
+  u8 *entry_copy;
+  u16 index;
+  u16 counter;
   s32 off;
-  m = M;
-  c = H(m, 0x22);
-  new_var3 = D_800AE850 + 0x7db0;
-  a = H(m, 0x1e);
-  new_var5 = &D_800D0634[a];
-  b = H(m, 0x20);
-  c++;
-  off = b * 2;
-  H(m, 0x22) = c;
-  row = (*new_var5) + (b * 0x2c4);
-  if (c == H(row, 0x14))
+  state = M;
+  counter = H(state, 0x22);
+  flag_tbl = gOrderState + 0x7db0;
+  slot = H(state, 0x1e);
+  slot_ptr = &gSlotTableB[slot];
+  index = H(state, 0x20);
+  counter++;
+  off = index * 2;
+  H(state, 0x22) = counter;
+  entry = (*slot_ptr) + (index * 0x2c4);
+  if (counter == H(entry, 0x14))
   {
-    *((s16 *) ((new_var3 + off) + 0x10)) = 1;
-    new_var = row;
-    H(row, 0x10) |= 2;
+    *((s16 *) ((flag_tbl + off) + 0x10)) = 1;
+    entry_copy = entry;
+    H(entry, 0x10) |= 2;
     func_800529F0();
-    func_80052FA0();
+    update_record_entries();
     func_800783A8();
-    m = M;
-    new_var2 = m;
-    D_800C02AE[0x7f4f] = 5;
-    D_800C02AE[0x7f51] = H(new_var2, 0xe);
-    D_800C02AE[0x7f50] = H(new_var2, 0x20);
-    b = H(new_var2, 0x20);
-    H(new_var2, 0x1e) = 8;
+    state = M;
+    state2 = state;
+    gStreamState[0x7f4f] = 5;
+    gStreamState[0x7f51] = H(state2, 0xe);
+    gStreamState[0x7f50] = H(state2, 0x20);
+    index = H(state2, 0x20);
+    H(state2, 0x1e) = 8;
     do
     {
-      if (b < 8)
+      if (index < 8)
       {
-        H(new_var2, 0x22) = b;
+        H(state2, 0x22) = index;
       }
       else
       {
-        switch (b)
+        switch (index)
         {
           case 8:
-            H(new_var2, 0x22) = 0;
+            H(state2, 0x22) = 0;
             break;
 
           case 9:
-            H(new_var2, 0x22) = 3;
+            H(state2, 0x22) = 3;
             break;
 
           case 10:
-            H(new_var2, 0x22) = 5;
+            H(state2, 0x22) = 5;
             break;
 
           case 11:
-            H(new_var2, 0x22) = 6;
+            H(state2, 0x22) = 6;
             break;
 
         }
@@ -76,9 +78,9 @@ void func_8005322C(void)
       }
     }
     while (0);
-    new_var4 = D_800AE850 + 0x8030;
-    new_var2 = new_var4;
-    *(s32 *)new_var2 = 6;
+    tbl2 = gOrderState + 0x8030;
+    state2 = tbl2;
+    *(s32 *)state2 = 6;
     H(M, 0x20) = 0;
   }
 }

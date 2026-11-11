@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8001D458();                            /* extern */
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gStreamState;
 
 void func_8001D3D4(void) {
-    if ((u32) M2C_FIELD(&D_800C02AE, u32 *, 0x32AA) < 2U) {
+    if ((u32) M2C_FIELD(&gStreamState, u32 *, 0x32AA) < 2U) {
         func_8001D458();
     }
 }

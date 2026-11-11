@@ -1,15 +1,17 @@
-s32 func_80022184();
-s32 func_80022200();
-s32 func_80047D18();
-extern char D_800AE850[];
-extern char D_800C02AE[];
+s32 flag_test_bit0();
+s32 flag_clear_bit0();
+s32 stream_list_destroy();
+extern char gOrderState[];
+extern char gStreamState[];
 
+/* If the pending flag (bit 0 of the flag word at gOrderState+0x7380) is set,
+ * frees the stream list at gStreamState+0x7672 and clears the flag. */
 void func_80047C78(void) {
-    void *temp_s0;
+    void *flags;
 
-    temp_s0 = D_800AE850 + 0x7380;
-    if (func_80022184(temp_s0) != 0) {
-        func_80047D18(*(s32 *)(D_800C02AE + 0x7672));
-        func_80022200(temp_s0);
+    flags = gOrderState + 0x7380;
+    if (flag_test_bit0(flags) != 0) {
+        stream_list_destroy(*(s32 *)(gStreamState + 0x7672));
+        flag_clear_bit0(flags);
     }
 }

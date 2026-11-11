@@ -2,8 +2,8 @@ typedef struct { s32 w0; s32 w1; s32 w2; s32 w3; } Chunk;
 extern char D_800A2590[];
 extern char D_800AFAE8[];
 extern char D_800B42E4[];
-extern char D_800C02AE[];
-s32 func_8000E20C();
+extern char gStreamState[];
+s32 scene_setup_frame_buffers();
 s32 osViBlack();
 s32 osViSetEvent();
 s32 osViSetMode();
@@ -11,13 +11,16 @@ s32 osViSetSpecialFeatures();
 void osViSetYScale(f32);
 s32 osCreateViManager();
 
+/* Video setup: starts the VI manager at priority 0xFE, copies the 0x50-byte VI mode table
+ * from D_800A2590+0x730 into D_800AFAE8 (the mode in use), sets that mode, Y scale 1.0,
+ * blanks the screen, marks gStreamState+0x5BA6 as 4, sets the VI event and special features. */
 s32 func_80005890(void)
 {
   char *base;
   Chunk *src;
   Chunk *dst;
 
-  func_8000E20C(0x2217);
+  scene_setup_frame_buffers(0x2217);
   osCreateViManager(0xFE);
   dst = (Chunk *)D_800AFAE8;
   base = D_800A2590;
@@ -30,7 +33,7 @@ s32 func_80005890(void)
   osViSetMode(D_800AFAE8);
   osViSetYScale(1.0f);
   osViBlack(1);
-  D_800C02AE[0x5BA6] = 4;
+  gStreamState[0x5BA6] = 4;
   osViSetEvent(D_800B42E4, 0, 1);
   osViSetSpecialFeatures(0x4A);
   return 1;

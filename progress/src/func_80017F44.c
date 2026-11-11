@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,15 +11,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern f32 D_8009CEC0;
-extern f32 D_8009CEC4;
+extern f32 vtx_scale;
+extern f32 uv_scale;
 extern f32 D_8009CEC8;
 
-void func_80017F44(void **arg0) {
-    void *temp_v0;
+/* Scales the three words of the record that `*ref` points to: word 0 by vtx_scale, word 4
+ * by uv_scale and word 8 by D_8009CEC8, truncating each back to an integer. */
+void func_80017F44(void **ref) {
+    void *rec;
 
-    temp_v0 = *arg0;
-    M2C_FIELD(temp_v0, s32 *, 0) = (s32) ((f32) M2C_FIELD(temp_v0, s32 *, 0) * D_8009CEC0);
-    M2C_FIELD(temp_v0, s32 *, 4) = (s32) ((f32) M2C_FIELD(temp_v0, s32 *, 4) * D_8009CEC4);
-    M2C_FIELD(temp_v0, s32 *, 8) = (s32) ((f32) M2C_FIELD(temp_v0, s32 *, 8) * D_8009CEC8);
+    rec = *ref;
+    M2C_FIELD(rec, s32 *, 0) = (s32) ((f32) M2C_FIELD(rec, s32 *, 0) * vtx_scale);
+    M2C_FIELD(rec, s32 *, 4) = (s32) ((f32) M2C_FIELD(rec, s32 *, 4) * uv_scale);
+    M2C_FIELD(rec, s32 *, 8) = (s32) ((f32) M2C_FIELD(rec, s32 *, 8) * D_8009CEC8);
 }

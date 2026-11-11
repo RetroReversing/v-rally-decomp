@@ -12,15 +12,18 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80034FF0(s32, M2C_UNK);                    /* extern */
-M2C_UNK func_80081540(M2C_UNK *);                   /* extern */
+s32 getTexturePack(s32, M2C_UNK);                    /* extern */
+M2C_UNK resolve_path(M2C_UNK *);                   /* extern */
 extern M2C_UNK D_800A48C0;
-extern M2C_UNK D_800C02AE;
+extern u8 gStreamState[];
 
-void func_8001F4B0(void *arg0) {
-    func_80081540(&D_800A48C0);
-    M2C_FIELD(&D_800C02AE, s32 *, 0x6C22) = func_80034FF0(arg0 + 0x4C, 0);
-    M2C_FIELD(&D_800C02AE, s8 *, 0x6C27) = (s8) M2C_FIELD(arg0, s32 *, 0xDC);
-    M2C_FIELD(&D_800C02AE, s8 *, 0x6C26) = (s8) M2C_FIELD(arg0, s32 *, 0x128);
-    M2C_FIELD(&D_800C02AE, s8 *, 0x6C28) = (s8) M2C_FIELD(arg0, s32 *, 0x174);
+/* Resolves the path in D_800A48C0, then copies three flag bytes from the order
+ * record (+0xDC, +0x128, +0x174) into gStreamState, and stores the result of
+ * getTexturePack on the record's name field (+0x4C) at gStreamState+0x6C22. */
+void func_8001F4B0(void *order) {
+    resolve_path(&D_800A48C0);
+    *(s32 *)(gStreamState + 0x6C22) = getTexturePack((u8 *)order + 0x4C, 0);
+    *(s8 *)(gStreamState + 0x6C27) = (s8) *(s32 *)((u8 *)order + 0xDC);
+    *(s8 *)(gStreamState + 0x6C26) = (s8) *(s32 *)((u8 *)order + 0x128);
+    *(s8 *)(gStreamState + 0x6C28) = (s8) *(s32 *)((u8 *)order + 0x174);
 }

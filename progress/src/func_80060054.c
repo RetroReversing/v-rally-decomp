@@ -1,51 +1,54 @@
-s32 func_800592F4();
-s32 func_8006FA8C();
-extern char D_800C02AE[];
+s32 slot_set_selected();
+s32 stream_refresh_car_flags();
+extern char gStreamState[];
+
+/* Claims the first clear bit (0..3) in the flag byte at +0x2F of the current stream slot
+ * and sets it. Then refreshes the car flags and selects the slot index. Always returns 0. */
 s32 func_80060054(void)
 {
-  s32 var_a2;
-  s32 var_s0;
-  s32 var_v0;
-  s32 var_v1;
+  s32 slot_index;
+  s32 pad_count;
+  s32 bit_shift;
+  s32 flag_value;
   long pad;
-  u8 var_a0;
-  short new_var;
-  void *var_a1;
-  var_s0 = 0;
-  var_a2 = 1;
-  new_var = 1;
+  u8 flags;
+  short one;
+  void *slot;
+  slot_index = 0;
+  pad_count = 1;
+  one = 1;
   loop_1:
-  var_a1 = D_800C02AE + 0x32F2;
+  slot = gStreamState + 0x32F2;
 
-  var_a1 = *((void **) (D_800C02AE + 0x32F2));
-  var_a0 = *((u8 *) (((char *) var_a1) + 0x2F));
-  var_v1 = var_s0 & 0xFF;
-  var_v0 = (var_v0 = (s32) var_a0) >> var_v1;
-  var_v0 &= 1;
-  var_s0 += 1;
-  if (var_v0 == 0)
+  slot = *((void **) (gStreamState + 0x32F2));
+  flags = *((u8 *) (((char *) slot) + 0x2F));
+  bit_shift = slot_index & 0xFF;
+  flag_value = (flag_value = (s32) flags) >> bit_shift;
+  flag_value &= 1;
+  slot_index += 1;
+  if (flag_value == 0)
   {
     do
     {
-      var_v0 = new_var << var_v1;
+      flag_value = one << bit_shift;
     }
     while (0);
-    var_v0 |= var_a0;
-    *((u8 *) (((char *) var_a1) + 0x2F)) = (u8) var_v0;
+    flag_value |= flags;
+    *((u8 *) (((char *) slot) + 0x2F)) = (u8) flag_value;
   }
   else
   {
-    var_v0 = var_s0 & 0xFF;
-    var_v0 = ((u32) var_v0) < 4U;
-    if (var_v0 != 0)
+    flag_value = slot_index & 0xFF;
+    flag_value = ((u32) flag_value) < 4U;
+    if (flag_value != 0)
     {
       goto loop_1;
     }
   }
-  func_8006FA8C(var_a0, var_a1, new_var);
-  var_a0 = 0x1C;
-  var_a1 = (void *) (var_s0 & 0xFF);
-  func_800592F4(0x1C, var_a1);
-  var_v0 = 0;
+  stream_refresh_car_flags(flags, slot, one);
+  flags = 0x1C;
+  slot = (void *) (slot_index & 0xFF);
+  slot_set_selected(0x1C, slot);
+  flag_value = 0;
   return 0;
 }

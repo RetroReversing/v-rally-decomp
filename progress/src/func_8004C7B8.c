@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8004C834(s32);                         /* extern */
-M2C_UNK func_80080478(s32);                         /* extern */
+M2C_UNK heapReleaseBlock(s32);                         /* extern */
 extern s32 D_800A11B0;
 
 void func_8004C7B8(void) {
     func_8004C834(D_800A11B0);
-    func_80080478(D_800A11B0);
+    heapReleaseBlock(D_800A11B0);
     D_800A11B0 = 0;
 }

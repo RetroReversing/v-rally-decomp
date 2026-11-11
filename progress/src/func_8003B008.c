@@ -1,5 +1,5 @@
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 
 typedef struct Info {
     u8 pad0[8];
@@ -43,16 +43,18 @@ typedef struct Game {
     u16 unk1E;
 } Game;
 
-#define GAME (*(Game **)(D_800C02AE + 0x32F2))
+#define GAME (*(Game **)(gStreamState + 0x32F2))
 
+/* Sets the car's HUD colour and flag from its race node. In the normal mode that is the
+ * car's own node; otherwise it is the first unfinished node that belongs to this car. */
 void func_8003B008(void *object) {
-    Car * car = object;
+    Car *car = object;
     Node *n;
 
     if (GAME->unk1E == 0) {
         n = car->holder->node;
     } else {
-        for (n = **(Node ***)(D_800AE850 + 0x73F0); n != NULL; n = n->next) {
+        for (n = **(Node ***)(gOrderState + 0x73F0); n != NULL; n = n->next) {
             if (car->id == n->info->id && n->info->unk20 == 0) {
                 break;
             }

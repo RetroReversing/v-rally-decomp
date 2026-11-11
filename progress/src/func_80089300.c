@@ -12,6 +12,8 @@ extern f64 D_800A6D98;
 extern f64 D_800A6DA0;
 extern f64 D_800A6DA8;
 extern f64 D_800A6DB0;
+/* Approximates a special function of x with polynomials: returns 1 at x == 0, a degree-6 polynomial
+ * in x for x > 0, and 1 / (degree-6 polynomial in |x|) for x < 0. */
 f32 func_80089300(f32 x)
 {
   f32 x4;

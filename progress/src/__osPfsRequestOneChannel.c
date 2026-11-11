@@ -10,33 +10,36 @@ typedef struct {
     s8 f;
 } Pack6;
 
-void __osPfsRequestOneChannel(s32 arg0) {
+/* Writes one controller-pak request into the PIF RAM buffer: zeroes zero_count
+ * bytes, then the 6-byte command header (1, 3, 0, 0xFF, 0xFF, 0xFF), then the
+ * 0xFE terminator. The word at PIF offset 0x3C is set to 1 as the request flag. */
+void __osPfsRequestOneChannel(s32 zero_count) {
     s32 i;
-    Pack6 buf;
-    Pack6 *p;
-    s32 *q;
-    u8 k;
+    Pack6 cmd;
+    Pack6 *pif;
+    s32 *status_word;
+    u8 fill;
     s8 pad[8];
 
-    q = &D_800C816C;
-    p = (Pack6 *)((s8 *)q - 0x3C);
+    status_word = &D_800C816C;
+    pif = (Pack6 *)((s8 *)status_word - 0x3C);
     i = 0;
-    *q = 1;
-    buf.a = 1;
-    buf.b = 3;
+    *status_word = 1;
+    cmd.a = 1;
+    cmd.b = 3;
     D_800C3520 = 0;
-    buf.c = 0;
-    k = 0xFF;
-    buf.d = k;
-    buf.e = k;
-    buf.f = k;
-    if (arg0 > 0) {
+    cmd.c = 0;
+    fill = 0xFF;
+    cmd.d = fill;
+    cmd.e = fill;
+    cmd.f = fill;
+    if (zero_count > 0) {
         do {
-            *(s8 *)p = 0;
+            *(s8 *)pif = 0;
             i++;
-            p = (Pack6 *)((s8 *)p + 1);
-        } while (i < arg0);
+            pif = (Pack6 *)((s8 *)pif + 1);
+        } while (i < zero_count);
     }
-    *p = buf;
-    ((u8 *)p)[6] = 0xFE;
+    *pif = cmd;
+    ((u8 *)pif)[6] = 0xFE;
 }

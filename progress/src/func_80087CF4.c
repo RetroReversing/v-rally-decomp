@@ -1,19 +1,22 @@
 extern f64 D_800A6D18;
 
-void *func_80087CF4(void *arg0, u8 *arg1)
+/* Reads one signed byte from `cursor`, scales it by D_800A6D18, and updates the
+ * object's position at +0x2C from the change since the last delta (kept at +0x88).
+ * Returns the cursor advanced past the byte. */
+void *func_80087CF4(void *obj, u8 *cursor)
 {
-    s32 var_v1;
-    f32 temp_fv0;
-    f32 temp_fv1;
+    s32 raw;
+    f32 delta;
+    f32 position;
 
-    var_v1 = *arg1;
-    arg1++;
-    if (var_v1 & 0x80) {
-        var_v1 |= ~0xFF;
+    raw = *cursor;
+    cursor++;
+    if (raw & 0x80) {
+        raw |= ~0xFF;
     }
-    temp_fv0 = (f32)((f64)(f32)var_v1 * D_800A6D18);
-    temp_fv1 = (*(f32 *)((char *)arg0 + 0x2C) - *(f32 *)((char *)arg0 + 0x88)) + temp_fv0;
-    *(f32 *)((char *)arg0 + 0x88) = temp_fv0;
-    *(f32 *)((char *)arg0 + 0x2C) = temp_fv1;
-    return arg1;
+    delta = (f32)((f64)(f32)raw * D_800A6D18);
+    position = (*(f32 *)((char *)obj + 0x2C) - *(f32 *)((char *)obj + 0x88)) + delta;
+    *(f32 *)((char *)obj + 0x88) = delta;
+    *(f32 *)((char *)obj + 0x2C) = position;
+    return cursor;
 }

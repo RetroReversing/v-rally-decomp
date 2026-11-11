@@ -1,51 +1,52 @@
-void func_8008A290(void *arg0, s32 arg1, s32 arg2, s32 arg3)
+/* Looks up table entry (index & 0xFFFF) at ctx+0x10 (0x14-byte entries) and scans
+ * its records (12 bytes: key at 0, flag byte at 4, value at 8). The first record
+ * with key == key and a clear flag gets value stored in its value field. */
+void func_8008A290(void *ctx, s32 index, s32 key, s32 value)
 {
-  char *var_a1;
-  s32 var_t0;
-  s32 new_var2;
-  void *temp_t1;
-  char *new_var;
-  void *var_a0;
-  temp_t1 = (*((s32 *) (((char *) arg0) + 0x10))) + ((arg1 & 0xFFFF) * 0x14);
-  new_var2 = arg2;
-  var_a1 = *((char **) (((char *) temp_t1) + 4));
-  var_t0 = 0;
-  if ((*((u8 *) (((char *) temp_t1) + 0xF))) == 0)
+  char *entry;
+  char *rec;
+  char *val;
+  s32 i;
+  s32 key_copy;
+
+  entry = (*((s32 *) (((char *) ctx) + 0x10))) + ((index & 0xFFFF) * 0x14);
+  key_copy = key;
+  rec = *((char **) (((char *) entry) + 4));
+  i = 0;
+  if ((*((u8 *) (((char *) entry) + 0xF))) == 0)
   {
-    goto block_10;
+    goto done;
   }
-  var_a0 = var_a1;
-  var_a0 = var_a0 + 8;
-  loop_2:
-  if ((*(s32 *)var_a1) == new_var2)
+  val = rec + 8;
+  scan:
+  if ((*(s32 *)rec) == key_copy)
   {
-    goto block_4;
+    goto check_flag;
   }
 
-  var_t0 += 1;
-  goto block_9;
-  new_var = (char *) var_a0;
-  block_4:
-  if ((*((s8 *) (((char *) var_a0) + (-4)))) == 0)
+  i += 1;
+  goto next_rec;
+  check_flag:
+  if ((*((s8 *) (((char *) val) + (-4)))) == 0)
   {
-    goto block_7;
+    goto store;
   }
 
-  var_t0 += 1;
-  goto block_9;
-  block_7:
-  *((s32 *) (((char *) var_a0) + 0)) = arg3;
+  i += 1;
+  goto next_rec;
+  store:
+  *((s32 *) (((char *) val) + 0)) = value;
 
   return;
-  block_9:
-  var_a0 += 0xC;
+  next_rec:
+  val += 0xC;
 
-  var_a1 += 0xC;
-  if (((u32) (var_t0 & 0xFFFF)) < ((u8) (*((u8 *) (((char *) temp_t1) + 0xF)))))
+  rec += 0xC;
+  if (((u32) (i & 0xFFFF)) < ((u8) (*((u8 *) (((char *) entry) + 0xF)))))
   {
-    goto loop_2;
+    goto scan;
   }
-  block_10:
+  done:
   return;
 
 }

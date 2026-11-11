@@ -13,24 +13,25 @@ typedef struct {
     u16 w8;
     u16 wA;
     u16 wC;
-} Rec14;
+} GlyphRecord;
 
 extern u8 D_800A16F4[];
-extern Rec14 D_800C70D4[];
+extern GlyphRecord gRecordGlyphs[];
 
-void func_8006F4A8(u8 arg0) {
-    Rec14 *r;
+/* Resets glyph record slot `slot` to its default settings. The mode depends on the slot index. */
+void func_8006F4A8(u8 slot) {
+    GlyphRecord *r;
 
-    D_800A16F4[arg0] = 2;
-    r = &D_800C70D4[arg0];
+    D_800A16F4[slot] = 2;
+    r = &gRecordGlyphs[slot];
     r->on = 1;
     r->a = 0xF;
     r->b = 0xB;
-    r->id = arg0;
+    r->id = slot;
     r->level = 0x7F;
     r->c = 0x55;
     r->param = 0x492;
-    switch (arg0) {
+    switch (slot) {
     case 0:
         r->mode = 4;
         break;

@@ -1,14 +1,36 @@
-extern s32 D_800B7070; extern u32 D_8009D540; extern u8 D_800A54B0[]; extern u8 D_800C02AE[];void *text_obj_get(u32); extern s32 func_80059618(void *,u8,u8,u8,s32); void func_800596F4(void *, s16, s16, void *); extern s32 func_80099DF8(s32 *,u8 *,s32);
-void func_8005E6AC(void) {
- s32 sp18; u8 *p; u8 *v1; s32 v0; void *s0; u32 quotient;
- p=*(u8 **)(D_800C02AE+0x325A);
- v1=*(u8 **)(p+0x10)+*(s16 *)(p+2)*20;
- if(D_800B7070>0){v0=D_800B7070-1; D_800B7070=v0; if(v0==0){*(s32 *)(v1+0x10)=1; *(s16 *)(p+4)=0;}}
- else *(s32 *)(v1+0x10)=1;
- quotient=D_800B7070/D_8009D540;
+extern s32 D_800B7070; extern u32 gRecordTimeScale; extern u8 D_800A54B0[]; extern u8 gStreamState[];void *textObjGet(u32); extern s32 group_set_color(void *,u8,u8,u8,s32); void draw_palette_sprite(void *, s16, s16, void *); extern s32 formatString(s32 *,u8 *,s32);
 
- func_80099DF8(&sp18,D_800A54B0,quotient&0xffff);
- s0=text_obj_get(5);
- func_80059618(s0,*((u8*)s0+0xB),*((u8*)s0+0xC),*((u8*)s0+0xD),*((u8*)s0+0xE));
- func_800596F4((void *)(s0),(s16)(*(s16*)((u8*)s0+6)),(s16)(*(s16*)((u8*)s0+8)),(void *)(&sp18));
+/* Counts the timer down by one tick per call (once it reaches zero it stops the timer
+ * entry), then formats the seconds value into a string and draws it with text object 5. */
+void func_8005E6AC(void)
+{
+ s32 text_len;
+ u8 *stream_entry;
+ u8 *timer_entry;
+ s32 remaining;
+ void *text;
+ u32 seconds;
+
+ stream_entry = *(u8 **)(gStreamState + 0x325A);
+ timer_entry = *(u8 **)(stream_entry + 0x10) + *(s16 *)(stream_entry + 2) * 20;
+ if (D_800B7070 > 0)
+ {
+  remaining = D_800B7070 - 1;
+  D_800B7070 = remaining;
+  if (remaining == 0)
+  {
+   *(s32 *)(timer_entry + 0x10) = 1;
+   *(s16 *)(stream_entry + 4) = 0;
+  }
+ }
+ else
+ {
+  *(s32 *)(timer_entry + 0x10) = 1;
+ }
+ seconds = D_800B7070 / gRecordTimeScale;
+
+ formatString(&text_len, D_800A54B0, seconds & 0xffff);
+ text = textObjGet(5);
+ group_set_color(text, *((u8 *)text + 0xB), *((u8 *)text + 0xC), *((u8 *)text + 0xD), *((u8 *)text + 0xE));
+ draw_palette_sprite((void *)(text), (s16)(*(s16 *)((u8 *)text + 6)), (s16)(*(s16 *)((u8 *)text + 8)), (void *)(&text_len));
 }

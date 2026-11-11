@@ -1,5 +1,6 @@
-extern char D_800AE850[];
+extern u8 gOrderState[];
 
+/* Zeroes a table of 4 words by 5 rows at gOrderState+0x7EC8, rows 0x10 bytes apart. */
 void func_80052844(void)
 {
     u8 i;
@@ -8,7 +9,7 @@ void func_80052844(void)
     u32 row;
     u32 base;
 
-    base = (u32)(D_800AE850 + 0x7DB0);
+    base = (u32)(gOrderState + 0x7DB0);
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 5; j++) {
             off = j << 4;

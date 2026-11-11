@@ -1,4 +1,4 @@
-extern char *D_800A1B70;
+extern char *gContCtx;
 
 unsigned char func_80084E10(void)
 {
@@ -8,7 +8,7 @@ unsigned char func_80084E10(void)
     cnt = 0;
     i = 0;
     do {
-        if ((D_800A1B70[i * 4 + 0xF] & 8) == 0) {
+        if ((gContCtx[i * 4 + 0xF] & 8) == 0) {
             cnt++;
         }
         i++;

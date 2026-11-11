@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 s8 func_80068658(s8);                               /* extern */
-extern void *D_800A1468;
+extern void *gSelectState;
 
 s32 func_80066F24(void) {
-    M2C_FIELD(D_800A1468, s8 *, 0x228) = func_80068658(M2C_FIELD(D_800A1468, s8 *, 0x228));
+    M2C_FIELD(gSelectState, s8 *, 0x228) = func_80068658(M2C_FIELD(gSelectState, s8 *, 0x228));
     return 0;
 }

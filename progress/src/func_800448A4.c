@@ -1,20 +1,23 @@
-s32 func_80023648();
+s32 car_heading_error();
 
-void func_800448A4(void *arg0) {
-    s32 temp_v1;
-    s32 var_v0;
-    s32 c;
+/* Sets flag 0x20 in the car's flags word (+0x14) while its heading error is
+ * between 0x501 and 0xAFF, i.e. the car is facing away from the track.
+ * Flag 0x80 clears 0x20 again. */
+void func_800448A4(void *car) {
+    s32 flags;
+    s32 new_flags;
+    s32 err;
 
-    c = func_80023648();
-    temp_v1 = ~0x20;
-    if ((u32)(c - 0x501) < 0x5FFU) {
-        var_v0 = *(vs32 *)((char *)arg0 + 0x14) | 0x20;
+    err = car_heading_error();
+    flags = ~0x20;
+    if ((u32)(err - 0x501) < 0x5FFU) {
+        new_flags = *(vs32 *)((char *)car + 0x14) | 0x20;
     } else {
-        var_v0 = temp_v1 & *(vs32 *)((char *)arg0 + 0x14);
+        new_flags = flags & *(vs32 *)((char *)car + 0x14);
     }
-    *(vs32 *)((char *)arg0 + 0x14) = var_v0;
-    temp_v1 = *(vs32 *)((char *)arg0 + 0x14);
-    if (temp_v1 & 0x80) {
-        *(vs32 *)((char *)arg0 + 0x14) = temp_v1 & ~0x20;
+    *(vs32 *)((char *)car + 0x14) = new_flags;
+    flags = *(vs32 *)((char *)car + 0x14);
+    if (flags & 0x80) {
+        *(vs32 *)((char *)car + 0x14) = flags & ~0x20;
     }
 }

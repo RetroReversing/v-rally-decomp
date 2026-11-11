@@ -30,15 +30,18 @@ typedef struct Record
   u16 count;
   u8 pad16[0x2C4 - 0x16];
 } Record;
-extern Game *D_800C35A0;
+extern Game *gRecords;
 extern Record *D_800D0658;
 typedef struct Cursor { s16 marker; u16 position; } Cursor;
 extern Cursor D_800ADFDC;
-extern u8 D_800ADFE0;
+extern u8 gCurCount;
 extern u8 D_800B55E0;
 extern u8 D_800B6FF2[];
 extern u8 D_800B6FF6;
 
+/* Works out the five display values for the race HUD from the stats block: each
+   value is scaled by the difficulty and the bonus percentage, and when the
+   finishing cars are all in lap 3 the four top values get the late-race boost. */
 void func_80046E54(Stat *s)
 {
   u32 i;
@@ -49,16 +52,16 @@ void func_80046E54(Stat *s)
   s32 v;
   u16 t;
   D_800ADFDC.marker = -1;
-  if ((*((u16 *) (((u8 *) D_800C35A0) + 0x1E))) != 0)
+  if ((*((u16 *) (((u8 *) gRecords) + 0x1E))) != 0)
   {
-    D_800ADFE0 = s[1].v + 1;
+    gCurCount = s[1].v + 1;
   }
   else
-    if ((D_800ADFE0 = D_800C35A0->b30) != 0)
+    if ((gCurCount = gRecords->b30) != 0)
   {
-    D_800ADFE0 = D_800ADFE0 + 1;
+    gCurCount = gCurCount + 1;
   }
-  if ((D_800C35A0->state == 0) && (D_800C35A0->players == 4))
+  if ((gRecords->state == 0) && (gRecords->players == 4))
   {
     D_800ADFDC.position = 0x10;
   }
@@ -69,25 +72,25 @@ void func_80046E54(Stat *s)
   {
     v = s[i + 3].v;
     D_800B6FF2[i] = v;
-    if (D_800C35A0->diff == 0)
+    if (gRecords->diff == 0)
     {
       D_800B6FF2[i] = ((((u8) v) * D_800B55E0) / 50) + v;
     }
-    if (D_800C35A0->diff == 1)
+    if (gRecords->diff == 1)
     {
       D_800B6FF2[i] = D_800B6FF2[i] + ((D_800B6FF2[i] * D_800B55E0) / 100);
     }
     i++;
   }
   while (i < 5);
-  if ((D_800C35A0->state != 0) & (D_800C35A0->state < 5))
+  if ((gRecords->state != 0) & (gRecords->state < 5))
   {
-    t = D_800D0658[D_800C35A0->slots[D_800C35A0->order[0]].car].count;
-    n = D_800C35A0->players;
+    t = D_800D0658[gRecords->slots[gRecords->order[0]].car].count;
+    n = gRecords->players;
     flag = (t == 1) || (t == 3);
     if (n == 2)
     {
-      t = D_800D0658[D_800C35A0->slots[D_800C35A0->order[1]].car].count;
+      t = D_800D0658[gRecords->slots[gRecords->order[1]].car].count;
       flag = (t == 1) || (t == 3);
     }
     if (flag == 1)
@@ -95,13 +98,13 @@ void func_80046E54(Stat *s)
       cnt = 0;
       for (j = 0; j < n; j++)
       {
-        if (D_800D0658[D_800C35A0->slots[D_800C35A0->order[j]].car].count == 3)
+        if (D_800D0658[gRecords->slots[gRecords->order[j]].car].count == 3)
         {
           cnt++;
         }
       }
 
-      if (cnt == D_800C35A0->players)
+      if (cnt == gRecords->players)
       {
         for (j = 0; j < 4; j++)
         {
@@ -120,4 +123,3 @@ void func_80046E54(Stat *s)
     }
   }
 }
-

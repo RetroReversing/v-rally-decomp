@@ -1,27 +1,28 @@
-void func_80089B8C(u8 *arg0)
+/* Updates one sequence group: calls the handler of each active member entry,
+ * then the group's own handler. Groups are 0x14 bytes, members 0xC bytes. */
+void func_80089B8C(u8 *group)
 {
-  u8 *temp_s0;
-  u8 *temp_v0;
-  u8 var_a2;
-  s32 temp_a1;
-  temp_s0 = (*((u8 **) (arg0 + 0x10))) + ((*((s16 *) (arg0 + 2))) * 0x14);
-  var_a2 = 0;
-  if (temp_s0[0xC] != 0)
+  u8 *grp;
+  u8 idx;
+  s32 slot;
+  grp = (*((u8 **) (group + 0x10))) + ((*((s16 *) (group + 2))) * 0x14);
+  idx = 0;
+  if (grp[0xC] != 0)
   {
     do
     {
       ;
-      if (((*((void (**)(s32, s32, s32)) ((*((u8 **) (temp_s0 + 8))) + (var_a2 * 0xC)))) != NULL) && (((*((u8 **) (temp_s0 + 8))) + (var_a2 * 0xC))[0xA] != 0))
+      if (((*((void (**)(s32, s32, s32)) ((*((u8 **) (grp + 8))) + (idx * 0xC)))) != NULL) && (((*((u8 **) (grp + 8))) + (idx * 0xC))[0xA] != 0))
       {
-        temp_a1 = var_a2 + temp_s0[0xD];
-        (*((void (**)(s32, s32, s32)) ((*((u8 **) (temp_s0 + 8))) + (var_a2 * 0xC))))(temp_a1 == temp_s0[0xE], temp_a1, var_a2);
+        slot = idx + grp[0xD];
+        (*((void (**)(s32, s32, s32)) ((*((u8 **) (grp + 8))) + (idx * 0xC))))(slot == grp[0xE], slot, idx);
       }
-      var_a2++;
+      idx++;
     }
-    while (var_a2 < temp_s0[0xC]);
+    while (idx < grp[0xC]);
   }
-  if ((*((void (**)()) temp_s0)) != NULL)
+  if ((*((void (**)()) grp)) != NULL)
   {
-    (*((void (**)()) temp_s0))();
+    (*((void (**)()) grp))();
   }
 }

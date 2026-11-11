@@ -30,97 +30,103 @@ typedef struct
   s16 c;
   s8 d;
 } Params;
-extern s32 D_8009F640;
-extern Config *D_800A1468;
+extern s32 gRaceFlags;
+extern Config *gSelectState;
 extern Params D_800A5450;
 extern Params D_800A545C;
 extern Params D_800A5468;
 extern Params D_800A5474;
-extern u8 D_800AE850[];
-extern Root *D_800C3508;
-extern s32 D_800C3558;
+extern u8 gOrderState[];
+extern Root *gLeague;
+extern s32 gSelectStep;
 void func_80084AF4(void);
 void func_80084AD8(void);
 s32 func_80084DD4(s32);
 void func_8005A338(s32, s32);
 void func_8002FB64(void);
 void func_8005E1B8(void);
-s32 func_800857C0(s32, s32);
+s32 cont_port_is_connected(s32, s32);
 void func_8005E68C(void);
 void func_8005E6AC(void);
 void func_8005E820(void);
-s32 func_8005D96C(s32 arg0, s32 arg1)
+
+/* Picks the attract/league state for the menu: sets the league state code, copies the
+ * matching parameter block into the config and installs the menu callbacks. The
+ * state depends on the save-slot checks: state 1 when no slot is valid, 2 when the
+ * flag bit is set, 3 when the count is zero, otherwise a slot scan decides between
+ * the normal state (5) and the plain callback. */
+s32 func_8005D96C(s32 setup_a, s32 setup_b)
 {
-  s32 s0;
-  s32 s1;
-  u32 mask;
-  s32 s2;
-  u32 s4;
-  void (*new_var)(void);
+  s32 slot;
+  s32 i;
+  u32 flags;
+  s32 all_ok;
+  u32 n_slots;
+  void (*fn)(void);
   u8 temp;
-  Root *r;
+  Root *root;
   func_80084AF4();
   func_80084AD8();
-  if ((func_80084DD4(0) == 0) || ((temp = D_800AE850[0x7D50]) == 0))
+  if ((func_80084DD4(0) == 0) || ((temp = gOrderState[0x7D50]) == 0))
   {
     ;
-    D_800C3508->p10->p4->state = 1;
+    gLeague->p10->p4->state = 1;
     ;
-    __builtin_memcpy(((u8 *) D_800A1468) + 0x1f8, &D_800A5450, 11);
-    func_8005A338(arg0, arg1);
-    new_var = func_8005E68C;
-    D_800A1468->f288 = new_var;
-    D_800A1468->f28c = func_8005E6AC;
+    __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A5450, 11);
+    func_8005A338(setup_a, setup_b);
+    fn = func_8005E68C;
+    gSelectState->f288 = fn;
+    gSelectState->f28c = func_8005E6AC;
     goto done;
   }
-  if ((short) (mask = D_8009F640 & 0x8000))
+  if ((short) (flags = gRaceFlags & 0x8000))
   {
     ;
-    D_800C3508->p10->p4->state = 2;
+    gLeague->p10->p4->state = 2;
     ;
-    __builtin_memcpy(((u8 *) D_800A1468) + 0x1f8, &D_800A545C, 10);
-    func_8005A338(arg0, arg1);
+    __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A545C, 10);
+    func_8005A338(setup_a, setup_b);
     return 0;
   }
-  s2 = 1;
-  if (D_800C3558 == 0)
+  all_ok = 1;
+  if (gSelectStep == 0)
   {
-    D_800C3508->p10->p4->state = 3;
+    gLeague->p10->p4->state = 3;
     ;
-    __builtin_memcpy(((u8 *) D_800A1468) + 0x1f8, &D_800A5468, 11);
-    func_8005A338(arg0, arg1);
+    __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A5468, 11);
+    func_8005A338(setup_a, setup_b);
     return 0;
   }
-  s1 = 0;
-  if (mask < temp)
+  i = 0;
+  if (flags < temp)
   {
-    s4 = temp;
+    n_slots = temp;
     do
     {
-      s0 = s1 & 255;
-      if (func_80084DD4(s0))
+      slot = i & 255;
+      if (func_80084DD4(slot))
       {
-        s2 &= -(func_800857C0(s0, 2) != 0);
+        all_ok &= -(cont_port_is_connected(slot, 2) != 0);
       }
-      s1++;
+      i++;
     }
-    while ((s1 & 255) < s4);
+    while ((i & 255) < n_slots);
   }
-  if ((s2 & 255) != 0)
+  if ((all_ok & 255) != 0)
   {
     func_80084AF4();
     func_80084AD8();
     func_8002FB64();
-    D_800C3508->p10->p4->state = 5;
-    r = D_800A1468;
-    __builtin_memcpy(((u8 *) r) + 0x1f8, &D_800A5474, 9);
-    func_8005A338(arg0, arg1);
+    gLeague->p10->p4->state = 5;
+    root = gSelectState;
+    __builtin_memcpy(((u8 *) root) + 0x1f8, &D_800A5474, 9);
+    func_8005A338(setup_a, setup_b);
     func_8005E1B8();
   }
   else
   {
-    func_8005A338(arg0, arg1);
-    D_800A1468->f28c = func_8005E820;
+    func_8005A338(setup_a, setup_b);
+    gSelectState->f28c = func_8005E820;
   }
 done:
   return 0;

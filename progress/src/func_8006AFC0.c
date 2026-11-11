@@ -1,21 +1,23 @@
-extern char *D_800A1468;
-extern char D_800C02AE[];
-s32 func_800592F4();
+extern char *gSelectState;
+extern char gStreamState[];
+s32 slot_set_selected();
 
-s32 func_8006AFC0(s32 arg0)
+/* Steps the toggle byte (+9) of the current select entry: 0 counts up, anything else counts down,
+ * then passes the new value to slot_set_selected. Always returns 1. */
+s32 func_8006AFC0(s32 slot)
 {
     char *base;
-    char *obj;
-    u8 idx;
+    char *entry;
+    u8 index;
 
-    base = *(char **)(D_800C02AE + 0x32F2);
-    idx = *(u8 *)(base + *(s8 *)(D_800A1468 + 0x228) + 0x32);
-    obj = base + (idx * 40 + 0x44);
-    if (*(u8 *)(obj + 9) == 0) {
-        *(u8 *)(obj + 9) = *(u8 *)(obj + 9) + 1;
+    base = *(char **)(gStreamState + 0x32F2);
+    index = *(u8 *)(base + *(s8 *)(gSelectState + 0x228) + 0x32);
+    entry = base + (index * 40 + 0x44);
+    if (*(u8 *)(entry + 9) == 0) {
+        *(u8 *)(entry + 9) = *(u8 *)(entry + 9) + 1;
     } else {
-        *(u8 *)(obj + 9) = *(u8 *)(obj + 9) - 1;
+        *(u8 *)(entry + 9) = *(u8 *)(entry + 9) - 1;
     }
-    func_800592F4(arg0, *(u8 *)(obj + 9));
+    slot_set_selected(slot, *(u8 *)(entry + 9));
     return 1;
 }

@@ -12,38 +12,38 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern int D_800C8328;
-extern int D_800B6880;
-s32 func_800056FC();
-void *func_80006008();
-s32 func_80006014();
-s32 func_800061FC();
-s32 func_80006298();
-s32 func_800068C0();
-s32 func_80006CF8();
-s32 func_80007404();
+extern int gSelectStepHandle;
+extern int gRaceState;
+s32 view_get_ctx_id();
+void *gfx_get_dl();
+s32 gfx_set_dl();
+s32 gfx_push_mtx();
+s32 gfx_round_vtx_pos();
+s32 gfx_set_quad_pos();
+s32 gfx_append_quad();
+s32 gfx_set_quad_colors();
 void func_8000C22C(void *, s32, s32, s32, u8);
 s32 func_8000C244();
 s32 func_8000C9B0(void *, void *, u8, f32, u8);
-s32 func_8001BD1C();
-s32 *func_80057918();
+s32 mtx_pool_alloc();
+s32 *pool_get_item();
 s32 func_80084BF0();
 s8 func_80084C0C();
 s32 func_80084DD4();
 s32 func_80085778();
 s32 func_800857A0();
-s32 func_80099DF8();
+s32 formatString();
 s32 guMtxF2L(s32 *, s32);                   /* extern */
 s32 guMtxIdent(void *);                         /* extern */
 s32 guOrthoF(s32 *, f32, f32, f32, f32, f32, f32, f32); /* extern */
-extern s32 D_8009D538;
+extern s32 gPadFlags;
 extern s32 D_800A0200;
 extern char D_800A0208[];
-extern s32 D_800A1234;
+extern s32 gCarEntries;
 extern char D_800A4E04[];
 extern char D_800A4E18[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 
 void func_80043F70(void **arg0) {
     char sp48[32];
@@ -81,46 +81,46 @@ void func_80043F70(void **arg0) {
     void *q1,*q2,*q3;
     s32 resetBase;
 
-    temp_s0 = D_800C02AE + 0x80D2;
+    temp_s0 = gStreamState + 0x80D2;
     guMtxIdent(temp_s0);
-    temp_v0 = func_800056FC(M2C_FIELD(*(void * *)(D_800C02AE + 0x7CD6), void **, 0x178));
-    temp_v0_2 = func_80006008(temp_v0);
+    temp_v0 = view_get_ctx_id(M2C_FIELD(*(void * *)(gStreamState + 0x7CD6), void **, 0x178));
+    temp_v0_2 = gfx_get_dl(temp_v0);
     M2C_FIELD(temp_v0_2, s32 *, 0) = 0xDA380003;
     M2C_FIELD(temp_v0_2, void **, 4) = temp_s0;
-    func_80006014(temp_v0, temp_v0_2 + 8);
-    temp_s0_2 = func_8001BD1C();
-    temp_v1 = M2C_FIELD(*(void * *)(D_800C02AE + 0x7CD6), void **, 0x178); guOrthoF(&sp68, (f32) M2C_FIELD(temp_v1, s16 *, 8), (f32) M2C_FIELD(temp_v1, s16 *, 0xC), (f32) M2C_FIELD(temp_v1, s16 *, 0xE), (f32) M2C_FIELD(temp_v1, s16 *, 0xA), -1.0f, 10.0f, 1.0f);
+    gfx_set_dl(temp_v0, temp_v0_2 + 8);
+    temp_s0_2 = mtx_pool_alloc();
+    temp_v1 = M2C_FIELD(*(void * *)(gStreamState + 0x7CD6), void **, 0x178); guOrthoF(&sp68, (f32) M2C_FIELD(temp_v1, s16 *, 8), (f32) M2C_FIELD(temp_v1, s16 *, 0xC), (f32) M2C_FIELD(temp_v1, s16 *, 0xE), (f32) M2C_FIELD(temp_v1, s16 *, 0xA), -1.0f, 10.0f, 1.0f);
     guMtxF2L(&sp68, temp_s0_2);
-    func_800061FC(temp_v0, temp_s0_2);
+    gfx_push_mtx(temp_v0, temp_s0_2);
     temp_s3 = *arg0;
     M2C_FIELD(temp_s3, s8 *, 0xF) = 0;
     temp_s0_3 = ((s32) (0x140 - (func_8000C9B0((void *)(temp_s3 + 0x10), (void *)(&D_800A4E04), (u8)(1), (f32)(1.0f), (u8)(0)) & 0xFFFF)) / 2) - 0xA;
-    temp_v0_3 = func_80006008(temp_v0);
+    temp_v0_3 = gfx_get_dl(temp_v0);
     M2C_FIELD(temp_v0_3, s32 *, 0) = 0xDE000000;
     M2C_FIELD(temp_v0_3, s32 **, 4) = &D_800A0208;
-    func_80006014(temp_v0, temp_v0_3 + 8);
-    temp_s2 = func_80006CF8(temp_v0, 0) & 0xFFFF;
+    gfx_set_dl(temp_v0, temp_v0_3 + 8);
+    temp_s2 = gfx_append_quad(temp_v0, 0) & 0xFFFF;
     temp_s1 = 0x140 - temp_s0_3;
-    func_800068C0(temp_v0, temp_s2, temp_s0_3, 0x3C, 0, (s32) temp_s0_3, 0xAF, 0, (s32) temp_s1, 0xAF, 0, (s32) temp_s1, 0x3C, 0);
-    func_80007404(temp_v0, temp_s2, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA);
-    func_80006298(temp_v0);
+    gfx_set_quad_pos(temp_v0, temp_s2, temp_s0_3, 0x3C, 0, (s32) temp_s0_3, 0xAF, 0, (s32) temp_s1, 0xAF, 0, (s32) temp_s1, 0x3C, 0);
+    gfx_set_quad_colors(temp_v0, temp_s2, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA, 0x1E, 0x32, 0x94, 0xAA);
+    gfx_round_vtx_pos(temp_v0);
     var_s0=0;
-    if (M2C_FIELD(*(void **)(D_800C02AE+0x32F2),u16 *,0xE)!=0) do {
+    if (M2C_FIELD(*(void **)(gStreamState+0x32F2),u16 *,0xE)!=0) do {
         if (!func_80084DD4(var_s0 & 255)) goto fail;
         var_s0++;
-    } while ((u16)var_s0 < M2C_FIELD(*(void **)(D_800C02AE+0x32F2),u16 *,0xE));
+    } while ((u16)var_s0 < M2C_FIELD(*(void **)(gStreamState+0x32F2),u16 *,0xE));
 block_3:
-    temp_s6 = **(void ** *)(D_800AE850 + 0x73F0);
-    if ((M2C_FIELD(temp_s6, s32 *, 0x14) & 0x200) && !(D_8009D538 & 1)) {
-        temp_s2_2 = M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0x36);
+    temp_s6 = **(void ** *)(gOrderState + 0x73F0);
+    if ((M2C_FIELD(temp_s6, s32 *, 0x14) & 0x200) && !(gPadFlags & 1)) {
+        temp_s2_2 = M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u16 *, 0x36);
         func_8000C22C((void *)(M2C_FIELD(temp_s3, s32 *, 0x10)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
         temp_s1_2 = temp_s3 + 0x10;
-        var_s0 = func_8000C9B0((void *)(temp_s1_2), (void *)(func_80057918(D_800C8328, 0xEE)), (u8)(1), (f32)(1.0f), (u8)(0));
+        var_s0 = func_8000C9B0((void *)(temp_s1_2), (void *)(pool_get_item(gSelectStepHandle, 0xEE)), (u8)(1), (f32)(1.0f), (u8)(0));
         func_8000C22C((void *)(M2C_FIELD(temp_s3, s32 *, 0x10)), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
-        text=func_80057918(D_800C8328, 0xEE);
+        text=pool_get_item(gSelectStepHandle, 0xEE);
         func_8000C244(M2C_FIELD(temp_s3, s32 *, 0x10), temp_v0, 0xA0 - ((u32) (var_s0 & 0xFFFF) >> 1), 0x46, text, 0);
         func_8000C22C((void *)(M2C_FIELD(temp_s3, s32 *, 0x10)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-        func_80099DF8(&sp48, &D_800A4E18, func_80057918(D_800C8328, 0xEF), temp_s2_2);
+        formatString(&sp48, &D_800A4E18, pool_get_item(gSelectStepHandle, 0xEF), temp_s2_2);
         func_8000C244(M2C_FIELD(temp_s3, s32 *, 0x10), temp_v0, 0xA0 - ((u32) (func_8000C9B0((void *)(temp_s1_2), (void *)(&sp48), (u8)(1), (f32)(1.0f), (u8)(0)) & 0xFFFF) >> 1), 0x5A, &sp48, 0);
         y=125;
         if (M2C_FIELD(temp_s3, u16 *, 0xC) == 0) {
@@ -129,8 +129,8 @@ block_3:
             func_8000C22C((void *)(M2C_FIELD(temp_s3,s32 *,0x10)),(s32)(255),(s32)(255),(s32)(255),(u8)(255));
         }
 
-        var_s0 = func_8000C9B0((void *)(temp_s3 + 0x10), (void *)(func_80057918(D_800C8328, 0xF0)), (u8)(1), (f32)(1.0f), (u8)(0));
-        text=func_80057918(D_800C8328, 0xF0);
+        var_s0 = func_8000C9B0((void *)(temp_s3 + 0x10), (void *)(pool_get_item(gSelectStepHandle, 0xF0)), (u8)(1), (f32)(1.0f), (u8)(0));
+        text=pool_get_item(gSelectStepHandle, 0xF0);
         func_8000C244(M2C_FIELD(temp_s3, s32 *, 0x10), temp_v0, 0xA0 - ((u32) (var_s0 & 0xFFFF) >> 1), y, text, 0);
         y+=20;
         if (M2C_FIELD(temp_s3, u16 *, 0xC) != 0) {
@@ -139,8 +139,8 @@ block_3:
             func_8000C22C((void *)(M2C_FIELD(temp_s3,s32 *,0x10)),(s32)(255),(s32)(255),(s32)(255),(u8)(255));
         }
 
-        var_s0 = func_8000C9B0((void *)(temp_s3 + 0x10), (void *)(func_80057918(D_800C8328, 0xF1)), (u8)(1), (f32)(1.0f), (u8)(0));
-        text=func_80057918(D_800C8328, 0xF1);
+        var_s0 = func_8000C9B0((void *)(temp_s3 + 0x10), (void *)(pool_get_item(gSelectStepHandle, 0xF1)), (u8)(1), (f32)(1.0f), (u8)(0));
+        text=pool_get_item(gSelectStepHandle, 0xF1);
         func_8000C244(M2C_FIELD(temp_s3, s32 *, 0x10), temp_v0, 0xA0 - ((u32) (var_s0 & 0xFFFF) >> 1), y, text, 0);
         temp_v0_4 = func_80084BF0(0);
         func_80085778(0, temp_v0_4);
@@ -153,14 +153,14 @@ block_3:
             if (M2C_FIELD(temp_s3, u16 *, 0xC) != 0) {
                 goto cancel;
             } else {
-                temp_v0_6 = M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0x36);
+                temp_v0_6 = M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u16 *, 0x36);
                 if (temp_v0_6 != 0) {
-                    M2C_FIELD(*(void * *)(D_800C02AE + 0x32F2), u16 *, 0x36) = (u16) (temp_v0_6 - 1);
+                    M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u16 *, 0x36) = (u16) (temp_v0_6 - 1);
                 }
-                var_a0 = **(void ** *)(D_800AE850 + 0x73F0);
+                var_a0 = **(void ** *)(gOrderState + 0x73F0);
                 D_800A0200 = 1;
                 if (var_a0 != NULL) {
-                    resetBase=D_800A1234;
+                    resetBase=gCarEntries;
                     do {
                         temp_v1_2 = *M2C_FIELD(var_a0, s32 **, 0x48);
                         if (temp_v1_2 < 5) {
@@ -185,16 +185,16 @@ block_3:
         }
         goto check;
 fail:
-        D_8009D538 |= 2;
+        gPadFlags |= 2;
         return;
 cancel:
         M2C_FIELD(temp_s3, u8 *, 0xE) = 0U;
         func_80085778(0,0x8000);
 check:
         if (M2C_FIELD(temp_s3, u8 *, 0xE) == 0) {
-            D_800B6880 = 1;
+            gRaceState = 1;
             M2C_FIELD(temp_s3, s8 *, 0xF) = 1;
-            var_a0=*(void **)(D_800C02AE+0x32F2);
+            var_a0=*(void **)(gStreamState+0x32F2);
             M2C_FIELD(temp_s6, s32 *, 0x14) &= ~0x200;
             M2C_FIELD(var_a0, u16 *, 0x36) = 0U;
         }

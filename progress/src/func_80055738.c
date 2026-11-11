@@ -1,23 +1,26 @@
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 
-u8 func_80055738(s32 arg0) {
-    u8 *temp_a1;
-    u8 var_t0;
-    u16 var_a2;
+/* Searches the 0x800-entry pointer table at gStreamState+0x3902 for an entry
+ * whose key at +4 equals key. When found, drops that entry's byte at +2 by one
+ * and returns it. */
+u8 func_80055738(s32 key) {
+    u8 *entry;
+    u8 found;
+    u16 i;
 
-    var_t0 = 0;
-    var_a2 = 0;
+    found = 0;
+    i = 0;
     do {
-        temp_a1 = *(u8 **) (D_800C02AE + 0x3902 + var_a2 * 4);
-        if (temp_a1 != NULL) {
-            if (*(s32 *) (temp_a1 + 4) == arg0) {
-                var_t0 = 1;
+        entry = *(u8 **) (gStreamState + 0x3902 + i * 4);
+        if (entry != NULL) {
+            if (*(s32 *) (entry + 4) == key) {
+                found = 1;
             }
         }
-        var_a2 += 1;
-    } while ((var_t0 == 0) && (var_a2 < 0x800));
-    if (var_t0 != 0) {
-        temp_a1[2] = temp_a1[2] - 1;
+        i += 1;
+    } while ((found == 0) && (i < 0x800));
+    if (found != 0) {
+        entry[2] = entry[2] - 1;
     }
-    return temp_a1[2];
+    return entry[2];
 }

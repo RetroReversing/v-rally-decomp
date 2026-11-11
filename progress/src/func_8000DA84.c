@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8007F6E0(s32);                         /* extern */
-extern M2C_UNK D_800AE850;
+M2C_UNK taskRecvMsg(s32);                         /* extern */
+extern M2C_UNK gOrderState;
 
 void func_8000DA84(void) {
-    func_8007F6E0(M2C_FIELD(&D_800AE850, s32 *, 0x58F4));
+    taskRecvMsg(M2C_FIELD(&gOrderState, s32 *, 0x58F4));
 }

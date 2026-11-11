@@ -1,19 +1,19 @@
-/* identical to func_8008A42C in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_80084AFC in V-RALLY (matched), with its names changed by decompdecomp */
-
-s32 func_8007F4E4();
+s32 taskOpen();
 s32 func_8007F634();
-s32 func_8007F6E0();
-extern void *D_800A1B70;
+s32 taskRecvMsg();
+extern void *gContCtx;
+
+/* Opens task 4's message queue, clears bit 0 of the controller flag byte at 0x39C,
+ * then receives on the queue and closes the task handle. */
 void func_80084AFC(void)
 {
-  s32 temp_a0;
-  s32 temp_s0;
-  int temp_a1;
-  temp_s0 = func_8007F4E4(4, 0, 8);
-  temp_a0 = temp_s0;
-  temp_a1 = (*((u8 *) (((char *) D_800A1B70) + 0x39C))) & 0xFE;
-  *((u8 *) (((char *) D_800A1B70) + 0x39C)) = temp_a1;
-  func_8007F6E0(temp_a0, temp_a1);
-  func_8007F634(temp_s0);
+  s32 handle;
+  s32 queue;
+  int flags;
+  handle = taskOpen(4, 0, 8);
+  queue = handle;
+  flags = (*((u8 *) (((char *) gContCtx) + 0x39C))) & 0xFE;
+  *((u8 *) (((char *) gContCtx) + 0x39C)) = flags;
+  taskRecvMsg(queue, flags);
+  func_8007F634(handle);
 }

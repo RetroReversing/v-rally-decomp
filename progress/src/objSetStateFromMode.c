@@ -1,0 +1,2 @@
+/* Sets the state word (+0x20) of the object's state block (at +0x48) from its mode byte (+3): 3 for modes below 5, 4 otherwise. Mode 7 sets state 8 and clears the +0x6C counters of the objects at +0x5C and +0x30 instead. */
+void objSetStateFromMode(char *arg0) { char *p = *(char **)(arg0 + 0x48); unsigned char t = p[3]; int v; if (t < 5) { v = 3; } else if (t == 7) { *(int *)(p + 0x20) = 8; *(int *)(*(char **)(arg0 + 0x5C) + 0x6C) = 0; *(int *)(*(char **)(arg0 + 0x30) + 0x6C) = 0; return; } else { v = 4; } *(int *)(p + 0x20) = v; }

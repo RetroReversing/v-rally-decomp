@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80084350(s32);                         /* extern */
 M2C_UNK func_800848A0(s32);                         /* extern */
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gStreamState;
 
 void func_800849BC(void) {
-    func_80084350(M2C_FIELD(&D_800C02AE, s32 *, 0x30A2));
-    func_800848A0(M2C_FIELD(&D_800C02AE, s32 *, 0x30E6));
+    func_80084350(M2C_FIELD(&gStreamState, s32 *, 0x30A2));
+    func_800848A0(M2C_FIELD(&gStreamState, s32 *, 0x30E6));
 }

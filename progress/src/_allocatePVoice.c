@@ -1,28 +1,33 @@
 s32 alLink();
 s32 alUnlink();
 
-s32 _allocatePVoice(u8 *arg0, void **arg1, s16 arg2)
+/* Picks a voice for a new note from the pool at `pool`. A free voice from the list at +0x14,
+ * or else the list at +0x4, is moved onto the active list at +0xC and returned in *voiceOut.
+ * If both are empty, scans the active list for an idle voice (+0xD8 == 0) whose wave priority
+ * (+0x16 of its wave at +8) is no greater than `prio` and returns the one with the lowest
+ * priority. Returns 1 when a voice was picked from the active list, 0 otherwise. */
+s32 _allocatePVoice(u8 *pool, void **voiceOut, s16 prio)
 {
     s32 found = 0;
-    void *s0;
+    void *voice;
 
-    s0 = *(void **)(arg0 + 0x14);
-    if (s0 == NULL) {
-        s0 = *(void **)(arg0 + 0x4);
+    voice = *(void **)(pool + 0x14);
+    if (voice == NULL) {
+        voice = *(void **)(pool + 0x4);
     }
-    if (s0 != NULL) {
-        *arg1 = s0;
-        alUnlink(s0);
-        alLink(s0, arg0 + 0xC);
+    if (voice != NULL) {
+        *voiceOut = voice;
+        alUnlink(voice);
+        alLink(voice, pool + 0xC);
     } else {
-        s0 = *(void **)(arg0 + 0xC);
-        while (s0 != NULL) {
-            if (arg2 >= *(s16 *)(*(u8 **)((u8 *)s0 + 8) + 0x16) && *(s32 *)((u8 *)s0 + 0xD8) == 0) {
-                *arg1 = s0;
+        voice = *(void **)(pool + 0xC);
+        while (voice != NULL) {
+            if (prio >= *(s16 *)(*(u8 **)((u8 *)voice + 8) + 0x16) && *(s32 *)((u8 *)voice + 0xD8) == 0) {
+                *voiceOut = voice;
                 found = 1;
-                arg2 = *(u16 *)(*(u8 **)((u8 *)s0 + 8) + 0x16);
+                prio = *(u16 *)(*(u8 **)((u8 *)voice + 8) + 0x16);
             }
-            s0 = *(void **)s0;
+            voice = *(void **)voice;
         }
     }
     return found;

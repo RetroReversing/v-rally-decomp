@@ -1,20 +1,21 @@
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 
-void __osPfsGetOneChannelData(s32 arg0, u8 *arg1) {
-    struct { u8 b[6]; } sp;
+/* Reads the 6-byte status entry for one channel from the controller-pak buffer at gStreamState+0x7E82. It stores the channel's flag in out[3]; when the flag is 0 it also copies the 16-bit value and the trailing byte into out. */
+void __osPfsGetOneChannelData(s32 channel, u8 *out) {
+    struct { u8 b[6]; } entry;
     u8 *src;
     s32 i;
     u8 flag;
 
-    src = D_800C02AE + 0x7E82;
-    for (i = 0; i < arg0; i++) {
+    src = gStreamState + 0x7E82;
+    for (i = 0; i < channel; i++) {
         src++;
     }
-    sp = *(typeof(sp) *)src;
-    flag = (sp.b[1] & 0xC0) >> 4;
-    arg1[3] = flag;
+    entry = *(typeof(entry) *)src;
+    flag = (entry.b[1] & 0xC0) >> 4;
+    out[3] = flag;
     if (flag == 0) {
-        *(s16 *)arg1 = (s16)(sp.b[3] | (sp.b[4] << 8));
-        arg1[2] = sp.b[5];
+        *(s16 *)out = (s16)(entry.b[3] | (entry.b[4] << 8));
+        out[2] = entry.b[5];
     }
 }

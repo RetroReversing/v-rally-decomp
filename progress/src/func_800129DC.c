@@ -7,54 +7,57 @@ extern int D_800C8210;
 extern unsigned char D_800C81FD;
 extern int D_800C81F8;
 extern unsigned short D_800C8236;
-extern char D_800C02AE[];
+extern char gStreamState[];
 extern char D_8009BA70[];
 extern char D_800A40BC[];
 extern char D_800A40C4[];
 extern char D_800A40D0[];
 extern char D_800A40DC[];
 
-s32 func_8000BF2C();
-void func_8000C1EC();
-void func_8000C200(s32, f32, f32, f32);
+s32 make_rect_set();
+void rect_set_set_item_pos();
+void rect_set_set_scale(s32, f32, f32, f32);
 void func_8000C22C(void *, s32, s32, s32, u8);
-s32 func_80034FF0();
-void func_80081540();
+s32 getTexturePack();
+void resolve_path();
 s32 func_80081664();
 
-void func_800129DC(void *arg0)
+/* Resets the state block, then builds the two overlay rect sets (each with its
+   own loaded resource) at full opacity. If the mode byte is 5, it also loads the
+   resource at D_800A40DC and stores its result in D_800C81F8. */
+void func_800129DC(void *state)
 {
-    s32 alpha=255;
-    s32 obj;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s32 temp_v0_3;
-    s32 temp_v0_4;
+    s32 opacity=255;
+    s32 rect;
+    s32 set_a;
+    s32 set_a_rect;
+    s32 set_b;
+    s32 set_b_rect;
 
-    *(s32 *)((char *)arg0 + 0x8C) = 0;
-    *(s16 *)((char *)arg0 + 0x84) = 0;
+    *(s32 *)((char *)state + 0x8C) = 0;
+    *(s16 *)((char *)state + 0x84) = 0;
     D_800C8200 = 0;
     D_800C8202 = 0;
-    func_80081540(&D_800A40BC);
-    temp_v0 = func_80081664(6, &D_800A40C4);
-    D_800C8204 = temp_v0;
-    temp_v0_2 = func_8000BF2C(temp_v0);
-    D_800C820C = temp_v0_2;
-    func_8000C200(temp_v0_2, 1.0f, 1.0f, 1.0f);
-    obj = D_800C820C;
-    func_8000C22C((void *)(obj), (s32)(alpha), (s32)(alpha), (s32)(alpha), (u8)(alpha));
-    func_8000C1EC(D_800C820C, 0x80, 0x30);
-    temp_v0_3 = func_80081664(6, &D_800A40D0);
-    D_800C8208 = temp_v0_3;
-    temp_v0_4 = func_8000BF2C(temp_v0_3);
-    D_800C8210 = temp_v0_4;
-    func_8000C200(temp_v0_4, 1.0f, 1.0f, 1.0f);
-    obj = D_800C8210;
-    func_8000C22C((void *)(obj), (s32)(alpha), (s32)(alpha), (s32)(alpha), (u8)(alpha));
-    func_8000C1EC(D_800C8210, 0x80, 0x33);
+    resolve_path(&D_800A40BC);
+    set_a = func_80081664(6, &D_800A40C4);
+    D_800C8204 = set_a;
+    set_a_rect = make_rect_set(set_a);
+    D_800C820C = set_a_rect;
+    rect_set_set_scale(set_a_rect, 1.0f, 1.0f, 1.0f);
+    rect = D_800C820C;
+    func_8000C22C((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
+    rect_set_set_item_pos(D_800C820C, 0x80, 0x30);
+    set_b = func_80081664(6, &D_800A40D0);
+    D_800C8208 = set_b;
+    set_b_rect = make_rect_set(set_b);
+    D_800C8210 = set_b_rect;
+    rect_set_set_scale(set_b_rect, 1.0f, 1.0f, 1.0f);
+    rect = D_800C8210;
+    func_8000C22C((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
+    rect_set_set_item_pos(D_800C8210, 0x80, 0x33);
     if (D_800C81FD == 5) {
-        func_80081540(&D_800A40DC);
-        D_800C81F8 = func_80034FF0(*(s32 *)(D_8009BA70 + (D_800C8236 * 4)), 0);
+        resolve_path(&D_800A40DC);
+        D_800C81F8 = getTexturePack(*(s32 *)(D_8009BA70 + (D_800C8236 * 4)), 0);
         return;
     }
     D_800C81F8 = 0;

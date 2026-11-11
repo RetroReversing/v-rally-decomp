@@ -1,30 +1,34 @@
-/* identical to func_80063104 (matched), with its names changed by decompdecomp */
-s32 func_8005A360();
+s32 select_reset_text();
 s32 func_8005C198();
-s32 func_8007EE9C();
-extern void *D_800A1468;
-extern s32 D_800A14D0;
-extern char D_800C02AE[];
+s32 heapFreeBlock();
+extern void *gSelectState;
+extern s32 gSelectBuffer;
+extern char gStreamState[];
 extern s32 func_8007A29C;
 extern s32 func_8007A9A8;
 extern s32 func_8007AA94;
+
+/* Select-screen setup: frees the saved block in gSelectBuffer if there is one, runs the setup
+ * chain select_reset_text, installs three state handlers in the select state (+0x288, +0x28C,
+ * +0x290) and stores the last record index (count at record block +0xF, minus one) at +0x228.
+ * Returns 0. */
 s32 func_80065F9C(int arg0, s32 arg1)
 {
-  char *new_var2;
-  char *new_var;
+  char *state;
+  char *count;
   func_8005C198();
-  if (D_800A14D0 != 0)
+  if (gSelectBuffer != 0)
   {
-    func_8007EE9C(D_800A14D0);
-    D_800A14D0 = 0;
+    heapFreeBlock(gSelectBuffer);
+    gSelectBuffer = 0;
   }
-  func_8005A360(arg0, arg1);
-  new_var2 = (char *) D_800A1468;
-  new_var = ((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xF;
-  *((s32 **) (((char *) D_800A1468) + 0x288)) = &func_8007A29C;
-  new_var += 0;
-  *((s32 **) (((char *) D_800A1468) + 0x28C)) = &func_8007A9A8;
-  *((s32 **) (new_var2 + 0x290)) = &func_8007AA94;
-  *((s8 *) (((char *) D_800A1468) + 0x228)) = (s8) ((*((u8 *) new_var)) - 1);
+  select_reset_text(arg0, arg1);
+  state = (char *) gSelectState;
+  count = ((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xF;
+  *((s32 **) (((char *) gSelectState) + 0x288)) = &func_8007A29C;
+  count += 0;
+  *((s32 **) (((char *) gSelectState) + 0x28C)) = &func_8007A9A8;
+  *((s32 **) (state + 0x290)) = &func_8007AA94;
+  *((s8 *) (((char *) gSelectState) + 0x228)) = (s8) ((*((u8 *) count)) - 1);
   return 0;
 }

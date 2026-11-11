@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800804C4(s32, M2C_UNK *);              /* extern */
-extern M2C_UNK D_800AE850;
+extern M2C_UNK gOrderState;
 extern M2C_UNK func_800421A4;
 
 void func_80042264(void) {
-    func_800804C4(M2C_FIELD(&D_800AE850, s32 *, 0x72FC), &func_800421A4);
+    func_800804C4(M2C_FIELD(&gOrderState, s32 *, 0x72FC), &func_800421A4);
 }

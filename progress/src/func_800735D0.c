@@ -11,30 +11,31 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+s16 lerp_q7();
 
+/* Steps 12 fade entries: an entry whose countdown (+0xC) is still running
+   just counts down; once it reaches zero its level (+0x24) moves toward
+   target by a 40/128 fraction of the remaining distance. */
+void func_800735D0(void *base, s32 target) {
+    u16 countdown;
+    u32 i;
+    void *entry;
 
-s16 func_80010DEC();
-
-void func_800735D0(void *arg0, s32 arg1) {
-    u16 temp_v0;
-    u32 var_s1;
-    void *var_s0;
-
-    var_s1 = 0;
-    var_s0 = arg0;
+    i = 0;
+    entry = base;
 loop_1:
-    temp_v0 = *(u16 *)((char *)var_s0 + 0xC);
-    if (temp_v0 == 0) {
+    countdown = *(u16 *)((char *)entry + 0xC);
+    if (countdown == 0) {
         goto block_3;
     }
-    *(u16 *)((char *)var_s0 + 0xC) = (u16) (temp_v0 - 1);
+    *(u16 *)((char *)entry + 0xC) = (u16) (countdown - 1);
     goto block_4;
 block_3:
-    *(s16 *)((char *)var_s0 + 0x24) = func_80010DEC(*(s16 *)((char *)var_s0 + 0x24), arg1, 0x28);
+    *(s16 *)((char *)entry + 0x24) = lerp_q7(*(s16 *)((char *)entry + 0x24), target, 0x28);
 block_4:
-    var_s1 += 1;
-    var_s0 += 2;
-    if (var_s1 < 0xCU) {
+    i += 1;
+    entry += 2;
+    if (i < 0xCU) {
         goto loop_1;
     }
     return;

@@ -1,12 +1,12 @@
-extern void func_8000C188(s32);
-extern void func_80035438(s32);
-extern void func_80053A78(void);
-extern void func_8007EE9C(s32);
-extern void func_80081B28(s32);
+extern void stream_obj_free(s32);
+extern void streamReleaseEntry(s32);
+extern void records_restore_from_order(void);
+extern void heapFreeBlock(s32);
+extern void heap_free_stub(s32);
 extern u8 D_800A17F0;
-extern u8 D_800AE850[];
-extern char *D_800C35A0;
-extern u8 D_800C02AE[];
+extern u8 gOrderState[];
+extern char *gRecords;
+extern u8 gStreamState[];
 typedef struct { s32 w[61]; } Blk;
 typedef struct Slot16
 {
@@ -17,13 +17,15 @@ typedef struct Slot16
 } Slot16;
 static inline s32 *inline_fn()
 {
-  return (s32 *) (D_800C02AE + 0x7F5A);
+  return (s32 *) (gStreamState + 0x7F5A);
 }
 
+/* Reset the audio record block from the state saved in gStreamState, but only
+ * when record mode is 8, the guard is clear and the pending flag is set. */
 void func_80077054(void)
 {
-  u8 *flag;
-  char *obj;
+  u8 *pending;
+  char *rec;
   s32 first;
   u8 *slots;
   Slot16 *src;
@@ -31,7 +33,7 @@ void func_80077054(void)
   Slot16 *end;
   u8 *mode;
   u16 modeByte;
-  if ((*((u16 *) (D_800C35A0 + 0x1E))) != 8)
+  if ((*((u16 *) (gRecords + 0x1E))) != 8)
   {
     return;
   }
@@ -39,17 +41,17 @@ void func_80077054(void)
   {
     return;
   }
-  flag = D_800C02AE + 0x805A;
-  if ((*flag) == 0)
+  pending = gStreamState + 0x805A;
+  if ((*pending) == 0)
   {
     return;
   }
-  slots = (char *) D_800AE850;
+  slots = (char *) gOrderState;
   slots += (s32) 0x2408;
-  first = *((s32 *) (D_800AE850 + 0x240C));
-  *flag = 0;
-  func_8007EE9C(first);
-  func_8007EE9C(*((s32 *) slots));
+  first = *((s32 *) (gOrderState + 0x240C));
+  *pending = 0;
+  heapFreeBlock(first);
+  heapFreeBlock(*((s32 *) slots));
   {
     typedef struct Rec
     {
@@ -72,28 +74,28 @@ void func_80077054(void)
     }
     while (n < 4);
   }
-  *(Blk *)D_800C35A0 = *(Blk *)(D_800C02AE + 0x7F66);
-  obj = D_800C35A0;
-  mode = D_800C02AE + 0x7F4F;
+  *(Blk *)gRecords = *(Blk *)(gStreamState + 0x7F66);
+  rec = gRecords;
+  mode = gStreamState + 0x7F4F;
   modeByte = *mode;
-  *((u16 *) (obj + 0x1E)) = modeByte;
+  *((u16 *) (rec + 0x1E)) = modeByte;
   if (modeByte == 5)
   {
-    func_80035438(*((s32 *) (D_800C02AE + 0x7F4A)));
+    streamReleaseEntry(*((s32 *) (gStreamState + 0x7F4A)));
   }
-  *((u16 *) (D_800C35A0 + 0xE)) = *((u8 *) (D_800C02AE + 0x7F51));
+  *((u16 *) (gRecords + 0xE)) = *((u8 *) (gStreamState + 0x7F51));
   if ((*mode) == 8)
   {
-    *((s32 *) (D_800AE850 + 0x8030)) = 5;
-    func_80053A78();
+    *((s32 *) (gOrderState + 0x8030)) = 5;
+    records_restore_from_order();
   }
   else
   {
-    *((s32 *) (D_800AE850 + 0x8030)) = 3;
+    *((s32 *) (gOrderState + 0x8030)) = 3;
   }
-  *((u8 *) (D_800C02AE + 0x7E72)) = 0;
-  func_80081B28(*((s32 *) (D_800C02AE + 0x7F56)));
-  func_80081B28(*inline_fn());
-  func_8000C188(*((s32 *) (D_800C02AE + 0x7F5E)));
-  func_8000C188(*((s32 *) (D_800C02AE + 0x7F62)));
+  *((u8 *) (gStreamState + 0x7E72)) = 0;
+  heap_free_stub(*((s32 *) (gStreamState + 0x7F56)));
+  heap_free_stub(*inline_fn());
+  stream_obj_free(*((s32 *) (gStreamState + 0x7F5E)));
+  stream_obj_free(*((s32 *) (gStreamState + 0x7F62)));
 }

@@ -76,16 +76,16 @@ typedef struct Game
   u8 pad10[0x1E - 0x10];
   u16 state;
 } Game;
-extern Game *D_800C35A0;
+extern Game *gRecords;
 extern Snd **D_800B5B4C;
-extern Car **D_800B5C40;
-extern s32 D_800B6880; extern u8 D_800AE850[];
-extern Slot44 *D_800A1234;
+extern Car **gCarList;
+extern s32 gRaceState; extern u8 gOrderState[];
+extern Slot44 *gCarEntries;
 extern u8 D_800A4DFC[];
-extern s32 func_8001FEE8(void *);
+extern s32 getCounterValue(void *);
 extern s32 func_80022374(void **, u8 *, s32);
 extern void func_800347A4(void *, s8 *);
-extern void func_80042F40(void);
+extern void race_reset(void);
 extern void func_80085778(s32, s32);
 static __inline__ void expired(s32 *st,u32 *timer) {s32 v=*st;if(!(v&8)){if(v&4){*st=(v|2)&~4;}else{*st=(v|4)&~2;} *timer=50; *st|=8;return;}*st=v|0x20;}
 
@@ -118,7 +118,7 @@ void func_80043A78(Car *car, Pad *pad)
   if (!((*state) & 0x20))
   {
     timer = &ctl->timer;
-    speed = func_8001FEE8(car);
+    speed = getCounterValue(car);
     if (!(car->flags & 0x80))
     {
       if ((*car->player) < 4)
@@ -236,13 +236,13 @@ expired(state,timer);
     pad->b5 = 0;
     pad->b2 = 0xFF;
     pad->b3 = pad->b1;
-    if ((D_800C35A0->state != 0) & (D_800C35A0->state != 5))
+    if ((gRecords->state != 0) & (gRecords->state != 5))
     {
       n.player = *car->player;
-      { Slot44 *slot = D_800A1234 + n.player; slot->hA = 2; }
-      racers_left = D_800C35A0->players;
+      { Slot44 *slot = gCarEntries + n.player; slot->hA = 2; }
+      racers_left = gRecords->players;
       finished = 0;
-      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
+      for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
       {
         if ((*n.node->player) < 4)
         {
@@ -263,7 +263,7 @@ expired(state,timer);
         }
       }
 
-      if ((racers_left == 0) && (finished != D_800C35A0->players))
+      if ((racers_left == 0) && (finished != gRecords->players))
       {
         goto finish;
       }
@@ -272,10 +272,10 @@ expired(state,timer);
     {
       if ((*car->player) < 4)
       {
-        { Slot44 *slot=D_800A1234; slot += *car->player; slot->hA=2; }
+        { Slot44 *slot=gCarEntries; slot += *car->player; slot->hA=2; }
       }
       racers_left = 1;
-      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
+      for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
       {
         if ((*n.node->player) < 4)
         {
@@ -287,9 +287,9 @@ expired(state,timer);
       if (racers_left)
       {
         finish:
-        *(s32 *)(D_800AE850 + 0x8030) = 0;
+        *(s32 *)(gOrderState + 0x8030) = 0;
 
-        func_80042F40();
+        race_reset();
         func_80085778(0, 0x1000);
         func_80085778(0, 0x8000);
       }

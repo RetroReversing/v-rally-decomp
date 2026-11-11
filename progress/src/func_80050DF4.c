@@ -1,14 +1,18 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 extern signed char D_800C3BA0;
 extern signed char D_800C3B9E;
 extern unsigned char D_800C3B9C;
 extern unsigned char D_800C3B9D;
-extern unsigned char D_800C3B9F;
+extern unsigned char gSlotGroup;
 
 u64 osGetTime();
 s32 func_80098090();
-s32 func_800980C4();
+s32 rand_seed();
 
+/* Picks a random slot that is not yet in D_800C3B9C's used mask, marks it
+ * used, and returns its index. After three picks the mask is cleared and the
+ * slot group toggles between 0 and 1. Also reloads the two parameter bytes
+ * from the current stream record. */
 s32 func_80050DF4(void)
 {
     u8 *rec;
@@ -19,8 +23,8 @@ s32 func_80050DF4(void)
     s32 a3;
     s32 bit;
 
-    func_800980C4((u32)osGetTime());
-    rec = *(u8 **)(D_800C02AE + 0x32F2);
+    rand_seed((u32)osGetTime());
+    rec = *(u8 **)(gStreamState + 0x32F2);
     D_800C3BA0 = *(u16 *)(rec + 0x12);
     D_800C3B9E = *(u16 *)(rec + 0xE);
     if (D_800C3B9C == 0xFF) {
@@ -41,9 +45,9 @@ s32 func_80050DF4(void)
     D_800C3B9D = cnt;
     if ((cnt & 0xFF) == 3) {
         D_800C3B9D = 0;
-        D_800C3B9F = D_800C3B9F + 1;
-        if (D_800C3B9F == 2) {
-            D_800C3B9F = 0;
+        gSlotGroup = gSlotGroup + 1;
+        if (gSlotGroup == 2) {
+            gSlotGroup = 0;
         }
     }
     return a3 & 0xFF;

@@ -1,28 +1,30 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 s32 func_80041564();
 
-void func_8003ED04(void *arg0) {
-    u8 *s0;
+/* Sets node's 0x7A field from the table entry of the current slot: a raw code below 0x41 maps
+ * to raw - 0x16, otherwise to code - 0x41. Negative results are clamped to 0. */
+void func_8003ED04(void *node) {
+    u8 *track;
     s32 base;
-    s32 count;
+    s32 index;
     s32 raw;
-    u32 val;
-    u8 *p;
+    u32 code;
+    u8 *entry;
 
-    s0 = *(u8 **)((u8 *)(*(u8 **)((u8 *)arg0 + 0xA8)) + 0x24);
+    track = *(u8 **)((u8 *)(*(u8 **)((u8 *)node + 0xA8)) + 0x24);
     func_80041564();
-    base = *(s32 *)(D_800C02AE + 0x32F2);
-    count = *(u8 *)(base + **(s32 **)(s0 + 0x48) + 0x32);
-    p = (u8 *)(base + count * 40);
-    p = p + *(u16 *)((u8 *)arg0 + 0x78);
-    raw = *(u8 *)(p + 0x44);
-    val = raw & 0xFF;
-    if (val < 0x41) {
-        *(s16 *)((u8 *)arg0 + 0x7A) = raw - 0x16;
+    base = *(s32 *)(gStreamState + 0x32F2);
+    index = *(u8 *)(base + **(s32 **)(track + 0x48) + 0x32);
+    entry = (u8 *)(base + index * 40);
+    entry = entry + *(u16 *)((u8 *)node + 0x78);
+    raw = *(u8 *)(entry + 0x44);
+    code = raw & 0xFF;
+    if (code < 0x41) {
+        *(s16 *)((u8 *)node + 0x7A) = raw - 0x16;
     } else {
-        *(s16 *)((u8 *)arg0 + 0x7A) = val - 0x41;
+        *(s16 *)((u8 *)node + 0x7A) = code - 0x41;
     }
-    if (*(s16 *)((u8 *)arg0 + 0x7A) < 0) {
-        *(s16 *)((u8 *)arg0 + 0x7A) = 0;
+    if (*(s16 *)((u8 *)node + 0x7A) < 0) {
+        *(s16 *)((u8 *)node + 0x7A) = 0;
     }
 }

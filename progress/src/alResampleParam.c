@@ -1,57 +1,60 @@
 typedef void (*CbFn)(void *, s32, s32);
 
-typedef struct Node {
-    struct Node *child;
+typedef struct AlFilter {
+    struct AlFilter *child;
     s32 unk4;
     CbFn cb;
-} Node;
+} AlFilter;
 
-typedef struct S0 {
-    Node *child;
+typedef struct AlResample {
+    AlFilter *child;
     s32 unk4;
     s32 unk8;
     s32 unkC;
     s32 unk10;
     s32 unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
+    s32 rate;
+    s32 flush;
+    s32 pending;
+    s32 active;
     s32 unk28;
     s32 unk2C;
-    s32 unk30;
-} S0;
+    s32 stopping;
+} AlResample;
 
-s32 alResampleParam(S0 *arg0, s32 arg1, s32 arg2) {
-    S0 *self = arg0;
-    Node *node;
+/* Sets one parameter on a resampler. Param 1 sets the child filter, 2 starts (clears state and
+ * sends the child 4), 3 stops (sends the child 9), 4 sets the rate, 5 requests a flush, 6..9 do
+ * nothing. Any other param is forwarded to the child's callback. Always returns 0. */
+s32 alResampleParam(AlResample *resample, s32 param, s32 value) {
+    AlResample *self = resample;
+    AlFilter *node;
 
-    switch (arg1) {
+    switch (param) {
     case 1:
-        arg0->child = (Node *)arg2;
+        resample->child = (AlFilter *)value;
         return 0;
     case 2:
-        self->unk20 = 0;
-        self->unk24 = 1;
-        self->unk30 = 0;
-        self->unk1C = 0;
-        node = arg0->child;
+        self->pending = 0;
+        self->active = 1;
+        self->stopping = 0;
+        self->flush = 0;
+        node = resample->child;
         if (node != NULL) {
             node->cb(node, 4, 0);
         }
         return 0;
     case 3:
-        self->unk30 = 1;
-        node = arg0->child;
+        self->stopping = 1;
+        node = resample->child;
         if (node != NULL) {
             node->cb(node, 9, 0);
         }
         return 0;
     case 4:
-        self->unk18 = arg2;
+        self->rate = value;
         return 0;
     case 5:
-        self->unk1C = 1;
+        self->flush = 1;
         return 0;
     case 6:
     case 7:
@@ -61,9 +64,9 @@ s32 alResampleParam(S0 *arg0, s32 arg1, s32 arg2) {
     default:
         break;
     }
-    node = arg0->child;
+    node = resample->child;
     if (node != NULL) {
-        node->cb(node, arg1, arg2);
+        node->cb(node, param, value);
     }
     return 0;
 }

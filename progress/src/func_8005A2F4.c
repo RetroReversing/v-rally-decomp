@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800591C0();                            /* extern */
-M2C_UNK func_80059F80();                            /* extern */
-extern void *D_800A1468;
+M2C_UNK selectStateSyncFromOrder();                            /* extern */
+M2C_UNK selectStateSetDefaults();                            /* extern */
+extern void *gSelectState;
 
 void func_8005A2F4(s32 arg0) {
-    func_80059F80();
+    selectStateSetDefaults();
     if (arg0 & 0xFF) {
-        M2C_FIELD(D_800A1468, s8 *, 0x29F) = 1;
+        M2C_FIELD(gSelectState, s8 *, 0x29F) = 1;
     }
-    func_800591C0();
+    selectStateSyncFromOrder();
 }

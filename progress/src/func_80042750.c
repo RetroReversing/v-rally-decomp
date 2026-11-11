@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80035438(s32);                         /* extern */
+M2C_UNK streamReleaseEntry(s32);                         /* extern */
 
 void func_80042750(void *arg0) {
-    func_80035438(M2C_FIELD(arg0, s32 *, 0xC));
+    streamReleaseEntry(M2C_FIELD(arg0, s32 *, 0xC));
 }

@@ -1,23 +1,25 @@
-/* identical to func_80020790 in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_80020864 in V-RALLY (matched), with its names changed by decompdecomp */
+s32 MapTypeCode();
 
-s32 func_80027C64();
-void func_80020864(void *arg0)
+/* Updates the state record of an object: a kind of 7 is stored as-is, other kinds below 4
+ * (or any kind when the object's flags lack bits 0x300) store the converted value from
+ * MapTypeCode; the record's trailing flag byte is then cleared. */
+void func_80020864(void *obj)
 {
-  s32 temp_a0;
-  void *temp_v1;
-  void *var_s0;
-  void *var_s1;
- do { var_s0 = arg0; temp_v1 = *((void **) (((char *) var_s0) + 0x48)); temp_a0 = *((s32 *) (((char *) temp_v1) + 0)); } while (0);
-  var_s1 = temp_v1 + 4;
-  if (temp_a0 == 7)
-  {
-    *((s32 *) (((char *) temp_v1) + 0x20)) = temp_a0;
-  }
-  else
-    if ((temp_a0 >= 4) || (!((*((s32 *) (((char *) var_s0) + 0x14))) & 0x300)))
-  {
-    *((s32 *) (((char *) (*((void **) (((char *) var_s0) + 0x48)))) + 0x20)) = (s32) (func_80027C64(temp_a0 & 0xFFFF) & 0xFFFF);
-  }
-  *((s8 *) (((char *) var_s1) + 7)) = 0;
+    s32 kind;
+    void *state;
+    void *cur;
+    void *flags;
+
+    do {
+        cur = obj;
+        state = *((void **)((char *)cur + 0x48));
+        kind = *((s32 *)((char *)state + 0));
+    } while (0);
+    flags = state + 4;
+    if (kind == 7) {
+        *((s32 *)((char *)state + 0x20)) = kind;
+    } else if ((kind >= 4) || (!((*((s32 *)((char *)cur + 0x14))) & 0x300))) {
+        *((s32 *)((char *)(*((void **)((char *)cur + 0x48))) + 0x20)) = (s32)(MapTypeCode(kind & 0xFFFF) & 0xFFFF);
+    }
+    *((s8 *)((char *)flags + 7)) = 0;
 }

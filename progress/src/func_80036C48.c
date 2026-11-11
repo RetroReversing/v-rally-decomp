@@ -7,94 +7,97 @@ extern void *D_800C60D4;
 typedef struct { u8 pad[4]; void **data; } Res;
 typedef struct { u8 pad[0x10]; u8 obj[0x94]; Res *res; } Obj;
 typedef struct { u8 pad[0xC]; Obj *obj; s16 x; s16 y; u8 a; u8 b; u8 r; u8 g; u8 bl; } Spr;
-extern void *func_80080440(void);
-extern Spr *func_800801D0(void *, s32);
-extern Res *func_80034FF0(void *, s32);
-extern Obj *func_8007EAA0(s32, s32);
+extern void *poolAllocHeadNode(void);
+extern Spr *poolAllocNode(void *, s32);
+extern Res *getTexturePack(void *, s32);
+extern Obj *poolAlloc(s32, s32);
 extern void func_8000A5EC(void *, void *, s32, s32, s32, s32, s32);
 
-void func_80036C48(u8 *p)
+/* Builds the HUD sprite set for the results screen: two fixed sprites at the top of the
+   screen (resources at +0x2AC and +0x390), five sprites from +0x2F8 and one from +0x344,
+   each tinted from the per-index alpha/colour tables. */
+void func_80036C48(u8 *hud_data)
 {
-    Bytes6 a;
-    Bytes6 b;
-    Bytes18 c;
-    u8 j;
+    Bytes6 tint_b;
+    Bytes6 alpha_tbl;
+    Bytes18 rgb_tbl;
+    u8 i;
 
-    a = D_800A4A98;
-    b = D_800A4AA0;
-    c = D_800A4AA8;
-    D_800C60D4 = func_80080440();
+    tint_b = D_800A4A98;
+    alpha_tbl = D_800A4AA0;
+    rgb_tbl = D_800A4AA8;
+    D_800C60D4 = poolAllocHeadNode();
 
     {
-        Spr *n;
-        Res *q;
-        Obj *t;
-        n = func_800801D0(D_800C60D4, 28);
-        q = func_80034FF0(p + 0x2AC, 0);
-        t = func_8007EAA0(6, 176);
-        n->obj = t;
-        t->res = q;
-        func_8000A5EC(n->obj->obj, *q->data, 1, 0, 0, 0, 0);
-        n->a = 100;
-        n->b = 0;
-        n->r = 255;
-        n->g = 255;
-        n->bl = 255;
-        n->x = 128;
-        n->y = 128;
+        Spr *spr;
+        Res *res;
+        Obj *obj;
+        spr = poolAllocNode(D_800C60D4, 28);
+        res = getTexturePack(hud_data + 0x2AC, 0);
+        obj = poolAlloc(6, 176);
+        spr->obj = obj;
+        obj->res = res;
+        func_8000A5EC(spr->obj->obj, *res->data, 1, 0, 0, 0, 0);
+        spr->a = 100;
+        spr->b = 0;
+        spr->r = 255;
+        spr->g = 255;
+        spr->bl = 255;
+        spr->x = 128;
+        spr->y = 128;
     }
     {
-        Spr *n;
-        Res *q;
-        Obj *t;
-        n = func_800801D0(D_800C60D4, 28);
-        q = func_80034FF0(p + 0x390, 0);
-        t = func_8007EAA0(6, 176);
-        n->obj = t;
-        t->res = q;
-        func_8000A5EC(n->obj->obj, *q->data, 1, 0, 0, 0, 0);
-        n->x = 0;
-        n->y = 0;
-        n->a = 100;
-        n->b = 0;
-        n->r = 255;
-        n->g = 255;
-        n->bl = 255;
+        Spr *spr;
+        Res *res;
+        Obj *obj;
+        spr = poolAllocNode(D_800C60D4, 28);
+        res = getTexturePack(hud_data + 0x390, 0);
+        obj = poolAlloc(6, 176);
+        spr->obj = obj;
+        obj->res = res;
+        func_8000A5EC(spr->obj->obj, *res->data, 1, 0, 0, 0, 0);
+        spr->x = 0;
+        spr->y = 0;
+        spr->a = 100;
+        spr->b = 0;
+        spr->r = 255;
+        spr->g = 255;
+        spr->bl = 255;
     }
-    for (j = 0; j < 5; j++) {
-        Spr *n;
-        Res *q;
-        Obj *t;
-        q = func_80034FF0(p + 0x2F8, 0);
-        n = func_800801D0(D_800C60D4, 28);
-        t = func_8007EAA0(6, 176);
-        n->obj = t;
-        t->res = q;
-        func_8000A5EC(n->obj->obj, *q->data, 1, 0, 0, 0, 0);
-        n->x = 0;
-        n->y = 0;
-        n->a = b.v[j];
-        n->b = a.v[j];
-        n->r = c.v[j][0];
-        n->g = c.v[j][1];
-        n->bl = c.v[j][2];
+    for (i = 0; i < 5; i++) {
+        Spr *spr;
+        Res *res;
+        Obj *obj;
+        res = getTexturePack(hud_data + 0x2F8, 0);
+        spr = poolAllocNode(D_800C60D4, 28);
+        obj = poolAlloc(6, 176);
+        spr->obj = obj;
+        obj->res = res;
+        func_8000A5EC(spr->obj->obj, *res->data, 1, 0, 0, 0, 0);
+        spr->x = 0;
+        spr->y = 0;
+        spr->a = alpha_tbl.v[i];
+        spr->b = tint_b.v[i];
+        spr->r = rgb_tbl.v[i][0];
+        spr->g = rgb_tbl.v[i][1];
+        spr->bl = rgb_tbl.v[i][2];
     }
     {
-        Spr *n;
-        Res *q;
-        Obj *t;
-        n = func_800801D0(D_800C60D4, 28);
-        q = func_80034FF0(p + 0x344, 0);
-        t = func_8007EAA0(6, 176);
-        n->obj = t;
-        t->res = q;
-        func_8000A5EC(n->obj->obj, *q->data, 1, 0, 0, 0, 0);
-        n->x = 0;
-        n->y = 0;
-        n->a = b.v[j];
-        n->b = a.v[j];
-        n->r = c.v[j][0];
-        n->g = c.v[j][1];
-        n->bl = c.v[j][2];
+        Spr *spr;
+        Res *res;
+        Obj *obj;
+        spr = poolAllocNode(D_800C60D4, 28);
+        res = getTexturePack(hud_data + 0x344, 0);
+        obj = poolAlloc(6, 176);
+        spr->obj = obj;
+        obj->res = res;
+        func_8000A5EC(spr->obj->obj, *res->data, 1, 0, 0, 0, 0);
+        spr->x = 0;
+        spr->y = 0;
+        spr->a = alpha_tbl.v[i];
+        spr->b = tint_b.v[i];
+        spr->r = rgb_tbl.v[i][0];
+        spr->g = rgb_tbl.v[i][1];
+        spr->bl = rgb_tbl.v[i][2];
     }
 }

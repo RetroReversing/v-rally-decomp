@@ -1,38 +1,26 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 selectCopyEntryLabel(s32, s32);
+s32 func_8005C198();
+s32 heapFreeBlock(s32);
+extern char *gSelectState;
+extern s32 gSelectBuffer;
+extern char gStreamState[];
+extern char setup_stage_results[];
+extern char func_8006425C[];
+extern char func_80064504[];
 
-M2C_UNK func_8005A388(s32, M2C_UNK);                /* extern */
-M2C_UNK func_8005C198();                            /* extern */
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern void *D_800A1468;
-extern s32 D_800A14D0;
-extern M2C_UNK D_800C02AE;
-extern M2C_UNK func_80063FFC;
-extern M2C_UNK func_8006425C;
-extern M2C_UNK func_80064504;
-
-s32 func_80063EC8(s32 arg0, M2C_UNK arg1) {
-    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;
-    M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), s16 *, 0x1E) = 0;
+/* Resets the select and stream state, frees the cached block if there is one, and
+   installs the select-state callback table. */
+s32 func_80063EC8(s32 arg0, s32 arg1) {
+    *(s8 *)(gSelectState + 0x245) = 0;
+    *(s16 *)(*(char **)(gStreamState + 0x32F2) + 0x1E) = 0;
     func_8005C198();
-    if (D_800A14D0 != 0) {
-        func_8007EE9C(D_800A14D0);
-        D_800A14D0 = 0;
+    if (gSelectBuffer != 0) {
+        heapFreeBlock(gSelectBuffer);
+        gSelectBuffer = 0;
     }
-    func_8005A388(arg0, arg1);
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x288) = &func_80063FFC;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x28C) = &func_80064504;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x290) = &func_8006425C;
+    selectCopyEntryLabel(arg0, arg1);
+    *(char **)(gSelectState + 0x288) = setup_stage_results;
+    *(char **)(gSelectState + 0x28C) = func_80064504;
+    *(char **)(gSelectState + 0x290) = func_8006425C;
     return 0;
 }

@@ -65,19 +65,22 @@ typedef struct Chan {
 
 typedef u8 *(*CmdFunc)(Chan *, u8 *);
 extern CmdFunc D_800A1BC0[];
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
-extern u8 *func_80087988(Chan *, s32);
-extern void func_80088AA4(Chan *, s32);
+extern u8 gOrderState[];
+extern u8 gStreamState[];
+extern u8 *read_rate_params(Chan *, s32);
+extern void voice_slot_restart(Chan *, s32);
 extern void func_80089298(Chan *);
 extern void func_80089538(Chan *);
 extern void alSynSetFXMix(void *, void *, s32);
 extern void alSynSetVol(void *, void *, s32, s32);
 extern void alSynStopVoice(void *, void *);
 
-#define SYNTH ((void *)(D_800AE850 + 0x2304))
-#define VOICE(n) ((void *)(*(u8 **)(D_800C02AE + 0x7576) + (n) * 28))
+#define SYNTH ((void *)(gOrderState + 0x2304))
+#define VOICE(n) ((void *)(*(u8 **)(gStreamState + 0x7576) + (n) * 28))
 
+/* Runs the channel's sequence script up to its next note, then starts that note
+   on the voice: pitch, drum/wave mapping, length, velocity and FX mix. A script
+   end stops the channel and its voice. */
 void func_8008871C(Chan *ch, s32 n)
 {
     u8 *p;
@@ -142,7 +145,7 @@ void func_8008871C(Chan *ch, s32 n)
         if (ch->drum != NULL) {
             ch->wave_idx = ch->drum[note * 4];
             ch->unkB5 = ch->drum[note * 4 + 2] >> 1;
-            func_80087988(ch, ch->unk70->unk10 + ch->drum[note * 4 + 1] * 7);
+            read_rate_params(ch, ch->unk70->unk10 + ch->drum[note * 4 + 1] * 7);
             note = ch->drum[note * 4 + 3];
         }
         if (!ch->unkCE) {
@@ -156,9 +159,9 @@ void func_8008871C(Chan *ch, s32 n)
             ch->wave = inst->wave[idx];
             if (ch->playing && ch->unk98) {
                 ch->unk98 = 0;
-                alSynSetVol(SYNTH, VOICE(n), 0, *(s32 *)(D_800AE850 + 0x7420));
+                alSynSetVol(SYNTH, VOICE(n), 0, *(s32 *)(gOrderState + 0x7420));
             } else {
-                func_80088AA4(ch, n);
+                voice_slot_restart(ch, n);
             }
         }
         ch->pitch = (f32)note + inst->pitch[idx];

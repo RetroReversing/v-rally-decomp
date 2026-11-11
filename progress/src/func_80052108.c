@@ -1,31 +1,35 @@
-s32 func_800520D4(s32, s32);
+s32 order_table_swap(s32, s32);
 s32 func_80098400(s32, s32 *, s32);
-extern s32 D_800A5000;
-extern s32 D_800AE850;
-void func_80052108(s32 arg0)
+extern char order_tag[];
+extern s32 gOrderState;
+
+/* Moves the entries whose name starts with order_tag (5 bytes) to the front of the order
+ * table, keeping their order. Walks count entries of 0x14 bytes; the entry array pointer
+ * lives at gOrderState+0x237C. */
+void func_80052108(s32 count)
 {
-  s32 temp_a1;
-  s32 var_s0;
-  s32 var_s1;
-  s32 var_s2;
-  var_s2 = 0;
-  var_s0 = 0;
-  temp_a1 = 0;
-  if (arg0 > temp_a1)
+  s32 i;
+  s32 matched;
+  s32 offset;
+  s32 slot;
+
+  matched = 0;
+  i = 0;
+  slot = 0;
+  if (count > slot)
   {
-    var_s1 = 0;
+    offset = 0;
     do
     {
-      if (func_80098400((*((s32 *) (((char *) (&D_800AE850)) + 0x237C))) + var_s1, &D_800A5000, 5) == 0)
+      if (func_80098400((*((s32 *) (((char *) (&gOrderState)) + 0x237C))) + offset, (s32 *)order_tag, 5) == 0)
       {
-        temp_a1 = var_s2 & 0xFFFF;
-        var_s2 += 1;
-        func_800520D4(var_s0 & 0xFFFF, temp_a1);
+        slot = matched & 0xFFFF;
+        matched += 1;
+        order_table_swap(i & 0xFFFF, slot);
       }
-      var_s0 += 1;
-      var_s1 += 0x14;
+      i += 1;
+      offset += 0x14;
     }
-    while (var_s0 < arg0);
+    while (i < count);
   }
 }
-

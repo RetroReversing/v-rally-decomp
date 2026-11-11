@@ -1,4 +1,4 @@
-extern char D_800AE850[];
+extern char gOrderState[];
 extern u8 D_800B60E0;
 
 typedef struct {
@@ -6,27 +6,29 @@ typedef struct {
     s8 tail[2];
 } Buf8;
 
+/* Clears the 15 slot words at the request buffer, then writes one 8-byte read-request
+ * packet (0xFF, 1, 4, 1, 0xFFFF, 0xFF, 0xFF) for each controller and ends the list with 0xFE. */
 void __osPackReadData(void)
 {
     Buf8 pat;
     register s32 i;
     s32 n;
-    s32 *q;
+    s32 *slot;
     u8 *dst;
     u8 count;
 
-    dst = (u8 *)(D_800AE850 + 0x1250);
+    dst = (u8 *)(gOrderState + 0x1250);
     i = 0xE;
-    q = (s32 *)(dst + 0x38);
+    slot = (s32 *)(dst + 0x38);
     do {
-        *q = 0;
+        *slot = 0;
         i -= 1;
-        q -= 1;
+        slot -= 1;
     } while (i >= 0);
 
     count = D_800B60E0;
     n = 0;
-    *(s32 *)(D_800AE850 + 0x128C) = 1;
+    *(s32 *)(gOrderState + 0x128C) = 1;
 
     pat.b[0] = 0xFF;
     pat.b[1] = 1;

@@ -34,16 +34,18 @@ extern Group *D_800D0638;
 extern Group *D_800D063C;
 extern Group *D_800D0640;
 extern Group *D_800D0644;
-extern Cfg *D_800C35A0;
+extern Cfg *gRecords;
 extern Slot D_800B0D80[];
-s32 func_80098180(const u8 *, const u8 *);
+s32 strCmp(const u8 *, const u8 *);
 
-#define SCAN(cnt, grp)                                                         \
+/* Adds 4 points to each active record's driver slot (slot 4 is the running total).
+ * The driver slot is the first config name that matches the record's name, or slot 4 if none. */
+#define TALLY_GROUP(n_recs, grp)                                               \
     g = grp;                                                                   \
-    for (i = 0; i < cnt; i++) {                                                \
+    for (i = 0; i < n_recs; i++) {                                             \
         for (j = 0; j < g->count; j++) {                                       \
             if (g->items[j].active == 1) {                                     \
-                for (k = 0; func_80098180(D_800C35A0->entries[k].name,         \
+                for (k = 0; strCmp(gRecords->entries[k].name,         \
                                           g->items[j].name) != 0 && k < 4;     \
                      k++) {                                                    \
                 }                                                              \
@@ -60,8 +62,8 @@ void func_800540A0(void)
     u8 k;
     Group *g;
 
-    SCAN(D_800D0620, D_800D0638);
-    SCAN(D_800D0622, D_800D063C);
-    SCAN(D_800D0624, D_800D0640);
-    SCAN(D_800D0626, D_800D0644);
+    TALLY_GROUP(D_800D0620, D_800D0638);
+    TALLY_GROUP(D_800D0622, D_800D063C);
+    TALLY_GROUP(D_800D0624, D_800D0640);
+    TALLY_GROUP(D_800D0626, D_800D0644);
 }

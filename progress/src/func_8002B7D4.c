@@ -13,38 +13,41 @@ typedef struct {
     u8 pad58[0x8A - 0x58];
     u16 n;
 } Track;
-extern void func_8002D6E0(V4 *, V4 *);
+extern void vec3_square(V4 *, V4 *);
 
-void func_8002B7D4(u8 *arg0)
+/* Works out how far a car has moved along the track segment it is on, as a
+   percentage (0-100ish) between the points either side of it. Writes the result
+   to the car's progress field at +0x17C of the object pointed to by car+0x60. */
+void func_8002B7D4(u8 *car)
 {
     V4 pos;
     V4 dir;
     V4 rel;
-    Track *t;
-    u8 *p58;
-    s32 idx;
-    s32 a;
-    s32 b;
-    s32 s;
-    s32 d;
+    Track *track;
+    u8 *pos_src;
+    s32 seg;
+    s32 next_seg;
+    s32 prev_seg;
+    s32 dot;
+    s32 len_sq;
 
-    t = **(Track ***)(arg0 + 0x8C);
-    p58 = *(u8 **)(arg0 + 0x58);
-    idx = __repair_inline(**(s32 **)(arg0 + 0x60));
-    idx = idx * t->n + t->base;
-    pos.x = *(s32 *)(p58 + 0xC);
-    pos.z = *(s32 *)(*(u8 **)(arg0 + 0x58) + 0x14);
-    pos.x -= t->x;
-    pos.z -= t->z;
-    b = idx - 2;
-    a = idx + 2;
-    dir.x = t->pts[a].x - t->pts[b].x;
-    dir.z = t->pts[a].z - t->pts[b].z;
-    rel.x = pos.x - t->pts[b].x;
-    rel.z = pos.z - t->pts[b].z;
-    s = dir.x * rel.x + dir.z * rel.z;
-    func_8002D6E0(&dir, &dir);
-    d = dir.x + dir.z;
-    s = s * 100 / d;
-    *(s32 *)(*(u8 **)(arg0 + 0x60) + 0x17C) = s;
+    track = **(Track ***)(car + 0x8C);
+    pos_src = *(u8 **)(car + 0x58);
+    seg = __repair_inline(**(s32 **)(car + 0x60));
+    seg = seg * track->n + track->base;
+    pos.x = *(s32 *)(pos_src + 0xC);
+    pos.z = *(s32 *)(*(u8 **)(car + 0x58) + 0x14);
+    pos.x -= track->x;
+    pos.z -= track->z;
+    prev_seg = seg - 2;
+    next_seg = seg + 2;
+    dir.x = track->pts[next_seg].x - track->pts[prev_seg].x;
+    dir.z = track->pts[next_seg].z - track->pts[prev_seg].z;
+    rel.x = pos.x - track->pts[prev_seg].x;
+    rel.z = pos.z - track->pts[prev_seg].z;
+    dot = dir.x * rel.x + dir.z * rel.z;
+    vec3_square(&dir, &dir);
+    len_sq = dir.x + dir.z;
+    dot = dot * 100 / len_sq;
+    *(s32 *)(*(u8 **)(car + 0x60) + 0x17C) = dot;
 }

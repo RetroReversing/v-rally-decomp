@@ -8,13 +8,13 @@ typedef struct RData { char pad0[0x2C]; RRec recs[8]; s32 vals[8]; } RData;
 
 extern RData *func_80041564(void);
 extern void func_80045404(s32, RData *, s32, REntry *, s32, s32);
-extern void func_80098290(char *, char *);
-extern s32 D_8009D540;
-extern u8 D_800ADFE0;
+extern void copyStringAligned(char *, char *);
+extern s32 gRecordTimeScale;
+extern u8 gCurCount;
 extern s32 D_800B55FC[][8];
 extern s32 D_800B560C[][8];
-extern RObj **D_800B5C40;
-extern RCfg *D_800C35A0;
+extern RObj **gCarList;
+extern RCfg *gRecords;
 extern REntry gResultsTable[4];
 extern RPlayer D_800C7FF0;
 
@@ -37,32 +37,32 @@ void func_80073708(void) {
     s32 *tb;
 
     race_data = func_80041564();
-    car_obj = *D_800B5C40;
+    car_obj = *gCarList;
     i = 0;
     while (car_obj != NULL) {
         tb = D_800B55FC[0];
         j = 0;
         total = 0;
-        n = D_800ADFE0 - 1;
+        n = gCurCount - 1;
         time_p = car_obj->res->times + 1;
         while (j < n) {
             j++;
             total += *time_p++;
         }
         place = car_obj->res->place - 1;
-        cfg = D_800C35A0;
+        cfg = gRecords;
         gResultsTable[(u8)place].obj = car_obj;
-        func_80098290(gResultsTable[(u8)place].name, cfg->names[cfg->order[i]].name);
-        pick_val = D_800C35A0->names[D_800C35A0->order[i]].v;
+        copyStringAligned(gResultsTable[(u8)place].name, cfg->names[cfg->order[i]].name);
+        pick_val = gRecords->names[gRecords->order[i]].v;
         gResultsTable[(u8)place].idx = i;
         gResultsTable[(u8)place].total = total;
         gResultsTable[(u8)place].b = pick_val;
         if (total != 0) {
-            gResultsTable[(u8)place].rate = (u32)(race_data->vals[D_800C35A0->sel] * D_8009D540 * 3600) / (u32)(total * 1000); } else {
+            gResultsTable[(u8)place].rate = (u32)(race_data->vals[gRecords->sel] * gRecordTimeScale * 3600) / (u32)(total * 1000); } else {
             gResultsTable[(u8)place].rate = 0;
         }
         {
-        RCfg *c2 = D_800C35A0;
+        RCfg *c2 = gRecords;
         if (c2->cls != 5) {
             *(s32 *)((u8 *)(tb + c2->cls) + (i << 5)) += total;
             if (total != 0) {
@@ -73,7 +73,7 @@ void func_80073708(void) {
         }
         gResultsTable[(u8)place].pos = *car_obj->pos;
         if (gResultsTable[(u8)place].pos < 4 && gResultsTable[(u8)place].total != 0 && !(car_obj->flags & 0x200)) {
-            func_80045404(total, race_data, gResultsTable[(u8)place].b, &gResultsTable[(u8)place], D_800C35A0->c17, gResultsTable[(u8)place].rate);
+            func_80045404(total, race_data, gResultsTable[(u8)place].b, &gResultsTable[(u8)place], gRecords->c17, gResultsTable[(u8)place].rate);
         }
         car_obj = car_obj->next;
         i++;
@@ -84,17 +84,17 @@ void func_80073708(void) {
             gResultsTable[k].diff = 0;
         }
     }
-    if (D_800C35A0->mode == 2 && (u32)gResultsTable[3].total < (u32)gResultsTable[2].total) {
-        if (D_800C35A0->cls != 5) {
+    if (gRecords->mode == 2 && (u32)gResultsTable[3].total < (u32)gResultsTable[2].total) {
+        if (gRecords->cls != 5) {
             s32 *tb3 = D_800B55FC[0];
-            *(s32 *)((u8 *)(tb3 + D_800C35A0->cls) + (gResultsTable[3].idx << 5)) += 15000;
+            *(s32 *)((u8 *)(tb3 + gRecords->cls) + (gResultsTable[3].idx << 5)) += 15000;
             gResultsTable[3].total = 0;
             gResultsTable[3].rate = 0;
             gResultsTable[3].diff = 0;
         }
     }
-    func_80098290(D_800C7FF0.name, race_data->recs[D_800C35A0->sel].name);
-    D_800C7FF0.time = race_data->recs[D_800C35A0->sel].time;
-    D_800C7FF0.c = race_data->recs[D_800C35A0->sel].cA;
-    D_800C7FF0.d = race_data->recs[D_800C35A0->sel].c4;
+    copyStringAligned(D_800C7FF0.name, race_data->recs[gRecords->sel].name);
+    D_800C7FF0.time = race_data->recs[gRecords->sel].time;
+    D_800C7FF0.c = race_data->recs[gRecords->sel].cA;
+    D_800C7FF0.d = race_data->recs[gRecords->sel].c4;
 }

@@ -1,2 +1,25 @@
-extern char D_800AFA5C; extern char *D_800A1468; extern char D_800A13C0[]; extern char D_800A5268[]; void func_80098290(char *a, char *b); void func_800594F4(char *a);
-void func_8005A474(char arg0, int arg1) { char *p; D_800AFA5C = arg0; func_80098290(D_800A1468 + 0x2AD, D_800A13C0 + (arg0 & 0xFF) * 0x24); if (arg1 & 0xFF) { p = D_800A5268; D_800A1468[0x29E] = 1; } else { p = *(char **)(D_800A1468 + 0x1F4); } D_800A1468[0x29D] = 1; func_800594F4(p); }
+extern char D_800AFA5C;
+extern char *gSelectState;
+extern char D_800A13C0[];
+extern char D_800A5268[];
+void copyStringAligned(char *a, char *b);
+void selectSetText(char *text);
+
+/* Selects item `item` of the select list. Copies the item's name into the select state.
+ * When use_fixed_text is set, shows the fixed text at D_800A5268 and sets flag 0x29E.
+ * Otherwise shows the text pointed to by the state's pointer at 0x1F4. Then sets flag
+ * 0x29D and calls selectSetText. */
+void func_8005A474(char item, int use_fixed_text) {
+    char *text;
+
+    D_800AFA5C = item;
+    copyStringAligned(gSelectState + 0x2AD, D_800A13C0 + (item & 0xFF) * 0x24);
+    if (use_fixed_text & 0xFF) {
+        text = D_800A5268;
+        gSelectState[0x29E] = 1;
+    } else {
+        text = *(char **)(gSelectState + 0x1F4);
+    }
+    gSelectState[0x29D] = 1;
+    selectSetText(text);
+}

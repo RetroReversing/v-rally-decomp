@@ -6,33 +6,36 @@ typedef struct {
     s8 pad;
 } Item8;
 
-extern char D_800C02AE[];
+extern char gStreamState[];
 u64 osGetTime(void);
 s32 func_80098090();
-void func_800980C4(u32);
+void rand_seed(u32);
 
-void func_80035B04(Item8 *p) {
-    u32 n;
-    u32 t;
+/* Scatters a list of items at random: each gets a position (x up to 8191, y up to
+   2047, z up to 8191) and a side, 0 for the first half of the list and 1 for the rest.
+   The count comes from the current track's header. Reseeds the random generator first. */
+void func_80035B04(Item8 *items) {
+    u32 count;
+    u32 remaining;
     s32 r;
 
-    n = *(u32 *)(*(char **)(D_800C02AE + 0x7E6E) + 8);
-    func_800980C4((u32)osGetTime());
-    r = n;
-    n--;
+    count = *(u32 *)(*(char **)(gStreamState + 0x7E6E) + 8);
+    rand_seed((u32)osGetTime());
+    r = count;
+    count--;
     if (r != 0) {
         do {
-            if (n < (*(u32 *)(*(char **)(D_800C02AE + 0x7E6E) + 8) >> 1)) {
-                p->side = 0;
+            if (count < (*(u32 *)(*(char **)(gStreamState + 0x7E6E) + 8) >> 1)) {
+                items->side = 0;
             } else {
-                p->side = 1;
+                items->side = 1;
             }
-            p->x = func_80098090() % 8191;
-            p->y = func_80098090() % 2047;
-            p->z = func_80098090() % 8191;
-            p++;
-            t = n;
-            n--;
-        } while (t != 0);
+            items->x = func_80098090() % 8191;
+            items->y = func_80098090() % 2047;
+            items->z = func_80098090() % 8191;
+            items++;
+            remaining = count;
+            count--;
+        } while (remaining != 0);
     }
 }

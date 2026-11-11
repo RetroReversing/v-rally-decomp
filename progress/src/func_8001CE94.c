@@ -1,20 +1,23 @@
-extern s32 D_8009FF30;
+extern s32 gShadeMode;
 extern s32 D_800A73E0;
-extern s32 D_800C02AE;
-void func_8001CE94(void *arg0)
+extern s32 gStreamState;
+
+/* Fills the three shade words in the shade table from obj. In shade mode 2, when the
+ * stream's current entry has the same mode value, all three use the fixed value 0x82. */
+void func_8001CE94(void *obj)
 {
-  register s32 var_v0;
-  if ((D_8009FF30 == 2) && (((var_v0 = (*((u16 *) (((char *) (*((void **) (((char *) (&D_800C02AE)) + 0x32F2)))) + 0xE)))) == D_8009FF30)))
+  register s32 value;
+  if ((gShadeMode == 2) && (((value = (*((u16 *) (((char *) (*((void **) (((char *) (&gStreamState)) + 0x32F2)))) + 0xE)))) == gShadeMode)))
   {
-    var_v0 = 0x82;
-    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE6)) = var_v0;
-    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE8)) = var_v0;
+    value = 0x82;
+    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE6)) = value;
+    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE8)) = value;
   }
   else
   {
-    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE6)) = (s16) (*((s32 *) (((char *) arg0) + 0x90)));
-    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE8)) = (s16) (*((s32 *) (0xDC + ((char *) arg0))));
-    var_v0 = *((s32 *) (((char *) arg0) + 0x128));
+    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE6)) = (s16) (*((s32 *) (((char *) obj) + 0x90)));
+    *((s16 *) (((char *) (&D_800A73E0)) + 0x6BE8)) = (s16) (*((s32 *) (0xDC + ((char *) obj))));
+    value = *((s32 *) (((char *) obj) + 0x128));
   }
-  *((s16 *) (((char *) (&D_800A73E0)) + 0x6BEA)) = (s16) var_v0;
+  *((s16 *) (((char *) (&D_800A73E0)) + 0x6BEA)) = (s16) value;
 }

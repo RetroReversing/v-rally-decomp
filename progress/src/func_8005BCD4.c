@@ -18,14 +18,14 @@ typedef struct
   u8 p[4];
   void **node;
 } Asset;
-extern Obj *D_800A1468;
-extern u8 *D_800C35A0;
+extern Obj *gSelectState;
+extern u8 *gRecords;
 extern void *D_800D05D8;
 struct N { int p0; struct N *next; int p8; int key; };
-extern struct N *func_8004240C(int);
+extern struct N *find_object_by_id(int);
 extern void func_8004C370(s32, void *);
-extern void func_800599D0(void *, s32);
-void func_800596F4(void *, s16, s16, void *);
+extern void draw_select_entry(void *, s32);
+void draw_palette_sprite(void *, s16, s16, void *);
 extern void func_8004CEB4(void *, void *, void *, s32, s32, s32, s32, s32, s32);
 
 /* Draws the four-slot strip for the active menu object: slides it into view,
@@ -57,7 +57,7 @@ void func_8005BCD4(void)
   u8 saved_sel;
   s8 k;
   s8 j;
-  menu = D_800A1468;
+  menu = gSelectState;
   if (menu->hidden)
   {
     return;
@@ -82,11 +82,11 @@ void func_8005BCD4(void)
 
   ds.q[0] = (ds.q[1] = 210);
   ds.q[2] = (ds.q[3] = 50);
-  hud_list = func_8004240C(1);
-  for (i = 0; i < (*((u16 *) (D_800C35A0 + 14))); i++)
+  hud_list = find_object_by_id(1);
+  for (i = 0; i < (*((u16 *) (gRecords + 14))); i++)
   {
     register Obj *obj;
-    obj = D_800A1468;
+    obj = gSelectState;
     if (!obj->assets[i])
     {
       continue;
@@ -109,13 +109,13 @@ void func_8005BCD4(void)
       ds.xy[1] = ((i & 1) * 22) + 0x1a8;
     }
     func_8004C370(*((s32 *) (((u8 *) hud_list) + 0x178)), ds.rec);
-    ds.xy[2] = (*((u16 *) (((u8 *) (*((Asset *) D_800A1468->assets[i])->node)) + 6))) * ds.f;
-    ds.xy[3] = (*((u16 *) (8 + ((u8 *) (*((Asset *) D_800A1468->assets[i])->node))))) * ds.g;
+    ds.xy[2] = (*((u16 *) (((u8 *) (*((Asset *) gSelectState->assets[i])->node)) + 6))) * ds.f;
+    ds.xy[3] = (*((u16 *) (8 + ((u8 *) (*((Asset *) gSelectState->assets[i])->node))))) * ds.g;
     *((s16 *) (ds.text + 4)) = (i) ? (0x128) : (0x126);
     *((s16 *) (ds.text + 6)) = ((i & 2) * 256) + 42;
     *((s16 *) (ds.text + 8)) = ((i & 1) * 22) + 0x1ae;
-    func_800599D0(ds.text, 0);
-    menu = D_800A1468;
+    draw_select_entry(ds.text, 0);
+    menu = gSelectState;
     saved_sel = 255;
     if (menu->active && (i == menu->selected))
     {
@@ -124,7 +124,7 @@ void func_8005BCD4(void)
       {
         register u8 *game;
         register s8 jv;
-        game = D_800C35A0;
+        game = gRecords;
         jv = j;
         if (*((u8 *)((s32) game + (s32) jv + 0x32)) == menu->type)
         {
@@ -134,19 +134,19 @@ void func_8005BCD4(void)
 
       i = j;
     }
-    if (D_800A1468->assets[i])
+    if (gSelectState->assets[i])
     {
-      func_8004CEB4(D_800D05D8, *((Asset *) D_800A1468->assets[i])->node, ds.xy, 0, ds.col[4], ds.col[4], ds.col[4], ds.col[4], 0);
+      func_8004CEB4(D_800D05D8, *((Asset *) gSelectState->assets[i])->node, ds.xy, 0, ds.col[4], ds.col[4], ds.col[4], ds.col[4], 0);
     }
     if ((ds.xy[0] - 64) >= 0)
     {
       register u8 *game2;
       register u8 car_idx;
-      game2 = D_800C35A0;
+      game2 = gRecords;
       car_idx = *((u8 *)((s32) game2 + (s32) i + 0x32));
-      func_800596F4((void *)(ds.text), (s16)(ds.xy[0] - 48), (s16)(*((s16 *) (ds.text + 8))), (void *)(game2 + ((car_idx * 40) + 68)));
+      draw_palette_sprite((void *)(ds.text), (s16)(ds.xy[0] - 48), (s16)(*((s16 *) (ds.text + 8))), (void *)(game2 + ((car_idx * 40) + 68)));
     }
-    if (D_800A1468->active && (saved_sel == D_800A1468->selected))
+    if (gSelectState->active && (saved_sel == gSelectState->selected))
     {
       i = saved_sel;
     }

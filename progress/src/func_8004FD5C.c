@@ -10,60 +10,64 @@ typedef struct {
 } Entry;
 typedef struct { Entry e[4]; u16 count; s16 unk112; } Mgr;
 typedef struct Node { s32 pad0; struct Node *next; u8 pad8[0x80]; s32 *p88; } Node;
-extern Cfg *D_800C35A0;
-extern s32 D_8009D540;
-extern char D_800AE850[];
-s32 func_80022184(void *);
+extern Cfg *gRecords;
+extern s32 gRecordTimeScale;
+extern char gOrderState[];
+s32 flag_test_bit0(void *);
 s32 func_80022A90(Node *);
 void func_80022A98(Node *, s32);
-s32 func_8007EAA0(s32, s32);
+s32 poolAlloc(s32, s32);
 void memset(s32, s32, s32);
 
-s32 func_8004FD5C(Mgr *arg0, s32 arg1)
+/* Sets up the four track-buffer slots of the manager: sizes each slot from the
+ * node list and the limit (capped to the record time scale when the flag is
+ * set), allocates the buffers of any slot not yet in use, then copies each
+ * slot's block from the node chain. Returns 1, or 0 when the setup check fails. */
+s32 func_8004FD5C(Mgr *mgr, s32 limit)
 {
-    s32 n;
-    u32 cnt;
+    s32 nodeSize;
+    u32 slotCount;
     u32 i;
     Node *node;
     Entry *e;
 
     D_800C836C = 0;
-    n = 0;
-    if (D_800C35A0->flags2C & 1) {
-        arg1 = D_8009D540 * 0xA0;
+    nodeSize = 0;
+    if (gRecords->flags2C & 1) {
+        limit = gRecordTimeScale * 0xA0;
     }
-    if (func_80022184(D_800AE850 + 0x7320) == 0) {
+    if (flag_test_bit0(gOrderState + 0x7320) == 0) {
         return 0;
     }
-    arg0->unk112 = arg1;
-    for (node = **(Node ***)(D_800AE850 + 0x73F0); node != NULL; node = node->next) {
-        n = func_80022A90(node);
+    mgr->unk112 = limit;
+    for (node = **(Node ***)(gOrderState + 0x73F0); node != NULL; node = node->next) {
+        nodeSize = func_80022A90(node);
     }
-    cnt = D_800C35A0->u1E ? 4 : arg0->count;
+    slotCount = gRecords->u1E ? 4 : mgr->count;
     for (i = 0; i < 4; i++) {
-        e = &arg0->e[i];
+        e = &mgr->e[i];
         e->buf0 = 0;
         e->buf1 = 0;
         e->unk18 = 0;
         e->flags &= 0xF9FF;
-        if (D_800C35A0->u1E != 0 || (D_800C35A0->u1A == 0 && i <= arg0->count)) {
+        if (gRecords->u1E != 0 || (gRecords->u1A == 0 && i <= mgr->count)) {
             e->flags |= 8;
         }
     }
-    for (i = 0; i < cnt; i++) {
-        e = &arg0->e[i];
+    for (i = 0; i < slotCount; i++) {
+        e = &mgr->e[i];
         if (!(e->flags & 1)) {
             e->unkA = 3;
-            e->size0 = n * 4;
-            e->size1 = (arg1 + 1) * 4;
-            e->buf0 = func_8007EAA0(1, (e->size0 + 3) & ~3);
-            if (i < D_800C35A0->nAlloc) {
-                e->buf1 = func_8007EAA0(1, (e->size1 + 3) & ~3);
+            e->size0 = nodeSize * 4;
+            e->size1 = (limit + 1) * 4;
+            e->buf0 = poolAlloc(1, (e->size0 + 3) & ~3);
+            if (i < gRecords->nAlloc) {
+                e->buf1 = poolAlloc(1, (e->size1 + 3) & ~3);
             } else {
                 e->buf1 = 0;
             }
             memset(e->buf0, 0, e->size0);
-            if (i < D_800C35A0->nAlloc) {
+            if (i < gRecords->nAlloc) {
                 memset(e->buf1, 0, e->size1);
             }
             e->unkC = 0;
@@ -71,11 +75,11 @@ s32 func_8004FD5C(Mgr *arg0, s32 arg1)
         }
         e->flags |= 1;
     }
-    node = **(Node ***)(D_800AE850 + 0x73F0);
-    for (i = 0; i < cnt; i++) {
-        e = &arg0->e[i];
+    node = **(Node ***)(gOrderState + 0x73F0);
+    for (i = 0; i < slotCount; i++) {
+        e = &mgr->e[i];
         func_80022A98(node, e->buf0);
-        e->blk = D_800C35A0->blk[D_800C35A0->idx[i]];
+        e->blk = gRecords->blk[gRecords->idx[i]];
         e->unk18 = *node->p88;
         node = node->next;
     }

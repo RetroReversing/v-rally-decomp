@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,16 +11,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008BD90();                                /* extern */
-M2C_UNK func_8008BDB0(s32);                         /* extern */
-extern void *D_800A3A34;
+/* Stores the retrace message and count into the VI state block, with interrupts off. */
+s32 osDisableInt();                                /* extern */
+M2C_UNK osRestoreInt(s32);                         /* extern */
+extern void *__osViCurr;
 
-void osViSetEvent(s32 arg0, s32 arg1, s16 arg2) {
-    s32 temp_a0;
+void osViSetEvent(s32 mq, s32 msg, s16 retraceCount) {
+    s32 saved;
 
-    temp_a0 = func_8008BD90();
-    M2C_FIELD(D_800A3A34, s32 *, 0x10) = arg0;
-    M2C_FIELD(D_800A3A34, s32 *, 0x14) = arg1;
-    M2C_FIELD(D_800A3A34, s16 *, 2) = arg2;
-    func_8008BDB0(temp_a0);
+    saved = osDisableInt();
+    M2C_FIELD(__osViCurr, s32 *, 0x10) = mq;
+    M2C_FIELD(__osViCurr, s32 *, 0x14) = msg;
+    M2C_FIELD(__osViCurr, s16 *, 2) = retraceCount;
+    osRestoreInt(saved);
 }

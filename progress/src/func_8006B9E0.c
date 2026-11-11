@@ -1,30 +1,30 @@
-extern char D_800C02AE[];
-
-u8 func_8006B9E0(u8 arg0, u8 arg1) {
-    switch (arg0) {
+/* Adds a fixed per-index offset (0, 7, 13, 19, 25, 31, 38, 45 for index 0..7) to `value`
+ * and returns the result. Indexes outside 0..7 return `value` unchanged. */
+u8 func_8006B9E0(u8 index, u8 value) {
+    switch (index) {
     case 0:
         break;
     case 1:
-        arg1 += 7;
+        value += 7;
         break;
     case 2:
-        arg1 += 13;
+        value += 13;
         break;
     case 3:
-        arg1 += 19;
+        value += 19;
         break;
     case 4:
-        arg1 += 25;
+        value += 25;
         break;
     case 5:
-        arg1 += 31;
+        value += 31;
         break;
     case 6:
-        arg1 += 38;
+        value += 38;
         break;
     case 7:
-        arg1 += 45;
+        value += 45;
         break;
     }
-    return arg1;
+    return value;
 }

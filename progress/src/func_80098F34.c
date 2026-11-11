@@ -1,22 +1,56 @@
 extern u8 D_800A73E0[];
-extern u8 *func_80098B7C(s32, s32, s32, s32 *, s32 *);
-extern s32 func_80098290(u8 *);
+extern u8 *ecvt_digits(s32, s32, s32, s32 *, s32 *);
+extern s32 copyStringAligned(u8 *);
 extern s32 func_8008E13C(u8 *, u8 *, s32);
 
+/* Formats a floating-point value into buf in %g style: ndigits significant digits, with
+ * a leading '-' for negatives, trailing zeros removed unless the flag at D_800A73E0+0x6b24
+ * is set, and exponent form for large or small magnitudes. Returns buf. */
+u8 *func_80098F34(s32 value_hi, s32 value_lo, s32 ndigits, u8 *buf)
+{
+    s32 decpt, sign;
+    u8 *digits, *out, *p;
 
-u8 *func_80098F34(s32 a0,s32 a1,s32 arg2,u8 *arg3){
- s32 sp18,sp1c,var_s1; u8 *var_a1,*var_s0,*var_s0_2;
- var_a1=func_80098B7C(a0,a1,arg2,&sp18,&sp1c); var_s0=arg3;
- if(sp1c){*arg3=0x2d;var_s0=arg3+1;}
- if(sp18==0x7fffffff){func_80098290(var_s0);return arg3;}
- if(sp18<=0){if(sp18>=-3){*var_s0++=0x30;*var_s0++=0x2e;var_s0_2=var_s0;
-   if(sp18) do {*var_s0_2++=0x30;sp18=sp18+1;} while(sp18);
-   func_8008E13C(var_s0_2,var_a1,arg2);var_s0=var_s0_2+arg2;
-block10: if(*(s8*)(D_800A73E0+0x6b24))*var_s0=0;else{if(((s8*)var_s0)[-1]==0x30)do{var_s0--; }while(((s8*)var_s0)[-1]==0x30);var_s0-=((s8*)var_s0)[-1]==0x2e;*var_s0=0;} return arg3;} goto block27;}
- if(sp18<arg2){arg2--;if(arg2!=-1) do{
-   *var_s0++=*var_a1++;sp18=sp18-1;if(sp18==0)*var_s0++=0x2e;arg2--;
- }while(arg2!=-1);
-goto block10;
- } else if(arg2+1>=sp18){func_8008E13C(var_s0,var_a1,sp18);var_s0[arg2]=0x30;if(!*(s8*)(D_800A73E0+0x6b24))var_s0[sp18]=0;else{var_s0[sp18]=0x2e;(var_s0+sp18)[1]=0;}}
- else{block27:func_80098A1C(var_a1,arg2,sp18-1,var_s0);} return arg3;
+    digits = ecvt_digits(value_hi, value_lo, ndigits, &decpt, &sign);
+    out = buf;
+    if (sign) { *buf = '-'; out = buf + 1; }
+    if (decpt == 0x7fffffff) { copyStringAligned(out); return buf; }
+    if (decpt <= 0) {
+        if (decpt >= -3) {
+            *out++ = '0';
+            *out++ = '.';
+            p = out;
+            if (decpt) do { *p++ = '0'; decpt = decpt + 1; } while (decpt);
+            func_8008E13C(p, digits, ndigits);
+            out = p + ndigits;
+strip_zeros:
+            if (*(s8 *)(D_800A73E0 + 0x6b24)) *out = 0;
+            else {
+                if (((s8 *)out)[-1] == 0x30) do { out--; } while (((s8 *)out)[-1] == 0x30);
+                out -= ((s8 *)out)[-1] == 0x2e;
+                *out = 0;
+            }
+            return buf;
+        }
+        goto exp_format;
+    }
+    if (decpt < ndigits) {
+        ndigits--;
+        if (ndigits != -1) do {
+            *out++ = *digits++;
+            decpt = decpt - 1;
+            if (decpt == 0) *out++ = '.';
+            ndigits--;
+        } while (ndigits != -1);
+        goto strip_zeros;
+    } else if (ndigits + 1 >= decpt) {
+        func_8008E13C(out, digits, decpt);
+        out[ndigits] = '0';
+        if (!*(s8 *)(D_800A73E0 + 0x6b24)) out[decpt] = 0;
+        else { out[decpt] = '.'; (out + decpt)[1] = 0; }
+    } else {
+exp_format:
+        func_80098A1C(digits, ndigits, decpt - 1, out);
+    }
+    return buf;
 }

@@ -1,24 +1,4 @@
-
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-extern int D_800ADF80;
-
-
-s32 func_800056FC();
-void func_8000C22C(void *, s32, s32, s32, u8);
-s32 func_8000C244();
-extern void *D_800A1468;
+extern void *gSelectState;
 extern char D_800A51A8[];
 extern char D_800A51B0[];
 extern char D_800A51B8[];
@@ -30,72 +10,76 @@ extern char D_800A51D8[];
 extern char D_800A51DC[];
 extern char D_800A51E4[];
 extern char D_800A51EC[];
-extern char D_800A73E0[];
+extern int D_800ADF80;
+s32 view_get_ctx_id();
+void func_8000C22C(void *, s32, s32, s32, u8);
+s32 func_8000C244();
 
-void func_80057334(s16 arg0, s16 arg1, s32 arg2) {
-    s32 *var_s0;
+/* Picks the menu label for option `index` (0-9) and shows it in the select view. */
+void func_80057334(s16 x, s16 y, s32 index) {
+    s32 *label;
 
-    var_s0 = &D_800A51A8;
-    if (arg2 != 0) {
+    label = &D_800A51A8;
+    if (index != 0) {
         goto block_2;
     }
-    var_s0 = &D_800A51B0;
+    label = &D_800A51B0;
     goto block_20;
 block_2:
-    if (arg2 != 1) {
+    if (index != 1) {
         goto block_4;
     }
-    var_s0 = &D_800A51B8;
+    label = &D_800A51B8;
     goto block_20;
 block_4:
-    if (arg2 != 2) {
+    if (index != 2) {
         goto block_6;
     }
-    var_s0 = &D_800A51BC;
+    label = &D_800A51BC;
     goto block_20;
 block_6:
-    if (arg2 != 3) {
+    if (index != 3) {
         goto block_8;
     }
-    var_s0 = &D_800A51C0;
+    label = &D_800A51C0;
     goto block_20;
 block_8:
-    if (arg2 != 4) {
+    if (index != 4) {
         goto block_10;
     }
-    var_s0 = &D_800A51C8;
+    label = &D_800A51C8;
     goto block_20;
 block_10:
-    if (arg2 != 5) {
+    if (index != 5) {
         goto block_12;
     }
-    var_s0 = &D_800A51D0;
+    label = &D_800A51D0;
     goto block_20;
 block_12:
-    if (arg2 != 6) {
+    if (index != 6) {
         goto block_14;
     }
-    var_s0 = &D_800A51D8;
+    label = &D_800A51D8;
     goto block_20;
 block_14:
-    if (arg2 != 7) {
+    if (index != 7) {
         goto block_16;
     }
-    var_s0 = &D_800A51DC;
+    label = &D_800A51DC;
     goto block_20;
 block_16:
-    if (arg2 != 8) {
+    if (index != 8) {
         goto block_18;
     }
-    var_s0 = &D_800A51E4;
+    label = &D_800A51E4;
     goto block_20;
 block_18:
-    if (arg2 != 9) {
+    if (index != 9) {
         goto block_20;
     }
-    var_s0 = &D_800A51EC;
+    label = &D_800A51EC;
 block_20:
-    func_8000C22C((void *)(*(s32 *)((char *)D_800A1468 + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
-    func_8000C244(*(s32 *)((char *)D_800A1468 + 0xE4), func_800056FC(D_800ADF80), arg0, arg1, var_s0, 0);
+    func_8000C22C((void *)(*(s32 *)((char *)gSelectState + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
+    func_8000C244(*(s32 *)((char *)gSelectState + 0xE4), view_get_ctx_id(D_800ADF80), x, y, label, 0);
     return;
 }

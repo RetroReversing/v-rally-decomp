@@ -20,15 +20,19 @@ typedef struct {
     u8 sel[0x12];
     Ent e[4];
 } Game;
-extern Game *D_800C35A0;
+extern Game *gRecords;
 extern Rec D_800C3650[4][4];
 extern Rec D_800C3A50[4];
-extern void func_800535F4(Rec *);
+extern void sort_split_times(Rec *);
 extern void func_8006CB9C(void);
-extern void func_8006F75C(void);
-extern s32 func_80098180(char *, char *);
-extern void func_80098290(char *, char *);
+extern void save_race_to_pak(void);
+extern s32 strCmp(char *, char *);
+extern void copyStringAligned(char *, char *);
 
+/* For each of the four players: total the times and laps of their name across the
+ * record groups (only entries flagged e == 1 count). If the player's total is not
+ * already in the top table D_800C3A50, it is written into slot 3 and the table is
+ * re-sorted by sort_split_times. */
 void func_80054BB8(void)
 {
     struct {
@@ -46,7 +50,7 @@ void func_80054BB8(void)
     c = 0;
     do
     {
-        func_80098290(name, D_800C35A0->e[c].name);
+        copyStringAligned(name, gRecords->e[c].name);
         g = 0;
         acc.time[c] = 0;
         acc.laps[c] = 0;
@@ -57,7 +61,7 @@ void func_80054BB8(void)
             k = 0;
             do
             {
-                if (D_800C3650[g][k].e == 1 && func_80098180(name, D_800C3650[g][k].name) == 0)
+                if (D_800C3650[g][k].e == 1 && strCmp(name, D_800C3650[g][k].name) == 0)
                 {
                     acc.time[c] += D_800C3650[g][k].time;
                     found = 1;
@@ -78,7 +82,7 @@ void func_80054BB8(void)
             k = 0;
             do
             {
-                if (func_80098180(name, D_800C3A50[k].name) == 0)
+                if (strCmp(name, D_800C3A50[k].name) == 0)
                 {
                     ok &= -(D_800C3A50[k].time != acc.time[c]);
                 }
@@ -87,17 +91,17 @@ void func_80054BB8(void)
             if ((u8) ok)
             {
                 D_800C3A50[3].time = acc.time[c];
-                D_800C3A50[3].car = D_800C35A0->e[D_800C35A0->sel[c]].w;
-                D_800C3A50[3].b = D_800C35A0->x16;
-                func_80098290(D_800C3A50[3].name, D_800C35A0->e[D_800C35A0->sel[c]].name);
+                D_800C3A50[3].car = gRecords->e[gRecords->sel[c]].w;
+                D_800C3A50[3].b = gRecords->x16;
+                copyStringAligned(D_800C3A50[3].name, gRecords->e[gRecords->sel[c]].name);
                 D_800C3A50[3].c = (u32) acc.laps[c] / 18;
                 D_800C3A50[3].d = 0;
                 D_800C3A50[3].e = 1;
-                func_800535F4(D_800C3A50);
+                sort_split_times(D_800C3A50);
             }
         }
         c++;
     } while (c < 4);
     func_8006CB9C();
-    func_8006F75C();
+    save_race_to_pak();
 }

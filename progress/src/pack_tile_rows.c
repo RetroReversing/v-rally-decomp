@@ -1,16 +1,16 @@
 extern f64 D_800A5890;
 extern f64 D_800A58A0;
 extern f64 D_800A5898;
-extern u8 *D_800C35A0;
-extern u8 *D_800D0634[];
+extern u8 *gRecords;
+extern u8 *gSlotTableB[];
 extern u16 D_800C5D9C[];
-extern u8 D_800C721E[];
+extern u8 gRecordPackets[];
 extern s32 func_8006B924(u8 *);
 
-/* Packs one group of three rows into the byte buffer D_800C721E. Each column
+/* Packs one group of three rows into the byte buffer gRecordPackets. Each column
  * gets a code from func_8006B924 and a level from D_800C5D9C; code 5 writes a
  * fixed pattern, other codes write the level as 2-bit flags plus a 10-bit
- * value. The group base depends on the table selected by D_800C35A0[31]. */
+ * value. The group base depends on the table selected by gRecords[31]. */
 void pack_tile_rows(void)
 {
   s32 r;
@@ -31,9 +31,9 @@ void pack_tile_rows(void)
   s32 raw;
   u8 *item;
   s32 row_product;
-  b = D_800C35A0[31];
-  n = D_800C35A0[35];
-  s6 = D_800D0634[b];
+  b = gRecords[31];
+  n = gRecords[35];
+  s6 = gSlotTableB[b];
   j = 0;
   switch (b)
   {
@@ -71,11 +71,11 @@ packed_loop:
     row_product = group_index * 9;
     k = i & 255;
     q = (((k * 3) + row_product) * 4) - ((j & 255) * 8);
-    item = (s6 + (((*((u16 *) (D_800C35A0 + 34))) << 6) + 44)) + (k * 16);
+    item = (s6 + (((*((u16 *) (gRecords + 34))) << 6) + 44)) + (k * 16);
     do {
       code = func_8006B924(item);
     } while (0);
-    out = D_800C721E;
+    out = gRecordPackets;
     if ((code & 255) == 5)
     {
       if (q & 255)
@@ -95,7 +95,7 @@ packed_loop:
     }
     else
     {
-      r = *level - (*((s32 *) ((s6 + ((k * 16) + ((*((u16 *) (D_800C35A0 + 34))) << 6))) + 44)));
+      r = *level - (*((s32 *) ((s6 + ((k * 16) + ((*((u16 *) (gRecords + 34))) << 6))) + 44)));
       if (r >= 0)
       {
         if (r >= 1024)

@@ -5,29 +5,32 @@ typedef struct Menu { s16 pad0; s16 cur; u16 timer; s16 pad6; s32 (*get)(void); 
 extern s16 func_80089C48(MPage *, s32, s32, u8, s16 *, u8 *, Menu *, s32);
 extern u8 D_800A1C70;
 
-void func_8008A31C(Menu *m) {
+/* Runs one frame of a menu: reads input, draws the visible items and the page
+ * overlay (unless D_800A1C70 is set), then sends the input to the item and the back
+ * action. The selection and current page change when the handler asks for it. */
+void func_8008A31C(Menu *menu) {
     MPage *page;
-    s32 in;
-    u8 flag;
+    s32 input;
+    u8 pressed;
     u8 i;
-    MItem *it;
-    s16 r;
-    s16 newcur;
+    MItem *item;
+    s16 result;
+    s16 new_cur;
     u8 done;
 
-    page = &m->pages[m->cur];
-    in = m->get();
-    flag = 0;
-    if (m->cb != NULL) {
-        m->cb(in);
+    page = &menu->pages[menu->cur];
+    input = menu->get();
+    pressed = 0;
+    if (menu->cb != NULL) {
+        menu->cb(input);
     }
-    if (m->timer == page->timeout) {
-        if (m->timer != 0) {
-            in = 0x10000;
-            m->timer = 0;
+    if (menu->timer == page->timeout) {
+        if (menu->timer != 0) {
+            input = 0x10000;
+            menu->timer = 0;
         }
-    } else if (in != 0) {
-        flag = 1;
+    } else if (input != 0) {
+        pressed = 1;
     }
     if (D_800A1C70 == 0) {
         for (i = 0; i < page->count; i++) {
@@ -40,27 +43,27 @@ void func_8008A31C(Menu *m) {
         }
     }
     done = 0;
-    newcur = r = -1;
+    new_cur = result = -1;
     if (page->count != 0) {
-        r = func_80089C48(page, page->items[page->sel - page->first].action, in, page->items[page->sel - page->first].type, &newcur, &done, m, page->sel);
-        if (r != -1) {
-            page->sel = r;
+        result = func_80089C48(page, page->items[page->sel - page->first].action, input, page->items[page->sel - page->first].type, &new_cur, &done, menu, page->sel);
+        if (result != -1) {
+            page->sel = result;
         }
-        if (newcur != -1) {
-            m->cur = newcur;
+        if (new_cur != -1) {
+            menu->cur = new_cur;
         }
     }
     if (done == 0 && page->back != 0) {
-        r = func_80089C48(page, page->def, in, page->back, &newcur, &done, m, 0);
-        if (r != -1) {
-            page->sel = r;
-        } else if (newcur != r) {
-            m->cur = newcur;
-            m->pages[newcur].sel = m->pages[newcur].first;
+        result = func_80089C48(page, page->def, input, page->back, &new_cur, &done, menu, 0);
+        if (result != -1) {
+            page->sel = result;
+        } else if (new_cur != result) {
+            menu->cur = new_cur;
+            menu->pages[new_cur].sel = menu->pages[new_cur].first;
         }
     }
-    if (flag && done) {
-        m->timer = 0;
+    if (pressed && done) {
+        menu->timer = 0;
     }
-    m->timer++;
+    menu->timer++;
 }

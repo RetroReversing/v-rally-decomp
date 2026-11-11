@@ -1,32 +1,36 @@
-void *func_8008A054();
-void func_8008A1CC(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
-{
-  char *var_a0;
-  s32 temp_s0;
-  u32 var_a1;
-  void *temp_a2;
-  volatile int pad;
-  void *temp_v0;
-  void *var_v1;
-  temp_s0 = arg1 & 0xFFFF;
-  temp_v0 = func_8008A054(arg0, temp_s0);
-  temp_a2 = (*((s32 *) (((char *) temp_v0) + 8))) + ((temp_s0 - (*((u8 *) (((char *) temp_v0) + 0xD)))) * 0xC);
-  var_a0 = *((s32 **) (((char *) temp_a2) + 4));
-  var_a1 = 0;
-  if ((*((u8 *) (((char *) temp_a2) + 8))) != 0)
-  {
-    var_v1 = var_a0 + 8;
-    loop_2:
-    var_a1 += 1;
+void *findRecordByRange();
 
-    if (((*((s32 *) var_a0)) == arg2) && ((*((s8 *) (((char *) var_v1) + (-4)))) == 0))
+/* Finds the record for id in the table (20-byte records, base id at +0xD) and then the
+ * 12-byte item in its group whose key matches and whose owner byte is 0; sets that item's
+ * value word to value. Does nothing if no item matches. */
+void func_8008A1CC(s32 table, s32 id, s32 key, s32 value)
+{
+  char *item;
+  s32 idx;
+  u32 count;
+  void *group;
+  volatile int pad;
+  void *rec;
+  void *valueSlot;
+  idx = id & 0xFFFF;
+  rec = findRecordByRange(table, idx);
+  group = (*((s32 *) (((char *) rec) + 8))) + ((idx - (*((u8 *) (((char *) rec) + 0xD)))) * 0xC);
+  item = *((s32 **) (((char *) group) + 4));
+  count = 0;
+  if ((*((u8 *) (((char *) group) + 8))) != 0)
+  {
+    valueSlot = item + 8;
+    loop_2:
+    count += 1;
+
+    if (((*((s32 *) item)) == key) && ((*((s8 *) (((char *) valueSlot) + (-4)))) == 0))
     {
-      *((s32 *) (((char *) var_v1) + 0)) = arg3;
+      *((s32 *) (((char *) valueSlot) + 0)) = value;
       return;
     }
-    var_v1 += 0xC;
-    var_a0 += 0xC;
-    if (var_a1 >= ((u8) (*((u8 *) (((char *) temp_a2) + 8)))))
+    valueSlot += 0xC;
+    item += 0xC;
+    if (count >= ((u8) (*((u8 *) (((char *) group) + 8)))))
     {
     }
     else

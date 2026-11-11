@@ -1,33 +1,37 @@
-extern u8 D_800C02AE[];
-s8 func_80068658(s8 arg0)
+extern u8 gStreamState[];
+
+/* Returns the first slot after `start` (up to slot 3) whose 0x28-byte entry starts with an
+   uppercase letter 'A'..'Z'; if none is found, returns `start` unchanged. */
+s8 func_80068658(s8 start)
 {
-  s8 a3;
+  s8 result;
   u8 found;
-  u8 *base;
-  base = (*((u8 **) (D_800C02AE + 0x32F2))) + 0x44;
-  a3 = arg0;
+  u8 *entries;
+
+  entries = (*((u8 **) (gStreamState + 0x32F2))) + 0x44;
+  result = start;
   found = 0;
-  if (arg0 < 3)
+  if (start < 3)
   {
-    arg0 += 1;
+    start += 1;
     while (1)
     {
-      if (((u32) (base[arg0 * 0x28] - 0x41)) < 0x1A)
+      if (((u32) (entries[start * 0x28] - 0x41)) < 0x1A)
       {
         found = 1;
         break;
       }
-      if (arg0 >= 3)
+      if (start >= 3)
       {
         break;
       }
-      arg0++;
+      start++;
     }
 
     if (found)
     {
-      a3 = arg0;
+      result = start;
     }
   }
-  return a3;
+  return result;
 }

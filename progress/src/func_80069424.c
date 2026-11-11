@@ -1,11 +1,16 @@
 extern s32 D_8009B974;
 extern s32 D_800A1634;
-extern s32 D_800C35A0;
-extern s32 func_80084F6C();
+extern s32 gRecords;
+extern s32 contClearEntryWords();
 extern s32 func_800852FC(s32, s32 *, s32);
+
+/* For the first two records in gRecords: takes the record's 32-bit value at +0x68,
+   maps each of its eight 4-bit nibbles through the table at D_800A1634 into an
+   8-byte stride of D_8009B974 (one word per nibble), then passes each record
+   on to contClearEntryWords and func_800852FC. */
 void func_80069424(void)
 {
-  int new_var;
+  int recordAddr;
   s8 i;
   s8 idx;
   s32 base;
@@ -15,14 +20,14 @@ void func_80069424(void)
   u32 bits;
   s32 outIndex;
   i = 0;
-  charBase = D_800C35A0 + 0x32;
+  charBase = gRecords + 0x32;
   do
   {
     idx = i;
-    base = D_800C35A0;
+    base = gRecords;
     value = *((u8 *) (charBase + idx));
-    new_var = base + (value * 0x28);
-    bits = *((u32 *) (new_var + 0x68));
+    recordAddr = base + (value * 0x28);
+    bits = *((u32 *) (recordAddr + 0x68));
     j = 0;
     do
     {
@@ -32,7 +37,7 @@ void func_80069424(void)
       j = (s8) (j + 1);
     }
     while (j < 8);
-    func_80084F6C(i & 0xFF);
+    contClearEntryWords(i & 0xFF);
     func_800852FC(i & 0xFF, &D_8009B974, 0xC);
     i = (s8) (i + 1);
   }

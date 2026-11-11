@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_800A3A30;
+extern s32 gViPending;
 
 s32 func_80095C80(void) {
-    return D_800A3A30;
+    return gViPending;
 }

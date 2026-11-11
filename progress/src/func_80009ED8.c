@@ -1,36 +1,35 @@
 extern char D_800A73E0[];
-extern char D_800AE850[];
-extern void *D_800C8054;
-s32 func_80009E10(s32);
+extern char gOrderState[];
+extern void *gOrderPrevHook;
+s32 pool_alloc_records(s32 count);
 void func_80009E7C(void);
-void func_80009ED8(void)
-{
-  int new_var3;
-  s32 *new_var2;
-  s32 *p = (s32 *) (D_800A73E0 + 0x6BA8);
-  s32 v;
-  unsigned short new_var;
-  s32 a;
-  s32 b;
-  new_var3 = 0x15E;
-  *p = func_80009E10(new_var3);
-  v = func_80009E10(new_var3);
-  a = p[0];
-  b = *(&D_800C8054);
-  do
-  {
-    p[1] = v;
-    p[4] = 0;
-    new_var = 5;
-    p[3] = v;
-    p[5] = new_var3;
-    D_800C8054 = func_80009E7C;
-  }
-  while (0);
-  p[2] = a;
-  do
-  {
-  }
-  while (0);
-  *(new_var2 = (s32 *) (D_800AE850 + 0x11F4)) = b;
+
+/* Sets up the double-buffered record ticker at D_800A73E0+0x6BA8: two pools of
+ * 350 records are allocated, and this module's tick callback is chained in front
+ * of the previous one, which is kept at gOrderState+0x11F4. */
+void func_80009ED8(void) {
+    int count;
+    s32 *ticker = (s32 *)(D_800A73E0 + 0x6BA8);
+    s32 second;
+    s32 first;
+    s32 prev_callback;
+    unsigned short unused;
+
+    count = 0x15E;
+    *ticker = pool_alloc_records(count);
+    second = pool_alloc_records(count);
+    first = ticker[0];
+    prev_callback = *(&gOrderPrevHook);
+    do {
+        ticker[1] = second;
+        ticker[4] = 0;
+        unused = 5;
+        ticker[3] = second;
+        ticker[5] = count;
+        gOrderPrevHook = func_80009E7C;
+    } while (0);
+    ticker[2] = first;
+    do {
+    } while (0);
+    *(s32 *)(gOrderState + 0x11F4) = prev_callback;
 }

@@ -1,28 +1,31 @@
-extern char *D_800A1234;
-extern char *D_800A1238;
-extern char D_800C02AE[];
+extern char *gCarEntries;
+extern char *gSlotTable;
+extern char gStreamState[];
 
-void func_80050AB8(s32 arg0)
+/* Resets the two per-slot tables (0x44-byte entries) at index 0x114; then resets slot
+   `index` in the car table, and in the slot table too when the stream state is 1
+   (also clearing the 0x0400 flag there and setting its state to 4). */
+void func_80050AB8(s32 index)
 {
-    u8 var_v0;
-    u8 var_v1;
-    char *temp_a1;
-    char *temp_a2;
+    u8 car_index;
+    u8 slot_index;
+    char *entry;
+    char *car_table;
 
-    temp_a1 = D_800A1238;
-    temp_a2 = D_800A1234;
-    temp_a1[0x114] = 0;
-    temp_a2[0x114] = 0;
-    var_v0 = arg0;
-    if (*((u16 *) (*((char **) (D_800C02AE + 0x32F2)) + 0x1A)) == 1) {
-        var_v1 = arg0;
-        temp_a1 = temp_a1 + (var_v1 * 0x44);
-        *((u16 *) (temp_a1 + 0xA)) = 4;
-        *((u16 *) (temp_a1 + 0xC)) = 0;
-        *((u16 *) (temp_a1 + 0x8)) &= 0xFBFF;
-        var_v0 = arg0;
+    entry = gSlotTable;
+    car_table = gCarEntries;
+    entry[0x114] = 0;
+    car_table[0x114] = 0;
+    car_index = index;
+    if (*((u16 *) (*((char **) (gStreamState + 0x32F2)) + 0x1A)) == 1) {
+        slot_index = index;
+        entry = entry + (slot_index * 0x44);
+        *((u16 *) (entry + 0xA)) = 4;
+        *((u16 *) (entry + 0xC)) = 0;
+        *((u16 *) (entry + 0x8)) &= 0xFBFF;
+        car_index = index;
     }
-    temp_a1 = temp_a2 + (var_v0 * 0x44);
-    *((u16 *) (temp_a1 + 0xC)) = 0;
-    *((u16 *) (temp_a1 + 0xA)) = 1;
+    entry = car_table + (car_index * 0x44);
+    *((u16 *) (entry + 0xC)) = 0;
+    *((u16 *) (entry + 0xA)) = 1;
 }

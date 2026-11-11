@@ -19,15 +19,15 @@ typedef struct {
   f32 sx;
   f32 sy;
 } Font;
-extern s32 D_800C3558;
+extern s32 gSelectStep;
 extern u32 D_8009B618[];
 extern u32 D_8009B680[];
 extern f64 D_800A3F10;
 extern f64 D_800A3F18;
-s32 func_8000665C(GfxCtx *, s32);
-void func_800068C0(GfxCtx *, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32);
+s32 dl_reserve_vertices(GfxCtx *, s32);
+void gfx_set_quad_pos(GfxCtx *, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32, s16, s16, s32);
 void func_80008B28(GfxCtx *, s32, u16, u16, u16, u16, u16, u16, u16, u16);
-s32 func_8008E118(u8 *);
+s32 str_len(u8 *);
 s32 osVirtualToPhysical(void *);
 
 u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
@@ -85,7 +85,7 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
   bias = 0;
   first = 1;
   gDma(c->dl++, 0xF2000000, _SHIFTL((font->tex->w - 1) << 2, 12, 12) | _SHIFTL((font->tex->h - 1) << 2, 0, 12));
-  len = func_8008E118(str);
+  len = str_len(str);
   for (i = 0; i < len; i++, x += font->spacing)
   {
     ch = str[i];
@@ -98,16 +98,16 @@ u16 func_8000C244(Font *font, GfxCtx *ctx, u32 x0, u32 y0, u8 *str, u8 mode)
         {
           bias = font->glyphs[ch].yoff * font->sy;
           first = 0;
-          if (D_800C3558 == 3 && (ch == 3 || ch == 4 || ch == 6))
+          if (gSelectStep == 3 && (ch == 3 || ch == 4 || ch == 6))
           {
             bias = bias - (font->sy * 3.0f - D_800A3F10);
           }
         }
         y = bias - (font->glyphs[ch].yoff * font->sy + D_800A3F18) + (f64) y0;
         x += font->glyphs[ch].xoff + kern - dec;
-        vtx = ((u16 (*)(GfxCtx *, s32))func_8000665C)(ctx, 4);
+        vtx = ((u16 (*)(GfxCtx *, s32))dl_reserve_vertices)(ctx, 4);
         fx = x;
-        func_800068C0(ctx, vtx, x, (f32) y + font->glyphs[ch].h * font->sy, 0,
+        gfx_set_quad_pos(ctx, vtx, x, (f32) y + font->glyphs[ch].h * font->sy, 0,
                       fx + font->glyphs[ch].w * font->sx, (f32) y + font->glyphs[ch].h * font->sy, 0,
                       fx + font->glyphs[ch].w * font->sx, y, 0, x, y, 0);
         func_80008B28(ctx, vtx, font->uv[ch].u[0] * 2, font->uv[ch].v[0] * 2,

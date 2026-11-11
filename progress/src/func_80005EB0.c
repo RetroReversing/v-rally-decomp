@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern int D_800AFB3C;
-extern int D_800B5C50;
-extern char D_800AE850[];
+extern int gStreamMain;
+extern char gOrderState[];
 
 void func_80005EB0(void) {
     s32 temp_v1;
 
     temp_v1 = D_800AFB3C;
-    D_800AFB3C = (s32) D_800B5C50;
-    D_800B5C50 = temp_v1;
+    D_800AFB3C = (s32) gStreamMain;
+    gStreamMain = temp_v1;
 }

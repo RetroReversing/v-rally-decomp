@@ -1,64 +1,70 @@
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 
-void func_80017FA4(u8 *arg0)
+/* Clears per-cell bits for one map/grid object: a cell is zeroed when its bit is set in
+   the cell array (0x70) and the matching flags are not masked out. Cells with the
+   tile kind 8 are set to 2. Then the low nibble of each cell is kept. */
+void func_80017FA4(u8 *obj)
 {
-    u16 *flags;
-    s32 temp_lo;
+    u16 *skip_mask;
+    s32 cell_addr;
     s32 off;
-    u8 *tp;
+    u8 *tile_info;
     s32 limit;
     u16 v;
- s32 eight,two,x,y;
+    s32 kind_match;
+    s32 kind_fix;
+    s32 width_minus_1;
+    s32 height_minus_1;
     u16 *p;
 
-    x=*(u16*)(arg0+0x8A);
-    x-=1;
-    y=*(u16*)(arg0+0x88);
-    y-=1;
-    temp_lo=x*y;
+    width_minus_1 = *(u16 *)(obj + 0x8A);
+    width_minus_1 -= 1;
+    height_minus_1 = *(u16 *)(obj + 0x88);
+    height_minus_1 -= 1;
+    cell_addr = width_minus_1 * height_minus_1;
 
-    if (temp_lo > 0) {
-        flags = (u16 *)(D_800C02AE + 0x767E);
-        tp = *(u8 **)(D_800C02AE + 0x32F2);
-        eight=8;
-        two=2;
+    if (cell_addr > 0) {
+        skip_mask = (u16 *)(gStreamState + 0x767E);
+        tile_info = *(u8 **)(gStreamState + 0x32F2);
+        kind_match = 8;
+        kind_fix = 2;
         off = 0;
-        limit=temp_lo*2;
+        limit = cell_addr * 2;
         do {
-            if (!(*flags & 0x8000)) {
-                temp_lo=off + *(u32 *)(arg0 + 0x70);
-                if (*(u16*)temp_lo & 0x8000) {
-                    *(u16*)temp_lo = 0;
+            if (!(*skip_mask & 0x8000)) {
+                cell_addr = off + *(u32 *)(obj + 0x70);
+                if (*(u16*)cell_addr & 0x8000) {
+                    *(u16*)cell_addr = 0;
                 }
             }
-            if (!(*flags & 0x4000)) {
-                temp_lo=off + *(u32 *)(arg0 + 0x70);
-                if (*(u16*)temp_lo & 0x4000) {
-                    *(u16*)temp_lo = 0;
+            if (!(*skip_mask & 0x4000)) {
+                cell_addr = off + *(u32 *)(obj + 0x70);
+                if (*(u16*)cell_addr & 0x4000) {
+                    *(u16*)cell_addr = 0;
                 }
             }
-            if (!(*flags & 0x2000)) {
-                temp_lo=off + *(u32 *)(arg0 + 0x70);
-                if ((*(u16*)temp_lo & 0x2000) && (*(u32 *)(arg0 + 0x60) & 0x13)) {
-                    *(u16*)temp_lo = 0;
+            if (!(*skip_mask & 0x2000)) {
+                cell_addr = off + *(u32 *)(obj + 0x70);
+                if ((*(u16*)cell_addr & 0x2000) && (*(u32 *)(obj + 0x60) & 0x13)) {
+                    *(u16*)cell_addr = 0;
                 }
             }
-            if (!(*flags & 0x1000)) {
-                temp_lo=off + *(u32 *)(arg0 + 0x70);
-                if ((*(u16*)temp_lo & 0x1000) && (*(u32 *)(arg0 + 0x60) & 4)) {
-                    *(u16*)temp_lo = 0;
+            if (!(*skip_mask & 0x1000)) {
+                cell_addr = off + *(u32 *)(obj + 0x70);
+                if ((*(u16*)cell_addr & 0x1000) && (*(u32 *)(obj + 0x60) & 4)) {
+                    *(u16*)cell_addr = 0;
                 }
             }
-            if (*(u16 *)(tp + 0x1E) == eight) {
-                temp_lo=off + *(u32 *)(arg0 + 0x70);
-                if (*(u16*)temp_lo == 0) {
-                    *(u16*)temp_lo = two;
+            if (*(u16 *)(tile_info + 0x1E) == kind_match) {
+                cell_addr = off + *(u32 *)(obj + 0x70);
+                if (*(u16*)cell_addr == 0) {
+                    *(u16*)cell_addr = kind_fix;
                 }
             }
-            p=(u16*)(off+*(u32*)(arg0+0x70));
-            v=*p;
-            off+=2;
-            *p=v&0xF;
+            p = (u16*)(off + *(u32*)(obj + 0x70));
+            v = *p;
+            off += 2;
+            *p = v & 0xF;
         } while (off < limit);
     }
 }

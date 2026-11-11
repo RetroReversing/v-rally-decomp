@@ -64,37 +64,41 @@ extern u8 D_800A7074[];
         _a->words.w1 = (u32)(s); \
     }
 
-Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
+/* Audio update step for one envelope mixer: emits the F3DEX-audio commands that
+ * copy the frame's samples to the output buffers. On the first frame it also
+ * ramps both channel volumes towards their targets. Advances *inp and the
+ * sample counter by outCount samples, and returns the next command slot. */
+Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *cmdList)
 {
-    Acmd *ptr = p;
-    ALEnvMixer *e = (ALEnvMixer *)filter;
-    ALFilter *source = e->filter.source;
+    Acmd *cmd = cmdList;
+    ALEnvMixer *env = (ALEnvMixer *)filter;
+    ALFilter *source = env->filter.source;
 
-    if (e->motion != 1 || !outCount) {
-        return ptr;
+    if (env->motion != 1 || !outCount) {
+        return cmd;
     }
     if (!source) {
         func_800914E0(D_800A7070, D_800A7074, 0x16F);
     }
-    ptr = (*source->handler)(source, inp, outCount, sampleOffset, p);
+    cmd = (*source->handler)(source, inp, outCount, sampleOffset, cmdList);
 
-    aSetBuffer(ptr++, 0, *inp, *outp + 0x440, outCount << 1);
-    aSetBuffer(ptr++, 8, *outp + 0x580, *outp + 0x6C0, *outp + 0x800);
+    aSetBuffer(cmd++, 0, *inp, *outp + 0x440, outCount << 1);
+    aSetBuffer(cmd++, 8, *outp + 0x580, *outp + 0x6C0, *outp + 0x800);
 
-    if (e->first) {
-        e->first = 0;
-        e->ltgt = (e->volume * D_800A38A0[e->pan]) >> 15; e->lratm = _getRate((f64)e->cvolL, (f64)e->ltgt, e->segEnd, &e->lratl);
-        e->rtgt = (e->volume * D_800A38A0[128 - e->pan - 1]) >> 15; e->rratm = _getRate((f64)e->cvolR, (f64)e->rtgt, e->segEnd, &e->rratl);
-        aSetVolume(ptr++, 6, e->cvolL, 0, 0);
-        aSetVolume(ptr++, 4, e->cvolR, 0, 0);
-        aSetVolume(ptr++, 2, e->ltgt, e->lratm, e->lratl);
-        aSetVolume(ptr++, 0, e->rtgt, e->rratm, e->rratl);
-        aSetVolume(ptr++, 8, e->dryamt, 0, e->wetamt);
-        aEnvMixer(ptr++, 9, osVirtualToPhysical(e->state));
+    if (env->first) {
+        env->first = 0;
+        env->ltgt = (env->volume * D_800A38A0[env->pan]) >> 15; env->lratm = _getRate((f64)env->cvolL, (f64)env->ltgt, env->segEnd, &env->lratl);
+        env->rtgt = (env->volume * D_800A38A0[128 - env->pan - 1]) >> 15; env->rratm = _getRate((f64)env->cvolR, (f64)env->rtgt, env->segEnd, &env->rratl);
+        aSetVolume(cmd++, 6, env->cvolL, 0, 0);
+        aSetVolume(cmd++, 4, env->cvolR, 0, 0);
+        aSetVolume(cmd++, 2, env->ltgt, env->lratm, env->lratl);
+        aSetVolume(cmd++, 0, env->rtgt, env->rratm, env->rratl);
+        aSetVolume(cmd++, 8, env->dryamt, 0, env->wetamt);
+        aEnvMixer(cmd++, 9, osVirtualToPhysical(env->state));
     } else {
-        aEnvMixer(ptr++, 8, osVirtualToPhysical(e->state));
+        aEnvMixer(cmd++, 8, osVirtualToPhysical(env->state));
     }
     *inp += outCount << 1;
-    e->delta += outCount;
-    return ptr;
+    env->delta += outCount;
+    return cmd;
 }

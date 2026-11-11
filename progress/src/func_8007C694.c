@@ -5,17 +5,17 @@ typedef struct { TexHdr *t[4]; } TexSet;
 typedef struct { u8 pad[4]; TexSet *unk4; } TexOwner;
 typedef struct { u8 pad[0xE]; u16 unkE; u8 pad2[0xE]; u16 unk1E; } GameState;
 
-extern GameState *D_800C35A0;
-extern VpCtx *D_800C7F84;
+extern GameState *gRecords;
+extern VpCtx *g_camera;
 extern u8 D_800C8380[];
 extern u8 D_800C83C4[];
 #define D_800C8385 D_800C83C4[1]
 extern u8 D_800C8170[];
 typedef struct { u8 pad[0x1D00]; void *font; u16 timer; u16 page; } DbgBlk;
-extern DbgBlk D_800AE850;
-#define D_800B0550 D_800AE850.font
-#define D_800B0554 D_800AE850.timer
-#define D_800B0556 D_800AE850.page
+extern DbgBlk gOrderState;
+#define D_800B0550 gOrderState.font
+#define D_800B0554 gOrderState.timer
+#define D_800B0556 gOrderState.page
 extern TexOwner *D_800AFA50;
 extern u32 D_800AFA6C;
 extern u8 D_800B5580[];
@@ -52,16 +52,16 @@ extern char D_800A6B9C[], D_800A6BB0[], D_800A6BC8[], D_800A6BEC[], D_800A6C04[]
 void guMtxIdent(void *m);
 void guOrthoF(f32 mf[4][4], f32 l, f32 r, f32 b, f32 t, f32 n, f32 f, f32 scale);
 void guMtxF2L(f32 mf[4][4], void *m);
-void *func_800056FC(void *);
-u32 *func_80006008(void *);
-void func_80006014(void *, u32 *);
-void *func_8001BD1C(void);
-void func_800061FC(void *, void *);
-void func_80006298(void *);
+void *view_get_ctx_id(void *);
+u32 *gfx_get_dl(void *);
+void gfx_set_dl(void *, u32 *);
+void *mtx_pool_alloc(void);
+void gfx_push_mtx(void *, void *);
+void gfx_round_vtx_pos(void *);
 void func_8000C22C(void *, s32, s32, s32, u8);
 void func_8000C244(void *, void *, s32, s32, char *, s32);
 void func_8007C3E0(s32, s32, s32, s32, s32);
-VpCtx *func_8004240C(s32);
+VpCtx *find_object_by_id(s32);
 s32 func_80084DD4(s32);
 void func_8000A5EC(void *, void *, s32, s32, s32, s32, s32);
 void D_8000A840(Vp178 *, s16, s16, void *, s32, s32);
@@ -80,18 +80,18 @@ void func_8007C694(void) {
     s32 x0;
     s32 x1;
 
-    if (D_800C35A0->unk1E == 7) {
+    if (gRecords->unk1E == 7) {
         guMtxIdent(D_800C8380);
         x1 = 0;
-        gfx = func_800056FC(D_800C7F84->unk178);
-        p = func_80006008(gfx);
+        gfx = view_get_ctx_id(g_camera->unk178);
+        p = gfx_get_dl(gfx);
         p[0] = 0xDA380003;
         p[1] = (u32)D_800C8380;
-        func_80006014(gfx, p + 2);
-        m = func_8001BD1C();
+        gfx_set_dl(gfx, p + 2);
+        m = mtx_pool_alloc();
         guOrthoF(mf, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);
         guMtxF2L(mf, m);
-        func_800061FC(gfx, m);
+        gfx_push_mtx(gfx, m);
         func_8000C22C((void *)(D_800B0550), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
         if (--D_800B0554 == 0) {
             if (++D_800B0556 >= 16) {
@@ -99,7 +99,7 @@ void func_8007C694(void) {
             }
             D_800B0554 = 100;
         }
-        func_80006298(gfx);
+        gfx_round_vtx_pos(gfx);
         if (!(D_800A18D0 & 4)) {
             func_8007C3E0(0x30, 2, 1, 0x30, 0x2000);
             switch (D_800B0556) {
@@ -250,27 +250,27 @@ void func_8007C694(void) {
                 break;
             }
         }
-        func_80006298(gfx);
-        D_800C7F84 = func_8004240C((D_800C35A0->unkE << 1) | 1);
+        gfx_round_vtx_pos(gfx);
+        g_camera = find_object_by_id((gRecords->unkE << 1) | 1);
         if (func_80084DD4(0) == 0) {
             func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[3], 0, 0, 0, 0, 0);
-            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[3]->unk6 >> 1);
+            x0 = (s16)g_camera->unk178->unkC / 2 - (D_800AFA50->unk4->t[3]->unk6 >> 1);
             func_8000A5EC(D_800B6888, D_800AFA50->unk4->t[2], 0, 0, 0, 0, 0);
-            x1 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[2]->unk6 >> 1);
+            x1 = (s16)g_camera->unk178->unkC / 2 - (D_800AFA50->unk4->t[2]->unk6 >> 1);
         } else {
             func_8000A5EC(D_800B5580, D_800AFA50->unk4->t[1], 0, 0, 0, 0, 0);
-            x0 = (s16)D_800C7F84->unk178->unkC / 2 - (D_800AFA50->unk4->t[1]->unk6 >> 1);
+            x0 = (s16)g_camera->unk178->unkC / 2 - (D_800AFA50->unk4->t[1]->unk6 >> 1);
         }
         func_8000A5EC(D_800C8170, D_800AFA50->unk4->t[0], 0, 0, 0, 0, 0);
         if ((D_800AFA6C >> 3) & 1) {
             if (func_80084DD4(0) == 0) {
-                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);
-                D_8000A840(D_800C7F84->unk178, x1, D_800C7F84->unk178->unkE - 0x1A, D_800B6888, 1, 0);
+                D_8000A840(g_camera->unk178, x0, g_camera->unk178->unkE - 0x24, D_800B5580, 1, 0);
+                D_8000A840(g_camera->unk178, x1, g_camera->unk178->unkE - 0x1A, D_800B6888, 1, 0);
             } else {
-                D_8000A840(D_800C7F84->unk178, x0, D_800C7F84->unk178->unkE - 0x24, D_800B5580, 1, 0);
+                D_8000A840(g_camera->unk178, x0, g_camera->unk178->unkE - 0x24, D_800B5580, 1, 0);
             }
         }
-        D_8000A840(D_800C7F84->unk178, 0x10, 0x10, D_800C8170, 1, 0);
+        D_8000A840(g_camera->unk178, 0x10, 0x10, D_800C8170, 1, 0);
     }
     if (D_800C8385) {
         D_800C8385--;

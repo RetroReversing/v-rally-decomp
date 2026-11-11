@@ -13,17 +13,17 @@ typedef struct Grp
 typedef struct Ctx
 {
   void *list0;
-  void *x4;
-  s32 cnt0;
+  void *tail0;
+  s32 count0;
   void *grp;
-  void *x10;
-  s32 cnt1;
+  void *grp_tail;
+  s32 count1;
   void *list2;
-  void *x1C;
-  s32 cnt2;
+  void *tail2;
+  s32 count2;
   void *list3;
-  void *x28;
-  s32 cnt3;
+  void *tail3;
+  s32 count3;
   char pad30[0x222 - 0x30];
   s16 sel;
   char pad224[0x294 - 0x224];
@@ -31,9 +31,13 @@ typedef struct Ctx
 } Ctx;
 extern void func_80059154(s32);
 extern void func_80059FB4(void);
-extern void func_8005A0A8(void);
-extern void func_8007EE9C(void *);
-extern Ctx *D_800A1468;
+extern void stream_list_free_all(void);
+extern void heapFreeBlock(void *);
+extern Ctx *gSelectState;
+
+/* Resets the pool: runs and clears the pending callback, frees every group
+ * with its sub-nodes, then frees the three node lists and zeroes their
+ * counts and tails. Finally it calls the module reset helpers. */
 void func_8005A100(void)
 {
   s32 m;
@@ -42,16 +46,16 @@ void func_8005A100(void)
   Node *p;
   s32 n;
   Node *q;
-  if (D_800A1468->cb != NULL)
+  if (gSelectState->cb != NULL)
   {
-    D_800A1468->cb();
-    D_800A1468->cb = NULL;
+    gSelectState->cb();
+    gSelectState->cb = NULL;
   }
-  n = D_800A1468->cnt1;
-  D_800A1468->sel = -1;
+  n = gSelectState->count1;
+  gSelectState->sel = -1;
   if (n != 0)
   {
-    gn = D_800A1468->grp;
+    gn = gSelectState->grp;
     while (n--)
     {
       g = gn;
@@ -63,59 +67,59 @@ void func_8005A100(void)
         {
           q = p;
           p = q->next;
-          func_8007EE9C(q);
+          heapFreeBlock(q);
         }
 
       }
-      func_8007EE9C(g);
+      heapFreeBlock(g);
     }
 
-    D_800A1468->cnt1 = 0; D_800A1468->x10 = NULL;
+    gSelectState->count1 = 0; gSelectState->grp_tail = NULL;
   }
-  n = D_800A1468->cnt0;
+  n = gSelectState->count0;
   if (n != 0)
   {
-    p = D_800A1468->list0;
+    p = gSelectState->list0;
     while (n--)
     {
       q = p;
       p = q->next;
-      func_8007EE9C(q);
+      heapFreeBlock(q);
     }
 
-    D_800A1468->cnt0 = 0;
-    D_800A1468->x4 = 0;
+    gSelectState->count0 = 0;
+    gSelectState->tail0 = 0;
   }
-  n = D_800A1468->cnt2;
+  n = gSelectState->count2;
   if (n != 0)
   {
-    Node *r = D_800A1468->list2;
+    Node *r = gSelectState->list2;
     while (n--)
     {
       Node *t = r;
       r = t->next;
-      func_8007EE9C(t);
+      heapFreeBlock(t);
     }
 
-    D_800A1468->cnt2 = 0;
-    D_800A1468->x1C = 0;
+    gSelectState->count2 = 0;
+    gSelectState->tail2 = 0;
   }
-  n = D_800A1468->cnt3;
+  n = gSelectState->count3;
   if (n != 0)
   {
-    Node *r = D_800A1468->list3;
+    Node *r = gSelectState->list3;
     while (n--)
     {
       Node *t = r;
       r = t->next;
-      func_8007EE9C(t);
+      heapFreeBlock(t);
     }
 
-    D_800A1468->cnt3 = 0;
-    D_800A1468->x28 = 0;
+    gSelectState->count3 = 0;
+    gSelectState->tail3 = 0;
   }
   func_80059154(1);
   func_80059154(4);
   func_80059FB4();
-  func_8005A0A8();
+  stream_list_free_all();
 }

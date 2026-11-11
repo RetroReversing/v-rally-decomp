@@ -1,17 +1,19 @@
-void func_8002DB18(void *a, void *b, void *c);
-void func_8002D8A0(void *a, s32 *b, s32 *c);
+void mat3x3MulQ12(void *a, void *b, void *c);
+void mat3_mul_vec3_q12(void *a, s32 *b, s32 *c);
 
-void func_8002E54C(s32 *arg0, s32 *arg1, s32 *arg2)
+/* Composes two Q12 transforms: the 3x3 rotation part is multiplied out, and the
+   translation (words 5..7) becomes rotation * src translation + dst translation. */
+void func_8002E54C(s32 *rot, s32 *src, s32 *dst)
 {
-    s32 sp10[3];
-    s32 sp20[3];
+    s32 srcTrans[3];
+    s32 rotTrans[3];
 
-    func_8002DB18(arg0, arg1, arg2);
-    sp10[0] = arg1[5];
-    sp10[1] = arg1[6];
-    sp10[2] = arg1[7];
-    func_8002D8A0(arg0, sp10, sp20);
-    arg2[5] = sp20[0] + arg0[5];
-    arg2[6] = sp20[1] + arg0[6];
-    arg2[7] = sp20[2] + arg0[7];
+    mat3x3MulQ12(rot, src, dst);
+    srcTrans[0] = src[5];
+    srcTrans[1] = src[6];
+    srcTrans[2] = src[7];
+    mat3_mul_vec3_q12(rot, srcTrans, rotTrans);
+    dst[5] = rotTrans[0] + rot[5];
+    dst[6] = rotTrans[1] + rot[6];
+    dst[7] = rotTrans[2] + rot[7];
 }

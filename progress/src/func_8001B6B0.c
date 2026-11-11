@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80080478(s32);                         /* extern */
+M2C_UNK heapReleaseBlock(s32);                         /* extern */
 extern s32 D_800C6F0C;
 
 void func_8001B6B0(void) {
-    func_80080478(D_800C6F0C);
+    heapReleaseBlock(D_800C6F0C);
     D_800C6F0C = 0;
 }

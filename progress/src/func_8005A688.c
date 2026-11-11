@@ -1,7 +1,7 @@
-extern u8 *D_800A1468;
-void *func_800592AC(u32 index);
+extern u8 *gSelectState;
+void *select_get_entry(u32 index);
 
 void *func_8005A688(u32 index)
 {
-  return *(void **)(D_800A1468 + *((s8 *)func_800592AC(index) + 0xE) * 4 + 0xE4);
+  return *(void **)(gSelectState + *((s8 *)select_get_entry(index) + 0xE) * 4 + 0xE4);
 }

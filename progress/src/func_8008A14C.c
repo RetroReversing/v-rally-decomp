@@ -13,5 +13,5 @@ typedef s32 M2C_UNK32;
 #endif
 
 void func_8008A14C(s32 arg0, s32 arg1) {
-    M2C_FIELD(func_8008A054(arg0, arg1 & 0xFFFF), s8 *, 0xE) = (s8) arg1;
+    M2C_FIELD(findRecordByRange(arg0, arg1 & 0xFFFF), s8 *, 0xE) = (s8) arg1;
 }

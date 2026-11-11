@@ -1,51 +1,52 @@
-void func_8004D414(void *arg0)
+/* Scans the entry list at owner+0x68 (count at owner+0x50). Each 8-byte entry holds
+ * a group pointer and an index at +4; a group's items sit at +0x1C with a stride of
+ * (size + 8). Marks the first item of type 1 as type 6 and stops after that one hit. */
+void func_8004D414(void *owner)
 {
-  s16 cnt;
-  u16 j;
-  u16 i;
-  int new_var2;
+  u16 itemIdx;
+  u16 entIdx;
+  int done;
   u16 found;
-  u8 *new_var;
-  u8 *inner;
+  u8 *entries;
+  u8 *item;
   u8 *ent;
-  u8 *obj;
+  u8 *group;
   u32 count;
-  count = *((u32 *) (((u8 *) arg0) + 0x50));
+  count = *((u32 *) (((u8 *) owner) + 0x50));
   if (count != 0)
   {
-    found = (i = 0);
-    new_var = *((u8 **) (((u8 *) arg0) + 0x68));
-    new_var2 = (*((u32 *) (((u8 *) arg0) + 0x50))) == 0;
-    if (new_var2)
+    found = (entIdx = 0);
+    entries = *((u8 **) (((u8 *) owner) + 0x68));
+    done = (*((u32 *) (((u8 *) owner) + 0x50))) == 0;
+    if (done)
     {
       return;
     }
     do
     {
-      ent = (u8 *)(((i & 0xffff) * 8) + (s32)new_var);
-      ;
+      ent = (u8 *)(((entIdx & 0xffff) * 8) + (s32)entries);
       if ((*((s16 *) (ent + 4))) == 0)
       {
-        obj = *((u8 **) ent);
-        j = 0;
-        inner = obj + 0x1c;
-        if ((((u32) (*((s16 *) (ent + 4)))) < (*((u16 *) (obj + 0x18)))) && (!found))
+        group = *((u8 **) ent);
+        itemIdx = 0;
+        item = group + 0x1c;
+        if ((((u32) (*((s16 *) (ent + 4)))) < (*((u16 *) (group + 0x18)))) && (!found))
         {
           do
           {
-            if ((*((u16 *) inner)) == 1)
+            if ((*((u16 *) item)) == 1)
             {
               found = 1;
-              *((u16 *) inner) = 6;
+              *((u16 *) item) = 6;
             }
-            j++;
-            inner += (*((s32 *) (inner + 4))) + 8;
+            itemIdx++;
+            item += (*((s32 *) (item + 4))) + 8;
           }
-          while ((((u32) (j & 0xffff)) < (*((u16 *) (obj + 0x18)))) && (!found));
+          while ((((u32) (itemIdx & 0xffff)) < (*((u16 *) (group + 0x18)))) && (!found));
         }
       }
-      i++;
+      entIdx++;
     }
-    while ((((u32) (i & 0xffff)) < (*((u32 *) (((u8 *) arg0) + 0x50)))) && (!found));
+    while ((((u32) (entIdx & 0xffff)) < (*((u32 *) (((u8 *) owner) + 0x50)))) && (!found));
   }
 }

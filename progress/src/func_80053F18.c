@@ -1,4 +1,4 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 static inline s32 inline_fn(void *arg0)
 {
   return (s32) arg0;
@@ -13,9 +13,9 @@ s32 func_80053F18(s32 arg0)
   long new_var;
   u8 var_v1;
   void *var_a1;
-  var_a1 = D_800C02AE + 0x32F2;
+  var_a1 = gStreamState + 0x32F2;
   new_var3 = 0x32;
-  var_a1 = *((void **) (D_800C02AE + 0x32F2));
+  var_a1 = *((void **) (gStreamState + 0x32F2));
   var_a0 = arg0 & 0xFFFF;
   var_a0 = inline_fn(var_a1 + var_a0);
   new_var2 = ((char *) var_a0) + new_var3;

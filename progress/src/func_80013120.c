@@ -1,13 +1,20 @@
-/* identical to func_80005120 (matched), with its names changed by decompdecomp */
+typedef struct { int m[16]; } Matrix;
+typedef struct VRTransform {
+    int dirty;
+    struct VRTransform *parent;
+    Matrix local;
+    Matrix world;
+} VRTransform;
+void mtx_concat(char *a, char *b, char *c);
 
-struct M { int m[16]; };
-void func_8001C2C0(char *a, char *b, char *c);
-void func_80013120(char *arg0) {
-    if (*(char **)(arg0 + 4) != 0) {
-        func_80013120(*(char **)(arg0 + 4));
-        func_8001C2C0(*(char **)(arg0 + 4) + 0x48, arg0 + 8, arg0 + 0x48);
-    } else if (*(int *)arg0 != 0) {
-        *(int *)arg0 = 0;
-        *(struct M *)(arg0 + 0x48) = *(struct M *)(arg0 + 8);
+/* Same as TransformUpdate: brings a transform's world matrix up to date from its parent chain,
+ * or copies local to world for a dirty root node. */
+void func_80013120(VRTransform *node) {
+    if (node->parent != 0) {
+        func_80013120(node->parent);
+        mtx_concat((char *)&node->parent->world, (char *)&node->local, (char *)&node->world);
+    } else if (node->dirty != 0) {
+        node->dirty = 0;
+        node->world = node->local;
     }
 }

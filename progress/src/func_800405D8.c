@@ -1,40 +1,43 @@
-s32 func_80005500();
-s32 func_8000E8B8();
-void *func_80022318(void **, u8 *);
+s32 view_set_rect();
+s32 view_gfx_setup();
+void *named_entry_lookup(void **, u8 *);
 s32 func_8003FD0C();
-void *func_8004240C();
-extern s32 D_8009B5A4;
-extern s32 D_800A1468;
+void *find_object_by_id();
+extern s32 gSceneSlot0;
+extern s32 gSelectState;
 extern char D_800A4C18[];
-extern void *D_800C35A0;
-extern void *D_800C7F84;
+extern void *gRecords;
+extern void *g_camera;
 static inline char *inline_fn()
 {
-  return (char *) D_800C35A0;
+  return (char *) gRecords;
 }
 
+/* Makes the object with id (record id at gRecords+0xE, doubled and | 1) the current camera: sets up the
+ * view from its 0x178 field and the scene slot, and if the record's state at +0x1E is not 7, calls the
+ * object's 0x14 callback with its 0x10 argument. */
 void func_800405D8(void)
 {
-  void *temp_v0;
-  void *temp_v0_2;
-  char *new_var;
-  temp_v0 = func_8004240C(((*((u16 *) (inline_fn() + 0xE))) * 2) | 1);
-  { s32 arg = *((s32 *) (((char *) temp_v0) + 0x178));
-  D_800C7F84 = temp_v0;
-  func_8000E8B8(arg);
+  void *camObj;
+  void *handler;
+  char *recPtr;
+  camObj = find_object_by_id(((*((u16 *) (inline_fn() + 0xE))) * 2) | 1);
+  { s32 arg = *((s32 *) (((char *) camObj) + 0x178));
+  g_camera = camObj;
+  view_gfx_setup(arg);
   }
-  func_80005500(*((s32 *) (((char *) temp_v0) + 0x178)), D_8009B5A4);
-  if (D_800A1468 == 0)
+  view_set_rect(*((s32 *) (((char *) camObj) + 0x178)), gSceneSlot0);
+  if (gSelectState == 0)
   {
     func_8003FD0C(0);
   }
-  if ((*((u16 *) (new_var = ((char *) D_800C35A0) + 0x1E))) != 7)
+  if ((*((u16 *) (recPtr = ((char *) gRecords) + 0x1E))) != 7)
   {
-    D_800C7F84 = temp_v0;
-    temp_v0_2 = func_80022318((void **)(((char *) temp_v0) + 0x28), (u8 *)(D_800A4C18));
-    if (temp_v0_2 != NULL)
+    g_camera = camObj;
+    handler = named_entry_lookup((void **)(((char *) camObj) + 0x28), (u8 *)(D_800A4C18));
+    if (handler != NULL)
     {
-      (*((s32 (**)(s32)) (((char *) temp_v0_2) + 0x14)))(*((s32 *) (((char *) temp_v0_2) + 0x10)));
+      (*((s32 (**)(s32)) (((char *) handler) + 0x14)))(*((s32 *) (((char *) handler) + 0x10)));
     }
   }
 }

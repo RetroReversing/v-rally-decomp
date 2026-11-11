@@ -1,31 +1,21 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-void func_80006A4C(void *arg0, s32 arg1, s8 arg2, s8 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11) {
+/* Writes colour data for one entry of the vertex pool at pool+0x70 (16-byte records,
+ * selected by `index`). Three 4-byte groups go in at +0xC, +0x1C and +0x2C: each holds
+ * three colour components followed by the shared alpha `alpha` (arg11) at the group's
+ * fourth byte. */
+void func_80006A4C(void *pool, s32 index, s8 r0, s8 g0, u8 b0, u8 r1, u8 g1, u8 b1, u8 r2, u8 g2, u8 b2, u8 alpha) {
     s32 temp_a1;
 
-    temp_a1 = (arg1 & 0xFFFF) * 0x10;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xC) = arg2;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xD) = arg3;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0xE) = arg4;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0xF) = arg11;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1C) = arg5;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1D) = arg6;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1E) = arg7;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x1F) = arg11;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2C) = arg8;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2D) = arg9;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2E) = arg10;
-    M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0x2F) = arg11;
+    temp_a1 = (index & 0xFFFF) * 0x10;
+    *(s8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0xC) = r0;
+    *(s8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0xD) = g0;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0xE) = b0;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0xF) = alpha;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x1C) = r1;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x1D) = g1;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x1E) = b1;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x1F) = alpha;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x2C) = r2;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x2D) = g2;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x2E) = b2;
+    *(u8 *)((temp_a1 + *(s32 *)((s8 *)pool + 0x70)) + 0x2F) = alpha;
 }

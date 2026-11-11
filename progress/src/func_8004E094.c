@@ -2,7 +2,7 @@ static inline s16 inline_second(f32 arg0)
 {
  return (s16)((s32)(-arg0));
 }
-static inline static static static s16 inline_fn(f32 arg0)
+static inline s16 inline_fn(f32 arg0)
 {
   return (s16) ((s32) (-arg0));
 }
@@ -12,44 +12,47 @@ static inline f32 inline_fn2(u8 *arg0)
   return (f32) (*((u16 *) (arg0 + 6)));
 }
 
+/* Sets up a scaled object when its state (+0x74) is 4: marks it active, computes
+   the scale (1024 / +0x98), and stores its screen position (+0x70, +0x72) from
+   the entry's first vertex. */
 void func_8004E094(void *arg0)
 {
-  u8 *p = (u8 *) arg0;
-  u8 *new_var5;
-  f32 temp_ft0;
-  f32 p8;
-  f32 new_var4;
-  u8 *v0;
-  int new_var3;
-  u8 *a4;
-  u8 *v1;
-  float new_var2;
-  s32 flags;
-  int new_var;
-  f32 p6;
-  if ((*((u16 *) (p + 0x74))) == 4)
+  u8 *obj = (u8 *) arg0;
+  u8 *objFlagsPtr;
+  f32 scale;
+  f32 y;
+  f32 rawY;
+  u8 *node;
+  int flagsOff;
+  u8 *entry;
+  u8 *vertex;
+  f32 half;
+  f32 x;
+  int dummy;
+  f32 rawX;
+  if ((*((u16 *) (obj + 0x74))) == 4)
   {
-    *((volatile s16 *) (p + 0x98)) = 0x100;
-    temp_ft0 = 1024.0f;
-    temp_ft0 = temp_ft0 / ((f32) (*((s16 *) (p + 0x98))));
+    *((volatile s16 *) (obj + 0x98)) = 0x100;
+    scale = 1024.0f;
+    scale = scale / ((f32) (*((s16 *) (obj + 0x98))));
     ;
-    new_var = 0x80;
-    a4 = *((u8 **) (p + 0xA4));
-    new_var3 = new_var;
-    *((s32 *) (p + new_var3)) = (*((s32 *) (p + 0x80))) | 5;
-    *((s16 *) (p + 0x7A)) = 0;
-    *((s16 *) (p + 0x78)) = 1;
-    *((s32 *) (p + new_var3)) |= 4;
-    *((u16 *) (p + 0x9A)) = (double) 0x100;
-    v0 = *((u8 **) (a4 + 4));
-    v1 = *((u8 **) v0);
-    new_var2 = 0.5f; p6 = (temp_ft0 * inline_fn2(v1)) * 0.5f;
-    new_var4 = (f32) (*((u16 *) (v1 + 8)));
-    p8 = (temp_ft0 * new_var4) * new_var2;
-    new_var5 = p;
-    *((u16 *) (new_var5 + 0x9A)) = *((u16 *) (new_var5 + 0x98));
-    *((s32 *) (new_var5 + 0xA0)) |= 4;
-    *((s16 *) (new_var5 + 0x70)) = inline_fn(p6);
-    *((s16 *) (new_var5 + 0x72)) = inline_second(p8);
+    dummy = 0x80;
+    entry = *((u8 **) (obj + 0xA4));
+    flagsOff = dummy;
+    *((s32 *) (obj + flagsOff)) = (*((s32 *) (obj + 0x80))) | 5;
+    *((s16 *) (obj + 0x7A)) = 0;
+    *((s16 *) (obj + 0x78)) = 1;
+    *((s32 *) (obj + flagsOff)) |= 4;
+    *((u16 *) (obj + 0x9A)) = (double) 0x100;
+    node = *((u8 **) (entry + 4));
+    vertex = *((u8 **) node);
+    half = 0.5f; x = (scale * inline_fn2(vertex)) * 0.5f;
+    rawX = (f32) (*((u16 *) (vertex + 8)));
+    y = (scale * rawX) * half;
+    objFlagsPtr = obj;
+    *((u16 *) (objFlagsPtr + 0x9A)) = *((u16 *) (objFlagsPtr + 0x98));
+    *((s32 *) (objFlagsPtr + 0xA0)) |= 4;
+    *((s16 *) (objFlagsPtr + 0x70)) = inline_fn(x);
+    *((s16 *) (objFlagsPtr + 0x72)) = inline_second(y);
   }
 }

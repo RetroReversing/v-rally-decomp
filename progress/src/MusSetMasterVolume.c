@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gStreamState;
 
 void MusSetMasterVolume(s32 arg0, s16 arg1) {
     if (arg0 & 1) {
-        M2C_FIELD(&D_800C02AE, s16 *, 0x324A) = arg1;
+        M2C_FIELD(&gStreamState, s16 *, 0x324A) = arg1;
     }
     if (arg0 & 2) {
-        M2C_FIELD(&D_800C02AE, s16 *, 0x705E) = arg1;
+        M2C_FIELD(&gStreamState, s16 *, 0x705E) = arg1;
     }
 }

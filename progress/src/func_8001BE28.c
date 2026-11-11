@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8001BD00(s32);                         /* extern */
-extern M2C_UNK D_800AE850;
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gOrderState;
+extern M2C_UNK gStreamState;
 
 void func_8001BE28(void) {
-    func_8001BD00(M2C_FIELD(&D_800AE850, s32 *, 0x87D8));
-    func_8001BD00(M2C_FIELD(&D_800AE850, s32 *, 0x87DC));
-    M2C_FIELD(&D_800C02AE, s32 *, 0x7DA6) = (s32) M2C_FIELD(&D_800AE850, s32 *, 0x6D9C);
+    func_8001BD00(M2C_FIELD(&gOrderState, s32 *, 0x87D8));
+    func_8001BD00(M2C_FIELD(&gOrderState, s32 *, 0x87DC));
+    M2C_FIELD(&gStreamState, s32 *, 0x7DA6) = (s32) M2C_FIELD(&gOrderState, s32 *, 0x6D9C);
 }

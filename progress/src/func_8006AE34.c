@@ -1,13 +1,18 @@
-extern void *D_800A1468;
+extern void *gSelectState;
 extern u16 D_800A16E0[];
-extern void *D_800C35A0;
-s32 func_8006204C(u8, u8, u8);void *func_8005A744(u32, void *);
-s32 func_800592F4(s32, s32);
+extern void *gRecords;
+s32 select_stream_char(u8, u8, u8);
+void *list_advance(u32, void *);
+s32 slot_set_selected(s32, s32);
+
+/* Refreshes the car-select screen: picks the selected car's record, writes the
+ * stat row values (rows w..w+4) and the start-label id into the screen's
+ * object lists. */
 void func_8006AE34(void)
 {
-  s8 a;
-  s16 q;
-  s16 x;
+  s8 car;
+  s16 label;
+  s16 stat;
   s32 z;
   s32 y;
   s32 w;
@@ -18,13 +23,13 @@ void func_8006AE34(void)
   void *b;
   void *c;
   void *base;
-  void *t = D_800A1468;
-  b = D_800C35A0;
-  a = *((s8 *) (((u8 *) t) + 0x228));
-  b = ((u8 *) b) + a;
+  void *t = gSelectState;
+  b = gRecords;
+  car = *((s8 *) (((u8 *) t) + 0x228));
+  b = ((u8 *) b) + car;
   index = *((u8 *) (((u8 *) b) + 0x32));
-  *((s8 *) (((u8 *) t) + 0x22b)) = a;
-  base = D_800C35A0;
+  *((s8 *) (((u8 *) t) + 0x22b)) = car;
+  base = gRecords;
   index = (s8) index;
   p = ((u8 *) base) + ((((s32) index) * 0x28) + 0x44);
   if ((*((u16 *) (((u8 *) base) + 0x1e))) == 0)
@@ -40,27 +45,27 @@ void func_8006AE34(void)
     }
   }
   w = k & 255;
-  new_var = func_8006204C(*((u8 *) (((u8 *) D_800C35A0) + 0x1f)), *((u8 *) (((u8 *) D_800C35A0) + 0x21)), *((u8 *) (((u8 *) D_800C35A0) + 0x23)));
+  new_var = select_stream_char(*((u8 *) (((u8 *) gRecords) + 0x1f)), *((u8 *) (((u8 *) gRecords) + 0x21)), *((u8 *) (((u8 *) gRecords) + 0x23)));
   y = new_var;
-  t = func_8005A744(0, (void *)(*((void **) D_800A1468)));
+  t = list_advance(0, (void *)(*((void **) gSelectState)));
   y &= 255;
   z = y * 2;
   *((u16 *) (((u8 *) t) + 4)) = D_800A16E0[z / 2];
-  func_800592F4(w, *((u8 *) (((u8 *) p) + 9)));
+  slot_set_selected(w, *((u8 *) (((u8 *) p) + 9)));
   c = ((u8 *) p) + y;
-  func_800592F4(w + 1, *((u8 *) (((u8 *) c) + 0x10)));
-  x = *((s16 *) (((u8 *) (z + ((s32) p))) + 0x1c));
-  func_800592F4(w + 2, (-((s16) (x / 10))) + 2);
-  func_800592F4(w + 3, *((u8 *) (((u8 *) c) + 0x18)));
-  func_800592F4(w + 4, *((u8 *) (((u8 *) c) + 0x14)));
+  slot_set_selected(w + 1, *((u8 *) (((u8 *) c) + 0x10)));
+  stat = *((s16 *) (((u8 *) (z + ((s32) p))) + 0x1c));
+  slot_set_selected(w + 2, (-((s16) (stat / 10))) + 2);
+  slot_set_selected(w + 3, *((u8 *) (((u8 *) c) + 0x18)));
+  slot_set_selected(w + 4, *((u8 *) (((u8 *) c) + 0x14)));
   {
-    void *out = func_8005A744(2, (void *)(*((void **) D_800A1468)));
-    q = 0x128;
-    index = (*((s8 *) (((u8 *) D_800A1468) + 0x228))) == 0;
+    void *out = list_advance(2, (void *)(*((void **) gSelectState)));
+    label = 0x128;
+    index = (*((s8 *) (((u8 *) gSelectState) + 0x228))) == 0;
     if (index)
     {
-      q = 0x126;
+      label = 0x126;
     }
-    *((s16 *) (((u8 *) out) + 4)) = q;
+    *((s16 *) (((u8 *) out) + 4)) = label;
   }
 }

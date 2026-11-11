@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002E5E0();                            /* extern */
+M2C_UNK orderTransformPoint();                            /* extern */
 
 void func_8002E654(void) {
-    func_8002E5E0();
+    orderTransformPoint();
 }

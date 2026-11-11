@@ -3,20 +3,20 @@ typedef struct TextObj { char pad0[6]; s16 x; s16 y; char padA; u8 r; u8 g; u8 b
 typedef struct NameEntry { s8 scroll; s8 sel; u8 len; char name[16]; } NameEntry;
 typedef struct GameState { char pad0[0x228]; s8 cfg; char pad229[0x24D - 0x229]; u8 hide; char pad24E[0x280 - 0x24E]; NameEntry entry; } GameState;
 
-void *text_obj_get(u32);
-extern char *func_80057918(s32, s32);
-extern char *func_8004240C(s32);
-extern void func_80059618(TextObj *, u8, u8, u8, u8);
-void func_800596F4(void *, s16, s16, void *);
+void *textObjGet(u32);
+extern char *pool_get_item(s32, s32);
+extern char *find_object_by_id(s32);
+extern void group_set_color(TextObj *, u8, u8, u8, u8);
+void draw_palette_sprite(void *, s16, s16, void *);
 extern void func_8004C370(s32, Draw *);
 extern void func_8006874C(s8);
-extern s32 func_8002D2E4(s32);
-extern s32 func_8002D348(s32);
-extern u32 D_8009D540;
-extern GameState *D_800A1468;
-extern char *D_800C35A0;
+extern s32 cos_q12(s32);
+extern s32 sin_q12(s32);
+extern u32 gRecordTimeScale;
+extern GameState *gSelectState;
+extern char *gRecords;
 extern u16 D_800C6F12;
-extern s32 D_800C8328;
+extern s32 gSelectStepHandle;
 
 /* Draws the name-entry screen: the letter wheel (A-Z, two rows around the
  * current selection), the highlight box behind it, and the name typed so far. */
@@ -39,15 +39,15 @@ void draw_name_entry_wheel(void) {
     s32 g;
     s32 b;
 
-    text = text_obj_get(9);
+    text = textObjGet(9);
     if (D_800C6F12 != 0) {
         D_800C6F12--;
-        msg = func_80057918(D_800C8328, 0x136);
-        func_80059618(text, 0xFF, 0, 0, D_800C6F12 * 255 / (D_8009D540 * 2));
-        func_800596F4((void *)(text), (s16)(text->x), (s16)(text->y), (void *)(msg));
+        msg = pool_get_item(gSelectStepHandle, 0x136);
+        group_set_color(text, 0xFF, 0, 0, D_800C6F12 * 255 / (gRecordTimeScale * 2));
+        draw_palette_sprite((void *)(text), (s16)(text->x), (s16)(text->y), (void *)(msg));
     }
-    state = D_800A1468;
-    text = text_obj_get(5);
+    state = gSelectState;
+    text = textObjGet(5);
     entry = &state->entry;
     entry->name[entry->len] = entry->sel + 'A';
     if (entry->scroll > 0) {
@@ -81,8 +81,8 @@ void draw_name_entry_wheel(void) {
             str[0] = cur + 'A';
             ang = (entry->sel - cur) * 0xFFF / 26 - 0x400;
             ang += base;
-            dx = func_8002D2E4(ang) * 192 / 4096;
-            dy = func_8002D348(ang) * 192 / 16384;
+            dx = cos_q12(ang) * 192 / 4096;
+            dy = sin_q12(ang) * 192 / 16384;
             if (cur == entry->sel) {
                 r = 0xDC;
                 g = 0xDC;
@@ -98,8 +98,8 @@ void draw_name_entry_wheel(void) {
                     b = 0x14;
                 }
             }
-            func_80059618(text, r, g, b, 0xFF);
-            func_800596F4((void *)(text), (s16)(text->x - dx), (s16)(text->y - dy), (void *)(str));
+            group_set_color(text, r, g, b, 0xFF);
+            draw_palette_sprite((void *)(text), (s16)(text->x - dx), (s16)(text->y - dy), (void *)(str));
             if (k != 0) {
                 if (cur == 0) cur = 25;
                 else cur--;
@@ -109,9 +109,9 @@ void draw_name_entry_wheel(void) {
             }
         }
     }
-    if (D_800A1468->hide == 0) {
-        dx = func_8002D2E4(-0x400) * 192 / 4096;
-        dy = func_8002D348(-0x400) * 192 / 16384;
+    if (gSelectState->hide == 0) {
+        dx = cos_q12(-0x400) * 192 / 4096;
+        dy = sin_q12(-0x400) * 192 / 16384;
         draw.a[0] = 0x32;
         draw.a[1] = 0xB4;
         draw.a[2] = 0x32;
@@ -122,17 +122,17 @@ void draw_name_entry_wheel(void) {
         draw.x[2] = draw.x[1];
         draw.y[0] = draw.y[1] = text->y - dy - 8;
         draw.y[2] = draw.y[3] = text->y - dy + 36;
-        func_8004C370(*(s32 *)(func_8004240C(1) + 0x178), &draw);
+        func_8004C370(*(s32 *)(find_object_by_id(1) + 0x178), &draw);
     }
-    text = text_obj_get(8);
+    text = textObjGet(8);
     for (i = 0; i <= entry->len; i++) {
         str[0] = entry->name[i];
         if (i == entry->len) {
-            func_80059618(text, 0xDC, 0xDC, 0x0E, 0xFF);
+            group_set_color(text, 0xDC, 0xDC, 0x0E, 0xFF);
         } else {
-            func_80059618(text, text->r, text->g, text->b, text->a);
+            group_set_color(text, text->r, text->g, text->b, text->a);
         }
-        func_800596F4((void *)(text), (s16)(text->x + i * 20), (s16)(text->y), (void *)(str));
+        draw_palette_sprite((void *)(text), (s16)(text->x + i * 20), (s16)(text->y), (void *)(str));
     }
-    func_8006874C(((struct { char pad[0x32]; s8 arr[1]; } *)D_800C35A0)->arr[D_800A1468->cfg]);
+    func_8006874C(((struct { char pad[0x32]; s8 arr[1]; } *)gRecords)->arr[gSelectState->cfg]);
 }

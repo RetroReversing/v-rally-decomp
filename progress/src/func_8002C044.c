@@ -10,10 +10,10 @@ typedef struct
 typedef struct { s32 v[3]; s32 pad[2]; } E20;
 typedef struct { s32 x, y, z; } V3;
 typedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;
-extern char *D_800B5C40;
-void func_8002D8A0(void *, void *, void *);
+extern char *gCarList;
+void mat3_mul_vec3_q12(void *, void *, void *);
 int func_80028E94(void *, void *, int);
-char *func_80028D74(void *, void *);
+char *find_zone_at_pos(void *, void *);
 void func_80029AA8(void *, void *, void *, int);
 void track_edge_add_point(void *, void *, int, int);
 int func_80029EAC(void *, void *, int);
@@ -50,7 +50,7 @@ int __repair_literal;
   int k;
   for (i = 0; i < 12; i++)
   {
-    func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
+    mat3_mul_vec3_q12(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
     vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));
   }
   old = 0;
@@ -74,7 +74,7 @@ int __repair_literal;
       oldrow = ((int *) P(a, 0x60))[i];
       save = pos;
       __repair_literal = result;
-      g = func_80028D74(old = g, v);
+      g = find_zone_at_pos(old = g, v);
       if (g != old)
       {
         switch (result)
@@ -134,7 +134,7 @@ int __repair_literal;
     }
     if (i < 4)
     {
-      func_8002D8A0(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);
+      mat3_mul_vec3_q12(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);
       v[0] <<= 2;
       v[1] <<= 2;
       v[2] <<= 2;
@@ -183,7 +183,7 @@ int __repair_literal;
     }
   }
 
-  for (b = P(D_800B5C40, 0); b; b = P(b, 4))
+  for (b = P(gCarList, 0); b; b = P(b, 4))
   {
     if (((b == a) || (W(b, 20) & 64)) || (W(a, 20) & 64))
     {

@@ -9,10 +9,10 @@ typedef struct Header
   s32 tag;
   s32 value;
 } Header;
-void func_8007F828(void *, s32);
+void heapInitBlock(void *, s32);
 void func_80097DC4(void *, void *, s32);
-extern u8 *D_800B5B40;
-extern void (*D_800C8090)(void *);
+extern u8 *gHeapCallerRa;
+extern void (*heapPanicFn)(void *);
 extern u32 D_800C33D0[];
 static inline s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
 {
@@ -98,7 +98,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   size = (size + (align - 1)) & (-align);
   if (size == 0)
   {
-    D_800C8090(D_800B5B40 - 4);
+    heapPanicFn(gHeapCallerRa - 4);
     for (;;)
     {
     }
@@ -115,7 +115,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
     {
       first->init = 1;
       h = first + 1;
-      func_8007F828(h, e);
+      heapInitBlock(h, e);
     }
     else
     {

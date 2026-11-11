@@ -1,53 +1,56 @@
-extern s32 D_800C35A0;
-extern char D_800AE850[];
-extern char D_800C02AE[];
-void func_8003EF20(void *arg0)
+extern s32 gRecords;
+extern char gOrderState[];
+extern char gStreamState[];
+
+/* Finds the node in the list at gOrderState+0x73F0 whose id matches this car's kind (+0xA8 owner),
+ * then sets the car's value at +0x7A from that node's record slot. Does nothing if no node matches. */
+void func_8003EF20(void *car)
 {
-  void *temp_a0;
-  u32 temp_a2;
-  char *new_var2;
-  s32 var_a0;
-  s32 temp_v1_2;
-  s16 var_v0;
-  void *var_v1;
-  u8 *new_var;
-  temp_a0 = *((void **) (((u8 *) arg0) + 0xA8));
-  var_v1 = *((void **) (((u8 *) temp_a0) + 0x24));
-  if (var_v1 != NULL)
+  void *owner;
+  u32 kind;
+  char *list;
+  s32 dir;
+  s32 value;
+  s16 base;
+  void *node;
+  u8 *slot;
+  owner = *((void **) (((u8 *) car) + 0xA8));
+  node = *((void **) (((u8 *) owner) + 0x24));
+  if (node != NULL)
   {
-    temp_a2 = *((u32 *) (((u8 *) (*((void **) (((u8 *) (*((void **) (((u8 *) temp_a0) + 0x24)))) + 0x6C)))) + 8));
-    if (temp_a2 >= 2)
+    kind = *((u32 *) (((u8 *) (*((void **) (((u8 *) (*((void **) (((u8 *) owner) + 0x24)))) + 0x6C)))) + 8));
+    if (kind >= 2)
     {
-      var_a0 = -1;
-      var_v0 = (*((u16 *) (((u8 *) (*((void **) (((u8 *) temp_a0) + 0x178)))) + 0xA))) + 6;
+      dir = -1;
+      base = (*((u16 *) (((u8 *) (*((void **) (((u8 *) owner) + 0x178)))) + 0xA))) + 6;
     }
     else
     {
-      var_a0 = 1;
-      var_v0 = (*((u16 *) (((u8 *) (*((void **) (((u8 *) temp_a0) + 0x178)))) + 0xA))) + 0x10;
+      dir = 1;
+      base = (*((u16 *) (((u8 *) (*((void **) (((u8 *) owner) + 0x178)))) + 0xA))) + 0x10;
     }
-    new_var2 = D_800AE850 + 0x73F0;
-    *((s16 *) (((u8 *) arg0) + 0xE)) = var_v0;
-    for (var_v1 = *(*((void ***) new_var2)); var_v1 != NULL; var_v1 = *((void **) (((u8 *) var_v1) + 4)))
+    list = gOrderState + 0x73F0;
+    *((s16 *) (((u8 *) car) + 0xE)) = base;
+    for (node = *(*((void ***) list)); node != NULL; node = *((void **) (((u8 *) node) + 4)))
     {
-      if ((*((s32 *) (((u8 *) (*((void **) (((u8 *) var_v1) + 0x6C)))) + 8))) == (temp_a2 + var_a0))
+      if ((*((s32 *) (((u8 *) (*((void **) (((u8 *) node) + 0x6C)))) + 8))) == (kind + dir))
       {
         break;
       }
     }
 
-    if (var_v1 != NULL)
+    if (node != NULL)
     {
-      new_var = ((u8 *) ((D_800C35A0 + ((*((u8 *) ((D_800C35A0 + (*((s32 *) (((u8 *) (*((void **) (((u8 *) var_v1) + 0x48)))) + 0x2C)))) + 0x32))) * 0x28)) + (*((u16 *) (((u8 *) arg0) + 0x78))))) + 0x44;
-      temp_v1_2 = *new_var;
-      if (temp_v1_2 < 0x41)
+      slot = ((u8 *) ((gRecords + ((*((u8 *) ((gRecords + (*((s32 *) (((u8 *) (*((void **) (((u8 *) node) + 0x48)))) + 0x2C)))) + 0x32))) * 0x28)) + (*((u16 *) (((u8 *) car) + 0x78))))) + 0x44;
+      value = *slot;
+      if (value < 0x41)
       {
-        *((s16 *) (((u8 *) arg0) + 0x7A)) = temp_v1_2 - 0x16;
+        *((s16 *) (((u8 *) car) + 0x7A)) = value - 0x16;
       }
       else
         if (1)
       {
-        *((s16 *) (((u8 *) arg0) + 0x7A)) = temp_v1_2 - 0x41;
+        *((s16 *) (((u8 *) car) + 0x7A)) = value - 0x41;
       }
     }
   }

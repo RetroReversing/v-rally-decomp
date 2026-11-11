@@ -9,10 +9,13 @@ typedef struct {
     s16 cur;
 } St;
 extern u8 D_800C352C[];
-extern St *D_800C35A0;
-extern Obj *D_800D0634;
-void func_8005946C(s32, u16);
+extern St *gRecords;
+extern Obj *gSlotTableB;
+void select_set_active_sub(s32, u16);
 
+/* Scans the bit table D_800C352C for the next set bit, walking down from the saved bit index in
+ * gRecords[0x23] and across the slot-table entries. If a bit is found, stores it as the current
+ * slot and calls select_set_active_sub with it. Always returns 0. */
 s32 func_80063C60(s32 arg0)
 {
     St *st;
@@ -21,12 +24,12 @@ s32 func_80063C60(s32 arg0)
     s8 tries;
     s32 mask;
     u16 id;
-    Obj *base = D_800D0634;
+    Obj *base = gSlotTableB;
 
-    bit = ((u8 *)D_800C35A0)[0x23];
+    bit = ((u8 *)gRecords)[0x23];
     tries = 0;
-    if (base[D_800C35A0->id].count - 1 > 0) {
-        st = D_800C35A0;
+    if (base[gRecords->id].count - 1 > 0) {
+        st = gRecords;
         do {
             if (bit > 0) {
                 bit--;
@@ -40,12 +43,12 @@ s32 func_80063C60(s32 arg0)
                 break;
             }
             tries++;
-            base = D_800D0634;
+            base = gSlotTableB;
         } while (tries < base[id].count - 1);
     }
     if (found != -1) {
-        D_800C35A0->cur = found;
-        func_8005946C(arg0, found);
+        gRecords->cur = found;
+        select_set_active_sub(arg0, found);
     }
     return 0;
 }

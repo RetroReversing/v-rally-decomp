@@ -16,8 +16,8 @@ typedef struct {
     s32 pad14;
     DiskBlock block[2];
 } DiskXfer;
-extern void func_800932E0(void*,s32,u32,s32,s32);
-extern s32 D_800A1CD0;
+extern void PiRawStartDma(void*,s32,u32,s32,s32);
+extern s32 __osGlobalIntMask;
 extern u8 *D_800B5AF8;
 extern void __osLeoResume(void),__osLeoAbnormalResume(void);
 
@@ -45,7 +45,7 @@ s32 func_8008FBC0(void) {
     pi_status = PI_STATUS;
     if (pi_status & 1) {
         blk->errStatus = 0x1D;
-        D_800A1CD0 &= ~0x800;
+        __osGlobalIntMask &= ~0x800;
         __osLeoResume();
         return 1;
     }
@@ -64,7 +64,7 @@ s32 func_8008FBC0(void) {
         blk->errStatus = 0x16;
         __osLeoResume();
         PI_STATUS = 2;
-        D_800A1CD0 |= 0x100401;
+        __osGlobalIntMask |= 0x100401;
         return 1;
     }
     if (xfer->cmdType == 1) {
@@ -75,14 +75,14 @@ s32 func_8008FBC0(void) {
                 return 1;
             }
             PI_STATUS = 2;
-            D_800A1CD0 |= 0x100401;
+            __osGlobalIntMask |= 0x100401;
             blk->errStatus = 0;
             __osLeoResume();
             return 1;
         }
         blk->dramAddr += blk->sectorSize;
         xfer->sectorNum++;
-        func_800932E0(D_800B5AF8, 1, 0x05000400, blk->dramAddr, blk->sectorSize);
+        PiRawStartDma(D_800B5AF8, 1, 0x05000400, blk->dramAddr, blk->sectorSize);
         return 1;
     }
     if (xfer->cmdType == 0) {
@@ -125,11 +125,11 @@ s32 func_8008FBC0(void) {
                 blk->errStatus = 0x16;
             } else {
                 PI_STATUS = 2;
-                D_800A1CD0 |= 0x100401;
+                __osGlobalIntMask |= 0x100401;
                 xfer->cmdType = 2;
                 blk->errStatus = 0;
             }
-            func_800932E0(D_800B5AF8, 0, 0x05000000, blk->C2Addr, blk->sectorSize * 4);
+            PiRawStartDma(D_800B5AF8, 0, 0x05000000, blk->C2Addr, blk->sectorSize * 4);
             return 1;
         }
         if (xfer->sectorNum == -1 && xfer->transferMode == 2 && xfer->blockNum == 1) {
@@ -152,7 +152,7 @@ s32 func_8008FBC0(void) {
                 __osLeoAbnormalResume();
                 return 1;
             }
-            func_800932E0(D_800B5AF8, 0, 0x05000400, blk->dramAddr, blk->sectorSize);
+            PiRawStartDma(D_800B5AF8, 0, 0x05000400, blk->dramAddr, blk->sectorSize);
             blk->errStatus = 0;
             return 1;
         }

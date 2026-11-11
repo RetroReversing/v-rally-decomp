@@ -5,71 +5,76 @@ typedef struct Blob
 {
   s32 words[177];
 } Blob;
-extern u8 *D_800A1468;
-extern u8 *D_800C3508;
-extern u8 *D_800C35A0;
+extern u8 *gSelectState;
+extern u8 *gLeague;
+extern u8 *gRecords;
 extern u8 D_800A161C[];
 extern u8 D_800A1620;
 extern s32 D_800AFA58;
-extern Blob *D_800D0634[];
-extern void func_8005BC60(void);
+extern Blob *gSlotTableB[];
+extern void select_clear_slots(void);
 extern void func_8005BB5C(void);
 extern void func_80065860(void);
 extern void func_80065C04(void);
 extern void func_80062304(void *, s16);
 extern void func_8005937C(s32, u16);
 extern void func_8008A0D8(void *, u16, s32);
-extern void func_8008A1CC(void *, u16, s32, void *);void *func_800592AC(u32);
+extern void func_8008A1CC(void *, u16, s32, void *);
+void *select_get_entry(u32);
 extern void func_80061740(Blob);
+
+/* Season setup for the league screen: resets the record and state blocks, sets
+ * up the four league slots (mode 2 uses the second bank of slots), and installs
+ * the per-slot callback. Then loads the track blob chosen in the state block. */
 void func_8006556C(void)
 {
   Blob blob;
   s32 i;
   s32 k;
   s32 val;
-  s16 sel;
+  s16 leagueMode;
   u8 *p;
   u8 *q;
-  func_8005BC60();
+  select_clear_slots();
   func_8005BB5C();
   {
-    u8 *g = D_800C35A0;
-    u8 *h = D_800A1468;
-    U(g, 0x20) = 0;
-    h[0x23c] = D_800A1620;
+    u8 *records = gRecords;
+    u8 *state = gSelectState;
+    U(records, 0x20) = 0;
+    state[0x23c] = D_800A1620;
   }
   {
-    u8 *c = D_800C3508;
-    sel = H(c, 2);
-    if (sel == 2)
+    u8 *league = gLeague;
+    leagueMode = H(league, 2);
+    if (leagueMode == 2)
     {
-      A(c, 0x10)[(2 * 20) + 0xE] = D_800C35A0[0x21] + 9;
+      A(league, 0x10)[(2 * 20) + 0xE] = gRecords[0x21] + 9;
     }
     else
     {
-      u8 *e = A(c, 0x10);
-      e[(sel * 20) + 0xE] = 4 + D_800C35A0[0x21];
-      func_80062304(e, sel);
+      u8 *entry = A(league, 0x10);
+      entry[(leagueMode * 20) + 0xE] = 4 + gRecords[0x21];
+      func_80062304(entry, leagueMode);
     }
   }
   i = 0;
   val = 80;
-  D_800AFA58 = U(D_800C35A0, 0x20);
+  D_800AFA58 = U(gRecords, 0x20);
   do
   {
-    if (H(D_800C3508, 2) == 2)
+    if (H(gLeague, 2) == 2)
     {
-      func_8005937C(i + 9, U(D_800D0634[D_800A161C[i + 4]], 0x14));
+      func_8005937C(i + 9, U(gSlotTableB[D_800A161C[i + 4]], 0x14));
     }
     else
     {
-      func_8005937C(i + 4, U(D_800D0634[D_800A161C[i + 4]], 0x14));
+      func_8005937C(i + 4, U(gSlotTableB[D_800A161C[i + 4]], 0x14));
     }
-    if ((i != 0) && ((U(D_800C35A0, 0x2a) & (0x1000 << (i - 1))) != (0x1000 << (i - 1))))
+    if ((i != 0) && ((U(gRecords, 0x2a) & (0x1000 << (i - 1))) != (0x1000 << (i - 1))))
     {
-      func_8008A0D8(D_800C3508, i + 9, 0);
-      func_8008A0D8(D_800C3508, i + 4, 0);
-      p = func_800592AC(i);
+      func_8008A0D8(gLeague, i + 9, 0);
+      func_8008A0D8(gLeague, i + 4, 0);
+      p = select_get_entry(i);
       if (i != 3)
       {
         p[0xf] = 80;
@@ -88,14 +93,14 @@ void func_8006556C(void)
         while ((--k) >= 0);
       }
     }
-    func_8008A1CC(D_800C3508, (H(D_800C3508, 2) == 2) ? (i + 9) : (i + 4), 16, func_80065C04);
+    func_8008A1CC(gLeague, (H(gLeague, 2) == 2) ? (i + 9) : (i + 4), 16, func_80065C04);
     i++;
   }
   while (i < 4);
-  if (H(D_800C3508, 2) == 1)
+  if (H(gLeague, 2) == 1)
   {
-    *((void **) (D_800A1468 + 0x28c)) = func_80065860;
+    *((void **) (gSelectState + 0x28c)) = func_80065860;
   }
-  blob = *D_800D0634[D_800A1468[0x23c]];
+  blob = *gSlotTableB[gSelectState[0x23c]];
   func_80061740(blob);
 }

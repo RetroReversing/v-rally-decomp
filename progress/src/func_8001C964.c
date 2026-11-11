@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
-M2C_UNK func_80023B7C(s32, s32);                    /* extern */
+M2C_UNK build_time_splits(s32, s32);                    /* extern */
 extern s32 D_800B0C20;
 
 void func_8001C964(s32 arg0) {
     func_80022E24(D_800B0C20, 1);
-    func_80023B7C(arg0, D_800B0C20);
+    build_time_splits(arg0, D_800B0C20);
 }

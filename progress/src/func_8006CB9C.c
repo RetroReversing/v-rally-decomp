@@ -3,43 +3,44 @@ extern s32 D_800ADF70;
 extern char D_800C3A50[];
 extern u16 D_800C72C6[];
 
+/* For each of 4 groups of 3 entries, reads an entry's status (from func_8006B924) and writes a 16-bit value into D_800C72C6: 0xFFFF for status 5, otherwise the clamped distance to D_800ADF70 with the sign in bit 0 and the status in the top bits. */
 void func_8006CB9C(void) {
-    s32 arg1;
-    s32 var_s0;
-    s32 temp_s1;
-    u8 var_s2;
-    u8 var_s3;
-    s32 var_a0;
-    u16 *temp_s4;
+    s32 status;
+    s32 idx;
+    s32 off;
+    u8 i;
+    u8 group;
+    s32 dist;
+    u16 *out;
 
-    temp_s4 = D_800C72C6;
-    var_s3 = 0;
+    out = D_800C72C6;
+    group = 0;
     do {
-        var_s2 = 0;
+        i = 0;
         do {
-            var_s0 = var_s2;
-            temp_s1 = var_s0 << 4;
-            arg1 = func_8006B924((u8 *)(temp_s1 + D_800C3A50));
-            if ((arg1 & 0xFF) == 5) {
-                temp_s4[var_s0] = 0xFFFF;
+            idx = i;
+            off = idx << 4;
+            status = func_8006B924((u8 *)(off + D_800C3A50));
+            if ((status & 0xFF) == 5) {
+                out[idx] = 0xFFFF;
             } else {
-                var_a0 = D_800ADF70 - *(s32 *)(D_800C3A50 + temp_s1);
-                if (var_a0 >= 0) {
-                    if (var_a0 >= 0x4000) {
-                        var_a0 = 0x3FFE;
+                dist = D_800ADF70 - *(s32 *)(D_800C3A50 + off);
+                if (dist >= 0) {
+                    if (dist >= 0x4000) {
+                        dist = 0x3FFE;
                     }
-                    var_a0 &= ~1;
+                    dist &= ~1;
                 } else {
-                    var_a0 = -var_a0;
-                    if (var_a0 >= 0x4000) {
-                        var_a0 = 0x3FFE;
+                    dist = -dist;
+                    if (dist >= 0x4000) {
+                        dist = 0x3FFE;
                     }
-                    var_a0 |= 1;
+                    dist |= 1;
                 }
-                temp_s4[var_s2] = var_a0 | ((arg1 & 0xFF) << 14);
+                out[i] = dist | ((status & 0xFF) << 14);
             }
-            var_s2++;
-        } while (var_s2 < 3);
-        var_s3++;
-    } while (var_s3 < 4);
+            i++;
+        } while (i < 3);
+        group++;
+    } while (group < 4);
 }

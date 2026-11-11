@@ -9,18 +9,18 @@ typedef struct VR210Manager
   u16 head;
 } VR210Manager;
 extern u8 D_8009D6A8[];
-extern s32 D_8009EB80;
+extern s32 gSnapIndex;
 extern s32 D_800AFA6C;
-extern char *D_800C35A0;
-extern char *D_800C811C;
+extern char *gRecords;
+extern char *g_ent_list;
 void func_8002FD68(void);
 u64 osGetTime(void);
-void func_800980C4(u32);
+void rand_seed(u32);
 int func_80098090(void);
 void *func_8002EB34(void *, int, void *);
 void *mtx3_transform_vec3(void *, void *, void *);
-void func_8002D3AC(void *, void *, int, int, void *);
-int func_8001FEE8(void *);
+void blendVec3Fixed(void *, void *, int, int, void *);
+int getCounterValue(void *);
 void func_8002FBD4(void *, int, int);
 void func_8002E778(void *, void *);
 void func_8002EC5C(void *, void *, void *);
@@ -55,7 +55,7 @@ void func_80021064(void *list)
   int world[3];
   func_8002FD68();
   obj = *((char **) (((char *) list) + 0));
-  if ((*((u16 *) (((char *) D_800C35A0) + 0xe))) < 3)
+  if ((*((u16 *) (((char *) gRecords) + 0xe))) < 3)
   {
     do
     {
@@ -82,13 +82,13 @@ void func_80021064(void *list)
               break;
 
             case 6:
-              effect = (D_8009EB80 == 7) ? (1) : (4);
+              effect = (gSnapIndex == 7) ? (1) : (4);
               break;
 
             case 4:
 
             case 8:
-              effect = (D_8009EB80 == 3) ? (4) : (1);
+              effect = (gSnapIndex == 3) ? (4) : (1);
               break;
 
             case 9:
@@ -108,7 +108,7 @@ void func_80021064(void *list)
 
           if ((velocity > 1000) && (D_800AFA6C & 2))
           {
-            func_800980C4(osGetTime());
+            rand_seed(osGetTime());
             b[0] = 0;
             b[1] = 0;
             b[2] = 0;
@@ -119,7 +119,7 @@ void func_80021064(void *list)
             *((s16 *) (((char *) particle) + 8)) = (z + (func_80098090() % 31)) - 15;
           }
           special:
-          if (((((*((u16 *) (((char *) D_800C35A0) + 0x1e))) == 0) && ((*((u16 *) (((char *) D_800C35A0) + 0xe))) == 1)) && (((*((u16 *) (((char *) D_800C811C) + 4))) == 3) & (type == 2))) && (((u32) (v + 100)) > 200))
+          if (((((*((u16 *) (((char *) gRecords) + 0x1e))) == 0) && ((*((u16 *) (((char *) gRecords) + 0xe))) == 1)) && (((*((u16 *) (((char *) g_ent_list) + 4))) == 3) & (type == 2))) && (((u32) (v + 100)) > 200))
           {
             b[0] = 0;
             b[1] = 0;
@@ -138,7 +138,7 @@ void func_80021064(void *list)
           switch (type)
           {
             case 6:
-              effect = (D_8009EB80 == 7) ? (1) : (4);
+              effect = (gSnapIndex == 7) ? (1) : (4);
               a[0] = 0;
               a[1] = 0;
               a[2] = -256;
@@ -146,7 +146,7 @@ void func_80021064(void *list)
               goto velocity_scale;
 
             case 4:
-              effect = (D_8009EB80 == 3) ? (4) : (1);
+              effect = (gSnapIndex == 3) ? (4) : (1);
               break;
 
             case 5:
@@ -184,7 +184,7 @@ void func_80021064(void *list)
           velocity_scale:
           if (v > 0)
           {
-            func_8002D3AC(a, a, 0, v, b);
+            blendVec3Fixed(a, a, 0, v, b);
             goto emit_particle;
           }
 
@@ -219,13 +219,13 @@ void func_80021064(void *list)
             {
               *((int *) (((char *) (*((char **) (((char *) obj) + 0x68)))) + (8 + (i * 4)))) = 0;
             }
-            if ((((!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4)))) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x48)))) + 0))) < 4)) && (func_8001FEE8(obj) >= 76)) && ((D_8009EB80 != 3) & (D_8009EB80 != 7)))
+            if ((((!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[gSnapIndex]) || ((gSnapIndex == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4)))) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x48)))) + 0))) < 4)) && (getCounterValue(obj) >= 76)) && ((gSnapIndex != 3) & (gSnapIndex != 7)))
             {
               func_8002FBD4(obj, 65, 2);
             }
             if (((u32) (v + 2000)) > 4000)
             {
-              if (!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[D_8009EB80]) || ((D_8009EB80 == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4))))
+              if (!(((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == D_8009D6A8[gSnapIndex]) || ((gSnapIndex == 1) && ((*((int *) (((char *) (*((char **) (((char *) obj) + 0x80)))) + (0x320 + (i * 4))))) == 4))))
               {
                 goto clear_flag;
               }

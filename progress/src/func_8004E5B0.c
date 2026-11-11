@@ -9,7 +9,7 @@ typedef struct
   u16 v2;
   u16 v3;
 } BS;
-extern int D_8009EB80;
+extern int gSnapIndex;
 u8 func_800308EC(void *, int);
 void func_8004E554(void *);
 int func_8004E5B0(char *a, BS *b)
@@ -69,7 +69,7 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 1;
         b->v0 = 0;
         b->v3 = 1;
-        if (((D_8009EB80 == 2) || (D_8009EB80 == 7)) || (D_8009EB80 == 5))
+        if (((gSnapIndex == 2) || (gSnapIndex == 7)) || (gSnapIndex == 5))
       {
         b->v0 = 1;
       }
@@ -79,7 +79,7 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 1;
         b->v0 = 1;
         b->v3 = 1;
-        if (D_8009EB80 == 1)
+        if (gSnapIndex == 1)
       {
         low = 460;
       }
@@ -95,7 +95,7 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 1;
         b->v0 = 1;
         b->v3 = 0;
-        if (D_8009EB80 == 0)
+        if (gSnapIndex == 0)
       {
         low = 280;
       }
@@ -122,11 +122,11 @@ int func_8004E5B0(char *a, BS *b)
       case 17:
         b->v1 = 2;
         b->v0 = 1;
-        if ((D_8009EB80 == 5) || (D_8009EB80 == 1))
+        if ((gSnapIndex == 5) || (gSnapIndex == 1))
       {
         b->v0 = 0;
       }
-        if (D_8009EB80 == 6)
+        if (gSnapIndex == 6)
       {
         low = 140;
       }
@@ -136,15 +136,15 @@ int func_8004E5B0(char *a, BS *b)
       case 18:
         b->v1 = 1;
         b->v0 = 0;
-        if (D_8009EB80 == 5)
+        if (gSnapIndex == 5)
       {
         high = 650;
       }
-        if (D_8009EB80 == 0)
+        if (gSnapIndex == 0)
       {
         high = 600;
       }
-        if (D_8009EB80 == 6)
+        if (gSnapIndex == 6)
       {
         high = 650;
       }
@@ -155,13 +155,13 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 1;
         b->v0 = 0;
         b->v3 = 2;
-        if (D_8009EB80 == 5)
+        if (gSnapIndex == 5)
       {
         b->v1 = 0;
         b->v0 = 0;
         b->v3 = 0;
       }
-        if (((D_8009EB80 == 6) || (D_8009EB80 == 4)) || (D_8009EB80 == 7))
+        if (((gSnapIndex == 6) || (gSnapIndex == 4)) || (gSnapIndex == 7))
       {
         b->v1 = 4;
         b->v0 = 4;
@@ -185,15 +185,15 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 2;
         b->v0 = 0;
         b->v3 = 0;
-        if (D_8009EB80 == 1)
+        if (gSnapIndex == 1)
       {
         b->v0 = 1;
       }
-        if (D_8009EB80 == 6)
+        if (gSnapIndex == 6)
       {
         high = 1100;
       }
-        if (D_8009EB80 == 7)
+        if (gSnapIndex == 7)
       {
         b->v0 = 1;
         low = 190;
@@ -204,19 +204,19 @@ int func_8004E5B0(char *a, BS *b)
         b->v1 = 1;
         b->v0 = 0;
         b->v3 = 0;
-        if (D_8009EB80 == 6)
+        if (gSnapIndex == 6)
       {
         high = 1100;
       }
-        if (D_8009EB80 == 1)
+        if (gSnapIndex == 1)
       {
         high = 1230;
       }
-        if (D_8009EB80 == 7)
+        if (gSnapIndex == 7)
       {
         b->v0 = 1;
       }
-        if (D_8009EB80 == 5)
+        if (gSnapIndex == 5)
       {
         high = 609;
       }
@@ -276,19 +276,19 @@ int func_8004E5B0(char *a, BS *b)
       b->v1 = 8;
       b->v0 = 6;
     }
-    if ((D_8009EB80 == 1) && (U(a, 0x8c) == 1))
+    if ((gSnapIndex == 1) && (U(a, 0x8c) == 1))
     {
       b->v1 = 0;
       b->v0 = 0;
       b->v3 = 0;
     }
-    if ((D_8009EB80 == 5) && ((U(a, 0x8c) == 17) || (U(a, 0x8c) == 1)))
+    if ((gSnapIndex == 5) && ((U(a, 0x8c) == 17) || (U(a, 0x8c) == 1)))
     {
       b->v1 = 0;
       b->v0 = 0;
       b->v3 = 0;
     }
-    if ((D_8009EB80 == 6) && (U(a, 0x8c) == 20))
+    if ((gSnapIndex == 6) && (U(a, 0x8c) == 20))
     {
       b->v1 = 0;
       b->v0 = 0;

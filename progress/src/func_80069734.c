@@ -14,69 +14,74 @@ typedef struct
   void (*f288)(void);
   void (*f28C)(void);
 } State;
-extern State *D_800A1468;
-extern u8 *D_800C35A0;
-void func_8005A360(s32, s32);
-void func_80066E20(void);
+extern State *gSelectState;
+extern u8 *gRecords;
+void select_reset_text(s32, s32);
+void select_init_screen(void);
 void func_80066EBC(void);
+
+/* Resets the selection state, then, when the wanted slot for the current
+ * player changes, moves the player to it. gRecords[0x32 + i] holds slot i's
+ * assignment; a clash with another player's slot is resolved by swapping in
+ * the free value (or the old one) so that every player keeps a unique slot. */
 s32 func_80069734(void)
 {
-  u8 used[4] = {0, 0, 0, 0};
-  State *new_var;
+  u8 taken[4] = {0, 0, 0, 0};
+  State *st;
   u8 old;
-  u8 *new_var2;
+  u8 *recs;
   u8 i;
   State *s;
-  func_8005A360(0, 0);
-  s = D_800A1468;
+  select_reset_text(0, 0);
+  s = gSelectState;
   s->b245 = 0;
-  s->f288 = func_80066E20;
+  s->f288 = select_init_screen;
   s->f28C = func_80066EBC;
-  new_var = D_800A1468;
-  new_var->b24D = 0;
-  s = D_800A1468;
+  st = gSelectState;
+  st->b24D = 0;
+  s = gSelectState;
   s->b22B = -1;
-  new_var = D_800A1468;
-  new_var2 = D_800C35A0;
-  old = *(new_var2 + new_var->cur + 0x32);
-  if (old != new_var->want)
+  st = gSelectState;
+  recs = gRecords;
+  old = *(recs + st->cur + 0x32);
+  if (old != st->want)
   {
-    s8 w = new_var->want;
-    (D_800C35A0 + new_var->cur)[0x32] = w;
+    s8 w = st->want;
+    (gRecords + st->cur)[0x32] = w;
     i = 0;
-    if (D_800C35A0[0x32] == D_800C35A0[0x33])
+    if (gRecords[0x32] == gRecords[0x33])
     {
       do
       {
-        used[(D_800C35A0 + i)[0x32]] = 1;
+        taken[(gRecords + i)[0x32]] = 1;
         i++;
       }
       while (i < 4);
       for (i = 0; i < 4; i++)
       {
-        if (used[i] == 0)
+        if (taken[i] == 0)
         {
           break;
         }
       }
 
-      D_800C35A0[0x33] = i;
+      gRecords[0x33] = i;
     }
     else
     {
       for (; i < 4; i++)
       {
-        if ((i != D_800A1468->cur) && ((D_800C35A0 + i)[0x32] == D_800A1468->want))
+        if ((i != gSelectState->cur) && ((gRecords + i)[0x32] == gSelectState->want))
         {
           break;
         }
       }
 
-      (D_800C35A0 + i)[0x32] = old;
+      (gRecords + i)[0x32] = old;
     }
   }
-  D_800A1468->b24E = 0;
-  s = D_800A1468;
+  gSelectState->b24E = 0;
+  s = gSelectState;
   s->b245 = 0;
   return 0;
 }

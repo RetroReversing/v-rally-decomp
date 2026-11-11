@@ -1,5 +1,5 @@
 typedef void (*SpriteHook)(void *);
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 typedef struct { u16 h0, h2, type, width, height; } Tex;
 typedef struct { u8 count, pad[3]; Tex **tex; } Pack;
 typedef struct { u8 pad[0xE]; u16 count; u8 pad2[0xE]; u16 mode; } Game;
@@ -18,38 +18,42 @@ typedef struct {
     u32 flags2;
     Pack *pack;
 } Spr;
-#define GAME (*(Game **)&D_800C02AE[0x32F2])
-#define CUR_CAR (*(Car **)&D_800C02AE[0x7CD6])
+#define GAME_STATE (*(Game **)&gStreamState[0x32F2])
+#define CURRENT_CAR (*(Car **)&gStreamState[0x7CD6])
 void func_8003BEBC(void *);
-Pack *func_80034FF0(s32, s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-Car *func_8004240C(s32);
+Pack *getTexturePack(s32, s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+Car *find_object_by_id(s32);
 
 static inline f32 to_f(s32 v)
 {
     return v;
 }
 
-void func_8003C0CC(void *list, s32 arg1)
+/* Adds the car preview sprite to the display list `list` unless the game mode
+   is 7. The car is picked from the current player count; the sprite is scaled to
+   1.0 and its position is set so that its texture is centred on the origin. The
+   texture pack is loaded from file id arg1 + 0x4C. */
+void func_8003C0CC(void *list, s32 pack_id)
 {
     Spr *spr;
     Car *car;
-    Dim *d;
+    Dim *dim;
     Pack *pk;
     Tex *tex;
     f32 s;
     f32 fx;
     f32 fy;
 
-    if (GAME->mode != 7) {
-        car = func_8004240C((GAME->count << 1) | 1);
-        d = car->dim;
-        CUR_CAR = car;
-        spr = func_80040260(list, (s16)d->w / 2, (s16)d->h / 2, (s16)(4), func_8003BEBC, 0);
+    if (GAME_STATE->mode != 7) {
+        car = find_object_by_id((GAME_STATE->count << 1) | 1);
+        dim = car->dim;
+        CURRENT_CAR = car;
+        spr = sprite_create(list, (s16)dim->w / 2, (s16)dim->h / 2, (s16)(4), func_8003BEBC, 0);
         spr->sx = 0x100;
         spr->sy = 0x100;
         spr->flags |= 4;
-        pk = func_80034FF0(arg1 + 0x4C, 0);
+        pk = getTexturePack(pack_id + 0x4C, 0);
         s = 1024.0f / to_f(spr->sx);
         spr->pack = pk;
         tex = pk->tex[0];

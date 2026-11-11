@@ -1,32 +1,38 @@
-extern int D_800C35A0;void *func_800592AC(u32);
-s32 func_80059618();
-void func_800596F4(void *, s16, s16, void *);
+extern int gRecords;
+void *select_get_entry(u32);
+s32 group_set_color();
+void draw_palette_sprite(void *, s16, s16, void *);
 s32 func_8006874C();
-extern void *D_800A1468;
-extern char D_800C02AE[];
+extern void *gSelectState;
+extern char gStreamState[];
+
+/* Draws the current select entry: takes its colour from the entry's sub-record
+   (or uses the fixed highlight colour when the entry's flag at +0x42 is set), then
+   positions it from the sub-record and calls the follow-up update for the selected index. */
 void func_80069690(void)
 {
-  int new_var;
-  u8 var_a1;
-  u8 var_a2;
-  u8 var_a3;
-  void *temp_s0;
-  void *temp_v0;
-  temp_v0 = func_800592AC(0);
-  temp_s0 = *((void **) (((char *) temp_v0) + 0x28));
-  var_a1 = 0xDC;
-  if ((*((u8 *) (((char *) temp_v0) + 0x42))) != 0)
+  int rec_off;
+  u8 red;
+  u8 green;
+  u8 blue;
+  void *sub;
+  void *entry;
+
+  entry = select_get_entry(0);
+  sub = *((void **) (((char *) entry) + 0x28));
+  red = 0xDC;
+  if ((*((u8 *) (((char *) entry) + 0x42))) != 0)
   {
-    var_a2 = 0xDC;
-    var_a3 = 0xE;
+    green = 0xDC;
+    blue = 0xE;
   }
   else
   {
-    var_a1 = *((u8 *) (((char *) temp_s0) + 0xB));
-    var_a2 = *((u8 *) (((char *) temp_s0) + 0xC));
-    var_a3 = *((u8 *) (((char *) temp_s0) + 0xD));
+    red = *((u8 *) (((char *) sub) + 0xB));
+    green = *((u8 *) (((char *) sub) + 0xC));
+    blue = *((u8 *) (((char *) sub) + 0xD));
   }
-  func_80059618(temp_s0, var_a1, var_a2, var_a3, 0xFF);
-  func_800596F4((void *)(temp_s0), (s16)(*((s16 *) (((char *) temp_s0) + 6))), (s16)(*((s16 *) (((char *) temp_s0) + 8))), (void *)(D_800C35A0 + (((*((s8 *) (((char *) D_800A1468) + 0x22A))) * 0x28) + (new_var = 0x44))));
-  func_8006874C(*((s8 *) (((char *) D_800A1468) + 0x22A)));
+  group_set_color(sub, red, green, blue, 0xFF);
+  draw_palette_sprite((void *)(sub), (s16)(*((s16 *) (((char *) sub) + 6))), (s16)(*((s16 *) (((char *) sub) + 8))), (void *)(gRecords + (((*((s8 *) (((char *) gSelectState) + 0x22A))) * 0x28) + (rec_off = 0x44))));
+  func_8006874C(*((s8 *) (((char *) gSelectState) + 0x22A)));
 }

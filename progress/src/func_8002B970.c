@@ -1,137 +1,137 @@
 #define I(p,o) (*(s32 *)((u8 *)(p)+(o)))
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define P(p,o) (*(u8 **)((u8 *)(p)+(o)))
-extern s32 D_800AE850[];
-extern s32 D_800C02AE[];
-extern u8 *D_8009C230;
+extern s32 gOrderState[];
+extern s32 gStreamState[];
+extern u8 *gMirrorListHead;
 extern s32 D_8009F500[];
 extern s32 D_8009F504[];
 extern s32 D_8009F508[];
 extern s32 D_8009F50C[];
 extern s32 D_8009F518[];
 extern s32 D_8009F51C[];
-extern void func_8002D8A0(s32, void *, void *);
+extern void mat3_mul_vec3_q12(s32, void *, void *);
 static inline void add3(s32 *d, s32 *a, s32 *b)
 {
   d[0] = a[0] + b[0];
   d[1] = a[1] + b[1];
   d[2] = a[2] + b[2];
 }
-void func_8002B970(u8 *arg0, u8 *arg1)
+
+/* Fills the two per-object matrix/record blocks of dst from the source object's rows:
+   the header fields and the 4 row-pairs (negated x, then y, z), then the 12 per-vertex
+   entries (transformed positions and per-entry counters), and finally adds the
+   per-table deltas for the current frame and clears the block's state fields. */
+void func_8002B970(u8 *src, u8 *dst)
 {
-  struct 
+  struct
   {
     s32 x;
     s32 y;
     s32 z;
-  } sp;
-  s32 temp_a0; 
-  s32 gv;
-  s32 v0a;
-  s32 temp_a0_5;
-  s32 temp_a1;
-  s32 temp_a2;
-  s32 temp_v0_2;
-  s32 temp_v0_3;
-  u8 *new_var;
-  s32 temp_v0_4;
-  s32 var_a3;
-  s32 var_s1;
-  u8 *new_var2;
-  s32 var_s2;
-  s32 var_s3;
-  s32 var_s4;
-  void *temp_a0_2;
-  void *temp_a0_3;
-  void *temp_a0_4;
-  u8 *new_var3;
-  void *temp_a1_2;
-  void *temp_a1_3;
-  void *temp_a2_2;
-  void *temp_a2_3;
-  void *temp_v0;
-  u8 *var_t0;
-  struct Row { u8 pad[0x44]; s32 v; s32 w; } *r;
-  gv = I(D_800AE850, 0x82AC);
-  v0a = I(arg0, 0x90);
-  gv -= 0x1E;
-  v0a += gv;
-  I(P(arg1, 0x80), 0x4) = v0a;
-  var_s2 = 4;
-  I(P(arg1, 0x80), 0x8) = (s32) (I(arg0, 0xDC) + I(D_800C02AE, 0x3246));
-  var_a3 = 0x50;
-  temp_v0_4 = 4;
-  I(P(arg1, 0x80), 0xC) = (s32) I(arg0, 0x128);
+  } vtx;
+  s32 ax0;
+  s32 frame;
+  s32 base_y;
+  s32 idx4;
+  s32 ax1;
+  s32 ax2;
+  s32 tbl_off;
+  s32 tbl_off2;
+  u8 *anim_c;
+  s32 row;
+  s32 rowByte;
+  s32 off1;
+  u8 *ptr_b;
+  s32 i;
+  s32 near;
+  s32 far;
+  u8 *anim_a;
+  void *pa;
+  void *pc;
+  void *pd;
+  void *vp;
+  u8 *anim;
+  struct Row { u8 pad[0x44]; s32 v; s32 w; };
+  frame = I(gOrderState, 0x82AC);
+  base_y = I(src, 0x90);
+  frame -= 0x1E;
+  base_y += frame;
+  I(P(dst, 0x80), 0x4) = base_y;
+  i = 4;
+  I(P(dst, 0x80), 0x8) = (s32) (I(src, 0xDC) + I(gStreamState, 0x3246));
+  rowByte = 0x50;
+  row = 4;
+  I(P(dst, 0x80), 0xC) = (s32) I(src, 0x128);
   do
   {
-    temp_a0 = ((struct Row *) arg0)[temp_v0_4].v;
-    temp_a1 = ((struct Row *) arg0)[temp_v0_4 + 1].v;
-    temp_a2 = ((struct Row *) arg0)[temp_v0_4 + 2].v;
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x10) = (s32) (-temp_a0);
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x14) = temp_a1;
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x18) = temp_a2;
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x24) = temp_a0;
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x28) = temp_a1;
-    temp_v0_4 += 3;
-    var_s2 += 2;
-    I((u8 *) (var_a3 + ((s32) P(arg1, 0x80))), 0x2C) = temp_a2;
-    var_a3 += 0x28;
+    ax0 = ((struct Row *) src)[row].v;
+    ax1 = ((struct Row *) src)[row + 1].v;
+    ax2 = ((struct Row *) src)[row + 2].v;
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x10) = (s32) (-ax0);
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x14) = ax1;
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x18) = ax2;
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x24) = ax0;
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x28) = ax1;
+    row += 3;
+    i += 2;
+    I((u8 *) (rowByte + ((s32) P(dst, 0x80))), 0x2C) = ax2;
+    rowByte += 0x28;
   }
-  while (var_s2 <= (0xC - 1));
-  var_s2 = 0;
-  var_s4 = 0x100;
-  var_s3 = 0x10;
-  var_s1 = 0;
+  while (i <= (0xC - 1));
+  i = 0;
+  far = 0x100;
+  near = 0x10;
+  off1 = 0;
   do
   {
-    temp_a2_2 = P(arg1, 0x80);
-    func_8002D8A0(I(arg1, 0x5C) + 0x40, temp_a2_2 + var_s3, temp_a2_2 + var_s4);
-    temp_a0_2 = P(arg1, 0x80);
-    temp_a2_3 = P(arg1, 0x58);
-    add3((s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x1F0), (s32 *) ((u8 *) (var_s1 + (s32) temp_a0_2) + 0x100), (s32 *) ((u8 *) temp_a2_3 + 0xC));
-    temp_v0 = (u8 *) (var_s1 + (s32) P(arg1, 0x80));
-    sp = *((typeof(sp) *) (temp_v0 + 0x1F0));
-    { s32 tx; I(var_s1 + (s32) P(arg1, 0x60), 0x60) = (tx = sp.x, var_t0 = D_8009C230, tx); }
-    I(var_s1 + (s32) P(arg1, 0x60), 0x64) = sp.y;
-    var_s4 += 0x14;
-    I(var_s1 + (s32) P(arg1, 0x60), 0x68) = sp.z;
-    temp_a0_5 = var_s2 * 4;
-    I((var_s2 * 4) + (s32) P(arg1, 0x60), 0x30) = (s32) (I(var_t0, 0x4C) - 1);
-    var_s3 += 0x14;
-    new_var3 = var_t0;
-    I(temp_a0_5 + (s32) P(arg1, 0x34), 0x30) = (s32) (I(new_var3, 0x4C) - 1);
-    var_s2 += 1;
-    new_var2 = new_var3;
-    I(temp_a0_5 + (s32) P(arg1, 0x60), 0) = ((u16) H(new_var3, 0x88)) >> 1;
-    I(temp_a0_5 + (s32) P(arg1, 0x34), 0) = ((u16) H(new_var2, 0x88)) >> 1;
-    var_s1 += 0x14;
+    pc = P(dst, 0x80);
+    mat3_mul_vec3_q12(I(dst, 0x5C) + 0x40, pc + near, pc + far);
+    pa = P(dst, 0x80);
+    pd = P(dst, 0x58);
+    add3((s32 *) ((u8 *) (off1 + (s32) pa) + 0x1F0), (s32 *) ((u8 *) (off1 + (s32) pa) + 0x100), (s32 *) ((u8 *) pd + 0xC));
+    vp = (u8 *) (off1 + (s32) P(dst, 0x80));
+    vtx = *((typeof(vtx) *) (vp + 0x1F0));
+    { s32 tx; I(off1 + (s32) P(dst, 0x60), 0x60) = (tx = vtx.x, anim = gMirrorListHead, tx); }
+    I(off1 + (s32) P(dst, 0x60), 0x64) = vtx.y;
+    far += 0x14;
+    I(off1 + (s32) P(dst, 0x60), 0x68) = vtx.z;
+    idx4 = i * 4;
+    I((i * 4) + (s32) P(dst, 0x60), 0x30) = (s32) (I(anim, 0x4C) - 1);
+    near += 0x14;
+    anim_a = anim;
+    I(idx4 + (s32) P(dst, 0x34), 0x30) = (s32) (I(anim_a, 0x4C) - 1);
+    i += 1;
+    ptr_b = anim_a;
+    I(idx4 + (s32) P(dst, 0x60), 0) = ((u16) H(anim_a, 0x88)) >> 1;
+    I(idx4 + (s32) P(dst, 0x34), 0) = ((u16) H(ptr_b, 0x88)) >> 1;
+    off1 += 0x14;
   }
-  while (var_s2 < 0xC);
-  I(P(arg1, 0x8C), 0x578) = (s32) I(D_8009F500, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);
-  I(P(arg1, 0x8C), 0x57C) = (s32) I(D_8009F504, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);
-  temp_v0_2 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;
-  I(D_8009F500, temp_v0_2) = I(D_8009F500, temp_v0_2) + I(D_8009F508, temp_v0_2);
-  temp_v0_3 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;
-  new_var = new_var3;
-  I(D_8009F504, temp_v0_3) = I(D_8009F504, temp_v0_3) + I(D_8009F50C, temp_v0_3);
-  I(P(arg1, 0x34), 0x170) = (s32) I(D_8009F518, H(P(D_800C02AE, 0x32F2), 0x16) * 0x30);
-  temp_v0_4 = H(P(D_800C02AE, 0x32F2), 0x16) * 0x30;
-  I(D_8009F518, temp_v0_4) = I(D_8009F518, temp_v0_4) + I(D_8009F51C, temp_v0_4);
-  I(P(arg1, 0x34), 0x160) = 1;
-  I(P(arg1, 0x34), 0x158) = 0;
-  I(P(arg1, 0x34), 0x164) = 0;
-  I(P(arg1, 0x34), 0x168) = 0;
-  I(P(arg1, 0x34), 0x16C) = 0x1F4;
-  I(P(arg1, 0x34), 0x154) = 0;
-  P(P(arg1, 0x34), 0x150) = new_var3;
-  I(P(arg1, 0x60), 0x160) = 0;
-  I(P(arg1, 0x60), 0x158) = 0;
-  I(P(arg1, 0x60), 0x164) = 0;
-  I(P(arg1, 0x60), 0x168) = 0;
-  I(P(arg1, 0x60), 0x16C) = 0x1F4;
-  I(P(arg1, 0x60), 0x154) = 0;
-  P(P(arg1, 0x60), 0x150) = new_var;
-  I(P(arg1, 0x60), 0x178) = 0;
-  I(P(arg1, 0x60), 0x174) = 0;
+  while (i < 0xC);
+  I(P(dst, 0x8C), 0x578) = (s32) I(D_8009F500, H(P(gStreamState, 0x32F2), 0x16) * 0x30);
+  I(P(dst, 0x8C), 0x57C) = (s32) I(D_8009F504, H(P(gStreamState, 0x32F2), 0x16) * 0x30);
+  tbl_off = H(P(gStreamState, 0x32F2), 0x16) * 0x30;
+  I(D_8009F500, tbl_off) = I(D_8009F500, tbl_off) + I(D_8009F508, tbl_off);
+  tbl_off2 = H(P(gStreamState, 0x32F2), 0x16) * 0x30;
+  anim_c = anim_a;
+  I(D_8009F504, tbl_off2) = I(D_8009F504, tbl_off2) + I(D_8009F50C, tbl_off2);
+  I(P(dst, 0x34), 0x170) = (s32) I(D_8009F518, H(P(gStreamState, 0x32F2), 0x16) * 0x30);
+  row = H(P(gStreamState, 0x32F2), 0x16) * 0x30;
+  I(D_8009F518, row) = I(D_8009F518, row) + I(D_8009F51C, row);
+  I(P(dst, 0x34), 0x160) = 1;
+  I(P(dst, 0x34), 0x158) = 0;
+  I(P(dst, 0x34), 0x164) = 0;
+  I(P(dst, 0x34), 0x168) = 0;
+  I(P(dst, 0x34), 0x16C) = 0x1F4;
+  I(P(dst, 0x34), 0x154) = 0;
+  P(P(dst, 0x34), 0x150) = anim_a;
+  I(P(dst, 0x60), 0x160) = 0;
+  I(P(dst, 0x60), 0x158) = 0;
+  I(P(dst, 0x60), 0x164) = 0;
+  I(P(dst, 0x60), 0x168) = 0;
+  I(P(dst, 0x60), 0x16C) = 0x1F4;
+  I(P(dst, 0x60), 0x154) = 0;
+  P(P(dst, 0x60), 0x150) = anim_c;
+  I(P(dst, 0x60), 0x178) = 0;
+  I(P(dst, 0x60), 0x174) = 0;
 }
-

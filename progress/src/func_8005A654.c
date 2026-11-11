@@ -11,9 +11,9 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *text_obj_get(u32);                              /* extern */
-extern s32 D_800A1468;
+void *textObjGet(u32);                              /* extern */
+extern s32 gSelectState;
 
 s32 func_8005A654(u32 index) {
-    return M2C_FIELD(((M2C_FIELD(text_obj_get(index), s8 *, 0xA) * 4) + D_800A1468), s32 *, 0xE4);
+    return M2C_FIELD(((M2C_FIELD(textObjGet(index), s8 *, 0xA) * 4) + gSelectState), s32 *, 0xE4);
 }

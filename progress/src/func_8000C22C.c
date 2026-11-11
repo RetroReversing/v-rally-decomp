@@ -1,20 +1,14 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Stores the RGBA colour bytes at offset 4 of an item. */
+typedef struct {
+    u8 pad0[4];
+    u8 r, g, b, a;
+} ItemColor;
 
-void func_8000C22C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
-    M2C_FIELD(arg0, u8 *, 4) = (u8)arg1;
-    M2C_FIELD(arg0, u8 *, 5) = (u8)arg2;
-    M2C_FIELD(arg0, u8 *, 6) = (u8)arg3;
-    M2C_FIELD(arg0, u8 *, 7) = (u8)arg4;
+void func_8000C22C(void *item, s32 r, s32 g, s32 b, u8 a) {
+    ItemColor *color = (ItemColor *)item;
+
+    color->r = (u8)r;
+    color->g = (u8)g;
+    color->b = (u8)b;
+    color->a = (u8)a;
 }

@@ -15,12 +15,12 @@ typedef s32 M2C_UNK32;
 M2C_UNK func_8005E470();                            /* extern */
 extern s8 D_800A13B2;
 extern s8 D_800A14D5;
-extern s8 D_800A1548;
+extern s8 gMaskSlot;
 
 s32 func_8005E250(void) {
     D_800A13B2 = 0;
     func_8005E470();
     D_800A14D5 = 0;
-    D_800A1548 = 3;
+    gMaskSlot = 3;
     return 0;
 }

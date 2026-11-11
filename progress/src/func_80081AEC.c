@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern M2C_UNK D_800AE850;
+M2C_UNK heapFreeBlock(s32);                         /* extern */
+extern M2C_UNK gOrderState;
 
 void func_80081AEC(void) {
-    func_8007EE9C(M2C_FIELD(&D_800AE850, s32 *, 0x8AC4));
-    func_8007EE9C(M2C_FIELD(&D_800AE850, s32 *, 0x8AC8));
-    func_8007EE9C(M2C_FIELD(&D_800AE850, s32 *, 0x8AB4));
+    heapFreeBlock(M2C_FIELD(&gOrderState, s32 *, 0x8AC4));
+    heapFreeBlock(M2C_FIELD(&gOrderState, s32 *, 0x8AC8));
+    heapFreeBlock(M2C_FIELD(&gOrderState, s32 *, 0x8AB4));
 }

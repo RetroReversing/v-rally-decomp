@@ -1,22 +1,26 @@
-extern char D_800C02AE[];
-void func_8004C5BC(void **arg0) {
+extern char gStreamState[];
+
+/* Walks the linked list of sound/sprite nodes starting at *list. Each node with flag bit 1 set runs its hook
+ * (at +0x30) and, unless flag bit 2 is also set, sends its parameters (+0x10..+0x24, u16 at +0x1C) through its
+ * handler at +0x2C, using the device word at gStreamState+0x7CD6 -> +0x178. */
+void func_8004C5BC(void **list) {
     s32 (*hook)(void *);
     s32 (*send)(s32, s32, s32, s32, s32, u16);
-    void *cur, *next, *global;
-    cur = *arg0;
-    global = *(void **)(D_800C02AE + 0x7CD6);
-    if(cur == 0) return;
+    void *node, *next, *global;
+    node = *list;
+    global = *(void **)(gStreamState + 0x7CD6);
+    if(node == 0) return;
     do {
-        next = *(void **)((u8 *)cur + 4);
-        if (*(s32 *)((u8 *)cur + 0xC) & 1) {
-            hook = *(s32 (**)(void *))((u8 *)cur + 0x30);
-            if (hook != 0) hook(cur);
-            if ((*(s32 *)((u8 *)cur + 0xC) & 2) == 0) {
-                (*(s32 (**)(s32, s32, s32, s32, s32, u16))((u8 *)cur + 0x2C))(*(s32 *)((u8 *)global + 0x178), *(s32 *)((u8 *)cur + 0x24),
-                     *(s32 *)((u8 *)cur + 0x10), *(s32 *)((u8 *)cur + 0x14),
-                     *(s32 *)((u8 *)cur + 0x20), (u32)*(u16 *)((u8 *)cur + 0x1C));
+        next = *(void **)((u8 *)node + 4);
+        if (*(s32 *)((u8 *)node + 0xC) & 1) {
+            hook = *(s32 (**)(void *))((u8 *)node + 0x30);
+            if (hook != 0) hook(node);
+            if ((*(s32 *)((u8 *)node + 0xC) & 2) == 0) {
+                (*(s32 (**)(s32, s32, s32, s32, s32, u16))((u8 *)node + 0x2C))(*(s32 *)((u8 *)global + 0x178), *(s32 *)((u8 *)node + 0x24),
+                     *(s32 *)((u8 *)node + 0x10), *(s32 *)((u8 *)node + 0x14),
+                     *(s32 *)((u8 *)node + 0x20), (u32)*(u16 *)((u8 *)node + 0x1C));
             }
         }
-        cur = next;
-    } while(cur);
+        node = next;
+    } while(node);
 }

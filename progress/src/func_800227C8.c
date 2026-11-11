@@ -1,30 +1,33 @@
-s32 func_80022184();
-s32 func_80022200();
-s32 func_80080478();
+s32 flag_test_bit0();
+s32 flag_clear_bit0();
+s32 heapReleaseBlock();
 s32 func_800804C4();
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 extern s32 func_80022E64;
 
+/* If the order-state block at +0x7320 is ready, hands each entry of the stream
+ * table at +0x7162 to func_800804C4 with the shared callback, then releases the
+ * entry through heapReleaseBlock, and finally calls flag_clear_bit0 on the block. */
 void func_800227C8(void)
 {
-  s32 *var_s0;
-  s32 temp_a0;
-  s32 var_s1;
+  s32 *entry;
+  s32 entry_value;
+  s32 count;
 
-  if (func_80022184(D_800AE850 + 0x7320) != 0)
+  if (flag_test_bit0(gOrderState + 0x7320) != 0)
   {
-    var_s1 = 0;
-    var_s0 = (s32 *) (D_800C02AE + 0x7162);
+    count = 0;
+    entry = (s32 *) (gStreamState + 0x7162);
     do
     {
-      var_s1 += 1;
-      func_800804C4(*var_s0, &func_80022E64);
-      temp_a0 = *var_s0;
-      var_s0 += 1;
-      func_80080478(temp_a0);
+      count += 1;
+      func_800804C4(*entry, &func_80022E64);
+      entry_value = *entry;
+      entry += 1;
+      heapReleaseBlock(entry_value);
     }
-    while (var_s1 == 0);
-    func_80022200(D_800AE850 + 0x7320);
+    while (count == 0);
+    flag_clear_bit0(gOrderState + 0x7320);
   }
 }

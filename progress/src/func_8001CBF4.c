@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80020428(s32);                         /* extern */
+M2C_UNK init_obj_state(s32);                         /* extern */
 M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
 extern s32 D_800B0C20;
 
 void func_8001CBF4(void) {
     func_80022E24(D_800B0C20, 9);
-    func_80020428(D_800B0C20);
+    init_obj_state(D_800B0C20);
 }

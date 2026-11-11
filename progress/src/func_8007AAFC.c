@@ -1,50 +1,53 @@
-void *func_800592AC(u32);
-s32 func_800593FC(s32, s32);
-s32 func_8005946C(s32, u8);
-s32 func_8007A688(u8, void *);
-s32 func_8007A6D0();
-extern void *D_800A1468;
-extern char D_800C02AE[];
+void *select_get_entry(u32);
+s32 select_copy_entry_state(s32, s32);
+s32 select_set_active_sub(s32, u8);
+s32 UpdateSelectedEntry(u8, void *);
+s32 select_load_texture_pack();
+extern void *gSelectState;
+extern char gStreamState[];
 
+/* Sets up the select screen's selection for the player's current record: stores the
+ * record's index, looks up how many entries share its class, then starts the screen's
+ * display routines. */
 s32 func_8007AAFC(s32 arg0) {
-    char *base;
-    char *p;
-    char *rec;
+    char *records;
+    char *entry;
+    char *record;
     char *var_v1;
-    char *pa;
+    char *state;
     s32 var_a0;
-    u8 s0;
-    u8 s1;
-    u8 temp_a0;
+    u8 car;
+    u8 slot;
+    u8 class_id;
 
-    *((u8 *)D_800A1468 + 0x2BC) = 4;
-    *((u8 *)D_800A1468 + 0x245) = 1;
-    pa = D_800A1468;
-    base = *(char **)(D_800C02AE + 0x32F2);
-    p = base + *((s8 *)pa + 0x228);
-    rec = base + *(u8 *)(p + 0x32) * 0x28;
-    s1 = *(u8 *)(rec + 0x4F);
-    s0 = s1;
-    temp_a0 = *(u8 *)(*(char **)(D_800C02AE + 0x103AA) + s0 * 0x2C4 + 0x15);
-    if (temp_a0 == *(u8 *)(pa + 0x238)) {
-        var_v1 = *(char **)((char *)func_800592AC((u8)(temp_a0)) + 0x28);
+    *((u8 *)gSelectState + 0x2BC) = 4;
+    *((u8 *)gSelectState + 0x245) = 1;
+    state = gSelectState;
+    records = *(char **)(gStreamState + 0x32F2);
+    entry = records + *((s8 *)state + 0x228);
+    record = records + *(u8 *)(entry + 0x32) * 0x28;
+    slot = *(u8 *)(record + 0x4F);
+    car = slot;
+    class_id = *(u8 *)(*(char **)(gStreamState + 0x103AA) + car * 0x2C4 + 0x15);
+    if (class_id == *(u8 *)(state + 0x238)) {
+        var_v1 = *(char **)((char *)select_get_entry((u8)(class_id)) + 0x28);
         var_a0 = 0;
-        if (*(u8 *)(var_v1 + 0x22) != s0) {
+        if (*(u8 *)(var_v1 + 0x22) != car) {
             do {
                 var_v1 = *(char **)var_v1;
                 var_a0 += 1;
-            } while (*(u8 *)(var_v1 + 0x22) != s0);
+            } while (*(u8 *)(var_v1 + 0x22) != car);
         }
-        *((u8 *)D_800A1468 + 0x239) = var_a0;
-        *((u8 *)D_800A1468 + 0x237) = s1;
+        *((u8 *)gSelectState + 0x239) = var_a0;
+        *((u8 *)gSelectState + 0x237) = slot;
     } else {
-        *(pa + 0x239) = 0;
-        func_8007A688(temp_a0, pa);
+        *(state + 0x239) = 0;
+        UpdateSelectedEntry(class_id, state);
     }
-    func_8007A6D0();
-    *((u8 *)D_800A1468 + 0x2BD) = 1;
-    p = *(char **)(D_800C02AE + 0x325A);
-    func_800593FC(arg0, *(u8 *)(*(char **)(p + 0x10) + *(s16 *)(p + 2) * 0x14 + 0xD) + 4);
-    func_8005946C(arg0, *((u8 *)D_800A1468 + 0x239));
+    select_load_texture_pack();
+    *((u8 *)gSelectState + 0x2BD) = 1;
+    entry = *(char **)(gStreamState + 0x325A);
+    select_copy_entry_state(arg0, *(u8 *)(*(char **)(entry + 0x10) + *(s16 *)(entry + 2) * 0x14 + 0xD) + 4);
+    select_set_active_sub(arg0, *((u8 *)gSelectState + 0x239));
     return 0;
 }

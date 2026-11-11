@@ -3,78 +3,82 @@ typedef struct
   u8 x[4];
 } Four;
 extern Four D_800A56F0;
-extern u8 *D_800C35A0;
+extern u8 *gRecords;
 void func_8006F0E0(u8);
 void func_8006F4A8(u8);
-s32 func_8006F75C(void);
+s32 save_race_to_pak(void);
 
+/* Walks the two-place record order against the saved table. Slots whose name
+ * is still blank are free; if the place being filled is free, the new record
+ * is written into it, otherwise the two places are swapped. */
 void func_80066B88(void)
 {
-  u8 a[4];
-  u8 b[4];
+  u8 in_order[4];
+  u8 free_slot[4];
   u8 changed;
+  s8 pass;
+  s8 slot;
+  s8 m;
+  s8 found;
+  s8 *order;
+  u8 *entry_names;
+  s8 tmp;
   s8 k;
-  s8 i;
-  s8 j;
-  s8 n;
-  s8 *p;
-  u8 *q;
-  s8 t;
 
-  *((Four *) a) = D_800A56F0;
-  *((Four *) b) = D_800A56F0;
+  *((Four *) in_order) = D_800A56F0;
+  *((Four *) free_slot) = D_800A56F0;
   changed = 0;
-  q = D_800C35A0 + 0x44;
-  p = (s8 *) D_800C35A0 + 0x32;
-  for (k = 0; k < 2; k++)
+  entry_names = gRecords + 0x44;
+  order = (s8 *) gRecords + 0x32;
+  for (pass = 0; pass < 2; pass++)
   {
-    for (i = 0; i < 4; i++)
+    for (slot = 0; slot < 4; slot++)
     {
-      if (q[i * 40] < 0x5B)
+      if (entry_names[slot * 40] < 0x5B)
       {
-        b[i] = 0;
+        free_slot[slot] = 0;
       }
-      for (j = 0; j < 2; j++)
+      for (m = 0; m < 2; m++)
       {
-        if (p[j] == i)
+        if (order[m] == slot)
         {
-          a[p[j]] = 0;
+          in_order[order[m]] = 0;
         }
       }
     }
-    if (b[p[k]])
+    if (free_slot[order[pass]])
     {
-      for (i = 0; i < 4; i++)
+      for (slot = 0; slot < 4; slot++)
       {
-        if (a[i] && !b[i])
+        if (in_order[slot] && !free_slot[slot])
         {
           break;
         }
       }
-      if (i == 4)
+      if (slot == 4)
       {
-        s8 *x = &p[k];
-        func_8006F4A8(*x);
-        q[*x * 40] = 0x50;
-        q[*x * 40 + 1] = 0x4C;
-        q[*x * 40 + 2] = *x + 0x41;
-        func_8006F0E0(*x);
+        s8 *place = &order[pass];
+        func_8006F4A8(*place);
+        entry_names[*place * 40] = 0x50;
+        entry_names[*place * 40 + 1] = 0x4C;
+        entry_names[*place * 40 + 2] = *place + 0x41;
+        func_8006F0E0(*place);
         changed = 1;
       }
       else
       {
-        n = i;
-        for (i = 0; i < 4 && p[i] != n; i++)
+        found = slot;
+        for (slot = 0; slot < 4 && order[slot] != found; slot++)
         {
         }
-        t = p[k];
-        p[k] = n;
-        p[i] = t;
+        tmp = order[pass];
+        order[pass] = found;
+        order[slot] = tmp;
       }
     }
   }
   if (changed)
   {
-    func_8006F75C();
+    save_race_to_pak();
   }
 }

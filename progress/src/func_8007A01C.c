@@ -14,44 +14,48 @@ typedef struct Tbl
   u8 b[0x10];
   u8 *base;
 } Tbl;
-extern ObjA *D_800A1468;
-extern Tbl *D_800C3508;
-extern void *D_800C35A0;
+extern ObjA *gSelectState;
+extern Tbl *gLeague;
+extern void *gRecords;
 extern u8 D_800A5F64[];
 extern u8 D_800A5F70[];
-extern void func_8005A360(s32, s32);
+extern void select_reset_text(s32, s32);
 extern void func_800595EC(void *);
-extern void func_80053A78(void);
+extern void records_restore_from_order(void);
 extern void func_80062B70(void);
 extern void func_80062DF4(void);
 extern void func_80064E48(void);
-extern void func_80064E50(void);
+extern void hud_draw_counter_text(void);
 extern void func_80070A34(void);
 extern void func_8007A29C(void);
 extern void func_8007A9A8(void);
 extern void func_8007AA94(void);
+
+/* Steps the countdown in gSelectState and, while it runs, keeps the league entry
+ * for the current record mode set to its value. When the countdown ends it
+ * clears the state, sets the entry for the mode and installs the next callbacks. */
 s32 func_8007A01C(s32 arg0, s32 arg1)
 {
   u32 scratch[1];
-  unsigned short idx;
+  unsigned short entry_off;
   s8 state;
   s32 mode;
-  void *p;
-  state = D_800A1468->state;
-  idx = D_800C3508->b[3] * 20;
+  void *league_base;
+  state = gSelectState->state;
+  entry_off = gLeague->b[3] * 20;
   if (state != 0)
   {
-    D_800A1468->state = --state;
-    func_8005A360(arg0, arg1);
-    D_800A1468->cb0 = func_8007A29C;
-    D_800A1468->cb1 = func_8007A9A8;
-    D_800A1468->cb2 = func_8007AA94;
-    mode = *((u16 *) (((u8 *) D_800C35A0) + 30));
+    gSelectState->state = --state;
+    select_reset_text(arg0, arg1);
+    gSelectState->cb0 = func_8007A29C;
+    gSelectState->cb1 = func_8007A9A8;
+    gSelectState->cb2 = func_8007AA94;
+    mode = *((u16 *) (((u8 *) gRecords) + 30));
     switch (mode)
     {
       case 0:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 5;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 5;
         break;
 
       case 1:
@@ -61,13 +65,13 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
       case 3:
 
       case 4:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 5;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 5;
         break;
 
       case 5:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 7;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 7;
         break;
 
     }
@@ -75,9 +79,9 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
   }
   else
   {
-    D_800A1468->state = 0;
-    D_800A1468->flag = -1;
-    mode = *((u16 *) (((u8 *) D_800C35A0) + 30));
+    gSelectState->state = 0;
+    gSelectState->flag = -1;
+    mode = *((u16 *) (((u8 *) gRecords) + 30));
     switch (mode)
     {
       case 1:
@@ -87,27 +91,27 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
       case 3:
 
       case 4:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 0;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 0;
         func_800595EC(D_800A5F64);
-        D_800A1468->cb0 = func_80064E48;
-        D_800A1468->cb1 = func_80064E50;
+        gSelectState->cb0 = func_80064E48;
+        gSelectState->cb1 = hud_draw_counter_text;
         break;
 
       case 0:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 0;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 0;
         func_800595EC(D_800A5F64);
-        D_800A1468->cb0 = func_80062B70;
-        D_800A1468->cb1 = func_80062DF4;
+        gSelectState->cb0 = func_80062B70;
+        gSelectState->cb1 = func_80062DF4;
         break;
 
       case 5:
-        p = D_800C3508->base;
-        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 1;
+        league_base = gLeague->base;
+        *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 1;
         func_800595EC(D_800A5F70);
-        D_800A1468->cb0 = func_80070A34;
-        func_80053A78();
+        gSelectState->cb0 = func_80070A34;
+        records_restore_from_order();
         break;
 
     }

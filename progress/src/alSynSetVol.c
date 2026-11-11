@@ -1,29 +1,33 @@
 void *__allocParam();
 s32 _timeToSamples(void *, s32, s32);
 
-void alSynSetVol(void *arg0, void *arg1, s32 arg2, s32 arg3)
+/* Queues a set-volume parameter (type 0xB) on the voice's unit, timed from
+ * the synth clock plus the unit delay, and sends it to the unit's sink
+ * handler (message 3). Does nothing if the voice has no unit or no param
+ * is free. */
+void alSynSetVol(void *synth, void *voice, s32 vol, s32 t)
 {
-    char *obj;
-    char *base;
-    char *base2;
-    s32 tmp;
-    s32 tmp1;
-    void (*fn)(void *, s32, void *);
+    char *p;
+    char *unit;
+    char *sink;
+    s32 unitDelay;
+    s32 synthTime;
+    void (*handler)(void *, s32, void *);
 
-    if (*(char **)((char *)arg1 + 8) != NULL) {
-        obj = __allocParam();
-        if (obj != NULL) {
-            base = *(char **)((char *)arg1 + 8);
-            tmp1 = *(s32 *)((char *)arg0 + 0x1C);
-            tmp = *(s32 *)(base + 0xD8);
-            *(s16 *)(obj + 8) = 0xB;
-            *(s32 *)(obj + 0xC) = (s16)arg2;
-            *(s32 *)(obj + 4) = tmp1 + tmp;
-            *(s32 *)(obj + 0x10) = _timeToSamples(arg0, arg3, tmp);
-            *(s32 *)obj = 0;
-            base2 = *(char **)(*(char **)((char *)arg1 + 8) + 0xC);
-            fn = *(void (**)(void *, s32, void *))(base2 + 8);
-            fn(base2, 3, obj);
+    if (*(char **)((char *)voice + 8) != NULL) {
+        p = __allocParam();
+        if (p != NULL) {
+            unit = *(char **)((char *)voice + 8);
+            synthTime = *(s32 *)((char *)synth + 0x1C);
+            unitDelay = *(s32 *)(unit + 0xD8);
+            *(s16 *)(p + 8) = 0xB;
+            *(s32 *)(p + 0xC) = (s16)vol;
+            *(s32 *)(p + 4) = synthTime + unitDelay;
+            *(s32 *)(p + 0x10) = _timeToSamples(synth, t, unitDelay);
+            *(s32 *)p = 0;
+            sink = *(char **)(*(char **)((char *)voice + 8) + 0xC);
+            handler = *(void (**)(void *, s32, void *))(sink + 8);
+            handler(sink, 3, p);
         }
     }
 }

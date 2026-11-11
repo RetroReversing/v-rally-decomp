@@ -1,5 +1,5 @@
-extern s32 D_800B68F0;
-extern char D_800C02AE[];
+extern s32 gVoices;
+extern char gStreamState[];
 
 void func_80086A94(void) {
     char pad[8];
@@ -9,8 +9,8 @@ void func_80086A94(void) {
     s32 base;
     char *p;
 
-    count = *(s32 *)(D_800C02AE + 0x757E);
-    base = D_800B68F0;
+    count = *(s32 *)(gStreamState + 0x757E);
+    base = gVoices;
     i = 0;
     if (count > 0) {
         value = 1;

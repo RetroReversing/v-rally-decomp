@@ -1,35 +1,39 @@
 extern s32 D_800C8374,D_800B5B44,D_800AFA64;
-extern u8 D_800A16D4,D_800A16D5;
+extern u8 gStreamPhase,gStreamReady;
 extern s8 D_8009BBBC;
 extern s16 D_800A0370,D_800A0372;
 extern u16 D_800A0374,D_800A0376;
-extern u8 *D_8009B5A4,*D_800A1468;
+extern u8 *gSceneSlot0,*gSelectState;
 extern u8 D_800A73E0[];
-void func_8001BAF4();void func_80015C74();void func_80005E3C();
+void func_8001BAF4();void func_80015C74();void streamFreeObject();
+
+/* Shuts down the pending work for the current state code (1 or 2), clears the
+   related flags, then copies two timing words from gSceneSlot0 into D_800A0374/76
+   and marks the select state as idle (-1). */
 void func_8006A318(void){
-s32 state=D_800A16D4;
-if(state==1)goto one;
-if(state<2)goto tail;
-if(state!=2)goto tail;
+s32 state=gStreamPhase;
+if(state==1)goto state1_cleanup;
+if(state<2)goto copy_timing;
+if(state!=2)goto copy_timing;
 func_8001BAF4(D_800C8374);
 func_80015C74(D_800A73E0+0x6BD0,0);
 D_8009BBBC=0;
-if(D_800A16D5)func_80005E3C(D_800B5B44);
-D_800A16D4=0;
-D_800A16D5=0;
-goto reset;
-one:
+if(gStreamReady)streamFreeObject(D_800B5B44);
+gStreamPhase=0;
+gStreamReady=0;
+goto clear_pending;
+state1_cleanup:
 func_8001BAF4(D_800C8374);
 func_80015C74(D_800A73E0+0x6BD0,0);
-if(D_800A16D5)func_80005E3C(D_800B5B44);
-D_800A16D5=0;
+if(gStreamReady)streamFreeObject(D_800B5B44);
+gStreamReady=0;
 D_8009BBBC=0;
-reset:
+clear_pending:
 D_800AFA64=0;
-tail:
+copy_timing:
 D_800A0370=0;
 D_800A0372=0;
-D_800A0374=*(u16 *)(D_8009B5A4+4);
-D_800A0376=*(u16 *)(D_8009B5A4+6);
-((s8 *)D_800A1468)[0x2BD]=-1;
+D_800A0374=*(u16 *)(gSceneSlot0+4);
+D_800A0376=*(u16 *)(gSceneSlot0+6);
+((s8 *)gSelectState)[0x2BD]=-1;
 }

@@ -1,35 +1,38 @@
-extern void *D_800C811C;
+extern void *g_ent_list;
 extern s32 *D_800C60D4;
-extern unsigned char D_800C7926;
-s32 func_80035438();
-s32 func_8007EE9C();
-s32 func_800803C0();
-s32 func_80080478();
+extern unsigned char g_dark_mode;
+s32 streamReleaseEntry();
+s32 heapFreeBlock();
+s32 list_unlink_free();
+s32 heapReleaseBlock();
 
+/* Tears down the entity list: frees its first two child objects, and when the
+   list is empty and dark mode is off, releases each queued entry in D_800C60D4
+   (its entity at +0xC) before freeing the queue head. */
 void func_80035A10(void) {
-    s32 *temp_s1;
-    void *temp_s0;
+    s32 *queue;
+    void *entry;
 
-    if (*(s32 *)D_800C811C) {
-        func_80035438(*(s32 *)D_800C811C);
+    if (*(s32 *)g_ent_list) {
+        streamReleaseEntry(*(s32 *)g_ent_list);
     }
-    if (*(u16 *)((char *)D_800C811C + 4) == 0 && D_800C7926 == 0) {
-        temp_s1 = D_800C60D4;
-        if (temp_s1[0] != 0) {
+    if (*(u16 *)((char *)g_ent_list + 4) == 0 && g_dark_mode == 0) {
+        queue = D_800C60D4;
+        if (queue[0] != 0) {
             do {
-                temp_s0 = (void *)temp_s1[1];
-                func_80035438(*(s32 *)(*(char **)(((char *)temp_s0) + 0xC) + 0xA4));
-                func_8007EE9C(*(void **)(((char *)temp_s0) + 0xC));
-                func_800803C0(temp_s0, temp_s1);
-            } while (temp_s1[0] != 0);
+                entry = (void *)queue[1];
+                streamReleaseEntry(*(s32 *)(*(char **)(((char *)entry) + 0xC) + 0xA4));
+                heapFreeBlock(*(void **)(((char *)entry) + 0xC));
+                list_unlink_free(entry, queue);
+            } while (queue[0] != 0);
         }
-        func_80080478(temp_s1);
+        heapReleaseBlock(queue);
     }
-    if (*(void **)((char *)D_800C811C + 0x10)) {
-        func_8007EE9C(*(void **)((char *)D_800C811C + 0x10));
+    if (*(void **)((char *)g_ent_list + 0x10)) {
+        heapFreeBlock(*(void **)((char *)g_ent_list + 0x10));
     }
-    if (*(void **)((char *)D_800C811C + 0x14)) {
-        func_8007EE9C(*(void **)((char *)D_800C811C + 0x14));
+    if (*(void **)((char *)g_ent_list + 0x14)) {
+        heapFreeBlock(*(void **)((char *)g_ent_list + 0x14));
     }
-    func_8007EE9C(D_800C811C);
+    heapFreeBlock(g_ent_list);
 }

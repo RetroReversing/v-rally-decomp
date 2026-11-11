@@ -1,25 +1,27 @@
-s32 func_800592F4();
-s32 func_8006204C();
-extern char *D_800A1468;
-extern char D_800C02AE[];
+s32 slot_set_selected();
+s32 select_stream_char();
+extern char *gSelectState;
+extern char gStreamState[];
 
+/* Counts down the countdown timer of the current slot (by 10 per call, while it is at -19 or above) and
+ * refreshes the slot's display via slot_set_selected with the timer scaled to tenths of the reference. */
 s32 func_8006B150(s32 arg0)
 {
-    char *p;
-    char *s0;
-    s16 temp_v0;
-    s16 temp_a0;
-    char *temp_a2;
+    char *stream;
+    char *block;
+    s16 timer;
+    s16 newTimer;
+    char *slot;
 
-    p = *(char **)(D_800C02AE + 0x32F2);
-    s0 = p + ((*(u8 *)(p + *(s8 *)(D_800A1468 + 0x228) + 0x32) * 40) + 0x44);
-    temp_a2 = (char *)(((func_8006204C(*(u8 *)(p + 0x1F), *(u8 *)(p + 0x21), *(u8 *)(p + 0x23)) & 0xFF) * 2) + (u32)s0);
-    temp_v0 = *(s16 *)(temp_a2 + 0x1C);
-    if (temp_v0 >= -0x13)
+    stream = *(char **)(gStreamState + 0x32F2);
+    block = stream + ((*(u8 *)(stream + *(s8 *)(gSelectState + 0x228) + 0x32) * 40) + 0x44);
+    slot = (char *)(((select_stream_char(*(u8 *)(stream + 0x1F), *(u8 *)(stream + 0x21), *(u8 *)(stream + 0x23)) & 0xFF) * 2) + (u32)block);
+    timer = *(s16 *)(slot + 0x1C);
+    if (timer >= -0x13)
     {
-        temp_a0 = temp_v0 - 0xA;
-        *(s16 *)(temp_a2 + 0x1C) = temp_a0;
-        func_800592F4(arg0, -(temp_a0 / 10) + 2, temp_a2);
+        newTimer = timer - 0xA;
+        *(s16 *)(slot + 0x1C) = newTimer;
+        slot_set_selected(arg0, -(newTimer / 10) + 2, slot);
     }
     return 1;
 }

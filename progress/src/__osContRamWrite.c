@@ -1,87 +1,92 @@
 extern s32 D_800A3B40;
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 extern u8 D_800C3520;
 extern s32 osRecvMesg(s32, void *, s32);
-extern void func_8008D8B4(void);
-extern void func_8008D920(void);
-extern void func_80090DC0(s32, void *);
-extern void func_80091600(void *, void *, s32);
+extern void pif_lock(void);
+extern void pif_unlock(void);
+extern void __osSiRawStartDma(s32, void *);
+extern void __osCopyBytes(void *, void *, s32);
 extern s32 __osContAddressCrc(u32);
 extern s32 __osContDataCrc(void *);
-extern u32 func_80097420(s32, s32);
-u32 __osContRamWrite(s32 arg0, s32 arg1, u16 arg2, void *arg3, s32 arg4)
+extern u32 getPakStatus(s32, s32);
+
+/* libultra __osContRamWrite: writes 32 bytes to controller pak RAM at `address`
+ * on `channel`. Builds the command block in the shared PIF buffer, sends it and
+ * checks the data CRC; a CRC mismatch retries up to three times. Returns 0 for
+ * an invalid address, otherwise the controller status (0 = ok). */
+u32 __osContRamWrite(s32 mq, s32 channel, u16 address, void *buf, s32 force)
 {
   u8 scratch[8];
-  u8 *p = D_800C02AE + 0x7e82;
-  s32 tries = 2;
-  s32 raw;
-  u32 res;
-  s32 i;
-  u32 a;
-  if ((arg4 != 1) & (((u32) arg2) < 7U))
+  u8 *cmd = gStreamState + 0x7e82;
+  s32 retries = 2;
+  s32 data_crc;
+  u32 ret;
+  s32 n;
+  u32 addr;
+  if ((force != 1) & (((u32) address) < 7U))
   {
-    if (arg2 != 0)
+    if (address != 0)
     {
       return 0;
     }
   }
-  func_8008D8B4();
-  if ((D_800C3520 != 3) || (D_800A3B40 != arg1))
+  pif_lock();
+  if ((D_800C3520 != 3) || (D_800A3B40 != channel))
   {
-    D_800C02AE[0x3272] = 3;
-    D_800A3B40 = arg1;
-    i = 0;
-    if (arg1 > 0)
+    gStreamState[0x3272] = 3;
+    D_800A3B40 = channel;
+    n = 0;
+    if (channel > 0)
     {
       do
       {
-        *(p++) = 0;
-        i++;
+        *(cmd++) = 0;
+        n++;
       }
-      while (i < arg1);
+      while (n < channel);
     }
-    *((s32 *) (D_800C02AE + 0x7ebe)) = 1;
-    p[0] = (i = 255);
-    p[1] = 0x23;
-    p[2] = 1;
-    p[3] = 3;
-    p[0x26] = i;
-    p[0x27] = 254;
+    *((s32 *) (gStreamState + 0x7ebe)) = 1;
+    cmd[0] = (n = 255);
+    cmd[1] = 0x23;
+    cmd[2] = 1;
+    cmd[3] = 3;
+    cmd[0x26] = n;
+    cmd[0x27] = 254;
   }
   else
   {
-    p += arg1;
+    cmd += channel;
   }
-  a = arg2 & 0xffff;
-  p[4] = a >> 3;
-  p[5] = __osContAddressCrc(a) | (arg2 << 5);
-  func_80091600(arg3, p + 6, 32);
-  func_80090DC0(1, D_800C02AE + 0x7e82);
-  raw = __osContDataCrc(arg3);
-  osRecvMesg(arg0, 0, 1);
+  addr = address & 0xffff;
+  cmd[4] = addr >> 3;
+  cmd[5] = __osContAddressCrc(addr) | (address << 5);
+  __osCopyBytes(buf, cmd + 6, 32);
+  __osSiRawStartDma(1, gStreamState + 0x7e82);
+  data_crc = __osContDataCrc(buf);
+  osRecvMesg(mq, 0, 1);
   do
   {
-    func_80090DC0(0, D_800C02AE + 0x7e82);
-    osRecvMesg(arg0, 0, 1);
-    res = (p[2] & 0xc0) >> 4;
-    if (res == 0)
+    __osSiRawStartDma(0, gStreamState + 0x7e82);
+    osRecvMesg(mq, 0, 1);
+    ret = (cmd[2] & 0xc0) >> 4;
+    if (ret == 0)
     {
-      if (((u32) ((void *) (raw & 255))) != p[0x26])
+      if (((u32) ((void *) (data_crc & 255))) != cmd[0x26])
       {
-        res = func_80097420(arg0, arg1);
-        if (res != 0)
+        ret = getPakStatus(mq, channel);
+        if (ret != 0)
         {
           break;
         }
-        res = 4;
+        ret = 4;
       }
     }
     else
     {
-      res = 1;
+      ret = 1;
     }
   }
-  while ((res == 4) && ((tries--) >= 0));
-  func_8008D920();
-  return res;
+  while ((ret == 4) && ((retries--) >= 0));
+  pif_unlock();
+  return ret;
 }

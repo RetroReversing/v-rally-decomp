@@ -10,29 +10,31 @@ typedef struct { u32 w0, w1; } Gfx;
 #define gDPFillRectangle(pkt, ulx, uly, lrx, lry) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (_SHIFTL(0xF6, 24, 8) | _SHIFTL((lrx), 14, 10) | _SHIFTL((lry), 2, 10)); _g->w1 = (_SHIFTL((ulx), 14, 10) | _SHIFTL((uly), 2, 10)); }
 
 typedef struct { u8 pad[4]; s16 width; } FrameInfo;
-extern FrameInfo *D_8009B5A8;
+extern FrameInfo *gSceneSlot1;
 void *func_80005C48(FrameInfo *arg0);
-s32 func_800056FC(s32 arg0);
-Gfx *func_80006008(s32 arg0);
-void func_80006014(s32 arg0, Gfx *arg1);
+s32 view_get_ctx_id(s32 arg0);
+Gfx *gfx_get_dl(s32 arg0);
+void gfx_set_dl(s32 arg0, Gfx *arg1);
 u32 osVirtualToPhysical(void *);
 
-void func_8000EC94(s32 arg0, s16 *rect, u8 *color)
+/* Fills a screen rectangle (rect = ulx, uly, lrx, lry) with an RGB colour on the current
+ * frame buffer, by appending scissor, fill and cycle-type commands to the layer's display list. */
+void func_8000EC94(s32 layer, s16 *rect, u8 *rgb)
 {
     void *fb;
     s32 task;
     Gfx *gdl;
 
-    fb = func_80005C48(D_8009B5A8);
-    task = func_800056FC(arg0);
-    gdl = func_80006008(task);
+    fb = func_80005C48(gSceneSlot1);
+    task = view_get_ctx_id(layer);
+    gdl = gfx_get_dl(task);
     gDPSetScissor(gdl++, 0, rect[0], rect[1], rect[2], rect[3]);
     gDPPipeSync(gdl++);
     gDPSetCycleType(gdl++, 0x300000);
-    gDPSetColorImage(gdl++, 0, 2, D_8009B5A8->width, osVirtualToPhysical(fb));
-    gDPSetFillColor(gdl++, GPACK_RGBA5551(color[0], color[1], color[2], 1) << 16 | GPACK_RGBA5551(color[0], color[1], color[2], 1));
+    gDPSetColorImage(gdl++, 0, 2, gSceneSlot1->width, osVirtualToPhysical(fb));
+    gDPSetFillColor(gdl++, GPACK_RGBA5551(rgb[0], rgb[1], rgb[2], 1) << 16 | GPACK_RGBA5551(rgb[0], rgb[1], rgb[2], 1));
     gDPFillRectangle(gdl++, rect[0], rect[1], rect[2] - 1, rect[3] - 1);
     gDPPipeSync(gdl++);
     gDPSetCycleType(gdl++, 0);
-    func_80006014(task, gdl);
+    gfx_set_dl(task, gdl);
 }

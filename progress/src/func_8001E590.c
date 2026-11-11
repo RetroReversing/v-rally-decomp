@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80048CB8();                            /* extern */
+M2C_UNK stream_slots_set_params();                            /* extern */
 
 void func_8001E590(void) {
-    func_80048CB8();
+    stream_slots_set_params();
 }

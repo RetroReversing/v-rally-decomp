@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_8009D540;
-extern M2C_UNK D_800AE850;
+extern s32 gRecordTimeScale;
+extern M2C_UNK gOrderState;
 
 void func_8005E68C(void) {
-    M2C_FIELD(&D_800AE850, s32 *, 0x8820) = (s32) (D_8009D540 * 0x1E);
+    M2C_FIELD(&gOrderState, s32 *, 0x8820) = (s32) (gRecordTimeScale * 0x1E);
 }

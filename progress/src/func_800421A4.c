@@ -1,39 +1,28 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 stream_set_objects(s32, void **, void **);
+s32 func_80005824(s32, f32, s32);
+void **func_80005CB8(u16, u16, u16, s32, s32);
 
-M2C_UNK func_8000574C(s32, void **, void **);       /* extern */
-M2C_UNK func_80005824(s32, f32, s32);               /* extern */
-void **func_80005CB8(u16, u16, u16, M2C_UNK, s32);  /* extern */
+/* Sets up an object's two pooled lists when its first count (0x186) is non-zero. Each list is created
+ * from the same type and counts, and points at the object's embedded node at +0x10. The object is then
+ * registered with stream_set_objects and, when its scale at 0x18C is set, that scale is applied. */
+void func_800421A4(void *obj) {
+    f32 scale;
+    u16 count;
+    void **listA;
+    void **listB;
+    void *node;
 
-void func_800421A4(void *arg0) {
-    f32 temp_fv1;
-    u16 temp_a1;
-    void **temp_v0;
-    void **temp_v0_2;
-    void *temp_s1;
-
-    temp_a1 = M2C_FIELD(arg0, u16 *, 0x186);
-    if (temp_a1 != 0) {
-        temp_v0 = func_80005CB8(M2C_FIELD(arg0, u16 *, 0x184), temp_a1, M2C_FIELD(arg0, u16 *, 0x188), 1, 6);
-        temp_s1 = arg0 + 0x10;
-        *temp_v0 = temp_s1;
-        temp_v0_2 = func_80005CB8(M2C_FIELD(arg0, u16 *, 0x184), M2C_FIELD(arg0, u16 *, 0x186), M2C_FIELD(arg0, u16 *, 0x188), 1, 6);
-        *temp_v0_2 = temp_s1;
-        func_8000574C(M2C_FIELD(arg0, s32 *, 0x178), temp_v0, temp_v0_2);
-        temp_fv1 = M2C_FIELD(arg0, f32 *, 0x18C);
-        if (temp_fv1 != 0.0f) {
-            func_80005824(M2C_FIELD(arg0, s32 *, 0x178), temp_fv1, M2C_FIELD(arg0, s32 *, 0x190));
+    count = *(u16 *)((u8 *)obj + 0x186);
+    if (count != 0) {
+        listA = func_80005CB8(*(u16 *)((u8 *)obj + 0x184), count, *(u16 *)((u8 *)obj + 0x188), 1, 6);
+        node = (u8 *)obj + 0x10;
+        *listA = node;
+        listB = func_80005CB8(*(u16 *)((u8 *)obj + 0x184), *(u16 *)((u8 *)obj + 0x186), *(u16 *)((u8 *)obj + 0x188), 1, 6);
+        *listB = node;
+        stream_set_objects(*(s32 *)((u8 *)obj + 0x178), listA, listB);
+        scale = *(f32 *)((u8 *)obj + 0x18C);
+        if (scale != 0.0f) {
+            func_80005824(*(s32 *)((u8 *)obj + 0x178), scale, *(s32 *)((u8 *)obj + 0x190));
         }
     }
 }

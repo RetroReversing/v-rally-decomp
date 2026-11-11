@@ -1,21 +1,25 @@
-void func_80022E64(void *arg0)
+/* Runs the handler of each entry listed at obj+0xA0 (s32 indices, ended by -1).
+ * Each index selects a 0x1C-byte record in the handler table at obj+0xD0, and
+ * that record's handler is called with obj. */
+void func_80022E64(void *obj)
 {
-  int new_var2;
-  s32 var_a0;
-  char *new_var;
-  void *var_s0;
-  var_a0 = *((s32 *) (((char *) arg0) + 0xA0));
-  if (var_a0 != (-1))
-  {
-    new_var2 = -1;
-    var_s0 = arg0;
-    do
+    int end_marker;
+    s32 slot_index;
+    char *obj_bytes;
+    void *slot_cursor;
+
+    slot_index = *((s32 *) (((char *) obj) + 0xA0));
+    if (slot_index != (-1))
     {
-      new_var = (char *) arg0;
-      var_s0 += 4;
-      (*((s32 (**)(void *)) (((char *) ((var_a0 * 0x1C) + (*((s32 *) (new_var + ((unsigned long) 0xD0)))))) + 0x18)))(arg0);
-      var_a0 = *((s32 *) (((char *) var_s0) + 0xA0));
+        end_marker = -1;
+        slot_cursor = obj;
+        do
+        {
+            obj_bytes = (char *) obj;
+            slot_cursor += 4;
+            (*((s32 (**)(void *)) (((char *) ((slot_index * 0x1C) + (*((s32 *) (obj_bytes + ((unsigned long) 0xD0)))))) + 0x18)))(obj);
+            slot_index = *((s32 *) (((char *) slot_cursor) + 0xA0));
+        }
+        while (slot_index != end_marker);
     }
-    while (var_a0 != new_var2);
-  }
 }

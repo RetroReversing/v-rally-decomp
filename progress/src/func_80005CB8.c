@@ -1,40 +1,44 @@
-void *func_8007EAA0();
+void *poolAlloc();
 s32 func_8000DBC0();
 
-void *func_80005CB8(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    void *temp_v0;
-    void *temp_v0_2;
-    s32 temp_s0;
+/* Allocates a 0x90-byte object from objPool and sets its type id. nItems (8-byte
+   entries at +0x10/+0xC) and nExtra (16-byte entries at +0x70/+0x74) each get a
+   block from dataPool; with nItems zero the blocks are NULL. Clears the flag fields,
+   then runs func_8000DBC0 on it. Returns the object, or NULL if the pool is empty. */
+void *func_80005CB8(s16 typeId, s32 nItems, s32 nExtra, s32 objPool, s32 dataPool) {
+    void *obj;
+    void *block;
+    s32 itemBytes;
 
-    temp_v0 = func_8007EAA0(arg3, 0x90);
-    if (temp_v0 != NULL) {
-        if (arg1 != 0) {
-            if (arg2 != 0) {
-                arg2 *= 0x10;
-                temp_v0_2 = func_8007EAA0(arg4, arg2);
-                *(void **)((char *)temp_v0 + 0x70) = temp_v0_2;
-                temp_v0_2 += arg2;
-                *(void **)((char *)temp_v0 + 0x74) = temp_v0_2;
+    obj = poolAlloc(objPool, 0x90);
+    if (obj != NULL) {
+        if (nItems != 0) {
+            if (nExtra != 0) {
+                nExtra *= 0x10;
+                block = poolAlloc(dataPool, nExtra);
+                *(void **)((char *)obj + 0x70) = block;
+                block += nExtra;
+                *(void **)((char *)obj + 0x74) = block;
             } else {
-                *(void **)((char *)temp_v0 + 0x70) = NULL;
-                *(void **)((char *)temp_v0 + 0x74) = NULL;
+                *(void **)((char *)obj + 0x70) = NULL;
+                *(void **)((char *)obj + 0x74) = NULL;
             }
-            temp_s0 = arg1 * 8;
-            temp_v0_2 = func_8007EAA0(arg4, temp_s0);
-            *(void **)((char *)temp_v0 + 0x10) = temp_v0_2;
-            temp_v0_2 += temp_s0;
-            *(void **)((char *)temp_v0 + 0xC) = temp_v0_2;
+            itemBytes = nItems * 8;
+            block = poolAlloc(dataPool, itemBytes);
+            *(void **)((char *)obj + 0x10) = block;
+            block += itemBytes;
+            *(void **)((char *)obj + 0xC) = block;
         } else {
-            *(void **)((char *)temp_v0 + 0x10) = NULL;
-            *(void **)((char *)temp_v0 + 0x70) = NULL;
-            *(void **)((char *)temp_v0 + 0x74) = NULL;
-            *(void **)((char *)temp_v0 + 0xC) = NULL;
+            *(void **)((char *)obj + 0x10) = NULL;
+            *(void **)((char *)obj + 0x70) = NULL;
+            *(void **)((char *)obj + 0x74) = NULL;
+            *(void **)((char *)obj + 0xC) = NULL;
         }
-        *(s16 *)((char *)temp_v0 + 0x1C) = arg0;
-        *(s16 *)((char *)temp_v0 + 4) = 0;
-        *(s16 *)((char *)temp_v0 + 6) = 0;
-        *(s16 *)((char *)temp_v0 + 0x7A) = 0;
-        func_8000DBC0(temp_v0);
+        *(s16 *)((char *)obj + 0x1C) = typeId;
+        *(s16 *)((char *)obj + 4) = 0;
+        *(s16 *)((char *)obj + 6) = 0;
+        *(s16 *)((char *)obj + 0x7A) = 0;
+        func_8000DBC0(obj);
     }
-    return temp_v0;
+    return obj;
 }

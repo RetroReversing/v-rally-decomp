@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8007EAA0(M2C_UNK, M2C_UNK);                /* extern */
-extern M2C_UNK D_800C02AE;
+s32 poolAlloc(M2C_UNK, M2C_UNK);                /* extern */
+extern M2C_UNK gStreamState;
 
 void func_800388A0(void) {
-    M2C_FIELD(&D_800C02AE, s32 *, 0x325E) = func_8007EAA0(4, 0x48440);
+    M2C_FIELD(&gStreamState, s32 *, 0x325E) = poolAlloc(4, 0x48440);
 }

@@ -1,19 +1,20 @@
-extern s32 D_800AE850;
+extern s32 gOrderState;
 extern s32 func_8007FBE4(s32);
-extern s32 func_800803C0(void *, void *);
-extern s32 func_8008D640(s32);
+extern s32 list_unlink_free(void *, void *);
+extern s32 osSetIntState(s32);
 
-void func_8007F634(void *arg0) {
-    s32 temp_s2;
-    s32 *temp_s0;
-    u8 *temp_s3;
-    temp_s2 = func_8008D640(1);
-    temp_s3 = (u8 *)&D_800AE850 + 0x5910;
-    temp_s0 = (s32 *)(temp_s3 + ((u16 *)((u8 *)arg0 + 0xC))[0] * 0x5C);
-    if (temp_s0[0] == temp_s0[1]) {
-        func_8007FBE4(temp_s0[4]);
-        temp_s0[4] = 0;
+/* Releases the entry at the index stored in the request: when its two counters are equal, frees its handle at +0x10 and clears it, then runs the entry update. */
+void func_8007F634(void *req) {
+    s32 saved;
+    s32 *entry;
+    u8 *table;
+    saved = osSetIntState(1);
+    table = (u8 *)&gOrderState + 0x5910;
+    entry = (s32 *)(table + ((u16 *)((u8 *)req + 0xC))[0] * 0x5C);
+    if (entry[0] == entry[1]) {
+        func_8007FBE4(entry[4]);
+        entry[4] = 0;
     }
-    func_800803C0(arg0, temp_s3 + ((u16 *)((u8 *)arg0 + 0xC))[0] * 0x5C);
-    func_8008D640(temp_s2);
+    list_unlink_free(req, table + ((u16 *)((u8 *)req + 0xC))[0] * 0x5C);
+    osSetIntState(saved);
 }

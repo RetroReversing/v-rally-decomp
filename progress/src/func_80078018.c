@@ -1,10 +1,10 @@
-typedef struct Node
+typedef struct RaceNode
 {
   u32 pad;
-  struct Node *next;
-  u8 p[64];
+  struct RaceNode *next;
+  u8 data[64];
   s32 *type;
-} Node;
+} RaceNode;
 typedef struct
 {
   char name[4];
@@ -15,30 +15,30 @@ typedef struct
   u8 idx;
   u8 car;
   u8 pad;
-  Node *node;
-} Entry;
+  RaceNode *node;
+} ResultEntry;
 typedef struct
 {
   char name[10];
   u16 car;
   u8 pad[28];
-} Driver;
+} DriverInfo;
 typedef struct
 {
   u8 pad0[0x1E];
   u16 track;
   u8 pad20[0x12];
   u8 slot[0x12];
-  Driver drivers[8];
-} Game;
+  DriverInfo drivers[8];
+} RaceRecords;
 typedef struct
 {
   u32 lap[4];
   u32 dist[4];
 } Rec;
-extern Node **D_800B5C40;
-extern Game *D_800C35A0;
-extern Entry gResultsTable[5];
+extern RaceNode **gCarList;
+extern RaceRecords *gRecords;
+extern ResultEntry gResultsTable[5];
 extern u8 D_800C3616[];
 extern u8 D_800C3654[];
 extern u8 D_800C365A[];
@@ -48,17 +48,21 @@ extern s32 D_800C7FFC;
 extern u8 D_800C3650[];
 extern char D_800C7FF0[];
 extern Rec D_800B55FC[];
-extern s32 D_8009D540;
+extern s32 gRecordTimeScale;
 extern void memset(void *, s32, s32);
-extern void func_80098290(void *, void *);
+extern void copyStringAligned(void *, void *);
 extern u8 func_80077FA8(u8);
+
+/* Builds the race results table from the finishing order in the node list:
+ * each driver's time, speed and car, with the gap to the leader. Then copies the
+ * track name and loads the per-track constants. */
 void func_80078018(void)
 {
   u8 i = 0;
-  Node *node = *D_800B5C40;
+  RaceNode *node = *gCarList;
   u8 k;
-  s32 zz;
-  s32 d;
+  s32 n;
+  s32 carId;
 
   memset(gResultsTable, 0, 120);
   while (node)
@@ -67,39 +71,39 @@ void func_80078018(void)
     if (gResultsTable[k].node)
       k--;
     gResultsTable[k].node = node;
-    func_80098290(gResultsTable[k].name, D_800C35A0->drivers[D_800C35A0->slot[i]].name);
-    d = D_800C35A0->drivers[D_800C35A0->slot[i]].car;
+    copyStringAligned(gResultsTable[k].name, gRecords->drivers[gRecords->slot[i]].name);
+    carId = gRecords->drivers[gRecords->slot[i]].car;
     gResultsTable[k].idx = i;
-    gResultsTable[k].car = d;
+    gResultsTable[k].car = carId;
     {
     u32 *lap = D_800B55FC->lap;
     u32 *dist = D_800B55FC->dist;
-    Game *g = D_800C35A0;
-#define P(b) (*(u32 *)((u32)(b) + g->track * 4 + (s32)(i << 5)))
-    gResultsTable[k].time = P(lap);
-    P(dist) /= 100;
-    gResultsTable[k].speed = (P(dist) * D_8009D540 * 3600) / (P(lap) * 10);
+    RaceRecords *records = gRecords;
+#define TRACK_VAL(b) (*(u32 *)((u32)(b) + records->track * 4 + (s32)(i << 5)))
+    gResultsTable[k].time = TRACK_VAL(lap);
+    TRACK_VAL(dist) /= 100;
+    gResultsTable[k].speed = (TRACK_VAL(dist) * gRecordTimeScale * 3600) / (TRACK_VAL(lap) * 10);
     }
     gResultsTable[k].type = *node->type;
     node = node->next;
     i++;
   }
-  for (zz = 0; (u8)zz < 4; zz++)
+  for (n = 0; (u8)n < 4; n++)
   {
-    if (gResultsTable[(u8)zz].time)
+    if (gResultsTable[(u8)n].time)
     {
-      s32 dd = gResultsTable[(u8)zz].time - gResultsTable[0].time;
-      gResultsTable[(u8)zz].diff = __builtin_abs(dd); }
+      s32 gap = gResultsTable[(u8)n].time - gResultsTable[0].time;
+      gResultsTable[(u8)n].diff = __builtin_abs(gap); }
     else
     {
-      gResultsTable[(u8)zz].diff = 0;
+      gResultsTable[(u8)n].diff = 0;
     }
   }
-  func_80098290(D_800C7FF0, D_800C3616 + D_800C35A0->track * 64);
+  copyStringAligned(D_800C7FF0, D_800C3616 + gRecords->track * 64);
   {
-  u8 *ev = (u8 *)D_800C35A0;
-  D_800C7FF4 = *(s32 *)(D_800C3650 + ((*(u16 *)(ev + 0x1E) - 1) << 6));
-  D_800C7FFC = D_800C365A[(*(u16 *)(ev + 0x1E) - 1) << 6];
-  D_800C8002 = D_800C3654[(*(u16 *)(ev + 0x1E) - 1) << 6];
+  u8 *raw = (u8 *)gRecords;
+  D_800C7FF4 = *(s32 *)(D_800C3650 + ((*(u16 *)(raw + 0x1E) - 1) << 6));
+  D_800C7FFC = D_800C365A[(*(u16 *)(raw + 0x1E) - 1) << 6];
+  D_800C8002 = D_800C3654[(*(u16 *)(raw + 0x1E) - 1) << 6];
   }
 }

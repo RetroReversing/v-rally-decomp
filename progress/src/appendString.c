@@ -1,0 +1,19 @@
+extern void copyStringAligned(s8 *, s8 *);
+
+/* Returns dst. Moves a pointer to the terminating NUL of the string at dst (scanning byte by byte until
+ * word-aligned, then a word at a time), then copies src onto that point with copyStringAligned. */
+s8 *appendString(s8 *dst, s8 *src) {
+ s8 *p = dst; s32 w;
+ if((s32)p&3) {do {if(*p==0) goto done; p++;}while((s32)p&3);}
+ w=*(s32*)p;
+ if(w&0xFF000000) {
+ do {
+ if(!(w&0xFF0000)){p++;goto done;}
+ if(!(w&0xFF00)){p+=2;goto done;}
+ if(!(w&0xFF)){p+=3;goto done;}
+ p+=4;
+ w=*(s32*)p;
+ }while(w&0xFF000000);
+ }
+ done: copyStringAligned(p,src); return dst;
+}

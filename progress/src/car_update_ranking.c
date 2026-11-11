@@ -1,0 +1,169 @@
+extern char *gRecords;
+extern s32 gRecordTimeScale;
+s32 func_80041564(void);
+
+/* Refreshes the per-car time estimates for the ranking and sorts the time table
+ * with an exchange sort that moves the car-index table alongside. Mode 1 sorts
+ * seven entries; mode 2 sorts four. */
+void car_update_ranking(void *arg0)
+{
+  s32 mode;
+  u8 swapped;
+  void *ctx;
+  s32 *times;
+  s32 *carIds;
+  s32 recBase;
+  u32 val;
+  u32 prev;
+  s32 i;
+  u32 off;
+  s32 *q;
+  s32 tmp;
+  char *cfg;
+  unsigned char *rec;
+  s32 t;
+  u32 numer;
+  u32 denom;
+  mode = *((u16 *) (gRecords + 0xE));
+  swapped = 1;
+  if (mode == 2)
+  {
+    goto mode2;
+  }
+  if (mode >= 3)
+  {
+    goto done;
+  }
+  if (mode != 1)
+  {
+    goto done;
+  }
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  times = *((s32 **) (((u8 *) ctx) + 0x24));
+  times += 6;
+  *times = *((s32 *) (((u8 *) ctx) + 4));
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  carIds = *((s32 **) (((u8 *) ctx) + 0x28));
+  carIds += 6;
+  recBase = func_80041564();
+  cfg = gRecords;
+  if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))
+  {
+    rec = ((char *) recBase) + ((*((u16 *) (cfg + 0x22))) << 6);
+    if (rec[0x38] != 0)
+    {
+      t = *((s32 *) (rec + 0x2C));
+      if (((u32) t) >= 0xBU)
+      {
+        *times = t - 3;
+      }
+    }
+    else
+    {
+      t = *((s32 *) (rec + 0x2C));
+      if (((u32) t) >= 0x1FU)
+      {
+        *times = t - 0xA;
+      }
+    }
+  }
+  numer = *((s32 *) ((((char *) recBase) + ((*((u16 *) (gRecords + 0x22))) * 4)) + 0x22C)); numer *= gRecordTimeScale; denom = *times; *carIds = (numer * 0xE10) / (denom * 0x3E8);
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  times = *((s32 **) (((u8 *) ctx) + 0x24));
+  carIds = *((s32 **) (((u8 *) ctx) + 0x28));
+  if (swapped != 0)
+  {
+    do
+    {
+      swapped = 0;
+      i = 6;
+      do
+      {
+        off = (i & 0xFF) * 4;
+        q = (s32 *) (off + ((int) times));
+        val = q[0];
+        prev = q[-1];
+        if (prev > val)
+        {
+          q[0] = prev;
+          q[-1] = val;
+          tmp = *((s32 *) (off + ((int) carIds)));
+          swapped = 1;
+          *((s32 *) (((u8 *) carIds) + off)) = *((s32 *) ((((u8 *) carIds) + off) - 4));
+          *((s32 *) ((((u8 *) carIds) + off) - 4)) = tmp;
+        }
+        i -= 1;
+      }
+      while ((i & 0xFF) != 0);
+    }
+    while (swapped != 0);
+  }
+  goto done;
+  mode2:
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  times = *((s32 **) (((u8 *) ctx) + 0x24));
+  times += 3;
+  *times = *((s32 *) (((u8 *) ctx) + 4));
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  do
+  {
+    carIds = *((s32 **) (((u8 *) ctx) + 0x28));
+    carIds += 3;
+    recBase = func_80041564();
+    cfg = gRecords;
+    if (((*((u16 *) (cfg + 0x2C))) & 0x4000) && ((*((u16 *) (cfg + 0x1E))) == 0))
+    {
+      rec = ((char *) recBase) + ((*((u16 *) (cfg + 0x22))) << 6);
+      if (rec[0x38] != 0)
+      {
+        t = *((s32 *) (rec + 0x2C));
+        if (((u32) t) >= 0xBU)
+        {
+          *times = t - 3;
+        }
+      }
+      else
+      {
+        t = *((s32 *) (rec + 0x2C));
+        if (((u32) t) >= 0x1FU)
+        {
+          *times = t - 0xA;
+        }
+      }
+    }
+    numer = *((s32 *) ((((char *) recBase) + ((*((u16 *) (gRecords + 0x22))) * 4)) + 0x22C)); numer *= gRecordTimeScale; denom = *times; *carIds = (numer * 0xE10) / (denom * 0x3E8);
+  }
+  while (0);
+  ctx = *((void **) (((u8 *) arg0) + 0x6C));
+  times = *((s32 **) (((u8 *) ctx) + 0x24));
+  carIds = *((s32 **) (((u8 *) ctx) + 0x28));
+  if (swapped != 0)
+  {
+    do
+    {
+      swapped = 0;
+      i = 3;
+      do
+      {
+        off = (i & 0xFF) * 4;
+        q = (s32 *) (off + ((int) times));
+        val = q[0];
+        prev = q[-1];
+        if (val < prev)
+        {
+          q[0] = prev;
+          q[-1] = val;
+          tmp = *((s32 *) (off + ((int) carIds)));
+          swapped = 1;
+          *((s32 *) (((u8 *) carIds) + off)) = *((s32 *) ((((u8 *) carIds) + off) - 4));
+          *((s32 *) ((((u8 *) carIds) + off) - 4)) = tmp;
+        }
+        i -= 1;
+      }
+      while ((i & 0xFF) != 0);
+    }
+    while (swapped != 0);
+  }
+  done:
+  return;
+}

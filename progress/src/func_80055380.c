@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800548A0();                            /* extern */
+M2C_UNK hiscore_update_player_totals();                            /* extern */
 M2C_UNK func_80054BB8();                            /* extern */
 M2C_UNK func_8005508C();                            /* extern */
 
 void func_80055380(void) {
-    func_800548A0();
+    hiscore_update_player_totals();
     func_80054BB8();
     func_8005508C();
 }

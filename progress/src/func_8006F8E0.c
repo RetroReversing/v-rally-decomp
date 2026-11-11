@@ -1,68 +1,71 @@
-typedef struct 
+typedef struct
 {
   u8 pad[0x14];
   u16 count;
   u8 rest[0x2AE];
-} Entry;
-extern u8 D_800C02AE[];
-void func_8006C024(s32, s32);
-void func_8006BA44(s32, s32);
-void func_8006C3E4(s32);
+} RecordGroup;
+extern u8 gStreamState[];
+void build_record_entry_alt(s32, s32);
+void build_record_entry(s32, s32);
+void record_fill_split_times(s32);
 void func_8006CF7C(s32);
 void func_8006CCD0(void);
 void func_8006C780(void);
+
+/* Builds the record table at startup: for each of the 8 groups, one entry per
+ * group count (alt builder), then the 4 fixed kinds (4, 5, 6 and 3 entries),
+ * 12 split-time blocks, 4 follow-up blocks, and the final two passes. */
 void func_8006F8E0(void)
 {
-  s32 outer = 0;
-  s32 inner;
+  s32 grp = 0;
+  s32 i;
   do
   {
-    s32 index = outer & 0xff;
-    inner = 0;
-    if ((*(Entry **)(D_800C02AE + 0x10386))[index].count != 0)
+    s32 g = grp & 0xff;
+    i = 0;
+    if ((*(RecordGroup **)(gStreamState + 0x10386))[g].count != 0)
     {
-      unsigned short v1;
-      s32 base;
+      unsigned short n;
       do
       {
-        func_8006C024(index, inner & 0xff);
-        v1 = index;
-        v1 = ((Entry *) (*((s32 *) (D_800C02AE + 0x10386))))[v1].count;
-        inner++;
+        build_record_entry_alt(g, i & 0xff);
+        n = g;
+        n = ((RecordGroup *) (*((s32 *) (gStreamState + 0x10386))))[n].count;
+        i++;
       }
-      while (((u32) (inner & 0xff)) < ((u32) v1));
+      while (((u32) (i & 0xff)) < ((u32) n));
     }
-    outer++;
+    grp++;
   }
-  while (((u32) (outer & 0xff)) < 8);
-  for (inner = 0; ((u32) (inner & 0xff)) < 4; inner++)
+  while (((u32) (grp & 0xff)) < 8);
+  for (i = 0; ((u32) (i & 0xff)) < 4; i++)
   {
-    func_8006BA44(1, inner & 0xff);
-  }
-
-  for (inner = 0; ((u32) (inner & 0xff)) < 5; inner++)
-  {
-    func_8006BA44(2, inner & 0xff);
+    build_record_entry(1, i & 0xff);
   }
 
-  for (inner = 0; ((u32) (inner & 0xff)) < 6; inner++)
+  for (i = 0; ((u32) (i & 0xff)) < 5; i++)
   {
-    func_8006BA44(3, inner & 0xff);
+    build_record_entry(2, i & 0xff);
   }
 
-  for (inner = 0; ((u32) (inner & 0xff)) < 3; inner++)
+  for (i = 0; ((u32) (i & 0xff)) < 6; i++)
   {
-    func_8006BA44(4, inner & 0xff);
+    build_record_entry(3, i & 0xff);
   }
 
-  for (outer = 0; ((u32) (outer & 0xff)) < 12; outer++)
+  for (i = 0; ((u32) (i & 0xff)) < 3; i++)
   {
-    func_8006C3E4(outer & 0xff);
+    build_record_entry(4, i & 0xff);
   }
 
-  for (outer = 0; ((u32) (outer & 0xff)) < 4; outer++)
+  for (grp = 0; ((u32) (grp & 0xff)) < 12; grp++)
   {
-    func_8006CF7C(outer & 0xff);
+    record_fill_split_times(grp & 0xff);
+  }
+
+  for (grp = 0; ((u32) (grp & 0xff)) < 4; grp++)
+  {
+    func_8006CF7C(grp & 0xff);
   }
 
   func_8006CCD0();

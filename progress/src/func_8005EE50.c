@@ -1,53 +1,57 @@
 void func_8004CF7C(s32, s32, s16, s16, f32, s32, s32);
-void func_80059618(void *, u8, u8, u8, s32);
-void func_800596F4(void *, s16, s16, void *);void *func_8005A744(u32, void *);
-extern void *D_800A1468;
+void group_set_color(void *, u8, u8, u8, s32);
+void draw_palette_sprite(void *, s16, s16, void *);
+void *list_advance(u32, void *);
+extern void *gSelectState;
 extern s32 D_800A54D4;
-extern s32 D_800C02AE;
+extern s32 gStreamState;
 extern s32 D_800D05D8;
-void func_8005EE50(s32 arg0, s32 arg1)
+
+/* Draws select-screen slot `slot`: walks to its list node, paints the node's box colour, then either draws the highlighted sprite (highlight in the low 16 bits) or the plain label. The fade flag at gSelectState+0x24D decides whether the sprite is drawn. */
+void func_8005EE50(s32 slot, s32 highlight)
 {
-  void *temp_v0;
-  void *temp_v1;
-  void *p;
-  s32 var_s3;
-  s8 var_s4;
-  u16 var_s1;
-  u16 var_s2;
-  p = *((void **) (((u8 *) (&D_800C02AE)) + 0x325A));
-  temp_v0 = func_8005A744(arg0 - (*((u8 *) (((*((u8 **) (((u8 *) p) + 0x10))) + (((s16 *) p)[1] * 0x14)) + 0xD))), (void *)(*((void **) (((u8 *) D_800A1468) + 0xC))));
-  temp_v1 = *((void **) (((u8 *) temp_v0) + 0x28));
-  var_s1 = ((u16 *) temp_v1)[3];
-  var_s2 = ((u16 *) temp_v1)[4];
-  var_s3 = arg1;
-  var_s4 = var_s3 - 1;
-  if ((*((u8 *) (((u8 *) temp_v0) + 0x42))) != 0)
+  void *info;
+  void *node;
+  void *listHead;
+  s32 fadeOff;
+  s8 spriteId;
+  u16 sx;
+  u16 sy;
+
+  listHead = *((void **) (((u8 *) (&gStreamState)) + 0x325A));
+  node = list_advance(slot - (*((u8 *) (((*((u8 **) (((u8 *) listHead) + 0x10))) + (((s16 *) listHead)[1] * 0x14)) + 0xD))), (void *)(*((void **) (((u8 *) gSelectState) + 0xC))));
+  info = *((void **) (((u8 *) node) + 0x28));
+  sx = ((u16 *) info)[3];
+  sy = ((u16 *) info)[4];
+  fadeOff = highlight;
+  spriteId = fadeOff - 1;
+  if ((*((u8 *) (((u8 *) node) + 0x42))) != 0)
   {
-    func_80059618(((u8 *) temp_v0) + 4, 0xDC, 0xDC, 0xE, 0xFF);
-    var_s4 = var_s3 + 7;
+    group_set_color(((u8 *) node) + 4, 0xDC, 0xDC, 0xE, 0xFF);
+    spriteId = fadeOff + 7;
   }
   else
   {
-    func_80059618(((u8 *) temp_v0) + 4, *((u8 *) (((u8 *) temp_v0) + 0xF)), *((u8 *) (((u8 *) temp_v0) + 0x10)), *((u8 *) (((u8 *) temp_v0) + 0x11)), 0xFF);
+    group_set_color(((u8 *) node) + 4, *((u8 *) (((u8 *) node) + 0xF)), *((u8 *) (((u8 *) node) + 0x10)), *((u8 *) (((u8 *) node) + 0x11)), 0xFF);
   }
-  if ((arg1 << 0x10) != 0)
+  if ((highlight << 0x10) != 0)
   {
-    var_s3 = 0x24D;
-    if (((s16) var_s1) < 0)
+    fadeOff = 0x24D;
+    if (((s16) sx) < 0)
     {
-      var_s1 = -var_s1;
+      sx = -sx;
     }
-    if (((s16) var_s2) < 0)
+    if (((s16) sy) < 0)
     {
-      var_s2 = -var_s2;
+      sy = -sy;
     }
-    if ((*((u8 *) (((u8 *) D_800A1468) + var_s3))) == 0)
+    if ((*((u8 *) (((u8 *) gSelectState) + fadeOff))) == 0)
     {
-      func_8004CF7C(D_800D05D8, (u16) var_s4, (s16) (var_s1 - 0x60), (s16) var_s2, 1.0f, 0, 0xFF);
+      func_8004CF7C(D_800D05D8, (u16) spriteId, (s16) (sx - 0x60), (s16) sy, 1.0f, 0, 0xFF);
     }
   }
   else
   {
-    func_800596F4((void *)(((u8 *) temp_v0) + 4), (s16)((s16) var_s1), (s16)((s16) var_s2), (void *)(&D_800A54D4));
+    draw_palette_sprite((void *)(((u8 *) node) + 4), (s16)((s16) sx), (s16)((s16) sy), (void *)(&D_800A54D4));
   }
 }

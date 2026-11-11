@@ -1,15 +1,18 @@
 extern s32 D_800B727C;
 extern void *D_800B681C;
-extern void *D_800C7304;
+extern void *gTimeSampleState;
 extern char D_800B5C80[];
 extern s32 (*D_8009BB24)();
 u64 osGetTime();
-u64 func_8009A2B0();
-static inline int inline_fn(s32 arg0)
+u64 __udivdi3();
+static inline int nextSlotIndex(s32 index)
 {
-  return (arg0 + 1) & 3;
+  return (index + 1) & 3;
 }
 
+/* Advances a four-entry ring of 0x118-byte records. Calls the hook at D_8009BB24,
+ * makes the current slot the active one, clears the next slot's two header words,
+ * and stores the elapsed time (osGetTime scaled to 1/3000 units) in the active record. */
 void func_80013FD0(void)
 {
   char *base;
@@ -22,11 +25,11 @@ void func_80013FD0(void)
   base = D_800B5C80;
   idx = D_800B727C;
   slot = base + (idx * 0x118);
-  idx = inline_fn(idx);
+  idx = nextSlotIndex(idx);
   D_800B681C = slot;
   next = base + (idx * 0x118);
   D_800B727C = idx;
-  D_800C7304 = next;
+  gTimeSampleState = next;
   ((s32 *) next)[1] = 0;
   ((s32 *) next)[0] = 0;
   do
@@ -34,6 +37,6 @@ void func_80013FD0(void)
     ret = osGetTime(base);
   }
   while (0);
-  cur = D_800C7304;
-  *((u64 *) (((char *) cur) + 8)) = func_8009A2B0(ret << 6, (u64) 0xBB8);
+  cur = gTimeSampleState;
+  *((u64 *) (((char *) cur) + 8)) = __udivdi3(ret << 6, (u64) 0xBB8);
 }

@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80005838(s32);                         /* extern */
+M2C_UNK streamObjDestroy(s32);                         /* extern */
 
 void func_8004247C(void *arg0) {
     s32 temp_a0;
 
     temp_a0 = M2C_FIELD(arg0, s32 *, 0x178);
     if (temp_a0 != 0) {
-        func_80005838(temp_a0);
+        streamObjDestroy(temp_a0);
     }
 }

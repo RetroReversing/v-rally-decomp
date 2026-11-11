@@ -1,32 +1,22 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Refreshes the object's status bytes from its linked target: while the target
+ * has a live sub-block, sets the busy bit (0x4) in the flags at +0x80, and when
+ * the sub-block's flag at +0xC is set, writes the state at +0x7A and, if the
+ * sub-block's +0x20 is zero, the four status bytes at +0x90. */
+void func_8003AE84(void *obj) {
+    void *target;
 
-void func_8003AE84(void *arg0) {
-    void *temp_v1;
-
-    temp_v1 = M2C_FIELD(M2C_FIELD(arg0, void **, 0xA8), void **, 0x24);
-    if (temp_v1 != NULL) {
-        M2C_FIELD(arg0, s32 *, 0x80) |= 4;
-        if (M2C_FIELD(M2C_FIELD(temp_v1, void **, 0x6C), s32 *, 0xC) != 0) {
-            M2C_FIELD(arg0, s16 *, 0x7A) = 0xB;
-            if (M2C_FIELD(M2C_FIELD(temp_v1, void **, 0x6C), s32 *, 0x20) == 0) {
-                M2C_FIELD(arg0, u8 *, 0x90) = 0xFE;
-                M2C_FIELD(arg0, u8 *, 0x91) = 0xD5;
-                M2C_FIELD(arg0, s8 *, 0x92) = 0x1E;
-                M2C_FIELD(arg0, u8 *, 0x93) = 0xFF;
+    target = *(void **)(*(void **)((char *)obj + 0xA8) + 0x24);
+    if (target != NULL) {
+        *(s32 *)((char *)obj + 0x80) |= 4;
+        if (*(s32 *)(*(void **)((char *)target + 0x6C) + 0xC) != 0) {
+            *(s16 *)((char *)obj + 0x7A) = 0xB;
+            if (*(s32 *)(*(void **)((char *)target + 0x6C) + 0x20) == 0) {
+                *(u8 *)((char *)obj + 0x90) = 0xFE;
+                *(u8 *)((char *)obj + 0x91) = 0xD5;
+                *(s8 *)((char *)obj + 0x92) = 0x1E;
+                *(u8 *)((char *)obj + 0x93) = 0xFF;
             }
-            M2C_FIELD(arg0, s32 *, 0x80) &= ~4;
+            *(s32 *)((char *)obj + 0x80) &= ~4;
         }
     }
 }

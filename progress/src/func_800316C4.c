@@ -1,40 +1,42 @@
 extern void func_8002FFA4(void *, s32, s16, void *);
-void func_800316C4(void *arg0)
-{
-  s32 temp_a1_2;
-  s32 temp_s0;
-  s32 temp_s5;
-  s32 var_s3;
-  char *new_var;
-  u8 b14;
-  u8 b17;
-  s32 var_s4;
-  s32 var_s1;
-  void *temp_v0;
 
-  temp_v0 = *((void **) (((char *) arg0) + 0x78));
-  temp_a1_2 = *((u16 *) (((char *) arg0) + 0x88));
-  b14 = *((u8 *) (((char *) temp_v0) + 0x14));
-  b17 = *((u8 *) (((char *) temp_v0) + 0x17));
-  temp_s5 = ((s32) (b17 - b14)) / ((s32) (temp_a1_2 - 1));
-  var_s1 = b14;
-  var_s4 = var_s1;
-  var_s3 = 0;
-  if (temp_a1_2 == 0)
+/* Spreads a level ramp from the table's start byte to its end byte across the entries, one step per entry. */
+void func_800316C4(void *obj)
+{
+  s32 index;
+  s32 entryOffset;
+  s32 step;
+  s32 index2;
+  char *entryBase;
+  u8 startByte;
+  u8 endByte;
+  s32 value;
+  s32 level;
+  void *table;
+
+  table = *((void **) (((char *) obj) + 0x78));
+  index = *((u16 *) (((char *) obj) + 0x88));
+  startByte = *((u8 *) (((char *) table) + 0x14));
+  endByte = *((u8 *) (((char *) table) + 0x17));
+  step = ((s32) (endByte - startByte)) / ((s32) (index - 1));
+  level = startByte;
+  value = level;
+  index2 = 0;
+  if (index == 0)
   {
     goto block_3;
   }
-  var_s4 = (var_s1 << 2) + var_s1;
+  value = (level << 2) + level;
   loop_2:
-  temp_a1_2 = var_s3 & 0xFFFF;
-  func_8002FFA4(arg0, temp_a1_2, (s16) var_s1, (void *) (((*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C))) + (temp_a1_2 * 0xC)) + 6));
-  var_s3 += 1;
-  new_var = ((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C;
-  *((s16 *) (((char *) ((temp_a1_2 * 0xC) + (*((s32 *) new_var)))) + 4)) = (s16) (var_s4 * 2);
-  var_s4 += (temp_s5 << 2) + temp_s5;
-  if (((u32) (var_s3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) arg0) + 0x88)))))
+  index = index2 & 0xFFFF;
+  func_8002FFA4(obj, index, (s16) level, (void *) (((*((s32 *) (((char *) (*((void **) (((char *) obj) + 0x78)))) + 0x1C))) + (index * 0xC)) + 6));
+  index2 += 1;
+  entryBase = ((char *) (*((void **) (((char *) obj) + 0x78)))) + 0x1C;
+  *((s16 *) (((char *) ((index * 0xC) + (*((s32 *) entryBase)))) + 4)) = (s16) (value * 2);
+  value += (step << 2) + step;
+  if (((u32) (index2 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) obj) + 0x88)))))
   {
-    var_s1 += temp_s5;
+    level += step;
     goto loop_2;
   }
   block_3:

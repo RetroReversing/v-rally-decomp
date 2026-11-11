@@ -1,2 +1,21 @@
-extern char *D_800C35A0; void func_800592F4(int a, int b);
-int func_800601B4(int arg0) { char *p = D_800C35A0; unsigned short v = *(unsigned short *)(p + 0x2C); int on; if (v & 2) { *(unsigned short *)(p + 0x2C) = v & 0xFFFD; on = 0; } else { *(unsigned short *)(p + 0x2C) = v | 2; on = 1; } func_800592F4(arg0, on); return 0; }
+extern char *gRecords;
+void slot_set_selected(int a, int b);
+
+/* Toggles bit 0x2 in the flags (+0x2C) of gRecords, then reports the new state
+ * (1 when the bit was set) to the given slot. */
+int func_800601B4(int slot)
+{
+    char *rec = gRecords;
+    unsigned short flags = *(unsigned short *)(rec + 0x2C);
+    int selected;
+
+    if (flags & 2) {
+        *(unsigned short *)(rec + 0x2C) = flags & 0xFFFD;
+        selected = 0;
+    } else {
+        *(unsigned short *)(rec + 0x2C) = flags | 2;
+        selected = 1;
+    }
+    slot_set_selected(slot, selected);
+    return 0;
+}

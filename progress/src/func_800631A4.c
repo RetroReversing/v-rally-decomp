@@ -1,33 +1,22 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+extern void *gSelectState;
+extern s32 gSelectBuffer;
+extern void func_80062B70();
+extern void func_80062DF4();
+extern void func_8005C198();
+extern s32 select_reset_text(s32, s32);
+extern void heapFreeBlock(s32);
 
-M2C_UNK func_8005A360(s32, M2C_UNK);                /* extern */
-M2C_UNK func_8005C198();                            /* extern */
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern void *D_800A1468;
-extern s32 D_800A14D0;
-extern M2C_UNK func_80062B70;
-extern M2C_UNK func_80062DF4;
-
-s32 func_800631A4(s32 arg0, M2C_UNK arg1) {
+/* Resets the select-screen state: frees the heap block held in gSelectBuffer if any,
+   runs the two teardown calls, and installs two callbacks in the select state. */
+s32 func_800631A4(s32 arg0, s32 arg1)
+{
     func_8005C198();
-    if (D_800A14D0 != 0) {
-        func_8007EE9C(D_800A14D0);
-        D_800A14D0 = 0;
+    if (gSelectBuffer != 0) {
+        heapFreeBlock(gSelectBuffer);
+        gSelectBuffer = 0;
     }
-    func_8005A360(arg0, arg1);
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x288) = &func_80062B70;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x28C) = &func_80062DF4;
+    select_reset_text(arg0, arg1);
+    *(void (**)())((s8 *)gSelectState + 0x288) = func_80062B70;
+    *(void (**)())((s8 *)gSelectState + 0x28C) = func_80062DF4;
     return 0;
 }

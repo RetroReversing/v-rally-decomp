@@ -1,14 +1,18 @@
-extern s32 D_800A1B70;
-s32 func_800857EC(s32 arg0, s32 arg1, s32 arg2)
+extern s32 gContCtx;
+
+/* Handles command 2 for controller channel `channel`: if its state at +4 is 1, it sets the
+ * +8 flag, sets the +0xC divisor to 0xFF / divisor (0xFF when divisor is 0), sets the
+ * +0x10 flag and returns 1. Returns 0 for other commands or when the state is not 1. */
+s32 func_800857EC(s32 channel, s32 cmd, s32 divisor)
 {
   s32 temp_v1;
-  s32 var_v0;
+  s32 result;
   void *temp_a1;
   void *temp_a3;
-  var_v0 = 0;
-  if ((arg1 & 0xFF) == 2)
+  result = 0;
+  if ((cmd & 0xFF) == 2)
   {
-    temp_a1 = ((arg0 & 0xFF) * 4) + D_800A1B70;
+    temp_a1 = ((channel & 0xFF) * 4) + gContCtx;
     temp_a3 = *((void **) (((char *) temp_a1) + 0x38C));
     temp_v1 = *((s32 *) (((char *) temp_a3) + 4));
     if (temp_v1 != 1)
@@ -16,18 +20,18 @@ s32 func_800857EC(s32 arg0, s32 arg1, s32 arg2)
       return 0;
     }
     *((vs32 *) (((char *) temp_a3) + 8)) = temp_v1;
-    arg2 = arg2 & 0xFF;
-    if (arg2 != 0)
+    divisor = divisor & 0xFF;
+    if (divisor != 0)
     {
-      *((s32 *) (((char *) (*((void **) (((char *) temp_a1) + 0x38C)))) + 0xC)) = (s32) (0xFF / arg2);
+      *((s32 *) (((char *) (*((void **) (((char *) temp_a1) + 0x38C)))) + 0xC)) = (s32) (0xFF / divisor);
     }
     else
     {
       *((s32 *) (((char *) (*((void **) (((char *) temp_a1) + 0x38C)))) + 0xC)) = 0xFF;
     }
-    var_v0 = 1;
-    *((s32 *) (((char *) (*((void **) (((char *) (((arg0 & 0xFF) * 4) + D_800A1B70)) + 0x38C)))) + 0x10)) = 1;
-    return var_v0;
+    result = 1;
+    *((s32 *) (((char *) (*((void **) (((char *) (((channel & 0xFF) * 4) + gContCtx)) + 0x38C)))) + 0x10)) = 1;
+    return result;
   }
-  return var_v0;
+  return result;
 }

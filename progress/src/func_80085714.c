@@ -1,22 +1,25 @@
-extern s32 D_800A1B70;
-s8 func_80084C0C();
+extern u8 *gContCtx;
+s8 func_80084C0C(s32 slot, s32 mode);
 
-s8 func_80085714(s32 arg0, s32 arg1)
+/* Picks the gain mode for slot `slot` by matching `flags` against the slot's
+ * two mask words (+0x68 selects mode 0x20000, +0x6C selects mode 0x10000);
+ * returns 0 when neither matches, otherwise the gain from func_80084C0C. */
+s8 func_80085714(s32 slot, s32 flags)
 {
     s32 idx;
-    char *base;
-    char *entry;
-    s32 var_a1;
+    u8 *base;
+    u8 *entry;
+    s32 mode;
 
-    base = (char *)D_800A1B70;
-    idx = arg0 & 0xFF;
+    base = gContCtx;
+    idx = slot & 0xFF;
     entry = base + idx * 0x14;
-    if (arg1 == *(s32 *)(entry + 0x68)) {
-        var_a1 = 0x20000;
-    } else if (arg1 == *(s32 *)(entry + 0x6C)) {
-        var_a1 = 0x10000;
+    if (flags == *(s32 *)(entry + 0x68)) {
+        mode = 0x20000;
+    } else if (flags == *(s32 *)(entry + 0x6C)) {
+        mode = 0x10000;
     } else {
         return 0;
     }
-    return func_80084C0C(idx, var_a1);
+    return func_80084C0C(idx, mode);
 }

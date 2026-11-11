@@ -1,13 +1,22 @@
-/* identical to func_80005120 (matched), with its names changed by decompdecomp */
+/* Transform node: 0x00 dirty flag, 0x04 parent, 0x08 local matrix, 0x48 world matrix.
+ * Refreshes the world matrix: a child is re-concatenated with its parent's world matrix after the
+ * parent is updated; a root copies local to world when its dirty flag is set. */
+typedef struct Mtx4 { s32 m[16]; } Mtx4;
+typedef struct Transform {
+    s32 dirty;
+    struct Transform *parent;
+    Mtx4 local;
+    Mtx4 world;
+} Transform;
 
-struct M { int m[16]; };
-void func_8001C2C0(char *a, char *b, char *c);
-void func_80064600(char *arg0) {
-    if (*(char **)(arg0 + 4) != 0) {
-        func_80064600(*(char **)(arg0 + 4));
-        func_8001C2C0(*(char **)(arg0 + 4) + 0x48, arg0 + 8, arg0 + 0x48);
-    } else if (*(int *)arg0 != 0) {
-        *(int *)arg0 = 0;
-        *(struct M *)(arg0 + 0x48) = *(struct M *)(arg0 + 8);
+void mtx_concat(void *a, void *b, void *c);
+
+void func_80064600(Transform *node) {
+    if (node->parent != NULL) {
+        func_80064600(node->parent);
+        mtx_concat(&node->parent->world, &node->local, &node->world);
+    } else if (node->dirty != 0) {
+        node->dirty = 0;
+        node->world = node->local;
     }
 }

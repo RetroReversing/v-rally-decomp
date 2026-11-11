@@ -1,18 +1,22 @@
-s32 func_80022184();
-s32 func_80022200();
-void func_80080478();
+s32 flag_test_bit0();
+s32 flag_clear_bit0();
+void heapReleaseBlock();
 void func_800804C4();
-extern char D_800AE850[];
+extern char gOrderState[];
 void func_80042AB0(void);
 
+/* If the state block at gOrderState+0x73E8 passes flag_test_bit0, registers func_80042AB0 as
+ * the callback for the handle at +0x2354, releases that handle, and closes the block again.
+ * Returns 1 when that happened, 0 otherwise. */
 s32 func_80042ACC(void)
 {
-    char *temp_s0;
-    temp_s0 = D_800AE850 + 0x73E8;
-    if (func_80022184(temp_s0) != 0) {
-        func_800804C4(*(s32 *)(D_800AE850 + 0x2354), func_80042AB0);
-        func_80080478(*(s32 *)(D_800AE850 + 0x2354));
-        func_80022200(temp_s0);
+    char *block;
+
+    block = gOrderState + 0x73E8;
+    if (flag_test_bit0(block) != 0) {
+        func_800804C4(*(s32 *)(gOrderState + 0x2354), func_80042AB0);
+        heapReleaseBlock(*(s32 *)(gOrderState + 0x2354));
+        flag_clear_bit0(block);
         return 1;
     }
     return 0;

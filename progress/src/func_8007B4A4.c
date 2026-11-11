@@ -4,16 +4,16 @@ extern s32 D_800A1868;
 extern s32 D_800A186C;
 extern s32 D_800A1870;
 extern s32 D_800A1874;
-extern f32 D_800A1878;
-extern f32 D_800A187C;
+extern f32 sSavedCosX;
+extern f32 sSavedCosY;
 extern u8 D_800A73E0[];
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
+extern u8 gOrderState[];
+extern u8 gStreamState[];
 void *func_8002DA98(void *arg0, void *arg1);
 void *mtx3_transform_vec3(void *arg0, void *arg1, void *arg2);
 typedef struct { s32 b[3]; s32 c[3]; f32 t1; f32 t2; } LookS;
-#define G (*(LookS *)(D_800C02AE + 0x5D32))
-#define CAM(i) (((s32 *)(D_800AE850 + 0x6E8C))[i])
+#define G (*(LookS *)(gStreamState + 0x5D32))
+#define CAM(i) (((s32 *)(gOrderState + 0x6E8C))[i])
 #define AMB (*(u16 *)(D_800A73E0 + 0x6BE6))
 
 typedef struct { s16 x, y, z, pad; s32 unk8; u32 col; } V16;
@@ -64,7 +64,7 @@ void func_8007B4A4(void *owner, s32 mode)
     V16 *v;
     V24 *w;
 
-    func_8002DA98(D_800AE850 + 0x6E78, &m);
+    func_8002DA98(gOrderState + 0x6E78, &m);
     p[0] = (u32)D_800A1860 - (u32)CAM(0);
     p[1] = (u32)D_800A1864 - (u32)CAM(1);
     p[2] = (u32)D_800A1868 - (u32)CAM(2);
@@ -95,8 +95,8 @@ void func_8007B4A4(void *owner, s32 mode)
     G.c[0] = q[0];
     G.c[1] = q[1];
     G.c[2] = q[2];
-    G.t1 = D_800A1878;
-    G.t2 = D_800A187C;
+    G.t1 = sSavedCosX;
+    G.t2 = sSavedCosY;
     for (i = 0; i < 12; i++) {
         n = o->n16[i];
         v = o->v16[i];

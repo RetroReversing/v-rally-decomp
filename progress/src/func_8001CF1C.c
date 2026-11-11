@@ -12,13 +12,13 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern u32 D_8009FF30;
+extern u32 gShadeMode;
 
 void func_8001CF1C(void *arg0) {
     u32 temp_v1;
 
     temp_v1 = M2C_FIELD(arg0, u32 *, 0x90);
     if (temp_v1 < 6U) {
-        D_8009FF30 = temp_v1;
+        gShadeMode = temp_v1;
     }
 }

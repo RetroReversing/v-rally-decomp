@@ -1,32 +1,33 @@
 extern char D_800A73E0[];
 s32 func_80098998(void *, s32, s32);
-s32 func_80098B7C(s32, s32, s32, s32 *, s32);
+s32 ecvt_digits(s32, s32, s32, s32 *, s32);
 
-void *func_80098E88(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4)
+/* Formats a number into a 40-digit buffer: converts it to 20 digits, then either fills the fraction with zeros or rounds the digits and returns the shared result string. */
+void *func_80098E88(s32 value, s32 ndigits, s32 scale, s32 *decpt, s32 sign)
 {
-    s8 *var_v1;
-    s32 temp_a1;
-    s32 var_a2;
+    s8 *digits;
+    s32 exponent;
+    s32 pad;
 
-    var_v1 = (s8 *) func_80098B7C(arg0, arg1, 0x14, arg3, arg4);
-    temp_a1 = *arg3;
-    if (temp_a1 != 0x7FFFFFFF) {
-        var_a2 = temp_a1 + arg2;
-        if (var_a2 >= 0) {
-            if (var_a2 < 0x14) {
-                *arg3 = func_80098998(&D_800A73E0[0x6B28], temp_a1, var_a2);
+    digits = (s8 *) ecvt_digits(value, ndigits, 0x14, decpt, sign);
+    exponent = *decpt;
+    if (exponent != 0x7FFFFFFF) {
+        pad = exponent + scale;
+        if (pad >= 0) {
+            if (pad < 0x14) {
+                *decpt = func_80098998(&D_800A73E0[0x6B28], exponent, pad);
             } else {
-                if (var_a2 >= 0x29) {
-                    var_a2 = 0x28;
+                if (pad >= 0x29) {
+                    pad = 0x28;
                 }
-                var_a2 -= 0x14;
-                var_v1 += 0x14;
-                if (var_a2 > 0) {
+                pad -= 0x14;
+                digits += 0x14;
+                if (pad > 0) {
                     do {
-                        *var_v1 = 0x30;
-                        var_a2 -= 1;
-                        var_v1 += 1;
-                    } while (var_a2 > 0);
+                        *digits = 0x30;
+                        pad -= 1;
+                        digits += 1;
+                    } while (pad > 0);
                 }
             }
         }

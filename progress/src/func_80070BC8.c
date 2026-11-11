@@ -1,34 +1,23 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 select_reset_text(void);
+s32 func_8005C198(void);
+s32 func_80062334(void);
+s32 heapFreeBlock(s32);
+extern char *gSelectState;
+extern s32 gSelectBuffer;
+extern s32 func_80070630;
+extern s32 func_80070750;
 
-M2C_UNK func_8005A360();                            /* extern */
-M2C_UNK func_8005C198();                            /* extern */
-M2C_UNK func_80062334();                            /* extern */
-M2C_UNK func_8007EE9C(s32);                         /* extern */
-extern void *D_800A1468;
-extern s32 D_800A14D0;
-extern M2C_UNK func_80070630;
-extern M2C_UNK func_80070750;
-
-s32 func_80070BC8(void) {
-    func_8005A360();
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x288) = &func_80070630;
-    M2C_FIELD(D_800A1468, M2C_UNK **, 0x28C) = &func_80070750;
+/* Resets the select screen: clears its text, re-points its two callbacks at the
+ * default handlers, and frees the select buffer if one is allocated. */
+s32 func_80070BC8(void)
+{
+    select_reset_text();
+    *(s32 **)(gSelectState + 0x288) = &func_80070630;
+    *(s32 **)(gSelectState + 0x28C) = &func_80070750;
     func_8005C198();
-    if (D_800A14D0 != 0) {
-        func_8007EE9C(D_800A14D0);
-        D_800A14D0 = 0;
+    if (gSelectBuffer != 0) {
+        heapFreeBlock(gSelectBuffer);
+        gSelectBuffer = 0;
     }
     func_80062334();
     return 0;

@@ -1,18 +1,21 @@
-static inline s32 roundadd(s32 a) { return a+0xFFF; }
-void func_8002D4E0(s32 *arg0,s32 *arg1,s32 arg2,s32 arg3,s32 *arg4)
+static inline s32 roundToZero(s32 a) { return a+0xFFF; }
+
+/* Mixes three components: out[i] = (a[i]*ka + b[i]*kb) >> 12 for i = 0..2,
+ * with negative sums rounded toward zero before the shift. */
+void func_8002D4E0(s32 *a, s32 *b, s32 ka, s32 kb, s32 *out)
 {
-s32 v;
+s32 sum;
 s32 x;
-v = arg0[0] * arg2; v += arg1[0] * arg3;
-if(v>=0) { x=v; } else { x=roundadd(v); }
-v=x>>12;
-arg4[0]=v;
-v = arg0[1] * arg2; v += arg1[1] * arg3;
-if(v>=0) { x=v; } else { x=roundadd(v); }
-v=x>>12;
-arg4[1]=v;
-v = arg0[2] * arg2; arg2=v; arg2 += arg1[2] * arg3;
-if(arg2>=0) { x=arg2; } else { x=roundadd(arg2); }
-arg2=x>>12;
-arg4[2]=arg2;
+sum = a[0] * ka; sum += b[0] * kb;
+if(sum>=0) { x=sum; } else { x=roundToZero(sum); }
+sum=x>>12;
+out[0]=sum;
+sum = a[1] * ka; sum += b[1] * kb;
+if(sum>=0) { x=sum; } else { x=roundToZero(sum); }
+sum=x>>12;
+out[1]=sum;
+sum = a[2] * ka; ka=sum; ka += b[2] * kb;
+if(ka>=0) { x=ka; } else { x=roundToZero(ka); }
+ka=x>>12;
+out[2]=ka;
 }

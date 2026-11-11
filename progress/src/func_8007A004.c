@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_800A1468;
+extern void *gSelectState;
 
 s32 func_8007A004(void) {
-    M2C_FIELD(D_800A1468, s8 *, 0x2BD) = 1;
+    M2C_FIELD(gSelectState, s8 *, 0x2BD) = 1;
     return 1;
 }

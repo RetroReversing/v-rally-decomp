@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80098290(s32, s32);                    /* extern */
-extern s32 D_800A1468;
+M2C_UNK copyStringAligned(s32, s32);                    /* extern */
+extern s32 gSelectState;
 
 void func_80058B8C(s32 arg0) {
-    func_80098290(D_800A1468 + 0x1F8, arg0 + 0x4C);
+    copyStringAligned(gSelectState + 0x1F8, arg0 + 0x4C);
 }

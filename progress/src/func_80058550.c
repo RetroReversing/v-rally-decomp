@@ -13,12 +13,12 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800584D4();                            /* extern */
-M2C_UNK func_80058590(s32);                         /* extern */
-extern void *D_800A1468;
+M2C_UNK select_tick(s32);                         /* extern */
+extern void *gSelectState;
 
 void func_80058550(s32 arg0) {
-    if (M2C_FIELD(D_800A1468, u8 *, 0x235) == 0) {
+    if (M2C_FIELD(gSelectState, u8 *, 0x235) == 0) {
         func_800584D4();
     }
-    func_80058590(arg0 + 0x4C);
+    select_tick(arg0 + 0x4C);
 }

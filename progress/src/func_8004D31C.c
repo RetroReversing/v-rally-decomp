@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,22 +11,24 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80035438(s32);                         /* extern */
-M2C_UNK func_800803C0(void *, void **);             /* extern */
+M2C_UNK streamReleaseEntry(s32);                         /* extern */
+M2C_UNK list_unlink_free(void *, void **);             /* extern */
 extern void **D_800A11B0;
 
+/* Frees every block on the stream block list (node->block at +0xC, next at +4), unlinking
+ * each node as it goes, then clears the list head. */
 void func_8004D31C(void) {
-    void *temp_a0;
-    void *var_s0;
+    void *node;
+    void *next;
 
-    var_s0 = *D_800A11B0;
-    if (var_s0 != NULL) {
+    node = *D_800A11B0;
+    if (node != NULL) {
         do {
-            func_80035438(M2C_FIELD(var_s0, s32 *, 0xC));
-            temp_a0 = var_s0;
-            var_s0 = M2C_FIELD(var_s0, void **, 4);
-            func_800803C0(temp_a0, D_800A11B0);
-        } while (var_s0 != NULL);
+            streamReleaseEntry(M2C_FIELD(node, s32 *, 0xC));
+            next = node;
+            node = M2C_FIELD(node, void **, 4);
+            list_unlink_free(next, D_800A11B0);
+        } while (node != NULL);
     }
     *D_800A11B0 = NULL;
 }

@@ -4180,7 +4180,7 @@ ALMicroTime     _samplesToTime(ALSynth *synth, s32 samples);
 
 
 
-void            func_80091D80 (ALLowPass *lp);
+void            alFxFillDecay (ALLowPass *lp);
 
 
 

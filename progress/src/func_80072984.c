@@ -1,83 +1,85 @@
 extern unsigned char D_800B6819;
-extern int D_800C35A0;void *text_obj_get(u32);
-s32 func_80059618();
-void func_800596F4(void *, s16, s16, void *);
-s32 func_80099DF8();
-extern s32 D_800A1468;
+extern int gRecords;void *textObjGet(u32);
+s32 group_set_color();
+void draw_palette_sprite(void *, s16, s16, void *);
+s32 formatString();
+extern s32 gSelectState;
 extern char D_800A5D30[];
 extern char D_800A5D38[];
 extern char D_800A5D40[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
+/* Draws the HUD readout rows: four rows of text, each with a label and a record value,
+ * plus per-item entries when the record count is non-zero. */
 void func_80072984(void)
 {
-  char sp18[44];
-  s32 sp4C;
-  u32 sp54;
-  s32 sp5C;
-  u8 *temp_fp;
-  s32 temp_s2;
-  s32 var_s0;
-  s32 var_s2;
-  s32 var_s2_2;
-  u8 var_s3;
-  u8 var_s4;
-  u32 temp_s0;
-  u8 *savedp;
-  s32 root;
-  s32 index;
-  s32 offset;
-  void *temp_s1;
-  void *temp_s7;
-  temp_fp = (u8 *) (D_800A1468 + 0x24F);
+  char text_buf[44];
+  s32 rec_base;
+  u32 n_items;
+  s32 has_items;
+  u8 *flags;
+  s32 row_count;
+  s32 slot_base;
+  s32 row_i;
+  u8 j;
+  u8 row;
+  u32 cnt;
+  s32 row_copy;
+  u8 *row_flags;
+  s32 rec_tbl;
+  s32 rec_idx;
+  s32 rec_ofs;
+  void *hdr_obj;
+  void *val_obj;
+  flags = (u8 *) (gSelectState + 0x24F);
   if (D_800B6819 != 0)
   {
-    var_s0 = 4;
-    var_s2 = 8;
+    row_count = 4;
+    slot_base = 8;
   }
   else
   {
-    var_s0 = 8;
-    var_s2 = 0;
+    row_count = 8;
+    slot_base = 0;
   }
-  temp_s1 = text_obj_get(0);
-  temp_s7 = text_obj_get(1);
-  var_s4 = 0;
-  temp_s0 = var_s0 & 0xFF;
-  sp54 = temp_s0;
-  sp5C = temp_s0 != 0;
-  sp4C = var_s2 & 0xFF;
+  hdr_obj = textObjGet(0);
+  val_obj = textObjGet(1);
+  row = 0;
+  cnt = row_count & 0xFF;
+  n_items = cnt;
+  has_items = cnt != 0;
+  rec_base = slot_base & 0xFF;
   do
   {
-    var_s2_2 = var_s4;
-    func_80099DF8(&sp18, &D_800A5D30, *((u16 *) ((D_800AE850 + 0x7DB2) + (var_s2_2 * 4))));
-    func_80059618(temp_s1, 0xFFU, 0xFFU, 0x40U, (s32) (*((u8 *) (((char *) temp_s1) + 0xE))));
-    func_800596F4((void *)(temp_s7), (s16)(*((s16 *) (((char *) temp_s7) + 6))), (s16)((s16) ((*((u16 *) (((char *) temp_s7) + 8))) + ((temp_fp + var_s2_2)[1] << 5))), (void *)(&sp18));
-    root = D_800C35A0;
-    index = *((u8 *) (((char *) (root + var_s2_2)) + 0x32));
-    offset = index * 0x28;
-    offset += 0x44;
-    func_80099DF8(&sp18, &D_800A5D38, temp_fp[var_s2_2 + 1] + 1, root + offset);
-    func_800596F4((void *)(temp_s1), (s16)(*((s16 *) (((char *) temp_s1) + 6))), (s16)((s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (temp_fp[var_s2_2 + 1] << 5))), (void *)(&sp18));
-    var_s3 = 0;
-    if (sp5C != 0)
+    row_i = row;
+    formatString(&text_buf, &D_800A5D30, *((u16 *) ((gOrderState + 0x7DB2) + (row_i * 4))));
+    group_set_color(hdr_obj, 0xFFU, 0xFFU, 0x40U, (s32) (*((u8 *) (((char *) hdr_obj) + 0xE))));
+    draw_palette_sprite((void *)(val_obj), (s16)(*((s16 *) (((char *) val_obj) + 6))), (s16)((s16) ((*((u16 *) (((char *) val_obj) + 8))) + ((flags + row_i)[1] << 5))), (void *)(&text_buf));
+    rec_tbl = gRecords;
+    rec_idx = *((u8 *) (((char *) (rec_tbl + row_i)) + 0x32));
+    rec_ofs = rec_idx * 0x28;
+    rec_ofs += 0x44;
+    formatString(&text_buf, &D_800A5D38, flags[row_i + 1] + 1, rec_tbl + rec_ofs);
+    draw_palette_sprite((void *)(hdr_obj), (s16)(*((s16 *) (((char *) hdr_obj) + 6))), (s16)((s16) ((*((u16 *) (((char *) hdr_obj) + 8))) + (flags[row_i + 1] << 5))), (void *)(&text_buf));
+    j = 0;
+    if (has_items != 0)
     {
-      temp_s2 = var_s2_2;
-      savedp = &temp_fp[var_s2_2];
+      row_copy = row_i;
+      row_flags = &flags[row_i];
       do
       {
-        var_s2_2 = var_s3 & 0xFF;
-        if ((*((u16 *) (((sp4C + var_s2_2) * 2) + (D_800AE850 + 0x7DC0)))) != 0)
+        row_i = j & 0xFF;
+        if ((*((u16 *) (((rec_base + row_i) * 2) + (gOrderState + 0x7DC0)))) != 0)
         {
-          func_80099DF8(&sp18, &D_800A5D40, (u16) (*((u8 *) (((char *) (((var_s2_2 * 4) + temp_fp) + temp_s2)) + 9))));
-          func_80059618(temp_s1, *((u8 *) (((char *) temp_s1) + 0xB)), *((u8 *) (((char *) temp_s1) + 0xC)), *((u8 *) (((char *) temp_s1) + 0xD)), (s32) (*((u8 *) (((char *) temp_s1) + 0xE))));
-          func_800596F4((void *)(temp_s1), (s16)((s16) ((((u16) (*((s16 *) (((char *) temp_s1) + 6)))) + (var_s2_2 * 0x2A)) + 0x44)), (s16)((s16) ((*((u16 *) (((char *) temp_s1) + 8))) + (savedp[1] << 5))), (void *)(&sp18));
+          formatString(&text_buf, &D_800A5D40, (u16) (*((u8 *) (((char *) (((row_i * 4) + flags) + row_copy)) + 9))));
+          group_set_color(hdr_obj, *((u8 *) (((char *) hdr_obj) + 0xB)), *((u8 *) (((char *) hdr_obj) + 0xC)), *((u8 *) (((char *) hdr_obj) + 0xD)), (s32) (*((u8 *) (((char *) hdr_obj) + 0xE))));
+          draw_palette_sprite((void *)(hdr_obj), (s16)((s16) ((((u16) (*((s16 *) (((char *) hdr_obj) + 6)))) + (row_i * 0x2A)) + 0x44)), (s16)((s16) ((*((u16 *) (((char *) hdr_obj) + 8))) + (row_flags[1] << 5))), (void *)(&text_buf));
         }
-        var_s3 += 1;
+        j += 1;
       }
-      while (((u32) (var_s3 & 0xFF)) < sp54);
+      while (((u32) (j & 0xFF)) < n_items);
     }
-    var_s4 += 1;
+    row += 1;
   }
-  while (((u32) (var_s4 & 0xFF)) < 4U);
+  while (((u32) (row & 0xFF)) < 4U);
 }

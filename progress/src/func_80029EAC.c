@@ -34,7 +34,7 @@ void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
 void *func_8002DA98(void *, void *);
 int *func_8002E530(s16 *, s16 *, int *);
-int func_8002E688(int *, int *);
+int vec3_normalize_fixed(int *, int *);
 
 /* Looks up the cell of a track sector's height grid under `point`, builds the
  * local plane from the cell's two triangle edges, and (for special sector
@@ -151,8 +151,8 @@ int func_80029EAC(void *track, void *point, int index)
     W(P(track, 140), (height * 20) + 180) = slot;
     W(P(track, 140), (height * 20) + 184) = (*(s16 *)((unsigned char *)point + 4));
   }
-  func_8002E688(c, c);
-  func_8002E688(b, b);
+  vec3_normalize_fixed(c, c);
+  vec3_normalize_fixed(b, b);
   func_8002D740(c, b, d);
   func_8002D740(b, d, c);
   mat.h[0] = b[0];

@@ -1,35 +1,23 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+extern void *gSelectState;
+extern char gStreamState[];
+s32 slot_set_selected(s32, s32);
+s32 select_stream_char(u8, u8, u8);
 
-M2C_UNK func_800592F4(s32, s32);                    /* extern */
-s32 func_8006204C(u8, u8, u8);                      /* extern */
-extern void *D_800A1468;
-extern M2C_UNK D_800C02AE;
-
+/* Steps the option count of the stream slot picked by select_stream_char (up to 2) and
+ * then selects that option on the slot's entry list. Always returns 1. */
 s32 func_8006B02C(s32 arg0) {
-    u8 temp_a1;
-    u8 temp_a1_2;
-    void *temp_s0;
-    void *temp_s0_2;
+    u8 count;
+    u8 count_next;
+    void *slot;
+    void *option;
 
-    temp_s0 = M2C_FIELD(&D_800C02AE, void **, 0x32F2) + ((M2C_FIELD((M2C_FIELD(&D_800C02AE, void **, 0x32F2) + M2C_FIELD(D_800A1468, s8 *, 0x228)), u8 *, 0x32) * 0x28) + 0x44);
-    temp_s0_2 = temp_s0 + (func_8006204C(M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u8 *, 0x1F), M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u8 *, 0x21), M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u8 *, 0x23)) & 0xFF);
-    temp_a1 = M2C_FIELD(temp_s0_2, u8 *, 0x10);
-    if (temp_a1 < 2U) {
-        temp_a1_2 = temp_a1 + 1;
-        M2C_FIELD(temp_s0_2, u8 *, 0x10) = temp_a1_2;
-        func_800592F4(arg0, temp_a1_2 & 0xFF);
+    slot = *(void **) (gStreamState + 0x32F2) + ((*(u8 *) ((*(void **) (gStreamState + 0x32F2) + *(s8 *) (((char *) gSelectState) + 0x228)) + 0x32) * 0x28) + 0x44);
+    option = slot + (select_stream_char(*(u8 *) (*(void **) (gStreamState + 0x32F2) + 0x1F), *(u8 *) (*(void **) (gStreamState + 0x32F2) + 0x21), *(u8 *) (*(void **) (gStreamState + 0x32F2) + 0x23)) & 0xFF);
+    count = *(u8 *) (option + 0x10);
+    if (count < 2U) {
+        count_next = count + 1;
+        *(u8 *) (option + 0x10) = count_next;
+        slot_set_selected(arg0, count_next & 0xFF);
     }
     return 1;
 }

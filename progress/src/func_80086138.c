@@ -22,16 +22,18 @@ typedef struct {
     RmbState *list[4];
 } PakCtx;
 
-extern PakCtx *D_800A1B70;
-extern u8 D_800AE850[];
-void func_800863B0(s32 arg0, s32 arg1);
+extern PakCtx *gContCtx;
+extern u8 gOrderState[];
+void motor_pak_reset(s32 arg0, s32 arg1);
 s32 osPfsIsPlug(void *queue, u8 *pattern);
 s32 osMotorInit(void *queue, void *pfs, s32 channel);
 s32 osPfsInitPak(void *queue, void *pfs, s32 channel);
 
+/* Sets up the rumble/memory pak state for one controller port. A port that is connected
+ * and reports a pak gets state 1 (rumble pak), 2 (memory pak) or 3 (no usable pak). */
 void func_80086138(s32 port, u8 mask) {
     u8 pattern = 0;
-    PakCtx *c = D_800A1B70;
+    PakCtx *c = gContCtx;
     void *queue;
 
     c->rmb[port].state = 0;
@@ -43,19 +45,19 @@ void func_80086138(s32 port, u8 mask) {
         return;
     if (!(c->stat[port].status & 1))
         return;
-    queue = D_800AE850 + 0x5A38;
+    queue = gOrderState + 0x5A38;
     osPfsIsPlug(queue, &pattern);
     if (!((pattern >> port) & 1))
         return;
-    if (osMotorInit(queue, D_800A1B70->pfs[port], port) == 0) {
-        func_800863B0(port, 0);
-        D_800A1B70->rmb[port].state = 1;
-        D_800A1B70->rmb[port].unk8 = 0;
+    if (osMotorInit(queue, gContCtx->pfs[port], port) == 0) {
+        motor_pak_reset(port, 0);
+        gContCtx->rmb[port].state = 1;
+        gContCtx->rmb[port].unk8 = 0;
         return;
     }
-    if (osPfsInitPak(queue, D_800A1B70->pfs[port], port) == 0) {
-        D_800A1B70->rmb[port].state = 2;
+    if (osPfsInitPak(queue, gContCtx->pfs[port], port) == 0) {
+        gContCtx->rmb[port].state = 2;
         return;
     }
-    D_800A1B70->rmb[port].state = 3;
+    gContCtx->rmb[port].state = 3;
 }

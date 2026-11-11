@@ -1,11 +1,16 @@
-typedef struct T {struct T *next,*prev; u64 interval,value; void *mq; s32 msg;} T;
-extern T *__osTimerList;
-extern u8 D_800AE850;
+extern VRTimer *__osTimerList;
+extern u8 gOrderState;
+
+/* Initialises the timer services: clears two state words in gOrderState and makes the timer list head an empty ring (points to itself, zero interval/value/queue/message). */
 void __osTimerServicesInit(void){
-T *p=__osTimerList;
-*(u64*)((u8*)&D_800AE850+0x7918)=0;
-*(s32*)((u8*)&D_800AE850+4)=0;
-*(s32*)((u8*)&D_800AE850+0x2528)=0;
-p->value=0; p->interval=0;
-p->prev=p;p->next=p;p->mq=0;p->msg=0;
+    VRTimer *head = __osTimerList;
+    *(u64 *)((u8 *)&gOrderState + 0x7918) = 0;
+    *(s32 *)((u8 *)&gOrderState + 4) = 0;
+    *(s32 *)((u8 *)&gOrderState + 0x2528) = 0;
+    head->value = 0;
+    head->interval = 0;
+    head->prev = head;
+    head->next = head;
+    head->mq = 0;
+    head->msg = 0;
 }

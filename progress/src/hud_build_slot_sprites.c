@@ -45,12 +45,12 @@ typedef struct
   Pack3 *tex;
   Mgr *owner;
 } Spr;
-extern Game *D_800C35A0;
-extern Mgr *D_800C7F84;
-Pack3 *func_80034FF0(s32, s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
+extern Game *gRecords;
+extern Mgr *g_camera;
+Pack3 *getTexturePack(s32, s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
 struct N;
-struct N *func_8004240C(s32);
+struct N *find_object_by_id(s32);
 extern void func_8003ED04(void *);
 extern void func_8003ED94(void *);
 extern void func_8003EE84(void *);
@@ -86,43 +86,43 @@ void hud_build_slot_sprites(s32 pool, s32 tex_base)
   u16 state;
   u16 mode;
 
-  start_pos = D_800C7F84->pos;
+  start_pos = g_camera->pos;
   base_x = start_pos->x;
   x = base_x + 0x14;
   y = start_pos->y + 6;
-  state = D_800C35A0->state;
+  state = gRecords->state;
   if (state == 7)
   {
     return;
   }
-  mode = D_800C35A0->mode;
+  mode = gRecords->mode;
   switch (mode)
   {
     case 1:
       if (state == 0)
     {
-      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 1)
+      if (gRecords->slots[gRecords->sel[1]].flags & 1)
       {
-        s = func_80040260((void *)pool, x, y, 5, func_8003ED04, mode);
+        s = sprite_create((void *)pool, x, y, 5, func_8003ED04, mode);
         tex_first = (s32) ((u32)tex_base + 0x4CU);
-        s->tex = func_80034FF0(tex_first, 0);
+        s->tex = getTexturePack(tex_first, 0);
         s->part = 0;
-        s->owner = D_800C7F84;
-        s = func_80040260((void *)pool, base_x + 0x1C, y, 5, func_8003ED04, mode);
+        s->owner = g_camera;
+        s = sprite_create((void *)pool, base_x + 0x1C, y, 5, func_8003ED04, mode);
         tex_mid = (s32) ((u32)tex_base + 0x4CU);
-        s->tex = func_80034FF0(tex_mid, 0);
+        s->tex = getTexturePack(tex_mid, 0);
         s->part = 1;
-        s->owner = D_800C7F84;
-        s = func_80040260((void *)pool, base_x + 0x24, y, 5, func_8003ED04, mode);
-        s->tex = func_80034FF0(tex_mid, 0);
+        s->owner = g_camera;
+        s = sprite_create((void *)pool, base_x + 0x24, y, 5, func_8003ED04, mode);
+        s->tex = getTexturePack(tex_mid, 0);
         s->part = 2;
-        s->owner = D_800C7F84;
+        s->owner = g_camera;
       }
     }
     else
     {
       rows_done = 0;
-      if (D_800C35A0->slots[D_800C35A0->sel[1]].flags & 4)
+      if (gRecords->slots[gRecords->sel[1]].flags & 4)
       {
         hook = func_8003ED94;
         mid_part = 1;
@@ -130,22 +130,22 @@ void hud_build_slot_sprites(s32 pool, s32 tex_base)
 mode1_rows:
         {
           yy = y + (rows_done * 11);
-          s = func_80040260((void *)pool, 0x1C, yy, 5, hook, mid_part);
-          s->tex = func_80034FF0(row_tex, 0);
+          s = sprite_create((void *)pool, 0x1C, yy, 5, hook, mid_part);
+          s->tex = getTexturePack(row_tex, 0);
           s->part = 0;
           row_no = rows_done + 1;
           s->n = row_no;
-          s->owner = D_800C7F84;
-          s = func_80040260((void *)pool, 0x24, yy, 5, hook, mid_part);
-          s->tex = func_80034FF0(row_tex, 0);
+          s->owner = g_camera;
+          s = sprite_create((void *)pool, 0x24, yy, 5, hook, mid_part);
+          s->tex = getTexturePack(row_tex, 0);
           s->part = mid_part;
           s->n = row_no;
-          s->owner = D_800C7F84;
-          s = func_80040260((void *)pool, 0x2C, yy, 5, hook, mid_part);
-          s->tex = func_80034FF0(row_tex, 0);
+          s->owner = g_camera;
+          s = sprite_create((void *)pool, 0x2C, yy, 5, hook, mid_part);
+          s->tex = getTexturePack(row_tex, 0);
           s->part = 2;
           s->n = row_no;
-          s->owner = D_800C7F84;
+          s->owner = g_camera;
         }
         rows_done = row_no;
         if (rows_done < 4) goto mode1_rows;
@@ -161,12 +161,12 @@ mode1_rows:
       tex_base = 0;
       do
     {
-      m = (Mgr *)func_8004240C(mgr_key);
+      m = (Mgr *)find_object_by_id(mgr_key);
       pos = m->pos;
-      D_800C7F84 = m;
+      g_camera = m;
       x = pos->x;
       y = pos->y + 6;
-      if (!(D_800C35A0->flags12 & 1))
+      if (!(gRecords->flags12 & 1))
       {
         x += 0x14;
         if (m->type == 3)
@@ -174,45 +174,45 @@ mode1_rows:
           x -= 0xE;
         }
       }
-      if ((D_800C35A0->state != 0) && (D_800C35A0->slots[D_800C35A0->sel[slot_idx]].flags & 4))
+      if ((gRecords->state != 0) && (gRecords->slots[gRecords->sel[slot_idx]].flags & 4))
       {
         left_x = (s16)(x + 8);
         yy = y + 10;
-        s = func_80040260((void *)pool, left_x, yy, 5, func_8003EF20, mid_part2);
+        s = sprite_create((void *)pool, left_x, yy, 5, func_8003EF20, mid_part2);
         x_mid = x + 0x10;
-        s->tex = func_80034FF0(tex_id, 0);
+        s->tex = getTexturePack(tex_id, 0);
         s->part = 0;
-        s->owner = D_800C7F84;
-        s = func_80040260((void *)pool, x_mid, yy, 5, func_8003EF20, mid_part2);
+        s->owner = g_camera;
+        s = sprite_create((void *)pool, x_mid, yy, 5, func_8003EF20, mid_part2);
         x_right = x + 0x18;
-        s->tex = func_80034FF0(tex_id, 0);
+        s->tex = getTexturePack(tex_id, 0);
         s->part = mid_part2;
-        s->owner = D_800C7F84;
-        s = func_80040260((void *)pool, x_right, yy, 5, func_8003EF20, mid_part2);
-        s->tex = func_80034FF0(tex_id, 0);
+        s->owner = g_camera;
+        s = sprite_create((void *)pool, x_right, yy, 5, func_8003EF20, mid_part2);
+        s->tex = getTexturePack(tex_id, 0);
         s->part = 2;
-        s->owner = D_800C7F84;
-        s = func_80040260((void *)pool, left_x, yy, 5, func_8003EE84, mid_part2);
-        s->tex = func_80034FF0(tex_id, 0);
-        s->owner = D_800C7F84;
+        s->owner = g_camera;
+        s = sprite_create((void *)pool, left_x, yy, 5, func_8003EE84, mid_part2);
+        s->tex = getTexturePack(tex_id, 0);
+        s->owner = g_camera;
         s->part = 0;
         s->n = tex_base;
         s->r = 0xFE;
         s->g = 0xD5;
         s->b = 0x1E;
         s->a = 0xFF;
-        s = func_80040260((void *)pool, x_mid, yy, 5, func_8003EE84, mid_part2);
-        s->tex = func_80034FF0(tex_id, 0);
-        s->owner = D_800C7F84;
+        s = sprite_create((void *)pool, x_mid, yy, 5, func_8003EE84, mid_part2);
+        s->tex = getTexturePack(tex_id, 0);
+        s->owner = g_camera;
         s->part = mid_part2;
         s->n = tex_base;
         s->r = 0xFE;
         s->g = 0xD5;
         s->b = 0x1E;
         s->a = 0xFF;
-        s = func_80040260((void *)pool, x_right, yy, 5, func_8003EE84, mid_part2);
-        s->tex = func_80034FF0(tex_id, 0);
-        s->owner = D_800C7F84;
+        s = sprite_create((void *)pool, x_right, yy, 5, func_8003EE84, mid_part2);
+        s->tex = getTexturePack(tex_id, 0);
+        s->owner = g_camera;
         s->part = 2;
         s->n = tex_base;
         s->r = 0xFE;

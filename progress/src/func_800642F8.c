@@ -1,27 +1,24 @@
-/* Partial candidate from function #25521 in project #57; rechecked locally. */
-/* identical to func_800642F8 in V-RALLY-PAL (matched), with its names changed by decompdecomp */
-
 typedef struct { s32 a; s32 b; s8 c; } S56;
-typedef struct { s32 a; s32 b; } S56AB;
-extern void *D_800A1468;
-extern s8 D_800A16D4;
+extern void *gSelectState;
+extern s8 gStreamPhase;
 extern S56 D_800A56A0;
 extern s32 func_800580D0(s32, s32);
-extern s32 func_8005E0D0(s32,  s32);
-extern s32 func_80047F94(void);
+extern s32 select_menu_setup(s32, s32);
+extern s32 asset_list_teardown(void);
 
+/* Resets the select screen state: copies the default select block into the state, then tears down the assets. */
 s32 func_800642F8(void) {
     S56 *src = &D_800A56A0;
     S56 *dst;
     s8 c;
-    *(s8 *)((u8 *)D_800A1468 + 0x2BD) = 1;
+    *(s8 *)((u8 *)gSelectState + 0x2BD) = 1;
     func_800580D0(0, 0);
-    *(s8 *)((u8 *)D_800A1468 + 0x24D) = 0;
-    dst = (S56 *)((u8 *)D_800A1468 + 0x204);
+    *(s8 *)((u8 *)gSelectState + 0x24D) = 0;
+    dst = (S56 *)((u8 *)gSelectState + 0x204);
     __builtin_memcpy(dst, src, 9);
     c = dst->c;
-    func_8005E0D0(0,  0);
-    D_800A16D4 = 2;
-    func_80047F94();
+    select_menu_setup(0, 0);
+    gStreamPhase = 2;
+    asset_list_teardown();
     return 0;
 }

@@ -1,80 +1,108 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-void *text_obj_get(u32);                       /* extern */
-M2C_UNK func_80059618(void *, u8, u8, u8, s32);     /* extern */
-void func_800596F4(void *, s16, s16, void *); /* extern */
-void *func_8005A744(u32, void *);                  /* extern */
-s32 func_80084BF0(M2C_UNK);                         /* extern */
-M2C_UNK func_8008A0D8(void *, M2C_UNK, u8);         /* extern */
-M2C_UNK func_80099DF8(char *, M2C_UNK *, ...); /* extern */
-extern void *D_800A1468;
+typedef struct TextObj
+{
+    struct TextObj *next;
+    u8 pad04[2];
+    s16 x;
+    s16 y;
+    u8 pad0A;
+    u8 r, g, b, a;
+    u8 pad0F[0x1A - 0x0F];
+    s8 flag1A;
+} TextObj;
+
+typedef struct
+{
+    u8 pad00[0xC];
+    void *listHead;
+    u8 pad10[0x220 - 0x10];
+    u16 countdown;
+    u8 pad222[0x248 - 0x222];
+    u8 blink;
+} MenuRoot;
+
+typedef struct
+{
+    u8 pad00[0x2C];
+    u16 flags2C;
+} RecordsHdr;
+
+void *textObjGet(u32);
+s32 group_set_color(void *, u8, u8, u8, s32);
+void draw_palette_sprite(void *, s16, s16, void *);
+void *list_advance(u32, void *);
+s32 func_80084BF0(s32);
+s32 func_8008A0D8(void *, s32, u8);
+s32 formatString(char *, char *, ...);
+extern MenuRoot *gSelectState;
 extern f32 D_800A14CC;
 extern s8 D_800A14D4;
-extern M2C_UNK D_800A5488;
-extern M2C_UNK D_800A5490;
-extern M2C_UNK D_800C02AE;
+extern char D_800A5488[];
+extern char D_800A5490[];
+extern VRMenuManager *gLeague;
+extern RecordsHdr *gRecords;
 
-extern void *D_800C3508;
-extern void *D_800C35A0;
-void func_8005DD2C(void) {
-    char sp18[5];
-    f32 temp_fv1;
-    s32 temp_a3;
-    u32 var_a0;
-    s32 var_a2;
-    s32 var_v1;
-    s32 var_v1_2;
-    void *temp_v0;
-    void *temp_v1;
+/* Refreshes the league HUD: marks the menu dirty when the selected item's
+ * value changes, blinks the 0x248 toggle, sets the three highlight entries
+ * while the countdown runs, and redraws the value text from D_800A14CC. */
+void func_8005DD2C(void)
+{
+    VRMenuItem *item;
+    char text[5];
+    TextObj *node;
+    s32 i;
+    s32 whole;
+    u32 tenths;
+    s32 frac;
 
-    temp_v1 = M2C_FIELD(D_800C3508, void **, 0x10) + (M2C_FIELD(D_800C3508, s16 *, 2) * 0x14);
-    if (M2C_FIELD(temp_v1, u8 *, 0xE) != M2C_FIELD(temp_v1, u8 *, 0xD)) {
+    item = &gLeague->items[gLeague->count];
+    if (item->value != ((u8 *)item)[0xD])
+    {
         D_800A14D4 = 1;
     }
-    if ((M2C_FIELD(D_800C35A0, u16 *, 0x2C) & 0x2000) && (func_80084BF0(0) == 0x2020)) {
-        M2C_FIELD(D_800A1468, u8 *, 0x248) = (u8) ~M2C_FIELD(D_800A1468, u8 *, 0x248);
-        func_8008A0D8(D_800C3508, 9, M2C_FIELD(D_800A1468, u8 *, 0x248));
-        M2C_FIELD(func_8005A744(5, (void *)(M2C_FIELD(D_800A1468, void **, 0xC))), u8 *, 0x41) = (u8) M2C_FIELD(D_800A1468, u8 *, 0x248);
+    if ((gRecords->flags2C & 0x2000) && (func_80084BF0(0) == 0x2020))
+    {
+        gSelectState->blink = (u8)~gSelectState->blink;
+        func_8008A0D8(gLeague, 9, gSelectState->blink);
+        ((s8 *)list_advance(5, gSelectState->listHead))[0x41] = gSelectState->blink;
     }
-    if (M2C_FIELD(D_800A1468, u16 *, 0x220) != 0) {
-        temp_v0 = text_obj_get(0);
-        var_v1 = 0;
-        do {
-            M2C_FIELD(temp_v0, s8 *, 0x1A) = 1;
-            temp_v0 = M2C_FIELD(temp_v0, void **, 0);
-            var_v1 += 1;
-        } while ((u32) (var_v1 & 0xFF) < 3U);
-        M2C_FIELD(D_800A1468, u16 *, 0x220) = (u16) (M2C_FIELD(D_800A1468, u16 *, 0x220) - 1);
-    } else {
-        temp_v0 = text_obj_get(0);
-        var_v1_2 = 0;
-        do {
-            M2C_FIELD(temp_v0, s8 *, 0x1A) = 0;
-            temp_v0 = M2C_FIELD(temp_v0, void **, 0);
-            var_v1_2 += 1;
-        } while ((u32) (var_v1_2 & 0xFF) < 3U);
+    if (gSelectState->countdown != 0)
+    {
+        node = textObjGet(0);
+        i = 0;
+        do
+        {
+            node->flag1A = 1;
+            node = node->next;
+            i += 1;
+        }
+        while ((u32)(i & 0xFF) < 3U);
+        gSelectState->countdown = (u16)(gSelectState->countdown - 1);
     }
-    temp_v0 = text_obj_get(4);
-    func_80059618(temp_v0, M2C_FIELD(temp_v0, u8 *, 0xB), M2C_FIELD(temp_v0, u8 *, 0xC), M2C_FIELD(temp_v0, u8 *, 0xD), (s32) M2C_FIELD(temp_v0, u8 *, 0xE));
-    sp18[4] = 0;
-    var_a2 = (u32)D_800A14CC;
-    var_a0 = (u16)(u32)(D_800A14CC * 10.0f);
-    temp_a3 = (var_a0 % 10) & 0xFFFF;
-    if (temp_a3 != 0) {
-        func_80099DF8(sp18, &D_800A5488, var_a2 & 0xFF, temp_a3);
-    } else {
-        func_80099DF8(sp18, &D_800A5490, var_a2 & 0xFF);
+    else
+    {
+        node = textObjGet(0);
+        i = 0;
+        do
+        {
+            node->flag1A = 0;
+            node = node->next;
+            i += 1;
+        }
+        while ((u32)(i & 0xFF) < 3U);
     }
-    func_800596F4((void *)(temp_v0), (s16)(M2C_FIELD(temp_v0, s16 *, 6)), (s16)(M2C_FIELD(temp_v0, s16 *, 8)), (void *)(sp18));
+    node = textObjGet(4);
+    group_set_color(node, node->r, node->g, node->b, (s32)node->a);
+    text[4] = 0;
+    whole = (u32)D_800A14CC;
+    tenths = (u16)(u32)(D_800A14CC * 10.0f);
+    frac = (tenths % 10) & 0xFFFF;
+    if (frac != 0)
+    {
+        formatString(text, D_800A5488, whole & 0xFF, frac);
+    }
+    else
+    {
+        formatString(text, D_800A5490, whole & 0xFF);
+    }
+    draw_palette_sprite((void *)(node), node->x, node->y, (void *)(text));
 }

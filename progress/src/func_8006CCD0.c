@@ -23,38 +23,41 @@ typedef struct Tbl6C
   u16 w[3];
 } Tbl6C;
 extern Slot6C D_800C3650[][4];
-extern Code6C D_800C70D4[];
-extern Tbl6C D_800C7124;
+extern Code6C gRecordGlyphs[];
+extern Tbl6C gSplitRecordIds;
 extern s32 D_800ADF30[];
-extern void func_8006BF30(s32,s32,s32,s32);
+extern void record_put_glyphs(s32,s32,s32,s32);
 
+/* For each of the three split-record ids, looks up its glyph entry and fills
+   the matching display slot in row 16: the three letters, the value and the
+   colour nibble. */
 void func_8006CCD0(void)
 {
-  Tbl6C *t = &D_800C7124;
-  u8 j = 0;
-  u32 v;
-  s32 x;
-  Code6C *p;
+  Tbl6C *split = &gSplitRecordIds;
+  u8 i = 0;
+  u32 id;
+  s32 ch;
+  Code6C *glyph;
 
   do
   {
-    v = t->w[j];
-    if (v != 0xFFFF)
+    id = split->w[i];
+    if (id != 0xFFFF)
     {
-      p = &D_800C70D4[v >> 14];
-      func_8006BF30((u8)(j),(u8)(0x18),(u8)(0),(u8)(0));
-      D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;
-      D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;
-      x = (((u8 *) p)[1] & 0x1F) + 0x41;
-      v &= 0x3FFF;
-      D_800C3650[16][j].c8 = x;
-      if (v & 1)
-        v = -v;
-      v = D_800ADF30[16] - v;
-      D_800C3650[16][j].val = v;
-      D_800C3650[16][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;
+      glyph = &gRecordGlyphs[id >> 14];
+      record_put_glyphs((u8)(i),(u8)(0x18),(u8)(0),(u8)(0));
+      D_800C3650[16][i].c6 = ((glyph->a >> 10) & 0x1F) + 0x41;
+      D_800C3650[16][i].c7 = ((glyph->a >> 5) & 0x1F) + 0x41;
+      ch = (((u8 *) glyph)[1] & 0x1F) + 0x41;
+      id &= 0x3FFF;
+      D_800C3650[16][i].c8 = ch;
+      if (id & 1)
+        id = -id;
+      id = D_800ADF30[16] - id;
+      D_800C3650[16][i].val = id;
+      D_800C3650[16][i].c4 = (glyph->b >> 12) + (glyph->a >> 15) * 16;
     }
-    j++;
+    i++;
   }
-  while (j < 3);
+  while (i < 3);
 }

@@ -1,21 +1,13 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
 extern u8 D_800AFA49;
-extern void *D_800C3508;
+extern void *gLeague;
 extern s32 D_800C8118;
 
+typedef struct VRLeagueEntry { u8 pad00[0x10]; s32 value; } VRLeagueEntry;
+typedef struct VRLeague { u8 pad00[2]; s16 index; s16 timer; u8 pad06[10]; VRLeagueEntry *entries; } VRLeague;
+
+/* Counts D_800C8118 down one frame at a time. When it reaches zero it is set to -1 and the league timer is
+ * cleared. Then the current league entry (at index * 0x14 into the entry table) gets value 1 if D_800AFA49 is 1,
+ * else 0x32. */
 void func_8005D8B0(void) {
     if (D_800C8118 > 0) {
         D_800C8118 -= 1;
@@ -23,11 +15,11 @@ void func_8005D8B0(void) {
     }
     if (D_800C8118 == 0) {
         D_800C8118 = -1;
-        M2C_FIELD(D_800C3508, s16 *, 4) = 0;
+        ((VRLeague *) gLeague)->timer = 0;
     }
     if (D_800AFA49 == 1) {
-        M2C_FIELD(((M2C_FIELD(D_800C3508, s16 *, 2) * 0x14) + M2C_FIELD(D_800C3508, s32 *, 0x10)), s32 *, 0x10) = (s32) D_800AFA49;
+        ((VRLeagueEntry *) ((s32) ((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index * 0x14))->value = (s32) D_800AFA49;
         return;
     }
-    M2C_FIELD(((M2C_FIELD(D_800C3508, s16 *, 2) * 0x14) + M2C_FIELD(D_800C3508, s32 *, 0x10)), s32 *, 0x10) = 0x32;
+    ((VRLeagueEntry *) ((s32) ((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index * 0x14))->value = 0x32;
 }

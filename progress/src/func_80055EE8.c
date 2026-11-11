@@ -1,5 +1,5 @@
-extern s32 D_8009FF30;
-extern u8 D_800C7926;
+extern s32 gShadeMode;
+extern u8 g_dark_mode;
 typedef struct 
 {
   s8 u;
@@ -23,79 +23,83 @@ typedef struct
   Rec *records;
   u16 count;
 } Info;
+
+/* Expands each input record (four vertex indices, UVs and a tail word) into an
+ * output vertex record: positions are the indices offset by off, and each
+ * vertex colour comes from tbl, or from a fixed fallback colour when gShadeMode
+ * is 2. Advances the output pointer once per record. */
 void func_80055EE8(Out **dst, Info *in, s32 off, u8 *tbl)
 {
-  Rec *p = in->records;
-  s32 n = in->count;
-  s32 i;
-  u8 c;
-  u8 col;
-  c = 0x8C;
-  if (D_800C7926 == 0)
+  Rec *rec = in->records;
+  s32 count = in->count;
+  s32 k;
+  u8 fallback_col;
+  u8 vcol;
+  fallback_col = 0x8C;
+  if (g_dark_mode == 0)
   {
-    c = 0x32;
+    fallback_col = 0x32;
   }
-  for (i = 0; i < n; p++, i++)
+  for (k = 0; k < count; rec++, k++)
   {
-    (*dst)->pos[0] = ((int) p->idx[0]) + off;
-    (*dst)->pos[1] = p->idx[1] + off;
-    (*dst)->pos[2] = p->idx[2] + off;
-    (*dst)->pos[3] = p->idx[3] + off;
-    if (D_8009FF30 != 2)
+    (*dst)->pos[0] = ((int) rec->idx[0]) + off;
+    (*dst)->pos[1] = rec->idx[1] + off;
+    (*dst)->pos[2] = rec->idx[2] + off;
+    (*dst)->pos[3] = rec->idx[3] + off;
+    if (gShadeMode != 2)
     {
-      col = tbl[p->idx[0]];
+      vcol = tbl[rec->idx[0]];
     }
     else
     {
-      col = c;
+      vcol = fallback_col;
     }
-    (*dst)->color[0] = col;
-    (*dst)->color[1] = col;
-    (*dst)->color[2] = col;
+    (*dst)->color[0] = vcol;
+    (*dst)->color[1] = vcol;
+    (*dst)->color[2] = vcol;
     (*dst)->color[3] = 10;
-    if (D_8009FF30 != 2)
+    if (gShadeMode != 2)
     {
-      col = tbl[p->idx[1]];
+      vcol = tbl[rec->idx[1]];
     }
     else
     {
-      col = c;
+      vcol = fallback_col;
     }
-    (*dst)->color[4] = col;
-    (*dst)->color[5] = col;
-    (*dst)->color[6] = col;
+    (*dst)->color[4] = vcol;
+    (*dst)->color[5] = vcol;
+    (*dst)->color[6] = vcol;
     (*dst)->color[7] = 0;
-    if (D_8009FF30 != 2)
+    if (gShadeMode != 2)
     {
-      col = tbl[p->idx[2]];
+      vcol = tbl[rec->idx[2]];
     }
     else
     {
-      col = c;
+      vcol = fallback_col;
     }
-    (*dst)->color[8] = col;
-    (*dst)->color[9] = col;
-    (*dst)->color[10] = col;
+    (*dst)->color[8] = vcol;
+    (*dst)->color[9] = vcol;
+    (*dst)->color[10] = vcol;
     (*dst)->color[11] = 0;
-    if (D_8009FF30 != 2)
+    if (gShadeMode != 2)
     {
-      col = tbl[p->idx[3]];
+      vcol = tbl[rec->idx[3]];
     }
     else
     {
-      col = c;
+      vcol = fallback_col;
     }
-    (*dst)->color[12] = col;
-    (*dst)->color[13] = col;
-    (*dst)->color[14] = col;
+    (*dst)->color[12] = vcol;
+    (*dst)->color[13] = vcol;
+    (*dst)->color[14] = vcol;
     (*dst)->color[15] = 0;
-    (*dst)->uv[0] = p->uv[0];
-    (*dst)->uv[1] = p->uv[1];
-    (*dst)->uv[2] = p->uv[2];
-    (*dst)->uv[3] = p->uv[3];
-    (*dst)->last = p->last;
+    (*dst)->uv[0] = rec->uv[0];
+    (*dst)->uv[1] = rec->uv[1];
+    (*dst)->uv[2] = rec->uv[2];
+    (*dst)->uv[3] = rec->uv[3];
+    (*dst)->last = rec->last;
     (*dst)++;
   }
 
 }
-

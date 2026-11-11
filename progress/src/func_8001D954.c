@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char D_800C02AE[];
+extern char gStreamState[];
 
 void func_8001D954(s32 arg0) {
     char *var_v1;
@@ -21,7 +21,7 @@ void func_8001D954(s32 arg0) {
     void *var_a0;
 
     var_a1 = 1;
-    var_v1 = D_800C02AE + 0x10370;
+    var_v1 = gStreamState + 0x10370;
     var_a0 = arg0 + 0x4C;
     do {
         temp_v0 = M2C_FIELD(var_a0, s32 *, 0x44);

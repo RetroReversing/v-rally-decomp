@@ -1,3 +1,4 @@
+/* Fills the 0x48-byte block at arg0 with its default parameter words: rates 0x200/0x333/0x666 and levels 0x800300/0x400/0x5F0239 (fixed point). */
 void func_8000E2F8(void *arg0)
 {
   s32 var_a0;

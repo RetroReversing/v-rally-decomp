@@ -7517,7 +7517,7 @@ static  Acmd *_pullSubFrame(void *filter, s16 *inp, s16 *outp, s32 outCount,
                             s32 sampleOffset, Acmd *p) ;
 static  s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel);
 
-static  f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel);
+static  f32 vol_scale_pow(f32 ivol, s32 samples, s16 ratem, u16 ratel);
 
  
 
@@ -7549,7 +7549,7 @@ _ldexpf(f64 in, s32 ex);
 static
 s16 _getRate(f64 vol, f64 tgt, s32 count, u16* ratel);
 static
-f32 _getVol(f32 ivol, s32 samples, s16 ratem, u16 ratel);
+f32 vol_scale_pow(f32 ivol, s32 samples, s16 ratem, u16 ratel);
 
 
 

@@ -75,41 +75,41 @@ typedef struct Game { u8 pad[0x20]; u16 unk20; u8 pad22[2]; Obj *unk24; u8 pad28
 typedef struct Mode { u8 pad[0xE]; u16 unkE; u8 pad10[8]; u16 unk18; u16 unk1A; u16 unk1C; u16 unk1E; u8 pad20[0xC]; u16 unk2C; } Mode;
 typedef struct Ext { u8 pad[0x384]; u8 unk384; } Ext;
 
-extern Game *D_800C7F84;
+extern Game *g_camera;
 extern u8 D_8009C0A8[];
 extern u8 D_8009C1A0[];
-extern s32 D_8009FF30;
-extern Ext *D_800A0384;
+extern s32 gShadeMode;
+extern Ext *gRaceCtx;
 extern u8 D_800A73E0[];
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
+extern u8 gOrderState[];
+extern u8 gStreamState[];
 
-#define gGame D_800C7F84
-#define gMode (*(Mode **)(D_800C02AE + 0x32F2))
-#define gB7D3B (*(u8 *)(D_800C02AE + 0x7D3B))
-#define gB7678 (*(u8 *)(D_800C02AE + 0x7678))
-#define gB7FC8 (*(u8 *)(D_800AE850 + 0x7FC8))
-#define gMtx72B0 ((f32 (*)[4])(D_800AE850 + 0x72B0))
+#define gGame g_camera
+#define gMode (*(Mode **)(gStreamState + 0x32F2))
+#define gB7D3B (*(u8 *)(gStreamState + 0x7D3B))
+#define gB7678 (*(u8 *)(gStreamState + 0x7678))
+#define gB7FC8 (*(u8 *)(gOrderState + 0x7FC8))
+#define gMtx72B0 ((f32 (*)[4])(gOrderState + 0x72B0))
 #define gCol ((u16 *)(D_800A73E0 + 0x6BE6))
 
-Ctx *func_800056FC(s32);
+Ctx *view_get_ctx_id(s32);
 void func_80005F14(Ctx *, s32);
-Gfx *func_80006008(Ctx *);
-void func_80006014(Ctx *, Gfx *);
-void func_800061FC(Ctx *, void *);
-void func_800068C0(Ctx *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
-u16 func_800070CC(Ctx *);
-void func_800071EC(Ctx *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
+Gfx *gfx_get_dl(Ctx *);
+void gfx_set_dl(Ctx *, Gfx *);
+void gfx_push_mtx(Ctx *, void *);
+void gfx_set_quad_pos(Ctx *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
+u16 gfx_add_quad_tris(Ctx *);
+void gfx_set_quad_color(Ctx *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
 void func_800075BC(Ctx *, Tex *, s32);
 void func_80008B28(Ctx *, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-s32 func_80010BFC(void *, MtxF *, void *);
-void func_80016910(Ctx *, s32);
+s32 obj_mtx_visible(void *, MtxF *, void *);
+void gfx_call_mode_dl(Ctx *, s32);
 void func_800169DC(Ctx *, s32);
-void *func_8001BD1C(void);
-void func_8001C2C0(void *, void *, void *);
+void *mtx_pool_alloc(void);
+void mtx_concat(void *, void *, void *);
 void func_8002DF40(void *, void *);
-void func_8002E0B8(MtxF *, void *);
-void func_80051D10(Ctx *, Obj *, MtxF *, s32);
+void mtx_init_translate(MtxF *, void *);
+void hud_draw_panel(Ctx *, Obj *, MtxF *, s32);
 s32 func_8007BA1C(Obj *);
 s32 isBoundingBoxVisible(MtxF *, void *, s32);
 u32 osVirtualToPhysical(void *);
@@ -148,7 +148,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     s32 dx, dy, dz;
 
     q = obj->unk88->unk0;
-    if (D_800A0384 != NULL && D_800A0384->unk384 == 0) {
+    if (gRaceCtx != NULL && gRaceCtx->unk384 == 0) {
         Node *w0, *w1;
         s32 n;
         for (n = 0; n < 4; n++) {
@@ -168,7 +168,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     {
         Game *gm = gGame;
         *obj->unk88->unk4 = 1;
-        gfx = func_800056FC(gm->unk178);
+        gfx = view_get_ctx_id(gm->unk178);
     }
     arg1->unk78 = 0;
     if (gMode->unk1E == 0 && gMode->unk1A == 1 && obj->unk48->unk0 == 7 && obj->unk48->unk20 == 8) return;
@@ -176,7 +176,7 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
     if (gMode->unk1E == 8 && obj->unk48->unk2C == gB7D3B) return;
     if (obj->unk48->unk0 == 5 && gMode->unkE == 2 && (gMode->unk1E == obj->unk48->unk0 || (gMode->unk1E != 0 && gMode->unk1E < 5))) return;
 
-    if (D_8009FF30 != 2 && gB7678 == 0) {
+    if (gShadeMode != 2 && gB7678 == 0) {
         col[0] = gCol[0];
         col[1] = gCol[1];
         col[2] = gCol[2];
@@ -216,18 +216,18 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
 
     pos = obj->unk5C;
     bb = q->unk8 + 4;
-    func_80010BFC(0, fp, pos);
+    obj_mtx_visible(0, fp, pos);
     {
         s32 vis = isBoundingBoxVisible(fp, bb, gGame->unk178);
         obj->unk88->unk80 = vis;
     }
-    if ((D_800C7F84->unk24 == obj || obj->unk88->unk80 == 0) && (D_800C7F84->unk20 & 8)) return;
+    if ((g_camera->unk24 == obj || obj->unk88->unk80 == 0) && (g_camera->unk20 & 8)) return;
     gfx->unk78 = 0;
     ctx = gfx;
     type = obj->unk48->unk0;
     flags = 0;
     if (type == 7) flags = 1;
-    if (D_8009FF30 == 2) flags |= 2;
+    if (gShadeMode == 2) flags |= 2;
     if (obj->unk6C->unk30 > 4410000 || obj->unk48->unk0 != 7) {
         alpha = 0xFF;
     } else {
@@ -239,18 +239,18 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         }
     }
     shd = obj->unk88->unk68;
-    g = func_80006008(ctx);
+    g = gfx_get_dl(ctx);
     { Gfx *_a = g++; _a->w0 = 0xDE000000; _a->w1 = (u32)D_8009C1A0; }
     { Gfx *_a = g++; _a->w0 = 0xFA000000; _a->w1 = (shd->unk10 << 24) | (shd->unk10 << 16) | (shd->unk10 << 8); }
     { Gfx *_a = g++; _a->w0 = 0xFB000000; _a->w1 = ENVCOL(col, bright, alpha); }
-    func_80006014(ctx, g);
+    gfx_set_dl(ctx, g);
     part = obj->unk8C->parts[10];
-    func_8002E0B8(&mf, part->unk10);
-    m0 = func_8001BD1C();
-    if (func_80010BFC(m0, fp, &mf) == 1) {
+    mtx_init_translate(&mf, part->unk10);
+    m0 = mtx_pool_alloc();
+    if (obj_mtx_visible(m0, fp, &mf) == 1) {
         u16 n;
         func_800075BC(ctx, shd->unkC->unk4[0], 0);
-        func_800061FC(ctx, m0);
+        gfx_push_mtx(ctx, m0);
         v[0][0] = obj->unk8C->unkB0;
         v[0][1] = obj->unk8C->unkB4;
         v[0][2] = obj->unk8C->unkB8;
@@ -287,15 +287,15 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         t = obj->unk80->unk21C - 5;
         t -= part->unk28;
         if (v[3][1] < t - 20) v[3][1] = t;
-        n = func_800070CC(ctx);
-        func_800068C0(ctx, n, v[0][0], v[0][1] - 8, v[0][2], v[1][0], v[1][1] - 8, v[1][2],
+        n = gfx_add_quad_tris(ctx);
+        gfx_set_quad_pos(ctx, n, v[0][0], v[0][1] - 8, v[0][2], v[1][0], v[1][1] - 8, v[1][2],
                       v[3][0], v[3][1] - 8, v[3][2], v[2][0], v[2][1] - 8, v[2][2]);
-        func_800071EC(ctx, n, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+        gfx_set_quad_color(ctx, n, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
         func_80008B28(ctx, n, 0, 0, shd->unkC->unk4[0]->unk6, 0, shd->unkC->unk4[0]->unk6,
                       shd->unkC->unk4[0]->unk8, 0, shd->unkC->unk4[0]->unk8);
     }
 
-    if (obj == gGame->unk24 || D_8009FF30 != 2 || gB7678 != 0) {
+    if (obj == gGame->unk24 || gShadeMode != 2 || gB7678 != 0) {
         bright = 0;
         for (i = 0; i < 12; i++) {
             s32 t;
@@ -317,8 +317,8 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
         }
     }
     if (obj->unk48->unk0 == 7) gfx = arg1;
-    func_80016910(gfx, flags);
-    g = func_80006008(gfx);
+    gfx_call_mode_dl(gfx, flags);
+    g = gfx_get_dl(gfx);
     { Gfx *_a = g++; _a->w0 = 0xFB000000; _a->w1 = ENVCOL(col, bright, alpha); }
     for (i = 0; i < 5; i++) {
         s = q->unk10[i];
@@ -331,36 +331,36 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
                 s->unk0 = 0;
             }
             if (s->unk4 != NULL) {
-                func_8001C2C0(&s->unk4->unk48, s->unk8, &s->unk48);
+                mtx_concat(&s->unk4->unk48, s->unk8, &s->unk48);
             }
-            m = func_8001BD1C();
-            func_80010BFC(m, fp, &s->unk48);
+            m = mtx_pool_alloc();
+            obj_mtx_visible(m, fp, &s->unk48);
         } else {
-            m = func_8001BD1C();
+            m = mtx_pool_alloc();
             if ((gMode->unk2C & 2) && gMode->unk1E == 0) {
-                m1 = func_8001BD1C();
-                m2 = func_8001BD1C();
+                m1 = mtx_pool_alloc();
+                m2 = mtx_pool_alloc();
                 *(Blk40 *)&s->unk48 = *(Blk40 *)pos;
                 s->unk48.m[3][1] -= 120.0f;
-                func_80010BFC(m1, fp, &s->unk48);
+                obj_mtx_visible(m1, fp, &s->unk48);
                 s->unk48.m[3][1] -= 120.0f;
-                func_80010BFC(m2, fp, &s->unk48);
+                obj_mtx_visible(m2, fp, &s->unk48);
             }
             *(Blk40 *)&s->unk48 = *(Blk40 *)pos;
-            func_80010BFC(m, fp, pos);
+            obj_mtx_visible(m, fp, pos);
             for (j = 0; j < 4; j++) {
                 for (k = 0; k < 4; k++) {
-                    (*(MtxF *)(D_800AE850 + 0x72B0)).m[j][k] = fp[2].m[j][k];
+                    (*(MtxF *)(gOrderState + 0x72B0)).m[j][k] = fp[2].m[j][k];
                 }
             }
         }
         if (gGame->unk24 != obj || !(gGame->unk20 & 8)) {
             { Gfx *_a = g++; _a->w0 = 0xDA380007; _a->w1 = osVirtualToPhysical(m); }
-            func_80006014(gfx, g);
+            gfx_set_dl(gfx, g);
             func_80005F14(gfx, q->unk10[i]->unk90);
-            g = func_80006008(gfx);
+            g = gfx_get_dl(gfx);
             if (i == 0) {
-                func_80006014(gfx, g);
+                gfx_set_dl(gfx, g);
                 if ((gMode->unk2C & 2) && gMode->unk1E == 0) {
                     { Gfx *_a = gfx->dl++; _a->w0 = 0xDE000000; _a->w1 = (u32)D_8009C0A8; }
                     { Gfx *_a = gfx->dl++; _a->w0 = 0xFB000000; _a->w1 = 0xFFFFFF20; }
@@ -369,16 +369,16 @@ void func_80016B3C(Obj *obj, Ctx *arg1, MtxF *fp)
                     { Gfx *_a = gfx->dl++; _a->w0 = 0xDA380007; _a->w1 = osVirtualToPhysical(m2); }
                     func_80005F14(gfx, q->unk10[0]->unk90);
                 }
-                func_800061FC(arg1, m);
-                func_80051D10(arg1, obj, fp, alpha);
+                gfx_push_mtx(arg1, m);
+                hud_draw_panel(arg1, obj, fp, alpha);
                 func_800169DC(gfx, flags);
-                g = func_80006008(gfx);
+                g = gfx_get_dl(gfx);
                 { Gfx *_a = g++; _a->w0 = 0xFB000000; _a->w1 = ENVCOL(col, bright, alpha); }
             }
         }
     }
     _g = g++; _g->w0 = 0xFB000000; _g->w1 = ((u8)gCol[0] << 24) | ((u8)gCol[1] << 16) | ((u8)gCol[2] << 8) | 0xFF;
-    func_80006014(gfx, g);
-    gfx = func_800056FC(gGame->unk178);
+    gfx_set_dl(gfx, g);
+    gfx = view_get_ctx_id(gGame->unk178);
     _g = gfx->dl++; _g->w0 = 0xFB000000; _g->w1 = ((u8)gCol[0] << 24) | ((u8)gCol[1] << 16) | ((u8)gCol[2] << 8) | 0xFF;
 }

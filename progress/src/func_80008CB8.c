@@ -1,4 +1,3 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,18 +11,20 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80008CB8(void *arg0, s32 arg1, s8 arg2, s8 arg3, u8 arg4) {
-    s32 temp_a1;
-    u16 temp_v1;
-    void *temp_t0;
+/* Sets the three parameter bytes of entry `index` in the table at obj+0x70 and clears
+ * the entry's pending flag (bit 0 of its flags word at +6), if that flag was set. */
+void func_80008CB8(void *obj, s32 index, s8 param0, s8 param1, u8 param2) {
+    s32 offset;
+    u16 flags;
+    void *entry;
 
-    temp_a1 = (arg1 & 0xFFFF) * 0x10;
-    temp_t0 = temp_a1 + M2C_FIELD(arg0, s32 *, 0x70);
-    temp_v1 = M2C_FIELD(temp_t0, u16 *, 6);
-    if (temp_v1 & 1) {
-        M2C_FIELD(temp_t0, u16 *, 6) = (u16) (temp_v1 & 0xFFFE);
-        M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xC) = arg2;
-        M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), s8 *, 0xD) = arg3;
-        M2C_FIELD((temp_a1 + M2C_FIELD(arg0, s32 *, 0x70)), u8 *, 0xE) = arg4;
+    offset = (index & 0xFFFF) * 0x10;
+    entry = offset + M2C_FIELD(obj, s32 *, 0x70);
+    flags = M2C_FIELD(entry, u16 *, 6);
+    if (flags & 1) {
+        M2C_FIELD(entry, u16 *, 6) = (u16) (flags & 0xFFFE);
+        M2C_FIELD((offset + M2C_FIELD(obj, s32 *, 0x70)), s8 *, 0xC) = param0;
+        M2C_FIELD((offset + M2C_FIELD(obj, s32 *, 0x70)), s8 *, 0xD) = param1;
+        M2C_FIELD((offset + M2C_FIELD(obj, s32 *, 0x70)), u8 *, 0xE) = param2;
     }
 }

@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80058250();                            /* extern */
-extern M2C_UNK D_800C02AE;
+M2C_UNK add_car_hud_entry();                            /* extern */
+extern M2C_UNK gStreamState;
 
 void func_800586CC(void) {
-    if (M2C_FIELD(&D_800C02AE, s32 *, 0x32AA) == 3) {
-        func_80058250();
+    if (M2C_FIELD(&gStreamState, s32 *, 0x32AA) == 3) {
+        add_car_hud_entry();
     }
 }

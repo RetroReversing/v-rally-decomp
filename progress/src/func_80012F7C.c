@@ -2,35 +2,39 @@ extern u8 D_8009BA34;
 extern u8 D_800ADFEC[];
 extern u8 *D_800AE004;
 
-void func_80012F7C(void *arg0) {
+/* For each node in the manager's node list, collects the 0x34-byte entries that
+   fall inside its bounding box (x in 34..3C, z in 44..48) into the node's list at
+   +0x7C, linked through +0x24. Then counts the nodes that got no entries into
+   D_8009BA34. */
+void func_80012F7C(void *obj) {
     u8 *node;
     u8 *mgr;
-    u8 *tbl;
-    u8 *cntp;
-    u8 *head;
+    u8 *table;
+    u8 *count_src;
+    u8 *list_head;
     u8 *entry;
     u8 *entries;
-    u8 *cnt;
+    u8 *first_hit;
     u16 i;
-    u16 a3;
+    u16 any_flag;
     s32 more;
 
-    mgr = *(u8 **)((u8 *)arg0 + 0x8C);
-    tbl = D_800AE004;
-    cntp = D_800ADFEC;
+    mgr = *(u8 **)((u8 *)obj + 0x8C);
+    table = D_800AE004;
+    count_src = D_800ADFEC;
     D_8009BA34 = 0;
-    head = *(u8 **)(mgr + 0x28);
-    a3 = 0;
-    if (tbl == NULL) goto reset;
+    list_head = *(u8 **)(mgr + 0x28);
+    any_flag = 0;
+    if (table == NULL) goto reset;
     {
-        entries = *(u8 **)tbl;
-        node = head;
+        entries = *(u8 **)table;
+        node = list_head;
         while (1) {
             if (node == NULL) {
-                a3 = 0;
+                any_flag = 0;
                 break;
             }
-            for (i = 0; i < *(u16 *)(*(u8 **)(cntp + 0x18) + 4); i++) {
+            for (i = 0; i < *(u16 *)(*(u8 **)(count_src + 0x18) + 4); i++) {
                 entry = (u8 *)(i * 0x34);
                 entry += (u32)entries;
                 if (*(s32 *)(entry + 0xC) > *(s32 *)(node + 0x34) &&
@@ -45,34 +49,34 @@ void func_80012F7C(void *arg0) {
                     }
                 }
             }
-            if (a3 == 0) {
-                a3 = 1;
+            if (any_flag == 0) {
+                any_flag = 1;
             }
-            cnt = *(u8 **)(node + 0x7C);
-            if (cnt != NULL && *(u8 **)(cnt + 0x24) == NULL) {
-                *(u8 **)(cnt + 0x24) = cnt;
+            first_hit = *(u8 **)(node + 0x7C);
+            if (first_hit != NULL && *(u8 **)(first_hit + 0x24) == NULL) {
+                *(u8 **)(first_hit + 0x24) = first_hit;
             }
             node = *(u8 **)(node + 0x5C);
-            { s32 flag = a3 ^ 1; s32 different = head != node; more = different | flag; }
+            { s32 flag = any_flag ^ 1; s32 different = list_head != node; more = different | flag; }
             if (more == 0) {
                 break;
             }
         }
 reset:
-        a3 = 0;
+        any_flag = 0;
     }
     D_8009BA34 = 0;
-    node = head;
+    node = list_head;
     while (1) {
         if (node == NULL) break;
         if (*(u8 **)(node + 0x7C) == NULL) {
             D_8009BA34++;
         }
-        if (a3 == 0) {
-            a3 = 1;
+        if (any_flag == 0) {
+            any_flag = 1;
         }
         node = *(u8 **)(node + 0x5C);
-        { s32 flag = a3 ^ 1; s32 different = head != node; more = different | flag; }
+        { s32 flag = any_flag ^ 1; s32 different = list_head != node; more = different | flag; }
         if (more == 0) {
             break;
         }

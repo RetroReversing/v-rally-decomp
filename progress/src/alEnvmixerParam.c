@@ -1,48 +1,51 @@
-s32 alEnvmixerParam(char *arg0, s32 arg1, s32 *arg2)
+/* Sets parameter `type` on the envelope at env. Type 1 sets the input, 3 appends the control `value`
+ * to the envelope's control list, 4 and 9 reset the envelope and notify its input handler.
+ * Other types go to the input handler. Always returns 0. */
+s32 alEnvmixerParam(char *env, s32 type, s32 *value)
 {
-    char *temp_v1 = arg0;
-    s32 *temp_a0;
-    s32 *temp_v0;
-    s32 (*var_v0)(s32 *, s32);
+    char *obj = env;
+    s32 *input;
+    s32 *last;
+    s32 (*handler)(s32 *, s32);
 
-    switch (arg1) {
+    switch (type) {
     case 1:
-        *(s32 **)arg0 = arg2;
+        *(s32 **)env = value;
         break;
     case 3:
-        temp_v0 = *(s32 **)(arg0 + 0x40);
-        if (temp_v0 != NULL) {
-            *temp_v0 = (s32)arg2;
+        last = *(s32 **)(env + 0x40);
+        if (last != NULL) {
+            *last = (s32)value;
         } else {
-            *(s32 **)(arg0 + 0x3C) = arg2;
+            *(s32 **)(env + 0x3C) = value;
         }
-        *(s32 **)(temp_v1 + 0x40) = arg2;
+        *(s32 **)(obj + 0x40) = value;
         break;
     case 4:
-        temp_v1 = *(char **)arg0;
-        *(s32 *)(arg0 + 0x38) = 1;
-        *(s32 *)(arg0 + 0x48) = 0;
-        *(s16 *)(arg0 + 0x1A) = 1;
-        if (temp_v1 != NULL) {
-            temp_a0 = (s32 *)temp_v1;
-            var_v0 = *(s32 (**)(s32 *, s32))((char *)temp_a0 + 8);
-            var_v0(temp_a0, 4);
+        obj = *(char **)env;
+        *(s32 *)(env + 0x38) = 1;
+        *(s32 *)(env + 0x48) = 0;
+        *(s16 *)(env + 0x1A) = 1;
+        if (obj != NULL) {
+            input = (s32 *)obj;
+            handler = *(s32 (**)(s32 *, s32))((char *)input + 8);
+            handler(input, 4);
         }
         break;
     case 9:
-        temp_v1 = *(char **)arg0;
-        *(s32 *)(arg0 + 0x48) = 1;
-        if (temp_v1 != NULL) {
-            temp_a0 = (s32 *)temp_v1;
-            var_v0 = *(s32 (**)(s32 *, s32))((char *)temp_a0 + 8);
-            var_v0(temp_a0, 9);
+        obj = *(char **)env;
+        *(s32 *)(env + 0x48) = 1;
+        if (obj != NULL) {
+            input = (s32 *)obj;
+            handler = *(s32 (**)(s32 *, s32))((char *)input + 8);
+            handler(input, 9);
         }
         break;
     default:
-        temp_a0 = *(s32 **)arg0;
-        if (temp_a0 != NULL) {
-            var_v0 = *(s32 (**)(s32 *, s32))((char *)temp_a0 + 8);
-            var_v0(temp_a0, arg1);
+        input = *(s32 **)env;
+        if (input != NULL) {
+            handler = *(s32 (**)(s32 *, s32))((char *)input + 8);
+            handler(input, type);
         }
         break;
     }

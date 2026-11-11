@@ -1,24 +1,26 @@
-s32 func_80098180();
+s32 strCmp();
 extern s32 D_8009B9E0;
 extern s32 D_8009B9E4;
 
-s32 *func_80010344(s32 arg0) {
-    s32 *var_s0;
+/* Looks up name in the table at D_8009B9E0, which has 3-word entries (name pointer, link, ...)
+ * and ends when an entry's second word is 0. Returns the matching entry, or NULL. */
+s32 *func_80010344(s32 name) {
+    s32 *entry;
 
-    var_s0 = &D_8009B9E0;
+    entry = &D_8009B9E0;
     if (D_8009B9E4 == 0) {
         goto block_6;
     }
 loop_1:
-    if (func_80098180(arg0, *var_s0) == 0) {
+    if (strCmp(name, *entry) == 0) {
         goto block_3;
     }
-    var_s0 += 3;
+    entry += 3;
     goto block_5;
 block_3:
-    return var_s0;
+    return entry;
 block_5:
-    if (var_s0[1] != 0) {
+    if (entry[1] != 0) {
         goto loop_1;
     }
 block_6:

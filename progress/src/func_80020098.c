@@ -1,22 +1,27 @@
-extern u8 D_800C02AE[];
-void func_80020098(u8 *arg0, u8 arg1)
+extern u8 gStreamState[];
+
+/* Fills one channel's 0x81-byte envelope row in gStreamState. The track holds
+   envelope points (0x4C bytes apart, from offset 0xDF) and a point count at 0x44.
+   Each segment is linearly interpolated over 10 steps, clamped to 0x7F. The row's
+   last byte gets the final point's level. */
+void func_80020098(u8 *track, u8 channel)
 {
-  u8 i, j, k;
+  u8 seg, step, out;
   u8 prev, cur;
   u8 *dst;
-  k = 0;
+  out = 0;
 
-  cur = arg0[0x93];
-  for (i = 0; i < *(s32 *)(arg0 + 0x44) - 1; i++)
+  cur = track[0x93];
+  for (seg = 0; seg < *(s32 *)(track + 0x44) - 1; seg++)
   {
     prev = cur;
-    cur = arg0[i * 0x4C + 0xDF];
-    for (j = 0; j < 10; j++)
+    cur = track[seg * 0x4C + 0xDF];
+    for (step = 0; step < 10; step++)
     {
-      D_800C02AE[0x5BAA + arg1 * 0x81 + k] = prev + j * (cur - prev) / 10;
-      if (D_800C02AE[0x5BAA + arg1 * 0x81 + k] >= 0x80) D_800C02AE[0x5BAA + arg1 * 0x81 + k] = 0x7F;
-      if (k < 0x80) k++;
+      gStreamState[0x5BAA + channel * 0x81 + out] = prev + step * (cur - prev) / 10;
+      if (gStreamState[0x5BAA + channel * 0x81 + out] >= 0x80) gStreamState[0x5BAA + channel * 0x81 + out] = 0x7F;
+      if (out < 0x80) out++;
     }
   }
-  D_800C02AE[0x5C2A + arg1 * 0x81] = cur;
+  gStreamState[0x5C2A + channel * 0x81] = cur;
 }

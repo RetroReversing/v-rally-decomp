@@ -1,4 +1,4 @@
-extern char D_800AE850[];
+extern char gOrderState[];
 
 s32 func_80022068(void *, s32);
 
@@ -21,7 +21,7 @@ void func_80024330(void *arg0) {
     *(s32 *)(*(char **)((char *)arg0 + 0x80) + 0x4C) = -(*(s32 *)(*(char **)((char *)arg0 + 0x80) + 0x394) >> 1);
     temp_v1 = *(char **)((char *)arg0 + 0x80);
     temp = *(s32 *)(temp_v1 + 4);
-    *(s32 *)(D_800AE850 + 0x80A4) = 0;
+    *(s32 *)(gOrderState + 0x80A4) = 0;
     *(s32 *)(temp_v1 + 0x50) = temp + 0x1E;
     *(s32 *)(*(char **)((char *)arg0 + 0x80) + 0x54) = c - *(s32 *)(*(char **)((char *)arg0 + 0x80) + 0x398);
     func_80022068(arg0, *(s32 *)(*(char **)((char *)arg0 + 0x84) + 0x48));

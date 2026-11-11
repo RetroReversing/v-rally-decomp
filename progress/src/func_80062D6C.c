@@ -1,38 +1,40 @@
-s32 func_800592F4();
-extern char D_800C02AE[];
+void slot_set_selected();
+extern char gStreamState[];
 
+/* Reports the current select state to the slot (slot 3). Mode 2 reports one of two
+ * halves, the first time it is set; mode 1 reports both halves at once. */
 s32 func_80062D6C(void)
 {
-    u16 *p;
-    s32 a0;
-    s32 a1;
+    u16 *sel;
+    s32 slot;
+    s32 selected;
 
-    p = *(u16 **)(D_800C02AE + 0x32F2);
-    if (p[7] == 2)
+    sel = *(u16 **)(gStreamState + 0x32F2);
+    if (sel[7] == 2)
     {
-        if (p[0xC] != 0)
+        if (sel[0xC] != 0)
             return 0;
-        a0 = 3;
-        if (p[0xD] != 0)
+        slot = 3;
+        if (sel[0xD] != 0)
         {
-            p[0xC] = 1;
-            a1 = 1;
+            sel[0xC] = 1;
+            selected = 1;
         }
         else
         {
-            p[0xD] = 1;
-            a1 = 0;
+            sel[0xD] = 1;
+            selected = 0;
         }
     }
-    else if (p[7] == 1)
+    else if (sel[7] == 1)
     {
-        a0 = 3;
-        a1 = 1;
-        p[0xC] = 1;
-        p[0xD] = 1;
+        slot = 3;
+        selected = 1;
+        sel[0xC] = 1;
+        sel[0xD] = 1;
     }
     else
         return 0;
-    func_800592F4(a0, a1);
+    slot_set_selected(slot, selected);
     return 0;
 }

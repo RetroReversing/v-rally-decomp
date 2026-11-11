@@ -1,2 +1,21 @@
-extern char *D_800C35A0; void func_800592F4(int a, int b);
-int func_800707D0(int arg0) { char *p = D_800C35A0; int v; if (*(unsigned short *)(p + 0x20) >= 8) { *(unsigned short *)(p + 0x20) = 0; v = 0; } else { *(unsigned short *)(p + 0x20) = 8; v = 1; } func_800592F4(arg0, v); return 0; }
+extern char *gRecords;
+void slot_set_selected(int a, int b);
+
+/* Toggles the mode word at gRecords+0x20 between 0 and 8, then reports the new state (1 when on)
+   to slot. Returns 0. */
+int func_800707D0(int slot)
+{
+    char *records;
+    int selected;
+
+    records = gRecords;
+    if (*(unsigned short *)(records + 0x20) >= 8) {
+        *(unsigned short *)(records + 0x20) = 0;
+        selected = 0;
+    } else {
+        *(unsigned short *)(records + 0x20) = 8;
+        selected = 1;
+    }
+    slot_set_selected(slot, selected);
+    return 0;
+}

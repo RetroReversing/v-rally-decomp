@@ -34,111 +34,113 @@ typedef struct
   char pad2[0xE];
   u16 h1E;
 } R356;
-extern s8 D_800C34D0;
-extern u8 D_800C7926[];
-#define D_800C7926 D_800C7926[0]
-extern s32 D_8009FF30;
-extern Obj356 *D_800C811C;
-extern N356 *D_800C7F84;
-extern R356 *D_800C35A0;
-void *func_80034FF0(void *, s32);
+extern s8 gStreamLastValue;
+extern u8 g_dark_mode[];
+#define g_dark_mode g_dark_mode[0]
+extern s32 gShadeMode;
+extern Obj356 *g_ent_list;
+extern N356 *g_camera;
+extern R356 *gRecords;
+void *getTexturePack(void *, s32);
 void func_80035B04(void *);
 void func_80036260(void *);
 void func_80036C48(void *, Obj356 *);
-N356 *func_8004240C(s32);
-void *func_8007EAA0(s32, s32);
-void func_80035C4C(void);
-void func_80035F24(void);
-void func_8003647C(void);
+N356 *find_object_by_id(s32);
+void *poolAlloc(s32, s32);
+void update_part_scroll(void);
+void track_draw_visible_tris(void);
+void smoke_update_particles(void);
 void func_8003678C(void);
 
+/* Allocates and sets up the per-mode state object (g_ent_list) for the
+ * current game state arg0; mode picks the layout and the work buffers. */
 void func_80035684(char *arg0)
 {
-  N356 *n;
-  u32 cnt;
-  u16 t;
+  N356 *ref_node;
+  u32 count;
+  u16 h1e;
 
-  D_800C811C = func_8007EAA0(1, 0x44);
-  D_800C811C->mode = D_8009FF30;
-  n = func_8004240C(1);
-  D_800C811C->f18 = n->x;
-  D_800C811C->f18 = n->y;
-  D_800C811C->f20 = n->z;
-  D_800C811C->f24 = n->x;
-  D_800C811C->f24 = n->y;
-  D_800C811C->f2c = n->z;
-  D_800C7F84 = n;
-  D_800C34D0 = 0;
-  switch (D_800C811C->mode)
+  g_ent_list = poolAlloc(1, 0x44);
+  g_ent_list->mode = gShadeMode;
+  ref_node = find_object_by_id(1);
+  g_ent_list->f18 = ref_node->x;
+  g_ent_list->f18 = ref_node->y;
+  g_ent_list->f20 = ref_node->z;
+  g_ent_list->f24 = ref_node->x;
+  g_ent_list->f24 = ref_node->y;
+  g_ent_list->f2c = ref_node->z;
+  g_camera = ref_node;
+  gStreamLastValue = 0;
+  switch (g_ent_list->mode)
   {
     case 0:
-      D_800C811C->x = 0;
-      D_800C811C->p = 0;
-      D_800C811C->q = 0;
-      if (D_800C7926 == 0)
+      g_ent_list->x = 0;
+      g_ent_list->p = 0;
+      g_ent_list->q = 0;
+      if (g_dark_mode == 0)
       {
-        D_800C811C->x38 = *(s32 *) (arg0 + 0x420);
-        D_800C811C->x3c = (f32) -*(s32 *) (arg0 + 0x46C) * 0.1f;
-        D_800C811C->x40 = *(s32 *) (arg0 + 0x4B8);
-        func_80036C48(arg0, D_800C811C);
+        g_ent_list->x38 = *(s32 *) (arg0 + 0x420);
+        g_ent_list->x3c = (f32) -*(s32 *) (arg0 + 0x46C) * 0.1f;
+        g_ent_list->x40 = *(s32 *) (arg0 + 0x4B8);
+        func_80036C48(arg0, g_ent_list);
       }
       break;
     case 3:
-      cnt = *(s32 *) (arg0 + 0xDC) - 50;
-      D_800C811C->n = cnt;
-      if ((u32) (D_800C7926 - 1) < 2 || (t = D_800C35A0->h1E) == 5 || (t != 0 && t < 5))
-        D_800C811C->n = D_800C811C->n / 3;
-      else if (D_800C7926 == 3)
-        D_800C811C->n = cnt >> 2;
-      D_800C811C->b7 = *(s32 *) (arg0 + 0x128);
-      D_800C811C->cb = func_8003647C;
-      D_800C811C->x = 0;
-      D_800C811C->cb2 = func_8003678C;
-      D_800C811C->p = func_8007EAA0(1, D_800C811C->n * 20);
-      if (D_800C35A0->hE == 2)
+      count = *(s32 *) (arg0 + 0xDC) - 50;
+      g_ent_list->n = count;
+      if ((u32) (g_dark_mode - 1) < 2 || (h1e = gRecords->h1E) == 5 || (h1e != 0 && h1e < 5))
+        g_ent_list->n = g_ent_list->n / 3;
+      else if (g_dark_mode == 3)
+        g_ent_list->n = count >> 2;
+      g_ent_list->b7 = *(s32 *) (arg0 + 0x128);
+      g_ent_list->cb = smoke_update_particles;
+      g_ent_list->x = 0;
+      g_ent_list->cb2 = func_8003678C;
+      g_ent_list->p = poolAlloc(1, g_ent_list->n * 20);
+      if (gRecords->hE == 2)
       {
-        D_800C811C->q = func_8007EAA0(1, D_800C811C->n * 20);
-        func_80036260(D_800C811C->p);
-        func_80036260(D_800C811C->q);
+        g_ent_list->q = poolAlloc(1, g_ent_list->n * 20);
+        func_80036260(g_ent_list->p);
+        func_80036260(g_ent_list->q);
       }
       else
       {
-        D_800C811C->q = 0;
-        func_80036260(D_800C811C->p);
+        g_ent_list->q = 0;
+        func_80036260(g_ent_list->p);
       }
       break;
     case 4:
       {
       u32 c4 = *(u32 *) (arg0 + 0x174);
-      D_800C811C->n = c4;
-      if ((u32) (D_800C7926 - 1) < 2)
-        D_800C811C->n = c4 >> 1;
-      else if (D_800C7926 == 3)
-        D_800C811C->n = c4 >> 2;
+      g_ent_list->n = c4;
+      if ((u32) (g_dark_mode - 1) < 2)
+        g_ent_list->n = c4 >> 1;
+      else if (g_dark_mode == 3)
+        g_ent_list->n = c4 >> 2;
       }
-      D_800C811C->c = *(s32 *) (arg0 + 0x1C0);
-      D_800C811C->b6 = *(s32 *) (arg0 + 0x20C);
-      D_800C811C->b7 = *(s32 *) (arg0 + 0x258);
-      D_800C811C->x = (s32) func_80034FF0(arg0 + 0x260, 0);
-      D_800C811C->cb = func_80035C4C;
-      D_800C811C->cb2 = func_80035F24;
-      D_800C811C->p = func_8007EAA0(1, D_800C811C->n * 8);
-      if (D_800C35A0->hE == 2)
+      g_ent_list->c = *(s32 *) (arg0 + 0x1C0);
+      g_ent_list->b6 = *(s32 *) (arg0 + 0x20C);
+      g_ent_list->b7 = *(s32 *) (arg0 + 0x258);
+      g_ent_list->x = (s32) getTexturePack(arg0 + 0x260, 0);
+      g_ent_list->cb = update_part_scroll;
+      g_ent_list->cb2 = track_draw_visible_tris;
+      g_ent_list->p = poolAlloc(1, g_ent_list->n * 8);
+      if (gRecords->hE == 2)
       {
-        D_800C811C->q = func_8007EAA0(1, D_800C811C->n * 8);
-        func_80035B04(D_800C811C->p);
-        func_80035B04(D_800C811C->q);
+        g_ent_list->q = poolAlloc(1, g_ent_list->n * 8);
+        func_80035B04(g_ent_list->p);
+        func_80035B04(g_ent_list->q);
       }
       else
       {
-        D_800C811C->q = 0;
-        func_80035B04(D_800C811C->p);
+        g_ent_list->q = 0;
+        func_80035B04(g_ent_list->p);
       }
       break;
     default:
-      D_800C811C->x = 0;
-      D_800C811C->p = 0;
-      D_800C811C->q = 0;
+      g_ent_list->x = 0;
+      g_ent_list->p = 0;
+      g_ent_list->q = 0;
       break;
   }
 }

@@ -1,5 +1,5 @@
 #define MASK(x) (*(u16 *)(D_800A19F0+(x)*2))
-#define NEED(x) while(bitcnt<(x)){s32 c;if(--*(s32 *)(D_800C02AE+0x3092)>=0)c=*(*(u8 **)((s32 *)(D_800C02AE+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;bitbuf|=(u32)c<<bitcnt;bitcnt+=8;}
+#define NEED(x) while(bitcnt<(x)){s32 c;if(--*(s32 *)(gStreamState+0x3092)>=0)c=*(*(u8 **)((s32 *)(gStreamState+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;bitbuf|=(u32)c<<bitcnt;bitcnt+=8;}
 #define DUMP(x) bitbuf>>=(x);bitcnt-=(x)
 typedef struct Huft
 {
@@ -15,8 +15,8 @@ typedef struct Huft
 extern s32 func_80082094(void);
 extern void func_800821A4(void *, s32, s32);
 extern void func_8008E13C(void *, void *, u32);
-extern u8 D_800C02AE[];
-extern u8 D_800AE850[];
+extern u8 gStreamState[];
+extern u8 gOrderState[];
 extern u8 D_800A19F0[];
 static inline void wcopy(u32 *to, u32 *from, u32 len)
 {
@@ -46,7 +46,7 @@ static inline void wcopy(u32 *to, u32 *from, u32 len)
 
 /* Inflate (DEFLATE) compressed-block decoder: decodes literal/length and
  * distance codes from the bit buffer kept in the global decoder state, writes
- * the output into the 32 KB sliding window at D_800AE850+0x8AE8 (flushing it
+ * the output into the 32 KB sliding window at gOrderState+0x8AE8 (flushing it
  * through func_800821A4 when full), and saves the state back. Returns 0 at end
  * of block, 1 on a bad code. */
 s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
@@ -63,12 +63,12 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
   u8 *new_var;
   u32 dist_mask;
   Huft *t;
-  bitbuf = *((u32 *) (D_800C02AE + 0x310E));
-  bitcnt = *((u32 *) (D_800C02AE + 0x3112));
-  wpos = *((u32 *) (D_800C02AE + 0x310A));
+  bitbuf = *((u32 *) (gStreamState + 0x310E));
+  bitcnt = *((u32 *) (gStreamState + 0x3112));
+  wpos = *((u32 *) (gStreamState + 0x310A));
   lit_mask = MASK(lit_bits);
   new_var3 = 0x3112;
-  new_var = D_800C02AE + new_var3;
+  new_var = gStreamState + new_var3;
   dist_mask = MASK(dist_bits);
   for (;;)
   {
@@ -91,10 +91,10 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
     DUMP(t->b);
     if (extra == 16)
     {
-      ((u8 *) (D_800AE850 + 0x8AE8))[wpos++] = t->v.n;
+      ((u8 *) (gOrderState + 0x8AE8))[wpos++] = t->v.n;
       if (wpos == 0x8000)
       {
-        func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);
+        func_800821A4(gOrderState + 0x8AE8, 0x8000, 0);
         wpos = 0;
       }
       continue;
@@ -149,13 +149,13 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
       copy_len -= chunk;
       if ((wpos - dist) >= chunk)
       {
-        u32 *to = (u32 *) ((wpos + D_800AE850) + 0x8AE8);
+        u32 *to = (u32 *) ((wpos + gOrderState) + 0x8AE8);
         u8 *src0;
-        if ((!(((u32) to) & 3)) && (!(((u32) ((dist + D_800AE850) + 0x8AE8)) & 3)))
+        if ((!(((u32) to) & 3)) && (!(((u32) ((dist + gOrderState) + 0x8AE8)) & 3)))
         {
           u32 words = chunk >> 2;
           {
-            u32 *from = (u32 *) ((dist + D_800AE850) + 0x8AE8);
+            u32 *from = (u32 *) ((dist + gOrderState) + 0x8AE8);
             u32 len = words * 4;
             u32 *end = (u32 *) ((u8 *) from + len);
             u32 n2;
@@ -178,20 +178,20 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
           }
           wpos += words * 4;
           dist += words * 4;
-          to = (u32 *) ((wpos + D_800AE850) + 0x8AE8);
-          src0 = (dist + D_800AE850) + 0x8AE8;
+          to = (u32 *) ((wpos + gOrderState) + 0x8AE8);
+          src0 = (dist + gOrderState) + 0x8AE8;
           chunk &= 3;
         }
         else
-          src0 = (dist + D_800AE850) + 0x8AE8;
+          src0 = (dist + gOrderState) + 0x8AE8;
         func_8008E13C(to, src0, chunk);
         wpos += chunk;
         dist += chunk;
       }
       else
       {
-        u8 *dst = (wpos + D_800AE850) + 0x8AE8;
-        u8 *src = (dist + D_800AE850) + 0x8AE8;
+        u8 *dst = (wpos + gOrderState) + 0x8AE8;
+        u8 *src = (dist + gOrderState) + 0x8AE8;
         do
         {
           *(dst++) = *(src++);
@@ -203,7 +203,7 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
       }
       if (wpos == 0x8000)
       {
-        func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);
+        func_800821A4(gOrderState + 0x8AE8, 0x8000, 0);
         wpos = 0;
       }
       dist &= 0x7fff;
@@ -211,8 +211,8 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
     while (copy_len);
   }
 
-  *((u32 *) (D_800C02AE + 0x310A)) = wpos;
-  *((u32 *) (D_800C02AE + 0x310E)) = bitbuf;
+  *((u32 *) (gStreamState + 0x310A)) = wpos;
+  *((u32 *) (gStreamState + 0x310E)) = bitbuf;
   *((u32 *) new_var) = bitcnt;
   return 0;
 }

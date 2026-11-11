@@ -1,19 +1,21 @@
-extern u8 *D_800C35A0;
+extern u8 *gRecords;
+
+/* Copies per-object timing from the current record: a derived value into obj+0x7A, and obj+0x0E from the sub-object's table entry (+6 or +0x10 depending on the mode word). */
 void func_8003EE84(void *object) {
-    u8 * a1 = object;
-    s32 a2 = *(s32*)(*(s32*)(a1+0xA8)+0x24);
-    u8 *a0;
-    s32 v1;
-    if (a2 != 0) {
-        a0 = D_800C35A0;
-        a0 = a0 + (*(u16*)(a1+0x76) + a0)[0x32]*0x28;
-        a0 = a0 + *(u16*)(a1+0x78);
-        v1 = a0[0x44];
-        if (v1 < 0x41) *(s16*)(a1+0x7A) = v1-0x16; else *(s16*)(a1+0x7A) = v1-0x41;
-        if (*(s32*)(*(s32*)(a2+0x6C)+8) == 1) {
-            *(s16*)(a1+0xE) = *(u16*)(*(s32*)(*(s32*)(a1+0xA8)+0x178)+0xA) + 6;
+    u8 *obj = object;
+    s32 state = *(s32*)(*(s32*)(obj+0xA8)+0x24);
+    u8 *rec;
+    s32 value;
+    if (state != 0) {
+        rec = gRecords;
+        rec = rec + (*(u16*)(obj+0x76) + rec)[0x32]*0x28;
+        rec = rec + *(u16*)(obj+0x78);
+        value = rec[0x44];
+        if (value < 0x41) *(s16*)(obj+0x7A) = value-0x16; else *(s16*)(obj+0x7A) = value-0x41;
+        if (*(s32*)(*(s32*)(state+0x6C)+8) == 1) {
+            *(s16*)(obj+0xE) = *(u16*)(*(s32*)(*(s32*)(obj+0xA8)+0x178)+0xA) + 6;
         } else {
-            *(s16*)(a1+0xE) = *(u16*)(*(s32*)(*(s32*)(a1+0xA8)+0x178)+0xA) + 0x10;
+            *(s16*)(obj+0xE) = *(u16*)(*(s32*)(*(s32*)(obj+0xA8)+0x178)+0xA) + 0x10;
         }
     }
 }

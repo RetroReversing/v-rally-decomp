@@ -1,5 +1,7 @@
-void *func_80097CC0(void *arg0, u8 *src, u32 n) {
-    u8 *dst = (u8 *)arg0 + n;
+/* Copies n bytes from src to dst, handling overlap by copying backwards from the end. Word-aligned copies
+ * use 4-byte moves once dst is aligned. Returns dst. */
+void *func_80097CC0(void *dst0, u8 *src, u32 n) {
+    u8 *dst = (u8 *)dst0 + n;
     u32 count;
     src += n;
     if (((u32)(src-dst)&3) != 0) {
@@ -12,5 +14,5 @@ void *func_80097CC0(void *arg0, u8 *src, u32 n) {
         if(n & 2) {src-=2;dst-=2;*(u16 *)dst=*(u16 *)src;}
         if(n & 1) dst[-1]=src[-1];
     }
-    return arg0;
+    return dst0;
 }

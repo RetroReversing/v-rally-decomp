@@ -1,0 +1,24 @@
+/* Sets the colour bytes of the four vertices of quad `index` (16-byte Vtx entries, array at obj+0x70).
+ * Vertex 0 gets two signed and one unsigned colour byte, vertices 1-3 three unsigned bytes each.
+ * Alpha is forced to 0xFF for every vertex. */
+void gfx_set_quad_color(void *obj, s32 index, s8 v0a, s8 v0b, u8 v0c, u8 v1a, u8 v1b, u8 v1c, u8 v2a, u8 v2b, u8 v2c, u8 v3a, u8 v3b, u8 v3c) {
+    s32 off;
+
+    off = (index & 0xFFFF) * 0x10;
+    *(s8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0xC) = v0a;
+    *(s8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0xD) = v0b;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0xE) = v0c;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0xF) = 0xFF;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x1C) = v1a;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x1D) = v1b;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x1E) = v1c;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x1F) = 0xFF;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x2C) = v2a;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x2D) = v2b;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x2E) = v2c;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x2F) = 0xFF;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x3C) = v3a;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x3D) = v3b;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x3E) = v3c;
+    *(u8 *)((s8 *)(off + *(s32 *)((s8 *)obj + 0x70)) + 0x3F) = 0xFF;
+}

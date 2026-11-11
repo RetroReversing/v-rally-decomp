@@ -1,31 +1,33 @@
 void *__allocParam();
-void alSynSetFXMix(void *arg0, void *arg1, s32 arg2)
+
+/* Queues a mix update on the voice's effect: a VRALParam of type 0x10 carrying mix & 0xFF, timed at the
+ * synth clock (+0x1C) plus the effect's time offset (+0xD8), and sent to the effect's handler as type 3. */
+void alSynSetFXMix(void *synth, void *voice, s32 mix)
 {
-  s32 var_v1;
-  void *var_a0;
-  void *var_a2;
-  void *var_s0;
-  void *var_s1;
-  s32 var_s2;
-  s32 var_a1;
-  var_s0 = arg1;
-  var_s1 = arg0;
-  var_s2 = arg2;
-  if (*((void **) (((char *) var_s0) + 8)) != NULL)
+  s32 time;
+  void *offs;
+  VRALParam *evt;
+  void *handler_obj;
+  void *voice_s0;
+  void *synth_s1;
+  s32 mix_s2;
+  voice_s0 = voice;
+  synth_s1 = synth;
+  mix_s2 = mix;
+  if (*((void **) (((char *) voice_s0) + 8)) != NULL)
   {
-    var_a2 = __allocParam();
-    if (var_a2 != NULL)
+    evt = __allocParam();
+    if (evt != NULL)
     {
-      var_v1 = *((s32 *) (((char *) var_s1) + 0x1C));
-      var_a0 = *((void **) (((char *) *((void **) (((char *) var_s0) + 8))) + 0xD8));
-      *((s16 *) (((char *) var_a2) + 8)) = 0x10;
-      *((s32 *) (((char *) var_a2) + 0xC)) = var_s2 & 0xFF;
-      *((s32 *) (((char *) var_a2) + 0)) = 0;
-      var_v1 += (s32) var_a0;
-      *((s32 *) (((char *) var_a2) + 4)) = var_v1;
-      var_a0 = *((void **) (((char *) *((void **) (((char *) var_s0) + 8))) + 0xC));
-      var_a1 = 3;
-      (*((s32 (**)(void *, s32, void *)) (((char *) var_a0) + 8)))(var_a0, 3, var_a2);
+      time = *((s32 *) (((char *) synth_s1) + 0x1C));
+      offs = *((void **) (((char *) *((void **) (((char *) voice_s0) + 8))) + 0xD8));
+      evt->type = 0x10;
+      evt->value = mix_s2 & 0xFF;
+      evt->next = NULL;
+      time += (s32) offs;
+      evt->time = time;
+      handler_obj = *((void **) (((char *) *((void **) (((char *) voice_s0) + 8))) + 0xC));
+      (*((s32 (**)(void *, s32, void *)) (((char *) handler_obj) + 8)))(handler_obj, 3, evt);
     }
   }
 }

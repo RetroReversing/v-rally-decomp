@@ -1,8 +1,23 @@
-struct S { char p0[16]; int a, b, c; char p1[78]; short h; };
-extern int D_8009BA30;
-void func_80011058(struct S *a, int b, int c);
-void func_80012114(struct S *arg0, int arg1) {
-    func_80011058(arg0, arg1, 4);
+/* Voice/channel state block; offsets from func_80011058 and func_80012114. */
+typedef struct VRChannelState {
+    u8 pad00[16];
+    s32 volume;      /* +0x10 */
+    s32 pitch;       /* +0x14 */
+    s32 pan;         /* +0x18 */
+    u8 pad1C[0x4E];
+    s16 rate;        /* +0x6A, 0x1000 = unity */
+} VRChannelState;
+
+extern s32 D_8009BA30;
+void func_80011058(VRChannelState *state, s32 table, s32 index);
+
+/* Loads table entry 'table' (entry 4) into the channel state, sets the flag D_8009BA30,
+ * then writes the fixed default volume, pitch, pan and rate. */
+void func_80012114(VRChannelState *state, s32 table) {
+    func_80011058(state, table, 4);
     D_8009BA30 = 1;
-    arg0->a = 0x80; arg0->b = 0x14; arg0->c = 5; arg0->h = 0x1000;
+    state->volume = 0x80;
+    state->pitch = 0x14;
+    state->pan = 5;
+    state->rate = 0x1000;
 }

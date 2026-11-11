@@ -12,10 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gStreamState;
 
 void func_80050DD4(void) {
-    M2C_FIELD(&D_800C02AE, s8 *, 0x38EE) = 0x14;
-    M2C_FIELD(&D_800C02AE, s8 *, 0x38EF) = 0;
-    M2C_FIELD(&D_800C02AE, s8 *, 0x38F1) = 0;
+    M2C_FIELD(&gStreamState, s8 *, 0x38EE) = 0x14;
+    M2C_FIELD(&gStreamState, s8 *, 0x38EF) = 0;
+    M2C_FIELD(&gStreamState, s8 *, 0x38F1) = 0;
 }

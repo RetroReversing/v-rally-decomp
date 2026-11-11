@@ -1,56 +1,69 @@
 s32 func_8008B634();
-s32 func_8008BD90();
-s32 func_8008BDB0();
+s32 osDisableInt();
+s32 osRestoreInt();
 s32 __osDequeueThread();
 extern void *D_800A251C;
 extern void *D_800A2520;
 
-void osDestroyThread(void *arg0)
+typedef struct OSThread
 {
-  s32 temp_s1;
-  void *var_s0;
-  void *var_v0;
-  void *var_v1;
+  u8 pad00[4];
+  s32 priority;
+  void *queue;
+  struct OSThread *next;
+  u16 state;
+} OSThread;
 
-  var_s0 = arg0;
-  temp_s1 = func_8008BD90();
-  if (arg0 == NULL)
+/* Removes a thread (the running thread when arg is NULL) from the thread list and the
+ * run queue, then restores the interrupt level saved on entry. The running thread is
+ * cleared when it is destroyed. */
+void osDestroyThread(void *thread)
+{
+  s32 savedIntLevel;
+  OSThread *cur;
+  OSThread *prev;
+  OSThread *walk;
+
+  cur = thread;
+  savedIntLevel = osDisableInt();
+  if (thread == NULL)
   {
-    var_s0 = D_800A2520;
+    cur = D_800A2520;
   }
-  else if (*((u16 *) (((char *) var_s0) + 0x10)) != 1)
+  else if (((OSThread *)cur)->state != 1)
   {
-    __osDequeueThread(*((s32 *) (((char *) var_s0) + 8)), var_s0);
+    __osDequeueThread(((OSThread *)cur)->queue, cur);
   }
 
-  if (D_800A251C == var_s0)
+  if (D_800A251C == cur)
   {
-    D_800A251C = *((void **) (((char *) var_s0) + 0xC));
+    D_800A251C = ((OSThread *)cur)->next;
     goto done;
   }
   goto walk;
 unlink:
-  *((void **) (((char *) var_v1) + 0xC)) = *((void **) (((char *) var_s0) + 0xC));
+  prev->next = ((OSThread *)cur)->next;
   goto done;
 walk:
-  var_v1 = D_800A251C;
-  var_v0 = *((void **) (((char *) var_v1) + 0xC));
-  if (var_v0 != NULL)
+  prev = D_800A251C;
+  walk = prev->next;
+  if (walk != NULL)
   {
     do
     {
-      if (var_v0 == var_s0)
+      if (walk == cur)
       {
         goto unlink;
       }
-      var_v1 = var_v0;
-      var_v0 = *((void **) (((char *) var_v0) + 0xC));
-    } while (var_v0 != NULL);
+      prev = walk;
+      walk = walk->next;
+    }
+    while (walk != NULL);
   }
 done:
-  if (var_s0 == D_800A2520)
+  if (cur == D_800A2520)
   {
     func_8008B634();
   }
-  func_8008BDB0(temp_s1);
+  osRestoreInt(savedIntLevel);
 }

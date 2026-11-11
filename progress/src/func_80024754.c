@@ -1,93 +1,95 @@
-void func_80024754(void **arg0) {
-    s32 temp_a1_2, temp_t1, temp_v0, temp_v0_2, temp_v0_3, temp_v0_4;
-    s32 temp_v1, temp_v1_4, var_a1, loop_idx, loop_sum, var_a3, var_v1;
-    u8 var_v0;
-    void *temp_a1, *temp_a1_3, *temp_a1_4, *temp_a2, *temp_t0, *temp_t2;
-    void *temp_v1_2, *temp_v1_3, *temp_v1_5, *var_a0, *var_v1_2;
+/* Per-frame update over the linked list of cars at *head: each car's target
+ * value (target) is recomputed, its rank (rank) is adjusted from the control
+ * state and the lap data, and the control timer at +8 is counted down. */
+void func_80024754(void **head) {
+    s32 delta, half, ctrlState, ctrlStateB, target, i, sum, rank, ev, pos;
+    u8 bits;
+    void *ai, *car, *ctrl, *ctrl2, *ctrl3, *ctrl4, *ctrl5, *ctrl6, *hist, *info, *lapTimes;
+    s32 flags, timer;
 
-    var_a0 = *arg0;
-    if (var_a0 != NULL) {
+    car = *head;
+    if (car != NULL) {
         do {
-            temp_a2 = *(void **)((u8 *)var_a0 + 0x50);
-            temp_a1 = *(void **)((u8 *)var_a0 + 0x48);
-            temp_t2 = *(void **)((u8 *)var_a0 + 0x4C);
-            temp_t1 = *(s32 *)*(s32 **)((u8 *)var_a0 + 0x58);
-            var_a3 = *(s32 *)temp_a2;
-            temp_t0 = (u8 *)temp_a1 + 4;
-            if ((temp_t1 < 0x7D0) & (var_a3 < 3)) {
-                if ((*((u8 *)temp_a1 + 8) != 0) || ((var_v1 = 0, (*(s32 *)((u8 *)temp_a2 + 4) & 2) != 0) && *((u8 *)temp_a1 + 9) != 0)) {
-                    temp_a1_2 = (*(s32 *)(*(void **)((u8 *)var_a0 + 0x78) + 4) - *(s32 *)((u8 *)temp_t2 + 4) + 0x3E8) >> 4;
-                    if (temp_a1_2 >= 0x65) temp_a1_2 = 0x64;
-                    temp_v0 = temp_t1 >> 4;
-                    if (temp_t1 >= 0) var_v1 = temp_a1_2 - temp_v0;
-                    else var_v1 = temp_a1_2 + temp_v0;
+            ctrl = *(void **)((u8 *)car + 0x50);
+            ai = *(void **)((u8 *)car + 0x48);
+            hist = *(void **)((u8 *)car + 0x4C);
+            pos = *(s32 *)*(s32 **)((u8 *)car + 0x58);
+            rank = *(s32 *)ctrl;
+            info = (u8 *)ai + 4;
+            if ((pos < 0x7D0) & (rank < 3)) {
+                if ((*((u8 *)ai + 8) != 0) || ((target = 0, (*(s32 *)((u8 *)ctrl + 4) & 2) != 0) && *((u8 *)ai + 9) != 0)) {
+                    delta = (*(s32 *)(*(void **)((u8 *)car + 0x78) + 4) - *(s32 *)((u8 *)hist + 4) + 0x3E8) >> 4;
+                    if (delta >= 0x65) delta = 0x64;
+                    half = pos >> 4;
+                    if (pos >= 0) target = delta - half;
+                    else target = delta + half;
                 }
-            } else var_v1 = 0;
-            if (var_v1 < 0) {
-                *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x48) + 0x18) = 0;
+            } else target = 0;
+            if (target < 0) {
+                *(s32 *)((u8 *)*(void **)((u8 *)car + 0x48) + 0x18) = 0;
             } else {
-                *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x48) + 0x18) = var_v1;
+                *(s32 *)((u8 *)*(void **)((u8 *)car + 0x48) + 0x18) = target;
             }
 
-            temp_v1 = *((u8 *)temp_t0 + 3) & 0xEF;
-            switch (temp_v1) {
+            ev = *((u8 *)info + 3) & 0xEF;
+            switch (ev) {
             case 0x20:
-                if ((var_a3 < *(s32 *)(*(void **)((u8 *)var_a0 + 0x7C) + 0x20)) &&
-                    ((temp_v0_2 = *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x50) + 4), temp_v0_2 == 0) ||
-                     ((temp_v0_2 != 0) & (var_a3 < 2)))) var_a3 += 1;
-                var_v0 = *((u8 *)temp_t0 + 2) & 0xDF;
-                *((u8 *)temp_t0 + 2) = var_v0;
+                if ((rank < *(s32 *)(*(void **)((u8 *)car + 0x7C) + 0x20)) &&
+                    ((ctrlState = *(s32 *)((u8 *)*(void **)((u8 *)car + 0x50) + 4), ctrlState == 0) ||
+                     ((ctrlState != 0) & (rank < 2)))) rank += 1;
+                bits = *((u8 *)info + 2) & 0xDF;
+                *((u8 *)info + 2) = bits;
                 break;
             case 0x40:
-                if ((var_a3 > 0) &&
-                    ((temp_v0_3 = *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x50) + 4), temp_v0_3 == 0) ||
-                     ((temp_v0_3 != 0) & (var_a3 < 3)))) var_a3 -= 1;
-                var_v0 = *((u8 *)temp_t0 + 2) & 0xBF;
-                *((u8 *)temp_t0 + 2) = var_v0;
+                if ((rank > 0) &&
+                    ((ctrlStateB = *(s32 *)((u8 *)*(void **)((u8 *)car + 0x50) + 4), ctrlStateB == 0) ||
+                     ((ctrlStateB != 0) & (rank < 3)))) rank -= 1;
+                bits = *((u8 *)info + 2) & 0xBF;
+                *((u8 *)info + 2) = bits;
                 break;
             }
-            temp_v1_2 = *(void **)((u8 *)var_a0 + 0x50);
-            if (*(s32 *)((u8 *)temp_v1_2 + 4) != 0) {
-                if (*(s32 *)((u8 *)temp_v1_2 + 8) == 0) {
-                    temp_a1_2 = 0;
-                    loop_idx = 0;
-                    var_v1_2 = *(void **)((u8 *)var_a0 + 0x54);
-                    for (; loop_idx < 4; loop_idx++)
-                        temp_a1_2 += *(s32 *)((u8 *)var_v1_2 + 0x10 + loop_idx * 4);
-                    loop_sum = temp_a1_2;
-                    if (((u32)(loop_sum + 0xAFF) < 0x15FFU) &&
-                        ((*(s32 *)(*(void **)((u8 *)var_a0 + 0x78) + 4) - 0x5DC) < *(s32 *)((u8 *)temp_t2 + 4)) &&
-                        ((var_a3 < *(s32 *)(*(void **)((u8 *)var_a0 + 0x7C) + 0x20)) & (var_a3 > 0)) &&
-                        (*(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x48) + 0x18) == 0)) var_a3 += *((u8 *)temp_t0 + 4) != 0;
-                    temp_a1_2 = *(s32 *)((u8 *)temp_t2 + 4);
-                    if (temp_a1_2 >= 0)
-                        var_a3 -= (temp_a1_2 < (*(s32 *)(*(void **)((u8 *)var_a0 + 0x78) + 4) - 0xFA0)) & (var_a3 >= 3);
-                    if ((*((u8 *)temp_t0 + 5) != 0) && (*(s32 *)*(void **)((u8 *)var_a0 + 0x48) != 5)) {
-                        if ((u32)(temp_t1 + 0x12B) < 0x257U) {
-                            temp_v1_3 = *(void **)((u8 *)var_a0 + 0x50);
-                            var_a3 = 0;
-                            *(s32 *)((u8 *)temp_v1_3 + 4) |= 2;
+            ctrl2 = *(void **)((u8 *)car + 0x50);
+            if (*(s32 *)((u8 *)ctrl2 + 4) != 0) {
+                if (*(s32 *)((u8 *)ctrl2 + 8) == 0) {
+                    delta = 0;
+                    i = 0;
+                    lapTimes = *(void **)((u8 *)car + 0x54);
+                    for (; i < 4; i++)
+                        delta += *(s32 *)((u8 *)lapTimes + 0x10 + i * 4);
+                    sum = delta;
+                    if (((u32)(sum + 0xAFF) < 0x15FFU) &&
+                        ((*(s32 *)(*(void **)((u8 *)car + 0x78) + 4) - 0x5DC) < *(s32 *)((u8 *)hist + 4)) &&
+                        ((rank < *(s32 *)(*(void **)((u8 *)car + 0x7C) + 0x20)) & (rank > 0)) &&
+                        (*(s32 *)((u8 *)*(void **)((u8 *)car + 0x48) + 0x18) == 0)) rank += *((u8 *)info + 4) != 0;
+                    delta = *(s32 *)((u8 *)hist + 4);
+                    if (delta >= 0)
+                        rank -= (delta < (*(s32 *)(*(void **)((u8 *)car + 0x78) + 4) - 0xFA0)) & (rank >= 3);
+                    if ((*((u8 *)info + 5) != 0) && (*(s32 *)*(void **)((u8 *)car + 0x48) != 5)) {
+                        if ((u32)(pos + 0x12B) < 0x257U) {
+                            ctrl3 = *(void **)((u8 *)car + 0x50);
+                            rank = 0;
+                            *(s32 *)((u8 *)ctrl3 + 4) |= 2;
                         }
                     } else {
-                        temp_a1_3 = *(void **)((u8 *)var_a0 + 0x50);
-                        temp_v1_4 = *(s32 *)((u8 *)temp_a1_3 + 4);
-                        if (temp_v1_4 & 2) var_a3 = 2;
-                        *(s32 *)((u8 *)temp_a1_3 + 4) = temp_v1_4 & ~2;
+                        ctrl4 = *(void **)((u8 *)car + 0x50);
+                        flags = *(s32 *)((u8 *)ctrl4 + 4);
+                        if (flags & 2) rank = 2;
+                        *(s32 *)((u8 *)ctrl4 + 4) = flags & ~2;
                     }
                 }
             }
-            if (*((u8 *)temp_t0 + 3) & 0x10)
-                *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x7C) + 0x2C) = 0xFF;
+            if (*((u8 *)info + 3) & 0x10)
+                *(s32 *)((u8 *)*(void **)((u8 *)car + 0x7C) + 0x2C) = 0xFF;
             else
-                *(s32 *)((u8 *)*(void **)((u8 *)var_a0 + 0x7C) + 0x2C) = 0;
-            temp_a1_4 = *(void **)((u8 *)var_a0 + 0x50);
-            if (((var_a3 != *(s32 *)temp_a1_4) & (var_a3 >= 3)) && (*(s32 *)*(void **)((u8 *)var_a0 + 0x4C) == 2))
-                *(s32 *)((u8 *)temp_a1_4 + 8) = 0xA;
-            *(s32 *)*(void **)((u8 *)var_a0 + 0x50) = var_a3;
-            temp_v1_5 = *(void **)((u8 *)var_a0 + 0x50);
-            temp_v0_4 = *(s32 *)((u8 *)temp_v1_5 + 8);
-            if (temp_v0_4 != 0) *(s32 *)((u8 *)temp_v1_5 + 8) = temp_v0_4 - 1;
-            var_a0 = *(void **)((u8 *)var_a0 + 4);
-        } while (var_a0 != NULL);
+                *(s32 *)((u8 *)*(void **)((u8 *)car + 0x7C) + 0x2C) = 0;
+            ctrl5 = *(void **)((u8 *)car + 0x50);
+            if (((rank != *(s32 *)ctrl5) & (rank >= 3)) && (*(s32 *)*(void **)((u8 *)car + 0x4C) == 2))
+                *(s32 *)((u8 *)ctrl5 + 8) = 0xA;
+            *(s32 *)*(void **)((u8 *)car + 0x50) = rank;
+            ctrl6 = *(void **)((u8 *)car + 0x50);
+            timer = *(s32 *)((u8 *)ctrl6 + 8);
+            if (timer != 0) *(s32 *)((u8 *)ctrl6 + 8) = timer - 1;
+            car = *(void **)((u8 *)car + 4);
+        } while (car != NULL);
     }
 }

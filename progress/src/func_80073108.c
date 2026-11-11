@@ -3,35 +3,39 @@ typedef struct
   unsigned char pad[6];
   u16 x;
   u16 y;
-} T7310;
+} Pt;
 typedef struct 
 {
   unsigned char pad[4];
   void *base;
-} A7310;
+} PtList;
 extern u32 D_800A1748;
-void *func_80006008(void);
-void func_80006014(s32, void *);
-void func_80006298(s32);
-s32 func_800070CC(s32);
+void *gfx_get_dl(void);
+void gfx_set_dl(s32, void *);
+void gfx_round_vtx_pos(s32);
+s32 gfx_add_quad_tris(s32);
 void func_800075BC(s32, void *, s32);
-void func_800068C0(s32, s32, s16, s16, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void gfx_set_quad_pos(s32, s32, s16, s16, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_80008B28(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_800072F4(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_80073108(s32 arg0, s16 arg1, s16 arg2, A7310 *arg3, u8 arg4)
+void gfx_set_quad_colors_shared_alpha(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+/* Draws the quad for entry idx of list, offset by (ox, oy): the quad spans from the origin to the
+ * entry's x/y. Pushes a DL call to D_800A1748, then the quad, its outline and a fill with
+ * colour 0x50 and alpha 0x7D. */
+void func_80073108(s32 ctx, s16 ox, s16 oy, PtList *list, u8 idx)
 {
   s32 temp_s0;
   s32 temp_s5;
   void *temp_v0;
-  temp_v0 = func_80006008();
+  temp_v0 = gfx_get_dl();
   *((u32 *) temp_v0) = 0xDE000000;
   *((void **) (((u8 *) temp_v0) + 4)) = &D_800A1748;
-  func_80006014(arg0, ((u8 *) temp_v0) + 8);
-  temp_s0 = arg4 * 4;
-  func_800075BC(arg0, *((void **) (((u8 *) arg3->base) + (arg4 * 4))), 0);
-  temp_s5 = func_800070CC(arg0) & 0xffff;
-  func_800068C0(arg0, temp_s5, arg1, arg2, 0, (s16) (arg1 + ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->x), arg2, 0, (s16) (arg1 + ((T7310 *) (*((void **) (temp_s0 + (int)arg3->base))))->x), (s16) (arg2 + ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->y), 0, arg1, (s16) (arg2 + ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->y), 0);
-  func_80008B28(arg0, temp_s5, 0, 0, ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->x, 0, ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->x, ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->y, 0, ((T7310 *) (*((void **) (((u8 *) arg3->base) + (arg4 * 4)))))->y);
-  func_800072F4(arg0, temp_s5, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x7d);
-  func_80006298(arg0);
+  gfx_set_dl(ctx, ((u8 *) temp_v0) + 8);
+  temp_s0 = idx * 4;
+  func_800075BC(ctx, *((void **) (((u8 *) list->base) + (idx * 4))), 0);
+  temp_s5 = gfx_add_quad_tris(ctx) & 0xffff;
+  gfx_set_quad_pos(ctx, temp_s5, ox, oy, 0, (s16) (ox + ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->x), oy, 0, (s16) (ox + ((Pt *) (*((void **) (temp_s0 + (int)list->base))))->x), (s16) (oy + ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->y), 0, ox, (s16) (oy + ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->y), 0);
+  func_80008B28(ctx, temp_s5, 0, 0, ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->x, 0, ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->x, ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->y, 0, ((Pt *) (*((void **) (((u8 *) list->base) + (idx * 4)))))->y);
+  gfx_set_quad_colors_shared_alpha(ctx, temp_s5, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x50, 0x7d);
+  gfx_round_vtx_pos(ctx);
 }

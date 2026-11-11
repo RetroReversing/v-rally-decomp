@@ -1,31 +1,34 @@
-extern int D_800AE868;
-void func_8001D720(void *arg0)
-{
-  s32 var_a2;
-  s32 temp_a0;
-  u8 temp_a1;
-  char *temp_a3;
+extern int gOrderSlotTable;
 
-  temp_a3 = arg0;
-  var_a2 = 1;
+/* Burns a 16-step counter loop, then if gOrderSlotTable is set, copies four per-channel
+ * s32 fields from each 0x130-byte channel record in arg0 into the table at +0x40..+0x4C. */
+void func_8001D720(void *channels)
+{
+  s32 ch;
+  s32 table;
+  u8 idx;
+  char *chan;
+
+  chan = channels;
+  ch = 1;
   do
   {
-    var_a2++;
+    ch++;
   }
-  while ((u32) (var_a2 & 0xFF) < 0x11U);
-  if (D_800AE868 != 0)
+  while ((u32) (ch & 0xFF) < 0x11U);
+  if (gOrderSlotTable != 0)
   {
-    var_a2 = 0;
+    ch = 0;
     do
     {
-      temp_a0 = D_800AE868;
-      temp_a1 = var_a2 & 0xFF;
-      *((s8 *) (temp_a0 + temp_a1 + 0x40)) = *((s32 *) (temp_a3 + temp_a1 * 0x130 + 0x90));
-      *((s8 *) (D_800AE868 + temp_a1 + 0x44)) = *((s32 *) (temp_a3 + temp_a1 * 0x130 + 0xDC));
-      *((s8 *) (D_800AE868 + temp_a1 + 0x48)) = *((s32 *) (temp_a3 + temp_a1 * 0x130 + 0x128));
-      *((s8 *) (D_800AE868 + temp_a1 + 0x4C)) = *((s32 *) (temp_a3 + temp_a1 * 0x130 + 0x174));
-      var_a2++;
+      table = gOrderSlotTable;
+      idx = ch & 0xFF;
+      *((s8 *) (table + idx + 0x40)) = *((s32 *) (chan + idx * 0x130 + 0x90));
+      *((s8 *) (gOrderSlotTable + idx + 0x44)) = *((s32 *) (chan + idx * 0x130 + 0xDC));
+      *((s8 *) (gOrderSlotTable + idx + 0x48)) = *((s32 *) (chan + idx * 0x130 + 0x128));
+      *((s8 *) (gOrderSlotTable + idx + 0x4C)) = *((s32 *) (chan + idx * 0x130 + 0x174));
+      ch++;
     }
-    while ((u32) (var_a2 & 0xFF) < 4U);
+    while ((u32) (ch & 0xFF) < 4U);
   }
 }

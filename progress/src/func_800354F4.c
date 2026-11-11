@@ -10,15 +10,18 @@ typedef struct Race {
   s32 x30;
   void (*fn)(s32, s32, u8);
 } Race;
-extern Mgr *D_800C35A0;
-extern u8 D_800C34D0;
-extern u8 D_800C7926;
-extern Obj *D_800C7F84;
-extern Race *D_800C811C;
-s32 func_800056FC(void *);
+extern Mgr *gRecords;
+extern u8 gStreamLastValue;
+extern u8 g_dark_mode;
+extern Obj *g_camera;
+extern Race *g_ent_list;
+s32 view_get_ctx_id(void *);
 void func_800376C8(s32, Obj *);
-Obj *func_8004240C(s32);
+Obj *find_object_by_id(s32);
 
+/* Per-frame camera update, once per view for gRecords->mode views (mode 2 is skipped). Points g_camera at
+ * each view's camera object. For race entities of type 3 or 4 it also runs the entity callback and
+ * copies the camera position into the entity's pos array. */
 void func_800354F4(void)
 {
   u16 mode;
@@ -29,36 +32,36 @@ void func_800354F4(void)
   s32 r;
   Obj *obj;
 
-  mode = D_800C35A0->mode;
+  mode = gRecords->mode;
   if (mode == 2)
     return;
   count = mode;
   for (i = 1; i <= count; i++)
   {
-    if (D_800C34D0 != 0)
+    if (gStreamLastValue != 0)
       continue;
-    switch (D_800C811C->type)
+    switch (g_ent_list->type)
     {
       case 0:
-        if (D_800C7926 == 0)
+        if (g_dark_mode == 0)
         {
           k = (i - 1) * 2;
-          obj = func_8004240C(k + 3);
-          D_800C7F84 = obj;
-          r = func_800056FC(obj->p178);
-          func_800376C8(r, func_8004240C(k + 2));
+          obj = find_object_by_id(k + 3);
+          g_camera = obj;
+          r = view_get_ctx_id(obj->p178);
+          func_800376C8(r, find_object_by_id(k + 2));
         }
         break;
       case 3:
       case 4:
         j = i - 1;
-        obj = func_8004240C(j * 2 + 2);
-        D_800C7F84 = obj;
-        r = func_800056FC(obj->p178);
-        D_800C811C->fn(*(s32 *)((u8 *)D_800C811C - -(i * 4) + 0xC), r, i - 1);
-        D_800C811C->pos[j].x = D_800C7F84->pos.x;
-        D_800C811C->pos[j].y = D_800C7F84->pos.y;
-        D_800C811C->pos[j].z = D_800C7F84->pos.z;
+        obj = find_object_by_id(j * 2 + 2);
+        g_camera = obj;
+        r = view_get_ctx_id(obj->p178);
+        g_ent_list->fn(*(s32 *)((u8 *)g_ent_list - -(i * 4) + 0xC), r, i - 1);
+        g_ent_list->pos[j].x = g_camera->pos.x;
+        g_ent_list->pos[j].y = g_camera->pos.y;
+        g_ent_list->pos[j].z = g_camera->pos.z;
         break;
     }
   }

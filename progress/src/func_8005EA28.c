@@ -1,3 +1,5 @@
+/* Copies two name templates into a local frame, clears the padding, resolves the path, then
+ * stamps the digits 1..8 into each template in turn and passes it to func_8004C7F0. */
 typedef struct {
     u8 b[13];
 } Buf13;
@@ -15,30 +17,30 @@ typedef struct {
 
 extern Buf13 D_800A54B4;
 extern Buf14 D_800A54C4;
-extern char D_800A5408[];
+extern char aTexPackDir[];
 void memset(void *, s32, s32);
 void func_8004C7F0(void *);
-void func_80081540(void *);
+void resolve_path(void *);
 
 void func_8005EA28(void) {
-    Frame f;
-    s32 i;
+    Frame frame;
+    s32 digit;
 
-    f.a = D_800A54B4;
-    memset(f.c, 0, 3);
-    f.d = D_800A54C4;
-    memset(f.e, 0, 2);
-    func_80081540(D_800A5408);
-    i = 1;
+    frame.a = D_800A54B4;
+    memset(frame.c, 0, 3);
+    frame.d = D_800A54C4;
+    memset(frame.e, 0, 2);
+    resolve_path(aTexPackDir);
+    digit = 1;
     do {
-        f.a.b[7] = i + 0x30;
-        func_8004C7F0(&f.a);
-        i++;
-    } while ((u8)i < 9);
-    i = 1;
+        frame.a.b[7] = digit + 0x30;
+        func_8004C7F0(&frame.a);
+        digit++;
+    } while ((u8)digit < 9);
+    digit = 1;
     do {
-        f.d.b[8] = i + 0x30;
-        func_8004C7F0(&f.d);
-        i++;
-    } while ((u8)i < 9);
+        frame.d.b[8] = digit + 0x30;
+        func_8004C7F0(&frame.d);
+        digit++;
+    } while ((u8)digit < 9);
 }

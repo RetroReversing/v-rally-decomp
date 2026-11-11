@@ -1,37 +1,39 @@
 u64 osGetTime(void);
 s32 func_80098090(void);
-void func_800980C4(s32);
+void rand_seed(s32);
 extern s32 D_8009F4F0[];
 extern s32 D_8009F4F4[];
 extern s32 D_8009F4F8[];
 extern s32 D_8009F4FC[];
 extern s32 D_8009F510[];
 
+/* Seeds the random generator from the OS clock, then randomises three entries
+ * of five 0x30-byte tables: each value moves by up to +/-5% of itself. */
 void func_80033724(void)
 {
-    s32 var_s3;
-    s32 v;
-    s32 idx;
+    s32 entry;
+    s32 rnd;
+    s32 off;
     s32 ten;
     s32 five;
-    s32 a;
+    s32 value;
 
-    func_800980C4((s32)osGetTime());
-    var_s3 = 0;
+    rand_seed((s32)osGetTime());
+    entry = 0;
     ten = 10;
     five = 5;
     do {
-        v = func_80098090() % ten;
-        idx = (var_s3 & 0xFF) * 0x30;
-        a = *(s32 *)(idx + (int)D_8009F4F0); v -= five; v *= a; v /= 100; a += v; *(s32 *)((char *)D_8009F4F0 + idx) = a;
-        var_s3 += 1;
-        v = func_80098090() % ten;
-        a = *(s32 *)((char *)D_8009F4F4 + idx); v -= five; v *= a; v /= 100; a += v; *(s32 *)((char *)D_8009F4F4 + idx) = a;
-        v = func_80098090() % ten;
-        a = *(s32 *)((char *)D_8009F4F8 + idx); v -= five; v *= a; v /= 100; a += v; *(s32 *)((char *)D_8009F4F8 + idx) = a;
-        v = func_80098090() % ten;
-        a = *(s32 *)((char *)D_8009F4FC + idx); v -= five; v *= a; v /= 100; a += v; *(s32 *)((char *)D_8009F4FC + idx) = a;
-        v = func_80098090() % ten;
-        a = *(s32 *)((char *)D_8009F510 + idx); v -= five; v *= a; v /= 100; a += v; *(s32 *)((char *)D_8009F510 + idx) = a;
-    } while ((u32)(var_s3 & 0xFF) < 3);
+        rnd = func_80098090() % ten;
+        off = (entry & 0xFF) * 0x30;
+        value = *(s32 *)(off + (int)D_8009F4F0); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F0 + off) = value;
+        entry += 1;
+        rnd = func_80098090() % ten;
+        value = *(s32 *)((char *)D_8009F4F4 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F4 + off) = value;
+        rnd = func_80098090() % ten;
+        value = *(s32 *)((char *)D_8009F4F8 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F8 + off) = value;
+        rnd = func_80098090() % ten;
+        value = *(s32 *)((char *)D_8009F4FC + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4FC + off) = value;
+        rnd = func_80098090() % ten;
+        value = *(s32 *)((char *)D_8009F510 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F510 + off) = value;
+    } while ((u32)(entry & 0xFF) < 3);
 }

@@ -1,4 +1,4 @@
-extern char *D_800C35A0,*D_800B615C;extern int D_800C81D0;
+extern char *gRecords,*D_800B615C;extern int D_800C81D0;
 int func_8001FEDC(void *);int func_8002D2C8(int,int);int func_80033DB8(void *,int,int,void *);void func_80033E34(void *,int,void *);
 void func_80034134(void *,void *);void func_800344F0(void *,void *);void func_80033F20(void *,void *,void *);void func_80033C30(void *,void *);
 #define W(p,o) (((struct { char pad[o]; int v; } *)(p))->v)
@@ -36,7 +36,7 @@ target=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);
  }
  if(step>8)step=8;}
  nearest=65000;
- if(data[41] && U(D_800C35A0,0x16)!=2) {
+ if(data[41] && U(gRecords,0x16)!=2) {
   index=0;
   for(i=0;i<data[41];i++){if(W(P(*(char **)&data[37+data[42+i]],0x48),0)<4){other=data[29+data[42+i]];if(other<nearest){index=i;nearest=other;}}}
   index+=(((unsigned)index<<16)<<16);delta=data[25+data[42+index]];other=speed-delta;{int saved_divisor=nearest;nearest=0;if(saved_divisor<0)saved_divisor+=127;saved_divisor>>=7;denom=(saved_divisor==0);saved_divisor+=denom;denom=delta<1800;other=other/saved_divisor;

@@ -1,4 +1,4 @@
-extern s32 D_800B56EC;
+extern s32 g_pos_bias;
 typedef struct 
 {
   u32 pad : 27;
@@ -53,17 +53,17 @@ void func_80017FA4(Seg *);
 void func_80028740(Seg *);
 void func_800307C8(Seg *);
 void func_80030A0C(Seg *);
-void func_80033370(Seg *);
-s32 func_8007EAA0(s32, s32);
+void car_update_list(Seg *);
+s32 poolAlloc(s32, s32);
 void memset(s32, s32, s32);
-void func_80015460(void *, s32);
-extern Seg *volatile D_8009C230;
+void add_pos_bias_words(void *, s32);
+extern Seg *volatile gMirrorListHead;
 extern void (*D_8009C234[])(void *);
-extern f32 D_8009CEC0[];
+extern f32 vtx_scale[];
 extern u8 D_800A73E0[];
-extern char D_800AE850[];
+extern char gOrderState[];
 extern s32 D_800C3510;
-extern Info *D_800C7F80;
+extern Info *g_rec_val;
 Track *func_800180FC(Track *t0)
 {
   char *c;
@@ -79,7 +79,7 @@ Track *func_800180FC(Track *t0)
   {
     return t0;
   }
-  func_80015460(t0, 1);
+  add_pos_bias_words(t0, 1);
   segs = t0->segs;
   D_800A73E0[0x6C01] = 1;
   t = t0;
@@ -114,7 +114,7 @@ Track *func_800180FC(Track *t0)
     }
     {
       s32 vv = (s32) segs[i].verts;
-      s32 base = D_800B56EC;
+      s32 base = g_pos_bias;
       segs[i].verts = (s16 *) (vv + base);
       segs[i].off70 += base;
       if (segs[i].off6C)
@@ -128,30 +128,30 @@ Track *func_800180FC(Track *t0)
   {
     for (i = 0; i < t->n; i++)
     {
-      D_8009C230 = &segs[i];
-      if (segs[i].f.b0 && ((&segs[i]) != (&segs[D_800C7F80->cur])))
+      gMirrorListHead = &segs[i];
+      if (segs[i].f.b0 && ((&segs[i]) != (&segs[g_rec_val->cur])))
       {
         break;
       }
     }
 
     D_800C3510 = i;
-    D_8009C230 = &segs[D_800C7F80->cur];
+    gMirrorListHead = &segs[g_rec_val->cur];
   }
   else
   {
     for (i = 0; i < t->n; i++)
     {
-      D_8009C230 = &segs[i];
-      if (segs[i].f.b0 && ((&segs[i]) != (&segs[D_800C7F80->cur])))
+      gMirrorListHead = &segs[i];
+      if (segs[i].f.b0 && ((&segs[i]) != (&segs[g_rec_val->cur])))
       {
         break;
       }
     }
 
-    old = D_800C7F80->cur;
-    D_800C7F80->cur = i;
-    *(Seg **) &D_8009C230 = &segs[D_800C7F80->cur];
+    old = g_rec_val->cur;
+    g_rec_val->cur = i;
+    *(Seg **) &gMirrorListHead = &segs[g_rec_val->cur];
     D_800C3510 = old;
     for (i = 0; i < t->n; i++)
     {
@@ -168,9 +168,9 @@ Track *func_800180FC(Track *t0)
     segs[D_800C3510].f.b1 = 0;
     segs[D_800C3510].f.b0 = 0;
     segs[D_800C3510].f.b4 = 0;
-    segs[D_800C7F80->cur].f.b1 = 0;
-    segs[D_800C7F80->cur].f.b0 = 1;
-    segs[D_800C7F80->cur].f.b4 = 1;
+    segs[g_rec_val->cur].f.b1 = 0;
+    segs[g_rec_val->cur].f.b0 = 1;
+    segs[g_rec_val->cur].f.b4 = 1;
   }
   else
   {
@@ -178,14 +178,14 @@ Track *func_800180FC(Track *t0)
     segs[D_800C3510].f.b0 = 0;
     segs[D_800C3510].f.b2 = 0;
     segs[D_800C3510].f.b4 = 1;
-    segs[D_800C7F80->cur].f.b1 = 0;
-    segs[D_800C7F80->cur].f.b0 = 1;
-    segs[D_800C7F80->cur].f.b2 = 1;
-    segs[D_800C7F80->cur].f.b4 = 1;
+    segs[g_rec_val->cur].f.b1 = 0;
+    segs[g_rec_val->cur].f.b0 = 1;
+    segs[g_rec_val->cur].f.b2 = 1;
+    segs[g_rec_val->cur].f.b4 = 1;
   }
   if (D_800A73E0[0x6C01] == 0)
   {
-    segs[D_800C7F80->cur].f.b2 = 1;
+    segs[g_rec_val->cur].f.b2 = 1;
   }
   for (i = 0; i < t->n; i++)
   {
@@ -197,8 +197,8 @@ Track *func_800180FC(Track *t0)
     q = &segs[i];
     if (q->cmds)
     {
-      c = q->cmds += D_800B56EC;
-      func_80015460(c, q->count50);
+      c = q->cmds += g_pos_bias;
+      add_pos_bias_words(c, q->count50);
       c = q->cmds;
       if (c)
       {
@@ -219,7 +219,7 @@ Track *func_800180FC(Track *t0)
         }
       }
     }
-    q->alloc = func_8007EAA0(1, 0x28);
+    q->alloc = poolAlloc(1, 0x28);
     memset(q->alloc, 0, 0x28);
     q->z7C = 0;
     q->x0 -= 400;
@@ -228,35 +228,35 @@ Track *func_800180FC(Track *t0)
     q->x1 += 400;
     q->y1 += 400;
     q->x3 += 400;
-    q->x0 = q->x0 * D_8009CEC0[0];
-    q->y0 = q->y0 * D_8009CEC0[1];
-    q->x2 = q->x2 * D_8009CEC0[2];
-    q->x1 = q->x1 * D_8009CEC0[0];
-    q->y1 = q->y1 * D_8009CEC0[1];
-    q->x3 = q->x3 * D_8009CEC0[2];
-    q->b24 = q->b24 * D_8009CEC0[0];
-    q->b28 = q->b28 * D_8009CEC0[1];
-    q->b2C = q->b2C * D_8009CEC0[2];
+    q->x0 = q->x0 * vtx_scale[0];
+    q->y0 = q->y0 * vtx_scale[1];
+    q->x2 = q->x2 * vtx_scale[2];
+    q->x1 = q->x1 * vtx_scale[0];
+    q->y1 = q->y1 * vtx_scale[1];
+    q->x3 = q->x3 * vtx_scale[2];
+    q->b24 = q->b24 * vtx_scale[0];
+    q->b28 = q->b28 * vtx_scale[1];
+    q->b2C = q->b2C * vtx_scale[2];
     n = q->h * q->w;
     {
       s16 *v = q->verts;
       for (j = 0; j < n; j++)
       {
-        v[(j * 3) + 0] = v[(j * 3) + 0] * D_8009CEC0[0];
-        v[(j * 3) + 1] = v[(j * 3) + 1] * D_8009CEC0[1];
-        v[(j * 3) + 2] = v[(j * 3) + 2] * D_8009CEC0[2];
+        v[(j * 3) + 0] = v[(j * 3) + 0] * vtx_scale[0];
+        v[(j * 3) + 1] = v[(j * 3) + 1] * vtx_scale[1];
+        v[(j * 3) + 2] = v[(j * 3) + 2] * vtx_scale[2];
       }
 
     }
   }
 
-  func_80028740(D_8009C230);
+  func_80028740(gMirrorListHead);
   for (i = 0; i < t->n; i++)
   {
     func_800307C8(&segs[i]);
   }
 
-  func_80030A0C(D_8009C230);
-  func_80033370(D_8009C230);
+  func_80030A0C(gMirrorListHead);
+  car_update_list(gMirrorListHead);
   return t0;
 }

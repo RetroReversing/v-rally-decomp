@@ -1,41 +1,45 @@
 #define func_800898D0 ((s32 (*)(u8 *, s32, s32, s32, s32))func_800898D0)
-extern s32 *D_800A9930;
-extern u8 *D_800B68F0;
-extern s32 D_800C782C;
-s32 func_80086C00(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
+extern s32 *gDmaThreadStack;
+extern u8 *gVoices;
+extern s32 gVoiceCount;
+
+/* Picks a voice in the gVoices pool (0x134-byte entries, active flag at +0, voice id at +0x9E, age at +0x44)
+ * for sound `id`. If `steal` is set, a voice already playing `id` is reused first. Otherwise a free voice is
+ * used, or else the oldest one whose priority is below `priority`. Starts the sound on the chosen voice. */
+s32 func_80086C00(s32 id, s32 param1, s32 param2, s32 steal, s32 priority)
 {
   s32 best;
   s32 new_var;
   s32 min;
   s32 i;
   s32 limit;
-  u8 *new_var2;
+  u8 *nameField;
   s32 spare[4];
   u8 *p;
   u8 *selected;
-  u8 *new_var3;
-  u8 *new_var4;
+  u8 *unusedPtr1;
+  u8 *unusedPtr2;
   s32 val;
   s32 count;
-  best = arg4;
+  best = priority;
   if (best == (-1))
   {
-    best = D_800A9930[arg0];
+    best = gDmaThreadStack[id];
   }
   min = best + 1;
-  if (arg3)
+  if (steal)
   {
-    count = D_800C782C;
-    p = D_800B68F0;
+    count = gVoiceCount;
+    p = gVoices;
     i = 0;
-    new_var2 = p + 0x9e;
+    nameField = p + 0x9e;
     if (count > 0)
     {
       limit = count;
       do
       {
         min = *((u16 *) (p + 0x9e));
-        if ((u16)min == arg0)
+        if ((u16)min == id)
         {
           goto found;
         }
@@ -46,8 +50,8 @@ s32 func_80086C00(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
       min = best + 1;
     }
   }
-  count = D_800C782C;
-  p = D_800B68F0;
+  count = gVoiceCount;
+  p = gVoices;
   i = 0;
   if (count > 0)
   {
@@ -76,8 +80,8 @@ s32 func_80086C00(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
   }
   if (min >= best)
   {
- do { return 0; found: return func_800898D0(p, arg0, arg1, arg2, best); } while (0);
+    do { return 0; found: return func_800898D0(p, id, param1, param2, best); } while (0);
   }
-  return func_800898D0(selected, arg0, arg1, arg2, best);
-  new_var4 = p;
+  return func_800898D0(selected, id, param1, param2, best);
+  unusedPtr2 = p;
 }

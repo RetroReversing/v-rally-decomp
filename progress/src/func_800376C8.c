@@ -24,69 +24,74 @@ typedef struct Link
   u8 pad[4];
   struct Link *next;
 } Link;
-extern void *D_8009B5AC;
-extern u8 *D_800C811C;
+extern void *gSceneSlot2;
+extern u8 *g_ent_list;
 extern Node **D_800C60D4;
-extern u8 *D_800C7F84;
+extern u8 *g_camera;
 extern void guMtxIdentF(void *);
-extern void func_80010BFC(s32, void *, void *);
+extern void obj_mtx_visible(s32, void *, void *);
 extern f32 func_8001BE68(void *, f32, f32, f32, f32 *, f32 *, f32 *);
 extern void *func_80005C48(void *);
-extern void func_8000BA38(void *, s16, s16, void *, s32, s32, s32, s32, s32, s32);
+extern void draw_sprite_obj(void *, s16, s16, void *, s32, s32, s32, s32, s32, s32);
 extern void func_80036FD8(void *, void *);
-extern void func_800370E8(void *, void *, void *);
-void func_800376C8(s32 arg0, Obj *p)
+extern void place_elem_on_line(void *, void *, void *);
+
+/* Draws the marker for obj when it is on screen and in front of the camera:
+ * projects obj's position to screen coordinates, checks the z-buffer, and if
+ * the spot is visible emits the marker's sprite and its line-strip. */
+void func_800376C8(s32 unused0, Obj *obj)
 {
-  f32 m[4][4];
-  f32 x;
-  f32 y;
-  f32 z;
-  f32 a = *((f32 *) (D_800C811C + 0x38));
-  f32 b = *((f32 *) (D_800C811C + 0x3c));
-  f32 c = *((f32 *) (D_800C811C + 0x40));
-  u8 *new_var;
-  u16 *base;
-  Node *s3;
-  Node *s2;
-  f32 new_var2;
-  u8 i;
-  Link *q;
-  u16 ix;
-  u16 iy;
-  u16 t;
-  u16 k;
-  f32 r;
-  guMtxIdentF(m);
-  func_80010BFC(0, ((u8 *) p) + 0x38, m);
-  r = func_8001BE68(((u8 *) p) + 0xb8, a, b, c, &x, &y, &z);
-  if (((((x < 1.0f) && (x > (-1.0f))) && (y < 1.0f)) && (y > (-1.0f))) && (((f64) r) <= 0.0))
-  {
-    s3 = *D_800C60D4;
-    base = func_80005C48(D_8009B5AC);
-    new_var2 = (f32) p->view->w;
-    ix = (u32) (((x + 1.0f) * ((f32) p->view->w)) * 0.5f);
-    iy = (u32) ((y + 1.0f) * (((f32) p->view->h) * 0.5f));
-    t = 160 - iy;
-    k = ix + (((u16) t) * p->view->w);
-    if ((base[k] > 0xfffa) & (((u16) t) < 160))
+    f32 mtx[4][4];
+    f32 ndcX;
+    f32 ndcY;
+    f32 ndcZ;
+    f32 eyeX = *((f32 *) (g_ent_list + 0x38));
+    f32 eyeY = *((f32 *) (g_ent_list + 0x3c));
+    f32 eyeZ = *((f32 *) (g_ent_list + 0x40));
+    u8 *nextPtr;
+    u16 *zbuf;
+    Node *list;
+    Node *tail;
+    f32 viewW;
+    u8 count;
+    Link *link;
+    u16 sx;
+    u16 sy;
+    u16 ty;
+    u16 zi;
+    f32 depth;
+
+    guMtxIdentF(mtx);
+    obj_mtx_visible(0, ((u8 *) obj) + 0x38, mtx);
+    depth = func_8001BE68(((u8 *) obj) + 0xb8, eyeX, eyeY, eyeZ, &ndcX, &ndcY, &ndcZ);
+    if (((((ndcX < 1.0f) && (ndcX > (-1.0f))) && (ndcY < 1.0f)) && (ndcY > (-1.0f))) && (((f64) depth) <= 0.0))
     {
-      Node *n = *((Node **) (((u8 *) s3) + 12));
-      Cam *cam = *((Cam **) (((u8 *) n) + 0x1c));
-      func_8000BA38(*((void **) (D_800C7F84 + 0x178)), (s16) (ix - cam->x), (s16) (t - cam->y), ((u8 *) n) + 16, 8, 100, ((u8 *) s3)[0x16], ((u8 *) s3)[0x17], ((u8 *) s3)[0x18], 255);
-      new_var = ((u8 *) s3) + 4;
-      s2 = *((Node **) new_var);
-      *((s16 *) (((u8 *) s3) + 16)) = ix;
-      *((s16 *) (((u8 *) s3) + 18)) = t;
-      func_80036FD8(s3, s2);
-      q = *((Link **) (((u8 *) s2) + 4));
-      i = 4;
-      do
-      {
-        func_800370E8(s3, s2, q);
-        q = q->next;
-      }
-      while ((i--) & 255);
-      func_800370E8(s3, s2, q);
+        list = *D_800C60D4;
+        zbuf = func_80005C48(gSceneSlot2);
+        viewW = (f32) obj->view->w;
+        sx = (u32) (((ndcX + 1.0f) * ((f32) obj->view->w)) * 0.5f);
+        sy = (u32) ((ndcY + 1.0f) * (((f32) obj->view->h) * 0.5f));
+        ty = 160 - sy;
+        zi = sx + (((u16) ty) * obj->view->w);
+        if ((zbuf[zi] > 0xfffa) & (((u16) ty) < 160))
+        {
+            Node *shape = *((Node **) (((u8 *) list) + 12));
+            Cam *camera = *((Cam **) (((u8 *) shape) + 0x1c));
+            draw_sprite_obj(*((void **) (g_camera + 0x178)), (s16) (sx - camera->x), (s16) (ty - camera->y), ((u8 *) shape) + 16, 8, 100, ((u8 *) list)[0x16], ((u8 *) list)[0x17], ((u8 *) list)[0x18], 255);
+            nextPtr = ((u8 *) list) + 4;
+            tail = *((Node **) nextPtr);
+            *((s16 *) (((u8 *) list) + 16)) = sx;
+            *((s16 *) (((u8 *) list) + 18)) = ty;
+            func_80036FD8(list, tail);
+            link = *((Link **) (((u8 *) tail) + 4));
+            count = 4;
+            do
+            {
+                place_elem_on_line(list, tail, link);
+                link = link->next;
+            }
+            while ((count--) & 255);
+            place_elem_on_line(list, tail, link);
+        }
     }
-  }
 }

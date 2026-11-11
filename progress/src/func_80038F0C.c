@@ -1,26 +1,14 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-M2C_UNK func_80086B34(s32);                         /* extern */
-M2C_UNK func_80086D90(s32, M2C_UNK);                /* extern */
 extern u8 D_800AFA5C;
-extern void *D_800C3508;
-extern s32 D_800C81D4;
+extern void *gLeague;
+extern s32 gSoundState;
+s32 voice_alloc_request(s32);
+s32 voiceSetVolumeByKey(s32, s32);
 
-void func_80038F0C(void) {
-    if ((D_800AFA5C != 0) || (M2C_FIELD(D_800C3508, s16 *, 2) != 0)) {
-        func_80086B34(D_800C81D4 + 0x1B0);
-        func_80086D90(D_800C81D4 + 0x1B0, 0x30);
+/* Requests a voice at gSoundState+0x1B0 and sets its volume to 0x30 when D_800AFA5C is set or gLeague's s16 at +2 is nonzero. */
+void func_80038F0C(void)
+{
+    if ((D_800AFA5C != 0) || (((s16 *) gLeague)[1] != 0)) {
+        voice_alloc_request(gSoundState + 0x1B0);
+        voiceSetVolumeByKey(gSoundState + 0x1B0, 0x30);
     }
 }

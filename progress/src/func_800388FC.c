@@ -1,12 +1,12 @@
-s32 func_80022184();
-s32 func_80022200();
-extern char D_800AE850[];
+s32 flag_test_bit0();
+s32 flag_clear_bit0();
+extern char gOrderState[];
 
 void func_800388FC(void) {
     void *temp_s0;
 
-    temp_s0 = D_800AE850 + 0x7378;
-    if (func_80022184(temp_s0) != 0) {
-        func_80022200(temp_s0);
+    temp_s0 = gOrderState + 0x7378;
+    if (flag_test_bit0(temp_s0) != 0) {
+        flag_clear_bit0(temp_s0);
     }
 }

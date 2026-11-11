@@ -7,9 +7,9 @@ typedef struct RName { char name[10]; u16 v; char pad[0x28 - 12]; } RName;
 typedef struct RCfg { char pad0[0xE]; u16 mode; char pad10[0x1A - 0x10]; u16 flag1A; char pad1C[0x22 - 0x1C]; u16 sel; char pad24[0x32 - 0x24]; u8 order[0x12]; RName names[4]; } RCfg;
 
 extern void func_80041564(void);
-extern void func_80098290(char *, char *);
-extern RCar **D_800B5C40;
-extern RCfg *D_800C35A0;
+extern void copyStringAligned(char *, char *);
+extern RCar **gCarList;
+extern RCfg *gRecords;
 extern REntry gResultsTable[7];
 
 /* Fills the race results table (gResultsTable) for the current car's result
@@ -24,21 +24,21 @@ void results_table_fill(void) {
     u8 i;
     u32 n;
 
-    car = *D_800B5C40;
+    car = *gCarList;
     func_80041564();
-    switch (D_800C35A0->mode) {
+    switch (gRecords->mode) {
     case 1:
         i = 0;
         times = car->res->times;
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            func_80098290(gResultsTable[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
+            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
             gResultsTable[i].rate = vals[i];
             gResultsTable[i].total = times[i];
-            gResultsTable[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
             data = car->res->data;
-            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[D_800C35A0->sel].time);
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
             if (gResultsTable[i].total == 15000) {
                 gResultsTable[i].total = 0;
                 gResultsTable[i].rate = 0;
@@ -53,13 +53,13 @@ void results_table_fill(void) {
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            func_80098290(gResultsTable[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
+            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
             gResultsTable[i].rate = vals[i];
             gResultsTable[i].total = times[i];
-            gResultsTable[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
             data = car->res->data;
-            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[D_800C35A0->sel].time);
-            gResultsTable[4].b = data->recs[D_800C35A0->sel].c4;
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
+            gResultsTable[4].b = data->recs[gRecords->sel].c4;
             if (gResultsTable[i].total == 15000) {
                 gResultsTable[i].total = 0;
                 gResultsTable[i].rate = 0;
@@ -67,19 +67,19 @@ void results_table_fill(void) {
             }
             i++;
         } while (i < 3);
-        if (D_800C35A0->flag1A) car = car->next;
+        if (gRecords->flag1A) car = car->next;
         car = car->next;
         i = 3;
         times = car->res->times;
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            func_80098290(gResultsTable[i].name, D_800C35A0->names[D_800C35A0->order[1]].name);
+            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[1]].name);
             gResultsTable[i].rate = vals[i - 3];
             gResultsTable[i].total = times[i - 3];
-            gResultsTable[i].b = D_800C35A0->names[D_800C35A0->order[1]].v;
+            gResultsTable[i].b = gRecords->names[gRecords->order[1]].v;
             data = car->res->data;
-            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[D_800C35A0->sel].time);
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
             if (gResultsTable[i].total == 15000) {
                 gResultsTable[i].total = 0;
                 gResultsTable[i].rate = 0;
@@ -91,9 +91,9 @@ void results_table_fill(void) {
     default:
         return;
     }
-    func_80098290(gResultsTable[n].name, data->recs[D_800C35A0->sel].name);
+    copyStringAligned(gResultsTable[n].name, data->recs[gRecords->sel].name);
     gResultsTable[n].obj = car;
-    gResultsTable[n].total = data->recs[D_800C35A0->sel].time;
-    gResultsTable[n].rate = data->recs[D_800C35A0->sel].cA;
-    gResultsTable[n].b = data->recs[D_800C35A0->sel].c4;
+    gResultsTable[n].total = data->recs[gRecords->sel].time;
+    gResultsTable[n].rate = data->recs[gRecords->sel].cA;
+    gResultsTable[n].b = data->recs[gRecords->sel].c4;
 }

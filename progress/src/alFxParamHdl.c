@@ -1,69 +1,69 @@
-typedef struct Ent {
-    s32 f0;
-    s32 f4;
-    s16 f8;
-    s16 fA;
-    s16 fC;
-    s16 fE;
-    f32 f10;
-    s32 f14;
-    s32 f18;
-    f32 f1C;
-    void *f20;
-    s32 f24;
-} Ent;
+/* Per-voice effect parameter slot. Written by alFxParamHdl; field meanings are partly open. */
+typedef struct AlFxParam {
+    s32 start;      /* 0x00: masked address, low 3 bits cleared */
+    s32 end;        /* 0x04: masked address, low 3 bits cleared */
+    s16 v8, vA, vC, vE;
+    f32 rate;       /* 0x10 */
+    s32 p14, p18;
+    f32 decay;      /* 0x1C: per-sample decay step */
+    void *buf;      /* 0x20: s16 buffer, filled by alFxFillDecay */
+    s32 p24;
+} AlFxParam;
 
-typedef struct S0 {
-    u8 pad[0x20];
-    Ent *arr;
-} S0;
+/* Effect bank: parameter table lives at +0x20. */
+typedef struct AlFxBank {
+    u8 pad00[0x20];
+    AlFxParam *params;
+} AlFxBank;
 
 extern u8 *D_800A2500;
 extern f64 D_800A71F0;
 extern f64 D_800A71F8;
 
-void func_80091D80(void *);
+void alFxFillDecay(void *);
 
-s32 alFxParamHdl(S0 *arg0, s32 arg1, s32 *arg2) {
-    s32 n = arg1 - 2;
-    s32 idx = n % 8;
+/* Writes one field of effect parameter slot (id - 2): id picks the slot
+ * (8 fields per slot), and the field index picks what is stored. */
+s32 alFxParamHdl(AlFxBank *bank, s32 id, s32 *src) {
+    s32 n = id - 2;
+    s32 field = n % 8;
     s32 val;
 
-    arg1 = n / 8;
-    val = *arg2;
-    switch (idx) {
+    id = n / 8;
+    val = *src;
+    switch (field) {
     case 0:
-        arg0->arr[arg1].f0 = val & ~7;
+        bank->params[id].start = val & ~7;
         break;
     case 1:
-        arg0->arr[arg1].f4 = val & ~7;
+        bank->params[id].end = val & ~7;
         break;
     case 2:
-        arg0->arr[arg1].f8 = val;
+        bank->params[id].v8 = val;
         break;
     case 3:
-        arg0->arr[arg1].fA = val;
+        bank->params[id].vA = val;
         break;
     case 4:
-        arg0->arr[arg1].fC = val;
+        bank->params[id].vC = val;
         break;
     case 5:
-        arg0->arr[arg1].f10 = (f32)((f64)((f32)val / 1000.0f) * 2.0 / (f64)*(s32 *)(D_800A2500 + 0x44));
+        bank->params[id].rate = (f32)((f64)((f32)val / 1000.0f) * 2.0 / (f64)*(s32 *)(D_800A2500 + 0x44));
         break;
     case 6: {
         f64 t = (f64)(f32)val / D_800A71F0;
-        s32 diff = arg0->arr[arg1].f4 - arg0->arr[arg1].f0;
+        s32 diff = bank->params[id].end - bank->params[id].start;
         f64 d = (f64)diff;
         if (diff < 0) {
             d += D_800A71F8;
         }
-        arg0->arr[arg1].f1C = (f32)(t * d);
+        bank->params[id].decay = (f32)(t * d);
         break;
     }
     case 7:
-        if (arg0->arr[arg1].f20 != NULL) {
-            *(s16 *)arg0->arr[arg1].f20 = val;
-            func_80091D80(arg0->arr[arg1].f20);
+        if (bank->params[id].buf != NULL) {
+            *(s16 *)bank->params[id].buf = val;
+            alFxFillDecay(bank->params[id].buf);
         }
         break;
     }

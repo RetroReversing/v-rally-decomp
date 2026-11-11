@@ -13,11 +13,11 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80005A54(s32, s32);                    /* extern */
-M2C_UNK func_80005C04();                            /* extern */
-extern s32 D_8009B5A4;
-extern s32 D_8009B5A8;
+M2C_UNK sceneSwapSlots();                            /* extern */
+extern s32 gSceneSlot0;
+extern s32 gSceneSlot1;
 
 void func_80005ACC(void) {
-    func_80005A54(D_8009B5A4, D_8009B5A8);
-    func_80005C04();
+    func_80005A54(gSceneSlot0, gSceneSlot1);
+    sceneSwapSlots();
 }

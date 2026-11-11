@@ -6,7 +6,7 @@ extern char D_800B56F8[];
 extern char D_800C7428[];
 extern char D_800B0128[];
 extern char D_800C8380[];
-extern void *D_800C7F84;
+extern void *g_camera;
 extern void *D_800B681C;
 extern unsigned int D_800C351C;
 extern unsigned int D_800B55E8;
@@ -25,37 +25,37 @@ typedef struct
 extern Rect7 D_800C6088[3];
 extern int D_800B7010;
 extern unsigned int D_800C6F08;
-void *func_800056FC();
-void *func_80006008();
-s32 func_80006014();
-s32 func_800061FC();
+void *view_get_ctx_id();
+void *gfx_get_dl();
+s32 gfx_set_dl();
+s32 gfx_push_mtx();
 void func_8000C22C(void *, s32, s32, s32, u8);
 s32 func_8000C244();
 void func_800131B4(void *, s16, s32);
-s32 func_8001BD1C();
+s32 mtx_pool_alloc();
 s32 guMtxF2L();
 s32 guMtxIdent();
 void guOrthoF(void *, f32, f32, f32, f32, f32, f32, f32);
-s32 func_80099DF8();
-u64 func_8009A2B0(u64, u64) __attribute__((const));
+s32 formatString();
+u64 __udivdi3(u64, u64) __attribute__((const));
 u64 func_8009A310(double) __attribute__((const));
 static inline s16 __normghost(s32 x){x=(u32)x<<16;x=(s32)x>>16;return x;}
 static inline s32 __firstsetter(void *p,s32 h){h=(s16)h;func_800131B4(p,h,190);return h;}
-extern s32 D_8009B960;
+extern s32 gFreeHeap1;
 extern s32 D_8009BB28;
 extern s32 D_8009BB48;
 extern s32 D_8009BB68;
 extern s32 D_8009CE70;
 extern s32 D_8009CE74;
-extern void *D_800A0384;
-extern s32 D_800A1468;
+extern void *gRaceCtx;
+extern s32 gSelectState;
 extern char D_800A4120[];
 extern char D_800A4128[];
 extern f64 D_800A4140;
 extern f64 D_800A4148;
 extern char D_800A73E0[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 void func_800131C0(void)
 {
   char sp20[0x68];
@@ -145,9 +145,9 @@ char *rect_y0;
 u32 combined_index3;
 u32 loop0_fill,loop0_rect,loop0_sync,loop1_fill,loop1_rect,loop1_sync;
 char *text_buffer;
-  spD4 = func_800056FC();
+  spD4 = view_get_ctx_id();
   var_s3 = 0;
-new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
+new_var=gfx_get_dl(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
   temp_s7 = *((u32 *) (((char *) D_800B681C) + 4));
   D_800C351C = 0U;
   var_s2 = 0;
@@ -162,12 +162,12 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
       temp_a0 = *((s32 *) (((char *) temp_v0_2) + 0xD0));
       temp_a1 = *((s32 *) (((char *) temp_v0_2) + 0xD4));
       var_s2 += 1;
-      func_800131B4(temp_s1, (s16) (((u32) func_8009A2B0(*((u64 *) (((char *) temp_v0_2) + 0xD0)), 250)) + 0x28), 0xCC);
+      func_800131B4(temp_s1, (s16) (((u32) __udivdi3(*((u64 *) (((char *) temp_v0_2) + 0xD0)), 250)) + 0x28), 0xCC);
       new_var = temp_s1 + 8;
       var_t0 = (char *) temp_s0;
       var_t0 += (s32) D_800B681C;
       temp_s1 = new_var;
-      temp_a1_2 = ((u32) func_8009A2B0(*((u64 *) (((char *) var_t0) + 0xF0)), 250)) + 0x28;
+      temp_a1_2 = ((u32) __udivdi3(*((u64 *) (((char *) var_t0) + 0xF0)), 250)) + 0x28;
       var_s3 = temp_a1_2;
       func_800131B4(temp_s1, temp_a1_2, 0xCE);
       temp_s1 = (char *) temp_s1;
@@ -192,9 +192,9 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
     {
       var_s6 = var_s2 * 8;
       temp_s1_2 = var_s6 + (s32)D_800B681C;
-      temp_s0_3 = ((u32) func_8009A2B0(*((u64 *) (((char *) temp_s1_2) + 0x10)), 250)) + 0x28;
+      temp_s0_3 = ((u32) __udivdi3(*((u64 *) (((char *) temp_s1_2) + 0x10)), 250)) + 0x28;
       var_s3 = temp_s0_3;
-      temp_s1_3 = ((u32) func_8009A2B0(*((u64 *) (((char *) temp_s1_2) + 0x90)), 250)) + 0x28;
+      temp_s1_3 = ((u32) __udivdi3(*((u64 *) (((char *) temp_s1_2) + 0x90)), 250)) + 0x28;
       spCE = temp_s1_3;
       if (((s16) temp_s0_3) >= 0x141)
       {
@@ -207,7 +207,7 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
       var_s5 += 8;
       temp_v0_3 = var_s6 + (s32)D_800B681C;
       var_s2 += 1;
-{u64 quotient=func_8009A2B0(*((u64 *) (((char *) temp_v0_3) - (-0x50))), 250);temp_a1_3=(u32)quotient+40;if((u32)(quotient>>32)){saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}else{saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}}
+{u64 quotient=__udivdi3(*((u64 *) (((char *) temp_v0_3) - (-0x50))), 250);temp_a1_3=(u32)quotient+40;if((u32)(quotient>>32)){saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}else{saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}}
       var_s5 += 8;
     }
     while (var_s2 < temp_s7);
@@ -239,7 +239,7 @@ new_var=func_80006008(spD4);spCE=0;var_s6=0;saved_height=0;temp_v0=new_var;
   var_s2 = 0;
   if (temp_s7 != 0)
   {
-    if (D_800C02AE)
+    if (gStreamState)
     {
       var_a1 = D_800B681C;
     }
@@ -535,9 +535,9 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
   }
   ticks = func_8009A310(var_fv1 * D_800A4148);
   temp_v1_7 = (u32) ticks;
-  D_800C6F08 = (u32) func_8009A2B0(ticks << 6, 3000);
-  func_80006014(spD4, temp_v0);
-  if (D_800A1468 == 0)
+  D_800C6F08 = (u32) __udivdi3(ticks << 6, 3000);
+  gfx_set_dl(spD4, temp_v0);
+  if (gSelectState == 0)
   {
     temp_s0_4 = D_800C8380;
     guMtxIdent(temp_s0_4);
@@ -547,12 +547,12 @@ if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(
     *((void **) (((char *) temp_v1_8) + 4)) = temp_s0_4;
     __repair_var_s3_1 = 0;
     ;
-    temp_s0_5 = func_8001BD1C();
-    guOrthoF(&sp88, (f32) (*((s16 *) (((char *) (*((void **) (((char *) D_800C7F84) + 0x178)))) + 8))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) D_800C7F84) + 0x178)))) + 0xC))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) D_800C7F84) + 0x178)))) + 0xE))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) D_800C7F84) + 0x178)))) + 0xA))), -1.0f, 10.0f, 1.0f);
+    temp_s0_5 = mtx_pool_alloc();
+    guOrthoF(&sp88, (f32) (*((s16 *) (((char *) (*((void **) (((char *) g_camera) + 0x178)))) + 8))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) g_camera) + 0x178)))) + 0xC))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) g_camera) + 0x178)))) + 0xE))), (f32) (*((s16 *) (((char *) (*((void **) (((char *) g_camera) + 0x178)))) + 0xA))), -1.0f, 10.0f, 1.0f);
     guMtxF2L(&sp88, temp_s0_5);
     combined_index3 = 0;
-    func_800061FC(spD4, temp_s0_5);
-    func_8000C22C((void *)(*((s32 *) (((char *) D_800A0384) + 4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
+    gfx_push_mtx(spD4, temp_s0_5);
+    func_8000C22C((void *)(*((s32 *) (((char *) gRaceCtx) + 4))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
     if (temp_s7 != 0)
     {
 text_buffer=sp20;
@@ -562,9 +562,9 @@ text_buffer=sp20;
       var_s0 = temp_v0_15;
       do
       {
-        func_80099DF8(&sp20, &D_800A4120, ((*((s32 *) var_s0)) - (*((s32 *) temp_a0_3))) & 0xFFFF);
+        formatString(&sp20, &D_800A4120, ((*((s32 *) var_s0)) - (*((s32 *) temp_a0_3))) & 0xFFFF);
         combined_index3 += 1;
-        func_8000C244(*((s32 *) (((char *) D_800A0384) + 4)), spD4, 0x14, var_s3_3, text_buffer, 0);
+        func_8000C244(*((s32 *) (((char *) gRaceCtx) + 4)), spD4, 0x14, var_s3_3, text_buffer, 0);
         var_s3_3 += 10;
         __repair_var_s3_1 += *((s32 *) var_s0) - *((s32 *) temp_a0_3);
         temp_a0_3 += 0x10;
@@ -572,9 +572,9 @@ text_buffer=sp20;
       }
       while (combined_index3 < temp_s7);
     }
-    func_80099DF8(&sp20, &D_800A4120, __repair_var_s3_1);
-    func_8000C244(*((s32 *) (((char *) D_800A0384) + 4)), spD4, 0x14, (combined_index3 * 0xA) + 0x64, &sp20, 0);
-    func_80099DF8(&sp20, &D_800A4128, D_8009CE70, D_8009CE74, D_8009B960);
-    func_8000C244(*((s32 *) (((char *) D_800A0384) + 4)), spD4, 0x14, 0x40, &sp20, 0);
+    formatString(&sp20, &D_800A4120, __repair_var_s3_1);
+    func_8000C244(*((s32 *) (((char *) gRaceCtx) + 4)), spD4, 0x14, (combined_index3 * 0xA) + 0x64, &sp20, 0);
+    formatString(&sp20, &D_800A4128, D_8009CE70, D_8009CE74, gFreeHeap1);
+    func_8000C244(*((s32 *) (((char *) gRaceCtx) + 4)), spD4, 0x14, 0x40, &sp20, 0);
   }
 }

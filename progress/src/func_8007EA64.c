@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000C188(s32);                         /* extern */
-M2C_UNK func_80035438(s32);                         /* extern */
-extern M2C_UNK D_800AE850;
+M2C_UNK stream_obj_free(s32);                         /* extern */
+M2C_UNK streamReleaseEntry(s32);                         /* extern */
+extern M2C_UNK gOrderState;
 
 void func_8007EA64(void) {
-    func_8000C188(M2C_FIELD(&D_800AE850, s32 *, 0x1D00));
-    func_80035438(M2C_FIELD(&D_800AE850, s32 *, 0x1200));
-    M2C_FIELD(&D_800AE850, s32 *, 0x1200) = 0;
+    stream_obj_free(M2C_FIELD(&gOrderState, s32 *, 0x1D00));
+    streamReleaseEntry(M2C_FIELD(&gOrderState, s32 *, 0x1200));
+    M2C_FIELD(&gOrderState, s32 *, 0x1200) = 0;
 }

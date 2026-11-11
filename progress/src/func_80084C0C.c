@@ -1,109 +1,114 @@
-extern u8 *D_800A1B70;
-s8 func_80084C0C(s32 arg0, s32 arg1)
+extern u8 *gContCtx;
+
+/* Maps a slot's current level onto a signed gain (-128..127). Mode 0x10000
+ * and 0x20000 select which pair of bound thresholds in the slot's table entry
+ * apply. Returns 0 when the level is outside the active range and 0x7F/-0x80
+ * when it is past the lower/upper bound. */
+s8 func_80084C0C(s32 slot, s32 mode)
 {
   s32 pad[1];
-  signed char *e;
-  signed char a2;
-  int a1;
-  int __repair_phase_val;
-  signed char new_var2;
-  s32 a0;
-  int new_var;
-  s32 v1;
-  u8 *new_var3;
+  signed char *ent;
+  signed char level;
+  int lo;
+  int cur;
+  signed char b;
+  s32 hi;
+  int d;
+  u8 *base;
   u8 *tbl;
   u8 idx;
-  if (arg1 != 0x10000)
+  s32 t;
+  if (mode != 0x10000)
   {
-    if (arg1 != 0x20000)
+    if (mode != 0x20000)
     {
       return 0;
     }
-    new_var3 = D_800A1B70;
-    idx = arg0;
-    __repair_phase_val = (a2 = *((signed char *) ((new_var3 - (-(idx * 6))) + 0x1E)));
-    e = (signed char *) (D_800A1B70 + (idx * 20));
-    a1 = e[0x5F];
-    v1 = a1 + e[0x60];
-    if (__repair_phase_val >= v1)
+    base = gContCtx;
+    idx = slot;
+    cur = (level = *((signed char *) ((base - (-(idx * 6))) + 0x1E)));
+    ent = (signed char *) (gContCtx + (idx * 20));
+    lo = ent[0x5F];
+    t = lo + ent[0x60];
+    if (cur >= t)
     {
-      a1 = e[0x5C];
-      a0 = v1;
+      lo = ent[0x5C];
+      hi = t;
     }
     else
     {
-      v1 = a1 + e[0x5E];
-      if (v1 < __repair_phase_val)
+      t = lo + ent[0x5E];
+      if (t < cur)
       {
         return 0;
       }
-      a1 = e[0x5D];
-      a0 = v1;
+      lo = ent[0x5D];
+      hi = t;
     }
   }
   else
   {
-    tbl = D_800A1B70;
-    idx = arg0;
-    __repair_phase_val = (a2 = *((signed char *) ((tbl - (-(idx * 6))) + 0x1F)));
+    tbl = gContCtx;
+    idx = slot;
+    cur = (level = *((signed char *) ((tbl - (-(idx * 6))) + 0x1F)));
     do
     {
-      e = (signed char *) (tbl + (idx * 20));
-      a1 = e[0x64];
-      v1 = a1 + e[0x65];
+      ent = (signed char *) (tbl + (idx * 20));
+      lo = ent[0x64];
+      t = lo + ent[0x65];
     }
     while (0);
-    if (__repair_phase_val >= v1)
+    if (cur >= t)
     {
-      a1 = e[0x61];
-      a0 = v1;
+      lo = ent[0x61];
+      hi = t;
     }
     else
     {
-      v1 = a1 + e[0x63];
-      if (v1 < __repair_phase_val)
+      t = lo + ent[0x63];
+      if (t < cur)
       {
         return 0;
       }
-      new_var2 = e[0x62];
-      a1 = new_var2;
-      a0 = v1;
+      b = ent[0x62];
+      lo = b;
+      hi = t;
     }
   }
-  if (a0 < a2)
+  if (hi < level)
   {
-    if (a1 < a2)
+    if (lo < level)
     {
       return 0x7F;
     }
-    if (a0 != 0)
+    if (hi != 0)
     {
-      a1 -= a0;
-      a2 -= a0;
-      a0 = 0;
+      lo -= hi;
+      level -= hi;
+      hi = 0;
     }
-    v1 = a2 * 0x7F;
-    new_var = a1 - a0;
-    v1 = v1 / new_var;
-    return v1;
+    t = level * 0x7F;
+    d = lo - hi;
+    t = t / d;
+    return t;
   }
-  new_var = a2 < a0;
-  if (new_var)
+  d = level < hi;
+  if (d)
   {
-    if (a2 < a1)
+    if (level < lo)
     {
       return -0x80;
     }
-    if (a0 != 0)
+    if (hi != 0)
     {
-      a1 -= a0;
-      a2 -= a0;
-      a0 = 0;
+      lo -= hi;
+      level -= hi;
+      hi = 0;
     }
-    v1 = a2 << 7;
-    new_var = a0 - a1;
-    v1 = v1 / new_var;
-    return v1;
+    t = level << 7;
+    d = hi - lo;
+    t = t / d;
+    return t;
   }
   return 0;
 }

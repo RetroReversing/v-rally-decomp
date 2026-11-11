@@ -1,5 +1,8 @@
 extern char D_800A73E0[];
-extern char D_800AE850[];
+extern char gOrderState[];
+
+/* Rebuilds the five-slot table of list entries, then walks slot 4 down to slot 0,
+   adding each entry's weight into the running total of the entry it links to. */
 void func_80042DE0(void)
 {
   void *slot[5];
@@ -24,7 +27,7 @@ void func_80042DE0(void)
     i++;
   }
   while (i < 5);
-  list = *((s32 **) (D_800AE850 + 0x73F0));
+  list = *((s32 **) (gOrderState + 0x73F0));
   node = *((char **) list);
   if (node != NULL)
   {

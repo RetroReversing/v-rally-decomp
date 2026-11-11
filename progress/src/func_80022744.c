@@ -1,29 +1,31 @@
-s32 func_80022184();
+s32 flag_test_bit0();
 s32 func_80022F98();
-extern s32 D_8009D538;
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern s32 gPadFlags;
+extern char gOrderState[];
+extern char gStreamState[];
 
+/* When pad flag bit 2 is clear and the order-state check at +0x7320 passes, passes the
+ * first word at gStreamState+0x7162 to func_80022F98. */
 void func_80022744(void)
 {
-  s32 *var_s0;
-  s32 var_s1;
-  s32 temp_a0;
+  s32 *word_ptr;
+  s32 count;
+  s32 word;
 
-  if (!(D_8009D538 & 2))
+  if (!(gPadFlags & 2))
   {
-    if (func_80022184(D_800AE850 + 0x7320) != 0)
+    if (flag_test_bit0(gOrderState + 0x7320) != 0)
     {
-      var_s1 = 0;
-      var_s0 = (s32 *) (D_800C02AE + 0x7162);
+      count = 0;
+      word_ptr = (s32 *) (gStreamState + 0x7162);
       do
       {
-        temp_a0 = *var_s0;
-        var_s0++;
-        func_80022F98(temp_a0);
-        var_s1++;
+        word = *word_ptr;
+        word_ptr++;
+        func_80022F98(word);
+        count++;
       }
-      while (var_s1 == 0);
+      while (count == 0);
     }
   }
 }

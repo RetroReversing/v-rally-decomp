@@ -4,9 +4,9 @@ typedef struct TrackHdr { u8 pad[0x12]; u16 width; } TrackHdr;
 typedef struct LimitRule { u8 key0; u8 key1; u16 id; u8 laneSide; u8 driveState; u16 limit; } LimitRule;
 typedef struct TrackParam { s32 value; s32 pad[5]; } TrackParam;
 extern f32 D_8009CEC8;
-extern s32 D_8009EB80;
-extern TrackParam D_8009EB84[], gSpeedPenalty[], gDraftFactor[];
-extern TrackHdr *D_800C7F80;
+extern s32 gSnapIndex;
+extern TrackParam gSnapTable[], gSpeedPenalty[], gDraftFactor[];
+extern TrackHdr *g_rec_val;
 extern LimitRule D_8009F42C[][3];
 #define CAR_LOW_FLAGS(c) (*(u16 *)((char *)(c) + 0xA))
 /* Sets each car's speed limit (CarInfo.limit) from its speed, its neighbours' speeds and
@@ -18,7 +18,7 @@ void func_800324B4(Car *firstCar)
 #define curKind py
 #define nextKind px
 #define capped py
-  t = D_8009CEC8 * (f32)D_800C7F80->width;
+  t = D_8009CEC8 * (f32)g_rec_val->width;
   side = 0;
   d = t * 400 / 4096;
   e = t * 900 / 4096;
@@ -57,9 +57,9 @@ void func_800324B4(Car *firstCar)
       if ((fl & 0x201) == 1) nextKind = 1;
     }
     if (nextKind == 1 && curKind == 1) {
-      sp = car->info->speedA + ((u32)(car->next->info->speedA * gDraftFactor[D_8009EB80].value) >> 12);
+      sp = car->info->speedA + ((u32)(car->next->info->speedA * gDraftFactor[gSnapIndex].value) >> 12);
     } else if (nextKind == 2 && curKind == 2) {
-      sp = car->info->speedB + ((u32)(car->next->info->speedB * gDraftFactor[D_8009EB80].value) >> 12);
+      sp = car->info->speedB + ((u32)(car->next->info->speedB * gDraftFactor[gSnapIndex].value) >> 12);
     } else {
       sp = 0;
     }
@@ -68,17 +68,17 @@ void func_800324B4(Car *firstCar)
     if (m < curKind) m = curKind;
     capped = 0;
     if (sp > 300) {
-      lim = 12000 - ((u32)(sp * gSpeedPenalty[D_8009EB80].value) >> 12);
+      lim = 12000 - ((u32)(sp * gSpeedPenalty[gSnapIndex].value) >> 12);
       capped = 1;
       if (lim < 0) lim = 0;
     } else if (m > 300) {
-      lim = 12000 - ((u32)(m * gSpeedPenalty[D_8009EB80].value) >> 12);
+      lim = 12000 - ((u32)(m * gSpeedPenalty[gSnapIndex].value) >> 12);
       if (lim < 0) lim = 0;
     } else {
       lim = 12000;
     }
     if (dist != 0) {
-      lim -= (u32)(dist * D_8009EB84[D_8009EB80].value) >> 12;
+      lim -= (u32)(dist * gSnapTable[gSnapIndex].value) >> 12;
       car->info->laneSide = side;
       car->info->driveState = 2;
       if (lim < 0) lim = 0;
@@ -94,11 +94,11 @@ void func_800324B4(Car *firstCar)
     }
     if (car->info->limit == 0) car->info->limit = lim;
     for (i = 0; i < 3; i++) {
-      if (D_8009F42C[D_8009EB80][i].id == 0) break;
-      if (D_8009F42C[D_8009EB80][i].id == car->id && D_8009F42C[D_8009EB80][i].key0 == car->key0 && D_8009F42C[D_8009EB80][i].key1 == car->key1) {
-        car->info->limit = D_8009F42C[D_8009EB80][i].limit;
-        car->info->laneSide = D_8009F42C[D_8009EB80][i].laneSide;
-        car->info->driveState = D_8009F42C[D_8009EB80][i].driveState;
+      if (D_8009F42C[gSnapIndex][i].id == 0) break;
+      if (D_8009F42C[gSnapIndex][i].id == car->id && D_8009F42C[gSnapIndex][i].key0 == car->key0 && D_8009F42C[gSnapIndex][i].key1 == car->key1) {
+        car->info->limit = D_8009F42C[gSnapIndex][i].limit;
+        car->info->laneSide = D_8009F42C[gSnapIndex][i].laneSide;
+        car->info->driveState = D_8009F42C[gSnapIndex][i].driveState;
       }
     }
     car = car->next;

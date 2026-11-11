@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80005F38(s32, s32);                    /* extern */
+M2C_UNK order_start(s32, s32);                    /* extern */
 
 void func_8000DF50(s32 arg0, void *arg1) {
-    func_80005F38(M2C_FIELD(arg1, s32 *, 0x20), arg0);
+    order_start(M2C_FIELD(arg1, s32 *, 0x20), arg0);
 }

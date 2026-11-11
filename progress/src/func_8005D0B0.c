@@ -28,73 +28,76 @@ typedef struct {
     u8 pad31[0x1F];
     u16 mode;
 } Cfg;
-extern s32 D_800B5C60;
+extern s32 gFadeDirection;
 extern s32 D_800D05D8;
 extern f32 D_800C6CF8;
-extern s32 D_800C8328;
-extern Cfg *D_800C35A0;
-extern Rec *D_800D0634[];
+extern s32 gSelectStepHandle;
+extern Cfg *gRecords;
+extern Rec *gSlotTableB[];
 extern u8 D_800A14D5;
-extern u8 D_800A1548;
+extern u8 gMaskSlot;
 extern char D_800A5418[];
 extern char D_800A541C[];
 extern char D_800A5428[];
 extern char D_800A5434[];
 extern f64 D_800A5440;
-s32 func_8004240C();
-s32 func_80047B54();
+s32 find_object_by_id();
+s32 stream_draw_entry();
 void func_8004CF7C(s32 arg0, u16 arg1, s16 arg2, s16 arg3, f32 arg4, u8 arg5, u16 arg6);
-char *func_80057918();void *text_obj_get(u32);
-void func_80059618(Win *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
-void func_800596F4(void *, s16, s16, void *);void func_8005A6BC(u32);void func_8005A6E0(u32);
+char *pool_get_item();void *textObjGet(u32);
+void group_set_color(Win *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4);
+void draw_palette_sprite(void *, s16, s16, void *);void text_obj_set_enabled(u32);void func_8005A6E0(u32);
 s32 memset();
-s32 func_80099DF8();
+s32 formatString();
 
+/* Draws the results/best-time panel for the current record: the record name, the time
+   (or the scaled time in mode 1), and the position/count line when the flag at
+   D_800A14D5 is set. Clears the flag-dependent line otherwise. */
 void func_8005D0B0(void)
 {
-    char buf1[16];
-    char buf3[8];
-    char buf2[16];
-    Win *w;
-    u32 val;
+    char name_buf[16];
+    char count_buf[8];
+    char time_buf[16];
+    Win *win;
+    u32 time_val;
 
-    memset(buf1, 0, 16);
-    D_800B5C60 = 0;
-    if (D_800A1548 != 0) {
-        func_80047B54(func_8004240C(0), 0, 0, 0);
-        D_800A1548--;
+    memset(name_buf, 0, 16);
+    gFadeDirection = 0;
+    if (gMaskSlot != 0) {
+        stream_draw_entry(find_object_by_id(0), 0, 0, 0);
+        gMaskSlot--;
     }
     func_8004CF7C(D_800D05D8, 0, 0x68, 0x4A, D_800C6CF8, 0, 0xFF);
-    w = text_obj_get(0);
-    func_80059618(w, w->b, w->c, w->d, 0xFF);
-    func_80099DF8(buf1, D_800A5418, func_80057918(D_800C8328, D_800D0634[D_800C35A0->a][D_800C35A0->b].sub[D_800C35A0->c].id + 0x1E4));
-    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf1));
-    memset(buf2, 0, 10);
-    w = text_obj_get(2);
-    val = D_800D0634[D_800C35A0->a][D_800C35A0->b].vals[D_800C35A0->c];
-    if (D_800C35A0->mode == 0) {
-        func_80099DF8(buf2, D_800A541C, (u16)(val / 1000), (u16)(val % 1000 / 100));
+    win = textObjGet(0);
+    group_set_color(win, win->b, win->c, win->d, 0xFF);
+    formatString(name_buf, D_800A5418, pool_get_item(gSelectStepHandle, gSlotTableB[gRecords->a][gRecords->b].sub[gRecords->c].id + 0x1E4));
+    draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(name_buf));
+    memset(time_buf, 0, 10);
+    win = textObjGet(2);
+    time_val = gSlotTableB[gRecords->a][gRecords->b].vals[gRecords->c];
+    if (gRecords->mode == 0) {
+        formatString(time_buf, D_800A541C, (u16)(time_val / 1000), (u16)(time_val % 1000 / 100));
     } else {
-        val = val * D_800A5440;
-        func_80099DF8(buf2, D_800A5428, (u16)(val / 1000), (u16)(val % 1000 / 100));
+        time_val = time_val * D_800A5440;
+        formatString(time_buf, D_800A5428, (u16)(time_val / 1000), (u16)(time_val % 1000 / 100));
     }
-    func_80059618(w, w->b, w->c, w->d, w->e);
-    func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf2));
+    group_set_color(win, win->b, win->c, win->d, win->e);
+    draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(time_buf));
     if (D_800A14D5 != 0) {
-        func_8005A6BC(0xD);
-        w = text_obj_get(0xE);
-        memset(buf3, 0, 2);
-        func_80059618(w, w->b, w->c, w->d, w->e);
-        if (D_800C35A0->a == 0) {
-            if (D_800C35A0->n == 0) {
-                func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(func_80057918(D_800C8328, 0x174)));
+        text_obj_set_enabled(0xD);
+        win = textObjGet(0xE);
+        memset(count_buf, 0, 2);
+        group_set_color(win, win->b, win->c, win->d, win->e);
+        if (gRecords->a == 0) {
+            if (gRecords->n == 0) {
+                draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(pool_get_item(gSelectStepHandle, 0x174)));
             } else {
-                func_80099DF8(buf3, D_800A5434, D_800C35A0->n);
-                func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf3));
+                formatString(count_buf, D_800A5434, gRecords->n);
+                draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(count_buf));
             }
         } else {
-            func_80099DF8(buf3, D_800A5434, 3);
-            func_800596F4((void *)(w), (s16)(w->x), (s16)(w->y), (void *)(buf3));
+            formatString(count_buf, D_800A5434, 3);
+            draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(count_buf));
         }
     } else {
         func_8005A6E0(0xD);

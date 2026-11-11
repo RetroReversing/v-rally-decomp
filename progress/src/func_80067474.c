@@ -1,47 +1,51 @@
-typedef struct { u8 pad0[0x228]; u8 unk228; u8 pad229[0x1C]; u8 unk245; u8 pad246[0x42]; void (*unk288)(void); void (*unk28C)(void); } Obj;
-typedef struct { u8 pad0[8]; s32 pad8[2]; u8 *unk10; } M;
-typedef struct { u8 pad0[4]; s32 unk4; u8 pad8[0x24]; s32 unk2c; } E;
-extern Obj *D_800A1468;
-extern u8 D_800C02AE[];
-extern void func_8005A388(s32, s32);
+typedef struct { u8 pad0[2]; u16 index; u8 pad4[12]; u8 *items; } Table;
+typedef struct { u8 pad0[0x228]; s8 name_cursor; u8 pad229[0x1C]; u8 mode; u8 pad246[0x42]; void (*on_update)(void); void (*on_draw)(void); } Obj;
+typedef struct { u8 pad0[0x2C]; s32 status; } Entry;
+extern Obj *gSelectState;
+extern u8 *gSlotState;
+extern Table *gLeague;
+extern void selectCopyEntryLabel(s32, s32);
 extern void func_800680F0(s32, s32);
 extern void func_800679D8(void);
 extern void draw_name_entry_wheel(void);
-typedef struct { u8 pad0[0x10]; u8 *p10; } Hdr;
-typedef struct { u8 pad[8]; u8 *p8; } Row;
-s32 func_80067474(s32 arg0, s32 arg1)
+
+/* Checks the four name letters of the current record; if any is out of range,
+   puts the name cursor on the first bad letter and sets the entry to state 2,
+   otherwise sets the entry to state 3 and resets the select handlers. */
+s32 func_80067474(s32 menu, s32 slot)
 {
-  s8 count = 0;
-  s8 last = -1;
+  s8 bad_count = 0;
+  s8 first_bad = -1;
   s8 i = 0;
-  u8 *t;
-  u16 h;
-  u8 *base;
-  s32 *e;
-  D_800A1468->unk245 = 0;
-  t = *(u8 **)(D_800C02AE + 0x32F2) + 0x44;
-  h = *(u16 *)(*(u8 **)(D_800C02AE + 0x325A) + 2);
+  u8 *name;
+  u16 row;
+  u8 *entries;
+  Entry *entry;
+
+  gSelectState->mode = 0;
+  name = gSlotState + 0x44;
+  row = gLeague->index;
   do {
-    if (t[i * 0x28] >= 0x5B) {
-      count++;
-      if (last < 0) last = i;
+    if (name[i * 0x28] >= 0x5B) {
+      bad_count++;
+      if (first_bad < 0) first_bad = i;
     }
     i++;
   } while (i < 4);
-  if (count != 0) {
-    D_800A1468->unk228 = last;
-    func_8005A388(arg0, arg1);
-    D_800A1468->unk288 = func_800679D8;
-    D_800A1468->unk28C = draw_name_entry_wheel;
-    base = *(u8 **)(*(u8 **)(D_800C02AE + 0x325A) + 0x10);
-    base = *(u8 **)(base + h * 20 + 8);
-    e = *(s32 **)(base + arg1 * 12 + 4);
-    e[0xB] = 2;
+  if (bad_count != 0) {
+    gSelectState->name_cursor = first_bad;
+    selectCopyEntryLabel(menu, slot);
+    gSelectState->on_update = func_800679D8;
+    gSelectState->on_draw = draw_name_entry_wheel;
+    entries = gLeague->items;
+    entries = *(u8 **)(entries + row * 20 + 8);
+    entry = *(Entry **)(entries + slot * 12 + 4);
+    entry->status = 2;
   } else {
-    base = *(u8 **)(*(u8 **)(D_800C02AE + 0x325A) + 0x10);
-    base = *(u8 **)(base + h * 20 + 8);
-    e = *(s32 **)(base + arg1 * 12 + 4);
-    e[0xB] = 3;
+    entries = gLeague->items;
+    entries = *(u8 **)(entries + row * 20 + 8);
+    entry = *(Entry **)(entries + slot * 12 + 4);
+    entry->status = 3;
     func_800680F0(3, 3);
   }
   return 0;

@@ -14,11 +14,11 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_8001B6B0();                            /* extern */
 M2C_UNK func_8001BE28();                            /* extern */
-M2C_UNK func_80080478(s32);                         /* extern */
-extern M2C_UNK D_800C02AE;
+M2C_UNK heapReleaseBlock(s32);                         /* extern */
+extern M2C_UNK gStreamState;
 
 void func_8001BC10(void) {
     func_8001BE28();
     func_8001B6B0();
-    func_80080478(M2C_FIELD(&D_800C02AE, s32 *, 0x80C6));
+    heapReleaseBlock(M2C_FIELD(&gStreamState, s32 *, 0x80C6));
 }

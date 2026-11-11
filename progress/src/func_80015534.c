@@ -3,24 +3,27 @@ typedef struct { E15534 *list; u16 count; } H15534;
 extern E15534 D_8009BBC0[];
 extern H15534 D_8009BEE0;
 extern u16 D_8009BEE4;
-extern char D_800C02AE[];
-void func_80015534(s32 arg0, char *arg1)
+extern char gStreamState[];
+
+/* Copies the mirrored entries of the source table into the list for the current frame, negating their
+ * vectors, and offsets two sets of entries when the track's kind is 2. Then sets the list count to 5. */
+void func_80015534(s32 unused0, char *slot)
 {
   char pad[8];
-  H15534 *h;
+  H15534 *table;
   E15534 *list;
   E15534 *dst;
   E15534 *src;
-  char *obj;
+  char *track;
   u32 i;
   s32 y, z;
-  h = &D_8009BEE0;
-  arg1 += *(u16 *)(arg1 + 0x22) * 0x38 + 0x3C;
-  *(H15534 **)(arg1 + 0x14) = h;
-  list = h->list;
+  table = &D_8009BEE0;
+  slot += *(u16 *)(slot + 0x22) * 0x38 + 0x3C;
+  *(H15534 **)(slot + 0x14) = table;
+  list = table->list;
   i = 0;
   if (D_8009BEE4 != 0) {
-    obj = *(char **)(D_800C02AE + 0x32F2);
+    track = *(char **)(gStreamState + 0x32F2);
     do {
       dst = &list[i];
       src = &D_8009BBC0[i];
@@ -30,12 +33,12 @@ void func_80015534(s32 arg0, char *arg1)
       dst->b[0] = -src->b[0];
       y = -src->b[1];
       dst->b[1] = -src->b[2]; dst->b[2] = y;
-      if (*(u16 *)(obj + 0xE) == 2) {
+      if (*(u16 *)(track + 0xE) == 2) {
         if (i - 2 < 2) dst->a[2] -= 0x72;
         if (i - 5 < 3) dst->a[2] -= 0x72;
       }
       i++;
-    } while (i < h->count);
+    } while (i < table->count);
   }
-  h->count = 5;
+  table->count = 5;
 }

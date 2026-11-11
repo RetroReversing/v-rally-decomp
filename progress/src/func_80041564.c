@@ -1,12 +1,14 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 
+/* Returns a byte offset into the stream state: the table entry at 0x10386 indexed by the
+ * record's u16 at +0x1E, plus the record's u16 at +0x20 times 0x2C4. */
 s32 func_80041564(void) {
-    void *p;
-    u16 a;
-    u16 b;
+    void *rec;
+    u16 index;
+    u16 stride_index;
 
-    p = *(void **)(D_800C02AE + 0x32F2);
-    a = *(u16 *)((u8 *)p + 0x1E);
-    b = *(u16 *)((u8 *)p + 0x20);
-    return *(s32 *)(D_800C02AE + 0x10386 + a * 4) + b * 0x2C4;
+    rec = *(void **)(gStreamState + 0x32F2);
+    index = *(u16 *)((u8 *)rec + 0x1E);
+    stride_index = *(u16 *)((u8 *)rec + 0x20);
+    return *(s32 *)(gStreamState + 0x10386 + index * 4) + stride_index * 0x2C4;
 }

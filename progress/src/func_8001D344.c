@@ -1,10 +1,10 @@
-/* identical to func_8001D258 (matched), with its names changed by decompdecomp */
+/* identical to record_attach_sprite (matched), with its names changed by decompdecomp */
 
-void *func_8003FFB4();
-s32 func_8008E118();
-s32 func_80098370();
-extern char D_800A47BC[];
-extern char D_800AE850[];
+void *dispatch_name_handler();
+s32 str_len();
+s32 str_ncat();
+extern char sNameSuffix[];
+extern char gOrderState[];
 extern char D_800C02AA[];
 void func_8001D344(s32 *arg0)
 {
@@ -20,19 +20,19 @@ void func_8001D344(s32 *arg0)
   temp_v0_2 = arg0;
   var_s0 = temp_v0_2 + 0x4C;
   var_a0 = var_s0;
-  temp_v0 = func_8008E118(var_a0);
-  var_a1 = &D_800A47BC;
+  temp_v0 = str_len(var_a0);
+  var_a1 = &sNameSuffix;
   var_a0 = var_s0;
-  var_a1 = &D_800A47BC;
+  var_a1 = &sNameSuffix;
   var_a2 = temp_v0;
-  func_80098370(var_a0, &D_800A47BC, var_a2);
+  str_ncat(var_a0, &sNameSuffix, var_a2);
   var_v0 = D_800C02AA + 0x5A76;
   var_v0 = *((void **) (D_800C02AA + 0x5A76));
   var_a0 = *((s32 *) (var_v0 + 0x10));
   var_a1 = temp_v0_2;
-  temp_v0_2 = func_8003FFB4(var_a0, var_a1);
+  temp_v0_2 = dispatch_name_handler(var_a0, var_a1);
   var_v1 = *((s32 *) (((char *) temp_v0_2) + 0x80));
-  *((void **) (D_800AE850 + 0x8A28)) = temp_v0_2;
+  *((void **) (gOrderState + 0x8A28)) = temp_v0_2;
   var_v1 |= 0x40;
   new_var = 0x80;
   *((s32 *) (((char *) temp_v0_2) + new_var)) = var_v1;

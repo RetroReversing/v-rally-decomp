@@ -1,23 +1,26 @@
 void guMtxIdentF(void *);
 void guMtxF2L(void *, void *);
-void guOrtho(void *mf, float l, float r, float b, float t, float n, float f, float scale) {
+
+/* Builds an orthographic projection (left/right, bottom/top, near/far) into the
+   Mtx m, scaled by scale. */
+void guOrtho(void *m, float left, float right, float bottom, float top, float near, float far, float scale) {
     float ortho[4][4];
-    float *p = &ortho[0][0];
-    int i, j;
-    guMtxIdentF(p);
-    ortho[0][0] = 2/(r-l);
-    ortho[1][1] = 2/(t-b);
-    ortho[2][2] = -2/(f-n);
-    ortho[3][0] = -(r+l)/(r-l);
-    ortho[3][1] = -(t+b)/(t-b);
-    ortho[3][2] = -(f+n)/(f-n);
+    float *cell = &ortho[0][0];
+    int row, col;
+    guMtxIdentF(cell);
+    ortho[0][0] = 2/(right-left);
+    ortho[1][1] = 2/(top-bottom);
+    ortho[2][2] = -2/(far-near);
+    ortho[3][0] = -(right+left)/(right-left);
+    ortho[3][1] = -(top+bottom)/(top-bottom);
+    ortho[3][2] = -(far+near)/(far-near);
     ortho[3][3] = 1;
-    for (i=0; i<4; i++, p+=4) {
-        j = 0;
-        while (j < 4) {
-            p[j] *= scale;
-            j++;
+    for (row=0; row<4; row++, cell+=4) {
+        col = 0;
+        while (col < 4) {
+            cell[col] *= scale;
+            col++;
         }
     }
-    guMtxF2L(ortho, mf);
+    guMtxF2L(ortho, m);
 }

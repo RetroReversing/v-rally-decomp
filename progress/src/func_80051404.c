@@ -1,40 +1,45 @@
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
+
+/* Walks the order-state chain for the entry at index entry->0x114 of the
+ * 0x44-byte entry array at arg0, stepping once per index (twice when the
+ * slot's flag at +0x1B is set), and returns the node reached. */
 void *func_80051404(char *arg0)
 {
-  char *new_var;
-  void *temp_v1;
-  char *temp_a0;
-  u8 temp_a1;
-  u16 temp_v0;
-  u8 temp_a2;
-  u8 i;
-  temp_a1 = arg0[0x114];
-  new_var = *((char **) (D_800C02AE + 0x32F2));
-  temp_a0 = arg0 + (temp_a1 * 0x44);
-  temp_v0 = *((u16 *) (temp_a0 + 8));
-  temp_v1 = *((void **) (*((void **) (D_800AE850 + 0x73F0))));
-  temp_a0 = new_var;
-  temp_v0 = temp_v0 >> 4;
-  temp_a2 = temp_a0[0x1B];
-  if (temp_v0 & 1)
-  {
-    temp_v1 = *((void **) (((char *) temp_v1) + 4));
-  }
-  i = 0;
-  if (temp_a1 != 0)
-  {
-    temp_a2 = temp_a2;
-    do
+    char *new_var;
+    void *node;
+    char *temp_a0;
+    u8 count;
+    u16 flags;
+    u8 slot_flag;
+    u8 i;
+
+    count = arg0[0x114];
+    new_var = *((char **) (gStreamState + 0x32F2));
+    temp_a0 = arg0 + (count * 0x44);
+    flags = *((u16 *) (temp_a0 + 8));
+    node = *((void **) (*((void **) (gOrderState + 0x73F0))));
+    temp_a0 = new_var;
+    flags = flags >> 4;
+    slot_flag = temp_a0[0x1B];
+    if (flags & 1)
     {
-      temp_v1 = *((void **) (((char *) temp_v1) + 4));
-      if (temp_a2 != 0)
-      {
-        temp_v1 = *((void **) (((char *) temp_v1) + 4));
-      }
-      i++;
+        node = *((void **) (((char *) node) + 4));
     }
-    while (i < temp_a1);
-  }
-  return temp_v1;
+    i = 0;
+    if (count != 0)
+    {
+        slot_flag = slot_flag;
+        do
+        {
+            node = *((void **) (((char *) node) + 4));
+            if (slot_flag != 0)
+            {
+                node = *((void **) (((char *) node) + 4));
+            }
+            i++;
+        }
+        while (i < count);
+    }
+    return node;
 }

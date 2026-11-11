@@ -1,23 +1,27 @@
 u64 osGetTime(void);
-u64 func_8009A2B0(u64, u64);
-extern char *D_800C7304;
+u64 __udivdi3(u64, u64);
+extern char *gTimeSampleState;
+
+/* Timing sample: while the sample block holds fewer than four samples (count at +4, last
+ * timestamp at +8, 8-byte sample slots from +0xF0), stores the time since the last one, as
+ * (now << 6) / 3000 minus the last timestamp, in the next free slot and advances the count. */
 void func_80013EA0(void)
 {
-  char *s1;
-  char *s0;
+  char *block;
+  char *slot;
   u32 idx;
   u64 t;
   u64 r;
-  if ((*((u32 *) (D_800C7304 + 4))) < 4)
+  if ((*((u32 *) (gTimeSampleState + 4))) < 4)
   {
     t = osGetTime();
-    s1 = D_800C7304;
-    idx = *((u32 *) (s1 + 4));
-    *((u32 *) (s1 + 4)) = idx + 1;
-    s0 = (char *) (idx * 8);
-    s0 = s1 + ((u32) s0);
-    r = func_8009A2B0(t << 6, 3000);
-    r = r - (*((u64 *) (s1 + 8)));
-    *((u64 *) (s0 + 0xF0)) = r;
+    block = gTimeSampleState;
+    idx = *((u32 *) (block + 4));
+    *((u32 *) (block + 4)) = idx + 1;
+    slot = (char *) (idx * 8);
+    slot = block + ((u32) slot);
+    r = __udivdi3(t << 6, 3000);
+    r = r - (*((u64 *) (block + 8)));
+    *((u64 *) (slot + 0xF0)) = r;
   }
 }

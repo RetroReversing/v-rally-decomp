@@ -1,32 +1,33 @@
-s32 func_8008D8B4();
-s32 func_8008D920();
-s32 func_8008FA20();
+s32 pif_lock();
+s32 pif_unlock();
+s32 pakQueryStatus();
 
-s32 osEepromProbe(s32 arg0) {
-    u16 sp10;
-    s32 s0;
+/* Probes the controller pak on the given channel and returns its kind: 1 for the 0x8000 status class, 2 for 0xC000, 0 for anything else or on error. The PIF is locked for the query. */
+s32 osEepromProbe(s32 channel) {
+    u16 status;
+    s32 kind;
     s32 r;
     u16 v;
 
-    s0 = arg0;
-    func_8008D8B4(s0);
-    r = func_8008FA20(s0, &sp10);
-    v = sp10 & 0xC000;
+    kind = channel;
+    pif_lock(kind);
+    r = pakQueryStatus(kind, &status);
+    v = status & 0xC000;
     if (r == 0) {
         switch (v) {
         case 0x8000:
-            s0 = 1;
+            kind = 1;
             break;
         case 0xC000:
-            s0 = 2;
+            kind = 2;
             break;
         default:
-            s0 = 0;
+            kind = 0;
             break;
         }
     } else {
-        s0 = 0;
+        kind = 0;
     }
-    func_8008D920();
-    return s0;
+    pif_unlock();
+    return kind;
 }

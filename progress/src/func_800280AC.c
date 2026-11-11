@@ -14,10 +14,10 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80027CDC(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80027CFC(M2C_UNK);                     /* extern */
-s32 func_800502D4(s32);                             /* extern */
-extern s32 D_800A1234;
+s32 seq_next_entry(s32);                             /* extern */
+extern s32 gCarEntries;
 
 void func_800280AC(s32 arg0, M2C_UNK arg1) {
-    func_80027CDC(func_800502D4(D_800A1234), arg1);
+    func_80027CDC(seq_next_entry(gCarEntries), arg1);
     func_80027CFC(arg1);
 }

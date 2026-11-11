@@ -2,49 +2,50 @@ typedef struct { u8 b[8]; } Buf8;
 typedef struct { s32 w[4]; } Quad;
 
 extern int D_800B5B4C;
-extern char D_800AE850[];
+extern char gOrderState[];
 extern char D_8009FFF0[];
 
 s32 func_800051B4();
-s32 func_80022184();
-s32 func_80041E0C();
-void *func_800801D0();
+s32 flag_test_bit0();
+s32 streamOrderInit();
+void *poolAllocNode();
 
-void *func_80042078(void *arg0, u16 arg1, s32 arg2, s32 arg3, u16 arg4) {
-    u16 var_s3;
-    char *var_a2;
-    char *temp_s0;
-    char *var_a3;
-    char *end;
+/* Allocates a 0x198-byte object record and fills it in: copies the 0x140-byte template at D_8009FFF0 into it, stores the id, kind and param, and zeroes the trailing words. When active is zero, only the 0x178 word is cleared. */
+void *func_80042078(void *pos, u16 id, s32 active, s32 kind, u16 param) {
+    u16 p16;
+    char *src;
+    char *obj;
+    char *dst;
+    char *src_end;
 
-    var_s3 = arg4;
-    if (func_80022184(D_800AE850 + 0x7338) != 0) {
+    p16 = param;
+    if (flag_test_bit0(gOrderState + 0x7338) != 0) {
         goto block_2;
     }
-    func_80041E0C();
+    streamOrderInit();
 block_2:
-    temp_s0 = func_800801D0(D_800B5B4C, 0x198);
-    if (arg2 == 0) {
+    obj = poolAllocNode(D_800B5B4C, 0x198);
+    if (active == 0) {
         goto block_6;
     }
-    *(s32 *)(temp_s0 + 0x178) = func_800051B4(arg0, arg1 & 0xFFFF, 0, 0, var_s3);
-    *(Buf8 *)(temp_s0 + 0x17C) = *(Buf8 *)arg0;
-    var_a3 = temp_s0 + 0x38;
-    var_a2 = D_8009FFF0;
-    end = var_a2 + 0x140;
-    *(s16 *)(temp_s0 + 0x184) = arg1;
-    *(s16 *)(temp_s0 + 0x186) = arg2;
-    *(s16 *)(temp_s0 + 0x188) = arg3;
-    *(u16 *)(temp_s0 + 0x18A) = var_s3;
-    *(s32 *)(temp_s0 + 0x18C) = 0;
-    *(s32 *)(temp_s0 + 0x190) = 0;
+    *(s32 *)(obj + 0x178) = func_800051B4(pos, id & 0xFFFF, 0, 0, p16);
+    *(Buf8 *)(obj + 0x17C) = *(Buf8 *)pos;
+    dst = obj + 0x38;
+    src = D_8009FFF0;
+    src_end = src + 0x140;
+    *(s16 *)(obj + 0x184) = id;
+    *(s16 *)(obj + 0x186) = active;
+    *(s16 *)(obj + 0x188) = kind;
+    *(u16 *)(obj + 0x18A) = p16;
+    *(s32 *)(obj + 0x18C) = 0;
+    *(s32 *)(obj + 0x190) = 0;
     do {
-        *(Quad *)var_a3 = *(Quad *)var_a2;
-        var_a2 += 0x10;
-        var_a3 += 0x10;
-    } while (var_a2 != end);
-    return temp_s0;
+        *(Quad *)dst = *(Quad *)src;
+        src += 0x10;
+        dst += 0x10;
+    } while (src != src_end);
+    return obj;
 block_6:
-    *(s32 *)(temp_s0 + 0x178) = 0;
-    return temp_s0;
+    *(s32 *)(obj + 0x178) = 0;
+    return obj;
 }

@@ -1,7 +1,7 @@
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 extern s16 D_800A38A0[];extern u8 D_800A7070[],D_800A7074[];extern void *D_800A2500;
 extern void func_800914E0(void *,void *,s32);extern void func_8008EC18(void *);extern void _freePVoice(void *,void *);
-extern void *_pullSubFrame(VRALEnv *,s16 *,s16 *,s32,s32,void *);extern f32 _getVol(f32,s32,s16,u16);
+extern void *_pullSubFrame(VRALEnv *,s16 *,s16 *,s32,s32,void *);extern f32 vol_scale_pow(f32,s32,s16,u16);
 
 /* Mixes one audio frame of envelope state for `env`. Walks the env's control
  * queue (VRALParam list) up to `time`: each event either starts a new voice
@@ -35,8 +35,8 @@ env->targetL=(env->volume*D_800A38A0[env->pan])>>15;
 env->targetR=(env->volume*D_800A38A0[127-env->pan])>>15;
 env->delta=env->segEnd;env->cvolL=env->targetL;env->cvolR=env->targetR;
 }else {
-env->cvolL=_getVol(env->cvolL,env->delta,env->ratemL,env->rateL);
-env->cvolR=_getVol(env->cvolR,env->delta,env->ratemR,env->rateR);
+env->cvolL=vol_scale_pow(env->cvolL,env->delta,env->ratemL,env->rateL);
+env->cvolR=vol_scale_pow(env->cvolR,env->delta,env->ratemR,env->rateR);
 }
 if(env->cvolL==0)env->cvolL=1;if(env->cvolR==0)env->cvolR=1;
 if(env->ctrl->type==12)env->pan=env->ctrl->value;

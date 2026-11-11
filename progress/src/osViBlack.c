@@ -1,18 +1,21 @@
-s32 func_8008BD90(s32 a0);
-void func_8008BDB0(s32 a0);
-extern u16 *D_800A3A34;
+s32 osDisableInt(s32 a0);
+void osRestoreInt(s32 a0);
+extern u16 *__osViCurr;
 
-void osViBlack(s32 arg0) {
-    s32 temp;
-    u16 *p;
+/* Turns the VI blank bit (0x20 in the VI control word at __osViCurr) on when
+ * active is non-zero, off otherwise. Interrupts are disabled around the update. */
+void osViBlack(s32 active)
+{
+    s32 saved_int;
+    u16 *ctrl;
 
-    temp = func_8008BD90(arg0);
-    if (arg0 & 0xFF) {
-        p = D_800A3A34;
-        *p = *p | 0x20;
+    saved_int = osDisableInt(active);
+    if (active & 0xFF) {
+        ctrl = __osViCurr;
+        *ctrl = *ctrl | 0x20;
     } else {
-        p = D_800A3A34;
-        *p = *p & 0xFFDF;
+        ctrl = __osViCurr;
+        *ctrl = *ctrl & 0xFFDF;
     }
-    func_8008BDB0(temp);
+    osRestoreInt(saved_int);
 }

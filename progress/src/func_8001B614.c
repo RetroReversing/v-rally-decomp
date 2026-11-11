@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8001B5AC(s32);                         /* extern */
-s32 func_800801D0(s32, M2C_UNK);                    /* extern */
-extern M2C_UNK D_800C02AE;
+M2C_UNK record_reset(s32);                         /* extern */
+s32 poolAllocNode(s32, M2C_UNK);                    /* extern */
+extern M2C_UNK gStreamState;
 
 s32 func_8001B614(void) {
     s32 temp_v0;
 
-    temp_v0 = func_800801D0(M2C_FIELD(&D_800C02AE, s32 *, 0x6C5E), 0xF4);
-    M2C_FIELD(&D_800C02AE, s32 *, 0x32F2) = temp_v0;
-    func_8001B5AC(temp_v0);
-    return M2C_FIELD(&D_800C02AE, s32 *, 0x32F2);
+    temp_v0 = poolAllocNode(M2C_FIELD(&gStreamState, s32 *, 0x6C5E), 0xF4);
+    M2C_FIELD(&gStreamState, s32 *, 0x32F2) = temp_v0;
+    record_reset(temp_v0);
+    return M2C_FIELD(&gStreamState, s32 *, 0x32F2);
 }

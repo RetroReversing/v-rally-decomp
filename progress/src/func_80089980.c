@@ -1,5 +1,7 @@
 extern u8 D_800A73E0[];
-extern u8 D_800AE850[];
+extern u8 gOrderState[];
+
+/* Resets the print/state block: clears four words at +0x4598 and two at +0x4590, then sets the word at gOrderState+0x1204 to 0x80. */
 void func_80089980(void) {
     register u8 i;
     u32 *p;
@@ -11,5 +13,5 @@ void func_80089980(void) {
     } while (i < 4);
     *(u32 *)((u8 *)D_800A73E0 + 0x4590) = 0;
     *(u32 *)((u8 *)D_800A73E0 + 0x4594) = 0;
-    *(u32 *)((u8 *)D_800AE850 + 0x1204) = 0x80;
+    *(u32 *)((u8 *)gOrderState + 0x1204) = 0x80;
 }

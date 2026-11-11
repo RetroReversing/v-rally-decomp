@@ -1,6 +1,6 @@
 typedef void (*SpriteHook)(void *);
 static inline s32 carflag(u8 *g, u32 i) { u8 *c = g + (g + i)[0x31] * 40; return c[0x48] & 8; }
-#define CARFLAG(i) carflag(D_800C35A0, i)
+#define CARFLAG(i) carflag(gRecords, i)
 typedef struct Tex3
 {
   u16 h0;
@@ -56,11 +56,11 @@ typedef struct
   Pack3 *pack;
   Node *node;
 } Spr;
-extern u8 *D_800C35A0;
-extern Node *D_800C7F84;
-Pack3 *func_80034FF0(s32 id, s32 extra);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-Node *func_8004240C(s32 arg0);
+extern u8 *gRecords;
+extern Node *g_camera;
+Pack3 *getTexturePack(s32 id, s32 extra);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+Node *find_object_by_id(s32 arg0);
 void func_8003F05C(void *);
 void func_8003EFF8(void *);
 
@@ -84,11 +84,11 @@ void draw_race_position_sprites(s32 list, s32 base_id)
   s32 few;
   dy = 0;
   flag_spr = NULL;
-  if (((*((u16 *) (D_800C35A0 + 0x1E))) == 7) && ((*((u16 *) (D_800C35A0 + 0xE))) < 3))
+  if (((*((u16 *) (gRecords + 0x1E))) == 7) && ((*((u16 *) (gRecords + 0xE))) < 3))
   {
     return;
   }
-  car_count = D_800C35A0[0xF];
+  car_count = gRecords[0xF];
   if (car_count < 3)
   {
     i = 1;
@@ -96,8 +96,8 @@ void draw_race_position_sprites(s32 list, s32 base_id)
     for (n = car_count; i <= n; i++)
     {
       few = n < 3;
-      D_800C7F84 = func_8004240C(((i - 1) * 2) | 1);
-      rect = &D_800C7F84->rh->r;
+      g_camera = find_object_by_id(((i - 1) * 2) | 1);
+      rect = &g_camera->rh->r;
       x = rect->x;
       y = rect->y;
       switch (n)
@@ -110,7 +110,7 @@ void draw_race_position_sprites(s32 list, s32 base_id)
           break;
 
         case 2:
-          if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
+          if ((*((u16 *) (gRecords + 0x12))) & 1)
         {
           dy = 0x20;
           x += rect->w / 2;
@@ -128,16 +128,16 @@ void draw_race_position_sprites(s32 list, s32 base_id)
 
       if (CARFLAG(i))
       {
-        flag_spr = ((Spr *)func_80040260((void *)(list), x, y + 10, (s16)(8), func_8003F05C, 1));
-        flag_spr->pack = func_80034FF0(base_id + 0x4C, 0);
+        flag_spr = ((Spr *)sprite_create((void *)(list), x, y + 10, (s16)(8), func_8003F05C, 1));
+        flag_spr->pack = getTexturePack(base_id + 0x4C, 0);
         flag_spr->mode = 2;
-        flag_spr->node = D_800C7F84;
+        flag_spr->node = g_camera;
         flag_spr->alpha = 0xB4;
       }
-      pos_spr = ((Spr *)func_80040260((void *)(list), x, rect->y + dy, (s16)(8), func_8003EFF8, 1));
-      pos_spr->pack = func_80034FF0(base_id + 0x4C, 0);
+      pos_spr = ((Spr *)sprite_create((void *)(list), x, rect->y + dy, (s16)(8), func_8003EFF8, 1));
+      pos_spr->pack = getTexturePack(base_id + 0x4C, 0);
       pos_spr->frame = 5;
-      pos_spr->node = D_800C7F84;
+      pos_spr->node = g_camera;
       tex = pos_spr->pack->tex[pos_spr->frame];
       half_w = tex->width >> 1;
       half_h = tex->height >> 1;
@@ -153,7 +153,7 @@ void draw_race_position_sprites(s32 list, s32 base_id)
       else
         if (few)
       {
-        if ((*((u16 *) (D_800C35A0 + 0x12))) & 1)
+        if ((*((u16 *) (gRecords + 0x12))) & 1)
         {
           pos_spr->sx = 0x480;
           pos_spr->sy = 0x480;

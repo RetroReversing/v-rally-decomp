@@ -23,50 +23,53 @@ typedef struct
   u8 pad0[0x134];
   s32 values[256];
 } VRValueBlock;
-extern VRQueueHead *D_800A1468;
+extern VRQueueHead *gSelectState;
 extern u8 D_800A5260;
-s32 func_80081540(u8 *);
+s32 resolve_path(u8 *);
 s32 func_80081664(s32, void *);
-s32 func_8000BF2C(s32);
-void func_8000C200(s32, f32, f32, f32);
-void func_8000C1EC(s32, s32, s32);
+s32 make_rect_set(s32);
+void rect_set_set_scale(s32, f32, f32, f32);
+void rect_set_set_item_pos(s32, s32, s32);
 void func_8000C22C(void *, s32, s32, s32, u8);
-void func_80058C04(VRItem *arg0)
+
+/* Queues one result rect per entry of the item (three entries per group, 0xE4
+ * bytes each), stores them in the current queue slot and advances the frame. */
+void func_80058C04(VRItem *item)
 {
-  s32 var_s1;
-  s32 temp_v0;
-  s32 temp_s0;
+  s32 i;
+  s32 count;
+  s32 entry_off;
   unsigned int a1;
-  temp_v0 = arg0->count;
-  var_s1 = 0;
-  if (temp_v0 > 0)
+  count = item->count;
+  i = 0;
+  if (count > 0)
   {
-    s32 limit = temp_v0;
+    s32 limit = count;
     do
     {
-      var_s1 += 3;
+      i += 3;
     }
-    while (((u8) var_s1) < limit);
+    while (((u8) i) < limit);
   }
-  func_80081540(&D_800A5260);
-  var_s1 = 0;
-  *((u8 *) ((((u8 *) D_800A1468) + 0xD0) - (-(D_800A1468->frame * 2)))) = D_800A1468->current;
-  *((s8 *) ((((u8 *) D_800A1468) + 0xD1) - (-(D_800A1468->frame * 2)))) = arg0->count / 3;
-  if ((arg0->count / 3) > 0)
+  resolve_path(&D_800A5260);
+  i = 0;
+  *((u8 *) ((((u8 *) gSelectState) + 0xD0) - (-(gSelectState->frame * 2)))) = gSelectState->current;
+  *((s8 *) ((((u8 *) gSelectState) + 0xD1) - (-(gSelectState->frame * 2)))) = item->count / 3;
+  if ((item->count / 3) > 0)
   {
     do
     {
-      temp_s0 = ((u8) var_s1) * 0xE4;
-      a1 = temp_s0 + 0x4C;
-      ((VRValueBlock *) D_800A1468)->values[D_800A1468->current] = func_80081664(6, ((u8 *) arg0) + a1);
-      ((VRResultBlock *) D_800A1468)->results[D_800A1468->current] = func_8000BF2C(((VRValueBlock *) D_800A1468)->values[D_800A1468->current]);
-      func_8000C200(((VRResultBlock *) D_800A1468)->results[D_800A1468->current], 1.0f, 1.0f, 1.0f);
-      var_s1++;
-      func_8000C1EC(((VRResultBlock *) D_800A1468)->results[D_800A1468->current], *((s32 *) ((temp_s0 + ((s32) arg0)) + 0xDC)), *((s32 *) ((temp_s0 + ((s32) arg0)) + 0x128)));
-      func_8000C22C((void *)(((VRResultBlock *) D_800A1468)->results[D_800A1468->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
-      D_800A1468->current++;
+      entry_off = ((u8) i) * 0xE4;
+      a1 = entry_off + 0x4C;
+      ((VRValueBlock *) gSelectState)->values[gSelectState->current] = func_80081664(6, ((u8 *) item) + a1);
+      ((VRResultBlock *) gSelectState)->results[gSelectState->current] = make_rect_set(((VRValueBlock *) gSelectState)->values[gSelectState->current]);
+      rect_set_set_scale(((VRResultBlock *) gSelectState)->results[gSelectState->current], 1.0f, 1.0f, 1.0f);
+      i++;
+      rect_set_set_item_pos(((VRResultBlock *) gSelectState)->results[gSelectState->current], *((s32 *) ((entry_off + ((s32) item)) + 0xDC)), *((s32 *) ((entry_off + ((s32) item)) + 0x128)));
+      func_8000C22C((void *)(((VRResultBlock *) gSelectState)->results[gSelectState->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
+      gSelectState->current++;
     }
-    while (((u8) var_s1) < (arg0->count / 3));
+    while (((u8) i) < (item->count / 3));
   }
-  D_800A1468->frame++;
+  gSelectState->frame++;
 }

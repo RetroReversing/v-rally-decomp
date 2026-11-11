@@ -1,3 +1,5 @@
+/* Skips blank space (spaces, tabs, commas) and comment lines in a text buffer. A line
+   starts a comment with '#' or '//'. Returns the first token position, or end. */
 char *func_8002B180(char *p, char *end)
 {
     s32 c;

@@ -1,9 +1,9 @@
-typedef struct { s16 vx, vy, vz, pad; } SVec;
-typedef struct { s32 vx, vy, vz, pad; } LVec;
+typedef struct { s16 x, y, z, pad; } SVec;
+typedef struct { s32 x, y, z, pad; } LVec;
 s32 func_8001FEDC();
 s32 func_8002D2A0();
 s32 func_8002E778();
-extern char D_800AE850[];
+extern char gOrderState[];
 
 typedef struct Car {
     char pad0[4];
@@ -20,80 +20,84 @@ typedef struct Car {
 
 typedef struct {
     s32 count;
-    s32 id[4];
-    s32 v14[4];
-    s32 v24[4];
-    s32 v34[4];
-    s32 v44[4];
-    s32 v54[4];
-    s32 v64[4];
+    s32 team[4];
+    s32 score[4];
+    s32 ref28[4];
+    s32 ref30[4];
+    s32 progress[4];
+    s32 gap[4];
+    s32 rank[4];
     Car *car[4];
-    s32 n84;
-    s32 a88[4];
-    s32 n98;
-    s32 a9C[4];
-    s32 aAC[4];
+    s32 nLeft;
+    s32 leftIdx[4];
+    s32 nRight;
+    s32 rightIdx[4];
+    s32 rightDir[4];
 } Out;
 
-#define W(p, o) (*(s32 *)((char *)(p) + (o)))
+#define FIELD_S32(p, off) (*(s32 *)((char *)(p) + (off)))
 
-void func_80034134(Out *out, Car *self)
+/* Fills `out` with the cars near `me` (the car list at gOrderState+0x73F0, skipping `me`) that
+ * are on our team or ahead of us on score. For each one it records team, score, rank and gap, then
+ * sorts it into the left or right side list based on the cross products of the two cars' body
+ * corners. */
+void func_80034134(Out *out, Car *me)
 {
-    SVec a, b, c, d;
+    SVec mineFront, mineSide, theirFront, theirSide;
     LVec v;
     Car *car;
     s32 myRank;
-    s32 myVal;
+    s32 myScore;
     s32 myTeam;
     s32 i;
     s32 cross1, cross2, dot;
 
-    car = **(Car ***)(D_800AE850 + 0x73F0);
-    myRank = W(self->info, 0x17C);
-    myVal = W(self->info, 0x14);
+    car = **(Car ***)(gOrderState + 0x73F0);
+    myRank = FIELD_S32(me->info, 0x17C);
+    myScore = FIELD_S32(me->info, 0x14);
     i = 0;
-    myTeam = *self->team;
-    out->n84 = 0;
-    out->n98 = 0;
+    myTeam = *me->team;
+    out->nLeft = 0;
+    out->nRight = 0;
     out->count = 0;
     while (car != NULL) {
-        if (car != self) {
-            out->id[i] = *car->team;
-            out->v14[i] = W(car->info, 0x14);
-            out->v24[i] = W(car->info, 0x28);
-            out->v34[i] = W(car->info, 0x30);
-            if (out->id[i] == myTeam || out->id[i] == W(myTeam, 0x5C)) {
-            a.vx = W(self->body, 0x2B8) - W(self->body, 0x2CC);
-            a.vz = W(self->body, 0x2C0) - W(self->body, 0x2D4);
-            b.vx = W(self->body, 0x240) - W(self->body, 0x254);
-            b.vz = W(self->body, 0x248) - W(self->body, 0x25C);
-            c.vx = W(car->body, 0x254) - W(self->body, 0x2CC);
-            c.vz = W(car->body, 0x25C) - W(self->body, 0x2D4);
-            d.vx = W(car->body, 0x2CC) - W(self->body, 0x254);
-            d.vz = W(car->body, 0x2D4) - W(self->body, 0x25C);
-            cross1 = a.vx * c.vz - a.vz * c.vx;
-            cross2 = b.vx * d.vz - b.vz * d.vx;
-            dot = a.vx * c.vx + a.vz * c.vz;
-            if (out->v24[i] >= myVal || out->id[i] == W(myTeam, 0x5C)) {
-            out->v44[i] = func_8001FEDC(car);
-            out->v64[i] = W(car->info, 0x17C);
+        if (car != me) {
+            out->team[i] = *car->team;
+            out->score[i] = FIELD_S32(car->info, 0x14);
+            out->ref28[i] = FIELD_S32(car->info, 0x28);
+            out->ref30[i] = FIELD_S32(car->info, 0x30);
+            if (out->team[i] == myTeam || out->team[i] == FIELD_S32(myTeam, 0x5C)) {
+            mineFront.x = FIELD_S32(me->body, 0x2B8) - FIELD_S32(me->body, 0x2CC);
+            mineFront.z = FIELD_S32(me->body, 0x2C0) - FIELD_S32(me->body, 0x2D4);
+            mineSide.x = FIELD_S32(me->body, 0x240) - FIELD_S32(me->body, 0x254);
+            mineSide.z = FIELD_S32(me->body, 0x248) - FIELD_S32(me->body, 0x25C);
+            theirFront.x = FIELD_S32(car->body, 0x254) - FIELD_S32(me->body, 0x2CC);
+            theirFront.z = FIELD_S32(car->body, 0x25C) - FIELD_S32(me->body, 0x2D4);
+            theirSide.x = FIELD_S32(car->body, 0x2CC) - FIELD_S32(me->body, 0x254);
+            theirSide.z = FIELD_S32(car->body, 0x2D4) - FIELD_S32(me->body, 0x25C);
+            cross1 = mineFront.x * theirFront.z - mineFront.z * theirFront.x;
+            cross2 = mineSide.x * theirSide.z - mineSide.z * theirSide.x;
+            dot = mineFront.x * theirFront.x + mineFront.z * theirFront.z;
+            if (out->ref28[i] >= myScore || out->team[i] == FIELD_S32(myTeam, 0x5C)) {
+            out->progress[i] = func_8001FEDC(car);
+            out->rank[i] = FIELD_S32(car->info, 0x17C);
             out->car[i] = car;
-            v.vx = W(self->pos, 0xC) - W(car->pos, 0xC);
-            v.vz = W(self->pos, 0x14) - W(car->pos, 0x14);
+            v.x = FIELD_S32(me->pos, 0xC) - FIELD_S32(car->pos, 0xC);
+            v.z = FIELD_S32(me->pos, 0x14) - FIELD_S32(car->pos, 0x14);
             func_8002E778(&v, &v);
-            out->v54[i] = func_8002D2A0(v.vx + v.vz);
-            if (((cross1 < 0) & (cross2 < 0)) && out->v64[i] < myRank + 20 && myRank - 20 < out->v64[i]) {
-                out->a88[out->n84] = i;
-                out->n84++;
+            out->gap[i] = func_8002D2A0(v.x + v.z);
+            if (((cross1 < 0) & (cross2 < 0)) && out->rank[i] < myRank + 20 && myRank - 20 < out->rank[i]) {
+                out->leftIdx[out->nLeft] = i;
+                out->nLeft++;
             }
-            if (((0 < cross1) & (cross2 < 0)) && out->v64[i] < myRank + 25 && myRank - 25 < out->v64[i]) {
-                out->a9C[out->n98] = i;
+            if (((0 < cross1) & (cross2 < 0)) && out->rank[i] < myRank + 25 && myRank - 25 < out->rank[i]) {
+                out->rightIdx[out->nRight] = i;
                 if (dot < 0) {
-                    out->aAC[out->n98] = 0;
+                    out->rightDir[out->nRight] = 0;
                 } else {
-                    out->aAC[out->n98] = 1;
+                    out->rightDir[out->nRight] = 1;
                 }
-                out->n98++;
+                out->nRight++;
             }
             i++;
             out->count++;

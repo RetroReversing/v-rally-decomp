@@ -1,13 +1,13 @@
 extern int D_800AE004;
-s32 func_8001FEE8(void *);
-void *func_80042290(void *);
+s32 getCounterValue(void *);
+void *streamSetCurrent(void *);
 u64 osGetTime(void);
 s32 func_80098090(void);
-s32 func_800980C4();
+s32 rand_seed();
 extern u8 D_8009BA34;
-extern s32 D_8009D538;
+extern s32 gPadFlags;
 extern char D_800A73E0[];
-extern char D_800C02AE[];
+extern char gStreamState[];
 typedef struct { s32 x, y, z; } Vec;
 typedef struct Node {
   u8 p0[8];
@@ -55,91 +55,95 @@ typedef struct {
   s32 f138;
 } Cam;
 
+/* Chase-camera AI: picks the next track node for the target from the nodes in the
+   groups ahead of the player (nearest first, with a random skip once a target is
+   reached) and aims the camera at the target and the player. Does nothing while
+   the race flags or the pause byte are set. */
 void func_80012638(Ctl *ctl)
 {
   Cam *cam;
-  Vec delta;
+  Vec diff;
   Vec pos;
-  Obj *obj;
+  Obj *follow;
   Node *first;
-  Node *n;
+  Node *grp;
   Node *best;
-  Node *bestGrp;
+  Node *best_grp;
   Node *it;
-  Node *nx;
-  Node *nx2;
-  s32 found;
-  s32 r;
+  Node *next_grp;
+  Node *next_grp2;
+  s32 hit;
+  s32 gap;
   s32 t;
-  s16 i;
-  u32 min;
-  u32 d;
+  s16 k;
+  u32 min_d;
+  u32 dsq;
 
-  func_800980C4((u32) osGetTime());
-  cam = *(Cam **)(D_800C02AE + 0x7cd6);
-  bestGrp = NULL;
+  rand_seed((u32) osGetTime());
+  cam = *(Cam **)(gStreamState + 0x7cd6);
+  best_grp = NULL;
   cam->f130 = 0;
   cam->f134 = 100.0f;
   cam->f138 = 0;
   cam->f114 = 1.0f;
-  if (!(D_8009D538 & 2) && D_8009BA34 == 0 && D_800AE004 != 0) {
-    obj = cam->node;
-    pos = obj->f58->pos;
-    r = func_8001FEE8(obj);
-    first = (Node *)obj->f8C->f28;
+  if (!(gPadFlags & 2) && D_8009BA34 == 0 && D_800AE004 != 0) {
+    follow = cam->node;
+    pos = follow->f58->pos;
+    gap = getCounterValue(follow);
+    first = (Node *)follow->f8C->f28;
     best = NULL;
-    n = first;
-    if (first->f58 != NULL) n = first->f58;
-    min = 99999999;
-    i = 0;
+    grp = first;
+    if (first->f58 != NULL) grp = first->f58;
+    min_d = 99999999;
+    k = 0;
     do {
-      found = 0;
-      if (n->f7C != NULL) {
-        it = n->f7C;
+      hit = 0;
+      if (grp->f7C != NULL) {
+        it = grp->f7C;
         do {
-          if (it == ctl->target) found = 1;
-          delta.x = pos.x - it->pos.x;
-          delta.z = pos.z - it->pos.z;
-          d = (delta.x >> 4) * (delta.x >> 4) + (delta.z >> 4) * (delta.z >> 4);
-          if (min >= d) {
-            min = d;
-            best = n->f7C;
-            bestGrp = n;
+          if (it == ctl->target) hit = 1;
+          diff.x = pos.x - it->pos.x;
+          diff.z = pos.z - it->pos.z;
+          dsq = (diff.x >> 4) * (diff.x >> 4) + (diff.z >> 4) * (diff.z >> 4);
+          if (min_d >= dsq) {
+            min_d = dsq;
+            best = grp->f7C;
+            best_grp = grp;
           }
-          if (n->f7C == n->f7C->next) break;
+          if (grp->f7C == grp->f7C->next) break;
           it = it->next;
         } while (it != NULL);
-        if (found) best = ctl->target;
+        if (hit) best = ctl->target;
       }
-      if (n->f5C != NULL) n = n->f5C;
-      i++;
-    } while (i < 3);
+      if (grp->f5C != NULL) grp = grp->f5C;
+      k++;
+    } while (k < 3);
     if (best != NULL) {
       if (ctl->target != best && ctl->timer >= 0x33) {
-        if (bestGrp == first)
+        if (best_grp == first)
         {
-          d = obj->f60->f28;
-          if ((u32)(bestGrp->f88 - d) < 10U)
+          dsq = follow->f60->f28;
+          if ((u32)(best_grp->f88 - dsq) < 10U)
           {
-            nx = bestGrp->f5C;
-            if (nx != NULL)
+            next_grp = best_grp->f5C;
+            if (next_grp != NULL)
             {
-              if (nx->f7C != NULL)
+              if (next_grp->f7C != NULL)
               {
-                best = nx->f7C;
-                bestGrp = nx;
+                best = next_grp->f7C;
+                best_grp = next_grp;
               }
             }
           }
         }
-        if (((r >= 0x83) & (bestGrp != NULL)) && ((nx2 = bestGrp->f5C, nx2 != NULL)))
+        if (((gap >= 0x83) & (best_grp != NULL)) && ((next_grp2 = best_grp->f5C, next_grp2 != NULL)))
         {
-          found = bestGrp != NULL;
-          if (bestGrp->type != 1)
+          hit = best_grp != NULL;
+          if (best_grp->type != 1)
           {
-            if (nx2->f7C != NULL)
+            if (next_grp2->f7C != NULL)
             {
-              best = nx2->f7C;
+              best = next_grp2->f7C;
             }
             goto block_33;
           }
@@ -147,18 +151,18 @@ void func_80012638(Ctl *ctl)
         else
         {
           block_33:
-          found = bestGrp != NULL;
+          hit = best_grp != NULL;
         }
-        if ((bestGrp != NULL) & (best != NULL))
+        if ((best_grp != NULL) & (best != NULL))
         {
-          i = func_80098090() % 6;
-          while (i > 0)
+          k = func_80098090() % 6;
+          while (k > 0)
           {
             if (best->next != NULL)
               best = best->next;
             else
-              best = bestGrp->f7C;
-            i -= 1;
+              best = best_grp->f7C;
+            k -= 1;
           }
         }
         ctl->target = best;
@@ -166,7 +170,7 @@ void func_80012638(Ctl *ctl)
       } else {
         ctl->timer++;
       }
-      cam = *(Cam **)(D_800C02AE + 0x7cd6);
+      cam = *(Cam **)(gStreamState + 0x7cd6);
       cam->flags &= 0xFF77;
       cam->f118 = ctl->target->pos.x;
       cam->f11c = ctl->target->pos.y;
@@ -175,12 +179,12 @@ void func_80012638(Ctl *ctl)
       cam->f128 = pos.y;
       cam->f12c = pos.z;
       cam->f108 = 0;
-      if (*(u16 *)(*(char **)(D_800C02AE + 0x32F2) + 0xE) == 1) {
+      if (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == 1) {
         cam->f114 = 0.5f;
       } else {
         cam->f114 = 1.0f;
       }
     }
   }
-  func_80042290(*(void **)(D_800C02AE + 0x7CD6));
+  streamSetCurrent(*(void **)(gStreamState + 0x7CD6));
 }

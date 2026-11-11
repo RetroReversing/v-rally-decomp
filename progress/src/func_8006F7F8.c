@@ -1,3 +1,3 @@
-extern char D_800C02AE[];
+extern char gStreamState[];
 void memset(char *a, int b, int c);
-void func_8006F7F8(void) { memset(D_800C02AE + 0x6E22, 0, 0x200); }
+void func_8006F7F8(void) { memset(gStreamState + 0x6E22, 0, 0x200); }

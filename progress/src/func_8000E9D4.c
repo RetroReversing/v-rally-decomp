@@ -1,57 +1,60 @@
 typedef struct A1564
 {
-  u16 unk0;
-  u16 unk2;
-  s16 unk4;
-  s16 unk6;
+  u16 x0;
+  u16 y0;
+  s16 width;
+  s16 height;
 } A1564;
-s32 func_800056FC();
-s32 *func_80006008(s32);
-s32 func_80006014(s32, s32 *);
+s32 view_get_ctx_id();
+s32 *gfx_get_dl(s32);
+s32 gfx_set_dl(s32, s32 *);
 s32 osVirtualToPhysical(s32);
-void func_8000E9D4(s32 arg0, s32 arg1, A1564 *arg2, u8 *arg3)
+
+/* Appends a fill-rectangle to the display list: sets the fill colour from the RGB bytes in
+ * color, points the image at addr, then fills the rect (x0, y0, width, height) with it. */
+void func_8000E9D4(s32 arg0, s32 addr, A1564 *rect, u8 *color)
 {
   s32 *gfx;
-  s32 *d0;
-  s32 *d1;
-  s32 *d2;
-  s32 *d3;
-  s32 *d4;
-  s32 *d5;
+  s32 *cmd0;
+  s32 *cmd1;
+  s32 *cmd2;
+  s32 *cmd3;
+  s32 *cmd4;
+  s32 *cmd5;
   s32 temp_s6;
-  s32 color;
+  s32 packed;
   s32 temp_v0;
   s32 temp_v1;
 
-  temp_s6 = func_800056FC();
-  gfx = func_80006008(temp_s6);
-  d0 = gfx;
+  temp_s6 = view_get_ctx_id();
+  gfx = gfx_get_dl(temp_s6);
+  cmd0 = gfx;
   gfx += 2;
-  d1 = gfx;
+  cmd1 = gfx;
   gfx += 2;
-  d0[0] = 0xE7000000;
-  d0[1] = 0;
-  d1[0] = 0xE3000A01;
-  d1[1] = 0x300000;
-  d2 = gfx;
+  cmd0[0] = 0xE7000000;
+  cmd0[1] = 0;
+  cmd1[0] = 0xE3000A01;
+  cmd1[1] = 0x300000;
+  cmd2 = gfx;
   gfx += 2;
-  d2[0] = ((arg2->unk4 - 1) & 0xFFF) | 0xFF100000;
-  d2[1] = osVirtualToPhysical(arg1);
-  d3 = gfx;
+  cmd2[0] = ((rect->width - 1) & 0xFFF) | 0xFF100000;
+  cmd2[1] = osVirtualToPhysical(addr);
+  cmd3 = gfx;
   gfx += 2;
-  d3[0] = 0xF7000000;
-  color = (((arg3[0] << 8) & 0xF800) | ((arg3[1] * 8) & 0x7C0)) | ((arg3[2] >> 2) & 0x3E);
-  d3[1] = ((color | 1) << 16) | (1 | color);
-  d4 = gfx;
+  cmd3[0] = 0xF7000000;
+  packed = (((color[0] << 8) & 0xF800) | ((color[1] * 8) & 0x7C0)) | ((color[2] >> 2) & 0x3E);
+  cmd3[1] = ((packed | 1) << 16) | (1 | packed);
+  cmd4 = gfx;
   gfx += 2;
-  temp_v1 = ((arg2->unk4 - 1) & 0x3FF) << 14;
-  temp_v0 = ((arg2->unk6 - 1) & 0x3FF) * 4;
+  temp_v1 = ((rect->width - 1) & 0x3FF) << 14;
+  temp_v0 = ((rect->height - 1) & 0x3FF) * 4;
   temp_v0 = temp_v0 | 0xF6000000;
-  d4[0] = temp_v1 | temp_v0;
-  d4[1] = ((arg2->unk0 & 0x3FF) << 14) | ((arg2->unk2 & 0x3FF) * 4);
-  d5 = gfx;
+  cmd4[0] = temp_v1 | temp_v0;
+  cmd4[1] = ((rect->x0 & 0x3FF) << 14) | ((rect->y0 & 0x3FF) * 4);
+  cmd5 = gfx;
   gfx += 2;
-  d5[0] = 0xE7000000;
-  d5[1] = 0;
-  func_80006014(temp_s6, gfx);
+  cmd5[0] = 0xE7000000;
+  cmd5[1] = 0;
+  gfx_set_dl(temp_s6, gfx);
 }

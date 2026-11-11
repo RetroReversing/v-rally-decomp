@@ -2,31 +2,31 @@
 #define sp62 rect.y
 #define sp64 rect.w
 #define sp66 rect.h
-void *func_800056FC(void *);
-void *func_80006008(void *);
-s32 func_80006014(void *, void *);
-s32 func_800061FC(void *, s32);
+void *view_get_ctx_id(void *);
+void *gfx_get_dl(void *);
+s32 gfx_set_dl(void *, void *);
+s32 gfx_push_mtx(void *, s32);
 s32 func_800067FC(void *, s32, s16, s16);
 s32 func_80006984(void *, s32, s32, s32, s32);
-u16 func_800070CC(void *);
+u16 gfx_add_quad_tris(void *);
 s32 func_80008770(void *, void *, s32, s16 *);
 s32 func_80008C58(void *, s32, s32, s32);
-s32 func_8001BD1C();
+s32 mtx_pool_alloc();
 s32 guMtxF2L(void *, s32);
 s32 guMtxIdent(void *);
 s32 guOrthoF(void *, f32, f32, f32, f32, f32, f32, f32);
-extern void *D_8009B5A4;
+extern void *gSceneSlot0;
 extern s32 D_800A0310;
 extern s16 D_800A0370[];
 extern s16 D_800A0372;
 extern s16 D_800A0374;
 extern s16 D_800A0376;
-extern char D_800C02AE[];
+extern char gStreamState[];
 
 /* Builds the display list for a strip of rectangles: sets up an ortho projection
  * from the screen size (screen+0xC/0xE), then draws the strip in rows of the
  * height taken from the tex descriptor (+0x8 total, +0xC row size, +0x6 width),
- * and finally emits the bounds rectangle taken from D_8009B5A4. */
+ * and finally emits the bounds rectangle taken from gSceneSlot0. */
 void draw_rect_strips(void *screen, void *tex)
 {
   f32 ortho[4][4];
@@ -62,10 +62,10 @@ void draw_rect_strips(void *screen, void *tex)
     u32 w1;
   } *cursor;
   struct Packet *pkt;
-  ident = D_800C02AE + 0x80D2;
+  ident = gStreamState + 0x80D2;
   guMtxIdent(ident);
-  gfx = func_800056FC(screen);
-  cursor = func_80006008(gfx);
+  gfx = view_get_ctx_id(screen);
+  cursor = gfx_get_dl(gfx);
   pkt = cursor++;
   cmd = 0xDA380003;
   pkt->w0 = 0xDE000000;
@@ -73,12 +73,12 @@ void draw_rect_strips(void *screen, void *tex)
   cursor->w0 = cmd;
   cursor->w1 = (u32) ident;
   cursor++;
-  func_80006014(gfx, cursor);
+  gfx_set_dl(gfx, cursor);
   y = 0;
-  proj_mtx_l = func_8001BD1C();
+  proj_mtx_l = mtx_pool_alloc();
   guOrthoF(ortho, 0, (f32) (*((s16 *) (((char *) screen) + 0xC))), (f32) (*((s16 *) (((char *) screen) + 0xE))), 0, -1.0f, 10.0f, 1.0f);
   guMtxF2L(ortho, proj_mtx_l);
-  func_800061FC(gfx, proj_mtx_l);
+  gfx_push_mtx(gfx, proj_mtx_l);
   out = *((void **) (((char *) gfx) + 0x14));
   *((void **) (((char *) gfx) + 0x14)) = (void *) (out + 8);
   *((s32 *) (((char *) out) + 0)) = (0xED000000 | ((((s32) (((f32) D_800A0370[0]) * 4.0f)) & 0xFFF) << 12)) | (((s32) (((f32) D_800A0372) * 4.0f)) & 0xFFF);
@@ -104,7 +104,7 @@ void draw_rect_strips(void *screen, void *tex)
         sp66 = h_total - y;
       
       func_80008770(gfx, tex, 0, &sp60);}
-      v_base = func_800070CC(gfx) & 0xFFFF;
+      v_base = gfx_add_quad_tris(gfx) & 0xFFFF;
       v_base_d = v_base & 0xFFFF;
       v_base_b = (s32) (((f32) y) * row_scale);
       func_800067FC(gfx, v_base_d, 0, (s16) v_base_b);
@@ -127,7 +127,7 @@ void draw_rect_strips(void *screen, void *tex)
     }
     while (y < ((s32) (*((u16 *) (((char *) tex) + 8)))));
   }
-  bounds = D_8009B5A4;
+  bounds = gSceneSlot0;
   out2 = *((void **) (((char *) gfx) + 0x14));
   *((void **) (((char *) gfx) + 0x14)) = (void *) (out2 + 8);
   *((s32 *) (((char *) out2) + 0)) = (0xED000000 | ((((s32) (((f32) (*((s16 *) (((char *) bounds) + 0)))) * 4.0f)) & 0xFFF) << 12)) | (((s32) (((f32) (*((s16 *) (((char *) bounds) + 2)))) * 4.0f)) & 0xFFF);

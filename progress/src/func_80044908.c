@@ -73,11 +73,11 @@ typedef struct
 typedef struct Cursor { s16 marker; u16 position; } Cursor;
 extern Cursor D_800ADFDC;
 extern s32 D_800ADFE8;
-extern CarList *D_800B5C40;
-extern u8 *D_800C35A0;
+extern CarList *gCarList;
+extern u8 *gRecords;
 
 /* Updates one car's race standing. Before the race starts (flag at
- * D_800C35A0+0x1E clear) it only records the car's split at a new checkpoint.
+ * gRecords+0x1E clear) it only records the car's split at a new checkpoint.
  * Otherwise it updates the lap counter from the checkpoint change, counts how
  * many other cars are ahead on track position (lap, then track segment, then
  * the projection onto the segment direction), sets the gap to the car in
@@ -105,7 +105,7 @@ void func_80044908(Car *car)
   oldCp = lap->checkpoint;
   pos = D_800ADFDC.position;
   cp = oldCp;
-  if ((*((u16 *) (D_800C35A0 + 0x1E))) == 0)
+  if ((*((u16 *) (gRecords + 0x1E))) == 0)
   {
     if (((*car->p48) < 4) && (!(car->flags & 0x100)))
     {
@@ -147,7 +147,7 @@ void func_80044908(Car *car)
     car->lap->count--;
   }
   car->lap->checkpoint = trk->checkpoint;
-  other = D_800B5C40->first;
+  other = gCarList->first;
   laps = car->lap->count;
   for (; other != NULL; other = other->next)
   {
@@ -205,7 +205,7 @@ void func_80044908(Car *car)
   {
     Car *o;
     found = 0;
-    o = D_800B5C40->first;
+    o = gCarList->first;
     while ((!found) && (o != NULL))
     {
       if (o->race->position == (car->race->position - 1))

@@ -16,14 +16,14 @@ typedef s32 M2C_UNK32;
 
 
 
-s32 func_80084768();
+s32 streamReadHeader();
 
 s32 func_80084740(void) {
     s32 temp_v0;
     s32 var_v0;
     s32 var_v1;
 
-    temp_v0 = func_80084768();
+    temp_v0 = streamReadHeader();
     var_v1 = temp_v0 != 0;
     var_v1 = -var_v1;
     var_v0 = temp_v0 & var_v1;

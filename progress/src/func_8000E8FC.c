@@ -1,30 +1,32 @@
 s32 func_80005C48(void *);
 void func_8000E9D4(void *, s32, u16 *, u8 *);
-void func_8000EB58(void *, s32, u16 *);
+void gfx_clear_zbuffer_rect(void *, s32, u16 *);
 
-void func_8000E8FC(void *arg0, void *arg1, void *arg2) {
-    u16 sp10[4];
-    u8 sp18[4];
-    s32 temp;
+/* Draws the fill rect for obj (its colour is at offset 0x10) if fillRect is set, and clears
+ * the z-buffer rect zRect for obj if it is set. Each rect is four u16 words: x, y, w, h. */
+void func_8000E8FC(void *obj, void *fillRect, void *zRect) {
+    u16 rect[4];
+    u8 color[4];
+    s32 addr;
 
-    if (arg1 != NULL) {
-        temp = func_80005C48(arg1);
-        sp10[0] = ((u16 *)arg1)[0];
-        sp10[1] = ((u16 *)arg1)[1];
-        sp10[2] = ((u16 *)arg1)[2];
-        sp10[3] = ((u16 *)arg1)[3];
-        sp18[0] = ((u8 *)arg0)[0x10];
-        sp18[1] = ((u8 *)arg0)[0x11];
-        sp18[2] = ((u8 *)arg0)[0x12];
-        sp18[3] = ((u8 *)arg0)[0x13];
-        func_8000E9D4(arg0, temp, sp10, sp18);
+    if (fillRect != NULL) {
+        addr = func_80005C48(fillRect);
+        rect[0] = ((u16 *)fillRect)[0];
+        rect[1] = ((u16 *)fillRect)[1];
+        rect[2] = ((u16 *)fillRect)[2];
+        rect[3] = ((u16 *)fillRect)[3];
+        color[0] = ((u8 *)obj)[0x10];
+        color[1] = ((u8 *)obj)[0x11];
+        color[2] = ((u8 *)obj)[0x12];
+        color[3] = ((u8 *)obj)[0x13];
+        func_8000E9D4(obj, addr, rect, color);
     }
-    if (arg2 != NULL) {
-        temp = func_80005C48(arg2);
-        sp10[0] = ((u16 *)arg2)[0];
-        sp10[1] = ((u16 *)arg2)[1];
-        sp10[2] = ((u16 *)arg2)[2];
-        sp10[3] = ((u16 *)arg2)[3];
-        func_8000EB58(arg0, temp, sp10);
+    if (zRect != NULL) {
+        addr = func_80005C48(zRect);
+        rect[0] = ((u16 *)zRect)[0];
+        rect[1] = ((u16 *)zRect)[1];
+        rect[2] = ((u16 *)zRect)[2];
+        rect[3] = ((u16 *)zRect)[3];
+        gfx_clear_zbuffer_rect(obj, addr, rect);
     }
 }

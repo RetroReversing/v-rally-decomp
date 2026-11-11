@@ -1,103 +1,107 @@
 #define F(e,t,o) (*(t*)((u8*)(e)+(o)))
-s32 func_8007F4E4(s32, s32, s32);
-s32 func_8007F6E0(s32);
+s32 taskOpen(s32, s32, s32);
+s32 taskRecvMsg(s32);
 s32 func_8007F73C(s32, s32);
-void func_80085C58(void);
+void motor_pak_init_all(void);
 void func_80086370(s32);
-void func_800863B0(s32, u8);
+void motor_pak_reset(s32, u8);
 s32 osContStartQuery(void *);
 s32 osContGetQuery(void *);
 s32 osContStartReadData(void *);
 s32 osContGetReadData(void *);
-extern void *D_800A1B70;
-extern s32 D_800AE850;
+extern void *gContCtx;
+extern s32 gOrderState;
+
+/* Controller polling loop, runs forever. Each pass waits for the pad-poll flag, reads the
+ * controllers, and updates each pad's button state and its node timers. Every 30 passes
+ * it calls motor_pak_init_all once. */
 void func_80085D90(void)
 {
-  void *temp_s5;
-  s32 temp_v0_2;
-  s32 temp_s6;
-  s32 temp_s0;
-  s32 var_s1;
-  s32 var_s3;
-  s32 two;
-  s32 temp_v1_2;
-  u16 temp_a1;
-  u16 temp_v1;
-  void *temp_a0;
-  void *temp_a1_2;
-  void *temp_a2;
-  void *temp_v0;
-  void *temp_v1_3;
-  var_s3 = 0;
-  var_s1 = func_8007F4E4(4, 0, 8);
-  temp_s6 = var_s1;
-  temp_s5 = (u8 *) (&D_800AE850);
-  temp_s5 = temp_s5 + 0x5A38;
-  two = 2;
-  *((u8 *) (((u8 *) D_800A1B70) + 0x39C)) = (u8) ((*((u8 *) (((u8 *) D_800A1B70) + 0x39C))) | 1);
+  void *cont;
+  s32 hit_count;
+  s32 handle;
+  s32 prev;
+  s32 i;
+  s32 frame;
+  void *ctl_base;
+  s32 state_two;
+  s32 node_state;
+  u16 buttons;
+  u16 mask;
+  void *base;
+  void *slot;
+  void *ctl;
+  void *pad;
+  void *ctl2;
+  frame = 0;
+  i = taskOpen(4, 0, 8);
+  handle = i;
+  cont = (u8 *) (&gOrderState);
+  cont = cont + 0x5A38;
+  state_two = 2;
+  *((u8 *) (((u8 *) gContCtx) + 0x39C)) = (u8) ((*((u8 *) (((u8 *) gContCtx) + 0x39C))) | 1);
   loop:
-  func_8007F6E0(temp_s6);
+  taskRecvMsg(handle);
 
-  if (!((*((u8 *) (((u8 *) D_800A1B70) + 0x39C))) & 1))
+  if (!((*((u8 *) (((u8 *) gContCtx) + 0x39C))) & 1))
   {
     goto loop;
   }
-  osContStartReadData(temp_s5);
+  osContStartReadData(cont);
   func_8007F73C(0, 3);
-  osContGetReadData(((u8 *) D_800A1B70) + 0x1C);
-  osContStartQuery(temp_s5);
+  osContGetReadData(((u8 *) gContCtx) + 0x1C);
+  osContStartQuery(cont);
   func_8007F73C(0, 3);
-  osContGetQuery(((u8 *) D_800A1B70) + 0xC);
-  temp_a0 = D_800A1B70;
-  for (var_s1 = 0; var_s1 < (*((s32 *) (((u8 *) temp_a0) + 4))); var_s1++)
+  osContGetQuery(((u8 *) gContCtx) + 0xC);
+  base = gContCtx;
+  for (i = 0; i < (*((s32 *) (((u8 *) base) + 4))); i++)
   {
-    temp_a2 = (void *) ((var_s1 * 4) + ((s32) temp_a0));
-    temp_a1 = *(*((u16 **) (((u8 *) temp_a2) + 0x34)));
-    temp_v0 = (void *) (((*((u8 *) (((u8 *) (*((void **) (((u8 *) temp_a2) + 0x38C)))) + 3))) * 2) + ((s32) temp_a0));
-    *((u16 *) (((u8 *) temp_v0) + 0x44)) = temp_a1;
-    temp_v1 = (*((u16 *) (((u8 *) temp_v0) + 0x4C))) | (~temp_a1);
-    *((u16 *) (((u8 *) temp_v0) + 0x4C)) = temp_v1;
-    *((s16 *) (((u8 *) temp_v0) + 0x54)) = (s16) ((*((u16 *) (((u8 *) temp_v0) + 0x44))) & temp_v1);
-    temp_a1_2 = *((void **) (((u8 *) temp_a2) + 0x38C));
-    temp_v1_2 = *((s32 *) (((u8 *) temp_a1_2) + 4));
-    if (temp_v1_2 == 1)
+    slot = (void *) ((i * 4) + ((s32) base));
+    buttons = *(*((u16 **) (((u8 *) slot) + 0x34)));
+    pad = (void *) (((*((u8 *) (((u8 *) (*((void **) (((u8 *) slot) + 0x38C)))) + 3))) * 2) + ((s32) base));
+    *((u16 *) (((u8 *) pad) + 0x44)) = buttons;
+    mask = (*((u16 *) (((u8 *) pad) + 0x4C))) | (~buttons);
+    *((u16 *) (((u8 *) pad) + 0x4C)) = mask;
+    *((s16 *) (((u8 *) pad) + 0x54)) = (s16) ((*((u16 *) (((u8 *) pad) + 0x44))) & mask);
+    ctl = *((void **) (((u8 *) slot) + 0x38C));
+    node_state = *((s32 *) (((u8 *) ctl) + 4));
+    if (node_state == 1)
     {
-      temp_s0 = *((s32 *) (((u8 *) temp_a1_2) + 8));
-      if (temp_s0 == temp_v1_2)
+      prev = *((s32 *) (((u8 *) ctl) + 8));
+      if (prev == node_state)
       {
-        temp_v0_2 = *((s32 *) (((u8 *) temp_a1_2) + 0x10));
-        *((s32 *) (((u8 *) temp_a1_2) + 0x10)) = temp_v0_2 + 1;
-        if ((*((s32 *) (((u8 *) temp_a1_2) + 0xC))) == temp_v0_2)
+        hit_count = *((s32 *) (((u8 *) ctl) + 0x10));
+        *((s32 *) (((u8 *) ctl) + 0x10)) = hit_count + 1;
+        if ((*((s32 *) (((u8 *) ctl) + 0xC))) == hit_count)
         {
-          func_80086370(*((s32 *) (((u8 *) (*((void **) (((u8 *) temp_a2) + 0x38C)))) + 0)));
-          *((s32 *) (((u8 *) (*((void **) (((u8 *) (((u8 *) D_800A1B70) + (var_s1 * 4))) + 0x38C)))) + 0x10)) = temp_s0;
+          func_80086370(*((s32 *) (((u8 *) (*((void **) (((u8 *) slot) + 0x38C)))) + 0)));
+          *((s32 *) (((u8 *) (*((void **) (((u8 *) (((u8 *) gContCtx) + (i * 4))) + 0x38C)))) + 0x10)) = prev;
         }
         else
         {
-          temp_v1_3 = *((void **) (((u8 *) temp_a2) + 0x38C));
-          if ((*((s32 *) (((u8 *) temp_v1_3) + 0x10))) == two)
+          ctl2 = *((void **) (((u8 *) slot) + 0x38C));
+          if ((*((s32 *) (((u8 *) ctl2) + 0x10))) == state_two)
           {
-            func_800863B0(*((s32 *) (((u8 *) temp_v1_3) + 0)), *((u8 *) (((u8 *) temp_v1_3) + 0x14)));
+            motor_pak_reset(*((s32 *) (((u8 *) ctl2) + 0)), *((u8 *) (((u8 *) ctl2) + 0x14)));
           }
         }
       }
       else
-        if ((*((volatile s32 *) (((u8 *) temp_a1_2) + 8))) == 0)
+        if ((*((volatile s32 *) (((u8 *) ctl) + 8))) == 0)
       {
-        func_800863B0(*((s32 *) (((u8 *) temp_a1_2) + 0)), *((u8 *) (((u8 *) temp_a1_2) + 0x14)));
-        *((s32 *) (((u8 *) (*((void **) (((u8 *) (((u8 *) D_800A1B70) + (var_s1 * 4))) + 0x38C)))) + 8)) = two;
+        motor_pak_reset(*((s32 *) (((u8 *) ctl) + 0)), *((u8 *) (((u8 *) ctl) + 0x14)));
+        *((s32 *) (((u8 *) (*((void **) (((u8 *) (((u8 *) gContCtx) + (i * 4))) + 0x38C)))) + 8)) = state_two;
       }
     }
-    temp_a0 = D_800A1B70;
+    base = gContCtx;
   }
 
-  var_s3++;
-  if ((var_s3 & 0xFF) != 0x1E)
+  frame++;
+  if ((frame & 0xFF) != 0x1E)
   {
     goto loop;
   }
-  var_s3 = 0;
-  func_80085C58();
+  frame = 0;
+  motor_pak_init_all();
   goto loop;
 }
-

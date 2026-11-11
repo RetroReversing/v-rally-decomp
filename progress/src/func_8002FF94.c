@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern s32 D_8009EB80;
+extern s32 gSnapIndex;
 
 void func_8002FF94(void *arg0) {
-    D_8009EB80 = M2C_FIELD(arg0, s32 *, 0x90);
+    gSnapIndex = M2C_FIELD(arg0, s32 *, 0x90);
 }

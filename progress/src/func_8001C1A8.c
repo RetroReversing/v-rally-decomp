@@ -1,42 +1,46 @@
 void *guMtxCatF(f32 *, f32 *, f32 *);
 void guRotateF(f32 *, s32, f32, f32, f32);
-void func_8001C1A8(s32 *arg0, f32 *arg1)
+
+/* Builds a rotation from three Euler angles in `angles` (applied about X, Y, then Z) by
+ * multiplying the three rotation matrices, and copies the result's translation row
+ * (elements 12..14, one per row of `out`) into `out`. */
+void func_8001C1A8(s32 *angles, f32 *out)
 {
-  f32 sp18[16];
-  f32 sp58[16];
-  f32 sp98[16];
-  f32 spD8[16];
-  f32 *a2;
-  f32 *v1;
-  f32 *a0;
-  f32 *s2;
+  f32 rotX[16];
+  f32 rotY[16];
+  f32 rotZ[16];
+  f32 combined[16];
+  f32 *src;
+  f32 *srcPtr;
+  f32 *dst;
+  f32 *dstRow;
   s32 i;
   s32 j;
-  guRotateF(sp18, arg0[0], 1.0f, 0.0f, 0.0f);
-  guRotateF(sp58, arg0[1], 0.0f, 1.0f, 0.0f);
-  guRotateF(sp98, arg0[2], 0.0f, 0.0f, 1.0f);
-  guMtxCatF(sp98, sp18, spD8);
-  guMtxCatF(spD8, sp58, spD8);
-  s2 = arg1;
+  guRotateF(rotX, angles[0], 1.0f, 0.0f, 0.0f);
+  guRotateF(rotY, angles[1], 0.0f, 1.0f, 0.0f);
+  guRotateF(rotZ, angles[2], 0.0f, 0.0f, 1.0f);
+  guMtxCatF(rotZ, rotX, combined);
+  guMtxCatF(combined, rotY, combined);
+  dstRow = out;
   i = 0;
-  a2 = sp18;
+  src = rotX;
   do
   {
     j = 0;
  do { } while (0);
-    a0 = s2;
-    v1 = a2 + 48;
+    dst = dstRow;
+    srcPtr = src + 48;
     do
     {
-      *a0 = *v1;
-      v1++;
+      *dst = *srcPtr;
+      srcPtr++;
       j++;
-      a0++;
+      dst++;
     }
     while (j < 3);
-    a2 += 4;
+    src += 4;
     i++;
-    s2 += 4;
+    dstRow += 4;
   }
   while (i < 3);
 }

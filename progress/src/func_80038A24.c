@@ -1,18 +1,20 @@
-s32 func_8007EE9C();
-s32 func_80086AD8();
+s32 heapFreeBlock();
+s32 voicesSetParamsByKey();
 
-void func_80038A24(void *arg0)
+/* Tears down the six 12-byte entries of the block at obj->+0x68 (each closed via
+ * voicesSetParamsByKey with flag 0), then frees the block. */
+void func_80038A24(void *obj)
 {
-  s32 temp_s1;
-  u8 var_s0;
+  s32 block;
+  u8 index;
 
-  temp_s1 = *((s32 *) *((s32 *) ((char *) arg0 + 0x68)));
-  var_s0 = 0;
+  block = *((s32 *) *((s32 *) ((char *) obj + 0x68)));
+  index = 0;
   do
   {
-    func_80086AD8(temp_s1 + var_s0 * 12, 0);
-    var_s0++;
+    voicesSetParamsByKey(block + index * 12, 0);
+    index++;
   }
-  while (var_s0 < 6);
-  func_8007EE9C(temp_s1);
+  while (index < 6);
+  heapFreeBlock(block);
 }

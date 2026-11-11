@@ -1,28 +1,31 @@
-s32 func_8003C354();
-extern char D_800C02AE[];
+s32 hud_spawn_sprite_group();
+extern char gStreamState[];
+
+/* For each entry in the stream state's active list (count at +0xE, entries from +1), when the entry's
+ * state byte at +0x1E is not 7 and the entry's group record has flag 2 set, spawns a sprite group for it. */
 void func_8003E628(s32 arg0, s32 arg1)
 {
-  char *new_var;
-  s32 temp_a2;
-  s32 var_s0;
-  u16 temp_v0;
-  if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x1E))) != 7)
+  char *record;
+  s32 index;
+  s32 i;
+  u16 count;
+  if ((*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x1E))) != 7)
   {
-    temp_v0 = *((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE));
-    var_s0 = 1;
-    if (temp_v0 != 0)
+    count = *((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE));
+    i = 1;
+    if (count != 0)
     {
       do
       {
-        temp_a2 = var_s0 & 0xFFFF;
-        new_var = (char *) ((*((void **) (D_800C02AE + 0x32F2))) + ((*((u8 *) (((char *) ((*((void **) (D_800C02AE + 0x32F2))) + temp_a2)) + 0x31))) * 0x28));
-        if ((*((u8 *) (new_var + 0x48))) & 2)
+        index = i & 0xFFFF;
+        record = (char *) ((*((void **) (gStreamState + 0x32F2))) + ((*((u8 *) (((char *) ((*((void **) (gStreamState + 0x32F2))) + index)) + 0x31))) * 0x28));
+        if ((*((u8 *) (record + 0x48))) & 2)
         {
-          func_8003C354(arg0, arg1, temp_a2);
+          hud_spawn_sprite_group(arg0, arg1, index);
         }
-        var_s0 += 1;
+        i += 1;
       }
-      while (temp_v0 >= ((u32) (var_s0 & 0xFFFF)));
+      while (count >= ((u32) (i & 0xFFFF)));
     }
   }
 }

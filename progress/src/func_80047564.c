@@ -13,13 +13,13 @@ typedef s32 M2C_UNK32;
 #endif
 
 extern int D_800C7920;
-s32 func_800221D4();
-s32 func_80080440();
-extern char D_800AE850[];
-extern char D_800C02AE[];
+s32 flag_set_then_call();
+s32 poolAllocHeadNode();
+extern char gOrderState[];
+extern char gStreamState[];
 extern s32 func_80047C78;
 
 void func_80047564(void) {
-    D_800C7920 = func_80080440();
-    func_800221D4(D_800AE850 + 0x7380, &func_80047C78);
+    D_800C7920 = poolAllocHeadNode();
+    flag_set_then_call(gOrderState + 0x7380, &func_80047C78);
 }

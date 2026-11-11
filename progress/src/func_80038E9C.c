@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80086B34(s32);                         /* extern */
-M2C_UNK func_80086D90(s32, M2C_UNK);                /* extern */
-extern s32 D_800C81D4;
+M2C_UNK voice_alloc_request(s32);                         /* extern */
+M2C_UNK voiceSetVolumeByKey(s32, M2C_UNK);                /* extern */
+extern s32 gSoundState;
 
 void func_80038E9C(void) {
-    func_80086B34(D_800C81D4 + 0x1A4);
-    func_80086D90(D_800C81D4 + 0x1A4, 0x30);
+    voice_alloc_request(gSoundState + 0x1A4);
+    voiceSetVolumeByKey(gSoundState + 0x1A4, 0x30);
 }

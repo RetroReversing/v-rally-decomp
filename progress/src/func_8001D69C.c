@@ -1,32 +1,21 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+extern s32 gOrderSlotTable;
 
-extern s32 D_800AE868;
-
-void func_8001D69C(void *arg0) {
+/* Copies four 32-bit values from the source record (offsets 0x90, 0xDC, 0x128, 0x174) into the
+ * low byte of each of the four slots in gOrderSlotTable (fields at +0x40, +0x44, +0x48, +0x4C).
+ * Does nothing if the table isn't allocated. */
+void func_8001D69C(void *src) {
     s32 temp_a0;
     s32 var_a1;
 
-    if (D_800AE868 != 0) {
+    if (gOrderSlotTable != 0) {
         var_a1 = 0;
         do {
             temp_a0 = var_a1 & 0xFF;
-            M2C_FIELD((D_800AE868 + temp_a0), s8 *, 0x40) = (s8) M2C_FIELD(arg0, s32 *, 0x90);
-            M2C_FIELD((D_800AE868 + temp_a0), s8 *, 0x44) = (s8) M2C_FIELD(arg0, s32 *, 0xDC);
-            M2C_FIELD((D_800AE868 + temp_a0), s8 *, 0x48) = (s8) M2C_FIELD(arg0, s32 *, 0x128);
+            *(s8 *)((s8 *)(gOrderSlotTable + temp_a0) + 0x40) = (s8) *(s32 *)((s8 *)src + 0x90);
+            *(s8 *)((s8 *)(gOrderSlotTable + temp_a0) + 0x44) = (s8) *(s32 *)((s8 *)src + 0xDC);
+            *(s8 *)((s8 *)(gOrderSlotTable + temp_a0) + 0x48) = (s8) *(s32 *)((s8 *)src + 0x128);
             var_a1 += 1;
-            M2C_FIELD((D_800AE868 + temp_a0), s8 *, 0x4C) = (s8) M2C_FIELD(arg0, s32 *, 0x174);
+            *(s8 *)((s8 *)(gOrderSlotTable + temp_a0) + 0x4C) = (s8) *(s32 *)((s8 *)src + 0x174);
         } while ((u32) (var_a1 & 0xFF) < 4U);
     }
 }

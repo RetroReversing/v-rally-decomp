@@ -1,14 +1,16 @@
-s32 func_800592F4(s32, s32);
-extern char D_800C02AE[];
+s32 slot_set_selected(s32, s32);
+extern char gStreamState[];
 
-s32 func_8005F188(s32 arg0)
+/* Toggles bit 0 (selected) of the record at gStreamState+0x32F2 (flags are at offset 9), then
+   reports the new state to slot arg0. Returns 0. */
+s32 func_8005F188(s32 slot)
 {
-    u16 *p;
-    u16 v;
+    u16 *record;
+    u16 flags;
 
-    p = *(u16 **)(D_800C02AE + 0x32F2);
-    v = p[9];
-    p[9] = (v & 1) ? (v & 0xFFFE) : (v | 1);
-    func_800592F4(arg0, (*(u16 **)(D_800C02AE + 0x32F2))[9] & 1);
+    record = *(u16 **)(gStreamState + 0x32F2);
+    flags = record[9];
+    record[9] = (flags & 1) ? (flags & 0xFFFE) : (flags | 1);
+    slot_set_selected(slot, (*(u16 **)(gStreamState + 0x32F2))[9] & 1);
     return 0;
 }

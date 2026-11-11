@@ -1,6 +1,6 @@
-extern u8 D_800C02AE[];
-extern u8 *D_800C35A0;
-extern u8 *D_800D0634;
+extern u8 gStreamState[];
+extern u8 *gRecords;
+extern u8 *gSlotTableB;
 extern u16 D_800C5D38[];
 extern u8 D_800C7125[];
 extern f64 D_800A58A8;
@@ -16,7 +16,7 @@ s32 func_8006B924(void *, int);
 long func_8006DDD8(void)
 {
   f64 bound = D_800A58A8;
-  s32 code = (s32)D_800C35A0;
+  s32 code = (s32)gRecords;
   u8 *tab = D_800C7125;
   s32 i = 0;
   u8 *base = *(u8 **)0x800D0634 + (((u8 *)code)[0x21] * 0x2c4);
@@ -30,7 +30,7 @@ long func_8006DDD8(void)
   f64 base_val;
   int bit40;
   code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);
-  stride = D_800C35A0[0x23] * 64;
+  stride = gRecords[0x23] * 64;
   idx = (u8) code;
   idx2 = idx * 2;
   base_val = ((f64) ((s32) idx)) * D_800A58B0;

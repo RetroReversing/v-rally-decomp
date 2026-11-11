@@ -1,5 +1,9 @@
-extern u8 *D_800C35A0;
-extern u8 D_800AE850[];
+extern u8 *gRecords;
+extern u8 gOrderState[];
+
+/* Returns the ascending rank of record arg0 (0 = smallest first word, 3 = largest) within its
+ * group of four 32-byte records. The group starts at gOrderState+0x6DAC plus the 16-bit offset
+ * stored at gRecords+0x1E. */
 u8 func_80077FA8(u8 arg0)
 {
   u32 *p;
@@ -11,11 +15,12 @@ u8 func_80077FA8(u8 arg0)
   u32 t;
   u32 idx;
   int new_var2;
+
   n = 4;
   idx = arg0 << 5;
-  t = (u32) D_800C35A0;
+  t = (u32) gRecords;
   t = *((u16 *) (t + 0x1E));
-  new_var = ((u32 *) (D_800AE850 + 0x6DAC)) + t;
+  new_var = ((u32 *) (gOrderState + 0x6DAC)) + t;
   tbl = new_var;
   p = (u32 *) (((u8 *) tbl) + idx);
   new_var2 = 1;
@@ -32,4 +37,3 @@ u8 func_80077FA8(u8 arg0)
   while (i < 4);
   return n - new_var2;
 }
-

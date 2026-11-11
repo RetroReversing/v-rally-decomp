@@ -1,36 +1,26 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-M2C_UNK osRecvMesg(s32, M2C_UNK, M2C_UNK);       /* extern */
-M2C_UNK func_8008D8B4();                            /* extern */
-M2C_UNK func_8008D920();                            /* extern */
-M2C_UNK __osPackReadData();                            /* extern */
-s32 func_80090DC0(M2C_UNK, M2C_UNK *);              /* extern */
-extern M2C_UNK D_800AFAA0;
+extern char __osContPifRam[];
 extern u8 D_800C3520;
+s32 osRecvMesg(s32, s32, s32);
+void pif_lock(void);
+void pif_unlock(void);
+void __osPackReadData(void);
+s32 __osSiRawStartDma(s32, void *);
 
-s32 osContStartReadData(s32 arg0) {
-    s32 temp_v0;
+/* Starts a controller read: if the last PIF command was not a button read, sends the
+   packed command first and waits for the reply. Then starts the PIF read DMA and
+   returns its result. Holds the PIF lock for the whole sequence. */
+s32 osContStartReadData(s32 mq)
+{
+    s32 ret;
 
-    func_8008D8B4();
+    pif_lock();
     if (D_800C3520 != 1) {
         __osPackReadData();
-        func_80090DC0(1, &D_800AFAA0);
-        osRecvMesg(arg0, 0, 1);
+        __osSiRawStartDma(1, __osContPifRam);
+        osRecvMesg(mq, 0, 1);
     }
-    temp_v0 = func_80090DC0(0, &D_800AFAA0);
+    ret = __osSiRawStartDma(0, __osContPifRam);
     D_800C3520 = 1;
-    func_8008D920();
-    return temp_v0;
+    pif_unlock();
+    return ret;
 }

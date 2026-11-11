@@ -22,30 +22,34 @@ static inline s32 str_differs(char *a, char *b)
     }
 }
 
-char *func_8002B344(char *p, char *end, char *name, s8 *found)
+/* Scans a CR-separated text block for the section header "[name]". On a match
+ * returns a pointer to the first line after the header and sets *found to 1;
+ * otherwise returns NULL with *found set to 0. The header's ']' is overwritten
+ * with a NUL terminator. */
+char *func_8002B344(char *text, char *end, char *name, s8 *found)
 {
-    char *q;
+    char *close;
 
     do {
         do {
-            p = func_8002B180(p, end);
-            if (!(p < end)) break;
-            if (*p == '[') break;
-            SKIP_LINE(p, end);
-        } while (p < end);
-        if (!(p < end)) break;
-        p++;
-        q = p;
-        while (*q != ']' && q < end) q++;
-        if (!(p < end)) break;
-        *q = 0;
-        if (!str_differs(p, name)) {
+            text = func_8002B180(text, end);
+            if (!(text < end)) break;
+            if (*text == '[') break;
+            SKIP_LINE(text, end);
+        } while (text < end);
+        if (!(text < end)) break;
+        text++;
+        close = text;
+        while (*close != ']' && close < end) close++;
+        if (!(text < end)) break;
+        *close = 0;
+        if (!str_differs(text, name)) {
             *found = 1;
-            SKIP_LINE(p, end);
-            return p;
+            SKIP_LINE(text, end);
+            return text;
         }
-        SKIP_LINE(p, end);
-    } while (p < end);
+        SKIP_LINE(text, end);
+    } while (text < end);
     *found = 0;
     return 0;
 }

@@ -16,123 +16,127 @@ typedef s32 M2C_UNK32;
 extern unsigned char D_800ADFA8;
 extern unsigned char D_800ADFE1;
 extern int D_800ADFE8;
-extern unsigned char D_800ADFE0;
+extern unsigned char gCurCount;
 
 
 s32 func_80042CC4();
 s32 func_800448A4();
 s32 func_80044908();
-void *func_8004D784();
+void *findEntryById();
 s8 func_80084C0C();
-extern s32 D_8009D538;
+extern s32 gPadFlags;
 extern s32 (*D_800A0280[])(void *,void *);
 extern s32 (*D_800A0284)(void *, void *);
 extern char D_800A73E0[];
-extern char D_800C02AE[];
-extern void *D_800C35A0;
+extern char gStreamState[];
+extern void *gRecords;
 
-void func_80046AB0(void *arg0) {
+/* Per-object update: when the object is active, runs the logic callbacks of the two
+   child lists of its parent (type 1 entries use the D_800A0284 hook, others the
+   D_800A0280 table), then the controller-side checks and the state update that
+   keeps the parent's record in step. */
+void func_80046AB0(void *obj) {
     char pad[24];
-    s32 (*temp_v0)(void *, void *);
-    s32 temp_s2;
-    s32 var_a0;
-    s32 var_s1;
-    s32 var_s4;
-    u16 temp_v0_3;
-    void *temp_a0;
-    void *temp_a0_2;
-    void *temp_a1;
-    void *temp_s6;
-    void *temp_v0_2;
-    void *temp_v1;
-    void *temp_v1_2;
-    void *var_s0;
+    s32 (*handler)(void *, void *);
+    s32 count;
+    s32 i;
+    s32 cur_child;
+    u16 mode;
+    void *item;
+    void *ctl;
+    void *info;
+    void *parent;
+    void *cam_obj;
+    void *first_list;
+    void *second_list;
+    void *entry;
+    void *sibling;
 
-    M2C_FIELD(*(void * *)((char *)arg0 + 0x9C), s32 *, 0x38) = 1;
-    if (!(*(s32 *)((char *)arg0 + 0x14) & 0x80) && (M2C_FIELD(D_800C35A0, u16 *, 0x1E) != 7)) {
-        temp_s6 = **(void ** *)((char *)arg0 + 0x8C);
-        temp_v1 = *(void * *)((char *)temp_s6 + 0x5C);
-        var_s4 = 0;
-        if (temp_v1 != NULL) {
-            var_s4 = (s32) temp_v1 & -(*(s32 *)((char *)temp_v1 + 0x50) != 0);
+    M2C_FIELD(*(void * *)((char *)obj + 0x9C), s32 *, 0x38) = 1;
+    if (!(*(s32 *)((char *)obj + 0x14) & 0x80) && (M2C_FIELD(gRecords, u16 *, 0x1E) != 7)) {
+        parent = **(void ** *)((char *)obj + 0x8C);
+        first_list = *(void * *)((char *)parent + 0x5C);
+        cur_child = 0;
+        if (first_list != NULL) {
+            cur_child = (s32) first_list & -(*(s32 *)((char *)first_list + 0x50) != 0);
         }
-        temp_v1_2 = *(void * *)((char *)temp_s6 + 0x58);
-        var_a0 = 0;
-        if (temp_v1_2 != NULL) {
-            var_a0 = (s32) temp_v1_2 & -(*(s32 *)((char *)temp_v1_2 + 0x50) != 0);
+        second_list = *(void * *)((char *)parent + 0x58);
+        sibling = 0;
+        if (second_list != NULL) {
+            sibling = (s32) second_list & -(*(s32 *)((char *)second_list + 0x50) != 0);
         }
-        if ((var_a0 != 0) && (M2C_FIELD(*(void * *)((char *)arg0 + 0x48), s32 *, 0) < 4)) {
-            temp_s2 = *(s32 *)((char *)var_a0 + 0x50);
-            var_s0 = *(void * *)((char *)var_a0 + 0x68);
-            var_s1 = 0;
-            if (temp_s2 > 0) {
+        if ((sibling != 0) && (M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4)) {
+            count = *(s32 *)((char *)sibling + 0x50);
+            entry = *(void * *)((char *)sibling + 0x68);
+            i = 0;
+            if (count > 0) {
                 do {
-                    if (*(s16 *)((char *)var_s0 + 4) == 1) {
-                        D_800A0284(var_s0, arg0);
+                    if (*(s16 *)((char *)entry + 4) == 1) {
+                        D_800A0284(entry, obj);
                     }
-                    var_s1 += 1;
-                    var_s0 += 8;
-                } while (var_s1 < temp_s2);
+                    i += 1;
+                    entry += 8;
+                } while (i < count);
             }
         }
-        var_s0 = *(void * *)((char *)temp_s6 + 0x68);
-        if (var_s0 != NULL) {
-            temp_s2 = *(s32 *)((char *)temp_s6 + 0x50);
-            var_s1 = 0;
-            if (temp_s2 > 0) {
+        entry = *(void * *)((char *)parent + 0x68);
+        if (entry != NULL) {
+            count = *(s32 *)((char *)parent + 0x50);
+            i = 0;
+            if (count > 0) {
 loop_main:
                 {
-                    temp_a0 = var_s0;
-                    temp_v0 = D_800A0280[*(s16 *)((char *)var_s0 + 4)];
-                    temp_v0(temp_a0, arg0);
-                    var_s0 += 8;
-                    var_s1 += 1;
+                    item = entry;
+                    handler = D_800A0280[*(s16 *)((char *)entry + 4)];
+                    handler(item, obj);
+                    entry += 8;
+                    i += 1;
                 }
-                if(var_s1<temp_s2) goto loop_main;
+                if(i < count) goto loop_main;
             }
         }
-        if ((var_s4 != 0) && (M2C_FIELD(*(void * *)((char *)arg0 + 0x48), s32 *, 0) < 4)) {
-            temp_s2 = *(s32 *)((char *)var_s4 + 0x50);
-            var_s0 = *(void * *)((char *)var_s4 + 0x68);
-            var_s1 = 0;
-            if (temp_s2 > 0) {
+        if ((cur_child != 0) && (M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4)) {
+            count = *(s32 *)((char *)cur_child + 0x50);
+            entry = *(void * *)((char *)cur_child + 0x68);
+            i = 0;
+            if (count > 0) {
                 do {
-                    if (*(s16 *)((char *)var_s0 + 4) == 1) {
-                        D_800A0284(var_s0, arg0);
+                    if (*(s16 *)((char *)entry + 4) == 1) {
+                        D_800A0284(entry, obj);
                     }
-                    var_s1 += 1;
-                    var_s0 += 8;
-                } while (var_s1 < temp_s2);
+                    i += 1;
+                    entry += 8;
+                } while (i < count);
             }
         }
-        if (((!(D_8009D538 & 0x800) && !(*(s32 *)((char *)arg0 + 0x14) & 0x100)) || (M2C_FIELD(D_800C35A0, u16 *, 0x1E) == 0)) && (func_80044908(arg0), ((M2C_FIELD(*(void * *)((char *)arg0 + 0x48), s32 *, 0) < 4) != 0)) && !(*(s32 *)((char *)arg0 + 0x14) & 0x200)) {
-            func_800448A4(arg0);
+        if (((!(gPadFlags & 0x800) && !(*(s32 *)((char *)obj + 0x14) & 0x100)) || (M2C_FIELD(gRecords, u16 *, 0x1E) == 0)) && (func_80044908(obj), ((M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4) != 0)) && !(*(s32 *)((char *)obj + 0x14) & 0x200)) {
+            func_800448A4(obj);
         } else {
-            *(s32 *)((char *)arg0 + 0x14) = (s32) (*(s32 *)((char *)arg0 + 0x14) & ~0x20);
+            *(s32 *)((char *)obj + 0x14) = (s32) (*(s32 *)((char *)obj + 0x14) & ~0x20);
         }
-        if ((D_800ADFA8 == 0) && (D_800ADFE1 != 0) && (M2C_FIELD(*(void * *)((char *)arg0 + 0x48), s32 *, 0) < 4) && (*(s16 *)((char *)temp_s6 + 8) == (D_800ADFE8 - 5)) && (**(s32 * *)((char *)arg0 + 0x70) == (D_800ADFE0 - 1))) {
-            temp_v0_2 = func_8004D784(M2C_FIELD(*(void * *)(D_800C02AE + 0x326A), s32 *, 0x24));
-            if (!(*(u16 *)((char *)temp_v0_2 + 0xA) & 1)) {
-                { s32 flags=*(s32 *)((char *)temp_v0_2+0x10);
+        if ((D_800ADFA8 == 0) && (D_800ADFE1 != 0) && (M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4) && (*(s16 *)((char *)parent + 8) == (D_800ADFE8 - 5)) && (**(s32 * *)((char *)obj + 0x70) == (gCurCount - 1))) {
+            cam_obj = findEntryById(M2C_FIELD(*(void * *)(gStreamState + 0x326A), s32 *, 0x24));
+            if (!(*(u16 *)((char *)cam_obj + 0xA) & 1)) {
+                { s32 flags=*(s32 *)((char *)cam_obj+0x10);
                 D_800ADFA8=1;
-                *(s32 *)((char *)temp_v0_2+0x10)=(flags|2)&~1; }
+                *(s32 *)((char *)cam_obj+0x10)=(flags|2)&~1; }
             }
         }
-        temp_a0_2 = D_800C35A0;
-        temp_v0_3 = *(u16 *)((char *)temp_a0_2 + 0x1E);
-        if ((temp_v0_3 != 0) & (temp_v0_3 != 5)) {
-            if (*(u16 *)((char *)temp_a0_2 + 0x1C) != 0) {
-                func_80042CC4(arg0);
-                temp_a0_2=D_800C35A0;
+        ctl = gRecords;
+        mode = *(u16 *)((char *)ctl + 0x1E);
+        if ((mode != 0) & (mode != 5)) {
+            if (*(u16 *)((char *)ctl + 0x1C) != 0) {
+                func_80042CC4(obj);
+                ctl=gRecords;
                 goto block_40;
             }
         } else {
 block_40:
-            if ((*(u16 *)((char *)temp_a0_2 + 0x1C) != 0) && (*(u16 *)((char *)temp_a0_2 + 0x1E) == 0)) {
-                temp_a1 = *(void * *)((char *)arg0 + 0x48);
-                { void *rec=temp_a0_2; s32 idx=M2C_FIELD((temp_a0_2+*(s32 *)((char *)temp_a1+0x2C)),u8 *,0x32); rec+=idx*0x28;
+            if ((*(u16 *)((char *)ctl + 0x1C) != 0) && (*(u16 *)((char *)ctl + 0x1E) == 0)) {
+                info = *(void * *)((char *)obj + 0x48);
+                { void *rec=ctl; s32 idx=M2C_FIELD((ctl+*(s32 *)((char *)info+0x2C)),u8 *,0x32); rec+=idx*0x28;
                 if (M2C_FIELD(rec,u16 *,0x4E)>=0x10U) {
-                    M2C_FIELD(*(void * *)((char *)arg0 + 0x4C), s32 *, 0x14) = (s32) (func_80084C0C(*(u8 *)((char *)temp_a1 + 3), 0x10000) + 0x10);
+                    M2C_FIELD(*(void * *)((char *)obj + 0x4C), s32 *, 0x14) = (s32) (func_80084C0C(*(u8 *)((char *)info + 3), 0x10000) + 0x10);
                 }}
             }
         }

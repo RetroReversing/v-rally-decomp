@@ -1,13 +1,17 @@
-s32 func_80084FBC();
+s32 ctrl_set_field();
 
-void func_800852FC(u8 arg0, u8 *arg1, u32 arg2) {
+typedef struct { s32 field; s32 value; } CtrlPair;
+
+/* Applies each (field, value) pair in the table of `count` entries to the controller
+ * context `ctx` via ctrl_set_field. */
+void func_800852FC(u8 ctx, u8 *pairs, u32 count) {
     u8 i;
 
     i = 0;
-    if (arg2 != 0) {
+    if (count != 0) {
         do {
-            func_80084FBC(arg0, *(s32 *)(arg1 + i * 8), *(s32 *)(arg1 + i * 8 + 4));
+            ctrl_set_field(ctx, *(s32 *)(pairs + i * 8), *(s32 *)(pairs + i * 8 + 4));
             i++;
-        } while (i < arg2);
+        } while (i < count);
     }
 }

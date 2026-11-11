@@ -1,22 +1,9 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 func_8005EE50(s32 id, s16 value, s32 flags);
+extern char gStreamState[];
 
-M2C_UNK func_8005EE50(M2C_UNK, s16, M2C_UNK);       /* extern */
-extern M2C_UNK D_800C02AE;
-
+/* Sends three f32 stream parameters to the mixer, each scaled by 8 and truncated to s16, under ids 0xC..0xE. */
 void func_8005ED88(void) {
-    func_8005EE50(0xC, (s16) (s32) (M2C_FIELD(&D_800C02AE, f32 *, 0x3332) * 8.0f), 0);
-    func_8005EE50(0xD, (s16) (s32) (M2C_FIELD(&D_800C02AE, f32 *, 0x333A) * 8.0f), 0);
-    func_8005EE50(0xE, (s16) (s32) (M2C_FIELD(&D_800C02AE, f32 *, 0x332E) * 8.0f), 0);
+    func_8005EE50(0xC, (s16) (s32) (*(f32 *) (gStreamState + 0x3332) * 8.0f), 0);
+    func_8005EE50(0xD, (s16) (s32) (*(f32 *) (gStreamState + 0x333A) * 8.0f), 0);
+    func_8005EE50(0xE, (s16) (s32) (*(f32 *) (gStreamState + 0x332E) * 8.0f), 0);
 }

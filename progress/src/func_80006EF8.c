@@ -1,69 +1,83 @@
-u16 func_8000665C();
-s32 func_80006EF8(void *arg0, s16 arg1, s32 arg2)
+typedef struct { u32 w0; u32 w1; } Gfx;
+typedef struct {
+    u8 pad00[0x14];
+    Gfx *dl;
+    u8 pad18[0x70 - 0x18];
+    u8 *vtx;
+    u8 pad74[4];
+    u16 flags;
+} DlCtx;
+
+u16 dl_reserve_vertices();
+
+/* Adds one 4-vertex quad to the display list. The first call also emits the
+ * one-time render-state setup and sets the flag in ctx->flags. Each vertex gets
+ * the value and colour, then a quad command references the new vertices. */
+s32 func_80006EF8(DlCtx *ctx, s16 value, s32 colour)
 {
-  s32 var_a2;
-  s32 temp_v0;
-  s32 temp_a2;
-  s32 temp_a3;
-  s32 temp_a0_3;
-  void *temp_t0;
-  int new_var;
-  void *temp_v1;
-  void *temp_v1_2;
-  void *temp_v1_3;
-  void *temp_v1_4;
-  void *temp_v1_5;
-  s32 temp_a0_2;
-  u16 flags;
-  var_a2 = arg2;
-  flags = *((u16 *) (((char *) arg0) + 0x78));
-  if (!(flags & 1))
-  {
-    temp_v1 = *((void **) (((char *) arg0) + 0x14));
-    *((u16 *) (((char *) arg0) + 0x78)) = (u16) (flags | 1);
-    *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_v1 + 8);
-    *((s32 *) (((char *) temp_v1) + 0)) = 0xE7000000;
-    *((s32 *) (((char *) temp_v1) + 4)) = 0;
-    temp_v1_2 = *((void **) (((char *) arg0) + 0x14));
-    *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_v1_2 + 8);
-    *((s32 *) (((char *) temp_v1_2) + 0)) = 0xE3000A01;
-    *((s32 *) (((char *) temp_v1_2) + 4)) = 0x100000;
-    var_a2 = 0xFC119BFF;
-    temp_v1_3 = *((void **) (((char *) arg0) + 0x14));
-    *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_v1_3 + 8);
-    *((s32 *) (((char *) temp_v1_3) + 0)) = 0xFC119BFF;
-    *((s32 *) (((char *) temp_v1_3) + 4)) = 0xFFFEFE38;
-    temp_v1_4 = *((void **) (((char *) arg0) + 0x14));
-    *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_v1_4 + 8);
-    *((s32 *) (((char *) temp_v1_4) + 0)) = 0xD9E0F9FA;
-    *((s32 *) (((char *) temp_v1_4) + 4)) = 0;
-    temp_v1_5 = *((void **) (((char *) arg0) + 0x14));
-    *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_v1_5 + 8);
-    *((s32 *) (((char *) temp_v1_5) + 0)) = 0xD9FFFFFF;
-    *((s32 *) (((char *) temp_v1_5) + 4)) = 0x200005;
-  }
-  temp_v0 = func_8000665C(arg0, 4, var_a2) & 0xFFFF;
-  temp_a0_2 = temp_v0 * 0x10;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 4)) = arg1;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x14)) = arg1;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x24)) = arg1;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x34)) = arg1;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 6)) = 0;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x16)) = 0;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x26)) = 0;
-  *((s16 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x36)) = 0;
-  *((u8 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0xF)) = 0xFF;
-  *((u8 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x1F)) = 0xFF;
-  *((u8 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x2F)) = 0xFF;
-  *((u8 *) (((char *) (temp_a0_2 + (*((s32 *) (((char *) arg0) + 0x70))))) + 0x3F)) = 0xFF;
-  temp_a2 = temp_v0 & 0x1F;
-  temp_a3 = temp_a2 << 0x11;
-  temp_t0 = *((void **) (((char *) arg0) + 0x14));
-  new_var = temp_a3 | ((temp_a2 + 1) << 9);
-  temp_a0_3 = temp_a2 + 2;
-  temp_a0_3 = temp_a0_3 * 2;
-  *((void **) (((char *) arg0) + 0x14)) = (void *) (temp_t0 + 8);
-  *((s32 *) (((char *) temp_t0) + 0)) = (s32) ((new_var | temp_a0_3) | 0x07000000);
-  *((s32 *) (((char *) temp_t0) + 4)) = (s32) ((temp_a3 | (temp_a0_3 << 8)) | ((temp_a2 + 3) * 2));
-  return temp_v0;
+    s32 var_a2;
+    s32 vi;
+    s32 vtx_off;
+    s32 idx;
+    s32 hi;
+    Gfx *cmd;
+    s32 w0_base;
+    s32 n;
+    Gfx *cmd1;
+    Gfx *cmd2;
+    Gfx *cmd3;
+    Gfx *cmd4;
+    Gfx *cmd5;
+    u16 flags;
+
+    var_a2 = colour;
+    flags = ctx->flags;
+    if (!(flags & 1)) {
+        cmd1 = ctx->dl;
+        ctx->flags = (u16)(flags | 1);
+        ctx->dl = cmd1 + 1;
+        cmd1->w0 = 0xE7000000;
+        cmd1->w1 = 0;
+        cmd2 = ctx->dl;
+        ctx->dl = cmd2 + 1;
+        cmd2->w0 = 0xE3000A01;
+        cmd2->w1 = 0x100000;
+        var_a2 = 0xFC119BFF;
+        cmd3 = ctx->dl;
+        ctx->dl = cmd3 + 1;
+        cmd3->w0 = 0xFC119BFF;
+        cmd3->w1 = 0xFFFEFE38;
+        cmd4 = ctx->dl;
+        ctx->dl = cmd4 + 1;
+        cmd4->w0 = 0xD9E0F9FA;
+        cmd4->w1 = 0;
+        cmd5 = ctx->dl;
+        ctx->dl = cmd5 + 1;
+        cmd5->w0 = 0xD9FFFFFF;
+        cmd5->w1 = 0x200005;
+    }
+    vi = dl_reserve_vertices(ctx, 4, var_a2) & 0xFFFF;
+    vtx_off = vi * 0x10;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 4) = value;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x14) = value;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x24) = value;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x34) = value;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 6) = 0;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x16) = 0;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x26) = 0;
+    *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x36) = 0;
+    *(u8 *)((vtx_off + (s32)ctx->vtx) + 0xF) = 0xFF;
+    *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x1F) = 0xFF;
+    *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x2F) = 0xFF;
+    *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x3F) = 0xFF;
+    idx = vi & 0x1F;
+    hi = idx << 17;
+    cmd = ctx->dl;
+    w0_base = hi | ((idx + 1) << 9);
+    n = idx + 2;
+    n = n * 2;
+    ctx->dl = cmd + 1;
+    cmd->w0 = (s32)((w0_base | n) | 0x07000000);
+    cmd->w1 = (s32)((hi | (n << 8)) | ((idx + 3) * 2));
+    return vi;
 }

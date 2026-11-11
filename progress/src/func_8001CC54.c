@@ -4,8 +4,8 @@ extern int D_800B65F0;
 extern int D_800B6AFC;
 extern int D_800C34F4;
 extern int D_800B65F4;
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern char gOrderState[];
+extern char gStreamState[];
 void func_8001CC54(void *arg0)
 {
   s32 new_var3;

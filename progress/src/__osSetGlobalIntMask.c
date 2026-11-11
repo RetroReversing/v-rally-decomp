@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008BD90();                                /* extern */
-M2C_UNK func_8008BDB0(s32);                         /* extern */
-extern s32 D_800A1CD0;
+s32 osDisableInt();                                /* extern */
+M2C_UNK osRestoreInt(s32);                         /* extern */
+extern s32 __osGlobalIntMask;
 
 void __osSetGlobalIntMask(s32 arg0) {
     s32 temp_v0;
 
-    temp_v0 = func_8008BD90();
-    D_800A1CD0 |= arg0;
-    func_8008BDB0(temp_v0);
+    temp_v0 = osDisableInt();
+    __osGlobalIntMask |= arg0;
+    osRestoreInt(temp_v0);
 }

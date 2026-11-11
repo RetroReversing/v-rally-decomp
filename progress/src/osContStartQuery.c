@@ -1,36 +1,26 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-M2C_UNK __osPackRequestData(M2C_UNK);                     /* extern */
-M2C_UNK osRecvMesg(s32, M2C_UNK, M2C_UNK);       /* extern */
-M2C_UNK func_8008D8B4();                            /* extern */
-M2C_UNK func_8008D920();                            /* extern */
-s32 func_80090DC0(M2C_UNK, M2C_UNK *);              /* extern */
-extern M2C_UNK D_800AFAA0;
+extern s32 __osPackRequestData(s32);
+extern s32 osRecvMesg(s32, s32, s32);
+extern s32 pif_lock();
+extern s32 pif_unlock();
+extern s32 __osSiRawStartDma(s32, void *);
+extern u8 __osContPifRam[];
 extern u8 D_800C3520;
 
-s32 osContStartQuery(s32 arg0) {
-    s32 temp_v0;
+/* Starts a controller status query on the message queue mq. If D_800C3520 is set, it first
+ * packs and writes a request to PIF RAM and waits for the reply on mq. Then it reads the
+ * PIF RAM result, clears D_800C3520, and returns the read's status. */
+s32 osContStartQuery(s32 mq)
+{
+    s32 result;
 
-    func_8008D8B4();
+    pif_lock();
     if (D_800C3520 != 0) {
         __osPackRequestData(0);
-        func_80090DC0(1, &D_800AFAA0);
-        osRecvMesg(arg0, 0, 1);
+        __osSiRawStartDma(1, __osContPifRam);
+        osRecvMesg(mq, 0, 1);
     }
-    temp_v0 = func_80090DC0(0, &D_800AFAA0);
+    result = __osSiRawStartDma(0, __osContPifRam);
     D_800C3520 = 0;
-    func_8008D920();
-    return temp_v0;
+    pif_unlock();
+    return result;
 }

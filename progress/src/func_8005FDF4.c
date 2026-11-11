@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800592F4(M2C_UNK, s32);                /* extern */
-extern M2C_UNK D_800C02AE;
+M2C_UNK slot_set_selected(M2C_UNK, s32);                /* extern */
+extern M2C_UNK gStreamState;
 
 s32 func_8005FDF4(void) {
     u16 temp_a1;
 
-    temp_a1 = 1 - M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0x1C);
-    M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0x1C) = temp_a1;
-    func_800592F4(0x18, temp_a1 & 0xFFFF);
+    temp_a1 = 1 - M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u16 *, 0x1C);
+    M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u16 *, 0x1C) = temp_a1;
+    slot_set_selected(0x18, temp_a1 & 0xFFFF);
     return 0;
 }

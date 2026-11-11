@@ -17,38 +17,41 @@ typedef struct Elem
   u8 alpha;
 } Elem;
 extern u8 **D_800B55E4;
-extern void *func_8004240C(s32);
+extern void *find_object_by_id(s32);
 extern void func_8004CEB4(s32, Tex *, s16 *, u8, s32, s32, s32, s32, s32);
-void func_8005D4A4(s32 arg0)
+
+/* Draws the four corner overlay images of the HUD. split is the split-screen
+ * flag: in split mode the images are drawn at 0.625 scale and moved to the
+ * half-screen positions, otherwise at 1.25 scale on the full screen. */
+void func_8005D4A4(s32 split)
 {
   s16 rect[4];
   f32 scale;
-  s32 new_var2;
+  s32 handle;
   u8 *base;
-  Tex **new_var;
+  Tex **tex;
   Elem *e;
-  Tex *new_var3;
   scale = 1.25f;
-  if (arg0 & 0xFF)
+  if (split & 0xFF)
   {
     scale = 0.625f;
   }
   base = *D_800B55E4;
   e = (Elem *) (base + 12);
   rect[0] = 0;
-  rect[1] = (arg0 & 0xFF) ? (135) : (269);
+  rect[1] = (split & 0xFF) ? (135) : (269);
   rect[2] = (*e->imgs[3]->tex)->w * scale;
   rect[3] = (*e->imgs[3]->tex)->h * scale;
-  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 0, 0, 100, 100, 0);
+  func_8004CEB4((*((s32 *) (((u8 *) find_object_by_id(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 0, 0, 100, 100, 0);
   e = (Elem *) (base + 68);
   rect[0] = 0;
-  rect[1] = (arg0 & 0xFF) ? (187) : (375);
+  rect[1] = (split & 0xFF) ? (187) : (375);
   rect[2] = (*e->imgs[3]->tex)->w * scale;
-  new_var = e->imgs[3]->tex;
-  rect[3] = (*new_var)->h * scale;
-  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 100, 100, 200, 200, 0);
+  tex = e->imgs[3]->tex;
+  rect[3] = (*tex)->h * scale;
+  func_8004CEB4((*((s32 *) (((u8 *) find_object_by_id(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[3]->tex, rect, e->alpha, 100, 100, 200, 200, 0);
   e = (Elem *) (base + 12);
-  if (arg0 & 0xFF)
+  if (split & 0xFF)
   {
     rect[0] = 160;
     rect[1] = 135;
@@ -60,9 +63,9 @@ void func_8005D4A4(s32 arg0)
   }
   rect[2] = (*e->imgs[0x17]->tex)->w * scale;
   rect[3] = (*e->imgs[0x17]->tex)->h * scale;
-  func_8004CEB4((*((s32 *) (((u8 *) func_8004240C(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[0x17]->tex, rect, e->alpha, 0, 0, 100, 100, 0);
+  func_8004CEB4((*((s32 *) (((u8 *) find_object_by_id(1)) + 0x178))) & 0xFFFFFFFFFFFFFFFFu, *e->imgs[0x17]->tex, rect, e->alpha, 0, 0, 100, 100, 0);
   e = (Elem *) (base + 68);
-  if (arg0 & 0xFF)
+  if (split & 0xFF)
   {
     rect[0] = 160;
     rect[1] = 187;
@@ -74,7 +77,6 @@ void func_8005D4A4(s32 arg0)
   }
   rect[2] = (*e->imgs[0x17]->tex)->w * scale;
   rect[3] = (*e->imgs[0x17]->tex)->h * scale;
-  new_var2 = *((s32 *) (((u8 *) func_8004240C(1)) + 0x178));
-  func_8004CEB4(new_var2, *e->imgs[0x17]->tex, rect, e->alpha, 100, 100, 200, 200, 0);
+  handle = *((s32 *) (((u8 *) find_object_by_id(1)) + 0x178));
+  func_8004CEB4(handle, *e->imgs[0x17]->tex, rect, e->alpha, 100, 100, 200, 200, 0);
 }
-

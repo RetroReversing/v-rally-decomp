@@ -11,29 +11,31 @@ typedef struct {
     u8 pad1[0x3A4 - 0x382];
     f32 x3A4;
 } Mgr;
-extern Mgr *D_800A0384;
+extern Mgr *gRaceCtx;
 void memset(void *, s32, s32);
-void func_80098290(void *, void *);
+void copyStringAligned(void *, void *);
 s32 func_8000C9B0(void *, void *, u8, f32, u8);
 
+/* Clears the value slots of the four records, then fills each of the `count` entries of every
+ * record: decodes the entry into a scratch buffer and stores func_8000C9B0's result in vals. */
 void func_80049F18(void)
 {
-    u8 buf[0x2A];
+    u8 scratch[0x2A];
     u8 i;
     u8 j;
     Mgr *m;
     s16 v;
 
-    memset(buf, 0, 0x2A);
+    memset(scratch, 0, 0x2A);
     for (i = 0; i < 4; i++) {
         for (j = 0; j < 5; j++) {
-            D_800A0384->recs[i].vals[j] = 0;
+            gRaceCtx->recs[i].vals[j] = 0;
         }
     }
     for (i = 0; i < 4; i++) {
-        for (j = 0; j < D_800A0384->recs[i].count; j++) {
-            func_80098290(buf, D_800A0384->recs[i].data[j]);
-            D_800A0384->recs[i].vals[j] = func_8000C9B0((void *)(D_800A0384->pad0 + 4), (void *)(buf), (u8)(1), (f32)(D_800A0384->x3A4), (u8)(0));
+        for (j = 0; j < gRaceCtx->recs[i].count; j++) {
+            copyStringAligned(scratch, gRaceCtx->recs[i].data[j]);
+            gRaceCtx->recs[i].vals[j] = func_8000C9B0((void *)(gRaceCtx->pad0 + 4), (void *)(scratch), (u8)(1), (f32)(gRaceCtx->x3A4), (u8)(0));
         }
     }
 }

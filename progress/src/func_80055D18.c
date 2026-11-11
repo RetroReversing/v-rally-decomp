@@ -1,5 +1,5 @@
-extern s32 D_8009FF30;
-extern u8 D_800C7926;
+extern s32 gShadeMode;
+extern u8 g_dark_mode;
 typedef struct { s8 a, b; } Pair;
 typedef struct
 {
@@ -22,67 +22,71 @@ typedef struct
   u8 pad[2];
   u16 flag;
 } Out;
-void func_80055D18(Out **dst, RecList *info, s32 add, u8 *tbl)
+
+/* Writes one render vertex per record in list: the offset position, a shade
+ * colour per corner taken from shade[] (or a fallback when gShadeMode == 2),
+ * the normals and the flag. Advances *outp past the written vertices. */
+void func_80055D18(Out **outp, RecList *list, s32 offset, u8 *shade)
 {
-  Rec *p;
-  s32 n;
+  Rec *rec;
+  s32 count;
   s32 i;
-  u8 fb;
+  u8 fallback;
   u8 c;
-  p = info->recs;
-  n = info->count;
-  fb = 0x8C;
-  if (D_800C7926 == 0)
+  rec = list->recs;
+  count = list->count;
+  fallback = 0x8C;
+  if (g_dark_mode == 0)
   {
-    fb = 0x32;
+    fallback = 0x32;
   }
-  for (i = 0; i < n; i++)
+  for (i = 0; i < count; i++)
   {
-    (*dst)->v[0] = p->x + add;
-    (*dst)->v[1] = p->y + add;
-    (*dst)->v[2] = p->z + add;
-    (*dst)->v[3] = 0;
-    if (D_8009FF30 != 2)
+    (*outp)->v[0] = rec->x + offset;
+    (*outp)->v[1] = rec->y + offset;
+    (*outp)->v[2] = rec->z + offset;
+    (*outp)->v[3] = 0;
+    if (gShadeMode != 2)
     {
-      c = tbl[p->x];
+      c = shade[rec->x];
     }
     else
     {
-      c = fb;
+      c = fallback;
     }
-    (*dst)->col[0] = c;
-    (*dst)->col[1] = c;
-    (*dst)->col[2] = c;
-    (*dst)->col[3] = 6;
-    c = fb;
-    if (D_8009FF30 != 2)
+    (*outp)->col[0] = c;
+    (*outp)->col[1] = c;
+    (*outp)->col[2] = c;
+    (*outp)->col[3] = 6;
+    c = fallback;
+    if (gShadeMode != 2)
     {
-      c = tbl[p->y];
+      c = shade[rec->y];
     }
-    (*dst)->col[4] = c;
-    (*dst)->col[5] = c;
-    (*dst)->col[6] = c;
-    (*dst)->col[7] = 0;
-    c = fb;
-    if (D_8009FF30 != 2)
+    (*outp)->col[4] = c;
+    (*outp)->col[5] = c;
+    (*outp)->col[6] = c;
+    (*outp)->col[7] = 0;
+    c = fallback;
+    if (gShadeMode != 2)
     {
-      c = tbl[p->z];
+      c = shade[rec->z];
     }
-    (*dst)->col[8] = c;
-    (*dst)->col[9] = c;
-    (*dst)->col[10] = c;
-    (*dst)->col[11] = 0;
-    (*dst)->col[12] = 0;
-    (*dst)->col[13] = 0;
-    (*dst)->col[14] = 0;
-    (*dst)->col[15] = 0;
-    (*dst)->n[0] = p->n[0];
-    (*dst)->n[1] = p->n[1];
-    (*dst)->n[2] = p->n[2];
-    (*dst)->pad[0] = 0;
-    (*dst)->pad[1] = 0;
-    (*dst)->flag = p->flag;
-    p++;
-    (*dst)++;
+    (*outp)->col[8] = c;
+    (*outp)->col[9] = c;
+    (*outp)->col[10] = c;
+    (*outp)->col[11] = 0;
+    (*outp)->col[12] = 0;
+    (*outp)->col[13] = 0;
+    (*outp)->col[14] = 0;
+    (*outp)->col[15] = 0;
+    (*outp)->n[0] = rec->n[0];
+    (*outp)->n[1] = rec->n[1];
+    (*outp)->n[2] = rec->n[2];
+    (*outp)->pad[0] = 0;
+    (*outp)->pad[1] = 0;
+    (*outp)->flag = rec->flag;
+    rec++;
+    (*outp)++;
   }
 }

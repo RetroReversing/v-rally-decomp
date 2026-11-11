@@ -1,49 +1,52 @@
+/* Sets up the two league result slots: picks a winner flag for each from the current
+ * select state and the stored entry, then draws both slots through select_propagate_values. */
 extern unsigned char D_800C7112;
-extern int D_800C3508;void *func_800592AC(u32);
-s32 func_800592F4();
-void func_8005C0E8(s32, u32, u32);
+extern int gLeague;
+void *select_get_entry(u32);
+s32 slot_set_selected();
+void select_propagate_values(s32, u32, u32);
 s32 func_8006E380();
 s32 func_8008A0D8();
-extern void *D_800A1468;
-extern char D_800C02AE[];
+extern void *gSelectState;
+extern char gStreamState[];
 void func_80070630(void)
 {
-  s32 var_s1;
-  s8 var_s0;
-  void *var_s2;
+  s32 mode;
+  s8 flag;
+  void *slot;
   s32 new_var;
-  var_s2 = func_800592AC(1);
+  slot = select_get_entry(1);
   new_var = func_8006E380();
-  var_s0 = 0;
+  flag = 0;
   if (new_var != 0)
   {
-    var_s1 = 1;
-    if ((D_800C7112 & 3) == (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE))))
+    mode = 1;
+    if ((D_800C7112 & 3) == (*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE))))
     {
-      var_s0 = 1;
-      var_s1 = 0;
+      flag = 1;
+      mode = 0;
     }
   }
   else
   {
-    var_s1 = 1;
+    mode = 1;
   }
-  func_8008A0D8(D_800C3508, 1, var_s0);
-  *((s8 *) (((char *) var_s2) + 0x41)) = var_s0;
-  func_8005C0E8(1, var_s1, *((s32 *) (((char *) D_800A1468) + 0x14)));
-  var_s2 = func_800592AC(2);
-  if ((*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x38))) != 0)
+  func_8008A0D8(gLeague, 1, flag);
+  *((s8 *) (((char *) slot) + 0x41)) = flag;
+  select_propagate_values(1, mode, *((s32 *) (((char *) gSelectState) + 0x14)));
+  slot = select_get_entry(2);
+  if ((*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x38))) != 0)
   {
-    var_s0 = 1;
-    var_s1 = 0;
+    flag = 1;
+    mode = 0;
   }
   else
   {
-    var_s0 = 0;
-    var_s1 = 1;
+    flag = 0;
+    mode = 1;
   }
-  func_8008A0D8(D_800C3508, 2, var_s0);
-  *((s8 *) (((char *) var_s2) + 0x41)) = var_s0;
-  func_800592F4(2, ((u16) (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0x20)))) >= 8U);
-  func_8005C0E8(2, var_s1, *((s32 *) (((char *) D_800A1468) + 0x14)));
+  func_8008A0D8(gLeague, 2, flag);
+  *((s8 *) (((char *) slot) + 0x41)) = flag;
+  slot_set_selected(2, ((u16) (*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x20)))) >= 8U);
+  select_propagate_values(2, mode, *((s32 *) (((char *) gSelectState) + 0x14)));
 }

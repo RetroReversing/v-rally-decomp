@@ -1,2 +1,11 @@
-extern float D_800C35E0; void func_8005EFCC(int a, float *b); void func_80086DE8(int a);
-int func_8005F050(int arg0) { float *p = &D_800C35E0; func_8005EFCC(arg0, p); func_80086DE8((int)(*p * 112.0f)); return 0; }
+extern float gSpeedAccum;
+void rampFloatToOne(int a, float *b);
+void voicesSetIdleValue(int a);
+
+/* Clamps the ratio in gSpeedAccum to 0..1 (rampFloatToOne), then passes it to voicesSetIdleValue scaled to 0..112. Returns 0. The first argument is unused. */
+int func_8005F050(int unused) {
+    float *ratio = &gSpeedAccum;
+    rampFloatToOne(unused, ratio);
+    voicesSetIdleValue((int)(*ratio * 112.0f));
+    return 0;
+}

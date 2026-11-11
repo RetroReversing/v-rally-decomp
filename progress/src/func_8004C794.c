@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80080440();                                /* extern */
+s32 poolAllocHeadNode();                                /* extern */
 extern M2C_UNK D_8009A552;
 
 void func_8004C794(void) {
-    M2C_FIELD(&D_8009A552, s32 *, 0x6C5E) = func_80080440();
+    M2C_FIELD(&D_8009A552, s32 *, 0x6C5E) = poolAllocHeadNode();
 }

@@ -1,27 +1,30 @@
-extern s32 D_800C782C;
-extern char D_800AE850[];
+extern s32 gVoiceCount;
+extern char gOrderState[];
 
-void func_80086E8C(void *arg0, f32 arg1)
+/* Sets the float at +0x2C of every voice entry whose +0x14 word equals the word at +4 of
+ * obj to value. Entries are 0x134 bytes apart in the table that gOrderState points to at +0x80A0.
+ * The loop stops after the first match. */
+void func_80086E8C(void *obj, f32 value)
 {
     s32 pad[2];
-    s32 n;
+    s32 count;
     s32 i;
-    u8 *base;
-    u8 *p;
+    u8 *voices;
+    u8 *entry;
 
-    base = *(u8 **)(D_800AE850 + 0x80A0);
+    voices = *(u8 **)(gOrderState + 0x80A0);
     i = 0;
-    n = D_800C782C;
-    if (n > 0) {
-        p = base + 0x2C;
+    count = gVoiceCount;
+    if (count > 0) {
+        entry = voices + 0x2C;
         do {
-            if (*(s32 *)(p + 0x14) == *(s32 *)((u8 *)arg0 + 4)) {
-                *(f32 *)p = arg1;
-                i = n;
+            if (*(s32 *)(entry + 0x14) == *(s32 *)((u8 *)obj + 4)) {
+                *(f32 *)entry = value;
+                i = count;
             }
             i++;
-            p += 0x134;
-            n = D_800C782C;
-        } while (i < n);
+            entry += 0x134;
+            count = gVoiceCount;
+        } while (i < count);
     }
 }

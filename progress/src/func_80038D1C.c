@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_80089A94();                            /* extern */
-M2C_UNK func_80038B3C();                            /* extern */
+M2C_UNK update_spawn_timers();                            /* extern */
 
 void func_80038D1C(void) {
     func_80089A94();
-    func_80038B3C();
+    update_spawn_timers();
 }

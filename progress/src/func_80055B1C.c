@@ -1,22 +1,26 @@
 typedef struct {s32 a,b,c,d;} W55;
 typedef struct {s32 a,b,c,d;} __attribute__((packed)) P55;
-typedef struct {u8 *p;u16 n;} H55;
-extern u8 D_800AE850[],D_800A1300[],D_800A1308[];
-s32 func_80098180(void *,void *);
-void func_80055B1C(u8 **arg0,H55 *arg1){
-u8 *base;u8 *s;u8 *src,*dst,*end;u16 *tail;u16 n;s32 i;s32 pad[2];
-n=arg1->n;src=arg1->p;i=0;
-if(n){u8 fill=255;tail=(u16 *)(src+32);do {
-dst=*arg0;
-s=src;if(((u32)src|(u32)dst)&3){end=(u8 *)tail;do{*(P55 *)dst=*(P55 *)s;s+=16;dst+=16;}while(s!=end);}
-else {end=(u8 *)tail;do{*(W55 *)dst=*(W55 *)s;s+=16;dst+=16;}while(s!=end);}
-{ s32 half=*(s16 *)s; *(s16 *)dst=half; }
-(*arg0)[3]=10;
-base=*(u8 **)(D_800AE850+0x237c)+*tail*20;
-if(func_80098180(base,D_800A1300)==0 || func_80098180(base,D_800A1308)==0){
-(*arg0)[0]=fill;(*arg0)[1]=fill;(*arg0)[2]=fill;
-(*arg0)[4]=fill;(*arg0)[5]=fill;(*arg0)[6]=fill;(*arg0)[7]=fill;
-(*arg0)[8]=fill;(*arg0)[9]=fill;(*arg0)[10]=fill;(*arg0)[11]=fill;
-(*arg0)[12]=fill;(*arg0)[13]=fill;(*arg0)[14]=fill;(*arg0)[15]=fill;}
-tail+=17;i++;*arg0+=34;src+=34;
-}while(i<n);}}
+typedef struct {u8 *data;u16 count;} SrcBlock;
+extern u8 gOrderState[],D_800A1300[],D_800A1308[];
+s32 strCmp(void *,void *);
+
+/* Copies rows of 16 bytes from a source block into the output, 34 bytes of
+ * output per row, and writes an all-0xFF pattern into the row when its record
+ * fails either check. Advances the output pointer past each row. */
+void func_80055B1C(u8 **out,SrcBlock *blk){
+u8 *rec;u8 *sp;u8 *src,*dst,*end;u16 *row_idx;u16 count;s32 row;s32 pad[2];
+count=blk->count;src=blk->data;row=0;
+if(count){u8 blank=255;row_idx=(u16 *)(src+32);do {
+dst=*out;
+sp=src;if(((u32)src|(u32)dst)&3){end=(u8 *)row_idx;do{*(P55 *)dst=*(P55 *)sp;sp+=16;dst+=16;}while(sp!=end);}
+else {end=(u8 *)row_idx;do{*(W55 *)dst=*(W55 *)sp;sp+=16;dst+=16;}while(sp!=end);}
+{ s32 head=*(s16 *)sp; *(s16 *)dst=head; }
+(*out)[3]=10;
+rec=*(u8 **)(gOrderState+0x237c)+*row_idx*20;
+if(strCmp(rec,D_800A1300)==0 || strCmp(rec,D_800A1308)==0){
+(*out)[0]=blank;(*out)[1]=blank;(*out)[2]=blank;
+(*out)[4]=blank;(*out)[5]=blank;(*out)[6]=blank;(*out)[7]=blank;
+(*out)[8]=blank;(*out)[9]=blank;(*out)[10]=blank;(*out)[11]=blank;
+(*out)[12]=blank;(*out)[13]=blank;(*out)[14]=blank;(*out)[15]=blank;}
+row_idx+=17;row++;*out+=34;src+=34;
+}while(row<count);}}

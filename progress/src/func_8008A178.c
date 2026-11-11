@@ -1,7 +1,9 @@
-char *func_8008A054(int a, int b);
+char *findRecordByRange(int a, int b);
 
-void func_8008A178(int arg0, int arg1, int arg2) {
-    int s = arg1 & 0xFFFF;
-    char *v = func_8008A054(arg0, s);
-    *(int *)(*(int *)(v + 8) + (s - *(unsigned char *)(v + 0xD)) * 0xC) = arg2;
+/* Finds the record covering index `index` in range set `range`, and stores `value` in
+ * the first word of that index's 12-byte entry (entries start at record+8, first index at record+0xD). */
+void func_8008A178(int range, int index, int value) {
+    int idx = index & 0xFFFF;
+    char *rec = findRecordByRange(range, idx);
+    *(int *)(*(int *)(rec + 8) + (idx - *(unsigned char *)(rec + 0xD)) * 0xC) = value;
 }

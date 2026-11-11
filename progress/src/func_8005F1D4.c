@@ -1,27 +1,30 @@
 extern unsigned short D_800C3556;
-s32 func_800592F4();
-extern char D_800C02AE[];
-s32 func_8005F1D4(s32 arg0)
+s32 slot_set_selected();
+extern char gStreamState[];
+
+/* Toggles bit 0 of the stream state halfword at +0x32A8, then calls
+ * slot_set_selected with the low bit of D_800C3556. Always returns 0. */
+s32 func_8005F1D4(s32 slot)
 {
-  u16 *var_a1;
-  u16 var_v0;
-  u16 var_v1;
-  var_a1 = D_800C02AE + 0x32A8;
-  var_v1 = *var_a1;
-  var_v0 = var_v1 & 1;
-  if (!(var_v0 == 0))
+  u16 *flags;
+  u16 value;
+  u16 cur;
+  flags = gStreamState + 0x32A8;
+  cur = *flags;
+  value = cur & 1;
+  if (!(value == 0))
   {
-    var_v0 = var_v1 & 0xFFFE;
+    value = cur & 0xFFFE;
   }
   else
   {
-    var_v0 = var_v1 | 1;
+    value = cur | 1;
   }
-  *var_a1 = var_v0;
-  var_a1 = D_800C02AE + 0x32A8;
-  var_a1 = (u16 *) D_800C3556;
-  var_a1 = (u16 *) (((s32) var_a1) & 1);
-  func_800592F4(arg0, var_a1);
-  var_v0 = 0;
+  *flags = value;
+  flags = gStreamState + 0x32A8;
+  flags = (u16 *) D_800C3556;
+  flags = (u16 *) (((s32) flags) & 1);
+  slot_set_selected(slot, flags);
+  value = 0;
   return 0;
 }

@@ -1,23 +1,23 @@
-/* identical to osViSetMode in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_8008F260 in V-RALLY (matched), with its names changed by decompdecomp */
+s32 osDisableInt();
+s32 osRestoreInt();
+extern void *__osViCurr;
 
-s32 func_8008BD90();
-s32 func_8008BDB0();
-extern void *D_800A3A34;
-void osViSetMode(void *arg0)
+/* Makes `mode` the current VI mode: stores it in the VI context (+8), flags the context for update
+ * (+0), and copies the mode's control word (mode+4) into the context at +0xC. Restores the interrupt state. */
+void osViSetMode(void *mode)
 {
-  void *new_var3;
-  void **new_var2;
-  char *new_var;
-  s32 temp_v0;
+  void *modePtr;
+  void **modeSlot;
+  char *ctx;
+  s32 savedInt;
   void *temp_a1;
-  temp_v0 = func_8008BD90();
-  new_var = (char *) D_800A3A34;
-  *((void **) (((char *) D_800A3A34) + 8)) = arg0;
+  savedInt = osDisableInt();
+  ctx = (char *) __osViCurr;
+  *((void **) (((char *) __osViCurr) + 8)) = mode;
   ;
-  new_var2 = (void **) (((char *) D_800A3A34) + 8);
-  *((s16 *) (new_var + 0)) = 1;
-  new_var3 = *new_var2;
-  *((s32 *) (new_var + 0xC)) = (s32) (*((s32 *) (((char *) (*new_var2)) + 4)));
-  func_8008BDB0(temp_v0, new_var3);
+  modeSlot = (void **) (((char *) __osViCurr) + 8);
+  *((s16 *) (ctx + 0)) = 1;
+  modePtr = *modeSlot;
+  *((s32 *) (ctx + 0xC)) = (s32) (*((s32 *) (((char *) (*modeSlot)) + 4)));
+  osRestoreInt(savedInt, modePtr);
 }

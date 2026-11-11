@@ -26,22 +26,22 @@ typedef struct Size
   u16 w;
   u16 h;
 } Size;
-Gfx *func_80006008(void *);
-void func_80006014(void *, Gfx *);
-void func_800061FC(void *, s32);
-void func_800068C0(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+Gfx *gfx_get_dl(void *);
+void gfx_set_dl(void *, Gfx *);
+void gfx_push_mtx(void *, s32);
+void gfx_set_quad_pos(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80006EF8(void *, s32);
-void func_800071EC(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void gfx_set_quad_color(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_800075BC(void *, void *, s32);
 void func_80008B28(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-s32 func_80010BFC(s32, void *, Xform *);
-s32 func_8001BD1C(void);
+s32 obj_mtx_visible(s32, void *, Xform *);
+s32 mtx_pool_alloc(void);
 void guMtxIdentF(void *);
 extern u8 D_8009EB00[];
 extern u8 D_8009EB40[];
-extern s32 D_8009FF30;
+extern s32 gShadeMode;
 extern f64 D_800A4A60;
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 
 /* Draws a run of track objects. Objects with flags bit 0 set are drawn in
  * chains: the first in-range object sets up the display list (texture/palette
@@ -90,9 +90,9 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
           if (!setup)
           {
             setup = first + 1;
-            g = func_80006008(gfx_ctx);
+            g = gfx_get_dl(gfx_ctx);
             
-            if (D_8009FF30 == 5)
+            if (gShadeMode == 5)
             {
               Gfx *_g = g++;
               _g->w0 = 0xDE000000;
@@ -112,16 +112,16 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
             {
               Gfx *_g = g++;
               _g->w0 = 0xFA000000;
-              _g->w1 = ((D_800C02AE[0x6C27] << 24) | (D_800C02AE[0x6C27] << 16)) | (D_800C02AE[0x6C27] << 8);
+              _g->w1 = ((gStreamState[0x6C27] << 24) | (gStreamState[0x6C27] << 16)) | (gStreamState[0x6C27] << 8);
             }
             {
               Gfx *_g = g++;
               _g->w0 = 0xFB000000;
-              _g->w1 = (((D_800C02AE[0x6C26] << 24) | (D_800C02AE[0x6C26] << 16)) | (D_800C02AE[0x6C26] << 8)) | D_800C02AE[0x6C28];
+              _g->w1 = (((gStreamState[0x6C26] << 24) | (gStreamState[0x6C26] << 16)) | (gStreamState[0x6C26] << 8)) | gStreamState[0x6C28];
             }
-            func_80006014(gfx_ctx, g);
+            gfx_set_dl(gfx_ctx, g);
           }
-          dist = func_8001BD1C();
+          dist = mtx_pool_alloc();
           tr.mat[3][0] = obj->x;
           tr.mat[3][1] = obj->y;
           tr.mat[3][2] = obj->z;
@@ -131,17 +131,17 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
           tr.offset[0] = 0;
           tr.offset[1] = 0;
           tr.offset[2] = 0;
-          cam = *((u8 **) (D_800C02AE + 0x7CD6));
+          cam = *((u8 **) (gStreamState + 0x7CD6));
           dist_x = (*((f32 *) (cam + 0x118))) - ((f32) obj->x);
           if (__builtin_abs(dist_x) <= 6000)
           {
             s32 dz2 = (*((f32 *) (cam + 0x120))) - ((f32) obj->z);
             if (__builtin_abs(dz2) < 6001)
             {
-              result = func_80010BFC(dist, cam + 0x38, &tr);
+              result = obj_mtx_visible(dist, cam + 0x38, &tr);
               if (result == 1)
               {
-                func_800061FC(gfx_ctx, dist);
+                gfx_push_mtx(gfx_ctx, dist);
               }
             }
             else
@@ -184,8 +184,8 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
         if (result == 1)
         {
           id = func_80006EF8(gfx_ctx, 0);
-          func_800068C0(gfx_ctx, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2], (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]), (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]), (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));
-          func_800071EC(gfx_ctx, id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+          gfx_set_quad_pos(gfx_ctx, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2], (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]), (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]), (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));
+          gfx_set_quad_color(gfx_ctx, id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
           func_80008B28(gfx_ctx, id, 0, 0, size->w, 0, size->w, size->h, 0, size->h);
         }
         else

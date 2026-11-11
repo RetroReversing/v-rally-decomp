@@ -22,17 +22,17 @@ typedef struct {
     s16 uv[1][8];
 } Font;
 
-extern s32 func_8008E118(u8 *);
+extern s32 str_len(u8 *);
 extern void func_8008E3A0(char *, s32);
 extern char D_800A3F28[];
-extern u8 D_800C02AE[];
+extern u8 gStreamState[];
 extern u8 D_8009B680[];
 extern u8 D_8009B618[];
 extern u32 osVirtualToPhysical(void *);
 extern void guRotateF(f32 *m, f32 a, f32 x, f32 y, f32 z);
 extern void func_8001C108(f32 *m, f32 x, f32 y, f32 z, f32 *ox, f32 *oy, f32 *oz);
-extern s32 func_8000665C(GfxState *, s32);
-extern void func_800068C0(GfxState *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
+extern s32 dl_reserve_vertices(GfxState *, s32);
+extern void gfx_set_quad_pos(GfxState *, u16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16, s16);
 extern void func_80008B28(GfxState *, u16, u16, u16, u16, u16, u16, u16, u16, u16);
 s32 func_8000C9B0(void *, void *, u8, f32, u8);
 
@@ -105,7 +105,7 @@ u16 func_8000CC04(void *fonts, void *st, s16 x, s16 y, void *str, u8 nfonts, f32
     px = x;
     base = 0;
     first = 1;
-    len = func_8008E118(str);
+    len = str_len(str);
     if ((len == 0) | (len >= 0xA1)) {
         func_8008E3A0(D_800A3F28, len); __builtin_mips_debug_break();
         
@@ -127,7 +127,7 @@ u16 func_8000CC04(void *fonts, void *st, s16 x, s16 y, void *str, u8 nfonts, f32
                     if (rot) {
                         guRotateF(mtx, angle, 0.0f, 0.0f, 1.0f);
                     }
-                    if (*(s32 *)(D_800C02AE + 0x32AA) == 3 && (((u8)(c - 3) < 2) | (c == 6))) {
+                    if (*(s32 *)(gStreamState + 0x32AA) == 3 && (((u8)(c - 3) < 2) | (c == 6))) {
                         base -= 5;
                     }
                 }
@@ -144,7 +144,7 @@ u16 func_8000CC04(void *fonts, void *st, s16 x, s16 y, void *str, u8 nfonts, f32
                         first = 0;
                     }
                 }
-                vtx = func_8000665C(st, 4);
+                vtx = dl_reserve_vertices(st, 4);
                 if (rot) {
                     f32 fx = px;
                     f32 dx = fx - ox;
@@ -158,9 +158,9 @@ u16 func_8000CC04(void *fonts, void *st, s16 x, s16 y, void *str, u8 nfonts, f32
                     v1x += ox; v1y += oy;
                     v2x += ox; v2y += oy;
                     v3x += ox; v3y += oy;
-                    func_800068C0(st, vtx, (s32)v0x, (s32)v0y, 0, (s32)v1x, (s32)v1y, 0, (s32)v2x, (s32)v2y, 0, (s32)v3x, (s32)v3y, 0);
+                    gfx_set_quad_pos(st, vtx, (s32)v0x, (s32)v0y, 0, (s32)v1x, (s32)v1y, 0, (s32)v2x, (s32)v2y, 0, (s32)v3x, (s32)v3y, 0);
                 } else {
-                    func_800068C0(st, vtx, px, (s32)(py + font->glyphs[c].h * sy), 0,
+                    gfx_set_quad_pos(st, vtx, px, (s32)(py + font->glyphs[c].h * sy), 0,
                                   (s32)(px + font->glyphs[c].w * sx), (s32)(py + font->glyphs[c].h * sy), 0,
                                   (s32)(px + font->glyphs[c].w * sx), py, 0, px, py, 0);
                 }

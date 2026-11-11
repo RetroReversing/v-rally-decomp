@@ -1,9 +1,9 @@
-u32 func_8001FEE8();
-void func_80038AE4(s32);
+u32 getCounterValue();
+void voice_queue_add_slot(s32);
 s32 func_80046414();
 s32 func_800464B0();
-extern s32 D_8009D538;
-extern char D_800C02AE[];
+extern s32 gPadFlags;
+extern char gStreamState[];
 typedef struct 
 {
   s32 pad0[4];
@@ -12,85 +12,92 @@ typedef struct
   u32 a18;
   void *a1C;
 } Sub70;
-void func_80046530(u8 *arg0, s32 arg1, u8 *arg2)
+
+/* Handles an event record `evt` for object `obj`. Skipped when the global flags
+ * or the object's own flags say so. Otherwise, if `obj` is eligible and the event
+ * has a higher priority than the current owner of its sub-slot (the owner is
+ * `slot->a1C`), the event claims the slot and its sounds are queued. Clears the
+ * claim when the object has no event flag set. */
+void func_80046530(u8 *evt, s32 arg1, u8 *obj)
 {
-  u32 temp_a0;
-  s32 t;
-  char *new_var3;
-  unsigned int new_var2;
-  u32 temp_s2;
-  int new_var;
-  u32 mask;
-  u32 k;
-  Sub70 *temp_a1;
-  void *temp_v0;
-  if (D_8009D538 & 0x800)
+  u32 evt_type_w;
+  s32 evt_type2;
+  char *cfg_slot;
+  unsigned int max_prio;
+  u32 obj_score;
+  u32 evt_type;
+  int slot_off;
+  u32 prio_mask;
+  u32 is_special;
+  Sub70 *slot;
+  void *owner;
+  if (gPadFlags & 0x800)
   {
     return;
   }
-  if ((*((s32 *) (arg2 + 0x14))) & 0x80)
+  if ((*((s32 *) (obj + 0x14))) & 0x80)
   {
     return;
   }
-  temp_s2 = func_8001FEE8(arg2);
-  new_var2 = 100U;
-  if ((*(*((s32 **) (arg2 + 0x48)))) >= 2)
+  obj_score = getCounterValue(obj);
+  max_prio = 100U;
+  if ((*(*((s32 **) (obj + 0x48)))) >= 2)
   {
  return; }
-  if (func_800464B0(arg2) == 0)
+  if (func_800464B0(obj) == 0)
   {
     return;
   }
-  new_var = 0x14;
-  if (!((*((s32 *) (arg2 + new_var))) & 0x20))
+  slot_off = 0x14;
+  if (!((*((s32 *) (obj + slot_off))) & 0x20))
   {
-    temp_a1 = *((Sub70 **) (arg2 + 0x70));
-    temp_v0 = temp_a1->a1C;
-    new_var3 = D_800C02AE + 0x32F2;
-    if (((temp_v0 != arg0) && ((mask = (0U - ((u32) (temp_v0 != 0))) & new_var2, mask >= temp_a1->a18))) && ((((*((s32 *) arg0)) & 0xFFFF0000) != 0x06060000) | (temp_s2 >= 0x50U)))
+    slot = *((Sub70 **) (obj + 0x70));
+    owner = slot->a1C;
+    cfg_slot = gStreamState + 0x32F2;
+    if (((owner != evt) && ((prio_mask = (0U - ((u32) (owner != 0))) & max_prio, prio_mask >= slot->a18))) && ((((*((s32 *) evt)) & 0xFFFF0000) != 0x06060000) | (obj_score >= 0x50U)))
     {
-      temp_a0 = *((s32 *) (arg0 + 4));
-      k = (temp_a0 != 1) & (temp_a0 != 5);
-      if (k)
+      evt_type = *((s32 *) (evt + 4));
+      is_special = (evt_type != 1) & (evt_type != 5);
+      if (is_special)
       {
-        if (temp_a0 == 2)
+        if (evt_type == 2)
         {
-          temp_a1->a14 = arg0[2];
-          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[3];
+          slot->a14 = evt[2];
+          (*((Sub70 **) (obj + 0x70)))->a10 = evt[3];
         }
         else
         {
-          temp_a1->a14 = arg0[0];
-          (*((Sub70 **) (arg2 + 0x70)))->a10 = arg0[1];
+          slot->a14 = evt[0];
+          (*((Sub70 **) (obj + 0x70)))->a10 = evt[1];
         }
-        k = 0x7D;
-        (*((Sub70 **) (arg2 + 0x70)))->a18 = k;
+        is_special = 0x7D;
+        (*((Sub70 **) (obj + 0x70)))->a18 = is_special;
       }
       else
       {
-        temp_a1->a10 = 4;
-        (*((Sub70 **) (arg2 + 0x70)))->a14 = arg0[0];
-        (*((Sub70 **) (arg2 + 0x70)))->a18 = 0x7D;
+        slot->a10 = 4;
+        (*((Sub70 **) (obj + 0x70)))->a14 = evt[0];
+        (*((Sub70 **) (obj + 0x70)))->a18 = 0x7D;
       }
-      (*((Sub70 **) (arg2 + 0x70)))->a1C = arg0;
-      if ((*((u16 *) ((*((u8 **) new_var3)) + 0xE))) < 2U)
+      (*((Sub70 **) (obj + 0x70)))->a1C = evt;
+      if ((*((u16 *) ((*((u8 **) cfg_slot)) + 0xE))) < 2U)
       {
-        func_80046414(arg0[1], arg0[0]);
-        if ((*((s32 *) (arg0 + 4))) == 1)
+        func_80046414(evt[1], evt[0]);
+        if ((*((s32 *) (evt + 4))) == 1)
         {
-          func_80038AE4(0x13);
-          func_80046414(arg0[3], arg0[2]);
+          voice_queue_add_slot(0x13);
+          func_80046414(evt[3], evt[2]);
         }
-        t = *((s32 *) (arg0 + 4));
-        if ((t == 2) | (t == 5))
+        evt_type2 = *((s32 *) (evt + 4));
+        if ((evt_type2 == 2) | (evt_type2 == 5))
         {
-          func_80046414(arg0[3], arg0[2]);
+          func_80046414(evt[3], evt[2]);
         }
       }
     }
   }
   else
   {
-    (*((Sub70 **) (arg2 + 0x70)))->a1C = 0;
+    (*((Sub70 **) (obj + 0x70)))->a1C = 0;
   }
 }

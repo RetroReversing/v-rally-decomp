@@ -12,21 +12,24 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8000C188(s32);                         /* extern */
-void *func_80022318(void **, u8 *);                /* extern */
+M2C_UNK stream_obj_free(s32);                         /* extern */
+void *named_entry_lookup(void **, u8 *);                /* extern */
 M2C_UNK func_800225BC(void **);                     /* extern */
-M2C_UNK func_800803C0(void *, s32);                 /* extern */
+M2C_UNK list_unlink_free(void *, s32);                 /* extern */
 extern M2C_UNK D_800A4E20;
 
+/* Looks up the entry named D_800A4E20 in the list at arg0+0x28. If it exists,
+ * releases its owner's block (stream_obj_free), calls func_800225BC on the owner
+ * and unlinks and frees the entry. */
 void func_800447A0(s32 arg0) {
-    s32 temp_s1;
-    void *temp_v0;
+    s32 list;
+    void *entry;
 
-    temp_s1 = arg0 + 0x28;
-    temp_v0 = func_80022318((void **)(temp_s1), (u8 *)(&D_800A4E20));
-    if (temp_v0 != NULL) {
-        func_8000C188(M2C_FIELD(*M2C_FIELD(temp_v0, void ***, 0x10), s32 *, 0x10));
-        func_800225BC(M2C_FIELD(temp_v0, void ***, 0x10));
-        func_800803C0(temp_v0, temp_s1);
+    list = arg0 + 0x28;
+    entry = named_entry_lookup((void **)(list), (u8 *)(&D_800A4E20));
+    if (entry != NULL) {
+        stream_obj_free(*(s32 *)((u8 *)**(void ***)((u8 *)entry + 0x10) + 0x10));
+        func_800225BC(*(void ***)((u8 *)entry + 0x10));
+        list_unlink_free(entry, list);
     }
 }

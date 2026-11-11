@@ -15,10 +15,10 @@ typedef s32 M2C_UNK32;
 extern s16 D_8009BBB4;
 extern s32 D_8009BBB8;
 extern s16 D_8009CEBC;
-extern M2C_UNK D_800C02AE;
+extern M2C_UNK gStreamState;
 
 void func_80015B00(void) {
     D_8009CEBC = 0x1C;
     D_8009BBB4 = 0;
-    M2C_FIELD(&D_800C02AE, s32 *, 0x7DA6) = (s32) D_8009BBB8;
+    M2C_FIELD(&gStreamState, s32 *, 0x7DA6) = (s32) D_8009BBB8;
 }

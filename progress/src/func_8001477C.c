@@ -1,4 +1,4 @@
-extern s32 D_8009B5A8;
+extern s32 gSceneSlot1;
 extern s32 func_80005C48(s32);
 extern void func_80014564(s32, s32, s16, s32);
 #define PACK_RGB5551(r, g, b) (((((r) << 8) & 0xF800) | (((g) << 3) & 0x7C0) | (((b) >> 2) & 0x3E)) | 1)
@@ -20,7 +20,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
   u8 dr;
   u8 dg;
   u8 db;
-  color = func_80005C48(D_8009B5A8);
+  color = func_80005C48(gSceneSlot1);
   dx = x1 - x0;
   dy = y1 - y0;
   dx = __builtin_abs(dx);

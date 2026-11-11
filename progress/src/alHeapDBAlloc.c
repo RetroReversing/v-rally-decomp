@@ -1,17 +1,20 @@
-u32 alHeapDBAlloc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4)
+/* Bump-allocates num * elem_size bytes (rounded up to 16) from the heap block at heap:
+ * heap[1] is the next free address and heap[0] + heap[2] is the end of the block.
+ * Returns the start address, or 0 if the block is too full. */
+u32 alHeapDBAlloc(s32 arg0, s32 arg1, s32 *heap, s32 num, s32 elem_size)
 {
     u32 start;
     u32 end;
     u32 ret;
-    u32 size;
+    u32 bytes;
 
-    size = ((arg3 * arg4) + 0xF) & -0x10;
-    start = arg2[1];
-    end = start + size;
+    bytes = ((num * elem_size) + 0xF) & -0x10;
+    start = heap[1];
+    end = start + bytes;
     ret = 0;
-    if (arg2[0] + arg2[2] >= end) {
+    if (heap[0] + heap[2] >= end) {
         ret = start;
-        arg2[1] = end;
+        heap[1] = end;
     }
     return ret;
 }

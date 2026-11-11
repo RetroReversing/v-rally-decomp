@@ -1,19 +1,9 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+typedef f32 Mtx4F[4][4];
 
-void guMtxXFMF(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4, f32 *arg5, f32 *arg6) {
-    *arg4 = (M2C_FIELD(arg0, f32 *, 0) * arg1) + (M2C_FIELD(arg0, f32 *, 0x10) * arg2) + (M2C_FIELD(arg0, f32 *, 0x20) * arg3) + M2C_FIELD(arg0, f32 *, 0x30);
-    *arg5 = (M2C_FIELD(arg0, f32 *, 4) * arg1) + (M2C_FIELD(arg0, f32 *, 0x14) * arg2) + (M2C_FIELD(arg0, f32 *, 0x24) * arg3) + M2C_FIELD(arg0, f32 *, 0x34);
-    *arg6 = (M2C_FIELD(arg0, f32 *, 8) * arg1) + (M2C_FIELD(arg0, f32 *, 0x18) * arg2) + (M2C_FIELD(arg0, f32 *, 0x28) * arg3) + M2C_FIELD(arg0, f32 *, 0x38);
+/* Transforms the point (x, y, z) by the float matrix m (translation in row 3) and
+   writes the result to *dx, *dy, *dz. */
+void guMtxXFMF(Mtx4F *m, f32 x, f32 y, f32 z, f32 *dx, f32 *dy, f32 *dz) {
+    *dx = ((*m)[0][0] * x) + ((*m)[1][0] * y) + ((*m)[2][0] * z) + (*m)[3][0];
+    *dy = ((*m)[0][1] * x) + ((*m)[1][1] * y) + ((*m)[2][1] * z) + (*m)[3][1];
+    *dz = ((*m)[0][2] * x) + ((*m)[1][2] * y) + ((*m)[2][2] * z) + (*m)[3][2];
 }

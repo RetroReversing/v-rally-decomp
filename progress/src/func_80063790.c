@@ -15,75 +15,79 @@ typedef struct State {
     u16 sel;
     u16 h22;
 } State;
-extern VRMenuManager *D_800C3508;
-extern State *D_800C35A0;
+extern VRMenuManager *gLeague;
+extern State *gRecords;
 extern u8 D_800C352C[];
 extern s32 D_800B3DA0;
-extern u8 *D_800A1468;
+extern u8 *gSelectState;
 extern s32 *D_800A11B0;
-extern Disp *D_800A14D0;
+extern Disp *gSelectBuffer;
 extern f64 D_800A5698;
 extern s32 D_800D05D8;
-extern Record *D_800D0634;
+extern Record *gSlotTableB;
 extern void func_8005937C(u8, u16);
 extern void func_8005C198(void);
 extern void func_80061740(Record);
 extern void func_8006185C(s32, s32);
-extern void func_80062184(Record, s32);
+extern void menu_draw_text_objs(Record, s32);
 extern void func_80062E68(void);
-extern void func_8004D08C(s32, u8, s16, s16, f32, f32, u8, u8);void *func_800592AC(u32);
+extern void func_8004D08C(s32, u8, s16, s16, f32, f32, u8, u8);
+void *select_get_entry(u32);
 
+/* Selects the record shown by the current menu item, updates the selection
+ * state, and draws one colour bar per record field. Bars for fields that are
+ * not yet unlocked (bit clear in D_800C352C[sel]) are drawn dimmed. */
 void func_80063790(void)
 {
     VRMenuItem *item;
-    s32 n;
-    u8 i;
-    s32 bit;
-    s32 sel;
+    s32 recIdx;
+    u8 field;
+    s32 mask;
+    s32 selected;
     u8 alpha;
     Record record;
-    f64 scale;
+    f64 barWidth;
 
-    item = &D_800C3508->items[D_800C3508->count];
-    n = item->value - item->pad00[13];
-    if (!D_800A1468[0x245]) {
-        *(u16 *)((u8 *)D_800C35A0 + 0x20) = n;
-        func_8005937C(item->value, D_800D0634[n].count);
-        if (n != D_800B3DA0) {
+    item = &gLeague->items[gLeague->count];
+    recIdx = item->value - item->pad00[13];
+    if (!gSelectState[0x245]) {
+        *(u16 *)((u8 *)gRecords + 0x20) = recIdx;
+        func_8005937C(item->value, gSlotTableB[recIdx].count);
+        if (recIdx != D_800B3DA0) {
             if (*D_800A11B0) {
                 func_8005C198();
             }
-            if (!D_800A1468[0x2BE]) {
-                func_80061740(D_800D0634[n]);
-                D_800B3DA0 = n;
+            if (!gSelectState[0x2BE]) {
+                func_80061740(gSlotTableB[recIdx]);
+                D_800B3DA0 = recIdx;
             }
         }
-        D_800C35A0->h22 = 0;
+        gRecords->h22 = 0;
     } else {
-        func_8006185C((s32)func_800592AC((u16)(D_800C35A0->sel)), 0);
+        func_8006185C((s32)select_get_entry((u16)(gRecords->sel)), 0);
     }
-    record = D_800D0634[D_800C35A0->sel];
-    if (D_800C3508->count == 1 && D_800A1468[0x245]) {
+    record = gSlotTableB[gRecords->sel];
+    if (gLeague->count == 1 && gSelectState[0x245]) {
         func_80062E68();
     }
-    func_80062184(record, 1);
-    if (!D_800A1468[0x24D] && !D_800A1468[0x2BE]) {
-        i = 0;
-        if (i < record.count) scale = D_800A5698;
-        for (; i < record.count; i++) {
-            sel = D_800C35A0->sel;
-            bit = 1 << i;
-            if ((D_800C352C[sel] & bit) != bit) {
-                if ((sel == 0 & i == 6) || (sel == 1 & i == 4) || (sel == 5 & i == 6) || (sel == 6 & i == 5)) {
+    menu_draw_text_objs(record, 1);
+    if (!gSelectState[0x24D] && !gSelectState[0x2BE]) {
+        field = 0;
+        if (field < record.count) barWidth = D_800A5698;
+        for (; field < record.count; field++) {
+            selected = gRecords->sel;
+            mask = 1 << field;
+            if ((D_800C352C[selected] & mask) != mask) {
+                if ((selected == 0 & field == 6) || (selected == 1 & field == 4) || (selected == 5 & field == 6) || (selected == 6 & field == 5)) {
                     alpha = 200;
                 } else {
                     alpha = 130;
                 }
-                func_8004D08C(D_800D05D8, i, D_800A14D0->x, D_800A14D0->y + i * D_800A14D0->step,
-                              D_800A14D0->f - scale, D_800A14D0->f, record.colors[i], alpha);
+                func_8004D08C(D_800D05D8, field, gSelectBuffer->x, gSelectBuffer->y + field * gSelectBuffer->step,
+                              gSelectBuffer->f - barWidth, gSelectBuffer->f, record.colors[field], alpha);
             } else {
-                func_8004D08C(D_800D05D8, i, D_800A14D0->x, D_800A14D0->y + i * D_800A14D0->step,
-                              D_800A14D0->f - scale, D_800A14D0->f, record.colors[i], 255);
+                func_8004D08C(D_800D05D8, field, gSelectBuffer->x, gSelectBuffer->y + field * gSelectBuffer->step,
+                              gSelectBuffer->f - barWidth, gSelectBuffer->f, record.colors[field], 255);
             }
         }
     }
