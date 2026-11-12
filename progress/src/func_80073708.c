@@ -8,7 +8,7 @@ typedef struct RData { char pad0[0x2C]; RRec recs[8]; s32 vals[8]; } RData;
 
 extern RData *func_80041564(void);
 extern void func_80045404(s32, RData *, s32, REntry *, s32, s32);
-extern void copyStringAligned(char *, char *);
+extern void strCpy(char *, char *);
 extern s32 gRecordTimeScale;
 extern u8 gCurCount;
 extern s32 D_800B55FC[][8];
@@ -17,6 +17,7 @@ extern RObj **gCarList;
 extern RCfg *gRecords;
 extern REntry gResultsTable[4];
 extern RPlayer D_800C7FF0;
+s32 abs(s32);
 
 /* Fills gResultsTable for the finished race, one entry per car in finish
  * order: total and rate from the lap times, the car's name, and the diff to
@@ -52,7 +53,7 @@ void func_80073708(void) {
         place = car_obj->res->place - 1;
         cfg = gRecords;
         gResultsTable[(u8)place].obj = car_obj;
-        copyStringAligned(gResultsTable[(u8)place].name, cfg->names[cfg->order[i]].name);
+        strCpy(gResultsTable[(u8)place].name, cfg->names[cfg->order[i]].name);
         pick_val = gRecords->names[gRecords->order[i]].v;
         gResultsTable[(u8)place].idx = i;
         gResultsTable[(u8)place].total = total;
@@ -93,7 +94,7 @@ void func_80073708(void) {
             gResultsTable[3].diff = 0;
         }
     }
-    copyStringAligned(D_800C7FF0.name, race_data->recs[gRecords->sel].name);
+    strCpy(D_800C7FF0.name, race_data->recs[gRecords->sel].name);
     D_800C7FF0.time = race_data->recs[gRecords->sel].time;
     D_800C7FF0.c = race_data->recs[gRecords->sel].cA;
     D_800C7FF0.d = race_data->recs[gRecords->sel].c4;

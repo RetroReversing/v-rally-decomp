@@ -19,6 +19,9 @@ void alSynStopVoice(void *synth, void *voice) {
     s32 time;
     void *evt;
     void *owner;
+#ifdef PORT
+    s32 delta;
+#endif
 
     fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
     if (fn != NULL) {
@@ -27,10 +30,17 @@ void alSynStopVoice(void *synth, void *voice) {
             fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
             time = *(s32 *)((char *)synth + 0x1C);
             owner = *(void * *)((char *)fn + 0xD8);
+#ifdef PORT
+            delta = *(s32 *)((char *)fn + 0xD8);
+#endif
             fn = (s32 (*)(void *, s32, void *))0xF;
             *(s16 *)((char *)evt + 8) = 0xF;
             *(s32 *)((char *)evt + 0) = 0;
+#ifdef PORT
+            time += delta;
+#else
             time += owner;
+#endif
             *(s32 *)((char *)evt + 4) = time;
             fn = M2C_FIELD(voice, s32 (**)(void *, s32, void *), 8);
             owner = *(void * *)((char *)fn + 0xC);

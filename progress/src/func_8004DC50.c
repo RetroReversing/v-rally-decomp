@@ -37,7 +37,7 @@ typedef struct {
   DCInfo *info;
 } DCItem;
 
-extern u8 D_800A73E0[];
+extern u8 gGameState[];
 extern u8 gOrderState[];
 extern u8 *gRecords;
 s32 updatePathDirection(void *, void *);
@@ -48,7 +48,7 @@ u8 *func_80041530(u16, u16);
 
 /* Assigns render slots to the objects in the chain starting at `root`. Objects flagged 8 get a
  * slot in chain order (every 20th one always, the rest only when their info has f170 set), and
- * the draw-state block at D_800A73E0 is updated with the next free slot and a mode code. */
+ * the draw-state block at gGameState is updated with the next free slot and a mode code. */
 void func_8004DC50(DCObj *root)
 {
   DCObj *prev;
@@ -140,14 +140,14 @@ void func_8004DC50(DCObj *root)
     obj = prev->next;
   }
 
-  D_800A73E0[0x6C01] = 1;
+  gGameState[0x6C01] = 1;
   if (obj == 0)
   {
     if (*(u16 *) (gRecords + 0x1E) != 0)
     {
-      D_800A73E0[0x6C00] = 2;
+      gGameState[0x6C00] = 2;
     }
-    D_800A73E0[0x6C01] = 0;
+    gGameState[0x6C01] = 0;
     prev = prev->parent->parent;
     if (prev != 0)
     {
@@ -165,7 +165,7 @@ void func_8004DC50(DCObj *root)
       nextSlot++;
     }
   }
-  *(u16 *) (D_800A73E0 + 0x6BFC) = nextSlot;
-  *(s16 *) (D_800A73E0 + 0x6C04) = gOrderState[0x87A2] + gOrderState[0x87A5];
-  *(s16 *) (func_80041530(*(u16 *) (gRecords + 0x1E), *(u16 *) (gRecords + 0x20)) + 0x12) = *(u16 *) (D_800A73E0 + 0x6BFC) - 1;
+  *(u16 *) (gGameState + 0x6BFC) = nextSlot;
+  *(s16 *) (gGameState + 0x6C04) = gOrderState[0x87A2] + gOrderState[0x87A5];
+  *(s16 *) (func_80041530(*(u16 *) (gRecords + 0x1E), *(u16 *) (gRecords + 0x20)) + 0x12) = *(u16 *) (gGameState + 0x6BFC) - 1;
 }

@@ -1,27 +1,27 @@
-extern OSPifRam D_800C8130;
-extern u8 D_800C3520;
-extern u8 D_800B60E0;
+extern OSPifRam __osPifBuf;
+extern u8 __osPfsLastCmd;
+extern u8 __osMaxControllers;
 
-void __osPfsRequestData(u8 cmd) {
-    u8* ptr = (u8*)&D_800C8130;
-    __OSContRequesFormat requestformat;
+/* Fills the PIF buffer with one controller-pak request block per channel, then writes the end-of-list byte. */ void __osPfsRequestData(u8 cmd) {
+    u8* cursor = (u8*)&__osPifBuf;
+    __OSContRequesFormat req;
     int i;
 
-    D_800C3520 = cmd;
-    D_800C8130.pifstatus = 1 ;
-    requestformat.dummy = 0xff ;
-    requestformat.txsize = 1 ;
-    requestformat.rxsize = 3 ;
-    requestformat.cmd = cmd;
-    requestformat.typeh = 0xff ;
-    requestformat.typel = 0xff ;
-    requestformat.status = 0xff ;
-    requestformat.dummy1 = 0xff ;
+    __osPfsLastCmd = cmd;
+    __osPifBuf.pifstatus = 1 ;
+    req.dummy = 0xff ;
+    req.txsize = 1 ;
+    req.rxsize = 3 ;
+    req.cmd = cmd;
+    req.typeh = 0xff ;
+    req.typel = 0xff ;
+    req.status = 0xff ;
+    req.dummy1 = 0xff ;
 
-    for (i = 0; i < D_800B60E0; i++) {
-        *((__OSContRequesFormat*)ptr) = requestformat;
-        ptr += sizeof(__OSContRequesFormat);
+    for (i = 0; i < __osMaxControllers; i++) {
+        *((__OSContRequesFormat*)cursor) = req;
+        cursor += sizeof(__OSContRequesFormat);
     }
 
-    *ptr = 0xfe ;
+    *cursor = 0xfe ;
 }

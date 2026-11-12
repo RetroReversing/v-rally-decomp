@@ -14,6 +14,7 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK func_80042824(void *, u8, u8, u8);          /* extern */
 
-void func_8001D8E0(void *arg0) {
-    func_80042824(arg0 + 0x4C, M2C_FIELD(arg0, u8 *, 0xDF), M2C_FIELD(arg0, u8 *, 0x12B), M2C_FIELD(arg0, u8 *, 0x177));
+/* Builds the texture record for an object: its record at +0x4C, with the colour bytes at +0xDF, +0x12B and +0x177. */
+void func_8001D8E0(char *obj) {
+    func_80042824(obj + 0x4C, *(u8 *)(obj + 0xDF), *(u8 *)(obj + 0x12B), *(u8 *)(obj + 0x177));
 }

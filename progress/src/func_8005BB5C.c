@@ -1,7 +1,7 @@
 extern char D_800A5344[];
 extern char D_800A5354[];
 extern u8 *gSelectState;
-extern char gStreamState[];
+extern char stream_state[];
 void appendString(u8 *, u8 *);
 s32 getTexturePack(u8 *, s32);
 void resolve_path(u8 *);
@@ -23,9 +23,9 @@ void func_8005BB5C(void)
   b = buf;
   do
   {
-    ptr = *((u8 **) (gStreamState + 0x32F2));
+    ptr = *((u8 **) (stream_state + 0x32F2));
     ptr = ptr + ((ptr + i)[0x32] * 0x28);
-    src = (*((u8 **) (gStreamState + 0x103AA))) + ((*((u16 *) (ptr + 0x4E))) * 0x2C4);
+    src = (*((u8 **) (stream_state + 0x103AA))) + ((*((u16 *) (ptr + 0x4E))) * 0x2C4);
     for (k = 0; k < 5; k++)
     {
       b[k] = src[k];

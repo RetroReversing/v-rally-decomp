@@ -12,9 +12,9 @@ s32 voicesSetIdleParams();
 s32 voicesSetIdleValue();
 extern s32 gPadFlags;
 extern s32 gRaceFlags;
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Advances the car's place in the race order when it reaches the next marker.
  * The car is ranked among the others by its progress counter; if it leads the
@@ -50,17 +50,21 @@ void car_race_position_update(void *src, s32 arg1, void *car) {
             if (*(s32 *)((char *)temp_a0 + 0x28) == D_800ADFDC.marker) {
                 *(s32 *)((char *)temp_a0 + 0x28) = 0;
             }
-            temp_v0 = M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u16 *, 0x1E);
+            temp_v0 = M2C_FIELD(*(void * *)(stream_state + 0x32F2), u16 *, 0x1E);
             if ((temp_v0 != 0) & (temp_v0 != 5)) {
                 temp_v1_2 = *(void * *)((char *)var_s1 + 0x6C);
+#ifdef PORT
+                *(s32 *)((char *)*(void * *)((char *)temp_v1_2 + 0x18) + (*(u16 *)((char *)var_s2 + 0) * 4) - 4) = (s32) *(s32 *)((char *)temp_v1_2 + 4);
+#else
                 M2C_FIELD(((*(u16 *)((char *)var_s2 + 0) * 4) + *(s32 *)((char *)temp_v1_2 + 0x18)), s32 *, -4) = (s32) *(s32 *)((char *)temp_v1_2 + 4);
-                if (((u16) M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u16 *, 0xE) >= 2U) && (M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0) < 4)) {
+#endif
+                if (((u16) M2C_FIELD(*(void * *)(stream_state + 0x32F2), u16 *, 0xE) >= 2U) && (M2C_FIELD(*(void * *)((char *)var_s1 + 0x48), s32 *, 0) < 4)) {
                     other = **(void ** *)(gOrderState + 0x73F0);
                     allBehind = 1;
                     limit = (u16) M2C_FIELD(*(void * *)((char *)var_s1 + 0x6C), u16 *, 0xA);
                     if (other != NULL) {
                         do {
-                            if ((**(s32 * *)((char *)other + 0x48) < 4) & ((s32) other != var_s1)) {
+                            if ((**(s32 * *)((char *)other + 0x48) < 4) & (other != var_s1)) {
                                 allBehind &= -((u16) M2C_FIELD(*(void * *)((char *)other + 0x6C), u16 *, 0xA) >= limit);
                             }
                             other = *(void * *)((char *)other + 4);
@@ -75,9 +79,11 @@ void car_race_position_update(void *src, s32 arg1, void *car) {
                         }
                         other = **(void ** *)(gOrderState + 0x73F0);
                         if (other != NULL) {
+#ifndef PORT
                             register var_s2 = (void *)-0x201;
+#endif
                             do {
-                                if ((M2C_FIELD(*(void * *)((char *)other + 0x48), s32 *, 0) < 4) & (other != (s32) var_s1)) {
+                                if ((M2C_FIELD(*(void * *)((char *)other + 0x48), s32 *, 0) < 4) & (other != var_s1)) {
                                     M2C_FIELD(*(void * *)((char *)other + 0x6C), s32 *, 0x10) = (s32) M2C_FIELD(*(void * *)((char *)var_s1 + 0x6C), s32 *, 0x10);
                                     temp_a0_3 = *(s32 *)((char *)other + 0x14);
                                     if (temp_a0_3 & 0x200) {
@@ -118,7 +124,7 @@ block_27:
                         voicesSetIdleParams(1);
                         gRaceFlags &= ~0x10;
                         func_80038A8C(0x14);
-                        start_track_voices(gStreamState + 0x6C6A);
+                        start_track_voices(stream_state + 0x6C6A);
                         voicesSetIdleValue((s32) (gSpeedAccum * 80.0f));
                     }
                 }

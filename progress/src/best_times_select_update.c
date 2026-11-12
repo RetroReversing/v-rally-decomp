@@ -12,15 +12,15 @@ extern u8 *gRecords;
 extern u8 *gSelectState;
 extern u8 *gSelectBuffer;
 extern Blob *D_800D0648;
-extern s32 *D_800A11B0;
+extern s32 *gStreamList;
 extern s32 D_800B0548;
 extern s32 D_800D05D8;
 extern const f64 D_800A5D10;
 extern void func_8005937C(s32, s32);
-extern void func_8005C198(void);
+extern void select_arm_if_clear(void);
 extern void func_80061740(Blob);
 extern void menu_draw_text_objs(Blob, s32);void *select_get_entry(u32);
-extern void func_8006185C(s32, s32);
+extern void func_8006185C(void *, s32);
 extern void draw_best_times_screen(void);
 extern void func_8004D08C(s32, s32, s16, s16, f32, f32, u8, u8);
 
@@ -41,9 +41,9 @@ void best_times_select_update(void)
       func_8005937C(entry[14], U(&D_800D0648[selected], 20));
       if (selected != D_800B0548)
       {
-        if (*D_800A11B0)
+        if (*gStreamList)
         {
-          func_8005C198();
+          select_arm_if_clear();
         }
         if (gSelectState[0x2be] == 0)
         {
@@ -54,7 +54,7 @@ void best_times_select_update(void)
     }
     else
     {
-      func_8006185C((s32)select_get_entry(U(gRecords, 32)), 0);
+      func_8006185C(select_get_entry(U(gRecords, 32)), 0);
     }
     if (H(gLeague, 2) == 2)
     {

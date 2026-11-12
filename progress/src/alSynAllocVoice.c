@@ -1145,7 +1145,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -6944,7 +6944,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -8111,52 +8111,50 @@ s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority);
 
 s32 _allocatePVoice(ALSynth *drvr, PVoice **pvoice, s16 priority);
 
-s32 alSynAllocVoice(ALSynth *drvr, ALVoice *voice, ALVoiceConfig *vc)
+/* Allocates a physical voice for a virtual voice. If the physical voice was stolen from another voice, queues a volume ramp and a stop on its filter so the old sound is cut off. Returns nonzero when a voice was allocated. */ s32 alSynAllocVoice(ALSynth *synth, ALVoice *voice, ALVoiceConfig *config)
 {
     PVoice  *pvoice = 0;
-    ALFilter *f;
-    ALParam *update;
+    ALFilter *filter;
+    ALParam *param;
     s32 stolen;
 
 
 
-    voice->priority     = vc->priority;
-    voice->unityPitch   = vc->unityPitch;
+    voice->priority     = config->priority;
+    voice->unityPitch   = config->unityPitch;
     voice->table        = 0;
-    voice->fxBus        = vc->fxBus;
+    voice->fxBus        = config->fxBus;
     voice->state        = 0 ;
     voice->pvoice       = 0;
 
-    stolen = _allocatePVoice(drvr, &pvoice, vc->priority);
+    stolen = _allocatePVoice(synth, &pvoice, config->priority);
 
     if (pvoice) {     
 
-        f = pvoice->channelKnob;
+        filter = pvoice->channelKnob;
 
         if (stolen) {
 
             pvoice->offset = 512;
             pvoice->vvoice->pvoice = 0;  
 
-             
 
 
-            update = __allocParam();
-            update->delta      = drvr->paramSamples;
-            update->type       = AL_FILTER_SET_VOLUME;
-            update->data.i     = 0;
-            update->moredata.i = pvoice->offset - 64;
-            (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
-
-             
+            param = __allocParam();
+            param->delta      = synth->paramSamples;
+            param->type       = AL_FILTER_SET_VOLUME;
+            param->data.i     = 0;
+            param->moredata.i = pvoice->offset - 64;
+            (*filter->setParam)(filter, AL_FILTER_ADD_UPDATE, param);
 
 
-            update = __allocParam();
-            if (update) {
-                update->delta  = drvr->paramSamples + pvoice->offset;
-                update->type   = AL_FILTER_STOP_VOICE;
-                update->next   = 0;
-                (*f->setParam)(f, AL_FILTER_ADD_UPDATE, update);
+
+            param = __allocParam();
+            if (param) {
+                param->delta  = synth->paramSamples + pvoice->offset;
+                param->type   = AL_FILTER_STOP_VOICE;
+                param->next   = 0;
+                (*filter->setParam)(filter, AL_FILTER_ADD_UPDATE, param);
             } else {
 
             }

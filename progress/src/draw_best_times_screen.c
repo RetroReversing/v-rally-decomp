@@ -37,7 +37,7 @@ extern void group_set_color(Obj71 *, u8, u8, u8, s32);
 void draw_palette_sprite(void *, s16, s16, void *);
 extern void memset(char *, s32, s32);
 extern void appendString(char *, char *);
-extern void formatString(char *, char *, ...);
+extern void format_to_buffer(char *, char *, ...);
 
 /* Draws the best-times screen for the current track: the track name, the
  * top three times of the selected set (with gap to the best), and the
@@ -61,7 +61,7 @@ void draw_best_times_screen(void)
   obj = textObjGet(0x10);
   do
   {
-    formatString(buf, D_800A5CFC, j + 1, g_split_times[gRecords->idx][j].name);
+    format_to_buffer(buf, D_800A5CFC, j + 1, g_split_times[gRecords->idx][j].name);
     draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     j++;
   }
@@ -113,11 +113,11 @@ void draw_best_times_screen(void)
   {
     if (gRecords->idx < 8)
     {
-      formatString(buf, D_800A5CFC, j + 1, D_800C3A90[j].name);
+      format_to_buffer(buf, D_800A5CFC, j + 1, D_800C3A90[j].name);
     }
     else
     {
-      formatString(buf, D_800A5CFC, j + 1, D_800C3A90[j + 4].name);
+      format_to_buffer(buf, D_800A5CFC, j + 1, D_800C3A90[j + 4].name);
     }
     draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
     j++;

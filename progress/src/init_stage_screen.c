@@ -33,12 +33,12 @@ extern u8 D_800A14D6;
 extern u8 D_800A14D7;
 extern u8 D_800A14D8;
 void func_80066384(void);
-s32 func_8006A24C(void);
+s32 stage_stub_return_true(void);
 void func_80061F34(void *sc, void *base);
-void func_8008A270(void *p, s32 a, s32 b);
-void func_8008A290(void *p, s32 a, s32 b, s32 fn);
+void setRecordSlotValue(void *p, s32 a, s32 b);
+void league_set_hook_entry(void *p, s32 a, s32 b, s32 (*fn)(void));
 void stream_state_update(void);
-void func_8008A0D8(s32 p, s32 a, char b);
+void record_set_byte9(void *p, s32 a, char b);
 void *select_get_entry(u32);
 void select_propagate_values(s32, u32, u32);
 void hud_setup_stage_results(void);
@@ -73,17 +73,21 @@ void init_stage_screen(void)
   gSelectState->unk23C = gRecords->unk1E;
   scene = gRecords;
   track_base = gSlotTableB[inline_fn23(scene)];
+#ifdef PORT
+  track_row = track_base + scene->unk20 * 0x2C4;
+#else
   track_row = (u8 *)(scene->unk20 * 0x2C4 + (u32)track_base);
+#endif
   scene->unk2E = *((track_row + ((inline_fn(scene) << 1) << 5)) + 0x37);
   func_80061F34(scene, track_base);
   gSelectState->unk28C = func_80066384;
-  func_8008A270(gLeague, 3, 0x14);
-  func_8008A290(gLeague, 3, 0x10000, (s32)func_8006A24C);
+  setRecordSlotValue(gLeague, 3, 0x14);
+  league_set_hook_entry(gLeague, 3, 0x10000, stage_stub_return_true);
   stream_state_update();
   if ((*gRecords).unkE < 2)
   {
     S41 *p;
-    func_8008A0D8((s32)gLeague, 0x10, 0);
+    record_set_byte9(gLeague, 0x10, 0);
     p = select_get_entry(2);
     p->unk41 = 0;
     select_propagate_values(2, 1, 4);

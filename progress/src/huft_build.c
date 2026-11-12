@@ -11,197 +11,197 @@ typedef struct huft
 void *poolAlloc(int, int);
 void memset(void *, int, int);
 extern u32 D_800C33A4;
-int huft_build(u32 *b, u32 n, u32 s, u16 *d, u16 *e, Huff **t, int *m)
+/* Builds an inflate Huffman decoding table from the code lengths in lengths[0..num_codes-1]. The first simple_count symbols are direct values; the rest index base_vals/extra_vals. Returns 0 on success, 2 for an over-subscribed code. */
+int huft_build(u32 *lengths, u32 num_codes, u32 simple_count, u16 *base_vals, u16 *extra_vals, Huff **result, int *max_bits)
 {
-  u32 a;
-  u32 c[17];
-  u32 el;
-  u32 f;
-  int g;
-  int h;
-  u32 i;
-  u32 j;
-  int k;
-  int lx[17];
-  int *l = lx + 1;
-  u32 *p;
-  Huff *q;
-  Huff r;
-  Huff *u[16];
-  u32 v[288];
-  int w;
-  u32 x[17];
-  int new_var;
-  u32 *xp;
-  int y;
-  u32 z;
-  el = (n > 256) ? (b[256]) : (16);
-  memset(c, 0, sizeof(c));
-  p = b;
-  i = n;
+  u32 count;
+  u32 bl_count[17];
+  u32 eob_bits;
+  u32 fill;
+  int max_len;
+  int level;
+  u32 sym;
+  u32 len;
+  int min_len;
+  int bit_limits[17];
+  int *lim = bit_limits + 1;
+  u32 *ptr;
+  Huff *cur_table;
+  Huff entry;
+  Huff *level_tables[16];
+  u32 sorted[288];
+  int bits_used;
+  u32 offs[17];
+  int literal_limit;
+  u32 *offs_ptr;
+  int left;
+  u32 table_size;
+  eob_bits = (num_codes > 256) ? (lengths[256]) : (16);
+  memset(bl_count, 0, sizeof(bl_count));
+  ptr = lengths;
+  sym = num_codes;
   do
   {
-    c[*p]++;
-    p++;
+    bl_count[*ptr]++;
+    ptr++;
   }
-  while (--i);
-  if (c[0] == n)
+  while (--sym);
+  if (bl_count[0] == num_codes)
   {
-    *t = 0;
-    *m = 0;
+    *result = 0;
+    *max_bits = 0;
     return 0;
   }
-  for (j = 1; j <= 16; j++)
+  for (len = 1; len <= 16; len++)
   {
-    if (c[j])
+    if (bl_count[len])
     {
       break;
     }
   }
 
-  k = j;
-  if (((u32) (*m)) < j)
+  min_len = len;
+  if (((u32) (*max_bits)) < len)
   {
-    *m = j;
+    *max_bits = len;
   }
-  for (i = 16; i; i--)
+  for (sym = 16; sym; sym--)
   {
-    if (c[i])
+    if (bl_count[sym])
     {
       break;
     }
   }
 
-  g = i;
-  if (((u32) (*m)) > i)
+  max_len = sym;
+  if (((u32) (*max_bits)) > sym)
   {
-    *m = i;
+    *max_bits = sym;
   }
-  for (y = 1 << j; j < i; j++, y <<= 1)
+  for (left = 1 << len; len < sym; len++, left <<= 1)
   {
-    if ((y -= c[j]) < 0)
+    if ((left -= bl_count[len]) < 0)
     {
       return 2;
     }
   }
 
-  if ((y -= c[i]) < 0)
+  if ((left -= bl_count[sym]) < 0)
   {
     return 2;
   }
-  c[i] += y;
-  x[1] = (j = 0);
-  p = c + 1;
-  xp = x + 2;
-  while (--i)
+  bl_count[sym] += left;
+  offs[1] = (len = 0);
+  ptr = bl_count + 1;
+  offs_ptr = offs + 2;
+  while (--sym)
   {
-    *(xp++) = (j += *(p++));
+    *(offs_ptr++) = (len += *(ptr++));
   }
 
-  memset(v, 0, sizeof(v));
-  p = b;
-  i = 0;
+  memset(sorted, 0, sizeof(sorted));
+  ptr = lengths;
+  sym = 0;
   do
   {
-    if ((j = *(p++)) != 0)
+    if ((len = *(ptr++)) != 0)
     {
-      v[x[j]++] = i;
+      sorted[offs[len]++] = sym;
     }
   }
-  while ((++i) < n);
-  n = x[g];
-  x[0] = (i = 0);
-  p = v;
-  h = -1;
-  w = (l[-1] = 0);
-  u[0] = 0;
-  q = 0;
-  z = 0;
-  new_var = 256;
-  for (; k <= g; k++)
+  while ((++sym) < num_codes);
+  num_codes = offs[max_len];
+  offs[0] = (sym = 0);
+  ptr = sorted;
+  level = -1;
+  bits_used = (lim[-1] = 0);
+  level_tables[0] = 0;
+  cur_table = 0;
+  table_size = 0;
+  literal_limit = 256;
+  for (; min_len <= max_len; min_len++)
   {
-    a = c[k];
-    while (a--)
+    count = bl_count[min_len];
+    while (count--)
     {
-      while (k > (w + l[h]))
+      while (min_len > (bits_used + lim[level]))
       {
-        w += l[h++];
-        z = ((z = g - w) > ((u32) (*m))) ? (*m) : (z);
-        if ((f = 1 << (j = k - w)) > (a + 1))
+        bits_used += lim[level++];
+        table_size = ((table_size = max_len - bits_used) > ((u32) (*max_bits))) ? (*max_bits) : (table_size);
+        if ((fill = 1 << (len = min_len - bits_used)) > (count + 1))
         {
-          f -= a + 1;
-          xp = c + k;
-          while ((++j) < z)
+          fill -= count + 1;
+          offs_ptr = bl_count + min_len;
+          while ((++len) < table_size)
           {
-            if ((f <<= 1) <= (*(++xp)))
+            if ((fill <<= 1) <= (*(++offs_ptr)))
             {
               break;
             }
-            f -= *xp;
+            fill -= *offs_ptr;
           }
 
         }
-        if (((((u32) w) + j) > el) && (((u32) w) < el))
+        if (((((u32) bits_used) + len) > eob_bits) && (((u32) bits_used) < eob_bits))
         {
-          j = el - w;
+          len = eob_bits - bits_used;
         }
-        z = 1 << j;
-        l[h] = j;
-        q = (Huff *) poolAlloc(6, (z + 1) * (sizeof(Huff)));
-        D_800C33A4 += z + 1;
-        *t = q + 1;
-        *(t = &q->v.t) = 0;
-        u[h] = ++q;
-        if (h)
+        table_size = 1 << len;
+        lim[level] = len;
+        cur_table = (Huff *) poolAlloc(6, (table_size + 1) * (sizeof(Huff)));
+        D_800C33A4 += table_size + 1;
+        *result = cur_table + 1;
+        *(result = &cur_table->v.t) = 0;
+        level_tables[level] = ++cur_table;
+        if (level)
         {
-          x[h] = i;
-          r.b = (u8) l[h - 1];
-          r.e = (u8) (16 + j);
-          r.v.t = q;
-          j = (i & ((1 << w) - 1)) >> (w - l[h - 1]);
-          u[h - 1][j] = r;
+          offs[level] = sym;
+          entry.b = (u8) lim[level - 1];
+          entry.e = (u8) (16 + len);
+          entry.v.t = cur_table;
+          len = (sym & ((1 << bits_used) - 1)) >> (bits_used - lim[level - 1]);
+          level_tables[level - 1][len] = entry;
         }
       }
 
-      r.b = (u8) (k - w);
-      if (p >= (v + n))
+      entry.b = (u8) (min_len - bits_used);
+      if (ptr >= (sorted + num_codes))
       {
-        r.e = 99;
+        entry.e = 99;
       }
       else
-        if ((*p) < s)
+        if ((*ptr) < simple_count)
       {
-        r.e = (u8) (((*p) < new_var) ? (16) : (15));
-        r.v.n = (u16) (*(p++));
+        entry.e = (u8) (((*ptr) < literal_limit) ? (16) : (15));
+        entry.v.n = (u16) (*(ptr++));
       }
       else
       {
-        r.e = (u8) e[(*p) - s];
-        r.v.n = d[(*(p++)) - s];
+        entry.e = (u8) extra_vals[(*ptr) - simple_count];
+        entry.v.n = base_vals[(*(ptr++)) - simple_count];
       }
-      f = 1 << (k - w);
-      for (j = i >> w; j < z; j += f)
+      fill = 1 << (min_len - bits_used);
+      for (len = sym >> bits_used; len < table_size; len += fill)
       {
-        q[j] = r;
-      }
-
-      for (j = 1 << (k - 1); i & j; j >>= 1)
-      {
-        i ^= j;
+        cur_table[len] = entry;
       }
 
-      i ^= j;
-      while ((i & ((1 << w) - 1)) != x[h])
+      for (len = 1 << (min_len - 1); sym & len; len >>= 1)
       {
-        h--;
-        w -= l[h];
+        sym ^= len;
+      }
+
+      sym ^= len;
+      while ((sym & ((1 << bits_used) - 1)) != offs[level])
+      {
+        level--;
+        bits_used -= lim[level];
       }
 
     }
 
   }
 
-  *m = l[0];
-  return (y != 0) && (g != 1);
+  *max_bits = lim[0];
+  return (left != 0) && (max_len != 1);
 }
-

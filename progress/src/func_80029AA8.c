@@ -78,8 +78,16 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 idx)
   s32 origRight;
   s32 count;
   Inv4 *dst;
+  #ifdef PORT
+  grid = ((Grid29 **) obj->grids)[idx];
+#else
   grid = *((Grid29 **) (((s32) obj->grids) + (idx * 4)));
+#endif
+  #ifdef PORT
+  slot = (s32 *) ((char *) obj->table + idx * 4);
+#else
   slot = (s32 *) ((idx * 4) + ((s32) obj->table));
+#endif
   row = slot[0];
   col = slot[12];
   count = grid->count;
@@ -137,11 +145,25 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 idx)
   *((Inv4 *) mat) = *((Inv4 *) inv);
   *(matInv + one) = *(((Inv4 *) inv) + one);
   clamped = (solved[one] < one) ? (solved[one]) : (0);
+  #ifdef PORT
+  *(s32 *) ((char *) obj->out + idx * 4 + 0x310) = clamped;
+#else
   *((s32 *) inline_fn(((s32) obj->out) + (idx * 4))) = clamped;
+#endif
+  #ifdef PORT
+  *(s32 *) ((char *) obj->out + idx * 4 + 0x320) = attr[cell];
+#else
   *((s32 *) ((((s32) obj->out) + (idx * 4)) + 0x320)) = attr[cell];
+#endif
   dstBase = 0x30;
+  #ifdef PORT
+  dst = (Inv4 *) ((char *) obj->grids + 0x30 + idx * 32);
+#else
   dstBase = ((s32) obj->grids) + dstBase;
+#endif
+  #ifndef PORT
   dst = (Inv4 *) ((idx * 32) + dstBase);
+#endif
   dst[0] = *((Inv4 *) mat);
   dst[one] = *(((Inv4 *) mat) + one);
 }

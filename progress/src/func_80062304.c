@@ -1,36 +1,29 @@
-
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
 extern unsigned short D_800C34FC;
 extern unsigned short D_800C836E;
 extern short gNumberBuf;
 
-
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
+/* Copies three 16-bit fields of the current stream record (pointed to by stream_state + 0x32F2)
+ * into the globals D_800C34FC, D_800C836E and gNumberBuf. */
 void func_80062304(void) {
-    u16 var_a0;
-    u16 var_v1;
-    void *var_v0;
+    u16 fieldA;
+    u16 fieldB;
+    void *rec;
 
-    var_v0 = gStreamState + 0x32F2;
-    var_v0 = *(void * *)(gStreamState + 0x32F2);
-    var_v1 = *(u16 *)((char *)var_v0 + 0x1E);
-    var_a0 = *(u16 *)((char *)var_v0 + 0x20);
-    var_v0 = (void *) *(u16 *)((char *)var_v0 + 0x22);
-    D_800C34FC = var_v1;
-    D_800C836E = var_a0;
-    gNumberBuf = (s16) var_v0;
+    rec = stream_state + 0x32F2;
+    rec = *(void **)(stream_state + 0x32F2);
+    fieldA = *(u16 *)((char *)rec + 0x1E);
+    fieldB = *(u16 *)((char *)rec + 0x20);
+    #ifdef PORT
+    gNumberBuf = (s16)*(u16 *)((char *)rec + 0x22);
+#else
+    rec = (void *)*(u16 *)((char *)rec + 0x22);
+#endif
+    D_800C34FC = fieldA;
+    D_800C836E = fieldB;
+    #ifndef PORT
+    gNumberBuf = (s16)rec;
+#endif
 }

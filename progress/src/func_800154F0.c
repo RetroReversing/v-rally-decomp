@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800154F0(void) {
+/* Empty placeholder hook; the game calls it and it does nothing. */ void func_800154F0(void) {
 
 }

@@ -1,10 +1,10 @@
 typedef struct { u8 pad[4]; u32 *buf; u16 flags, status, count, len; } CarEntry;
 typedef struct { u8 pad[0x110]; u16 entry_count, sample_limit; u8 cursor; } CarEntries;
 typedef struct { u8 pad[0x0E]; u16 mode; u8 pad2[0x0A]; u16 a; u8 pad3[2]; u16 b; } RaceEvent;
-extern CarEntries *gCarEntries;
-extern char gStreamState[];
+extern CarEntries *gCarEntryTable;
+extern char stream_state[];
 extern void car_entries_refresh(void *);
-#define CUR_EVENT (*(RaceEvent **)(gStreamState + 0x32F2))
+#define CUR_EVENT (*(RaceEvent **)(stream_state + 0x32F2))
 #define CAR_AT(s, n) ((CarEntry *)((u8 *)(s) + (n) * 0x44))
 
 /* Records one sample (arg0) into the car entry under the cursor and advances
@@ -13,7 +13,7 @@ extern void car_entries_refresh(void *);
 s32 func_80050048(s32 sample)
 {
     char *__repair_addr;
-    CarEntries *s = gCarEntries;
+    CarEntries *s = gCarEntryTable;
     u8 cursor = s->cursor;
     CarEntry *entry = CAR_AT(s, cursor);
     u8 i;

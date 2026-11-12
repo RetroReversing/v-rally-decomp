@@ -18,8 +18,13 @@ void rebuildSplitTimes(void *block)
   i = 0;
   do {
     off = i << 4;
+#ifdef PORT
+    dst = (S_func_8006DD04_blk *)((char *)saved + off);
+    src = (S_func_8006DD04_blk *)((char *)block + off);
+#else
     dst = (S_func_8006DD04_blk *)(off + (u32)saved);
     src = (S_func_8006DD04_blk *)(off + (u32)block);
+#endif
     *dst = *src;
     src->w[0] = -1;
     i++;

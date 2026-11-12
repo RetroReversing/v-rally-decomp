@@ -1,5 +1,9 @@
 extern char D_800B5C80[];
+#ifdef PORT
+extern char *D_800B681C;
+#else
 extern s32 D_800B681C;
+#endif
 extern u32 D_800B727C;
 extern s32 *gTimeSampleState;
 extern s32 D_800C7930;
@@ -36,7 +40,11 @@ void timing_ring_push(void)
   base = D_800B5C80;
   D_800C7930++;
   idx = *((u32 *) 0x800b727c);
+#ifdef PORT
+  D_800B681C = (idx * 0x118) + base;
+#else
   D_800B681C = (s32) ((idx * 0x118) + base);
+#endif
   D_800B727C = 1;
   D_800B727C = (idx + D_800B727C) & 3;
   rec = (s32 *) (base + (D_800B727C * 0x118));

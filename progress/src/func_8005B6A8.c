@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-#define S_RESET_PENDING 0x2BE  /* set: run the reset in func_8004D31C */
+#define S_RESET_PENDING 0x2BE  /* set: run the reset in stream_free_all_blocks */
 #define S_ITEM_DIRTY    0x29F  /* set: refresh the current item's entry */
 #define S_TIMER_ACTIVE  0x29A  /* countdown in S_TIMER is running */
 #define S_TIMER         0x2BA  /* countdown; 0 ends the timer */
@@ -27,7 +27,7 @@ typedef s32 M2C_UNK32;
 #define S_DONE          0x2A0  /* set: the menu sequence has finished */
 
 M2C_UNK fade_start(M2C_UNK, M2C_UNK, M2C_UNK);
-M2C_UNK func_8004D31C();
+M2C_UNK stream_free_all_blocks();
 M2C_UNK func_800588E0(void *);
 M2C_UNK func_800591E4(void *);
 M2C_UNK select_reset_state(void *);
@@ -35,14 +35,14 @@ M2C_UNK func_8005A100();
 M2C_UNK func_8005A2D0(M2C_UNK);
 M2C_UNK func_80089B8C(void *);
 M2C_UNK workSlotInit(void *, M2C_UNK *, M2C_UNK *);
-M2C_UNK func_80089F94(void *, void *);
+M2C_UNK copyWorkSlotEntry(void *, void *);
 M2C_UNK func_80089FD4(void *, void *);
 extern u8 gWorkSlots;
 extern u8 D_800A13B6;
 extern M2C_UNK D_800A13D0;
 extern u8 *gSelectState;
 extern M2C_UNK gOrderState;
-extern M2C_UNK gStreamState;
+extern M2C_UNK stream_state;
 extern M2C_UNK func_80058E28;
 extern M2C_UNK func_8005914C;
 extern u8 D_800C6004, D_800AFA5C;
@@ -60,14 +60,18 @@ void func_8005B6A8(void)
     void *temp_v1_2;
 
     if (gSelectState[S_RESET_PENDING] != 0) {
-        func_8004D31C();
+        stream_free_all_blocks();
         gSelectState[S_RESET_PENDING] = 0U;
     }
     temp_v1 = gSelectState;
     if (gSelectState[S_ITEM_DIRTY] != 0) {
         gSelectState[S_ITEM_DIRTY] = 0U;
         func_80089FD4((D_800C6004 * 0x24) + &gWorkSlots, gLeague);
+        #ifdef PORT
+        *(&D_800A13B6 + (D_800C6004 * 0x24)) = *((u8 *)M2C_FIELD(gLeague, void **, 0x10) + (M2C_FIELD(gLeague, s16 *, 2) * 0x14) + 0xD);
+#else
         *(&D_800A13B6 + (D_800C6004 * 0x24)) = M2C_FIELD(((M2C_FIELD(gLeague, s16 *, 2) * 0x14) + M2C_FIELD(gLeague, s32 *, 0x10)), u8 *, 0xD);
+#endif
     }
     if (gSelectState[S_TIMER_ACTIVE] != 0) {
         gSelectState[S_TIMER] = (u8) (gSelectState[S_TIMER] - 1);
@@ -91,7 +95,7 @@ void func_8005B6A8(void)
             gSelectState[S_ITEM_CHANGE] = 0U;
             workSlotInit((D_800AFA5C * 0x24) + &gWorkSlots, &func_80058E28, &func_8005914C);
         }
-        func_80089F94((D_800AFA5C * 0x24) + &gWorkSlots, gLeague);
+        copyWorkSlotEntry((D_800AFA5C * 0x24) + &gWorkSlots, gLeague);
         temp_v0 = *(M2C_UNK (**)())((u8*)&D_800A13D0 + (D_800AFA5C * 0x24));
         if (temp_v0 != NULL) {
             temp_v0();

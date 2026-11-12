@@ -38,7 +38,11 @@ s32 start_track_voices(Track *track)
     s32 level;
 
     count = track->count;
+#ifdef PORT
+    if ((uintptr_t)track->level < 0x400) {
+#else
     if ((u32)track->level < 0x400) {
+#endif
         fix_up_offsets(&track->level, track, 5);
         fix_up_offsets(track->level, track, count);
         fix_up_offsets(track->pan, track, count);

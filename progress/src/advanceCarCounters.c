@@ -1,8 +1,8 @@
-extern void func_80076060();
-extern s32 func_80084BF0(s32);
-extern void func_80085778(u8, s32);
+extern void draw_select_overlay();
+extern s32 input_get_buttons(s32);
+extern void input_clear_flags(u8, s32);
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Walks the car list. For each car whose id is below 4, it reads the car's
  * state flags and, when bit 8 is set and the race mode is 0 or 5 or more (or
@@ -17,15 +17,15 @@ void advanceCarCounters(s32 *slot)
     void *carB;
     void *node;
 
-    func_80076060(*slot);
+    draw_select_overlay(*slot);
     node = *(*((void ***) (gOrderState + 0x73F0)));
     if (node != NULL) {
         do {
             id = *(s32 *)(*(void **)((char *)node + 0x48));
             if (id < 4) {
-                flags = func_80084BF0(id & 0xFF);
-                func_80085778(*(u8 *)(*(void **)((char *)node + 0x48) + 3), flags);
-                if ((flags & 8) && ((mode = *(u16 *)(*(void **)(gStreamState + 0x32F2) + 0x1E)), (((mode == 0) | (mode >= 5U)) != 0) || (*(s32 *)(gOrderState + 0x8030) != 2))) {
+                flags = input_get_buttons(id & 0xFF);
+                input_clear_flags(*(u8 *)(*(void **)((char *)node + 0x48) + 3), flags);
+                if ((flags & 8) && ((mode = *(u16 *)(*(void **)(stream_state + 0x32F2) + 0x1E)), (((mode == 0) | (mode >= 5U)) != 0) || (*(s32 *)(gOrderState + 0x8030) != 2))) {
                     car = *(void **)((char *)node + 0x9C);
                     *(s32 *)((char *)car + 0x34) = (s32) (*(s32 *)((char *)car + 0x34) + 1);
                 }

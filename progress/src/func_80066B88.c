@@ -4,8 +4,8 @@ typedef struct
 } Four;
 extern Four D_800A56F0;
 extern u8 *gRecords;
-void func_8006F0E0(u8);
-void func_8006F4A8(u8);
+void glyph_record_pack(u8);
+void glyph_record_reset(u8);
 s32 save_race_to_pak(void);
 
 /* Walks the two-place record order against the saved table. Slots whose name
@@ -58,11 +58,11 @@ void func_80066B88(void)
       if (slot == 4)
       {
         s8 *place = &order[pass];
-        func_8006F4A8(*place);
+        glyph_record_reset(*place);
         entry_names[*place * 40] = 0x50;
         entry_names[*place * 40 + 1] = 0x4C;
         entry_names[*place * 40 + 2] = *place + 0x41;
-        func_8006F0E0(*place);
+        glyph_record_pack(*place);
         changed = 1;
       }
       else

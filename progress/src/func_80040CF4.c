@@ -1,6 +1,6 @@
 extern void *func_80042078(void *, u16, s32, s32, u16);
-#define gObj (*(Obj **)(gStreamState + 0x32F2))
-#define gItem (*(Item **)(gStreamState + 0x7CD6))
+#define gObj (*(Obj **)(stream_state + 0x32F2))
+#define gItem (*(Item **)(stream_state + 0x7CD6))
 typedef struct 
 {
   s16 x;
@@ -24,8 +24,8 @@ typedef struct
 {
   u16 v[10];
 } LayoutTbl;
-extern void func_800424A4(void *, void *);
-extern u8 gStreamState[];
+extern void copy_item_label(void *, void *);
+extern u8 stream_state[];
 extern Rect D_8009FFD8;
 extern LayoutTbl gStatRows[];
 extern u8 D_800A4C30[];
@@ -63,7 +63,7 @@ void func_80040CF4(u8 skip_footer)
     r.w = w;
     r.h = h;
     item = func_80042078(&r, 5, gStatRows[layout_idx].v[0], gStatRows[layout_idx].v[1], 2);
-    func_800424A4(item, D_800A4C30);
+    copy_item_label(item, D_800A4C30);
     item->id = 0;
   }
   switch (mode)
@@ -77,11 +77,11 @@ void func_80040CF4(u8 skip_footer)
       p->w = w;
       p->h = h;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[2], gStatRows[layout_idx].v[3], 2);
-      func_800424A4(item, D_800A4C38);
+      copy_item_label(item, D_800A4C38);
       item->id = 1;
       gItem = item;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[4], gStatRows[layout_idx].v[5], 2);
-      func_800424A4(item, D_800A4C40);
+      copy_item_label(item, D_800A4C40);
       item->id = 2;
       break;
     }
@@ -102,11 +102,11 @@ void func_80040CF4(u8 skip_footer)
       p->w = w2;
       p->h = h2;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[2], gStatRows[layout_idx].v[3], mode);
-      func_800424A4(item, D_800A4C38);
+      copy_item_label(item, D_800A4C38);
       item->id = 1;
       gItem = item;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[4], gStatRows[layout_idx].v[5], mode);
-      func_800424A4(item, D_800A4C40);
+      copy_item_label(item, D_800A4C40);
       {
       s16 next_y = y + hh + 1;
       item->id = 2;
@@ -116,7 +116,7 @@ void func_80040CF4(u8 skip_footer)
       p->h = h2;
       }
       item = func_80042078(p, 0, gStatRows[layout_idx].v[2], gStatRows[layout_idx].v[3], mode);
-      func_800424A4(item, D_800A4C48);
+      copy_item_label(item, D_800A4C48);
       item->id = 3;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[4], gStatRows[layout_idx].v[5], mode);
     }
@@ -134,22 +134,22 @@ void func_80040CF4(u8 skip_footer)
       p->w = w2;
       p->h = horizontal_height;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[2], gStatRows[layout_idx].v[3], mode);
-      func_800424A4(item, D_800A4C38);
+      copy_item_label(item, D_800A4C38);
       item->id = 1;
       gItem = item;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[4], gStatRows[layout_idx].v[5], mode);
-      func_800424A4(item, D_800A4C40);
+      copy_item_label(item, D_800A4C40);
       item->id = 2;
       p->x = x + hw + 1;
       p->y = y;
       p->w = w2;
       p->h = horizontal_height;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[2], gStatRows[layout_idx].v[3], mode);
-      func_800424A4(item, D_800A4C48);
+      copy_item_label(item, D_800A4C48);
       item->id = 3;
       item = func_80042078(p, 0, gStatRows[layout_idx].v[4], gStatRows[layout_idx].v[5], mode);
     }
-      func_800424A4(item, D_800A4C50);
+      copy_item_label(item, D_800A4C50);
       item->id = 4;
       break;
 
@@ -166,11 +166,15 @@ void func_80040CF4(u8 skip_footer)
   {
     r = D_8009FFD8;
     item = func_80042078(&r, 5, gStatRows[layout_idx].v[6], gStatRows[layout_idx].v[7], 2);
-    func_800424A4(item, D_800A4C58);
+    copy_item_label(item, D_800A4C58);
     item->id = (mode * 2) | 1;
     {
       extern u8 D_8009FFDA[];
+#ifdef PORT
+      r = *((Rect *) (D_8009FFDA - 2));
+#else
       r = *((Rect *) ((u32)D_8009FFDA - 2U));
+#endif
     }
     if ((gObj->mode == 2) && (gObj->flags & 1))
     {
@@ -178,7 +182,7 @@ void func_80040CF4(u8 skip_footer)
       r.w -= 0x30;
     }
     item = func_80042078(&r, 0, gStatRows[layout_idx].v[8], gStatRows[layout_idx].v[9], 2);
-    func_800424A4(item, D_800A4C60);
+    copy_item_label(item, D_800A4C60);
     item->id = (mode * 2) + 2;
   }
 }

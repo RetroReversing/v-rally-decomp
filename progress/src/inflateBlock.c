@@ -1,11 +1,11 @@
 typedef struct InflateState { u8 *ptr; s32 cnt; u8 pad8[0x74]; u32 wp; u32 bb; u32 bk; } InflateState;
 extern InflateState inflateState;
-extern s32 func_80082094(void);
+extern s32 order_stream_next_byte(void);
 extern s32 inflateStoredBlock(void);
 extern s32 inflateFixedBlock(void);
 extern s32 inflate_dynamic(void);
 
-#define NEXTBYTE() (--inflateState.cnt >= 0 ? (s32)*inflateState.ptr++ : func_80082094())
+#define NEXTBYTE() (--inflateState.cnt >= 0 ? (s32)*inflateState.ptr++ : order_stream_next_byte())
 #define NEEDBITS(n) { while (bitCount < (n)) { s32 c = NEXTBYTE(); if (c == -1) return 1; bitBuf |= ((u32)c) << bitCount; bitCount += 8; } }
 #define DUMPBITS(n) { bitBuf >>= (n); bitCount -= (n); }
 

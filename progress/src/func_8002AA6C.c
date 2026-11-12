@@ -61,7 +61,11 @@ s32 func_8002AA6C(char *src, char *end)
     *out = *src;
     out++;
     src++;
+    #ifdef PORT
+    if (out < lim)
+#else
     if (((s32) out) < ((s32) lim))
+#endif
     {
       continue;
     }

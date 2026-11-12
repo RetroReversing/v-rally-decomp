@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 D_8009CE8C;
 extern s32 D_8009CE90;
 extern s32 D_8009CE94;
@@ -15,8 +15,8 @@ void func_8001C7E0(void *obj) {
     slot = *(s32 *)(*(char **)(*(char **)(gOrderState + 0x23D0) + 0x1C));
     slot &= -(slot != 6);
     if ((u32)slot < 4) {
-        if (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == 2 &&
-            !(*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0x12) & 1) &&
+        if (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE) == 2 &&
+            !(*(u16 *)(*(char **)(stream_state + 0x32F2) + 0x12) & 1) &&
             *(s32 *)((char *)obj + 0x90) == 3) {
             dst0 = (s32 *)((char *)&D_8009CE8C + slot * 12);
             dst0[0] = *(s32 *)((char *)obj + 0xDC);
@@ -24,17 +24,17 @@ void func_8001C7E0(void *obj) {
             dst1[0] = *(s32 *)((char *)obj + 0x128);
             dst2 = (s32 *)((char *)&D_8009CE94 + slot * 12);
             dst2[0] = *(s32 *)((char *)obj + 0x174);
-        } else if (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == *(s32 *)((char *)obj + 0x90) &&
-                   (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0x12) & 1) &&
-                   *(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == 2) {
+        } else if (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE) == *(s32 *)((char *)obj + 0x90) &&
+                   (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0x12) & 1) &&
+                   *(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE) == 2) {
             dst0 = (s32 *)((char *)&D_8009CE8C + slot * 12);
             dst0[0] = *(s32 *)((char *)obj + 0xDC);
             dst1 = (s32 *)((char *)&D_8009CE90 + slot * 12);
             dst1[0] = *(s32 *)((char *)obj + 0x128);
             dst2 = (s32 *)((char *)&D_8009CE94 + slot * 12);
             dst2[0] = *(s32 *)((char *)obj + 0x174);
-        } else if (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == 1 &&
-                   *(s32 *)((char *)obj + 0x90) == *(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE)) {
+        } else if (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE) == 1 &&
+                   *(s32 *)((char *)obj + 0x90) == *(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE)) {
             dst0 = (s32 *)((char *)&D_8009CE8C + slot * 12);
             dst0[0] = *(s32 *)((char *)obj + 0xDC);
             dst1 = (s32 *)((char *)&D_8009CE90 + slot * 12);

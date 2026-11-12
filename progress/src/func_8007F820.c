@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8007F820(s32 arg0) {
-    return arg0;
+/* Identity function: returns its argument unchanged. */ s32 func_8007F820(s32 value) {
+    return value;
 }

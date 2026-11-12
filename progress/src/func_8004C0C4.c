@@ -14,13 +14,14 @@ typedef s32 M2C_UNK32;
 
 extern u8 D_800A03DC;
 
-void func_8004C0C4(void *arg0) {
-    s32 temp_v1;
+/* Once the global counter D_800A03DC reaches 2, sets bit 1 of obj->flags unless bits 1-2 are already set; below 2 it just increments the counter. */
+void func_8004C0C4(void *obj) {
+    s32 flags;
 
     if ((u8) D_800A03DC >= 2U) {
-        temp_v1 = M2C_FIELD(arg0, s32 *, 0xC);
-        if (!(temp_v1 & 6)) {
-            M2C_FIELD(arg0, s32 *, 0xC) = (s32) (temp_v1 | 2);
+        flags = M2C_FIELD(obj, s32 *, 0xC);
+        if (!(flags & 6)) {
+            M2C_FIELD(obj, s32 *, 0xC) = (s32) (flags | 2);
         }
     } else {
         D_800A03DC += 1;

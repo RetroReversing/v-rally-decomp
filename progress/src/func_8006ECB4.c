@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 typedef struct
 {
   u16 b15 : 1;
@@ -23,19 +23,19 @@ typedef struct
   u32 lo : 24;
 } Word;
 void stream_refresh_car_flags(void);
-#define WD (*(Word *)(gStreamState + 0x6E76))
-#define OBJ (*(u8 **)(gStreamState + 0x32F2))
+#define WD (*(Word *)(stream_state + 0x6E76))
+#define OBJ (*(u8 **)(stream_state + 0x32F2))
 
 /* Copies the current object and scale-float state into the packed State record and the Word
  * register, then calls stream_refresh_car_flags to apply it. Float values are scaled by 8 and truncated. */
 void func_8006ECB4(void)
 {
   f32 scale = 8.0f;
-  State *state = (State *)(gStreamState + 0x6E5E);
+  State *state = (State *)(stream_state + 0x6E5E);
   Word word = WD;
-  word.f24 = (s32)(*(f32 *)(gStreamState + 0x3332) * scale);
-  state->f.b4 = (s32)(*(f32 *)(gStreamState + 0x333A) * scale);
-  state->f.b0 = (s32)(*(f32 *)(gStreamState + 0x332E) * scale);
+  word.f24 = (s32)(*(f32 *)(stream_state + 0x3332) * scale);
+  state->f.b4 = (s32)(*(f32 *)(stream_state + 0x333A) * scale);
+  state->f.b0 = (s32)(*(f32 *)(stream_state + 0x332E) * scale);
   WD = word;
   state->f.b12 = *(u16 *)(OBJ + 0x50);
   state->h2 = *(u16 *)(OBJ + 0x2A);
@@ -44,9 +44,9 @@ void func_8006ECB4(void)
   else
     state->f.b15 = 0;
   state->h4 = OBJ[0x2F];
-  state->f.b14 = *(u16 *)(gStreamState + 0x32A8);
+  state->f.b14 = *(u16 *)(stream_state + 0x32A8);
   state->f.b13 = *(u16 *)(OBJ + 0x12);
   state->f.b10 = *(u16 *)(OBJ + 0x16);
-  state->f.b8 = *(u32 *)(gStreamState + 0x32AA);
+  state->f.b8 = *(u32 *)(stream_state + 0x32AA);
   stream_refresh_car_flags();
 }

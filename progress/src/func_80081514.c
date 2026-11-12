@@ -1,3 +1,9 @@
-void func_80081260();
+void func_80081260(void);
 void stream_build_entry_table(int a);
-void func_80081514(int arg0, int arg1, int arg2) { func_80081260(); stream_build_entry_table(arg2); }
+
+/* Resets the stream state and rebuilds the entry table from the given argument. */
+void func_80081514(int unused0, int unused1, int table_arg)
+{
+    func_80081260();
+    stream_build_entry_table(table_arg);
+}

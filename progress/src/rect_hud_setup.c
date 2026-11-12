@@ -1,4 +1,4 @@
-extern s32 gStreamState;
+extern s32 stream_state;
 extern s32 gOrderState;
 extern s32 make_rect_set(s32);
 extern void rect_set_set_scale(s32, f32, f32, f32);
@@ -13,7 +13,7 @@ void rect_hud_setup(void) {
     s32 rect_set;
     f32 one;
 
-    rect_list = *(s32 *)((s8 *)&gStreamState + 0x103BA);
+    rect_list = *(s32 *)((s8 *)&stream_state + 0x103BA);
     *(s32 *)((s8 *)&gOrderState + 0x1CFC) = rect_list;
     rect_set = make_rect_set(rect_list);
     one = 1.0f;
@@ -22,6 +22,6 @@ void rect_hud_setup(void) {
     rect_set_set_item_pos(*(s32 *)((s8 *)&gOrderState + 0x1D00), 0x80, 0x30);
     *(s16 *)((s8 *)&gOrderState + 0x1D04) = 0x2EE;
     *(s16 *)((s8 *)&gOrderState + 0x1D06) = 0;
-    *((s8 *)&gStreamState + 0x8116) = 0;
-    *((s8 *)&gStreamState + 0x8117) = 0x19;
+    *((s8 *)&stream_state + 0x8116) = 0;
+    *((s8 *)&stream_state + 0x8117) = 0x19;
 }

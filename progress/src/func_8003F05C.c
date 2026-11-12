@@ -34,7 +34,7 @@ void func_8003F05C(void *object) {
         }
         entryTable = *(u8 **)(hud + 0xA4);
         index = *(s16 *)(hud + 0x7A);
-        entry = *(u8 **)(*(s32 *)(entryTable + 4) + index * 4);
+        entry = *(u8 **)(*(u8 **)(entryTable + 4) + index * 4);
         *(s16 *)(hud + 0x70) = -(*(u16 *)(entry + 6) >> 1);
     }
 }

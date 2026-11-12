@@ -20,7 +20,11 @@ s32 func_8008CFF0(s32 romOffsetArg, s32 *dstArg)
   {
   }
 
+#ifdef PORT
+  *dst = *((s32 *) (uintptr_t) (((*((u32 *) &osRomBase)) | romOffset) | 0xA0000000));
+#else
   *dst = *((s32 *) (((*((u32 *) &osRomBase)) | romOffset) | 0xA0000000));
+#endif
   do { } while (0);
   return 0;
 }

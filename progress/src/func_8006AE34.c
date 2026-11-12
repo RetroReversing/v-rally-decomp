@@ -3,7 +3,7 @@ extern u16 D_800A16E0[];
 extern void *gRecords;
 s32 select_stream_char(u8, u8, u8);
 void *list_advance(u32, void *);
-s32 slot_set_selected(s32, s32);
+s32 slotSetSelected(s32, s32);
 
 /* Refreshes the car-select screen: picks the selected car's record, writes the
  * stat row values (rows w..w+4) and the start-label id into the screen's
@@ -51,13 +51,17 @@ void func_8006AE34(void)
   y &= 255;
   z = y * 2;
   *((u16 *) (((u8 *) t) + 4)) = D_800A16E0[z / 2];
-  slot_set_selected(w, *((u8 *) (((u8 *) p) + 9)));
+  slotSetSelected(w, *((u8 *) (((u8 *) p) + 9)));
   c = ((u8 *) p) + y;
-  slot_set_selected(w + 1, *((u8 *) (((u8 *) c) + 0x10)));
+  slotSetSelected(w + 1, *((u8 *) (((u8 *) c) + 0x10)));
+  #ifdef PORT
+  stat = *((s16 *) ((((u8 *) p) + z) + 0x1c));
+#else
   stat = *((s16 *) (((u8 *) (z + ((s32) p))) + 0x1c));
-  slot_set_selected(w + 2, (-((s16) (stat / 10))) + 2);
-  slot_set_selected(w + 3, *((u8 *) (((u8 *) c) + 0x18)));
-  slot_set_selected(w + 4, *((u8 *) (((u8 *) c) + 0x14)));
+#endif
+  slotSetSelected(w + 2, (-((s16) (stat / 10))) + 2);
+  slotSetSelected(w + 3, *((u8 *) (((u8 *) c) + 0x18)));
+  slotSetSelected(w + 4, *((u8 *) (((u8 *) c) + 0x14)));
   {
     void *out = list_advance(2, (void *)(*((void **) gSelectState)));
     label = 0x128;

@@ -1,9 +1,21 @@
-s32 text_load_and_parse(u8 *name, u8 *key);
-extern s32 D_800A4820;
-extern u8 gStreamState[];
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-/* Loads and parses the text file for stream slot slot, using the key at D_800A4820. Each
- * slot is 0x2C4 bytes, starting at gStreamState+0x103AA. */
-void stream_load_slot_text(s32 slot) {
-    text_load_and_parse(*(s32 *) (gStreamState + 0x103AA) + (slot * 0x2C4), &D_800A4820);
+M2C_UNK text_load_and_parse(s32, M2C_UNK *);        /* extern */
+extern M2C_UNK D_800A4820;
+extern M2C_UNK stream_state;
+
+void stream_load_slot_text(s32 arg0) {
+    text_load_and_parse(M2C_FIELD(&stream_state, s32 *, 0x103AA) + (arg0 * 0x2C4), &D_800A4820);
 }

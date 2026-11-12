@@ -1,5 +1,5 @@
-#define MASK(x) (*(u16 *)(D_800A19F0+(x)*2))
-#define NEED(x) while(bitcnt<(x)){s32 c;if(--*(s32 *)(gStreamState+0x3092)>=0)c=*(*(u8 **)((s32 *)(gStreamState+0x3092)-1))++;else c=func_80082094();if(c==-1)return 1;bitbuf|=(u32)c<<bitcnt;bitcnt+=8;}
+#define MASK(x) (*(u16 *)(mask_bits+(x)*2))
+#define NEED(x) while(bitcnt<(x)){s32 c;if(--*(s32 *)(stream_state+0x3092)>=0)c=*(*(u8 **)((s32 *)(stream_state+0x3092)-1))++;else c=order_stream_next_byte();if(c==-1)return 1;bitbuf|=(u32)c<<bitcnt;bitcnt+=8;}
 #define DUMP(x) bitbuf>>=(x);bitcnt-=(x)
 typedef struct Huft
 {
@@ -12,12 +12,12 @@ typedef struct Huft
     struct Huft *t;
   } v;
 } Huft;
-extern s32 func_80082094(void);
+extern s32 order_stream_next_byte(void);
 extern void func_800821A4(void *, s32, s32);
-extern void func_8008E13C(void *, void *, u32);
-extern u8 gStreamState[];
+extern void memcpy(void *, void *, u32);
+extern u8 stream_state[];
 extern u8 gOrderState[];
-extern u8 D_800A19F0[];
+extern u8 mask_bits[];
 static inline void wcopy(u32 *to, u32 *from, u32 len)
 {
   u32 *end = (u32 *) ((u8 *) from + len);
@@ -63,12 +63,12 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
   u8 *new_var;
   u32 dist_mask;
   Huft *t;
-  bitbuf = *((u32 *) (gStreamState + 0x310E));
-  bitcnt = *((u32 *) (gStreamState + 0x3112));
-  wpos = *((u32 *) (gStreamState + 0x310A));
+  bitbuf = *((u32 *) (stream_state + 0x310E));
+  bitcnt = *((u32 *) (stream_state + 0x3112));
+  wpos = *((u32 *) (stream_state + 0x310A));
   lit_mask = MASK(lit_bits);
   new_var3 = 0x3112;
-  new_var = gStreamState + new_var3;
+  new_var = stream_state + new_var3;
   dist_mask = MASK(dist_bits);
   for (;;)
   {
@@ -151,7 +151,11 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
       {
         u32 *to = (u32 *) ((wpos + gOrderState) + 0x8AE8);
         u8 *src0;
+#ifdef PORT
+        if ((!(((uintptr_t) to) & 3)) && (!(((uintptr_t) ((dist + gOrderState) + 0x8AE8)) & 3)))
+#else
         if ((!(((u32) to) & 3)) && (!(((u32) ((dist + gOrderState) + 0x8AE8)) & 3)))
+#endif
         {
           u32 words = chunk >> 2;
           {
@@ -184,7 +188,7 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
         }
         else
           src0 = (dist + gOrderState) + 0x8AE8;
-        func_8008E13C(to, src0, chunk);
+        memcpy(to, src0, chunk);
         wpos += chunk;
         dist += chunk;
       }
@@ -211,8 +215,8 @@ s32 inflate_codes(Huft *lit_tbl, Huft *dist_tbl, u32 lit_bits, u32 dist_bits)
     while (copy_len);
   }
 
-  *((u32 *) (gStreamState + 0x310A)) = wpos;
-  *((u32 *) (gStreamState + 0x310E)) = bitbuf;
+  *((u32 *) (stream_state + 0x310A)) = wpos;
+  *((u32 *) (stream_state + 0x310E)) = bitbuf;
   *((u32 *) new_var) = bitcnt;
   return 0;
 }

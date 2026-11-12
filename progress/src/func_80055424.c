@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 s32 soundNameHash();
 u8 *poolAlloc();
 static inline u8 **inline_fn(char *arg0, u32 arg1)
@@ -15,13 +15,13 @@ void func_80055424(u8 *name, u16 seed, s32 value)
   u32 bucket = hash & 0xFFFF;
   u8 **new_var;
   u8 **new_var2;
-  u8 *node = *inline_fn(gStreamState + 0x3902, bucket);
+  u8 *node = *inline_fn(stream_state + 0x3902, bucket);
   u8 firstChar;
   s32 slot;
   if (node == 0)
   {
     node = poolAlloc(1, 0xC);
-    *inline_fn(gStreamState + 0x3902, bucket) = node;
+    *inline_fn(stream_state + 0x3902, bucket) = node;
     firstChar = *name;
     node[2] = 1;
     *((s32 *) (node + 4)) = value;
@@ -35,7 +35,7 @@ void func_80055424(u8 *name, u16 seed, s32 value)
     node[2] += 1;
     return;
   }
-  if (new_var || gStreamState)
+  if (new_var || stream_state)
   {
     slot = 0;
   }
@@ -43,17 +43,17 @@ void func_80055424(u8 *name, u16 seed, s32 value)
   {
     slot = 0;
   }
-  if ((*((s32 *) (gStreamState + 0x3902))) != 0)
+  if ((*((s32 *) (stream_state + 0x3902))) != 0)
   {
     do
     {
       slot++;
     }
-    while ((*((s32 *) ((gStreamState + 0x3902) + ((slot & 0xFF) * 4)))) != 0);
+    while ((*((s32 *) ((stream_state + 0x3902) + ((slot & 0xFF) * 4)))) != 0);
   }
   {
     u8 *fresh = poolAlloc(1, 0xC);
-    u8 **tail = inline_fn(gStreamState + 0x3902, slot & 0xFF);
+    u8 **tail = inline_fn(stream_state + 0x3902, slot & 0xFF);
     *tail = fresh;
     *((u16 *) fresh) = (*name) + (seed + hash);
     new_var = tail;

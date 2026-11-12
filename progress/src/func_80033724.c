@@ -1,5 +1,5 @@
 u64 osGetTime(void);
-s32 func_80098090(void);
+s32 rand_next15(void);
 void rand_seed(s32);
 extern s32 D_8009F4F0[];
 extern s32 D_8009F4F4[];
@@ -23,17 +23,17 @@ void func_80033724(void)
     ten = 10;
     five = 5;
     do {
-        rnd = func_80098090() % ten;
+        rnd = rand_next15() % ten;
         off = (entry & 0xFF) * 0x30;
-        value = *(s32 *)(off + (int)D_8009F4F0); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F0 + off) = value;
+        value = *(s32 *)((char *)D_8009F4F0 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F0 + off) = value;
         entry += 1;
-        rnd = func_80098090() % ten;
+        rnd = rand_next15() % ten;
         value = *(s32 *)((char *)D_8009F4F4 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F4 + off) = value;
-        rnd = func_80098090() % ten;
+        rnd = rand_next15() % ten;
         value = *(s32 *)((char *)D_8009F4F8 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4F8 + off) = value;
-        rnd = func_80098090() % ten;
+        rnd = rand_next15() % ten;
         value = *(s32 *)((char *)D_8009F4FC + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F4FC + off) = value;
-        rnd = func_80098090() % ten;
+        rnd = rand_next15() % ten;
         value = *(s32 *)((char *)D_8009F510 + off); rnd -= five; rnd *= value; rnd /= 100; value += rnd; *(s32 *)((char *)D_8009F510 + off) = value;
     } while ((u32)(entry & 0xFF) < 3);
 }

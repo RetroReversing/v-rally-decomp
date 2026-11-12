@@ -1,5 +1,5 @@
 s32 order_table_swap(s32, s32);
-s32 func_80098400(s32, s32 *, s32);
+s32 strncmp(s32, s32 *, s32);
 extern char order_tag[];
 extern s32 gOrderState;
 
@@ -21,7 +21,7 @@ void func_80052108(s32 count)
     offset = 0;
     do
     {
-      if (func_80098400((*((s32 *) (((char *) (&gOrderState)) + 0x237C))) + offset, (s32 *)order_tag, 5) == 0)
+      if (strncmp((*((s32 *) (((char *) (&gOrderState)) + 0x237C))) + offset, (s32 *)order_tag, 5) == 0)
       {
         slot = matched & 0xFFFF;
         matched += 1;

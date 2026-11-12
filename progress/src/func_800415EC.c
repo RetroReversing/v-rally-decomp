@@ -1,10 +1,10 @@
 extern char D_800A4C94[];
 extern char D_800A4CA0[];
 extern char D_800A4CAC[];
-extern char gStreamState[];
+extern char stream_state[];
 extern int D_800C355C;
 s32 text_load_and_parse();
-s32 func_80050DD4();
+s32 stream_reset_state_bytes();
 void *poolAlloc();
 s32 memset();
 
@@ -14,7 +14,7 @@ void func_800415EC(void)
 {
   u32 idx;
   char *slots;
-  slots = gStreamState + 0x10332;
+  slots = stream_state + 0x10332;
   memset(slots, 0, 0x7C);
   text_load_and_parse(D_800A4C94, D_800A4CA0);
   for (idx = 0; idx < 10; idx++)
@@ -28,5 +28,5 @@ void func_800415EC(void)
 
   text_load_and_parse(D_800A4C94, D_800A4CAC);
   D_800C355C = 0;
-  func_80050DD4();
+  stream_reset_state_bytes();
 }

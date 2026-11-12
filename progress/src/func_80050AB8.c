@@ -1,6 +1,6 @@
-extern char *gCarEntries;
+extern char *gCarEntryTable;
 extern char *gSlotTable;
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Resets the two per-slot tables (0x44-byte entries) at index 0x114; then resets slot
    `index` in the car table, and in the slot table too when the stream state is 1
@@ -13,11 +13,11 @@ void func_80050AB8(s32 index)
     char *car_table;
 
     entry = gSlotTable;
-    car_table = gCarEntries;
+    car_table = gCarEntryTable;
     entry[0x114] = 0;
     car_table[0x114] = 0;
     car_index = index;
-    if (*((u16 *) (*((char **) (gStreamState + 0x32F2)) + 0x1A)) == 1) {
+    if (*((u16 *) (*((char **) (stream_state + 0x32F2)) + 0x1A)) == 1) {
         slot_index = index;
         entry = entry + (slot_index * 0x44);
         *((u16 *) (entry + 0xA)) = 4;

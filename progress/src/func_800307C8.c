@@ -18,9 +18,15 @@ do {
 dst=mesh->aux->vertices;
 off=i*mesh->stride;
 off+=mesh->base;
+#ifdef PORT
+((Vertex*)((u8 *)dst+j))->pos.x=mesh->src[off].x;
+((Vertex*)((u8 *)mesh->aux->vertices+j))->pos.y=mesh->src[off].y;
+((Vertex*)((u8 *)mesh->aux->vertices+j))->pos.z=mesh->src[off].z;
+#else
 ((Vertex*)(j+(u32)dst))->pos.x=mesh->src[off].x;
 ((Vertex*)(j+(u32)mesh->aux->vertices))->pos.y=mesh->src[off].y;
 ((Vertex*)(j+(u32)mesh->aux->vertices))->pos.z=mesh->src[off].z;
+#endif
 i++; j+=12;
 }while(i<mesh->count);
 }

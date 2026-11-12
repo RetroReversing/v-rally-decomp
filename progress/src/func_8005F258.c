@@ -1,2 +1,14 @@
-extern char *gRecords; void slot_set_selected(int a, int b);
-int func_8005F258(int arg0) { char *p = gRecords; unsigned short n = *(unsigned short *)(p + 0x16); if (n) { n--; *(unsigned short *)(p + 0x16) = n; slot_set_selected(arg0, n); } return 0; }
+extern char *gRecords;
+void slotSetSelected(int slot, int index);
+
+/* If the count at gRecords+0x16 is nonzero, decrements it and selects the new last index for slot. */
+int func_8005F258(int slot) {
+    char *records = gRecords;
+    unsigned short count = *(unsigned short *)(records + 0x16);
+    if (count) {
+        count--;
+        *(unsigned short *)(records + 0x16) = count;
+        slotSetSelected(slot, count);
+    }
+    return 0;
+}

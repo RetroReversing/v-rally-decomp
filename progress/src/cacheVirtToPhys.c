@@ -1,7 +1,7 @@
-#define CACHE_HEAD (*(CacheNode **)(D_800A73E0 + 0x4564))
-#define CACHE_FREE (*(CacheNode **)(D_800A73E0 + 0x4568))
-#define CACHE_CHUNK_SIZE (*(s32 *)(D_800A73E0 + 0x4578))
-#define CACHE_TABLE (*(CacheRequest **)(D_800A73E0 + 0x457C))
+#define CACHE_HEAD (*(CacheNode **)(gGameState + 0x4564))
+#define CACHE_FREE (*(CacheNode **)(gGameState + 0x4568))
+#define CACHE_CHUNK_SIZE (*(s32 *)(gGameState + 0x4578))
+#define CACHE_TABLE (*(CacheRequest **)(gGameState + 0x457C))
 
 typedef struct ListLink { struct ListLink *next; struct ListLink **prev; } ListLink;
 typedef struct CacheNode
@@ -13,16 +13,21 @@ typedef struct CacheNode
 } CacheNode;
 typedef struct CacheRequest { s32 w[6]; } CacheRequest;
 
-extern u8 D_800A73E0[];
-extern u8 gStreamState[];
+extern u8 gGameState[];
+extern u8 stream_state[];
 extern u32 cacheTick;
 extern u32 cacheTableIndex;
-extern s32 osVirtualToPhysical(s32);
-extern void alLink(ListLink *, ListLink **);
+#ifdef PORT
+typedef uintptr_t VAddr;
+#else
+typedef s32 VAddr;
+#endif
+extern s32 osVirtualToPhysical(VAddr);
+extern void al_link_push(ListLink *, ListLink **);
 extern void alUnlink(void *);
-extern void dmaCopyChunks(s32, s32, u32, CacheRequest);
+extern void dmaCopyChunks(s32, void *, u32, CacheRequest);
 
-static __inline__ void cacheSendRequest(u32 address, s32 data, u32 size, CacheRequest *request)
+static __inline__ void cacheSendRequest(u32 address, void *data, u32 size, CacheRequest *request)
 {
   dmaCopyChunks(address, data, size, *request);
 }
@@ -42,9 +47,9 @@ s32 cacheVirtToPhys(s32 addr, s32 size, void *state)
   CacheNode *old;
   s32 delta;
 
-  if ((*((u32 *) (gStreamState + 0x339A))) & 1)
+  if ((*((u32 *) (stream_state + 0x339A))) & 1)
   {
-    return osVirtualToPhysical((s32)a);
+    return osVirtualToPhysical((VAddr)a);
   }
   end = a + size;
   old = 0;
@@ -63,8 +68,12 @@ s32 cacheVirtToPhys(s32 addr, s32 size, void *state)
       if (sum >= end)
       {
         walker->phys = cacheTick;
+#ifdef PORT
+        data = (void *)((u8 *)walker->data + (a - walker->start));
+#else
         data = (void *)((u32)walker->data + a - walker->start);
-        return osVirtualToPhysical((s32)data);
+#endif
+        return osVirtualToPhysical((VAddr)data);
       }
       old = walker;
       walker = (CacheNode *)walker->link.next;
@@ -75,13 +84,13 @@ s32 cacheVirtToPhys(s32 addr, s32 size, void *state)
   walker = CACHE_FREE;
   if (walker == 0)
   {
-    return osVirtualToPhysical((s32)CACHE_HEAD);
+    return osVirtualToPhysical((VAddr)CACHE_HEAD);
   }
   CACHE_FREE = (CacheNode *)walker->link.next;
   alUnlink(walker);
   if (old != 0)
   {
-    alLink(&walker->link, &old->link.next);
+    al_link_push(&walker->link, &old->link.next);
   }
   else
   {
@@ -103,8 +112,8 @@ s32 cacheVirtToPhys(s32 addr, s32 size, void *state)
 
   delta = a & 1;
   cacheSendRequest((walker->start = (a -= delta)),
-                   (walker->phys = cacheTick, (s32)(data = walker->data)),
+                   (walker->phys = cacheTick, (data = walker->data)),
                    CACHE_CHUNK_SIZE,
                    &CACHE_TABLE[cacheTableIndex++]);
-  return osVirtualToPhysical((s32)data) + delta;
+  return osVirtualToPhysical((VAddr)data) + delta;
 }

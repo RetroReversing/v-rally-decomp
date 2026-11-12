@@ -1,5 +1,5 @@
 s32 strCmp(void *,void *); extern u8 D_8009D468[],D_8009D474[]; extern u8 gOrderState[];
-#define gSnapshotBlock (*(void **)((u32)gOrderState+0x8A28))
+#define gSnapshotBlock (*(void **)(gOrderState+0x8A28))
 
 /* Ors the flag word of each named entry into the state word at +0xA0. The record
  * list at arg0 holds 0x4C-byte entries (name at +0x4C in the record, count at +0x44);
@@ -24,7 +24,11 @@ void func_8001D4EC(u8 *arg0)
 entryLoop:
             {
                 j = 0;
+#ifdef PORT
+                while (strCmp(arg0 + recOff, names + (rec + j) * 14)) {
+#else
                 while (strCmp(arg0 + recOff, (void *)((rec + j) * 14 + (u32)names))) {
+#endif
                     j++;
                 }
                 state = gSnapshotBlock;

@@ -14,7 +14,7 @@ typedef struct S_osPfsInitPak_arg1
   u8 unk_65;
 } S_osPfsInitPak_arg1;
 s32 __osPfsSelectBank(void *, s32);
-u32 func_800937B0(void);
+u32 osGetCount(void);
 s32 __osContRamRead(s32, s32, s32, u8 *);
 s32 __osContRamWrite(s32, s32, u16, u8 *, s32);
 static inline static u16 inline_fn(u16 *arg0)
@@ -38,7 +38,7 @@ s32 __osRepairPackId(S_osPfsInitPak_arg1 *pfs, void *src, void *dst)
   s32 v;
   s16 keys[4];
   *((s32 *) dst) = -1;
-  *(((s32 *) dst) - -1) = func_800937B0();
+  *(((s32 *) dst) - -1) = osGetCount();
   {
     s32 t0;
     s32 t1;

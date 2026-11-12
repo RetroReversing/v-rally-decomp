@@ -13,6 +13,21 @@ typedef s32 M2C_UNK32;
 
 /* Sets the three parameter bytes of entry `index` in the table at obj+0x70 and clears
  * the entry's pending flag (bit 0 of its flags word at +6), if that flag was set. */
+#ifdef PORT
+void func_80008CB8(void *obj, s32 index, s8 param0, s8 param1, u8 param2) {
+    u8 *entry;
+    u16 flags;
+
+    entry = *(u8 **)((u8 *)obj + 0x70) + (index & 0xFFFF) * 0x10;
+    flags = *(u16 *)(entry + 6);
+    if (flags & 1) {
+        *(u16 *)(entry + 6) = (u16) (flags & 0xFFFE);
+        *(s8 *)(entry + 0xC) = param0;
+        *(s8 *)(entry + 0xD) = param1;
+        *(u8 *)(entry + 0xE) = param2;
+    }
+}
+#else
 void func_80008CB8(void *obj, s32 index, s8 param0, s8 param1, u8 param2) {
     s32 offset;
     u16 flags;
@@ -28,3 +43,4 @@ void func_80008CB8(void *obj, s32 index, s8 param0, s8 param1, u8 param2) {
         M2C_FIELD((offset + M2C_FIELD(obj, s32 *, 0x70)), u8 *, 0xE) = param2;
     }
 }
+#endif

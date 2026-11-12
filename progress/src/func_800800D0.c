@@ -15,12 +15,13 @@ typedef s32 M2C_UNK32;
 s32 func_8007FB34();                                /* extern */
 s32 func_80081038();                                /* extern */
 
+/* Returns 1 if func_80081038() reports success and func_8007FB34() is nonzero, else 0. */
 s32 func_800800D0(void) {
-    s32 var_v0;
+    s32 result;
 
-    var_v0 = 0;
+    result = 0;
     if (func_80081038() != 0) {
-        var_v0 = func_8007FB34() != 0;
+        result = func_8007FB34() != 0;
     }
-    return var_v0;
+    return result;
 }

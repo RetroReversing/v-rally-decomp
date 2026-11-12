@@ -2976,7 +2976,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5214,7 +5214,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -7909,145 +7909,117 @@ Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s
 
 
 
-Acmd *alRaw16Pull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
+/* Queues DMA and copy commands that stream 16-bit PCM from a raw ALLoadFilter into DMEM, wrapping at the loop end and zero-filling any overflow past the table; returns the advanced command pointer. */ Acmd *alRaw16Pull(void *filter, s16 *outDmem, s32 sampleCount, s32 sampleOffset, Acmd *p)
 {
-    Acmd        *ptr = p;
-    s32         nbytes;
-    s32         dramLoc;
-    s32         dramAlign;
-    s32         dmemAlign;
-    s32         overFlow;
-    s32         startZero;
-    s32         nSam;
-    s32         op;
+    Acmd        *cmd = p;
+    s32         nBytes;
+    s32         dramAddr;
+    s32         dramMisalign;
+    s32         dmemPad;
+    s32         overflow;
+    s32         zeroBytes;
+    s32         loopSamples;
+    s32         dmemPos;
 
     ALLoadFilter *f = (ALLoadFilter *)filter;
     ALFilter *a = (ALFilter *) filter;
 
-    if (outCount == 0)
-        return ptr;
+    if (sampleCount == 0)
+        return cmd;
 
-    if ((outCount + f->sample > f->loop.end) && (f->loop.count != 0)){
+    if ((sampleCount + f->sample > f->loop.end) && (f->loop.count != 0)){
 
-        nSam = f->loop.end - f->sample;
-        nbytes = nSam<<1;
-        if (nSam > 0){
-            dramLoc = (f->dma)(f->memin, nbytes, f->dmaState);
+        loopSamples = f->loop.end - f->sample;
+        nBytes = loopSamples<<1;
+        if (loopSamples > 0){
+            dramAddr = (f->dma)(f->memin, nBytes, f->dmaState);
 
-             
-
-
-
-            dramAlign = dramLoc & 0x7;
-            nbytes += dramAlign;
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   *outp  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nbytes + 8 - (nbytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  dramLoc - dramAlign );	} ;
+            dramMisalign = dramAddr & 0x7;
+            nBytes += dramMisalign;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   *outDmem  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nBytes + 8 - (nBytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ; } ;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = (unsigned int)(  dramAddr - dramMisalign ); } ;
         } else
-            dramAlign = 0;
+            dramMisalign = 0;
 
-         
+        *outDmem += dramMisalign;
 
-
-        *outp += dramAlign;
-
+        #ifdef PORT
+        f->memin = (uintptr_t) f->table->base + (f->loop.start<<1);
+#else
         f->memin = (s32) f->table->base + (f->loop.start<<1);
+#endif
         f->sample = f->loop.start;
-        op = *outp;
+        dmemPos = *outDmem;
 
-        while (outCount > nSam){
+        while (sampleCount > loopSamples){
 
-            op += (nSam<<1);
-            outCount -= nSam;
-             
-
+            dmemPos += (loopSamples<<1);
+            sampleCount -= loopSamples;
 
             if ((f->loop.count != -1) && (f->loop.count != 0))
                 f->loop.count--;
 
-             
+            loopSamples = (( sampleCount ) < (  f->loop.end - f->loop.start ) ? ( sampleCount ) : (  f->loop.end - f->loop.start )) ;
+            nBytes = loopSamples<<1;
 
+            dramAddr = (f->dma)(f->memin, nBytes, f->dmaState);
 
-            nSam = (( outCount ) < (  f->loop.end - f->loop.start ) ? ( outCount ) : (  f->loop.end - f->loop.start )) ;
-            nbytes = nSam<<1;
-
-             
-
-
-            dramLoc = (f->dma)(f->memin, nbytes, f->dmaState);
-
-             
-
-
-
-            dramAlign = dramLoc & 0x7;
-            nbytes += dramAlign;
-            if (op & 0x7)
-                dmemAlign = 8 - (op & 0x7);
+            dramMisalign = dramAddr & 0x7;
+            nBytes += dramMisalign;
+            if (dmemPos & 0x7)
+                dmemPad = 8 - (dmemPos & 0x7);
             else
-                dmemAlign = 0;
+                dmemPad = 0;
 
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   op + dmemAlign  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nbytes + 8 - (nbytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  dramLoc - dramAlign );	} ;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   dmemPos + dmemPad  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nBytes + 8 - (nBytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ; } ;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = (unsigned int)(  dramAddr - dramMisalign ); } ;
 
-             
-
-
-            if (dramAlign || dmemAlign)
-                {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 10  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   op+dramAlign+dmemAlign  ) & ((0x01 << (  24 )) - 1)) << (  0 ))) ;	_a->words.w1 = ((unsigned int) (((unsigned int)(   op  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nSam<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+            if (dramMisalign || dmemPad)
+                { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 10  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   dmemPos+dramMisalign+dmemPad  ) & ((0x01 << (  24 )) - 1)) << (  0 ))) ; _a->words.w1 = ((unsigned int) (((unsigned int)(   dmemPos  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   loopSamples<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ; } ;
 
         }
 
-        f->sample += outCount;
-        f->memin += (outCount<<1);
+        f->sample += sampleCount;
+        f->memin += (sampleCount<<1);
 
-        return ptr;
+        return cmd;
     }
 
-     
+    nBytes = sampleCount<<1;
+    #ifdef PORT
+    overflow = f->memin + nBytes - ((uintptr_t) f->table->base + f->table->len);
+#else
+    overflow = f->memin + nBytes - ((s32) f->table->base + f->table->len);
+#endif
+    if (overflow < 0)
+        overflow = 0;
+    if (overflow > nBytes)
+        overflow = nBytes;
 
+    if (overflow < nBytes){
+        if (sampleCount > 0){
+            nBytes -= overflow;
+            dramAddr = (f->dma)(f->memin, nBytes, f->dmaState);
 
-
-
-
-
-    nbytes = outCount<<1;
-    overFlow = f->memin + nbytes - ((s32) f->table->base + f->table->len);
-    if (overFlow < 0)
-        overFlow = 0;
-    if (overFlow > nbytes)
-        overFlow = nbytes;
-
-    if (overFlow < nbytes){
-        if (outCount > 0){
-            nbytes -= overFlow;
-            dramLoc = (f->dma)(f->memin, nbytes, f->dmaState);
-
-             
-
-
-
-            dramAlign = dramLoc & 0x7;
-            nbytes += dramAlign;
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   *outp  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nbytes + 8 - (nbytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-            {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  dramLoc - dramAlign );	} ;
+            dramMisalign = dramAddr & 0x7;
+            nBytes += dramMisalign;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   *outDmem  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nBytes + 8 - (nBytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ; } ;
+            { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = (unsigned int)(  dramAddr - dramMisalign ); } ;
         } else
-            dramAlign = 0;
-        *outp += dramAlign;
+            dramMisalign = 0;
+        *outDmem += dramMisalign;
 
-        f->sample += outCount;
-        f->memin += outCount<<1;
+        f->sample += sampleCount;
+        f->memin += sampleCount<<1;
     } else {
-        f->memin += outCount<<1;
+        f->memin += sampleCount<<1;
     }
 
-     
-
-
-    if (overFlow){
-        startZero = (outCount<<1) - overFlow;
-        if (startZero < 0)
-            startZero = 0;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 2  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   startZero + *outp  ) & ((0x01 << (  24 )) - 1)) << (  0 ))) ;	_a->words.w1 = (unsigned int)(  overFlow );	} ;
+    if (overflow){
+        zeroBytes = (sampleCount<<1) - overflow;
+        if (zeroBytes < 0)
+            zeroBytes = 0;
+        { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 2  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   zeroBytes + *outDmem  ) & ((0x01 << (  24 )) - 1)) << (  0 ))) ; _a->words.w1 = (unsigned int)(  overflow ); } ;
     }
-    return ptr;
+    return cmd;
 }

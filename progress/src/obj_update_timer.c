@@ -14,7 +14,7 @@ void obj_update_timer(void *obj)
     if (entry != NULL)
     {
         *((vs32 *)(((u8 *)obj) + 0x80)) |= 4;
-        if (((*((s32 *)(entry + 0x14))) & 0x180) == (s32)table)
+        if (((*((s32 *)(entry + 0x14))) & 0x180) == 0x180)
         {
             table = *((u8 **)(entry + 0x6C));
             n = *((s32 *)(table + 8));
@@ -23,6 +23,10 @@ void obj_update_timer(void *obj)
         }
         table = *((u8 **)((*((u8 **)(((u8 *)obj) + 0xA4))) + 4));
         offset = (*((s16 *)(((u8 *)obj) + 0x7A))) * 4;
+#ifdef PORT
+        *((s16 *)(((u8 *)obj) + 0x70)) = -((*((u16 *)((*((u8 **)(table + offset))) + 6))) >> 1);
+#else
         *((s16 *)(((u8 *)obj) + 0x70)) = -((*((u16 *)((*((u8 **)((s32)offset + (s32)table))) + 6))) >> 1);
+#endif
     }
 }

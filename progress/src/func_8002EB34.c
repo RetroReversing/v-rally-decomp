@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 /* Takes the next free 0x24-byte entry from the pool at pool->entries (wrapping at pool->capacity), marks it active, copies the source record into it, and fills it from the lookup table at pool+0x1C[kind]. Kinds 0 and 1 are remapped to 6 and 5 when the global mode word at +4 is 3. Returns the entry. */
 void *func_8002EB34(void *pool, u8 kind, void *src)
 {
@@ -10,11 +10,11 @@ void *func_8002EB34(void *pool, u8 kind, void *src)
   char *lookup;
   u32 off;
   pool_p = pool;
-  if ((kind == 1) && ((*((u16 *) ((*((char **) (gStreamState + 0x7E6E))) + 4))) == 3))
+  if ((kind == 1) && ((*((u16 *) ((*((char **) (stream_state + 0x7E6E))) + 4))) == 3))
   {
     kind = 5;
   }
-  if ((kind == 0) && ((*((u16 *) ((*((char **) (gStreamState + 0x7E6E))) + 4))) == 3))
+  if ((kind == 0) && ((*((u16 *) ((*((char **) (stream_state + 0x7E6E))) + 4))) == 3))
   {
     kind = 6;
   }
@@ -31,7 +31,11 @@ void *func_8002EB34(void *pool, u8 kind, void *src)
     *((u16 *) (pool_p + 0x1A)) = 0;
   }
   off = kind * 4;
+  #ifdef PORT
+  lookup = pool_p + off;
+#else
   lookup = (char *) (off + (s32) pool_p);
+#endif
   entry_base = *((s32 *) (lookup + 0x1C));
   *((s16 *) (entry + 0)) = 1;
   *((s16 *) (entry + 0x12)) = 0;

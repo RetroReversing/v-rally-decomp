@@ -5,9 +5,9 @@ typedef struct
 } Block21;
 extern u8 *gRecords;
 void func_80021A4C(void);
-void func_800804C4(s32, void (*)(void));
+void list_for_each(s32, void (*)(void));
 void records_restore_from_order(void);
-void func_8006F0E0(s32);
+void glyph_record_pack(s32);
 void save_race_to_pak(void);
 static inline Block21 *inline_fn()
 {
@@ -38,7 +38,7 @@ void func_80021AB8(s32 arg0)
   slot2 = 2;
   if (arg0)
   {
-    func_800804C4(arg0, func_80021A4C);
+    list_for_each(arg0, func_80021A4C);
   }
   if (*((u16 *) (P21 + 0x1e)))
   {
@@ -48,10 +48,10 @@ void func_80021AB8(s32 arg0)
     d = *((Block21 *) (P21 + 0xbc));
     slot0 = 0;
     records_restore_from_order();
-    func_8006F0E0(slot0);
-    func_8006F0E0(1);
-    func_8006F0E0(slot2);
-    func_8006F0E0(3);
+    glyph_record_pack(slot0);
+    glyph_record_pack(1);
+    glyph_record_pack(slot2);
+    glyph_record_pack(3);
     p = (Block21 *) (P21 + 0x44);
     q = &a;
     r = q;

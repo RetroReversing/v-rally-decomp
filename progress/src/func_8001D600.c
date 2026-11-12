@@ -1,30 +1,24 @@
-typedef struct {
-    u8 pad00[0x90];
-    s32 value90;
-    u8 flag94;
-    u8 pad95[0x47];
-    s32 valueDC;
-    u8 flagE0;
-} VRSrcRecord;
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-typedef struct {
-    u8 pad00[0x70];
-    s16 field70;
-    s16 field72;
-} VRDstRecord;
+extern M2C_UNK gOrderState;
 
-extern char gOrderState[];
-
-/* If the record at gOrderState+0x8A28 exists and both flags of src (0x94 and 0xE0) are set,
-   copies src->value90 into dst->field70, and src->valueDC into dst->field72 when flag 0xE0 is set. */
-void func_8001D600(void *src) {
-    VRDstRecord *dst;
-
-    if ((*(void **)(gOrderState + 0x8A28) != NULL) && (((VRSrcRecord *)src)->flag94 != 0) && (((VRSrcRecord *)src)->flagE0 != 0)) {
-        dst = *(VRDstRecord **)(gOrderState + 0x8A28);
-        dst->field70 = (s16) ((VRSrcRecord *)src)->value90;
-        if (((VRSrcRecord *)src)->flagE0 != 0) {
-            dst->field72 = (s16) ((VRSrcRecord *)src)->valueDC;
+void func_8001D600(void *arg0) {
+    if ((M2C_FIELD(&gOrderState, void **, 0x8A28) != NULL) && (M2C_FIELD(arg0, u8 *, 0x94) != 0) && (M2C_FIELD(arg0, u8 *, 0xE0) != 0)) {
+        M2C_FIELD(M2C_FIELD(&gOrderState, void **, 0x8A28), s16 *, 0x70) = (s16) M2C_FIELD(arg0, s32 *, 0x90);
+        if (M2C_FIELD(arg0, u8 *, 0xE0) != 0) {
+            M2C_FIELD(M2C_FIELD(&gOrderState, void **, 0x8A28), s16 *, 0x72) = (s16) M2C_FIELD(arg0, s32 *, 0xDC);
         }
     }
 }

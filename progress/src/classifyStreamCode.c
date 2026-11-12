@@ -11,7 +11,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Maps the two-character stream code at `code` to a stream type: "MC" 6, "CO" 4, "CA" 2,
  * "Z" 5, "SA" 3, "SU" 7, "R" 1, and anything else 0. Returns 1 for any code while the
@@ -21,7 +21,7 @@ s32 classifyStreamCode(void *code) {
     s8 temp_a0_2;
     s8 temp_v1;
 
-    if (M2C_FIELD(*(void * *)(gStreamState + 0x32F2), u8 *, 0x2E) == 0x17) {
+    if (M2C_FIELD(*(void * *)(stream_state + 0x32F2), u8 *, 0x2E) == 0x17) {
         goto block_17;
     }
     temp_v1 = *(s8 *)((char *)code + 0);

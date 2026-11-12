@@ -9,15 +9,27 @@ extern char gOrderState[];
 void func_8002FD68(void)
 {
   s32 chanBase;
+#ifdef PORT
+  u8 *chanPtr;
+#else
   s32 chanPtr;
+#endif
   u8 ch;
   u8 chanIdx;
   s32 off;
+#ifdef PORT
+  u8 *var_v1;
+#else
   s32 var_v1;
+#endif
 
   ch = 0;
   chanBase = 1;
+#ifdef PORT
+  chanPtr = (u8 *)(gOrderState + 0x2390);
+#else
   chanPtr = (s32)(gOrderState + 0x2390);
+#endif
   do
   {
     chanIdx = ch;

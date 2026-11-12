@@ -1,6 +1,6 @@
 extern s32 motor_pak_reset(s32, s32);
 extern s32 osMotorInit(void *, void *, s32);
-extern void *gContCtx;
+extern void *gControllerInputContext;
 extern u8 gOrderState;
 
 /* Initialises the rumble pak on each controller that reports one (bit 4 of its
@@ -17,7 +17,7 @@ void motor_pak_init_all(void)
   void *slot_ctx3;
   unsigned char tmp;
 
-  ctx = gContCtx;
+  ctx = gControllerInputContext;
   i = 0;
   if ((*((s32 *)(((u8 *)ctx) + 4))) > 0)
   {
@@ -30,13 +30,13 @@ void motor_pak_init_all(void)
         if ((osMotorInit((&gOrderState) + 0x5A38, ((u8 *)ctx) + ((slot * 0x68) + 0x18C), slot) & 0xFF) == 0)
         {
           motor_pak_reset(slot, 0);
-          slot_ctx2 = ((u8 *)gContCtx) + (slot * 0x18);
+          slot_ctx2 = ((u8 *)gControllerInputContext) + (slot * 0x18);
           *((s32 *)(((u8 *)slot_ctx2) + 0x330)) = 1;
           *((volatile s32 *)(((u8 *)slot_ctx2) + 0x334)) = 0;
         }
         else
         {
-          slot_ctx3 = ((u8 *)gContCtx) + (slot * 0x18);
+          slot_ctx3 = ((u8 *)gControllerInputContext) + (slot * 0x18);
           *((s32 *)(((u8 *)slot_ctx3) + 0x330)) = 0;
           slot = i & 0xFF;
           *((volatile s32 *)(((u8 *)slot_ctx3) + 0x334)) = 0;
@@ -44,15 +44,15 @@ void motor_pak_init_all(void)
       }
       else
       {
-        slot_ctx = (char *)((u8 *)gContCtx);
+        slot_ctx = (char *)((u8 *)gControllerInputContext);
         slot_ctx += (s32)((i & 0xFF) * 0x18);
         *((s32 *)(((u8 *)slot_ctx) + 0x330)) = 0;
         *((s32 *)(((u8 *)slot_ctx) + 0x334)) = 0;
       }
-      ctx = gContCtx;
+      ctx = gControllerInputContext;
       i += 1;
       slot = (tmp = i & 0xFF);
     }
-    while ((i & 0xFF) < (*((s32 *)(((u8 *)gContCtx) + 4))));
+    while ((i & 0xFF) < (*((s32 *)(((u8 *)gControllerInputContext) + 4))));
   }
 }

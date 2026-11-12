@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 extern s32 D_8009E29C;
 
-void func_8002E670(s32 arg0) {
-    D_8009E29C = arg0;
+/* Stores a value into the global D_8009E29C. */ void func_8002E670(s32 value) {
+    D_8009E29C = value;
 }

@@ -1,6 +1,6 @@
 void free_owner_slots(void *owner);
 
-extern void *gCarEntries;
+extern void *gCarEntryTable;
 extern void *gSlotTable;
 extern s32 D_800B0C58;
 extern void *gRecords;
@@ -11,10 +11,10 @@ extern s32 D_800C5BD8;
  * their static buffers. */
 void reset_owner_slots(void)
 {
-    free_owner_slots(gCarEntries);
+    free_owner_slots(gCarEntryTable);
     if (*(u16 *)((char *)gRecords + 0x1E) == 0) {
         free_owner_slots(gSlotTable);
     }
-    gCarEntries = &D_800B0C58;
+    gCarEntryTable = &D_800B0C58;
     gSlotTable = &D_800C5BD8;
 }

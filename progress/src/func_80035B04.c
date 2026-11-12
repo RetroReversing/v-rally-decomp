@@ -6,9 +6,9 @@ typedef struct {
     s8 pad;
 } Item8;
 
-extern char gStreamState[];
+extern char stream_state[];
 u64 osGetTime(void);
-s32 func_80098090();
+s32 rand_next15();
 void rand_seed(u32);
 
 /* Scatters a list of items at random: each gets a position (x up to 8191, y up to
@@ -19,20 +19,20 @@ void func_80035B04(Item8 *items) {
     u32 remaining;
     s32 r;
 
-    count = *(u32 *)(*(char **)(gStreamState + 0x7E6E) + 8);
+    count = *(u32 *)(*(char **)(stream_state + 0x7E6E) + 8);
     rand_seed((u32)osGetTime());
     r = count;
     count--;
     if (r != 0) {
         do {
-            if (count < (*(u32 *)(*(char **)(gStreamState + 0x7E6E) + 8) >> 1)) {
+            if (count < (*(u32 *)(*(char **)(stream_state + 0x7E6E) + 8) >> 1)) {
                 items->side = 0;
             } else {
                 items->side = 1;
             }
-            items->x = func_80098090() % 8191;
-            items->y = func_80098090() % 2047;
-            items->z = func_80098090() % 8191;
+            items->x = rand_next15() % 8191;
+            items->y = rand_next15() % 2047;
+            items->z = rand_next15() % 8191;
             items++;
             remaining = count;
             count--;

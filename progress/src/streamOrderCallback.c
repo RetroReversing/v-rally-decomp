@@ -3,10 +3,10 @@ s32 flag_clear_bit0(void *);
 s32 nodeListRunCallbacks(void *);
 s32 list_unlink_free(s32, void *);
 s32 heapReleaseBlock(void *);
-s32 func_800804C4(void *, void *);
+s32 list_for_each(void *, void *);
 extern void *D_800B5B4C;
 extern char D_800B5B88[];
-extern s32 func_8004247C;
+extern s32 streamObjFreeChild;
 
 /* Tears down the active list at D_800B5B4C if D_800B5B88 is ready: drains the pending
  * count at +0x28 of every node (following the +4 next link), releases the list, clears
@@ -28,7 +28,7 @@ s32 streamOrderCallback(void)
                 node = *(char **)(node + 4);
             } while (node != NULL);
         }
-        func_800804C4(D_800B5B4C, &func_8004247C);
+        list_for_each(D_800B5B4C, &streamObjFreeChild);
         heapReleaseBlock(D_800B5B4C);
         D_800B5B4C = NULL;
         flag_clear_bit0(D_800B5B88);

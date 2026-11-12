@@ -3,7 +3,7 @@ s32 str_icmp_gt(u8 *str, u8 *other);
 /* One pass of a bubble sort over the name list. The count is at index 0x1F and
  * the names start at index 0x20. Walks back from the last name, swapping each
  * adjacent pair, and ends the pass at the first pair str_icmp_gt reports as greater. */
-void func_800826DC(s32 *list) {
+void func_800826DC(AddrWord *list) {
     s32 i;
     s32 stopped;
     s32 a;

@@ -13,21 +13,21 @@ extern s32 osVirtualToPhysical(void *);
  * any other value returns -1. */
 s32 pi_raw_start_dma(s32 direction, s32 cartAddr, void *ramAddr, s32 length)
 {
-    s32 lenReg;
+    vu32 *lenReg;
 
     while (PI_STATUS_REG & 3) {}
     PI_DRAM_ADDR_REG = osVirtualToPhysical(ramAddr);
     PI_CART_ADDR_REG = (osRomBase | cartAddr) & 0x1fffffff;
     switch (direction) {
     case 0:
-        lenReg = PI_WR_LEN_REG;
+        lenReg = (vu32 *)PI_WR_LEN_REG;
         break;
     case 1:
-        lenReg = PI_RD_LEN_REG;
+        lenReg = (vu32 *)PI_RD_LEN_REG;
         break;
     default:
         return -1;
     }
-    *(vu32 *)lenReg = length - 1;
+    *lenReg = length - 1;
     return 0;
 }

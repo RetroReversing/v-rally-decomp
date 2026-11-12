@@ -12,9 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80089FD4(void *arg0, void *arg1) {
-    M2C_FIELD(arg0, u16 *, 0) = (u16) M2C_FIELD(arg1, u16 *, 2);
-    M2C_FIELD(arg0, u8 *, 2) = (u8) M2C_FIELD((((s16) M2C_FIELD(arg1, u16 *, 2) * 0x14) + M2C_FIELD(arg1, s32 *, 0x10)), u8 *, 0xE);
-    M2C_FIELD(arg0, s32 *, 4) = (s32) M2C_FIELD(arg1, s32 *, 8);
-    M2C_FIELD(arg0, s32 *, 8) = (s32) M2C_FIELD(arg1, s32 *, 0xC);
+/* Copies a record from src into dst: index at +2, byte from table entry (0x14-byte stride, table at +0x10) +0xE, and two words at +8/+0xC into +4/+8. */
+void func_80089FD4(void *dst, void *src) {
+    M2C_FIELD(dst, u16 *, 0) = (u16) M2C_FIELD(src, u16 *, 2);
+#ifdef PORT
+    M2C_FIELD(dst, u8 *, 2) = (u8) M2C_FIELD(((s8 *) M2C_FIELD(src, void **, 0x10) + ((s16) M2C_FIELD(src, u16 *, 2) * 0x14)), u8 *, 0xE);
+#else
+    M2C_FIELD(dst, u8 *, 2) = (u8) M2C_FIELD((((s16) M2C_FIELD(src, u16 *, 2) * 0x14) + M2C_FIELD(src, s32 *, 0x10)), u8 *, 0xE);
+#endif
+    M2C_FIELD(dst, s32 *, 4) = (s32) M2C_FIELD(src, s32 *, 8);
+    M2C_FIELD(dst, s32 *, 8) = (s32) M2C_FIELD(src, s32 *, 0xC);
 }

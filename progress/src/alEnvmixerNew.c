@@ -1,4 +1,4 @@
-s32 func_80093790(void *a0, void *fn2, void *fn3, s32 n4);
+s32 alFilterNew(void *a0, void *fn2, void *fn3, s32 n4);
 s32 alHeapDBAlloc(s32, s32, s32, s32, s32);
 extern void *alEnvmixerPull;
 extern void *alEnvmixerParam;
@@ -7,7 +7,7 @@ extern void *alEnvmixerParam;
  * nVoices voice records of 0x50 bytes at +0x14, and resets the unit's state
  * fields to their idle values. */
 void alEnvmixerNew(void *envmix, s32 nVoices) {
-    func_80093790(envmix, &alEnvmixerPull, &alEnvmixerParam, 4);
+    alFilterNew(envmix, &alEnvmixerPull, &alEnvmixerParam, 4);
     *(s32 *)((s8 *)envmix + 0x14) = alHeapDBAlloc(0, 0, nVoices, 1, 0x50);
     *(s32 *)((s8 *)envmix + 0x38) = 1;
     *(s32 *)((s8 *)envmix + 0x48) = 0;

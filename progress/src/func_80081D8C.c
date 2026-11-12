@@ -1,25 +1,34 @@
-extern char gOrderState[];
-extern char gStreamState[];
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-/* Per-frame bookkeeping between the stream and order state: moves the stream's
-   positive 0x3092 count into the order's running total; a pending value at 0x3116
-   is then loaded into the stream's count and its 0x308E field is updated from the
-   0x311A value. A negative count is clamped to zero. */
-void func_80081D8C(void)
-{
-    s32 pending;
+extern M2C_UNK gOrderState;
+extern M2C_UNK stream_state;
 
-    if (*(s32 *)(gStreamState + 0x3092) > 0) {
-        *(s32 *)(gOrderState + 0x8ACC) = (s32) (*(s32 *)(gOrderState + 0x8ACC) + *(s32 *)(gStreamState + 0x3092));
+void func_80081D8C(void) {
+    s32 temp_v0;
+
+    if (M2C_FIELD(&stream_state, s32 *, 0x3092) > 0) {
+        M2C_FIELD(&gOrderState, s32 *, 0x8ACC) = (s32) (M2C_FIELD(&gOrderState, s32 *, 0x8ACC) + M2C_FIELD(&stream_state, s32 *, 0x3092));
     }
-    pending = *(s32 *)(gStreamState + 0x3116);
-    if (pending > 0) {
-        *(s32 *)(gStreamState + 0x3116) = 0;
-        *(s32 *)(gStreamState + 0x3092) = (s32) (pending + *(s32 *)(gOrderState + 0x8ACC));
-        *(s32 *)(gStreamState + 0x308E) = (s32) (*(s32 *)(gStreamState + 0x311A) - *(s32 *)(gOrderState + 0x8ACC));
+    temp_v0 = M2C_FIELD(&stream_state, s32 *, 0x3116);
+    if (temp_v0 > 0) {
+        M2C_FIELD(&stream_state, s32 *, 0x3116) = 0;
+        M2C_FIELD(&stream_state, s32 *, 0x3092) = (s32) (temp_v0 + M2C_FIELD(&gOrderState, s32 *, 0x8ACC));
+        M2C_FIELD(&stream_state, s32 *, 0x308E) = (s32) (M2C_FIELD(&stream_state, s32 *, 0x311A) - M2C_FIELD(&gOrderState, s32 *, 0x8ACC));
         return;
     }
-    if (*(s32 *)(gStreamState + 0x3092) < 0) {
-        *(s32 *)(gStreamState + 0x3092) = 0;
+    if (M2C_FIELD(&stream_state, s32 *, 0x3092) < 0) {
+        M2C_FIELD(&stream_state, s32 *, 0x3092) = 0;
     }
 }

@@ -1,5 +1,5 @@
 s32 select_reset_text(s32, s32);
-s32 func_8005C198();
+s32 select_arm_if_clear();
 s32 func_80062334();
 s32 heapFreeBlock(s32);
 extern void *gSelectState;
@@ -12,7 +12,7 @@ extern s32 hud_draw_counter_text;
    and then calls func_80062334. Returns 0. */
 s32 func_80064F04(s32 arg0, s32 arg1)
 {
-    func_8005C198();
+    select_arm_if_clear();
     if (gSelectBuffer != 0) {
         heapFreeBlock(gSelectBuffer);
         gSelectBuffer = 0;

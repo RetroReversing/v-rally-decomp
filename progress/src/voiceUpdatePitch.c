@@ -9,7 +9,7 @@ s32 alSynSetPitch(void *, s32, f32);
 f32 func_80089300(f32);
 extern f64 D_800A6D40;
 extern u8 gOrderState[];
-extern s32 gStreamState;
+extern s32 stream_state;
 
 /* Advances a voice's pitch by its glide and vibrato, then sends the new pitch to the synth if it changed. */
 void voiceUpdatePitch(VRALVoice *voice, s32 voiceIndex, f32 pitchOffset) {
@@ -40,6 +40,6 @@ void voiceUpdatePitch(VRALVoice *voice, s32 voiceIndex, f32 pitchOffset) {
     if (pitch != voice->lastPitch) {
         scaled = (f64) pitch * D_800A6D40;
         voice->lastPitch = pitch;
-        alSynSetPitch(gOrderState + 0x2304, *(s32 *) ((s8 *) &gStreamState + 0x7576) + (voiceIndex * 0x1C), func_80089300((f32) scaled));
+        alSynSetPitch(gOrderState + 0x2304, *(s32 *) ((s8 *) &stream_state + 0x7576) + (voiceIndex * 0x1C), func_80089300((f32) scaled));
     }
 }

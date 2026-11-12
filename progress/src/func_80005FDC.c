@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80005FDC(s32 *arg0) {
-    return *arg0;
+/* Returns the 32-bit word stored at src. */ s32 func_80005FDC(s32 *src) {
+    return *src;
 }

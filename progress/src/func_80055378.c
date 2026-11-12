@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80055378(void) {
+/* Empty stub; does nothing (same body as func_80005744). */ void func_80055378(void) {
 
 }

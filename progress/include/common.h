@@ -1,6 +1,11 @@
 /* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:
  * add a prototype or struct the moment you work one out, so the next function benefits. */
 
+#ifdef PORT
+#include <stdint.h>
+#include <stdarg.h>
+#endif
+
 typedef signed char s8;
 typedef unsigned char u8;
 typedef signed short s16;
@@ -17,6 +22,13 @@ typedef volatile u32 vu32;
 typedef volatile s32 vs32;
 typedef int s32_bool;
 
+/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */
+#ifdef PORT
+typedef uintptr_t AddrWord;
+#else
+typedef s32 AddrWord;
+#endif
+
 #define NULL ((void *)0)
 #define TRUE 1
 #define FALSE 0
@@ -27,7 +39,12 @@ f32 __cosf(f32);
 s32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);
 
 /* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */
-typedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; s32 value, value2, value3, value4; } VRALParam;
+#ifdef PORT
+typedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */
+#else
+typedef s32 VRALValue;
+#endif
+typedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;
 typedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;
 
 

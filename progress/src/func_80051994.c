@@ -1,7 +1,7 @@
 #define F(p,t,o) (*(t*)((u8*)(p)+(o)))
 s32 dl_reserve_vertices(void*,s32);
 s32 gfx_set_quad_pos(void*,s32,s16,s16,s32,s32,s32,s32,s32,s32,s32,s32,s32,s32);
-s32 func_80008B28(void*,s32,u16,u16,s32,s32,s32,s32,s32,s32);
+s32 gfx_set_quad_uv(void*,s32,u16,u16,s32,s32,s32,s32,s32,s32);
 
 /* Submits a box of vertices around the sprite centre, sized from the object's
  * extents (0x110, 0x118) and the sprite size, then appends two triangle
@@ -16,7 +16,7 @@ s32 func_80051994(void* ctx, void* obj, void* sprite, void* style)
     half.z = F(obj,f32,0x118) * (f32)F(sprite,u16,2) * 0.5f;
     id = (u16)dl_reserve_vertices(ctx, 4);
     gfx_set_quad_pos(ctx, id, (s16)(s32)((f32)F(sprite,s16,6) - half.x), (s16)(s32)((f32)F(sprite,s16,8) + half.y), (s32)(s16)(s32)((f32)F(sprite,s16,10) - half.z), (s32)(s16)(s32)((f32)F(sprite,s16,6) - half.x), (s32)(s16)(s32)((f32)F(sprite,s16,8) - half.y), (s32)(s16)(s32)((f32)F(sprite,s16,10) - half.z), (s32)(s16)(s32)((f32)F(sprite,s16,6) + half.x), (s32)(s16)(s32)((f32)F(sprite,s16,8) - half.y), (s32)(s16)(s32)((f32)F(sprite,s16,10) + half.z), (s32)(s16)(s32)((f32)F(sprite,s16,6) + half.x), (s32)(s16)(s32)((f32)F(sprite,s16,8) + half.y), (s32)(s16)(s32)((f32)F(sprite,s16,10) + half.z));
-    func_80008B28(ctx, (u16)id, F(style,u16,6), F(style,u16,8), F(style,u16,6), 0, 0, 0, 0, F(style,u16,8));
+    gfx_set_quad_uv(ctx, (u16)id, F(style,u16,6), F(style,u16,8), F(style,u16,6), 0, 0, 0, 0, F(style,u16,8));
     {
         u32 *gfx = (u32 *)(F(ctx,u8*,0x14));
         F(ctx,u8*,0x14) += 8;

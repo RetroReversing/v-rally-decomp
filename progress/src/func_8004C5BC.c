@@ -1,14 +1,14 @@
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Walks the linked list of sound/sprite nodes starting at *list. Each node with flag bit 1 set runs its hook
  * (at +0x30) and, unless flag bit 2 is also set, sends its parameters (+0x10..+0x24, u16 at +0x1C) through its
- * handler at +0x2C, using the device word at gStreamState+0x7CD6 -> +0x178. */
+ * handler at +0x2C, using the device word at stream_state+0x7CD6 -> +0x178. */
 void func_8004C5BC(void **list) {
     s32 (*hook)(void *);
     s32 (*send)(s32, s32, s32, s32, s32, u16);
     void *node, *next, *global;
     node = *list;
-    global = *(void **)(gStreamState + 0x7CD6);
+    global = *(void **)(stream_state + 0x7CD6);
     if(node == 0) return;
     do {
         next = *(void **)((u8 *)node + 4);

@@ -22,7 +22,11 @@ extern void (*heapReentryFn)(void *);
    Guarded against reentry. */
 s32 func_8007F12C(u32 handle, s32 *ret, s32 arg2, ...)
 {
+#ifdef PORT
+  __builtin_va_list ap;
+#else
   va_list7F ap;
+#endif
   s32 arg_a;
   int new_var4;
   s32 arg_b;
@@ -42,11 +46,32 @@ s32 func_8007F12C(u32 handle, s32 *ret, s32 arg2, ...)
     void *u;
     do
     {
+#ifdef PORT
+      gHeapCallerRa = 0;
+#else
       gHeapCallerRa = __builtin_mips_live_return_address();
+#endif
     }
     while (0);
   }
- do { ap = (va_list7F) __builtin_next_arg(arg2); ap = (char *) ((((int) ap) + 3) & (-4)); new_var4 = 1; arg_a = *((s32 *) ap); ap += 4; ap = (char *) ((((int) ap) + 3) & (-4)); new_var = (s32 *) ap; arg_b = *new_var; if (!(handle & 0xFFFF0000)) { block = gHeapBlocks[handle]; class_idx = handle; } else { block = (Hdr7F12C *) handle; class_idx = new_var4; } if (new_var3 = block == 0) { heapPanicFn(((char *) gHeapCallerRa) - 4); block = 0; } else { block--; } } while (0);
+  do {
+#ifdef PORT
+    new_var4 = 1;
+    __builtin_va_start(ap, arg2);
+    arg_a = __builtin_va_arg(ap, s32);
+    arg_b = __builtin_va_arg(ap, s32);
+    __builtin_va_end(ap);
+#else
+    ap = (va_list7F) __builtin_next_arg(arg2); ap = (char *) ((((int) ap) + 3) & (-4)); new_var4 = 1; arg_a = *((s32 *) ap); ap += 4; ap = (char *) ((((int) ap) + 3) & (-4)); new_var = (s32 *) ap; arg_b = *new_var;
+#endif
+    if (!(handle & 0xFFFF0000)) { block = gHeapBlocks[handle]; class_idx = handle; } else {
+#ifdef PORT
+      block = (Hdr7F12C *) (unsigned long) handle;
+#else
+      block = (Hdr7F12C *) handle;
+#endif
+      class_idx = new_var4; }
+    if (new_var3 = block == 0) { heapPanicFn(((char *) gHeapCallerRa) - 4); block = 0; } else { block--; } } while (0);
   if (block != 0)
   {
     new_var2 = D_800C5BB0;

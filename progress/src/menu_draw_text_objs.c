@@ -1,7 +1,7 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 *gSelectState;
 extern s32 gSelectStepHandle;
-s32 pool_get_item(s32, s32);
+void *pool_get_item(s32, s32);
 void *textObjGet(u32);
 void group_set_color(void *, u32, u32, u32, u32);
 void draw_palette_sprite(void *, s16, s16, void *);
@@ -25,10 +25,10 @@ void menu_draw_text_objs(Args args, s32 arg4, s32 count) {
     if (*(u16 *)&count != 0) {
         do {
             obj = textObjGet(idx);
-            if (idx == *(u16 *)(*(u8 **)(gStreamState + 0x32F2) + 0x22) && gSelectState[0x245] != 0) {
+            if (idx == *(u16 *)(*(u8 **)(stream_state + 0x32F2) + 0x22) && gSelectState[0x245] != 0) {
                 group_set_color(obj, 0xDC, 0xDC, 0xE, 0xFF);
             } else {
-                if (fade_flag != 0 && (*(u8 *)(gStreamState + 0x327E + *(u16 *)(*(u8 **)(gStreamState + 0x32F2) + 0x20)) & (1 << idx)) != (1 << idx)) {
+                if (fade_flag != 0 && (*(u8 *)(stream_state + 0x327E + *(u16 *)(*(u8 **)(stream_state + 0x32F2) + 0x20)) & (1 << idx)) != (1 << idx)) {
                     group_set_color(obj, obj[0xB] >> 1, obj[0xC] >> 1, obj[0xD] >> 1, obj[0xE] >> 1);
                     text_obj_highlight(idx);
                 } else {

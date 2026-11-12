@@ -1,5 +1,9 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
+#ifdef PORT
+extern u8 *gRecords;
+#else
 extern s32 gRecords;
+#endif
 s32 getCounterValue(void *);
 void func_80027CFC(void *);
 u8 func_80027D24(u8, s32);
@@ -35,7 +39,7 @@ void func_80027E8C(void *obj, s32 slot, s8 *state)
     state[5] = func_80027D7C(state[5], 255); } else {
     state[5] = func_80027D7C(state[5], 0);
   }
-  *(s32 *)(gStreamState + 0x8062 + slot * 4) = getCounterValue(obj);
+  *(s32 *)(stream_state + 0x8062 + slot * 4) = getCounterValue(obj);
   switch (flags & 0xC) {
   case 4:
     state[0] = func_80027DB4(state[0], -128, slot & 255);

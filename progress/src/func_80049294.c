@@ -5,8 +5,8 @@ extern s32 g_camera;
 extern u8 D_800C8120;
 extern s32 find_object_by_id(s32);
 extern void func_8004BEB4(void);
-extern s32 func_80084BF0(s32);
-extern void func_80085778(u8, s32);
+extern s32 input_get_buttons(s32);
+extern void input_clear_flags(u8, s32);
 extern void MusSetMasterVolume(s32, s32);
 extern void func_8002FE78(void);
 
@@ -40,7 +40,7 @@ void func_80049294(void) {
     }
     value=0;
     for(i=0;i<*(u16*)(gRecords+0xE);i++){
-        temp=func_80084BF0(i&255);
+        temp=input_get_buttons(i&255);
         results[i]=temp;
         if(temp){
             value=temp;
@@ -55,14 +55,14 @@ void func_80049294(void) {
             (value & 0x1000) &&
             (gPadFlags & 1) &&
             *(u16 *)(gRecords + 0x1E) != 8) {
-            func_80085778(gRaceCtx[0x382], 0x8000);
+            input_clear_flags(gRaceCtx[0x382], 0x8000);
             gRaceCtx[0x384] = 1;
             MusSetMasterVolume(3, 0);
             gPadFlags &= ~0x4000;
             func_8002FE78();
         }
     } else {
-        func_80085778(0, value);
+        input_clear_flags(0, value);
         if (!(gPadFlags & 1)) {
             gPadFlags &= ~0x200;
             D_800C8120 = 0;

@@ -2974,7 +2974,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5374,7 +5374,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -8175,64 +8175,49 @@ f32 _doModFunc(ALDelay *d, s32 count);
 
 
 
-Acmd *_loadOutputBuffer(ALFx *r, ALDelay *d, s32 buff, s32 incount, Acmd *p)
+/* Copies the output buffer for one ALDelay into the Acmd list. When the delay is resampling, it computes the rate-converted sample count and emits the resample command pair; otherwise it loads the buffer directly. */ Acmd *_loadOutputBuffer(ALFx *fx, ALDelay *delay, s32 buff, s32 incount, Acmd *cmd)
 {
-    Acmd        *ptr = p;
-    s32         ratio, count, rbuff = 640 ;
-    s16         *out_ptr;
-    f32         fincount, fratio, delta;
-    s32         ramalign = 0, length;
-    static f32  val=0.0, lastval=-10.0;
-    static f32  blob=0;
- 
+    Acmd        *ptr = cmd;
+    s32         ratio, outCount, rsBuff = 640;
+    s16         *inPtr;
+    f32         fltCount, fRatio, delta;
+    s32         ramAlign = 0, len;
+    static f32  val = 0.0, lastval = -10.0;
+    static f32  blob = 0;
+
+    if (delay->rs) {
+        len = delay->output - delay->input;
+        delta = _doModFunc(delay, incount);
+
+        delta /= len;
+        delta = (s32)(delta * 0x8000);
+        delta = delta / 0x8000;
+        fRatio = 1.0 - delta;
+
+        fltCount = delay->rs->delta + (fRatio * (f32)incount);
+        outCount = (s32) fltCount;
+        delay->rs->delta = fltCount - (f32)outCount;
+
+        inPtr = &fx->input[-(delay->output - delay->rsdelta)];
+        
+#ifdef PORT
+ramAlign = ((uintptr_t)inPtr & 0x7) >> 1;
+#else
+ramAlign = ((s32)inPtr & 0x7) >> 1;
+#endif
 
 
+        ptr = _loadBuffer(fx, inPtr - ramAlign, rsBuff, outCount + ramAlign, ptr);
 
-    if (d->rs) {
-        length = d->output - d->input;
-        delta = _doModFunc(d, incount);  
-         
+        ratio = (s32)(fRatio * 0x8000);
+        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   rsBuff + (ramAlign<<1)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   buff  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   incount<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 5  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   delay->rs->first  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   ratio  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = (unsigned int)(  osVirtualToPhysical(delay->rs->state) );	} ;
 
-
-
-        delta /= length;   
-        delta = (s32)(delta * 0x8000 );  
-        delta = delta / 0x8000 ;
-        fratio = 1.0 - delta;   
-
-         
-
-
-
-        fincount = d->rs->delta + (fratio * (f32)incount);
-        count = (s32) fincount;  
-        d->rs->delta = fincount - (f32)count;  
-
-         
-
-
-
-
-
-        out_ptr = &r->input[-(d->output - d->rsdelta)];
-        ramalign = ((s32)out_ptr & 0x7) >> 1;  
-
-
-         
-
-        ptr = _loadBuffer(r, out_ptr - ramalign, rbuff, count + ramalign, ptr);
-
-         
-        ratio = (s32)(fratio * 0x8000 );
-         
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   rbuff + (ramalign<<1)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   buff  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   incount<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 5  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   d->rs->first  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   ratio  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = (unsigned int)(  osVirtualToPhysical(d->rs->state) );	} ;
-
-        d->rs->first = 0;  
-        d->rsdelta += count - incount;  
+        delay->rs->first = 0;
+        delay->rsdelta += outCount - incount;
     } else {
-        out_ptr = &r->input[-d->output];
-        ptr = _loadBuffer(r, out_ptr, buff, incount, ptr);
+        inPtr = &fx->input[-delay->output];
+        ptr = _loadBuffer(fx, inPtr, buff, incount, ptr);
     }
 
     return ptr;

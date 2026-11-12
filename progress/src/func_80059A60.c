@@ -74,7 +74,7 @@ extern u8 *gSelectState;
 #define MENU ((Menu *)gSelectState)
 extern Task *D_800C5D20[];
 extern void *g_camera;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 struct N { int p0; struct N *next; int p8; int key; };
 extern struct N *find_object_by_id(int);
 extern void stream_draw_entry(void *, s32, s16, s16);
@@ -170,7 +170,11 @@ void func_80059A60(void)
               {
                 group_set_color((GroupOwner *)s, s->r, s->g, s->b, s->a);
               }
-              draw_palette_sprite((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(pool_get_item((s32 *)*((s32 *) (gStreamState + 0x807A)), s->id)));
+              #ifdef PORT
+              draw_palette_sprite((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(uintptr_t)(pool_get_item((s32 *)(uintptr_t)*((s32 *) (stream_state + 0x807A)), s->id)));
+#else
+              draw_palette_sprite((void *)((Arg *)s), (s16)(s->x), (s16)((u16)((u16)s->y)), (void *)(pool_get_item((s32 *)*((s32 *) (stream_state + 0x807A)), s->id)));
+#endif
             }
           }
         }

@@ -41,14 +41,14 @@ extern void timer_refresh_display(void *);
 extern void func_8003AE84(void *);
 extern void objSyncNeighborTimer(void *);
 extern void func_8003AF74(void *);
-extern void func_8003A9AC(s32, s32, s32, SpriteHook, s32, u16, u8 *);
+extern void func_8003A9AC(void *, s32, s32, SpriteHook, s32, u16, u8 *);
 extern s32 getTexturePack(s32, s32);
 void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
-static __inline__ s32 make_label(s32 a, s32 x, s32 y, SpriteHook cb, s32 text, s32 count) { count--; func_8003A9AC(a,x,y,cb,text,count,0); return count; }
+static __inline__ s32 make_label(void *a, s32 x, s32 y, SpriteHook cb, s32 text, s32 count) { count--; func_8003A9AC(a,x,y,cb,text,count,0); return count; }
 /* Builds the HUD label and value widgets for the current object's row. Mode 1 is
    the standings column (one row, or three rows while racing); mode 2 is the
    timing panel. Positions come from the object's Pos block. */
-void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
+void func_8003D9C8(void *ctx, s32 str_base, s32 n_items)
 {
   Obj *obj = g_camera;
   Game *g = gRecords;
@@ -66,6 +66,7 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
   s32 text_key;
   Widget *w;
   Obj *cur_obj;
+  s32 wi;
   switch (g->mode)
   {
     case 1:
@@ -74,7 +75,7 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
       s32 label_y;
       n_items = make_label(ctx, left + 0x4D, (label_y = top + height - 0x12), hud_update_digit, str_base, n_items);
       row_base = (s16)label_y;
-      w = ((Widget *)sprite_create((void *)(ctx), g_camera->pos->f8 + 0x44, row_base, (s16)(2), func_8003B008, 0));
+      w = ((Widget *)sprite_create(ctx, g_camera->pos->f8 + 0x44, row_base, (s16)(2), func_8003B008, 0));
       w->text = getTexturePack(str_base + 0x4C, 0);
       w->id = n_items;
       w->obj = g_camera;
@@ -86,7 +87,7 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
       do
       {
         func_8003A9AC(ctx, g_camera->pos->f8 + 0x5F, row_base + row_step, hud_update_digit, str_base, row, 0);
-        w = ((Widget *)sprite_create((void *)(ctx), g_camera->pos->f8 + 0x56, row_step + row_base, (s16)(2), func_8003B008, 0));
+        w = ((Widget *)sprite_create(ctx, g_camera->pos->f8 + 0x56, row_step + row_base, (s16)(2), func_8003B008, 0));
         w->text = getTexturePack(str_base + 0x4C, 0);
         row_step += 11;
         w->id = row;
@@ -98,13 +99,13 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
       break;
 
     case 2:
-      w = (Widget *)left;
+      wi = left;
       if (!(g->opts & 1))
     {
-      w = (Widget *)((s32)w + 0x16);
+      wi = wi + 0x16;
       if (obj->type == 3)
       {
-        w = (Widget *)((s32)w - 0xE);
+        wi = wi - 0xE;
       }
     }
       if (gRecords->state == 0)
@@ -114,20 +115,20 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
       label_y = pos->fA;
       label_y += pos->fE;
       label_y -= 0x12;
-      n_items = make_label(ctx, ((s32)w) + 0x39, label_y, hud_update_digit, str_base, cnt);
+      n_items = make_label(ctx, wi + 0x39, label_y, hud_update_digit, str_base, cnt);
       row_base = (s16)label_y;
-      w = ((Widget *)sprite_create((void *)(ctx), ((s32)w) + 0x2E, row_base, (s16)(2), func_8003B008, 0));
+      w = ((Widget *)sprite_create(ctx, wi + 0x2E, row_base, (s16)(2), func_8003B008, 0));
       w->text = getTexturePack(str_base + 0x4C, 0);
       w->id = n_items;
       w->obj = g_camera;
     }
     else
     {
-      lbl_x = ((s32)w) + 0x31;
+      lbl_x = wi + 0x31;
       lbl_y = row_base + 10;
       func_8003A9AC(ctx, lbl_x, lbl_y, timer_refresh_display, str_base, row, 0);
-      val_x = (s16) (((s32)w) + 0x28);
-      w = ((Widget *)sprite_create((void *)(ctx), val_x, lbl_y, (s16)(2), func_8003AE84, 0));
+      val_x = (s16) (wi + 0x28);
+      w = ((Widget *)sprite_create(ctx, val_x, lbl_y, (s16)(2), func_8003AE84, 0));
       text_key = str_base + 0x4C;
       w->text = getTexturePack(text_key, 0);
       cur_obj = g_camera;
@@ -137,7 +138,7 @@ void func_8003D9C8(s32 ctx, s32 str_base, s32 n_items)
       w->col[3] = 0xFF;
       w->obj = cur_obj;
       func_8003A9AC(ctx, lbl_x, row_base, objSyncNeighborTimer, str_base, row, 0);
-      w = ((Widget *)sprite_create((void *)(ctx), val_x, row_base, (s16)(2), func_8003AF74, 0));
+      w = ((Widget *)sprite_create(ctx, val_x, row_base, (s16)(2), func_8003AF74, 0));
       w->text = getTexturePack(text_key, 0);
       w->obj = g_camera;
     }

@@ -2,12 +2,12 @@ extern int D_800AE004;
 s32 getCounterValue(void *);
 void *streamSetCurrent(void *);
 u64 osGetTime(void);
-s32 func_80098090(void);
+s32 rand_next15(void);
 s32 rand_seed();
 extern u8 D_8009BA34;
 extern s32 gPadFlags;
-extern char D_800A73E0[];
-extern char gStreamState[];
+extern char gGameState[];
+extern char stream_state[];
 typedef struct { s32 x, y, z; } Vec;
 typedef struct Node {
   u8 p0[8];
@@ -80,7 +80,7 @@ void func_80012638(Ctl *ctl)
   u32 dsq;
 
   rand_seed((u32) osGetTime());
-  cam = *(Cam **)(gStreamState + 0x7cd6);
+  cam = *(Cam **)(stream_state + 0x7cd6);
   best_grp = NULL;
   cam->f130 = 0;
   cam->f134 = 100.0f;
@@ -90,7 +90,7 @@ void func_80012638(Ctl *ctl)
     follow = cam->node;
     pos = follow->f58->pos;
     gap = getCounterValue(follow);
-    first = (Node *)follow->f8C->f28;
+    first = *(Node **)&follow->f8C->f28;
     best = NULL;
     grp = first;
     if (first->f58 != NULL) grp = first->f58;
@@ -155,7 +155,7 @@ void func_80012638(Ctl *ctl)
         }
         if ((best_grp != NULL) & (best != NULL))
         {
-          k = func_80098090() % 6;
+          k = rand_next15() % 6;
           while (k > 0)
           {
             if (best->next != NULL)
@@ -170,7 +170,7 @@ void func_80012638(Ctl *ctl)
       } else {
         ctl->timer++;
       }
-      cam = *(Cam **)(gStreamState + 0x7cd6);
+      cam = *(Cam **)(stream_state + 0x7cd6);
       cam->flags &= 0xFF77;
       cam->f118 = ctl->target->pos.x;
       cam->f11c = ctl->target->pos.y;
@@ -179,12 +179,12 @@ void func_80012638(Ctl *ctl)
       cam->f128 = pos.y;
       cam->f12c = pos.z;
       cam->f108 = 0;
-      if (*(u16 *)(*(char **)(gStreamState + 0x32F2) + 0xE) == 1) {
+      if (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0xE) == 1) {
         cam->f114 = 0.5f;
       } else {
         cam->f114 = 1.0f;
       }
     }
   }
-  streamSetCurrent(*(void **)(gStreamState + 0x7CD6));
+  streamSetCurrent(*(void **)(stream_state + 0x7CD6));
 }

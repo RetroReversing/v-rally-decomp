@@ -17,7 +17,9 @@ typedef struct
 } Matrix;
 typedef char MatrixSizeCheck[sizeof(Matrix)==32?1:-1];
 typedef struct { char c; Matrix m; } MatrixAlignmentCheck;
+#ifndef PORT
 typedef char MatrixAlignCheck[sizeof(MatrixAlignmentCheck)==36?1:-1];
+#endif
 typedef union 
 {
   struct 
@@ -28,7 +30,7 @@ typedef union
   } p;
   int word;
 } Pair;
-void func_8002D724(int *, int *, int *);
+void cross_product(int *, int *, int *);
 void func_8002D740(int *, int *, int *);
 void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
@@ -105,7 +107,7 @@ int func_80029EAC(void *track, void *point, int index)
     int sy;
     int sz;
     slot = 0;
-    func_8002D724(c, b, normal);
+    cross_product(c, b, normal);
     height = (index == 4) * 2;
     if (index == 5)
     {
@@ -175,7 +177,12 @@ int func_80029EAC(void *track, void *point, int index)
   if (depth > 0) return depth;
   {
     height = depth;
+    #ifdef PORT
+    rec = (char *)P(track, 140) + 824;
+    rec += W(P(track, 140), 820) * 48;
+#else
     rec = (char *)(824 + W(P(track, 140), 820) * 48 + (u32)P(track, 140));
+#endif
     W(rec, 40) = height;
     W(rec, 36) = index;
     W(rec, 32) = 0;

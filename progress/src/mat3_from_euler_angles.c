@@ -1,4 +1,6 @@
 void mat3x3MulQ12();
+s32 cos_q12();
+s32 sin_q12();
 
 /* Builds a 3x3 rotation matrix (Q12 fixed point) from three s16 Euler angles in angles[0..2].
  * The matrix is rot_y(angles[1]) * rot_x(angles[0]) * rot_z(angles[2]); it is written to out.

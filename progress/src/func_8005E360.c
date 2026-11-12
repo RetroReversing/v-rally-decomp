@@ -1,4 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+/* Resets the select state and selects item 4 with fixed text. */ /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8005A2F4(M2C_UNK);                     /* extern */
-M2C_UNK func_8005A474(M2C_UNK, M2C_UNK);            /* extern */
+M2C_UNK selectStateReset(M2C_UNK);                     /* extern */
+M2C_UNK selectSetItem(M2C_UNK, M2C_UNK);            /* extern */
 
 s32 func_8005E360(void) {
-    func_8005A2F4(1);
-    func_8005A474(4, 1);
+    selectStateReset(1);
+    selectSetItem(4, 1);
     return 0;
 }

@@ -1,7 +1,9 @@
 typedef struct { s16 h[9]; unsigned int :16; unsigned int :32; unsigned int :32; unsigned int :32; } Matrix;
 typedef char matrix_size_check[sizeof(Matrix)==32?1:-1];
+#ifndef PORT
 typedef struct { char c; Matrix m; } MatrixAlignmentCheck;
 typedef char matrix_alignment_check[sizeof(MatrixAlignmentCheck)==36?1:-1];
+#endif
 
 /* Copies a 32-byte matrix from src to dst, transposing the 3x3 s16 rotation part
    and copying the three translation words at +20, +24 and +28. */

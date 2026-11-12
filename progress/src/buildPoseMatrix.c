@@ -12,7 +12,7 @@ void buildPoseMatrix(void *mtx, void *pose)
   s32 rowOff;
   s32 colOff;
   s32 dstCol;
-  s32 rowPtr;
+  char *rowPtr;
   s32 col;
   s32 row;
   row = 0;
@@ -25,7 +25,11 @@ void buildPoseMatrix(void *mtx, void *pose)
     do
     {
       dstCol = col & 0xFF;
+#ifdef PORT
+      scaled = ((f32) (*((s16 *) (((char *) pose) + (dstCol * 6) + colOff)))) * 0.000244140625f;
+#else
       scaled = ((f32) (*((s16 *) (colOff + (u32)(((char *) pose) + (dstCol * 6)))))) * 0.000244140625f;
+#endif
       ++col;
       *((f32 *) (rowPtr + (dstCol * 4))) = scaled;
     }

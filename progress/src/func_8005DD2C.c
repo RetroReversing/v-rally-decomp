@@ -30,9 +30,9 @@ void *textObjGet(u32);
 s32 group_set_color(void *, u8, u8, u8, s32);
 void draw_palette_sprite(void *, s16, s16, void *);
 void *list_advance(u32, void *);
-s32 func_80084BF0(s32);
-s32 func_8008A0D8(void *, s32, u8);
-s32 formatString(char *, char *, ...);
+s32 input_get_buttons(s32);
+s32 record_set_byte9(void *, s32, u8);
+s32 format_to_buffer(char *, char *, ...);
 extern MenuRoot *gSelectState;
 extern f32 D_800A14CC;
 extern s8 D_800A14D4;
@@ -59,10 +59,10 @@ void func_8005DD2C(void)
     {
         D_800A14D4 = 1;
     }
-    if ((gRecords->flags2C & 0x2000) && (func_80084BF0(0) == 0x2020))
+    if ((gRecords->flags2C & 0x2000) && (input_get_buttons(0) == 0x2020))
     {
         gSelectState->blink = (u8)~gSelectState->blink;
-        func_8008A0D8(gLeague, 9, gSelectState->blink);
+        record_set_byte9(gLeague, 9, gSelectState->blink);
         ((s8 *)list_advance(5, gSelectState->listHead))[0x41] = gSelectState->blink;
     }
     if (gSelectState->countdown != 0)
@@ -98,11 +98,11 @@ void func_8005DD2C(void)
     frac = (tenths % 10) & 0xFFFF;
     if (frac != 0)
     {
-        formatString(text, D_800A5488, whole & 0xFF, frac);
+        format_to_buffer(text, D_800A5488, whole & 0xFF, frac);
     }
     else
     {
-        formatString(text, D_800A5490, whole & 0xFF);
+        format_to_buffer(text, D_800A5490, whole & 0xFF);
     }
     draw_palette_sprite((void *)(node), node->x, node->y, (void *)(text));
 }

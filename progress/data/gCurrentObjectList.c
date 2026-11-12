@@ -1,0 +1,1 @@
+void * gCurrentObjectList = 0;

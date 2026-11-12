@@ -10,8 +10,8 @@ extern u8 D_800A14AE;
 extern u32 gRecordTimeScale;
 extern u8 D_800B65A0;
 extern u8 D_800B5C6C;
-extern s8 func_80084C0C(u8, s32);
-extern s32 func_80084BF0(u8);
+extern s8 input_get_stick_axis(u8, s32);
+extern s32 input_get_buttons(u8);
 
 /* Turns the selected pad's stick and buttons into the menu input bits in the
  * return value (1=left, 2=right, 4=up, 8=down, 0x10/0x20/0x80 buttons). Stick
@@ -46,8 +46,8 @@ s32 func_80058E28(void)
   {
     if ((pos & (pressed = ctrlIdx == i)) || (ctrlIdx < 0))
     {
-      stickX = func_80084C0C(i, 0x10000);
-      stickY = func_80084C0C(i, 0x20000);
+      stickX = input_get_stick_axis(i, 0x10000);
+      stickY = input_get_stick_axis(i, 0x20000);
     }
     i++;
     if (!(stickY | stickX))
@@ -85,7 +85,7 @@ s32 func_80058E28(void)
   {
     if ((pos & (tmp = stickX == i)) || (stickX < 0))
     {
-      pressed = func_80084BF0(i);
+      pressed = input_get_buttons(i);
       buttons |= pressed;
       if (pressed)
       {

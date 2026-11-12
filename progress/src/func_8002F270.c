@@ -1,7 +1,11 @@
 typedef struct 
 {
   u32 w0;
+#ifdef PORT
+  uintptr_t w1;
+#else
   u32 w1;
+#endif
 } Gfx;
 typedef struct Obj
 {
@@ -26,14 +30,17 @@ typedef struct Size
   u16 w;
   u16 h;
 } Size;
+#ifdef PORT
+int abs(int);
+#endif
 Gfx *gfx_get_dl(void *);
 void gfx_set_dl(void *, Gfx *);
 void gfx_push_mtx(void *, s32);
 void gfx_set_quad_pos(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80006EF8(void *, s32);
 void gfx_set_quad_color(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
-void func_800075BC(void *, void *, s32);
-void func_80008B28(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void texture_build_dl(void *, void *, s32);
+void gfx_set_quad_uv(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 obj_mtx_visible(s32, void *, Xform *);
 s32 mtx_pool_alloc(void);
 void guMtxIdentF(void *);
@@ -41,7 +48,7 @@ extern u8 D_8009EB00[];
 extern u8 D_8009EB40[];
 extern s32 gShadeMode;
 extern f64 D_800A4A60;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Draws a run of track objects. Objects with flags bit 0 set are drawn in
  * chains: the first in-range object sets up the display list (texture/palette
@@ -81,7 +88,7 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
       {
         if (!loaded)
         {
-          func_800075BC(gfx_ctx, size, 0);
+          texture_build_dl(gfx_ctx, size, 0);
           loaded = 1;
         }
         if (first)
@@ -96,28 +103,40 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
             {
               Gfx *_g = g++;
               _g->w0 = 0xDE000000;
+              #ifdef PORT
+              _g->w1 = (uintptr_t) D_8009EB40;
+#else
               _g->w1 = (u32) D_8009EB40;
+#endif
             }
             else
             {
               Gfx *_g = g++;
               _g->w0 = 0xDE000000;
+              #ifdef PORT
+              _g->w1 = (uintptr_t) D_8009EB00;
+#else
               _g->w1 = (u32) D_8009EB00;
+#endif
             }
             {
               Gfx *_g = g++;
               _g->w0 = 0xDE000000;
+#ifdef PORT
+              _g->w1 = (uintptr_t) D_8009EB00;
+#else
               _g->w1 = (u32) D_8009EB00;
+#endif
             }
             {
               Gfx *_g = g++;
               _g->w0 = 0xFA000000;
-              _g->w1 = ((gStreamState[0x6C27] << 24) | (gStreamState[0x6C27] << 16)) | (gStreamState[0x6C27] << 8);
+              _g->w1 = ((stream_state[0x6C27] << 24) | (stream_state[0x6C27] << 16)) | (stream_state[0x6C27] << 8);
             }
             {
               Gfx *_g = g++;
               _g->w0 = 0xFB000000;
-              _g->w1 = (((gStreamState[0x6C26] << 24) | (gStreamState[0x6C26] << 16)) | (gStreamState[0x6C26] << 8)) | gStreamState[0x6C28];
+              _g->w1 = (((stream_state[0x6C26] << 24) | (stream_state[0x6C26] << 16)) | (stream_state[0x6C26] << 8)) | stream_state[0x6C28];
             }
             gfx_set_dl(gfx_ctx, g);
           }
@@ -131,7 +150,7 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
           tr.offset[0] = 0;
           tr.offset[1] = 0;
           tr.offset[2] = 0;
-          cam = *((u8 **) (gStreamState + 0x7CD6));
+          cam = *((u8 **) (stream_state + 0x7CD6));
           dist_x = (*((f32 *) (cam + 0x118))) - ((f32) obj->x);
           if (__builtin_abs(dist_x) <= 6000)
           {
@@ -186,7 +205,7 @@ void func_8002F270(void *ctx, Obj *obj, s32 count, Size *size, void *gfx_ctx)
           id = func_80006EF8(gfx_ctx, 0);
           gfx_set_quad_pos(gfx_ctx, id, (s16) tr.offset[0], (s16) tr.offset[1], (s16) tr.offset[2], (s16) (obj->v0[0] + tr.offset[0]), (s16) (obj->v0[1] + tr.offset[1]), (s16) (obj->v0[2] + tr.offset[2]), (s16) (obj->v1[0] + tr.offset[0]), (s16) (obj->v1[1] + tr.offset[1]), (s16) (obj->v1[2] + tr.offset[2]), (s16) (obj->v2[0] + tr.offset[0]), (s16) (obj->v2[1] + tr.offset[1]), (s16) (obj->v2[2] + tr.offset[2]));
           gfx_set_quad_color(gfx_ctx, id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
-          func_80008B28(gfx_ctx, id, 0, 0, size->w, 0, size->w, size->h, 0, size->h);
+          gfx_set_quad_uv(gfx_ctx, id, 0, 0, size->w, 0, size->w, size->h, 0, size->h);
         }
         else
         {

@@ -1,4 +1,4 @@
-/* Resets the two slot tables (gCarEntries = active, gSlotTable = source) and
+/* Resets the two slot tables (gCarEntryTable = active, gSlotTable = source) and
  * copies the source slot for slot arg1 into the active table when the mode asks
  * for it. Then clears the object's flags and hands the object to the scheduler. */
 void func_80072C94(void *obj, u8 slot_idx)
@@ -6,10 +6,10 @@ void func_80072C94(void *obj, u8 slot_idx)
   extern s32 obj_reset_records(s32);
   extern s32 func_80042D20(void);
   extern s32 func_8004F3C4(void *);
-  extern s32 func_800804C4(s32, void *, ...);
+  extern s32 list_for_each(s32, void *, ...);
   extern s32 func_80080514(s32, void *, s32);
-  extern s32 func_8008E13C(s32, s32, s32);
-  extern void *gCarEntries;
+  extern s32 memcpy(s32, s32, s32);
+  extern void *gCarEntryTable;
   extern void *gSlotTable;
   extern void *gRecords;
   extern s32 D_8009CE8C;
@@ -19,13 +19,13 @@ void func_80072C94(void *obj, u8 slot_idx)
   extern s32 D_8009CE9C;
   extern s32 D_8009CEA0;
   extern s32 gOrderState;
-  extern s32 gStreamState;
+  extern s32 stream_state;
   extern void objSetStateFromMode(void);
   extern void func_80042A7C(void);
   u8 i;
   u16 mode;
   u16 count;
-  s32 *table = gCarEntries;
+  s32 *table = gCarEntryTable;
   s32 *mgr;
   s32 *a;
   s32 *b;
@@ -45,8 +45,8 @@ void func_80072C94(void *obj, u8 slot_idx)
       len = *((u16 *) (((char *) b) + 0xE));
       *((u16 *) (((char *) a) + 0xA)) = 4;
       *((u16 *) (((char *) a) + 0xE)) = len;
-      func_8008E13C(a[0], b[0], ((*((s32 *) (((char *) b) + 0x10))) + 3) & (-4));
-      func_8008E13C(a[1], b[1], ((*((s32 *) (((char *) b) + 0x14))) + 3) & (-4));
+      memcpy(a[0], b[0], ((*((s32 *) (((char *) b) + 0x10))) + 3) & (-4));
+      memcpy(a[1], b[1], ((*((s32 *) (((char *) b) + 0x14))) + 3) & (-4));
       {
         struct Copy40
         {
@@ -111,7 +111,7 @@ void func_80072C94(void *obj, u8 slot_idx)
     }
 
   }
-  func_800804C4(*((s32 *) (((char *) (&gOrderState)) + 0x73F0)), objSetStateFromMode);
+  list_for_each(*((s32 *) (((char *) (&gOrderState)) + 0x73F0)), objSetStateFromMode);
   {
     u32 x = *((u32 *) (((char *) obj) + 0x14));
     x &= ~0x20;

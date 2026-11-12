@@ -1,7 +1,7 @@
-s32 osPiGetCmdQueue();
+s32 osPiGetCommandQueuePtr();
 s32 osSendMesg();
 s32 osJamMesg();
-extern s32 __osPiInitialized;
+extern s32 osPiIsInitialized;
 
 /* Fills in a PI DMA request message (type, priority, device and DRAM addresses, size, handle) and
  * queues it on the PI command queue: a jam for high-priority requests (priority 1), a send
@@ -10,7 +10,7 @@ extern s32 __osPiInitialized;
 s32 osPiStartDma(u8 *mb, s32 priority, s32 direction, s32 devAddr, s32 dramAddr, s32 size, s32 handle) {
     s16 v;
 
-    if (__osPiInitialized == 0) {
+    if (osPiIsInitialized == 0) {
         return -1;
     }
     v = 0xC;
@@ -25,7 +25,7 @@ s32 osPiStartDma(u8 *mb, s32 priority, s32 direction, s32 devAddr, s32 dramAddr,
     *(s32 *)(mb + 0x10) = size;
     *(s32 *)(mb + 0x14) = 0;
     if (priority != 1) {
-        return osSendMesg(osPiGetCmdQueue(dramAddr), mb, 0);
+        return osSendMesg(osPiGetCommandQueuePtr(dramAddr), mb, 0);
     }
-    return osJamMesg(osPiGetCmdQueue(dramAddr), mb, 0);
+    return osJamMesg(osPiGetCommandQueuePtr(dramAddr), mb, 0);
 }

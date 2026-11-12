@@ -29,10 +29,18 @@ void func_800316C4(void *obj)
   value = (level << 2) + level;
   loop_2:
   index = index2 & 0xFFFF;
+#ifdef PORT
+  func_8002FFA4(obj, index, (s16) level, (void *) (((*((char **) (((char *) (*((void **) (((char *) obj) + 0x78)))) + 0x1C))) + (index * 0xC)) + 6));
+#else
   func_8002FFA4(obj, index, (s16) level, (void *) (((*((s32 *) (((char *) (*((void **) (((char *) obj) + 0x78)))) + 0x1C))) + (index * 0xC)) + 6));
+#endif
   index2 += 1;
   entryBase = ((char *) (*((void **) (((char *) obj) + 0x78)))) + 0x1C;
+#ifdef PORT
+  *((s16 *) (((char *) ((*((char **) entryBase)) + (index * 0xC))) + 4)) = (s16) (value * 2);
+#else
   *((s16 *) (((char *) ((index * 0xC) + (*((s32 *) entryBase)))) + 4)) = (s16) (value * 2);
+#endif
   value += (step << 2) + step;
   if (((u32) (index2 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) obj) + 0x88)))))
   {

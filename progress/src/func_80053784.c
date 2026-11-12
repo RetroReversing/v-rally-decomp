@@ -9,7 +9,7 @@ typedef struct Obj53 {
     u16 flags;
 } Obj53;
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern Obj53 *gRecords;
 extern u8 D_800C365C[];
 extern u8 D_800C7FA1;
@@ -28,12 +28,12 @@ extern void func_80078018(void);
  * the record time, moves the record to state 8, and saves its step as prevStep. */
 #define FINISH_STAGE(m)                                   \
     q = gRecords;                                 \
-    gStreamState[0x7F4F] = (m);                       \
-    gStreamState[0x7F51] = q->e;                      \
-    if (gStreamState[0x7CF3] < q->e) {                \
-        gStreamState[0x7F4E] = 1;                     \
+    stream_state[0x7F4F] = (m);                       \
+    stream_state[0x7F51] = q->e;                      \
+    if (stream_state[0x7CF3] < q->e) {                \
+        stream_state[0x7F4E] = 1;                     \
     } else {                                        \
-        gStreamState[0x7F4E] = 0;                     \
+        stream_state[0x7F4E] = 0;                     \
     }                                               \
     q = gRecords;                                 \
     old = q->prevStep;                                 \

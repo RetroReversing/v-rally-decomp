@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_800584D4();                            /* extern */
+M2C_UNK select_flush_pending();                            /* extern */
 extern void *gSelectState;
 
-void func_800585DC(void *arg0) {
-    M2C_FIELD(gSelectState, s8 *, 0x233) = (s8) M2C_FIELD(arg0, s32 *, 0x90);
+/* Copies the s32 at src+0x90 into the select state's flag byte at +0x233; if that flag is negative, flushes the pending select entries. */ void func_800585DC(void *src) {
+    M2C_FIELD(gSelectState, s8 *, 0x233) = (s8) M2C_FIELD(src, s32 *, 0x90);
     if (M2C_FIELD(gSelectState, s8 *, 0x233) < 0) {
-        func_800584D4();
+        select_flush_pending();
     }
 }

@@ -9,7 +9,7 @@ typedef struct { u8 pad0[0x24]; Car *car; u8 pad28[0xEC]; f32 x114; u8 pad118[0x
 extern Cam *g_camera;
 extern AnimEntry gAnimSeq[];
 extern s32 D_800ADFE8;
-Anim *func_80022668(void *, s32);
+Anim *list_nth_node(void *, s32);
 void setStreamPaused(Anim *, s32);
 
 /* Per-frame update of the car's animation sequence object. Picks the animation
@@ -35,7 +35,7 @@ void anim_seq_update(AnimObj *seq)
   switch (car->p9C->state) {
   case 0:
     if (seq->timer != 0) seq->timer--;
-    a = func_80022668(seq->link, gAnimSeq[seq->idx].anim);
+    a = list_nth_node(seq->link, gAnimSeq[seq->idx].anim);
     if (seq->timer == 0) {
       ok = 1;
       if (gAnimSeq[seq->idx].type == 2) ok = a->x88 >= 50;
@@ -43,7 +43,7 @@ void anim_seq_update(AnimObj *seq)
         if (++seq->idx == 6) seq->idx = 0;
         seq->timer = gAnimSeq[seq->idx].time;
         seq->value = 0;
-        a = func_80022668(seq->link, gAnimSeq[seq->idx].anim);
+        a = list_nth_node(seq->link, gAnimSeq[seq->idx].anim);
         if (gAnimSeq[seq->idx].type == 2) {
           a->x88 = 0x33;
         } else {
@@ -61,7 +61,7 @@ void anim_seq_update(AnimObj *seq)
             seq->idx = 0;
             seq->timer = gAnimSeq[0].time + 200;
             seq->value = 0;
-            a = func_80022668(seq->link, gAnimSeq[seq->idx].anim);
+            a = list_nth_node(seq->link, gAnimSeq[seq->idx].anim);
           }
         }
       }
@@ -71,30 +71,30 @@ void anim_seq_update(AnimObj *seq)
     a->x30 = gAnimSeq[seq->idx].val;
     break;
   case 1:
-    a = func_80022668(seq->link, gAnimSeq[1].anim);
+    a = list_nth_node(seq->link, gAnimSeq[1].anim);
     a->x30 = gAnimSeq[1].val;
     if (a->x88 < 50) a->x88 = 0x33;
     break;
   case 2:
-    a = func_80022668(seq->link, gAnimSeq[0].anim);
+    a = list_nth_node(seq->link, gAnimSeq[0].anim);
     a->x30 = gAnimSeq[0].val;
     break;
   case 3:
-    a = func_80022668(seq->link, gAnimSeq[2].anim);
+    a = list_nth_node(seq->link, gAnimSeq[2].anim);
     a->x30 = gAnimSeq[2].val;
     if (gAnimSeq[seq->idx].type == 1) a->x20 = 1;
     break;
   case 4:
-    a = func_80022668(seq->link, gAnimSeq[3].anim);
+    a = list_nth_node(seq->link, gAnimSeq[3].anim);
     a->x30 = gAnimSeq[3].val;
     break;
   case 5:
-    a = func_80022668(seq->link, gAnimSeq[4].anim);
+    a = list_nth_node(seq->link, gAnimSeq[4].anim);
     a->x30 = gAnimSeq[4].val;
     if (gAnimSeq[seq->idx].type == 1) a->x20 = 1;
     break;
   case 6:
-    a = func_80022668(seq->link, gAnimSeq[5].anim);
+    a = list_nth_node(seq->link, gAnimSeq[5].anim);
     a->x30 = gAnimSeq[5].val;
     seq->timer = 0;
     if (gAnimSeq[seq->idx].type == 1) a->x20 = 1;

@@ -16,9 +16,9 @@ extern u8 gOrderState[];
 extern Handler D_800C8038[];
 extern void msg_list_send_all(void *, s32);
 extern s32 func_8007F73C(s32, s32);
-extern void func_8007F7DC(s32, s32, s32);
+extern void order_mq_send(s32, s32, s32);
 extern void func_8008DD00(void *);
-extern void func_8008DF40(void);
+extern void sp_clear_signal(void);
 extern s32 osRecvMesg(void *, void **, s32);
 extern s32 osSendMesg(void *, void *, s32);
 extern void osSpTaskStartGo(void *);
@@ -58,7 +58,7 @@ void GfxTaskThread(Arg *self)
       }
       else
       {
-        func_8008DF40();
+        sp_clear_signal();
         result = func_8007F73C(0x22, 2);
         if (osSpTaskYielded(old))
         {
@@ -91,7 +91,7 @@ void GfxTaskThread(Arg *self)
     else
       if (action == mode2)
     {
-      func_8007F7DC(0x22, 2, result);
+      order_mq_send(0x22, 2, result);
     }
     osSendMesg(*((void **) (((u8 *) msg) + 0x40)), *((void **) (((u8 *) msg) + 0x44)), 1);
   }

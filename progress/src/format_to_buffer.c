@@ -1,13 +1,28 @@
-extern char D_800A73E0[];
-s32 func_8009912C(char *, s32, s32 *);
+extern char gGameState[];
+#ifdef PORT
+s32 format_vargs(char *, const char *, va_list);
+#else
+s32 format_vargs(char *, s32, s32 *);
+#endif
 /* sprintf-style formatter: writes the formatted text into dst through the shared print state, then NUL-terminates it. */
 void format_to_buffer(char *dst, const char *fmt, ...) {
-    s32 *ap;
     /* print state: remaining-count = -1 (unbounded), buffer start and cursor = dst */
-    *(s32 *)(D_800A73E0+0x6B10)=-1;
-    *(char **)(D_800A73E0+0x6B1C)=dst;
-    *(char **)(D_800A73E0+0x6B18)=dst;
-    ap=(s32 *)__builtin_next_arg(fmt);
-    dst+=func_8009912C(dst,(s32)fmt,ap);
+    *(s32 *)(gGameState+0x6B10)=-1;
+    *(char **)(gGameState+0x6B1C)=dst;
+    *(char **)(gGameState+0x6B18)=dst;
+#ifdef PORT
+    {
+        va_list ap;
+        va_start(ap, fmt);
+        dst+=format_vargs(dst,fmt,ap);
+        va_end(ap);
+    }
+#else
+    {
+        s32 *ap;
+        ap=(s32 *)__builtin_next_arg(fmt);
+        dst+=format_vargs(dst,(s32)fmt,ap);
+    }
+#endif
     *dst=0;
 }

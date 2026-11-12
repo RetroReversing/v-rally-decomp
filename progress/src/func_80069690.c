@@ -1,10 +1,10 @@
-extern int gRecords;
+extern u8 *gRecords;
 void *select_get_entry(u32);
 s32 group_set_color();
 void draw_palette_sprite(void *, s16, s16, void *);
-s32 func_8006874C();
+s32 select_draw_results_table();
 extern void *gSelectState;
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Draws the current select entry: takes its colour from the entry's sub-record
    (or uses the fixed highlight colour when the entry's flag at +0x42 is set), then
@@ -34,5 +34,5 @@ void func_80069690(void)
   }
   group_set_color(sub, red, green, blue, 0xFF);
   draw_palette_sprite((void *)(sub), (s16)(*((s16 *) (((char *) sub) + 6))), (s16)(*((s16 *) (((char *) sub) + 8))), (void *)(gRecords + (((*((s8 *) (((char *) gSelectState) + 0x22A))) * 0x28) + (rec_off = 0x44))));
-  func_8006874C(*((s8 *) (((char *) gSelectState) + 0x22A)));
+  select_draw_results_table(*((s8 *) (((char *) gSelectState) + 0x22A)));
 }

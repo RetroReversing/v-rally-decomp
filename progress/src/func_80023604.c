@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK gOrderState;
+extern char gOrderState[];
 
+/* Walks the list whose head pointer is at gOrderState+0x73F0 (next pointer at +4) to its last node. */
 void func_80023604(void) {
-    void *var_v0;
+    void *node = **(void ***)(gOrderState + 0x73F0);
 
-    var_v0 = *M2C_FIELD(&gOrderState, void ***, 0x73F0);
-    if (var_v0 != NULL) {
+    if (node != NULL) {
         do {
-            var_v0 = M2C_FIELD(var_v0, void **, 4);
-        } while (var_v0 != NULL);
+            node = *(void **)((char *)node + 4);
+        } while (node != NULL);
     }
 }

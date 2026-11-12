@@ -63,9 +63,10 @@ void func_8006E394(void)
   u8 n;
   u8 base;
   u8 *new_var;
-  u16 q;
   u8 v;
+  u32 decoded;
   int b;
+  u8 guard_n;
   for (i = 0; i < 4; i++)
   {
     used[i] = 0;
@@ -139,17 +140,18 @@ void func_8006E394(void)
     m = ((u8 *) p)[9];
     for (i = 0; i < n; i++)
     {
+      b = i;
       do
       {
         do
         {
-          if ((m & (1 << i)) == (1 << i))
+          if ((m & (1 << b)) == (1 << b))
           {
-            D_800B6600.flag[base + i] = 1;
+            D_800B6600.flag[base + b] = 1;
           }
           else
           {
-            D_800B6600.flag[base + i] = 0;
+            D_800B6600.flag[base + b] = 0;
           }
         }
         while (0);
@@ -157,15 +159,17 @@ void func_8006E394(void)
       while (0);
     }
 
+    guard_n=(u8)n;
     D_800B6600.cnt[0] = 0;
     D_800B6600.cnt[1] = 0;
     D_800B6600.cnt[2] = 0;
     D_800B6600.cnt[3] = 0;
     for (j = 0; j < 4; j++)
     {
-      q = H((((u8 *) p) + 10) + (j * 2));
-      for (i = 0; i < n; i++)
-      {
+      m = H((((u8 *) p) + 10) + (j * 2));
+      i=0;
+      if(guard_n) { u8 bound_n=(u8)n; do {
+
         b = base + i;
         do
         {
@@ -174,15 +178,16 @@ void func_8006E394(void)
             {
               int m0 = 1 << (i * 2);
               int m1 = 1 << ((i * 2) + 1);
-              int b0 = (q & ((u16) m0)) == ((u16) m0);
-              int b1 = (q & ((u16) m1)) == ((u16) m1);
-              v = b0 | (b1 << 1);
+              int b0 = (m & ((u16) m0)) == ((u16) m0);
+              int b1 = (m & ((u16) m1)) == ((u16) m1);
+              decoded = (b1 << 1) | b0;
             }
           }
           while (0);
         }
         while (0);
-        D_800B6600.map[b][j] = v;
+        D_800B6600.map[b][j] = decoded;
+        v = (u8)decoded;
         new_var = &D_800AE850[inline_fn(j)];
         switch (v)
         {
@@ -200,7 +205,9 @@ void func_8006E394(void)
 
         }
 
-      }
+      
+        ++i;
+      } while(i<bound_n); }
 
     }
 

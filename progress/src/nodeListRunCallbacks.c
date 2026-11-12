@@ -8,7 +8,7 @@ void nodeListRunCallbacks(void **list)
         node = *list;
         if (node != NULL) {
             do {
-                ((s32 (*)(s32))*(s32 *)((s8 *)node + 0x18))(*(s32 *)((s8 *)node + 0x10));
+                ((s32 (*)(s32))*(void **)((s8 *)node + 0x18))(*(s32 *)((s8 *)node + 0x10));
                 node = *(void **)((s8 *)node + 4);
             } while (node != NULL);
         }

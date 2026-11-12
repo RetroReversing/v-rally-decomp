@@ -5,7 +5,7 @@ extern int D_800B7040;
 extern s32 D_8009D6B0;
 extern char D_800A4950[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 flag_test_bit0();
 extern s32 flag_set_then_call();
 extern s32 named_entry_find_or_add();
@@ -22,7 +22,7 @@ void initRaceSession(void) {
     s32 *slot;
     s32 count;
     if (flag_test_bit0(gOrderState + 0x7320) != 0) goto block_7;
-    if (*(u16 *)(*(void **)(gStreamState + 0x32F2) + 0x1E) != 7) goto block_3;
+    if (*(u16 *)(*(void **)(stream_state + 0x32F2) + 0x1E) != 7) goto block_3;
     D_800B6B00 = 2;
     count = 0;
     goto block_4;
@@ -30,7 +30,7 @@ block_3:
     D_800B6B00 = 0;
     count = 0;
 block_4:
-    slot = (s32 *)(gStreamState + 0x7162);
+    slot = (s32 *)(stream_state + 0x7162);
 loop_5:
     count += 1;
     *slot = poolAllocHeadNode();

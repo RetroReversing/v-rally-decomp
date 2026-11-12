@@ -1,4 +1,4 @@
-extern s32 gStreamState;
+extern s32 stream_state;
 
 /* Sets the stream rate target for a vehicle (+0x6C) from its track data and
  * toggles bit 0x4 of its flags (+0x80) based on the current stream state. */
@@ -13,7 +13,7 @@ void updateStreamRate(u8 *vehicle) {
     ctl = *(void **)(vehicle + 0xA8);
     stream = *(void **)((u8 *)ctl + 0x24);
     if (stream != NULL) {
-        state = *(u16 *)(*(u8 **)((u8 *)&gStreamState + 0x32F2) + 0xE);
+        state = *(u16 *)(*(u8 **)((u8 *)&stream_state + 0x32F2) + 0xE);
         if (((state >= 2U) && (*(s32 *)((u8 *)ctl + 0x20) & 0x880000)) || (state == 1)) {
             rate = *(u32 *)(*(u8 **)((u8 *)stream + 0x4C) + 4);
             if (rate < 0x7D1U) {

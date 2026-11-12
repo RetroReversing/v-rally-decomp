@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern u8 D_800B60E0;
+extern u8 __osMaxControllers;
 
 typedef struct {
     u8 b[8];
@@ -31,7 +31,7 @@ void __osPackRequestData(u8 cmd)
     packet.b[5] = 0xFF;
     packet.b[6] = 0xFF;
     packet.b[7] = 0xFF;
-    for (i = 0; i < D_800B60E0; i++) {
+    for (i = 0; i < __osMaxControllers; i++) {
         *out = packet;
         out += 1;
     }

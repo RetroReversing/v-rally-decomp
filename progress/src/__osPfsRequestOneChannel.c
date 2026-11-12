@@ -1,5 +1,5 @@
 extern s32 D_800C816C;
-extern s8 D_800C3520;
+extern s8 __osPfsLastCmd;
 
 typedef struct {
     s8 a;
@@ -27,7 +27,7 @@ void __osPfsRequestOneChannel(s32 zero_count) {
     *status_word = 1;
     cmd.a = 1;
     cmd.b = 3;
-    D_800C3520 = 0;
+    __osPfsLastCmd = 0;
     cmd.c = 0;
     fill = 0xFF;
     cmd.d = fill;

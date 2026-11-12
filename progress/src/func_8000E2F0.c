@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8000E2F0(s32 arg0) {
-    return arg0 & 0xFF;
+/* Truncates value to its low 8 bits. */ s32 func_8000E2F0(s32 value) {
+    return value & 0xFF;
 }

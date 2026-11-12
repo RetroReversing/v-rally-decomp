@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800144C8(void) {
+/* Empty hook called once per frame by race_session_run; does nothing. */ void func_800144C8(void) {
 
 }

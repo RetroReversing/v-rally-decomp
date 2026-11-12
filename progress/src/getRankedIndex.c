@@ -1,5 +1,5 @@
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 gCategoryScores[];
 extern s32 compareScores();
 void shell_sort(void *, s32, s32, void *);
@@ -23,7 +23,7 @@ u8 getRankedIndex(s32 rank)
   s32 *res;
   s32 sel = rank;
   i = 0;
-  base = *((u8 **) (gStreamState + 0x32F2));
+  base = *((u8 **) (stream_state + 0x32F2));
   tbl = gOrderState + 0x7EC8;
   res = gCategoryScores;
   for (; i < 4; i++)

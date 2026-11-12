@@ -16,7 +16,11 @@ s32 order_table_search(void *table, s32 key)
   do
   {
     mid = (lo + hi) / 2;
+#ifdef PORT
+    entry = (void *)((char *)table + (mid << 2));
+#else
     entry = (void *)((mid << 2) + (s32)table);
+#endif
     if (str_compare_fold(key, *((s32 *) (((char *) entry) + 0x80))) == 2)
     {
       return *((s32 *) (((char *) entry) + 0x80));

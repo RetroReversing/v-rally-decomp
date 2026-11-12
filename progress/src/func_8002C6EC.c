@@ -1,5 +1,5 @@
 #line 1 "reference.c"
-u8 func_8002C6EC(void *arg0, void *arg1)
+/* Clips the object's bounding box against the four side planes and the top/bottom planes, builds the face matrices for the faces that pass, and records the visible ones in the object's face list. Returns the packed count. */ u8 func_8002C6EC(void *arg0, void *arg1)
 {
   Scratch frame; Vec3 *vp;
   char *faceBase;
@@ -18,6 +18,9 @@ u8 func_8002C6EC(void *arg0, void *arg1)
   char *a;
   char *b;
   char *rot;char *raw;
+#ifdef PORT
+  char *fp;
+#endif
 
 
   s8 *table,*table0,*table1,*table2;
@@ -194,7 +197,12 @@ int *test2=&frame.test;
     }
 
   }
-faceIndex=x1;count=0;i=0;vp=&frame.v;if(vp){x0=oldCount+(((u32)(u8)faceIndex)>>8);}else{x0=oldCount;}x2=(x0<<3)-x0;x2<<=3;x0=x2+(u32)faceBase;
+faceIndex=x1;count=0;i=0;vp=&frame.v;if(vp){x0=oldCount+(((u32)(u8)faceIndex)>>8);}else{x0=oldCount;}x2=(x0<<3)-x0;x2<<=3;
+#ifdef PORT
+fp = faceBase + x2;
+#else
+x0=x2+(u32)faceBase;
+#endif
 for (;(more=i<12);i++)
   {
     frame.v = *((Vec3 *)(P(arg0, 0x80) + 0x1f0 + i*20));
@@ -305,7 +313,11 @@ for (;(more=i<12);i++)
     else
       if (i >= 4)
     {
-      u32 p = (u32)otherCount*48+(u32)other;
+      #ifdef PORT
+char *p = other + (u32)otherCount*48;
+#else
+u32 p = (u32)otherCount*48+(u32)other;
+#endif
       W(p, 0x28) = frame.out.x << 4;
       W(p, 0x24) = i;
       P(p, 0x20) = arg1;
@@ -322,13 +334,41 @@ for (;(more=i<12);i++)
     if (frame.out.x < 0)
     {
       count++;
-      W(((char *)x0), 0x30) = frame.out.x << 4;
-      W(((char *)x0), 0x34) = 1;
-      W(((char *)x0), 0x2c) = i;
-      P(((char *)x0), 0x28) = arg0;
-      if (faceIndex == 0) H(((char *)x0), 0) = 0; else H(((char *)x0), 0) = frame.v.x;
-      H(((char *)x0), 2) = frame.v.y;
-      H(((char *)x0), 4) = frame.v.z;
+      #ifdef PORT
+W(fp, 0x30) = frame.out.x << 4;
+#else
+W(((char *)x0), 0x30) = frame.out.x << 4;
+#endif
+      #ifdef PORT
+W(fp, 0x34) = 1;
+#else
+W(((char *)x0), 0x34) = 1;
+#endif
+      #ifdef PORT
+W(fp, 0x2c) = i;
+#else
+W(((char *)x0), 0x2c) = i;
+#endif
+      #ifdef PORT
+P(fp, 0x28) = arg0;
+#else
+P(((char *)x0), 0x28) = arg0;
+#endif
+      #ifdef PORT
+if (faceIndex == 0) H(fp, 0) = 0; else H(fp, 0) = frame.v.x;
+#else
+if (faceIndex == 0) H(((char *)x0), 0) = 0; else H(((char *)x0), 0) = frame.v.x;
+#endif
+      #ifdef PORT
+H(fp, 2) = frame.v.y;
+#else
+H(((char *)x0), 2) = frame.v.y;
+#endif
+      #ifdef PORT
+H(fp, 4) = frame.v.z;
+#else
+H(((char *)x0), 4) = frame.v.z;
+#endif
       frame.face.m[1] = -frame.face.m[1];
       frame.face.m[4] = -frame.face.m[4];
       frame.face.m[7] = -frame.face.m[7];
@@ -336,7 +376,11 @@ for (;(more=i<12);i++)
       frame.face.m[2] = -new_var2;
       frame.face.m[5] = -frame.face.m[5];
       frame.face.m[8] = -frame.face.m[8];
-      *((Matrix32 *) (((char *)x0) + 8)) = frame.face;
+      #ifdef PORT
+*((Matrix32 *) (fp + 8)) = frame.face;
+#else
+*((Matrix32 *) (((char *)x0) + 8)) = frame.face;
+#endif
       if (oldCount < 10)
       {
         W(P(arg1, 0x8c), 0x100) = oldCount + 1;

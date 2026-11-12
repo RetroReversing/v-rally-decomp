@@ -2,7 +2,7 @@ extern void *gSelectState;
 extern s32 gSelectBuffer;
 extern void func_80062B70();
 extern void func_80062DF4();
-extern void func_8005C198();
+extern void select_arm_if_clear();
 extern s32 select_reset_text(s32, s32);
 extern void heapFreeBlock(s32);
 
@@ -10,7 +10,7 @@ extern void heapFreeBlock(s32);
    runs the two teardown calls, and installs two callbacks in the select state. */
 s32 func_800631A4(s32 arg0, s32 arg1)
 {
-    func_8005C198();
+    select_arm_if_clear();
     if (gSelectBuffer != 0) {
         heapFreeBlock(gSelectBuffer);
         gSelectBuffer = 0;

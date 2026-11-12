@@ -1,4 +1,4 @@
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
 
 /* Rebuilds the five-slot table of list entries, then walks slot 4 down to slot 0,
@@ -31,7 +31,7 @@ void func_80042DE0(void)
   node = *((char **) list);
   if (node != NULL)
   {
-    tbl = D_800A73E0 + 0x6C00;
+    tbl = gGameState + 0x6C00;
     do
     {
       ent = *((char **) (node + 0x6C));
@@ -50,7 +50,7 @@ void func_80042DE0(void)
   {
     t1 = 4;
     five = 5;
-    tbl2 = D_800A73E0 + 0x6C00;
+    tbl2 = gGameState + 0x6C00;
     one = 1;
     do
     {

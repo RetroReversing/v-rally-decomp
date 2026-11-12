@@ -1,6 +1,6 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern char gOrderState[];
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char D_15DB10[];
 extern char D_BB9470[];
 void streamReleaseEntry();
@@ -18,13 +18,13 @@ void func_80015C74();
 void func_80081514();
 void heap_free_stub();
 
-/* Shuts down the subsystems in turn, passing each the handle it holds in gStreamState or gOrderState.
+/* Shuts down the subsystems in turn, passing each the handle it holds in stream_state or gOrderState.
  * Last, calls func_80081514 on the block from D_15DB10 up to D_BB9470. */
 void func_80010128(void)
 {
-  streamReleaseEntry(*((s32 *) (gStreamState + 0x103B2)));
-  streamReleaseEntry(*((s32 *) (gStreamState + 0x103B6)));
-  heap_free_stub(*((s32 *) (gStreamState + 0x103BA)));
+  streamReleaseEntry(*((s32 *) (stream_state + 0x103B2)));
+  streamReleaseEntry(*((s32 *) (stream_state + 0x103B6)));
+  heap_free_stub(*((s32 *) (stream_state + 0x103BA)));
   heap_free_stub(*((s32 *) (gOrderState + 0x72F8)));
   soundResetState();
   func_80035A10();
@@ -35,7 +35,7 @@ void func_80010128(void)
   reset_owner_slots();
   nodeListRunCallbacks(*((s32 *) (gOrderState + 0x87F0)));
   heapReleaseBlock(*((s32 *) (gOrderState + 0x87F0)));
-  func_8001BAF4(*((s32 *) (gStreamState + 0x80C6)));
-  func_80015C74(D_800A73E0 + 0x6BD0, 0);
+  func_8001BAF4(*((s32 *) (stream_state + 0x80C6)));
+  func_80015C74(gGameState + 0x6BD0, 0);
   func_80081514(D_15DB10, D_BB9470 - D_15DB10, 1);
 }

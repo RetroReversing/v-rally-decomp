@@ -1,7 +1,7 @@
 extern s32 gRaceFlags;
 extern s32 gPadFlags;
 extern s32 gRaceState;
-extern char gStreamState[];
+extern char stream_state[];
 extern char *gRaceCtx;
 extern void race_reset();
 extern void init_cars_from_records();
@@ -18,7 +18,7 @@ s32 updateRaceStart(void)
   int a;
   s32 z;
   gRaceFlags = (gRaceFlags | 3) & ~8;
-  p = *((RaceObj **) (gStreamState + 0x32F2));
+  p = *((RaceObj **) (stream_state + 0x32F2));
   a = p->state;
   p->f36 = 0;
   if ((a == 5) | (a == 0) || (z = (a >> 16) == 0))
@@ -42,6 +42,6 @@ s32 updateRaceStart(void)
   {
     init_cars_from_records();
   }
-  *(u8 *)(gStreamState + 0x7E72) = 0;
+  *(u8 *)(stream_state + 0x7E72) = 0;
   return 1;
 }

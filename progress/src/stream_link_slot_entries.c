@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 s32 find_object_by_id();
 
 /* Links the two objects for slot (slot - 1) * 2 and (slot - 1) * 2 + 2 to the list node
@@ -19,7 +19,7 @@ s32 stream_link_slot_entries(s32 slot, s32 list_index, s32 unused, s32 first_ind
     u8 entry_count;
 
     found = NULL;
-    entry_count = ((u8 *) *(void **) (gStreamState + 0x32F2))[0xF];
+    entry_count = ((u8 *) *(void **) (stream_state + 0x32F2))[0xF];
     node = *(s32 **) (*(void **) (gOrderState + 0x73F0));
     has_entries = entry_count != 0;
     if (entry_count) {
@@ -30,7 +30,11 @@ s32 stream_link_slot_entries(s32 slot, s32 list_index, s32 unused, s32 first_ind
                 found = node;
             }
             node = *(s32 **) ((char *) node + 4);
+#ifdef PORT
+            keep_going = (uintptr_t) found < 1;
+#else
             keep_going = (u32) found < 1;
+#endif
             keep_going = has_entries & (u8) keep_going;
         } while (keep_going);
         first_index = index;
@@ -40,7 +44,12 @@ s32 stream_link_slot_entries(s32 slot, s32 list_index, s32 unused, s32 first_ind
     key_b = key_a + 2;
     key_a = obj_a;
     obj_a = find_object_by_id(key_b);
+#ifdef PORT
+    *(s32 **) ((char *) (uintptr_t) key_a + 0x24) = found;
+    *(s32 **) ((char *) (uintptr_t) obj_a + 0x24) = found;
+#else
     *(s32 **) ((char *) key_a + 0x24) = found;
     *(s32 **) ((char *) obj_a + 0x24) = found;
+#endif
     return 1;
 }

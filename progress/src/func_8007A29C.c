@@ -2,8 +2,8 @@
 #define P(p,o) (*(void **)((u8 *)(p)+(o)))
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))
-void func_8004C7F0(s32);
-void func_8004D31C(void);
+void func_8004C7F0(void *);
+void stream_free_all_blocks(void);
 void *select_get_entry(u32);
 void *textObjGet(u32);
 void func_8005937C(s32, s32);
@@ -12,7 +12,7 @@ void select_clear_slots(void);
 void func_80069974(void);
 s32 heapFreeBlock(void *);
 s32 resolve_path(u8 *);
-void func_8008A0D8(s32, s32, s8);
+void record_set_byte9(void *, s32, s8);
 extern u8 *gSelectState;
 extern u8 D_800A5F7C[];
 extern u8 D_800A5F8C[];
@@ -54,7 +54,7 @@ void func_8007A29C(void)
   s8 j;
   s32 n;
   u8 t;
-  func_8004D31C();
+  stream_free_all_blocks();
   select_clear_slots();
   func_8005BB5C();
   i = 0;
@@ -128,7 +128,7 @@ void func_8007A29C(void)
     if (counts[i] == 0)
     {
       B(select_get_entry(i), 0x41) = 0;
-      func_8008A0D8((s32)gLeague, (B(P(gLeague, 0x10) + (SH(gLeague, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
+      record_set_byte9(gLeague, (B(P(gLeague, 0x10) + (SH(gLeague, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);
       if (B(gSelectState, 0x238) == i)
       {
         {
@@ -151,7 +151,7 @@ void func_8007A29C(void)
   }
   B(gSelectState, 0x2BD) = 1;
   resolve_path(D_800A5F7C);
-  func_8004C7F0((s32)D_800A5F8C);
+  func_8004C7F0(D_800A5F8C);
   node = textObjGet(0x38);
   H(node, 4) = ((*((s8 *) (gSelectState + 0x228))) == 0) ? (3) : (0x98);
 }

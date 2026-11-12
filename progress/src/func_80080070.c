@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80080070(void) {
+/* Empty stub; does nothing. Called by stream_start_check. */ void func_80080070(void) {
 
 }

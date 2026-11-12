@@ -3,7 +3,7 @@ typedef struct Node89 { u32 pad0; Ent89 *subs; u8 count; u8 active; u8 padA[2]; 
 typedef struct Obj89 { u8 pad0[8]; Node89 *nodes; u8 padC; u8 base; u8 cur; } Obj89;
 typedef struct Res89 { u8 pad0[0x14]; u8 f14; } Res89;
 
-void func_80038E9C(void);
+void sound_voice_request_default(void);
 void func_80038ED4(void);
 void func_80038F0C(void);
 
@@ -42,7 +42,7 @@ s16 func_80089C48(Obj89 *obj, Ent89 *e, u32 mask, u8 count, s16 *out, u8 *flag, 
         if (!called) {
             if (e->mask == 1) {
                 called = 1;
-                func_80038E9C();
+                sound_voice_request_default();
             } else if (e->mask == 2) {
                 called = 1;
                 func_80038ED4();
@@ -53,7 +53,11 @@ s16 func_80089C48(Obj89 *obj, Ent89 *e, u32 mask, u8 count, s16 *out, u8 *flag, 
         }
         type = e->type;
         if (type == 0 && !done) {
+#ifdef PORT
+            fn = (s32 (*)(s32, s32))(uintptr_t)e->val;
+#else
             fn = (s32 (*)(s32, s32))e->val;
+#endif
             v = -1;
             if (fn != 0) {
                 if (gotCamera) {

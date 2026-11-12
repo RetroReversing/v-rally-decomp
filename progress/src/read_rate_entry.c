@@ -19,6 +19,6 @@ u8 *read_rate_entry(void *dst, u8 *src)
         p++;
         index = index | lo;
     }
-    read_rate_params(dst, *(s32 *)(*(u8 **)((u8 *)dst + 0x70) + 0x10) + index * 7);
+    read_rate_params(dst, *(u8 **)(*(u8 **)((u8 *)dst + 0x70) + 0x10) + index * 7);
     return p;
 }

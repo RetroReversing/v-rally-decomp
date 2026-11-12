@@ -24,7 +24,11 @@ void func_8004D414(void *owner)
     }
     do
     {
-      ent = (u8 *)(((entIdx & 0xffff) * 8) + (s32)entries);
+      #ifdef PORT
+ent = entries + ((entIdx & 0xffff) * 8);
+#else
+ent = (u8 *)(((entIdx & 0xffff) * 8) + (s32)entries);
+#endif
       if ((*((s16 *) (ent + 4))) == 0)
       {
         group = *((u8 **) ent);

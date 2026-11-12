@@ -1,26 +1,26 @@
-void func_8003C698(void *arg0)
+/* Copies the mode from obj's state block into obj's flag at +0x7A: mode 0 maps to 0, mode 1 to 1, and larger values pass through. */ void func_8003C698(void *obj)
 {
-    u32 temp_v1;
-    void *temp_v0;
+    u32 mode;
+    void *state;
 
-    temp_v0 = *((void **) (((char *) (*((void **) (((char *) arg0) + 0xA8)))) + 0x24));
-    if (temp_v0 != NULL)
+    state = *((void **) (((char *) (*((void **) (((char *) obj) + 0xA8)))) + 0x24));
+    if (state != NULL)
     {
-        temp_v1 = *(*((u32 **) (((char *) temp_v0) + 0x50)));
-        if (temp_v1 < 2U)
+        mode = *(*((u32 **) (((char *) state) + 0x50)));
+        if (mode < 2U)
         {
-            if (temp_v1 == 0)
+            if (mode == 0)
             {
-                *((s16 *) (((char *) arg0) + 0x7A)) = 0;
+                *((s16 *) (((char *) obj) + 0x7A)) = 0;
             }
             else
             {
-                *((s16 *) (((char *) arg0) + 0x7A)) = 1;
+                *((s16 *) (((char *) obj) + 0x7A)) = 1;
             }
         }
         else
         {
-            *((s16 *) (((char *) arg0) + 0x7A)) = (s16) temp_v1;
+            *((s16 *) (((char *) obj) + 0x7A)) = (s16) mode;
         }
     }
 }

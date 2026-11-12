@@ -22,16 +22,32 @@ void func_80014288(void)
         count = *(u32 *)state;
         index = count;
         *(u32 *)state = index + 1;
+#ifdef PORT
+        entry = inline_fn(state + index * 8);
+#else
         index = (u32)inline_fn(state + index * 8);
+#endif
         ret = __udivdi3(ret << 6, 0xBB8);
+#ifdef PORT
+        entry = entry + 0x50;
+#else
         entry = (char *)index + 0x50;
+#endif
         *(u64 *)entry = ret - *(u64 *)(state + 8);
         ret = osGetTime();
         state = gTimeSampleState;
         count2 = *(u32 *)state;
         index = count2;
+#ifdef PORT
+        entry = state + index * 8;
+#else
         index = (u32)(state + index * ((unsigned long long)8));
+#endif
         ret = __udivdi3(ret << 6, 0xBB8);
+#ifdef PORT
+        *(u64 *)(entry + 0x10) = ret - *(u64 *)(state + 8);
+#else
         *(u64 *)((char *)index + 0x10) = ret - *(u64 *)(state + 8);
+#endif
     }
 }

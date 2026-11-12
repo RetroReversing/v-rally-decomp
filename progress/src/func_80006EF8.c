@@ -58,6 +58,20 @@ s32 func_80006EF8(DlCtx *ctx, s16 value, s32 colour)
     }
     vi = dl_reserve_vertices(ctx, 4, var_a2) & 0xFFFF;
     vtx_off = vi * 0x10;
+#ifdef PORT
+    *(s16 *)((vtx_off + ctx->vtx) + 4) = value;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x14) = value;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x24) = value;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x34) = value;
+    *(s16 *)((vtx_off + ctx->vtx) + 6) = 0;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x16) = 0;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x26) = 0;
+    *(s16 *)((vtx_off + ctx->vtx) + 0x36) = 0;
+    *(u8 *)((vtx_off + ctx->vtx) + 0xF) = 0xFF;
+    *(u8 *)((vtx_off + ctx->vtx) + 0x1F) = 0xFF;
+    *(u8 *)((vtx_off + ctx->vtx) + 0x2F) = 0xFF;
+    *(u8 *)((vtx_off + ctx->vtx) + 0x3F) = 0xFF;
+#else
     *(s16 *)((vtx_off + (s32)ctx->vtx) + 4) = value;
     *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x14) = value;
     *(s16 *)((vtx_off + (s32)ctx->vtx) + 0x24) = value;
@@ -70,6 +84,7 @@ s32 func_80006EF8(DlCtx *ctx, s16 value, s32 colour)
     *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x1F) = 0xFF;
     *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x2F) = 0xFF;
     *(u8 *)((vtx_off + (s32)ctx->vtx) + 0x3F) = 0xFF;
+#endif
     idx = vi & 0x1F;
     hi = idx << 17;
     cmd = ctx->dl;

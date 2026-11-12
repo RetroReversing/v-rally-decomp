@@ -6,7 +6,7 @@ typedef struct Mode {
     u32 unk0, unk4, width, burst, vsync, hsync, leap, hvideo, xscale, unk24;
     struct { u32 origin, yscale, vvideo, vburst, vintr; } f[2];
 } Mode;
-extern ViContext *__osViCurr, *gViPending;
+extern ViContext *viCurrent, *gViPending;
 extern s32 D_800A258C;
 extern volatile u32 D_A4400000;
 extern s32 osVirtualToPhysical(s32);
@@ -36,7 +36,7 @@ void vi_apply_context(void) {
     Mode *mode;
     s32 field, origin, hvideo, vvideo, ctrl;
     u32 scaled;
-    cur = __osViCurr;
+    cur = viCurrent;
     field = VI_CURRENT & 1;
     mode = cur->mode;
     origin = osVirtualToPhysical(cur->buffer) + mode->f[field].origin;
@@ -70,7 +70,7 @@ void vi_apply_context(void) {
     ctrl = cur->control;
     prev = gViPending;
     gViPending = cur;
-    __osViCurr = prev;
+    viCurrent = prev;
     VI_CONTROL = ctrl;
     __builtin_memcpy(prev, cur, sizeof(ViContext));
 }

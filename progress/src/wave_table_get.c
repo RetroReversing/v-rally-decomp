@@ -1,2 +1,6 @@
-extern short D_8009E2AC[];
-short wave_table_get(int arg0) { return D_8009E2AC[arg0 & 0x3FF]; }
+extern short wave_table[];
+
+/* Returns one entry of the wave table; the position wraps every 1024 entries. */
+short wave_table_get(int pos) {
+    return wave_table[pos & 0x3FF];
+}

@@ -1,5 +1,5 @@
 void stream_obj_free(void *obj);
-void func_800225BC(void **);
+void heapReleaseStub(void **);
 
 /* Frees every stream object in the list at *list (each node's object is at +0x40,
  * the next node at +4), then runs the follow-up stub with the list head. */
@@ -13,5 +13,5 @@ void stream_list_free(void **list) {
             node = *(void **)((u8 *)node + 4);
         } while (node != NULL);
     }
-    func_800225BC(list);
+    heapReleaseStub(list);
 }

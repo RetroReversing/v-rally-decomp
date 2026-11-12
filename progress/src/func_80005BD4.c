@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80005BD4(void) {
+/* Stub that always reports success (returns 1). */ s32 func_80005BD4(void) {
     return 1;
 }

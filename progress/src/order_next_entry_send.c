@@ -1,7 +1,7 @@
 extern u16 gOrderCursor;
 extern u16 D_800B0C66;
 extern char gOrderState[];
-s32 func_80027CDC();
+s32 seq_record_store_u32();
 s32 func_80027CFC();
 
 /* Takes the next entry from the order table (its pointer is at +0x240C of gOrderState),
@@ -22,6 +22,6 @@ void order_next_entry_send(s32 arg0, void *arg1)
   {
     gOrderCursor = cursor + 1;
   }
-  func_80027CDC(entry, arg1);
+  seq_record_store_u32(entry, arg1);
   func_80027CFC(arg1);
 }

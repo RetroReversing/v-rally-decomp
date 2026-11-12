@@ -1,4 +1,4 @@
-s32 memset(s32, s32, s32);
+void *memset(void *, s32, s32);
 
 /* Resets a 0x28-byte sound/select state block: clears it, sets the mode bytes and the
  * four per-slot flag groups to 1, zeroes the four 16-bit slot values, and stores the
@@ -10,7 +10,7 @@ void func_8001B514(void *state) {
     s8 i;
     void *entry;
 
-    memset((s32)state, 0, 0x28);
+    memset(state, 0, 0x28);
     i = 0;
     *(s16 *)((s8 *)state + 0xC) = 0;
     *(s8 *)((s8 *)state + 9) = 1;

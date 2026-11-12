@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void rect_set_set_item_pos(void *arg0, s32 arg1, s32 arg2) {
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x10), s32 *, 0xC) = arg1;
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x10), s32 *, 0x10) = arg2;
+/* Sets the x and y position fields (+0x0C, +0x10) of the item referenced by the set's pointer at +0x10. */ void rect_set_set_item_pos(void *rect_set, s32 x, s32 y) {
+    M2C_FIELD(M2C_FIELD(rect_set, void **, 0x10), s32 *, 0xC) = x;
+    M2C_FIELD(M2C_FIELD(rect_set, void **, 0x10), s32 *, 0x10) = y;
 }

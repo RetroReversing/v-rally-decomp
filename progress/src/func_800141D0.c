@@ -16,7 +16,11 @@ void func_800141D0(void *arg0)
     if (arg0 != NULL && *(u16 *)((u8 *)arg0 + 0x48) != 4 && *gTimeSampleState < 8) {
         now = osGetTime();
         ring = gTimeSampleState;
+#ifdef PORT
+        slot = (u8 *)ring + ring[0] * 8;
+#else
         slot = (u8 *)(ring[0] * 8 + (u32)ring);
+#endif
         elapsed = __udivdi3(now << 6, 0xBB8);
         elapsed = elapsed - *(u64 *)(ring + 2);
         *(u64 *)(slot + 0x90) = elapsed;

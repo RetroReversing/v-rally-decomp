@@ -17,7 +17,15 @@ void func_80022E64(void *obj)
         {
             obj_bytes = (char *) obj;
             slot_cursor += 4;
+#ifdef PORT
+            {
+                void *tbl = *(void **)(obj_bytes + 0xD0);
+                s32 (*fn)(void *) = *(s32 (**)(void *))((char *)tbl + slot_index * 0x1C + 0x18);
+                fn(obj);
+            }
+#else
             (*((s32 (**)(void *)) (((char *) ((slot_index * 0x1C) + (*((s32 *) (obj_bytes + ((unsigned long) 0xD0)))))) + 0x18)))(obj);
+#endif
             slot_index = *((s32 *) (((char *) slot_cursor) + 0xA0));
         }
         while (slot_index != end_marker);

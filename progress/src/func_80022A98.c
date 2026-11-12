@@ -1,3 +1,9 @@
+#ifdef PORT
+#define ADDR unsigned long
+#else
+#define ADDR u32
+#endif
+
 extern s32 gMirrorListHead;
 
 /* Walks the 11 descriptors (0x1C bytes each) at table+0xD0 and fills the output
@@ -15,11 +21,11 @@ void func_80022A98(u8 *table, s32 *out)
     s32 dflt;
     s32 val;
     u32 neg_b;
-    u32 desc_ofs;
-    u32 desc_ofs2;
+    ADDR desc_ofs;
+    ADDR desc_ofs2;
     u32 idx;
     u32 k;
-    u32 src_ofs;
+    ADDR src_ofs;
     u32 i;
     u32 n;
 
@@ -42,7 +48,7 @@ void func_80022A98(u8 *table, s32 *out)
                     src_base = slot;
                     desc_ofs2 = desc_ofs;
                     dst = out_ptr;
-                    src_ofs = (u32) 0;
+                    src_ofs = (ADDR) 0;
                     do
                     {
                         neg_b = (k ^ 0x54) < 1;
@@ -51,11 +57,11 @@ void func_80022A98(u8 *table, s32 *out)
                         }
                         if (val & neg_b)
                         {
-                            *dst = dflt - (*((s32 *) (src_ofs + (*((s32 *) (src_base + 0x48))))));
+                            *dst = dflt - (*((s32 *) (src_ofs + (*((ADDR *) (src_base + 0x48))))));
                         }
                         else
                         {
-                            *dst = *((s32 *) (src_ofs + (*((s32 *) (src_base + 0x48)))));
+                            *dst = *((s32 *) (src_ofs + (*((ADDR *) (src_base + 0x48)))));
                         }
                         dst++;
                         k++;
@@ -70,28 +76,28 @@ void func_80022A98(u8 *table, s32 *out)
         if ((*((u32 *) ((desc_ofs + (*((u32 *) (table + 0xD0)))) + 8))) & 2)
         {
             k = 0;
-            dst_tmp = (desc_ofs + (*((u32 *) (table + 0xD0)))) + 4;
+            dst_tmp = (u8 *) ((desc_ofs + (*((u32 *) (table + 0xD0)))) + 4);
             if ((*((u32 *) dst_tmp)) != 0)
             {
                 if (dst)
                 {
-                    desc_ofs2 = (u32) slot;
+                    desc_ofs2 = (ADDR) slot;
                     src_base = (u8 *) desc_ofs;
                     dst = out_ptr;
                 }
                 else
                 {
-                    desc_ofs2 = (u32) slot;
+                    desc_ofs2 = (ADDR) slot;
                     src_base = (u8 *) desc_ofs;
                     dst = out_ptr;
                 }
                 do
                 {
-                    *dst = *((s32 *) ((*((s32 *) (desc_ofs2 + 0x74))) + (k * 4)));
+                    *dst = *((s32 *) ((*((ADDR *) (desc_ofs2 + 0x74))) + (k * 4)));
                     k++;
                     dst++;
                 }
-                while (k < (*((u32 *) ((((u32) src_base) + (*((u32 *) (table + 0xD0)))) + 4))));
+                while (k < (*((u32 *) ((((ADDR) src_base) + (*((u32 *) (table + 0xD0)))) + 4))));
             }
             out_ptr += *((u32 *) ((desc_ofs + (*((u32 *) (table + 0xD0)))) + 4));
         }

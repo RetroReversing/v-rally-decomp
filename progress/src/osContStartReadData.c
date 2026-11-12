@@ -1,5 +1,5 @@
 extern char __osContPifRam[];
-extern u8 D_800C3520;
+extern u8 __osPfsLastCmd;
 s32 osRecvMesg(s32, s32, s32);
 void pif_lock(void);
 void pif_unlock(void);
@@ -14,13 +14,13 @@ s32 osContStartReadData(s32 mq)
     s32 ret;
 
     pif_lock();
-    if (D_800C3520 != 1) {
+    if (__osPfsLastCmd != 1) {
         __osPackReadData();
         __osSiRawStartDma(1, __osContPifRam);
         osRecvMesg(mq, 0, 1);
     }
     ret = __osSiRawStartDma(0, __osContPifRam);
-    D_800C3520 = 1;
+    __osPfsLastCmd = 1;
     pif_unlock();
     return ret;
 }

@@ -52,7 +52,7 @@ typedef struct
   s32 c[4];
 } Stats;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 gRecordTimeScale;
 extern u8 *gRecords;
 extern Ent gResultsTable[5];
@@ -62,7 +62,7 @@ extern Stats gDecodeBlk;
 extern Node **gCarList;
 void memset(void *, s32, s32);
 u8 func_80078338(u8);
-void copyStringAligned(char *, void *);
+void strCpy(char *, void *);
 
 /* Builds the results table (RESULTS) for the finished race: one entry per
  * node of the result list, with the best time and average speed for the
@@ -97,7 +97,7 @@ void func_800783A8(void)
         slot--;
       }
       RESULTS[slot].ptr = node;
-      copyStringAligned(RESULTS[slot].name, GAME_STATE + (((GAME_STATE + nodeIdx)[0x32] * 40) + 0x44));
+      strCpy(RESULTS[slot].name, GAME_STATE + (((GAME_STATE + nodeIdx)[0x32] * 40) + 0x44));
       entryPtr = (char *) ((GAME_STATE + ((GAME_STATE + nodeIdx)[0x32] * 40)) + 0x4E);
       RESULTS[slot].b12 = *((u16 *) entryPtr);
       RESULTS[slot].idx = nodeIdx;
@@ -136,7 +136,7 @@ void func_800783A8(void)
       RESULTS[i].diff = (delta >= 0) ? delta : -delta; } else { RESULTS[i].diff = 0;
     }
   }
-  copyStringAligned(RESULTS[4].name, TRACK_TABLE[*((u16 *) (GAME_STATE + 0x20))].item[0].name);
+  strCpy(RESULTS[4].name, TRACK_TABLE[*((u16 *) (GAME_STATE + 0x20))].item[0].name);
   RESULTS[4].time = TRACK_TABLE[*((u16 *) (GAME_STATE + 0x20))].item[0].score;
   RESULTS[4].avg = TRACK_TABLE[*((u16 *) (GAME_STATE + 0x20))].item[0].laps;
   RESULTS[4].b12 = TRACK_TABLE[*((u16 *) (GAME_STATE + 0x20))].item[0].b4;

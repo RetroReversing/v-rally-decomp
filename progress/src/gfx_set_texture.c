@@ -70,7 +70,7 @@ u32 osVirtualToPhysical(void *);
   gDPLoadSync(pkt); \
   gDPLoadTLUTCmd(pkt, 7, count); \
   gDPPipeSync(pkt); }
-s32 gfx_set_texture(RenderState *state, Texture *arg1, u8 arg2)
+/* Points the render state's display list at the texture's image and palette, emitting texture-load commands only when they changed since the last call. */ s32 gfx_set_texture(RenderState *state, Texture *tex, u8 pal_index)
 {
   RenderState *arg0 = state;
   u32 f;
@@ -78,45 +78,45 @@ s32 gfx_set_texture(RenderState *state, Texture *arg1, u8 arg2)
   f &= 0x7FFFFFFF;
   f |= 0x80000000;
   *(u32 *)&arg0->flags = f;
-  switch (arg1->format)
+  switch (tex->format)
   {
     case 0x10:
       arg0->flags.tt = 1;
-      if (arg0->image != arg1->images[0])
+      if (arg0->image != tex->images[0])
       {
-        arg0->image = arg1->images[0];
-        arg0->height = arg1->height;
-        arg0->width = arg1->width;
-        gDPLoadTextureBlock_4b(arg0->dl++, osVirtualToPhysical(arg1->images[0]), 2, arg1->width, arg1->height);
+        arg0->image = tex->images[0];
+        arg0->height = tex->height;
+        arg0->width = tex->width;
+        gDPLoadTextureBlock_4b(arg0->dl++, osVirtualToPhysical(tex->images[0]), 2, tex->width, tex->height);
       }
-      if (arg0->palette != arg1->palettes[arg2])
+      if (arg0->palette != tex->palettes[pal_index])
       {
-        arg0->palette = arg1->palettes[arg2];
-        gDPLoadTLUT(arg0->dl++, osVirtualToPhysical(arg1->palettes[arg2]), 256, 15);
+        arg0->palette = tex->palettes[pal_index];
+        gDPLoadTLUT(arg0->dl++, osVirtualToPhysical(tex->palettes[pal_index]), 256, 15);
       }
       break;
     case 0x100:
       arg0->flags.tt = 1;
-      if (arg0->image != arg1->images[0])
+      if (arg0->image != tex->images[0])
       {
-        arg0->image = arg1->images[0];
-        arg0->height = arg1->height;
-        arg0->width = arg1->width;
-        gDPLoadTextureBlock(arg0->dl++, osVirtualToPhysical(arg1->images[0]), 2, 1, 2, 1, 1, 1, 1, arg1->width, arg1->height);
+        arg0->image = tex->images[0];
+        arg0->height = tex->height;
+        arg0->width = tex->width;
+        gDPLoadTextureBlock(arg0->dl++, osVirtualToPhysical(tex->images[0]), 2, 1, 2, 1, 1, 1, 1, tex->width, tex->height);
       }
-      if (arg0->palette != arg1->palettes[arg2])
+      if (arg0->palette != tex->palettes[pal_index])
       {
-        arg0->palette = arg1->palettes[arg2];
-        gDPLoadTLUT(arg0->dl++, osVirtualToPhysical(arg1->palettes[arg2]), 256, 255);
+        arg0->palette = tex->palettes[pal_index];
+        gDPLoadTLUT(arg0->dl++, osVirtualToPhysical(tex->palettes[pal_index]), 256, 255);
       }
       break;
     case 0xA0:
-      if (arg0->image != arg1->images[0])
+      if (arg0->image != tex->images[0])
       {
         arg0->flags.tt = 0;
-        arg0->height = arg1->height;
-        arg0->width = arg1->width;
-        gDPLoadTextureBlock(arg0->dl++, osVirtualToPhysical(arg1->images[0]), 0, 3, 3, 0, 0, 4, 2, arg1->width, arg1->height);
+        arg0->height = tex->height;
+        arg0->width = tex->width;
+        gDPLoadTextureBlock(arg0->dl++, osVirtualToPhysical(tex->images[0]), 0, 3, 3, 0, 0, 4, 2, tex->width, tex->height);
         arg0->palette = 0;
       }
       break;

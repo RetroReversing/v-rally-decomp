@@ -15,7 +15,7 @@ extern u8 D_800ADFCB;
 extern u32 D_8009C0A8;
 extern f32 gItemSpinAngle;
 void view_get_ctx_id(void *);
-void func_80005F14(Render *, s32);
+void dl_append_call(Render *, s32);
 Gfx *gfx_get_dl(Render *);
 void gfx_set_dl(Render *, Gfx *);
 void obj_mtx_visible(void *, Cam *, MtxF *);
@@ -59,7 +59,11 @@ void func_80017B38(Obj0 *obj, s32 unused, Render *render, Cam *cam)
   {
     Gfx *c = g++;
     c->w0 = 0xDE000000;
+#ifdef PORT
+    c->w1 = (uintptr_t)&D_8009C0A8;
+#else
     c->w1 = (u32)&D_8009C0A8;
+#endif
   }
   for (i = 0; i < 5; i++) {
     it = obj->items[i];
@@ -81,14 +85,18 @@ void func_80017B38(Obj0 *obj, s32 unused, Render *render, Cam *cam)
     cmd->w0 = 0xDA380007;
     cmd->w1 = osVirtualToPhysical(p);
     gfx_set_dl(rr, g);
-    func_80005F14(rr, obj->items[i]->p90);
+    dl_append_call(rr, obj->items[i]->p90);
     g = gfx_get_dl(rr);
     if (i == 0) {
       gfx_set_dl(rr, g);
       {
         Gfx *c = rr->dl++;
         c->w0 = 0xDE000000;
+#ifdef PORT
+        c->w1 = (uintptr_t)&D_8009C0A8;
+#else
         c->w1 = (u32)&D_8009C0A8;
+#endif
       }
       g = gfx_get_dl(rr);
     }

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void *func_80088294(void *arg0, u8 *arg1) {
-    M2C_FIELD(arg0, u8 *, 0xCC) = (u8) *arg1;
-    return arg1 + 1;
+/* Copies one byte from src into obj[0xCC] and returns the advanced source pointer. */ void *func_80088294(void *obj, u8 *src) {
+    M2C_FIELD(obj, u8 *, 0xCC) = (u8) *src;
+    return src + 1;
 }

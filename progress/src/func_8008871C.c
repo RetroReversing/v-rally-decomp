@@ -66,17 +66,17 @@ typedef struct Chan {
 typedef u8 *(*CmdFunc)(Chan *, u8 *);
 extern CmdFunc D_800A1BC0[];
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 *read_rate_params(Chan *, s32);
 extern void voice_slot_restart(Chan *, s32);
 extern void func_80089298(Chan *);
-extern void func_80089538(Chan *);
+extern void obj_reset_flags(Chan *);
 extern void alSynSetFXMix(void *, void *, s32);
 extern void alSynSetVol(void *, void *, s32, s32);
 extern void alSynStopVoice(void *, void *);
 
 #define SYNTH ((void *)(gOrderState + 0x2304))
-#define VOICE(n) ((void *)(*(u8 **)(gStreamState + 0x7576) + (n) * 28))
+#define VOICE(n) ((void *)(*(u8 **)(stream_state + 0x7576) + (n) * 28))
 
 /* Runs the channel's sequence script up to its next note, then starts that note
    on the voice: pitch, drum/wave mapping, length, velocity and FX mix. A script
@@ -152,7 +152,7 @@ void func_8008871C(Chan *ch, s32 n)
             func_80089298(ch);
         }
         if (ch->unkCC) {
-            func_80089538(ch);
+            obj_reset_flags(ch);
         }
         idx = ch->wave_idx;
         if (!ch->unkCF) {

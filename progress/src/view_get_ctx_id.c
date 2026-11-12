@@ -14,12 +14,12 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK gOrderState;
 
-s32 view_get_ctx_id(void *arg0) {
-    s32 var_v0;
+/* Returns the view's GFX context id (field at +0x20); falls back to the default context inside gOrderState when the view has none. */ s32 view_get_ctx_id(void *view) {
+    s32 ctx_id;
 
-    var_v0 = M2C_FIELD(arg0, s32 *, 0x20);
-    if (var_v0 == 0) {
-        var_v0 = M2C_FIELD(&gOrderState, s32 *, 0x7400);
+    ctx_id = M2C_FIELD(view, s32 *, 0x20);
+    if (ctx_id == 0) {
+        ctx_id = M2C_FIELD(&gOrderState, s32 *, 0x7400);
     }
-    return var_v0;
+    return ctx_id;
 }

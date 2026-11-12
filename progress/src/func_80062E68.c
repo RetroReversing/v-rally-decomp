@@ -25,7 +25,7 @@ s32 group_set_color(void *, s32, s32, s32, s32);
 void draw_palette_sprite(void *, s16, s16, void *);
 s32 memset(void *, s32, s32);
 s32 appendString(void *, void *);
-s32 formatString(void *, void *, s32, void *);
+s32 format_to_buffer(void *, void *, s32, void *);
 extern char D_800A5684[];
 extern s16 D_800A568C;
 extern s8 D_800A568E;
@@ -61,7 +61,7 @@ void func_80062E68(void)
   do
   {
     row = n & 0xFF;
-    formatString(&sp18, D_800A5684, row + 1, (((gSlotTableB + (gRecords->a * 0x2C4)) + ((gRecords->b << 6) + 0x2C)) + (row * 0x10)) + 6);
+    format_to_buffer(&sp18, D_800A5684, row + 1, (((gSlotTableB + (gRecords->a * 0x2C4)) + ((gRecords->b << 6) + 0x2C)) + (row * 0x10)) + 6);
     n++;
     group_set_color(row_text, row_text->q, row_text->r, row_text->g, row_text->b);
     draw_palette_sprite((void *)(row_text), (s16)(row_text->x), (s16)(row_text->y + (row * 0x16)), (void *)(&sp18));

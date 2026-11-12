@@ -42,79 +42,155 @@ void record_slot_init(s32 slot, s32 code)
     switch (code & 0xff)
     {
       case 0:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;
+#endif
         break;
 
       case 1:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;
+#endif
         break;
 
       case 2:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;
+#endif
         break;
 
       case 3:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;
+#endif
         break;
 
       case 4:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;
+#endif
         break;
 
       case 5:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;
+#endif
         break;
 
       case 6:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;
+#endif
         break;
 
       case 7:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;
+#endif
         break;
 
       case 8:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;
+#endif
         break;
 
       case 9:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;
+#endif
         break;
 
       case 10:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;
+#endif
         break;
 
       case 11:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;
+#endif
         break;
 
       case 12:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;
+#endif
         break;
 
       case 13:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;
+#endif
         break;
 
       case 14:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;
+#endif
         break;
 
       case 15:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;
+#endif
         break;
 
       case 16:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;
+#endif
         break;
 
       case 17:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;
+#endif
         break;
 
       case 18:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;
+#endif
         break;
 
       case 19:
@@ -126,7 +202,11 @@ void record_slot_init(s32 slot, s32 code)
       case 22:
 
       default:
+#ifdef PORT
+        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;
+#else
         *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;
+#endif
         break;
 
     }

@@ -79,6 +79,10 @@ s32 pi_read_word(PiDevice *dev, s32 offset, s32 *dst)
     }
     gPiCurrentDev[a] = dev;
   }
+#ifdef PORT
+  *((s32 *) dst) = *((volatile s32 *) (uintptr_t) ((dev->addr | offset) | 0xA0000000));
+#else
   *((s32 *) dst) = *((volatile s32 *) ((dev->addr | offset) | 0xA0000000));
+#endif
   return 0;
 }

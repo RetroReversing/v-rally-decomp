@@ -1,3 +1,5 @@
+void guMtxIdentF(float mf[4][4]);
+
 /* Builds a perspective frustum matrix in float form (left/right/bottom/top/near/far), then
  * scales every entry by scale. The result is still float; guMtxF2L converts it to a Mtx. */
 void guFrustumF(float mf[4][4], float left, float right, float bottom, float top, float near, float far, float scale)

@@ -1,7 +1,7 @@
 typedef struct { s16 x, y, z, pad; } SVec;
 typedef struct { s32 x, y, z, pad; } LVec;
 s32 func_8001FEDC();
-s32 func_8002D2A0();
+s32 int_sqrt();
 s32 func_8002E778();
 extern char gOrderState[];
 
@@ -15,12 +15,12 @@ typedef struct Car {
     char pad64[0x1C];
     char *body;     /* 0x80 */
     char pad84[8];
-    s32 *team;     /* 0x8C */
+    char **team;     /* 0x8C */
 } Car;
 
 typedef struct {
     s32 count;
-    s32 team[4];
+    char *team[4];
     s32 score[4];
     s32 ref28[4];
     s32 ref30[4];
@@ -36,6 +36,7 @@ typedef struct {
 } Out;
 
 #define FIELD_S32(p, off) (*(s32 *)((char *)(p) + (off)))
+#define FIELD_PTR(p, off) (*(char **)((char *)(p) + (off)))
 
 /* Fills `out` with the cars near `me` (the car list at gOrderState+0x73F0, skipping `me`) that
  * are on our team or ahead of us on score. For each one it records team, score, rank and gap, then
@@ -48,7 +49,7 @@ void func_80034134(Out *out, Car *me)
     Car *car;
     s32 myRank;
     s32 myScore;
-    s32 myTeam;
+    char *myTeam;
     s32 i;
     s32 cross1, cross2, dot;
 
@@ -66,7 +67,7 @@ void func_80034134(Out *out, Car *me)
             out->score[i] = FIELD_S32(car->info, 0x14);
             out->ref28[i] = FIELD_S32(car->info, 0x28);
             out->ref30[i] = FIELD_S32(car->info, 0x30);
-            if (out->team[i] == myTeam || out->team[i] == FIELD_S32(myTeam, 0x5C)) {
+            if (out->team[i] == myTeam || out->team[i] == FIELD_PTR(myTeam, 0x5C)) {
             mineFront.x = FIELD_S32(me->body, 0x2B8) - FIELD_S32(me->body, 0x2CC);
             mineFront.z = FIELD_S32(me->body, 0x2C0) - FIELD_S32(me->body, 0x2D4);
             mineSide.x = FIELD_S32(me->body, 0x240) - FIELD_S32(me->body, 0x254);
@@ -78,14 +79,14 @@ void func_80034134(Out *out, Car *me)
             cross1 = mineFront.x * theirFront.z - mineFront.z * theirFront.x;
             cross2 = mineSide.x * theirSide.z - mineSide.z * theirSide.x;
             dot = mineFront.x * theirFront.x + mineFront.z * theirFront.z;
-            if (out->ref28[i] >= myScore || out->team[i] == FIELD_S32(myTeam, 0x5C)) {
+            if (out->ref28[i] >= myScore || out->team[i] == FIELD_PTR(myTeam, 0x5C)) {
             out->progress[i] = func_8001FEDC(car);
             out->rank[i] = FIELD_S32(car->info, 0x17C);
             out->car[i] = car;
             v.x = FIELD_S32(me->pos, 0xC) - FIELD_S32(car->pos, 0xC);
             v.z = FIELD_S32(me->pos, 0x14) - FIELD_S32(car->pos, 0x14);
             func_8002E778(&v, &v);
-            out->gap[i] = func_8002D2A0(v.x + v.z);
+            out->gap[i] = int_sqrt(v.x + v.z);
             if (((cross1 < 0) & (cross2 < 0)) && out->rank[i] < myRank + 20 && myRank - 20 < out->rank[i]) {
                 out->leftIdx[out->nLeft] = i;
                 out->nLeft++;

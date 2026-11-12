@@ -1,5 +1,5 @@
 s32 str_len();
-s32 copyStringAligned();
+s32 strCpy();
 s32 str_ncat();
 extern u8 gRacerLogCount;
 extern char D_800A5220[];
@@ -37,6 +37,6 @@ void racer_log_add(void *car)
   *((f32 *)((gOrderState + 0x1304) + idx)) = (f32)(*((s32 *)(((char *)car) + 0x174)));
   *((f32 *)((gOrderState + 0x1308) + idx)) = (f32)(*((s32 *)(((char *)car) + 0x1C0)));
   str_ncat(name, D_800A5220, str_len(name, car));
-  copyStringAligned((gRacerLogCount * 0x1C) + (gOrderState + 0x130C), name);
+  strCpy((gRacerLogCount * 0x1C) + (gOrderState + 0x130C), name);
   gRacerLogCount += 1;
 }

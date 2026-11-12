@@ -2,7 +2,7 @@ s32 func_80068D9C();
 extern void *gSelectState;
 extern char D_800A167C[];
 extern char D_800A1684[];
-extern char gStreamState[];
+extern char stream_state[];
 static inline char *inline_fn(void *arg0)
 {
   return (char *) arg0;
@@ -21,8 +21,8 @@ s32 func_8006951C(void)
   void *rec;
   order = 0x75834210;
   recOff = (*((s8 *) (inline_fn(gSelectState) + 0x22A))) * 0x28;
-  *((s32 *) (((char *) ((*((s32 *) (gStreamState + 0x32F2))) + recOff)) + 0x68)) = 0x75834210;
-  rec = (*((s32 *) (gStreamState + 0x32F2))) + ((*((s8 *) (inline_fn(gSelectState) + 0x22A))) * 0x28);
+  *((s32 *) (((char *) ((*((void **) (stream_state + 0x32F2))) + recOff)) + 0x68)) = 0x75834210;
+  rec = (*((void **) (stream_state + 0x32F2))) + ((*((s8 *) (inline_fn(gSelectState) + 0x22A))) * 0x28);
   *((u8 *) (((char *) rec) + 0x48)) &= 0xEF;
   func_80068D9C(0x19, 0);
   i = 0;

@@ -5,10 +5,10 @@ s32 voicesSetParamsByKey();
  * voicesSetParamsByKey with flag 0), then frees the block. */
 void func_80038A24(void *obj)
 {
-  s32 block;
+  u8 *block;
   u8 index;
 
-  block = *((s32 *) *((s32 *) ((char *) obj + 0x68)));
+  block = *((u8 **) *((u8 ***) ((char *) obj + 0x68)));
   index = 0;
   do
   {

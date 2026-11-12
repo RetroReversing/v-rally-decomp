@@ -1,7 +1,7 @@
 s32 func_80050DF4();
 s32 func_80050FC4();
 extern s32 gSavedGameFiles[];
-extern char gStreamState[];
+extern char stream_state[];
 extern void *gRecords;
 extern char D_800C8214[];
 

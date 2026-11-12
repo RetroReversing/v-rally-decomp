@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 typedef struct Info {
     u8 pad0[8];
@@ -43,7 +43,7 @@ typedef struct Game {
     u16 unk1E;
 } Game;
 
-#define GAME (*(Game **)(gStreamState + 0x32F2))
+#define GAME (*(Game **)(stream_state + 0x32F2))
 
 /* Sets the car's HUD colour and flag from its race node. In the normal mode that is the
  * car's own node; otherwise it is the first unfinished node that belongs to this car. */

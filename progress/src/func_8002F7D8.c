@@ -64,7 +64,11 @@ void func_8002F7D8(void)
     {
       car = *((void **) gCarList);
       v0 = *((s32 *) (((char *) g_camera) + 0x24));
+      #ifdef PORT
+      cam = *((void **) (((char *) g_camera) + 0x24));
+#else
       cam = (void *) v0;
+#endif
       while (car != cam)
       {
         car = *((void **) (((char *) car) + 4));

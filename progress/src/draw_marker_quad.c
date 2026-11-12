@@ -28,8 +28,16 @@ void draw_marker_quad(void){
     corner[11]=(*(s32 * volatile *)(obj+0x9C))[11];
     slot=**(s32 **)(obj+0x8C);
     dl=gfx_get_dl(gfx);
+#ifdef PORT
+    { uintptr_t *cmd=(uintptr_t *)dl; dl+=4; cmd[0]=0x06000000; cmd[1]=(uintptr_t)&D_800A02C8; }
+#else
     { u32 *cmd=dl; dl+=2; cmd[0]=0x06000000; cmd[1]=(u32)&D_800A02C8; }
+#endif
+#ifdef PORT
+    { uintptr_t *cmd=(uintptr_t *)dl; dl+=4; cmd[0]=0xFA000000; cmd[1]=0xC8C8C800; }
+#else
     { u32 *cmd=dl; dl+=2; cmd[0]=0xFA000000; cmd[1]=0xC8C8C800; }
+#endif
     gfx_set_dl(gfx,dl);
     mtx_init_translate(pos_mtx,slot+16);
     slot=mtx_pool_alloc();

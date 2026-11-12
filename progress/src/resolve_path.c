@@ -1,4 +1,9 @@
 s32 nameNodeFind(s32, u8 *);
+#ifdef PORT
+#define PATH_AT(p, s) ((u8 *)((p) + (s)))
+#else
+#define PATH_AT(p, s) ((u8 *)(((u32) (s)) + ((u32) (p))))
+#endif
 /* Resolves a path one component at a time, separated by '\' or '/'. Each component is looked up from the current directory (the handle at 0x800B7304); the final result handle is stored at 0x800B7308. A path that starts with a separator sets the result to the current directory. Returns 1 when the walk succeeds, 0 when a component is not found. */
 s32 resolve_path(u8 *path)
 {
@@ -20,7 +25,7 @@ s32 resolve_path(u8 *path)
     return 1;
   }
   dir = *((s32 *) 0x800B7304);
- do { start = 0; at_end = 0; comp = component; len = 0; loop_3: dst = comp; src = (u8 *) (((u32) start) + ((u32) path)); loop_4: c = *src; src += 1; do { start += 1; } while (0); *dst = c; ch = src[-1]; len += 1; dst += 1; if ((ch != 0x5C) & (ch != 0x2F)) { if (ch != 0) { goto loop_4; } } } while (0);
+ do { start = 0; at_end = 0; comp = component; len = 0; loop_3: dst = comp; src = PATH_AT(path, start); loop_4: c = *src; src += 1; do { start += 1; } while (0); *dst = c; ch = src[-1]; len += 1; dst += 1; if ((ch != 0x5C) & (ch != 0x2F)) { if (ch != 0) { goto loop_4; } } } while (0);
   if ((c = ch) == 0)
   {
     at_end = 1;

@@ -12,7 +12,13 @@ u8 *rec;u8 *sp;u8 *src,*dst,*end;u16 *row_idx;u16 count;s32 row;s32 pad[2];
 count=blk->count;src=blk->data;row=0;
 if(count){u8 blank=255;row_idx=(u16 *)(src+32);do {
 dst=*out;
-sp=src;if(((u32)src|(u32)dst)&3){end=(u8 *)row_idx;do{*(P55 *)dst=*(P55 *)sp;sp+=16;dst+=16;}while(sp!=end);}
+sp=src;
+#ifdef PORT
+if(((uintptr_t)src|(uintptr_t)dst)&3){
+#else
+if(((u32)src|(u32)dst)&3){
+#endif
+end=(u8 *)row_idx;do{*(P55 *)dst=*(P55 *)sp;sp+=16;dst+=16;}while(sp!=end);}
 else {end=(u8 *)row_idx;do{*(W55 *)dst=*(W55 *)sp;sp+=16;dst+=16;}while(sp!=end);}
 { s32 head=*(s16 *)sp; *(s16 *)dst=head; }
 (*out)[3]=10;

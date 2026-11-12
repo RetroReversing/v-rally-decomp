@@ -14,7 +14,7 @@ extern Cfg *gRecords;
 extern s32 gRecordTimeScale;
 extern char gOrderState[];
 s32 flag_test_bit0(void *);
-s32 func_80022A90(Node *);
+s32 obj_get_word_0x18(Node *);
 void func_80022A98(Node *, s32);
 s32 poolAlloc(s32, s32);
 void memset(s32, s32, s32);
@@ -41,7 +41,7 @@ s32 func_8004FD5C(Mgr *mgr, s32 limit)
     }
     mgr->unk112 = limit;
     for (node = **(Node ***)(gOrderState + 0x73F0); node != NULL; node = node->next) {
-        nodeSize = func_80022A90(node);
+        nodeSize = obj_get_word_0x18(node);
     }
     slotCount = gRecords->u1E ? 4 : mgr->count;
     for (i = 0; i < 4; i++) {

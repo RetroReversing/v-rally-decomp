@@ -1,9 +1,9 @@
-extern u8 *gContCtx;
-s8 func_80084C0C(s32 slot, s32 mode);
+extern u8 *gControllerInputContext;
+s8 input_get_stick_axis(s32 slot, s32 mode);
 
 /* Picks the gain mode for slot `slot` by matching `flags` against the slot's
  * two mask words (+0x68 selects mode 0x20000, +0x6C selects mode 0x10000);
- * returns 0 when neither matches, otherwise the gain from func_80084C0C. */
+ * returns 0 when neither matches, otherwise the gain from input_get_stick_axis. */
 s8 func_80085714(s32 slot, s32 flags)
 {
     s32 idx;
@@ -11,7 +11,7 @@ s8 func_80085714(s32 slot, s32 flags)
     u8 *entry;
     s32 mode;
 
-    base = gContCtx;
+    base = gControllerInputContext;
     idx = slot & 0xFF;
     entry = base + idx * 0x14;
     if (flags == *(s32 *)(entry + 0x68)) {
@@ -21,5 +21,5 @@ s8 func_80085714(s32 slot, s32 flags)
     } else {
         return 0;
     }
-    return func_80084C0C(idx, mode);
+    return input_get_stick_axis(idx, mode);
 }

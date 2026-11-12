@@ -39,7 +39,7 @@ void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
 
 /* Adds the record-screen widgets next to the camera object. Mode 1 adds four numbered rows.
  * Mode 2 adds a highlighted row and a plain row, shifted left unless the opts flag says otherwise. */
-void func_8003E1BC(s32 parent, s32 msg_base)
+void func_8003E1BC(void *parent, s32 msg_base)
 {
     Obj *cam;
     Pos *pos;
@@ -58,7 +58,7 @@ void func_8003E1BC(s32 parent, s32 msg_base)
     case 1:
         if (gRecords->state != 0) {
             for (row = 0; row < 4; row++) {
-                w = ((Widget *)sprite_create((void *)(parent), col_x, y + row * 0xB, (u16)(5), marker_update_color, 1));
+                w = ((Widget *)sprite_create(parent, col_x, y + row * 0xB, (u16)(5), marker_update_color, 1));
                 w->text = getTexturePack(msg_base + 0x4C, 0);
                 w->kind = row + 1;
                 w->obj = g_camera;
@@ -74,14 +74,14 @@ void func_8003E1BC(s32 parent, s32 msg_base)
             } else {
                 col_x = x;
             }
-            w = ((Widget *)sprite_create((void *)(parent), col_x, y + 0xA, (u16)(5), func_8003E0D4, 1));
+            w = ((Widget *)sprite_create(parent, col_x, y + 0xA, (u16)(5), func_8003E0D4, 1));
             w->text = getTexturePack(msg_base + 0x4C, 0);
             w->obj = g_camera;
             w->r = 0xFE;
             w->g = 0xD5;
             w->b = 0x1E;
             w->a = 0xFF;
-            w = ((Widget *)sprite_create((void *)(parent), col_x, y, (u16)(5), func_8003E134, 1));
+            w = ((Widget *)sprite_create(parent, col_x, y, (u16)(5), func_8003E134, 1));
             w->text = getTexturePack(msg_base + 0x4C, 0);
             w->obj = g_camera;
         }

@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern u8 D_800B60E0;
+extern u8 __osMaxControllers;
 
 typedef struct {
     u8 b[6];
@@ -26,7 +26,7 @@ void __osPackReadData(void)
         slot -= 1;
     } while (i >= 0);
 
-    count = D_800B60E0;
+    count = __osMaxControllers;
     n = 0;
     *(s32 *)(gOrderState + 0x128C) = 1;
 
@@ -38,7 +38,7 @@ void __osPackReadData(void)
     pat.tail[0] = -1;
     pat.tail[1] = -1;
 
-    for (i = 0; i < D_800B60E0; i++) {
+    for (i = 0; i < __osMaxControllers; i++) {
         *(Buf8 *)dst = pat;
         dst += 8;
     }

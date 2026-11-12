@@ -1,8 +1,8 @@
-extern s32 gStreamState;
+extern s32 stream_state;
 
 /* Walks the object list from *list_head. Objects with flags bit 1 run their destructor
  * (at +0x54) if one is set. Unless flags bit 2 is also set, they are then passed to the
- * release callback (at +0x50) together with the context at gStreamState + 0x7CD6 -> 0x178. */
+ * release callback (at +0x50) together with the context at stream_state + 0x7CD6 -> 0x178. */
 void object_list_release(void **list_head) {
     void (*destroy)(void *);
     void *next;
@@ -10,7 +10,7 @@ void object_list_release(void **list_head) {
     void *obj;
 
     obj = *list_head;
-    ctx = *(void **) (((char *) &gStreamState) + 0x7CD6);
+    ctx = *(void **) (((char *) &stream_state) + 0x7CD6);
     if (obj != NULL) {
         do {
             next = *(void **) ((char *) obj + 4);

@@ -1,8 +1,8 @@
-extern int gRecords;
+extern u8 *gRecords;
 void init_car_from_record(void *car, u8 *record);
 extern void *gRaceCtx;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Walks the linked list of cars (head at gOrderState+0x73F0). For each car whose
  * id matches the race context's byte at +0x382, initialises it from its record. */

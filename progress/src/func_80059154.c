@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 void streamReleaseEntry(s32);
 void list_unlink_free(void *, void *);
 
@@ -9,7 +9,7 @@ void func_80059154(s32 slot) {
     void *node;
     void *next;
 
-    owner = *(void **)(gStreamState + 0x5A72 + (slot & 255) * 4);
+    owner = *(void **)(stream_state + 0x5A72 + (slot & 255) * 4);
     node = **(void ***)((u8 *)owner + 16);
     if (node) {
         do {

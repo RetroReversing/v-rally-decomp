@@ -1,7 +1,7 @@
 typedef struct TransformEntry { s32 m00, m01, m10, m11; s16 offX, offY; u16 unk14, unk16; } TransformEntry;
 typedef struct TransformObj { u8 pad00[0x42]; u16 unk42; u8 pad44[6]; u16 unk4A; u8 pad4C[0xC]; TransformEntry *entry; u16 angle; u16 mode; } TransformObj;
 
-void *func_80009FE4();                              /* extern */
+void *entry_pool_alloc();                              /* extern */
 void resetTransform(void *);                        /* extern */
 s32 coss(u16);                                      /* extern */
 s32 sins(u16);                                      /* extern */
@@ -18,7 +18,7 @@ void updateRotatedTransform(TransformObj *obj, s32 x, s32 y) {
     TransformEntry *entry2;
     TransformEntry *entry3;
 
-    entry = func_80009FE4();
+    entry = entry_pool_alloc();
     obj->entry = entry;
     resetTransform(entry);
     angle = obj->angle;

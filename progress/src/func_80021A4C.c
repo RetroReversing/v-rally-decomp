@@ -1,5 +1,5 @@
-extern int gRecords;
-extern char gStreamState[];
+extern char *gRecords;
+extern char stream_state[];
 
 /* For the first four slots, adds the car's per-tick distance (the value at +0x84 of the
    object at +0x88, divided by 9000) to the u16 at +0x52 of the slot's gRecords entry. */

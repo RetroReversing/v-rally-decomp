@@ -1,7 +1,7 @@
 s32 heapFreeBlock();
-extern char gStreamState[];
+extern char stream_state[];
 
-/* Releases `block`. Looks for the 0x800-entry handle table in gStreamState whose entry
+/* Releases `block`. Looks for the 0x800-entry handle table in stream_state whose entry
  * refers to `block`. A handle with refcount 1 frees the entry and its slot, otherwise
  * the refcount is decremented. */
 void stream_release_block(void *block)
@@ -14,7 +14,7 @@ void stream_release_block(void *block)
 
     found = 0;
     i = 0;
-    table = (void **)(gStreamState + 0x3902);
+    table = (void **)(stream_state + 0x3902);
     do
     {
         entry = table[i];
@@ -33,7 +33,7 @@ void stream_release_block(void *block)
         if (kind == 1)
         {
             heapFreeBlock(entry);
-            *(s32 *)(gStreamState + 0x38FE + (i << 2)) = 0;
+            *(s32 *)(stream_state + 0x38FE + (i << 2)) = 0;
             heapFreeBlock(block);
             return;
         }

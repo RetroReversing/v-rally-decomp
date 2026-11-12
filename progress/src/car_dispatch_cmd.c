@@ -18,19 +18,19 @@ typedef struct S1
   S48 *p48;
 } S1;
 extern u8 D_800A17F0[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
-s32 func_80084DD4(s32);
+s32 pad_port_disconnected(s32);
 void func_80027E8C(S1 *, s32, S2 *);
 void func_800280AC(S1 *, S2 *);
 void func_800280EC(S1 *, S2 *);
-void func_800347A4(S1 *, S2 *);
+void ai_drive_compute(S1 *, S2 *);
 void func_80043150(S1 *, S2 *);
 void func_800437B8(S1 *, S2 *);
 struct Car; struct Pad;
 void func_80043A78(struct Car *, struct Pad *);
-void func_8007B204(S1 *);
-s32 func_80077724(void);
+void carDispatchNoop(S1 *);
+s32 hud_draw_track_panel(void);
 void order_next_entry_send(S1 *, S2 *);
 void memset(S2 *, s32, s32);
 
@@ -44,7 +44,7 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
   switch (cmd)
   {
     case 0:
-      if (func_80084DD4(slot & 0xFF) != 0)
+      if (pad_port_disconnected(slot & 0xFF) != 0)
     {
       func_80027E8C(car, slot, input);
     }
@@ -60,15 +60,15 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
     case 1:
       flag = 0x80BE;
       func_800280AC(car, input);
-      if (gStreamState[flag] == 1)
+      if (stream_state[flag] == 1)
     {
-      gStreamState[flag] = 0;
-      func_8007B204(car);
+      stream_state[flag] = 0;
+      carDispatchNoop(car);
     }
       return;
 
     case 2:
-      func_800347A4(car, input);
+      ai_drive_compute(car, input);
       return;
 
     case 3:
@@ -106,9 +106,9 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
   flag = D_800A17F0[0] == 0;
   if (flag)
   {
-    if ((car->p48->f2C == gStreamState[0x7CF3]) && (*((s32 *) (gOrderState + 0x121C))))
+    if ((car->p48->f2C == stream_state[0x7CF3]) && (*((s32 *) (gOrderState + 0x121C))))
     {
-      if (func_80077724() & 0xFF)
+      if (hud_draw_track_panel() & 0xFF)
       {
         order_next_entry_send(car, input);
       }

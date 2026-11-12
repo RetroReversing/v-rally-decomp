@@ -12,9 +12,9 @@ extern char D_800A4C20[];
 extern char D_800A4C28[];
 u64 osGetTime(void);
 void record_slot_init(s32, s32);
-u32 func_80098090(void);
+u32 rand_next15(void);
 void rand_seed(u32);
-void formatString(s32 *, char *, char *, s32);
+void format_to_buffer(s32 *, char *, char *, s32);
 
 /* Chooses the car for each player in the race. Players without a name get a
  * default one. When the race uses class rules, each remaining car slot is
@@ -51,7 +51,7 @@ void func_800407D0(void)
     car_ids[i] = gRecords->pl[gRecords->slot[i]].car;
     if (gRecords->pl[gRecords->slot[i]].name[0] == 0)
     {
-      formatString(name_buf, D_800A4C20, D_800A4C28, i + 1);
+      format_to_buffer(name_buf, D_800A4C20, D_800A4C28, i + 1);
       *(s32 *) gRecords->pl[gRecords->slot[i]].name = name_buf[0];
     }
   }
@@ -76,7 +76,7 @@ void func_800407D0(void)
           slot = i;
           do
           {
-            car = func_80098090() % ncars;
+            car = rand_next15() % ncars;
             unique = 1;
             if (cars_db[car].cls == *cls_cur)
             {
@@ -102,7 +102,7 @@ void func_800407D0(void)
           slot = i;
           do
           {
-            car = func_80098090() % ncars;
+            car = rand_next15() % ncars;
             unique = 1;
             if (cars_db[car].cls == *cls_next)
             {

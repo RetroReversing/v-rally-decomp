@@ -1,11 +1,12 @@
 extern char D_800A167C[];
 
-s32 func_80068CA4(s32 arg0, s32 arg1) {
-    u8 temp_v1;
+/* Bumps the byte counter D_800A167C[idx] by one, saturating at 8. */
+s32 func_80068CA4(s32 unused, s32 idx) {
+    u8 count;
 
-    temp_v1 = *(D_800A167C + arg1);
-    if (temp_v1 < 8U) {
-        *(D_800A167C + arg1) = temp_v1 + 1;
+    count = *(D_800A167C + idx);
+    if (count < 8U) {
+        *(D_800A167C + idx) = count + 1;
     }
     return 0;
 }

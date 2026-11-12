@@ -15,7 +15,7 @@ typedef s32 M2C_UNK32;
 extern s32 D_8009E294;
 extern s32 D_8009E298;
 
-void func_8002E7FC(s32 arg0, s32 arg1) {
-    D_8009E294 = arg0;
-    D_8009E298 = arg1;
+/* Stores a two-word value into the globals D_8009E294 and D_8009E298. */ void func_8002E7FC(s32 first, s32 second) {
+    D_8009E294 = first;
+    D_8009E298 = second;
 }

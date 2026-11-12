@@ -16,8 +16,12 @@ void func_80013F3C(void)
         t = osGetTime();
         state = gTimeSampleState;
         idx = *(u32 *)(state + 4);
+#ifdef PORT
+        slotBase = state + idx * 8;
+#else
         slotBase = (char *) (idx * 8);
         slotBase = state + (u32) slotBase;
+#endif
         r = __udivdi3(t << 6, 3000);
         r = r - *(u64 *)(state + 8);
         *(u64 *)(slotBase + 0xD0) = r;

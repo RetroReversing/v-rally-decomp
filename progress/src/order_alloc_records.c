@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK poolAlloc(M2C_UNK, s32);                /* extern */
 
-void order_alloc_records(s32 arg0) {
-    poolAlloc(6, arg0 << 6);
+/* Allocates count order records of 64 bytes each from pool 6. */ void order_alloc_records(s32 count) {
+    poolAlloc(6, count << 6);
 }

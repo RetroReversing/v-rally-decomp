@@ -1,7 +1,7 @@
 typedef struct E { u8 *text; u16 count; u8 pad[14]; u16 n; s32 *vals; } E;
 typedef struct R { u8 a[14]; u16 n; s32 v; } R;
 extern u16 D_800ADFD0; extern u8 D_800A5028; extern s32 gSnapIndex; extern E *g_rec_val; extern s32 *D_800B0BCC,*D_800AFA60;
-extern E *func_800523EC(void); extern void formatString(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);
+extern E *func_800523EC(void); extern void format_to_buffer(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);
 extern void func_80052194(u16),func_80052224(u16),func_800522B0(u16),func_8005235C(u16),func_80052108(u16);
 
 /* Loads the text table for the current block: each 20-byte record's text is
@@ -23,11 +23,11 @@ E *text_table_load(void)
   {
     if ((*line == '0') & (*line < ':'))
     {
-      formatString(num, &D_800A5028, line + 2);
+      format_to_buffer(num, &D_800A5028, line + 2);
       rec->n--;
     }
     else
-      formatString(num, &D_800A5028, line);
+      format_to_buffer(num, &D_800A5028, line);
     rec->v = getTexturePack(num, stride);
     func_8001B730(line);
   }

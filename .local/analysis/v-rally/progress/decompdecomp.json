@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794154612.01284,
- "revision": 19364,
+ "saved_at": 1794175502.7423968,
+ "revision": 19459,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1190,9 +1190,7 @@
     "-mgp32",
     "-mfp32",
     "-O2",
-    "-g3",
-    "-fno-cse-follow-jumps",
-    "-fno-cse-skip-blocks"
+    "-g3"
    ]
   }
  },
@@ -1245,6 +1243,7 @@
   "local_source_2029": "common_local_source_2029.h",
   "local_source_2109": "common_local_source_2109.h",
   "local_source_599": "common_local_source_599.h",
+  "local_source_671": "common_local_source_671.h",
   "local_source_894": "common_local_source_894.h"
  },
  "functions": {
@@ -4590,8 +4589,8 @@
   },
   "func_8002FFA4": {
    "vram": 2147680164,
-   "best_score": 107,
-   "best_by": "manual-cb73722f548f4c8a"
+   "matched_by": "manual-c0503f20e7ab4b05",
+   "readable": false
   },
   "func_80030180": {
    "vram": 2147680640,
@@ -7945,8 +7944,8 @@
   },
   "func_8006603C": {
    "vram": 2147901500,
-   "best_score": 305,
-   "best_by": "candidate-review"
+   "matched_by": "you",
+   "readable": false
   },
   "func_800662A8": {
    "vram": 2147902120,
@@ -8400,8 +8399,8 @@
   },
   "func_8006BA44": {
    "vram": 2147924548,
-   "best_score": 645,
-   "best_by": "Rr.permuter-1434-lane-4"
+   "matched_by": "manual-992996c551874634",
+   "readable": false
   },
   "func_8006BE50": {
    "vram": 2147925584,
@@ -8415,8 +8414,8 @@
   },
   "func_8006C024": {
    "vram": 2147926052,
-   "best_score": 680,
-   "best_by": "permuter-1436"
+   "best_score": 70,
+   "best_by": "manual-78b46cb2075c451e"
   },
   "func_8006C3E4": {
    "vram": 2147927012,
@@ -8460,8 +8459,8 @@
   },
   "func_8006D10C": {
    "vram": 2147930380,
-   "best_score": 505,
-   "best_by": "manual-b125c7e6b67d4423"
+   "matched_by": "manual-7acb4e9352d54994",
+   "readable": false
   },
   "func_8006D564": {
    "vram": 2147931492,
@@ -8495,8 +8494,8 @@
   },
   "func_8006E394": {
    "vram": 2147935124,
-   "best_score": 1200,
-   "best_by": "candidate-review"
+   "best_score": 555,
+   "best_by": "you"
   },
   "func_8006E8A0": {
    "vram": 2147936416,
@@ -8965,8 +8964,8 @@
   },
   "func_8007A29C": {
    "vram": 2147984028,
-   "best_score": 22,
-   "best_by": "candidate-review"
+   "matched_by": "manual-4b5e522973654a6d",
+   "readable": false
   },
   "func_8007A688": {
    "vram": 2147985032,
@@ -250494,7 +250493,7 @@
    "function": "func_8002FFA4",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "manual-db8c9a1a52874042",
-   "created_at": 1794051743.152852,
+   "created_at": 1794051957.47295,
    "score_before": 107,
    "score_after": 107
   },
@@ -250502,7 +250501,7 @@
    "function": "func_8002FFA4",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "manual-db8c9a1a52874042",
-   "created_at": 1794051879.606575,
+   "created_at": 1794051957.47295,
    "score_before": 107,
    "score_after": 107
   },
@@ -250806,7 +250805,7 @@
    "function": "func_8007A29C",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "manual-7acb4e9352d54994",
-   "created_at": 1794142090.602581,
+   "created_at": 1794142289.210461,
    "score_before": 2,
    "score_after": 2
   },
@@ -250814,7 +250813,7 @@
    "function": "func_8007A29C",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "manual-7acb4e9352d54994",
-   "created_at": 1794142139.893343,
+   "created_at": 1794142289.210461,
    "score_before": 2,
    "score_after": 2
   },
@@ -250934,7 +250933,7 @@
    "function": "func_8007A29C",
    "text": "Low progress after 24 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: stack layout; first differing row 0; 93 differing rows (55 register, 22 stack, 10 branch target, 4 reordered, 1 inserted, 1 deleted; advisory).\nTarget: addiu $sp, $sp, -0x60\nCandidate: addiu $sp, $sp, -0x58\nAdvisory instruction window (normalized; exact-byte verdict unchanged):\ns T: addiu $sp, $sp, -0x60 | C: addiu $sp, $sp, -0x58\ns T: sw $ra, 0x5c($sp) | C: sw $ra, 0x54($sp)\ns T: sw $fp, 0x58($sp) | C: sw $fp, 0x50($sp)\nMore target instructions: get_assembly(focus=\"mismatch\"). Raw/paged diff: last_diff.",
    "by": "manual-7acb4e9352d54994",
-   "created_at": 1794142594.711467,
+   "created_at": 1794144007.77285,
    "score_before": 2,
    "score_after": 2
   },
@@ -251553,6 +251552,390 @@
    "created_at": 1794154608.962241,
    "score_before": 680,
    "score_after": 680
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-f8a3a3f1d68c4923",
+   "created_at": 1794154789.573872,
+   "score_before": 680,
+   "score_after": 560
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Nov8 continued ordinary live API:680\u2192560 coefficient multiply moved before frame_record setup;560\u2192535 immutable packed-table address captured before loop;535\u2192525 loaded speed numerator captured separately with explicit unsigned multiplication preserving wrapping;525\u2192410 decoded delta reuses finished loop index, first encoded local widened s32 with explicit(s16)before negative, second encoded remains s16. Packed values0..1023 so widening preserves values. Current240 target/240candidate instructions; not exact. Profile/header/signatures unchanged. Private evidence /Volumes/Data/Codex/tmp/func8006C024/live-nov8/delta410.c and delta410.c.json. Remaining global allocation rotates index/palette/encoded registers, initial scratch phases and small ordering differences. Reviewed alternate720 seed exists; separate5min job2f653ad40d9a.",
+   "by": "you",
+   "created_at": 1794154957.394353,
+   "score_before": 1200,
+   "score_after": 1200
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-9f8a57395eb94b3d",
+   "created_at": 1794154967.426111,
+   "score_before": 560,
+   "score_after": 410
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Further ordinary live improvement410\u2192330(98.6%),240target/240candidate instructions: reuse dead raw arg1 for initial float-index conversion; overwritten with signed frame delta before later uses. Keeps output pointer allocation a2 and frame delta a1. No changed signature/profile/header. Current source phase330.c, exact false. Second-branch scope, decoder calculation hoisting and selector*9 changes tested privately and worse; do not repeat blindly. Next investigate coalescing raw first packed byte into encoded s0, which rotates desired index/palette/encoded register assignments.",
+   "by": "you",
+   "created_at": 1794155053.901698,
+   "score_before": 410,
+   "score_after": 410
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-10f1f045c6bf4b4e",
+   "created_at": 1794155072.949465,
+   "score_before": 410,
+   "score_after": 330
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Current live315(98.6%),240insns. Inlining second output record_offset shift into the address expression improved330\u2192315. Reviewed ordinary API attempt4294968380. Experiments that did not improve: encoded local scalar widths/merging, byte type splits, first output scope ranges, guard-to-goto rewrites, separate delta/scoped locals, index/decoded union storage (spilled), palette pointer representation. Compiler diagnostic -da output reproduced330 exactly. Evidence and scripts under /Volumes/Data/Codex/tmp/func8006C024/live-nov8/. Still open; main remaining rotated index/palette/encoded assignments and early scratch lifetimes.",
+   "by": "you",
+   "created_at": 1794155579.682261,
+   "score_before": 330,
+   "score_after": 330
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-387ebd14711a400d",
+   "created_at": 1794155608.82271,
+   "score_before": 330,
+   "score_after": 315
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Resumed live API investigation: ten C++ refresh-record models with actual consumed members did not improve the padding-free score22; all numeric scores1107\u20131522. Three equivalent explicit-goto control-flow models scored22/87/87. Source/profile were not adopted. Current baseline still has all body instructions and four pointer spill homes correct; unresolved eight-byte frame reservation. No padding or artificial work added.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794156020.4267452,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Ordinary live API saved315\u2192300, attempt4294968382, source staged300.c. Split frame count into arg1=*sp14;arg1-=temp_s0_2;arg1=(s16)arg1; and use dead new_var4 for initial float index. All relevant arithmetic wrapping preserved; target240/candidate240; exactfalse. This combination recovers initial float conversion scratchv0. Local flag diagnostics caller-saves/strength-reduce/defer-pop unchanged300, no-expensive2555, g0/g1400,g2980; none applied. Partial encoded-value hoisting, merged encoded locals and branch common-tail restructuring did not improve300. Remaining S0/S1/S2 rotation and two small ordering/control differences. Normal judge/profile/header unchanged.",
+   "by": "you",
+   "created_at": 1794156119.90558,
+   "score_before": 315,
+   "score_after": 315
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+   "by": "manual-3b5dd6a268a94e8d",
+   "created_at": 1794156130.956107,
+   "score_before": 315,
+   "score_after": 300
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Search continues from authoritative300/98.7%,240instructions. App deep pass acfb806e1c5b completed388 tests without improvement. Private ordinary-compiler sweep tested276 first-step repairs; a two-step sweep across14 different compiled-output seeds is running and has passed1000 candidates with no <300 yet. Reviewing every potential improvement before normal API submission. Existing best/signature/profile/header preserved. New negative evidence: byte/counter/selector widths, encoded carrier reuse, inlined numeric decoders, register hints, bounded-copy masks, separate delta carriers, name-tail store rewrites. Neither regional twin is exact. Private evidence family-sweep300/, beam300/ under /Volumes/Data/Codex/tmp/func8006C024/live-nov8/.",
+   "by": "you",
+   "created_at": 1794157545.744267,
+   "score_before": 300,
+   "score_after": 300
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Live normal judge now185/99.2%,240 target and candidate instructions, only37 register differences. Attempt4294968388, source field185.c. Added &0x3FF to second encoded-value copy only: rawbyte|(two bits<<8) is exhaustively bounded0..1023, so source values and all outputs unchanged. Compiler eliminates the mask instruction but retains original encoded register for parity/negative normalization, recovering2 register operands. First-branch mask variants do not help. Prior improvements: distributed selector shift across float-conversion arms with a one-shot fallback scope, and extended first post-call scope through sign normalization; those eliminated all remaining order/branch/opcode differences. Same compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3; ABI/header/target unchanged. Installed original SN272/281 compiler diagnostics all worse; not applied. Guarded private random search retained the195 near-miss root and has passed3300 compiled candidates without further improvement; filters reject dummy reads/cancellations, volatile/asm, external-type and function-signature changes. Only reviewed better candidates go through the live API. Evidence /Volumes/Data/Codex/tmp/func8006C024/live-nov8/.",
+   "by": "you",
+   "created_at": 1794160768.5975769,
+   "score_before": 300,
+   "score_after": 300
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Matching investigation: byte-sized internal player/mode captures (ABI unchanged) tested in six forms; all produce the same score 185. Checking focused declaration ordering and contextual repair generation next. No exact match yet.",
+   "by": "you",
+   "created_at": 1794163348.825166,
+   "score_before": 185,
+   "score_after": 185
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Current verified best: score 160 / 99.3%, 240 target and candidate instructions, 32 register differences. Improvement came from a separate s16 first-branch packet index (range 0..255, same ABI). Follow-up palette splitting, index-to-delta reuse and scalar mode tests did not improve it. New isolated permutation search starts from this saved source; every useful result will be verified through normal compile_and_diff.",
+   "by": "you",
+   "created_at": 1794163731.42369,
+   "score_before": 185,
+   "score_after": 185
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Initial current-input investigation: saved505 reproduced independently. Main differences are loop-invariant n*9 hoisting and resulting s5/s6/s7 allocation, not function semantics. Six arithmetic re-associations through live compiler_experiments all worse (645/1290/870/715/1881/940). Private current-input type/scope/helper and flag controls found no improvement so far; no source/profile changes applied. Keep the original saved baseline until normal linked judge proves an improvement.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794164722.4679601,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Compiler investigation: five alternate period compilers (970404,0001,0004,0006,281), each g0/g3, all worse than KMC505. Exact ordinary/-da compiled-byte parity confirmed for the current baseline. GCC loop dump identifies invariant zero-extend of n (reg108, life51) moved before loop, with n*8 and +n following as forced movables (insns131/133). Target keeps n*9 inside. Explicit shifts/staging, split lifetimes, level-pointer capture, bitfield views and explicit wide-index capture did not improve the frozen current-input505; no profile/source changes adopted. Next work should target this forced-movable dependency rather than random whole-function edits.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794165161.1882932,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Normal live compile attempt4294968404 improved505 to495 (98.2%), source revision8d63241b69cf42d6e770. Based on matched neighbouring packer func_8006DDD8: explicit uint32 double-conversion branch, backward goto, precomputed u16 table pointer and separate s32 group_index captured from the wrapped byte. The multiplication now remains inside the loop as in target. No ABI changes, dummy branches, padding or fixed registers. Current remaining differences: j/full-byte register pair s0/s1 swapped, table-address staging and expression instruction order. Plain explicit conversion, goto alone, and width changes alone did not solve it; the combination was needed. All private candidates under /Volumes/Data/Codex/tmp/func8006D10C; normal byte judge remains authority.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794166129.3577302,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Verified checkpoint: score 90 / 99.6%, attempt 4294968403, 240/240 instructions, 18 register differences. Narrow decoded/index storage plus explicit unsigned shift/subtraction recovered additional registers without adding instructions. Both packet encodings are 0..1023, so signed delta is within -1023..1023; the initial index is masked to 0..255. Shifting the unsigned frame-time operands before subtraction preserves the low-16-bit difference and the final signed-16 result. ABI and compiler profile unchanged. No exact match yet. Continuing isolated combined repairs; only reviewed improvements will be saved through compile_and_diff.",
+   "by": "you",
+   "created_at": 1794166224.20642,
+   "score_before": 160,
+   "score_after": 160
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Verified live improvement495\u2192450, attempt4294968407, source48662b73f9a6a10294b6. Wrapping BOTH existing code==5 two-byte fill pairs in one-pass do/while(0) blocks recovers the target s1/full-index and s0/masked-index assignment. One branch alone regressed; depths2/3 tie450 so retained minimal depth1. This is measured compiler-input behaviour, not proof original game used these macros. No added reads, calls, padding or fixed registers. Remaining: call-result/output-pointer a1/a2 swap, table-address sequencing and arithmetic local register order. Direct global-buffer accesses, local code-width changes and pointer assignment placement were worse. Preserve450 source; the old current.c495 is now replaced by fresh API450.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794166717.972874,
+   "score_before": 325,
+   "score_after": 325
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Clean alternative recorded through /api/try: score 1240, source SHA5939c34f24af41deb6823b942372f1bd657f6a45c733c29bfddaff1d775b05a1. Decode into u32 decoded=(b1<<1)|b0, store the map byte, then narrow to u8 dispatcher. This recovers target move v1,v0 without the extra byte mask. Ordinary/-da linked bytes agree (1288 bytes), still nonexact. Selected 1200 stays unchanged. Phase trace: CSE retains the narrow conversion; combine converts switch promotion to an SI copy. Remaining address quantity coalesces with row in a1, allowing SB in the first BEQ delay slot; target uses address v1 then overwrites it and leaves NOP. Count-guard/counter-base lifetimes and unused flag-base+16 remain unresolved. Private receipts and new controls: /Volumes/Data/Codex/tmp/func8006E394/current-nov8.",
+   "by": "you",
+   "created_at": 1794166961.123204,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "Verified live progress450\u2192390 (attempt4294968408) by retaining a short-lived call result while assigning out before copying code; then390\u219280 (attempt4294968409), current source110b7f8ae13190619e23, by explicitly capturing row_product, placing it after k*3 in the sum, and using a separate lookup_base temporary. Same compiler/flags/ABI. Ordinary independent linked-code proof score80-raw-proof.json:1112 bytes, exactly three unequal raw words at relative offsets0x174/0x178/0x17c. All are a rotation: target MOVE a1,v0 before LUI/ADDIU a2, candidate MOVE after those two. The two displayed table HI/LO operand differences are canonical display differences, not additional unequal raw words. Do not modify target metadata/judge. Copying code before initializing out restores order but swaps a1/a2 (score140); lexical lifetime/const/condition-copy, CPU/scheduler switches, line layout, and actual-value temporary reuse did not beat80. Preserve current80.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794167396.626316,
+   "score_before": 325,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Continuing the match investigation. The live ordinary baseline has been revalidated. New independent-array inline-helper, standard register-hint, four-word reset/pointer/memset, and GNU expression-scope controls did not match. A bounded multi-parent native portfolio is running privately against frozen inputs; no source/profile/header changes are being forced. Target address-register lifetime and late unused flags-base definition remain the unresolved leads. Private evidence: /Volumes/Data/Codex/tmp/func8006E394/current-nov8.",
+   "by": "you",
+   "created_at": 1794167881.602813,
+   "score_before": 1155,
+   "score_after": 1155
+  },
+  {
+   "function": "func_8006D10C",
+   "text": "MATCHED via live API, attempt source revision269a51bdb93c1b5c5b8a, then independently recompiled the freshly saved source/profile/header/symbols with the current ordinary compiler/linker:1112/1112 bytes identical, zero unequal bytes. API statusmatched/best0. Final combined change from80: stage the real item pointer, replace the short-lived status copy with direct code=callee(item), and place only that real call/assignment in a single-pass do/while(0) scope. Source SHA256 269a51bdb93c1b5c5b8afdd8c8fd59729e0731e8446f6b25435cc119878d7586. No compiler/ABI changes, padding, dummy evaluations or fixed registers. Earlier source copy placement exposed an allocation-priority tie; moving it alone swapped a1/a2. The individual contribution of each part of the final combined edit has not been isolated. Matched neighbour guided the representation; this does not prove original macro use. The explicit FP conversion domain was checked for all256 row-byte values and3 loop indices against the cartridge constants. Private verification receipt: /Volumes/Data/Codex/tmp/func8006D10C/verified-saved-exact.json. Function-level proof only; no full image rebuild claim.",
+   "by": "manual-7acb4e9352d54994",
+   "created_at": 1794168390.839277,
+   "score_before": 80,
+   "score_after": 0
+  },
+  {
+   "function": "func_8006E394",
+   "text": "New LIVE improvement1200 ->1033 accepted (still OPEN/nonexact). Source SHA70f0bbc92435ebdd6a47ede939d3657202d3d026dc339b2cec33d129a33850b5: widen the actual loop index to u32 while preserving explicit byte conversions at each original read. All loops stop by4/8, so no byte-wrap behavior is lost on the original valid-record domain. Ordinary/-da linked bytes agree1292B SHA bc2cd345e285516950b37cce08a604032e38bc8a0a820071aac0a675f77ea253. Extra Boolean guard eliminated, now masked n inT9 rather than targetS1; frame grows40->56, so this is an aggregate improvement with tradeoffs, NOT exact. Narrower phase scopes1068/1093, u16 carriers1200; update masking worsens. Separate shared m/q alternative1620 recovers initial target mask load/guard but not other allocation. Full evidence and completed negative controls: /Volumes/Data/Codex/tmp/func8006E394/current-nov8/RESUME-RESULTS.md. Native1365/434distinct outputs finished with no match. Continue from LIVE1033 plus retained1240 producer-copy and1980 role/copy alternatives; do not overwrite with older1200.",
+   "by": "you",
+   "created_at": 1794168545.955231,
+   "score_before": 1155,
+   "score_after": 1033
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Superseding live checkpoint: OPEN1013, accepted after1033. Source SHA686b4073bea993577242a4f0adcde2f061abd7ad963c686f770586d1a191ed2b adds only a genuine single-execution scope around n=4/base=8 to the reviewed word-index source. Readable multiline and native printer layouts yield identical linked bytes; normal/-da parity1292B SHA6b743ae96eec75c8c9d6510d20daf6fd0eecf5b8215af2a37fd8411b5d3a1f77. Count assignments recover targetT5. Frame remains56vs40; this is NOT exact and not a uniform improvement. New native399 candidates finished; no exact. Further guard and scope/width controls retained privately. RESUME-RESULTS.md has full evidence. Continue from current1013, retain1200/1240/1980 alternative mechanisms; never assume score0 or matched without fresh linked verdict.",
+   "by": "you",
+   "created_at": 1794168898.2385302,
+   "score_before": 1033,
+   "score_after": 1013
+  },
+  {
+   "function": "func_8006BA44",
+   "text": "EXACT MATCH verified by live compile_and_diff and fresh API readback: 259 instructions / 1036 linked bytes identical, source SHA256 6af2564de1fbc579e60db7fa3d559d2b2b9254c847f08accdd6a95921b6bad65. Existing GCC 2.7.2 KMC profile unchanged. Preserve source line layout: negative conversion split plus high-bit OR on one line; staged speed multiplication and final division/store on ONE line, otherwise this compiler inserts two extra NOPs. An explicit goto loop with threshold snapshot and packet-table snapshot recovers constant-load registers. Snapshot the unscaled coordinate index before the table address and final *2 to recover preheader scheduling. The magnitude locals are safely reused in the final loop test after their previous values die; this prevents first-CSE from replacing their uses with the signed-offset copy. Numeric-vs-symbol LUI annotation still differs cosmetically but all linked bytes match; do not change source to repair that display. Full-cartridge rebuild has not been run for this function in this session. Detailed private evidence: /Volumes/Data/Codex/tmp/func8006BA44/live-nov8/STATUS.md and exact-linked-receipt.json.",
+   "by": "manual-992996c551874634",
+   "created_at": 1794169341.0918348,
+   "score_before": 645,
+   "score_after": 0
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Search calibration found a formatting regression: the pinned permuter renderer recompiles unchanged score-80 C as score 310 / 242 instructions. Collapsing only the existing numerator load, product and speed-store statements onto one physical source line recovers score 80 / 240 instructions and the identical linked-byte hash on nine independently validated source layouts. A private generation helper now preserves that verified line group; the running app itself has not been patched or restarted. Starting a fresh feedback search from calibrated layouts. Live best remains 80 (16 register differences); no exact match yet.",
+   "by": "you",
+   "created_at": 1794169857.717632,
+   "score_before": 90,
+   "score_after": 90
+  },
+  {
+   "function": "func_8006E394",
+   "text": "New selected LIVE checkpoint755 (via830 from1013), still OPEN/nonexact. SHA5c0eabfdeef5d7ff118cfc43ddd8c8702cf5a269c4e43444311bfd0d8b973c63. Restores original byte i and correct40B frame. In flag loop, capture b=i and use the promoted index; later overwrite same b with base+i for map rows. Also reuse u16 m for packed-halfword phase (old byte-mask value is dead). Word decoded -> byte store -> u8 dispatcher capture retained. This real shared scalar lifetime makes b global-allocation A1, preventing address coalescing: exact target SB V0,(V1), MOVE V1,V0, followingNOP recovered. First840 linked bytes /210 full instructions are EXACT to target, proven by ordinary raw-byte comparison; full ordinary/-da parity1292B SHA fe2d0a0a714f87e28351aa7541d93b547b4ad4db705bdfdf4db2d3c09e0adaf4. Only18 aligned differing rows remain (not18 byte edits): masked guard vsBoolean; rootS1 vs rematerialized counter base; unexplained unused late flags+16; high SLTIU/SLL/OR before instead of after address ops. Two app sweeps240 flags each on1013 then755 finished with no better/exact settings; no profile applied. Native feature portfolio1200 sources/400outputs terminal, no exact. Private700 biased-offset variant has same18 aligned differences and loses desired counterLUI, so not promoted merely for aggregate score. All evidence/negative controls: /Volumes/Data/Codex/tmp/func8006E394/current-nov8/ROUND2-RESULTS.md. Continue from LIVE755 and retained alternatives, not old1013.",
+   "by": "you",
+   "created_at": 1794171112.391538,
+   "score_before": 1013,
+   "score_after": 755
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Continued focused final-loop search: 1,500 ordinary linked candidates produced 392 distinct linked outputs, none beat the selected score 755. A separate 300-layout whitespace control produced exactly the same linked bytes every time; line breaks alone are not the missing scheduling mechanism for this GCC profile. Submitted a real store-result copy boundary as a controlled live attempt (offline 905); retain selected 755. Now testing defined entry-guard/backedge lifetimes and address construction. Still OPEN, first 210 selected instructions byte exact.",
+   "by": "you",
+   "created_at": 1794172377.052835,
+   "score_before": 755,
+   "score_after": 755
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Continuing register-allocation search from verified score 80. Testing 1,040 repair-family variants from four byte-identical bounded-type layouts. No match claimed; candidates will be checked normally and submitted here only after equivalence review.",
+   "by": "you",
+   "created_at": 1794172428.8090901,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Register-lifetime investigation completed: 1,040 repair-family variants from four byte-identical bounded-type roots, plus 216 targeted tail/type/address/sign variants. No candidate beat saved score 80. Pre-call decoded-value capture gets index and decoded registers right, but swaps palette/encoded registers (score 100); retained privately as alternative evidence. Live saved source remains unchanged and unmatched.",
+   "by": "you",
+   "created_at": 1794172591.9086301,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "App connection restored; saved best remains score 80/open. Previous pass completed 1,256 additional candidates with no improvement. Starting calibrated batched exploration from byte-identical bounded-type roots. Each batch includes baseline controls; promising candidates and accepted neutral parents are rechecked separately with the ordinary judge before any live submission.",
+   "by": "you",
+   "created_at": 1794172721.510437,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Calibrated batched search: 662 candidates checked, neutral frontier depth 5; no improvement below score 80. Additional 236 arithmetic/lifetime/format-only variants also did not improve. Search remains running; saved source retained.",
+   "by": "you",
+   "created_at": 1794172890.5900102,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Accepted and independently relinked new byte-guard/backedge best: score 555 (98.28173374613003%), still not exact. Source SHA256 5697e58017eeac15c8586cce6fc35d00586666ca34a6efe1854da23631fb7542; 1292 linked bytes, first 210 whole instructions exact. Ordinary and diagnostic outputs identical; MIPS GNU89 uninitialized checks pass. Live survey completed 240/240 with no better profile and no auto-application. Focused final-player-loop search on this new parent finished 1500 candidates without further improvement. Expanded a private generator region to include the real preceding flag/guard/counter-clear phases; this lane is running. No invented dead pointer, volatile, assembly or judge change.",
+   "by": "you",
+   "created_at": 1794173098.787383,
+   "score_before": 755,
+   "score_after": 555
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Search update: over 1,800 batched candidates now recorded; still no score below 80. Targeted 178 variants covering palette byte loads, finished-temporary reuse, conditional delta assignment, inline name helpers and standard register hints also found no gain. Compiler dump confirms the alternate score-100 layout allocates the encoded value before the palette pointer; investigating allocation while preserving exact opcode/control flow.",
+   "by": "you",
+   "created_at": 1794173183.4932039,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Search update: baseline-80 exploration reached 2,531 candidates, depth 13, without gain. Shared encoded-variable and 40 compiler-option diagnostics also negative. A separate controlled search now explores the score-100 pre-call-capture layout (correct index/decoded registers but swapped palette/encoding registers), retaining the live score-80 best. Both searches recheck promising results with the ordinary judge.",
+   "by": "you",
+   "created_at": 1794173375.246609,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Controlled searches have reached over 3,200 baseline-layout candidates and over 800 alternate-layout candidates, with no improvement below score 80. Another 122 targeted byte-lifetime, input-staging, wide-type and decoded-sign variants were negative. Both searches continue; live saved candidate remains unchanged.",
+   "by": "you",
+   "created_at": 1794173642.0922382,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Expanded flag/guard/clear/map native region finished 1500 candidates with no improvement over555. All-installed live survey finished498 trials:417 had numeric comparison results,81 failed compilation/comparison; none exact or better, no profile applied. Compiler dumps show two NOTE_INSN_LOOP_END markers force the map-address SLL after the current word OR. Controlled boundary moves are valid C but also change allocation/producer-copy: live1540 control agrees with offline and is not adopted. Remaining source problem is not solved by removing loop barriers alone. A private neutral-bridge search now retains up to3 distinct token forms per identical linked output (with binary/feature diversity), seeded by16 verified same-byte source forms; testing subsequent combinations without modifying the app/judge. Selected live source remains555,98.28%,OPEN.",
+   "by": "you",
+   "created_at": 1794173728.984027,
+   "score_before": 555,
+   "score_after": 555
+  },
+  {
+   "function": "func_8006C024",
+   "text": "No improvement from another 100 scalar-wrapper and byte-width variants. Two controlled searches continue (over 3,800 and 1,400 candidates). Added a bridge search retaining diverse, separately compiled 960-byte layouts with scores up to 200 to explore combined repairs across temporary regressions. These are private search parents, not accepted source; any prospective winner requires source review and normal live verification. Saved best remains 80.",
+   "by": "you",
+   "created_at": 1794173882.7713568,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Fresh normal live API verification: alternate pre-call layout scored 100 (attempt 4294968436), so restored saved counter80 source and recompiled it: score 80, 99.6%, 240 instructions, 16 register differences (attempt 4294968439, revision 48e776dc0d5cb013aedd). Source remains open, not matched. Searches continue: over 4,800 baseline-layout candidates, 2,400 alternate-layout candidates, and 490 bridge-search candidates. Frame-temporary reuse (24 candidates) gave no improvement.",
+   "by": "you",
+   "created_at": 1794174161.1560209,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "No gain from 36 packet-bitfield representations or 8 shared-tail CFG layouts. The extracted-tail layouts introduced branch-target differences, so they are not improvements. Saved live source remains freshly verified at score 80. Controlled searches continue past 5,400 baseline-layout candidates, 3,100 alternate-layout candidates and 990 bridge candidates; no prospective winner below 80 yet.",
+   "by": "you",
+   "created_at": 1794174396.539405,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Added allocation-guided private search. Calibrated standard compiler diagnostic flags against ordinary compilation: identical linked bytes, score 100 for alternate layout. Compiler dump gives encoded priority 0.53846 versus palette 0.52, explaining the undesired register order. New search ranks safe source-layout variants by these allocator measurements while retaining normal standalone/live verification for any improvement. Live profile and saved score-80 source are unchanged.",
+   "by": "you",
+   "created_at": 1794174635.745261,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Resumed matching investigation. Current live candidate remains score 2: two linked table-pointer stack accesses differ, while the body-exact alternative has a frame-size mismatch. Reviewing existing negative controls before new stack-allocation source-shape tests. No compiler, target, or judge changes.",
+   "by": "manual-4b5e522973654a6d",
+   "created_at": 1794174903.301504,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Verified improvement saved through normal compile_and_diff: score 80 \u2192 70 (99.7%), 240 instructions, attempt 4294968440, revision 07c7a22df336cd2dd10d. Only two register differences in frame subtraction and one copy/load ordering swap remain. Source change: retain the reviewed pre-call decoded-value capture and wrap the actual second name-character write in a once-only block; no added memory operations, calls, ABI or compiler changes. Old private searches intentionally retired after the new checkpoint. Renderer roundtrip independently retains score 70/960 bytes; new controlled search starts from this improved source and six byte-identical equivalents.",
+   "by": "you",
+   "created_at": 1794175023.9781811,
+   "score_before": 80,
+   "score_after": 80
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "Current-input investigation completed 16 explicit table-storage shapes, 16 narrow call-scope variants across live/body-exact roots, and 20 consumed-real-constant controls. None was exact or improved live score 2. The local table field at offset +4 can force sp+0x14 but changes register allocation/scheduling; increasing its reservation shifts the other real spills. Call scopes that preserve the body retain the same stack discrepancy. Inputs unchanged; no target/judge/profile changes. Private receipts: /Volumes/Data/Codex/tmp/func8007A29C/resume-20261108. Next investigation should target compiler frame high-water versus spill-slot lifetime, not repeat these field/padding shapes.",
+   "by": "manual-4b5e522973654a6d",
+   "created_at": 1794175240.313347,
+   "score_before": 2,
+   "score_after": 2
+  },
+  {
+   "function": "func_8006E394",
+   "text": "Clean neutral-source search ended with2261 saved candidates/563 distinct linked outputs, no result below555; no search process remains. An earlier private lane was intentionally stopped after detecting a native dummy comma identity; none of its candidates were adopted. Replacement excludes dummy comma/XOR-zero/multiply-zero/masks/redundant assignments and fabricated constant branches, with an AST check and rejected-bad-seed control. Additional shared-field views/getters, separate objects across installed compiler versions, unrolled real clears, and real clear-bound reuse were negative. Live separate-object control cross-checks private950; selected555 retained. Read-only donor analysis includes raw ROM-backed matched functions and original ELF target objects for imported N64 projects; a delay-slot/branch-aware dead-register screen found no corresponding C donor in available data. Availability/unknown-instruction limits apply; this is not proof that no ordinary C can match. StillOPEN98.28%; further work must explain the late unused address and remaining scheduling/register lifetime without manufactured work.",
+   "by": "you",
+   "created_at": 1794175287.088352,
+   "score_before": 555,
+   "score_after": 555
+  },
+  {
+   "function": "func_8007A29C",
+   "text": "EXACT through the ordinary live API: revision 576c03fd0b3b09295bbc, all 251 instructions / 1004 bytes. Independent ordinary and -da/-save-temps compiles produce target SHA256 919f0803b07ced1f2696f6d0214327769b6fcbae3761fc6750a72e998e862526 with frame 0x60 and only the focal function symbol. No padding object remains. Winning edit from body-exact padding-free root: static inline s16 normalization of the actual u16 off value immediately before H(node,8) store. Exhaustive 65536-input check preserves the stored low 16 bits. Compiler lreg/greg introduces pseudo 174 with empty conflicts, no assigned hard register; frame grows by the missing 8 bytes without new emitted instructions. All earlier real pointer spill offsets remain correct. Existing automatic spill_normalization misses this halfword-store site: it only discovers masked signed-word locals. Private proof: resume-20261108/verified-exact.json. No complete-cartridge rebuild claimed.",
+   "by": "manual-4b5e522973654a6d",
+   "created_at": 1794175491.030036,
+   "score_before": 2,
+   "score_after": 0
+  },
+  {
+   "function": "func_8006C024",
+   "text": "Score-70 continuation: 179 targeted decoded-carrier, 16-bit wrapping, name-load/value, parameter-hint and inline-frame-helper variants found no lower score. Controlled search from the new checkpoint has passed 1,600 candidates and remains active. The live saved source remains 70 (99.7%), 240 instructions; two register differences and one copy/load ordering swap remain.",
+   "by": "you",
+   "created_at": 1794175502.082071,
+   "score_before": 70,
+   "score_after": 70
   }
  ],
  "set_aside": [
@@ -261669,6 +262052,94 @@
     "relocations_sha256": "20b54448cf9e49e209eb1eb06bc9372b10b2f5c1d7cb99e0ce2a50923a2d1826",
     "vram": 2147679592,
     "unit": "code_80026E3C",
+    "mode": "rom"
+   },
+   "func_8002FFA4": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794174994.824718,
+    "attempt_id": 4294968441,
+    "source_sha256": "0258019f414ee95739c09bb22d879bd2af3cf24881142fa900c9bc529ce0c7d6",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 49,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "local_source_671",
+     "scoring_revision": "b228fe15dbca941702b66dda8724698a6e6ba08664d43dd00e4780686848eab7",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "99a1172ffed64668ff7150c8a15ad8d37847c56f3c775f085e3bc6ae47d3b6c9",
+    "relocations_sha256": "b75a1ecbc055d6c1a20497192ed71baba7122188fb25792b9ca74a62c016f54c",
+    "vram": 2147680164,
+    "unit": "local_source_671",
     "mode": "rom"
    },
    "func_8003035C": {
@@ -280409,6 +280880,94 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
+   "func_8006603C": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794155493.77313,
+    "attempt_id": 4294968381,
+    "source_sha256": "d1824bf62ccdb00bde5b2dae8d782bc92522d4654df196af95645202627e72fa",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "223374221671c1ec874676441f084ec08487cc9890528ca5657e720250173bbc",
+    "relocations_sha256": "c54061d679e46cc2e7df6959ad6d4ee99d92119f33cfc634de1e0bb3ad735420",
+    "vram": 2147901500,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
    "func_80066384": {
     "format": 1,
     "verdict": "exact",
@@ -282169,6 +282728,100 @@
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
+   "func_8006BA44": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794169251.749525,
+    "attempt_id": 4294968429,
+    "source_sha256": "6af2564de1fbc579e60db7fa3d559d2b2b9254c847f08accdd6a95921b6bad65",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G8",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-fno-strength-reduce",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G8",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-ffast-math",
+       "-fno-strength-reduce",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G8",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-ffast-math",
+      "-fno-strength-reduce",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "5bd8548a52482b92cd59a084880be82fb606ffa376919d06ee06e751a8c1bc4a",
+    "relocations_sha256": "403cc654503ca6f423a27c98a9ea51dc3fc1f842f42ebac9af5febd2fee17be5",
+    "vram": 2147924548,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
    "func_8006BF30": {
     "format": 1,
     "verdict": "exact",
@@ -282870,6 +283523,94 @@
     "target_sha256": "a57b708f3ada6ef03e5fba9a6f1dd5200376565abdccf5110940b988ac667f07",
     "relocations_sha256": "2efa6ba78a0c6a72dabe1feb71003ec7b70950980849b7c9084ea9404207a9c5",
     "vram": 2147929980,
+    "unit": "code_8004BEB4",
+    "mode": "rom"
+   },
+   "func_8006D10C": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794168030.820725,
+    "attempt_id": 4294968414,
+    "source_sha256": "269a51bdb93c1b5c5b8afdd8c8fd59729e0731e8446f6b25435cc119878d7586",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "4b0b14f0b4a6f1c3c00ce79b719f77ce975eddbf3a1f299043b0e11230486a4f",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "f4b1ede57ca0c37fec0f9a64fbba9104a1b3ac9d54a0e37da9ea1730b8d3ac0f",
+    "relocations_sha256": "02e0383c0d24a297fb6efa2c5771ba299b5a52002c4de8d46fb4afc9baac9915",
+    "vram": 2147930380,
     "unit": "code_8004BEB4",
     "mode": "rom"
    },
@@ -285862,6 +286603,94 @@
     "target_sha256": "2a83231152d946e8377ed5965b89ab371db97f5ce8654e43ae0e9e1163b2bc4d",
     "relocations_sha256": "fbade1825aac4ceebd5e973610506f27830548e48e4a52d0a68d573f053ce6d2",
     "vram": 2147983388,
+    "unit": "code_8007950C",
+    "mode": "rom"
+   },
+   "func_8007A29C": {
+    "format": 1,
+    "verdict": "exact",
+    "abi": {
+     "arch": "mips",
+     "big_endian": true,
+     "gp": 0,
+     "platform": "n64",
+     "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+    },
+    "symbols_sha256": "55bff5bdf061f7e3d1007bbbeec309c7c82bfd92f80b7b600cf7182f5943350c",
+    "recorded_at": 1794175446.2316911,
+    "attempt_id": 4294968445,
+    "source_sha256": "576c03fd0b3b09295bbc09863c7518dec81ee3726b0c9fbab3e4762fd6fa597c",
+    "header_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
+    "context_version": 17,
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "compiler_identity": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "registry_sha256": "d940dca827e94a5f7484530ff8aacf51e3dada87e9bc8258b83e478e584d31e9",
+     "install_sha256": "581abceb0d6e157668aae83b7f785123222f245b407d3ba84c7747065535b4c1",
+     "executables": {
+      "gcc": "c95e212b056473aacbee514936ff394f3354729abfbf895bf7831e164f168f25",
+      "cc1": "3160c6f0fb4697cdc6bd3412333a5a8e64b23e9e4dd6d01951422a63bee2c60a",
+      "as": "0d75e9d3446ddab2c9c1dd7b402031316d3dc47131ba96399c2a37c74e050f45"
+     }
+    },
+    "settings": {
+     "mode": "rom",
+     "platform": "n64",
+     "compiler": {
+      "toolchain": "gcc-2.7.2-kmc",
+      "flags": [
+       "-G0",
+       "-mips3",
+       "-mgp32",
+       "-mfp32",
+       "-O2",
+       "-g3"
+      ],
+      "timeout": 20
+     },
+     "settings_source": "compile invocation snapshot",
+     "gp": 0,
+     "big_endian": true,
+     "rom": {
+      "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+      "game_code": "NVLP",
+      "region": "Europe",
+      "byte_order": "z64"
+     },
+     "effective_command": [
+      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+      "-c",
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3",
+      "-I{include}",
+      "{src}",
+      "-o",
+      "{obj}"
+     ],
+     "language": "c",
+     "context_unit": "",
+     "scoring_revision": "b228fe15dbca941702b66dda8724698a6e6ba08664d43dd00e4780686848eab7",
+     "context_sha256": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212"
+    },
+    "target_sha256": "919f0803b07ced1f2696f6d0214327769b6fcbae3761fc6750a72e998e862526",
+    "relocations_sha256": "c5a2219ff9bcb78f8013315351d8b53e862bee4e06519645bbf6045e4f692def",
+    "vram": 2147984028,
     "unit": "code_8007950C",
     "mode": "rom"
    },
@@ -293459,6 +294288,7 @@
    "1023287254265b3ba214240d29b5b991e94c0923356e41f3c7258fe7d878d7a3": "s32 func_800857C0(s32, s32);\nextern char D_800AE850[];\n\nvoid func_8002FB64(void)\n{\n  u8 i;\n  u32 n;\n\n  n = 0;\n  for (i = 0; i < 4; n = ++i) {\n    *((s32 *) (D_800AE850 + 0x2394 + (i << 4))) = 0;\n    *((s8 *) (D_800AE850 + 0x239C + (i << 4))) = func_800857C0(i, 2);\n    *((s8 *) (D_800AE850 + 0x239D + (i << 4))) = 0;\n  }\n}\n",
    "5ea579d8fd5a2e026fada5c5354ae0bb2644b06b4864036c763ea8defb1bbad5": "s32 func_800857C0(s32, s32);\ns32 func_800857EC();\nextern s32 D_8009D538;\nextern void *D_800A0384;\nextern u8 D_800AE850[];\nextern char D_800C02AE[];\nstatic inline int inline_fn(u8 **arg0)\n{\n  return (*((s32 *) (*arg0))) * 0x10;\n}\n\nvoid func_8002FBD4(u8 *arg0, s32 arg1, s32 arg2)\n{\n  s32 idx;\n  s32 off;\n  u8 s0;\n  if ((*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0x1E))) == 7)\n  {\n    return;\n  }\n  if (D_8009D538 & 0x800)\n  {\n    return;\n  }\n  idx = *((s32 *) (*((u8 **) (arg0 + 0x48))));\n  if (idx >= 4)\n  {\n    return;\n  }\n  if ((*((u8 *) (((u8 *) D_800A0384) + 0x384))) != 0)\n  {\n    return;\n  }\n  if ((*((s32 *) ((*((u8 **) (arg0 + 0x6C))) + 0x34))) != 0)\n  {\n    return;\n  }\n  off = idx << 4;\n  if (D_800AE850[0x239D + off] != 0)\n  {\n    return;\n  }\n  if ((*((s32 *) (arg0 + 0x14))) & 0x100)\n  {\n    return;\n  }\n  s0 = D_800AE850[0x239C + off];\n  if (s0 != func_800857C0(idx & 0xFF, 2))\n  {\n    *((u8 *) ((D_800AE850 + 0x239D) + inline_fn((u8 **) (arg0 + 0x48)))) = 1;\n    *((s32 *) ((D_800AE850 + 0x2394) + inline_fn((u8 **) (arg0 + 0x48)))) = 0;\n  }\n  off = (*((s32 *) (*((u8 **) (arg0 + 0x48))))) << 4;\n  if (D_800AE850[0x239D + off] != 0)\n  {\n    return;\n  }\n  if ((*((s32 *) ((D_800AE850 + 0x2394) + off))) != 0)\n  {\n    return;\n  }\n  *((s32 *) ((D_800AE850 + 0x2394) + off)) = 1;\n  *((u16 *) ((D_800AE850 + 0x2392) + inline_fn((u8 **) (arg0 + 0x48)))) = 0;\n  *((u8 *) ((D_800AE850 + 0x2390) + inline_fn((u8 **) (arg0 + 0x48)))) = arg2;\n  func_800857EC(*((u8 *) ((*((u8 **) (arg0 + 0x48))) + 3)), 2, arg1 & 0xFF);\n}\n",
    "d06673df71c7cdda24fa394afe23c4f97a22647490fdc8ec5fedee643a8afed6": "s32 func_800857C0(s32, s32);\ns32 func_800858A4();\nextern char D_800AE850[];\n\nvoid func_8002FD68(void)\n{\n  s32 var_s4;\n  s32 var_s5;\n  u8 var_s3;\n  u8 idx;\n  s32 s1;\n  s32 var_v1;\n\n  var_s3 = 0;\n  var_s5 = 1;\n  var_s4 = (s32)(D_800AE850 + 0x2390);\n  do\n  {\n    idx = var_s3;\n    s1 = idx << 4;\n    if (*((u8 *)(D_800AE850 + 0x239C + s1)) != func_800857C0(idx, 2))\n    {\n      *((u8 *)(D_800AE850 + 0x239D + s1)) = var_s5;\n      *((s32 *)(D_800AE850 + 0x2394 + s1)) = 0;\n    }\n    if (*((s32 *)(D_800AE850 + 0x2394 + s1)) != 0)\n    {\n      var_v1 = s1 + var_s4;\n      *((s16 *)(var_v1 + 2)) = *((u16 *)(D_800AE850 + 0x2392 + s1)) + 1;\n      if (*((u8 *)(D_800AE850 + 0x2390 + s1)) <= *((u16 *)(D_800AE850 + 0x2392 + s1)))\n      {\n        *((s32 *)(D_800AE850 + 0x2394 + s1)) = 0;\n        func_800858A4(idx, 2, 0);\n      }\n    }\n    var_s3++;\n  } while (var_s3 < 4);\n}\n",
+   "0258019f414ee95739c09bb22d879bd2af3cf24881142fa900c9bc529ce0c7d6": "#define PTS(off) (*(u16 *)((off) + *(u8 **)(arg0 + 0x54)))\n#define COORD(off, c) (*(u16 *)(*(u8 **)(arg0 + 0x54) + (((off)/2 + (c)) * 2)))\ntypedef struct \n{\n  s16 x;\n  s16 y;\n  s16 z;\n} RRInterpPoint;\nvoid func_8002FFA4(void *o, s32 arg1, s16 arg2, void *out)\n{\n  u8 *arg0 = (u8 *) o;\n  s16 d[3];\n  s32 t;\n  s32 prev;\n  s32 next;\n  u16 *pa;\n  u8 *base;\n  s32 rr_index_product;\n  rr_index_product = arg1 * (*((u16 *) (arg0 + 0x8A)));\n  prev = rr_index_product + (*((s32 *) (arg0 + 0x4C)));\n  {\n    next = prev - 2;\n    arg1 = prev + 2;\n    if (arg2 < 50)\n    {\n      s16 d0;\n      s32 a;\n      s32 b;\n      u16 *pb;\n      int new_var;\n      base = *((u8 **) (arg0 + 0x54));\n      a = prev * 6;\n      b = next * 6;\n      pa = (u16 *) (((u32) a) + ((u32) base));\n      pb = (u16 *) (((u32) b) + ((u32) base));\n      d0 = (*pa) - (*pb);\n      d[0] = d0;\n      new_var = 1;\n      d[1] = ((u16) ((RRInterpPoint *) (((u32) a) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y) - ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y);\n      d[2] = ((u16) ((RRInterpPoint *) (((u32) a) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z) - ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z);\n      d[0] = (d[0] * ((s32) arg2)) / 50;\n      d[1] = (d[1] * ((s32) arg2)) / 50;\n      d[2] = (d[2] * ((s32) arg2)) / 50;\n      *((s16 *) (((u8 *) out) + 0)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->x) + d[0];\n      *((s16 *) (((u8 *) out) + 2)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y) + d[new_var];\n      *((s16 *) (((u8 *) out) + 4)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z) + d[2];\n    }\n    else\n    {\n      s16 d0;\n      s32 a;\n      s32 b;\n      u16 *pb;\n      int new_var;\n      base = *((u8 **) (arg0 + 0x54));\n      a = arg1 * 6;\n      b = prev * 6;\n      pa = (u16 *) (((u32) a) + ((u32) base));\n      pb = (u16 *) (((u32) b) + ((u32) base));\n      d0 = *pa - *pb;\n      t = ((s32) arg2) - 50;\n      d[0] = d0;\n      new_var = 1;\n      d[1] = ((u16) ((RRInterpPoint *) (((u32) a) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y) - ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y);\n      d[2] = ((u16) ((RRInterpPoint *) (((u32) a) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z) - ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z);\n      d[0] = (d[0] * t) / 50;\n      d[1] = (d[1] * t) / 50;\n      d[2] = (d[2] * t) / 50;\n      *((s16 *) (((u8 *) out) + 0)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->x) + d[0];\n      *((s16 *) (((u8 *) out) + 2)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->y) + d[new_var];\n      *((s16 *) (((u8 *) out) + 4)) = ((u16) ((RRInterpPoint *) (((u32) b) + ((u32) (*((u8 **) (arg0 + 0x54))))))->z) + d[2];\n    }\n  }\n}\n\n",
    "b1ff1a9317f540cc6ad76615c22a07713391a75e2a8d1aba0863ccbf9d64abc7": "typedef struct { u16 x; u16 y; u16 z; } V303;\ntypedef struct { s16 x; s16 y; s16 z; s16 pad; } SV303;\ntypedef struct\n{\n  u8 pad[0x4C];\n  s32 base;\n  u32 pad50;\n  V303 *table;\n  u8 pad58[0x32];\n  u16 stride;\n} O303;\ns32 func_8002D2A0(s32);\ns32 func_8003035C(void *o, s32 row, void *pos)\n{\n  SV303 a;\n  SV303 b;\n  SV303 c;\n  s32 n;\n  s32 d;\n  s32 e;\n  n = row * (*(u16 *)((u8 *)o + 0x8A)) + (*(s32 *)((u8 *)o + 0x4C));\n  c.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n  c.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n  a.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n  a.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n  if (c.x * a.x + c.z * a.z > 0)\n  {\n    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n    d = func_8002D2A0(a.x * a.x + a.z * a.z);\n    e = func_8002D2A0(b.x * b.x + b.z * b.z);\n    d = e * 1000 / d;\n    d = 500 - d / 2;\n  }\n  else\n  {\n    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));\n    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));\n    d = func_8002D2A0(a.x * a.x + a.z * a.z);\n    e = func_8002D2A0(b.x * b.x + b.z * b.z);\n    d = e * 1000 / d;\n    d = d / 2 + 500;\n  }\n  return d;\n}",
    "df184c1779889bb6edf9f2b7a19371c5f1aee4d6aff8392f23e0ef7c1e862461": "typedef struct Sample\n{\n  u16 a;\n  u16 b;\n  s16 angle;\n  char pad[6];\n} Sample;\ntypedef struct Stats\n{\n  s16 a;\n  s16 b;\n  s16 c;\n  s16 d;\n  s16 e;\n  s16 f;\n  u16 mode;\n  u8 eidx;\n  u8 fidx;\n  s16 rise;\n  u16 fall;\n  char pad14[4];\n  s16 field18;\n  u8 field1a;\n  u8 pad1b;\n  Sample *samples;\n} Stats;\ntypedef struct Road\n{\n  char pad0[8];\n  s16 index;\n  u16 flags;\n  char padc[0x4c];\n  struct Road *prev;\n  struct Road *next;\n  char pad60[0x18];\n  Stats *stats;\n  char pad7c[0xc];\n  u16 count;\n} Road;\nu16 func_8002D2A0(s32);\ns32 func_8002D2C8(s32, s32);\nvoid func_800306A8(Road *, s32, s32 *);\nvoid func_80033CD4(Road *, s32, s32 *);\nextern s32 D_8009EB80;\nextern char D_800A73E0[];\nextern char D_800C02AE[];\nvoid func_80033724(void);\nstruct VolCount{char pad[136];volatile u16 count;};union VolRoad{Road road;};\ntypedef union{Road *ptr;u32 bits;} RootBits;\nvoid func_80030A0C(Road *arg0)\n{\n  u32 heights[8];\n  s32 p30[4];\n  s32 p40[4];\n  s32 p50[4];\n\nint new_var4;\n  u16 second_count;\ns32 sp6C;\n  u16 sp76;\n  u16 sp7E;\n  int new_var;\n  Sample *sp84;\n  char *sp8C;\n  Sample *var_a2_2;\n  Sample *var_a2_3;\n  Sample *var_s3;\n  s32 temp_a0_8;\n  s32 temp_a0_9;\n  s32 temp_v0_2;\n  s16 var_v0_2;\n  s32 *temp_v1_6;\n  Road *temp_a0;\n  s32 temp_a0_2;\n  s32 temp_a0_3;\n  s32 temp_a0_4;\n  s32 temp_a0_6;\n  s32 temp_a0_7;\n  s32 temp_s3;\n  s32 temp_v0_3;\n  Road *temp_v0_5;\n  s32 temp_v1_10;\n  s32 temp_v1_2;\n  s32 temp_v1_4;\n  s32 temp_v1_7;\n  s32 temp_v1_8;\n  s32 temp_v1_9;\n  Road *var_a0;\n  s32 var_a0_2;\n  s32 var_a0_3;\n  s32 var_a0_4;\n  Road *var_a0_5;\n  Road *var_a0_6;\n  s32 var_a0_7;\n  s32 var_a1;\n  u32 *new_var3;\n\n  u32 var_a1_2;\n  s32 var_a1_3;\n  s32 var_a1_4;\n  s32 var_a2;\n  unsigned short new_var2;\n  s32 var_fp;\n  s32 var_s0;\n  Road *var_s2;\n  s32 var_s4;\n  s32 var_v0_3;\n  s32 var_v0_5;\n  s32 var_v0_6;\n  s32 var_v0_7;\n  s32 var_a1_5;\n  s32 var_a1_6;\n  u16 temp_a0_5;\n  u16 temp_v1;\n  u16 temp_v1_11;\n  u16 var_v0_4;\n  u16 var_v0_8;\n  u16 var_v1;\n  s32 temp_v0;\n  s32 temp_v1_3;\n  s32 var_s1;\n  s32 var_v0;\n  void *temp_s0_3;\n  Stats *temp_s6;\n  void *temp_v0_4;\n  Stats *temp_v0_6;\n  void *temp_v1_5;\n  u16 *flags;\n  s16 *negative;\ns16 phase_i;\n\n  var_s2=(Road*)((RootBits)arg0).bits;\n  sp6C = 0;\n  sp76 = 0;\n  sp8C = (char *) heights;\n  do\n  {\n    temp_s6 = var_s2->stats;\n    flags = &var_s2->flags;\n    negative = &temp_s6->b;\n    var_s2->index = sp76++;\n    temp_s6->field1a = 0;\n    sp84 = temp_s6->samples;\n    var_s2->stats->field18 = 0;\n    temp_s6->a = 0U;\n    *negative = 0U;\n    temp_v1 = var_s2->count;\n    temp_v0 = temp_v1 >> 1;\n    phase_i = (s16) temp_v0;\n\n    if (((s32) temp_v0) < (temp_v1 - 2))\n    {\n      do\n      {\n        func_80033CD4((Road *) var_s2, (s32) ((s16) phase_i), &p30[0]);\n        func_80033CD4((Road *) var_s2, ((s16) phase_i) + 1, &p40[0]);\n        var_a0 = var_s2->next;\n        if ((var_a0 != 0) && (((s16) phase_i) == (var_s2->count - 1)))\n        {\n          var_a1 = 1;\n          func_80033CD4(var_a0, var_a1, p50);\n        }\n        else\n        {\n          var_a0 = var_s2;\n          var_a1 = ((s16) phase_i) + 2;\n          func_80033CD4(var_a0, var_a1, p50);\n        }\n        var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);\n        var_a0_2 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);\n        if ((var_s0 < (-0x400)) & (var_a0_2 >= 0x401))\n        {\n          var_s0 += 0x1000;\n        }\n        if ((var_a0_2 < (-0x400)) & (var_s0 >= 0x401))\n        {\n          var_a0_2 += 0x1000;\n        }\n        var_s0 = var_s0 - var_a0_2;\nif(var_s0<0){*negative=(u16)(*negative-var_s0);goto inc_first;}if(var_s0>0){temp_s6->a=(u16)(temp_s6->a+var_s0);}inc_first:var_v0=++phase_i;}\n      while ((s16)var_v0 < (var_s2->count - 2));\n    }\n    temp_a0 = var_s2->next;\n\nnew_var4=1;\n    if (temp_a0 != 0)\n    {\n      second_count = ((volatile Road*)temp_a0)->count;\n      var_s1 = 1;\n      var_v0_2 = 1;\n      temp_v0_2 = 1;var_v0=1;\n      goto second_test;\n      second_body:\n      {\n        func_80033CD4((Road *) temp_a0, (s32) ((s16) var_s1), &p30[0]);\n        func_80033CD4((Road *) var_s2->next, ((s16) var_s1) + 1, &p40[0]);\n        func_80033CD4((Road *) var_s2->next, ((s16) var_s1) + 2, &p50[0]);\n        var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);\n        var_a0_3 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);\n        if ((var_s0 < (-0x400)) & (var_a0_3 >= 0x401))\n        {\n          var_s0 += 0x1000;\n        }\n        if ((var_a0_3 < (-0x400)) & (var_s0 >= 0x401))\n        {\n          var_a0_3 += 0x1000;\n        }\n        var_s0 = var_s0 - var_a0_3;\n        if (var_s0 < 0)\n        {\n          *negative = (u16) ((*negative) - var_s0);\n        }\n        else\n          if (var_s0 > 0)\n        {\n          temp_s6->a = (u16) (temp_s6->a + var_s0);\n        }\nvar_v0=var_s1+1;var_s1=var_v0;temp_a0=var_s2->next;{s32 load_once;for(load_once=1;load_once;load_once=0){second_count=temp_a0->count;}}{s32 count_once;for(count_once=1;count_once;count_once=0){var_v0=(s16)var_v0;}}var_v0_2=var_v0;\n      }\n\n      second_test:\n      second_count=(u32)second_count>>1;if(var_v0<second_count)\n      {\n        goto second_body;\n      }{u32 alive_x=second_count;s16 alive_y=alive_x;alive_y+=0x13579bdfu;alive_y-=0x13579bdfu;if(alive_y!=alive_x){func_80033724();}}\n\n    }\n    var_a1 = (s16) (*negative);\n    temp_v1_2 = (*((Stats **) (D_800C02AE + 0x7CD2)))->fall * 0x578;\n{if(temp_v1_2>=0)var_v0=temp_v1_2;else var_v0=temp_v1_2+4095;{u32 identity_x=(u32)temp_v1_2;u32 identity_y=identity_x;identity_y+=0x13579bdfu;identity_y-=0x13579bdfu;var_v0=(s32)((u32)var_v0+(identity_y-identity_x));}var_a0_2=var_v0>>12;}\n    if (var_a0_2 < var_a1)\n    {\n      var_v0_4 = (*flags) | 8;\n      goto block_41;\n      e_exit:\n      var_s2->stats->eidx = var_s1;\n\n      goto e_after;\n      f_exit:\n      var_s2->stats->fidx = var_s1;\n\n      goto f_after;\n    }\n    if (var_a0_2 < ((s16) temp_s6->a))\n    {\n      var_v0_4 = (*flags) | 4;\n      block_41:\n      *flags = var_v0_4;\n\n    }\n    var_s2->stats->rise = 0;\n    var_s2->stats->fall = 0;\n    var_s0 = -1;\n    var_s1 = 0;\n    temp_v1_3 = (temp_v1_4 = var_s2->count) - 1;\n    temp_s3 = temp_v1_3 / 2;\n    if (((s32) temp_v1_3) > 0)\n    {\n      do\n      {\n        func_80033CD4((Road *) var_s2, var_s1, &p30[0]);\n\n        if (((var_s1 == 0) | (var_s1 == temp_s3)) != 0)\n        {\n\n          sp6C = p30[1];\n{s32 once;var_v0=var_s0+1;var_s0=var_v0;for(once=1;once;once=0){{s32 loaded_base=(s32)((RootBits)(Road*)sp8C).bits;temp_v0_4=(void*)((((s32)(var_v0<<16))>>14)+loaded_base);}*((s32*)((char*)temp_v0_4+16))=0;*((s32*)temp_v0_4)=0;}}\n        }\n        else\n        {\n          temp_a0_3 = p30[1] - sp6C;\n          temp_v1_4 = var_s0 << 0x10;\n          if (temp_a0_3 > 0)\n          {\n            temp_v1_4>>=14;temp_v1_5=temp_v1_4+(s32)sp8C;\n            *((s32 *) (((char *) temp_v1_5) + 0x10)) = (s32) ((*((s32 *) (((char *) temp_v1_5) + 0x10))) + temp_a0_3);\n          }\n          else\n            if (temp_a0_3 < 0)\n          {\n            temp_v1_6 = (temp_v1_4 >> 0xE) + (s32)sp8C;\n            *temp_v1_6 -= temp_a0_3;\n          }\n        }\n        var_s1 += 1;\n      }\n      while (var_s1 < (var_s2->count - 1));\n    }\n    if (heights[4] != 0)\n    {\n      var_s2->stats->rise = (s16) (-heights[4]);\n    }\n    if (heights[0] != 0)\n    {\n      var_s2->stats->rise = (s16) heights[0];\n    }\n    if (heights[5] != 0)\n    {\n      var_s2->stats->fall = (s16) (-heights[5]);\n    }\n    if (heights[1] != 0)\n    {\n      var_s2->stats->fall = (s16) heights[1];\n    }\n    heights[6] = 0;\n\n    heights[2] = 0;\n    temp_v0_5 = var_s2->next;\n    if (temp_v0_5 != 0)\n    {\ntemp_v1_3=temp_v0_5->count;temp_v1_3-=1;temp_v1_3+=(s32)((u32)temp_v1_3>>31);temp_s3=temp_v1_3>>1;\ntemp_a0_3=var_s0+1;\nvar_s1=0;\n      if (temp_s3 > 0)\n      {\n\n        temp_s0_3 = (((s32) (temp_a0_3 << 0x10)) >> 0xE) + (s32)sp8C;\n        do\n        {\n          func_80033CD4((Road *) var_s2->next, var_s1, &p30[0]);\n          if (var_s1 == 0)\n          {\n            sp6C = p30[1];\n            *((s32 *) (((char *) temp_s0_3) + 0x0)) = 0;\n            *((s32 *) (((char *) temp_s0_3) + 0x10)) = 0;\n          }\n          else\n          {\n            var_a0_2 = p30[1] - sp6C;\n            if (var_a0_2 > 0)\n            {\n              *((s32 *) (((char *) temp_s0_3) + 0x10)) = (s32) ((*((s32 *) (((char *) temp_s0_3) + 0x10))) + var_a0_2);\n            }\n            else\n            {\n              new_var = 0x0;\n              if (var_a0_2 < 0)\n              {\n                *((s32 *) (((char *) temp_s0_3) + new_var)) = (s32) ((*((s32 *) (((char *) temp_s0_3) + 0x0))) - var_a0_2);\n              }\n            }\n          }\n          var_s1 += 1;\n        }\n        while (var_s1 < temp_s3);\n      }\n    }\n    temp_a0_5 = (*((Stats **) (D_800C02AE + 0x7CD2)))->fall;\n    var_v0_5 = temp_a0_5 * 0x2BC;\n    if (var_v0_5 < 0)\n    {\n      var_v0_5 += 0xFFF;\n    }\n    var_a2 = var_v0_5 >> 0xC;\n    var_v0_6 = temp_a0_5 * 0x384;\n    if (var_v0_6 < 0)\n    {\n      var_v0_6 += 0xFFF;\n    }\n    var_a1_2 = var_v0_6 >> 0xC;\n    var_v0_7 = temp_a0_5 * 0x4B0;\n    if (var_v0_7 < 0)\n    {\n      var_v0_7 += 0xFFF;\n    }\n    var_a0_4 = var_v0_7 >> 0xC;\n    if (D_8009EB80 == 5)\n    {\n      var_a2 += 0x12C;\n      var_a1_2 += 0x12C;\n      var_a0_4 += 0x12C;\n    }\n    if ((heights[0] != 0) && (heights[5] != 0))\n    {\n      if (((u32) var_a2) < ((u32) heights[5]))\n      {\n        *flags = (u16) ((*flags) | 0x80);\n      }\n      if ((((u32) var_a0_4) < ((u32) heights[5])) && (((u32) var_a0_4) < heights[6]))\n      {\n        *flags = (u16) (((*flags) | 0x20) & 0xFF7F);\n      }\n      if ((((u32) var_a1_2) < heights[0]) && (((u32) (var_a1_2 / 3)) < ((u32) heights[5])))\n      {\n        *flags = (u16) (((*flags) & 0xFF7F) | 0x10);\n      }\n      if ((((u32) (var_a1_2 / 3)) < heights[0]) && (((u32) var_a1_2) < ((u32) heights[5])))\n      {\n        *flags = (u16) (((*flags) & 0xFF7F) | 0x10);\n      }\n    }\n    if ((heights[1] != 0) && (heights[6] != 0))\n    {\n      if (((u32) var_a2) < heights[6])\n      {\n        *flags = (u16) ((*flags) | 0x80);\n      }\n      if ((((u32) var_a1_2) < heights[1]) && (((u32) (var_a1_2 / 3)) < heights[6]))\n      {\n        *flags = (u16) (((*flags) | 0x10) & 0xFF7F);\n      }\n      if ((((u32) (var_a1_2 / 3)) < heights[1]) && (((u32) var_a1_2) < heights[6]))\n      {\n        *flags = (u16) (((*flags) | 0x10) & 0xFF7F);\n      }\n    }\n    var_fp = 0;\n    sp7E = 0;\n    temp_v1_5 = (void *)var_s2->stats;\n    ((Stats*)temp_v1_5)->mode=2;\n    temp_v0_6 = var_s2->stats;\n    var_s4 = 0;\n    var_s1 = 0;\n    temp_v0_6->c = 0U;\n    temp_v0_6->d = 0U;\n    temp_s6 = (Stats *) (&temp_v0_6->c);\n    negative = &temp_v0_6->d;\n    temp_v1_10 = var_s2->count;\n    if (temp_v1_10 > 0)\n    {\n      var_s3 = sp84;\n      do\n      {\n        if (var_s1 == 0)\n        {\n          var_a0_5 = var_s2->prev;\n          if (var_a0_5)\n          {\n            func_800306A8(var_a0_5, var_a0_5->count - 2, p30);\n          }\n          else\n          {\n            func_800306A8(var_s2, 0, p30);\n          }\n        }\n        else\n        {\n          func_800306A8(var_s2, var_s1 - 1, p30);\n        }\n        func_800306A8((Road *) var_s2, var_s1, &p40[0]);\n        if (var_s1 == (var_s2->count - 1))\n        {\n          var_a0_6 = var_s2->next;\n          if (var_a0_6)\n          {\n            func_800306A8(var_a0_6, 1, p50);\n          }\n          else\n          {\n            func_800306A8(var_s2, var_s1, p50);\n          }\n        }\n        else\n        {\n          func_800306A8(var_s2, var_s1 + 1, p50);\n        }\n        var_s0 = func_8002D2C8(p50[2] - p40[2], p50[0] - p40[0]);\n        var_a0_7 = func_8002D2C8(p40[2] - p30[2], p40[0] - p30[0]);\n        if ((var_s0 < (-0x400)) & (var_a0_7 >= 0x401))\n        {\n          var_s0 += 0x1000;\n        }\n        if ((var_a0_7 < (-0x400)) & (var_s0 >= 0x401))\n        {\n          var_a0_7 += 0x1000;\n        }\n        var_s0 = var_s0 - var_a0_7;\n        var_s3->angle = var_s0;\n        temp_v1_7 = p40[0] - p30[0];\n        temp_a0_6 = p40[2] - p30[2];\n        var_s3->a = func_8002D2A0((temp_v1_7 * temp_v1_7) + (temp_a0_6 * temp_a0_6));\n        temp_v1_8 = p50[0] - p40[0];\n        temp_a0_7 = p50[2] - p40[2];\n        var_s3->b = func_8002D2A0((temp_v1_8 * temp_v1_8) + (temp_a0_7 * temp_a0_7));\n        if (var_s0 < 0)\n        {\n          *negative = (u16) ((*negative) - var_s0);\n          sp7E = var_s3->b + (sp7E + var_s3->a);\n        }\n        else\n          if (var_s0 > 0)\n        {\n          temp_s6->a = (u16) (temp_s6->a + var_s0);\n          var_fp = var_s3->b + (var_fp + var_s3->a);\n        }\n        if (var_s4 == 0)\n        {\n          if (((s16) (*negative)) >= 0xFB)\n          {\n            var_s4 = 1;\n            var_v0_8 = (*flags) | 2;\n            goto block_130;\n          }\n          if (((s16) temp_s6->a) >= 0xFB)\n          {\n            if (var_s1)\n            {\n              var_s4 = 1;\n              var_v0_8 = (*flags) | 1;\n            }\n            else\n            {\n              var_s4 = 1;\n              var_v0_8 = (*flags) | 1;\n            }\n            block_130:\n            *flags = var_v0_8;\n\n          }\n        }\n        var_s1 += 1;\n        var_s3++;\n      }\n      while (var_s1 < ((s32) var_s2->count));\n    }\n    var_s2->stats->eidx = 0;\n    var_s0 = 0;\n    var_s4 = 0;\n    var_s2->stats->fidx = 0;\n    var_s1 = 0;\n    var_a1_5 = 0;\n    var_v0_3 = var_s2->count;\n    if (var_v0_3 > 0)\n    {\n      var_a2_2 = sp84;\n      loop_134:\n      temp_a0_8 = (*var_a2_2).angle;\n\n      if (temp_a0_8 < 0)\n      {\n        var_s0 -= temp_a0_8;\n      }\n      temp_v1_9 = var_s4 == 0;\n      if ((temp_a0_8 >= 0) & (var_s4 == 0))\n      {\n        var_a1_5 = 0;\n      }\n      if (((var_a1_5 == 0) & (var_s4 == 0)) && (temp_a0_8 < 0))\n      {\n        var_a1_5 = var_s1;\n      }\n      if (var_s0 >= 0xFB)\n      {\n        if (var_s4 == 0)\n        {\n          var_s4 = 1;\n        }\n        if (temp_a0_8 < 0)\n        {\n          if (var_s1 == (var_s2->count - 1))\n          {\n            var_s2->stats->eidx = var_s1;\n          }\n          goto block_145;\n        }\n        goto e_exit;\n      }\n      else\n      {\n        block_145:\n        var_s1 += 1;\n\n        var_a2_2++;\n        if (var_s1 < ((s32) var_s2->count))\n        {\n          goto loop_134;\n        }\n      }\n    }\n    e_after:\n    if (var_s4 != 0)\n    {\n      var_s2->stats->eidx = (s8) ((((s32) (var_s1 - var_a1_5)) / 2) + var_a1_5);\n      var_s0 = 0;\n      if (((((u16) var_s2->count) >> 1) + 2) < ((s32) ((u8) var_s2->stats->eidx)))\n      {\n        *flags = (u16) ((*flags) | 0x400);\n        goto block_149;\n      }\n    }\n    else\n    {\n      block_149:\n      var_s0 = 0;\n\n    }\n\n    var_s4 = 0;\n    var_s1 = 0;\n    var_a1_6 = 0;\n    var_v0_3 = var_s2->count;\n    if (var_v0_3>0)\n    {\n      var_a2_3 = sp84;\n      new_var2 = var_s4 == 0;\n      loop_152:\n      temp_a0_9 = var_a2_3->angle;\n\n      if (temp_a0_9 > 0)\n      {\n        var_s0 += temp_a0_9;\n      }\n      temp_v1_10 = new_var2;\n      if ((temp_a0_9 < 1) & (var_s4 == 0))\n      {\n        var_a1_6 = 0;\n      }\n      if (((var_a1_6 == 0) & (var_s4 == 0)) && (temp_a0_9 > 0))\n      {\n        var_a1_6 = var_s1;\n      }\n      if (var_s0 >= 0xFB)\n      {\n        if (var_s4 == 0)\n        {\n          var_s4 = 1;\n        }\n        if (temp_a0_9 > 0)\n        {\n          if (var_s1 == (var_s2->count - 1))\n          {\n            var_s2->stats->fidx = var_s1;\n          }\n          goto block_163;\n        }\n        goto f_exit;\n      }\n      else\n      {\n        block_163:\n        var_s1 += 1;\n\n        var_a2_3++;\n        if (var_s1 < ((s32) var_s2->count))\n        {\n          goto loop_152;\n        }\n      }\n    }\n    f_after:\n    if (var_s4 != 0)\n    {\n      var_s2->stats->fidx = (s8) ((((s32) (var_s1 - var_a1_6)) / 2) + var_a1_6);\n      if (((((u16) var_s2->count) >> 1) + 2) < ((s32) ((u8) var_s2->stats->fidx)))\n      {\n        *flags = (u16) ((*flags) | 0x200);\n      }\n    }\n\n    var_s2->stats->e = (s16) (((s32) (((s16) temp_s6->a) << 0xE)) / ((s32) ((var_fp & 0xFFFF) + 1)));\n    var_v1 = sp7E;\n    var_s2->stats->f = (s16) (((s32) (((s16) (*negative)) << 0xE)) / ((s32) (var_v1 + 1)));\n    temp_v1_11 = *flags;\n    if (!(temp_v1_11 & 3))\n    {\n      *flags = (u16) (temp_v1_11 | 0x800);\n    }\n    var_s2 = var_s2->next;\n  }\n  while ((var_s2 != arg0) & (var_s2 != 0));\n/* Each unsigned add/sub pair is an identity modulo 2^32, so this guard\n * is always false. GCC 2.7.2 removes its code but retains the otherwise\n * unused spill slots required by the original frame. The referenced game\n * function is already defined elsewhere and is never called here. */\n{u32 cancelled_x=(u32)sp76;u32 cancelled_y0;cancelled_y0=cancelled_x;cancelled_y0+=0x13579bdfu;cancelled_y0-=0x13579bdfu;if((cancelled_y0!=cancelled_x)){func_80033724();}}\nvar_v0=(s16)sp76-1;{u32 final_x=(u32)var_v0;u32 final_y=final_x;final_y+=1u;final_y-=1u;var_v0=(s32)((u32)var_v0+(final_y-final_x));}*((s32*)(D_800A73E0+0x6C08))=var_v0;\n}\n\n\n/* Revalidated after the local macOS toolchain signing repair. */\n",
    "ee5d7b8fc3ed7dcc8c774d5ae03baf25214f760e9d37802a02297959a25ba65b": "extern void func_8002FFA4(void *, s32, s16, void *);\nvoid func_800316C4(void *arg0)\n{\n  s32 temp_a1_2;\n  s32 temp_s0;\n  s32 temp_s5;\n  s32 var_s3;\n  char *new_var;\n  u8 b14;\n  u8 b17;\n  s32 var_s4;\n  s32 var_s1;\n  void *temp_v0;\n\n  temp_v0 = *((void **) (((char *) arg0) + 0x78));\n  temp_a1_2 = *((u16 *) (((char *) arg0) + 0x88));\n  b14 = *((u8 *) (((char *) temp_v0) + 0x14));\n  b17 = *((u8 *) (((char *) temp_v0) + 0x17));\n  temp_s5 = ((s32) (b17 - b14)) / ((s32) (temp_a1_2 - 1));\n  var_s1 = b14;\n  var_s4 = var_s1;\n  var_s3 = 0;\n  if (temp_a1_2 == 0)\n  {\n    goto block_3;\n  }\n  var_s4 = (var_s1 << 2) + var_s1;\n  loop_2:\n  temp_a1_2 = var_s3 & 0xFFFF;\n  func_8002FFA4(arg0, temp_a1_2, (s16) var_s1, (void *) (((*((s32 *) (((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C))) + (temp_a1_2 * 0xC)) + 6));\n  var_s3 += 1;\n  new_var = ((char *) (*((void **) (((char *) arg0) + 0x78)))) + 0x1C;\n  *((s16 *) (((char *) ((temp_a1_2 * 0xC) + (*((s32 *) new_var)))) + 4)) = (s16) (var_s4 * 2);\n  var_s4 += (temp_s5 << 2) + temp_s5;\n  if (((u32) (var_s3 & 0xFFFF)) < ((u16) (*((u16 *) (((char *) arg0) + 0x88)))))\n  {\n    var_s1 += temp_s5;\n    goto loop_2;\n  }\n  block_3:\n  return;\n}\n",
@@ -293672,6 +294502,7 @@
    "782bb26c1f8e1e3c6e6009030b16223c543aa11792a554117194d4c6bbd45bc5": "#define H(p,o) (*(s16 *)((u8*)(p)+(o)))\n#define U(p,o) (*(u16 *)((u8*)(p)+(o)))\n#define A(p,o) (*(u8 **)((u8*)(p)+(o)))\ntypedef struct Blob\n{\n  s32 words[177];\n} Blob;\nextern u8 *D_800A1468;\nextern u8 *D_800C3508;\nextern u8 *D_800C35A0;\nextern u8 D_800A161C[];\nextern u8 D_800A1620;\nextern s32 D_800AFA58;\nextern Blob *D_800D0634[];\nextern void func_8005BC60(void);\nextern void func_8005BB5C(void);\nextern void func_80065860(void);\nextern void func_80065C04(void);\nextern void func_80062304(void *, s16);\nextern void func_8005937C(s32, u16);\nextern void func_8008A0D8(void *, u16, s32);\nextern void func_8008A1CC(void *, u16, s32, void *);void *func_800592AC(u32);\nextern void func_80061740(Blob);\nvoid func_8006556C(void)\n{\n  Blob blob;\n  s32 i;\n  s32 k;\n  s32 val;\n  s16 sel;\n  u8 *p;\n  u8 *q;\n  func_8005BC60();\n  func_8005BB5C();\n  {\n    u8 *g = D_800C35A0;\n    u8 *h = D_800A1468;\n    U(g, 0x20) = 0;\n    h[0x23c] = D_800A1620;\n  }\n  {\n    u8 *c = D_800C3508;\n    sel = H(c, 2);\n    if (sel == 2)\n    {\n      A(c, 0x10)[(2 * 20) + 0xE] = D_800C35A0[0x21] + 9;\n    }\n    else\n    {\n      u8 *e = A(c, 0x10);\n      e[(sel * 20) + 0xE] = 4 + D_800C35A0[0x21];\n      func_80062304(e, sel);\n    }\n  }\n  i = 0;\n  val = 80;\n  D_800AFA58 = U(D_800C35A0, 0x20);\n  do\n  {\n    if (H(D_800C3508, 2) == 2)\n    {\n      func_8005937C(i + 9, U(D_800D0634[D_800A161C[i + 4]], 0x14));\n    }\n    else\n    {\n      func_8005937C(i + 4, U(D_800D0634[D_800A161C[i + 4]], 0x14));\n    }\n    if ((i != 0) && ((U(D_800C35A0, 0x2a) & (0x1000 << (i - 1))) != (0x1000 << (i - 1))))\n    {\n      func_8008A0D8(D_800C3508, i + 9, 0);\n      func_8008A0D8(D_800C3508, i + 4, 0);\n      p = func_800592AC(i);\n      if (i != 3)\n      {\n        p[0xf] = 80;\n        p[0x10] = 80;\n        p[0x11] = 80;\n      }\n      else\n      {\n        k = 3;\n        q = p + 6;\n        do\n        {\n          q[0x41] = 0;\n          q -= 2;\n        }\n        while ((--k) >= 0);\n      }\n    }\n    func_8008A1CC(D_800C3508, (H(D_800C3508, 2) == 2) ? (i + 9) : (i + 4), 16, func_80065C04);\n    i++;\n  }\n  while (i < 4);\n  if (H(D_800C3508, 2) == 1)\n  {\n    *((void **) (D_800A1468 + 0x28c)) = func_80065860;\n  }\n  blob = *D_800D0634[D_800A1468[0x23c]];\n  func_80061740(blob);\n}\n",
    "36c800364fbb10e047f42d93e0ba3a3604acc305820ca53f1caee42b510540df": "typedef struct {u32 w[177];} Scene658;\nextern u8 *D_800C3508,*D_800C35A0,*D_800A1468,*D_800A14D0;\nextern s32 *D_800A11B0; extern u8 D_800A1620[];extern Scene658 *D_800D0634[];extern s32 D_800AFA58,D_800D05D8;extern f64 D_800A56D8;\nvoid func_80061740(Scene658);void func_80062184(Scene658,s32);void *func_800592AC(u32);void func_8005937C(u8,u16);void func_8005C198(void);void func_8006185C(s32,s32);void func_80064F98(void);\nvoid func_8004D08C(s32,s32,s16,s16,f32,f32,s32,s32);\n#define H(p,o) (*(u16*)((u8*)(p)+(o)))\n#define S(p,o) (*(s16*)((u8*)(p)+(o)))\n#define P(p,o) (*(u8**)((u8*)(p)+(o)))\nvoid func_80065860(void){\nScene658 scene;\n\nf64 offset;\ns32 selected;\nu8 i;\nu8 *item;\nu8 *icons;\ns32 result;\nitem=P(D_800C3508,16)+S(D_800C3508,2)*20;\nif(D_800A1468[0x245]==0){\nselected=item[14]-item[13];\nH(D_800C35A0,32)=selected;\nD_800A1468[0x23C]=D_800A1620[(u16)selected];\nfunc_8005937C(item[14],H(D_800D0634[D_800A1468[0x23C]],20));\nif(selected!=D_800AFA58){\nif(*D_800A11B0)func_8005C198();\nif(D_800A1468[0x2BE]==0){\nfunc_80061740(*D_800D0634[D_800A1620[H(D_800C35A0,32)]]);\nD_800AFA58=selected;\n}\nH(D_800C35A0,34)=0;\n}\n(s32)func_800592AC(selected);\nscene=*D_800D0634[D_800A1468[0x23C]];\n}else{\nresult=(s32)func_800592AC(H(D_800C35A0,30)-1);\nscene=*D_800D0634[H(D_800C35A0,30)];\nfunc_8006185C(result,0);\n}\nfunc_80062184(scene,0);\nif(S(D_800C3508,2)==1)func_80064F98();\nif(D_800A1468[0x24D]==0 && D_800A1468[0x2BE]==0){\ni=0;\nif(i<H(&scene,20)){\noffset=D_800A56D8;\nicons=(u8*)&scene+0x2BC;\ndo{\nfunc_8004D08C(D_800D05D8,i,S(D_800A14D0,0),(s16)(H(D_800A14D0,2)+i*D_800A14D0[8]),(f32)((f64)*(f32*)(D_800A14D0+4)-offset),*(f32*)(D_800A14D0+4),icons[i],255);\ni++;\n}while(i<H(&scene,20));\n}\n}\n}\n",
    "4f0422dcd26109d601012dfb75d0af2d1e0f17925ef89d2fdefbb790e155d586": "#define CFG32 ((Cfg *)(*(void **)(D_800C02AE + 0x32F2)))\n#define CFG25 ((Cfg *)(*(void **)(D_800C02AE + 0x325A)))\ntypedef struct\n{\n  unsigned char b[0x2E];\n} Cfg;\ntypedef struct\n{\n  unsigned char b[0x250];\n} State;\ntypedef struct { u32 w[40]; } Blk;\nextern State *D_800A1468;\nextern s32 D_800A14D0;\nextern u8 D_800C02AE[];\nextern unsigned char D_800AE850[];\nextern void func_800593FC(s32, s32);\nextern void func_8005946C(s32, s32);\nextern int func_8005A388(int, int);\nextern void func_8005C198(void);\nextern void func_8007EE9C(s32);\nextern void func_8006603C(void);\nextern void func_80066384(void);\nextern void func_80066470(void);\ns32 func_80065C04(s32 a0, s32 a1)\n{\n  s16 ver;\n  ver = D_800A1468->b[0x23c];\n  *((u16 *) (CFG32->b + 0x22)) = 0;\n  *((s16 *) (CFG32->b + 0x1e)) = ver;\n  if ((((*((u16 *) (CFG32->b + 0x2c))) & 0x100) == 0) && ((*((s16 *) (CFG25->b + 2))) == 2))\n  {\n    *((Blk *) (D_800AE850 + 0x7F28)) = *((Blk *) (CFG32->b + 0x44));\n    D_800A1468->b[0x245] = 0;\n    func_8005A388(a0, a1);\n    *((void (**)(void)) (D_800A1468->b + 0x288)) = func_8006603C;\n    *((void (**)(void)) (D_800A1468->b + 0x28c)) = func_80066384;\n    *((void (**)(void)) (D_800A1468->b + 0x290)) = func_80066470;\n    func_8005C198();\n    if (D_800A14D0)\n    {\n      func_8007EE9C(D_800A14D0);\n      D_800A14D0 = 0;\n    }\n    *((s16 *) (CFG32->b + 0x20)) = 0;\n  }\n  else\n  {\n    D_800A1468->b[0x245] = 1;\n    if (*((s16 *) (CFG25->b + 2)) == 2)\n    {\n      func_800593FC(a0, 13);\n    }\n    else\n    {\n      func_800593FC(a0, 8);\n    }\n    func_8005946C(a0, *((u16 *) (CFG32->b + 0x22)));\n  }\n  return 1;\n}\n",
+   "d1824bf62ccdb00bde5b2dae8d782bc92522d4654df196af95645202627e72fa": "typedef struct SceneState\n{\n  u8 pad0[0xE];\n  u16 unkE;\n  u8 pad10[0xE];\n  u16 unk1E;\n  u16 unk20;\n  u16 unk22;\n  u8 pad24[0xA];\n  u8 unk2E;\n} SceneState;\ntypedef struct WorldObj\n{\n  u8 pad[0x228];\n  u8 unk228;\n  u8 pad229[0x13];\n  u8 unk23C;\n  u8 pad23D[0x4F];\n  void (*unk28C)(void);\n} WorldObj;\ntypedef struct S41\n{\n  u8 pad[0x41];\n  u8 unk41;\n} S41;\nextern WorldObj *D_800A1468;\nextern SceneState *D_800C35A0;\nextern void *D_800C3508;\nextern u8 *D_800D0634[];\nextern u8 D_800A16D4;\nextern u8 D_8009E260;\nextern u8 D_800A14D6;\nextern u8 D_800A14D7;\nextern u8 D_800A14D8;\nvoid func_80066384(void);\ns32 func_8006A24C(void);\nvoid func_80061F34(void *sc, void *base);\nvoid func_8008A270(void *p, s32 a, s32 b);\nvoid func_8008A290(void *p, s32 a, s32 b, s32 fn);\nvoid func_8006A25C(void);\nvoid func_8008A0D8(s32 p, s32 a, char b);\nvoid *func_800592AC(u32);\nvoid func_8005C0E8(s32, u32, u32);\nvoid func_800603B4(void);\nvoid func_80057B40(s32, u16, u8, u8);\ninline static u16 inline_fn(SceneState *arg0)\n{\n  return arg0->unk22;\n}\n\ninline static u16 inline_fn23(SceneState *arg0)\n{\n  return arg0->unk1E;\n}\n\nvoid func_8006603C(void)\n{\n  int new_var;\n  SceneState *sc;\n  u8 *base;\n  u8 *row;\n  u16 savedE;\n  u16 saved1E;\n  u16 saved22;\n  u8 new_var2;\n  s32 one;\n  s32 limit;\n  u8 new_var3;\n  D_800A1468->unk228 = 0;\n  D_800A1468->unk23C = D_800C35A0->unk1E;\n  sc = D_800C35A0;\n  base = D_800D0634[inline_fn23(sc)];\n  row = (u8 *)(sc->unk20 * 0x2C4 + (u32)base);\n  sc->unk2E = *((row + ((inline_fn(sc) << 1) << 5)) + 0x37);\n  func_80061F34(sc, base);\n  D_800A1468->unk28C = func_80066384;\n  func_8008A270(D_800C3508, 3, 0x14);\n  func_8008A290(D_800C3508, 3, 0x10000, (s32)func_8006A24C);\n  func_8006A25C();\n  if ((*D_800C35A0).unkE < 2)\n  {\n    S41 *p;\n    func_8008A0D8((s32)D_800C3508, 0x10, 0);\n    p = func_800592AC(2);\n    p->unk41 = 0;\n    func_8005C0E8(2, 1, 4);\n  }\n  func_800603B4();\n  limit = 3;\n  if (D_800A16D4 < limit)\n  {\n    new_var = D_800A16D4 == 0;\n    if (new_var)\n    {\n      if (D_800A16D4 == 0)\n      {\n        sc = D_800C35A0;\n        savedE = sc->unkE;\n        saved1E = sc->unk1E;\n        saved22 = sc->unk22;\n        D_8009E260 = 4;\n        one = 1;\n        new_var3 = (u8) saved1E;\n        sc->unkE = one;\n        new_var2 = (u8) saved22;\n        if (((u16)saved1E) != 2) goto alternate;\n        if (((u16)saved22) != 4) goto alternate;\n\n        {\n          sc->unk1E = 5;\n          sc->unk20 = one;\n          sc->unk22 = 2;\n        }\n        goto finished_selection;\nalternate:\n        {\n          SceneState *alt;\n          alt = D_800C35A0;\n          if ((inline_fn23(alt) == 3) && (inline_fn(alt) == 5))\n          {\n            alt->unk1E = 5;\n            alt->unk20 = 6;\n            alt->unk22 = 0;\n          }\n        }\nfinished_selection:;\n        D_800A14D6 = D_800C35A0->unk1E;\n        D_800A14D7 = D_800C35A0->unk20;\n        D_800A14D8 = inline_fn(D_800C35A0);\n        func_800416EC();\n        D_8009E260 = 1;\n        ;\n        D_800C35A0->unk1E = new_var3;\n        D_800C35A0->unk20 = 0;\n        D_800C35A0->unk22 = new_var2;\n        D_800C35A0->unkE = savedE;\n      }\n    }\n  }\n  func_80057B40(0x12, 2, 0, 0);\n}\n\n",
    "0d3f4dfbb03875f1ea215ef4c43e46ed900b39abe989386c3b88755e5a7491b3": "void *func_800592AC(u32);\ns32 func_80059618();\nvoid func_800596F4(void *, s16, s16, void *);\ns32 func_8006090C();\ns32 func_8006A438();\nextern char D_800C02AE[];\nstatic inline u16 *inline_fn(char *arg0)\n{\n  return (u16 *) (((char *) (*((void **) (arg0 + 0x32F2)))) + 0xE);\n}\n\nvoid func_80066384(void)\n{\n  s32 var_s1;\n  void *var_s2;\n  void *temp_s0;\n  u8 var_a1;\n  u8 var_a2;\n  u8 var_a3;\n  u8 var_v0;\n\n  func_8006A438();\n  func_8006090C();\n  var_s2 = func_800592AC(1);\n  var_s1 = 0;\n  if (*inline_fn(D_800C02AE) == 0)\n  {\n    return;\n  }\n  do\n  {\n    temp_s0 = *((void **)((char *)var_s2 + 0x28));\n    if (*((u8 *)var_s2 + 0x42) != 0)\n    {\n      var_a1 = 0xDC;\n      var_a2 = 0xDC;\n      var_a3 = 0xE;\n      var_v0 = *((u8 *)temp_s0 + 0xE);\n      func_80059618(temp_s0, var_a1, var_a2, var_a3, var_v0);\n    }\n    else\n    {\n      var_a1 = *((u8 *)temp_s0 + 0xB);\n      var_a2 = *((u8 *)temp_s0 + 0xC);\n      var_a3 = *((u8 *)temp_s0 + 0xD);\n      var_v0 = *((u8 *)temp_s0 + 0xE);\n      func_80059618(temp_s0, var_a1, var_a2, var_a3, var_v0);\n    }\n    func_800596F4((void *)(temp_s0), (s16)(*((s16 *)((char *)temp_s0 + 6))), (s16)(*((s16 *)((char *)temp_s0 + 8))),\n                  (void *)(*((char **)(D_800C02AE + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(D_800C02AE + 0x32F2)) + (var_s1 & 0xFF) + 0x32)));\n    var_s1 += 1;\n    var_s2 = *((void **)var_s2);\n  } while ((u32)(var_s1 & 0xFF) < (u32)*inline_fn(D_800C02AE));\n}\n",
    "b52ba599e39ff8bc9e45baf0152dcc2137a30b4dd0a5632de4846ce8a79d5549": "typedef struct\n{\n  u8 x[4];\n} Four;\nextern Four D_800A56F0;\nextern u8 *D_800C35A0;\nvoid func_8006F0E0(u8);\nvoid func_8006F4A8(u8);\ns32 func_8006F75C(void);\n\nvoid func_80066B88(void)\n{\n  u8 a[4];\n  u8 b[4];\n  u8 changed;\n  s8 k;\n  s8 i;\n  s8 j;\n  s8 n;\n  s8 *p;\n  u8 *q;\n  s8 t;\n\n  *((Four *) a) = D_800A56F0;\n  *((Four *) b) = D_800A56F0;\n  changed = 0;\n  q = D_800C35A0 + 0x44;\n  p = (s8 *) D_800C35A0 + 0x32;\n  for (k = 0; k < 2; k++)\n  {\n    for (i = 0; i < 4; i++)\n    {\n      if (q[i * 40] < 0x5B)\n      {\n        b[i] = 0;\n      }\n      for (j = 0; j < 2; j++)\n      {\n        if (p[j] == i)\n        {\n          a[p[j]] = 0;\n        }\n      }\n    }\n    if (b[p[k]])\n    {\n      for (i = 0; i < 4; i++)\n      {\n        if (a[i] && !b[i])\n        {\n          break;\n        }\n      }\n      if (i == 4)\n      {\n        s8 *x = &p[k];\n        func_8006F4A8(*x);\n        q[*x * 40] = 0x50;\n        q[*x * 40 + 1] = 0x4C;\n        q[*x * 40 + 2] = *x + 0x41;\n        func_8006F0E0(*x);\n        changed = 1;\n      }\n      else\n      {\n        n = i;\n        for (i = 0; i < 4 && p[i] != n; i++)\n        {\n        }\n        t = p[k];\n        p[k] = n;\n        p[i] = t;\n      }\n    }\n  }\n  if (changed)\n  {\n    func_8006F75C();\n  }\n}\n",
    "ffe70837c578dfae42d82f0295bda22c5f9760c1732ea3bd8235e41b024853d6": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\nvoid *func_800592AC(u32);                       /* extern */\nM2C_UNK func_8005BB5C();                            /* extern */\nM2C_UNK func_8005BC60();                            /* extern */\nvoid func_8005C0E8(s32, u32, u32);       /* extern */\nM2C_UNK func_8008A0D8(s32, M2C_UNK, M2C_UNK);       /* extern */\nextern void *D_800A1468;\nextern M2C_UNK D_800C02AE;\n\nvoid func_80066E20(void) {\n    func_8005BC60();\n    func_8005BB5C();\n    if ((u16) M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0xE) < 2U) {\n        func_8008A0D8(M2C_FIELD(&D_800C02AE, s32 *, 0x325A), 1, 0);\n        M2C_FIELD(func_800592AC(1), s8 *, 0x41) = 0;\n        func_8005C0E8(1, 1, M2C_FIELD(D_800A1468, s32 *, 0x14));\n    }\n    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;\n    M2C_FIELD(D_800A1468, s8 *, 0x228) = 0;\n    M2C_FIELD(D_800A1468, s8 *, 0x22B) = -1;\n}\n",
@@ -293692,6 +294523,7 @@
    "62219befc17e06de039362f45660780d4ce10ba708c0f90bc22374e4fe9c42e3": "typedef struct { u32 w0, w1; } Gfx;\ntypedef struct { s32 x, y, z; } Vec3i;\ntypedef struct {\n    char pad0[0x38];\n    char mtx[0xD4];      /* 0x38 */\n    f32 f10C, f110, f114; /* 0x10C */\n    Vec3i eye;           /* 0x118 */\n    Vec3i at;            /* 0x124 */\n    f32 f130, f134, f138; /* 0x130 */\n    char pad13C[0x3C];\n    void *dl;            /* 0x178 */\n} Camera;\ntypedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;\ntypedef struct { char pad[0x104]; u16 persp; char pad106[0x52]; char light0[0x10]; char light1[0x10]; } View;\ntypedef struct { char pad[4]; s16 width; } FrameBuf;\ntypedef struct { char pad[0x44]; u16 a44[4]; u16 a4C[4]; u16 a54[4]; } Players;\ntypedef struct { char pad[0x237]; u8 track; } GameState;\n\n#define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\n\nvoid func_80022668(s32, s32);\nvoid *func_8004240C(s32);\nDLBuf *func_800056FC(void *);\nvoid func_80005500(void *, s16 *);\nGfx *func_80006008(DLBuf *);\nvoid func_80006014(DLBuf *, Gfx *);\nvoid *func_80005C48(FrameBuf *);\nu32 osVirtualToPhysical(void *);\nvoid func_80010A6C(void *, s16 *);\nvoid *func_8001BD1C(void);\nvoid guMtxF2L(void *, void *);\nvoid guMtxIdent(void *);\nvoid func_8001C1A8(f32 *, void *);\nvoid func_80010BFC(void *, void *, void *);\nvoid func_800061FC(DLBuf *, void *);\nvoid func_8004D1A8(void *, s32, f32, s32, s32);\nvoid func_8001E3A8(u8);\ns32 func_80084DD4(u8);\nvoid func_80015C74(void *, s32);\nvoid func_80017B38(void *, s32, DLBuf *, void *);\n\nextern s32 D_800A11B0;\nextern Camera *D_800C7F84;\nextern Vec3i D_800A1694;\nextern Vec3i D_800A16A0;\nextern s16 D_800A16AC[4];\nextern FrameBuf *D_8009B5A8;\nextern u32 D_800B706C;\nextern char D_800C8380[];\nextern f32 D_800A1584[];\nextern f32 D_800A158C;\nextern char D_800A159C[];\nextern f32 D_800A15D0;\nextern s32 D_800C5E50;\nextern GameState *D_800A1468;\nextern s32 D_800AFB40;\nextern s32 D_800B5AF4;\nextern s32 D_800AFA68;\nextern Players *D_800A1B70;\nextern char D_800ADFB0[];\nextern char D_800ADFEC[];\n\nvoid func_80069A08(void)\n{\n    DLBuf *buf;\n    Gfx *gfx;\n    View *view;\n    void *mtx;\n    void *m;\n    u32 zaddr;\n    s32 i;\n\n    func_80022668(D_800A11B0, 0);\n    D_800C7F84 = func_8004240C(3);\n    buf = func_800056FC(D_800C7F84->dl);\n\n    D_800C7F84 = func_8004240C(3);\n    D_800C7F84->eye = D_800A1694;\n    D_800C7F84->at = D_800A16A0;\n    D_800C7F84->f130 = 0.0f;\n    D_800C7F84->f134 = 100.0f;\n    D_800C7F84->f138 = 0.0f;\n    D_800C7F84->f10C = 0.4f;\n    D_800C7F84->f110 = 0.4f;\n    D_800C7F84->f114 = 1.0f;\n    func_80005500(D_800C7F84->dl, D_800A16AC);\n\n    D_800C7F84 = func_8004240C(1);\n    D_800C7F84->eye = D_800A1694;\n    D_800C7F84->at = D_800A16A0;\n    D_800C7F84->f130 = 0.0f;\n    D_800C7F84->f134 = 100.0f;\n    D_800C7F84->f138 = 0.0f;\n    D_800C7F84->f10C = 0.4f;\n    D_800C7F84->f110 = 0.4f;\n    D_800C7F84->f114 = 1.0f;\n\n    gfx = func_80006008(buf);\n    GCMD(gfx++, 0xE7000000, 0);\n    GCMD(gfx++, 0xE3000A01, 0x300000);\n    zaddr = D_800B706C - 0x80000000;\n    GCMD(gfx++, 0xFE000000, zaddr);\n    GCMD(gfx++, 0xFF100000 | ((D_8009B5A8->width - 1) & 0xFFF), zaddr);\n    GCMD(gfx++, 0xF7000000, 0xFFFCFFFC);\n    GCMD(gfx++, 0xF6000000 | (((D_8009B5A8->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),\n         ((D_800A16AC[0] & 0x3FF) << 14) | ((D_800A16AC[1] & 0x3FF) << 2));\n    GCMD(gfx++, 0xE7000000, 0);\n    GCMD(gfx++, 0xFF100000 | ((D_8009B5A8->width - 1) & 0xFFF), osVirtualToPhysical(func_80005C48(D_8009B5A8)));\n    GCMD(gfx++, 0xF7000000, 0x10001);\n    GCMD(gfx++, 0xF6000000 | (((D_8009B5A8->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),\n         ((D_800A16AC[0] & 0x3FF) << 14) | (((D_800A16AC[1] + 60) & 0x3FF) << 2));\n    GCMD(gfx++, 0xE3000A01, 0);\n    func_80006014(buf, gfx);\n\n    view = func_8004240C(3);\n    func_80010A6C(func_8004240C(3), D_800A16AC);\n    buf = func_800056FC(((Camera *)view)->dl);\n    gfx = func_80006008(buf);\n    m = func_8001BD1C();\n    guMtxF2L(((Camera *)view)->mtx, m);\n    guMtxIdent(D_800C8380);\n    GCMD(gfx++, 0xDB0E0000, view->persp);\n    GCMD(gfx++, 0xDA380003, (u32)D_800C8380);\n    GCMD(gfx++, 0xDC08000A, (u32)view->light0);\n    GCMD(gfx++, 0xDC08030A, (u32)view->light1);\n    GCMD(gfx++, 0xE7000000, 0);\n    func_80006014(buf, gfx);\n\n    D_800C7F84 = func_8004240C(3);\n    buf = func_800056FC(D_800C7F84->dl);\n    D_800C7F84 = func_8004240C(1);\n    mtx = D_800C7F84->mtx;\n    D_800C7F84 = func_8004240C(3);\n    m = func_8001BD1C();\n    D_800A1584[0] = -90.0f;\n    D_800A158C += 4.0f;\n    func_8001C1A8(D_800A1584, D_800A159C);\n    D_800A15D0 = 80.0f;\n    func_80010BFC(m, D_800C7F84->mtx, D_800A159C);\n    func_800061FC(buf, m);\n    GCMD(buf->gfx++, 0xFB000000, -1);\n    func_8004D1A8(D_800C7F84->dl, 0, 4.0f, 0, 0xFF);\n\n    if (D_800C5E50 == -1) {\n        func_8001E3A8(D_800A1468->track);\n        D_800C5E50 = D_800A1468->track;\n        D_800B5AF4 = D_800A1468->track;\n        D_800AFB40 = 0;\n        for (i = 0; i < 4; i++) {\n            if (func_80084DD4(i) != 0) {\n                D_800A1B70->a4C[i] &= 0x7FFF;\n                D_800A1B70->a44[i] &= 0x7FFF;\n                D_800A1B70->a54[i] &= 0x7FFF;\n            }\n        }\n    } else if (D_800C5E50 != D_800A1468->track) {\n        if (D_800B5AF4 != D_800A1468->track) {\n            D_800B5AF4 = D_800A1468->track;\n            D_800AFB40 = 0;\n        }\n        D_800AFB40++;\n        if (D_800AFB40 >= 13) {\n            func_80015C74(D_800ADFB0, 0);\n            func_8001E3A8(D_800A1468->track);\n            D_800C5E50 = D_800A1468->track;\n            D_800AFB40 = 0;\n        }\n        for (i = 0; i < 4; i++) {\n            if (func_80084DD4(i) != 0) {\n                D_800A1B70->a4C[i] &= 0x7FFF;\n                D_800A1B70->a44[i] &= 0x7FFF;\n                D_800A1B70->a54[i] &= 0x7FFF;\n            }\n        }\n    }\n    if (D_800C5E50 == D_800A1468->track) {\n        D_800AFA68 += 50;\n        if (D_800AFA68 >= 256) {\n            D_800AFA68 = 255;\n        } else {\n            for (i = 0; i < 4; i++) {\n                if (func_80084DD4(i) != 0) {\n                    D_800A1B70->a4C[i] &= 0x7FFF;\n                    D_800A1B70->a44[i] &= 0x7FFF;\n                    D_800A1B70->a54[i] &= 0x7FFF;\n                }\n            }\n        }\n    } else if (D_800AFA68 > 0) {\n        D_800AFA68 -= 50;\n        if (D_800AFA68 < 0) {\n            D_800AFA68 = 0;\n        }\n    }\n    func_80017B38(D_800ADFEC, 0, buf, mtx);\n}\n",
    "cb010d317cdc114e9be94947c99887ee87b0ea7ac1c6269d61647297ecfaeea3": "#define V(p,o) (*(s32*)((char*)(p)+(o)))\n#define W(p,o) (*(s32*)((char*)(p)+(o)))\n#define F(p,o) (*(f32*)((char*)(p)+(o)))\n#define H(p,o) (*(s16*)((char*)(p)+(o)))\n#define U(p,o) (*(u16*)((char*)(p)+(o)))\n#define P(p,o) (*(char**)((char*)(p)+(o)))\ntypedef struct { u32 w0, w1; } DLGfx;\n#define CMD(pkt,a,b) { DLGfx *_g = (DLGfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }\ntypedef struct \n{\n  s32 a;\n  s32 b;\n  s32 c;\n} Triple;\nextern Triple D_800A1694;\nextern Triple D_800A16A0;\nextern Triple D_800A16B4;\nextern Triple D_800A16C0;\nextern f32 D_800A16B8;\nextern f32 D_800A16BC;\nextern f32 D_800A16C4;\nextern f32 D_800A16C8;\nextern u16 D_800A16AC;\nextern u16 D_800A16AE;\nextern s16 D_800A16B2;\nextern u8 D_800A16D5;\nextern char *D_8009B5A8;\nextern char *D_800AFA64;\nextern char *D_800C7F84;\nextern int D_800B706C;\nextern int D_8009D4EC;\nextern int D_8009D4E8;\nextern int *D_800C8374;\nextern char D_800C8380[];\nextern char D_800ADFB0[];\nchar *func_8004240C(int);\nDLGfx *func_80006008(int);\nint func_800056FC(int);\nint func_8001BD1C(void);\nint func_80005C48(void *);\nint osVirtualToPhysical(int);\nvoid func_8006A438(void)\n{\n  DLGfx *cursor;\n  s32 temp_a0;\n  s32 temp_a3;\n  s32 temp_s7;\n  char *temp_s0;\n  char *temp_s1;\n  char *new_var;\n  char *temp_v0;\n  char *temp_v0_2;\n  int new_var2;\n  char *temp_v0_3;\n  char *temp_v0_6;\n  char *temp_v0_7;\n  if (D_800A16D5 == 0)\n  {\n    return;\n  }\n  {\n    char *a1;\n    s32 a2;\n    s32 v0;\n    s32 a3;\n    u16 *pAC = &D_800A16AC;\n#define D_800A16AC (*pAC)\n    a1 = D_800AFA64;\n    a2 = U(a1, 0x88) * 2 / 3;\n    v0 = a2 * U(a1, 0x8A);\n    a3 = W(a1, 0x4C);\n    temp_a0 = v0 + a3;\n    F(&D_800A16B4, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));\n    D_800A16B8 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);\n    D_800A16BC = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));\n    temp_a0 = ++a2 * U(a1, 0x8A) + a3;\n    F(&D_800A16C0, 0x0) = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][0] + W(a1, 0x24));\n    D_800A16C4 = (f32) ((((s16 (*)[3]) P(a1, 0x54))[temp_a0][1] + W(a1, 0x28)) - 0x12C);\n    D_800A16C8 = (f32) (((s16 (*)[3]) P(a1, 0x54))[temp_a0][2] + W(a1, 0x2C));\n    temp_v0 = func_8004240C(3);\n    temp_a3 = W(temp_v0, 0x178);\n    D_800C7F84 = temp_v0;\n    temp_s7 = func_800056FC(temp_a3);\n    temp_v0_2 = func_8004240C(3);\n    D_800C7F84 = temp_v0_2;\n    *((Triple *) (temp_v0_2 + 0x118)) = D_800A1694;\n    *((Triple *) (D_800C7F84 + 0x124)) = D_800A16A0;\n    W(D_800C7F84, 0x130) = 0;\n    F(D_800C7F84, 0x134) = 100.0f;\n    W(D_800C7F84, 0x138) = 0;\n    F(D_800C7F84, 0x114) = 1.0f;\n    func_80005500(W(D_800C7F84, 0x178), &D_800A16AC, &D_800A16A0);\n    temp_v0_3 = func_8004240C(1);\n    D_800C7F84 = temp_v0_3;\n    *((Triple *) (temp_v0_3 + 0x118)) = D_800A16B4;\n    *((Triple *) (D_800C7F84 + 0x124)) = D_800A16C0;\n    W(D_800C7F84, 0x130) = 0;\n    F(D_800C7F84, 0x134) = 100.0f;\n    W(D_800C7F84, 0x138) = 0;\n    F(D_800C7F84, 0x10C) = 0.4f;\n    F(D_800C7F84, 0x110) = 0.4f;\n    F(D_800C7F84, 0x114) = 1.0f;\n    cursor = func_80006008(temp_s7);\n    CMD(cursor++, 0xE7000000, 0);\n    CMD(cursor++, 0xE3000A01, 0x300000);\n    new_var2 = D_800B706C + 0x80000000;\n    {\n      char *tex = D_8009B5A8;\n      CMD(cursor++, 0xFE000000, new_var2);\n      CMD(cursor++, ((H(tex, 4) - 1) & 0xFFF) | 0xFF100000, new_var2);\n      CMD(cursor++, 0xF7000000, 0xFFFCFFFC);\n      CMD(cursor++, 0xF6000000 | (((u32)(H(tex, 4) - 1) & 0x3FF) << 14) | (((u32)(D_800A16B2 - 1) & 0x3FF) << 2),\n          ((D_800A16AC & 0x3FF) << 14) | ((D_800A16AE & 0x3FF) << 2));\n      CMD(cursor++, 0xE7000000, 0);\n      CMD(cursor++, ((H(tex, 4) - 1) & 0xFFF) | 0xFF100000, osVirtualToPhysical(func_80005C48(tex)));\n    }\n    CMD(cursor++, 0xE3000A01, 0);\n    CMD(cursor++, 0xF7000000, 0x10001);\n    CMD(cursor++, 0xF6000000 | (((u32)(H(D_8009B5A8, 4) - 1) & 0x3FF) << 14) | (((u32)(D_800A16B2 - 1) & 0x3FF) << 2),\n        ((D_800A16AC & 0x3FF) << 14) | ((D_800A16AE & 0x3FF) << 2));\n#undef D_800A16AC\n    func_80006014(temp_s7, cursor);\n    temp_s0 = func_8004240C(3);\n    func_80010A6C(func_8004240C(3), &D_800A16AC);\n    temp_s7 = func_800056FC(W(temp_s0, 0x178));\n    cursor = func_80006008(temp_s7);\n    guMtxF2L(new_var = temp_s0 + 0x38, func_8001BD1C());\n    guMtxIdent(D_800C8380);\n    CMD(cursor++, 0xDB0E0000, U(temp_s0, 0x104));\n    CMD(cursor++, 0xDA380003, (s32) D_800C8380);\n    CMD(cursor++, 0xDC08000A, (s32) (temp_s0 + 0x158));\n    CMD(cursor++, 0xDC08030A, (s32) (temp_s0 + 0x168));\n    CMD(cursor++, 0xE7000000, 0);\n    func_80006014(temp_s7, cursor);\n    temp_v0_6 = func_8004240C(3);\n    temp_a3 = W(temp_v0_6, 0x178);\n    D_800C7F84 = temp_v0_6;\n    temp_s7 = func_800056FC(temp_a3);\n    temp_v0_7 = func_8004240C(1);\n    D_800C7F84 = temp_v0_7;\n    temp_s1 = temp_v0_7 + 0x38;\n    D_800C7F84 = func_8004240C(3);\n    func_80015F3C(temp_s7);\n    func_80015D68(D_800ADFB0, *D_800C8374, temp_s7, temp_s7, temp_s1);\n    if (D_8009D4EC != 0)\n    {\n      func_80081B28(D_8009D4EC);\n      D_8009D4EC = 0;\n      func_80081B28(D_8009D4E8);\n      D_8009D4E8 = 0;\n    }\n  }\n}\n",
    "6ef0d595eba50fc9fd58b79ba8bda331615c57544148a368f3feeac2b7431d6d": "extern void *D_800A1468;\nextern u16 D_800A16E0[];\nextern void *D_800C35A0;\ns32 func_8006204C(u8, u8, u8);void *func_8005A744(u32, void *);\ns32 func_800592F4(s32, s32);\nvoid func_8006AE34(void)\n{\n  s8 a;\n  s16 q;\n  s16 x;\n  s32 z;\n  s32 y;\n  s32 w;\n  s32 new_var;\n  u8 k;\n  char index;\n  void *p;\n  void *b;\n  void *c;\n  void *base;\n  void *t = D_800A1468;\n  b = D_800C35A0;\n  a = *((s8 *) (((u8 *) t) + 0x228));\n  b = ((u8 *) b) + a;\n  index = *((u8 *) (((u8 *) b) + 0x32));\n  *((s8 *) (((u8 *) t) + 0x22b)) = a;\n  base = D_800C35A0;\n  index = (s8) index;\n  p = ((u8 *) base) + ((((s32) index) * 0x28) + 0x44);\n  if ((*((u16 *) (((u8 *) base) + 0x1e))) == 0)\n  {\n    k = 0x1e;\n  }\n  else\n  {\n    k = 0x14;\n    if ((*((u16 *) (((u8 *) base) + 0x1e))) == 5)\n    {\n      k = 0x2d;\n    }\n  }\n  w = k & 255;\n  new_var = func_8006204C(*((u8 *) (((u8 *) D_800C35A0) + 0x1f)), *((u8 *) (((u8 *) D_800C35A0) + 0x21)), *((u8 *) (((u8 *) D_800C35A0) + 0x23)));\n  y = new_var;\n  t = func_8005A744(0, (void *)(*((void **) D_800A1468)));\n  y &= 255;\n  z = y * 2;\n  *((u16 *) (((u8 *) t) + 4)) = D_800A16E0[z / 2];\n  func_800592F4(w, *((u8 *) (((u8 *) p) + 9)));\n  c = ((u8 *) p) + y;\n  func_800592F4(w + 1, *((u8 *) (((u8 *) c) + 0x10)));\n  x = *((s16 *) (((u8 *) (z + ((s32) p))) + 0x1c));\n  func_800592F4(w + 2, (-((s16) (x / 10))) + 2);\n  func_800592F4(w + 3, *((u8 *) (((u8 *) c) + 0x18)));\n  func_800592F4(w + 4, *((u8 *) (((u8 *) c) + 0x14)));\n  {\n    void *out = func_8005A744(2, (void *)(*((void **) D_800A1468)));\n    q = 0x128;\n    index = (*((s8 *) (((u8 *) D_800A1468) + 0x228))) == 0;\n    if (index)\n    {\n      q = 0x126;\n    }\n    *((s16 *) (((u8 *) out) + 4)) = q;\n  }\n}\n",
+   "6af2564de1fbc579e60db7fa3d559d2b2b9254c847f08accdd6a95921b6bad65": "extern u8 D_800C721E[],D_800C70D4[];\nextern u8 D_800C02AE[];\nextern s32 D_8009D540;\nextern const f64 D_800A57F0;\nextern f64 D_800A57F8;\nextern f64 D_800A5800;\nvoid func_8006BF30(s32, s32, s32, s32);\nvoid func_8006BA44(s32 incoming_category, s32 arg1)\n{\n  u8 arg0 = (u8) incoming_category;\n  u16 *sp14;\n  u32 row_index;\n  u8 *coordinate_table;\n  u32 coordinate_address;\n  f64 temp_fs1;\n  f64 threshold;\n  f64 temp_fv1;\n  s32 temp_a1;\n  s32 temp_s2;\n  s32 nine;\n  s32 hv;\n  s32 temp_s2_2;\n  u8 temp_a0;\n  s32 temp_s0;\n  s32 temp_s3;\n  s32 temp_s5;\n  s32 temp_s6;\n  s32 var_a2;\n  s32 var_s4;\n  u32 var_t0;\n  s32 var_v1;\n  s32 __repair_subtotal;\n  u32 temp_a0_2;\n  u8 temp_t1;\n  u8 temp_t1_2;\n  void *temp_fp;\n  void *temp_v0;\n  void *packet;\n  u8 *packet_table;\n  void *temp_v0_2;\n  int new_var;\n  void *var_a2_2;\n  var_a2 = 0;\n  var_t0 = 0;\n  var_v1 = arg1;\n  temp_s6 = ((s32 *) 0x800D0634)[arg0];\n  switch (arg0)\n  {\n    case 1:\n      var_t0 = 0x32;\n      break;\n\n    case 2:\n      var_a2 = 4;\n      var_t0 = 0x36;\n      break;\n\n    case 3:\n      var_a2=9; var_t0=0x3B; break;\n\n    case 4:\n      var_a2 = 0xF;\n      var_t0 = 0x41;\n      break;\n\n  }\n\n  var_v1 = (u32)var_v1 + (u32)var_a2;\n  temp_s2 = var_v1;\n  var_s4 = 0;\n  threshold = D_800A57F0;\n  temp_s3 = arg1 & 0xFF;\n  row_index = var_t0 + temp_s3;\n  coordinate_table = D_800C02AE + 0x5A8A;\n  sp14 = (u16*)(coordinate_table + row_index*2);\n  temp_fp = (void *) ((u32)(temp_s3 * 4) + (u32)temp_s6);\n  temp_s5 = temp_s2 & 0xFF;\n  temp_fs1 = ((f64) temp_s5) * D_800A57F8;\n  packet_table = D_800C721E;\ndecode_next:\n  {\n    temp_fv1 = temp_fs1 + (((f64) (var_s4 & 0xFF)) * D_800A5800);\n    if (!(threshold <= temp_fv1))\n    {\n      new_var = (s32) temp_fv1;\n    }\n    else\n    {\n      new_var = (s32)(temp_fv1 - threshold);       new_var = (u32)new_var | 0x80000000U;\n    }\n    __repair_subtotal = temp_s5 * 8;     __repair_subtotal += temp_s5;\n    temp_a0 = new_var & 0xFF;\n    temp_s0 = var_s4 & 0xFF;\n    if ((((((temp_s0 * 3) + __repair_subtotal) * 4) - (temp_a0 * 8)) & 0xFF) == 4)\n    {\n      packet = (void *) (packet_table - (-temp_a0));\n      temp_t1 = ((u8 *) packet)[1];\n      temp_a0 = ((u8) ((u8 *) packet)[0]) >> 4;\n      var_t0 = temp_a0 & 0xC;\n      if (((temp_t1 < 0xFFU) | (((u32) (temp_a0 & 0xFF)) < 0xFU)) != 0)\n      {\n        var_t0 >>= 2;\n        temp_v0 = (void *) (D_800C70D4 + ((temp_a0 & 0xF3) * 0xE));\n        hv = (temp_t1 * 4) + var_t0;\n        func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);\n        var_a2_2 = (void *) (((s8 *) temp_s6) + ((temp_s0 * 0x10) + (temp_s3 << 6)));\n        ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) temp_v0))) >> 0xA) & 0x1F) + 0x41);\n        ((s8 *) var_a2_2)[0x33] = (s8) (((((u16) (*((u16 *) temp_v0))) >> 5) & 0x1F) + 0x41);\n        temp_s0 = hv;\n        temp_t1 = (((u8 *) temp_v0)[1] & 0x1F) + 0x41;\n        ((s8 *) var_a2_2)[0x38] = 1;\n        ((s8 *) var_a2_2)[0x34] = (s8) temp_t1;\n        if (hv & 1)\n        {\n          temp_s0 = -((s16) hv);\n        }\n        temp_a1 = *sp14; temp_a1 -= temp_s0; temp_a1 = (s32)((u32)temp_a1 << 16); temp_a1 >>=16;\n        *((s32 *) (((s8 *) var_a2_2) + 0x2C)) = (s32) temp_a1;\n        ((s8 *) var_a2_2)[0x30] = (s8) ((((u16) (*((u16 *) (((s8 *) temp_v0) + 2)))) >> 0xC) + ((((u16) (*((u16 *) temp_v0))) >> 0xF) * 0x10));\n        new_var = *((s32 *)((s8*)temp_fp + 0x22C)); new_var = (u32)new_var * (u32)D_8009D540; ((s8*)var_a2_2)[0x36] = (s8)(((u32)new_var * 0xE10U) / (u32)(temp_a1 * 0x3E8));\n      }\n    }\n    else\n    {\n      temp_v0_2 = (void *) ((u32)temp_a0 + (u32)packet_table);\n      temp_t1_2 = ((u8 *) temp_v0_2)[0];\n      temp_a0_2 = ((u8 *) temp_v0_2)[1] & 0xF;\n      __repair_subtotal = (temp_t1_2 < 0xFFU) | ((temp_a0 = temp_a0_2) < 0xFU);\n      if (__repair_subtotal != 0)\n      {\n        temp_v0 = (void *) (D_800C70D4 + ((temp_a0 >> 2) * 0xE));\n        temp_s2_2 = temp_t1_2 | ((temp_a0_2 & 3) << 8);\n        func_8006BF30(temp_s0, arg0 & 0xFF, 0, temp_s3);\n        var_a2_2 = (void *) (((s8 *) temp_s6) + ((temp_s0 * 0x10) + (temp_s3 << 6)));\n        ((s8 *) var_a2_2)[0x32] = (s8) (((((u16) (*((u16 *) temp_v0))) >> 0xA) & 0x1F) + 0x41);\n        ((s8 *) var_a2_2)[0x33] = (s8) (((((u16) (*((u16 *) temp_v0))) >> 5) & 0x1F) + 0x41);\n        temp_s0 = temp_s2_2;\n        temp_t1 = (((u8 *) temp_v0)[1] & 0x1F) + 0x41;\n        ((s8 *) var_a2_2)[0x38] = 1;\n        ((s8 *) var_a2_2)[0x34] = (s8) temp_t1;\n        if (temp_s2_2 & 1)\n        {\n          temp_s0 = -temp_s2_2;\n        }\n        temp_a1 = *sp14; temp_a1 -= temp_s0; temp_a1 = (s32)((u32)temp_a1 << 16); temp_a1 >>=16;\n        *((s32 *) (((s8 *) var_a2_2) + 0x2C)) = (s32) temp_a1;\n        ((s8 *) var_a2_2)[0x30] = (s8) ((((u16) (*((u16 *) (((s8 *) temp_v0) + 2)))) >> 0xC) + ((((u16) (*((u16 *) temp_v0))) >> 0xF) * 0x10));\n        new_var = *((s32 *)((s8*)temp_fp + 0x22C)); new_var = (u32)new_var * (u32)D_8009D540; ((s8*)var_a2_2)[0x36] = (s8)(((u32)new_var * 0xE10U) / (u32)(temp_a1 * 0x3E8));\n      }\n} var_s4 += 1;\n  }\n  if (((u32) ((hv = temp_s2_2 = var_s4) & 0xFF)) < 3U) goto decode_next;\n}\n\n",
    "e000cf0002b82592bf9651f5778081fbc66aabad74536d59bd0fce88c35bbb12": "extern u8 D_800C02AE[];\nvoid func_8006BE50(u8 *p, u8 a);\n\nvoid func_8006BF30(s32 aa, s32 bb, s32 cc, s32 dd) { u8 a=(u8)aa, b=(u8)bb, c=(u8)cc, d=(u8)dd;\n    switch (b) {\n    case 0:\n        func_8006BE50(((u8 **)((u8 *)D_800C02AE + 0x10386))[b] + c * 708 + ((d << 6) + 0x2C), a);\n        break;\n    case 1:\n        func_8006BE50((u8 *)D_800C02AE + 0x34A2 + (d << 6), a);\n        break;\n    case 2:\n        func_8006BE50((u8 *)D_800C02AE + 0x33A2 + (d << 6), a);\n        break;\n    case 3:\n        func_8006BE50((u8 *)D_800C02AE + 0x37A2, a);\n        break;\n    case 4:\n        func_8006BE50((u8 *)D_800C02AE + 0x37E2, a);\n        break;\n    case 5:\n        func_8006BE50((u8 *)D_800C02AE + 0x3822, a);\n        break;\n    case 6: case 7: case 8: case 9: case 10: case 11: case 12: case 13: case 14: case 15: case 16:\n    case 17: case 18: case 19: case 20: case 21: case 22: case 23: case 24: case 25: case 26:\n        break;\n    }\n}\n",
    "05222047f968d293d8f2767f4ccd2da206c9a728a1029ff68a51667ffd3c0d09": "typedef struct Lap { s32 time; u8 c4; u8 pad5; char name[3]; u8 pad9; u8 speed; u8 padB; u8 valid; u8 padD[3]; } Lap;\ntypedef struct Drv { u16 w0; u16 w2; char pad[10]; } Drv;\ntypedef struct Rec { char pad0[0x14]; u16 n; char pad16[0x22C - 0x16]; s32 vals[8]; char pad24C[0x2C4 - 0x24C]; } Rec;\n\nextern void func_8006BF30(s32,s32,s32,s32);\nextern s32 D_8009D540;\nextern s32 D_800ADF40[];\nextern Lap D_800C3750[][4];\nextern Drv D_800C70D4[];\nextern u8 D_800C7124[];\nextern Rec *D_800D0648;\n\nvoid func_8006C3E4(u8 arg0) {\n    u8 i;\n    s32 j;\n    u32 x;\n    Drv *d;\n    u16 *tbl;\n    s32 total;\n    u8 n;\n\n    for (i = 0; i < 3; i++) {\n        j = i;\n        tbl = (u16 *)D_800C7124;\n        x = tbl[arg0 * 3 + j + 0xAD];\n        if (x != 0xFFFF) {\n            d = &D_800C70D4[x >> 14];\n            func_8006BF30((u8)(j), 22,(u8)(arg0),(u8)(arg0));\n            D_800C3750[arg0][j].name[0] = ((d->w0 >> 10) & 0x1F) + 'A';\n            D_800C3750[arg0][j].name[1] = ((d->w0 >> 5) & 0x1F) + 'A';\n            {\n                s32 blue = ((u8 *)d)[1];\n                x &= 0x3FFF;\n                D_800C3750[arg0][j].valid = 1;\n                D_800C3750[arg0][j].name[2] = (blue & 0x1F) + 'A';\n            }\n            if (x & 1) x = -x;\n            x = D_800ADF40[arg0] - x;\n            D_800C3750[arg0][j].time = x;\n            D_800C3750[arg0][j].c4 = (d->w2 >> 12) + (d->w0 >> 15) * 16;\n            total = 0;\n            for (n = 0; n < D_800D0648[arg0].n; n++) {\n                total += D_800D0648[arg0].vals[n];\n            }\n            D_800C3750[arg0][i].speed = (u32)(total * D_8009D540 * 3600) / (u32)(x * 1000);\n        }\n    }\n}\n",
    "85b0469353fcb161dc5e9b4a8198824e3be66f2737255a1147d75fc0ea1b73db": "typedef struct Item\n{\n  s32 x;\n  u8 pad[0xC];\n} Item;\ntypedef struct Group\n{\n  Item item[4];\n} Group;\ntypedef struct Game\n{\n  u8 pad00[0x20];\n  u16 sel;\n} Game;\ntypedef struct Tbl\n{\n  u8 pad[0x15A];\n  u16 v;\n} Tbl;\nextern Game *D_800C35A0;\nextern Group D_800C3750[];\nextern s32 D_800ADF40[];\nextern u8 D_800C7124[];\nextern u8 func_8006B924(Item *);\nvoid func_8006C640(void)\n{\n  u8 idx;\n  u8 i;\n  u8 *new_var2;\n  u8 r;\n  u8 new_var;\n  s32 d;\n  new_var2 = D_800C7124;\n  idx = D_800C35A0->sel;\n  for (i = 0; i < 3; i++)\n  {\n    r = func_8006B924(&D_800C3750[idx].item[i]);\n    new_var = i;\n    if (r == 5)\n    {\n      ((Tbl *) (new_var2 + (((idx * 3) + new_var) * 2)))->v = 0xFFFF;\n    }\n    else\n    {\n      d = D_800ADF40[idx] - D_800C3750[idx].item[new_var].x;\n      if (d >= 0)\n      {\n        if (d >= 0x4000)\n        {\n          d = 0x3FFE;\n        }\n        d &= ~1;\n      }\n      else\n      {\n        d = -d;\n        if (d >= 0x4000)\n        {\n          d = 0x3FFE;\n        }\n        d |= 1;\n      }\n      ((Tbl *) (new_var2 + (((idx * 3) + i) * 2)))->v = d | (r << 14);\n    }\n  }\n\n}\n\n",
@@ -293700,6 +294532,7 @@
    "481f0d9567c87d6b4226ed4f5111f1b42ba5a671e29c9e595ff4704d321131be": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[96];\n  u16 w[3];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(s32,s32,s32,s32);\n\nvoid func_8006CCD0(void)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->w[j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30((u8)(j),(u8)(0x18),(u8)(0),(u8)(0));\n      D_800C3650[16][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[16][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[16][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[16] - v;\n      D_800C3650[16][j].val = v;\n      D_800C3650[16][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
    "cc9dc3f34e867e7ea8f33680207b205a8540cb44c9846e5a8c26be29c2f5f08b": "typedef struct { s32 v; s32 pad[3]; } Sample;\nextern Sample D_800C3650[4][4];\nextern s32 D_800ADF30[4];\nextern u16 D_800C7206[12];\nu8 func_8006B924(Sample *);\n\nvoid func_8006CE1C(void)\n{\n  u16 *out;\n  u8 i;\n  u8 j;\n  u8 code;\n  s32 d;\n\n  out = D_800C7206;\n  for (i = 0; i < 4; i++) {\n    for (j = 0; j < 3; j++) {\n      code = func_8006B924(&D_800C3650[i][j]);\n      if (code == 5) {\n        out[i * 3 + j] = 0xFFFF;\n      } else {\n        d = D_800ADF30[i] - D_800C3650[i][j].v;\n        if (d >= 0) {\n          if (d >= 0x4000) d = 0x3FFE;\n          d &= ~1;\n        } else {\n          d = -d;\n          if (d >= 0x4000) d = 0x3FFE;\n          d |= 1;\n        }\n        out[i * 3 + j] = d | (code << 14);\n      }\n    }\n  }\n}",
    "032e5adf2f294465c6f07003aa476a5c4d8daa0a8b19d14b61ca0c984bb92f4b": "typedef struct Slot6C\n{\n  s32 val;\n  u8 c4;\n  u8 c5;\n  u8 c6;\n  u8 c7;\n  u8 c8;\n  u8 c9[3];\n  u8 cC;\n  u8 cD[3];\n} Slot6C;\ntypedef struct Code6C\n{\n  u16 a;\n  u16 b;\n  u8 pad[10];\n} Code6C;\ntypedef struct Tbl6C\n{\n  u8 pad[0xE2];\n  u16 v[1];\n} Tbl6C;\nextern Slot6C D_800C3650[][4];\nextern Code6C D_800C70D4[];\nextern Tbl6C D_800C7124;\nextern s32 D_800ADF30[];\nextern void func_8006BF30(s32,s32,s32,s32);\n\nvoid func_8006CF7C(u8 i)\n{\n  Tbl6C *t = &D_800C7124;\n  u8 j = 0;\n  u32 v;\n  s32 x;\n  Code6C *p;\n\n  do\n  {\n    v = t->v[i * 3 + j];\n    if (v != 0xFFFF)\n    {\n      p = &D_800C70D4[v >> 14];\n      func_8006BF30((u8)(j),(u8)(0x17),(u8)(i),(u8)(i));\n      D_800C3650[i][j].c6 = ((p->a >> 10) & 0x1F) + 0x41;\n      D_800C3650[i][j].c7 = ((p->a >> 5) & 0x1F) + 0x41;\n      x = (((u8 *) p)[1] & 0x1F) + 0x41;\n      v &= 0x3FFF;\n      D_800C3650[i][j].cC = 1;\n      D_800C3650[i][j].c8 = x;\n      if (v & 1)\n        v = -v;\n      v = D_800ADF30[i] - v;\n      D_800C3650[i][j].val = v;\n      D_800C3650[i][j].c4 = (p->b >> 12) + (p->a >> 15) * 16;\n    }\n    j++;\n  }\n  while (j < 3);\n}\n",
+   "269a51bdb93c1b5c5b8afdd8c8fd59729e0731e8446f6b25435cc119878d7586": "extern f64 D_800A5890;\nextern f64 D_800A58A0;\nextern f64 D_800A5898;\nextern u8 *D_800C35A0;\nextern u8 *D_800D0634[];\nextern u16 D_800C5D9C[];\nextern u8 D_800C721E[];\nextern s32 func_8006B924(u8 *);\nvoid func_8006D10C(void)\n{\n  s32 r;\n  u8 n;\n  s32 code;\n  s32 q;\n  f64 fs1;\n  u8 *s6;\n  u8 j;\n  u8 i;\n  u8 b;\n  s32 k;\n  u8 *out;\n  s32 group_index;\n  u16 *level;\n  u16 *lookup_base;\n  f64 conversion_bound;\n  s32 raw;\n  u8 *item;\n  s32 row_product;\n  b = D_800C35A0[31];\n  n = D_800C35A0[35];\n  s6 = D_800D0634[b];\n  j = 0;\n  switch (b)\n  {\n    case 0:\n      break;\n\n    case 2:\n      j = 4;\n      break;\n\n    case 3:\n      j = 9;\n      break;\n\n    case 4:\n      j = 15;\n      break;\n\n  }\n\n  n += j;\n  i = 0;\n  conversion_bound = D_800A5890;\n  group_index = n;\n  fs1 = ((f64) group_index) * D_800A5898;\n  lookup_base = D_800C5D9C;\n  level = lookup_base + group_index;\npacked_loop:\n  {\n    { f64 value = fs1 + (((f64)(i & 255)) * D_800A58A0);\n      if (!(conversion_bound <= value)) raw = (s32)value;\n      else raw = ((s32)(value - conversion_bound)) | 0x80000000U;\n      j = raw;\n    }\n    row_product = group_index * 9;\n    k = i & 255;\n    q = (((k * 3) + row_product) * 4) - ((j & 255) * 8);\n    item = (s6 + (((*((u16 *) (D_800C35A0 + 34))) << 6) + 44)) + (k * 16);\n    do {\n      code = func_8006B924(item);\n    } while (0);\n    out = D_800C721E;\n    if ((code & 255) == 5)\n    {\n      if (q & 255)\n      {\n        do {\n        out[(j & 255) + 1] = 255;\n        out[j & 255] |= 240;\n        } while (0);\n      }\n      else\n      {\n        do {\n        out[j & 255] = 255;\n        out[(j & 255) + 1] |= 15;\n        } while (0);\n      }\n    }\n    else\n    {\n      r = *level - (*((s32 *) ((s6 + ((k * 16) + ((*((u16 *) (D_800C35A0 + 34))) << 6))) + 44)));\n      if (r >= 0)\n      {\n        if (r >= 1024)\n        {\n          r = 1022;\n        }\n        r = r & (~1);\n      }\n      else\n      {\n        r = -r;\n        if (r >= 1024)\n        {\n          r = 1022;\n        }\n        r = r | 1;\n      }\n      if (q & 255)\n      {\n        switch (code & 255)\n        {\n          case 0:\n            out[j & 255] &= 207;\n            break;\n\n          case 1:\n            out[j & 255] = (out[j & 255] | 16) & 223;\n            break;\n\n          case 2:\n            out[j & 255] = (out[j & 255] & 239) | 32;\n            break;\n\n          case 3:\n            out[j & 255] |= 48;\n            break;\n\n        }\n\n        if (r & 1)\n        {\n          out[j & 255] |= 64;\n        }\n        else\n        {\n          out[j & 255] &= 191;\n        }\n        if (r & 2)\n        {\n          out[j & 255] |= 128;\n        }\n        else\n        {\n          out[j & 255] &= 127;\n        }\n        out[(j & 255) + 1] = r >> 2;\n      }\n      else\n      {\n        switch (code & 255)\n        {\n          case 0:\n            out[(j & 255) + 1] &= 243;\n            break;\n\n          case 1:\n            out[(j & 255) + 1] = (out[(j & 255) + 1] | 4) & 247;\n            break;\n\n          case 2:\n            out[(j & 255) + 1] = (out[(j & 255) + 1] & 251) | 8;\n            break;\n\n          case 3:\n            out[(j & 255) + 1] |= 12;\n            break;\n\n        }\n\n        if (r & 256)\n        {\n          out[(j & 255) + 1] |= 1;\n        }\n        else\n        {\n          out[(j & 255) + 1] &= 254;\n        }\n        if (r & 512)\n        {\n          out[(j & 255) + 1] |= 2;\n        }\n        else\n        {\n          out[(j & 255) + 1] &= 253;\n        }\n        out[j & 255] = r;\n      }\n    }\n    i++;\n  }\n  if ((i & 255) < 3) goto packed_loop;\n}\n\n",
    "442dc8dd042da0e11bbd28239a22803a4f2aac5ca53727f15abbf988e67448f7": "typedef struct Item {\n    s32 w[4];\n} Item;\ntypedef struct Group {\n    Item item[4];\n} Group;\ntypedef struct Record {\n    s32 w[5];\n    u16 count;\n    u8 pad16[0x2C - 0x16];\n    Group groups[10];\n    u8 pad2AC[0x18];\n} Record;\ntypedef struct Slot {\n    u8 pad00[0x28];\n} Slot;\ntypedef struct Game {\n    u8 pad00[0x1E];\n    u16 mode;\n    u16 sel;\n    u16 sub;\n    u8 pad24[0x44 - 0x24];\n    Slot slots[4];\n} Game;\nextern Game *D_800C35A0;\nextern Record *D_800D0634[5];\nextern Group D_800C3750[12];\nextern Group D_800C3650[4];\nextern Item D_800C3A50[];\nextern s8 D_800A16F0;\nextern u8 D_800A57C0[];\nextern s32 func_8006F820(void *, s32);\nextern void func_8006DD04(void *);\nextern long func_8006DDD8(void);\nextern void func_8006D10C(void);\nextern void func_8006C640(void);\nextern void func_8006CE1C(void);\nextern void func_8006CB9C(void);\nextern void func_8006C99C(void);\nextern void func_8006F4A8(u8);\nextern void func_8006EE3C(u8);\nextern void func_8006F0E0(u8);\nextern s32 func_8006F75C(void);\nextern s32 func_8002B618(u8 *, u8 *);\nextern void func_8006F8E0(void);\nextern void func_80054838(void);\nextern void func_8005508C(void);\n\n#define GROUP(p, j) ((Group *)((u8 *)(p) + ((j) * 0x40 + 0x2C)))\n\nvoid func_8006D564(s32 arg0)\n{\n    Record *r;\n    Group *g;\n    u8 i;\n    u8 j;\n    u8 *p;\n    u8 k;\n    u8 mode;\n    u8 sel;\n    u8 sub;\n\n    mode = D_800C35A0->mode;\n    sel = D_800C35A0->sel;\n    sub = D_800C35A0->sub;\n    for (i = 0; i < 8; i++) {\n        r = &D_800D0634[0][i];\n        for (j = 0; j < r->count; j++) {\n            k = 0;\n            g = GROUP(r, j);\n            for (; k < 3; k++) {\n                func_8006F820(&g->item[k], (u8)arg0);\n            }\n            D_800C35A0->mode = 0;\n            D_800C35A0->sel = i;\n            D_800C35A0->sub = j;\n            func_8006DDD8();\n        }\n    }\n    for (j = 0; j < 4; j++) {\n        r = D_800D0634[1];\n        k = 0;\n        p = (u8 *)GROUP(r, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 1;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 5; j++) {\n        r = D_800D0634[2];\n        k = 0;\n        p = (u8 *)GROUP(r, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 2;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 6; j++) {\n        p = (u8 *)D_800D0634[3];\n        k = 0;\n        p = (u8 *)GROUP(p, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 3;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (j = 0; j < 3; j++) {\n        p = (u8 *)D_800D0634[4];\n        k = 0;\n        p = (u8 *)GROUP(p, j);\n        for (; k < 3; k++) {\n            func_8006F820(&((Group *)p)->item[k], (u8)arg0);\n        }\n        D_800C35A0->mode = 4;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        func_8006D10C();\n    }\n    for (i = 0; i < 12; i++) {\n        for (k = 0; k < 3; k++) {\n            func_8006F820(&D_800C3750[i].item[k], (u8)arg0);\n        }\n        D_800C35A0->sel = i;\n        func_8006C640();\n    }\n    for (i = 0; i < 4; i++) {\n        for (k = 0; k < 3; k++) {\n            func_8006F820(&D_800C3650[i].item[k], (u8)arg0);\n        }\n        func_8006CE1C();\n    }\n    for (k = 0; k < 3; k++) {\n        func_8006F820(&D_800C3A50[k], (u8)arg0);\n        func_8006CB9C();\n        func_8006F820(&D_800C3A50[k + 12], (u8)arg0);\n        func_8006C99C();\n    }\n    D_800C35A0->mode = mode;\n    D_800C35A0->sel = sel;\n    D_800C35A0->sub = sub;\n    func_8006F4A8(arg0);\n    func_8006EE3C(arg0);\n    D_800C35A0->slots[(u8)arg0].pad00[0] = 0x5B;\n    func_8006F0E0(arg0);\n    func_8006F75C();\n    D_800A16F0 = j = 0;\n    func_8002B618(D_800A57C0, 0);\n    func_8006F8E0();\n\n    mode = D_800C35A0->mode;\n    sel = D_800C35A0->sel;\n    sub = D_800C35A0->sub;\n    for (i = 0; i < 8; i++) {\n        p = (u8 *)&D_800D0634[0][i];\n        for (j = 0; j < ((Record *)p)->count; j++) {\n            D_800C35A0->mode = 0;\n            D_800C35A0->sel = i;\n            D_800C35A0->sub = j;\n            func_8006DD04(GROUP(p, j));\n            func_8006DDD8();\n        }\n    }\n    for (j = 0; j < 4; j++) {\n        D_800C35A0->mode = 1;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[1];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 5; j++) {\n        D_800C35A0->mode = 2;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[2];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 6; j++) {\n        D_800C35A0->mode = 3;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[3];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (j = 0; j < 3; j++) {\n        D_800C35A0->mode = 4;\n        D_800C35A0->sel = 0;\n        D_800C35A0->sub = j;\n        p = (u8 *)D_800D0634[4];\n        func_8006DD04(GROUP(p, j));\n        func_8006D10C();\n    }\n    for (i = 0; i < 12; i++) {\n        D_800C35A0->sel = i;\n        func_8006DD04(&D_800C3750[i]);\n        func_8006C640();\n    }\n    for (i = 0; i < 4; i++) {\n        func_8006DD04(&D_800C3650[i]);\n        func_8006CE1C();\n    }\n    func_8006DD04((Group *)D_800C3A50);\n    func_8006CB9C();\n    func_8006DD04((Group *)&D_800C3A50[12]);\n    func_8006C99C();\n    D_800C35A0->mode = mode;\n    D_800C35A0->sel = sel;\n    D_800C35A0->sub = sub;\n    func_80054838();\n    func_8005508C();\n}\n",
    "7fa9be8af7e2fc6af84664a191254b050876d25077b8209c80b2b6a57c3ba372": "extern u8 D_800C02AE[];\nextern u8 *D_800C35A0;\nextern u8 *D_800D0634;\nextern u16 D_800C5D38[];\nextern u8 D_800C7125[];\nextern f64 D_800A58A8;\nextern f64 D_800A58B0;\nextern f64 D_800A58B8;\nu8 func_8006B9E0(u8, u8);\ns32 func_8006B924(void *, int);\nlong func_8006DDD8(void)\n{\n  f64 bound = D_800A58A8;\n  s32 code = (s32)D_800C35A0;\n  u8 *tab = D_800C7125;\n  s32 i = 0;\n  u8 *base = *(u8 **)0x800D0634 + (((u8 *)code)[0x21] * 0x2c4);\n  u32 idx;\n  u32 x;\n  s32 raw;\n  u32 twice;\n  s16 off;\n  s32 delta;\n  s32 stride;\n  f64 b;\n  int new_var;\n  code = func_8006B9E0(((u8 *)code)[0x21], ((u8 *)code)[0x23]);\n  stride = D_800C35A0[0x23] * 64;\n  idx = (u8) code;\n  twice = idx * 2;\n  b = ((f64) ((s32) idx)) * D_800A58B0;\n  new_var = 0x40;\n  loop:\n  {\n    {\n      f64 value = b + (((f64) (i & 255)) * D_800A58B8);\n      if (!(bound <= value))\n      {\n        raw = (s32) value;\n      }\n      else\n      {\n        raw = ((s32) (value - bound)) | 0x80000000;\n      }\n      x = raw;\n    }\n    off = ((idx * 36) + ((i & 255) * 12)) - (((u8) x) * 8);\n    { s32 i16;\n    code = func_8006B924((base + (stride + 0x2c)) + (i16 = (i & 255) * 16), i & 255); }\n    if (((u8) code) == 5)\n    {\n      if ((u8) off)\n      {\n do { tab[((u8) x) + 1] = 255; tab[(u8) x] |= 0xf0; } while (0);\n      }\n      else\n      {\n        do { tab[(u8) x] = 255; tab[((u8) x) + 1] |= 15; } while (0);\n      }\n    }\n    else\n    {\n      if (code)\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      else\n      {\n        delta = (*((u16 *) (((u8 *) D_800C5D38) + twice))) - (*((s32 *) ((char *) ((base + (((i & 255) * 16) + stride)) + 0x2c))));\n      }\n      if (delta >= 0)\n      {\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta &= ~1;\n      }\n      else\n      {\n        delta = -delta;\n        if (delta >= 1024)\n        {\n          delta = 1022;\n        }\n        delta |= 1;\n      }\n      if ((u8) off)\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[(u8) x] &= 0xcf;\n            break;\n\n          case 1:\n            off = (tab[(u8) x] = (tab[(u8) x] | 0x10) & 0xdf);\n            break;\n\n          case 2:\n            tab[(u8) x] = (tab[(u8) x] & 0xef) | 0x20;\n            break;\n\n          case 3:\n            tab[(u8) x] |= 0x30;\n            break;\n\n        }\n\n        if (delta & 1)\n        {\n          tab[(u8) x] |= new_var;\n        }\n        else\n        {\n          tab[(u8) x] &= 0xbf;\n        }\n        if (delta & 2)\n        {\n          tab[(u8) x] |= 0x80;\n        }\n        else\n        {\n          tab[(u8) x] &= 0x7f;\n        }\n        tab[((u8) x) + 1] = delta >> 2;\n      }\n      else\n      {\n        switch ((u8) code)\n        {\n          case 0:\n            tab[((u8) x) + 1] &= 0xf3;\n            break;\n\n          case 1:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] | 4) & 0xf7;\n            break;\n\n          case 2:\n            tab[((u8) x) + 1] = (tab[((u8) x) + 1] & 0xfb) | 8;\n            break;\n\n          case 3:\n            tab[((u8) x) + 1] |= 12;\n            break;\n\n        }\n\n        if (delta & 0x100)\n        {\n          tab[((u8) x) + 1] |= 1;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfe;\n        }\n        if (delta & 0x200)\n        {\n          tab[((u8) x) + 1] |= 2;\n        }\n        else\n        {\n          tab[((u8) x) + 1] &= 0xfd;\n        }\n        tab[(u8) x] = delta;\n      }\n    }\n    i++;\n  }\n\n  if (((u32) (i & 255)) < 3)\n  {\n    goto loop;\n  }\n}\n",
    "341c99033e3f11d89266dc3efd13f4778a55f2110122c295d1c4996015cf43b0": "typedef struct {\n    u16 f15 : 1;\n    u16 f14 : 1;\n    u16 f13 : 1;\n    u16 pad : 3;\n    u16 f8 : 2;\n    u16 f4 : 4;\n    u16 f0 : 4;\n    u16 g12 : 4;\n    u16 g8 : 4;\n    u8 b3;\n    u8 b4;\n    u8 b5;\n    u8 b6;\n    u8 b7;\n    u8 b8;\n    u8 b9;\n    s16 sums[4];\n    u8 pad12[0x1BA - 0x12];\n    s8 code;\n} Packet;\ntypedef struct {\n    u8 pad0[0xA];\n    union {\n        u16 w;\n        u8 b[2];\n    } v;\n    u8 pad0C[0x28 - 0xC];\n} Entry;\ntypedef struct {\n    u8 pad0[0xE];\n    u16 mode;\n    u8 pad10[0x32 - 0x10];\n    u8 sel0;\n    u8 sel1;\n    u8 sel2;\n    u8 sel3;\n    u8 pad36[0x44 - 0x36];\n    Entry e[1];\n} Game;\ntypedef struct { u8 a; u8 b; u8 c; } Flags3;\nextern Packet D_800C7112;\nextern Game *D_800C35A0;\nextern Flags3 D_800B6818;\nextern u16 D_800B6610[];\nextern u8 D_800B6628[][4];\nextern s32 D_800B6768;\nextern s32 D_800B676C;\n\nvoid func_8006E8A0(void)\n{\n    Packet *p;\n    u8 n;\n    u8 base;\n    u8 i;\n    u8 j;\n    s8 bits;\n    s16 sum;\n\n    if (D_800B6818.b != 0)\n    {\n        n = 4;\n        base = 8;\n    }\n    else\n    {\n        n = 8;\n        base = 0;\n    }\n    p = &D_800C7112;\n    p->f14 = D_800B6818.c;\n    p->f13 = D_800B6818.a;\n    p->f15 = D_800B6818.b;\n    p->f8 = D_800C35A0->mode;\n    p->f4 = D_800C35A0->sel0;\n    D_800C7112.code = D_800C35A0->e[D_800C35A0->sel0].v.b[1] & 0xF;\n    if (D_800C35A0->mode == 2)\n    {\n        p->f0 = D_800C35A0->sel1;\n        D_800C7112.code += (D_800C35A0->e[D_800C35A0->sel1].v.b[1] & 0xF) << 4;\n    }\n    else\n    {\n        p->f0 = D_800C35A0->e[D_800C35A0->sel1].v.w;\n    }\n    p->g12 = D_800C35A0->e[D_800C35A0->sel2].v.w & 0xF;\n    p->g8 = D_800C35A0->e[D_800C35A0->sel3].v.w;\n    bits = 0;\n    for (i = 0; i < n; i++)\n    {\n        if (D_800B6610[base + i] == 1)\n        {\n            bits |= 1 << i;\n        }\n    }\n    p->b9 = bits;\n    for (j = 0; j < 4; j++)\n    {\n        sum = 0;\n        for (i = 0; i < n; i++)\n        {\n            sum += D_800B6628[base + i][j] << (i * 2);\n        }\n        p->sums[j] = sum;\n    }\n    {\n        s32 t = D_800B6768;\n        p->b3 = t;\n        p->b5 = t >> 16;\n        p->b4 = t >> 8;\n        t = D_800B676C;\n        p->b8 = t >> 16;\n        p->b7 = t >> 8;\n        p->b6 = t;\n    }\n}\n",
@@ -293734,6 +294567,7 @@
    "7dbea080113fcfe95d0a2d546636d5ec01cad9e3d8be9a7ff0a14f3c6467a7a9": "#define G D_800C35A0\n#define ENTS D_800C7F90\n#define TRACKS D_800C3750\n#define RECS D_800D0634\n#define STATS (&D_800B6600)\ntypedef struct \n{\n  u32 score;\n  u8 b4;\n  u8 b5;\n  char name[4];\n  u8 laps;\n  u8 bB;\n  u8 flag;\n  u8 pad[3];\n} Item;\ntypedef struct \n{\n  Item item[4];\n} Track;\ntypedef struct \n{\n  char name[4];\n  s32 time;\n  s32 diff;\n  u32 avg;\n  u8 b10;\n  u8 idx;\n  u8 b12;\n  u8 pad;\n  void *ptr;\n} Ent;\ntypedef struct \n{\n  u8 pad[0x22C];\n  s32 v[3];\n  u8 pad2[0x2C4 - 0x238];\n} Rec;\ntypedef struct Node\n{\n  u8 pad[4];\n  struct Node *next;\n  u8 pad8[0x48 - 8];\n  s32 *p48;\n} Node;\ntypedef struct \n{\n  u8 pad[0x58];\n  s32 best[12][4];\n  s32 a[4];\n  s32 b[4];\n  s32 c[4];\n} Stats;\nextern char D_800AE850[];\nextern char D_800C02AE[];\nextern s32 D_8009D540;\nextern u8 *D_800C35A0;\nextern Ent D_800C7F90[5];\nextern Track D_800C3750[];\nextern Rec *D_800D0634[];\nextern Stats D_800B6600;\nextern Node **D_800B5C40;\nvoid memset(void *, s32, s32);\nu8 func_80078338(u8);\nvoid func_80098290(char *, void *);\nvoid func_800783A8(void)\n{\n  char *__repair_addr;\n  u8 n;\n  Node *node;\n  Stats *st;\n  Rec **recs;\n  u8 slot;\n  s32 sum;\n  s32 cnt;\n  Rec *rec;\n  u8 i;\n  s32 d;\n  n = 0;\n  node = *(*((Node ***) (D_800AE850 + 0x73F0)));\n  st = STATS;\n  memset(ENTS, 0, 0x78);\n  i = 0;\n  if (node != 0)\n  {\n    recs = RECS;\n    do\n    {\n      slot = func_80078338(n);\n      if (ENTS[slot].ptr != 0)\n      {\n        slot--;\n      }\n      ENTS[slot].ptr = node;\n      func_80098290(ENTS[slot].name, G + (((G + n)[0x32] * 40) + 0x44));\n      __repair_addr = (char *) ((G + ((G + n)[0x32] * 40)) + 0x4E);\n      ENTS[slot].b12 = *((u16 *) __repair_addr);\n      ENTS[slot].idx = n;\n      ENTS[slot].time = st->best[*((u16 *) (G + 0x20))][n];\n      sum = 0;\n      cnt = 0;\n      rec = recs[*((u16 *) (G + 0x1E))] + (*((u16 *) (G + 0x20)));\n      if (st->a[n] != 0)\n      {\n        sum = rec->v[0];\n        cnt = st->a[n];\n      }\n      if (st->b[n] != 0)\n      {\n        cnt += st->b[n];\n        sum += rec->v[1];\n      }\n      if (st->c[n] != 0)\n      {\n        cnt += st->c[n];\n        sum += rec->v[2];\n      }\n      ENTS[slot].avg = ((u32) ((sum * D_8009D540) * 3600)) / ((u32) (cnt * 1000));\n      ENTS[slot].b10 = *node->p48;\n      node = node->next;\n      n++;\n    }\n    while (node != 0);\n    i = 0;\n  }\n  for (i = 0; i < 4; i++)\n  {\n    if (ENTS[i].time != 0)\n    {\n      d = ENTS[i].time - ENTS[0].time;\n      ENTS[i].diff = (d >= 0) ? d : -d; } else { ENTS[i].diff = 0;\n    }\n  }\n  func_80098290(ENTS[4].name, TRACKS[*((u16 *) (G + 0x20))].item[0].name);\n  ENTS[4].time = TRACKS[*((u16 *) (G + 0x20))].item[0].score;\n  ENTS[4].avg = TRACKS[*((u16 *) (G + 0x20))].item[0].laps;\n  ENTS[4].b12 = TRACKS[*((u16 *) (G + 0x20))].item[0].b4;\n  if (ENTS[0].b10 < 4)\n  {\n    *((u16 *) (G + 0x2A)) |= 1 << (*((u16 *) (G + 0x20)));\n  }\n}\n",
    "0da27baf5a90fe73f3adbdb19979823b0ca99b7750b5e7e78b41023daba8976a": "typedef struct { char name[4]; u32 first, second, third; u8 flag, pad17, icon, pad19[5]; } ScoreRow;\nextern ScoreRow D_800C7F90[5];\nextern s32 D_800C8328;\nvoid *func_80006008();\nvoid func_80006014();\nvoid func_80006298();\nvoid func_800068C0();\nint func_80006CF8();\nvoid func_800072F4();\nvoid func_8000C22C(void *, s32, s32, s32, u8);\nvoid func_8000C244(s32,s32,s32,s16,void*,s32);\ns32 func_8000C9B0(void *, void *, u8, f32, u8);\nu16 func_8000CC04(void *, void *, s16, s16, void *, u8, f32, f32, u16, u8);\nvoid func_80052E94();\nchar *func_80057918();\nvoid func_80073108(s32,s16,s16,s32,u8);\nvoid func_8007347C();\nint func_80099DF8(void *, void *, ...);\nextern char D_800A1798[];\nextern u8 D_800A17E9;\nextern u8 D_800A17EA;\nextern char D_800A5EB8[];\nextern char D_800A5ED8[];\nextern char D_800A5EE0[];\nextern char D_800A5EEC[];\nextern char D_800A5EF4[];\nextern char D_800A5EFC[];\nextern char D_800A5F04[];\nextern char D_800A5F0C[];\nextern char D_800A5F14[];\nextern char D_800A5F18[];\nextern char D_800A5F2C[];\nextern char D_800A5F44[];\nextern char D_800A5F54[];\nextern char D_800C02AE[];\nvoid func_8007950C(s32 arg0)\n{\n  char sp40[0x78];\n  char spB8[0x18];\n  char spD0[0x18];\n  char spE8[0x18];\n  struct { char text[0x18];    } tail;\n  s32 *var_a1_3;\n  s32 *var_a1_4;\n  s32 *var_a2_2;\n  s32 *var_a3_2 ; int new_var6 ;\n  u16 left_local;\n  s32  * new_var4 ; s32 var_a1_2 ; int new_var3 ; s32 special_x;\n  s32 var_a2;\n  s32 right_local ; int new_var5 ;\n  s32 var_a3;\n  s32 temp_s0_4;\n  s32 temp_s0_5;\n  s32 temp_s1;\n  s32 temp_s2_2;\n  s32 temp_s2_3;\n  s32 temp_s4;\n  s32 var_s7;\n  s32 temp_a0;\n  s32 temp_a0_2;\n  s32 temp_s0;\n  u32 *new_var;\n  s32 temp_s0_2;\n  int new_var2;\n  s32 temp_s1_2;\n  s32 temp_s1_3;\n  s32 temp_s2;\n  u16 temp_s3;\n  s32 temp_v1_2;\n  s16 var_fp;\n  s32 var_s4;\n  u32 temp_s0_3;\n  u32 temp_v0_2;\n  void *temp_s1_4;\n  void *temp_v0;\n  u32 identity_zero;\n  temp_v0 = func_80006008(arg0);\n  *((u32 *) temp_v0) = 0xDE000000;\n  *((void **) (((char *) temp_v0) + 4)) = &D_800A1798;\n  func_80006014(arg0, temp_v0 + 8);\n  temp_s0 = func_80006CF8(arg0, 0) & 0xFFFF;\n  func_800068C0(arg0, temp_s0, 0, 0, 0, 0x140, 0, 0, 0x140, 0xF0, 0, 0, 0xF0, 0);\n  func_800072F4(arg0, temp_s0, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0xAA);\n  func_80006298(arg0);\n  {\n  char *nm;\n  if ((*((u8 *) (D_800C02AE + 0x7F4F))) == 2)\n    nm = func_80057918(D_800C8328, 0x1CD);\n  else if ((*((u8 *) (D_800C02AE + 0x7F4F))) == 3)\n    nm = func_80057918(D_800C8328, 0x1CE);\n  else if ((*((u8 *) (D_800C02AE + 0x7F4F))) == 4)\n    nm = func_80057918(D_800C8328, 0x1CF);\n  else\n    nm = func_80057918(D_800C8328, 0x1D0);\n  var_s7 = 0x5A;\n  func_80099DF8(&tail.text, &D_800A5F14, nm);\n  }\n  func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n  func_80099DF8(&sp40, &D_800A5EB8);\n  temp_s0_2 = (D_800A17EA + D_800A17E9) + func_8000C9B0((void *)(D_800C02AE + 0x7F5E), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));\n  temp_v0_2 = ((u32)(temp_s0_2 & 0xFFFF)) >> 1;\n  temp_s2 = temp_v0_2 + 0xA0;\n  temp_s1 = 0xA0 - temp_v0_2;\n  func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));\n  func_8007347C(arg0, (temp_s1 - 7) & 0xFFFF, 0x46, (temp_s0_2 + 0xD) & 0xFFFF, 0x11);\n  var_fp = 0;\n  left_local = temp_s1;\n  func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16)temp_s1, 0x48, func_80057918(D_800C8328, 0xCF), 1);\n   new_var6 = 0x12 ; func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n  right_local = (u32)(-temp_s2) << 16;\n  do\n  {\n    var_s4 = (u16) left_local ; new_var3 = 1 ;\n\n    if ((var_fp & 0xFFFF) == 4)\n    {\n      \n        \n      func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD2)) ; var_s4 = 0x25; temp_s2_2 = var_s7 ; temp_s2_2 += 0x19 ; var_s7 = temp_s2_2 +  new_var6  ;\n      temp_s1_2 = func_8000C9B0((void *)(D_800C02AE + 0x7F5E), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));\n      temp_s3 = temp_s1_2;\n      func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));\n      temp_s0_3 = ((u32) (temp_s3 & 0xFFFF)) >> 1;\n       new_var5 = 0xFFFF ; new_var2 = 0x7F5E;\n      func_8007347C(arg0, (0x97 - temp_s0_3) &  new_var5 , (temp_s2_2 + (-2)) &  new_var5 , (temp_s1_2 + 0xF) &  new_var5 , 0x11);\n       new_var4 = (s32 *) (D_800C02AE + new_var2) ; func_8000C244 ( * new_var4 , arg0, 0xA0 - temp_s0_3, temp_s2_2, sp40, 1);\n      func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n\n      goto row_color_done;\n    }\n    new_var = &D_800C7F90[(var_fp & 0xFFFF)].first;\n\n    if ((*new_var) == D_800C7F90[4].first)\n    {\n      func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));\n\n    }\nrow_color_done:\n    temp_a0 = D_800C7F90[(var_fp & 0xFFFF)].first;\n    if (temp_a0 != 0)\n    {\n      func_80052E94(temp_a0, &spB8);\n\n    }\n    else\n    {\n      func_80099DF8(&spB8, &D_800A5EE0);\n\n    }\n    temp_a0_2 = D_800C7F90[(var_fp & 0xFFFF)].second;\n    if (D_800C7F90[( 0xFFFF & var_fp   )].second != 0)\n    {\n      func_80052E94(temp_a0_2, &spD0);\n\n    }\n    else\n    {\n      func_80099DF8(&spD0, &D_800A5EE0);\n\n    }\n    temp_v1_2 = D_800C7F90[(var_fp & 0xFFFF)].third;\n    if (temp_v1_2 != 0)\n    {\n      if ((*((u16 *) (D_800C02AE + 0x7FB6))) != 0)\n      {\n        func_80099DF8(&spE8, &D_800A5EEC, (s32 *) (((u32) (temp_v1_2 * 0x9F00)) >> 0x10));\n\n      }\n      else\n      {\n        func_80099DF8(&spE8, &D_800A5EF4, (s32 *) (temp_v1_2 & 0xFFFF));\n\n      }\n    }\n    else\n    {\n      if ((*((u16 *) (D_800C02AE + 0x7FB6))) != 0)\n      {\n        var_a1_3 = &D_800A5EFC;\n        func_80099DF8(&spE8, var_a1_3); }\n      else\n      {\n        var_a1_3 = &D_800A5F04;\n        func_80099DF8(&spE8, var_a1_3);\n      }\n\n    }\n    if ((var_fp & 0xFFFF) != 4)\n    {\n      func_80099DF8(&sp40, &D_800A5F0C, (var_fp & 0xFFFF) + 1, D_800C7F90[(var_fp & 0xFFFF)].name);\n\n    }\n    else\n    {\n      func_80099DF8(&sp40, &D_800A5F14, D_800C7F90[4].name);\n\n    }\n    if ((var_fp & 0xFFFF) != 4)\n    {\n       do { func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16) var_s4, var_s7, sp40, 1 ) ; } while ( 0 );\n    }\n    temp_s0_4 = var_s4 + D_800A17E9;\n    temp_s4 = var_s7 -  new_var3 ;\n    if ((((u32) (temp_s0_4 & 0xFFFF)) < 0x141U) & ((var_fp & 0xFFFF) != 4))\n    {\n      func_80073108(arg0, temp_s0_4, temp_s4, *((s32 *) (D_800C02AE - (-0x103B2))), (s32) D_800C7F90[(var_fp & 0xFFFF)].icon);\n    }\n    temp_s2_3 = temp_s4; ++temp_s2_3;\n    temp_s0_5 = temp_s0_4 + D_800A17EA; temp_s0_5 ^= arg0; temp_s0_5 ^= arg0; \n    var_s7 = temp_s2_3 ^ arg0; var_s7 ^= arg0;\n    arg0 ^= temp_s4; arg0 ^= temp_s4;\n\n    if ((var_fp & 0xFFFF) == 0) goto zero_row;\n    if ((var_fp & 0xFFFF) != 4) goto normal_row;\n    {\n        temp_s3 = ((D_800A17E9 + 0xFFF1) + D_800A17EA) + func_8000C9B0((void *)(D_800C02AE + 0x7F5E), (void *)(&D_800A5F18), (u8)(1), (f32)(1.0f), (u8)(1));\n        temp_s1_3 = (s32)(0x140 - (temp_s3 & 0xFFFF)) / 2;\n        temp_s3 = temp_s1_3;\n        temp_s3 = temp_s3 & 0xFFFF;\n        func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, temp_s3, temp_s2_3, sp40, 1);\n\n\n\n        if (((u32) (temp_s0_5 & 0xFFFF)) < 0x141U)\n        {\n          func_80073108(arg0, (s16) (temp_s1_3 + (D_800A17E9 + 0xFFF1)), temp_s4, *((s32 *) (D_800C02AE + 0x103B2)), (s32) D_800C7F90[4].icon);\n        }\n        var_s7 = temp_s2_3 ^ arg0; var_s7 ^= arg0;\n        func_80099DF8(sp40, &D_800A5ED8, &spB8, &spE8);\n        \n        func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, temp_s3 + (D_800A17E9 - 0xF) + D_800A17EA, temp_s2_3, sp40, 1);\n        identity_zero = (u32)temp_s0_5 ^ (u32)arg0; identity_zero ^= (u32)arg0; identity_zero ^= (u32)temp_s0_5;\n        arg0 = (u32)arg0 + (u32)(s16)temp_s2_3 * identity_zero;\n        do { var_s7 += 0xF; } while (0);\n      goto row_done;\n    }\nzero_row:\n  {\n    s16 local_y;\n      ;\n    func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16)temp_s0_5,  ( s16 ) temp_s2_3 , spB8, 1);\n    func_8000CC04((void *)(D_800C02AE + 0x7F5E), (void *)(arg0), (s16)(right_local >> 0x10),  (s16)(( s16 ) temp_s2_3) , (void *)(&spE8), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1)); \n    goto normal_row_done;\n  }\nnormal_row:\n  {\n    s16 local_y;\n    func_80099DF8(&sp40, &D_800A5F2C, &spB8, &spD0);\n    local_y = (s16)temp_s2_3;\n    func_8000C244(*((s32 *) (D_800C02AE + 0x7F5E)), arg0, (s16)temp_s0_5, local_y, sp40, 1);\n    func_8000CC04((void *)(D_800C02AE + 0x7F5E), (void *)(arg0), (s16)(right_local >> 0x10), (s16)(local_y), (void *)(&spE8), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1)); \n    goto normal_row_done;\n  }\nnormal_row_done:\n    var_s7 ^= temp_s2_3; var_s7 ^= temp_s2_3;\n    var_s7 += 0xF;\nrow_done:\n    func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F5E))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n    var_fp += 1;\n  }\n  while ((u16)var_fp < 5U);\n  temp_s1_4 = D_800C02AE + 0x7F62;\n  func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F62))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));\n  if (D_800C7F90[0].flag < 4U)\n  {\n    func_80099DF8(&sp40, &D_800A5ED8, func_80057918(D_800C8328, 0xD8), D_800C7F90[0].name);\n    func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, 0xA0 - (((u32) (func_8000C9B0((void *)(temp_s1_4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(0)) & 0xFFFF)) >> 1), 0x14, &sp40, 0);\n  }\n  \n  var_s7 = 0x28;\n  if ((*((s32 *) (D_800C02AE + 0x32AA))) == 2)\n  {\n    if ((*((u8 *) (D_800C02AE + 0x7F4F))) == 8)\n      { func_80099DF8(&sp40, &D_800A5ED8, func_80057918(D_800C8328, 0xD9), &tail.text); temp_s3 = func_8000C9B0((void *)(temp_s1_4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(0)); }\n    else\n      { func_80099DF8(&sp40, &D_800A5F54, func_80057918(D_800C8328, 0xD9), &tail.text); temp_s3 = func_8000C9B0((void *)(temp_s1_4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(0)); }\n  }\n  else\n      { func_80099DF8(&sp40, &D_800A5F44, &tail.text, func_80057918(D_800C8328, 0xD9)); temp_s3 = func_8000C9B0((void *)(temp_s1_4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(0)); }\n  func_8000C244(*((s32 *) (D_800C02AE + 0x7F62)), arg0, (temp_s2_3 = 0xA0 - (((u32) (temp_s3 & 0xFFFF)) >> 1)), var_s7, &sp40, 0);\n  func_8000C22C((void *)(*((s32 *) (D_800C02AE + 0x7F62))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));\n}",
    "42b7e4875f239ad406b8c0cb6e23200308461bad9e73e0da2b39e36904def49b": "typedef struct ObjA\n{\n  u8 pad0[0x228];\n  s8 state;\n  u8 pad229[2];\n  s8 flag;\n  u8 pad22c[0x5c];\n  void (*cb0)(void);\n  void (*cb1)(void);\n  void (*cb2)(void);\n} ObjA;\ntypedef struct Tbl\n{\n  u8 b[0x10];\n  u8 *base;\n} Tbl;\nextern ObjA *D_800A1468;\nextern Tbl *D_800C3508;\nextern void *D_800C35A0;\nextern u8 D_800A5F64[];\nextern u8 D_800A5F70[];\nextern void func_8005A360(s32, s32);\nextern void func_800595EC(void *);\nextern void func_80053A78(void);\nextern void func_80062B70(void);\nextern void func_80062DF4(void);\nextern void func_80064E48(void);\nextern void func_80064E50(void);\nextern void func_80070A34(void);\nextern void func_8007A29C(void);\nextern void func_8007A9A8(void);\nextern void func_8007AA94(void);\ns32 func_8007A01C(s32 arg0, s32 arg1)\n{\n  u32 scratch[1];\n  unsigned short idx;\n  s8 state;\n  s32 mode;\n  void *p;\n  state = D_800A1468->state;\n  idx = D_800C3508->b[3] * 20;\n  if (state != 0)\n  {\n    D_800A1468->state = --state;\n    func_8005A360(arg0, arg1);\n    D_800A1468->cb0 = func_8007A29C;\n    D_800A1468->cb1 = func_8007A9A8;\n    D_800A1468->cb2 = func_8007AA94;\n    mode = *((u16 *) (((u8 *) D_800C35A0) + 30));\n    switch (mode)\n    {\n      case 0:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 5;\n        break;\n\n      case 1:\n\n      case 2:\n\n      case 3:\n\n      case 4:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 5;\n        break;\n\n      case 5:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 7;\n        break;\n\n    }\n\n  }\n  else\n  {\n    D_800A1468->state = 0;\n    D_800A1468->flag = -1;\n    mode = *((u16 *) (((u8 *) D_800C35A0) + 30));\n    switch (mode)\n    {\n      case 1:\n\n      case 2:\n\n      case 3:\n\n      case 4:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 0;\n        func_800595EC(D_800A5F64);\n        D_800A1468->cb0 = func_80064E48;\n        D_800A1468->cb1 = func_80064E50;\n        break;\n\n      case 0:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 0;\n        func_800595EC(D_800A5F64);\n        D_800A1468->cb0 = func_80062B70;\n        D_800A1468->cb1 = func_80062DF4;\n        break;\n\n      case 5:\n        p = D_800C3508->base;\n        *((s32 *) (((u8 *) (*((void **) ((((u8 *) p) + idx) + 4)))) + 20)) = 1;\n        func_800595EC(D_800A5F70);\n        D_800A1468->cb0 = func_80070A34;\n        func_80053A78();\n        break;\n\n    }\n\n  }\n  return 0;\n}\n",
+   "576c03fd0b3b09295bbc09863c7518dec81ee3726b0c9fbab3e4762fd6fa597c": "#define B(p,o) (*(u8 *)((u8 *)(p)+(o)))\n#define P(p,o) (*(void **)((u8 *)(p)+(o)))\n#define H(p,o) (*(u16 *)((u8 *)(p)+(o)))\n#define SH(p,o) (*(s16 *)((u8 *)(p)+(o)))\nvoid func_8004C7F0(s32);\nvoid func_8004D31C(void);\nvoid *func_800592AC(u32);\nvoid *func_800592D0(u32);\nvoid func_8005937C(s32, s32);\nvoid func_8005BB5C(void);\nvoid func_8005BC60(void);\nvoid func_80069974(void);\ns32 func_8007EE9C(void *);\ns32 func_80081540(u8 *);\nvoid func_8008A0D8(s32, s32, s8);\nextern u8 *D_800A1468;\nextern u8 D_800A5F7C[];\nextern u8 D_800A5F8C[];\nextern u8 *D_800C3508;\ntypedef struct \n{\n  u8 pad0[0x32];\n  u8 idx[0x16];\n  struct \n  {\n    u8 pad[6];\n    u8 b6;\n    u8 b7;\n    u8 pad2[0x20];\n  } e[4];\n} RS;\nextern u8 *D_800C35A0;\nextern u8 *D_800D0658;\nstatic inline s16 normalize_field(s32 x) { x=(u32)x<<16; x=(s32)x>>16; return x; }\nvoid func_8007A29C(void)\n{\n  u8 *tbl;\n  u8 *ent;\n  u8 *cnt;\n  u8 *q;\n  u8 *ctx;\n  u8 *base;\n  u8 *node;\n  u8 *prev;\n  u8 *p;\n  u8 *arr;\n  u8 *r;\n  u16 off;\n  s8 i;\n  s8 j;\n  s32 n;\n  u8 t;\n  func_8004D31C();\n  func_8005BC60();\n  func_8005BB5C();\n  i = 0;\n  B(D_800A1468, 0x22B) = B(D_800A1468, 0x228);\n  t = ((RS *) D_800C35A0)->e[((RS *) D_800C35A0)->idx[(s8) B(D_800A1468, 0x228)]].b7;\n  B(D_800A1468, 0x237) = t;\n  ctx = D_800C3508;\n  ent = P(ctx, 0x10) + (SH(ctx, 2) * 0x14);\n  B(D_800A1468, 0x238) = H(D_800D0658 + (t * 0x2C4), 0x14);\n  base = D_800A1468;\n  cnt = base + 0x23D;\n  tbl = D_800D0658;\n  q = base + 0x241;\n  B(base, 0x23D) = 4;\n  B(base, 0x23E) = 8;\n  B(base, 0x23F) = 4;\n  B(base, 0x240) = 4;\n  B(base, 0x241) = 0;\n  B(base, 0x242) = 4;\n  B(base, 0x243) = 0xC;\n  B(base, 0x244) = 0x10;\n  do\n  {\n    p = func_800592AC(i);\n    node = P(p, 0x28);\n    j = 0;\n    n = cnt[i];\n    off = H(node, 8);\n    prev = 0;\n    if (n > 0)\n    {\n      arr = q + i;\n      r = cnt + i;\n      do\n      {\n        B(node, 0x22) = (*arr) + j;\n        if (H(tbl + ((((s8) (*arr)) + j) * 0x2C4), 0x10) & 8)\n        {\n          if (prev == 0)\n          {\n            prev = node;\n            node = P(node, 0);\n            P(p, 0x28) = node;\n            func_8007EE9C(prev);\n            prev = 0;\n          }\n          else\n          {\n            P(prev, 0) = P(node, 0);\n            func_8007EE9C(node);\n            node = P(prev, 0);\n          }\n          do\n          {\n            *r -= 1;\n            B(p, 0x4C) -= 1;\n          }\n          while (0);\n        }\n        else\n        {\n          H(node, 8) = normalize_field(off);\n          off += 0x14;\n          prev = node;\n          node = P(node, 0);\n        }\n        j++;\n      }\n      while (j < n);\n    }\n    if (cnt[i] == 0)\n    {\n      B(func_800592AC(i), 0x41) = 0;\n      func_8008A0D8((s32)D_800C3508, (B(P(D_800C3508, 0x10) + (SH(D_800C3508, 2) * 0x14), 0xD) + i) & 0xFFFF, 0);\n      if (B(D_800A1468, 0x238) == i)\n      {\n        {\n          u8 *rs = D_800C35A0;\n          rs += (rs + ((s8) B(D_800A1468, 0x228)))[0x32] * 40;\n          H(rs, 0x4E) = 4;\n        }\n        B(D_800A1468, 0x238) = H(D_800D0658, 0xB24);\n      }\n    }\n    func_8005937C(B(ent, 0xD) + i, cnt[i]);\n    i++;\n  }\n  while (i < 4);\n  {\n    u8 *a2 = P(D_800C3508, 0x10);\n    s32 m2 = B(D_800A1468, 0x238);\n    B(a2 + (SH(D_800C3508, 2) * 0x14), 0xE) = B(a2 + (SH(D_800C3508, 2) * 0x14), 0xD) + m2;\n    func_80069974();\n  }\n  B(D_800A1468, 0x2BD) = 1;\n  func_80081540(D_800A5F7C);\n  func_8004C7F0((s32)D_800A5F8C);\n  node = func_800592D0(0x38);\n  H(node, 4) = ((*((s8 *) (D_800A1468 + 0x228))) == 0) ? (3) : (0x98);\n}\n\n",
    "e0bbdfc9be146ce731ec7fa588840a3cf713e8bfc746ae94871a600c1189e6b6": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\nvoid *func_800592AC(u32);                            /* extern */\nvoid *func_8005A744(u32, void *);                       /* extern */\nextern void *D_800A1468;\n\nvoid func_8007A688(void) {\n    M2C_FIELD(D_800A1468, u8 *, 0x237) = (u8) M2C_FIELD(func_8005A744(M2C_FIELD(D_800A1468, u8 *, 0x239), (void *)(M2C_FIELD(func_800592AC((u8)(M2C_FIELD(D_800A1468, u8 *, 0x238))), void **, 0x28))), u8 *, 0x22);\n}\n",
    "2f77f092469542e853a54ecd1736aba73e5742471e7df9c5aae50a97cb5bcc07": "typedef struct Obj { void *next; u16 id,x,y; u8 a,b,c,d,e; u8 padf; f32 sx,sy; u8 pad18[2]; u8 active; } Obj;\ntypedef struct { u8 pad[0x1e4]; void *p; u8 pad2[0x4f]; u8 mode; u8 pad3[0x11]; u8 flag; } State;\ntypedef struct { u8 pad[6]; u16 x,y; } Dim;\ntypedef struct { Dim *d; } DimPtr;\ntypedef struct { u8 pad[4]; DimPtr *p; } World;\nextern State *D_800A1468; extern s32 D_800D05D8;void *func_800592D0(u32); extern void func_8007A6D0(void);\nextern s32 func_8004CEB4(s32, void*, u16*, s32,s32,s32,s32,s32,s32);\nvoid func_8007A7D0(void) {\n u16 p[4]; Obj *o,*q; u8 i; World *w;\n if (!D_800A1468->p) func_8007A6D0();\n o=func_800592D0(0x31); i=0;\n do { o->active=1; o->id=(u16)(i+(D_800A1468->mode*7+0x23e)); o=o->next; i++; } while ((u8)i<7);\n if (D_800A1468->flag) {\n  o=func_800592D0(D_800A1468->mode+2); q=func_800592D0(0x39);\n  q->x=o->x;q->y=o->y;q->b=o->b;q->c=o->c;q->d=o->d;q->e=o->e;\n  q->sx=o->sx;q->sy=o->sy;q->a=o->a;q->id=o->id;\n  o=func_800592D0(D_800A1468->mode+0x16); w=(World*)D_800A1468->p;\n  p[0]=o->x;p[1]=o->y;\n  p[2]=(s16)((f32)w->p->d->x*o->sx); p[3]=(s16)((f32)w->p->d->y*o->sy);\n  func_8004CEB4(D_800D05D8,((World*)D_800A1468->p)->p->d,p,0,o->b,o->c,o->d,o->e,0);\n }\n}\n",
    "cb1be96fdf2ab22781141f95020d141ce64b9abb3118fe71339fb81aec29e823": "void *func_800592AC(u32);\ns32 func_8005937C();\ns32 func_8006185C();\ns32 func_80069A08();\ns32 func_8007A688();\ns32 func_8007A7D0();\nextern void *D_800A1468;\nextern char D_800C02AE[];\n\nvoid func_8007A9A8(void)\n{\n    void *temp_s;\n    u8 *temp_a1;\n    u8 *temp_a0_2;\n    u8 *base;\n    void *temp_v0;\n    s32 temp_a0;\n    void *d;\n\n    temp_s = *(void **)(D_800C02AE + 0x325A);\n    temp_a1 = *(u8 **)((u8 *)temp_s + 0x10) + *(s16 *)((u8 *)temp_s + 2) * 0x14;\n    d = D_800A1468;\n    temp_a0 = *((u8 *)d + 0x245);\n    if (temp_a0 == 0) {\n        *((u8 *)D_800A1468 + 0x238) = temp_a1[0xE] - temp_a1[0xD];\n        func_8005937C(temp_a1[0xE], *((u8 *)D_800A1468 + *((u8 *)D_800A1468 + 0x238) + 0x23D), d);\n        base = *(u8 **)(D_800C02AE + 0x32F2);\n        temp_a0_2 = base + *(u8 *)(base + *(s8 *)((u8 *)D_800A1468 + 0x228) + 0x32) * 0x28;\n        temp_v0 = D_800A1468;\n        *((u8 *)temp_v0 + 0x237) = *(u16 *)(temp_a0_2 + 0x4E);\n        func_80069A08(temp_a0_2, temp_v0);\n    } else {\n        func_8007A688(temp_a0, temp_a1, D_800A1468);\n        func_80069A08();\n        func_8006185C((s32)func_800592AC(*((u8 *)D_800A1468 + 0x238)), 1);\n    }\n    func_8007A7D0(*((u8 *)D_800A1468 + 0x237));\n}\n",

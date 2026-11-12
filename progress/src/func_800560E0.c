@@ -52,7 +52,11 @@ void func_800560E0(FuncArg0 *arg0, s32 dlIndex)
   {
     do
     {
+      #ifdef PORT
+      ((void (*)(s32 *, u8 *)) (uintptr_t) (*((s32 *) (D_800A1310 + ((*((u16 *) (rec + 6))) << 2)))))(&blk.d, rec);
+#else
       ((void (*)(s32 *, u8 *)) (*((s32 *) (D_800A1310 + ((*((u16 *) (rec + 6))) << 2)))))(&blk.d, rec);
+#endif
       rec += 8;
       i++;
     }

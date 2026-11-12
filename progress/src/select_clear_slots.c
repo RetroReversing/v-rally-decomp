@@ -1,5 +1,9 @@
 s32 streamReleaseEntry();
+#ifdef PORT
+extern char *gSelectState;
+#else
 extern s32 gSelectState;
+#endif
 
 /* Clears the four slot handles at gSelectState+0x184: each non-null handle
    is released through streamReleaseEntry (stream_release_block), then zeroed. */

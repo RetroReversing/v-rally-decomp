@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 s32 osCreateMesgQueue(s32 *a, s32 *b, s32 c);
 s32 osRecvMesg(s32 *a, s32 *b, s32 c);
 s32 osSendMesg(char *a, s32 *b, s32 c);
@@ -33,7 +33,7 @@ void dmaCopyChunks(s32 romAddr, s32 ramAddr, u32 size, Pkt6 req)
     l.pkt[2] = len;
     *((Pkt6 *) (l.pkt + 3)) = req;
     osCreateMesgQueue(l.sp34, &l.sp4C, 1);
-    osSendMesg(gStreamState + 0x768A, l.pkt, 1);
+    osSendMesg(stream_state + 0x768A, l.pkt, 1);
     osRecvMesg(l.sp34, &l.sp4C, 1);
     romAddr += len;
     size -= len;

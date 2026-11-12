@@ -6,7 +6,7 @@ extern void heap_free_stub(s32);
 extern u8 D_800A17F0;
 extern u8 gOrderState[];
 extern char *gRecords;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 typedef struct { s32 w[61]; } Blk;
 typedef struct Slot16
 {
@@ -17,10 +17,10 @@ typedef struct Slot16
 } Slot16;
 static inline s32 *inline_fn()
 {
-  return (s32 *) (gStreamState + 0x7F5A);
+  return (s32 *) (stream_state + 0x7F5A);
 }
 
-/* Reset the audio record block from the state saved in gStreamState, but only
+/* Reset the audio record block from the state saved in stream_state, but only
  * when record mode is 8, the guard is clear and the pending flag is set. */
 void func_80077054(void)
 {
@@ -41,7 +41,7 @@ void func_80077054(void)
   {
     return;
   }
-  pending = gStreamState + 0x805A;
+  pending = stream_state + 0x805A;
   if ((*pending) == 0)
   {
     return;
@@ -66,7 +66,13 @@ void func_80077054(void)
     r = (Rec *) slots;
     do
     {
-      slots = (u8 *)((n * sizeof(Rec)) + (u32)r);
+      
+#ifdef PORT
+slots = (u8 *)r + n * sizeof(Rec);
+#else
+slots = (u8 *)((n * sizeof(Rec)) + (u32)r);
+#endif
+
       ((Rec *)slots)->b = 0;
       ((Rec *)slots)->a = 0;
       ((Rec *)slots)->c &= 0xFFFE;
@@ -74,16 +80,16 @@ void func_80077054(void)
     }
     while (n < 4);
   }
-  *(Blk *)gRecords = *(Blk *)(gStreamState + 0x7F66);
+  *(Blk *)gRecords = *(Blk *)(stream_state + 0x7F66);
   rec = gRecords;
-  mode = gStreamState + 0x7F4F;
+  mode = stream_state + 0x7F4F;
   modeByte = *mode;
   *((u16 *) (rec + 0x1E)) = modeByte;
   if (modeByte == 5)
   {
-    streamReleaseEntry(*((s32 *) (gStreamState + 0x7F4A)));
+    streamReleaseEntry(*((s32 *) (stream_state + 0x7F4A)));
   }
-  *((u16 *) (gRecords + 0xE)) = *((u8 *) (gStreamState + 0x7F51));
+  *((u16 *) (gRecords + 0xE)) = *((u8 *) (stream_state + 0x7F51));
   if ((*mode) == 8)
   {
     *((s32 *) (gOrderState + 0x8030)) = 5;
@@ -93,9 +99,9 @@ void func_80077054(void)
   {
     *((s32 *) (gOrderState + 0x8030)) = 3;
   }
-  *((u8 *) (gStreamState + 0x7E72)) = 0;
-  heap_free_stub(*((s32 *) (gStreamState + 0x7F56)));
+  *((u8 *) (stream_state + 0x7E72)) = 0;
+  heap_free_stub(*((s32 *) (stream_state + 0x7F56)));
   heap_free_stub(*inline_fn());
-  stream_obj_free(*((s32 *) (gStreamState + 0x7F5E)));
-  stream_obj_free(*((s32 *) (gStreamState + 0x7F62)));
+  stream_obj_free(*((s32 *) (stream_state + 0x7F5E)));
+  stream_obj_free(*((s32 *) (stream_state + 0x7F62)));
 }

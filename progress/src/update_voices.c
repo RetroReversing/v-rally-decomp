@@ -1,4 +1,4 @@
-s32 func_80087910(s32 *, s32);
+s32 voice_clear(s32 *, s32);
 s32 func_80088514(s32 *);
 s32 func_8008871C(s32 *, s32);
 s32 voice_slot_restart(s32 *, s32);
@@ -11,7 +11,7 @@ s32 voiceUpdatePitch(s32 *, s32, f32);
 s32 func_8008910C(s32 *, s32);
 s32 alSynStopVoice(void *, s32);
 extern s32 gOrderState;
-extern s32 gStreamState;
+extern s32 stream_state;
 
 /* Steps every active voice in the voice table (stride 0x134, at the pointer stored at 0x800B68F0):
  * runs its timers and envelope, stops it when its counter runs out, and writes its output level.
@@ -29,7 +29,7 @@ s32 update_voices(void)
   s16 *vp;
   voice = *((s32 **) 0x800B68F0);
   vi = 0;
-  if ((*((s32 *) (((char *) (&gStreamState)) + 0x757E))) > 0)
+  if ((*((s32 *) (((char *) (&stream_state)) + 0x757E))) > 0)
   {
     minus_one = -1;
     vp = (s16 *) (((u8 *) voice) + 0xA2);
@@ -85,11 +85,11 @@ s32 update_voices(void)
           temp_v0 = *((s32 *) (((char *) vp) + (-0x96)));
           if ((temp_v0 != minus_one) && ((*((s32 *) (((char *) vp) + (-0x96))) = --temp_v0, temp_v0 == minus_one)))
           {
-            *voice = func_80087910(voice, 0);
+            *voice = voice_clear(voice, 0);
             if ((*((u8 *) (((char *) vp) + 0x1F))) != 0)
             {
               *((u8 *) (((char *) vp) + 0x1F)) = 0U;
-              alSynStopVoice(((u8 *) (&gOrderState)) + 0x2304, (*((s32 *) (((char *) (&gStreamState)) + 0x7576))) + voff);
+              alSynStopVoice(((u8 *) (&gOrderState)) + 0x2304, (*((s32 *) (((char *) (&stream_state)) + 0x7576))) + voff);
               goto block_20;
             }
           }
@@ -132,7 +132,7 @@ s32 update_voices(void)
       voice = (s32 *) (((u8 *) voice) + 0x134);
     }
 
-    if (vi < (*((s32 *) (((char *) (&gStreamState)) + 0x757E))))
+    if (vi < (*((s32 *) (((char *) (&stream_state)) + 0x757E))))
     {
       goto loop_start;
     }

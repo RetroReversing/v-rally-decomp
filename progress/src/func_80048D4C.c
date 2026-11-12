@@ -1,13 +1,13 @@
 typedef struct Node { s32 a; struct Node *next; s32 rest[18]; } Node;
-typedef struct { Node **list; s32 pad4[3]; u32 count; u8 digits[16]; Node *t24; Node *t28; s32 x2c; } Grp;
+typedef struct { Node **list; s32 pad4[3]; u32 count; u8 digits[16]; Node *t24; Node *t28; void *x2c; } Grp;
 typedef struct { u32 count; u8 digits[1]; } Cnt;
-s32 poolAlloc(s32, s32);
+void *poolAlloc(s32, s32);
 u32 str_len(u8 *);
 s32 strCmp(const u8 *, const u8 *);
 extern u8 D_800A4E4C[];
 extern u8 D_800A4E50[];
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Fills the HUD digit tables for each active slot of the current race record.
    Slot 1 uses the first label set, any other name uses the second; each digit of
@@ -26,7 +26,7 @@ void func_80048D4C(u8 *rec) {
 
     cnt = NULL;
     grp = NULL;
-    slot_count = *(u8 *)(*(u8 **)(gStreamState + 0x32F2) + 0xF);
+    slot_count = *(u8 *)(*(u8 **)(stream_state + 0x32F2) + 0xF);
     hud = **(u8 ***)(gOrderState + 0x6D94);
     for (slot = 1; slot <= slot_count; slot++) {
         if (strCmp(rec + 0x4C, D_800A4E4C) == 0) {

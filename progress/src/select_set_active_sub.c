@@ -1,5 +1,5 @@
 void *select_get_entry(u32);
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Flags the sub-item at index `selected` of the active select entry as active, clears the rest. */
 void select_set_active_sub(s32 slot, s32 selected)
@@ -10,7 +10,7 @@ void select_set_active_sub(s32 slot, s32 selected)
     char *cur;
     u32 i;
     u8 n;
-    p = *(char **)(gStreamState + 0x325A);
+    p = *(char **)(stream_state + 0x325A);
     base = *(char **)(p + 0x10);
     obj = select_get_entry(slot - *(u8 *)(base + *(s16 *)(p + 2) * 0x14 + 0xD));
     n = *(u8 *)(obj + 0x4D);

@@ -1,4 +1,4 @@
-s32 voice_alloc_request(); s32 voiceKeyIsFree(); s32 voiceSetVolumeByKey(); s64 osGetTime(void); s32 func_80098090(); s32 rand_seed(u32); extern char gStreamState[];
+s32 voice_alloc_request(); s32 voiceKeyIsFree(); s32 voiceSetVolumeByKey(); s64 osGetTime(void); s32 rand_next15(); s32 rand_seed(u32); extern char stream_state[];
 
 /* Ticks the spawn timers in the spawn table. Each active slot's timer counts
  * down; while a slot's roll is below its chance value the slot's three fade
@@ -18,18 +18,22 @@ void update_spawn_timers(void)
     s32 obj;
 
     rand_seed((u32)osGetTime());
-    roll = func_80098090() % 100;
-    base = gStreamState + 0x331b;
+    roll = rand_next15() % 100;
+    base = stream_state + 0x331b;
     i = 0;
     if (*(u8 *)base) {
         cur = (u8 *)(base + 7);
         do {
             do {
                 idx = i & 255;
+                #ifdef PORT
+                timer = (u16 *)(cur + idx * 2);
+#else
                 timer = (u16 *)(idx * 2 + (u32)cur);
+#endif
                 t = *timer;
                 if (t) *timer = t - 1;
-                if (roll < *(u8 *)(gStreamState + 0x331f + idx)) goto next;
+                if (roll < *(u8 *)(stream_state + 0x331f + idx)) goto next;
                 a = cur[-3] - 1;
                 cur[-3] = a;
                 roll = 0;
@@ -40,14 +44,14 @@ void update_spawn_timers(void)
                 c = cur[-1] - 1;
                 cur[-1] = c;
                 if (c < 90) cur[-1] = 90;
-                d = *(u8 *)(gStreamState + 0x331f + idx) + 4;
-                *(u8 *)(gStreamState + 0x331f + idx) = d;
-                if (d >= 99) *(u8 *)(gStreamState + 0x331f + idx) = 92;
+                d = *(u8 *)(stream_state + 0x331f + idx) + 4;
+                *(u8 *)(stream_state + 0x331f + idx) = d;
+                if (d >= 99) *(u8 *)(stream_state + 0x331f + idx) = 92;
             } while (0);
             if (*timer == 0) {
                 *timer = 0x113;
-                b = *(u8 *)(gStreamState + 0x331c + idx);
-                obj = *(s32 *)(gStreamState + 0x7f26) + b * 12;
+                b = *(u8 *)(stream_state + 0x331c + idx);
+                obj = *(s32 *)(stream_state + 0x7f26) + b * 12;
                 if (voiceKeyIsFree(obj)) {
                     voice_alloc_request(obj);
                     voiceSetVolumeByKey(obj, (s32) *(f32 *)(cur + 0x14));
@@ -55,6 +59,6 @@ void update_spawn_timers(void)
             }
 next:
             i++;
-        } while ((u8)i < *(u8 *)(gStreamState + 0x331b));
+        } while ((u8)i < *(u8 *)(stream_state + 0x331b));
     }
 }

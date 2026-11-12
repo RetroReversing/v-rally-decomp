@@ -16,10 +16,10 @@ s32 osDisableInt();                                /* extern */
 M2C_UNK osRestoreInt(s32);                         /* extern */
 extern s32 __osGlobalIntMask;
 
-void __osSetGlobalIntMask(s32 arg0) {
-    s32 temp_v0;
+/* Adds mask to the global interrupt mask with interrupts disabled, then restores the previous interrupt state. */ void __osSetGlobalIntMask(s32 mask) {
+    s32 saved;
 
-    temp_v0 = osDisableInt();
-    __osGlobalIntMask |= arg0;
-    osRestoreInt(temp_v0);
+    saved = osDisableInt();
+    __osGlobalIntMask |= mask;
+    osRestoreInt(saved);
 }

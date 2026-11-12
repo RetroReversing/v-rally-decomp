@@ -1,0 +1,10 @@
+extern void func_80015420();
+extern void func_80015638();
+extern void func_80015750();
+extern void func_80015770();
+extern void stream_free_table();
+extern void func_80018900();
+extern void func_80018BFC();
+extern void func_8001B140();
+extern void streamReleaseEntries();
+void *D_8009BF88[20] = { streamReleaseEntries, func_80015420, func_80015420, func_80015420, func_80015750, func_80015638, func_80015770, func_80015420, stream_free_table, func_80018900, func_80015420, func_80015420, func_8001B140, func_80018BFC, func_80015420, func_80015420, func_80015420, func_80015420, func_80015420, func_80015420 };

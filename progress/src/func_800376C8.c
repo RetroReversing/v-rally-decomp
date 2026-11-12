@@ -31,7 +31,7 @@ extern u8 *g_camera;
 extern void guMtxIdentF(void *);
 extern void obj_mtx_visible(s32, void *, void *);
 extern f32 func_8001BE68(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-extern void *func_80005C48(void *);
+extern void *obj_get_owner(void *);
 extern void draw_sprite_obj(void *, s16, s16, void *, s32, s32, s32, s32, s32, s32);
 extern void func_80036FD8(void *, void *);
 extern void place_elem_on_line(void *, void *, void *);
@@ -67,7 +67,7 @@ void func_800376C8(s32 unused0, Obj *obj)
     if (((((ndcX < 1.0f) && (ndcX > (-1.0f))) && (ndcY < 1.0f)) && (ndcY > (-1.0f))) && (((f64) depth) <= 0.0))
     {
         list = *D_800C60D4;
-        zbuf = func_80005C48(gSceneSlot2);
+        zbuf = obj_get_owner(gSceneSlot2);
         viewW = (f32) obj->view->w;
         sx = (u32) (((ndcX + 1.0f) * ((f32) obj->view->w)) * 0.5f);
         sy = (u32) ((ndcY + 1.0f) * (((f32) obj->view->h) * 0.5f));

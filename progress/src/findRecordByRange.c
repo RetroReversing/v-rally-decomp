@@ -1,6 +1,10 @@
 /* Scans the record table (count at +0, records of 20 bytes at +16) for the first
  * record whose range end (bytes +12 + +13) is above key. Returns it, or NULL. */
+#ifdef PORT
+void *findRecordByRange(void *table, s32 key) {
+#else
 s32 findRecordByRange(void *table, s32 key) {
+#endif
     u16 count;
     u8 *rec;
     u32 i;
@@ -19,7 +23,11 @@ s32 findRecordByRange(void *table, s32 key) {
         do {
             p = (u8 *)table;
             if (key < p[-1] + p[0]) {
+#ifdef PORT
+                return rec;
+#else
                 return (s32)rec;
+#endif
             }
             table = (void *)(p + 20);
             i++;

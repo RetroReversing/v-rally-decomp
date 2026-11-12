@@ -20,8 +20,12 @@ u32 heapMaxFreeSize(u8 *ptr)
       {
         if (cur[0xA] == 0)
         {
+#ifdef PORT
+          size = *(u8 **) cur - 0x14 - cur;
+#else
           end = (*((u32 *) cur)) - 0x14;
           size = end - ((u32) cur);
+#endif
           if (max < size)
           {
             max = size;
@@ -34,7 +38,11 @@ u32 heapMaxFreeSize(u8 *ptr)
   }
   else
   {
+#ifdef PORT
+    max = (*(u8 **) (node - 0x14) - ptr) - 0x34;
+#else
     max = ((*((u32 *) (node - 0x14))) - ((u32) ptr)) - 0x34;
+#endif
   }
   return max;
 }

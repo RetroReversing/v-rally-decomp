@@ -6,7 +6,7 @@ void func_800324B4(void *);
 void UpdateRecordTimers(void);
 void func_80033238(void *);
 void func_80033298(void *);
-void func_80033348(void *);
+void car_reset_path_timers(void *);
 void statBarsUpdate(void *);
 
 /* Runs the per-car update over the circular car list starting at head, choosing a
@@ -30,7 +30,7 @@ void car_update_list(void *head) {
             } else if (y >= 0xFB) {
                 func_80033238(car);
             } else {
-                func_80033348(car);
+                car_reset_path_timers(car);
             }
         }
         car = *(void **)((u8 *)car + 0x5C);

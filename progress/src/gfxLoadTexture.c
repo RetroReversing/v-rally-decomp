@@ -40,7 +40,11 @@ s32 gfxLoadTexture(GfxState *g, Tex *t, s32 idx)
     new_var->p = p + 2;
     p[0] = 0xFD700000;
     q = p;
+#ifdef PORT
+    q[1] = osVirtualToPhysical(*((s32 *) ((u8 *) t->tbl + (255 & idx) * 4)));
+#else
     q[1] = osVirtualToPhysical(*((s32 *) (((u32) ((255 & idx) * 4)) + ((u32) t->tbl))));
+#endif
   }
   GFX_EMIT(new_var, 0xF5700000, 0x7000000);
   GFX_EMIT(new_var, 0xE6000000, 0);

@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8001FEDC(void *arg0) {
-    return M2C_FIELD(M2C_FIELD(arg0, void **, 0x5C), s32 *, 0x64);
+/* Returns the word at offset 0x64 of the sub-object at obj+0x5C. */ s32 func_8001FEDC(void *obj) {
+    return M2C_FIELD(M2C_FIELD(obj, void **, 0x5C), s32 *, 0x64);
 }

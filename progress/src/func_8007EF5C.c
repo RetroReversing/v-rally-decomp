@@ -10,7 +10,12 @@ extern Dispatch *D_800C5BB0[];
 s32 func_8007EF5C(s32 id) {
     volatile s32 handlerSlot; s32 result = 0; s32 entry; s32 body;
     if (gHeapBusy == 1) heapReentryFn(gHeapCallerRa - 4);
-    gHeapBusy = 1; do { gHeapCallerRa = (s32) __builtin_mips_live_return_address(); } while (0);
+    gHeapBusy = 1;
+#ifdef PORT
+    gHeapCallerRa = 0;
+#else
+    do { gHeapCallerRa = (s32) __builtin_mips_live_return_address(); } while (0);
+#endif
     if (!(id & 0xffff0000)) { entry = gHeapBlocks[id]; handlerSlot = id; } else { entry = id; handlerSlot = 1; }
     if (entry == 0) { heapPanicFn(gHeapCallerRa - 4); body = 0; } else body = entry - 8;
     if (body) result = D_800C5BB0[handlerSlot]->call(body + 8);

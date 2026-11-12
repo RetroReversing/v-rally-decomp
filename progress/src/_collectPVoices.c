@@ -11,10 +11,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 alLink();
+s32 al_link_push();
 s32 alUnlink();
 
-/* Moves every voice on the list at +0x14 of the audio block onto the list at +0x4 (alUnlink then alLink). */
+/* Moves every voice on the list at +0x14 of the audio block onto the list at +0x4 (alUnlink then al_link_push). */
 void _collectPVoices(void *block) {
     s32 voice;
     void *blk;
@@ -24,7 +24,7 @@ void _collectPVoices(void *block) {
     if (voice != 0) {
         do {
             alUnlink(voice);
-            alLink(voice, blk + 4);
+            al_link_push(voice, blk + 4);
             voice = *(s32 *)((char *)blk + 0x14);
         } while (voice != 0);
     }

@@ -61,8 +61,16 @@ void func_800528A4(void)
       while (k < (u32)(gCurCount - 1));
     }
     n = (*((u16 *) (base + 0x22))) << 4;
+    #ifdef PORT
+    row_addr = table + n + 0x118;
+#else
     row_addr = (u8 *) ((n + (u32) table) + 0x118);
+#endif
+    #ifdef PORT
+    *(u32 *) (row_addr + (i << 2)) = sum;
+#else
     *((u32 *) ((i << 2) + (u32) row_addr)) = sum;
+#endif
     node = *((u8 **) (node + 4));
   }
 
@@ -70,7 +78,11 @@ void func_800528A4(void)
   if ((*((u16 *) (obj2 + 0x2C))) & 0x4000)
   {
     row_off = 0x118;
+    #ifdef PORT
+    row = (u32 *) (table + ((*((u16 *) (obj2 + 0x22))) << 4) + row_off);
+#else
     row = (u32 *) ((((*((u16 *) (obj2 + 0x22))) << 4) + (u32) table) + row_off);
+#endif
     min = ~0U;
     for (i = 0; i < 4; i += 1)
     {

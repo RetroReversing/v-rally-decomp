@@ -1,10 +1,10 @@
-s32 func_8006F890();
+s32 crc32_compute();
 s32 func_80084AFC();
 s32 func_80084B50();
 s32 pfs_write_block();
 extern s32 gRaceFlags;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Saves the race data block to the controller pak unless flag 0x8000 is set.
  * The buffer holds a CRC-32 of the 0x1FC bytes after it, then 64 blocks of
@@ -17,8 +17,8 @@ s32 save_race_to_pak(void) {
 
     ret = gRaceFlags & 0x8000;
     if (ret == 0) {
-        save = gStreamState + 0x6E22;
-        *(s32 *)(gStreamState + 0x6E22) = func_8006F890(save + 4, 0x1FC);
+        save = stream_state + 0x6E22;
+        *(s32 *)(stream_state + 0x6E22) = crc32_compute(save + 4, 0x1FC);
         func_80084AFC();
         block = 0;
         do {

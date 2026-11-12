@@ -52,8 +52,8 @@ extern s32 gRandomState;
 extern Player D_800B4130;
 extern Heap D_800C3538;
 extern char D_800B0B54[];
-extern s32 D_800C80C0;
-extern s32 D_800A1B90;
+extern void *D_800C80C0;
+extern void *D_800A1B90;
 void MusSetMasterVolume(s32, s32);
 void *alHeapDBAlloc(s32, s32, void *, s32, s32);
 void alHeapInit(void *, void *, s32);
@@ -123,6 +123,6 @@ s32 MusInitialize(MusConfig *config)
         alSynAllocVoice(D_800B0B54, &D_800C7824[i], &voiceCfg);
     }
     D_800A1B90 = D_800C80C0;
-    D_800C80C0 = (s32)func_800864C0;
+    D_800C80C0 = (void *)func_800864C0;
     return D_800C3538.cur - D_800C3538.base;
 }

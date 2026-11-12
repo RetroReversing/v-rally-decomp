@@ -7,9 +7,9 @@ typedef struct CarEntry {
   u8 pad0E[0x44 - 0x0E];
 } CarEntry;
 
-extern s32 gCarEntries;
+extern void *gCarEntryTable;
 extern s32 gOrderState;
-extern s32 gStreamState;
+extern s32 stream_state;
 
 /* Updates the car table for the object list at gOrderState. Each object's car index
    (at obj+0x48, a pointer to an s32) selects a CarEntry. The first branch handles the
@@ -25,20 +25,20 @@ void func_8005147C(void *arg0)
   void *temp_v0;
   void *temp_v0_2;
   void *var_a0;
-  s32 base;
-  if ((*((u16 *) (((char *) (*((void **) (((char *) (&gStreamState)) + 0x32F2)))) + 0x1E))) == 0)
+  void *base;
+  if ((*((u16 *) (((char *) (*((void **) (((char *) (&stream_state)) + 0x32F2)))) + 0x1E))) == 0)
   {
-    if ((*((u16 *) (((char *) (*((void **) (((char *) (&gStreamState)) + 0x32F2)))) + 0x1A))) == 1)
+    if ((*((u16 *) (((char *) (*((void **) (((char *) (&stream_state)) + 0x32F2)))) + 0x1A))) == 1)
     {
       temp_v1 = *(*((s32 **) (((char *) arg0) + 0x48)));
       if (temp_v1 < 5)
       {
-        __repair_addr = (char *) (gCarEntries + (temp_v1 * 0x44));
+        __repair_addr = (char *) (gCarEntryTable + (temp_v1 * 0x44));
         *((s16 *) (((char *) __repair_addr) + 0xA)) = 1;
-        temp_v0 = gCarEntries + ((*(*((s32 **) (((char *) arg0) + 0x48)))) * 0x44);
+        temp_v0 = gCarEntryTable + ((*(*((s32 **) (((char *) arg0) + 0x48)))) * 0x44);
         *((u16 *) (((char *) temp_v0) + 8)) = (u16) ((*((u16 *) (((char *) temp_v0) + 8))) & 0xFDFF);
         new_var = ((char *) arg0) + 0x48;
-        temp_v0_2 = ((char *) (gCarEntries + ((*(*((s32 **) new_var))) * 0x44))) + 0xC;
+        temp_v0_2 = ((char *) (gCarEntryTable + ((*(*((s32 **) new_var))) * 0x44))) + 0xC;
         *((s16 *) temp_v0_2) = 0;
       }
     }
@@ -55,7 +55,7 @@ void func_8005147C(void *arg0)
       var_a0 = *(*((void ***) (((char *) (&gOrderState)) + 0x73F0)));
       if (var_a0 != NULL)
       {
-        base = gCarEntries;
+        base = gCarEntryTable;
         do
         {
           temp_v1_2 = *(*((s32 **) (((char *) var_a0) + 0x48)));

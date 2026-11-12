@@ -1,6 +1,10 @@
 extern s32 D_8009B974;
 extern s32 D_800A1634;
+#ifdef PORT
+extern u8 *gRecords;
+#else
 extern s32 gRecords;
+#endif
 extern s32 contClearEntryWords();
 extern s32 func_800852FC(s32, s32 *, s32);
 
@@ -10,11 +14,23 @@ extern s32 func_800852FC(s32, s32 *, s32);
    on to contClearEntryWords and func_800852FC. */
 void func_80069424(void)
 {
+  #ifdef PORT
+  u8 *recordAddr;
+#else
   int recordAddr;
+#endif
   s8 i;
   s8 idx;
+  #ifdef PORT
+  u8 *base;
+#else
   s32 base;
+#endif
+  #ifdef PORT
+  u8 *charBase;
+#else
   s32 charBase;
+#endif
   s32 value;
   s8 j;
   u32 bits;

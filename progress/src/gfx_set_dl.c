@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void gfx_set_dl(void *arg0, s32 arg1) {
-    M2C_FIELD(arg0, s32 *, 0x14) = arg1;
+/* Sets the display-list pointer (offset 0x14) of a graphics context. */ void gfx_set_dl(void *gfx, s32 dl) {
+    M2C_FIELD(gfx, s32 *, 0x14) = dl;
 }

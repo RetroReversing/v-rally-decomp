@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void set_both_subobj_s16(void *arg0, s16 arg1) {
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x20), s16 *, 0x1C) = arg1;
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x24), s16 *, 0x1C) = arg1;
+/* Writes the s16 value at offset 0x1C of both sub-objects (pointers at 0x20 and 0x24) of obj. */ void set_both_subobj_s16(void *obj, s16 value) {
+    M2C_FIELD(M2C_FIELD(obj, void **, 0x20), s16 *, 0x1C) = value;
+    M2C_FIELD(M2C_FIELD(obj, void **, 0x24), s16 *, 0x1C) = value;
 }

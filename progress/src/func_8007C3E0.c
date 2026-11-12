@@ -1,6 +1,6 @@
 s32 stream_check_buttons(s32, s32);
-s32 func_80084BF0(s32);
-s32 func_80084DD4(s32);
+s32 input_get_buttons(s32);
+s32 pad_port_disconnected(s32);
 extern s32 gRecordTimeScale;
 extern s32 D_800A18D0;
 extern u8 D_800C83C4[];
@@ -14,8 +14,8 @@ void func_8007C3E0(s32 choice0, s32 choice1, s32 choice2, s32 choice3, s32 flagB
     s32 pad;
     u16 recFlags;
 
-    if (func_80084DD4(0) != 0) {
-        pad = func_80084BF0(0);
+    if (pad_port_disconnected(0) != 0) {
+        pad = input_get_buttons(0);
         switch (D_800C83C4[0]) {
         case 0:
             stream_check_buttons(pad, choice0);

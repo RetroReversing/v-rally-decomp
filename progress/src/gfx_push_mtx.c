@@ -1,23 +1,14 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
 
-void gfx_push_mtx(s8 *arg0, s32 arg1) {
-    void *temp_v1;
+void dlAddLoadChunk(void *ctx);
 
-    temp_v1 = M2C_FIELD(arg0, void **, 0x14);
-    M2C_FIELD(arg0, void **, 0x14) = (void *) (temp_v1 + 8);
-    M2C_FIELD(temp_v1, s32 *, 0) = 0xDA380007;
-    M2C_FIELD(temp_v1, s32 *, 4) = arg1;
-    dlAddLoadChunk(arg0);
+/* Appends a G_MTX (0xDA380007) display-list command for the matrix at addr, then queues the chunk. */
+void gfx_push_mtx(s8 *ctx, s32 addr) {
+    s8 *dl;
+
+    dl = M2C_FIELD(ctx, s8 **, 0x14);
+    M2C_FIELD(ctx, s8 **, 0x14) = dl + 8;
+    M2C_FIELD(dl, s32 *, 0) = 0xDA380007;
+    M2C_FIELD(dl, s32 *, 4) = addr;
+    dlAddLoadChunk(ctx);
 }

@@ -34,7 +34,7 @@ extern HudState *gSelectState;
 extern u8 D_800A167C[];
 extern u8 D_800A1681;
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern RecordTable *gRecords;
 extern u8 D_800A57B4[];
 /* Draws the HUD position icons: walks the node list (8 slots), drawing each slot's tile at
@@ -64,12 +64,16 @@ void func_80069158(void)
       sel = index_tbl[0];
       rect[0] = (img->x + tiles[index_tbl[slot5 = 5]]->b->image->x) + 16;
       rect[1] = img->y;
+      #ifdef PORT
+      pick = tiles + sel;
+#else
       pick = (TileRef **)(sel * 4 + (u32)tiles);
+#endif
       rect[2] = (*pick)->b->image->x;
       h = (*pick)->b->image->y;
       rect[3] = h;
       draw_palette_sprite((void *)(((unsigned char *)node + 4)), (s16)(rect[0] - 12), (s16)(img->y + 6), (void *)(D_800A57B4));
-      func_8004CEB4(*((s32 *) (gStreamState + 0x1032a)), (*pick)->b->image, rect, 0, 255, 255, 255, 255, 0);
+      func_8004CEB4(*((s32 *) (stream_state + 0x1032a)), (*pick)->b->image, rect, 0, 255, 255, 255, 255, 0);
       sel = index_tbl[5];
     }
     else
@@ -82,7 +86,7 @@ void func_80069158(void)
     rect[1] = img->y;
     rect[2] = tiles[sel]->b->image->x;
     rect[3] = tiles[sel]->b->image->y;
-    func_8004CEB4(*((s32 *) (gStreamState + 0x1032a)), tiles[sel]->b->image, rect, 0, 255, 255, 255, 255, 0);
+    func_8004CEB4(*((s32 *) (stream_state + 0x1032a)), tiles[sel]->b->image, rect, 0, 255, 255, 255, 255, 0);
     node = node->next;
     idx++;
   }

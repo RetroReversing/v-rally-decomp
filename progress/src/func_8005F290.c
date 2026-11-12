@@ -2,8 +2,8 @@ extern u32 gSelectStep;
 extern s32 gSelectStepHandle;
 extern s32 D_800A14BC[];
 s32 func_80057810();
-s32 func_800578E0();
-s32 slot_set_selected();
+s32 object_free_blocks();
+s32 slotSetSelected();
 
 /* Advances the select step counter (1..3) for slot `slot`: selects it, releases the previous step
  * handle and stores the handle for the new step, looked up in D_800A14BC. Does nothing after step 3. */
@@ -19,8 +19,8 @@ s32 func_8005F290(s32 slot)
         }
         step = *stepPtr;
         *stepPtr = step + 1;
-        slot_set_selected(slot, step);
-        func_800578E0(gSelectStepHandle);
+        slotSetSelected(slot, step);
+        object_free_blocks(gSelectStepHandle);
         gSelectStepHandle = func_80057810(D_800A14BC[gSelectStep]);
     }
     return 0;

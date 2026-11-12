@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 s32 camera_set_target_for_slot(void *, u8);
 void func_8001CFD0(void *arg0);
 
@@ -13,7 +13,7 @@ void camera_update_slots(void *obj)
     s32 flag;
     s32 mode;
 
-    slot_count = *(u8 *)(*(char **)(gStreamState + 0x32F2) + 0xF);
+    slot_count = *(u8 *)(*(char **)(stream_state + 0x32F2) + 0xF);
     mode = *(s32 *)((char *)obj + 0x90);
     for (slot = 1; slot <= slot_count; slot++) {
         if (slot < 2 || (mode != 0 && mode != 3)) {

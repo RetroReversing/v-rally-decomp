@@ -6,7 +6,11 @@ s32 getTexturePack();
 void carSaveToSlot(void *car, void *node, s32 slot)
 {
   s32 slotOffset;
+#ifdef PORT
+  void *base;
+#else
   s32 base;
+#endif
   void *entry;
   void *block;
   s32 handle;
@@ -15,9 +19,17 @@ void carSaveToSlot(void *car, void *node, s32 slot)
     slotOffset = (slot & 0xFF) * 4;
     do
     {
+#ifdef PORT
+      base = *(*((void ***) (((char *) node) + 0x38)));
+#else
       base = (s32) *(*((void ***) (((char *) node) + 0x38)));
+#endif
       handle = getTexturePack(car + 0x98, 0);
+#ifdef PORT
+      entry = (void *) (((char *) base) + slotOffset);
+#else
       entry = (void *) (slotOffset + base);
+#endif
       *((s32 *) (((char *) entry) + 0x1C)) = handle;
       *((s16 *) (((char *) (*((void **) (((char *) entry) + 0x38)))) + 0)) = (s16) (*((s32 *) (((char *) car) + 0x128)));
       *((s16 *) (((char *) (*((void **) (((char *) entry) + 0x38)))) + 2)) = (s16) (*((s32 *) (((char *) car) + 0x174)));

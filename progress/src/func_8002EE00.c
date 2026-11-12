@@ -1,4 +1,8 @@
+#ifdef PORT
+typedef struct { uintptr_t w0, w1; } Gfx;
+#else
 typedef struct { u32 w0, w1; } Gfx;
+#endif
 typedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;
 typedef struct { char pad[0x38]; char mtx[0xE0]; f32 x, y, z; } Camera; /* x at 0x118 */
 typedef struct { char pad[4]; u16 mode; } Config;
@@ -21,13 +25,16 @@ typedef struct { char pad[0x54]; s32 x, y, z; } Pos;
 typedef struct { char pad[0x5C]; Pos *pos; } Obj;
 typedef struct { s8 a; s8 b; s16 c; s16 d; u16 e; u16 f; u16 g; } Draw;
 
+#ifdef PORT
+int abs(int);
+#endif
 Gfx *gfx_get_dl(DLBuf *);
 void gfx_set_dl(DLBuf *, Gfx *);
 void *mtx_pool_alloc(void);
 void guMtxIdentF(f32 (*)[4]);
 void obj_mtx_visible(void *, void *, f32 (*)[4]);
 void gfx_push_mtx(DLBuf *, void *);
-void func_800075BC(DLBuf *, Tex *, s32);
+void texture_build_dl(DLBuf *, Tex *, s32);
 void func_80019C90(DLBuf *, void *, Draw *, u16, u16);
 extern char D_8009EAB0[];
 extern Config *g_ent_list;
@@ -71,7 +78,11 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
             if (!started) {
                 dl = gfx_get_dl(buf);
                 started = 1;
+                #ifdef PORT
+                GCMD(dl++, 0xDE000000, (uintptr_t)D_8009EAB0);
+#else
                 GCMD(dl++, 0xDE000000, (u32)D_8009EAB0);
+#endif
                 switch (g_ent_list->mode) {
                 case 2:
                     GCMD(dl++, 0xFA000000, -1);
@@ -117,7 +128,7 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
             }
             if (done == 1) {
                 D_800AFA8C++;
-                func_800075BC(buf, e->model->tex[e->texIdx], 0);
+                texture_build_dl(buf, e->model->tex[e->texIdx], 0);
                 draw.a = 3;
                 draw.b = 0;
                 draw.c = e->size * 2;

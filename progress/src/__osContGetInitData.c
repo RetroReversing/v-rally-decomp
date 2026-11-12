@@ -16,7 +16,7 @@ typedef struct {
 } __OSContRequesFormat;
 
 extern u32 __osContPifRam[16];
-extern u8 D_800B60E0;
+extern u8 __osMaxControllers;
 
 void __osContGetInitData(u8 *pattern, OSContStatus *data) {
     u8 *pifEntry;
@@ -29,7 +29,7 @@ void __osContGetInitData(u8 *pattern, OSContStatus *data) {
        of the connected channels in *pattern. */
     pifEntry = (u8*)&__osContPifRam;
 
-    for (i = 0; i < D_800B60E0; i++, pifEntry += sizeof(resp), data++) {
+    for (i = 0; i < __osMaxControllers; i++, pifEntry += sizeof(resp), data++) {
         resp = *((__OSContRequesFormat*)pifEntry);
         data->errno = (resp.rxsize & 0xC0) >> 4;
 

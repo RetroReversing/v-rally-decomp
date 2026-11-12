@@ -20,13 +20,13 @@ extern void *gRecords;
 extern u8 D_800A5F64[];
 extern u8 D_800A5F70[];
 extern void select_reset_text(s32, s32);
-extern void func_800595EC(void *);
+extern void select_set_text_default(void *);
 extern void records_restore_from_order(void);
 extern void func_80062B70(void);
 extern void func_80062DF4(void);
 extern void func_80064E48(void);
 extern void hud_draw_counter_text(void);
-extern void func_80070A34(void);
+extern void select_refresh_entry(void);
 extern void func_8007A29C(void);
 extern void func_8007A9A8(void);
 extern void func_8007AA94(void);
@@ -93,7 +93,7 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
       case 4:
         league_base = gLeague->base;
         *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 0;
-        func_800595EC(D_800A5F64);
+        select_set_text_default(D_800A5F64);
         gSelectState->cb0 = func_80064E48;
         gSelectState->cb1 = hud_draw_counter_text;
         break;
@@ -101,7 +101,7 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
       case 0:
         league_base = gLeague->base;
         *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 0;
-        func_800595EC(D_800A5F64);
+        select_set_text_default(D_800A5F64);
         gSelectState->cb0 = func_80062B70;
         gSelectState->cb1 = func_80062DF4;
         break;
@@ -109,8 +109,8 @@ s32 func_8007A01C(s32 arg0, s32 arg1)
       case 5:
         league_base = gLeague->base;
         *((s32 *) (((u8 *) (*((void **) ((((u8 *) league_base) + entry_off) + 4)))) + 20)) = 1;
-        func_800595EC(D_800A5F70);
-        gSelectState->cb0 = func_80070A34;
+        select_set_text_default(D_800A5F70);
+        gSelectState->cb0 = select_refresh_entry;
         records_restore_from_order();
         break;
 

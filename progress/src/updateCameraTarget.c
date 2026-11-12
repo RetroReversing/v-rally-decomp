@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 typedef struct {
     s32 a;
@@ -24,14 +24,14 @@ void updateCameraTarget(u8 *owner) {
     if (target != NULL) {
         if (*(u32 *)(owner + 0x20) & 0x880000) {
             cam_state = *(u8 **)(target + 0x88);
-            view = *(u8 **)(gStreamState + 0x32F2);
+            view = *(u8 **)(stream_state + 0x32F2);
             *(s32 *)(cam_state + 0x78) = 1;
             if (*(u16 *)(view + 0x1E) == 7) {
                 view_arg = 0;
             } else {
                 view_arg = **(s32 **)(target + 0x48);
             }
-            if (*(u16 *)(*(u8 **)(gStreamState + 0x7CD6) + 0x20) & 0x40) {
+            if (*(u16 *)(*(u8 **)(stream_state + 0x7CD6) + 0x20) & 0x40) {
                 setupCameraView((s16 *)(*(u8 **)(target + 0x5C) + 0x40), owner + 0x38, view_arg, target);
                 return;
             }

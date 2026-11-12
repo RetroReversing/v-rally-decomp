@@ -2,7 +2,7 @@ extern void *gSelectState;
 extern u8 gOrderState[];
 extern u8 D_800A13C0[];
 void heapQueryFreeSize(s32);
-void copyStringAligned(void *, s32);
+void strCpy(void *, s32);
 void text_load_and_parse(void *, void *);
 
 /* Resets the select state: clears the flags, loads the entry for the current table
@@ -17,7 +17,7 @@ void select_reset_state(s32 src)
 
     heapQueryFreeSize(1);
     heapQueryFreeSize(2);
-    copyStringAligned(record, src);
+    strCpy(record, src);
     state = gSelectState;
     state[0x235] = 0;
     tableIdx = gOrderState[0x120C];

@@ -17,7 +17,7 @@ extern void obj_update_timer(void *);
 /* Spawns the three position sprites for each car in the race list. Only runs in
  * race modes (not mode 0 or 7). The sprites are placed relative to the car's
  * info block and the reference car g_camera, and use the pack at bankBase + 0x4C. */
-void func_8003F834(s32 layer, s32 bankBase)
+void func_8003F834(void *layer, s32 bankBase)
 {
   u32 slot;
   u32 count;
@@ -45,7 +45,7 @@ void func_8003F834(s32 layer, s32 bankBase)
       {
         y += 8;
       }
-      spr = ((Spr3F *)sprite_create((void *)(layer), pos[0] + x, pos[1] + y, (s16)(15), func_8003F11C, 1));
+      spr = ((Spr3F *)sprite_create(layer, pos[0] + x, pos[1] + y, (s16)(15), func_8003F11C, 1));
       spr->pack = getTexturePack(bankBase + 0x4C, 0);
       spr->car = car;
       x = g_camera->info->w / 2;
@@ -54,7 +54,7 @@ void func_8003F834(s32 layer, s32 bankBase)
       {
         y += 12;
       }
-      spr = ((Spr3F *)sprite_create((void *)(layer), pos[0] + x, pos[1] + y, (s16)(15), func_8003F34C, 1));
+      spr = ((Spr3F *)sprite_create(layer, pos[0] + x, pos[1] + y, (s16)(15), func_8003F34C, 1));
       pack = getTexturePack(bankBase + 0x4C, 0);
       spr->pack = pack;
       spr->ofs = -(pack->tex[0]->height >> 1);
@@ -65,7 +65,7 @@ void func_8003F834(s32 layer, s32 bankBase)
       {
         y += 8;
       }
-      spr = ((Spr3F *)sprite_create((void *)(layer), pos[0] + x, pos[1] + y, (s16)(15), obj_update_timer, 1));
+      spr = ((Spr3F *)sprite_create(layer, pos[0] + x, pos[1] + y, (s16)(15), obj_update_timer, 1));
       spr->pack = getTexturePack(bankBase + 0x4C, 0);
       spr->car = car;
       spr->ofs = -(spr->pack->tex[0]->height >> 1);

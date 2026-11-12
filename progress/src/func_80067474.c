@@ -4,8 +4,8 @@ typedef struct { u8 pad0[0x2C]; s32 status; } Entry;
 extern Obj *gSelectState;
 extern u8 *gSlotState;
 extern Table *gLeague;
-extern void selectCopyEntryLabel(s32, s32);
-extern void func_800680F0(s32, s32);
+extern void select_copy_entry_label(s32, s32);
+extern void select_init_entry_handlers(s32, s32);
 extern void func_800679D8(void);
 extern void draw_name_entry_wheel(void);
 
@@ -34,7 +34,7 @@ s32 func_80067474(s32 menu, s32 slot)
   } while (i < 4);
   if (bad_count != 0) {
     gSelectState->name_cursor = first_bad;
-    selectCopyEntryLabel(menu, slot);
+    select_copy_entry_label(menu, slot);
     gSelectState->on_update = func_800679D8;
     gSelectState->on_draw = draw_name_entry_wheel;
     entries = gLeague->items;
@@ -46,7 +46,7 @@ s32 func_80067474(s32 menu, s32 slot)
     entries = *(u8 **)(entries + row * 20 + 8);
     entry = *(Entry **)(entries + slot * 12 + 4);
     entry->status = 3;
-    func_800680F0(3, 3);
+    select_init_entry_handlers(3, 3);
   }
   return 0;
 }

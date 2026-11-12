@@ -21,13 +21,21 @@ s32 func_80087E9C(u8 *rec, s32 ret) {
         }
     }
     if (entry >= 0) {
+        #ifdef PORT
+        words = (s32 *)(rec + entry * 4);
+#else
         words = (s32 *)(entry * 4 + (s32)rec);
+#endif
         ret = words[0xD4 / 4];
         *(s32 *)(rec + 0x34) = words[0xE8 / 4];
         *(s32 *)(rec + 0x30) = words[0xFC / 4];
         rec[0xB4] = *(rec + entry + 0x129);
         *(f32 *)(rec + 0x6C) = (f32)*(rec + entry + 0x12E);
+        #ifdef PORT
+        halves = (u16 *)(rec + entry * 2);
+#else
         halves = (u16 *)(entry * 2 + (s32)rec);
+#endif
         w = halves[0x110 / 2];
         *(u16 *)(rec + 0x9A) = w;
         *(u16 *)(rec + 0x9C) = halves[0x11A / 2];

@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8008797C(void *arg0, s32 arg1) {
-    M2C_FIELD(arg0, s8 *, 0xB0) = 0;
-    return arg1;
+/* Clears flag at offset 0xB0 of obj and returns val */ s32 func_8008797C(void *obj, s32 val) {
+    M2C_FIELD(obj, s8 *, 0xB0) = 0;
+    return val;
 }

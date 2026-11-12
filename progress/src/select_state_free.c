@@ -17,8 +17,12 @@ void select_state_free(void)
             offset = (slot & 0xFF) << 2;
             stream_obj_free(*(s32 *)((u8 *)state + (offset + 0xE4)));
             slot++;
+#ifdef PORT
+            heap_free_stub(*(s32 *)((u8 *)gSelectState + offset + 0x134));
+#else
             offset += (s32)gSelectState;
             heap_free_stub(*(s32 *)(offset + 0x134));
+#endif
             state = gSelectState;
         } while ((u32)(u8)slot < (u32)*((u8 *)state + 0x22C));
     }

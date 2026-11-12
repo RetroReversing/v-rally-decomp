@@ -1,4 +1,4 @@
-extern void func_8008E13C(void *, void *, s32);
+extern void memcpy(void *, void *, s32);
 extern u8 D_8009CEE9[];
 extern u8 D_8009E260;
 extern void (*D_8009CEE4[])(void *);
@@ -121,21 +121,37 @@ s32 func_8002ABC0(s32 cmd_id, s8 *text, s8 *end)
           tokens[n].number = -tokens[n].number;
           if (hex)
           {
-            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 4);
+            #ifdef PORT
+memcpy((s8 *) (buf + n * 76) + 72, buf + 1, len + 4);
+#else
+memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 4);
+#endif
           }
           else
           {
-            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
+            #ifdef PORT
+memcpy((s8 *) (buf + n * 76) + 72, buf + 1, len + 2);
+#else
+memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
+#endif
           }
         }
         else
           if (hex)
         {
-          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
+          #ifdef PORT
+memcpy((s8 *) (buf + n * 76) + 72, buf, len + 3);
+#else
+memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
+#endif
         }
         else
         {
-          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#ifdef PORT
+          memcpy((s8 *) (buf + n * 76) + 72, buf, len + 1);
+#else
+          memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#endif
         }
       }
       else
@@ -164,7 +180,11 @@ s32 func_8002ABC0(s32 cmd_id, s8 *text, s8 *end)
           }
           buf[len] = *(text++);
         }
-        func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#ifdef PORT
+        memcpy((s8 *) (buf + n * 76) + 72, buf, len + 1);
+#else
+        memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#endif
       }
       n++;
     }

@@ -7,7 +7,7 @@ extern int D_800C8210;
 extern unsigned char D_800C81FD;
 extern int D_800C81F8;
 extern unsigned short D_800C8236;
-extern char gStreamState[];
+extern char stream_state[];
 extern char D_8009BA70[];
 extern char D_800A40BC[];
 extern char D_800A40C4[];
@@ -17,7 +17,7 @@ extern char D_800A40DC[];
 s32 make_rect_set();
 void rect_set_set_item_pos();
 void rect_set_set_scale(s32, f32, f32, f32);
-void func_8000C22C(void *, s32, s32, s32, u8);
+void font_set_color(void *, s32, s32, s32, u8);
 s32 getTexturePack();
 void resolve_path();
 s32 func_80081664();
@@ -28,7 +28,7 @@ s32 func_80081664();
 void func_800129DC(void *state)
 {
     s32 opacity=255;
-    s32 rect;
+    void *rect;
     s32 set_a;
     s32 set_a_rect;
     s32 set_b;
@@ -44,16 +44,16 @@ void func_800129DC(void *state)
     set_a_rect = make_rect_set(set_a);
     D_800C820C = set_a_rect;
     rect_set_set_scale(set_a_rect, 1.0f, 1.0f, 1.0f);
-    rect = D_800C820C;
-    func_8000C22C((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
+    rect = *(void **)&D_800C820C;
+    font_set_color((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
     rect_set_set_item_pos(D_800C820C, 0x80, 0x30);
     set_b = func_80081664(6, &D_800A40D0);
     D_800C8208 = set_b;
     set_b_rect = make_rect_set(set_b);
     D_800C8210 = set_b_rect;
     rect_set_set_scale(set_b_rect, 1.0f, 1.0f, 1.0f);
-    rect = D_800C8210;
-    func_8000C22C((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
+    rect = *(void **)&D_800C8210;
+    font_set_color((void *)(rect), (s32)(opacity), (s32)(opacity), (s32)(opacity), (u8)(opacity));
     rect_set_set_item_pos(D_800C8210, 0x80, 0x33);
     if (D_800C81FD == 5) {
         resolve_path(&D_800A40DC);

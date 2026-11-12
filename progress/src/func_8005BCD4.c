@@ -126,7 +126,11 @@ void func_8005BCD4(void)
         register s8 jv;
         game = gRecords;
         jv = j;
+        #ifdef PORT
+        if (*((u8 *)game + jv + 0x32) == menu->type)
+#else
         if (*((u8 *)((s32) game + (s32) jv + 0x32)) == menu->type)
+#endif
         {
           break;
         }
@@ -143,7 +147,11 @@ void func_8005BCD4(void)
       register u8 *game2;
       register u8 car_idx;
       game2 = gRecords;
+      #ifdef PORT
+      car_idx = *((u8 *)game2 + i + 0x32);
+#else
       car_idx = *((u8 *)((s32) game2 + (s32) i + 0x32));
+#endif
       draw_palette_sprite((void *)(ds.text), (s16)(ds.xy[0] - 48), (s16)(*((s16 *) (ds.text + 8))), (void *)(game2 + ((car_idx * 40) + 68)));
     }
     if (gSelectState->active && (saved_sel == gSelectState->selected))

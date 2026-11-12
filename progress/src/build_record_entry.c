@@ -1,5 +1,5 @@
 extern u8 gRecordPackets[],gRecordGlyphs[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 gRecordTimeScale;
 extern const f64 D_800A57F0;
 extern f64 D_800A57F8;
@@ -27,7 +27,7 @@ void build_record_entry(s32 category, s32 row)
   s32 temp_s0;
   s32 temp_s3;
   s32 temp_s5;
-  s32 temp_s6;
+  u8 *temp_s6;
   s32 var_a2;
   s32 var_s4;
   u32 var_t0;
@@ -46,7 +46,7 @@ void build_record_entry(s32 category, s32 row)
   var_a2 = 0;
   var_t0 = 0;
   var_v1 = row;
-  temp_s6 = ((s32 *) 0x800D0634)[arg0];
+  temp_s6 = ((u8 **) 0x800D0634)[arg0];
   switch (arg0)
   {
     case 1:
@@ -74,9 +74,13 @@ void build_record_entry(s32 category, s32 row)
   threshold = D_800A57F0;
   temp_s3 = row & 0xFF;
   row_index = var_t0 + temp_s3;
-  coordinate_table = gStreamState + 0x5A8A;
+  coordinate_table = stream_state + 0x5A8A;
   sp14 = (u16*)(coordinate_table + row_index*2);
+#ifdef PORT
+  temp_fp = (void *) (temp_s6 + (temp_s3 * 4));
+#else
   temp_fp = (void *) ((u32)(temp_s3 * 4) + (u32)temp_s6);
+#endif
   temp_s5 = temp_s2 & 0xFF;
   temp_fs1 = ((f64) temp_s5) * D_800A57F8;
   packet_table = gRecordPackets;
@@ -125,7 +129,11 @@ decode_next:
     }
     else
     {
+#ifdef PORT
+      temp_v0_2 = (void *) (packet_table + temp_a0);
+#else
       temp_v0_2 = (void *) ((u32)temp_a0 + (u32)packet_table);
+#endif
       temp_t1_2 = ((u8 *) temp_v0_2)[0];
       temp_a0_2 = ((u8 *) temp_v0_2)[1] & 0xF;
       __repair_subtotal = (temp_t1_2 < 0xFFU) | ((temp_a0 = temp_a0_2) < 0xFU);

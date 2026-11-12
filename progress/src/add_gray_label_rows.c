@@ -21,12 +21,12 @@ typedef struct Game3E {
 
 extern View3E *g_camera;
 extern Game3E *gRecords;
-void add_label_sprites(s32, s32, s32, SpriteHook, u8 *, u16, u8 *);
+void add_label_sprites(void *, s32, s32, SpriteHook, u8 *, u16, u8 *);
 void func_8003B7BC(void *);
 
 /* Adds four grey label rows above the HUD anchor while the record screen is in
  * its idle state (mode 1, state 0). Each row is brighter than the one before. */
-void add_gray_label_rows(void *sprite_list, s32 tex_table)
+void add_gray_label_rows(void *sprite_list, u8 *tex_table)
 {
     u8 col[4];
     u32 row;
@@ -67,7 +67,7 @@ void add_gray_label_rows(void *sprite_list, s32 tex_table)
                 col[3] = 0xFF;
                 break;
             }
-            add_label_sprites((s32)(sprite_list), x, y + h - (6 - row) * 10 + 2, func_8003B7BC, (u8 *)(tex_table), row, col);
+            add_label_sprites(sprite_list, x, y + h - (6 - row) * 10 + 2, func_8003B7BC, tex_table, row, col);
         }
     }
 }

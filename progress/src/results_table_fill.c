@@ -7,10 +7,11 @@ typedef struct RName { char name[10]; u16 v; char pad[0x28 - 12]; } RName;
 typedef struct RCfg { char pad0[0xE]; u16 mode; char pad10[0x1A - 0x10]; u16 flag1A; char pad1C[0x22 - 0x1C]; u16 sel; char pad24[0x32 - 0x24]; u8 order[0x12]; RName names[4]; } RCfg;
 
 extern void func_80041564(void);
-extern void copyStringAligned(char *, char *);
+extern void strCpy(char *, char *);
 extern RCar **gCarList;
 extern RCfg *gRecords;
 extern REntry gResultsTable[7];
+s32 abs(s32);
 
 /* Fills the race results table (gResultsTable) for the current car's result
  * screen. Mode 1 lists six rows from the car's times/rates; mode 2 lists three
@@ -33,7 +34,7 @@ void results_table_fill(void) {
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
             gResultsTable[i].rate = vals[i];
             gResultsTable[i].total = times[i];
             gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
@@ -53,7 +54,7 @@ void results_table_fill(void) {
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
             gResultsTable[i].rate = vals[i];
             gResultsTable[i].total = times[i];
             gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
@@ -74,7 +75,7 @@ void results_table_fill(void) {
         vals = car->res->vals;
         do {
             gResultsTable[i].obj = car;
-            copyStringAligned(gResultsTable[i].name, gRecords->names[gRecords->order[1]].name);
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[1]].name);
             gResultsTable[i].rate = vals[i - 3];
             gResultsTable[i].total = times[i - 3];
             gResultsTable[i].b = gRecords->names[gRecords->order[1]].v;
@@ -91,7 +92,7 @@ void results_table_fill(void) {
     default:
         return;
     }
-    copyStringAligned(gResultsTable[n].name, data->recs[gRecords->sel].name);
+    strCpy(gResultsTable[n].name, data->recs[gRecords->sel].name);
     gResultsTable[n].obj = car;
     gResultsTable[n].total = data->recs[gRecords->sel].time;
     gResultsTable[n].rate = data->recs[gRecords->sel].cA;

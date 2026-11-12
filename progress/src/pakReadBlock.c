@@ -5,7 +5,7 @@ extern u32 pakQueryStatus(s32, u16 *);
 extern void __osSiRawStartDma(s32, void *);
 extern s32 osRecvMesg(s32, void *, s32);
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 D_800B6EB0[];
 
 /* Reads one 32-byte block from the controller pak at page arg1 into dst (arg2). Polls the
@@ -37,7 +37,7 @@ u32 pakReadBlock(s32 mq, u8 page, u8 *dst) {
             __osSiRawStartDma(1, D_800B6EB0);
             osRecvMesg(mq, 0, 1);
             __osSiRawStartDma(0, D_800B6EB0);
-            gStreamState[0x3272] = 4;
+            stream_state[0x3272] = 4;
             osRecvMesg(mq, 0, 1);
             var_v0 = 3;
             do { var_v0--; var_s2++; } while (var_v0 >= 0);
@@ -46,7 +46,11 @@ u32 pakReadBlock(s32 mq, u8 page, u8 *dst) {
             var_v1 = &pkt[12];
             if (err == 0) {
                 u8 *end = &pkt[20];
+#ifdef PORT
+                do { *var_s3++ = *var_v1++; } while (var_v1 < end);
+#else
                 do { *var_s3++ = *var_v1++; } while ((s32)var_v1 < (s32)end);
+#endif
             }
         }
     }

@@ -36,7 +36,11 @@ EntList *ent_prepare_list(EntList *list, RecTable *table, Key8 *key)
     Rec *rec;
 
     g_max_depth = 0;
+#ifdef PORT
+    add_pos_bias_words((uintptr_t)list, 1);
+#else
     add_pos_bias_words((s32)list, 1);
+#endif
     table->last = table->count;
     rec = (Rec *)((u8 *)table + (table->count * 0x38 + 0x3C));
     rec->key = *key;

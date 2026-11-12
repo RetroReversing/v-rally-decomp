@@ -1,5 +1,5 @@
 extern s32 gSceneSlot0;
-extern void *func_80005C48(s32);
+extern void *obj_get_owner(s32);
 
 #define SCREEN_W 0x140
 #define SCREEN_H 0xF0
@@ -8,6 +8,35 @@ extern void *func_80005C48(s32);
 /* Draws a circle outline of radius r around (x, y) into the 320x240 16-bit
  * framebuffer, using the midpoint algorithm with 8-way symmetry. Pixels off
  * screen are skipped; the fast path is used when the circle is fully on screen. */
+#ifdef PORT
+void func_80014DF8(s32 x, s32 y, s32 r, s32 color) {
+    s16 *fb = (s16 *)obj_get_owner(gSceneSlot0);
+    s32 err;
+    u32 dx;
+    u32 rsq;
+#define PORT_PLOT(X, Y) do { if (((u32)(X) < 0x140U) & ((u32)(Y) < 0xF0U)) fb[(Y) * 0x140 + (X)] = color; } while (0)
+    rsq = r * r;
+    err = rsq - r;
+    dx = 0;
+    do {
+        PORT_PLOT(x + dx, y - r);
+        PORT_PLOT(x - dx, y - r);
+        PORT_PLOT(x + dx, y + r);
+        PORT_PLOT(x - dx, y + r);
+        PORT_PLOT(x + r, y - dx);
+        PORT_PLOT(x - r, y - dx);
+        PORT_PLOT(x + r, y + dx);
+        PORT_PLOT(x - r, y + dx);
+        dx++;
+        rsq += 1 - dx * 2;
+        if (err >= rsq) {
+            r--;
+            err -= r * 2;
+        }
+    } while (r >= dx);
+#undef PORT_PLOT
+}
+#else
 void func_80014DF8(s32 x, s32 y, s32 r, s32 color) {
     s32 pad[2]; s32 *fb;
     s32 err;
@@ -17,7 +46,7 @@ void func_80014DF8(s32 x, s32 y, s32 r, s32 color) {
     s32 px;
     s32 py;
 
-    fb = (s32 *)func_80005C48(gSceneSlot0);
+    fb = (s32 *)obj_get_owner(gSceneSlot0);
     rsq = r * r;
     err = rsq - r;
     dx = 0;
@@ -78,3 +107,4 @@ void func_80014DF8(s32 x, s32 y, s32 r, s32 color) {
         }
     } while (r >= dx);
 }
+#endif

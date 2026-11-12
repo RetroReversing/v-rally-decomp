@@ -25,7 +25,7 @@ extern char D_800A4DF4[];
 extern void *g_camera;
 
 s32 view_gfx_setup();
-void *named_entry_lookup(void **, u8 *);
+void *list_find_node(void **, u8 *);
 s32 func_8002FE78();
 void *find_object_by_id();
 s32 func_80042DE0();
@@ -55,7 +55,7 @@ void race_reset(void)
     gPadFlags |= 1;
     temp_v0 = find_object_by_id((temp_a0 * 2) | 1);
     g_camera = temp_v0;
-    node = *(void **)((char *) named_entry_lookup((void **)((char *) temp_v0 + 0x28), (u8 *) D_800A4DF4) + 0x10);
+    node = *(void **)((char *) list_find_node((void **)((char *) temp_v0 + 0x28), (u8 *) D_800A4DF4) + 0x10);
     config = gRecords;
     *(s32 *)((char *) node + 8) = 1;
     temp_v0_2 = find_object_by_id((config->slotCount * 2) + 2);

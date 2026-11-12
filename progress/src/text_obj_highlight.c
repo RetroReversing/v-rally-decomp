@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern void *gSelectState;
 void *list_advance(u32, void *);
 
@@ -10,7 +10,7 @@ void text_obj_highlight(s32 arg0)
   u8 *item;
   u32 index;
 
-  item = list_advance(*((u16 *) ((*((u8 **) (gStreamState + 0x32F2))) + 0x20)), (void *)(*((void **) (((char *) gSelectState) + 0xC))));
+  item = list_advance(*((u16 *) ((*((u8 **) (stream_state + 0x32F2))) + 0x20)), (void *)(*((void **) (((char *) gSelectState) + 0xC))));
   entry = *((u8 **) (item + 0x28));
   index = 0;
   if (item[0x4C] != index)

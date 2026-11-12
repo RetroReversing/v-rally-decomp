@@ -2998,7 +2998,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -4229,7 +4229,7 @@ s32 _timeToSamples(ALSynth *synth, s32 micros);
 
 
 
-void alSynNew(ALSynth *drvr, ALSynConfig *c)
+/* Initializes the synth: sets up the output and DMA fields, creates the save, aux and main buses, the physical voice pool (each with its decoder, resampler and envelope mixer), and the free list of parameter nodes. */ void alSynNew(ALSynth *drvr, ALSynConfig *c)
 {
     s32         i;
     ALVoice     *vv;
@@ -4294,7 +4294,7 @@ void alSynNew(ALSynth *drvr, ALSynConfig *c)
     pvoices = alHeapDBAlloc(0, 0,( hp ),(  c->maxPVoices ),(  sizeof(PVoice) )) ;
     for (i = 0; i < c->maxPVoices; i++) {
         pv = &pvoices[i];
-        alLink((ALLink *)pv, &drvr->pFreeList);
+        al_link_push((ALLink *)pv, &drvr->pFreeList);
         pv->vvoice = 0;
 
         alLoadNew(&pv->decoder, drvr->dma, hp);

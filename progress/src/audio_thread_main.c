@@ -1,7 +1,7 @@
 extern s32 D_800A1BA0;
 extern u32 cacheTick;
 extern s32 D_800A1BB4;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 D_800B0AD4[];
 extern void func_8008743C(void);
 extern s32 taskOpen(s32, s32, s32);
@@ -21,9 +21,9 @@ void audio_thread_main(void) {
     void *buf;
 
     exit_flag = 0;
-    *(s32 *)(gStreamState + 0x8072) = taskOpen(4, 0, 1);
-    old = *(s32 *)(gStreamState + 0x7DA6);
-    *(s32 *)(gStreamState + 0x7DA6) = (s32)func_8008743C;
+    *(s32 *)(stream_state + 0x8072) = taskOpen(4, 0, 1);
+    old = *(s32 *)(stream_state + 0x7DA6);
+    *(void **)(stream_state + 0x7DA6) = (void *)func_8008743C;
     D_800A1BA0 = old;
     msg = taskOpen(0x26, 1, 1);
     do {
@@ -32,7 +32,7 @@ void audio_thread_main(void) {
             handleAudioUnderrun(*(s32 *)((u8 *)buf + 4));
             D_800A1BB4 = *(s32 *)((u8 *)buf + 4);
         } else {
-            taskRecvMsg(*(s32 *)(gStreamState + 0x8072));
+            taskRecvMsg(*(s32 *)(stream_state + 0x8072));
             osSetThreadPri(D_800B0AD4[3], 6);
         }
     } while (exit_flag == 0);

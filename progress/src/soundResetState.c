@@ -1,5 +1,5 @@
-extern s32 gSoundState;
-extern u8 D_800C35C8;
+extern u8 *gSoundState;
+extern u8 gEngineVoice;
 extern u8 D_800C35C9;
 extern u8 D_800C35CA;
 extern u8 D_800C35CB;
@@ -11,7 +11,7 @@ s32 voicesSetParamsByKey(void *, s32);
 s32 func_80089980(void);
 
 /* Resets the sound state: clears each of the 39 slots (12 bytes apart) through
- * voicesSetParamsByKey, sets the eight flag bytes D_800C35C8..CF (0xFF, except D_800C35C9 = 0),
+ * voicesSetParamsByKey, sets the eight flag bytes gEngineVoice..CF (0xFF, except D_800C35C9 = 0),
  * then calls func_80089980. */
 void soundResetState(void)
 {
@@ -24,7 +24,7 @@ void soundResetState(void)
     voicesSetParamsByKey((void *) (gSoundState + slotOffset), 0);
   }
 
-  D_800C35C8 = 0xFF;
+  gEngineVoice = 0xFF;
   D_800C35C9 = 0;
   D_800C35CA = 0xFF;
   D_800C35CB = 0xFF;

@@ -17,7 +17,11 @@ void func_80014130(void)
     {
         r = osGetTime();
         block = gTimeSampleState;
+#ifdef PORT
+        entry = (u32 *) ((u8 *) block + block[0] * 8);
+#else
         entry = (u32 *) (block[0] * 8 + (u32) block);
+#endif
         r = __udivdi3(r << 6, 3000);
         r = r - *(u64 *)(block + 2);
         *(u64 *)(entry + 4) = r;

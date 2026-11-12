@@ -26,17 +26,17 @@ extern A5474 D_800A5474;
 extern void func_8002FB64(void);
 extern void setSoundEntryTable(s32);
 extern void *func_80057810(s32);
-extern void func_800578E0(void *);
-extern s32 func_8005A338();
-extern void func_8005E1B8(void);
+extern void object_free_blocks(void *);
+extern s32 select_reset_text_default();
+extern void select_begin_reset(void);
 extern void func_8006ECB4(void);
 extern s32 save_race_to_pak(void);
 extern void func_80084AD8(void);
-extern void func_80084AF4(void);
-extern s32 func_80084DD4(s32);
+extern void stub_noop_80084AF4(void);
+extern s32 pad_port_disconnected(s32);
 extern u8 func_80084E10(void);
 extern s32 cont_port_is_connected(s32, s32);
-extern void func_8005E820(void);
+extern void select_touch_first_entry(void);
 
 /* Starts a league stage: picks the stage index from the inner table's cursor,
  * reloads the stage's resources, and, if every entry in the stage list passes
@@ -59,7 +59,7 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
   func_8006ECB4();
   idx = 0;
   save_race_to_pak();
-  func_800578E0(gSelectStepHandle);
+  object_free_blocks(gSelectStepHandle);
   gSelectStepHandle = func_80057810(D_800A14BC[gSelectStep]);
   {
     u8 count = func_80084E10();
@@ -69,7 +69,7 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
       do
       {
         i = idx & 0xFF;
-        if (func_80084DD4(i))
+        if (pad_port_disconnected(i))
         {
           all_ok &= -(cont_port_is_connected(i, 2) != 0);
         }
@@ -81,7 +81,7 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
   if (all_ok & 0xFF)
   {
     idx = 0;
-    func_80084AF4();
+    stub_noop_80084AF4();
     func_80084AD8();
     func_8002FB64();
     inner = gLeague->inner;
@@ -95,13 +95,13 @@ s32 func_8005E49C(s32 arg0, s32 arg1)
     new_var = ((u8 *) gSelectState) + 0x1F8;
     gLeague->inner[0].data[2].c = 5;
     __builtin_memcpy(&gSelectState->x1f8, &D_800A5474, 9);
-    func_8005A338(arg0, arg1);
-    func_8005E1B8();
+    select_reset_text_default(arg0, arg1);
+    select_begin_reset();
   }
   else
   {
-    func_8005A338(arg0, arg1);
-    gSelectState->cb = func_8005E820;
+    select_reset_text_default(arg0, arg1);
+    gSelectState->cb = select_touch_first_entry;
   }
   return 0;
 }

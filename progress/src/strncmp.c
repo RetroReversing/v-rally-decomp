@@ -5,12 +5,21 @@ s32 strncmp(u8 *s1, u8 *s2, u32 n) {
  s32 diff;
  register u32 words;
  register u32 w1, w2;
+ #ifdef PORT
+ if (((uintptr_t)(s1 - s2) & 3) == 0) goto aligned;
+#else
  if (((u32)(s1 - s2) & 3) == 0) goto aligned;
+#endif
 bytes:
  while (--n != (u32)-1) { w1 = *s1++; diff = w1 - *s2++; if ((diff != 0) | (w1 == 0)) return diff; }
  return 0;
 aligned:
- while ((u32)s1 & 3) { if (--n == (u32)-1) return 0; w1 = *s1++; diff = w1 - *s2++; if ((diff != 0) | (w1 == 0)) return diff; }
+ #ifdef PORT
+ while ((uintptr_t)s1 & 3) {
+#else
+ while ((u32)s1 & 3) {
+#endif
+ if (--n == (u32)-1) return 0; w1 = *s1++; diff = w1 - *s2++; if ((diff != 0) | (w1 == 0)) return diff; }
  words = n;
  words >>= 2;
  words -= 1;

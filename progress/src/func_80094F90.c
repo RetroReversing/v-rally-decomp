@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80094F90(s32 *arg0, s32 arg1, s32 arg2) {
-    if (arg1 == 1) {
-        *arg0 = arg2;
+/* Stores value into *dst when op is 1; otherwise does nothing. Always returns 0. */ s32 func_80094F90(s32 *dst, s32 op, s32 value) {
+    if (op == 1) {
+        *dst = value;
     }
     return 0;
 }

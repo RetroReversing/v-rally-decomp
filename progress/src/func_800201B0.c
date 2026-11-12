@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800201B0(void *arg0, void *arg1) {
-    s32 temp_v0;
+/* Copies src's state word (+0x90) into ctrl+0x1C, then sets the flag at ctrl's sub-block +0x6C: 0 when the state is 7, otherwise 1. */ void func_800201B0(void *src, void *ctrl) {
+    s32 state;
 
-    temp_v0 = M2C_FIELD(arg0, s32 *, 0x90);
-    *M2C_FIELD(arg1, s32 **, 0x1C) = temp_v0;
-    if (temp_v0 == 7) {
-        M2C_FIELD(M2C_FIELD(arg1, void **, 0x30), s32 *, 0x6C) = 0;
+    state = M2C_FIELD(src, s32 *, 0x90);
+    *M2C_FIELD(ctrl, s32 **, 0x1C) = state;
+    if (state == 7) {
+        M2C_FIELD(M2C_FIELD(ctrl, void **, 0x30), s32 *, 0x6C) = 0;
         return;
     }
-    M2C_FIELD(M2C_FIELD(arg1, void **, 0x30), s32 *, 0x6C) = 1;
+    M2C_FIELD(M2C_FIELD(ctrl, void **, 0x30), s32 *, 0x6C) = 1;
 }

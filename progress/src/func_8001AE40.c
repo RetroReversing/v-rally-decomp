@@ -7,6 +7,13 @@ extern s32 D_8009CE74;
 extern s32 D_8009D4E8;
 extern s32 rebase_base_addr;
 
+void mesh_build_slot_data(char *entry);
+void func_80005D98(char *obj);
+void func_8004DC50(s32 arg);
+void func_8004EF40(s32 arg);
+void heap_free_stub(s32 ptr);
+void func_80081514(char *base, s32 size, s32 flag);
+
 /* Takes a snapshot of the list: for each 0x3C-byte entry, sets flag bit 2 while the
    entry is processed, then restores the original flags. Then records the frame
    statistics from the current frame header and runs the per-frame update and
@@ -33,7 +40,7 @@ void func_8001AE40(char *list)
       {
         *flags = saved_flags | 2;
       }
-      func_8001AAB4((s32) entry);
+      mesh_build_slot_data(entry);
       *flags = saved_flags;
       flags = (s32 *) (((char *) flags) + 0x3C);
       index += 1;

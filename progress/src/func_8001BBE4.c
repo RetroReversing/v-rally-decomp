@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_8001BDA0();                            /* extern */
-s32 poolAllocHeadNode();                                /* extern */
-extern M2C_UNK gStreamState;
+s32 poolAllocHeadNode();                            /* extern */
+extern M2C_UNK stream_state;
 
 void func_8001BBE4(void) {
-    M2C_FIELD(&gStreamState, s32 *, 0x80C6) = poolAllocHeadNode();
+    M2C_FIELD(&stream_state, s32 *, 0x80C6) = poolAllocHeadNode();
     func_8001BDA0();
 }

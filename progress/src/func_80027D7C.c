@@ -12,9 +12,10 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80027D7C(s32 arg0, s32 arg1) {
-    u32 temp_a0;
+/* Steps arg0 toward arg1 by 50/128 of the difference (wrapped to 8 bits); results below 2 are returned as 0. */
+s32 func_80027D7C(s32 from, s32 to) {
+    u32 step;
 
-    temp_a0 = (arg0 + ((u32) ((arg1 - arg0) * 0x32) >> 7)) & 0xFF;
-    return temp_a0 & -(temp_a0 >= 2U);
+    step = (from + ((u32) ((to - from) * 0x32) >> 7)) & 0xFF;
+    return step & -(step >= 2U);
 }

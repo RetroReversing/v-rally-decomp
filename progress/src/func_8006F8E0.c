@@ -4,7 +4,7 @@ typedef struct
   u16 count;
   u8 rest[0x2AE];
 } RecordGroup;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 void build_record_entry_alt(s32, s32);
 void build_record_entry(s32, s32);
 void record_fill_split_times(s32);
@@ -23,14 +23,14 @@ void func_8006F8E0(void)
   {
     s32 g = grp & 0xff;
     i = 0;
-    if ((*(RecordGroup **)(gStreamState + 0x10386))[g].count != 0)
+    if ((*(RecordGroup **)(stream_state + 0x10386))[g].count != 0)
     {
       unsigned short n;
       do
       {
         build_record_entry_alt(g, i & 0xff);
         n = g;
-        n = ((RecordGroup *) (*((s32 *) (gStreamState + 0x10386))))[n].count;
+        n = (*((RecordGroup **) (stream_state + 0x10386)))[n].count;
         i++;
       }
       while (((u32) (i & 0xff)) < ((u32) n));

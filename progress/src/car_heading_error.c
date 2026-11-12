@@ -1,4 +1,4 @@
-s32 func_8002D2C8();
+s32 angle_atan2_thunk();
 
 /* Returns the heading error between a car and its next track point, in 0x1000-per-turn
  * angle units, wrapped to the shorter direction. */
@@ -59,9 +59,9 @@ s32 car_heading_error(u8 *arg0) {
     sp48 = sp38 + d50;
     d50v = d50;
     sp48v = sp48;
-    var_s0 = func_8002D2C8(sp48 - sp38, sp40 - sp30, track, obj);
+    var_s0 = angle_atan2_thunk(sp48 - sp38, sp40 - sp30, track, obj);
     t38 = sp38v;
-    var_a0_2 = func_8002D2C8(t38 - sp28v, sp30v - sp20v, t38);
+    var_a0_2 = angle_atan2_thunk(t38 - sp28v, sp30v - sp20v, t38);
     if ((var_s0 < -0x400) & (var_a0_2 > 0x400)) {
         var_s0 += 0x1000;
     }

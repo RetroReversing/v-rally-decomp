@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Sound name table: 0x800 buckets of HashEnt pointers. */
 typedef struct {
@@ -25,7 +25,7 @@ s32 func_800555A0(u8 *name, s32 name_len)
     found = 0;
     k = name_len & 0xFFFF;
     h = soundNameHash(name, k) & 0xFFFF;
-    e = ((HashEnt **) (gStreamState + 0x3902))[h];
+    e = ((HashEnt **) (stream_state + 0x3902))[h];
     if (e == NULL) {
         return 0;
     }
@@ -35,7 +35,7 @@ s32 func_800555A0(u8 *name, s32 name_len)
     }
     i = 0;
     while (i < 0x800) {
-        e = ((HashEnt **) (gStreamState + 0x3902))[i];
+        e = ((HashEnt **) (stream_state + 0x3902))[i];
         if (e != NULL && e->key == k + h + *name) {
             if (e->tag == *name) {
                 found = 1;
@@ -47,5 +47,5 @@ s32 func_800555A0(u8 *name, s32 name_len)
     if (!found) {
         return 0;
     }
-    return ((HashEnt **) (gStreamState + 0x3902))[i]->val;
+    return ((HashEnt **) (stream_state + 0x3902))[i]->val;
 }

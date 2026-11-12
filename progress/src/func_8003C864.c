@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8003C864(void *arg0) {
-    s32 temp_v1;
-    void *temp_v0;
+/* Clears flag bit 0x4 on obj, then sets it again when the linked sub-record has bit 0x100 set in its status word at +0x14. */ void func_8003C864(void *obj) {
+    s32 flags;
+    void *link;
 
-    temp_v1 = M2C_FIELD(arg0, s32 *, 0x80) & ~4;
-    M2C_FIELD(arg0, s32 *, 0x80) = temp_v1;
-    temp_v0 = M2C_FIELD(M2C_FIELD(arg0, void **, 0xA8), void **, 0x24);
-    if ((temp_v0 != NULL) && (M2C_FIELD(temp_v0, s32 *, 0x14) & 0x100)) {
-        M2C_FIELD(arg0, s32 *, 0x80) = (s32) (temp_v1 | 4);
+    flags = M2C_FIELD(obj, s32 *, 0x80) & ~4;
+    M2C_FIELD(obj, s32 *, 0x80) = flags;
+    link = M2C_FIELD(M2C_FIELD(obj, void **, 0xA8), void **, 0x24);
+    if ((link != NULL) && (M2C_FIELD(link, s32 *, 0x14) & 0x100)) {
+        M2C_FIELD(obj, s32 *, 0x80) = (s32) (flags | 4);
     }
 }

@@ -22,7 +22,11 @@ typedef struct {
 
 /* Returns the object's primary zone if pos lies inside its X/Z bounds, otherwise
    its secondary zone if pos lies inside that, otherwise 0 (the last comparison). */
+#ifdef PORT
+ZoneBounds *find_zone_at_pos(ZoneObj *obj, Vec3 *pos) {
+#else
 s32 find_zone_at_pos(ZoneObj *obj, Vec3 *pos) {
+#endif
     s32 xPos;
     s32 zPos;
     s32 cmp;
@@ -30,8 +34,20 @@ s32 find_zone_at_pos(ZoneObj *obj, Vec3 *pos) {
     ZoneBounds *zone;
 
     zone = obj->primary;
-    if (((zone != NULL) && (cmp = zone->minX, coord = pos->x, cmp = cmp < coord, (cmp != 0)) && (cmp = zone->maxX, cmp = coord < cmp, (cmp != 0)) && (cmp = zone->minZ, coord = pos->z, cmp = cmp < coord, (cmp != 0)) && (cmp = zone->maxZ, cmp = coord < cmp, (cmp != 0))) || ((zone = obj->secondary, cmp = (s32) obj, (zone != NULL)) && (coord = zone->minX, xPos = pos->x, coord = coord < xPos, (coord != 0)) && (coord = zone->maxX, coord = xPos < coord, (coord != 0)) && (coord = zone->minZ, zPos = pos->z, coord = coord < zPos, (coord != 0)) && (coord = zone->maxZ, coord = zPos < coord, (coord != 0)))) {
+    if (((zone != NULL) && (cmp = zone->minX, coord = pos->x, cmp = cmp < coord, (cmp != 0)) && (cmp = zone->maxX, cmp = coord < cmp, (cmp != 0)) && (cmp = zone->minZ, coord = pos->z, cmp = cmp < coord, (cmp != 0)) && (cmp = zone->maxZ, cmp = coord < cmp, (cmp != 0))) || ((zone = obj->secondary, 
+#ifdef PORT
+(zone != NULL))
+#else
+cmp = (s32) obj, (zone != NULL))
+#endif
+ && (coord = zone->minX, xPos = pos->x, coord = coord < xPos, (coord != 0)) && (coord = zone->maxX, coord = xPos < coord, (coord != 0)) && (coord = zone->minZ, zPos = pos->z, coord = coord < zPos, (coord != 0)) && (coord = zone->maxZ, coord = zPos < coord, (coord != 0)))) {
+#ifdef PORT
+        return zone;
+    }
+    return NULL;
+#else
         cmp = (s32) zone;
     }
     return cmp;
+#endif
 }

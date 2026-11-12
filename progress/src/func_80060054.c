@@ -1,6 +1,6 @@
-s32 slot_set_selected();
+s32 slotSetSelected();
 s32 stream_refresh_car_flags();
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Claims the first clear bit (0..3) in the flag byte at +0x2F of the current stream slot
  * and sets it. Then refreshes the car flags and selects the slot index. Always returns 0. */
@@ -18,9 +18,9 @@ s32 func_80060054(void)
   pad_count = 1;
   one = 1;
   loop_1:
-  slot = gStreamState + 0x32F2;
+  slot = stream_state + 0x32F2;
 
-  slot = *((void **) (gStreamState + 0x32F2));
+  slot = *((void **) (stream_state + 0x32F2));
   flags = *((u8 *) (((char *) slot) + 0x2F));
   bit_shift = slot_index & 0xFF;
   flag_value = (flag_value = (s32) flags) >> bit_shift;
@@ -47,8 +47,12 @@ s32 func_80060054(void)
   }
   stream_refresh_car_flags(flags, slot, one);
   flags = 0x1C;
+  #ifdef PORT
+  slotSetSelected(0x1C, slot_index & 0xFF);
+#else
   slot = (void *) (slot_index & 0xFF);
-  slot_set_selected(0x1C, slot);
+  slotSetSelected(0x1C, slot);
+#endif
   flag_value = 0;
   return 0;
 }

@@ -11,17 +11,17 @@ extern unsigned char D_800B6818;
 s32 flag_test_bit0(void *);
 void initRaceSession(void);
 s32 func_80022BE8(void *, s32);
-s32 func_80022F78(void *);
+s32 obj_list_run_stages(void *);
 s32 init_car_from_record(void *, void *, void *);
 s32 func_8004F3C4(void);
-s32 func_8004F55C(s32 *);
+s32 race_entries_clear(s32 *);
 short func_8004FD5C(s32 *, s32);
 extern s32 gRecordTimeScale;
-extern s32 *gCarEntries;
+extern s32 *gCarEntryTable;
 extern s32 *gSlotTable;
 extern u8 D_800A17F0;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Per-frame record-screen update: loads the record state from gRecords, then either
  * runs the state-8 branch (refresh the displayed record entry), or sets up both record
@@ -52,14 +52,14 @@ void func_80050B38(void)
     {
       if (D_800C81FC != 0)
       {
-        func_80022F78(*((void ***) (gOrderState + 0x73F0)));
+        obj_list_run_stages(*((void ***) (gOrderState + 0x73F0)));
         var_s0 = *(*((void ***) (new_var2 + 0x73F0)));
-        temp_v0_2 = (double) (*gCarEntries);
+        temp_v0_2 = (double) (*gCarEntryTable);
         if (D_800C7FA0 == 1)
         {
           var_s0 = *((void **) (((u8 *) var_s0) + 4));
         }
-        func_80022BE8(var_s0, *gCarEntries);
+        func_80022BE8(var_s0, *gCarEntryTable);
         {
           void *p = *((void **) (((u8 *) var_s0) + 0x54));
           void *r = gRecords;
@@ -74,21 +74,21 @@ void func_80050B38(void)
       if (flag_test_bit0((void *) (&D_800B5B70)) != 0)
     {
       temp_a0 = (s32 *) (gOrderState + 0x2408);
-      gCarEntries = temp_a0;
-      gSlotTable = (s32 *) (gStreamState + 0x592A);
-      func_8004F55C(temp_a0);
-      func_8004F55C(gSlotTable);
+      gCarEntryTable = temp_a0;
+      gSlotTable = (s32 *) (stream_state + 0x592A);
+      race_entries_clear(temp_a0);
+      race_entries_clear(gSlotTable);
       temp_v0 = *((u8 *) (gRecords + 0xF));
       *((s16 *) (gOrderState + 0x2518)) = (s16) temp_v0;
-      *((s16 *) (gStreamState + 0x5A3A)) = (s16) temp_v0;
+      *((s16 *) (stream_state + 0x5A3A)) = (s16) temp_v0;
       temp_a0_2 = *((u16 *) (gRecords + 0x1E));
       if (temp_a0_2 == 0)
       {
         if ((*((u16 *) (gRecords + 0x1A))) != 0)
         {
           *((s8 *) (gOrderState + 0x251C)) = 0;
-          *((s8 *) (gStreamState + 0x5A3E)) = 0;
-          func_8004FD5C(gCarEntries, gRecordTimeScale * 0x1C2);
+          *((s8 *) (stream_state + 0x5A3E)) = 0;
+          func_8004FD5C(gCarEntryTable, gRecordTimeScale * 0x1C2);
           func_8004FD5C(gSlotTable, gRecordTimeScale * 0x1C2);
           var_a1 = 0;
           do
@@ -97,14 +97,14 @@ void func_80050B38(void)
             {
               temp_v0_2 = var_a1 * 0x44;
               *((u16 *) ((gOrderState + 0x2410) + temp_v0_2)) |= 0x100;
-              *((u16 *) ((gStreamState + 0x5932) + temp_v0_2)) |= 0x100;
+              *((u16 *) ((stream_state + 0x5932) + temp_v0_2)) |= 0x100;
               var_a1++;
             }
             else
             {
               temp_v0_2 = var_a1 * 0x44;
               *((u16 *) ((gOrderState + 0x2410) + temp_v0_2)) |= 0x100;
-              *((u16 *) ((gStreamState + 0x5932) + temp_v0_2)) |= 0x100;
+              *((u16 *) ((stream_state + 0x5932) + temp_v0_2)) |= 0x100;
               var_a1++;
             }
           }
@@ -120,7 +120,7 @@ void func_80050B38(void)
       block_18:
       *((s8 *) (gOrderState + 0x251C)) = 0;
 
-      func_8004FD5C(gCarEntries, gRecordTimeScale * 0x1C2);
+      func_8004FD5C(gCarEntryTable, gRecordTimeScale * 0x1C2);
     }
   }
 }

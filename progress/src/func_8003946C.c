@@ -29,7 +29,7 @@ extern void updateStreamRate(void *);
 /* Creates the race-list sprite objects, unless the race stage (gRecords+0x1E) is 7.
    With one player it adds one sprite for the current record row. With two players it adds
    one sprite per active row, using camera indices 1, 3, 5, ... */
-void func_8003946C(s32 parent, u8 *spr_data, s32 spr_id)
+void func_8003946C(void *parent, u8 *spr_data, s32 spr_id)
 {
   u8 *records = gRecords;
   u8 *cam;
@@ -58,7 +58,7 @@ void func_8003946C(s32 parent, u8 *spr_data, s32 spr_id)
         x = H(A(cam1, 0x178), 0xc);
         y = H(A(cam1, 0x178), 0xe);
         g_camera = cam1;
-        obj = ((Obj *)sprite_create((void *)(parent), 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
+        obj = ((Obj *)sprite_create(parent, 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
         obj->x9c = x - 63;
         obj->x9e = y - 42;
         spr = getTexturePack(spr_data + 0x4c, 0);
@@ -93,7 +93,7 @@ void func_8003946C(s32 parent, u8 *spr_data, s32 spr_id)
               x -= 16;
               x_off = (-(W(cam, 0xc) == 1)) & 20;
             }
-            obj = ((Obj *)sprite_create((void *)(parent), 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
+            obj = ((Obj *)sprite_create(parent, 0, 0, (u16)((u16) spr_id), updateStreamRate, 1));
             obj->spr = getTexturePack(spr_data + 0x4c, 0);
             obj->x9c = (u16)(z + x) - 35 + x_off;
             obj->x9e = sum - 32;

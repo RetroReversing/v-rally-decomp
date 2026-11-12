@@ -6,7 +6,11 @@ s32 strCmp(const u8 *str1, const u8 *str2)
   s32 diff;
   u32 word0;
   u32 word1;
+#ifdef PORT
+  if ((((uintptr_t) str1) - ((uintptr_t) str2)) & 3)
+#else
   if ((((u32) str1) - ((u32) str2)) & 3)
+#endif
   {
     do
     {
@@ -22,7 +26,11 @@ s32 strCmp(const u8 *str1, const u8 *str2)
     }
     while (1);
   }
+#ifdef PORT
+  while (((uintptr_t) str1) & 3)
+#else
   while (((u32) str1) & 3)
+#endif
   {
     u32 d = *str2;
     u32 c = *str1;

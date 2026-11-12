@@ -1,18 +1,18 @@
 extern void *gRecords;
-void func_8003BA9C(void *arg0)
+/* Copies a value from the linked sub-record into obj+0x7A, adding 4 when the global mode word is 2. */ void func_8003BA9C(void *obj)
 {
-  s32 temp_a1;
-  u16 *new_var;
-  void *temp_v0;
-  temp_v0 = *((void **) (((s8 *) (*((void **) (((s8 *) arg0) + 0xA8)))) + 0x24));
-  if (temp_v0 != NULL)
+  s32 value;
+  u16 *modePtr;
+  void *link;
+  link = *((void **) (((s8 *) (*((void **) (((s8 *) obj) + 0xA8)))) + 0x24));
+  if (link != NULL)
   {
-    new_var = (u16 *) (((s8 *) gRecords) + 0xE);
-    temp_a1 = *((s32 *) (((s8 *) (*((void **) (((s8 *) temp_v0) + 0x5C)))) + 0x60));
-    *((s16 *) (((s8 *) arg0) + 0x7A)) = (s16) temp_a1;
-    if ((*new_var) == 2)
+    modePtr = (u16 *) (((s8 *) gRecords) + 0xE);
+    value = *((s32 *) (((s8 *) (*((void **) (((s8 *) link) + 0x5C)))) + 0x60));
+    *((s16 *) (((s8 *) obj) + 0x7A)) = (s16) value;
+    if ((*modePtr) == 2)
     {
-      *((s16 *) (((s8 *) arg0) + 0x7A)) = (s16) (temp_a1 + 4);
+      *((s16 *) (((s8 *) obj) + 0x7A)) = (s16) (value + 4);
     }
   }
 }

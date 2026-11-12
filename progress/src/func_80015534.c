@@ -3,7 +3,7 @@ typedef struct { E15534 *list; u16 count; } H15534;
 extern E15534 D_8009BBC0[];
 extern H15534 D_8009BEE0;
 extern u16 D_8009BEE4;
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Copies the mirrored entries of the source table into the list for the current frame, negating their
  * vectors, and offsets two sets of entries when the track's kind is 2. Then sets the list count to 5. */
@@ -23,7 +23,7 @@ void func_80015534(s32 unused0, char *slot)
   list = table->list;
   i = 0;
   if (D_8009BEE4 != 0) {
-    track = *(char **)(gStreamState + 0x32F2);
+    track = *(char **)(stream_state + 0x32F2);
     do {
       dst = &list[i];
       src = &D_8009BBC0[i];

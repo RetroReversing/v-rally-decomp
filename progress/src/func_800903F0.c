@@ -1,5 +1,5 @@
 extern s8 gOrderState[];
-extern s8 gStreamState[];
+extern s8 stream_state[];
 
 /* Copies the cart bus timing registers (PI domain 1 and 2 latch, pulse width,
  * page size and release) into the stream state, and clears the flag at 0x758B. */
@@ -21,12 +21,12 @@ void func_800903F0(void) {
     dom2Pwd = *(volatile s32 *)0xA4600028;
     dom2Pgs = *(volatile s32 *)0xA460002C;
     dom2Rls = *(volatile s32 *)0xA4600030;
-    gStreamState[0x758B] = 0;
+    stream_state[0x758B] = 0;
     gOrderState[0x78A1] = 1;
-    gStreamState[0x7587] = dom1Lat;
-    gStreamState[0x758A] = dom1Pwd;
-    gStreamState[0x7588] = dom1Pgs;
-    gStreamState[0x7589] = dom1Rls;
+    stream_state[0x7587] = dom1Lat;
+    stream_state[0x758A] = dom1Pwd;
+    stream_state[0x7588] = dom1Pgs;
+    stream_state[0x7589] = dom1Rls;
     gOrderState[0x789D] = dom2Lat;
     gOrderState[0x78A0] = dom2Pwd;
     gOrderState[0x789E] = dom2Pgs;

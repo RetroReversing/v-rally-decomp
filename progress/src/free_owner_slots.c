@@ -1,5 +1,5 @@
 s32 heapFreeBlock();
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Frees the blocks of the active slots of an owner. The slot count is the byte at +0x111
  * of the owner, or 4 when the stream state's mode (u16 at +0x1E) is set. Each 0x44-byte
@@ -14,7 +14,7 @@ void free_owner_slots(void *owner)
   void *obj;
 
   obj = owner;
-  if (*(u16 *)((char *)*(void **)(gStreamState + 0x32F2) + 0x1E) == 0) {
+  if (*(u16 *)((char *)*(void **)(stream_state + 0x32F2) + 0x1E) == 0) {
     n = *(u8 *)((char *)obj + 0x111);
   } else {
     n = 4;

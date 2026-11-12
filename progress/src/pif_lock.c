@@ -1,3 +1,6 @@
+void osCreateMesgQueue(void *mq, void *msgBuf, s32 count);
+void osSendMesg(void *mq, void *msg, s32 flags);
+void osRecvMesg(void *mq, void *msg, s32 flags);
 extern s32 D_800A1CF0;
 extern char D_800AB990[];
 extern char D_800D05C0[];

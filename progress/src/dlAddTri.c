@@ -1,5 +1,11 @@
 s32 dl_reserve_vertices(void *, s32);
 
+#ifdef PORT
+#define DL_VTX_AT(vtxOff) ((char *)*(void **)((char *)dl + 0x70) + (vtxOff))
+#else
+#define DL_VTX_AT(vtxOff) ((char *)((vtxOff) + *(s32 *)((char *)dl + 0x70)))
+#endif
+
 /* Appends one flat-coloured triangle to the display list at dl. The first call (dirty flag
  * bit 0 set) also emits the render-mode setup words. It reserves 3 vertices from the vertex
  * buffer at dl+0x70, fills them with colour 'shade' and writes a 1-triangle command that uses
@@ -35,15 +41,15 @@ s32 dlAddTri(void *dl, s16 shade) {
     }
     vtxIdxBase = (u16)dl_reserve_vertices(dl, 3);
     vtxOff = vtxIdxBase * 0x10;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 4) = shade;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x14) = shade;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x24) = shade;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 6) = 0;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x16) = 0;
-    *(s16 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x26) = 0;
-    *(u8 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0xF) = 0xFF;
-    *(u8 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x1F) = 0xFF;
-    *(u8 *)((char *)(vtxOff + *(s32 *)((char *)dl + 0x70)) + 0x2F) = 0xFF;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 4) = shade;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 0x14) = shade;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 0x24) = shade;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 6) = 0;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 0x16) = 0;
+    *(s16 *)(DL_VTX_AT(vtxOff) + 0x26) = 0;
+    *(u8 *)(DL_VTX_AT(vtxOff) + 0xF) = 0xFF;
+    *(u8 *)(DL_VTX_AT(vtxOff) + 0x1F) = 0xFF;
+    *(u8 *)(DL_VTX_AT(vtxOff) + 0x2F) = 0xFF;
     tri = *(void **)((char *)dl + 0x14);
     vtxIdx = vtxIdxBase & 0x1F;
     *(void **)((char *)dl + 0x14) = (void *)(tri + 8);

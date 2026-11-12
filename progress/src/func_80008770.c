@@ -19,7 +19,11 @@ s32 func_80008770(DispCtx *dl, Sprite *spr, s32 frame, void *src) {
   p=osVirtualToPhysical(*(void**)spr->p14);
   g=gsn_dp_load_texture_block(dl->p14,p,2,spr->w,spr->h,rect.x,rect.y,rect.z-1,rect.w-1,0,0,0,0,0,0,0);
   dl->p14=g+1; g->a=0xFD100000;
+  #ifdef PORT
+  p=osVirtualToPhysical((void *)(uintptr_t)(((u32*)spr->p10)[frame&255])); g->b=p;
+#else
   p=osVirtualToPhysical(((u32*)spr->p10)[frame&255]); g->b=p;
+#endif
   { Gfx *d=dl->p14; dl->p14=d+1;d->a=0xE8000000;d->b=0; }
   { Gfx *d=dl->p14;dl->p14=d+1;d->a=0xF5000100;d->b=0x7000000; }
   { Gfx *d=dl->p14;dl->p14=d+1;d->a=0xE6000000;d->b=0; }
@@ -29,7 +33,11 @@ s32 func_80008770(DispCtx *dl, Sprite *spr, s32 frame, void *src) {
   p=osVirtualToPhysical(*(void**)spr->p14);
   g=func_80007F18(dl->p14,p,2,1,spr->w,spr->h,rect.x,rect.y,rect.z-1,rect.w-1,0,0,0,0,0,0,0);
   dl->p14=g+1;g->a=0xFD100000;
+  #ifdef PORT
+  p=osVirtualToPhysical((void *)(uintptr_t)(((u32*)spr->p10)[frame&255])); g->b=p;
+#else
   p=osVirtualToPhysical(((u32*)spr->p10)[frame&255]);g->b=p;
+#endif
   { Gfx *d=dl->p14;dl->p14=d+1;d->a=0xE8000000;d->b=0; }
   { Gfx *d=dl->p14;dl->p14=d+1;d->a=0xF5000100;d->b=0x7000000; }
   { Gfx *d=dl->p14;dl->p14=d+1;d->a=0xE6000000;d->b=0; }

@@ -1,9 +1,9 @@
 extern void *gMirrorListHead;
 extern s32 gCarList;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 s32 func_8001C444();
-s32 func_80022ED8();
+s32 obj_run_stages();
 s32 func_800230C0();
 s32 StreamListClaimAny();
 s32 claimLowestFreeSlot();
@@ -36,14 +36,14 @@ void func_8001C524(void *car) {
         vel[1] = result;
         vel[2] = *(s16 *)((char *)state + 0x20);
     }
-    ctrl = *(void **)(gStreamState + 0x32F2);
-    if ((((*(u16 *)((char *)ctrl + 0x1E) != 0) & (*(u16 *)((char *)ctrl + 0x1E) < 5)) || *(u16 *)((char *)ctrl + 0x1E) == 5) && *(u16 *)((char *)ctrl + 0x22) != 0 || *(u16 *)(*(char **)(gStreamState + 0x32F2) + 0x1E) == 8) {
+    ctrl = *(void **)(stream_state + 0x32F2);
+    if ((((*(u16 *)((char *)ctrl + 0x1E) != 0) & (*(u16 *)((char *)ctrl + 0x1E) < 5)) || *(u16 *)((char *)ctrl + 0x1E) == 5) && *(u16 *)((char *)ctrl + 0x22) != 0 || *(u16 *)(*(char **)(stream_state + 0x32F2) + 0x1E) == 8) {
         result = claimLowestFreeSlot(gCarList, ctrl);
     } else {
         result = StreamListClaimAny(gCarList, ctrl);
     }
     if (result != 0) {
         func_800230C0(result, pos, vel);
-        func_80022ED8(result);
+        obj_run_stages(result);
     }
 }

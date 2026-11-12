@@ -1,6 +1,6 @@
-extern char gStreamState[];
+extern char stream_state[];
 
-/* Walks the entry list at gStreamState->0x5A7A->+0x10 and clears flag bit 0x2 (at +0xC)
+/* Walks the entry list at stream_state->0x5A7A->+0x10 and clears flag bit 0x2 (at +0xC)
  * on the entry at index slot. Stops at the first match. */
 void select_clear_entry_flag2(s32 slot)
 {
@@ -8,7 +8,7 @@ void select_clear_entry_flag2(s32 slot)
     void *head;
     char *entry;
 
-    head = *(void **)(gStreamState + 0x5A7A);
+    head = *(void **)(stream_state + 0x5A7A);
     head = *(void **)((char *)head + 0x10);
     entry = *(char **)head;
     index = 0;

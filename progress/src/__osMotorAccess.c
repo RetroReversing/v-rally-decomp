@@ -13,7 +13,7 @@ typedef struct {
       u8 datacrc;
 } __OSContRamReadFormat;
 
-extern u8 D_800C3520;
+extern u8 __osPfsLastCmd;
 extern s32 osRecvMesg(OSMesgQueue *, OSMesg *, s32);
 extern s32 __osSiRawStartDma(s32, void *);
 void pif_lock(void);
@@ -40,7 +40,7 @@ s32 __osMotorAccess(OSPfs *pfs, s32 flag) {
         ((__OSContRamReadFormat *)block)->data[i] = flag;
     }
 
-    D_800C3520 = 0xfe;
+    __osPfsLastCmd = 0xfe;
     __osSiRawStartDma(1, &__MotorDataBuf[pfs->channel]);
     osRecvMesg(pfs->queue, 0, 1);
     ret = __osSiRawStartDma(0, &__MotorDataBuf[pfs->channel]);

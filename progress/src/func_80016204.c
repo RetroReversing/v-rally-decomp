@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern u16 D_8009BBB6;
+extern u16 g_obj_state_copy;
 s32 add_pos_bias_words();
 static inline char **inline_fn(char *arg0)
 {
@@ -64,14 +64,22 @@ void *func_80016204(char *obj)
       off = 0;
       b = *((s32 *)0x800B6AFC);
       e = (u32) b >> 31;
-      t = D_8009BBB6;
+      t = g_obj_state_copy;
       add = t + ((b + e) >> 1);
     }
     while (0);
     do
     {
+#ifdef PORT
+      *((u16 *) (*inline_fn(base) + off + 2)) += add;
+#else
       *((u16 *) ((char *)(off + (s32)(*inline_fn(base))) + 2)) += add;
+#endif
+#ifdef PORT
+      *((s16 *) (*inline_fn(base) + off + 4)) = (s16) ((s32) (((f32) (h = (short) (*((s16 *) (*inline_fn(base) + off + 4))))) + (*(new_var = &(*((f32 *) (base + 0x48)))))));
+#else
       *((s16 *) ((char *)(off + (s32)(*inline_fn(base))) + 4)) = (s16) ((s32) (((f32) (h = (short) (*((s16 *) ((char *)(off + (s32)(*inline_fn(base))) + 4))))) + (*(new_var = &(*((f32 *) (base + 0x48)))))));
+#endif
       i += 1;
       off += 6;
     }

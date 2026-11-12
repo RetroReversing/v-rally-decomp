@@ -5,7 +5,7 @@ extern s32 gRecordTimeScale;
 extern f64 D_800A5878;
 extern f64 D_800A5880;
 extern f64 D_800A5888;
-extern char gStreamState[];
+extern char stream_state[];
 extern char gRecordGlyphs[];
 extern char D_800C7125[];
 
@@ -29,7 +29,7 @@ void build_record_entry_alt(s32 category, s32 row)
   s32 temp_s0_2;
   s32 __repair_phase_temp_s0_2;
   s32 temp_s5;
-  u32 temp_s6;
+  u8 *temp_s6;
   u8 *frame_record;
   s32 var_a0;
   s32 var_s3;
@@ -50,14 +50,18 @@ void build_record_entry_alt(s32 category, s32 row)
   var_a0 = category & 0xFF;
   var_s0 = row & 0xFF;
   temp_fs0 = D_800A5878;
-  temp_s6 = (u32)(gSlotTableB + (var_a0 * 0x2C4));
+  temp_s6 = gSlotTableB + (var_a0 * 0x2C4);
   temp_s5 = func_8006B9E0(var_a0, var_s0) & 0xFF;
 temp_fs1 = (f64)temp_s5 * D_800A5880;
   temp_s0 = var_s0;
   var_s3 = 0;
-  frame_table = gStreamState + 0x5A8A;
+  frame_table = stream_state + 0x5A8A;
   sp14 = (u16 *)(frame_table + temp_s5 * 2);
-  frame_record = (u8 *)(((temp_s0 * 4) + temp_s6));
+#ifdef PORT
+  frame_record = temp_s6 + (temp_s0 * 4);
+#else
+  frame_record = (u8 *)(((temp_s0 * 4) + (u32)temp_s6));
+#endif
     table_base = D_800C7125;
   decode_next:
   {
@@ -104,7 +108,11 @@ temp_fs1 = (f64)temp_s5 * D_800A5880;
     }
     else
     {
+#ifdef PORT
+      temp_v0_2 = (void *) (table_base + temp_a0);
+#else
       temp_v0_2 = (void *) ((u32)temp_a0 + (u32)table_base);
+#endif
       temp_t1_2 = ((u8 *) temp_v0_2)[0];
       temp_t0 = ((u8 *) temp_v0_2)[1] & 0xF;
       new_var3 = (temp_t1_2 < 0xFFU) | ((temp_a0 = temp_t0) < 0xFU);

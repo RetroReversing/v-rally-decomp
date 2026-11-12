@@ -66,7 +66,7 @@ extern u16 D_800A152C;
 extern s8 *gSelectState;
 extern u8 D_800A14D5;
 extern volatile u32 D_800A14DC;
-void func_800584D4(void);void *textObjGet(u32);
+void select_flush_pending(void);void *textObjGet(u32);
 void list_set_flag2_at_index(s32);
 u8 classifyStreamCode(Info *);
 
@@ -85,7 +85,7 @@ void hud_setup_stage_results(void)
   short new_var;
   Item *it;
   n = classifyStreamCode(&((Stage **) 0x800D0634)[gRecords->mode][gRecords->course].info[gRecords->stage]);
-  func_800584D4();
+  select_flush_pending();
   gSelectState[0x233] = -1;
   ((Item *)textObjGet(5))->val = D_800A1504[D_800A1530[n]];
   ((Item *)textObjGet(13))->val = D_800A150C[gOrderState.cars[gRecords->car].a];
@@ -130,7 +130,11 @@ void hud_setup_stage_results(void)
       }
       else
       {
+        #ifdef PORT
+        q = (Stage *) ((u8 *) base0 + gMaskSlot[sel->course] * sizeof(Stage));
+#else
         q = (Stage *) (gMaskSlot[sel->course] * sizeof(Stage) + (u32) base0);
+#endif
         {
           s32 st = sel->stage - 2;
           new_var = i;

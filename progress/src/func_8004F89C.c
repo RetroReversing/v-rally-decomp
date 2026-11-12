@@ -2,7 +2,7 @@
 #define W32_AT(p,o) (*(s32 *)((u8 *)(p)+(o)))
 #define H16_AT(p,o) (*(u16 *)((u8 *)(p)+(o)))
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 typedef struct 
 {
   u8 pad[0x44];
@@ -18,7 +18,7 @@ void func_8004F89C(Ent *arg0)
   long long new_var;
   u8 *node = 0;
   u8 *obj;
-  u8 *game = PTR_AT(gStreamState, 0x32F2);
+  u8 *game = PTR_AT(stream_state, 0x32F2);
   u16 mode = H16_AT(game, 0x1E);
   u8 index = ((u8 *) arg0)[0x114];
   u8 i;
@@ -48,7 +48,7 @@ void func_8004F89C(Ent *arg0)
           W32_AT(PTR_AT(node, 0x88), 0) = W32_AT(obj, 0x18);
           if (W32_AT(PTR_AT(node, 0x48), 0) != 7)
           {
-            *((u8 *) (gStreamState + 0x80BE)) = 1;
+            *((u8 *) (stream_state + 0x80BE)) = 1;
           }
           H16_AT(obj, 8) = (H16_AT(obj, 8) | 0x400) & 0xFDFF;
           node = PTR_AT(node, 4);

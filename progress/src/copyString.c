@@ -17,7 +17,11 @@ bytes:
         return dst;
     }
     w = n >> 2;
+#ifdef PORT
+    if ((uintptr_t)d & 3) {
+#else
     if ((u32)d & 3) {
+#endif
         do {
             if (n-- == 0) {
                 return dst;
@@ -25,7 +29,11 @@ bytes:
             if ((*d++ = *src++) == 0) {
                 return dst;
             }
+#ifdef PORT
+        } while ((uintptr_t)d & 3);
+#else
         } while ((u32)d & 3);
+#endif
         w = n >> 2;
     }
     while (w-- != 0) {

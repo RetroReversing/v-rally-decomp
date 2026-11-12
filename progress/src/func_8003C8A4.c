@@ -1,5 +1,5 @@
 s32 func_8003A594(void *, s32, s32);
-s32 formatString(void *, void *, s32);
+s32 format_to_buffer(void *, void *, s32);
 extern u8 D_8009FE30[];
 extern u8 D_800A4B40[];
 extern u8 *g_camera;
@@ -19,7 +19,7 @@ void func_8003C8A4(void *hud) {
         if (!(*(s32 *)(target + 0x14) & 0x300)) {
             place = *(s32 *)(*(u8 **)(target + 0x6C) + 0x10);
             if (*(u16 *)(((u8 *)hud) + 0x78) == 0) {
-                formatString(D_8009FE30, D_800A4B40, (s16) place);
+                format_to_buffer(D_8009FE30, D_800A4B40, (s16) place);
             }
             func_8003A594(((u8 *)hud), (s16) place, 1 - *(u16 *)(((u8 *)hud) + 0x78));
             *(s16 *)(((u8 *)hud) + 0x7A) = D_8009FE30[*(u16 *)(((u8 *)hud) + 0x78)] - 0x30;

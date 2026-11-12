@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern char *gSelectState;
 extern char *gRecords;
 void league_set_flag14(void *);
@@ -9,12 +9,12 @@ s32 func_80065F28(void)
     char *item;
     char *sel;
 
-    item = *(char **)(gStreamState + 0x32F2);
+    item = *(char **)(stream_state + 0x32F2);
     sel = gSelectState;
     *(s16 *)(item + 0x22) = 0;
     *(s8 *)(sel + 0x245) = 0;
-    league_set_flag14(*(void **)(gStreamState + 0x325A));
-    if (*(s16 *)(*(char **)(gStreamState + 0x325A) + 2) == 2) {
+    league_set_flag14(*(void **)(stream_state + 0x325A));
+    if (*(s16 *)(*(char **)(stream_state + 0x325A) + 2) == 2) {
         return *(u16 *)(gRecords + 0x20) + 9;
     }
     return *(u16 *)(gRecords + 0x20) + 4;

@@ -1,4 +1,2 @@
-/* identical to __osDequeueThread in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_8008EE00 in V-RALLY (matched), with its names changed by decompdecomp */
-
-void __osDequeueThread(void **arg0, void *arg1) { void *cur = *arg0; while (cur) { if (cur == arg1) { *arg0 = *(void **)cur; return; } arg0 = cur; cur = *(void **)cur; } }
+/* Remove thread from its queue. */
+void __osDequeueThread(void **queue, void *thread) { void *cur = *queue; while (cur) { if (cur == thread) { *queue = *(void **)cur; return; } queue = cur; cur = *(void **)cur; } }

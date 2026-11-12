@@ -1,7 +1,13 @@
 typedef struct {u32 w[177];} Scene658;
 extern u8 *gLeague,*gRecords,*gSelectState,*gSelectBuffer;
-extern s32 *D_800A11B0; extern u8 D_800A1620[];extern Scene658 *gSlotTableB[];extern s32 D_800AFA58,D_800D05D8;extern f64 D_800A56D8;
-void func_80061740(Scene658);void menu_draw_text_objs(Scene658,s32);void *select_get_entry(u32);void func_8005937C(u8,u16);void func_8005C198(void);void func_8006185C(s32,s32);void func_80064F98(void);
+extern s32 *gStreamList; extern u8 D_800A1620[];extern Scene658 *gSlotTableB[];extern s32 D_800AFA58,D_800D05D8;extern f64 D_800A56D8;
+void func_80061740(Scene658);void menu_draw_text_objs(Scene658,s32);void *select_get_entry(u32);void func_8005937C(u8,u16);void select_arm_if_clear(void);
+#ifdef PORT
+void func_8006185C(void *,s32);
+#else
+void func_8006185C(s32,s32);
+#endif
+void func_80064F98(void);
 void func_8004D08C(s32,s32,s16,s16,f32,f32,s32,s32);
 #define H(p,o) (*(u16*)((u8*)(p)+(o)))
 #define S(p,o) (*(s16*)((u8*)(p)+(o)))
@@ -17,7 +23,11 @@ s32 selected;
 u8 idx;
 u8 *entry;
 u8 *icon_ptr;
+#ifdef PORT
+void *result;
+#else
 s32 result;
+#endif
 entry=P(gLeague,16)+S(gLeague,2)*20;
 if(gSelectState[0x245]==0){
 selected=entry[14]-entry[13];
@@ -25,17 +35,25 @@ H(gRecords,32)=selected;
 gSelectState[0x23C]=D_800A1620[(u16)selected];
 func_8005937C(entry[14],H(gSlotTableB[gSelectState[0x23C]],20));
 if(selected!=D_800AFA58){
-if(*D_800A11B0)func_8005C198();
+if(*gStreamList)select_arm_if_clear();
 if(gSelectState[0x2BE]==0){
 func_80061740(*gSlotTableB[D_800A1620[H(gRecords,32)]]);
 D_800AFA58=selected;
 }
 H(gRecords,34)=0;
 }
+#ifdef PORT
+select_get_entry(selected);
+#else
 (s32)select_get_entry(selected);
+#endif
 scene=*gSlotTableB[gSelectState[0x23C]];
 }else{
+#ifdef PORT
+result=select_get_entry(H(gRecords,30)-1);
+#else
 result=(s32)select_get_entry(H(gRecords,30)-1);
+#endif
 scene=*gSlotTableB[H(gRecords,30)];
 func_8006185C(result,0);
 }

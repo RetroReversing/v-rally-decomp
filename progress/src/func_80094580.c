@@ -1,1 +1,10 @@
-int func_80094580(char *arg0, int arg1, int arg2) { char *q = *(char **)(arg0 + 0x1C); if (arg1 == 2) { int n = *(int *)(arg0 + 0x14); *(int *)(arg0 + 0x14) = n + 1; ((int *)q)[n] = arg2; } return 0; }
+/* Command handler: when op == 2, appends value to the list at obj+0x1C and bumps the count at obj+0x14. */
+int func_80094580(char *obj, int op, int value) {
+    char *list = *(char **)(obj + 0x1C);
+    if (op == 2) {
+        int n = *(int *)(obj + 0x14);
+        *(int *)(obj + 0x14) = n + 1;
+        ((int *)list)[n] = value;
+    }
+    return 0;
+}

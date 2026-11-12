@@ -1,8 +1,8 @@
 s32 init_car_from_record();
-extern char gStreamState[];
+extern char stream_state[];
 static inline char *inline_fn(int arg0)
 {
-  return gStreamState + arg0;
+  return stream_state + arg0;
 }
 
 /* Initialises a car from the stream's record table. If the stream object's +0x1A value is 1,
@@ -16,7 +16,7 @@ void car_init_from_stream_record(void *car)
   int slotMask;
   slot = 0;
   slotMask = 0xFF;
-  if ((*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) - -0x1E))) == 0)
+  if ((*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) - -0x1E))) == 0)
   {
     if ((*((u16 *) (((char *) (*((void **) inline_fn(0x32F2)))) + 0x1A))) == 1)
     {
@@ -40,5 +40,5 @@ void car_init_from_stream_record(void *car)
     slot = *((u8 *) (((char *) (*((void **) (((char *) car) + 0x48)))) + 0x2F));
 
   }
-  init_car_from_record(car, (*((void **) (gStreamState + 0x32F2))) + (((*((u8 *) (((char *) ((*((void **) (gStreamState + 0x32F2))) + (slot & slotMask))) + 0x32))) * 0x28) + 0x44));
+  init_car_from_record(car, (*((void **) (stream_state + 0x32F2))) + (((*((u8 *) (((char *) ((*((void **) (stream_state + 0x32F2))) + (slot & slotMask))) + 0x32))) * 0x28) + 0x44));
 }

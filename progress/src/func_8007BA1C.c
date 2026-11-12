@@ -6,15 +6,15 @@ extern s32 D_800A1870;
 extern s32 D_800A1874;
 extern f32 sSavedCosX;
 extern f32 sSavedCosY;
-extern u8 D_800A73E0[];
+extern u8 gGameState[];
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 s32 func_8002DA98(u8 *arg0, s32 *arg1);
 void *mtx3_transform_vec3(void *, void *, void *);
 f32 sqrtf(f32);
 #define ORG(i) (((s32 *)(gOrderState + 0x6E8C))[i])
-#define G(i) (((s32 *)(gStreamState + 0x5D32))[i])
-#define GF(i) (((f32 *)(gStreamState + 0x5D32))[i])
+#define G(i) (((s32 *)(stream_state + 0x5D32))[i])
+#define GF(i) (((f32 *)(stream_state + 0x5D32))[i])
 
 /* Checks whether the object at arg0 sits inside the cone of the two stored
  * track lines. Both line ends are rotated into the camera frame, the line
@@ -77,7 +77,7 @@ u8 func_8007BA1C(u8 *arg0)
   dot += relZ * dirZ;
   r = 0xFF;
   if (!(GF(6) < dot) && !(GF(7) < dot)) {
-    r = D_800A73E0[0x6BE7];
+    r = gGameState[0x6BE7];
   }
   return r;
 }

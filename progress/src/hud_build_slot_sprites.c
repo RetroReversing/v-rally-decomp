@@ -59,7 +59,7 @@ extern void func_8003EF20(void *);
 /* Builds the position-HUD sprites for the race: mode 1 draws the slot rows,
  * mode 2 draws the three-part sprite set plus the coloured overlay for each
  * manager that a slot in the HUD selects. */
-void hud_build_slot_sprites(s32 pool, s32 tex_base)
+void hud_build_slot_sprites(void *pool, s32 tex_base)
 {
   SpriteHook hook;
   s32 mid_part;

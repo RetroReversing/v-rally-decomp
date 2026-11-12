@@ -1,8 +1,8 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
 extern s32 gRecordTimeScale;
-void func_800535F4(void *);
-void copyStringAligned(void *, void *);
+void sort_split_times(void *);
+void strCpy(void *, void *);
 extern u8 *gRecords;
 
 /* Refreshes each record in gRecords (the count is the u16 at +14): copies its table slot,
@@ -34,14 +34,14 @@ void update_records(void)
       mode = *((u16 *) (hdr + 30));
       n = i & 255;
       off = n << 5;
-      slot = (gStreamState + 0x3392) + (mode << 6);
+      slot = (stream_state + 0x3392) + (mode << 6);
       *((s32 *) slot) = *((s32 *) ((tab + (mode * 4)) + off));
       entry = hdr + n;
       ent_index = entry[0x32];
       rec_addr = (char *) ((hdr + (ent_index * 40)) + 78);
       slot[4] = *((u16 *) rec_addr);
       slot[5] = *((u16 *) (gRecords + 22));
-      copyStringAligned(slot + 6, gRecords + ((*(gRecords + n + 50) * 40) + 68));
+      strCpy(slot + 6, gRecords + ((*(gRecords + n + 50) * 40) + 68));
       {
       u8 *g = gRecords;
  do { *(u32 *) ((((*((u16 *) (g + 30))) * 4) + tab2) + off) /= 100; val = *((u32 *) ((((*((u16 *) (g + 30))) * 4) + tab2) + off)); val = ((s32) val) * gRecordTimeScale; idx = *((s32 *) slot); slot[10] = ((u32) (val * 3600)) / ((u32) (5 * (idx * 2))); } while (0);
@@ -54,9 +54,9 @@ void update_records(void)
         s32 prev_off;
         u32 prev_val;
         prev_off = ((*((u16 *) (gRecords + 30))) - 1) << 6;
-        if (*((u8 *) ((gStreamState + 0x33ae) + prev_off)))
+        if (*((u8 *) ((stream_state + 0x33ae) + prev_off)))
         {
-          prev_val = *((u32 *) ((gStreamState + 0x33a2) + prev_off));
+          prev_val = *((u32 *) ((stream_state + 0x33a2) + prev_off));
           if (prev_val >= 11)
           {
             *((s32 *) slot) = prev_val - 3;
@@ -64,14 +64,14 @@ void update_records(void)
         }
         else
         {
-          prev_val = *((u32 *) ((gStreamState + 0x33a2) + prev_off));
+          prev_val = *((u32 *) ((stream_state + 0x33a2) + prev_off));
           if (prev_val >= 31)
           {
             *((s32 *) slot) = prev_val - 10;
           }
         }
       }
-      func_800535F4((gStreamState + 0x3362) + ((*((u16 *) (gRecords + 30))) << 6));
+      sort_split_times((stream_state + 0x3362) + ((*((u16 *) (gRecords + 30))) << 6));
       hdr = gRecords;
       i++;
     }

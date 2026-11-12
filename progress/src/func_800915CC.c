@@ -1,1 +1,12 @@
-int func_800915CC(char *arg0, int arg1, int arg2) { char *q = *(char **)(arg0 + 0x1C); if (arg1 == 2) { int n = *(int *)(arg0 + 0x14); *(int *)(arg0 + 0x14) = n + 1; ((int *)q)[n] = arg2; } return 0; }
+/* Audio handler callback: when msg is 2, appends value to the list at +0x1C and bumps the count at +0x14. */
+s32 func_800915CC(u8 *obj, s32 msg, s32 value) {
+    s32 *list = *(s32 **)(obj + 0x1C);
+
+    if (msg == 2) {
+        s32 n = *(s32 *)(obj + 0x14);
+
+        *(s32 *)(obj + 0x14) = n + 1;
+        list[n] = value;
+    }
+    return 0;
+}

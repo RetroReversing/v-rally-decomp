@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80052C10(void) {
+/* Empty placeholder function; it has no body. */ void func_80052C10(void) {
 
 }

@@ -8,13 +8,24 @@ void streamSlotSetParams(void *owner, s32 index, s8 volume, s8 pan, u8 rate, u8 
     u16 flags;
 
     offset = (index & 0xFFFF) * 0x10;
+#ifdef PORT
+    slot = (StreamSlotParams *)((u8 *)*(void **)((u8 *)owner + 0x70) + offset);
+#else
     slot = (StreamSlotParams *)(offset + *(s32 *)((u8 *)owner + 0x70));
+#endif
     flags = slot->flags;
     if (flags & 1) {
         slot->flags = (u16)(flags & 0xFFFE);
+#ifdef PORT
+        ((StreamSlotParams *)((u8 *)*(void **)((u8 *)owner + 0x70) + offset))->volume = volume;
+        ((StreamSlotParams *)((u8 *)*(void **)((u8 *)owner + 0x70) + offset))->pan = pan;
+        ((StreamSlotParams *)((u8 *)*(void **)((u8 *)owner + 0x70) + offset))->rate = rate;
+        ((StreamSlotParams *)((u8 *)*(void **)((u8 *)owner + 0x70) + offset))->reserved = reserved;
+#else
         ((StreamSlotParams *)(offset + *(s32 *)((u8 *)owner + 0x70)))->volume = volume;
         ((StreamSlotParams *)(offset + *(s32 *)((u8 *)owner + 0x70)))->pan = pan;
         ((StreamSlotParams *)(offset + *(s32 *)((u8 *)owner + 0x70)))->rate = rate;
         ((StreamSlotParams *)(offset + *(s32 *)((u8 *)owner + 0x70)))->reserved = reserved;
+#endif
     }
 }

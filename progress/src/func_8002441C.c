@@ -1,4 +1,4 @@
-extern void func_800237B0();
+extern void obj_clear_sub_0x74();
 
 /* Resets the per-car state block at obj+0x58 and the two sub-blocks at obj+0x2C, then copies
  * the car's start-position values from obj+0x30 into the block, scaled by 0x10 or 4. */
@@ -10,7 +10,7 @@ void func_8002441C(void *arg0) {
     void *state_e;
     void *state_f;
 
-    func_800237B0();
+    obj_clear_sub_0x74();
     state = *(void **)((char *)arg0 + 0x58);
     *(s32 *)((char *)state + 0x5C) = 0;
     *(s32 *)((char *)state + 0x60) = 0;

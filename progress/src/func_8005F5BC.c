@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8005F5BC(void) {
+/* Empty stub: does nothing. Stored as a select-state callback (gSelectState + 0x288). */ void func_8005F5BC(void) {
 
 }

@@ -4,7 +4,7 @@ s32 osDisableInt();
 s32 osRestoreInt();
 s32 __osDequeueThread();
 extern void *D_800A2518;
-extern void *D_800A2520;
+extern void *stream_default_slot;
 
 /* Thread control block fields used here: next at 0x00, priority at 0x04, queue at 0x08, state at 0x10. */
 typedef struct OSThreadRec {
@@ -26,20 +26,20 @@ void osSetThreadPri(void *t, s32 pri)
     saved_mask = osDisableInt();
     if (t == NULL)
     {
-        t = D_800A2520;
+        t = stream_default_slot;
     }
     if (((OSThreadRec *)t)->priority != pri)
     {
-        new_var = t != D_800A2520;
+        new_var = t != stream_default_slot;
         ((OSThreadRec *)t)->priority = pri;
         if (new_var && (((OSThreadRec *)t)->state != 1))
         {
             __osDequeueThread(((OSThreadRec *)t)->queue, t);
             func_8008B5DC(((OSThreadRec *)t)->queue, t);
         }
-        if (((OSThreadRec *)D_800A2520)->priority < ((OSThreadRec *)D_800A2518)->priority)
+        if (((OSThreadRec *)stream_default_slot)->priority < ((OSThreadRec *)D_800A2518)->priority)
         {
-            ((OSThreadRec *)D_800A2520)->state = 2;
+            ((OSThreadRec *)stream_default_slot)->state = 2;
             func_8008B4D4(&D_800A2518);
         }
     }

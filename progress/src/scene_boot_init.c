@@ -1,6 +1,7 @@
 s32 poolAlloc(s32, s32, ...);
 s32 scene_switch(s32 do_free, s32 scene_id);
 s32 heapFreeBlock(s32);
+void video_mode_setup(s32, s32);
 extern s32 gSceneSlot1;
 extern s32 gSceneHeapBlock;
 

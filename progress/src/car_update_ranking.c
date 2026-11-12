@@ -1,6 +1,6 @@
 extern char *gRecords;
 extern s32 gRecordTimeScale;
-s32 func_80041564(void);
+char *func_80041564(void);
 
 /* Refreshes the per-car time estimates for the ranking and sorts the time table
  * with an exchange sort that moves the car-index table alongside. Mode 1 sorts
@@ -12,7 +12,7 @@ void car_update_ranking(void *arg0)
   void *ctx;
   s32 *times;
   s32 *carIds;
-  s32 recBase;
+  char *recBase;
   u32 val;
   u32 prev;
   s32 i;
@@ -80,14 +80,22 @@ void car_update_ranking(void *arg0)
       do
       {
         off = (i & 0xFF) * 4;
+#ifdef PORT
+        q = (s32 *) (((u8 *) times) + off);
+#else
         q = (s32 *) (off + ((int) times));
+#endif
         val = q[0];
         prev = q[-1];
         if (prev > val)
         {
           q[0] = prev;
           q[-1] = val;
+#ifdef PORT
+          tmp = *(s32 *) (((u8 *) carIds) + off);
+#else
           tmp = *((s32 *) (off + ((int) carIds)));
+#endif
           swapped = 1;
           *((s32 *) (((u8 *) carIds) + off)) = *((s32 *) ((((u8 *) carIds) + off) - 4));
           *((s32 *) ((((u8 *) carIds) + off) - 4)) = tmp;
@@ -146,14 +154,22 @@ void car_update_ranking(void *arg0)
       do
       {
         off = (i & 0xFF) * 4;
+#ifdef PORT
+        q = (s32 *) (((u8 *) times) + off);
+#else
         q = (s32 *) (off + ((int) times));
+#endif
         val = q[0];
         prev = q[-1];
         if (val < prev)
         {
           q[0] = prev;
           q[-1] = val;
+#ifdef PORT
+          tmp = *(s32 *) (((u8 *) carIds) + off);
+#else
           tmp = *((s32 *) (off + ((int) carIds)));
+#endif
           swapped = 1;
           *((s32 *) (((u8 *) carIds) + off)) = *((s32 *) ((((u8 *) carIds) + off) - 4));
           *((s32 *) ((((u8 *) carIds) + off) - 4)) = tmp;

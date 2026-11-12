@@ -15,22 +15,22 @@ extern float gSpeedAccum;
 extern float D_800C35D8;
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 
-s32 func_8000A140();
+s32 order_stream_init();
 s32 func_8000D9CC();
-s32 func_8000DA84();
-s32 func_8000E774();
-s32 func_8000F660();
+s32 order_recv_msg();
+s32 cacheHeapFreeSizes();
+s32 race_session_run();
 s32 timing_ring_push();
 s32 func_8001BBE4();
 s32 streamOpenPath();
-s32 func_800388A0();
+s32 stream_alloc_buffer();
 s32 func_800388CC();
 s32 setSoundEntryTable();
 s32 func_80040770();
 s32 func_800415EC();
 s32 clearRaceData();
-s32 func_800553B0();
-s32 func_80057694();
+s32 stream_clear_table();
+s32 initOrderState();
 s32 workSlotsInitAll();
 s32 func_8005A790();
 s32 func_80066B88();
@@ -40,8 +40,8 @@ s32 heapQueryFreeSize();
 s32 stream_start_check();
 s32 dma_thread_start();
 s32 func_80081514();
-s32 func_80084AA0();
-s32 func_80084DD4();
+s32 contInitAll();
+s32 pad_port_disconnected();
 s32 start_track_voices();
 s32 voicesSetIdleParams();
 s32 func_80086A94();
@@ -50,7 +50,7 @@ s32 voicesSetIdleValue();
 s32 func_80089980();
 s32 memset();
 extern char D_15DB10[];
-extern s32 *D_8009B770;
+extern s32 *gPrevStreamHandler;
 extern s32 gSceneHeapBlock;
 extern s32 gRaceFlags;
 extern char D_800A3F60[];
@@ -58,12 +58,12 @@ extern char D_800A3F6C[];
 extern char D_800A3F74[];
 extern char D_800A3F80[];
 extern char D_800A3F90[];
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern char D_BB9470[];
-extern s32 func_8000E3E4;
-extern s32 func_8000E404;
+extern s32 clear_game_paused_flag;
+extern s32 stream_call_prev_handler;
 
 extern s32 D_800B0BD0;
 extern u8 D_800B65A0;
@@ -87,25 +87,25 @@ void game_main(void) {
     void *menuSub;
     s32 screen;
 
-    memset((u8 *)D_800A73E0 + 0x6C0C, 0, 0x460);
-    *(s32 * *)(gStreamState + 0x7DFE) = &func_8000E3E4;
+    memset((u8 *)gGameState + 0x6C0C, 0, 0x460);
+    *(s32 * *)(stream_state + 0x7DFE) = &clear_game_paused_flag;
     i = 0;
     stream_start_check();
-    prevHandler = *(s32 * *)(gStreamState + 0x7DDE);
-    *(s32 * *)(gStreamState + 0x7DDE) = &func_8000E404;
-    D_8009B770 = prevHandler;
-    func_800388A0();
+    prevHandler = *(s32 * *)(stream_state + 0x7DDE);
+    *(s32 * *)(stream_state + 0x7DDE) = &stream_call_prev_handler;
+    gPrevStreamHandler = prevHandler;
+    stream_alloc_buffer();
     dma_thread_start();
     func_800388CC();
     func_80081514(&D_15DB10, (u8 *)&D_BB9470 - (u8 *)&D_15DB10, 1);
-    func_800553B0();
+    stream_clear_table();
     func_80040770();
     func_800415EC();
     func_8001BBE4();
-    func_8000A140();
+    order_stream_init();
     gSceneHeapBlock = poolAlloc(3, 0x54C70);
     func_8000D9CC();
-    func_80084AA0();
+    contInitAll();
     func_8006B7D4();
     setSoundEntryTable(D_800C355B);
     clearRaceData();
@@ -117,14 +117,14 @@ void game_main(void) {
     M2C_FIELD(gRecords, u16 *, 0x1E) = 7U;
     M2C_FIELD(gRecords, s16 *, 0x20) = 0;
     M2C_FIELD(gRecords, s16 *, 0x22) = 0;
-    func_80057694();
+    initOrderState();
     gRaceState = 5;
     workSlotsInitAll();
     func_80066B88();
     D_800B65A0 = 0U;
     do {
         ch = i & 0xFF;
-        if ((ch == D_800B65A0) && (func_80084DD4(ch) != 0)) {
+        if ((ch == D_800B65A0) && (pad_port_disconnected(ch) != 0)) {
             D_800B65A0 = (u8) (D_800B65A0 + 1);
         }
         i += 1;
@@ -145,18 +145,18 @@ loop_6:
         voicesSetIdleParams(1);
     }
     gRaceFlags &= ~0x40;
-    func_8000DA84();
+    order_recv_msg();
     streamOpenPath(D_800B7080, &D_800A3F6C);
     streamOpenPath(D_800C6F18, &D_800A3F74);
     streamOpenPath(D_800D03D0, &D_800A3F80);
     streamOpenPath(D_800C7950, &D_800A3F90);
-    func_8000F660();
+    race_session_run();
     if (D_800C7828 == 0) {
         D_800C7828 = heapQueryFreeSize(2);
     }
     if (D_800C8124 == 0) {
         D_800C8124 = heapQueryFreeSize(1);
     }
-    func_8000E774();
+    cacheHeapFreeSizes();
     goto loop_6;
 }

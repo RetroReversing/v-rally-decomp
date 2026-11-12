@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
+M2C_UNK obj_set_flag_slot(s32, M2C_UNK);                /* extern */
 M2C_UNK build_time_splits(s32, s32);                    /* extern */
-extern s32 D_800B0C20;
+extern s32 gMainObj;
 
-void func_8001C964(s32 arg0) {
-    func_80022E24(D_800B0C20, 1);
-    build_time_splits(arg0, D_800B0C20);
+/* Marks the main object's flag slot, then builds the split times for the record against it. */ void func_8001C964(s32 record) {
+    obj_set_flag_slot(gMainObj, 1);
+    build_time_splits(record, gMainObj);
 }

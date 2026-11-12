@@ -3,7 +3,7 @@ void voice_queue_add_slot(s32);
 s32 func_80046414();
 s32 func_800464B0();
 extern s32 gPadFlags;
-extern char gStreamState[];
+extern char stream_state[];
 typedef struct 
 {
   s32 pad0[4];
@@ -53,7 +53,7 @@ void func_80046530(u8 *evt, s32 arg1, u8 *obj)
   {
     slot = *((Sub70 **) (obj + 0x70));
     owner = slot->a1C;
-    cfg_slot = gStreamState + 0x32F2;
+    cfg_slot = stream_state + 0x32F2;
     if (((owner != evt) && ((prio_mask = (0U - ((u32) (owner != 0))) & max_prio, prio_mask >= slot->a18))) && ((((*((s32 *) evt)) & 0xFFFF0000) != 0x06060000) | (obj_score >= 0x50U)))
     {
       evt_type = *((s32 *) (evt + 4));

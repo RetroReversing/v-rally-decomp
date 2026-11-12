@@ -1,4 +1,4 @@
-extern u32 func_800937C0(void);
+extern u32 cpuGetStatus(void);
 extern void func_8008D6E0(s32);
 extern u32 __osSetFpcCsr(u32);
 extern s32 si_read_word(s32,s32*);
@@ -15,7 +15,7 @@ extern VectorCode D_80000000;
 extern s32 D_80000300,D_8000030C,D_8000031C;
 extern u64 D_800A1CC0;
 extern s32 D_800A1CC8;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Boot-time setup: flags the boot as done, sets the FPU control register,
  * clears the PIF/status word, installs the common exception vector at the
@@ -24,7 +24,7 @@ extern u8 gStreamState[];
  * D_800A1CC0 and picks the region constant D_800A1CC8 from D_80000300. */
 void func_8008BB80(void) {
  s32 pifStatus; u32 ramSize=0;
- *(s32*)(gStreamState+0x7cda)=1; func_8008D6E0(func_800937C0()|0x20000000);
+ *(s32*)(stream_state+0x7cda)=1; func_8008D6E0(cpuGetStatus()|0x20000000);
  __osSetFpcCsr(0x1000800);
  do {} while(si_read_word(0x1fc007fc,&pifStatus));
  do {} while(siWriteWordChecked(0x1fc007fc,pifStatus|8));

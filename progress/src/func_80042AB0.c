@@ -14,6 +14,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK streamReleaseEntry(s32);                         /* extern */
 
-void func_80042AB0(void *arg0) {
-    streamReleaseEntry(M2C_FIELD(arg0, s32 *, 0xC));
+/* Releases the stream entry stored at +0xC of the given order record. */ void func_80042AB0(void *rec) {
+    streamReleaseEntry(M2C_FIELD(rec, s32 *, 0xC));
 }

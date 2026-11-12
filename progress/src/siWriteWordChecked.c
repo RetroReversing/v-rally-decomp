@@ -11,6 +11,10 @@ s32 siWriteWordChecked(s32 addr, s32 value) {
     if (si_busy() != 0) {
         return -1;
     }
+#ifdef PORT
+    *(s32 *)(uintptr_t)(u32)(addr | 0xA0000000) = value;
+#else
     *(s32 *)(addr | 0xA0000000) = value;
+#endif
     return 0;
 }

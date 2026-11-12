@@ -3,10 +3,10 @@ extern E18 D_800C7FA1[];
 extern u8 D_800C81FC;
 extern u8 gStreamPhase;
 extern u8 *gSelectState;
-extern char gStreamState[];
-void func_8005C198(void);
-void func_8005E470(s32, s32);
-void func_8005E28C(s32, s32);
+extern char stream_state[];
+void select_arm_if_clear(void);
+void select_reset_all(s32, s32);
+void select_request_reset(s32, s32);
 
 /* Starts a new select round: resets the select state, and when the current
    stream header has flag 0x800 set, sets up the 4-entry slot table from the low
@@ -20,11 +20,11 @@ s32 func_800643F0(s32 arg0, s32 arg1)
   u32 v;
   u16 t;
 
-  func_8005C198();
-  func_8005E470(arg0, arg1);
+  select_arm_if_clear();
+  select_reset_all(arg0, arg1);
   i = 1;
   gSelectState[0x2BD] = 1;
-  header = *(u8 **)(gStreamState + 0x32F2);
+  header = *(u8 **)(stream_state + 0x32F2);
   if (*(u16 *)(header + 0x2C) & 0x800) {
     *(s16 *)(header + 0x1E) = 8;
     v = header[0x23] & 3;
@@ -40,12 +40,12 @@ s32 func_800643F0(s32 arg0, s32 arg1)
         i++;
       }
     } while (i < 4);
-    header2 = *(u8 **)(gStreamState + 0x32F2);
+    header2 = *(u8 **)(stream_state + 0x32F2);
     t = *(u16 *)(header2 + 0x20);
     *(u16 *)(header2 + 0x20) = 0;
     *(u16 *)(header2 + 0x22) = t;
   }
   gStreamPhase = 1;
-  func_8005E28C(0, 0);
+  select_request_reset(0, 0);
   return 0;
 }

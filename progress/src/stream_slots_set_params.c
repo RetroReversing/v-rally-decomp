@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Walks the linked list of stream slots and sets each slot's fixed value (300) and its
  * per-slot value, taken from the negated field at +0xDC of obj, plus bonuses from the
@@ -12,7 +12,7 @@ void stream_slots_set_params(void *obj)
   char *slot;
   s32 base_value;
   u32 i;
-  cfg = *((char **) (gStreamState + 0x32F2));
+  cfg = *((char **) (stream_state + 0x32F2));
   slot_count = *((u8 *) (cfg + 0xF));
   slot = *((char **) (*((char **) (gOrderState + 0x6D94))));
   i = 1;

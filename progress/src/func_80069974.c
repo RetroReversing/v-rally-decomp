@@ -1,18 +1,29 @@
-s32 heapQueryFreeSize(s32);
-extern s32 gFreeHeap1;
-extern s32 gFreeHeap2;
-extern s32 gSceneHeapBlock;
-extern char gOrderState[];
-extern char gStreamState[];
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-/* Refreshes the free sizes of heaps 1 and 2 (gFreeHeap1/2), stores gSceneHeapBlock
- * in the order state, and marks the stream state's slot at +0x5BA2 as unset (-1). */
-void func_80069974(void)
-{
-    gFreeHeap1 = heapQueryFreeSize(1);
-    gFreeHeap2 = heapQueryFreeSize(2);
-    *((s32 *) (gOrderState + 0x881C)) = (s32) gSceneHeapBlock;
-    gFreeHeap1 = heapQueryFreeSize(1);
-    gFreeHeap2 = heapQueryFreeSize(2);
-    *((s32 *) (gStreamState + 0x5BA2)) = -1;
+s32 heapQueryFreeSize(M2C_UNK);                     /* extern */
+extern s32 D_8009B960;
+extern s32 D_8009B964;
+extern s32 D_8009B9D8;
+extern M2C_UNK gOrderState;
+extern M2C_UNK stream_state;
+
+void func_80069974(void) {
+    D_8009B960 = heapQueryFreeSize(1);
+    D_8009B964 = heapQueryFreeSize(2);
+    M2C_FIELD(&gOrderState, s32 *, 0x881C) = (s32) D_8009B9D8;
+    D_8009B960 = heapQueryFreeSize(1);
+    D_8009B964 = heapQueryFreeSize(2);
+    M2C_FIELD(&stream_state, s32 *, 0x5BA2) = -1;
 }

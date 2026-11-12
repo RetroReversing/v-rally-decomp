@@ -1,8 +1,8 @@
 extern u8 *gSelectState;
 extern u8 D_800A1683;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 s32 func_800671A0(s32, s32);
-s32 func_8006F0E0(u8, void *, s32);
+s32 glyph_record_pack(u8, void *, s32);
 s32 save_race_to_pak(void);
 
 /* Packs the 8 bytes ending at D_800A1683 into one 32-bit value, stores it in the stream slot
@@ -23,9 +23,9 @@ s32 stream_slot_store_packed(void) {
         packed |= byte;
     } while (i < 8);
     slot_index = (s8)gSelectState[0x22A];
-    slot_base = *(u8 **)(gStreamState + 0x32F2);
+    slot_base = *(u8 **)(stream_state + 0x32F2);
     *(s32 *)(slot_base + ((slot_index * 5) << 3) + 0x68) = packed;
-    func_8006F0E0((s8)gSelectState[0x22A], gSelectState, packed);
+    glyph_record_pack((s8)gSelectState[0x22A], gSelectState, packed);
     save_race_to_pak();
     func_800671A0(0, 0);
     return 0;

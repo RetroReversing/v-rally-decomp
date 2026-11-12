@@ -22,7 +22,7 @@ typedef struct {
     RmbState *list[4];
 } PakCtx;
 
-extern PakCtx *gContCtx;
+extern PakCtx *gControllerInputContext;
 extern u8 gOrderState[];
 void motor_pak_reset(s32 arg0, s32 arg1);
 s32 osPfsIsPlug(void *queue, u8 *pattern);
@@ -33,7 +33,7 @@ s32 osPfsInitPak(void *queue, void *pfs, s32 channel);
  * and reports a pak gets state 1 (rumble pak), 2 (memory pak) or 3 (no usable pak). */
 void func_80086138(s32 port, u8 mask) {
     u8 pattern = 0;
-    PakCtx *c = gContCtx;
+    PakCtx *c = gControllerInputContext;
     void *queue;
 
     c->rmb[port].state = 0;
@@ -49,15 +49,15 @@ void func_80086138(s32 port, u8 mask) {
     osPfsIsPlug(queue, &pattern);
     if (!((pattern >> port) & 1))
         return;
-    if (osMotorInit(queue, gContCtx->pfs[port], port) == 0) {
+    if (osMotorInit(queue, gControllerInputContext->pfs[port], port) == 0) {
         motor_pak_reset(port, 0);
-        gContCtx->rmb[port].state = 1;
-        gContCtx->rmb[port].unk8 = 0;
+        gControllerInputContext->rmb[port].state = 1;
+        gControllerInputContext->rmb[port].unk8 = 0;
         return;
     }
-    if (osPfsInitPak(queue, gContCtx->pfs[port], port) == 0) {
-        gContCtx->rmb[port].state = 2;
+    if (osPfsInitPak(queue, gControllerInputContext->pfs[port], port) == 0) {
+        gControllerInputContext->rmb[port].state = 2;
         return;
     }
-    gContCtx->rmb[port].state = 3;
+    gControllerInputContext->rmb[port].state = 3;
 }

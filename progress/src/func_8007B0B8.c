@@ -1,8 +1,8 @@
-extern int gRecords;
+extern void *gRecords;
 s32 select_load_texture_pack();
 s32 league_set_flag14();
 extern void *gSelectState;
-extern char gStreamState[];
+extern char stream_state[];
 static inline void *inline_fn(char *arg0, int arg1)
 {
   return *((void **) (arg0 + arg1));
@@ -18,7 +18,7 @@ s32 func_8007B0B8(void)
   void *rec;
   void *state;
   *((s8 *) (((char *) gSelectState) + 0x245)) = 0;
-  league_set_flag14(inline_fn(gStreamState, 0x325A));
+  league_set_flag14(inline_fn(stream_state, 0x325A));
   state = gSelectState;
   rec = gRecords + ((*((u8 *) (((char *) (gRecords + (*((s8 *) (((char *) state) + 0x228))))) + 0x32))) * 0x28);
   recValue = *((u16 *) (((char *) rec) + 0x4E));
@@ -28,5 +28,5 @@ s32 func_8007B0B8(void)
     select_load_texture_pack(rec, state);
     *((s8 *) (((char *) gSelectState) + 0x2BD)) = 1;
   }
-  return (*((u8 *) (((char *) (((*((s16 *) (((char *) inline_fn(gStreamState, 0x325A)) + 2))) * 0x14) + (*((s32 *) (((char *) inline_fn(gStreamState, 0x325A)) + 0x10))))) + 0xD))) + (*((u8 *) (((char *) gSelectState) + 0x238)));
+  return (*((u8 *) (((char *) (((*((s16 *) (((char *) inline_fn(stream_state, 0x325A)) + 2))) * 0x14) + (*((void **) (((char *) inline_fn(stream_state, 0x325A)) + 0x10))))) + 0xD))) + (*((u8 *) (((char *) gSelectState) + 0x238)));
 }

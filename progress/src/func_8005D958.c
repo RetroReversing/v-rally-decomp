@@ -14,7 +14,7 @@ typedef s32 M2C_UNK32;
 
 extern M2C_UNK gOrderState;
 
-s32 func_8005D958(void) {
+/* Sets the byte at offset 0x11F9 of gOrderState to 1 and returns 0. */ s32 func_8005D958(void) {
     M2C_FIELD(&gOrderState, s8 *, 0x11F9) = 1;
     return 0;
 }

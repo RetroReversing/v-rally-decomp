@@ -18,7 +18,7 @@ extern void func_8003A73C(void *);
 /* Adds the five-part sprite row for one label at (x, y) into sprite_list. Part 0
  * gets a 0xD sub-sprite after it, part 2 a 0xC one; every sprite copies the
  * colour when col is given. */
-void add_label_sprites(s32 sprite_list, s32 x, s32 y, void (*hook)(void *), u8 *tex_table, u16 n, u8 *col)
+void add_label_sprites(void *sprite_list, s32 x, s32 y, void (*hook)(void *), u8 *tex_table, u16 n, u8 *col)
 {
   Spr *spr;
   u32 i;

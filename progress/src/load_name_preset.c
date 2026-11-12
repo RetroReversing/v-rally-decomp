@@ -27,7 +27,7 @@ extern char D_800A4AFC[];
 extern char D_800A4B04[];
 extern char D_800A4B0C[];
 extern char D_800A4B14[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Loads the tuning preset for the object whose name is at offset 0x4C.
  * Each known name selects one set of values in the D_800C35C9.. block;

@@ -6,7 +6,7 @@ extern signed char D_800C3ACC;
 extern s32 D_800C3AC0;
 extern void *gRecords;
 s32 sort_split_times();
-s32 copyStringAligned();
+s32 strCpy();
 extern char gOrderState[];
 
 /* Fills the split-time table at D_800C3AC0 from the records in gRecords: for each
@@ -33,7 +33,7 @@ void loadBestSplitTimes(void)
             entry = records + ((*((u8 *) (records + idx + 0x32))) * 0x28);
             D_800C3AC4 = *((u16 *) (entry + 0x4E));
             D_800C3AC5 = *((u16 *) (records + 0x16));
-            copyStringAligned((char *) slot + 6, records + ((*((u8 *) (records + idx + 0x32))) * 0x28 + 0x44), records);
+            strCpy((char *) slot + 6, records + ((*((u8 *) (records + idx + 0x32))) * 0x28 + 0x44), records);
             D_800C3ACA = 0;
             D_800C3ACB = 0;
             D_800C3ACC = 1;

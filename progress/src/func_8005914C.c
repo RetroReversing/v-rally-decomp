@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8005914C(void) {
+/* Empty placeholder callback; used as a work-slot done hook. */ void func_8005914C(void) {
 
 }

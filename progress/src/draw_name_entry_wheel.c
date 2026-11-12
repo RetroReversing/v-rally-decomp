@@ -9,7 +9,7 @@ extern char *find_object_by_id(s32);
 extern void group_set_color(TextObj *, u8, u8, u8, u8);
 void draw_palette_sprite(void *, s16, s16, void *);
 extern void func_8004C370(s32, Draw *);
-extern void func_8006874C(s8);
+extern void select_draw_results_table(s8);
 extern s32 cos_q12(s32);
 extern s32 sin_q12(s32);
 extern u32 gRecordTimeScale;
@@ -134,5 +134,5 @@ void draw_name_entry_wheel(void) {
         }
         draw_palette_sprite((void *)(text), (s16)(text->x + i * 20), (s16)(text->y), (void *)(str));
     }
-    func_8006874C(((struct { char pad[0x32]; s8 arr[1]; } *)gRecords)->arr[gSelectState->cfg]);
+    select_draw_results_table(((struct { char pad[0x32]; s8 arr[1]; } *)gRecords)->arr[gSelectState->cfg]);
 }

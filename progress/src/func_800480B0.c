@@ -1,6 +1,6 @@
 s32 obj_mtx_visible();
 s32 func_8001BE68(void *, f32, s32, f32, f32 *, f32 *, s32 *);
-s32 func_8002D2C8();
+s32 angle_atan2_thunk();
 s32 vec3_normalize_fixed();
 s32 guMtxIdentF();
 
@@ -61,5 +61,5 @@ void func_800480B0(void *obj, void *view)
     tiltB = 500.0f;
   }
   *((s32 *) (((char *) view) + 0x7C)) = (s32) tiltB;
-  *((s16 *) (((char *) view) + 0x10)) = (s16) (-(((func_8002D2C8(temp_fv0, temp_ft0) * 2) / 3) & 0xFFF));
+  *((s16 *) (((char *) view) + 0x10)) = (s16) (-(((angle_atan2_thunk(temp_fv0, temp_ft0) * 2) / 3) & 0xFFF));
 }

@@ -12,24 +12,24 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK slot_set_selected(s32, s32);                    /* extern */
+M2C_UNK slotSetSelected(s32, s32);                    /* extern */
 s32 select_stream_char(u8, u8, u8);                      /* extern */
 extern void *gSelectState;
-extern M2C_UNK gStreamState;
+extern M2C_UNK stream_state;
 
-s32 stream_slot_select_prev(s32 arg0) {
-    u8 temp_a1;
-    u8 temp_a1_2;
-    void *temp_s0;
-    void *temp_s0_2;
+/* Steps the selected stream slot back by one: if its count byte is nonzero, decrements it and marks slot_id as selected. */ s32 stream_slot_select_prev(s32 slot_id) {
+    u8 count;
+    u8 count_prev;
+    void *slot_base;
+    void *slot;
 
-    temp_s0 = M2C_FIELD(&gStreamState, void **, 0x32F2) + ((M2C_FIELD((M2C_FIELD(&gStreamState, void **, 0x32F2) + M2C_FIELD(gSelectState, s8 *, 0x228)), u8 *, 0x32) * 0x28) + 0x44);
-    temp_s0_2 = temp_s0 + (select_stream_char(M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u8 *, 0x1F), M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u8 *, 0x21), M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u8 *, 0x23)) & 0xFF);
-    temp_a1 = M2C_FIELD(temp_s0_2, u8 *, 0x10);
-    if (temp_a1 != 0) {
-        temp_a1_2 = temp_a1 - 1;
-        M2C_FIELD(temp_s0_2, u8 *, 0x10) = temp_a1_2;
-        slot_set_selected(arg0, temp_a1_2 & 0xFF);
+    slot_base = M2C_FIELD(&stream_state, void **, 0x32F2) + ((M2C_FIELD((M2C_FIELD(&stream_state, void **, 0x32F2) + M2C_FIELD(gSelectState, s8 *, 0x228)), u8 *, 0x32) * 0x28) + 0x44);
+    slot = slot_base + (select_stream_char(M2C_FIELD(M2C_FIELD(&stream_state, void **, 0x32F2), u8 *, 0x1F), M2C_FIELD(M2C_FIELD(&stream_state, void **, 0x32F2), u8 *, 0x21), M2C_FIELD(M2C_FIELD(&stream_state, void **, 0x32F2), u8 *, 0x23)) & 0xFF);
+    count = M2C_FIELD(slot, u8 *, 0x10);
+    if (count != 0) {
+        count_prev = count - 1;
+        M2C_FIELD(slot, u8 *, 0x10) = count_prev;
+        slotSetSelected(slot_id, count_prev & 0xFF);
     }
     return 1;
 }

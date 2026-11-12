@@ -1,6 +1,6 @@
 s32 updateCameraView();
-void *named_entry_lookup(void **, u8 *);
-s32 func_80022668();
+void *list_find_node(void **, u8 *);
+s32 list_nth_node();
 void *find_object_by_id();
 f32 sqrtf(f32);
 extern char D_800A3FF0[];
@@ -34,12 +34,12 @@ void func_80010468(void)
   {
     g_camera = find_object_by_id(((rec_idx - 1) * 2) | 1);
     cam_partner = find_object_by_id((rec_idx - 1) * 2 + 2);
-    cb = named_entry_lookup((void **)(g_camera + 0x28), (u8 *)(D_800A3FF0));
+    cb = list_find_node((void **)(g_camera + 0x28), (u8 *)(D_800A3FF0));
     if (cb == NULL)
       continue;
     cb->fn(cb->arg);
     updateCameraView(cam_partner);
-    func_80022668(cb->arg, FIELD_S32(cb->arg, 8));
+    list_nth_node(cb->arg, FIELD_S32(cb->arg, 8));
     cam_target = g_camera + 0x38;
     x2 = (FIELD_F(g_camera, 0x124) - FIELD_F(cam_target, 0xE0)) * (FIELD_F(g_camera, 0x124) - FIELD_F(cam_target, 0xE0));
     y2 = (FIELD_F(g_camera, 0x128) - FIELD_F(cam_target, 0xE4)) * (FIELD_F(g_camera, 0x128) - FIELD_F(cam_target, 0xE4));

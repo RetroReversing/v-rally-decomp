@@ -23,12 +23,12 @@ s32 func_80042CC4();
 s32 func_800448A4();
 s32 func_80044908();
 void *findEntryById();
-s8 func_80084C0C();
+s8 input_get_stick_axis();
 extern s32 gPadFlags;
 extern s32 (*D_800A0280[])(void *,void *);
 extern s32 (*D_800A0284)(void *, void *);
-extern char D_800A73E0[];
-extern char gStreamState[];
+extern char gGameState[];
+extern char stream_state[];
 extern void *gRecords;
 
 /* Per-object update: when the object is active, runs the logic callbacks of the two
@@ -40,7 +40,7 @@ void func_80046AB0(void *obj) {
     s32 (*handler)(void *, void *);
     s32 count;
     s32 i;
-    s32 cur_child;
+    void *cur_child;
     u16 mode;
     void *item;
     void *ctl;
@@ -56,14 +56,18 @@ void func_80046AB0(void *obj) {
     if (!(*(s32 *)((char *)obj + 0x14) & 0x80) && (M2C_FIELD(gRecords, u16 *, 0x1E) != 7)) {
         parent = **(void ** *)((char *)obj + 0x8C);
         first_list = *(void * *)((char *)parent + 0x5C);
-        cur_child = 0;
+        cur_child = NULL;
         if (first_list != NULL) {
-            cur_child = (s32) first_list & -(*(s32 *)((char *)first_list + 0x50) != 0);
+            if (*(s32 *)((char *)first_list + 0x50) != 0) {
+                cur_child = first_list;
+            }
         }
         second_list = *(void * *)((char *)parent + 0x58);
-        sibling = 0;
+        sibling = NULL;
         if (second_list != NULL) {
-            sibling = (s32) second_list & -(*(s32 *)((char *)second_list + 0x50) != 0);
+            if (*(s32 *)((char *)second_list + 0x50) != 0) {
+                sibling = second_list;
+            }
         }
         if ((sibling != 0) && (M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4)) {
             count = *(s32 *)((char *)sibling + 0x50);
@@ -115,7 +119,7 @@ loop_main:
             *(s32 *)((char *)obj + 0x14) = (s32) (*(s32 *)((char *)obj + 0x14) & ~0x20);
         }
         if ((D_800ADFA8 == 0) && (D_800ADFE1 != 0) && (M2C_FIELD(*(void * *)((char *)obj + 0x48), s32 *, 0) < 4) && (*(s16 *)((char *)parent + 8) == (D_800ADFE8 - 5)) && (**(s32 * *)((char *)obj + 0x70) == (gCurCount - 1))) {
-            cam_obj = findEntryById(M2C_FIELD(*(void * *)(gStreamState + 0x326A), s32 *, 0x24));
+            cam_obj = findEntryById(M2C_FIELD(*(void * *)(stream_state + 0x326A), s32 *, 0x24));
             if (!(*(u16 *)((char *)cam_obj + 0xA) & 1)) {
                 { s32 flags=*(s32 *)((char *)cam_obj+0x10);
                 D_800ADFA8=1;
@@ -136,7 +140,7 @@ block_40:
                 info = *(void * *)((char *)obj + 0x48);
                 { void *rec=ctl; s32 idx=M2C_FIELD((ctl+*(s32 *)((char *)info+0x2C)),u8 *,0x32); rec+=idx*0x28;
                 if (M2C_FIELD(rec,u16 *,0x4E)>=0x10U) {
-                    M2C_FIELD(*(void * *)((char *)obj + 0x4C), s32 *, 0x14) = (s32) (func_80084C0C(*(u8 *)((char *)info + 3), 0x10000) + 0x10);
+                    M2C_FIELD(*(void * *)((char *)obj + 0x4C), s32 *, 0x14) = (s32) (input_get_stick_axis(*(u8 *)((char *)info + 3), 0x10000) + 0x10);
                 }}
             }
         }

@@ -2975,7 +2975,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5213,7 +5213,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -7491,7 +7491,7 @@ void alAuxBusNew(ALAuxBus *m, void *sources, s32 maxSources);
 void alMainBusNew(ALMainBus *m, void *sources, s32 maxSources);
 void alSaveNew(ALSave *f);
 
-void alFxFillDecay (ALLowPass *lp)
+/* Computes the low-pass filter gain and the 16-tap decay coefficient table for a lowpass effect from its cutoff frequency fc, and resets the filter's first-sample flag. */ void alFxFillDecay (ALLowPass *lp)
 {
     s32		i, temp;
     s16		fc;

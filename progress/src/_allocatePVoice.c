@@ -1,4 +1,4 @@
-s32 alLink();
+s32 al_link_push();
 s32 alUnlink();
 
 /* Picks a voice for a new note from the pool at `pool`. A free voice from the list at +0x14,
@@ -18,7 +18,7 @@ s32 _allocatePVoice(u8 *pool, void **voiceOut, s16 prio)
     if (voice != NULL) {
         *voiceOut = voice;
         alUnlink(voice);
-        alLink(voice, pool + 0xC);
+        al_link_push(voice, pool + 0xC);
     } else {
         voice = *(void **)(pool + 0xC);
         while (voice != NULL) {

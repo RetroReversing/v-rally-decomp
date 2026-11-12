@@ -1,4 +1,4 @@
-s32 formatString();
+s32 format_to_buffer();
 extern u32 gRecordTimeScale;
 extern char sRecordTimeFormat[];
 
@@ -23,5 +23,5 @@ void formatRecordTime(u32 ticks, char *buf)
     seconds = 0x3B;
     hundredths = 9;
   }
-  formatString(buf, &sRecordTimeFormat, seconds & 0xFFFF, hundredths & 0xFFFF);
+  format_to_buffer(buf, &sRecordTimeFormat, seconds & 0xFFFF, hundredths & 0xFFFF);
 }

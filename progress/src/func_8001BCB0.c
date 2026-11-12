@@ -1,17 +1,17 @@
-void func_8001BCB0(void) {
-    s32 buf[16];
-    s32 i;
-    s32 *p;
-    s32 flag;
+/* Zeroes four words of scratch space, then spins forever (fatal-error halt). */ void func_8001BCB0(void) {
+    s32 scratch[16];
+    s32 n;
+    s32 *cur;
+    s32 spin;
 
-    p = buf;
-    i = 4;
+    cur = scratch;
+    n = 4;
     do {
-        *p = 0;
-        i--;
-        p++;
-    } while (i != 0);
-    flag = 1;
-    while (flag) {
+        *cur = 0;
+        n--;
+        cur++;
+    } while (n != 0);
+    spin = 1;
+    while (spin) {
     }
 }

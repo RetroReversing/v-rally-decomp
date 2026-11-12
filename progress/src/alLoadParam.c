@@ -2976,7 +2976,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -4008,7 +4008,7 @@ typedef struct {
     s32                         sample;
     s32                         lastsam;
     s32                         first;
-    s32                         memin;
+    u8 *memin;
 } ALLoadFilter;
 
 void    alLoadNew(ALLoadFilter *f, ALDMANew dma, ALHeap *hp);
@@ -5214,7 +5214,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -7908,7 +7908,7 @@ Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s
 
 
 
-s32
+/* Handles parameter changes for an ALLoadFilter: on AL_FILTER_SET_WAVETABLE it binds a wavetable and fills in the ADPCM or raw16 pull handler, loop points and book size; on AL_FILTER_RESET it rewinds the stream state. */ s32
 alLoadParam(void *filter, s32 paramID, void *param)
 {
     ALLoadFilter *a = (ALLoadFilter *) filter;
@@ -7917,7 +7917,7 @@ alLoadParam(void *filter, s32 paramID, void *param)
     switch (paramID) {
         case (AL_FILTER_SET_WAVETABLE):
             a->table = (ALWaveTable *) param;
-            a->memin = (s32) a->table->base;
+            a->memin = a->table->base;
             a->sample = 0;
             switch (a->table->type){
                 case (AL_ADPCM_WAVE):
@@ -7973,7 +7973,7 @@ alLoadParam(void *filter, s32 paramID, void *param)
 	     
 	    if (a->table)
 	    {
-		a->memin  = (s32) a->table->base;
+		a->memin  = a->table->base;
 		if (a->table->type == AL_ADPCM_WAVE)
 		{
 		    if (a->table->waveInfo.adpcmWave.loop)

@@ -14,20 +14,20 @@ typedef s32 M2C_UNK32;
 extern void *gSelectState;
 extern s32 gSelectBuffer;
 extern M2C_UNK func_80064E48;
-extern M2C_UNK func_80064E50;
-M2C_UNK func_8005C198(void);
+extern M2C_UNK hud_draw_counter_text;
+M2C_UNK select_arm_if_clear(void);
 M2C_UNK select_reset_text(s32, M2C_UNK);
 M2C_UNK heapFreeBlock(s32);
 
 /* Sets up the select screen: marks it shown, frees its text buffer if one is held, resets the text, and installs the two state callbacks. */
 s32 select_screen_setup(s32 arg0, M2C_UNK arg1) {
-    func_8005C198();
+    select_arm_if_clear();
     if (gSelectBuffer != 0) {
         heapFreeBlock(gSelectBuffer);
         gSelectBuffer = 0;
     }
     select_reset_text(arg0, arg1);
     M2C_FIELD(gSelectState, M2C_UNK **, 0x288) = &func_80064E48;
-    M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &func_80064E50;
+    M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &hud_draw_counter_text;
     return 1;
 }

@@ -1,4 +1,4 @@
-/* identical to func_80009E38 (matched), with its names changed by decompdecomp */
+/* identical to heapFreeStub (matched), with its names changed by decompdecomp */
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -13,8 +13,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_8002305C();                            /* extern */
+M2C_UNK stream_release_head();                            /* extern */
 
-void func_800230A4(void) {
-    func_8002305C();
+/* Thin wrapper: calls func_8002305C with no arguments (same stub as heapFreeStub). */ void func_800230A4(void) {
+    stream_release_head();
 }

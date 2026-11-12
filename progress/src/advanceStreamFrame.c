@@ -1,6 +1,6 @@
 extern u16 D_8009BEE4;
 extern u32 D_800A18D0;
-extern u8 D_800A16F4[];
+extern u8 gRecordTier[];
 extern u8 *gRecords;
 
 /* Advances the frame counter of a stream (wrapping at a limit that is one lower when
@@ -24,6 +24,6 @@ void advanceStreamFrame(u8 *stream, u8 *owner)
     obj = *(u8 **)(owner + 0x48);
     if (*(s32 *)(obj + 0x20) == 0)
     {
-        D_800A16F4[*(gRecords + *(s32 *)obj + 0x32)] = *(u32 *)(stream + 0x30);
+        gRecordTier[*(gRecords + *(s32 *)obj + 0x32)] = *(u32 *)(stream + 0x30);
     }
 }

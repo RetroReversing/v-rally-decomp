@@ -33,7 +33,11 @@ s32 record_cycle_next_option(s32 owner)
         rec = gRecords;
         offset = rec->id * sizeof(Obj);
         do {
+#ifdef PORT
+            if (bitIdx < ((Obj *)((char *)slotTable + offset))->count - 1) {
+#else
             if (bitIdx < ((Obj *)(offset + (s32)slotTable))->count - 1) {
+#endif
                 bitIdx++;
             } else {
                 bitIdx = 0;

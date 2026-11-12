@@ -1,0 +1,26 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
+
+void order_release_blocks(void);                        /* extern */
+void cache_release_block(void);                         /* extern */
+M2C_UNK heapReleaseBlock(s32);                          /* extern */
+extern char stream_state[];
+
+/* Shuts the stream down: releases the order blocks and the cached block, then frees the
+   stream's block at stream_state+0x80C6. */
+void stream_shutdown(void) {
+    order_release_blocks();
+    cache_release_block();
+    heapReleaseBlock(*(s32 *)(stream_state + 0x80C6));
+}

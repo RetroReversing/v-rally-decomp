@@ -1,12 +1,12 @@
 typedef void (*SpriteHook)(void *);
 void add_label_sprites(s32,s32,s32,SpriteHook,u8*,u16,u8*);
-extern char gStreamState[];
+extern char stream_state[];
 void func_8003AD18(void *);
 
 /* Adds the position label sprites for the HUD of one view (arg0), using the view's text
  * block (arg1). The layout depends on the HUD mode (1 or 2) and whether the label is
  * shown with its value (hud + 0x1E != 0). */
-void hudAddLabels(s32 view, s32 text)
+void hudAddLabels(s32 view, u8 *text)
 {
     u8 col[4];
     u8 *car;
@@ -19,7 +19,7 @@ void hudAddLabels(s32 view, s32 text)
     s32 yl;
     s32 mode;
 
-    car = *(u8 **)(gStreamState + 0x7CD6);
+    car = *(u8 **)(stream_state + 0x7CD6);
     x = *(s16 *)(*(u8 **)(car + 0x178) + 8);
     y = *(s16 *)(*(u8 **)(car + 0x178) + 0xA);
     yr = *(s16 *)(*(u8 **)(car + 0x178) + 0xC);
@@ -28,7 +28,7 @@ void hudAddLabels(s32 view, s32 text)
     col[1] = 0xD5;
     col[2] = 0x1E;
     col[3] = 0xFF;
-    hud = *(u8 **)(gStreamState + 0x32F2);
+    hud = *(u8 **)(stream_state + 0x32F2);
     mode = *(u16 *)(hud + 0xE);
     xl = x + 0x14;
     yl = y + 6;

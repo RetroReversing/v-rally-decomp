@@ -1,17 +1,17 @@
-s32 soundNameHash(u8 *arg0, s32 arg1)
+/* Hashes a NUL-terminated sound name (hash = hash * 13 + c, low 16 bits) and returns it plus bias, folded to 11 bits. */ s32 soundNameHash(u8 *name, s32 bias)
 {
-    u8 *var_a0;
-    u8 temp_a2;
-    u32 var_v0;
+    u8 *p;
+    u8 c;
+    u32 hash;
 
-    var_v0 = *arg0;
-    var_a0 = arg0 + 1;
+    hash = *name;
+    p = name + 1;
     goto test;
     do {
-        var_v0 = temp_a2 + ((var_v0 & 0xFFFF) * 0xD);
-        var_a0++;
+        hash = c + ((hash & 0xFFFF) * 0xD);
+        p++;
 test:
-        temp_a2 = *var_a0;
-    } while (temp_a2 != 0);
-    return (var_v0 + arg1) & 0x7FF;
+        c = *p;
+    } while (c != 0);
+    return (hash + bias) & 0x7FF;
 }

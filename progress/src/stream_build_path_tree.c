@@ -51,7 +51,11 @@ void stream_build_path_tree(void)
     else
     {
       obj->count++;
+#ifdef PORT
+      obj->items[obj->count] = (void *)(uintptr_t) func_80082438(buf);
+#else
       obj->items[obj->count] = (void *) func_80082438(buf);
+#endif
       done = 1;
       if ((*obj).count >= 2)
       {

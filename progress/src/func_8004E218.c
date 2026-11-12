@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8004E218(void *arg0) {
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x6C), s32 *, 0x34) = 0;
+/* Clears a status or timer field at offset 0x34 of an object sub-struct. */ void func_8004E218(void *obj) {
+    M2C_FIELD(M2C_FIELD(obj, void **, 0x6C), s32 *, 0x34) = 0;
 }

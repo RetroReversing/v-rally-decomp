@@ -3,7 +3,7 @@ s32 osDisableInt();
 s32 osRestoreInt();
 s32 __osDequeueThread();
 extern void *D_800A251C;
-extern void *D_800A2520;
+extern void *stream_default_slot;
 
 typedef struct OSThread
 {
@@ -28,7 +28,7 @@ void osDestroyThread(void *thread)
   savedIntLevel = osDisableInt();
   if (thread == NULL)
   {
-    cur = D_800A2520;
+    cur = stream_default_slot;
   }
   else if (((OSThread *)cur)->state != 1)
   {
@@ -61,7 +61,7 @@ walk:
     while (walk != NULL);
   }
 done:
-  if (cur == D_800A2520)
+  if (cur == stream_default_slot)
   {
     func_8008B634();
   }

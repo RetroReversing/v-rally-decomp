@@ -1,17 +1,17 @@
 extern u8 D_800ADFE1;
-extern u32 D_8009D530;
+extern u32 LEADERBOARD_FILL_DEFAULT;
 extern s32 gPadFlags, gRecordTimeScale;
 extern u8 D_800A1210;
-extern char D_800A73E0[], gStreamState[];
+extern char gGameState[], stream_state[];
 void func_80020DB0(void *);
 void voice_queue_add_slot(s32);
-void func_80020E0C(void **arg0) {
+/* Walks the node list from list_head: ticks each node's timer record, counts down timed events, and queues voice slots when a countdown expires. */ void func_80020E0C(void **arg0) {
  s32 temp_a1, temp_v0, temp_v1_5; u16 temp_v0_2;
  char *new_var; void *temp_a0,*temp_a0_2,*temp_a2,*temp_v0_3,*temp_v1,*temp_v1_2,*temp_v1_3,*temp_v1_4,*new_var3,*var_s0,*var_v0;
  var_s0=*arg0;
  if(var_s0!=NULL) do {
   if(*(s32 *)((char *)*(void **)((char *)var_s0+0x6C)+0x34)!=0) {
-   if(*(u16 *)((char *)*(void **)(gStreamState+0x32F2)+0x1E)==0 &&
+   if(*(u16 *)((char *)*(void **)(stream_state+0x32F2)+0x1E)==0 &&
       *(s32 *)*(void **)((char *)var_s0+0x48)>=4 && D_800A1210 && D_800ADFE1) func_80020DB0(var_s0);
    temp_v1=*(void **)((char *)var_s0+0x6C);
    *(s32 *)((char *)temp_v1+0x34)-=1;
@@ -20,7 +20,7 @@ void func_80020E0C(void **arg0) {
   if(!(*(s32 *)((char *)var_s0+0x14)&0x190)) {
    func_80020DB0(var_s0);
    temp_a0=*(void **)((char *)var_s0+0x6C);
-   if(D_8009D530<*(u32 *)((char *)temp_a0+4)) *(u32 *)((char *)temp_a0+4)=D_8009D530;
+   if(LEADERBOARD_FILL_DEFAULT<*(u32 *)((char *)temp_a0+4)) *(u32 *)((char *)temp_a0+4)=LEADERBOARD_FILL_DEFAULT;
    temp_v1_2=*(void **)((char *)var_s0+0x6C); ++*(s32 *)((char *)temp_v1_2+0x20);
    temp_a0_2=*(void **)((char *)var_s0+0x6C);
    if(*(s32 *)((char *)temp_a0_2+0x20)==gRecordTimeScale) {
@@ -31,9 +31,9 @@ void func_80020E0C(void **arg0) {
     else {
      temp_a2=*(void **)((char *)var_s0+0x48); temp_a1=*(s32 *)temp_a2;
      if(temp_a1<5 && !(gPadFlags&0x800)) {
-      temp_v0_2=*(u16 *)((char *)*(void **)(gStreamState+0x32F2)+0x1E);
-      if(temp_v0_2!=0 && temp_v0_2!=5 && !(*(u16 *)((char *)*(void **)(gStreamState+0x32F2)+0x2C)&8)) {
-       if(*(u16 *)((char *)*(void **)(gStreamState+0x32F2)+0xE)==2) {
+      temp_v0_2=*(u16 *)((char *)*(void **)(stream_state+0x32F2)+0x1E);
+      if(temp_v0_2!=0 && temp_v0_2!=5 && !(*(u16 *)((char *)*(void **)(stream_state+0x32F2)+0x2C)&8)) {
+       if(*(u16 *)((char *)*(void **)(stream_state+0x32F2)+0xE)==2) {
         if(temp_a1!=0) goto pick_node_self;
         var_v0=*(void **)((char *)var_s0+4);
         goto pick_node_done;

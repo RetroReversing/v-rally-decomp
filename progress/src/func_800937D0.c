@@ -12,14 +12,14 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern void *D_800A2520;
+extern void *stream_default_slot;
 
-s32 func_800937D0(void *arg0) {
-    void *var_a0;
+/* Returns the word at +4 of obj, falling back to the default object D_800A2520 when obj is NULL. */ s32 func_800937D0(void *obj) {
+    void *p;
 
-    var_a0 = arg0;
-    if (var_a0 == NULL) {
-        var_a0 = D_800A2520;
+    p = obj;
+    if (p == NULL) {
+        p = stream_default_slot;
     }
-    return M2C_FIELD(var_a0, s32 *, 4);
+    return M2C_FIELD(p, s32 *, 4);
 }

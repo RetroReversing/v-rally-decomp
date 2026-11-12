@@ -1,7 +1,7 @@
 s32 taskOpen();
 s32 osCreateMesgQueue();
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 func_8007FC14;
 
 /* Sets up the task system at startup: installs the stream callback, clears the four counters at
@@ -10,7 +10,7 @@ s32 func_8007FA70(void) {
     void *queue;
 
     queue = gOrderState + 0x1D10;
-    *(s32 * *)(gStreamState + 0x7DFA) = &func_8007FC14;
+    *(s32 * *)(stream_state + 0x7DFA) = &func_8007FC14;
     *(s32 *)(gOrderState + 0x2268) = 0;
     *(s32 *)(gOrderState + 0x226C) = 0;
     *(s32 *)(gOrderState + 0x2270) = 0;

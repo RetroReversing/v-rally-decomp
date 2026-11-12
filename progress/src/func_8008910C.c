@@ -5,7 +5,7 @@ extern int D_800B68EC;
 s32 alSynSetPan(void *, s32, u8);
 s32 alSynSetVol(void *, s32, s16, s32);
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Refreshes the synth volume and pan of one voice (arg0 is the voice record, arg1 its index).
  * Volume is the product of the voice's level fields, scaled by the master volume of the voice's

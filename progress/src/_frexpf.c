@@ -2975,7 +2975,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5213,7 +5213,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -7558,17 +7558,18 @@ f32 vol_scale_pow(f32 ivol, s32 samples, s16 ratem, u16 ratel);
 
 
 f64
-_frexpf(f64 value, s32 *eptr)
+_frexpf(f64 x, s32 *exponent)
 {
-    f64 absvalue;
+    f64 mantissa;
 
-    *eptr = 0;
-    if (value == 0.0)  
-        return (value);
-    absvalue = (value > 0.0) ? value : -value;
-    for ( ; absvalue >= 1.0; absvalue *= 0.5)
-        ++*eptr;
-    for ( ; absvalue < 0.5; absvalue += absvalue)
-        --*eptr;
-    return (value > 0.0 ? absvalue : -absvalue);
+    /* Split x into mantissa in [0.5, 1) and a power of two in *exponent; the sign is kept. */
+    *exponent = 0;
+    if (x == 0.0)  
+        return (x);
+    mantissa = (x > 0.0) ? x : -x;
+    for ( ; mantissa >= 1.0; mantissa *= 0.5)
+        ++*exponent;
+    for ( ; mantissa < 0.5; mantissa += mantissa)
+        --*exponent;
+    return (x > 0.0 ? mantissa : -mantissa);
 }

@@ -20,7 +20,11 @@ s32 text_load_and_parse(u8 *name, u8 *key)
   u8 *p;
   s32 c;
   resolve_path(&D_800A49D0);
+#ifdef PORT
+  start = (u8 *)(uintptr_t) func_80081664(1, name);
+#else
   start = (u8 *) func_80081664(1, name);
+#endif
   order_lookup_info(name, &length, &sp14);
   end = start + length;
   {

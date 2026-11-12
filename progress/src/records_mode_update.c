@@ -1,5 +1,5 @@
 #define H(p,n) (*(u16*)((p)+(n)))
-extern u8 gStreamState;
+extern u8 stream_state;
 extern u8 D_800A5260;
 extern u8 D_800A52F0;
 extern u8 D_800A52FC;
@@ -25,7 +25,7 @@ s32 func_80081664(s32, void *);
 s32 getTexturePack(void *, s32);
 void func_800407D0();
 void func_80052844(void *);
-void func_800857A0(s32);
+void input_set_all_flags(s32);
 void memset(void *, s32, s32);
 static inline s32 inline_fn(s32 *arg0, u8 arg1)
 {
@@ -49,7 +49,7 @@ void records_mode_update(void)
   D_800D0660 = getTexturePack(&D_800A5318, 0);
   resolve_path(&D_800A5328);
   D_800D0664 = getTexturePack(&D_800A5338, 0);
-  *((&gStreamState) + 0x805A) = 0;
+  *((&stream_state) + 0x805A) = 0;
   p = gRecords;
   if (H(p, 14) == 1)
   {
@@ -143,7 +143,7 @@ void records_mode_update(void)
 
   for (i = 0; i < 4; i++)
   {
-    func_800857A0(i);
+    input_set_all_flags(i);
   }
 
 }

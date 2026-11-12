@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
+/* Empty function: does nothing and returns. */
 void func_80018BFC(void) {
-
 }

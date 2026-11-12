@@ -1,11 +1,12 @@
-extern char D_800A167C[];
+extern u8 D_800A167C[];
 
-s32 func_80068C78(s32 arg0, s32 arg1) {
-    u8 temp_v0;
+/* Decrements the byte counter D_800A167C[index] unless it is already zero. Returns 0. */
+s32 func_80068C78(s32 unused, s32 index) {
+    u8 count;
 
-    temp_v0 = *(D_800A167C + arg1);
-    if (temp_v0 != 0) {
-        *(D_800A167C + arg1) = temp_v0 - 1;
+    count = *(D_800A167C + index);
+    if (count != 0) {
+        *(D_800A167C + index) = count - 1;
     }
     return 0;
 }

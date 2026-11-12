@@ -1,37 +1,18 @@
-/* identical to func_800852F8 in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to heapInitBlock in V-RALLY (matched), with its names changed by decompdecomp */
+/* Initialises a heap block of the given size: a header at the start and a 0x14-byte end marker at the end, both linked to each other. */
+void heapInitBlock(void *block, s32 size) {
+    void *end;
 
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-
-
-void heapInitBlock(void *arg0, s32 arg1) {
-    s32 var_v0;
-    void *var_a1;
-
-    var_a1 = arg0 + arg1;
-    var_a1 -= 0x14;
-    var_v0 = 1;
-    *(void * *)((char *)arg0 + 0) = var_a1;
-    *(s32 *)((char *)arg0 + 4) = 0;
-    *(s8 *)((char *)arg0 + 8) = 1;
-    *(s8 *)((char *)arg0 + 0xA) = 0;
-    *(s8 *)((char *)arg0 + 0xB) = 0;
-    *(s32 *)((char *)arg0 + 0x10) = 0;
-    *(s32 *)((char *)var_a1 + 0) = 0;
-    *(void * *)((char *)var_a1 + 4) = arg0;
-    *(s8 *)((char *)var_a1 + 8) = 1;
-    *(s8 *)((char *)var_a1 + 0xA) = 1;
-    *(s8 *)((char *)var_a1 + 0xB) = 0;
+    end = (char *)block + size;
+    end = (char *)end - 0x14;
+    *(void **)((char *)block + 0) = end;
+    *(s32 *)((char *)block + 4) = 0;
+    *(s8 *)((char *)block + 8) = 1;
+    *(s8 *)((char *)block + 0xA) = 0;
+    *(s8 *)((char *)block + 0xB) = 0;
+    *(s32 *)((char *)block + 0x10) = 0;
+    *(s32 *)((char *)end + 0) = 0;
+    *(void **)((char *)end + 4) = block;
+    *(s8 *)((char *)end + 8) = 1;
+    *(s8 *)((char *)end + 0xA) = 1;
+    *(s8 *)((char *)end + 0xB) = 0;
 }

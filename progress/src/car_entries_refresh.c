@@ -7,7 +7,7 @@ typedef struct HeaderView
   u16 mode1E;
 } HeaderView;
 s32 func_80022A98();
-s32 func_8007B204(void *);
+s32 carDispatchNoop(void *);
 extern void ** volatile gCarList;
 extern void * volatile gRecords;
 
@@ -53,10 +53,14 @@ void car_entries_refresh(void *entries)
       base = gRecords;
       *((s16 *) (((char *) entry) + 0xE)) = 0;
       dst = entry + 0x1C;
+#ifdef PORT
+      src = (void *) (((u8 *) base) + ((*((u8 *) (((char *) (base + entryIdx)) + 0x32))) * 0x28));
+#else
       src = (void *) (((*((u8 *) (((char *) (base + entryIdx)) + 0x32))) * 0x28) + ((u32) base));
+#endif
       *(Copy40 *)(entry + 0x1C) = *(Copy40 *)(src + 0x44);
       *((s32 *) (((char *) entry) + 0x18)) = (s32) (*(*((s32 **) (((char *) node) + 0x88))));
-      func_8007B204(node);
+      carDispatchNoop(node);
       *((u16 *) (((char *) entry) + 8)) = (u16) (((*((u16 *) (((char *) entry) + 8))) | 0x200) & 0xFBFF);
       return;
     }
@@ -79,10 +83,14 @@ void car_entries_refresh(void *entries)
           *((s16 *) (((char *) entry2) + 0xC)) = 0;
           *((s16 *) (((char *) entry2) + 0xE)) = 0;
           dst2 = entry2 + 0x1C;
+#ifdef PORT
+          src2 = (void *)(((u8 *) base) + ((*((u8 *) (((char *) (base + idx)) + 0x32))) * 0x28));
+#else
           src2 = (void *)(((*((u8 *) (((char *) (base + idx)) + 0x32))) * 0x28) + (u32)base);
+#endif
           *(Copy40 *)(entry2 + 0x1C) = *(Copy40 *)(src2 + 0x44);
           *((s32 *) (((char *) entry2) + 0x18)) = (s32) (*(*((s32 **) (((char *) node2) + 0x88))));
-          func_8007B204(node2);
+          carDispatchNoop(node2);
           i += 1;
           *((s16 *) (((char *) entry2) + 0xA)) = 1;
           *((u16 *) (((char *) entry2) + 8)) = (u16) (((*((u16 *) (((char *) entry2) + 8))) | 0x200) & 0xFBFF);
@@ -108,7 +116,11 @@ void car_entries_refresh(void *entries)
         func_80022A98(node, *((s32 *) (((char *) entry) + 0)));
         dst3 = entry + 0x1C;
         base = gRecords;
+#ifdef PORT
+        src3 = (void *)(((u8 *) base) + ((*((u8 *) (((char *) (base + idx2)) + 0x32))) * 0x28));
+#else
         src3 = (void *)(((*((u8 *) (((char *) (base + idx2)) + 0x32))) * 0x28) + (u32)base);
+#endif
         *(Copy40 *)(entry + 0x1C) = *(Copy40 *)(src3 + 0x44);
         lastval = (s32) (*(*((s32 **) (((char *) node) + 0x88))));
         i += 1;

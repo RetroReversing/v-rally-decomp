@@ -1,4 +1,4 @@
-s32 func_800231EC();
+s32 streamListFindByFlags();
 s32 StreamListClaimByType();
 
 /* Given a 4-bit slot mask, finds the lowest bit (1, 2, 4 or 8) that is clear and claims it
@@ -8,16 +8,16 @@ s32 claimLowestFreeSlot(s32 mask) {
     if (mask == 0) {
         goto block_9;
     }
-    if (func_800231EC(mask, 1) == 0) {
+    if (streamListFindByFlags(mask, 1) == 0) {
         goto block_8;
     }
-    if (func_800231EC(mask, 2) == 0) {
+    if (streamListFindByFlags(mask, 2) == 0) {
         goto block_7;
     }
-    if (func_800231EC(mask, 4) == 0) {
+    if (streamListFindByFlags(mask, 4) == 0) {
         goto block_6;
     }
-    if (func_800231EC(mask, 8) != 0) {
+    if (streamListFindByFlags(mask, 8) != 0) {
         goto block_10;
     }
     return StreamListClaimByType(mask, 8, 3);

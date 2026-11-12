@@ -1,4 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -12,9 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK draw_player_views(s32);                         /* extern */
-extern M2C_UNK gStreamState;
+M2C_UNK draw_player_views(s32);                     /* extern */
+extern M2C_UNK stream_state;
 
 void func_8001BC5C(void) {
-    draw_player_views(M2C_FIELD(&gStreamState, s32 *, 0x80C6));
+    draw_player_views(M2C_FIELD(&stream_state, s32 *, 0x80C6));
 }

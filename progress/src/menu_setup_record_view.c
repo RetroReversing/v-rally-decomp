@@ -1,7 +1,7 @@
 s32 getTexturePack(s32, s32);void *select_get_entry(u32);void *textObjGet(u32);
-s32 slot_set_selected(s32, s32);
+s32 slotSetSelected(s32, s32);
 s32 resolve_path(void *);
-s32 func_8008A0D8(s32, s32, s32);
+s32 record_set_byte9(void *, s32, s32);
 extern void *gSelectState;
 extern s32 D_800A1658[];
 extern s8 D_800A167C[];
@@ -37,16 +37,16 @@ void menu_setup_record_view(void)
   rec = ((char *) gRecords) + (sel * 0x28);
   if (((*(((u8 *) rec) + 0x48)) & 0x10) != 0)
   {
-    func_8008A0D8((s32) gLeague, 0x17, 0);
+    record_set_byte9(gLeague, 0x17, 0);
     highlight = select_get_entry(6);
     *(((s8 *) highlight) + 0xF) = 0x50;
     *(((s8 *) highlight) + 0x10) = 0x50;
     *(((s8 *) highlight) + 0x11) = 0x50;
-    slot_set_selected(0x19, 1);
+    slotSetSelected(0x19, 1);
   }
   else
   {
-    slot_set_selected(0x19, 0);
+    slotSetSelected(0x19, 0);
   }
   i = 0;
   resolve_path(&D_800A57A4);

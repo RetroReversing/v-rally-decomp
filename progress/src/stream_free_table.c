@@ -18,11 +18,17 @@ void stream_free_table(char *table)
   i = 0;
   if (count != 0) {
     do {
+#ifdef PORT
+      streamFreeObject(*(s32 *)(*(char **)(*(char **)(base + 0x10) + i * 4) + 0x90));
+      i++;
+      heapFreeBlock(*(s32 *)(*(char **)(base + 0x10) + (i - 1) * 4));
+#else
       slot = (char *)(i * 4);
       streamFreeObject(*(s32 *)(*(s32 *)((s32)slot + *(s32 *)(base + 0x10)) + 0x90));
       i++;
       slot = slot + *(s32 *)(base + 0x10);
       heapFreeBlock(*(s32 *)slot);
+#endif
     } while (i < count);
   }
   heapFreeBlock(*(s32 *)(base + 0x10));

@@ -2976,7 +2976,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5214,7 +5214,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -7897,7 +7897,6 @@ extern void		osSyncPrintf(const char *fmt, ...);
 
 
 
-static
 Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags);
 
 Acmd *alAdpcmPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p);
@@ -7909,34 +7908,39 @@ alLoadParam(void *filter, s32 paramID, void *param);
 
 
 
-Acmd *_decodeChunk(Acmd *ptr, ALLoadFilter *f, s32 tsam, s32 nbytes, s16 outp, s16 inp, u32 flags)
-
+Acmd *_decodeChunk(Acmd *cmd, ALLoadFilter *filter, s32 sampleCount, s32 nbytes, s16 outPos, s16 inPos, u32 flags)
 {
+    s32 dramPad, dramAddr;
 
-    s32
-        dramAlign,
-        dramLoc;
-
+    /* DMA the chunk in (8-byte aligned), then decode it; with no bytes there is no pad. */
     if (nbytes > 0){
-        dramLoc = (f->dma)(f->memin, nbytes, f->dmaState);
-         
-
-
-
-        dramAlign = dramLoc & 0x7;
-        nbytes += dramAlign;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   inp  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nbytes + 8 - (nbytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  dramLoc - dramAlign );	} ;
+        dramAddr = (filter->dma)(filter->memin, nbytes, filter->dmaState);
+        dramPad = dramAddr & 0x7;
+        nbytes += dramPad;
+        {	Acmd *_a = (Acmd *) cmd++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   inPos  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   nbytes + 8 - (nbytes & 0x7)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+        {	Acmd *_a = (Acmd *) cmd++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  dramAddr - dramPad );	} ;
     } else
-        dramAlign = 0;
+        dramPad = 0;
 
     if (flags & 0x02 ){
-        { Acmd *_a = (Acmd *) ptr++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 15  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = (unsigned int)(  ((u32)( f->lstate )&0x1FFFFFFF)  ); } ;
+        { Acmd *_a = (Acmd *) cmd++ ; _a->words.w0 = ((unsigned int) (((unsigned int)( 15  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; 
+#ifdef PORT
+_a->words.w1 = (unsigned int)(  ((uintptr_t)( filter->lstate )&0x1FFFFFFF)  );
+#else
+_a->words.w1 = (unsigned int)(  ((u32)( filter->lstate )&0x1FFFFFFF)  );
+#endif
+} ;
     }
 
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   inp + dramAlign  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   outp  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   tsam<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 1  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   flags  ) & ((0x01 << (  8 )) - 1)) << (  16 ))) ; _a->words.w1 = (unsigned int)(  ((u32)( f->state )&0x1FFFFFFF)  );	} ;
-    f->first = 0;
+    {	Acmd *_a = (Acmd *) cmd++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   inPos + dramPad  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   outPos  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   sampleCount<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+    {	Acmd *_a = (Acmd *) cmd++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 1  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   flags  ) & ((0x01 << (  8 )) - 1)) << (  16 ))) ; 
+#ifdef PORT
+_a->words.w1 = (unsigned int)(  ((uintptr_t)( filter->state )&0x1FFFFFFF)  );
+#else
+_a->words.w1 = (unsigned int)(  ((u32)( filter->state )&0x1FFFFFFF)  );
+#endif
+	} ;
+    filter->first = 0;
 
-    return ptr;
+    return cmd;
 }

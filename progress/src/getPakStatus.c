@@ -1,5 +1,5 @@
 extern s8 D_800A3B34;
-extern u8 D_800C8130;
+extern u8 __osPifBuf;
 extern s32 __osSiRawStartDma(s32, void *);
 extern s32 __osPfsRequestOneChannel(s32);
 extern s32 __osPfsGetOneChannelData(s32, void *);
@@ -19,7 +19,7 @@ s32 getPakStatus(s32 mq, s32 channel)
   timeout = 250;
   D_800A3B34 = timeout;
   __osPfsRequestOneChannel(channel);
-  buf = &D_800C8130;
+  buf = &__osPifBuf;
   __osSiRawStartDma(1, buf);
   osRecvMesg(mq, msg, 1);
   result = __osSiRawStartDma(0, buf);

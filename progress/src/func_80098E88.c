@@ -1,4 +1,4 @@
-extern char D_800A73E0[];
+extern char gGameState[];
 s32 func_80098998(void *, s32, s32);
 s32 ecvt_digits(s32, s32, s32, s32 *, s32);
 
@@ -9,13 +9,17 @@ void *func_80098E88(s32 value, s32 ndigits, s32 scale, s32 *decpt, s32 sign)
     s32 exponent;
     s32 pad;
 
+#ifdef PORT
+    digits = (s8 *)(unsigned long)(u32)ecvt_digits(value, ndigits, 0x14, decpt, sign);
+#else
     digits = (s8 *) ecvt_digits(value, ndigits, 0x14, decpt, sign);
+#endif
     exponent = *decpt;
     if (exponent != 0x7FFFFFFF) {
         pad = exponent + scale;
         if (pad >= 0) {
             if (pad < 0x14) {
-                *decpt = func_80098998(&D_800A73E0[0x6B28], exponent, pad);
+                *decpt = func_80098998(&gGameState[0x6B28], exponent, pad);
             } else {
                 if (pad >= 0x29) {
                     pad = 0x28;
@@ -32,5 +36,5 @@ void *func_80098E88(s32 value, s32 ndigits, s32 scale, s32 *decpt, s32 sign)
             }
         }
     }
-    return &D_800A73E0[0x6B28];
+    return &gGameState[0x6B28];
 }

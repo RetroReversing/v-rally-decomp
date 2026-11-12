@@ -4,8 +4,8 @@ extern float gSpeedAccum;
 extern signed char D_800C8120;
 s32 view_gfx_setup();
 s32 getCounterValue();
-void *named_entry_lookup(void **, u8 *);
-s32 func_80022F78();
+void *list_find_node(void **, u8 *);
+s32 obj_list_run_stages();
 s32 MapTypeCode();
 s32 func_80027E8C();
 s32 func_8002FE78();
@@ -17,25 +17,25 @@ s32 func_80043124();
 s32 func_800446D0();
 s32 func_800447A0();
 s32 func_80076E7C();
-s32 func_800804C4();
+s32 list_for_each();
 s32 func_80080514();
-s32 func_80085778();
+s32 input_clear_flags();
 s32 start_track_voices();
 s32 voicesSetIdleParams();
 s32 voicesSetIdleValue();
 extern s32 gPadFlags;
 extern void *gRecords;
 extern s32 gRaceFlags;
-extern s32 D_800A0200;
+extern s32 gSelectStepConfirmed;
 extern char D_800A4DF4[];
 extern char D_800A4DFC[];
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 setNodeFlags;
 extern s32 func_8004E18C;
 typedef struct { unsigned char pad_0[4]; void * field_4; unsigned char pad_8[12]; int field_14; unsigned char pad_18[48]; void * field_48; unsigned char pad_4C[32]; void * field_6C; } __repair_record_var_s2;
-void func_80043150(void *arg0, void *arg1)
+/* Per-frame race update for one car object: sets its state bits, advances the race state (countdown, finish and reset handling) and sets camera and object pointers. */ void func_80043150(void *arg0, void *arg1)
 {
   s32 temp_a0;
   s32 var_a0_2;
@@ -69,15 +69,15 @@ void func_80043150(void *arg0, void *arg1)
   var_s2 = arg0;
   var_s0 = arg1;
   temp_a2 = ((__repair_record_var_s2*)var_s2)->field_6C;
-  var_s4 = *((u8 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xF));
+  var_s4 = *((u8 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xF));
   var_s5 = *((s32 *) (((char *) temp_a2) + 0x10));
-  func_80085778(*((u8 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 3)), 1);
+  input_clear_flags(*((u8 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 3)), 1);
   if (gRaceState != 1)
   {
     if (!((((__repair_record_var_s2*)var_s2)->field_14) & 0x200))
     {
       temp_v0 = find_object_by_id((var_s4 * 2) + 2);
-      *((void **) (gStreamState + 0x7CD6)) = temp_v0;
+      *((void **) (stream_state + 0x7CD6)) = temp_v0;
       func_800447A0(temp_v0);
     }
     func_80027E8C(var_s2, *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0)), var_s0);
@@ -107,7 +107,7 @@ void func_80043150(void *arg0, void *arg1)
       *((u8 *) (((char *) var_s0) + 2)) = temp_v0_3;
       *((s8 *) (((char *) var_s0) + 3)) = (s8) ((*((u8 *) (((char *) var_s0) + 1))) & temp_v0_3);
       var_s0 = *(*((void ***) (gOrderState + 0x73F0)));
-      var_s1 = *((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE));
+      var_s1 = *((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE));
       var_s3 = 0;
       if (var_s0 != NULL)
       {
@@ -121,7 +121,7 @@ void func_80043150(void *arg0, void *arg1)
               var_s3 += 1;
               var_s1 -= 1;
             }
-            if (((u16) (*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE)))) >= 2U)
+            if (((u16) (*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE)))) >= 2U)
             {
               {
                 s32 flags = (*((s32 *) (((char *) var_s0) + 0x14))) & 0x100;
@@ -135,13 +135,13 @@ void func_80043150(void *arg0, void *arg1)
       }
       if (var_s1 == 0)
       {
-        temp_v1_3 = *((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE));
+        temp_v1_3 = *((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE));
         if ((temp_v1_3 >= 2U) && ((var_s3 & 0xFFFF) != temp_v1_3))
         {
           race_reset();
           gRaceState = 0;
-          func_80085778(0U, 0x1000);
-          func_80085778(0U, 0x8000);
+          input_clear_flags(0U, 0x1000);
+          input_clear_flags(0U, 0x8000);
         }
         else
         {
@@ -163,7 +163,7 @@ void func_80043150(void *arg0, void *arg1)
                 }
 
               }
-              temp_v0_4 = named_entry_lookup((void **)(var_a0 + 0x28), (u8 *)(&D_800A4DFC));
+              temp_v0_4 = list_find_node((void **)(var_a0 + 0x28), (u8 *)(&D_800A4DFC));
               {
                 s32 two = 2;
                 if (temp_v0_4 != NULL)
@@ -183,38 +183,38 @@ void func_80043150(void *arg0, void *arg1)
               {
                 gRaceFlags |= 0x20;
                 voicesSetIdleParams(1);
-                start_track_voices(gStreamState + 0x10122);
+                start_track_voices(stream_state + 0x10122);
                 voicesSetIdleValue((s32) (gSpeedAccum * 80.0f));
               }
             }
           }
-          new_var2 = ((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x1E;
+          new_var2 = ((char *) (*((void **) (stream_state + 0x32F2)))) + 0x1E;
           ((__repair_record_var_s2*)var_s2)->field_14 |= 0x80;
           temp_a0_2 = D_800AE44C + 1;
           D_800AE44C = temp_a0_2;
-          if (temp_a0_2 == (((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (gStreamState + 0x32F2))))->e * 0x4B))
+          if (temp_a0_2 == (((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (stream_state + 0x32F2))))->e * 0x4B))
           {
             temp_v1_5 = *((u16 *) new_var2);
             gPadFlags &= ~1;
             if ((temp_v1_5 != 0) & (temp_v1_5 != 5))
             {
-              if ((*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0x36))) != 0)
+              if ((*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0x36))) != 0)
               {
                 var_a0_2 = var_s4 * 2;
-                if ((*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE))) == 1)
+                if ((*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE))) == 1)
                 {
                   {
                     s32 i = 0;
                     do
                     {
-                      func_80085778(i & 0xFF, 1);
+                      input_clear_flags(i & 0xFF, 1);
                       i++;
                     }
-                    while (((u32) (i & 0xFFFF)) < ((u16) (*((u16 *) (((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xE)))));
+                    while (((u32) (i & 0xFFFF)) < ((u16) (*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE)))));
                   }
                   gPadFlags |= 0x80;
                   temp_v0_5 = find_object_by_id((var_s4 * 2) + 2);
-                  *((void **) (gStreamState + 0x7CD6)) = temp_v0_5;
+                  *((void **) (stream_state + 0x7CD6)) = temp_v0_5;
                   func_800446D0(temp_v0_5);
                 }
                 else
@@ -232,11 +232,11 @@ void func_80043150(void *arg0, void *arg1)
                 func_80043124(var_s2);
                 func_8002FE78();
                 gPadFlags |= 1;
-                temp_v0_7 = find_object_by_id((((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (gStreamState + 0x32F2))))->e * 2) | 1);
-                *((void **) (gStreamState + 0x7CD6)) = temp_v0_7;
-                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) named_entry_lookup((void **)(temp_v0_7 + 0x28), (u8 *)(&D_800A4DF4))) + 0x10))))->v = 1;
+                temp_v0_7 = find_object_by_id((((struct { u8 pad[0xE]; u16 e; } *) (*((void **) (stream_state + 0x32F2))))->e * 2) | 1);
+                *((void **) (stream_state + 0x7CD6)) = temp_v0_7;
+                ((struct { u8 pad[8]; s32 v; } *) (*((void **) (((char *) list_find_node((void **)(temp_v0_7 + 0x28), (u8 *)(&D_800A4DF4))) + 0x10))))->v = 1;
                 temp_v0_8 = find_object_by_id((((struct { u8 pad[0xE]; u16 e; } *) gRecords)->e * 2) + 2);
-                *((void **) (gStreamState + 0x7CD6)) = temp_v0_8;
+                *((void **) (stream_state + 0x7CD6)) = temp_v0_8;
                 view_gfx_setup(((struct { u8 pad[0x178]; s32 x; } *) temp_v0_8)->x);
                 { extern void *g_camera; func_80076E7C(g_camera); }
                 var_s2 = *(*((void ***) (gOrderState + 0x73F0)));
@@ -256,7 +256,7 @@ void func_80043150(void *arg0, void *arg1)
             }
             else
             {
-              func_80043124(var_s2, *((void **) (gStreamState + 0x32F2)));
+              func_80043124(var_s2, *((void **) (stream_state + 0x32F2)));
             }
           }
         }
@@ -266,7 +266,7 @@ void func_80043150(void *arg0, void *arg1)
   else
   {
     temp_v0_9 = find_object_by_id((var_s4 * 2) + 2);
-    *((void **) (gStreamState + 0x7CD6)) = temp_v0_9;
+    *((void **) (stream_state + 0x7CD6)) = temp_v0_9;
     func_800447A0(temp_v0_9);
     func_80043124(var_s2);
     gRaceState = 5;
@@ -281,16 +281,16 @@ void func_80043150(void *arg0, void *arg1)
       *((s32 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 0x20)) = (s32) (MapTypeCode(*((u16 *) (((char *) (((__repair_record_var_s2*)var_s2)->field_48)) + 2))) & 0xFFFF);
     }
   }
-  if (D_800A0200 != 0)
+  if (gSelectStepConfirmed != 0)
   {
     temp_v0_10 = find_object_by_id((var_s4 * 2) + 2);
-    *((void **) (gStreamState + 0x7CD6)) = temp_v0_10;
+    *((void **) (stream_state + 0x7CD6)) = temp_v0_10;
     new_var = 0x73F0;
     func_800447A0(temp_v0_10);
     func_80042D20();
-    func_80022F78(*((void ***) (gOrderState + new_var)));
+    obj_list_run_stages(*((void ***) (gOrderState + new_var)));
     func_80080514(*((void ***) (gOrderState + new_var)), &setNodeFlags, 0x10);
-    func_800804C4(*((void ***) (gOrderState + 0x72FC)), &func_8004E18C);
-    D_800A0200 = 0;
+    list_for_each(*((void ***) (gOrderState + 0x72FC)), &func_8004E18C);
+    gSelectStepConfirmed = 0;
   }
 }

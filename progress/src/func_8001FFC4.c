@@ -19,10 +19,16 @@ typedef struct Track {
     u16 rowWidth;
 } Track;
 
-void func_8002D2C8(s32, s32);
+void angle_atan2_thunk(s32, s32);
+
+#ifdef PORT
+#define VEC_AT(p, o) ((Vec3s *)((u8 *)(p) + (o)))
+#else
+#define VEC_AT(p, o) ((Vec3s *)((o) + (int)(p)))
+#endif
 
 /* Writes the world position of the grid point at (row arg3, column arg2) to out, then steps
- * to the next row and passes the x/z offset between the two points to func_8002D2C8. */
+ * to the next row and passes the x/z offset between the two points to angle_atan2_thunk. */
 void func_8001FFC4(s32 *out, Track *track, s32 col, s32 row) {
     s32 i;
     s32 off;
@@ -37,10 +43,10 @@ void func_8001FFC4(s32 *out, Track *track, s32 col, s32 row) {
     x = track->originX;
     base = track->points;
     off = i * 6;
-    out[0] = ((Vec3s *)(off + (int)base))->x + x;
-    out[1] = ((Vec3s *)(off + (int)track->points))->y + track->originY;
-    out[2] = ((Vec3s *)(off + (int)track->points))->z + track->originZ;
+    out[0] = VEC_AT(base, off)->x + x;
+    out[1] = VEC_AT(track->points, off)->y + track->originY;
+    out[2] = VEC_AT(track->points, off)->z + track->originZ;
     i += track->rowWidth;
-    w = (Vec3s *)(i * 6 + (int)track->points);
-    func_8002D2C8(w->x - ((Vec3s *)(off + (int)track->points))->x, w->z - ((Vec3s *)(off + (int)track->points))->z);
+    w = VEC_AT(track->points, i * 6);
+    angle_atan2_thunk(w->x - VEC_AT(track->points, off)->x, w->z - VEC_AT(track->points, off)->z);
 }

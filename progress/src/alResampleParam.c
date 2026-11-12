@@ -25,7 +25,13 @@ typedef struct AlResample {
 /* Sets one parameter on a resampler. Param 1 sets the child filter, 2 starts (clears state and
  * sends the child 4), 3 stops (sends the child 9), 4 sets the rate, 5 requests a flush, 6..9 do
  * nothing. Any other param is forwarded to the child's callback. Always returns 0. */
-s32 alResampleParam(AlResample *resample, s32 param, s32 value) {
+#ifdef PORT
+typedef uintptr_t ParamWord;   /* a word that may hold an address (the child filter) */
+#else
+typedef s32 ParamWord;
+#endif
+
+s32 alResampleParam(AlResample *resample, s32 param, ParamWord value) {
     AlResample *self = resample;
     AlFilter *node;
 

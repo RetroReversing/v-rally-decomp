@@ -12,15 +12,15 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80041A04(M2C_UNK, u16);                /* extern */
+M2C_UNK car_queue_phase_step(M2C_UNK, u16);                /* extern */
 u64 osGetTime(void);                             /* extern */
 M2C_UNK rand_seed(u32);                         /* extern */
 extern s32 D_8009D4F0;
-extern void *gCarEntries;
+extern void *gCarEntryTable;
 extern M2C_UNK gOrderState;
 extern void *gRecords;
 
-void func_8001DC10(void) {
+/* Advances the race car queue: queues phase steps for each car slot by race mode and updates the order list's per-car fields. */ void func_8001DC10(void) {
     s32 temp_a0_2;
     s32 temp_a1;
     s32 temp_hi;
@@ -46,21 +46,21 @@ void func_8001DC10(void) {
     temp_s1 = gRecords + 0x44;
     if (temp_a0 == 7) {
         if (M2C_FIELD(gRecords, u16 *, 0x2C) & 0x10) {
-            func_80041A04(6, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-            if (M2C_FIELD(gCarEntries, u16 *, 0x110) == 2) {
-                func_80041A04(6, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+            car_queue_phase_step(6, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+            if (M2C_FIELD(gCarEntryTable, u16 *, 0x110) == 2) {
+                car_queue_phase_step(6, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
             }
         } else {
             u8 current, first, remaining;
             remaining = 3;
             rand_seed((u32)osGetTime());
             current = D_8009D4F0++ % 9;
-            func_80041A04(5,current);
+            car_queue_phase_step(5,current);
             first = current;
             do {
                 current = D_8009D4F0++ % 9;
                 if (current != first) {
-                    func_80041A04(5,current);
+                    car_queue_phase_step(5,current);
                     { void *base; s32 off;
 off=remaining;
 remaining--;
@@ -73,48 +73,48 @@ M2C_FIELD(base,u16 *,0x4E)=current; }
 
         }
     } else if (temp_a0 == 8) {
-        func_80041A04(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-        func_80041A04(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
-        func_80041A04(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
-        func_80041A04(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x35) * 0x28) + temp_s1), u16 *, 0xA));
+        car_queue_phase_step(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+        car_queue_phase_step(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+        car_queue_phase_step(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
+        car_queue_phase_step(8, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x35) * 0x28) + temp_s1), u16 *, 0xA));
     } else {
         temp_s0_3 = M2C_FIELD(gRecords, u16 *, 0xE);
         switch (temp_s0_3) {
 case 1:
-func_80041A04(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
 if(M2C_FIELD(gRecords,u16 *,0x1E)!=0) goto block_50;
 if(M2C_FIELD(gRecords,u16 *,0x1A)!=temp_s0_3) goto block_49;
 var_v1=M2C_FIELD(gRecords,u8 *,0x32);
 var_v0_2=var_v1*4;
 goto block_48;
 case 2:
-func_80041A04(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
 if(M2C_FIELD(gRecords,u16 *,0x1E)!=0) goto block_50;
 if(M2C_FIELD(gRecords,u16 *,0x1A)!=1) goto block_49;
 var_v1=M2C_FIELD(gRecords,u8 *,0x33);
 var_v0_2=var_v1*4;
 goto block_48;
 case 3:
-func_80041A04(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(2, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(2, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
 if(M2C_FIELD(gRecords,u16 *,0x1E)!=0) goto block_50;
 if(M2C_FIELD(gRecords,u16 *,0x1A)!=1) goto block_49;
 var_v1=M2C_FIELD(gRecords,u8 *,0x34);
 var_v0_2=var_v1*4;
 goto block_48;
 case 4:
-func_80041A04(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(2, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
-if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) func_80041A04(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
-func_80041A04(3, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x35) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(0, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x32) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(1, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x33) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(2, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
+if (M2C_FIELD(gRecords,u16 *,0x1E)==0 && M2C_FIELD(gRecords,u16 *,0x1A)==1) car_queue_phase_step(7,M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x34) * 0x28) + temp_s1), u16 *, 0xA));
+car_queue_phase_step(3, M2C_FIELD(((M2C_FIELD(gRecords, u8 *, 0x35) * 0x28) + temp_s1), u16 *, 0xA));
 if(M2C_FIELD(gRecords,u16 *,0x1E)!=0) goto block_50;
 if(M2C_FIELD(gRecords,u16 *,0x1A)!=1) goto block_49;
 var_v1=M2C_FIELD(gRecords,u8 *,0x35);
@@ -123,7 +123,7 @@ goto block_48;
 }
 goto block_49;
 block_48:
-func_80041A04(7,M2C_FIELD((((var_v0_2+var_v1)*8)+temp_s1),u16 *,0xA));
+car_queue_phase_step(7,M2C_FIELD((((var_v0_2+var_v1)*8)+temp_s1),u16 *,0xA));
 block_49:
 if(M2C_FIELD(gRecords,u16 *,0x1E)!=0) {
 block_50:
@@ -131,7 +131,7 @@ var_s0=M2C_FIELD(gRecords,u16 *,0xE);
 if(var_s0<4) do {
 temp_a1_3=M2C_FIELD(((M2C_FIELD((gRecords+var_s0),u8 *,0x32)*0x28)+temp_s1),u16 *,0xA);
 var_s0+=1;
-func_80041A04(5,temp_a1_3);
+car_queue_phase_step(5,temp_a1_3);
 } while(var_s0<4);
 }
 }

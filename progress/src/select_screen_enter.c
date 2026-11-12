@@ -7,7 +7,7 @@ typedef struct SelectDefaults {
 extern SelectDefaults D_800A5CF0;
 extern u8 *gSelectState;
 extern s8 gStreamPhase;
-void func_800580D0(s32, s32);
+void select_set_entry_flag(s32, s32);
 void records_restore_from_order(void);
 void select_menu_setup(s32, s32);
 void asset_list_teardown(void);
@@ -20,7 +20,7 @@ s32 select_screen_enter(void) {
     SelectDefaults *dst;
 
     gSelectState[0x2BD] = 1;
-    func_800580D0(0, 0);
+    select_set_entry_flag(0, 0);
     gSelectState[0x24D] = 0;
     records_restore_from_order();
     dst = (SelectDefaults *)(gSelectState + 0x204);

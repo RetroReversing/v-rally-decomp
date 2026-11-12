@@ -26,7 +26,11 @@ func_80055424(pack_id,(u16)(size+extra_size),pack);
 pack->tex=(Tex3**)((u8*)pack+8);
 p=(u8*)pack+(pack->count*4+8);
 for(i=0;i<pack->count;i++){
+#ifdef PORT
+while(((unsigned long)p)&7)p++;
+#else
 while((u32)p&7)p++;
+#endif
 pack->tex[i]=(Tex3*)p;
 p+=32;
 pack->tex[i]->pal=(u8**)p;
@@ -52,7 +56,11 @@ else p+=(pack->tex[i]->width*pack->tex[i]->height)*4;
 pack->tex[i]->pal[0]=p;
 p+=pack->tex[i]->type*2;
 for(j=0;j<n1;j++){
+#ifdef PORT
+while(((unsigned long)p)&7)p++;
+#else
 while((u32)p&7)p++;
+#endif
 pack->tex[i]->image[j]=p;
 if(pack->tex[i]->type==16)p+=(pack->tex[i]->width*pack->tex[i]->height)/2;
 else if(pack->tex[i]->type==0x109)p+=pack->tex[i]->width*pack->tex[i]->height;
@@ -64,7 +72,11 @@ for(j=0;j<a1;j++){
 pack->tex[i]->pal[j]=p;
 p+=pack->tex[i]->type*2;
 }
+#ifdef PORT
+while(((unsigned long)p)&7)p++;
+#else
 while((u32)p&7)p++;
+#endif
 pack->tex[i]->image[0]=p;
 if(pack->tex[i]->type==16)p+=(pack->tex[i]->width*pack->tex[i]->height)/2;
 else if(pack->tex[i]->type==256)p+=pack->tex[i]->width*pack->tex[i]->height;

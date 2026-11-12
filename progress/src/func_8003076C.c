@@ -8,8 +8,17 @@ void func_8003076C(void *arg0, s32 arg1, void *arg2)
 
     if (arg1 < (s32) *(u16 *)((u8 *)arg0 + 0x88)) {
         temp_v1 = arg1 * 0xC;
+#ifdef PORT
+        {
+            u8 *rec = (u8 *)((VRFuncSub *)*(void **)((u8 *)arg0 + 0x78))->items + temp_v1;
+            *(u16 *)arg2 = (u16) *(u16 *)(rec + 6);
+            *(u16 *)((u8 *)arg2 + 2) = (u16) *(u16 *)(rec + 8);
+            *(u16 *)((u8 *)arg2 + 4) = (u16) *(u16 *)(rec + 0xA);
+        }
+#else
         *(u16 *)arg2 = (u16) *(u16 *)((temp_v1 + (s32)((VRFuncSub *)*(void **)((u8 *)arg0 + 0x78))->items) + 6);
         *(u16 *)((u8 *)arg2 + 2) = (u16) *(u16 *)((temp_v1 + (s32)((VRFuncSub *)*(void **)((u8 *)arg0 + 0x78))->items) + 8);
         *(u16 *)((u8 *)arg2 + 4) = (u16) *(u16 *)((temp_v1 + (s32)((VRFuncSub *)*(void **)((u8 *)arg0 + 0x78))->items) + 0xA);
+#endif
     }
 }

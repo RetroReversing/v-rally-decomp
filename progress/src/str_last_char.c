@@ -1,6 +1,6 @@
-void func_8009A6C4();
+void debug_port_send();
 
-/* Passes the string on through func_8009A6C4, then returns its last character (0 if the
+/* Passes the string on through debug_port_send, then returns its last character (0 if the
  * string is empty). */
 s8 str_last_char(s8 *str) {
     s32 prev;
@@ -9,7 +9,7 @@ s8 str_last_char(s8 *str) {
     u8 cur;
 
     p = str;
-    func_8009A6C4();
+    debug_port_send();
     cur = (u8) *p;
     last = 0;
     if (*p != 0) {

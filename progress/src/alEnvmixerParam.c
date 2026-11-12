@@ -5,7 +5,7 @@ s32 alEnvmixerParam(char *env, s32 type, s32 *value)
 {
     char *obj = env;
     s32 *input;
-    s32 *last;
+    s32 **last;
     s32 (*handler)(s32 *, s32);
 
     switch (type) {
@@ -15,7 +15,7 @@ s32 alEnvmixerParam(char *env, s32 type, s32 *value)
     case 3:
         last = *(s32 **)(env + 0x40);
         if (last != NULL) {
-            *last = (s32)value;
+            *last = value;
         } else {
             *(s32 **)(env + 0x3C) = value;
         }

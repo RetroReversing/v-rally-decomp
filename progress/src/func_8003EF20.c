@@ -1,6 +1,6 @@
-extern s32 gRecords;
+extern u8 *gRecords;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Finds the node in the list at gOrderState+0x73F0 whose id matches this car's kind (+0xA8 owner),
  * then sets the car's value at +0x7A from that node's record slot. Does nothing if no node matches. */

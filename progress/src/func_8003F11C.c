@@ -1,7 +1,7 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
 extern u8 D_800A4B48[];
-void *named_entry_lookup(void **, u8 *);
+void *list_find_node(void **, u8 *);
 void *find_object_by_id(s32);
 
 /* Per-frame update of an object's state from the link it is attached to: it
@@ -30,7 +30,7 @@ void func_8003F11C(void *object) {
             if ((kind == 1) && (flags & 0x100))
             {
                 *((s16 *) (car + 0x7A)) = 1;
-                prev = *((u8 **) (gStreamState + 0x32F2));
+                prev = *((u8 **) (stream_state + 0x32F2));
                 *((u32 *) (car + 0x80)) &= ~4;
                 if ((*((u16 *) (prev + 0xE))) == kind)
                 {
@@ -57,8 +57,8 @@ void func_8003F11C(void *object) {
 
                 if (kind == 0)
                 {
-                    buf = find_object_by_id(((*((u16 *) ((*((u8 **) (gStreamState + 0x32F2))) + 0xE))) * 2) + 2);
-                    if (named_entry_lookup((void **)(buf + 0x28), (u8 *)(D_800A4B48)) != 0)
+                    buf = find_object_by_id(((*((u16 *) ((*((u8 **) (stream_state + 0x32F2))) + 0xE))) * 2) + 2);
+                    if (list_find_node((void **)(buf + 0x28), (u8 *)(D_800A4B48)) != 0)
                     {
                         *((u32 *) (car + 0x80)) |= 4;
                     }

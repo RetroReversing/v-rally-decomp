@@ -30,9 +30,15 @@ void alSynSetPan(void *synth, void *voice, s32 pan)
       *((s16 *) (((char *) param) + 8)) = 0xC;
       do
       {
+#ifdef PORT
+        *((s32 *) (((char *) param) + 0xC)) = panValue & 0xFF;
+        *((s32 *) (((char *) param) + 0)) = 0;
+        time += *((s32 *) (((char *) handler) + 0xD8));
+#else
         handler = (s32 (*)(void *, s32, void *)) (panValue & 0xFF);
         do { *((s32 (**)(void *, s32, void *)) (((char *) param) + 0xC)) = handler; *((s32 *) (((char *) param) + 0)) = 0; } while (0);
         time += obj;
+#endif
         *((s32 *) (((char *) param) + 4)) = time;
       }
       while (0);

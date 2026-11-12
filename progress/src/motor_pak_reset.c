@@ -1,6 +1,6 @@
 s32 __osMotorAccess();
 s32 osMotorInit();
-extern s32 gContCtx;
+extern s32 gControllerInputContext;
 extern char gOrderState[];
 static inline int contPfsOffset(s32 channel)
 {
@@ -15,14 +15,14 @@ void motor_pak_reset(s32 channel, s32 doInitFirst)
   void *msgQueue;
   if (doInitFirst & 0xFF)
   {
-    osMotorInit(gOrderState + 0x5A38, gContCtx + contPfsOffset(channel), channel);
+    osMotorInit(gOrderState + 0x5A38, gControllerInputContext + contPfsOffset(channel), channel);
   }
   msgQueue = gOrderState + 0x5A38;
   pfsOffset = contPfsOffset(channel);
-  osMotorInit(msgQueue, gContCtx + pfsOffset, channel);
-  __osMotorAccess(gContCtx + pfsOffset, 0);
-  osMotorInit(msgQueue, gContCtx + pfsOffset, channel);
-  __osMotorAccess(gContCtx + pfsOffset, 0);
-  osMotorInit(msgQueue, gContCtx + pfsOffset, channel);
-  __osMotorAccess(gContCtx + pfsOffset, 0);
+  osMotorInit(msgQueue, gControllerInputContext + pfsOffset, channel);
+  __osMotorAccess(gControllerInputContext + pfsOffset, 0);
+  osMotorInit(msgQueue, gControllerInputContext + pfsOffset, channel);
+  __osMotorAccess(gControllerInputContext + pfsOffset, 0);
+  osMotorInit(msgQueue, gControllerInputContext + pfsOffset, channel);
+  __osMotorAccess(gControllerInputContext + pfsOffset, 0);
 }

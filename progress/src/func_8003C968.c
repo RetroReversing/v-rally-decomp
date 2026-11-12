@@ -13,7 +13,7 @@ void *getTexturePack(s32, s32);
 /* Adds the two HUD marker sprites for slot 'slot' to the list 'sprite_list',
  * placed by the record mode: a pair beside the slot in mode 1, a pair under
  * the slot in mode 2 (or beside it when the record has no flag bit set). */
-void func_8003C968(s32 sprite_list, s32 tex_table, u16 slot)
+void func_8003C968(void *sprite_list, s32 tex_table, u16 slot)
 {
   Obj *obj;
   Ent *ent;
@@ -39,20 +39,20 @@ void func_8003C968(s32 sprite_list, s32 tex_table, u16 slot)
   switch (mode)
   {
     case 1:
-      spr = ((Spr *)sprite_create((void *)(sprite_list), w - 0x2D, y + 0x1A, (s16)(2), func_8003C8A4, 0));
+      spr = ((Spr *)sprite_create(sprite_list, w - 0x2D, y + 0x1A, (s16)(2), func_8003C8A4, 0));
       spr->tex = getTexturePack(tex_table + 0x4C, 0);
       spr->frame = 0;
-      spr = ((Spr *)sprite_create((void *)(sprite_list), rx + 0xFFEA, y + 0x1A, (s16)(2), func_8003C8A4, 0));
+      spr = ((Spr *)sprite_create(sprite_list, rx + 0xFFEA, y + 0x1A, (s16)(2), func_8003C8A4, 0));
       spr->tex = getTexturePack(tex_table + 0x4C, 0);
       spr->frame = 1;
       break;
     case 2:
       if (hud->flags & 1)
       {
-        spr = ((Spr *)sprite_create((void *)(sprite_list), w + 8, ty, (s16)(2), func_8003C8A4, 0));
+        spr = ((Spr *)sprite_create(sprite_list, w + 8, ty, (s16)(2), func_8003C8A4, 0));
         spr->tex = getTexturePack(tex_table + 0x4C, 0);
         spr->frame = 0;
-        spr = ((Spr *)sprite_create((void *)(sprite_list), w + 0xF, ty, (s16)(2), func_8003C8A4, 0));
+        spr = ((Spr *)sprite_create(sprite_list, w + 0xF, ty, (s16)(2), func_8003C8A4, 0));
         spr->tex = getTexturePack(tex_table + 0x4C, 0);
         spr->frame = 1;
       }
@@ -62,10 +62,10 @@ void func_8003C968(s32 sprite_list, s32 tex_table, u16 slot)
         {
           lx = x + 6;
         }
-        spr = ((Spr *)sprite_create((void *)(sprite_list), lx + 0x1A, h - 0x12, (s16)(2), func_8003C8A4, 0));
+        spr = ((Spr *)sprite_create(sprite_list, lx + 0x1A, h - 0x12, (s16)(2), func_8003C8A4, 0));
         spr->tex = getTexturePack(tex_table + 0x4C, 0);
         spr->frame = 0;
-        spr = ((Spr *)sprite_create((void *)(sprite_list), lx + 0x21, h - 0x12, (s16)(2), func_8003C8A4, 0));
+        spr = ((Spr *)sprite_create(sprite_list, lx + 0x21, h - 0x12, (s16)(2), func_8003C8A4, 0));
         spr->tex = getTexturePack(tex_table + 0x4C, 0);
         spr->frame = 1;
       }

@@ -11,6 +11,8 @@ void func_8003E134(void *object) {
     char *cfg;
     u32 kind;
     s32 delta;
+    s32 val;
+    s32 id;
 
     owner = *((char **) (obj + 0xA8));
     sub = *((char **) (owner + 0x24));
@@ -20,20 +22,20 @@ void func_8003E134(void *object) {
         if (kind >= 2) {
             cfg = *((char **) (owner + 0x178));
             delta = -1;
-            node = (char *) ((*((u16 *) (cfg + 0xA))) + 6);
+            val = (*((u16 *) (cfg + 0xA))) + 6;
         } else {
             cfg = *((char **) (owner + 0x178));
             delta = 1;
-            node = (char *) ((*((u16 *) (cfg + 0xA))) + 0x10);
+            val = (*((u16 *) (cfg + 0xA))) + 0x10;
         }
-        *((s16 *) (obj + 0xE)) = (s16) ((s32) node);
+        *((s16 *) (obj + 0xE)) = (s16) val;
         node = *((char **) (gOrderState + 0x73F0));
         sub = *((char **) node);
         if (sub != 0) {
             do {
-                node = *((char **) ((*((char **) (sub + 0x6C))) + 8));
-                if (node == ((char *) (kind + ((u32) delta)))) {
-                    *((s16 *) (obj + 0x7A)) = (s16) ((s32) node);
+                id = *((s32 *) ((*((char **) (sub + 0x6C))) + 8));
+                if (id == (s32) (kind + ((u32) delta))) {
+                    *((s16 *) (obj + 0x7A)) = (s16) id;
                     return;
                 }
                 sub = *((char **) (sub + 4));

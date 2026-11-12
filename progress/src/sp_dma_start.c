@@ -1,6 +1,6 @@
 s32 osVirtualToPhysical();
 s32 func_800914E0();
-s32 func_80095960();
+s32 sp_status_busy();
 extern char D_800A722C[];
 extern char D_800A7230[];
 
@@ -18,7 +18,7 @@ s32 sp_dma_start(s32 from_rdram, s32 mem_addr, s32 dram_addr, s32 len) {
     if (len & 7) {
         func_800914E0(D_800A722C, D_800A7230, 0x3C);
     }
-    if (func_80095960() != 0) {
+    if (sp_status_busy() != 0) {
         return -1;
     }
     *(vs32 *)0xA4040000 = mem_addr;

@@ -18,12 +18,35 @@ typedef struct S1 {
     u16 unk8A;
 } S1;
 
-void func_8002D2C8(s32, s32, s16, Vec3s *);
+void angle_atan2_thunk(s32, s32, s16, Vec3s *);
 
 /* Advances a position by the current path entry's offset and steps the object's
    path index: pos gets the entry's x/y/z plus the object's base offsets, then the
-   step to the next entry (unk8A entries on) is passed to func_8002D2C8. */
+   step to the next entry (unk8A entries on) is passed to angle_atan2_thunk. */
 void func_8001C444(s32 *pos, S1 *obj) {
+#ifdef PORT
+    s32 idx;
+    Vec3s *next;
+    s32 dx, baseX;
+    Vec3s *verts;
+    Vec3s *cur;
+
+    idx = obj->unk88 >> 1;
+    idx *= obj->unk8A;
+    idx += obj->unk4C;
+
+    baseX = obj->unk24;
+    verts = obj->unk54;
+    cur = (Vec3s *)((u8 *)verts + idx * 6);
+    dx = cur->x;
+    dx += baseX;
+    pos[0] += dx;
+    pos[1] = (cur->y + obj->unk28) - 0x96;
+    pos[2] += cur->z + obj->unk2C;
+    idx += obj->unk8A;
+    next = (Vec3s *)((u8 *)verts + idx * 6);
+    angle_atan2_thunk(next->x - cur->x, next->z - cur->z, next->x, cur);
+#else
     s32 idx;
     s32 byteOff;
     Vec3s *next;
@@ -44,5 +67,6 @@ void func_8001C444(s32 *pos, S1 *obj) {
     pos[2] += ((Vec3s *)(byteOff + (int)obj->unk54))->z + obj->unk2C;
     idx += obj->unk8A;
     next = (Vec3s *)(idx * 6 + (int)obj->unk54);
-    func_8002D2C8(next->x - ((Vec3s *)(byteOff + (int)obj->unk54))->x, next->z - ((Vec3s *)(byteOff + (int)obj->unk54))->z, next->x, (Vec3s *)(byteOff + (int)obj->unk54));
+    angle_atan2_thunk(next->x - ((Vec3s *)(byteOff + (int)obj->unk54))->x, next->z - ((Vec3s *)(byteOff + (int)obj->unk54))->z, next->x, (Vec3s *)(byteOff + (int)obj->unk54));
+#endif
 }

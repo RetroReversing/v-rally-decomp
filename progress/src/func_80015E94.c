@@ -1,6 +1,6 @@
 s32 func_8001B730();
 s32 memset();
-s32 copyStringAligned();
+s32 strCpy();
 
 /* Looks up an entry by a 4-character key and its second word, scanning the 56-byte entries that follow the header at offset 60; returns the match or NULL. */
 void *func_80015E94(void *table, void *name)
@@ -17,7 +17,7 @@ void *func_80015E94(void *table, void *name)
 
   func_8001B730(name);
   memset(key_buf, 0, 12);
-  copyStringAligned(key_buf, name);
+  strCpy(key_buf, name);
   i = 0;
   count = *((u16 *) (((u8 *) table) + 32));
   p = &key_buf[1];

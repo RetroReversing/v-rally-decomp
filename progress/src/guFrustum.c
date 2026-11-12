@@ -1,3 +1,6 @@
+void guMtxIdentF(float mf[4][4]);
+void guMtxF2L(float mf[4][4], long *m);
+
 /* Builds a perspective frustum matrix from the near/far planes and the view box, scales every
    element by scale, and stores it in the 16.16 fixed-point matrix m. */
 void guFrustum(long *m, float left, float right, float bottom, float top, float near, float far, float scale)

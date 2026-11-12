@@ -20,7 +20,7 @@ u32 __osContRamWrite(void *, s32, u16, u8 *, s32);
 void __osCopyBytes(void *, void *, s32);
 extern s32 D_800A3B30;
 extern u8 D_800A3B34;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 static __inline__ u16 sumcalc(u8 *ptr, int len)
 {
@@ -48,7 +48,7 @@ s32 __osPfsRWInode(OSPfsX *pfs, u8 *inode, u8 flag, u8 bank)
     int offset;
 
     if (flag == 0 && bank == D_800A3B34 && pfs->channel == D_800A3B30) {
-        __osCopyBytes(gStreamState + 0x7062, inode, 0x100);
+        __osCopyBytes(stream_state + 0x7062, inode, 0x100);
         return 0;
     }
     if (pfs->activebank != 0) {
@@ -91,7 +91,7 @@ s32 __osPfsRWInode(OSPfsX *pfs, u8 *inode, u8 flag, u8 bank)
         }
     }
     D_800A3B34 = bank;
-    __osCopyBytes(inode, gStreamState + 0x7062, 0x100);
+    __osCopyBytes(inode, stream_state + 0x7062, 0x100);
     D_800A3B30 = pfs->channel;
     return 0;
 }

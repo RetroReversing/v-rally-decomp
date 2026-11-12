@@ -13,7 +13,7 @@ struct Node
 };
 extern Node *heapRegionHead;
 extern u32 heapRegionFreeSize;
-extern u32 gHeapCallerRa;
+extern u8 *gHeapCallerRa;
 extern void (*heapPanicFn)(void *);
 extern void *heapInitBlock(void *, u32);
 extern u32 heapMaxFreeSize(Node *);
@@ -30,7 +30,7 @@ void *heapAlloc(void *arg0, u32 arg1)
   a0 = (Node *) (((u8 *) block) - 0x14);
   if (size == 0)
   {
-    heapPanicFn(((u8 *) gHeapCallerRa) - 4);
+    heapPanicFn(gHeapCallerRa - 4);
     for (;;)
     {
       ;
@@ -40,8 +40,12 @@ void *heapAlloc(void *arg0, u32 arg1)
   best = 0;
   if (a0->busy == 0)
   {
+#ifdef PORT
+    best_size = (u8 *) a0->next - 0x14 - (u8 *) a0;
+#else
     u32 end = ((u32) a0->next) - 0x14;
     best_size = end - ((u32) a0);
+#endif
     if ((size + 0x1c) < best_size)
     {
       a0->busy = 1;
@@ -64,8 +68,12 @@ void *heapAlloc(void *arg0, u32 arg1)
     {
       if (block->used == 0)
       {
+#ifdef PORT
+        u32 span = (u8 *) block->next - 0x14 - (u8 *) block;
+#else
         u32 end = ((u32) block->next) - 0x14;
         u32 span = end - ((u32) block);
+#endif
         if ((span >= size) && ((span < best_size) || (best == 0)))
         {
           best_size = span;

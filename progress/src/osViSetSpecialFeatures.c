@@ -45,7 +45,7 @@ typedef struct {
     __OSViScale y;
 } __OSViContext;
 
-extern __OSViContext *__osViCurr;
+extern __OSViContext *viCurrent;
 u32 osDisableInt(void);
 void osRestoreInt(u32);
 
@@ -58,40 +58,40 @@ void osViSetSpecialFeatures(u32 func) {
     saveMask = osDisableInt();
 
     if ((func & 0x0001) != 0) {
-        __osViCurr->control |= 0x00008;
+        viCurrent->control |= 0x00008;
     }
 
     if ((func & 0x0002) != 0) {
-        __osViCurr->control &= ~0x00008;
+        viCurrent->control &= ~0x00008;
     }
 
     if ((func & 0x0004) != 0) {
-        __osViCurr->control |= 0x00004;
+        viCurrent->control |= 0x00004;
     }
 
     if ((func & 0x0008) != 0) {
-        __osViCurr->control &= ~0x00004;
+        viCurrent->control &= ~0x00004;
     }
 
     if ((func & 0x0010) != 0) {
-        __osViCurr->control |= 0x00010;
+        viCurrent->control |= 0x00010;
     }
 
     if ((func & 0x0020) != 0) {
-        __osViCurr->control &= ~0x00010;
+        viCurrent->control &= ~0x00010;
     }
 
     if ((func & 0x0040) != 0) {
-        __osViCurr->control |= 0x10000;
-        __osViCurr->control &= ~0x00300;
+        viCurrent->control |= 0x10000;
+        viCurrent->control &= ~0x00300;
     }
 
     if ((func & 0x0080) != 0) {
-        __osViCurr->control &= ~0x10000;
-        __osViCurr->control |= __osViCurr->modep->comRegs.ctrl & 0x00300;
+        viCurrent->control &= ~0x10000;
+        viCurrent->control |= viCurrent->modep->comRegs.ctrl & 0x00300;
     }
 
-    __osViCurr->state |= 0x08;
+    viCurrent->state |= 0x08;
 
     osRestoreInt(saveMask);
 }

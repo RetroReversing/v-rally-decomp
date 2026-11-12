@@ -25,7 +25,7 @@ typedef struct
   Obj *obj;
 } Node;
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 D_800A5CE4[] __attribute__((aligned(4)));
 extern u8 D_800A5D18[] __attribute__((aligned(4)));
 extern u8 D_800A5D24[] __attribute__((aligned(4)));
@@ -34,7 +34,7 @@ extern s8 gStreamPhase;
 extern volatile short asset_list_teardown(void);
 extern void records_restore_from_order();
 extern void select_reset_text(s32, s32);
-extern void func_8005C198(s32, s32);
+extern void select_arm_if_clear(s32, s32);
 extern void buildLinkPacket(void);
 extern void func_8006F424(void);
 extern void save_race_to_pak(void);
@@ -51,12 +51,12 @@ extern void func_80072364(void);
 s32 func_80072090(s32 a0, s32 a1)
 {
   s32 mode = (gOrderState[0x7FC9]) ? (4) : (8);
-  T3508 *p = *((T3508 **) (gStreamState + 0x325A));
+  T3508 *p = *((T3508 **) (stream_state + 0x325A));
   Node *n = (Node *) (((u8 *) p->ptr) + (((s32) p->index) * 20));
   s32 state;
   if ((*((s32 *) (gOrderState + 0x8030))) != 3)
   {
-    func_8005C198(*((s32 *) (gOrderState + 0x8030)), mode);
+    select_arm_if_clear(*((s32 *) (gOrderState + 0x8030)), mode);
     __builtin_memcpy(&gSelectState->x204, D_800A5D18, 11);
     select_reset_text(a0, a1);
     state = 4;

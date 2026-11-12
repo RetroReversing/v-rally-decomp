@@ -1,5 +1,5 @@
 void *gfx_get_dl(s32);
-s32 gfx_set_dl(s32, s32);
+s32 gfx_set_dl(s32, void *);
 s32 gfx_push_mtx(s32, s32);
 s32 gfx_set_quad_pos(s32, s32, s16, s16, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 gfx_append_quad(s32, s32);

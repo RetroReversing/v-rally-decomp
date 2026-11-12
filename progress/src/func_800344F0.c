@@ -10,7 +10,7 @@ typedef struct MinT { u32 min; char pad[0x14]; } MinT;
 typedef struct Cfg { char pad0[0x16]; u16 sel; } Cfg;
 
 extern s32 func_8001FEDC(Car *);
-extern s32 func_8002D2A0(s32);
+extern s32 int_sqrt(s32);
 extern void func_8002E778(s32 *, s32 *);
 extern void track_sample_lookup(Node *, s32, s32 *);
 extern s32 gSnapIndex;
@@ -77,7 +77,7 @@ void func_800344F0(Out *out, Car *car) {
         pos[0] -= car->pos->x;
         pos[2] -= car->pos->z;
         func_8002E778(pos, pos);
-        out->dist = func_8002D2A0(pos[0] + pos[2]);
+        out->dist = int_sqrt(pos[0] + pos[2]);
     } else {
         out->dist = 65000;
     }

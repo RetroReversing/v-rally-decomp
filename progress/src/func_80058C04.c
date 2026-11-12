@@ -30,7 +30,7 @@ s32 func_80081664(s32, void *);
 s32 make_rect_set(s32);
 void rect_set_set_scale(s32, f32, f32, f32);
 void rect_set_set_item_pos(s32, s32, s32);
-void func_8000C22C(void *, s32, s32, s32, u8);
+void font_set_color(void *, s32, s32, s32, u8);
 
 /* Queues one result rect per entry of the item (three entries per group, 0xE4
  * bytes each), stores them in the current queue slot and advances the frame. */
@@ -65,8 +65,16 @@ void func_80058C04(VRItem *item)
       ((VRResultBlock *) gSelectState)->results[gSelectState->current] = make_rect_set(((VRValueBlock *) gSelectState)->values[gSelectState->current]);
       rect_set_set_scale(((VRResultBlock *) gSelectState)->results[gSelectState->current], 1.0f, 1.0f, 1.0f);
       i++;
+      #ifdef PORT
+      rect_set_set_item_pos(((VRResultBlock *) gSelectState)->results[gSelectState->current], *((s32 *) (((u8 *) item + entry_off) + 0xDC)), *((s32 *) (((u8 *) item + entry_off) + 0x128)));
+#else
       rect_set_set_item_pos(((VRResultBlock *) gSelectState)->results[gSelectState->current], *((s32 *) ((entry_off + ((s32) item)) + 0xDC)), *((s32 *) ((entry_off + ((s32) item)) + 0x128)));
-      func_8000C22C((void *)(((VRResultBlock *) gSelectState)->results[gSelectState->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
+#endif
+      #ifdef PORT
+      font_set_color((void *)(uintptr_t)(((VRResultBlock *) gSelectState)->results[gSelectState->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
+#else
+      font_set_color((void *)(((VRResultBlock *) gSelectState)->results[gSelectState->current]), (s32)(200), (s32)(200), (s32)(200), (u8)(255));
+#endif
       gSelectState->current++;
     }
     while (((u8) i) < (item->count / 3));

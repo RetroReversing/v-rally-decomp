@@ -12,9 +12,9 @@ typedef struct {
     u8 data[32];
     u8 datacrc;
 } __OSContRamReadFormat;
-extern u8 D_800C3520;
+extern u8 __osPfsLastCmd;
 extern s32 D_800A3B40;
-extern OSPifRam D_800C8130;
+extern OSPifRam __osPifBuf;
 s32 __osContAddressCrc(u32);
 u8 __osContDataCrc(void *);
 s32 pif_lock();
@@ -25,7 +25,7 @@ u32 getPakStatus();
 s32 osRecvMesg(s32, s32, s32);
 
 /* Reads one 32-byte block from controller-pak RAM at 'address' into 'buffer',
- * building the PIF command block in D_800C8130 (reused when the same channel
+ * building the PIF command block in __osPifBuf (reused when the same channel
  * was used last). Retries up to 3 times on a bad data CRC, then returns the
  * result (0 ok, 1 error, 4 retry exhausted, or the error from getPakStatus). */
 u32 __osContRamRead(s32 mq, s32 channel, u16 address, s32 buffer)
@@ -36,16 +36,16 @@ u32 __osContRamRead(s32 mq, s32 channel, u16 address, s32 buffer)
     s32 tries;
 
     res = 0;
-    cmd = (u8 *)&D_800C8130;
+    cmd = (u8 *)&__osPifBuf;
     tries = 2;
     pif_lock();
-    if (D_800C3520 != 2 || D_800A3B40 != channel) {
-        D_800C3520 = 2;
+    if (__osPfsLastCmd != 2 || D_800A3B40 != channel) {
+        __osPfsLastCmd = 2;
         D_800A3B40 = channel;
         for (i = 0; i < channel; i++) {
             *cmd++ = 0;
         }
-        D_800C8130.pifstatus = 1;
+        __osPifBuf.pifstatus = 1;
         ((__OSContRamReadFormat *)cmd)->dummy = 0xFF;
         ((__OSContRamReadFormat *)cmd)->txsize = 3;
         ((__OSContRamReadFormat *)cmd)->rxsize = 0x21;
@@ -57,10 +57,10 @@ u32 __osContRamRead(s32 mq, s32 channel, u16 address, s32 buffer)
     }
     ((__OSContRamReadFormat *)cmd)->addrh = address >> 3;
     ((__OSContRamReadFormat *)cmd)->addrl = __osContAddressCrc(address) | (address << 5);
-    __osSiRawStartDma(1, &D_800C8130);
+    __osSiRawStartDma(1, &__osPifBuf);
     osRecvMesg(mq, 0, 1);
     do {
-        __osSiRawStartDma(0, &D_800C8130);
+        __osSiRawStartDma(0, &__osPifBuf);
         osRecvMesg(mq, 0, 1);
         res = (((__OSContRamReadFormat *)cmd)->rxsize & 0xC0) >> 4;
         if (res == 0) {

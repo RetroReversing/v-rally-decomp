@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern f32 D_800C35D8;
 extern void *gSoundState;
 extern s32 D_800B0BC4;
@@ -22,42 +22,48 @@ extern s32 func_80089980(void);
 /* Audio bring-up: sets default channel volumes and pan in the sound state block,
  * allocates the sequence/sound heap, fills the MusInitialize parameter block and
  * the per-track table, then starts the music driver. Returns MusInitialize's result. */
+#ifdef PORT
+typedef unsigned long uintptr_t;
+#define PARAM_T uintptr_t
+#else
+#define PARAM_T s32
+#endif
 s32 func_80037AA4(s32 musicVoices, s32 sfxVoices)
 {
   s32 i;
   s32 *cfg;
-  s32 initParams[16];
+  PARAM_T initParams[16];
   f32 volume = 0.625f;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331A)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331C)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331D)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331E)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331F)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x3320)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x3321)) = 255;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x331B)) = 0;
-  *((u8 *) (((s8 *) (&gStreamState)) + 0x333E)) = 1;
-  *((f32 *) (((s8 *) (&gStreamState)) + 0x332A)) = volume;
-  *((f32 *) (((s8 *) (&gStreamState)) + 0x332E)) = volume;
-  *((f32 *) (((s8 *) (&gStreamState)) + 0x3332)) = volume;
-  *((f32 *) (((s8 *) (&gStreamState)) + 0x3336)) = 70.0f;
-  *((f32 *) (((s8 *) (&gStreamState)) + 0x333A)) = volume;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331A)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331C)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331D)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331E)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331F)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x3320)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x3321)) = 255;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x331B)) = 0;
+  *((u8 *) (((s8 *) (&stream_state)) + 0x333E)) = 1;
+  *((f32 *) (((s8 *) (&stream_state)) + 0x332A)) = volume;
+  *((f32 *) (((s8 *) (&stream_state)) + 0x332E)) = volume;
+  *((f32 *) (((s8 *) (&stream_state)) + 0x3332)) = volume;
+  *((f32 *) (((s8 *) (&stream_state)) + 0x3336)) = 70.0f;
+  *((f32 *) (((s8 *) (&stream_state)) + 0x333A)) = volume;
   {
     s32 allocation = func_8007ED48(1, 0x4650, 8);
-    dmaCopyChunks((s32 *) (&D_A7FE0), D_800B0BC4 = allocation, ((s32) (&D_ABE70)) - ((s32) (&D_A7FE0)), *((s32 *) (((s8 *) (&gOrderState)) + 0x2358)), *((Args5 *) (gOrderState + 0x235C)));
+    dmaCopyChunks((s32 *) (&D_A7FE0), D_800B0BC4 = allocation, ((char *) (&D_ABE70)) - ((char *) (&D_A7FE0)), *((s32 *) (((s8 *) (&gOrderState)) + 0x2358)), *((Args5 *) (gOrderState + 0x235C)));
   }
   initParams[0] = 0;
   initParams[1] = musicVoices & 255;
   initParams[2] = 6;
-  initParams[3] = *((s32 *) (gStreamState + 0x325E));
+  initParams[3] = *((s32 *) (stream_state + 0x325E));
   initParams[4] = 0x48440;
   initParams[5] = D_800B0BC4;
   {
     extern char D_000ABE70[];
-    initParams[6] = (s32) D_000ABE70;
+    initParams[6] = (PARAM_T) D_000ABE70;
   }
-  initParams[7] = (s32) (&D_8009FBCC);
-  initParams[8] = (s32) (&D_8009FCE4);
+  initParams[7] = (PARAM_T) (&D_8009FBCC);
+  initParams[8] = (PARAM_T) (&D_8009FCE4);
   initParams[10] = 0x5622;
   initParams[9] = 0x100;
   initParams[11] = 0x1000;
@@ -66,10 +72,10 @@ s32 func_80037AA4(s32 musicVoices, s32 sfxVoices)
   initParams[14] = 0x1000;
   ((u8 *) initParams)[60] = 28;
   ((u8 *) initParams)[61] = 50;
-  *((void **) (gStreamState + 0x7F26)) = poolAlloc(1, 0x1D4, initParams[3], initParams[5]);
+  *((void **) (stream_state + 0x7F26)) = poolAlloc(1, 0x1D4, initParams[3], initParams[5]);
   i = 0;
-  setSoundEntryTable(*((u8 *) (((s8 *) (&gStreamState)) + 0x32AD)));
-  cfg = (s32) (*((void **) (((s8 *) (&gStreamState)) + 0x7F26)));
+  setSoundEntryTable(*((u8 *) (((s8 *) (&stream_state)) + 0x32AD)));
+  cfg = (s32 *) (*((void **) (((s8 *) (&stream_state)) + 0x7F26)));
   cfg[0x6C / 4] = 0x10;
   cfg[0x60 / 4] = 0x11;
   cfg[0x54 / 4] = 0x12;
@@ -104,7 +110,7 @@ s32 func_80037AA4(s32 musicVoices, s32 sfxVoices)
     *((((u8 *) gSoundState) + (i * 12)) + 8) = 0;
   }
 
-  i = MusInitialize(initParams);
+  i = MusInitialize((s32 *) initParams);
   MusSetMasterVolume(3, (s32) (D_800C35D8 * 32767.0f));
   func_80089980();
   return i;

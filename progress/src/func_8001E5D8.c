@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8001E5D8(void) {
+/* Empty stub: does nothing (a no-op hook). */ void func_8001E5D8(void) {
 
 }

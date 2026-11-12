@@ -1,7 +1,7 @@
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 D_800A4FE4[];
-extern u8 *gCarEntries;
+extern u8 *gCarEntryTable;
 extern u8 *gRecords;
 s32 flag_test_bit0(void *);
 void initRaceSession(void);
@@ -30,7 +30,11 @@ static inline static void copy4(void *destination, void *source, u32 bytes)
   u32 *d = destination;
   u32 *s = (u32 *) (((u8 *) source) + bytes);
   u32 n;
+#ifdef PORT
+  if ((((unsigned long) d) < ((unsigned long) s)) & (((unsigned long) source) < ((unsigned long) d)))
+#else
   if ((((u32) d) < ((u32) s)) & (((u32) source) < ((u32) d)))
+#endif
   {
     n = bytes >> 2;
     d = (u32 *) (((u8 *) d) + bytes);
@@ -64,7 +68,11 @@ static inline static void copyfinal4(void *source, void *destination, u32 bytes)
   u32 *d = destination;
   u32 *s = (u32 *) (((u8 *) source) + bytes);
   u32 n;
+#ifdef PORT
+  if ((((unsigned long) d) < ((unsigned long) s)) & (((unsigned long) source) < ((unsigned long) d)))
+#else
   if ((((u32) d) < ((u32) s)) & (((u32) source) < ((u32) d)))
+#endif
   {
     n = bytes >> 2;
     d = (u32 *) (((u8 *) d) + bytes);
@@ -94,7 +102,7 @@ static inline static void copyfinal4(void *source, void *destination, u32 bytes)
 }
 
 /* Loads the saved game/track state from file 'arg0': copies the 0x118-byte
- * header to the state block at gCarEntries, then the entry bodies (sizes
+ * header to the state block at gCarEntryTable, then the entry bodies (sizes
  * rounded up to 4) into their allocations, then the 0xF4-byte record at
  * gRecords with overlap-safe copies, and finally sets the state flags. */
 void func_80050FC4(s32 arg0)
@@ -112,7 +120,7 @@ void func_80050FC4(s32 arg0)
   }
   if (flag_test_bit0(state))
   {
-    hdr = gCarEntries;
+    hdr = gCarEntryTable;
     resolve_path(D_800A4FE4);
     file = func_80081664(1, arg0);
     data = file;
@@ -138,13 +146,22 @@ void func_80050FC4(s32 arg0)
       data += (ent->size0 + 3) & (~3);
     }
 
-    *((Block4 *) (gStreamState + 0x7f66)) = *((Block4 *) gRecords);
+    *((Block4 *) (stream_state + 0x7f66)) = *((Block4 *) gRecords);
     {
+#ifdef PORT
+      unsigned long dest = (unsigned long) gRecords;
+      unsigned long end = ((unsigned long) data) + 0xf4;
+#else
       u32 dest = (u32) gRecords;
       u32 end = ((u32) data) + 0xf4;
+#endif
       u32 *src, *dst;
       s32 n;
+#ifdef PORT
+      if ((dest < end) & (((unsigned long) data) < dest))
+#else
       if ((dest < end) & (((u32) data) < dest))
+#endif
       {
         src = (u32 *) end;
         dst = (u32 *) (dest + 0xf4);
@@ -171,11 +188,11 @@ void func_80050FC4(s32 arg0)
         while (n);
       }
     }
-    *((u16 *) (gRecords + 0x2c)) = (*((u16 *) (gStreamState + 0x7f92))) | 0x10;
+    *((u16 *) (gRecords + 0x2c)) = (*((u16 *) (stream_state + 0x7f92))) | 0x10;
     hdr[0x114] = 0;
     heapFreeBlock(file);
     *((u16 *) (gRecords + 0xe)) = 1;
-    if (gStreamState[0x38f1])
+    if (stream_state[0x38f1])
     {
       *((u16 *) (gRecords + 0x12)) |= 1;
     }

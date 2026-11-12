@@ -1,24 +1,11 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+s32 D_80078760();
+void results_screen_draw();
+extern char stream_state[];
 
-M2C_UNK D_80078760();                               /* extern */
-M2C_UNK func_8007950C();                            /* extern */
-extern M2C_UNK gStreamState;
-
+/* Draws the results panel while the stream state byte at +0x7F4F is 5; otherwise runs the results-screen draw. */
 void func_80078724(void) {
-    if (M2C_FIELD(&gStreamState, u8 *, 0x7F4F) != 5) {
-        func_8007950C();
+    if (*(u8 *)(stream_state + 0x7F4F) != 5) {
+        results_screen_draw();
         return;
     }
     D_80078760();

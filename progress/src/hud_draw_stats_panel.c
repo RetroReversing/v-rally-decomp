@@ -1,0 +1,303 @@
+extern s32 D_800A159C[16];
+typedef struct { u32 w0,w1; } Command;
+typedef struct { char pad[20]; void *cursor; } Packet;
+typedef struct { char pad[0x178]; s32 model; } Actor;
+extern s32 D_800D05D8;
+extern s32 gSelectStepHandle;
+extern s32 D_800B6718[][4];
+void *memcpy(void*, const void*, unsigned int);
+typedef struct { char pad[0x1e]; u16 track,course,slot; char gap[0x2c]; u16 units; } Manager;
+typedef struct { s32 time; char pad[2]; char name[10]; } Record;
+typedef struct { char pad[0x2c]; Record times[8][4]; s32 speed[38]; } Course;
+extern Course *gSlotTableB[];
+extern char hud_ident_mtx[];
+#define MULTU_HI(a,b) ((u32)(((u64)(u32)(a)*(u32)(b))>>32))
+#define sp20 (*(s16 *)buf20)
+#define sp22 (buf20[2])
+#define sp30 (*(s16 *)buf30)
+#define sp38 (*(s16 *)buf38)
+extern char *g_camera;
+extern char *gLeague;
+extern char *gRecords;
+typedef struct 
+{
+  s32 x;
+  s32 y;
+  s32 z;
+} Vec3Word;
+s32 view_set_rect(s32, u16 *);
+void *view_get_ctx_id(s32);
+void *gfx_get_dl(void *);
+s32 gfx_set_dl();
+s32 gfx_push_mtx(void *, s32);
+s32 gfx_draw_fill_rect(s32, s32 *, s32 *);
+s32 camera_refresh_and_copy();
+s32 obj_mtx_visible(s32, void *, s32 *);
+s32 mtx_pool_alloc();
+s32 func_8001C1A8(s32 *, s32 *);
+Actor *find_object_by_id(s32);
+s32 func_8004CF7C(s32, s32, s32, s32, f32, s32, s32);
+s32 draw_item_bar(s32, s32, f32, s32, s32);
+s32 func_80052E94(s32, s16 *);
+s16 *pool_get_item(s32, s32);void *textObjGet(u32);
+s32 group_set_color(void *, u8, u8, u8, s32);
+void draw_palette_sprite(void *, s16, s16, void *);void text_obj_set_enabled(u32);void text_obj_set_disabled(u32);
+s32 func_8005D4A4(s32);
+s32 getRankedIndex(s32);
+s32 memset();
+s32 appendString(s16 *, s32 *);
+s32 format_to_buffer();
+s32 guMtxIdent(void *);
+extern s32 gRecordTimeScale;
+extern u16 D_800A0370;
+extern u16 D_800A0372;
+extern u16 D_800A0374;
+extern u16 D_800A0376;
+extern void *gSelectState;
+extern u8 D_800A14D5;
+extern s32 D_800A14DC;
+extern u16 D_800A155C;
+extern u16 D_800A155E;
+extern u16 D_800A1560;
+extern u16 D_800A1562;
+extern s32 D_800A1564;
+extern s32 D_800A156C;
+extern s32 D_800A1578;
+extern s32 D_800A1584;
+extern s32 D_800A1588;
+extern f32 D_800A158C;
+extern s32 D_800A15D0;
+extern s32 D_800A15DC;
+extern s32 D_800A161C;
+extern s32 D_800A5418;
+extern s32 D_800A541C;
+extern s32 D_800A5428;
+extern s32 D_800A5434;
+extern s32 D_800A54FC;
+extern const char D_800A5504[4] __attribute__((aligned(2)));
+extern s8 D_800A5506;
+extern s32 D_800A5508;
+extern s32 D_800A5524;
+extern s32 D_800A552C;
+extern f64 D_800A5538;
+extern f64 D_800A5540;
+extern f64 D_800A5548;
+extern char gOrderState[];
+extern char stream_state[];
+/* Draws the post-race stats panel: best speed, record times, ranked rows and the camera/GFX setup for the HUD overlay. */ void hud_draw_stats_panel(void)
+{
+  char buf20[16];
+  s32 loop4;
+  s16 *textbuf;
+  char buf30[8];
+  char buf38[24];
+  char *manager;
+  u32 track;
+  u32 course;
+  u16 units;
+  
+  char *table;
+  s32 *var_a1;
+  s32 *var_a1_2;
+  f64 temp_fv1;
+  f32 angle_z;
+  f64 var_fv1;
+  s32 *temp_s0_8;
+  s32 *zeroat;
+  s32 *basevec;
+  s32 temp_a3;
+  s16 temp_s0;
+  s32 temp_s1;
+  s32 temp_v0_2;
+  s32 var_a2;
+  s32 var_s0;
+  s32 var_s0_2;
+
+  s32 var_s3;
+  u32 var_s6;
+  s32 var_s7;
+  s16 var_a2_3;
+  u32 var_hi;
+  s32 temp_a2;
+  u8 var_a2_2;
+  void *temp_s0_4;
+  void *temp_s0_5;
+  void *temp_s0_6;
+  void *temp_s0_7;
+  void *temp_s2_7;
+  void *temp_s4;
+  void *temp_s4_2;
+  void *temp_s5;
+  void *temp_s5_2;
+  void *temp_s2;
+
+
+  void *temp_v0_5;
+  void *temp_v0_6;
+  void *temp_v1;
+  void *temp_v1_2;
+  void *temp_v1_3;
+  void *temp_v1_4;
+  char *actor;
+  memset(&sp20, 0, 0x10);
+  var_s7 = 0;
+  if ((*((u8 *) (((char *) gSelectState) + 0x249))) != 0)
+  {
+    memset(buf38, 0, 0xA);
+    temp_s2 = textObjGet(1);
+    {
+    manager = gRecords;
+track=*((u16*)(manager+0x1e)); course=*((u16*)(manager+0x20)); var_s6=gSlotTableB[track][course].speed[*((u16*)(manager+0x22))];
+ units=*((u16*)(manager+0x50));
+    }
+ if (units == 0) { var_a2 = var_s6 / 1000; var_hi = ((u32) (var_s6 % 1000)) / 100; format_to_buffer(buf38, &D_800A541C, var_a2 & 0xFFFF, var_hi & 0xFFFF); } else { temp_fv1 = (f64) ((s32) var_s6); if (((s32) var_s6) < 0) { temp_fv1 += D_800A5538; } temp_fv1 *= D_800A5540; if (!(temp_fv1 >= D_800A5548)) { var_s6 = (s32) temp_fv1; } else { var_s6 = (s32) (temp_fv1 - D_800A5548); var_s6 |= 0x80000000; } var_a2 = var_s6 / 1000; var_hi = ((u32) (var_s6 % 1000)) / 100; format_to_buffer(buf38, &D_800A5428, var_a2 & 0xFFFF, var_hi & 0xFFFF); } group_set_color(temp_s2, *((u8 *) (((char *) temp_s2) + 0xB)), *((u8 *) (((char *) temp_s2) + 0xC)), *((u8 *) (((char *) temp_s2) + 0xD)), (s32) (*((u8 *) (((char *) temp_s2) + 0xE)))); draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(buf38)); if (D_800A14D5 != 0) { text_obj_set_enabled(0xE); temp_s2 = textObjGet(0xF); group_set_color(temp_s2, *((u8 *) (((char *) temp_s2) + 0xB)), *((u8 *) (((char *) temp_s2) + 0xC)), *((u8 *) (((char *) temp_s2) + 0xD)), (s32) (*((u8 *) (((char *) temp_s2) + 0xE)))); memset(&sp30, 0, 2); if ((*((u16 *) (((char *) gRecords) + 0x1E))) == 0) { var_a2_2 = *((u8 *) (((char *) gRecords) + 0x30)); if (var_a2_2 == 0) { draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(pool_get_item(gSelectStepHandle, 0x174))); } else { format_to_buffer(&sp30, &D_800A5434, var_a2_2); draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 6))), (s16)(*((s16 *) (((char *) temp_s2) + 8))), (void *)(&sp30)); } } else { var_a2_2 = 3; format_to_buffer(&sp30, &D_800A5434, var_a2_2); draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(&sp30)); } } else { text_obj_set_disabled(0xE); } if ((*((s16 *) (((char *) gLeague) + 0x2))) != 4) { temp_s2 = textObjGet(0x10); var_s3 = 0; do { temp_s0 = var_s3 & 0xFF; temp_a2 = temp_s0 + 1; format_to_buffer(&sp20, &D_800A54FC, temp_a2, gSlotTableB[((Manager*)gRecords)->track][((Manager*)gRecords)->course].times[((Manager*)gRecords)->slot][temp_s0].name); var_s3 += 1; draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s2) + 0x8))) + (temp_s0 * 0x16))), (void *)(&sp20)); } while (((u32) (var_s3 & 0xFF)) < 3U); temp_s2 = textObjGet(0x12); temp_s4 = textObjGet(0x11); var_s3 = 0;
+ do { temp_s0 = var_s3 & 0xFF;
+ temp_s1 = gSlotTableB[((Manager*)gRecords)->track][((Manager*)gRecords)->course].times[((Manager*)gRecords)->slot][temp_s0].time; memset(&sp20, 0, 0xF);
+ func_80052E94(temp_s1, &sp20);
+ draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s2) + 0x8))) + (temp_s0 * 0x16))), (void *)(&sp20));
+ if (temp_s0 == 0) { var_s7 = temp_s1;
+ } else { memset(&sp20, 0, 0xF);
+ __builtin_memcpy(&sp20, &D_800A5504, 3);
+ func_80052E94(temp_s1 - var_s7, (s16 *) (&sp22));
+ appendString(&sp20, &D_800A5508);
+ draw_palette_sprite((void *)(temp_s4), (s16)(*((s16 *) (((char *) temp_s4) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s4) + 0x8))) + ((temp_s0 - 1) * 0x16))), (void *)(&sp20));
+ } var_s3 += 1;
+ } while (((u32) (var_s3 & 0xFF)) < 3U);
+ } else if ((*((u16 *) (((char *) gRecords) + 0x22))) != 0) { text_obj_set_enabled(0x14); text_obj_set_enabled(0x18); text_obj_set_enabled(0x19); text_obj_set_enabled(0x1A); temp_s2 = textObjGet(0x10); memset(&sp20, 0, 0x10); var_s3 = 0;  do { var_s0 = var_s3 & 0xFF; format_to_buffer(&sp20, &D_800A54FC, var_s0 + 1, (VRALValue) (gRecords + (((*((u8 *) (((char *) (gRecords + (getRankedIndex(var_s0) & 0xFF))) + 0x32))) * 0x28) + 0x44))); draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s2) + 0x8))) + (var_s0 * 0x16))), (void *)(&sp20)); var_s3 += 1;  } while (((u32) (var_s3 & 0xFF)) < 4U); temp_s2 = textObjGet(0x12); temp_s4_2 = textObjGet(0x11);
+
+  loop4 = 0;
+
+ do { var_s0_2 = 0;
+
+ temp_s1 = 0;
+
+ if ((*((u16 *) (((char *) gRecords) + 0x22))) != 0) { do { temp_v0_2 = D_800B6718[(var_s0_2 & 0xFF)][(getRankedIndex(loop4 & 0xFF)&0xff)];
+
+ var_s0_2 += 1;
+
+ temp_s1 += temp_v0_2;
+
+ } while (((u32) (var_s0_2 & 0xFF)) < ((u16) (*((u16 *) (((char *) gRecords) + 0x22)))));
+
+ } memset(&sp20, 0, 0x10);
+
+ func_80052E94(temp_s1, &sp20);
+
+ temp_s0 = loop4 & 0xFF;
+
+ draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s2) + 0x8))) + (temp_s0 * 0x16))), (void *)(&sp20));
+
+ if (temp_s0 == 0) { var_s7 = temp_s1;
+
+ } else { memset(&sp20, 0, 0x10);
+
+ __builtin_memcpy(&sp20, &D_800A5504, 3);
+
+ func_80052E94(temp_s1 - var_s7, (s16 *) (&sp22));
+
+ appendString(&sp20, &D_800A5508);
+
+ draw_palette_sprite((void *)(temp_s4_2), (s16)(*((s16 *) (((char *) temp_s4_2) + 0x6))), (s16)((s16) ((*((s16 *) (((char *) temp_s4_2) + 0x8))) + ((temp_s0 - 1) * 0x16))), (void *)(&sp20));
+
+ } loop4 += 1;
+
+ } while (((u32) (loop4 & 0xFF)) < 4U);
+
+ } else { text_obj_set_disabled(0x18); text_obj_set_disabled(0x14); text_obj_set_disabled(0x19); text_obj_set_disabled(0x1A); } memset(buf38, 0, 0xA); temp_s2 = textObjGet(3); if ((*((u16 *) (((char *) gRecords) + 0x50))) == 0) { var_a2_3 = ((u32) ((var_s6 * gRecordTimeScale) * 0xE10)) / ((u32) (D_800A14DC * 0x3E8)); format_to_buffer(buf38, &D_800A5524, var_a2_3 & 0xFFFF); } else { var_a2_3 = ((u32) ((var_s6 * gRecordTimeScale) * 0xE10)) / ((u32) (D_800A14DC * 0x3E8)); format_to_buffer(buf38, &D_800A552C, var_a2_3 & 0xFFFF); } group_set_color(temp_s2, *((u8 *) (((char *) temp_s2) + 0xB)), *((u8 *) (((char *) temp_s2) + 0xC)), *((u8 *) (((char *) temp_s2) + 0xD)), (s32) (*((u8 *) (((char *) temp_s2) + 0xE)))); draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(buf38)); temp_s2 = textObjGet(0x15); group_set_color(temp_s2, *((u8 *) (((char *) temp_s2) + 0xB)), *((u8 *) (((char *) temp_s2) + 0xC)), *((u8 *) (((char *) temp_s2) + 0xD)), (s32) (*((u8 *) (((char *) temp_s2) + 0xE)))); 
+    draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(pool_get_item(gSelectStepHandle, (*((u16 *) (((char *) gRecords) + 0x22))) + 0x21A)));
+    temp_s2 = textObjGet(0x16);
+    group_set_color(temp_s2, *((u8 *) (((char *) temp_s2) + 0xB)), *((u8 *) (((char *) temp_s2) + 0xC)), *((u8 *) (((char *) temp_s2) + 0xD)), (s32) (*((u8 *) (((char *) temp_s2) + 0xE))));
+    format_to_buffer(&sp20, &D_800A5418, pool_get_item(gSelectStepHandle, (u8)gSlotTableB[((Manager*)gRecords)->track][((Manager*)gRecords)->course].times[((Manager*)gRecords)->slot][0].name[5] + 0x1E4));
+    draw_palette_sprite((void *)(temp_s2), (s16)(*((s16 *) (((char *) temp_s2) + 0x6))), (s16)(*((s16 *) (((char *) temp_s2) + 0x8))), (void *)(&sp20));
+  }
+  if ((*((u8 *) (((char *) gSelectState) + 0x249))) == 1)
+  {
+    D_800A0370 = D_800A155C;
+    D_800A0372 = D_800A155E;
+    D_800A0374 = D_800A1560;
+    D_800A0376 = D_800A1562;
+  }
+  g_camera = find_object_by_id(3);
+  view_set_rect(((Actor*)g_camera)->model, &D_800A155C);
+  *((Vec3Word *) (g_camera + 0x118)) = *((Vec3Word *) (&D_800A156C));
+  *((Vec3Word *) (g_camera + 0x124)) = *((Vec3Word *) (&D_800A1578));
+  *((s32 *) (((char *) g_camera) + 0x130)) = 0;
+  *((f32 *) (((char *) g_camera) + 0x134)) = 100.0f;
+  *((s32 *) (((char *) g_camera) + 0x138)) = 0;
+  *((f32 *) (((char *) g_camera) + 0x10C)) = 0.4f;
+  *((f32 *) (((char *) g_camera) + 0x110)) = 0.4f;
+  *((f32 *) (((char *) g_camera) + 0x114)) = 1.0f;
+  camera_refresh_and_copy(g_camera, &D_800A155C);
+  temp_v0_6 = view_get_ctx_id(((Actor*)g_camera)->model);
+  temp_s0_4 = gfx_get_dl(temp_v0_6);
+  temp_s2_7 = hud_ident_mtx;
+  temp_s5 = g_camera;
+  guMtxIdent(temp_s2_7);
+#ifdef PORT
+{ uintptr_t *w=(uintptr_t *)temp_s0_4; w[0]=0xDB0E0000; w[1]=(uintptr_t)(*((u16 *) ((char*)temp_s5+0x104))); temp_s0_4+=16; }
+#else
+{ void *p=temp_s0_4; temp_s0_4+=8; *(s32*)p=0xDB0E0000; *(s32*)((char*)p+4)=(u32)(*((u16 *) ((char*)temp_s5+0x104))); }
+#endif
+#ifdef PORT
+{ uintptr_t *w=(uintptr_t *)temp_s0_4; w[0]=0xDA380003; w[1]=(uintptr_t)temp_s2_7; temp_s0_4+=16; }
+#else
+{ void *p=temp_s0_4; temp_s0_4+=8; *(s32*)p=0xDA380003; *(s32*)((char*)p+4)=(u32)temp_s2_7; }
+#endif
+#ifdef PORT
+{ uintptr_t *w=(uintptr_t *)temp_s0_4; w[0]=0xE7000000; w[1]=0; temp_s0_4+=16; }
+#else
+{ void *p=temp_s0_4; temp_s0_4+=8; *(s32*)p=0xE7000000; *(s32*)((char*)p+4)=0; }
+#endif
+#ifdef PORT
+{ uintptr_t *w=(uintptr_t *)temp_s0_4; w[0]=0xD9FFF9FF; w[1]=0; temp_s0_4+=16; }
+#else
+{ void *p=temp_s0_4; temp_s0_4+=8; *(s32*)p=0xD9FFF9FF; *(s32*)((char*)p+4)=0; }
+#endif
+gfx_set_dl(temp_v0_6,temp_s0_4);
+  temp_s5_2 = temp_s5 + 0x38;
+  gfx_draw_fill_rect(((Actor*)g_camera)->model, &D_800A1564, &D_800A161C);
+  var_s6 = mtx_pool_alloc();
+  basevec=&D_800A1584;
+  ((f32*)basevec)[2] += 1.0f;
+  zeroat=&D_800A159C[13];
+  temp_s0_8=zeroat-13;
+  basevec[0] = 0;
+  basevec[1] = 0;
+  *zeroat=0;
+
+  func_8001C1A8(basevec, temp_s0_8);
+  obj_mtx_visible(var_s6, temp_s5_2, temp_s0_8);
+  gfx_push_mtx(temp_v0_6, var_s6);
+ {
+  void *command_ptr;
+  command_ptr = ((Packet*)temp_v0_6)->cursor;
+
+  ((Packet*)temp_v0_6)->cursor = (void *) (command_ptr + 8);
+  ((Command*)command_ptr)->w0 = 0xFB000000;
+  ((Command*)command_ptr)->w1 = -1;
+
+ }
+  draw_item_bar(((Actor*)g_camera)->model, 2, 1.6f, 0, 0xFF);
+  actor=g_camera;
+  temp_v1_3 = ((Packet*)temp_v0_6)->cursor;
+
+  ((Packet*)temp_v0_6)->cursor = (void *) (temp_v1_3 + 8);
+  ((Command*)temp_v1_3)->w0 = 0xFB000000;
+  ((Command*)temp_v1_3)->w1 = 0xFF;
+  draw_item_bar(((Actor*)actor)->model, 0, 1.4f, 0, 0xFF);
+  var_s6 = mtx_pool_alloc();
+  func_8001C1A8(basevec, &D_800A15DC);
+  obj_mtx_visible(var_s6, temp_s5_2, &D_800A15DC);
+  gfx_push_mtx(temp_v0_6, var_s6);
+  temp_v1_4 = ((Packet*)temp_v0_6)->cursor;
+
+  ((Packet*)temp_v0_6)->cursor = (void *) (temp_v1_4 + 8);
+  ((Command*)temp_v1_4)->w0 = 0xFB000000;
+  ((Command*)temp_v1_4)->w1 = 0xC4C4C4FF;
+  draw_item_bar(((Actor*)g_camera)->model, 0, 1.4f, 0, 0xFF);
+  if ((*((u8 *) (((char *) gSelectState) + 0x249))) != 0)
+  {
+    func_8005D4A4(0);
+    func_8004CF7C(D_800D05D8, 1, 0x1E, 0x28, 3.0f, 0, 0x80);
+  }
+}

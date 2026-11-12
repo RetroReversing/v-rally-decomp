@@ -19,7 +19,11 @@ s32 si_read_word(s32 addr, s32 *out) {
     if (si_busy() != 0) {
         return -1;
     }
+#ifdef PORT
+    val = *(s32 *)(uintptr_t)(u32)(addr | 0xA0000000);
+#else
     val = *(s32 *)(addr | 0xA0000000);
+#endif
     *out = val;
     return 0;
 }

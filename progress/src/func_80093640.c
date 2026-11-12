@@ -36,6 +36,10 @@ s32 func_80093640(PiDevCfg *dev, s32 arg1, s32 arg2) {
         }
         gPiCurrentDev[domain] = dev;
     }
+#ifdef PORT
+    *(volatile u32 *)(unsigned long)(u32)((dev->base_addr | arg1 | 0xA0000000) ) = arg2;
+#else
     *(volatile u32 *)((dev->base_addr | arg1 | 0xA0000000) ) = arg2;
+#endif
     return 0;
 }

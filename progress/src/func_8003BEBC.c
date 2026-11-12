@@ -5,7 +5,7 @@ extern s32 D_8009BA30;
 extern s32 gPadFlags;
 extern void *gRaceCtx;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 typedef struct Sprite {
   u8 pad00[0x70];
@@ -37,7 +37,7 @@ void func_8003BEBC(Sprite *o)
   s32 var_v0;
   u16 timer;
   void *tex;
-  if (((*((s32 *) (((char *) (*((void **) (gStreamState + 0x7CD6)))) + 0x24))) != 0) && ((*((u8 *) (((char *) gRaceCtx) + 0x384))) == 0))
+  if (((*((s32 *) (((char *) (*((void **) (stream_state + 0x7CD6)))) + 0x24))) != 0) && ((*((u8 *) (((char *) gRaceCtx) + 0x384))) == 0))
   {
     if (!(gPadFlags & 2))
     {

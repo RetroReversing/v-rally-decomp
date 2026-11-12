@@ -1,5 +1,5 @@
-extern char D_800A73E0[];
-extern char gStreamState[];
+extern char gGameState[];
+extern char stream_state[];
 extern u8 D_8009BBBC;
 extern char D_15DB10[];
 extern char D_BB9470[];
@@ -50,19 +50,19 @@ void *func_8001AF54(ObjList *list)
     }
     while (i < self->count);
   }
-  state_rec = *((u8 **) (gStreamState + 0x7CD2));
+  state_rec = *((u8 **) (stream_state + 0x7CD2));
   cur_idx = *((u16 *) (state_rec + 0x10));
   off = cur_idx * 0x3C;
-  sel_idx = *((s32 *) (gStreamState + 0x3262));
-  *((void **) (gStreamState + 0x7CDE)) = list;
-  ((ObjList *) (gStreamState + 0x326A))->entries = self->entries + off;
+  sel_idx = *((s32 *) (stream_state + 0x3262));
+  *((void **) (stream_state + 0x7CDE)) = list;
+  ((ObjList *) (stream_state + 0x326A))->entries = self->entries + off;
   entry = self->entries + (sel_idx * 0x3C);
-  if ((*((u8 *) (D_800A73E0 + 0x6C01))) == 1)
+  if ((*((u8 *) (gGameState + 0x6C01))) == 1)
   {
     func_8004D414(*((s32 *) (entry + 0x24)));
   }
   obj = findEntryById(*((s32 *) (entry + 0x24)));
-  if ((*((u8 *) (D_800A73E0 + 0x6C01))) == 1)
+  if ((*((u8 *) (gGameState + 0x6C01))) == 1)
   {
     obj[4] &= ~2;
     obj[4] &= ~1;
@@ -71,16 +71,16 @@ void *func_8001AF54(ObjList *list)
   else
   {
     obj[4] = (obj[4] | 2) & (~1);
-    *((s32 *) ((*((u8 **) (gStreamState + 0x326A))) + 0x10)) |= 4;
+    *((s32 *) ((*((u8 **) (stream_state + 0x326A))) + 0x10)) |= 4;
   }
-  state_rec = *((u8 **) (gStreamState + 0x7CD2));
+  state_rec = *((u8 **) (stream_state + 0x7CD2));
   cur_idx = *((u16 *) (state_rec + 0x10));
   entry2 = self->entries;
   entry2 += ((s32) cur_idx) * 0x3C;
   obj_id = *((s32 *) (entry2 + 0x24));
-  *((u8 **) (gStreamState + 0x326A)) = entry2;
+  *((u8 **) (stream_state + 0x326A)) = entry2;
   obj = findEntryById(obj_id);
-  if ((*((u8 *) (D_800A73E0 + 0x6C01))) == 1)
+  if ((*((u8 *) (gGameState + 0x6C01))) == 1)
   {
     obj[4] = (obj[4] & (~2)) | 0x11;
   }

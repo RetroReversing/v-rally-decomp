@@ -12,12 +12,12 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80027CDC(s32, M2C_UNK);                /* extern */
+M2C_UNK seq_record_store_u32(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80027CFC(M2C_UNK);                     /* extern */
 s32 seq_next_entry(s32);                             /* extern */
-extern s32 gCarEntries;
+extern s32 gCarEntryTable;
 
-void func_800280AC(s32 arg0, M2C_UNK arg1) {
-    func_80027CDC(seq_next_entry(gCarEntries), arg1);
-    func_80027CFC(arg1);
+/* Stores value into the next car entry slot, then passes value on to func_80027CFC. */ void func_800280AC(s32 arg0, M2C_UNK value) {
+    seq_record_store_u32(seq_next_entry(gCarEntryTable), value);
+    func_80027CFC(value);
 }

@@ -1,5 +1,5 @@
 s32 getCounterValue(s32);
-void formatString(u8 *, void *, s32);
+void format_to_buffer(u8 *, void *, s32);
 extern u8 D_800A4B3C[];
 
 /* Shows the counter's value (clamped at 0) on its digit sprites. The object
@@ -18,7 +18,7 @@ void updateCounterDigits(void *counter) {
         if (*(u16 *)(obj + 0x78) == 0) {
             value = getCounterValue(src);
             value &= ~value >> 31;
-            formatString(digits, D_800A4B3C, value & 0xFFFF);
+            format_to_buffer(digits, D_800A4B3C, value & 0xFFFF);
             tens = *(u8 **)(obj + 0x8C);
             *(s16 *)(obj + 0x7A) = digits[0] - 0x30;
             hundreds = *(u8 **)(tens + 0x8C);

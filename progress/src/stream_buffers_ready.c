@@ -1,7 +1,7 @@
 s32 stream_buffer_init();
 s32 func_8007F910();
-s32 func_8007F984();
-s32 func_8007F9AC();
+s32 stream_setup_links();
+s32 stream_setup_links_b();
 s32 func_8007F9D4();
 s32 func_8007F9FC();
 
@@ -12,8 +12,8 @@ s32 stream_buffers_ready(void) {
 
     status = stream_buffer_init();
     status = status | func_8007F910();
-    status = status | func_8007F984();
-    status = status | func_8007F9AC();
+    status = status | stream_setup_links();
+    status = status | stream_setup_links_b();
     status = status | func_8007F9D4();
     return status | func_8007F9FC();
 }

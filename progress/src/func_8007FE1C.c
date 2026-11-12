@@ -6,7 +6,7 @@ extern void osSpTaskStartGo(void *);
 extern void osSendMesg(void *, void *, s32);
 extern u8 gOrderState[];
 extern u8 D_800B4568[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Task loop: waits on the request queue for the next task, runs its handler from the
  * handler table, starts it on the RSP, then waits for completion and sends it on. */
@@ -19,7 +19,7 @@ void func_8007FE1C(void *queue) {
 
     msg = NULL;
     state = gOrderState + 0x1D10;
-    handlers = gStreamState + 0x7D8A;
+    handlers = stream_state + 0x7D8A;
     ucode = D_800B4568;
     for (;;) {
         osRecvMesg(queue + 0x14, &task, 1);

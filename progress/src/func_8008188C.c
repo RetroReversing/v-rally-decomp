@@ -15,9 +15,9 @@ typedef struct VRTransferArgs
 } VRTransferArgs;
 extern VRTransferArgs D_800B0BA8;
 void dmaCopyChunks(s32, s32, u32, VRTransferArgs);
-s32 order_table_search(void *, s32);
+void *order_table_search(void *, s32);
 s32 func_80081C30(void);
-s32 func_80081D50(s32);
+s32 allocate_stream_entry(s32);
 typedef struct VRLoadState
 {
   s32 x0;
@@ -97,7 +97,7 @@ s32 func_8008188C(s32 index, s32 flags)
   }
   while (0);
   s->x1C = e->x1C;
-  func_80081D50(flags);
+  allocate_stream_entry(flags);
   func_80081C30();
   return s->x60;
 }

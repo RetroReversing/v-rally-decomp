@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Linear search of the 0x3C-byte entry table (count at +4, entries at +0) for the entry
  * whose id at +0x24 equals id. Returns the entry, or NULL. */
@@ -12,7 +12,7 @@ void *findEntryById(s32 id)
     u32 i;
     void *result;
 
-    table = *(char **)(gStreamState + 0x7CDE);
+    table = *(char **)(stream_state + 0x7CDE);
     temp_v0 = *(u16 *)(table + 4);
     i = 0;
     result = NULL;

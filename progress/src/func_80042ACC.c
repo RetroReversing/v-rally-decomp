@@ -1,7 +1,7 @@
 s32 flag_test_bit0();
 s32 flag_clear_bit0();
 void heapReleaseBlock();
-void func_800804C4();
+void list_for_each();
 extern char gOrderState[];
 void func_80042AB0(void);
 
@@ -14,7 +14,7 @@ s32 func_80042ACC(void)
 
     block = gOrderState + 0x73E8;
     if (flag_test_bit0(block) != 0) {
-        func_800804C4(*(s32 *)(gOrderState + 0x2354), func_80042AB0);
+        list_for_each(*(s32 *)(gOrderState + 0x2354), func_80042AB0);
         heapReleaseBlock(*(s32 *)(gOrderState + 0x2354));
         flag_clear_bit0(block);
         return 1;

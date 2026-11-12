@@ -1,14 +1,11 @@
-extern s32 gContCtx;
-static inline s8 *inline_fn(s8 *arg0, int arg1)
-{
-  return arg0 + arg1;
-}
+extern s8 *gControllerInputContext;
 
-s32 cont_port_is_connected(s32 arg0, s32 unused_arg1)
+/* Returns 1 when the controller on this port reports a connected state (field 0x330 of its 0x18-byte entry). */
+s32 cont_port_is_connected(s32 port, s32 unused_arg1)
 {
-  s32 new_var;
-  int new_var2;
-  new_var = gContCtx;
-  new_var2 = (arg0 & 0xFF) * 0x18;
-  return (*((s32 *) inline_fn((s8 *) (new_var + new_var2), 0x330))) == 1;
+  s8 *ctx;
+  int entry_off;
+  ctx = gControllerInputContext;
+  entry_off = (port & 0xFF) * 0x18;
+  return (*((s32 *) (ctx + entry_off + 0x330))) == 1;
 }

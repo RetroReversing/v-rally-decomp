@@ -11,7 +11,7 @@ typedef struct { u32 w0, w1; } Gfx;
 
 typedef struct { u8 pad[4]; s16 width; } FrameInfo;
 extern FrameInfo *gSceneSlot1;
-void *func_80005C48(FrameInfo *arg0);
+void *obj_get_owner(FrameInfo *arg0);
 s32 view_get_ctx_id(s32 arg0);
 Gfx *gfx_get_dl(s32 arg0);
 void gfx_set_dl(s32 arg0, Gfx *arg1);
@@ -25,7 +25,7 @@ void func_8000EC94(s32 layer, s16 *rect, u8 *rgb)
     s32 task;
     Gfx *gdl;
 
-    fb = func_80005C48(gSceneSlot1);
+    fb = obj_get_owner(gSceneSlot1);
     task = view_get_ctx_id(layer);
     gdl = gfx_get_dl(task);
     gDPSetScissor(gdl++, 0, rect[0], rect[1], rect[2], rect[3]);

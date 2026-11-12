@@ -1,3 +1,5 @@
+f32 sqrtf(f32);
+
 /* Scales the vector (x, y, z) in place to unit length. */
 void guNormalize(f32 *x, f32 *y, f32 *z) {
     f32 vx;

@@ -14,17 +14,23 @@ typedef struct { char pad[0x18]; void *head; void *tail; s32 count; char pad24[0
 
 void *poolAlloc(s32, s32);void *textObjGet(u32);void *select_get_entry(u32);
 s32 pool_get_item(s32, u16);
-s32 func_8000C9B0(void *, void *, u8, f32, u8);
+s32 font_text_width(void *, void *, u8, f32, u8);
 extern Mgr *gSelectState;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 gSelectStepHandle;
-#define CTX (*(Ctx **)(gStreamState + 0x325A))
+#define CTX (*(Ctx **)(stream_state + 0x325A))
 #define TABP(m, s) ((u8 *)(m) + ((m)->pair[s][0] * 4 + 0xE4))
 
 /* Appends a line entry to the list at gSelectState. The entry covers the
  * x-range arg0..arg1 (converted to the table's base) and holds the text id
  * arg3 with arg2 glyph slots. Its flag is set from the widest and narrowest
  * of the glyph and segment values. */
+#ifdef PORT
+#define ID_PTR(x) ((void *)(uintptr_t)(x))
+#else
+#define ID_PTR(x) ((void *)(x))
+#endif
+
 void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
 {
     Node *node;
@@ -46,20 +52,20 @@ void func_80057D5C(s32 arg0, s32 arg1, u8 arg2, s8 arg3)
     for (i = 0; i < node->n; i++) {
         id = pool_get_item(gSelectStepHandle, item->id);
         m = gSelectState;
-        v = func_8000C9B0((void *)(TABP(m, item->sel)), (void *)(id), (u8)(m->pair[item->sel][1]), (f32)(item->v), (u8)(0));
+        v = font_text_width((void *)(TABP(m, item->sel)), ID_PTR(id), (u8)(m->pair[item->sel][1]), (f32)(item->v), (u8)(0));
         if (v > hi) hi = v;
         if (item->w < lo) lo = item->w;
     }
     seg = select_get_entry((u16)(node->a));
     id = pool_get_item(gSelectStepHandle, seg->id);
     m = gSelectState;
-    v = func_8000C9B0((void *)(TABP(m, seg->sel)), (void *)(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
+    v = font_text_width((void *)(TABP(m, seg->sel)), ID_PTR(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
     if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     seg = select_get_entry((u16)(node->b));
     id = pool_get_item(gSelectStepHandle, seg->id);
     m = gSelectState;
-    v = func_8000C9B0((void *)(TABP(m, seg->sel)), (void *)(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
+    v = font_text_width((void *)(TABP(m, seg->sel)), ID_PTR(id), (u8)(m->pair[seg->sel][1]), (f32)(seg->v), (u8)(0));
     if (v > hi) hi = v;
     if (seg->w < lo) lo = item->w;
     if (hi > lo) {

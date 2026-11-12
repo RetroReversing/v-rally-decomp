@@ -3,7 +3,7 @@ s32 str_len();
 s32 str_ncat();
 extern char sNameSuffix[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 func_8004CEB4;
 static inline char *inline_fn(char *base, int offset)
 {
@@ -19,9 +19,9 @@ void func_8001D2C8(s32 *obj)
   s32 *var_s1;
   s32 *var_v1;
   s32 temp_v0;
-  s32 var_a0;
+  char *var_a0;
   s32 var_a2;
-  s32 var_s0;
+  char *var_s0;
   void *temp_v0_2;
   void *var_v0;
   var_s1 = obj;
@@ -33,17 +33,17 @@ void func_8001D2C8(s32 *obj)
   var_a1 = (s32 *)&sNameSuffix;
   var_a2 = temp_v0;
   str_ncat(var_a0, &sNameSuffix, var_a2);
-  var_v0 = inline_fn(gStreamState, 0x5A82);
-  var_v0 = *((void **) inline_fn(gStreamState, 0x5A82));
-  var_a0 = *((s32 *) inline_fn((char *) var_v0, 0x10));
+  var_v0 = inline_fn(stream_state, 0x5A82);
+  var_v0 = *((void **) inline_fn(stream_state, 0x5A82));
+  var_a0 = *((char **) inline_fn((char *) var_v0, 0x10));
   var_a1 = var_s1;
   temp_v0_2 = dispatch_name_handler(var_a0, var_a1);
-  var_a0 = *((s32 *) (((char *) temp_v0_2) + 0x80));
+  var_a2 = *((s32 *) (((char *) temp_v0_2) + 0x80));
   var_a1 = &func_8004CEB4;
   var_v1 = var_a1;
   var_v1 = &func_8004CEB4;
   *((void **) (gOrderState + 0x8A28)) = temp_v0_2;
   *((s32 **) (((char *) temp_v0_2) + 0x88)) = var_a1;
-  var_a0 |= 0xC0;
-  *((s32 *) (((char *) temp_v0_2) + 0x80)) = var_a0;
+  var_a2 |= 0xC0;
+  *((s32 *) (((char *) temp_v0_2) + 0x80)) = var_a2;
 }

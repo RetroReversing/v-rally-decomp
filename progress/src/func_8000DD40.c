@@ -1,8 +1,8 @@
 extern u8 D_80001D10[], D_80001DE0[];
 extern s32 D_8009B6F0[], D_8009B6F4[];
 extern u8 D_800C83D0[], D_800D03D0[];
-extern u8 gStreamState[];
-void func_8007F798(s32, s32, void *);
+extern u8 stream_state[];
+void orderSendMsgToSlot(s32, s32, void *);
 void osWritebackDCacheAll(void);
 
 /* The OSTask as libultra lays it out (RSP task header). */
@@ -49,20 +49,32 @@ void func_8000DD40(Ctx *c)
 {
     G *g;
     Task *t;
+#ifdef PORT
+    uintptr_t start;
+#else
     s32 start;
+#endif
     s32 size;
 
     c->task.unk44 = 0;
     { G *_g = c->dl++; _g->w0 = 0xE9000000; _g->w1 = 0; }
     { G *_g = c->dl++; _g->w0 = 0xDF000000; _g->w1 = 0; }
     t = &c->task;
-    if ((u32)c->dl > (u32)c->dl_end) for (;;);
+    if ((u8 *)c->dl > (u8 *)c->dl_end) for (;;);
     if (c->f74 < c->f70 + (c->f7A << 4)) for (;;);
     g = c->dl;
+#ifdef PORT
+    start = (uintptr_t)c->dl_start;
+#else
     start = (s32)c->dl_start;
+#endif
     t->type = 1;
     t->flags = 6;
+#ifdef PORT
+    size = (s32)((uintptr_t)g - start);
+#else
     size = (s32)g - start;
+#endif
     size >>= 3;
     size <<= 3;
     t->ucode_boot = D_80001D10;
@@ -75,7 +87,7 @@ void func_8000DD40(Ctx *c)
     t->ucode_data_size = 0x800;
     t->output_buff = D_800C83D0;
     t->output_buff_size = D_800D03D0;
-    t->yield_data_ptr = gStreamState + 0x5E32;
+    t->yield_data_ptr = stream_state + 0x5E32;
     t->dram_stack = 0;
     t->dram_stack_size = 0;
     t->yield_data_size = 0xC00;
@@ -90,5 +102,5 @@ void func_8000DD40(Ctx *c)
         break;
     }
     osWritebackDCacheAll();
-    func_8007F798(9, 1, t);
+    orderSendMsgToSlot(9, 1, t);
 }

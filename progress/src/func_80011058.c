@@ -4,9 +4,13 @@ extern s32 D_8009CE94;
 extern s32 D_8009CE98;
 extern s32 D_8009CE9C;
 extern s32 D_8009CEA0;
-extern char gStreamState[];
+extern char stream_state[];
 /* Fills in the state block obj from entry 'index' of the 0x4C-byte table (or from fixed defaults when table is NULL), then sets the per-mode volume globals from obj's mode field at +0xE. */
+#ifdef PORT
+void func_80011058(void *obj, char *table, s32 index)
+#else
 void func_80011058(void *obj, s32 table, s32 index)
+#endif
 {
   s32 value;
   s32 v;
@@ -17,7 +21,11 @@ void func_80011058(void *obj, s32 table, s32 index)
   {
     if (table != 0)
     {
+#ifdef PORT
+      temp = table + ((index & 0xFFFF) * 0x4C);
+#else
       temp = (char *) (((index & 0xFFFF) * 0x4C) + table);
+#endif
       *((s32 *) (((char *) obj) + 0x10)) = *((s32 *) (temp + 0x90));
       *((s32 *) (((char *) obj) + 0x14)) = *((s32 *) (temp + 0xDC));
       v = *((s32 *) (temp + 0x128));
@@ -33,7 +41,7 @@ void func_80011058(void *obj, s32 table, s32 index)
       *((s16 *) (((char *) obj) + 0x6A)) = 0x1000;
       *((s32 *) (((char *) obj) + 0x30)) = 2;
     }
-    obj = *((void **) (gStreamState + 0x32F2));
+    obj = *((void **) (stream_state + 0x32F2));
   }
   while (0);
   v = *((u16 *) (((char *) obj) + 0xE));

@@ -1,8 +1,8 @@
 extern unsigned char D_800C792F;
-void func_80011178(void *);
+void update_camera(void *);
 extern s32 D_8009BA30;
 extern s32 gPadFlags;
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Per-frame update of one car. Unless pad flag 0x2 is held, the car's timer at 0x60
  * advances by the step in D_800C792F (capped at 0x800). Once it reaches 0x321 the
@@ -18,7 +18,7 @@ void func_80012184(void *arg0)
   u8 *sub;
   s32 arg1;
 
-  obj = *((u8 **) (0x7CD6 + gStreamState));
+  obj = *((u8 **) (0x7CD6 + stream_state));
   one = 1.0f;
   arg1 = gPadFlags;
   D_8009BA30 = 1;
@@ -34,7 +34,11 @@ void func_80012184(void *arg0)
     if ((*((s32 *) (((u8 *) arg0) + 0x60))) >= 0x321)
     {
       new_var = 0x6A;
+#ifdef PORT
+      counter = *((s16 *) (((u8 *) arg0) + new_var));
+#else
       counter = *((s16 *) (new_var + (int)arg0));
+#endif
       if (counter >= 0xA61)
       {
         *((s16 *) (((u8 *) arg0) + new_var)) = counter - (D_800C792F * 30);
@@ -47,5 +51,5 @@ void func_80012184(void *arg0)
       }
     }
   }
-  func_80011178(arg0);
+  update_camera(arg0);
 }

@@ -14,7 +14,7 @@ typedef struct OSThread_s {
     u8                    context[0x1A0];
 } OSThread;
 
-extern OSThread *D_800A2520;
+extern OSThread *stream_default_slot;
 extern OSThread *D_800A2518;
 u32 osDisableInt(void);
 void osRestoreInt(u32);
@@ -47,10 +47,10 @@ void osStartThread(OSThread *thread) {
             break;
     }
 
-    if (D_800A2520 == 0) {
+    if (stream_default_slot == 0) {
         func_8008B634();
-    } else if (D_800A2520->priority < D_800A2518->priority) {
-        D_800A2520->state = (1 << 1);
+    } else if (stream_default_slot->priority < D_800A2518->priority) {
+        stream_default_slot->state = (1 << 1);
         func_8008B4D4(&D_800A2518);
     }
 

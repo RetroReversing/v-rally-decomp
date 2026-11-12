@@ -1,4 +1,4 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
+/* Registers flag 0xA on the global object's flag slots, then initialises its sub-state. */ /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK initObjectSubState(s32);                         /* extern */
-M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
-extern s32 D_800B0C20;
+M2C_UNK obj_set_flag_slot(s32, M2C_UNK);                /* extern */
+extern s32 gMainObj;
 
 void func_8001CC24(void) {
-    func_80022E24(D_800B0C20, 0xA);
-    initObjectSubState(D_800B0C20);
+    obj_set_flag_slot(gMainObj, 0xA);
+    initObjectSubState(gMainObj);
 }

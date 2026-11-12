@@ -1,4 +1,4 @@
-int ai_is_full(void)
+/* Check whether the AI DMA FIFO is full (STATUS sign bit). */ int ai_is_full(void)
 {
   int new_var;
   new_var = 0;

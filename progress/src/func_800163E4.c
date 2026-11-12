@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern u8 *g_rec_val;
 void *func_80016204(void *);
 void *poolAlloc(s32, s32);
@@ -46,7 +46,7 @@ void *func_800163E4(void *owner, u8 *tbl, u8 *initData)
   s32 handle;
   s32 mode;
   *((u16 *) (tbl + 0x22)) = *((u16 *) (tbl + 0x20));
-  slotPtr = gStreamState + 0x5dce;
+  slotPtr = stream_state + 0x5dce;
   r = tbl + (((*((u16 *) (tbl + 0x20))) * 0x38) + 0x3c);
   *((Chunk8 *) r) = *((Chunk8 *) initData);
   {
@@ -88,7 +88,7 @@ void *func_800163E4(void *owner, u8 *tbl, u8 *initData)
     *((Chunk64 *) (q + 0x48)) = *((Chunk64 *) (p + 0xc));
     (*((u8 ***) (r + 0x10)))[i] = q;
     *((u8 **) ((*((u8 ***) (r + 0x10)))[i] + 0x8c)) = p;
-    mode = (u8) gStreamState[0x7678];
+    mode = (u8) stream_state[0x7678];
     if (i == 0)
     {
       switch (mode)

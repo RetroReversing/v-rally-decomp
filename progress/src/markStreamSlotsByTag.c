@@ -1,19 +1,19 @@
-extern char gStreamState[];
-#define gStreamGroups (*(s32 *)(gStreamState + 0x10386))
-#define gStreamGroupCount (*(u16 *)(gStreamState + 0x10370))
+extern char stream_state[];
+#define gStreamGroups (*(char **)(stream_state + 0x10386))
+#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))
 static inline int groupIdxInRange(s32 groupIdx)
 {
   return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);
 }
 
-static inline int slotInGroup(s32 slot, s32 group)
+static inline int slotInGroup(s32 slot, char *group)
 {
   return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));
 }
 
 /* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group
  * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group
- * mask table at gStreamState+0x327E. Stops after the first match. */
+ * mask table at stream_state+0x327E. Stops after the first match. */
 void markStreamSlotsByTag(s32 tag)
 {
   s32 slot;
@@ -22,7 +22,7 @@ void markStreamSlotsByTag(s32 tag)
   u32 groupIdx;
   u16 found;
   s32 group;
-  s32 groupBase;
+  char *groupBase;
   char *groupPtr;
 
   found = 1;
@@ -44,7 +44,7 @@ void markStreamSlotsByTag(s32 tag)
           if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))
           {
             found = 0;
-            *((gStreamState + 0x327E) + groupIdx) = (*((gStreamState + 0x327E) + groupIdx)) | (1 << slotIdx);
+            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);
           }
           slot += 1;
         }

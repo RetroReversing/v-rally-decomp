@@ -1,5 +1,5 @@
-s32 func_8002F9C8(s32, u16);
-s32 clear_records_s32(s32, u16);
+s32 records_clear_heads(s32, u16);
+s32 records_clear_flags(s32, u16);
 
 /* Resets the object's two record tables: clears the 16-bit field of each entry in the first table (count at +0x16) and the 32-bit field of each entry in the second (count at +0x14), then zeroes the small fields at +0x18, +0x1A and +6..+9. */
 void obj_reset_records(void *obj) {
@@ -27,6 +27,6 @@ void obj_reset_records(void *obj) {
         i++;
     } while (i < 4);
 
-    func_8002F9C8(records_a, ((u16 *)obj)[11]);
-    clear_records_s32(records_b, *(u16 *)((u8 *)obj + 0x14));
+    records_clear_heads(records_a, ((u16 *)obj)[11]);
+    records_clear_flags(records_b, *(u16 *)((u8 *)obj + 0x14));
 }

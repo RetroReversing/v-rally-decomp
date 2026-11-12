@@ -1,13 +1,13 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
-/* Reads the 6-byte status entry for one channel from the controller-pak buffer at gStreamState+0x7E82. It stores the channel's flag in out[3]; when the flag is 0 it also copies the 16-bit value and the trailing byte into out. */
+/* Reads the 6-byte status entry for one channel from the controller-pak buffer at stream_state+0x7E82. It stores the channel's flag in out[3]; when the flag is 0 it also copies the 16-bit value and the trailing byte into out. */
 void __osPfsGetOneChannelData(s32 channel, u8 *out) {
     struct { u8 b[6]; } entry;
     u8 *src;
     s32 i;
     u8 flag;
 
-    src = gStreamState + 0x7E82;
+    src = stream_state + 0x7E82;
     for (i = 0; i < channel; i++) {
         src++;
     }

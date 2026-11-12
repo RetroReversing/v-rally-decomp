@@ -1,8 +1,8 @@
 void *StreamListClaimAny();
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Claims a node from the list at *list: the first node whose index matches the slot's byte in
- * gStreamState (stride 0x18) and whose flag word at +0x14 lacks the given bits. Sets those bits and
+ * stream_state (stride 0x18) and whose flag word at +0x14 lacks the given bits. Sets those bits and
  * returns the node; otherwise falls back to StreamListClaimAny. */
 void *StreamListClaimByType(void **list, s32 flags, s32 slot, void *node)
 {
@@ -10,7 +10,7 @@ void *StreamListClaimByType(void **list, s32 flags, s32 slot, void *node)
     s32 v;
 
     i = 0;
-    if (list != NULL && gStreamState[0x7CF3] != gStreamState[0x7D0B]) {
+    if (list != NULL && stream_state[0x7CF3] != stream_state[0x7D0B]) {
         node = *list;
         if (node != NULL) {
             slot = (slot & 0xFF) * 0x18;
@@ -19,7 +19,7 @@ void *StreamListClaimByType(void **list, s32 flags, s32 slot, void *node)
             do {
                 s32 k = i;
                 i++;
-                if (gStreamState[0x7CF3 + slot] == (u8)k) {
+                if (stream_state[0x7CF3 + slot] == (u8)k) {
                     v = *(s32 *)((char *)node + 0x14);
                     if ((v & flags) != flags) {
                         *(s32 *)((char *)node + 0x14) = v | flags;

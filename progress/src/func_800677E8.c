@@ -1,7 +1,7 @@
-s32 func_800595EC();
+s32 select_set_text_default();
 extern void *gSelectState;
 extern char D_800A56F4[];
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 select_init_screen;
 extern s32 func_80066EBC;
 
@@ -28,8 +28,8 @@ s32 func_800677E8(void)
     }
     else
     {
-        *((s16 *) (((char *) (*((void **) (gStreamState + 0x325A)))) + 2)) = 0;
-        func_800595EC(&D_800A56F4);
+        *((s16 *) (((char *) (*((void **) (stream_state + 0x325A)))) + 2)) = 0;
+        select_set_text_default(&D_800A56F4);
         *((s32 **) (((char *) gSelectState) + 0x288)) = &select_init_screen;
         handlers = ((char *) gSelectState) + 0x28C;
         *((s32 **) handlers) = &func_80066EBC;

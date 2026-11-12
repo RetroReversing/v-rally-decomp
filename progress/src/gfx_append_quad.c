@@ -3,13 +3,22 @@ typedef struct DisplayListCtx
   u8 pad00[0x14];
   u32 *dl;
   u8 pad18[0x70 - 0x18];
+#ifdef PORT
+  char *vtx_base;
+#else
   s32 vtx_base;
+#endif
   u8 pad74[0x78 - 0x74];
   u16 flags;
   u16 pos;
 } DisplayListCtx;
 
 u16 dl_reserve_vertices();
+#ifdef PORT
+#define VB(b,o) ((char *)((o) + (b)->vtx_base))
+#else
+#define VB(b,o) ((char *)((o) + (b)->vtx_base))
+#endif
 
 /* Appends a quad (two F3DEX triangles over four ring-buffer vertices) to the
  * display list. The first call also emits the render-mode setup and marks the
@@ -65,18 +74,18 @@ s32 gfx_append_quad(DisplayListCtx *ctx, s16 depth)
   }
   slot = dl_reserve_vertices(ctx, 4, mode) & 0xFFFF;
   n = slot * 0x10;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 4)) = depth;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x14)) = depth;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x24)) = depth;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x34)) = depth;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 6)) = 0;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x16)) = 0;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x26)) = 0;
-  *((s16 *) (((u8 *) (n + ctx->vtx_base)) + 0x36)) = 0;
-  *((u8 *) (((u8 *) (n + ctx->vtx_base)) + 0xF)) = 0xFF;
-  *((u8 *) (((u8 *) (n + ctx->vtx_base)) + 0x1F)) = 0xFF;
-  *((u8 *) (((u8 *) (n + ctx->vtx_base)) + 0x2F)) = 0xFF;
-  *((u8 *) (((u8 *) (n + ctx->vtx_base)) + 0x3F)) = 0xFF;
+  *((s16 *) (VB(ctx, n) + 4)) = depth;
+  *((s16 *) (VB(ctx, n) + 0x14)) = depth;
+  *((s16 *) (VB(ctx, n) + 0x24)) = depth;
+  *((s16 *) (VB(ctx, n) + 0x34)) = depth;
+  *((s16 *) (VB(ctx, n) + 6)) = 0;
+  *((s16 *) (VB(ctx, n) + 0x16)) = 0;
+  *((s16 *) (VB(ctx, n) + 0x26)) = 0;
+  *((s16 *) (VB(ctx, n) + 0x36)) = 0;
+  *((u8 *) (VB(ctx, n) + 0xF)) = 0xFF;
+  *((u8 *) (VB(ctx, n) + 0x1F)) = 0xFF;
+  *((u8 *) (VB(ctx, n) + 0x2F)) = 0xFF;
+  *((u8 *) (VB(ctx, n) + 0x3F)) = 0xFF;
   a = slot & 0x1F;
   a_shl17 = a << 0x11;
   tri = ctx->dl;

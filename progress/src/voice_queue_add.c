@@ -1,11 +1,11 @@
 extern s32 D_800AFA54;
 extern u32 D_800AB974;
 extern u8 D_800AB973;
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
 
 /* Records the new owner in D_800AFA54 and, while fewer than 3 objects are registered, puts obj
-   in the first empty slot of the 4-entry slot ring at D_800A73E0+0x4598, starting from
+   in the first empty slot of the 4-entry slot ring at gGameState+0x4598, starting from
    D_800AB973. A placed object gets its flag byte at +8 cleared. */
 void voice_queue_add(void *obj, s32 owner)
 {
@@ -24,7 +24,7 @@ void voice_queue_add(void *obj, s32 owner)
     tries = 1;
     do
     {
-      slot = ((void **) (D_800A73E0 + 0x4598)) + (slot_idx & 0xFF);
+      slot = ((void **) (gGameState + 0x4598)) + (slot_idx & 0xFF);
       tries += 1;
       if ((*slot) == NULL)
       {

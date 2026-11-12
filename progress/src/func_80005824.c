@@ -1,18 +1,5 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-void func_80005824(void *arg0, s32 arg1, s32 arg2) {
-    M2C_FIELD(arg0, s32 *, 0x3C) = arg1;
-    M2C_FIELD(arg0, s32 *, 0x40) = arg2;
+/* Stores two words into the pooled-list header of obj: first at 0x3C, second at 0x40. */
+void func_80005824(void *obj, s32 first, s32 second) {
+    *(s32 *)((s8 *)obj + 0x3C) = first;
+    *(s32 *)((s8 *)obj + 0x40) = second;
 }

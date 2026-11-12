@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80064F88(void) {
+/* Stub that always returns 1 (true); same as func_80005BD4. */ s32 func_80064F88(void) {
     return 1;
 }

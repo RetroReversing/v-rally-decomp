@@ -29,10 +29,10 @@ typedef struct
 void func_80052E94(u16, char *);
 char *pool_get_item(s32, s32);void *textObjGet(u32);
 void group_set_color(Win64F98 *, u8, u8, u8, u8);
-void draw_palette_sprite(void *, s16, s16, void *);void text_obj_set_enabled(u32);void func_8005A6E0(u32);
+void draw_palette_sprite(void *, s16, s16, void *);void text_obj_set_enabled(u32);void text_obj_set_disabled(u32);
 void memset(char *, s32, s32);
 void appendString(char *, char *);
-void formatString(char *, char *, s32, char *);
+void format_to_buffer(char *, char *, s32, char *);
 extern u8 *gSelectState;
 extern char D_800A56C4[];
 extern s16 D_800A56CC;
@@ -64,7 +64,7 @@ void func_80064F98(void)
     for (row = 0; row < 3; row++)
     {
       char *nm = D_800C3650[gRecords->x20][row].name;
-      formatString(line, D_800A56C4, row + 1, nm);
+      format_to_buffer(line, D_800A56C4, row + 1, nm);
       draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
     }
 
@@ -97,7 +97,7 @@ void func_80064F98(void)
     win = textObjGet(0x13);
     group_set_color(win, win->b, win->c, win->d, win->e);
     draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(pool_get_item(gSelectStepHandle, gRecords->x20 + 0x1CD)));
-    func_8005A6E0(0x15);
+    text_obj_set_disabled(0x15);
     nextScreen = 0x14;
   }
   else
@@ -105,7 +105,7 @@ void func_80064F98(void)
     win = textObjGet(0x10);
     for (row = 0; row < 3; row++)
     {
-      formatString(line, D_800A56C4, row + 1, gSlotTableB[gSelectState[0x23C]]->rec[gRecords->x22][row].name);
+      format_to_buffer(line, D_800A56C4, row + 1, gSlotTableB[gSelectState[0x23C]]->rec[gRecords->x22][row].name);
       draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y + (row * 22)), (void *)(line));
     }
 
@@ -137,7 +137,7 @@ void func_80064F98(void)
     win = textObjGet(0x13);
     group_set_color(win, win->b, win->c, win->d, win->e);
     draw_palette_sprite((void *)(win), (s16)(win->x), (s16)(win->y), (void *)(pool_get_item(gSelectStepHandle, gRecords->x22 + 0x21A)));
-    func_8005A6E0(0x14);
+    text_obj_set_disabled(0x14);
     nextScreen = 0x15;
   }
   text_obj_set_enabled(nextScreen);

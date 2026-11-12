@@ -1,21 +1,30 @@
-void *order_table_search(s32 table, s32 key);
-extern u8 gOrderState[];
-extern u8 gStreamState[];
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
+#ifndef M2C_DEFINES
+#define M2C_DEFINES
+typedef s32 M2C_UNK;
+typedef s8 M2C_UNK8;
+typedef s16 M2C_UNK16;
+typedef s32 M2C_UNK32;
+#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+#define M2C_BITWISE(type, expr) ((type)(expr))
+#define M2C_ERROR(desc) (0)
+#define M2C_CARRY 0
+#define M2C_OVERFLOW(a) (0)
+#endif
 
-/* Searches the order table in gOrderState for key. Stores the matched entry's
- * value at +0x10 in *out_value and sets *out_flag to 1 if the entry's u16 at +0x1A
- * is non-zero, else 0. Returns the sum of the table's +0x8AB0 word, the entry's
- * +0x1C word, and the entry's +0x28 word minus the stream state word at +0x308A. */
-s32 order_lookup_info(s32 key, s32 *out_value, s8 *out_flag)
-{
-    s8 *entry;
+void *order_table_search(s32, s32);                 /* extern */
+extern M2C_UNK gOrderState;
+extern M2C_UNK stream_state;
 
-    entry = order_table_search(*(s32 *)(gOrderState + 0x8AB8), key);
-    *out_value = *(s32 *)(entry + 0x10);
-    if (*(u16 *)(entry + 0x1A) == 0) {
-        *out_flag = 0;
+s32 order_lookup_info(s32 arg0, s32 *arg1, s8 *arg2) {
+    void *temp_v0;
+
+    temp_v0 = order_table_search(M2C_FIELD(&gOrderState, s32 *, 0x8AB8), arg0);
+    *arg1 = M2C_FIELD(temp_v0, s32 *, 0x10);
+    if (M2C_FIELD(temp_v0, u16 *, 0x1A) == 0) {
+        *arg2 = 0;
     } else {
-        *out_flag = 1;
+        *arg2 = 1;
     }
-    return *(s32 *)(gOrderState + 0x8AB0) + *(s32 *)(entry + 0x1C) + (*(s32 *)(entry + 0x28) - *(s32 *)(gStreamState + 0x308A));
+    return M2C_FIELD(&gOrderState, s32 *, 0x8AB0) + M2C_FIELD(temp_v0, s32 *, 0x1C) + (M2C_FIELD(temp_v0, s32 *, 0x28) - M2C_FIELD(&stream_state, s32 *, 0x308A));
 }

@@ -1,4 +1,4 @@
-/* identical to func_80005718 (matched), with its names changed by decompdecomp */
+/* Sets bit 0 of the flag word at flags, then stores value in a new order pool node. */
 void flag_set_bit0();
-void func_80022190(int a);
-void flag_set_then_call(int arg0, int arg1) { flag_set_bit0(); func_80022190(arg1); }
+void order_pool_store_value(int a);
+void flag_set_then_call(int flags, int value) { flag_set_bit0(); order_pool_store_value(value); }

@@ -1,11 +1,11 @@
-extern char D_800A3E10[];
+extern char char_class_tbl[];
 
-s32 ctype_toupper(s32 arg0) {
-    s32 var_a0;
+s32 ctype_toupper(s32 c) {
+    s32 ch;
 
-    var_a0 = arg0;
-    if (*(D_800A3E10 + (var_a0 & 0xFF)) & 4) {
-        var_a0 -= 0x20;
+    ch = c;
+    if (*(char_class_tbl + (ch & 0xFF)) & 4) {
+        ch -= 0x20;
     }
-    return var_a0;
+    return ch;
 }

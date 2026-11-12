@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 s32 flag_test_bit0();
 s32 flag_set_then_call();
@@ -16,7 +16,7 @@ s32 streamOrderInit(void) {
     if (flag_test_bit0(slot) == 0) {
         *((s32 *)(gOrderState + 0x72FC)) = poolAllocHeadNode();
         flag_set_then_call(slot, &streamOrderCallback);
-        *((s32 *)(gStreamState + 0x3312)) = 0;
+        *((s32 *)(stream_state + 0x3312)) = 0;
         return 1;
     }
     return 0;

@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void league_set_flag14(void *arg0) {
-    M2C_FIELD(arg0, s8 *, 0x14) = 1;
+/* Sets the flag byte at offset 0x14 of the league object to 1. */ void league_set_flag14(void *league) {
+    M2C_FIELD(league, s8 *, 0x14) = 1;
 }

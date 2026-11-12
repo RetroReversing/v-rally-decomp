@@ -1,14 +1,22 @@
+#ifdef PORT
+extern u8 *gRecords;
+#else
 extern int gRecords;
+#endif
 s32 select_reset_text();
-s32 func_8006F0E0();
+s32 glyph_record_pack();
 s32 save_race_to_pak();
 extern void *gSelectState;
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 func_80069648;
 extern s32 func_80069690;
 
 /* Adds a signed byte to a base index. */
+#ifdef PORT
+static inline char *addSignedIndex(char *base, s8 index)
+#else
 static inline int addSignedIndex(int base, s8 index)
+#endif
 {
   return base + index;
 }
@@ -20,9 +28,9 @@ s32 func_800671A0(s32 arg0, s32 arg1)
 {
   void *select;
   void *select2;
-  if ((*((s16 *) (((char *) (*((void **) (gStreamState + 0x325A)))) + 2))) == 5)
+  if ((*((s16 *) (((char *) (*((void **) (stream_state + 0x325A)))) + 2))) == 5)
   {
-    func_8006F0E0(*((u8 *) (((char *) addSignedIndex(gRecords, *((s8 *) (((char *) gSelectState) + 0x228)))) + 0x32)));
+    glyph_record_pack(*((u8 *) (((char *) addSignedIndex(gRecords, *((s8 *) (((char *) gSelectState) + 0x228)))) + 0x32)));
     save_race_to_pak();
   }
   select_reset_text(arg0, arg1);

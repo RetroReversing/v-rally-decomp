@@ -9,7 +9,7 @@ typedef struct
   u8 pad58[0x32];
   u16 stride;
 } O303;
-s32 func_8002D2A0(s32);
+s32 int_sqrt(s32);
 
 /* Returns where pos lies along the track row of obj, as a value in 0..1000
  * (500 is on the row's point). The neighbouring row on the side pos is on is
@@ -33,8 +33,8 @@ s32 func_8003035C(void *obj, s32 row, void *pos)
     seg.z = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
     toPos.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
     toPos.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
-    dist = func_8002D2A0(seg.x * seg.x + seg.z * seg.z);
-    distPos = func_8002D2A0(toPos.x * toPos.x + toPos.z * toPos.z);
+    dist = int_sqrt(seg.x * seg.x + seg.z * seg.z);
+    distPos = int_sqrt(toPos.x * toPos.x + toPos.z * toPos.z);
     dist = distPos * 1000 / dist;
     dist = 500 - dist / 2;
   }
@@ -44,8 +44,8 @@ s32 func_8003035C(void *obj, s32 row, void *pos)
     seg.z = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx + 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
     toPos.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
     toPos.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
-    dist = func_8002D2A0(seg.x * seg.x + seg.z * seg.z);
-    distPos = func_8002D2A0(toPos.x * toPos.x + toPos.z * toPos.z);
+    dist = int_sqrt(seg.x * seg.x + seg.z * seg.z);
+    distPos = int_sqrt(toPos.x * toPos.x + toPos.z * toPos.z);
     dist = distPos * 1000 / dist;
     dist = dist / 2 + 500;
   }

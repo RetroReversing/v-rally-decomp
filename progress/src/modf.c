@@ -28,7 +28,11 @@ f64 modf(f64 x, void *iptr) {
         do {
             q++;
             *q = 0;
+#ifdef PORT
+        } while (q < (u8 *)iptr + 7);
+#else
         } while ((s32)q < (s32)((u8 *)iptr + 7));
+#endif
     }
     return x - *(f64 *)iptr;
 }

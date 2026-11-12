@@ -1,5 +1,5 @@
 extern signed char gStreamLastValue;
-extern char gStreamState[];
+extern char stream_state[];
 
 typedef struct VRStreamSrc { u16 value; u8 pad02[2]; s32 active; } VRStreamSrc;
 

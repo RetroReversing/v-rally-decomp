@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void flag_set_bit0(s32 *arg0) {
-    *arg0 |= 1;
+/* Sets bit 0 of the flags word. */ void flag_set_bit0(s32 *flags) {
+    *flags |= 1;
 }

@@ -13,12 +13,20 @@ u8 *strCpy(u8 *dst, u8 *src)
         if (c) do { c = *s++; *d++ = c; } while (c);
         return dst;
     }
+#ifdef PORT
+    if ((uintptr_t)d & 3) {
+#else
     if ((u32)d & 3) {
+#endif
         do {
             c = *s++;
             *d++ = c;
             if (!c) return dst;
+#ifdef PORT
+        } while ((uintptr_t)d & 3);
+#else
         } while ((u32)d & 3);
+#endif
     }
     for (;;) {
         w = *(u32 *)s;

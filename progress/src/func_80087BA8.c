@@ -1,1 +1,1 @@
-unsigned char *func_80087BA8(char *arg0, unsigned char *arg1) { unsigned char t = *arg1; *(short *)(arg0 + 0xAA) = 0; *(short *)(arg0 + 0xAC) = t; return arg1 + 1; }
+/* Reads one byte from src into the state at dst+0xAC, clears the word at dst+0xAA, and returns src advanced past the byte. */ unsigned char *func_80087BA8(char *dst, unsigned char *src) { unsigned char value = *src; *(short *)(dst + 0xAA) = 0; *(short *)(dst + 0xAC) = value; return src + 1; }

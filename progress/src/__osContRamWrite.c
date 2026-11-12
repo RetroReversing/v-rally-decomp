@@ -1,6 +1,6 @@
 extern s32 D_800A3B40;
-extern u8 gStreamState[];
-extern u8 D_800C3520;
+extern u8 stream_state[];
+extern u8 __osPfsLastCmd;
 extern s32 osRecvMesg(s32, void *, s32);
 extern void pif_lock(void);
 extern void pif_unlock(void);
@@ -17,7 +17,7 @@ extern u32 getPakStatus(s32, s32);
 u32 __osContRamWrite(s32 mq, s32 channel, u16 address, void *buf, s32 force)
 {
   u8 scratch[8];
-  u8 *cmd = gStreamState + 0x7e82;
+  u8 *cmd = stream_state + 0x7e82;
   s32 retries = 2;
   s32 data_crc;
   u32 ret;
@@ -31,9 +31,9 @@ u32 __osContRamWrite(s32 mq, s32 channel, u16 address, void *buf, s32 force)
     }
   }
   pif_lock();
-  if ((D_800C3520 != 3) || (D_800A3B40 != channel))
+  if ((__osPfsLastCmd != 3) || (D_800A3B40 != channel))
   {
-    gStreamState[0x3272] = 3;
+    stream_state[0x3272] = 3;
     D_800A3B40 = channel;
     n = 0;
     if (channel > 0)
@@ -45,7 +45,7 @@ u32 __osContRamWrite(s32 mq, s32 channel, u16 address, void *buf, s32 force)
       }
       while (n < channel);
     }
-    *((s32 *) (gStreamState + 0x7ebe)) = 1;
+    *((s32 *) (stream_state + 0x7ebe)) = 1;
     cmd[0] = (n = 255);
     cmd[1] = 0x23;
     cmd[2] = 1;
@@ -61,17 +61,17 @@ u32 __osContRamWrite(s32 mq, s32 channel, u16 address, void *buf, s32 force)
   cmd[4] = addr >> 3;
   cmd[5] = __osContAddressCrc(addr) | (address << 5);
   __osCopyBytes(buf, cmd + 6, 32);
-  __osSiRawStartDma(1, gStreamState + 0x7e82);
+  __osSiRawStartDma(1, stream_state + 0x7e82);
   data_crc = __osContDataCrc(buf);
   osRecvMesg(mq, 0, 1);
   do
   {
-    __osSiRawStartDma(0, gStreamState + 0x7e82);
+    __osSiRawStartDma(0, stream_state + 0x7e82);
     osRecvMesg(mq, 0, 1);
     ret = (cmd[2] & 0xc0) >> 4;
     if (ret == 0)
     {
-      if (((u32) ((void *) (data_crc & 255))) != cmd[0x26])
+      if (((u32) (data_crc & 255)) != cmd[0x26])
       {
         ret = getPakStatus(mq, channel);
         if (ret != 0)

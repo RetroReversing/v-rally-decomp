@@ -1,7 +1,7 @@
-#define C (*(C02 *)(gStreamState+2))
+#define C (*(C02 *)(stream_state+2))
 #define O (C.o)
-#define I(n) (*(s32 *)(gStreamState+(n)))
-#define F(n) (*(f32 *)(gStreamState+(n)))
+#define I(n) (*(s32 *)(stream_state+(n)))
+#define F(n) (*(f32 *)(stream_state+(n)))
 #define NO_VALUE 100
 typedef struct 
 {
@@ -27,15 +27,15 @@ typedef struct
   u8 t[4];
   f32 h;
 } C02;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
 extern u8 *gSelectState;
 extern u8 D_800A14E0;
 extern u8 D_800A14E1;
 extern u8 D_800A14E2;
-void func_8004D31C();
+void stream_free_all_blocks();
 void func_8005EA28();
-void slot_set_selected(s32, s32);
+void slotSetSelected(s32, s32);
 void func_8005EE50(s32, s16, s32);
 void func_80057D5C(s32, s32, s32, s32);void *list_advance(u32, void *);
 void func_8008A104(s32, s32, s32, s32);
@@ -51,25 +51,25 @@ void func_8005EB48(void)
   s32 sum_c;
   s32 x;
   u8 *p;
-  func_8004D31C();
+  stream_free_all_blocks();
   func_8005EA28();
-  slot_set_selected(10, O->x16);
-  slot_set_selected(16, C.a & 1);
-  slot_set_selected(11, O->x12 & 1);
+  slotSetSelected(10, O->x16);
+  slotSetSelected(16, C.a & 1);
+  slotSetSelected(11, O->x12 & 1);
   func_8005EE50(12, (s16) (F(0x3332) * 8.0f), 0);
   func_8005EE50(13, (s16) (F(0x333a) * 8.0f), 0);
   func_8005EE50(14, (s16) (F(0x332e) * 8.0f), 0);
   x = C.b;
   if (x)
   {
-    slot_set_selected(15, x - 1);
+    slotSetSelected(15, x - 1);
   }
   else
   {
-    slot_set_selected(15, 0);
+    slotSetSelected(15, 0);
   }
   zero = 0;
-  slot_set_selected(17, O->x50 != zero);
+  slotSetSelected(17, O->x50 != zero);
   if (!gSelectState[0x245])
   {
     func_80057D5C(21, 22, 1, zero);

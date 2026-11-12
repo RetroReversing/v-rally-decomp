@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80087DC8(void *arg0, s32 arg1) {
-    M2C_FIELD(arg0, s8 *, 0xCF) = 1;
-    return arg1;
+/* Sets the dirty flag byte at obj+0xCF and passes the second argument straight back. */ s32 func_80087DC8(void *obj, s32 ret) {
+    M2C_FIELD(obj, s8 *, 0xCF) = 1;
+    return ret;
 }

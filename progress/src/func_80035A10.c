@@ -10,17 +10,17 @@ s32 heapReleaseBlock();
    list is empty and dark mode is off, releases each queued entry in D_800C60D4
    (its entity at +0xC) before freeing the queue head. */
 void func_80035A10(void) {
-    s32 *queue;
+    void **queue;
     void *entry;
 
     if (*(s32 *)g_ent_list) {
         streamReleaseEntry(*(s32 *)g_ent_list);
     }
     if (*(u16 *)((char *)g_ent_list + 4) == 0 && g_dark_mode == 0) {
-        queue = D_800C60D4;
+        queue = (void **)D_800C60D4;
         if (queue[0] != 0) {
             do {
-                entry = (void *)queue[1];
+                entry = queue[1];
                 streamReleaseEntry(*(s32 *)(*(char **)(((char *)entry) + 0xC) + 0xA4));
                 heapFreeBlock(*(void **)(((char *)entry) + 0xC));
                 list_unlink_free(entry, queue);

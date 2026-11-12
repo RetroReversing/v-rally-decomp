@@ -1,8 +1,9 @@
 extern s32 gSlotTableB[];
 
-s32 func_80041530(s32 arg0, s32 arg1) {
-    s32 temp_v1;
+/* Returns the address of record index within the block for slot in gSlotTableB; records are 0x2C4 bytes. */
+s32 func_80041530(s32 slot, s32 index) {
+    s32 base;
 
-    temp_v1 = gSlotTableB[arg0];
-    return temp_v1 + arg1 * 0x2C4;
+    base = gSlotTableB[slot];
+    return base + index * 0x2C4;
 }

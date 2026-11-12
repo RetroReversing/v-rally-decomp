@@ -2974,7 +2974,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5374,7 +5374,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		osViSwapBuffer(void *);
+extern void		viSetSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -8175,38 +8175,36 @@ f32 _doModFunc(ALDelay *d, s32 count);
 
 
 
-Acmd *_loadBuffer(ALFx *r, s16 *curr_ptr, s32 buff, s32 count, Acmd *p)
+/* Queues the Acmd commands that DMA one read window of an ALFx ring buffer into the audio * command list. If the window wraps past the end of the buffer, it is split into two DMAs. * Returns the advanced command pointer. */ Acmd *_loadBuffer(ALFx *fx, s16 *curr, s32 dram_addr, s32 count, Acmd *cmd_list)
 {
-    Acmd    *ptr = p;
-    s32     after_end, before_end;
-    s16     *updated_ptr, *delay_end;
+    Acmd    *cmdp = cmd_list;
+    s32     after_wrap, before_wrap;
+    s16     *next_ptr, *buf_end;
 
 
-
-    delay_end = &r->base[r->length];
-
+    buf_end = &fx->base[fx->length];
 
 
-    if (curr_ptr < r->base)
-    curr_ptr += r->length;
-    updated_ptr = curr_ptr + count;
+    if (curr < fx->base)
+    curr += fx->length;
+    next_ptr = curr + count;
 
-    if (updated_ptr > delay_end) {
-        after_end = updated_ptr - delay_end;
-        before_end = delay_end - curr_ptr;
+    if (next_ptr > buf_end) {
+        after_wrap = next_ptr - buf_end;
+        before_wrap = buf_end - curr;
 
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   buff  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   before_end<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(curr_ptr) );	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   buff+(before_end<<1)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   after_end<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(r->base) );	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   dram_addr  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   before_wrap<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(curr) );	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   dram_addr+(before_wrap<<1)  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   after_wrap<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(fx->base) );	} ;
     } else {
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   buff  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   count<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-        {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(curr_ptr) );	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   dram_addr  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   count<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+        {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 4  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  osVirtualToPhysical(curr) );	} ;
     }
 
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   count<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
+    {	Acmd *_a = (Acmd *) cmdp++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   count<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
 
 
-    return ptr;
+    return cmdp;
 
 }

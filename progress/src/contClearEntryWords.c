@@ -1,4 +1,4 @@
-extern u8 *gContCtx;
+extern u8 *gControllerInputContext;
 
 /* Zeroes the 14 words at +0xAC of controller context entry `slot` (0x38 bytes per entry). */
 void contClearEntryWords(u8 slot)
@@ -7,7 +7,7 @@ void contClearEntryWords(u8 slot)
   u8 i;
   u8 *base;
   u32 *entry;
-  base = gContCtx;
+  base = gControllerInputContext;
   entry = (u32 *) (base + (slot * 0x38));
   ;
   i = 0;

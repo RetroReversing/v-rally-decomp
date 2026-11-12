@@ -1,15 +1,17 @@
 extern int g_pos_bias;
-void func_80015428(int *arg0, int arg1) {
+
+/* Adds g_pos_bias to each of the first count ints in values. */
+void func_80015428(int *values, int count) {
     int i;
     int pad[2];
 
     i = 0;
-    if (arg1 > 0) {
+    if (count > 0) {
         do {
-            *arg0 += g_pos_bias;
-            arg0++;
+            *values += g_pos_bias;
+            values++;
             i++;
-        } while (i < arg1);
+        } while (i < count);
     }
     (void)&pad;
 }

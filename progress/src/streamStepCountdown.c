@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 *gSelectState;
 s32 select_set_active_sub(s32, u16);
 
@@ -10,7 +10,7 @@ s32 streamStepCountdown(s32 slot)
     u8 *current;
     s32 remaining;
 
-    current = *(u8 **)(gStreamState + 0x32F2);
+    current = *(u8 **)(stream_state + 0x32F2);
     remaining = *(u16 *)(current + 0x22);
     if (remaining != 0)
     {
@@ -18,10 +18,10 @@ s32 streamStepCountdown(s32 slot)
     }
     else
     {
-        remaining = *(u16 *)(*(u8 **)(gStreamState + 0x10386 + (gSelectState[0x23C] << 2)) + 0x14);
+        remaining = *(u16 *)(*(u8 **)(stream_state + 0x10386 + (gSelectState[0x23C] << 2)) + 0x14);
         remaining -= 1;
     }
     *(vu16 *)(current + 0x22) = remaining;
-    select_set_active_sub(slot, *(u16 *)(*(u8 **)(gStreamState + 0x32F2) + 0x22));
+    select_set_active_sub(slot, *(u16 *)(*(u8 **)(stream_state + 0x32F2) + 0x22));
     return 1;
 }

@@ -1,7 +1,7 @@
 typedef struct { u8 pad40[0x40]; s32 x40; s32 x44; u8 pad48[0x2c]; s32 x74; u8 pad78[0x3c]; u8 b4; u8 b5; } OpState;
 extern s32 func_80086C00(s32, s32, s32, s32, s32);
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Reads one opcode from m (two bytes when the top bit of the first is set),
  * runs it through func_80086C00 with this state's b4/b5 bytes, and if that
@@ -26,7 +26,7 @@ void *stream_op_read(OpState *op, u8 *m)
  handle = func_80086C00(code, b4, b5, 0, old);
  op->x44--;
  if (handle) {
-  count = *(s32 *)(gStreamState + 0x757e);
+  count = *(s32 *)(stream_state + 0x757e);
   p = *(u8 **)(gOrderState + 0x80a0);
   i = 0;
   if (count > 0) {

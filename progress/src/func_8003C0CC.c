@@ -1,5 +1,5 @@
 typedef void (*SpriteHook)(void *);
-extern u8 gStreamState[];
+extern u8 stream_state[];
 typedef struct { u16 h0, h2, type, width, height; } Tex;
 typedef struct { u8 count, pad[3]; Tex **tex; } Pack;
 typedef struct { u8 pad[0xE]; u16 count; u8 pad2[0xE]; u16 mode; } Game;
@@ -18,8 +18,8 @@ typedef struct {
     u32 flags2;
     Pack *pack;
 } Spr;
-#define GAME_STATE (*(Game **)&gStreamState[0x32F2])
-#define CURRENT_CAR (*(Car **)&gStreamState[0x7CD6])
+#define GAME_STATE (*(Game **)&stream_state[0x32F2])
+#define CURRENT_CAR (*(Car **)&stream_state[0x7CD6])
 void func_8003BEBC(void *);
 Pack *getTexturePack(s32, s32);
 void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);

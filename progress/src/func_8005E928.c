@@ -6,14 +6,14 @@ extern int gSelectStep;
 extern int gSelectStepHandle;
 s32 setSoundEntryTable();
 s32 func_80057810();
-s32 func_800578E0();
+s32 object_free_blocks();
 s32 select_reset_text();
 s32 func_8006ECB4();
 s32 save_race_to_pak();
 s32 stream_refresh_car_flags();
 extern u8 *gSelectState;
 extern s32 D_800A14C0;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 func_8005DC40;
 extern s32 func_8005DD2C;
 
@@ -25,7 +25,7 @@ s32 func_8005E928(s32 arg0, s32 arg1)
   u8 *setId;
   char *streamSet;
   char *streamBase;
-  streamSet = gStreamState + 0x32AA;
+  streamSet = stream_state + 0x32AA;
   stream_refresh_car_flags();
   setId = (u8 *) (((char *) streamSet) + 3);
   setSoundEntryTable(*setId);
@@ -33,15 +33,15 @@ s32 func_8005E928(s32 arg0, s32 arg1)
   save_race_to_pak();
   if (*(s32 *)streamSet == 0)
   {
-    streamBase = gStreamState;
+    streamBase = stream_state;
     if (streamBase)
     {
-      func_800578E0(gSelectStepHandle);
+      object_free_blocks(gSelectStepHandle);
       gSelectStepHandle = func_80057810(D_800A14C0);
     }
     else
     {
-      func_800578E0(gSelectStepHandle);
+      object_free_blocks(gSelectStepHandle);
       gSelectStepHandle = func_80057810(D_800A14C0);
     }
   }

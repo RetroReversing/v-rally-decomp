@@ -6,7 +6,7 @@ void *nameNodeFind(void *node, void *name)
 {
     u32 off;
     s32 count;
-    void **child;
+    AddrWord *child;
 
     if (str_icmp_eq(name, node) != 0)
     {
@@ -16,12 +16,16 @@ void *nameNodeFind(void *node, void *name)
     if (count > 0)
     {
         off = count << 2;
-        child = (void **) (off + (u32) node);
+        #ifdef PORT
+        child = (AddrWord *) ((u8 *) node + off);
+#else
+        child = (AddrWord *) (off + (u32) node);
+#endif
         do
         {
-            if (str_icmp_eq(name, child[5]) != 0)
+            if (str_icmp_eq(name, (void *) child[5]) != 0)
             {
-                return child[5];
+                return (void *) child[5];
             }
             count -= 1;
             child -= 1;

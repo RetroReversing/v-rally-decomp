@@ -13,7 +13,7 @@ typedef struct O
   u8 pad[0x178];
   R *r;
 } O;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 O *find_object_by_id();
 void gfx_draw_fill_rect();
 

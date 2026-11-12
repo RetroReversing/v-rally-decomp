@@ -5,7 +5,7 @@ s32 func_8007EF5C();
 s32 heapQueryFreeSize();
 s32 resolve_path();
 s32 func_80081664();
-s32 func_80081B44();
+s32 order_state_reset();
 extern s32 gFreeHeap1;
 extern s32 gFreeHeap2;
 extern s32 gSceneHeapBlock;
@@ -14,10 +14,10 @@ extern s32 D_8009D4E8;
 extern s32 rebase_base_addr;
 extern char D_800A4190[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Sets up the sound and resource state, picks the stream buffer size from the
- * level setting at gStreamState+0x7678, then runs the per-entry setup over the
+ * level setting at stream_state+0x7678, then runs the per-entry setup over the
  * list at arg0 (a pointer to the entries, with the count in its +4 field).
  * Returns arg0. */
 void *func_80019130(u8 *arg0)
@@ -35,12 +35,12 @@ void *func_80019130(u8 *arg0)
     var_s3 = arg0;
     resolve_path(D_800A4190);
     rebase_base_addr = func_80081664(gSceneHeapBlock, gOrderState + 0x23D8);
-    D_8009D4E8 = func_80081664(gSceneHeapBlock, gStreamState + 0x5B82);
-    func_80081B44();
+    D_8009D4E8 = func_80081664(gSceneHeapBlock, stream_state + 0x5B82);
+    order_state_reset();
     gFreeHeap1 = heapQueryFreeSize(1);
     gFreeHeap2 = func_8007EF5C(2);
     if (D_8009BBBC == 0) {
-        v = *(u8 *)(gStreamState + 0x7678);
+        v = *(u8 *)(stream_state + 0x7678);
         switch (v) {
         case 0: *(s32 *)(gOrderState + 0x72F4) = func_80005CB8(1, 0xF618, 0xD6D8, 1, 6); break;
         case 1: *(s32 *)(gOrderState + 0x72F4) = func_80005CB8(1, 0xFA00, 0xD6D8, 1, 6); break;

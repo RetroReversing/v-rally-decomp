@@ -7,17 +7,17 @@ extern unsigned char D_800C81FC;
 extern unsigned short D_800C8240;
 void *find_named_node();
 s32 streamSetCurrent();
-s32 func_80084BF0();
-s32 func_80085778();
+s32 input_get_buttons();
+s32 input_clear_flags();
 extern u16 D_8009BAA0[8][5];
 extern s32 D_8009BAF0[];
 extern char D_800A1814[];
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern void *gRecords;
-#define CAM (*((char **) (gStreamState + 0x7CD6)))
-#define TRK (*((char **) (D_800A73E0 + 0x6C24)))
+#define CAM (*((char **) (stream_state + 0x7CD6)))
+#define TRK (*((char **) (gGameState + 0x6C24)))
 
 /* Per-frame camera follow for the car at car: when the race's lap/checkpoint
  * index has changed, updates the camera position from the car's track node,
@@ -86,8 +86,8 @@ void camera_follow_car(char *car)
       }
       if (D_800C8240 & 0x800)
       {
-        var_s0 = func_80084BF0(0);
-        func_80085778(0, var_s0);
+        var_s0 = input_get_buttons(0);
+        input_clear_flags(0, var_s0);
         if (var_s0 & 8)
         {
           var_s2 += 0x34;

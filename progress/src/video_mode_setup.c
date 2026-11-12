@@ -1,4 +1,4 @@
-extern u8 D_800A2590[],gOrderState[],gStreamState[];
+extern u8 D_800A2590[],gOrderState[],stream_state[];
 
 typedef struct {s32 w0,w1,w2,w3;
 } S16Bytes;
@@ -33,7 +33,7 @@ while(src!=end);
 osViSetMode(gOrderState+0x1298);
 osViBlack(1);
 
-gStreamState[0x5BA6]=4;
+stream_state[0x5BA6]=4;
 osViSetYScale(1.0f);
 osViSetSpecialFeatures(0x4A);
 

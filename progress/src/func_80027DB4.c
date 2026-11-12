@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Updates the level stored for channel chan from dir: 0 zeroes it, a positive dir raises it
  * (up to 127) and a negative dir lowers it (down to -128), each step being at least 'step'
@@ -9,7 +9,7 @@ s8 func_80027DB4(s32 unused, s32 dir, s32 chan) {
     s32 current;
     s32 step;
 
-    level = *((s32 *)((gStreamState + 0x8062) + ((chan & 255) * 4)));
+    level = *((s32 *)((stream_state + 0x8062) + ((chan & 255) * 4)));
     if (level >= 151) {
         level = 25;
         step = 20;

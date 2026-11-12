@@ -1,4 +1,4 @@
-s32 func_80082094(void);
+s32 order_stream_next_byte(void);
 void func_800821A4(u8 *, s32, s32);
 typedef struct {
     u8 *in_ptr;
@@ -13,7 +13,7 @@ extern u8 gOrderState[];
 
 #define INFL_WINDOW (gOrderState + 0x8AE8)
 #define WINDOW_SIZE 0x8000
-#define NEXTBYTE() (--inflateState.in_left >= 0 ? *inflateState.in_ptr++ : func_80082094())
+#define NEXTBYTE() (--inflateState.in_left >= 0 ? *inflateState.in_ptr++ : order_stream_next_byte())
 #define NEEDBITS(n) while (k < (n)) { c = NEXTBYTE(); if (c == -1) return 1; b |= (u32)c << k; k += 8; }
 #define DUMPBITS(n) { b >>= (n); k -= (n); }
 

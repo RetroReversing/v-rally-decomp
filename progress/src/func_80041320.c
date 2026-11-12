@@ -1,4 +1,4 @@
-extern void func_800424A4(void *, void *);
+extern void copy_item_label(void *, void *);
 typedef struct { u8 b[8]; } Buf8;
 
 extern u8 *gSceneSlot0;
@@ -34,7 +34,7 @@ void func_80041320(void) {
     *(Buf8 *)&rect[0] = *(Buf8 *)gSceneSlot0;
 
     obj = func_80042078(rect, 5, D_8009FF88, D_8009FF8A, slot);
-    func_800424A4(obj, D_800A4C68);
+    copy_item_label(obj, D_800A4C68);
     {
         u8 *p;
         p = gSceneSlot0;
@@ -42,7 +42,7 @@ void func_80041320(void) {
         *(Buf8 *)&rect[0] = *(Buf8 *)p;
     }
     obj = func_80042078(rect, 2, D_8009FF94, D_8009FF96, slot);
-    func_800424A4(obj, D_800A4C74);
+    copy_item_label(obj, D_800A4C74);
     *(s32 *)((u8 *)obj + 12) = 3;
     *(f32 *)((u8 *)obj + 0x18C) = 250.0f;
     *(f32 *)((u8 *)obj + 0x190) = 2000.0f;
@@ -52,15 +52,15 @@ void func_80041320(void) {
     D_8009BBA0 = 2000.0f;
 
     obj = func_80042078(rect, 2, D_8009FF8C, D_8009FF8E, slot);
-    func_800424A4(obj, D_800A4C7C);
+    copy_item_label(obj, D_800A4C7C);
     *(s32 *)((u8 *)obj + 12) = 1;
 
     g_camera = obj;
     obj = func_80042078(rect, 5, D_8009FF90, D_8009FF92, slot);
-    func_800424A4(obj, D_800A4C88);
+    copy_item_label(obj, D_800A4C88);
     *(s32 *)((u8 *)obj + 12) = kind;
 
     obj = func_80042078(rect, 2, D_8009FF98, D_8009FF9A, slot);
-    func_800424A4(obj, D_800A4C60);
+    copy_item_label(obj, D_800A4C60);
     *(s32 *)((u8 *)obj + 12) = 4;
 }

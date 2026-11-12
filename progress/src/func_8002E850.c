@@ -12,20 +12,21 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8002E850(s32 arg0) {
-    s32 var_a0;
-    s32 var_v0;
+/* Wraps angle into the range [-0x800, 0x800) for a 4096-unit circle (one turn = 0x1000). */
+s32 func_8002E850(s32 angle) {
+    s32 biased;
+    s32 wrapped;
 
-    var_v0 = arg0;
-    if (arg0 < 0) {
-        var_v0 = arg0 + 0xFFF;
+    biased = angle;
+    if (angle < 0) {
+        biased = angle + 0xFFF;
     }
-    var_a0 = arg0 - ((var_v0 >> 0xC) << 0xC);
-    if (var_a0 >= 0x800) {
-        var_a0 -= 0x1000;
+    wrapped = angle - ((biased >> 0xC) << 0xC);
+    if (wrapped >= 0x800) {
+        wrapped -= 0x1000;
     }
-    if (var_a0 < -0x800) {
-        var_a0 += 0x1000;
+    if (wrapped < -0x800) {
+        wrapped += 0x1000;
     }
-    return var_a0;
+    return wrapped;
 }

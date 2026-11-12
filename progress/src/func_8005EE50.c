@@ -4,7 +4,7 @@ void draw_palette_sprite(void *, s16, s16, void *);
 void *list_advance(u32, void *);
 extern void *gSelectState;
 extern s32 D_800A54D4;
-extern s32 gStreamState;
+extern s32 stream_state;
 extern s32 D_800D05D8;
 
 /* Draws select-screen slot `slot`: walks to its list node, paints the node's box colour, then either draws the highlighted sprite (highlight in the low 16 bits) or the plain label. The fade flag at gSelectState+0x24D decides whether the sprite is drawn. */
@@ -18,7 +18,7 @@ void func_8005EE50(s32 slot, s32 highlight)
   u16 sx;
   u16 sy;
 
-  listHead = *((void **) (((u8 *) (&gStreamState)) + 0x325A));
+  listHead = *((void **) (((u8 *) (&stream_state)) + 0x325A));
   node = list_advance(slot - (*((u8 *) (((*((u8 **) (((u8 *) listHead) + 0x10))) + (((s16 *) listHead)[1] * 0x14)) + 0xD))), (void *)(*((void **) (((u8 *) gSelectState) + 0xC))));
   info = *((void **) (((u8 *) node) + 0x28));
   sx = ((u16 *) info)[3];

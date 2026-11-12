@@ -1,4 +1,4 @@
-s32 slot_set_selected();
+s32 slotSetSelected();
 s32 select_stream_char();
 extern void *gSelectState;
 extern void *gRecords;
@@ -24,7 +24,7 @@ s32 func_8006B220(s32 arg0)
   {
     newValue = value + 0xA;
     *((s16 *) (slot + slotOffset)) = newValue;
-    slot_set_selected(arg0, (-((s16) (newValue / 10))) + 2, slot);
+    slotSetSelected(arg0, (-((s16) (newValue / 10))) + 2, slot);
   }
   return 1;
 }

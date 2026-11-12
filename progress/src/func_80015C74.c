@@ -7,11 +7,11 @@ void heapFreeBlock(Sub *);
 s32 memset();
 extern CmdFn D_8009BF88[];
 extern s8 gStreamReady;
-extern char D_800A73E0[];
+extern char gGameState[];
 
 /* Runs every command in each entry's command list (each command calls the
    handler at D_8009BF88[type], passing the entry and arg1), frees each list, then
-   clears the entry count and the 0x460-byte area at D_800A73E0+0x6C0C. */
+   clears the entry count and the 0x460-byte area at gGameState+0x6C0C. */
 void func_80015C74(Mgr *mgr, s32 arg1)
 {
   s32 idx;
@@ -26,6 +26,6 @@ void func_80015C74(Mgr *mgr, s32 arg1)
     heapFreeBlock(entry->sub);
   }
   mgr->n = 0;
-  memset(D_800A73E0 + 0x6C0C, 0, 0x460);
+  memset(gGameState + 0x6C0C, 0, 0x460);
   gStreamReady = 0;
 }

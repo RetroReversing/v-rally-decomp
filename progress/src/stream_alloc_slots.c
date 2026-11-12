@@ -1,5 +1,5 @@
 extern u8 D_8009BBBC;
-extern char gStreamState[];
+extern char stream_state[];
 void *poolAllocNode(s32 a0, s32 a1);
 
 /* Allocates one 0x24-byte slot record for each stream slot the base table asks for (base[0xF], or 1 when D_8009BBBC is set) and resets its fields. */
@@ -11,7 +11,7 @@ void stream_alloc_slots(s32 channel)
   u8 *base;
   u8 *slot;
 
-  base = *((u8 **) (gStreamState + 0x32F2));
+  base = *((u8 **) (stream_state + 0x32F2));
   if (D_8009BBBC == 0)
   {
     v = base[0xF];

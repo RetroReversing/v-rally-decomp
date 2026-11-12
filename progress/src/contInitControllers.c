@@ -15,7 +15,7 @@ typedef struct {
 } ContCtx;
 extern s8 gContPort0Found;
 extern u8 D_800B4288[];
-extern ContCtx *gContCtx;
+extern ContCtx *gControllerInputContext;
 void func_80086138(s32, u8);
 void func_800862A0(s32);
 s32 osContInit(void *, u8 *, ContStatus *);
@@ -27,32 +27,32 @@ s32 contInitControllers(s32 want)
     u8 connected_mask;
     s32 port;
 
-    osContInit(D_800B4288, &connected_mask, gContCtx->status);
+    osContInit(D_800B4288, &connected_mask, gControllerInputContext->status);
     for (port = 0; port < 4; port++)
     {
-        if (((connected_mask >> port) & 1) && !(gContCtx->status[port].errnum & 8))
+        if (((connected_mask >> port) & 1) && !(gControllerInputContext->status[port].errnum & 8))
         {
             if (port == 0)
             {
                 gContPort0Found = 1;
             }
-            gContCtx->ptrs[gContCtx->count] = &gContCtx->pads[port];
-            gContCtx->x8[port] = 0;
-            gContCtx->a[port] = 0;
-            gContCtx->b[port] = 0xFFFF;
-            gContCtx->c[port] = 0;
+            gControllerInputContext->ptrs[gControllerInputContext->count] = &gControllerInputContext->pads[port];
+            gControllerInputContext->x8[port] = 0;
+            gControllerInputContext->a[port] = 0;
+            gControllerInputContext->b[port] = 0xFFFF;
+            gControllerInputContext->c[port] = 0;
             func_80086138(port, connected_mask);
             func_800862A0(port);
             {
-                ContCtx *ctx = gContCtx;
+                ContCtx *ctx = gControllerInputContext;
                 ctx->flags |= 1;
                 ctx->count++;
             }
-            if (gContCtx->count == want)
+            if (gControllerInputContext->count == want)
             {
-                return gContCtx->count;
+                return gControllerInputContext->count;
             }
         }
     }
-    return gContCtx->count;
+    return gControllerInputContext->count;
 }

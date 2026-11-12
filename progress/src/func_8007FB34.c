@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8007FB34(void) {
+/* Always returns TRUE (1); a stub used where a yes/ready answer is needed. Same body as func_80005BD4. */ s32 func_8007FB34(void) {
     return 1;
 }

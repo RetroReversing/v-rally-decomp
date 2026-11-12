@@ -1,0 +1,12 @@
+extern void func_80015420();
+extern void func_80015534();
+extern void func_80015648();
+extern void func_80015768();
+extern void func_800163E4();
+extern void track_segments_setup_entry();
+extern void ent_prepare_list();
+extern void func_80019130();
+extern void bank_relocate();
+extern void func_8001AF54();
+extern void text_table_load();
+void *gEntryHandlers[20] = { text_table_load, func_80015420, func_80015420, func_80015420, func_80015648, func_80015534, func_80015768, func_80015420, func_800163E4, track_segments_setup_entry, func_80019130, bank_relocate, func_8001AF54, ent_prepare_list, func_80015420, func_80015420, func_80015420, func_80015420, func_80015420, func_80015420 };

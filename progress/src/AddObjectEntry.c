@@ -1,6 +1,6 @@
 typedef s32 M2C_UNK;
 M2C_UNK *poolAlloc(M2C_UNK, M2C_UNK);
-M2C_UNK copyStringAligned(M2C_UNK *, void *);
+M2C_UNK strCpy(M2C_UNK *, void *);
 extern void *gSelectState;
 extern f64 D_800A5240;
 
@@ -27,7 +27,7 @@ void AddObjectEntry(void *obj) {
     if (*(u8 *)((s8 *)obj + 0x210) != 0) {
         *(u8 *)((s8 *)entry + 0x30) = 0;
     } else {
-        copyStringAligned((void *)((s32)entry + 0x30), (void *)((s8 *)obj + 0x1C8));
+        strCpy((void *)((u8 *)entry + 0x30), (void *)((s8 *)obj + 0x1C8));
     }
     idx = 0;
     do {

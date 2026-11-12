@@ -1,10 +1,19 @@
+#ifdef PORT
+typedef unsigned long gfx_word_t;
+typedef struct { gfx_word_t w0, w1; } Gfx16;
+#else
 typedef struct { u32 w0, w1; } Gfx16;
+#endif
 Gfx16 *gfx_get_dl();
 s32 gfx_set_dl();
 extern char D_8009C068[];
 extern char D_8009C0A8[];
 extern char D_8009C0E8[];
+#ifdef PORT
+#define GW(pkt, a, b) { Gfx16 *_g = (Gfx16 *)(pkt); _g->w0 = (a); _g->w1 = (gfx_word_t)(b); }
+#else
 #define GW(pkt, a, b) { Gfx16 *_g = (Gfx16 *)(pkt); _g->w0 = (a); _g->w1 = (u32)(b); }
+#endif
 
 /* Appends the RDP state commands for render mode `mode` to the current display list,
    then hands the list back to gfx_set_dl. */

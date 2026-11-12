@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Builds the split-time buffer for one record. Words 0-3 of the buffer come from
    the record's header fields; the remaining words hold the per-split times, which
@@ -34,7 +34,7 @@ void build_time_splits(char *rec, char *owner)
   ;
   if (((out[1] - out[0]) / 1000) != 0)
   {
-    settings = *((char **) (gStreamState + 0x32F2));
+    settings = *((char **) (stream_state + 0x32F2));
     cur = rec + 0x4C;
     unused_stride = 0x1C0;
     do

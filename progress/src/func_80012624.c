@@ -12,8 +12,8 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80012624(void *arg0) {
-    M2C_FIELD(arg0, s32 *, 0x8C) = 0;
-    M2C_FIELD(arg0, s16 *, 0x84) = 0;
-    M2C_FIELD(arg0, s32 *, 0x88) = 0x33;
+/* Resets the state fields of obj: clears 0x8C and 0x84, sets 0x88 to 0x33. */ void func_80012624(void *obj) {
+    M2C_FIELD(obj, s32 *, 0x8C) = 0;
+    M2C_FIELD(obj, s16 *, 0x84) = 0;
+    M2C_FIELD(obj, s32 *, 0x88) = 0x33;
 }

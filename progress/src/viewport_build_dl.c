@@ -1,8 +1,12 @@
+#ifdef PORT
+typedef struct { uintptr_t w0; uintptr_t w1; } Gfx;
+#else
 typedef struct { u32 w0; u32 w1; } Gfx;
+#endif
 typedef struct { u8 pad00[0x10]; s16 zeroA; u16 curA; s16 posX; u16 prevA; s16 zeroB; u16 curB; s16 posY; u16 prevB; } Frame;
 typedef struct { s16 x; s16 y; s16 w; s16 h; u8 pad[0x24]; Frame *frame; } Viewport;
 s32 view_get_ctx_id();
-s32 func_80005C48(s32);
+s32 obj_get_owner(s32);
 Gfx *gfx_get_dl(s32);
 void gfx_set_dl(s32, Gfx *);
 u32 osVirtualToPhysical(s32);
@@ -27,8 +31,12 @@ void viewport_build_dl(Viewport *vp, s32 posX, s32 posY, u8 expand)
   q = vp->frame;
   dlIndex = view_get_ctx_id();
   dl = gfx_get_dl(dlIndex);
-  fbVirt = func_80005C48(gSceneSlot1);
+  fbVirt = obj_get_owner(gSceneSlot1);
+  #ifdef PORT
+  GFX_PUT(dl++, 0xDE000000, (uintptr_t)&D_8009B5D0);
+#else
   GFX_PUT(dl++, 0xDE000000, (u32)&D_8009B5D0);
+#endif
   GFX_PUT(dl++, 0xFF100000 | ((gSceneSlot0[2] - 1) & 0xFFF), osVirtualToPhysical(fbVirt));
   if (!expand)
   {
@@ -49,9 +57,17 @@ void viewport_build_dl(Viewport *vp, s32 posX, s32 posY, u8 expand)
   GFX_PUT(dl++, 0xE200001C, 0);
   GFX_PUT(dl++, 0xE3000A01, 0x200000);
   GFX_PUT(dl++, 0xE3001001, 0x8000);
+  #ifdef PORT
+  GFX_PUT(dl++, 0x05000017, (uintptr_t)q + 0x38);
+#else
   GFX_PUT(dl++, 0x05000017, (u32)q + 0x38);
+#endif
   GFX_PUT(dl++, 0xE7000000, 0);
+  #ifdef PORT
+  GFX_PUT(dl++, 0x0A000000, (uintptr_t)q + 0x10);
+#else
   GFX_PUT(dl++, 0x0A000000, (u32)q + 0x10);
+#endif
   GFX_PUT(dl++, 0xE7000000, 0);
   GFX_PUT(dl++, 0xE3000A01, 0);
   gfx_set_dl(dlIndex, dl);

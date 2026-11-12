@@ -8,7 +8,7 @@ void func_8003AF74(void *obj)
 {
     void *item;
 
-    item = *((s32 *) (*((s32 *) (((char *) obj) + 0xA8)) + 0x24));
+    item = *((void **) (((char *) *((void **) (((char *) obj) + 0xA8))) + 0x24));
     if (item != 0)
     {
         item = orderFindNeighbor(obj, item);

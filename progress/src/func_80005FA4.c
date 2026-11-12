@@ -1,12 +1,13 @@
 extern s32 gOrderState[];
 
-s32 func_80005FA4(s32 arg0) {
-    s32 var_v0;
+/* Returns nonzero when the order-state word at gOrderState[4] differs from toggle (a zero toggle tests the word alone). */
+s32 func_80005FA4(s32 toggle) {
+    s32 diff;
 
-    if (arg0 != 0) {
-        var_v0 = *(vs32 *)((s32)&gOrderState[4]) ^ arg0;
+    if (toggle != 0) {
+        diff = *(vs32 *)&gOrderState[4] ^ toggle;
     } else {
-        var_v0 = *(vs32 *)((s32)&gOrderState[4]);
+        diff = *(vs32 *)&gOrderState[4];
     }
-    return var_v0 != 0;
+    return diff != 0;
 }

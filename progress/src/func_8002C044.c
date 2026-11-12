@@ -121,7 +121,11 @@ int __repair_literal;
         {
           W(P(a, 96), (i * 4) + 48) = oldcol + oldcol - oldcol;
           W(P(a, 96), i * 4) = oldrow;
+          #ifdef PORT
+          g = old;
+#else
           g = (char *)((int)old + (int)old - (int)old);
+#endif
           P(P(a, 140), i * 4) = g;
           pos = save;
           result = -__repair_literal;
@@ -165,8 +169,16 @@ int __repair_literal;
         {
           int k = shift[0] * 4;
           W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);
+          #ifdef PORT
+          W(P(a, 96), i * 4) = *(int *)(P(a, 96) + k);
+#else
           W(P(a, 96), i * 4) = *(int *)(k + (int)P(a, 96));
+#endif
+          #ifdef PORT
+          P(P(a, 140), i * 4) = *(char **)(P(a, 140) + k);
+#else
           P(P(a, 140), i * 4) = *(char **)(k + (int)P(a, 140));
+#endif
         }
         func_80029AA8(a, q, &pos, i);
       }

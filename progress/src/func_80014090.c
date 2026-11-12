@@ -19,7 +19,11 @@ void func_80014090(void)
     {
         now = osGetTime();
         block = gTimeSampleState;
+#ifdef PORT
+        slot = block + (*((u32 *) (block + 4)) << 3);
+#else
         slot = (u8 *) ((*((u32 *) (block + 4)) << 3) + (u32) block);
+#endif
         scaled = __udivdi3(now << 6, (u64) 0xBB8);
         base = *((u64 *) (block + 8));
         *((u64 *) (slot + 0xD0)) = scaled - base;

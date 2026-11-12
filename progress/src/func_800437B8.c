@@ -1,11 +1,11 @@
 s32 getCounterValue(void *);
-s32 func_80022374(void **, u8 *, s32);
-s32 func_800347A4(void *, void *);
+s32 named_entry_set_value(void **, u8 *, s32);
+s32 ai_drive_compute(void *, void *);
 s32 race_reset(void);
-s32 func_80085778(s32, s32);
+s32 input_clear_flags(s32, s32);
 extern s32 D_800A4DFC;
-extern s32 D_800AE44C;
-extern s32 D_800A73E0;
+extern void *D_800AE44C;
+extern s32 gGameState;
 extern s32 gOrderState;
 extern void *gRecords;
 extern void **gCarList;
@@ -46,7 +46,7 @@ void func_800437B8(void *car, void *ctrl)
         }
 
       }
-      func_80022374((void **)(node + 0x28), (u8 *)(&D_800A4DFC), 2);
+      named_entry_set_value((void **)(node + 0x28), (u8 *)(&D_800A4DFC), 2);
       *((s32 *) (((char *) (*((void **) (((char *) car) + 0x50)))) + 4)) = 1;
       cfg = *((void **) (((char *) car) + 0x50));
       if ((*((s32 *) (((char *) cfg) + 0))) < 2)
@@ -55,7 +55,7 @@ void func_800437B8(void *car, void *ctrl)
       }
     }
   }
-  func_800347A4(car, ctrl);
+  ai_drive_compute(car, ctrl);
   if (((u8) (*((u8 *) (((char *) ctrl) + 4)))) >= 0x81U)
   {
     *((u8 *) (((char *) ctrl) + 4)) = 0x80U;
@@ -115,9 +115,9 @@ void func_800437B8(void *car, void *ctrl)
       {
         if ((*(*((s32 **) (((char *) car) + 0x48)))) < 4)
         {
-          D_800AE44C = (void *) ((*((void **) (((char *) (&D_800A73E0)) + 0x706C))) + 1);
+          D_800AE44C = (void *) ((*((void **) (((char *) (&gGameState)) + 0x706C))) + 1);
         }
-        node = *((void **) (((char *) (&D_800A73E0)) + 0x706C));
+        node = *((void **) (((char *) (&gGameState)) + 0x706C));
         expected = (*((u16 *) (((char *) gRecords) + 0xE))) * 0x64;
         if ((node == expected) || (node == (expected + 1)))
         {
@@ -129,8 +129,8 @@ void func_800437B8(void *car, void *ctrl)
           gRaceState = 0;
           race_reset();
 
-          func_80085778(0, 0x1000);
-          func_80085778(0, 0x8000);
+          input_clear_flags(0, 0x1000);
+          input_clear_flags(0, 0x8000);
         }
       }
     }

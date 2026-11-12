@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8004F54C(void *arg0) {
-    M2C_FIELD(M2C_FIELD(arg0, void **, 0x48), s32 *, 0x20) = 8;
+/* Sets the field at offset 0x20 of the sub-object pointed to by obj+0x48 to 8. */ void func_8004F54C(void *obj) {
+    M2C_FIELD(M2C_FIELD(obj, void **, 0x48), s32 *, 0x20) = 8;
 }

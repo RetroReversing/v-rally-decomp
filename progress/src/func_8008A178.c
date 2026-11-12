@@ -5,5 +5,9 @@ char *findRecordByRange(int a, int b);
 void func_8008A178(int range, int index, int value) {
     int idx = index & 0xFFFF;
     char *rec = findRecordByRange(range, idx);
+#ifdef PORT
+    *(int *)(*(char **)(rec + 8) + (idx - *(unsigned char *)(rec + 0xD)) * 0xC) = value;
+#else
     *(int *)(*(int *)(rec + 8) + (idx - *(unsigned char *)(rec + 0xD)) * 0xC) = value;
+#endif
 }

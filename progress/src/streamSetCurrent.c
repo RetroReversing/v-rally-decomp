@@ -1,3 +1,4 @@
+/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -11,20 +12,17 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-
-
 s32 func_80005744();
-extern char gStreamState[];
+extern char stream_state[];
 
-void *streamSetCurrent(void *arg0) {
-    s32 var_a0;
-    void *var_s0;
-    void *var_v0;
+/* Makes stream arg0 the current stream (stored in stream_state+0x7CD6), then calls func_80005744 with the stream's field at +0x178. Returns the stream. */
+void *streamSetCurrent(void *stream) {
+    s32 field;
+    void *result;
 
-    var_s0 = arg0;
-    var_a0 = *(s32 *)((char *)var_s0 + 0x178);
-    *(void * *)(gStreamState + 0x7CD6) = var_s0;
-    func_80005744(var_a0);
-    var_v0 = var_s0;
-    return var_v0;
+    result = stream;
+    field = *(s32 *)((char *)result + 0x178);
+    *(void * *)(stream_state + 0x7CD6) = result;
+    func_80005744(field);
+    return result;
 }

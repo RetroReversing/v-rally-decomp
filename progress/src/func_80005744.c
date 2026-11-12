@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80005744(void) {
+/* Empty hook; does nothing. */ void func_80005744(void) {
 
 }

@@ -18,8 +18,16 @@ void func_8005D8B0(void) {
         ((VRLeague *) gLeague)->timer = 0;
     }
     if (D_800AFA49 == 1) {
+        #ifdef PORT
+        (((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index)->value = D_800AFA49;
+#else
         ((VRLeagueEntry *) ((s32) ((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index * 0x14))->value = (s32) D_800AFA49;
+#endif
         return;
     }
+    #ifdef PORT
+    (((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index)->value = 0x32;
+#else
     ((VRLeagueEntry *) ((s32) ((VRLeague *) gLeague)->entries + ((VRLeague *) gLeague)->index * 0x14))->value = 0x32;
+#endif
 }

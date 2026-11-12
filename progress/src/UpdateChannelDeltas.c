@@ -1,14 +1,14 @@
 extern s32 func_8006B924(u8 *);
-extern u8 gStreamState[];
-extern u8 D_800A73E0[];
+extern u8 stream_state[];
+extern u8 gGameState[];
 
 /* For each of three channels, looks up the matching record slot in the table at
- * gStreamState + 0x37E2 / 0x3822 and stores a magnitude-plus-sign delta (clamped to
+ * stream_state + 0x37E2 / 0x3822 and stores a magnitude-plus-sign delta (clamped to
  * 0x3FFE) and the slot in the 16-bit output words at 0x6FC4; a channel with no
  * slot gets 0xFFFF. */
 void UpdateChannelDeltas(void)
 {
-  u8 *out = gStreamState + 0x6FC4;
+  u8 *out = stream_state + 0x6FC4;
   u8 *nibbles = out - 3;
   u8 ch = 0;
   s32 notFound = 5;
@@ -23,14 +23,18 @@ void UpdateChannelDeltas(void)
   {
     row = ch;
     off = row << 4;
-    slot = func_8006B924((gStreamState + 0x37E2) + off);
+    slot = func_8006B924((stream_state + 0x37E2) + off);
     if ((slot & 0xFF) == notFound)
     {
+#ifdef PORT
+      *((s16 *) (out + (row << 1))) = noSlot;
+#else
       *((s16 *) (((u32) (row << 1)) + ((u32) out))) = noSlot;
+#endif
     }
     else
     {
-      delta = (*((s32 *) (D_800A73E0 + 0x6B94))) - (*((s32 *) ((gStreamState + 0x37E2) + off)));
+      delta = (*((s32 *) (gGameState + 0x6B94))) - (*((s32 *) ((stream_state + 0x37E2) + off)));
       if (delta >= 0)
       {
         if (delta >= 0x4000)
@@ -48,20 +52,28 @@ void UpdateChannelDeltas(void)
         }
         delta |= 1;
       }
+#ifdef PORT
+      *((s16 *) (out + ((ch & 0xFF) << 1))) = delta | ((slot & 0xFF) << 14);
+#else
       *((s16 *) (((u32) ((ch & 0xFF) << 1)) + ((u32) out))) = delta | ((slot & 0xFF) << 14);
+#endif
       p = nibbles - (-(ch & 0xFF));
-      *p = ((*p) & 0xF0) + ((*((gStreamState + 0x37E6) + ((ch & 0xFF) << 4))) & 0xF);
+      *p = ((*p) & 0xF0) + ((*((stream_state + 0x37E6) + ((ch & 0xFF) << 4))) & 0xF);
     }
     row = ch & 0xFF;
     off = row << 4;
-    slot = func_8006B924((gStreamState + 0x3822) + off);
+    slot = func_8006B924((stream_state + 0x3822) + off);
     if ((slot & 0xFF) == notFound)
     {
+#ifdef PORT
+      *((s16 *) (out + (row << 1) + 6)) = noSlot;
+#else
       *((s16 *) ((((u32) (row << 1)) + ((u32) out)) + 6)) = noSlot;
+#endif
     }
     else
     {
-      delta = (*((s32 *) (D_800A73E0 + 0x6B98))) - (*((s32 *) ((gStreamState + 0x3822) + off)));
+      delta = (*((s32 *) (gGameState + 0x6B98))) - (*((s32 *) ((stream_state + 0x3822) + off)));
       if (delta >= 0)
       {
         if (delta >= 0x4000)
@@ -79,9 +91,13 @@ void UpdateChannelDeltas(void)
         }
         delta |= 1;
       }
+#ifdef PORT
+      *((s16 *) (out + ((ch & 0xFF) << 1) + 6)) = delta | ((slot & 0xFF) << 14);
+#else
       *((s16 *) ((((u32) ((ch & 0xFF) << 1)) + ((u32) out)) + 6)) = delta | ((slot & 0xFF) << 14);
+#endif
       p = nibbles + (ch & 0xFF);
-      *p = ((*p) & 0xF) + (((*((gStreamState + 0x3826) + ((ch & 0xFF) << 4))) & 0xF) << 4);
+      *p = ((*p) & 0xF) + (((*((stream_state + 0x3826) + ((ch & 0xFF) << 4))) & 0xF) << 4);
     }
     ch++;
   }

@@ -32,12 +32,12 @@ typedef struct {
     RectQuad quads[128];
     f32 scale[3];
 } RectSet;
-extern s16 func_8000BF10(s32);
+extern s16 bswap16(s32);
 extern void *poolAlloc(s32, s32);
-extern u8 *func_8008E13C(u8 *, u8 *, s32);
+extern u8 *memcpy(u8 *, u8 *, s32);
 
 /* Builds a RectSet from a rectangle list: copies the entries, converts each entry's x and y
- * with func_8000BF10, and fills the quad corners of every entry whose x is not -128
+ * with bswap16, and fills the quad corners of every entry whose x is not -128
  * (the 'no rectangle' marker). Scales start at 1.0. */
 RectSet *make_rect_set(RectList *src)
 {
@@ -56,10 +56,10 @@ RectSet *make_rect_set(RectList *src)
     item->ptr = &src->ents[count];
     set->item = item;
     set->data = poolAlloc(1, size);
-    func_8008E13C((i = 0, (u8 *)set->data), (u8 *)src->ents, size);
+    memcpy((i = 0, (u8 *)set->data), (u8 *)src->ents, size);
     for (; i < count; i++) {
-        set->data[i].x = func_8000BF10(set->data[i].x);
-        set->data[i].y = func_8000BF10(set->data[i].y);
+        set->data[i].x = bswap16(set->data[i].x);
+        set->data[i].y = bswap16(set->data[i].y);
     }
     set->flag = 0;
     for (i = 0; i < 3; i++) {

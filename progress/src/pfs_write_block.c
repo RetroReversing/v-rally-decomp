@@ -4,7 +4,7 @@ extern void pfs_build_write_cmd(u8, u8 *);
 extern s32 pakQueryStatus(s32, u8 *);
 extern s32 __osSiRawStartDma(s32, void *);
 extern s32 osRecvMesg(s32, void *, s32);
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
 typedef struct { u8 b[12]; } Blk12;
 
@@ -46,7 +46,7 @@ s32 pfs_write_block(s32 mq, u8 ch, u8 *data)
     ret = __osSiRawStartDma(1, gOrderState + 0x8660);
     osRecvMesg(mq, 0, 1);
     ret = __osSiRawStartDma(0, gOrderState + 0x8660);
-    gStreamState[0x3272] = 5;
+    stream_state[0x3272] = 5;
     osRecvMesg(mq, 0, 1);
     pif += 4;
     reply = *(Blk12 *)pif;

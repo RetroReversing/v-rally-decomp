@@ -12,7 +12,7 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80087F80(void *arg0, s32 arg1) {
-    M2C_FIELD(arg0, s8 *, 0xCA) = 1;
-    return arg1;
+/* Sets the byte at offset 0xCA of obj to 1 and returns ret unchanged. */ s32 func_80087F80(void *obj, s32 ret) {
+    M2C_FIELD(obj, s8 *, 0xCA) = 1;
+    return ret;
 }

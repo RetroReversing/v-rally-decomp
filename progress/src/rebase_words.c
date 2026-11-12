@@ -1,19 +1,19 @@
-void rebase_words(u32 *arg0, s32 arg1, s32 arg2) {
-    char pad[8];
-    s32 var_a3;
-    u32 *var_a0;
-    u32 temp_v1;
+/* Relocates a table of pointer-like words: every second word whose top bit is clear gets base added. Words with the top bit set are left as they are. */ void rebase_words(u32 *words, s32 count, s32 base) {
+    char unused[8];
+    s32 i;
+    u32 *p;
+    u32 value;
 
-    var_a0 = arg0;
-    var_a3 = 0;
-    if (arg1 > 0) {
+    p = words;
+    i = 0;
+    if (count > 0) {
         do {
-            temp_v1 = *var_a0;
-            var_a3 += 1;
-            if (temp_v1 <= 0x7FFFFFFFU) {
-                *var_a0 = temp_v1 + arg2;
+            value = *p;
+            i += 1;
+            if (value <= 0x7FFFFFFFU) {
+                *p = value + base;
             }
-            var_a0 += 2;
-        } while (var_a3 < arg1);
+            p += 2;
+        } while (i < count);
     }
 }

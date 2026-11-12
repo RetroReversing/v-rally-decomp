@@ -2998,7 +2998,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -4228,16 +4228,16 @@ static s32 __nextSampleTime(ALSynth *drvr, ALPlayer **client);
 
 
 
-Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
+/* Builds the audio command list for one frame. Runs pending parameter updates, then renders outLen samples into outBuf through the output filter chain and returns the end of the command list. */ Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
 {
     ALPlayer    *client;
     ALFilter    *output;
     ALSynth     *drvr = &D_800A2500->drvr;
-    s16         tmp = 0;         
-    Acmd        *cmdlEnd = cmdList;
+    s16         dummyGain = 0;         
+    Acmd        *cmdEnd = cmdList;
     Acmd        *cmdPtr;
-    s32         nOut;
-    s16         *lOutBuf = outBuf;
+    s32         nSamples;
+    s16         *outPtr = outBuf;
 
 
 
@@ -4287,28 +4287,28 @@ Acmd *alAudioFrame(Acmd *cmdList, s32 *cmdLen, s16 *outBuf, s32 outLen)
 
 
     while (outLen > 0){
-        nOut = (( drvr->maxOutSamples ) < (  outLen ) ? ( drvr->maxOutSamples ) : (  outLen )) ;
+        nSamples = (( drvr->maxOutSamples ) < (  outLen ) ? ( drvr->maxOutSamples ) : (  outLen )) ;
 
          
 
 
 
-        cmdPtr = cmdlEnd;
+        cmdPtr = cmdEnd;
         {	Acmd *_a = (Acmd *) cmdPtr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 7  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  24 )) - 1)) << (  0 ))) ;	} ;
         output = drvr->outputFilter;
-        (*output->setParam)(output, AL_FILTER_SET_DRAM, lOutBuf);
-        cmdlEnd = (*output->handler)(output, &tmp, nOut, drvr->curSamples,
+        (*output->setParam)(output, AL_FILTER_SET_DRAM, outPtr);
+        cmdEnd = (*output->handler)(output, &dummyGain, nSamples, drvr->curSamples,
                                      cmdPtr);
 
-        outLen -= nOut;
-        lOutBuf += nOut<<1;      
-        drvr->curSamples += nOut;
+        outLen -= nSamples;
+        outPtr += nSamples<<1;      
+        drvr->curSamples += nSamples;
 
     }
-    *cmdLen = (s32) (cmdlEnd - cmdList);
+    *cmdLen = (s32) (cmdEnd - cmdList);
 
     _collectPVoices(drvr);  
 
 
-    return cmdlEnd;
+    return cmdEnd;
 }

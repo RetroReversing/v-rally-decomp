@@ -1,4 +1,10 @@
+#ifdef PORT
+typedef struct { uintptr_t w0, w1; } Gfx;
+#define ADDR(p) ((uintptr_t)(p))
+#else
 typedef struct { u32 w0, w1; } Gfx;
+#define ADDR(p) ((u32)(p))
+#endif
 typedef struct { s32 x, y, z; } Vec3i;
 typedef struct {
     char pad0[0x38];
@@ -18,13 +24,13 @@ typedef struct { char pad[0x237]; u8 track; } GameState;
 
 #define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
 
-void func_80022668(s32, s32);
+void list_nth_node(s32, s32);
 void *find_object_by_id(s32);
 DLBuf *view_get_ctx_id(void *);
 void view_set_rect(void *, s16 *);
 Gfx *gfx_get_dl(DLBuf *);
 void gfx_set_dl(DLBuf *, Gfx *);
-void *func_80005C48(FrameBuf *);
+void *obj_get_owner(FrameBuf *);
 u32 osVirtualToPhysical(void *);
 void camera_refresh_and_copy(void *, s16 *);
 void *mtx_pool_alloc(void);
@@ -35,18 +41,18 @@ void obj_mtx_visible(void *, void *, void *);
 void gfx_push_mtx(DLBuf *, void *);
 void draw_item_bar(void *, s32, f32, s32, s32);
 void stream_load_slot_text(u8);
-s32 func_80084DD4(u8);
+s32 pad_port_disconnected(u8);
 void func_80015C74(void *, s32);
 void func_80017B38(void *, s32, DLBuf *, void *);
 
-extern s32 D_800A11B0;
+extern s32 gStreamList;
 extern Camera *g_camera;
-extern Vec3i D_800A1694;
-extern Vec3i D_800A16A0;
+extern Vec3i g_main_cam_eye;
+extern Vec3i g_main_cam_at;
 extern s16 D_800A16AC[4];
 extern FrameBuf *gSceneSlot1;
 extern u32 D_800B706C;
-extern char D_800C8380[];
+extern char hud_ident_mtx[];
 extern f32 D_800A1584[];
 extern f32 D_800A158C;
 extern char D_800A159C[];
@@ -56,27 +62,27 @@ extern GameState *gSelectState;
 extern s32 D_800AFB40;
 extern s32 D_800B5AF4;
 extern s32 D_800AFA68;
-extern Players *gContCtx;
+extern Players *gControllerInputContext;
 extern char D_800ADFB0[];
 extern char D_800ADFEC[];
 
-void func_80069A08(void)
+/* Per-frame draw for the track-select screen: points the two cameras at the preview, writes the RDP and RSP display-list commands for the viewport, and updates the track-change fade and controller-input masks. */ void func_80069A08(void)
 {
-    DLBuf *buf;
+    DLBuf *dl_buf;
     Gfx *gfx;
     View *view;
     void *mtx;
-    void *m;
+    void *tmp_mtx;
     u32 zaddr;
     s32 i;
 
-    func_80022668(D_800A11B0, 0);
+    list_nth_node(gStreamList, 0);
     g_camera = find_object_by_id(3);
-    buf = view_get_ctx_id(g_camera->dl);
+    dl_buf = view_get_ctx_id(g_camera->dl);
 
     g_camera = find_object_by_id(3);
-    g_camera->eye = D_800A1694;
-    g_camera->at = D_800A16A0;
+    g_camera->eye = g_main_cam_eye;
+    g_camera->at = g_main_cam_at;
     g_camera->f130 = 0.0f;
     g_camera->f134 = 100.0f;
     g_camera->f138 = 0.0f;
@@ -86,8 +92,8 @@ void func_80069A08(void)
     view_set_rect(g_camera->dl, D_800A16AC);
 
     g_camera = find_object_by_id(1);
-    g_camera->eye = D_800A1694;
-    g_camera->at = D_800A16A0;
+    g_camera->eye = g_main_cam_eye;
+    g_camera->at = g_main_cam_at;
     g_camera->f130 = 0.0f;
     g_camera->f134 = 100.0f;
     g_camera->f138 = 0.0f;
@@ -95,7 +101,7 @@ void func_80069A08(void)
     g_camera->f110 = 0.4f;
     g_camera->f114 = 1.0f;
 
-    gfx = gfx_get_dl(buf);
+    gfx = gfx_get_dl(dl_buf);
     GCMD(gfx++, 0xE7000000, 0);
     GCMD(gfx++, 0xE3000A01, 0x300000);
     zaddr = D_800B706C - 0x80000000;
@@ -105,40 +111,40 @@ void func_80069A08(void)
     GCMD(gfx++, 0xF6000000 | (((gSceneSlot1->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),
          ((D_800A16AC[0] & 0x3FF) << 14) | ((D_800A16AC[1] & 0x3FF) << 2));
     GCMD(gfx++, 0xE7000000, 0);
-    GCMD(gfx++, 0xFF100000 | ((gSceneSlot1->width - 1) & 0xFFF), osVirtualToPhysical(func_80005C48(gSceneSlot1)));
+    GCMD(gfx++, 0xFF100000 | ((gSceneSlot1->width - 1) & 0xFFF), osVirtualToPhysical(obj_get_owner(gSceneSlot1)));
     GCMD(gfx++, 0xF7000000, 0x10001);
     GCMD(gfx++, 0xF6000000 | (((gSceneSlot1->width - 1) & 0x3FF) << 14) | (((D_800A16AC[3] - 1) & 0x3FF) << 2),
          ((D_800A16AC[0] & 0x3FF) << 14) | (((D_800A16AC[1] + 60) & 0x3FF) << 2));
     GCMD(gfx++, 0xE3000A01, 0);
-    gfx_set_dl(buf, gfx);
+    gfx_set_dl(dl_buf, gfx);
 
     view = find_object_by_id(3);
     camera_refresh_and_copy(find_object_by_id(3), D_800A16AC);
-    buf = view_get_ctx_id(((Camera *)view)->dl);
-    gfx = gfx_get_dl(buf);
-    m = mtx_pool_alloc();
-    guMtxF2L(((Camera *)view)->mtx, m);
-    guMtxIdent(D_800C8380);
+    dl_buf = view_get_ctx_id(((Camera *)view)->dl);
+    gfx = gfx_get_dl(dl_buf);
+    tmp_mtx = mtx_pool_alloc();
+    guMtxF2L(((Camera *)view)->mtx, tmp_mtx);
+    guMtxIdent(hud_ident_mtx);
     GCMD(gfx++, 0xDB0E0000, view->persp);
-    GCMD(gfx++, 0xDA380003, (u32)D_800C8380);
-    GCMD(gfx++, 0xDC08000A, (u32)view->light0);
-    GCMD(gfx++, 0xDC08030A, (u32)view->light1);
+    GCMD(gfx++, 0xDA380003, ADDR(hud_ident_mtx));
+    GCMD(gfx++, 0xDC08000A, ADDR(view->light0));
+    GCMD(gfx++, 0xDC08030A, ADDR(view->light1));
     GCMD(gfx++, 0xE7000000, 0);
-    gfx_set_dl(buf, gfx);
+    gfx_set_dl(dl_buf, gfx);
 
     g_camera = find_object_by_id(3);
-    buf = view_get_ctx_id(g_camera->dl);
+    dl_buf = view_get_ctx_id(g_camera->dl);
     g_camera = find_object_by_id(1);
     mtx = g_camera->mtx;
     g_camera = find_object_by_id(3);
-    m = mtx_pool_alloc();
+    tmp_mtx = mtx_pool_alloc();
     D_800A1584[0] = -90.0f;
     D_800A158C += 4.0f;
     func_8001C1A8(D_800A1584, D_800A159C);
     D_800A15D0 = 80.0f;
-    obj_mtx_visible(m, g_camera->mtx, D_800A159C);
-    gfx_push_mtx(buf, m);
-    GCMD(buf->gfx++, 0xFB000000, -1);
+    obj_mtx_visible(tmp_mtx, g_camera->mtx, D_800A159C);
+    gfx_push_mtx(dl_buf, tmp_mtx);
+    GCMD(dl_buf->gfx++, 0xFB000000, -1);
     draw_item_bar(g_camera->dl, 0, 4.0f, 0, 0xFF);
 
     if (D_800C5E50 == -1) {
@@ -147,10 +153,10 @@ void func_80069A08(void)
         D_800B5AF4 = gSelectState->track;
         D_800AFB40 = 0;
         for (i = 0; i < 4; i++) {
-            if (func_80084DD4(i) != 0) {
-                gContCtx->a4C[i] &= 0x7FFF;
-                gContCtx->a44[i] &= 0x7FFF;
-                gContCtx->a54[i] &= 0x7FFF;
+            if (pad_port_disconnected(i) != 0) {
+                gControllerInputContext->a4C[i] &= 0x7FFF;
+                gControllerInputContext->a44[i] &= 0x7FFF;
+                gControllerInputContext->a54[i] &= 0x7FFF;
             }
         }
     } else if (D_800C5E50 != gSelectState->track) {
@@ -166,10 +172,10 @@ void func_80069A08(void)
             D_800AFB40 = 0;
         }
         for (i = 0; i < 4; i++) {
-            if (func_80084DD4(i) != 0) {
-                gContCtx->a4C[i] &= 0x7FFF;
-                gContCtx->a44[i] &= 0x7FFF;
-                gContCtx->a54[i] &= 0x7FFF;
+            if (pad_port_disconnected(i) != 0) {
+                gControllerInputContext->a4C[i] &= 0x7FFF;
+                gControllerInputContext->a44[i] &= 0x7FFF;
+                gControllerInputContext->a54[i] &= 0x7FFF;
             }
         }
     }
@@ -179,10 +185,10 @@ void func_80069A08(void)
             D_800AFA68 = 255;
         } else {
             for (i = 0; i < 4; i++) {
-                if (func_80084DD4(i) != 0) {
-                    gContCtx->a4C[i] &= 0x7FFF;
-                    gContCtx->a44[i] &= 0x7FFF;
-                    gContCtx->a54[i] &= 0x7FFF;
+                if (pad_port_disconnected(i) != 0) {
+                    gControllerInputContext->a4C[i] &= 0x7FFF;
+                    gControllerInputContext->a44[i] &= 0x7FFF;
+                    gControllerInputContext->a54[i] &= 0x7FFF;
                 }
             }
         }
@@ -192,5 +198,5 @@ void func_80069A08(void)
             D_800AFA68 = 0;
         }
     }
-    func_80017B38(D_800ADFEC, 0, buf, mtx);
+    func_80017B38(D_800ADFEC, 0, dl_buf, mtx);
 }

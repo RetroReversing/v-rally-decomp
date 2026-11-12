@@ -10,7 +10,7 @@ typedef struct OSMesgQueue_s {
     OSMesg      *msg;
 } OSMesgQueue;
 
-extern OSThread *D_800A2520;
+extern OSThread *stream_default_slot;
 extern u32 osDisableInt(void);
 extern void osRestoreInt(u32);
 extern void func_8008B4D4(OSThread **);
@@ -28,7 +28,7 @@ s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flags) {
 
     while ((((  mq  )->validCount)  >= ( mq )->msgCount) ) {
         if (flags == 1 ) {
-            D_800A2520->state = (1 << 3) ;
+            stream_default_slot->state = (1 << 3) ;
             func_8008B4D4(&mq->fullqueue);
         } else {
             osRestoreInt(saveMask);

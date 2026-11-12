@@ -1,5 +1,5 @@
 void *select_get_entry(u32);
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Sets up the select entry at `slot` (relative to the stream's first slot) with `count` sub-items:
  * stores the count at +0x4D, marks it ready at +0x4E, and clears the active flag (+0x1B) on every
@@ -11,7 +11,7 @@ void func_8005937C(s32 slot, s32 count)
     char *cur;
     char *obj;
     char *base;
-    p = *(char **)(gStreamState + 0x325A);
+    p = *(char **)(stream_state + 0x325A);
     base = *(char **)(p + 0x10);
     slot -= *(u8 *)(base + *(s16 *)(p + 2) * 0x14 + 0xD);
     obj = select_get_entry(slot);

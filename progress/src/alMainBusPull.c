@@ -2976,7 +2976,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    alLink(ALLink *element, ALLink *after);
+void    al_link_push(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -4193,7 +4193,7 @@ void            func_800978E0 (ALLowPass *lp);
 
 s32 alMainBusParam(void *filter, s32 paramID, void *param);
 
-Acmd *alMainBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
+/* Emits the audio command list for the main bus: sets up the output buffer, pulls each source filter into it in turn, then mixes the result out to the output segment. Returns the advanced command pointer. */ Acmd *alMainBusPull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
 {
     Acmd        *ptr = p;
     ALMainBus   *m = (ALMainBus *)filter;

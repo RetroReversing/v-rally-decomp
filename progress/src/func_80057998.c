@@ -1,6 +1,6 @@
 s32 text_load_and_parse(void *, void *);
 void *poolAlloc(s32, s32);
-s32 func_80084BF0(s32);
+s32 input_get_buttons(s32);
 extern u8 D_800A13C0[];
 extern u8 *gSelectState;
 extern u8 D_800A5230[];
@@ -8,7 +8,7 @@ extern u8 D_800A5230[];
 /* Allocates the 0x2C0-byte select state and zeroes its fields. Only the fields
    that start out non-zero are set to other values: byte 0x246 = 1, byte 0x22B = -1,
    byte 0x2BC = 3 and halfword 0x222 = -1. The 0x184 table gets 4 zeroed words.
-   Byte 0x248 is set from the input flags of func_80084BF0(0). Then it is published
+   Byte 0x248 is set from the input flags of input_get_buttons(0). Then it is published
    as gSelectState and the associated data is loaded. */
 void func_80057998(void)
 {
@@ -50,7 +50,7 @@ void func_80057998(void)
         i++;
     } while (i < 4);
     *(s16 *)(sel + 0x222) = -1;
-    if (func_80084BF0(0) & 0x2020) {
+    if (input_get_buttons(0) & 0x2020) {
         *(s8 *)(sel + 0x248) = 1;
     } else {
         *(s8 *)(sel + 0x248) = 0;

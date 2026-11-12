@@ -3,7 +3,7 @@ s32 func_800857EC();
 extern s32 gPadFlags;
 extern void *gRaceCtx;
 extern u8 gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 static inline int inline_fn(u8 **obj)
 {
   return (*((s32 *) (*obj))) * 0x10;
@@ -16,7 +16,7 @@ void func_8002FBD4(u8 *obj, s32 channel, s32 value)
   s32 idx;
   s32 off;
   u8 s0;
-  if ((*((u16 *) ((*((u8 **) (gStreamState + 0x32F2))) + 0x1E))) == 7)
+  if ((*((u16 *) ((*((u8 **) (stream_state + 0x32F2))) + 0x1E))) == 7)
   {
     return;
   }

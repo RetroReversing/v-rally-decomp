@@ -1,7 +1,7 @@
-extern int D_800C337C;
+/* Writes the stream header's data offset and seek position into the order state's stream header block. */ extern int D_800C337C;
 extern int gStreamHdrDataOffset;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 s32 stream_store_entry_fields(void)
 {
   char *new_var;

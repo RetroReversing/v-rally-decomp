@@ -1,6 +1,6 @@
 #define F(p,t,o) (*(t *)((u8 *)(p)+(o)))
 extern s16 D_800A38A0[];extern u8 D_800A7070[],D_800A7074[];extern void *D_800A2500;
-extern void func_800914E0(void *,void *,s32);extern void func_8008EC18(void *);extern void _freePVoice(void *,void *);
+extern void func_800914E0(void *,void *,s32);extern void alParamFree(void *);extern void _freePVoice(void *,void *);
 extern void *_pullSubFrame(VRALEnv *,s16 *,s16 *,s32,s32,void *);extern f32 vol_scale_pow(f32,s32,s16,u16);
 
 /* Mixes one audio frame of envelope state for `env`. Walks the env's control
@@ -49,7 +49,7 @@ case 15:cmd=_pullSubFrame(env,&left,&right,delta,time,cmd);env->handler(env,4,0)
 case 0:{struct Voice {u8 pad[0xd8];s32 offset;};void *synth=D_800A2500;voice=env->ctrl;((struct Voice *)voice->value)->offset=0;_freePVoice(synth,(void *)voice->value);}break;
 default:cmd=_pullSubFrame(env,&left,&right,delta,time,cmd);env->handler(env,env->ctrl->type,env->ctrl->value);break;
 }
-done=env->ctrl;count-=delta;right+=delta*2;env->ctrl=done->next;if(!env->ctrl)env->tail=0;func_8008EC18(done);
+done=env->ctrl;count-=delta;right+=delta*2;env->ctrl=done->next;if(!env->ctrl)env->tail=0;alParamFree(done);
 }
 cmd=_pullSubFrame(env,&left,&right,count,time,cmd);if(env->delta>env->segEnd)env->delta=env->segEnd;return cmd;
 }

@@ -1,9 +1,9 @@
 void *select_get_entry(u32);
 s32 group_set_color();
 void draw_palette_sprite(void *, s16, s16, void *);
-s32 func_8006090C();
-s32 func_8006A438();
-extern char gStreamState[];
+s32 hud_draw_stats_panel();
+s32 race_render_scene();
+extern char stream_state[];
 static inline u16 *stream_count_ptr(char *stream)
 {
   return (u16 *) (((char *) (*((void **) (stream + 0x32F2)))) + 0xE);
@@ -21,11 +21,11 @@ void func_80066384(void)
   u8 blue;
   u8 alpha;
 
-  func_8006A438();
-  func_8006090C();
+  race_render_scene();
+  hud_draw_stats_panel();
   list_node = select_get_entry(1);
   index = 0;
-  if (*stream_count_ptr(gStreamState) == 0)
+  if (*stream_count_ptr(stream_state) == 0)
   {
     return;
   }
@@ -49,8 +49,8 @@ void func_80066384(void)
       group_set_color(item, red, green, blue, alpha);
     }
     draw_palette_sprite((void *)(item), (s16)(*((s16 *)((char *)item + 6))), (s16)(*((s16 *)((char *)item + 8))),
-                  (void *)(*((char **)(gStreamState + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(gStreamState + 0x32F2)) + (index & 0xFF) + 0x32)));
+                  (void *)(*((char **)(stream_state + 0x32F2)) + 0x44 + 0x28 * *((u8 *)*((char **)(stream_state + 0x32F2)) + (index & 0xFF) + 0x32)));
     index += 1;
     list_node = *((void **)list_node);
-  } while ((u32)(index & 0xFF) < (u32)*stream_count_ptr(gStreamState));
+  } while ((u32)(index & 0xFF) < (u32)*stream_count_ptr(stream_state));
 }

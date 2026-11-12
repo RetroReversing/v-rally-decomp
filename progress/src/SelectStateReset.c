@@ -1,6 +1,6 @@
 s32 select_reset_text();
 s32 func_80066B88();
-s32 func_8006F0E0();
+s32 glyph_record_pack();
 s32 save_race_to_pak();
 extern void *gSelectState;
 extern s32 select_init_screen;
@@ -19,7 +19,7 @@ s32 SelectStateReset(s32 arg0, s32 arg1)
   char *base;
   int invalid;
   func_80066B88();
-  func_8006F0E0(*((u8 *) (((char *) gSelectState) + 0x228)));
+  glyph_record_pack(*((u8 *) (((char *) gSelectState) + 0x228)));
   save_race_to_pak();
   select_reset_text(arg0, arg1);
   invalid = -1;

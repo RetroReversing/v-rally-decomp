@@ -1,4 +1,4 @@
-s32 formatString();
+s32 format_to_buffer();
 extern u32 gRecordTimeScale;
 extern char D_800A4B20[];
 
@@ -21,5 +21,5 @@ void format_time_text(u32 time, s32 buf)
     {
         hundredths = (seconds = (minutes = 0));
     }
-    formatString(buf, &D_800A4B20, minutes, seconds, hundredths);
+    format_to_buffer(buf, &D_800A4B20, minutes, seconds, hundredths);
 }

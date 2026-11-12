@@ -18,20 +18,20 @@ M2C_UNK func_8007F634(s32);
 M2C_UNK taskRecvMsg(s32);
 extern s32 gSceneSlot0;
 extern s32 gSceneSlot1;
-extern u8 D_800A13B0;
-extern u8 D_800A13B1;
-extern u8 D_800A13B2;
-extern M2C_UNK gStreamState;
+extern u8 gSelectResetPending;
+extern u8 gSelectResetFlag;
+extern u8 select_reset_requested;
+extern M2C_UNK stream_state;
 
 /* Start-up step for the game screen. If any of the three flag bytes is set and
-   the state at gStreamState+0x32F2 (+0x1E) is not 8, it calls func_8005A790 and
+   the state at stream_state+0x32F2 (+0x1E) is not 8, it calls func_8005A790 and
    stops. Otherwise it builds the screen object and runs the setup sequence. */
 void func_8006AC04(void) {
     s32 slot_a;
     s32 slot_b;
     void *obj;
 
-    if (((D_800A13B1 != 0) || (D_800A13B0 != 0) || (D_800A13B2 != 0)) && (M2C_FIELD(M2C_FIELD(&gStreamState, void **, 0x32F2), u16 *, 0x1E) != 8)) {
+    if (((gSelectResetFlag != 0) || (gSelectResetPending != 0) || (select_reset_requested != 0)) && (M2C_FIELD(M2C_FIELD(&stream_state, void **, 0x32F2), u16 *, 0x1E) != 8)) {
         func_8005A790();
         return;
     }
@@ -45,7 +45,7 @@ void func_8006AC04(void) {
     view_set_rect(obj, gSceneSlot0);
     view_get_ctx_id(obj);
     func_8000E8FC(obj, gSceneSlot0, 0);
-    M2C_FIELD(&gStreamState, s8 *, 0x5BA6) = 1;
+    M2C_FIELD(&stream_state, s8 *, 0x5BA6) = 1;
     func_80005718(gSceneSlot0, obj);
     taskRecvMsg(slot_b);
     func_80005A54(gSceneSlot0, gSceneSlot1);

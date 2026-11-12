@@ -80,13 +80,14 @@ extern Game *gRecords;
 extern Snd **D_800B5B4C;
 extern Car **gCarList;
 extern s32 gRaceState; extern u8 gOrderState[];
-extern Slot44 *gCarEntries;
+extern Slot44 *gCarEntryTable;
 extern u8 D_800A4DFC[];
 extern s32 getCounterValue(void *);
-extern s32 func_80022374(void **, u8 *, s32);
-extern void func_800347A4(void *, s8 *);
+extern s32 named_entry_set_value(void **, u8 *, s32);
+extern void ai_drive_compute(void *, s8 *);
 extern void race_reset(void);
-extern void func_80085778(s32, s32);
+extern void input_clear_flags(s32, s32);
+s32 abs(s32);
 static __inline__ void expired(s32 *st,u32 *timer) {s32 v=*st;if(!(v&8)){if(v&4){*st=(v|2)&~4;}else{*st=(v|4)&~2;} *timer=50; *st|=8;return;}*st=v|0x20;}
 
 /* Per-car control for the race start and finish: while the car's control
@@ -131,7 +132,7 @@ void func_80043A78(Car *car, Pad *pad)
           }
         }
 
-        func_80022374((void **)((u8*)snd + 0x28), D_800A4DFC, 2);
+        named_entry_set_value((void **)((u8*)snd + 0x28), D_800A4DFC, 2);
       }
       car->flags |= 0x80;
       timer_class = car->info->x8;
@@ -173,7 +174,7 @@ void func_80043A78(Car *car, Pad *pad)
         }
         else
         {
-          func_800347A4(car, (s8*)pad);
+          ai_drive_compute(car, (s8*)pad);
         }
       }
       else
@@ -239,7 +240,7 @@ expired(state,timer);
     if ((gRecords->state != 0) & (gRecords->state != 5))
     {
       n.player = *car->player;
-      { Slot44 *slot = gCarEntries + n.player; slot->hA = 2; }
+      { Slot44 *slot = gCarEntryTable + n.player; slot->hA = 2; }
       racers_left = gRecords->players;
       finished = 0;
       for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
@@ -272,7 +273,7 @@ expired(state,timer);
     {
       if ((*car->player) < 4)
       {
-        { Slot44 *slot=gCarEntries; slot += *car->player; slot->hA=2; }
+        { Slot44 *slot=gCarEntryTable; slot += *car->player; slot->hA=2; }
       }
       racers_left = 1;
       for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
@@ -290,8 +291,8 @@ expired(state,timer);
         *(s32 *)(gOrderState + 0x8030) = 0;
 
         race_reset();
-        func_80085778(0, 0x1000);
-        func_80085778(0, 0x8000);
+        input_clear_flags(0, 0x1000);
+        input_clear_flags(0, 0x8000);
       }
     }
   }

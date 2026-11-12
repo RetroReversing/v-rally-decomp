@@ -11,7 +11,7 @@ void func_8001BDA0(void)
   block[0] = order_alloc_records(0x12C);
   buf = order_alloc_records(0x12C);
   block[2] = block[0];
-  *((s32 *) (gOrderState + 0x6D9C)) = (s32)gOrderPrevHook;
+  *((void **) (gOrderState + 0x6D9C)) = gOrderPrevHook;
   block[4] = 0;
   block[5] = 0x12C;
   block[1] = buf;

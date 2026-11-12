@@ -1,4 +1,4 @@
-extern s32 D_800A0264[];
+extern void *D_800A0264[];
 s32 func_8002E778(s32 *, s32 *);
 
 typedef struct {

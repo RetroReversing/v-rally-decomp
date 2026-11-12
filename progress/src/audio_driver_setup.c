@@ -25,11 +25,11 @@ s32 create_thread_on_ctx(M2C_UNK *, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
 s32 osAiSetFrequency(s32);                             /* extern */
 void *alHeapDBAlloc(M2C_UNK, M2C_UNK, s32, M2C_UNK, s32); /* extern */
 M2C_UNK alInit(void *, void *);              /* extern */
-M2C_UNK alLink(void *, void *);              /* extern */
+M2C_UNK al_link_push(void *, void *);              /* extern */
 extern s32 D_800A1BB0;
 extern f64 D_800A6CF0;
 extern f64 D_800A6CF8;
-extern M2C_UNK D_800A73E0;
+extern M2C_UNK gGameState;
 extern char gOrderState[];
 extern M2C_UNK initAudioDriveAndGetLoader;
 extern M2C_UNK audio_thread_main;
@@ -93,7 +93,7 @@ void audio_driver_setup(AudioConfig875 *cfg, M2C_UNK prio, void *init_params, s3
         var_s2 = 0x14;
         var_s0 = 0;
         do {
-            alLink(D_800AB94C + var_s2, D_800AB94C + var_s0);
+            al_link_push(D_800AB94C + var_s2, D_800AB94C + var_s0);
             var_s2 += 0x14;
             var_s1 += 1;
             *(void **)(var_s0 + 0x10 + (char *)D_800AB94C) = alHeapDBAlloc(0, 0, cfg->heap, 1, buf_count);
@@ -104,7 +104,7 @@ void audio_driver_setup(AudioConfig875 *cfg, M2C_UNK prio, void *init_params, s3
     var_s0_2 = (void **)(gOrderState + 0x2278);
     var_s1 = 0;
     do {
-        *var_s0_2 = alHeapDBAlloc(0, 0, cfg->heap, 1, M2C_FIELD((int)init_params, s32 *, 8) * 8);
+        *var_s0_2 = alHeapDBAlloc(0, 0, cfg->heap, 1, M2C_FIELD(init_params, s32 *, 8) * 8);
         var_s1 += 1;
         var_s0_2++;
     } while (var_s1 < 3U);

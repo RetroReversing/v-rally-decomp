@@ -116,7 +116,11 @@ void track_edge_add_point(u8 *obj, s16 *point, s32 idx, s32 edge)
   n = W(rec_list, 0x334);
   rec_list += 0x338;
   off = n * 48;
+#ifdef PORT
+  rec = rec_list + off;
+#else
   rec = (u8 *)(off + (u32)rec_list);
+#endif
   W(rec, 0x28) = delta[1] << 4;
   W(rec, 0x24) = idx;
   W(rec, 0x20) = 0;

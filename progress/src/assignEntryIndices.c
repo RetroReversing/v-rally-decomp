@@ -44,7 +44,11 @@ s32 assignEntryIndices(void *track, s16 firstIndex)
     i = 0;
     while ((((u32) i) < (*((u32 *) (((u8 *) track) + 0x50)))) && (found != 1))
     {
+#ifdef PORT
+      rec = (PathRec *) (((u8 *) table) + (((u32) i) * 8));
+#else
       rec = (PathRec *) ((((u32) i) * 8) + ((u32) table));
+#endif
       zero = 0;
       key = rec->key;
       if (key == zero)

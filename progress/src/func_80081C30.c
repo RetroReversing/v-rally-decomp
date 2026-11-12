@@ -1,6 +1,6 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 s32 order_sync_stream_pos(void);
-s32 func_80082094(void);
+s32 order_stream_next_byte(void);
 void func_80083B40(void);
 void huftFreeTables(void);
 void func_80081D8C(void);
@@ -12,19 +12,19 @@ s32 func_80081C30(void) {
     u32 ch;
     u8 **dst;
     s32 *remaining;
-    *(s32 *)(gStreamState + 0x309A) = 0;
-    *(s32 *)(gStreamState + 0x3096) = 0;
-    *(s32 *)(gStreamState + 0x309E) = 0;
+    *(s32 *)(stream_state + 0x309A) = 0;
+    *(s32 *)(stream_state + 0x3096) = 0;
+    *(s32 *)(stream_state + 0x309E) = 0;
     order_sync_stream_pos();
-    switch (*(u16 *)(gStreamState + 0x30BC)) {
+    switch (*(u16 *)(stream_state + 0x30BC)) {
     case 0:
-        { u8 **p = (u8 **)(gStreamState + 0x30F2); remaining = (s32 *)((u8 *)p - 0x60); dst = p; }
-        *dst = *(u8 **)(gStreamState + 0x30EA);
+        { u8 **p = (u8 **)(stream_state + 0x30F2); remaining = (s32 *)((u8 *)p - 0x60); dst = p; }
+        *dst = *(u8 **)(stream_state + 0x30EA);
         for (;;) {
             if (--*remaining >= 0) {
                 u8 *src = *(u8 **)(remaining - 1);
                 *(u8 **)(remaining - 1) = src + 1;
-                ch = *src; } else { ch = func_80082094(); }
+                ch = *src; } else { ch = order_stream_next_byte(); }
             if (ch == -1) break;
             *(*dst)++ = ch;
         }

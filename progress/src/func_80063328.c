@@ -3,8 +3,8 @@ static inline int __repair_inline_sum(int left, int right)
   return left + right;
 }
 
-#define CUR_EVENT (*(RaceObj **)(gStreamState+0x32F2))
-extern u8 gStreamState[];
+#define CUR_EVENT (*(RaceObj **)(stream_state+0x32F2))
+extern u8 stream_state[];
 void markStreamSlotsByTag(s32);
 typedef struct 
 {
@@ -13,7 +13,7 @@ typedef struct
   u32 word;
 } RaceObj;
 
-/* Rebuilds the 8-byte per-slot table at gStreamState+0x327E from the current
+/* Rebuilds the 8-byte per-slot table at stream_state+0x327E from the current
  * event object's flag bits, then queues the matching entries for the HUD. */
 void func_80063328(void)
 {
@@ -28,14 +28,14 @@ void func_80063328(void)
   i = 0;
   do
   {
-    gStreamState[0x327E + i] = 0;
+    stream_state[0x327E + i] = 0;
     i++;
   }
   while (i < 8);
   i = 0;
   do
   {
-    gStreamState[0x327E + i] |= 1;
+    stream_state[0x327E + i] |= 1;
     i++;
   }
   while (i < 8);
@@ -115,7 +115,7 @@ void func_80063328(void)
     i = 0;
     do
     {
-      gStreamState[0x327E + i] = 255;
+      stream_state[0x327E + i] = 255;
       i++;
     }
     while (i < 8);

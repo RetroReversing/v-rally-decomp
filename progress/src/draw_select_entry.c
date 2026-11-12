@@ -7,7 +7,7 @@ typedef struct SelectEntry {
     u8 r, g, b, a;
 } SelectEntry;
 
-extern char gStreamState[];
+extern char stream_state[];
 void *pool_get_item(s32 pool, u16 id);
 void group_set_color(void *owner, u8 r, u8 g, u8 b, u8 a);
 void draw_palette_sprite(void *, s16, s16, void *);
@@ -23,6 +23,6 @@ void draw_select_entry(SelectEntry *entry, s32 highlight) {
             group_set_color(entry, entry->r, entry->g, entry->b, entry->a);
         }
         draw_palette_sprite(entry, entry->x, entry->y,
-                      pool_get_item(*(s32 *)(gStreamState + 0x807A), entry->id));
+                      pool_get_item(*(s32 *)(stream_state + 0x807A), entry->id));
     }
 }

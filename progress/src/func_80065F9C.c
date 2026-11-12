@@ -1,9 +1,9 @@
 s32 select_reset_text();
-s32 func_8005C198();
+s32 select_arm_if_clear();
 s32 heapFreeBlock();
 extern void *gSelectState;
 extern s32 gSelectBuffer;
-extern char gStreamState[];
+extern char stream_state[];
 extern s32 func_8007A29C;
 extern s32 func_8007A9A8;
 extern s32 func_8007AA94;
@@ -16,7 +16,7 @@ s32 func_80065F9C(int arg0, s32 arg1)
 {
   char *state;
   char *count;
-  func_8005C198();
+  select_arm_if_clear();
   if (gSelectBuffer != 0)
   {
     heapFreeBlock(gSelectBuffer);
@@ -24,7 +24,7 @@ s32 func_80065F9C(int arg0, s32 arg1)
   }
   select_reset_text(arg0, arg1);
   state = (char *) gSelectState;
-  count = ((char *) (*((void **) (gStreamState + 0x32F2)))) + 0xF;
+  count = ((char *) (*((void **) (stream_state + 0x32F2)))) + 0xF;
   *((s32 **) (((char *) gSelectState) + 0x288)) = &func_8007A29C;
   count += 0;
   *((s32 **) (((char *) gSelectState) + 0x28C)) = &func_8007A9A8;

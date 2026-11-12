@@ -18,8 +18,12 @@ u8 func_80077FA8(u8 arg0)
 
   n = 4;
   idx = arg0 << 5;
+#ifdef PORT
+  t = *((u16 *) (gRecords + 0x1E));
+#else
   t = (u32) gRecords;
   t = *((u16 *) (t + 0x1E));
+#endif
   new_var = ((u32 *) (gOrderState + 0x6DAC)) + t;
   tbl = new_var;
   p = (u32 *) (((u8 *) tbl) + idx);

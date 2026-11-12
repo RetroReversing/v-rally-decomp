@@ -37,6 +37,20 @@ s32 func_80006B4C(void *ctx, s16 col) {
     }
     vtxIndex = (u16)dl_reserve_vertices(ctx, 4);
     vtxOff = vtxIndex * 0x10;
+#ifdef PORT
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 4) = col;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x14) = col;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x24) = col;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x34) = col;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 6) = 0;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x16) = 0;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x26) = 0;
+    *(s16 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x36) = 0;
+    *(u8 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0xF) = 0xFF;
+    *(u8 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x1F) = 0xFF;
+    *(u8 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x2F) = 0xFF;
+    *(u8 *)((char *)(vtxOff + *(char **)((char *)ctx + 0x70)) + 0x3F) = 0xFF;
+#else
     *(s16 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 4) = col;
     *(s16 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 0x14) = col;
     *(s16 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 0x24) = col;
@@ -49,6 +63,7 @@ s32 func_80006B4C(void *ctx, s16 col) {
     *(u8 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 0x1F) = 0xFF;
     *(u8 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 0x2F) = 0xFF;
     *(u8 *)((char *)(vtxOff + *(s32 *)((char *)ctx + 0x70)) + 0x3F) = 0xFF;
+#endif
     i = vtxIndex & 0x1F;
     {
         GfxW *_g = (GfxW *)((*(GfxW **)((char *)ctx + 0x14))++);

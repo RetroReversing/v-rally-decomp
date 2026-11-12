@@ -1,6 +1,6 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
-/* Searches the 0x800-entry pointer table at gStreamState+0x3902 for an entry
+/* Searches the 0x800-entry pointer table at stream_state+0x3902 for an entry
  * whose key at +4 equals key. When found, drops that entry's byte at +2 by one
  * and returns it. */
 u8 func_80055738(s32 key) {
@@ -11,7 +11,7 @@ u8 func_80055738(s32 key) {
     found = 0;
     i = 0;
     do {
-        entry = *(u8 **) (gStreamState + 0x3902 + i * 4);
+        entry = *(u8 **) (stream_state + 0x3902 + i * 4);
         if (entry != NULL) {
             if (*(s32 *) (entry + 4) == key) {
                 found = 1;

@@ -1,5 +1,5 @@
 void *select_get_entry(u32);
-void slot_set_selected(s32, s32);
+void slotSetSelected(s32, s32);
 extern s32 gSelectStep;
 extern void *gRecords;
 
@@ -20,21 +20,21 @@ void func_80062B70(void) {
             item = *((void **)item);
         } while ((u8)i < 3);
     }
-    slot_set_selected(2, ((u8 *)gRecords)[0x30]);
+    slotSetSelected(2, ((u8 *)gRecords)[0x30]);
     rec = gRecords;
     if (*((u16 *)(((char *)rec) + 0xE)) == 1) {
         if (*((s32 *)(((char *)rec) + 0x18)) == 0x10001) {
-            slot_set_selected(3, 1);
+            slotSetSelected(3, 1);
         } else {
             *((u16 *)(((char *)rec) + 0x18)) = 0;
             *((u16 *)(((char *)rec) + 0x1A)) = 1;
-            slot_set_selected(3, 0);
+            slotSetSelected(3, 0);
         }
     } else {
         if (*((u16 *)(((char *)rec) + 0x18)) != 0) {
-            slot_set_selected(3, 1);
+            slotSetSelected(3, 1);
         } else {
-            slot_set_selected(3, (*((u16 *)(((char *)rec) + 0x1A)) == 0) * 2);
+            slotSetSelected(3, (*((u16 *)(((char *)rec) + 0x1A)) == 0) * 2);
         }
     }
 }

@@ -22,10 +22,10 @@ typedef struct
       u32 pifstatus;
 } OSPifRam;
 
-extern OSPifRam D_800C8130;
-extern u8 D_800B60E0;
+extern OSPifRam __osPifBuf;
+extern u8 __osMaxControllers;
 
-/* Reads the init/status response for each controller channel (D_800B60E0
+/* Reads the init/status response for each controller channel (__osMaxControllers
  * channels) from the PIF buffer. Each channel's type and status go into
  * data[ch]; channels with no error set their bit in *pattern. */
 void func_8008CE60(u8* pattern, OSContStatus* data) {
@@ -34,9 +34,9 @@ void func_8008CE60(u8* pattern, OSContStatus* data) {
     int i;
     u8 bits = 0;
 
-    ptr = (u8*)&D_800C8130;
+    ptr = (u8*)&__osPifBuf;
 
-    for (i = 0; i < D_800B60E0; i++, ptr += sizeof(requestformat), data++) {
+    for (i = 0; i < __osMaxControllers; i++, ptr += sizeof(requestformat), data++) {
         requestformat = *((__OSContRequesFormat*)ptr);
         data->errno = ((( requestformat ).rxsize & 0xC0 ) >> 4) ;
 

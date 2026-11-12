@@ -1,4 +1,4 @@
-s32 func_8002D2C8();
+s32 angle_atan2_thunk();
 extern f64 D_800A48E0;
 extern f64 D_800A48E8;
 extern f64 D_800A48F0;
@@ -22,8 +22,8 @@ s32 func_8001FD14(void *obj)
 
   wA = 100.0f;
   wB = 0.0f;
-  angA = func_8002D2C8(*((s16 *) (((char *) (*((void **) (((char *) obj) + 0x5C)))) + 0x50)), *((s16 *) (((char *) (*((void **) (((char *) obj) + 0x5C)))) + 0x44)));
-  angB = func_8002D2C8(*((s32 *) (((char *) (*((void **) (((char *) obj) + 0x58)))) + 0x28)), *((s32 *) (((char *) (*((void **) (((char *) obj) + 0x58)))) + 0x20)));
+  angA = angle_atan2_thunk(*((s16 *) (((char *) (*((void **) (((char *) obj) + 0x5C)))) + 0x50)), *((s16 *) (((char *) (*((void **) (((char *) obj) + 0x5C)))) + 0x44)));
+  angB = angle_atan2_thunk(*((s32 *) (((char *) (*((void **) (((char *) obj) + 0x58)))) + 0x28)), *((s32 *) (((char *) (*((void **) (((char *) obj) + 0x58)))) + 0x20)));
   dist = (f32) (*((s32 *) (*((void **) (((char *) obj) + 0x58)))));
   if (dist < 2400.0f)
   {

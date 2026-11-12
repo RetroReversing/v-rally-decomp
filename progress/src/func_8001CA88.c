@@ -13,10 +13,10 @@ typedef s32 M2C_UNK32;
 #endif
 
 M2C_UNK func_800201E4(s32, s32);                    /* extern */
-M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
-extern s32 D_800B0C20;
+M2C_UNK obj_set_flag_slot(s32, M2C_UNK);                /* extern */
+extern s32 gMainObj;
 
-void func_8001CA88(s32 arg0) {
-    func_80022E24(D_800B0C20, 5);
-    func_800201E4(arg0, D_800B0C20);
+/* Sets flag slot 5 on the main object, then runs the second record setup with the source object. */ void func_8001CA88(s32 src) {
+    obj_set_flag_slot(gMainObj, 5);
+    func_800201E4(src, gMainObj);
 }

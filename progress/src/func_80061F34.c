@@ -1,5 +1,5 @@
 extern void func_8004C7F0(void *);
-extern void func_8004D31C(void);
+extern void stream_free_all_blocks(void);
 extern s32 classifyStreamCode(void *);
 extern void resolve_path(void *);
 extern void appendString(void *, void *);
@@ -20,7 +20,7 @@ void func_80061F34(void *scene, void *base) {
     u8 *p;
     u32 index;
     resolve_path(aTexPackDir);
-    func_8004D31C();
+    stream_free_all_blocks();
     func_8004C7F0(gOrderState + 0x130C + gRecords[0x2E] * 28);
     p = gRecords;
     index = classifyStreamCode(gSlotTableB[*(u16 *)(p + 0x1E)] + *(u16 *)(p + 0x20) * 0x2C4 + (*(u16 *)(p + 0x22) * 14 + 0x24C));

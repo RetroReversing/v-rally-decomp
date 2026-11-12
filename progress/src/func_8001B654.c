@@ -16,6 +16,7 @@ M2C_UNK list_unlink_free(s32, void *);                 /* extern */
 extern s32 gRecords;
 extern void *D_800C6F0C;
 
+/* Unlinks the head record D_800C6F0C from its list, then makes gRecords point at the record's next link (offset +4). */
 void func_8001B654(void) {
     list_unlink_free(M2C_FIELD(D_800C6F0C, s32 *, 4), D_800C6F0C);
     gRecords = M2C_FIELD(D_800C6F0C, s32 *, 4);

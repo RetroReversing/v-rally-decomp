@@ -2,10 +2,10 @@
 s32 sort_split_times();
 s32 store_split_deltas();
 s32 save_race_to_pak();
-s32 copyStringAligned();
+s32 strCpy();
 extern s32 gRecordTimeScale;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 extern void *gRecords;
 extern char D_800C3780[];
 extern char g_split_times[];
@@ -42,18 +42,38 @@ void update_record_entries(void) {
             track = FIELD(recs, u16 *, 0x20);
             slot = i & 0xFF;
             slot_off = slot * 4;
-            entry = (void *)((track << 6) + (s32)D_800C3780);
-            FIELD(entry, s32 *, 0) = (s32)FIELD((void *)((track * 0x10) + (s32)times + slot_off), s32 *, 0x58);
+            #ifdef PORT
+entry = (void *)(D_800C3780 + (track << 6));
+#else
+entry = (void *)((track << 6) + (s32)D_800C3780);
+#endif
+            #ifdef PORT
+FIELD(entry, s32 *, 0) = (s32)FIELD((u8 *)times + (track * 0x10) + slot_off, s32 *, 0x58);
+#else
+FIELD(entry, s32 *, 0) = (s32)FIELD((void *)((track * 0x10) + (s32)times + slot_off), s32 *, 0x58);
+#endif
             slot_rec = (char *)(((FIELD((recs + slot), u8 *, 0x32) * 0x28) + recs));
 
             FIELD(entry, s8 *, 4) = (s8)FIELD(slot_rec, u16 *, 0x4E);
             FIELD(entry, s8 *, 5) = (s8)FIELD(gRecords, u16 *, 0x16);
-            copyStringAligned((s32)entry + 6, (s32)(gRecords + ((FIELD((gRecords + slot), u8 *, 0x32) * 0x28) + 0x44)));
+            #ifdef PORT
+strCpy((u8 *)entry + 6, (u8 *)gRecords + ((FIELD((gRecords + slot), u8 *, 0x32) * 0x28) + 0x44));
+#else
+strCpy((s32)entry + 6, (s32)(gRecords + ((FIELD((gRecords + slot), u8 *, 0x32) * 0x28) + 0x44)));
+#endif
             total_dist = 0;
             total_time = 0;
-            slot_time = (void *)(slot_off + (s32)times);
+            #ifdef PORT
+slot_time = (void *)((u8 *)times + slot_off);
+#else
+slot_time = (void *)(slot_off + (s32)times);
+#endif
 
-            track_state = (void *)(*(s32 *)(gStreamState + 0x10386 + (FIELD(gRecords, u16 *, 0x1E) * 4)) + (FIELD(gRecords, u16 *, 0x20) * 0x2C4));
+            #ifdef PORT
+track_state = (void *)((uintptr_t)*(u32 *)(stream_state + 0x10386 + (FIELD(gRecords, u16 *, 0x1E) * 4)) + (FIELD(gRecords, u16 *, 0x20) * 0x2C4));
+#else
+track_state = (void *)(*(s32 *)(stream_state + 0x10386 + (FIELD(gRecords, u16 *, 0x1E) * 4)) + (FIELD(gRecords, u16 *, 0x20) * 0x2C4));
+#endif
             time_a = FIELD(slot_time, s32 *, 0x118);
             if (time_a != 0) {
                 total_dist = FIELD(track_state, s32 *, 0x22C);
@@ -87,7 +107,11 @@ void update_record_entries(void) {
                     }
                 }
             }
-            sort_split_times((FIELD(gRecords, u16 *, 0x20) << 6) + (s32)(g_split_times));
+            #ifdef PORT
+sort_split_times((u8 *)g_split_times + (FIELD(gRecords, u16 *, 0x20) << 6));
+#else
+sort_split_times((FIELD(gRecords, u16 *, 0x20) << 6) + (s32)(g_split_times));
+#endif
             i += 1;
             recs = gRecords;
         } while ((u32)(i & 0xFF) < (u16)FIELD(gRecords, u16 *, 0xE));

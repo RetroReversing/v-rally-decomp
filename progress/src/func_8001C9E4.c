@@ -12,11 +12,11 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-M2C_UNK func_80022E24(s32, M2C_UNK);                /* extern */
+M2C_UNK obj_set_flag_slot(s32, M2C_UNK);                /* extern */
 M2C_UNK func_80023D64(s32, s32);                    /* extern */
-extern s32 D_800B0C20;
+extern s32 gMainObj;
 
-void func_8001C9E4(s32 arg0) {
-    func_80022E24(D_800B0C20, 3);
-    func_80023D64(arg0, D_800B0C20);
+/* Sets flag slot 3 on the main object, then passes obj and the main object to func_80023D64. */ void func_8001C9E4(s32 obj) {
+    obj_set_flag_slot(gMainObj, 3);
+    func_80023D64(obj, gMainObj);
 }

@@ -14,9 +14,9 @@ typedef s32 M2C_UNK32;
 
 extern void *gSelectState;
 extern M2C_UNK gOrderState;
-extern M2C_UNK gStreamState;
+extern M2C_UNK stream_state;
 
-void selectStateSyncFromOrder(void) {
-    M2C_FIELD(&gStreamState, u8 *, 0x5D56) = (u8) M2C_FIELD(&gOrderState, u8 *, 0x120C);
+/* Copies the order mode byte into the stream state and sets the select-state flag at +0x29B. */ void selectStateSyncFromOrder(void) {
+    M2C_FIELD(&stream_state, u8 *, 0x5D56) = (u8) M2C_FIELD(&gOrderState, u8 *, 0x120C);
     M2C_FIELD(gSelectState, s8 *, 0x29B) = 1;
 }

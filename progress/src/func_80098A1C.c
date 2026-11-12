@@ -1,6 +1,6 @@
-extern void func_8008E13C(void *, void *, s32);
-extern u8 D_800A3D76;
-extern s8 D_800A73E0[];
+extern void memcpy(void *, void *, s32);
+extern u8 exp_char;
+extern s8 gGameState[];
 
 /* Formats a fixed-point value as "d.ddd<suffix><sign>dd" into dst: the first digit, a
    point, the remaining fraction digits, and a signed exponent. Trailing zeros and a
@@ -22,15 +22,15 @@ void func_80098A1C(u8 *digits, s32 digit_count, s32 exponent, s8 *dst)
     *out = '.';
     out++;
     src++;
-    func_8008E13C(out, src, length);
+    memcpy(out, src, length);
     out += length;
-    if (D_800A73E0[0x6b24] == 0) {
+    if (gGameState[0x6b24] == 0) {
         if (out[-1] == '0') {
             do { out--; } while (out[-1] == '0');
         }
         out -= (out[-1] == '.');
     }
-    *out = D_800A3D76;
+    *out = exp_char;
     out++;
     if (offset < 0) { offset = -offset; *out = '-'; }
     else *out = '+';

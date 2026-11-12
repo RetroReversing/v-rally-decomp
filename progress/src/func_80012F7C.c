@@ -35,8 +35,12 @@ void func_80012F7C(void *obj) {
                 break;
             }
             for (i = 0; i < *(u16 *)(*(u8 **)(count_src + 0x18) + 4); i++) {
+#ifdef PORT
+                entry = entries + i * 0x34;
+#else
                 entry = (u8 *)(i * 0x34);
                 entry += (u32)entries;
+#endif
                 if (*(s32 *)(entry + 0xC) > *(s32 *)(node + 0x34) &&
                     *(s32 *)(entry + 0xC) < *(s32 *)(node + 0x3C) &&
                     *(s32 *)(entry + 0x14) > *(s32 *)(node + 0x44) &&

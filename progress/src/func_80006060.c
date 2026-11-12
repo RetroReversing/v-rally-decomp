@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_80006060(void *arg0) {
-    return M2C_FIELD(arg0, s32 *, 0x70) + (M2C_FIELD(arg0, u16 *, 0x7A) * 0x10);
+/* Returns a running time value for a gfx context: a 32-bit base at +0x70 plus a 16-bit counter at +0x7A scaled by 16. */ s32 func_80006060(void *gfx_ctx) {
+    return M2C_FIELD(gfx_ctx, s32 *, 0x70) + (M2C_FIELD(gfx_ctx, u16 *, 0x7A) * 0x10);
 }

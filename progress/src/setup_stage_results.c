@@ -2,10 +2,14 @@ typedef struct
 {
   u8 b[0x500];
 } Blob;
-extern Blob gStreamState;
+extern Blob stream_state;
 extern u8 *gRecords;
 extern u8 *gLeague;
+#ifdef PORT
+extern u8 *gSlotTableB[];
+#else
 extern s32 gSlotTableB[];
+#endif
 extern u8 D_8009E260;
 extern u8 D_800A14D6;
 extern u8 D_800A14D7;
@@ -13,7 +17,7 @@ extern u8 D_800A14D8;
 extern u8 gStreamPhase;
 extern void *gSelectState;
 extern s32 func_80064504;
-extern s32 func_8006A24C;
+extern s32 stage_stub_return_true;
 extern void func_800416EC();
 extern s32 func_80057B40(s32, s32, s32, s32);
 void *select_get_entry(u32);
@@ -21,9 +25,9 @@ void select_propagate_values(s32, u32, u32);
 extern s32 hud_setup_stage_results(void);
 void func_80061F34(void *, void *);
 extern s32 stream_state_update(void);
-extern s32 func_8008A0D8(s32, s32, s32);
-extern s32 func_8008A270(s32, s32, s32);
-extern s32 func_8008A290(s32, s32, s32, void *);
+s32 record_set_byte9(void *, s32, s32);
+s32 setRecordSlotValue(void *, s32, s32);
+s32 league_set_hook_entry(void *, s32, s32, void *);
 
 /* Sets up the results screen for the stage just finished: fills the HUD and league menus,
  * then, for the result code in gStreamPhase, rewrites the record fields and saves the code
@@ -31,7 +35,7 @@ extern s32 func_8008A290(s32, s32, s32, void *);
 void setup_stage_results(void)
 {
   s32 new_var;
-  u8 *p = (u8 *) gStreamState.b;
+  u8 *p = (u8 *) stream_state.b;
   u8 *a0;
   s32 t;
   s32 i;
@@ -42,32 +46,42 @@ void setup_stage_results(void)
     u8 *first = gRecords;
     t = *((u16 *) (first + 0x1e));
     i = *((u16 *) (first + 0x20));
-    t = ((s32 *) 0x800D0634)[(u16) t];
+#ifdef PORT
+    {
+      u8 *tp = gSlotTableB[(u16) t];
+      u8 *base = tp + (6 * (118 * i));
+      s32 offset = (*((u16 *) (first + 0x22))) << 6;
+      *(first + 0x2e) = *((u8 *) ((base + offset) + 0x37));
+      func_80061F34(first, tp);
+    }
+#else
+    t = ((s32 *) gSlotTableB)[(u16) t];
     {
       s32 base = (6 * (118 * i)) + t;
       s32 offset = (*((u16 *) (first + 0x22))) << 6;
       *(first + 0x2e) = *((u8 *) ((base + offset) + 0x37));
     }
     func_80061F34(first, (void *)t);
+#endif
   }
   {
     u8 *menu = gLeague;
     if (gStreamPhase)
     {
-      *((s32 *) (((u8 *) gSelectState) + 0x28c)) = &func_80064504;
-      func_8008A270((s32) menu, 3, 0x14);
+      *((void **) (((u8 *) gSelectState) + 0x28c)) = &func_80064504;
+      setRecordSlotValue(menu, 3, 0x14);
     }
     else
     {
-      *((s32 *) (((u8 *) gSelectState) + 0x28c)) = &func_80064504;
-      func_8008A270((s32) menu, 3, 0x14);
+      *((void **) (((u8 *) gSelectState) + 0x28c)) = &func_80064504;
+      setRecordSlotValue(menu, 3, 0x14);
     }
   }
-  func_8008A290((s32) gLeague, 3, 0x10000, &func_8006A24C);
+  league_set_hook_entry(gLeague, 3, 0x10000, &stage_stub_return_true);
   stream_state_update();
   if ((*((u16 *) (gRecords + 0xe))) < 2)
   {
-    func_8008A0D8((s32) gLeague, 0x1a, 0);
+    record_set_byte9(gLeague, 0x1a, 0);
     *((s8 *) (((u8 *) select_get_entry(2)) + 0x41)) = 0;
     select_propagate_values(2, 1, 4);
   }

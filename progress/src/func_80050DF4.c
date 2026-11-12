@@ -1,4 +1,4 @@
-extern char gStreamState[];
+extern char stream_state[];
 extern signed char D_800C3BA0;
 extern signed char D_800C3B9E;
 extern unsigned char D_800C3B9C;
@@ -6,7 +6,7 @@ extern unsigned char D_800C3B9D;
 extern unsigned char gSlotGroup;
 
 u64 osGetTime();
-s32 func_80098090();
+s32 rand_next15();
 s32 rand_seed();
 
 /* Picks a random slot that is not yet in D_800C3B9C's used mask, marks it
@@ -24,14 +24,14 @@ s32 func_80050DF4(void)
     s32 bit;
 
     rand_seed((u32)osGetTime());
-    rec = *(u8 **)(gStreamState + 0x32F2);
+    rec = *(u8 **)(stream_state + 0x32F2);
     D_800C3BA0 = *(u16 *)(rec + 0x12);
     D_800C3B9E = *(u16 *)(rec + 0xE);
     if (D_800C3B9C == 0xFF) {
         D_800C3B9C = 0x14;
     }
     do {
-        v = func_80098090();
+        v = rand_next15();
         t = v;
         if (v < 0) {
             t = v + 7;

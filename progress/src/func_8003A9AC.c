@@ -7,7 +7,7 @@ extern void func_8003A73C(void *);
 /* Spawns a row of sprites under parent at (x, y): three rounds, each adding a sprite with the
  * arg3 hook and stepping x by 7. Round 1 adds a second sprite with the default hook (func_8003A73C)
  * at a 4-unit step. Each sprite records the timer, the camera and, if given, a 4-byte colour. */
-void func_8003A9AC(s32 parent, s32 x, s32 y, SpriteHook hook, s32 timerOffset, u16 flags, u8 *color)
+void func_8003A9AC(void *parent, s32 x, s32 y, SpriteHook hook, s32 timerOffset, u16 flags, u8 *color)
 {
     s32 var_s2;
     s32 var_s5;
@@ -26,7 +26,7 @@ void func_8003A9AC(s32 parent, s32 x, s32 y, SpriteHook hook, s32 timerOffset, u
     var_s4 = timerOffset + 0x4C;
     var_s3 = 0;
     do {
-        var_s0 = ((void *)sprite_create((void *)(parent), (s16)var_s2, (s16)var_s5, 2, (SpriteHook)(var_fp), 0));
+        var_s0 = ((void *)sprite_create(parent, (s16)var_s2, (s16)var_s5, 2, (SpriteHook)(var_fp), 0));
         *(u16 *)(var_s0 + 0x78) = var_s3;
         ret = getTexturePack(var_s4, 0);
         d = g_camera;
@@ -41,7 +41,7 @@ void func_8003A9AC(s32 parent, s32 x, s32 y, SpriteHook hook, s32 timerOffset, u
             var_s0[0x93] = color[3];
         }
         if (var_s3 == 1) {
-            var_s0 = ((void *)sprite_create((void *)(parent), (s16)var_s2, (s16)var_s5, 2, func_8003A73C, 0));
+            var_s0 = ((void *)sprite_create(parent, (s16)var_s2, (s16)var_s5, 2, func_8003A73C, 0));
             ret = getTexturePack(var_s4, 0);
             d = g_camera;
             var_s2 += 4;

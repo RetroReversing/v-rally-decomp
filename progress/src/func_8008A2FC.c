@@ -1,1 +1,1 @@
-void func_8008A2FC(char *arg0, int arg1, int arg2) { unsigned int i = arg1 & 0xFFFF; int *p = *(int **)(arg0 + 0x10); p[i * 5] = arg2; }
+/* Stores value into word 0 of 5-word entry `index` of the table at obj->0x10. */ void func_8008A2FC(char *obj, int index, int value) { unsigned int entry = index & 0xFFFF; int *entries = *(int **)(obj + 0x10); entries[entry * 5] = value; }

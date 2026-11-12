@@ -1,6 +1,14 @@
+#ifdef PORT
+static inline u8 *__repair_pointer_bits(void *value)
+#else
 static inline int __repair_pointer_bits(void *value)
+#endif
 {
+  #ifdef PORT
+  return (u8 *)value;
+#else
   return (int)value;
+#endif
 }
 
 typedef struct Node
@@ -50,9 +58,17 @@ extern void *poolAlloc(s32, s32);
 void func_8004ED08(Ctx *ctx, s32 b, s32 c, s32 d, s32 e, s32 f, s32 idx)
 {
   u8 *rec = 0;
+#ifdef PORT
+  u8 *new_var;
+#else
   s32 new_var;
+#endif
   s32 z = 0;
+#ifdef PORT
+  u8 *q;
+#else
   s32 q;
+#endif
   s32 q2;
   s32 r;
   s32 q3;

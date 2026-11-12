@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_80005FD4(s32 *arg0, s32 arg1) {
-    *arg0 = arg1;
+/* Stores value as a 32-bit word at dst. */ void func_80005FD4(s32 *dst, s32 value) {
+    *dst = value;
 }

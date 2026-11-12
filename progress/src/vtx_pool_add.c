@@ -15,7 +15,7 @@ typedef struct
   s16 c;
 } VtxIn;
 extern s32 osVirtualToPhysical(void *);
-extern void func_80008C8C(void *, s32);
+extern void vtx_pool_set_flags(void *, s32);
 
 /* Maps n input vertices (verts) to slots in the pool's vertex buffer: an
  * existing slot is reused when the same vertex is already present, otherwise
@@ -51,7 +51,11 @@ void vtx_pool_add(VtxPool *pool, VtxIn *verts, s32 n, u16 *indices)
     {
       do
       {
+        #ifdef PORT
+        VtxIn *p = (VtxIn *)((u8 *)o->items + ((j << 2) << 2));
+#else
         VtxIn *p = (VtxIn *) (((j << 2) << 2) + ((s32) o->items));
+#endif
         if (((p->a == (verts + i)->a) && (p->b == (verts + i)->b)) && (p->c == (verts + i)->c))
         {
           *(indices + i) = j;
@@ -71,7 +75,7 @@ void vtx_pool_add(VtxPool *pool, VtxIn *verts, s32 n, u16 *indices)
     o->cmd = cmd + 2;
     cmd[0] = 0x01020040;
     cmd[1] = osVirtualToPhysical(((u8 *) o->items) + (o->count << 4));
-    func_80008C8C(((u8 *) o->items) + (o->count << 4), 32);
+    vtx_pool_set_flags(((u8 *) o->items) + (o->count << 4), 32);
   }
   {
     u16 count = o->count;
@@ -83,9 +87,16 @@ void vtx_pool_add(VtxPool *pool, VtxIn *verts, s32 n, u16 *indices)
         if (indices[i] == 0xffff)
         {
           unsigned int k = o->count++;
+#ifdef PORT
+          VtxIn *dv = (VtxIn *)((u8 *)o->items + (k << 4));
+          dv->a = verts[i].a;
+          dv->b = verts[i].b;
+          dv->c = verts[i].c;
+#else
           ((VtxIn *) ((k << 4) + ((s32) o->items)))->a = verts[i].a;
           ((VtxIn *) ((k << 4) + ((s32) o->items)))->b = verts[i].b;
           ((VtxIn *) ((k << 4) + ((s32) o->items)))->c = verts[i].c;
+#endif
           indices[i] = k;
         }
       }
@@ -102,13 +113,20 @@ void vtx_pool_add(VtxPool *pool, VtxIn *verts, s32 n, u16 *indices)
       cmd[1] = osVirtualToPhysical(((u8 *) o->items) + (count << 9));
       count <<= 5;
       o->count = count;
-      func_80008C8C(((u8 *) o->items) + ((count & 0xffe0) << 4), 32);
+      vtx_pool_set_flags(((u8 *) o->items) + ((count & 0xffe0) << 4), 32);
       for (i = 0; i < new_var; i++)
       {
         unsigned int k = o->count++;
+#ifdef PORT
+        VtxIn *dv = (VtxIn *)((u8 *)o->items + (k << 4));
+        dv->a = verts[i].a;
+        dv->b = verts[i].b;
+        dv->c = verts[i].c;
+#else
         ((VtxIn *) ((k << 4) + ((s32) o->items)))->a = verts[i].a;
         ((VtxIn *) ((k << 4) + ((s32) o->items)))->b = verts[i].b;
         ((VtxIn *) ((k << 4) + ((s32) o->items)))->c = verts[i].c;
+#endif
         indices[i] = k;
       }
 

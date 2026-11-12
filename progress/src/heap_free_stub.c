@@ -1,4 +1,4 @@
-/* identical to func_80009E38 (matched), with its names changed by decompdecomp */
+/* identical to heapFreeStub (matched), with its names changed by decompdecomp */
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
@@ -15,6 +15,6 @@ typedef s32 M2C_UNK32;
 
 M2C_UNK heapFreeBlock();                            /* extern */
 
-void heap_free_stub(void) {
+/* Frees a heap block; the caller's arguments pass straight through to heapFreeBlock. */ void heap_free_stub(void) {
     heapFreeBlock();
 }

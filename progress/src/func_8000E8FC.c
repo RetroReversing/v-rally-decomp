@@ -1,4 +1,4 @@
-s32 func_80005C48(void *);
+s32 obj_get_owner(void *);
 void func_8000E9D4(void *, s32, u16 *, u8 *);
 void gfx_clear_zbuffer_rect(void *, s32, u16 *);
 
@@ -10,7 +10,7 @@ void func_8000E8FC(void *obj, void *fillRect, void *zRect) {
     s32 addr;
 
     if (fillRect != NULL) {
-        addr = func_80005C48(fillRect);
+        addr = obj_get_owner(fillRect);
         rect[0] = ((u16 *)fillRect)[0];
         rect[1] = ((u16 *)fillRect)[1];
         rect[2] = ((u16 *)fillRect)[2];
@@ -22,7 +22,7 @@ void func_8000E8FC(void *obj, void *fillRect, void *zRect) {
         func_8000E9D4(obj, addr, rect, color);
     }
     if (zRect != NULL) {
-        addr = func_80005C48(zRect);
+        addr = obj_get_owner(zRect);
         rect[0] = ((u16 *)zRect)[0];
         rect[1] = ((u16 *)zRect)[1];
         rect[2] = ((u16 *)zRect)[2];

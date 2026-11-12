@@ -1,4 +1,14 @@
-/* identical to func_8008D24C in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_8008792C in V-RALLY (matched), with its names changed by decompdecomp */
+/* Reads a variable-length 7-bit / 15-bit encoded value from `src` and stores it
+ * into the 16-bit field at `dst + 0xA6`. Returns the advanced `src` pointer. */
+u8 *func_8008792C(u8 *dst, u8 *src) {
+    u32 val;
+    u32 byte2;
 
-unsigned char *func_8008792C(char *arg0, unsigned char *arg1) { unsigned int a = *arg1++; if (a & 0x80) { unsigned int b = *arg1++; a = b | ((a & 0x7F) << 8); } *(short *)(arg0 + 0xA6) = a; return arg1; }
+    val = *src++;
+    if (val & 0x80) {
+        byte2 = *src++;
+        val = byte2 | ((val & 0x7F) << 8);
+    }
+    *(s16 *)(dst + 0xA6) = val;
+    return src;
+}

@@ -1,0 +1,15 @@
+extern void update_camera();
+extern void func_80012114();
+extern void func_80012168();
+extern void func_80012184();
+extern void func_80012294();
+extern void anim_seq_update();
+extern void func_80012624();
+extern void func_80012638();
+extern void func_800129DC();
+extern void camera_follow_car();
+extern u8 D_800A3FC8[];
+extern u8 D_800A3FD0[];
+extern u8 D_800A3FD8[];
+extern u8 D_800A3FE0[];
+void *D_8009B9E4[19] = { func_80012168, update_camera, &D_800A3FE0, func_80012114, func_80012184, &D_800A3FD8, func_80012624, func_80012638, &D_800A3FD0, func_80012294, anim_seq_update, &D_800A3FC8, func_800129DC, camera_follow_car, 0, 0, 0, 0, 0 };

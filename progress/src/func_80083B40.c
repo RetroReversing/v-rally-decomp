@@ -1,4 +1,4 @@
-extern u8 gOrderState, gStreamState;
+extern u8 gOrderState, stream_state;
 extern s32 inflateBlock(s32 *);
 extern s32 func_800821A4(void *, s32, s32);
 
@@ -14,12 +14,12 @@ s32 func_80083B40(void)
     u32 maxBlockOut = 0;
 
     {
-        u32 *totalOut = (u32 *)(&gStreamState + 0x310A);
+        u32 *totalOut = (u32 *)(&stream_state + 0x310A);
         blockLen = totalOut - 5;
         *totalOut = 0;
     }
-    *(u32 *)(&gStreamState + 0x3112) = 0;
-    *(u32 *)(&gStreamState + 0x310E) = 0;
+    *(u32 *)(&stream_state + 0x3112) = 0;
+    *(u32 *)(&stream_state + 0x310E) = 0;
     do {
         *blockLen = 0;
         ret = inflateBlock(&lastBlock);
@@ -31,6 +31,6 @@ s32 func_80083B40(void)
             maxBlockOut = blockOut;
         }
     } while (lastBlock == 0);
-    func_800821A4(&gOrderState + 0x8AE8, *(s32 *)(&gStreamState + 0x310A), 0);
+    func_800821A4(&gOrderState + 0x8AE8, *(s32 *)(&stream_state + 0x310A), 0);
     return 0;
 }

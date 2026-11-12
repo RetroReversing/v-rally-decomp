@@ -1,4 +1,4 @@
-s32 func_800225BC(void **);
+s32 heapReleaseStub(void **);
 s32 streamReleaseEntry(s32);
 
 /* Releases every entry in the list headed by *list (each entry's id is at +0xA4, the next
@@ -13,5 +13,5 @@ void func_80040718(void **list) {
             node = *(void **)((char *)node + 4);
         } while (node != NULL);
     }
-    func_800225BC(list);
+    heapReleaseStub(list);
 }

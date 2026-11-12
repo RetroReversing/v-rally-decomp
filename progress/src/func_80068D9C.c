@@ -1,9 +1,9 @@
 extern u8 *gSelectState;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 void *select_get_entry(u32);
-extern void slot_set_selected(s32 arg0, s32);
+extern void slotSetSelected(s32 arg0, s32);
 extern void select_mark_pending(s32);
-extern void func_8008A0D8(void *, s32, s32);
+extern void record_set_byte9(void *, s32, s32);
 
 /* Looks up this select-state's stream record (0x28 bytes each, index at +0x22A). If its 0x10 flag is
  * set, clears it, sends sound/event 0x17 and writes a 6-byte record from the select state's
@@ -15,19 +15,19 @@ s32 func_80068D9C(s32 arg0)
   u8 *p;
   u8 v;
   obj = gSelectState;
-  rec = (*((u8 **) (gStreamState + 0x32F2))) + ((*((s8 *) (obj + 0x22A))) * 0x28);
+  rec = (*((u8 **) (stream_state + 0x32F2))) + ((*((s8 *) (obj + 0x22A))) * 0x28);
   v = rec[0x48];
   if (v & 0x10)
   {
     p = *((u8 **) (obj + 0xC));
     rec[0x48] = v & 0xEF;
     obj = p + 4;
-    func_8008A0D8(*((void **) (gStreamState + 0x325A)), 0x17, 1);
+    record_set_byte9(*((void **) (stream_state + 0x325A)), 0x17, 1);
     p = select_get_entry(6);
     p[0xF] = obj[0xB];
     p[0x10] = obj[0xC];
     p[0x11] = obj[0xD];
-    slot_set_selected(arg0, 0);
+    slotSetSelected(arg0, 0);
   }
   else
   {

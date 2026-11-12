@@ -1,8 +1,8 @@
-s32 alLink();
+s32 al_link_push();
 s32 alUnlink();
 extern u32 cacheTick;
 extern u32 cacheTableIndex;
-extern char D_800A73E0[];
+extern char gGameState[];
 
 /* Ages the audio cache list: entries not used since cacheTick are unlinked and
  * moved to the tail, then the table index is reset and cacheTick advances. */
@@ -22,7 +22,7 @@ void func_80087114(void)
       i += 1;
     } while (i < cacheTableIndex);
   }
-  entry = *((void **) (D_800A73E0 + 0x4564));
+  entry = *((void **) (gGameState + 0x4564));
   if (entry != NULL)
   {
     do
@@ -30,20 +30,20 @@ void func_80087114(void)
       next = *((void **) entry);
       if (((*((s32 *) ((char *) entry + 0xC))) + 1) < cacheTick)
       {
-        if (*((void **) (D_800A73E0 + 0x4564)) == entry)
+        if (*((void **) (gGameState + 0x4564)) == entry)
         {
-          *((void **) (D_800A73E0 + 0x4564)) = next;
+          *((void **) (gGameState + 0x4564)) = next;
         }
         alUnlink(entry);
-        tail = *((void **) (D_800A73E0 + 0x4564 + 4));
+        tail = *((void **) (gGameState + 0x4564 + 4));
         if (tail != NULL)
         {
-          alLink(entry, tail);
+          al_link_push(entry, tail);
           entry = next;
         }
         else
         {
-          *((void **) (D_800A73E0 + 0x4564 + 4)) = entry;
+          *((void **) (gGameState + 0x4564 + 4)) = entry;
           *((void **) entry) = NULL;
           *((s32 *) ((char *) entry + 4)) = 0;
           entry = next;

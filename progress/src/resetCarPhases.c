@@ -2,7 +2,7 @@ extern u8 D_800C8246[];
 extern u8 D_800C8262[];
 extern void *gCarList;
 
-s32 func_80041A04(s32, u16);
+s32 car_queue_phase_step(s32, u16);
 
 /* Queues phase 8 for the four cars listed in D_800C8246 (each entry indexes a
    40-byte record in D_800C8262), then clears the per-car phase flags for every
@@ -11,10 +11,10 @@ void resetCarPhases(void) {
     s32 index;
     void *car;
 
-    func_80041A04(8, *(u16 *)(D_800C8262 + D_800C8246[0] * 40));
-    func_80041A04(8, *(u16 *)(D_800C8262 + D_800C8246[1] * 40));
-    func_80041A04(8, *(u16 *)(D_800C8262 + D_800C8246[2] * 40));
-    func_80041A04(8, *(u16 *)(D_800C8262 + D_800C8246[3] * 40));
+    car_queue_phase_step(8, *(u16 *)(D_800C8262 + D_800C8246[0] * 40));
+    car_queue_phase_step(8, *(u16 *)(D_800C8262 + D_800C8246[1] * 40));
+    car_queue_phase_step(8, *(u16 *)(D_800C8262 + D_800C8246[2] * 40));
+    car_queue_phase_step(8, *(u16 *)(D_800C8262 + D_800C8246[3] * 40));
     car = *(void **)gCarList;
     index = 0;
     if (car != 0) {

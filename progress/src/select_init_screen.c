@@ -1,9 +1,9 @@
 extern s8 *gSelectState;
-extern char gStreamState[];
+extern char stream_state[];
 
 void select_clear_slots(void);
 void func_8005BB5C(void);
-s32 func_8008A0D8(s32, s32, s8);
+s32 record_set_byte9(s32, s32, s8);
 void *select_get_entry(u32);
 void select_propagate_values(s32, u32, u32);
 
@@ -13,8 +13,8 @@ void select_propagate_values(s32, u32, u32);
 void select_init_screen(void) {
     select_clear_slots();
     func_8005BB5C();
-    if (*(u16 *)(*(u8 **)(gStreamState + 0x32F2) + 0xE) < 2U) {
-        func_8008A0D8(*(s32 *)(gStreamState + 0x325A), 1, 0);
+    if (*(u16 *)(*(u8 **)(stream_state + 0x32F2) + 0xE) < 2U) {
+        record_set_byte9(*(s32 *)(stream_state + 0x325A), 1, 0);
         ((s8 *)select_get_entry(1))[0x41] = 0;
         select_propagate_values(1, 1, *(u32 *)(gSelectState + 0x14));
     }

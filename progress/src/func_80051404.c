@@ -1,5 +1,5 @@
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 /* Walks the order-state chain for the entry at index entry->0x114 of the
  * 0x44-byte entry array at arg0, stepping once per index (twice when the
@@ -15,7 +15,7 @@ void *func_80051404(char *arg0)
     u8 i;
 
     count = arg0[0x114];
-    new_var = *((char **) (gStreamState + 0x32F2));
+    new_var = *((char **) (stream_state + 0x32F2));
     temp_a0 = arg0 + (count * 0x44);
     flags = *((u16 *) (temp_a0 + 8));
     node = *((void **) (*((void **) (gOrderState + 0x73F0))));

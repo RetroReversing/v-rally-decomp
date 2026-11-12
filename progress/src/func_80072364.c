@@ -1,8 +1,8 @@
 void *select_get_entry(u32);
 s32 group_set_color();
 void draw_palette_sprite(void *, s16, s16, void *);
-s32 func_8006090C();
-s32 func_8006A438();
+s32 hud_draw_stats_panel();
+s32 race_render_scene();
 extern void *gRecords;
 
 /* Draws every node of list 1 with its item's colour and position, then runs the two
@@ -33,6 +33,6 @@ void func_80072364(void)
       list_node = *((void **) list_node);
     } while ((u8) index < *((u16 *) (((char *) gRecords) + 0xE)));
   }
-  func_8006A438();
-  func_8006090C();
+  race_render_scene();
+  hud_draw_stats_panel();
 }

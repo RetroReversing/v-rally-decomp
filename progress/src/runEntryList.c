@@ -1,6 +1,6 @@
 extern char gEntryHandlers[];
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 s32 heapFreeBlock();
 void heap_free_stub();
 
@@ -21,7 +21,7 @@ void runEntryList(s32 arg0, char *obj, s32 arg2)
     i = 0;
     result = NULL;
     *(char **)(gOrderState + 0x6E9C) = obj;
-    *(char **)(gStreamState + 0x7CD2) = obj;
+    *(char **)(stream_state + 0x7CD2) = obj;
     if (count != 0)
     {
         do

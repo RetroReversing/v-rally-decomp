@@ -42,14 +42,14 @@ typedef struct
   u8 map[12][4];
 } DecodeBlk;
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern DecodeBlk gDecodeBlk;
 extern s32 D_800B6768[4];
 extern void record_slot_init(s32, s32);
 extern SlotState *gSlotState;
 static __inline__ int bitSet(u32 word,u32 mask){do{do{do{do{do{return (word&mask)==mask;}while(0);}while(0);}while(0);}while(0);}while(0);}
 
-/* Decodes the slot packet at gStreamState+0x6E64 into gSlotState: four slots
+/* Decodes the slot packet at stream_state+0x6E64 into gSlotState: four slots
  * (slot[0..3] with their ent[].v values; each slot is recorded with
  * record_slot_init), the per-group flags in gDecodeBlk.flag, and two words
  * in D_800B6768. For each of the 4 entries it counts 2-bit codes from the
@@ -75,7 +75,7 @@ void decodePacketSlots(void)
     slotUsed[i] = 0;
   }
 
-  pkt = (SlotPacket *) (gStreamState + 0x6e64);
+  pkt = (SlotPacket *) (stream_state + 0x6e64);
   gOrderState[0x7FCA] = pkt->f14;
   if (gOrderState[0x7FCA])
   {
@@ -84,12 +84,12 @@ void decodePacketSlots(void)
     gSlotState->mode = pkt->f8;
     gSlotState->slot[0] = pkt->f4;
     slotUsed[gSlotState->slot[0]] = 1;
-    gSlotState->ent[gSlotState->slot[0]].v = gStreamState[0x701e] & 15;
+    gSlotState->ent[gSlotState->slot[0]].v = stream_state[0x701e] & 15;
     if (gSlotState->mode >= 2)
     {
       gSlotState->slot[1] = pkt->f0;
       slotUsed[gSlotState->slot[1]] = 1;
-      gSlotState->ent[gSlotState->slot[1]].v = gStreamState[0x701e] >> 4;
+      gSlotState->ent[gSlotState->slot[1]].v = stream_state[0x701e] >> 4;
     }
     else
     {
@@ -172,9 +172,25 @@ void decodePacketSlots(void)
 do{do{do{do{cur=(u8)j;}while(0);}while(0);}while(0);}while(0);
       bits = H((((u8 *) pkt) + 10) + (cur * 2));
       i=0;
-      if(guardN) { u8 boundN=(u8)count;slotOff=cur;cur=(u32)gDecodeBlk.cnt;cntp=(u8 *)((u32)cur+slotOff*4); do {
+      if(guardN) { u8 boundN=(u8)count;slotOff=cur;
+#ifdef PORT
+cntp=(u8 *)gDecodeBlk.cnt+slotOff*4;
+#else
+cur=(u32)gDecodeBlk.cnt;cntp=(u8 *)((u32)cur+slotOff*4);
+#endif
+ do {
 
-{u32 m1,scratch;int m0,b0,b1;m1=(u8)i;{u16 *row=&gDecodeBlk.flag[base+m1];b=row-gDecodeBlk.flag;}do{do{m1<<=1;do{do{do{do{m0=1<<m1;}while(0);}while(0);}while(0);}while(0);m1++;do{do{do{do{m1=1<<m1;}while(0);}while(0);}while(0);}while(0);do{do{do{b0=bits;b0^=0xffff;b0&=m0;b0=(b0==0);}while(0);}while(0);}while(0);scratch=bits;scratch^=0xffff;scratch&=m1;do{m1=b*4;m1+=(u32)gDecodeBlk.map;m1+=slotOff;}while(0);b1=(scratch==0);decoded=(b1<<1)|b0;}while(0);}while(0);*(u8 *)m1=decoded;}v=(u8)decoded;
+{u32 m1,scratch;int m0,b0,b1;m1=(u8)i;{u16 *row=&gDecodeBlk.flag[base+m1];b=row-gDecodeBlk.flag;}do{do{m1<<=1;do{do{do{do{m0=1<<m1;}while(0);}while(0);}while(0);}while(0);m1++;do{do{do{do{m1=1<<m1;}while(0);}while(0);}while(0);}while(0);do{do{do{b0=bits;b0^=0xffff;b0&=m0;b0=(b0==0);}while(0);}while(0);}while(0);scratch=bits;scratch^=0xffff;scratch&=m1;
+#ifndef PORT
+do{m1=b*4;m1+=(u32)gDecodeBlk.map;m1+=slotOff;}while(0);
+#endif
+b1=(scratch==0);decoded=(b1<<1)|b0;}while(0);}while(0);
+#ifdef PORT
+*((u8 *)gDecodeBlk.map+b*4+slotOff)=decoded;
+#else
+*(u8 *)m1=decoded;
+#endif
+}v=(u8)decoded;
 
         if(v==1)goto add_two;if(v<2){if(v==0)goto add_four;goto counted;}do{do{do{if(v==2)goto add_one;}while(0);}while(0);}while(0);goto counted;add_four:*((s32 *)cntp)+=4;goto counted;add_two:*((s32 *)cntp)+=2;goto counted;add_one:*((s32 *)cntp)+=1;counted:;
 

@@ -32,7 +32,7 @@ extern Manager *gLeague;
  extern State *gSelectState;
 
 void func_80057D5C(s32,s32,s32,s32);void *select_get_entry(u32);void *textObjGet(u32);
- void func_8008A0D8(Manager *,s32,s32);
+ void record_set_byte9(Manager *,s32,s32);
 
 /* Refreshes the league menu from the four record slots in gRecords. Slots whose
    byte at +0x44 (stride 0x28) is 0x5B or more count as qualified. Sets up the menu
@@ -53,7 +53,7 @@ s32 func_80068130(void) {
 
  res.obj=select_get_entry(1);
 
- if(!qualified){func_8008A0D8(gLeague,13,0);
+ if(!qualified){record_set_byte9(gLeague,13,0);
 res.obj->f=0x50;
 res.obj->g=0x50;
 res.obj->h=0x50;
@@ -68,12 +68,12 @@ item->enabled=1;
 item->enabled=0;
 item=item->next;
 item->enabled=0;
-func_8008A0D8(gLeague,13,1);
+record_set_byte9(gLeague,13,1);
 res.obj->f=0xc8;
 res.obj->g=0xc8;
 res.obj->h=0xc8;
-func_8008A0D8(gLeague,12,1);
-if(qualified==4){func_8008A0D8(gLeague,12,0);
+record_set_byte9(gLeague,12,1);
+if(qualified==4){record_set_byte9(gLeague,12,0);
 res.obj=select_get_entry(0);
 res.obj->f=0x50;
 res.obj->g=0x50;

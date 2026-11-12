@@ -13,11 +13,11 @@ typedef struct {
 } Mgr;
 extern Mgr *gRaceCtx;
 void memset(void *, s32, s32);
-void copyStringAligned(void *, void *);
-s32 func_8000C9B0(void *, void *, u8, f32, u8);
+void strCpy(void *, void *);
+s32 font_text_width(void *, void *, u8, f32, u8);
 
 /* Clears the value slots of the four records, then fills each of the `count` entries of every
- * record: decodes the entry into a scratch buffer and stores func_8000C9B0's result in vals. */
+ * record: decodes the entry into a scratch buffer and stores font_text_width's result in vals. */
 void func_80049F18(void)
 {
     u8 scratch[0x2A];
@@ -34,8 +34,8 @@ void func_80049F18(void)
     }
     for (i = 0; i < 4; i++) {
         for (j = 0; j < gRaceCtx->recs[i].count; j++) {
-            copyStringAligned(scratch, gRaceCtx->recs[i].data[j]);
-            gRaceCtx->recs[i].vals[j] = func_8000C9B0((void *)(gRaceCtx->pad0 + 4), (void *)(scratch), (u8)(1), (f32)(gRaceCtx->x3A4), (u8)(0));
+            strCpy(scratch, gRaceCtx->recs[i].data[j]);
+            gRaceCtx->recs[i].vals[j] = font_text_width((void *)(gRaceCtx->pad0 + 4), (void *)(scratch), (u8)(1), (f32)(gRaceCtx->x3A4), (u8)(0));
         }
     }
 }

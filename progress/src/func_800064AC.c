@@ -44,6 +44,17 @@ s32 func_800064AC(void *ctx, s16 color) {
     }
     vtx_index = (u16)dl_reserve_vertices(ctx, 3);
     vtx_off = vtx_index * 0x10;
+#ifdef PORT
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 4) = color;
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x14) = color;
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x24) = color;
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 6) = 0;
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x16) = 0;
+    *(s16 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x26) = 0;
+    *(u8 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0xF) = 0xFF;
+    *(u8 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x1F) = 0xFF;
+    *(u8 *)((*(char **)((char *)ctx + 0x70) + vtx_off) + 0x2F) = 0xFF;
+#else
     *(s16 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 4) = color;
     *(s16 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 0x14) = color;
     *(s16 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 0x24) = color;
@@ -53,6 +64,7 @@ s32 func_800064AC(void *ctx, s16 color) {
     *(u8 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 0xF) = 0xFF;
     *(u8 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 0x1F) = 0xFF;
     *(u8 *)((char *)(vtx_off + *(s32 *)((char *)ctx + 0x70)) + 0x2F) = 0xFF;
+#endif
     cmd_dst = *(void **)((char *)ctx + 0x14);
     vtx_off_2 = vtx_index & 0x1F;
     *(void **)((char *)ctx + 0x14) = (void *)(cmd_dst + 8);

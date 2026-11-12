@@ -11,8 +11,8 @@ typedef struct OSTimer_s {
 } OSTimer;
 extern OSTimer *__osTimerList;
 extern u32 D_800C3634;
-extern u32 func_800937B0(void);
-extern void func_800958F0(u32);
+extern u32 osGetCount(void);
+extern void osSetCompareRegister(u32);
 extern void __osSetTimerIntr(OSTime);
 extern OSTime __osInsertTimer(OSTimer *);
 extern void osSendMesg(OSMesgQueue *, OSMesg, s32);
@@ -30,12 +30,12 @@ void __osTimerInterrupt(void) {
         timer = __osTimerList->next;
 
         if (timer == __osTimerList) {
-            func_800958F0(0);
+            osSetCompareRegister(0);
             D_800C3634 = 0;
             break;
         }
 
-        count = func_800937B0();
+        count = osGetCount();
         elapsed = count - D_800C3634;
         D_800C3634 = count;
 

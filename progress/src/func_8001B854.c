@@ -1,3 +1,8 @@
-extern char D_800A73E0[];
+extern char gGameState[];
 void runEntryList(char *a, int b, int c);
-void func_8001B854(int arg0, int arg1) { runEntryList(D_800A73E0 + 0x6BD0, arg0, arg1); }
+
+/* Runs the entry list at a fixed base offset with the given parameters. */
+void func_8001B854(int entry, int arg2)
+{
+    runEntryList(gGameState + 0x6BD0, entry, arg2);
+}

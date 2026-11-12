@@ -27,12 +27,13 @@ typedef struct {
     f32 z;
 } Car;
 
-extern s32 func_8002D2C8(s32, s32);
+extern s32 angle_atan2_thunk(s32, s32);
 extern void mat3x3_from_euler(s16 *, s32 *);
 void *mtx3_transform_vec3(void *, void *, void *);
-extern s32 func_80098090(void);
+extern s32 rand_next15(void);
 extern SmokeTable *g_ent_list;
 extern Car *g_camera;
+s32 abs(s32);
 
 /* Moves one smoke/dust particle per emitter position. Each particle drifts with
  * the car (the offset from the car to the emitter, clamped if far off) and rises;
@@ -56,18 +57,18 @@ s32 __repair_call_arithmetic;
     }
     relX += 4.0f;
     relZ += 2.0f;
-    heading = -func_8002D2C8((s32)(g_camera->vz * 4096.0f), (s32)(g_camera->vx * -4096.0f));
+    heading = -angle_atan2_thunk((s32)(g_camera->vz * 4096.0f), (s32)(g_camera->vx * -4096.0f));
     rot[0] = 0;
     rot[2] = 0;
     vec[2] = 0;
     left = g_ent_list->count;
     while (left-- != 0) {
         if (part->y == 1001) {
-            vec[0] = func_80098090() % 4095 + 0x200;
-            vec[1] = -(func_80098090() % 511);
+            vec[0] = rand_next15() % 4095 + 0x200;
+            vec[1] = -(rand_next15() % 511);
 __repair_call_arithmetic = heading - 0x200;
 
-            rot[1] = __repair_call_arithmetic + func_80098090() % 1023;
+            rot[1] = __repair_call_arithmetic + rand_next15() % 1023;
             mat3x3_from_euler(rot, mtx);
             mtx3_transform_vec3(mtx, vec, part);
         }

@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-u16 func_80006030(void *arg0) {
-    return M2C_FIELD(arg0, u16 *, 6);
+/* Returns the 16-bit field at +0x06 of a gfx context. */ u16 func_80006030(void *gfx_ctx) {
+    return M2C_FIELD(gfx_ctx, u16 *, 6);
 }

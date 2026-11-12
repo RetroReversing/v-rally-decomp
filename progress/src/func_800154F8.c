@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_800154F8(void) {
+/* Empty placeholder callback; does nothing. */ void func_800154F8(void) {
 
 }

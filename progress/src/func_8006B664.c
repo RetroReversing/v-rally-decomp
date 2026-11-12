@@ -1,9 +1,9 @@
-extern unsigned int func_8004D31C();
-extern void selectCopyEntryLabel(s32, s32);
+extern unsigned int stream_free_all_blocks();
+extern void select_copy_entry_label(s32, s32);
 extern void func_8006AE34(void);
 extern u8 *gSelectState;
 extern u8 gStreamPhase;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 /* Resets the select-screen state: installs the update handler at +0x288, sets the mode byte
  * gStreamPhase to 3, and sets the select-screen field +0x228 to the current entry's
@@ -20,17 +20,17 @@ s32 func_8006B664(s32 arg0, s32 arg1)
   s32 mode;
 
   offset = 0;
-  func_8004D31C();
-  selectCopyEntryLabel(arg0, arg1);
+  stream_free_all_blocks();
+  select_copy_entry_label(arg0, arg1);
   header = gSelectState;
-  state = *((u8 **) (gStreamState + 0x325A));
+  state = *((u8 **) (stream_state + 0x325A));
   handler = (void **) (header + 0x288);
   *handler = func_8006AE34;
   idx = *((s16 *) (state + 2));
 
   gStreamPhase = 3;
   element = (*((u8 **) (state + 0x10))) + 20 * idx;
-  rec = *((u8 **) (gStreamState + 0x32F2));
+  rec = *((u8 **) (stream_state + 0x32F2));
   mode = *((u16 *) (rec + 0x1E));
   switch (mode)
   {

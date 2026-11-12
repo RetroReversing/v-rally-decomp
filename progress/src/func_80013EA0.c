@@ -18,8 +18,12 @@ void func_80013EA0(void)
     block = gTimeSampleState;
     idx = *((u32 *) (block + 4));
     *((u32 *) (block + 4)) = idx + 1;
+#ifdef PORT
+    slot = block + idx * 8;
+#else
     slot = (char *) (idx * 8);
     slot = block + ((u32) slot);
+#endif
     r = __udivdi3(t << 6, 3000);
     r = r - (*((u64 *) (block + 8)));
     *((u64 *) (slot + 0xF0)) = r;

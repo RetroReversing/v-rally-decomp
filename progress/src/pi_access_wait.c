@@ -2,7 +2,7 @@ s32 osCreateMesgQueue();
 s32 osRecvMesg();
 s32 osSendMesg();
 extern s32 __osPiAccessQueueEnabled;
-extern char D_800A73E0[];
+extern char gGameState[];
 extern char gOrderState[];
 extern char D_800B6FF8[];
 
@@ -14,7 +14,7 @@ void pi_access_wait(void)
 
     if (__osPiAccessQueueEnabled == 0) {
         __osPiAccessQueueEnabled = 1;
-        osCreateMesgQueue(gOrderState + 0x87A8, D_800A73E0 + 0x6AF0, 1);
+        osCreateMesgQueue(gOrderState + 0x87A8, gGameState + 0x6AF0, 1);
         osSendMesg(D_800B6FF8, 0, 0);
     }
     osRecvMesg(gOrderState + 0x87A8, &msg, 1);

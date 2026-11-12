@@ -1,14 +1,14 @@
 s32 heapFreeBlock(void *);
-s32 huft_free(s32 arg0) {
-    register s32 next;
-    void *p = (void *)arg0;
-    if (p != 0) {
+/* Frees a singly linked chain of heap blocks (link at +4, block header 8 bytes before the pointer) starting at head. */ s32 huft_free(void *head) {
+    register void *nextBlock;
+    void *block = head;
+    if (block != 0) {
         do {
-            p = (void *)((u8 *)p - 8);
-            next = *(s32 *)((u8 *)p + 4);
-            heapFreeBlock(p);
-            p = (void *)next;
-        } while (p != 0);
+            block = (void *)((u8 *)block - 8);
+            nextBlock = *(void **)((u8 *)block + 4);
+            heapFreeBlock(block);
+            block = nextBlock;
+        } while (block != 0);
     }
     return 0;
 }

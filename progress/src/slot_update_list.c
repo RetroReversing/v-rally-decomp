@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s16 gSlotArgOffsets[][17];
 extern u16 gSlotMasks[][2];
 typedef struct
@@ -18,7 +18,7 @@ void slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask
   s32 off;
   for (i = 0; i < list->count; i++)
   {
-    sel = gStreamState[0x7678];
+    sel = stream_state[0x7678];
     if (gSlotArgOffsets[sel][i] < 0)
     {
       continue;
@@ -30,35 +30,35 @@ void slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask
     switch (i)
     {
       case 3:
-        if ((*((u16 *) (gStreamState + 0x767E))) & 0x8000)
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)
       {
         continue;
       }
         break;
 
       case 4:
-        if ((*((u16 *) (gStreamState + 0x767E))) & 0x4000)
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)
       {
         continue;
       }
         break;
 
       case 5:
-        if ((*((u16 *) (gStreamState + 0x767E))) & 0x800)
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)
       {
         continue;
       }
         break;
 
       case 6:
-        if ((*((u16 *) (gStreamState + 0x767E))) & 0x2000)
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)
       {
         continue;
       }
         break;
 
       case 7:
-        if ((*((u16 *) (gStreamState + 0x767E))) & 0x1000)
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)
       {
         continue;
       }
@@ -76,7 +76,7 @@ void slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask
     }
 
     slot_off = i * 36;
-    off = gSlotArgOffsets[gStreamState[0x7678]][i];
+    off = gSlotArgOffsets[stream_state[0x7678]][i];
     func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);
   }
 

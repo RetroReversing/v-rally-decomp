@@ -1,7 +1,7 @@
 #define H(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define M gRecords
 extern u8 gOrderState[];
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 *gSlotTableB[];
 void func_800529F0(void);
 void update_record_entries(void);
@@ -42,9 +42,9 @@ void func_8005322C(void)
     func_800783A8();
     state = M;
     state2 = state;
-    gStreamState[0x7f4f] = 5;
-    gStreamState[0x7f51] = H(state2, 0xe);
-    gStreamState[0x7f50] = H(state2, 0x20);
+    stream_state[0x7f4f] = 5;
+    stream_state[0x7f51] = H(state2, 0xe);
+    stream_state[0x7f50] = H(state2, 0x20);
     index = H(state2, 0x20);
     H(state2, 0x1e) = 8;
     do

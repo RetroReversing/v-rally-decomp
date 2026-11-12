@@ -12,8 +12,9 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-extern M2C_UNK D_800A73E0;
+extern M2C_UNK gGameState;
 
-void rand_seed(s32 arg0) {
-    M2C_FIELD(&D_800A73E0, s32 *, 0x6B00) = arg0;
+/* Sets the random-number seed, stored at gGameState + 0x6B00. */
+void rand_seed(s32 seed) {
+    M2C_FIELD(&gGameState, s32 *, 0x6B00) = seed;
 }

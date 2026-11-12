@@ -1,7 +1,7 @@
 /* Record tables for the three classes (stride 40 bytes per record). */
-#define RECORDS_A ((Rec5F *) (&gStreamState + 0x37A2))
-#define RECORDS_B ((Rec5F *) (&gStreamState + 0x38A2))
-#define RECORDS_C ((Rec5F *) (&gStreamState + 0x3862))
+#define RECORDS_A ((Rec5F *) (&stream_state + 0x37A2))
+#define RECORDS_B ((Rec5F *) (&stream_state + 0x38A2))
+#define RECORDS_C ((Rec5F *) (&stream_state + 0x3862))
 typedef struct Obj5F
 {
   u8 p[6];
@@ -27,17 +27,17 @@ extern char D_800A54FC[];
 extern char D_800A5508[];
 extern s16 D_800A5504;
 extern s8 D_800A5506;
-extern u8 gStreamState;
+extern u8 stream_state;
 extern Rec5F D_800C3A50[];
 extern Rec5F D_800C3B50[];
 extern Rec5F D_800C3B10[];void *textObjGet(u32);
 extern void func_80052E94(s32, char *);
 extern void group_set_color(Obj5F *, u8, u8, u8, s32);
 void draw_palette_sprite(void *, s16, s16, void *);
-extern void func_8006874C(s32);
+extern void select_draw_results_table(s32);
 extern void memset(char *, s32, s32);
 extern void appendString(char *, char *);
-extern void formatString(char *, char *, ...);
+extern void format_to_buffer(char *, char *, ...);
 /* Draws the best-times screen: for each of the three record classes, the names,
  * times and gaps to the best time; then the three stat values and their average. */
 void func_8005F5C4(void)
@@ -59,17 +59,17 @@ void func_8005F5C4(void)
     {
       if (i == 0)
       {
-        formatString(buf, D_800A54FC, j + 1, RECORDS_A[j].name);
+        format_to_buffer(buf, D_800A54FC, j + 1, RECORDS_A[j].name);
       }
       else
         if (i == 1)
       {
-        formatString(buf, D_800A54FC, j + 1, RECORDS_B[j].name);
+        format_to_buffer(buf, D_800A54FC, j + 1, RECORDS_B[j].name);
       }
       else
         if (i == 2)
       {
-        formatString(buf, D_800A54FC, j + 1, RECORDS_C[j].name);
+        format_to_buffer(buf, D_800A54FC, j + 1, RECORDS_C[j].name);
       }
       group_set_color(obj, obj->b, obj->c, obj->d, obj->e);
       draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y + (j * 22)), (void *)(buf));
@@ -124,22 +124,22 @@ void func_8005F5C4(void)
   obj = textObjGet(17);
   group_set_color(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
-  formatString(buf, D_800A5490, D_800A14E0);
+  format_to_buffer(buf, D_800A5490, D_800A14E0);
   draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = textObjGet(18);
   group_set_color(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
-  formatString(buf, D_800A5490, D_800A14E1);
+  format_to_buffer(buf, D_800A5490, D_800A14E1);
   draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = textObjGet(19);
   group_set_color(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
-  formatString(buf, D_800A5490, D_800A14E2);
+  format_to_buffer(buf, D_800A5490, D_800A14E2);
   draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
   obj = textObjGet(20);
   group_set_color(obj, obj->b, obj->c, obj->d, obj->e);
   memset(buf, 0, 15);
-  formatString(buf, D_800A5490, ((D_800A14E0 + D_800A14E1) + D_800A14E2) / 3);
+  format_to_buffer(buf, D_800A5490, ((D_800A14E0 + D_800A14E1) + D_800A14E2) / 3);
   draw_palette_sprite((void *)(obj), (s16)(obj->x), (s16)(obj->y), (void *)(buf));
-  func_8006874C(-1);
+  select_draw_results_table(-1);
 }

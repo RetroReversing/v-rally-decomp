@@ -1,1 +1,1 @@
-unsigned char *func_80087F9C(char *arg0, unsigned char *arg1) { unsigned char t = *arg1; arg0[0xCA] = 0; arg0[0xCB] = t; return arg1 + 1; }
+/* Reads one byte from src into obj[0xCB] and clears obj[0xCA]; returns the advanced source pointer. */ unsigned char *func_80087F9C(char *obj, unsigned char *src) { unsigned char byte = *src; obj[0xCA] = 0; obj[0xCB] = byte; return src + 1; }

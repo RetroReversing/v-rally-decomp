@@ -15,10 +15,10 @@ typedef struct
   void (*unk28C)(void);
 } Obj;
 extern Obj *gSelectState;
-extern u8 gStreamState[];
-extern volatile unsigned short func_8006F4A8(u8);
-extern void func_8006EE3C(u8);
-extern void func_8006F0E0(u8, void *);
+extern u8 stream_state[];
+extern volatile unsigned short glyph_record_reset(u8);
+extern void unpackRecord(u8);
+extern void glyph_record_pack(u8, void *);
 extern void save_race_to_pak(void);
 extern void select_reset_text(s32, s32, s32, s32);
 extern void select_init_screen(void);
@@ -48,12 +48,12 @@ s32 func_8006786C(void)
   s8 idx;
   s32 ret;
   volatile char frame_pad[8];
-  func_8006F4A8(gSelectState->unk228);
-  func_8006EE3C(gSelectState->unk228);
+  glyph_record_reset(gSelectState->unk228);
+  unpackRecord(gSelectState->unk228);
   car_id = *((s8 *) (((u8 *) gSelectState) + 0x228));
   i = 0;
   off = ((car_id * 5) * 8) + 0x44;
-  slot_bytes = (*((u8 **) (gStreamState + 0x32F2))) + off;
+  slot_bytes = (*((u8 **) (stream_state + 0x32F2))) + off;
   copy_loop:
   state = gSelectState;
 
@@ -65,7 +65,7 @@ s32 func_8006786C(void)
     goto copy_loop;
   }
   slot_bytes[3] = 0;
-  func_8006F0E0(gSelectState->unk228, slot_bytes);
+  glyph_record_pack(gSelectState->unk228, slot_bytes);
   save_race_to_pak();
   { extern u8 * volatile gRecords; records = gRecords; }
   state2 = gSelectState;
@@ -100,7 +100,7 @@ s32 func_8006786C(void)
     {
       idx = *((s8 *) (((u8 *) t0) + 0x22B));
       *((u8 *) ((slot_bytes + idx) + 0x32)) = (u8) rec_car;
-      p = *((u8 **) (gStreamState + 0x32F2));
+      p = *((u8 **) (stream_state + 0x32F2));
       p += j;
       p[0x32] = t1;
     }

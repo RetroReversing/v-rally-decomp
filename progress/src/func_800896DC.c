@@ -1,2 +1,13 @@
-void func_800896DC(s8 *p,s8 v,s32 n){s32 pad[2];s32 i=n-1;if(n!=0)do{*p=v;p++;i--;}while(i!=-1);(void)&pad;
+/* Fills count bytes at dst with value (memset). The unused pad keeps the original stack frame. */
+void func_800896DC(signed char *dst, signed char value, int count) {
+    int pad[2];
+    int i = count - 1;
+    if (count != 0) {
+        do {
+            *dst = value;
+            dst++;
+            i--;
+        } while (i != -1);
+    }
+    (void)&pad;
 }

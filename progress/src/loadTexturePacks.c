@@ -1,9 +1,9 @@
 extern unsigned short gTexPackCount;
-extern int D_800D0658;
+extern char *D_800D0658;
 s32 getTexturePack();
 s32 resolve_path();
 s32 appendString();
-extern s32 gSelectState;
+extern s8 *gSelectState;
 extern char aTexPackDir[];
 extern char aTexPackExt[];
 

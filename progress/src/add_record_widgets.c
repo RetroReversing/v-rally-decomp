@@ -26,7 +26,7 @@ static inline int offset_by(s32 a, int b)
 
 /* For the current mode, adds the widgets for each record entry (count from gRecords' state)
  * into the panel at arg0, using arg1 as the base index for the pack and arg2 as the row flag. */
-void add_record_widgets(s32 panel, s32 base_id, s32 row_flag)
+void add_record_widgets(void *panel, s32 base_id, s32 row_flag)
 {
   State *st = (State *)gRecords;
   u16 mode = *((u16 *) ((u8 *)st + 0x1E));

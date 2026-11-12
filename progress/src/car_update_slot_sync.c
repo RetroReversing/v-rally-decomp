@@ -7,8 +7,8 @@ typedef struct Cfg { char pad0[0xE]; u16 mode; char pad10[0x1A - 0x10]; u16 f1A;
 typedef struct Pad { u16 btn; char pad2[4]; s16 v6; char pad8[0x44 - 8]; } Pad;
 
 extern void func_8004F3C4(void);
-extern void func_8008E13C(s32, s32, s32);
-extern Bank *gCarEntries;
+extern void memcpy(s32, s32, s32);
+extern Bank *gCarEntryTable;
 extern Bank *gSlotTable;
 extern u8 D_800ADFE1;
 extern Pad D_800B0C60[2];
@@ -34,7 +34,7 @@ void car_update_slot_sync(Car *car) {
         slot = car->info[3];
         if (gRecords->f1A == 1) {
             dstBank = gSlotTable;
-            srcBank = gCarEntries;
+            srcBank = gCarEntryTable;
             dstSlot = &dstBank->slots[slot];
             srcSlot = &srcBank->slots[slot];
             if (dstSlot->flags & 0x10) {
@@ -55,8 +55,8 @@ void car_update_slot_sync(Car *car) {
                     dstSlot->state = 0;
                     dstSlot->c = 0;
                     dstSlot->d = srcSlot->d;
-                    func_8008E13C(dstSlot->a, srcSlot->a, (srcSlot->asz + 3) & ~3);
-                    func_8008E13C(dstSlot->b, srcSlot->b, (srcSlot->bsz + 3) & ~3);
+                    memcpy(dstSlot->a, srcSlot->a, (srcSlot->asz + 3) & ~3);
+                    memcpy(dstSlot->b, srcSlot->b, (srcSlot->bsz + 3) & ~3);
                     if (i != slot) {
                         cursor = *gCarList;
                         if (gRecords->mode == 2) {

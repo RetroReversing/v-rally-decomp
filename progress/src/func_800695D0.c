@@ -1,4 +1,4 @@
-s32 selectCopyEntryLabel();
+s32 select_copy_entry_label();
 void func_80069648();
 void func_80069690();
 extern char *gSelectState;
@@ -10,7 +10,7 @@ s32 func_800695D0(s32 record_index)
 {
     char *p;
     char *tbl;
-    selectCopyEntryLabel();
+    select_copy_entry_label();
     p = gSelectState;
     *(u8 *)(p + 0x228) = record_index;
     tbl = gRecords;

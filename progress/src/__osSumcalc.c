@@ -1,8 +1,8 @@
-/* identical to __osSumcalc in hm64-decomp (matched), with its names changed by decompdecomp */
-u16 __osSumcalc(u8* ptr, int length) {
+/* Returns the 16-bit byte sum of length bytes starting at data (used for header checksums). */
+u16 __osSumcalc(u8* data, int length) {
     int i;
     u32 sum = 0;
-    u8* tmp = ptr;
+    u8* tmp = data;
 
     for (i = 0; i < length; i++) {
         sum += *tmp++;

@@ -1,4 +1,8 @@
+#ifdef PORT
+typedef struct { uintptr_t w0, w1; } Gfx;
+#else
 typedef struct { u32 w0, w1; } Gfx;
+#endif
 typedef struct { u8 pad[8]; s16 x0, y0, x1, y1; } Vp;
 s32 view_get_ctx_id(void *);
 Gfx *gfx_get_dl(s32);
@@ -32,7 +36,11 @@ void func_8000F1D4(Vp *vp) {
     guMtxIdent(ident_mtx);
     ctx = view_get_ctx_id(vp);
     dl = gfx_get_dl(ctx);
+#ifdef PORT
+    { Gfx *_g = dl++; _g->w0 = 0xDA380003; _g->w1 = (uintptr_t)ident_mtx; }
+#else
     { Gfx *_g = dl++; _g->w0 = 0xDA380003; _g->w1 = (u32)ident_mtx; }
+#endif
     gfx_set_dl(ctx, dl);
     mtx_idx = mtx_pool_alloc();
     guOrthoF(ortho_mf[0], 0.0f, vp->x1, vp->y1, 0.0f, -1.0f, 10.0f, 1.0f);
@@ -40,7 +48,11 @@ void func_8000F1D4(Vp *vp) {
     gfx_push_mtx(ctx, mtx_idx);
     gfx_round_vtx_pos(ctx);
     dl = gfx_get_dl(ctx);
+#ifdef PORT
+    { Gfx *_g = dl++; _g->w0 = 0xDE000000; _g->w1 = (uintptr_t)D_8009B780; }
+#else
     { Gfx *_g = dl++; _g->w0 = 0xDE000000; _g->w1 = (u32)D_8009B780; }
+#endif
     gfx_set_dl(ctx, dl);
     quad_idx = gfx_append_quad(ctx, 0);
     gfx_set_quad_pos(ctx, quad_idx, 0, 0, 0, vp->x1, vp->y0, 0, vp->x1, vp->y1, 0, vp->x0, vp->y1, 0);

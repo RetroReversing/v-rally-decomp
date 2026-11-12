@@ -26,8 +26,16 @@ void func_80052194(s32 count)
     offset = 0;
     do
     {
+      #ifdef PORT
+      entry = *(u8 **)(gOrderState + 0x237C) + offset;
+#else
       entry = (u8 *)(offset + *(u32 *)(gOrderState + 0x237C));
+#endif
+      #ifdef PORT
+      if (*entry == (unsigned long)base)
+#else
       if (*entry == (s32)base)
+#endif
       {
         match_no = matches & 0xFFFF;
         matches += 1;

@@ -80,7 +80,7 @@ void UpdateObjectChildren(s32 arg0, u8 *obj, u8 *ctx, s32 arg3)
       {
         new_var = rec->p0;
         __repair_literal = 4;
-        *((u16 *) (obj + 0x1C)) |= ((s32 (*)(u8 *, s32, u8 *, s32)) (*((s32 *) ((((char *) D_8009C254) + 0x70) + (rec->f6 * __repair_literal)))))(new_var, rec->f4, ctx, arg3);
+        *((u16 *) (obj + 0x1C)) |= ((s32 (*)(u8 *, s32, u8 *, s32)) (*((void **) ((((char *) D_8009C254) + 0x70) + (rec->f6 * __repair_literal)))))(new_var, rec->f4, ctx, arg3);
       }
       idx--;
     }

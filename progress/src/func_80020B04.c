@@ -1,12 +1,12 @@
 extern void *D_8009D6B0;
 extern char gOrderState[];
-extern char gStreamState[];
+extern char stream_state[];
 
 void car_dispatch_cmd(void *, s32, void *, s32);
-s32 func_80027CB4(u8, u8, u8, s8);
+s32 packBytes4(u8, u8, u8, s8);
 void func_80050048(s32);
 void func_8004F3C4(void);
-s32 func_8001FFC4(void *, s32, s32, s32);
+s32 func_8001FFC4(void *, void *, s32, s32);
 void func_80023134(void *, void *, void *);
 void func_80024B28(void *);
 
@@ -50,13 +50,13 @@ void func_80020B04(void **list_head) {
             D_8009D6B0 = NULL;
             data = (u8 *)payload + 4;
             car_dispatch_cmd(node, *(s32 *)payload, data, *(s32 *)((char *)payload + 0x20));
-            if ((*(s32 *)(*(s32 *)(gOrderState + 0x73F0) + 8) & 1) != 0) {
+            if ((*(s32 *)((char *)*(void **)(gOrderState + 0x73F0) + 8) & 1) != 0) {
                 D_8009D6B0 = node;
                 return;
             }
-            kind = *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x20);
+            kind = *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0x20);
             if ((kind == 0) || (kind == 9)) {
-                flag = *(u16 *)(*(s32 *)(gStreamState + 0x32F2) + 0x1E);
+                flag = *(u16 *)((char *)*(void **)(stream_state + 0x32F2) + 0x1E);
                 if (flag != 0) {
                     u8 byte8 = data[4];
                     u8 byte9 = data[5];
@@ -64,10 +64,10 @@ void func_80020B04(void **list_head) {
                     s8 sbyte0 = (s8)data[0];
                     u8 byte1 = data[1];
                     if ((fl & 0x10) == 0) {
-                        func_80050048(func_80027CB4(byte1, byte8, byte9, sbyte0));
+                        func_80050048(packBytes4(byte1, byte8, byte9, sbyte0));
                     }
                 } else {
-                    func_80050048(func_80027CB4(data[1], data[4], data[5], (s8)data[0]));
+                    func_80050048(packBytes4(data[1], data[4], data[5], (s8)data[0]));
                 }
             }
             state = *(void **)((char *)node + 0x54);
@@ -83,11 +83,11 @@ void func_80020B04(void **list_head) {
             }
             if ((data[1] & 0x80) != 0) {
                 {
-                    s32 p = *(s32 *)((char *)node + 0x54);
-                    s32 w = *(s32 *)(p + 0x20);
+                    void *p = *(void **)((char *)node + 0x54);
+                    s32 w = *(s32 *)((char *)p + 0x20);
                     if ((w & 0xFFFF) != 0) {
-                        *(s32 *)(p + 0x20) = w - 1;
-                    if (*(u16 *)(*(s32 *)((char *)node + 0x54) + 0x22) != 0) {
+                        *(s32 *)((char *)p + 0x20) = w - 1;
+                    if (*(u16 *)((char *)*(void **)((char *)node + 0x54) + 0x22) != 0) {
                             goto join20;
                         }
                         if (hi != 0) {
@@ -95,10 +95,10 @@ void func_80020B04(void **list_head) {
                         }
                         if (1) {
                         {
-                            s32 p8c = *(s32 *)((char *)node + 0x8C);
-                            s32 p60 = *(s32 *)((char *)node + 0x60);
-                            s32 a1v = *(s32 *)(p8c + 0x28);
-                            s32 a3v = *(s32 *)(p60 + 0x28);
+                            void *p8c = *(void **)((char *)node + 0x8C);
+                            void *p60 = *(void **)((char *)node + 0x60);
+                            void *a1v = *(void **)((char *)p8c + 0x28);
+                            s32 a3v = *(s32 *)((char *)p60 + 0x28);
                             tri.a = 0;
                             tri.b = func_8001FFC4(&rect, a1v, 0, (s16)a3v);
                         }
@@ -106,7 +106,7 @@ void func_80020B04(void **list_head) {
                         rect.b -= 0x5A;
                         func_80023134(node, &rect, &tri);
                         func_80024B28(node);
-                        *(s32 *)(*(s32 *)((char *)node + 0x54) + 0x20) = 0x320000;
+                        *(s32 *)((char *)*(void **)((char *)node + 0x54) + 0x20) = 0x320000;
                         *(s32 *)((char *)node + 0x14) |= 0x40;
                     }
                 }
@@ -118,11 +118,11 @@ void func_80020B04(void **list_head) {
                 *(s32 *)((char *)state + 0x20) |= 0x14;
             }
             join20:
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x14) = (s8)data[0];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x1C) = data[3];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0xC) = data[4];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x10) = data[5];
-            *(s32 *)(*(s32 *)((char *)node + 0x48) + 0x18) = 0;
+            *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0x14) = (s8)data[0];
+            *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0x1C) = data[3];
+            *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0xC) = data[4];
+            *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0x10) = data[5];
+            *(s32 *)((char *)*(void **)((char *)node + 0x48) + 0x18) = 0;
             node = *(void **)((char *)node + 4);
         } while (node != NULL);
     }

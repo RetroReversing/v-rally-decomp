@@ -1,7 +1,12 @@
 #define I(p,o) (*(u32 *)((u8*)(p)+(o)))
 #define H(p,o) (*(u16 *)((u8*)(p)+(o)))
 #define B(p,o) (*(u8 *)((u8*)(p)+(o)))
-void copyStringAligned(void *, s32, s32);
+#ifdef PORT
+#define UP(x) ((uintptr_t)(x))
+#else
+#define UP(x) ((u32)(x))
+#endif
+void strCpy(void *, s32, s32);
 extern u8 D_8009D544;
 extern u8 *gRecords;
 /* Inserts a new record into the 16-byte entry table of the current group. The new entry
@@ -89,7 +94,7 @@ void func_80045404(u32 weight_in, u8 *recs, s8 kind, s32 payload, u8 flags, s32 
   {
     I(entry, 0) = weight;
   }
-  copyStringAligned(entry + 6, payload, ofs);
+  strCpy(entry + 6, payload, ofs);
   ofs_again = idx << 6;
   B(entry, 0xC) = 1;
   B(entry, 0x4) = kind;
@@ -114,7 +119,7 @@ void func_80045404(u32 weight_in, u8 *recs, s8 kind, s32 payload, u8 flags, s32 
         dst_fwd = (u8 *) saved;
         src_end = cur + 0x10;
         again = 1;
-        if ((((u32) dst_fwd) < ((u32) src_end)) & (((u32) cur) < ((u32) dst_fwd)))
+        if ((UP(dst_fwd) < UP(src_end)) & (UP(cur) < UP(dst_fwd)))
         {
           dst_rev = (u8 *)(saved + 4);
           left = 4;
@@ -151,7 +156,7 @@ void func_80045404(u32 weight_in, u8 *recs, s8 kind, s32 payload, u8 flags, s32 
           while (left2 != 0);
           seg_end = p + 0x10;
         }
-        if ((((u32) cur) < ((u32) seg_end)) & (((u32) p) < ((u32) cur)))
+        if ((UP(cur) < UP(seg_end)) & (UP(p) < UP(cur)))
         {
           src_rev = seg_end;
           dst_end = cur + 0x10;
@@ -181,7 +186,7 @@ void func_80045404(u32 weight_in, u8 *recs, s8 kind, s32 payload, u8 flags, s32 
           while (count_fwd != 0);
         }
         saved_base = (u8 *) saved;
-        if ((((u32) p) < ((u32) saved_end)) & (((u32) saved_base) < ((u32) p)))
+        if ((UP(p) < UP(saved_end)) & (UP(saved_base) < UP(p)))
         {
           src_back = saved_end;
           dst_back = p + 0x10;

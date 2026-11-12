@@ -1,27 +1,21 @@
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
+/* ALHeap: base is the aligned start, cur the next free byte, len the total size, count the number of allocations. */
+typedef struct ALHeap { u8 *base; u8 *cur; s32 len; s32 count; } ALHeap;
+
+/* Sets up an audio heap over the buffer at heap, aligning its start to 16 bytes. */
+void alHeapInit(ALHeap *heap, void *start, s32 len) {
+    s32 align;
+
+#ifdef PORT
+    align = 0x10 - ((uintptr_t)start & 0xF);
+#else
+    align = 0x10 - ((s32)start & 0xF);
 #endif
-
-void alHeapInit(void *arg0, s32 arg1, s32 arg2) {
-    s32 temp_v1;
-
-    temp_v1 = 0x10 - (arg1 & 0xF);
-    if (temp_v1 != 0x10) {
-        M2C_FIELD(arg0, s32 *, 0) = (s32) (arg1 + temp_v1);
+    if (align != 0x10) {
+        heap->base = (u8 *)start + align;
     } else {
-        M2C_FIELD(arg0, s32 *, 0) = arg1;
+        heap->base = start;
     }
-    M2C_FIELD(arg0, s32 *, 8) = arg2;
-    M2C_FIELD(arg0, s32 *, 0xC) = 0;
-    M2C_FIELD(arg0, s32 *, 4) = (s32) M2C_FIELD(arg0, s32 *, 0);
+    heap->len = len;
+    heap->count = 0;
+    heap->cur = heap->base;
 }

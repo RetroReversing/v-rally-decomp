@@ -1,39 +1,20 @@
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+extern u16 D_800C34FC;
+extern u16 D_800C836E;
+extern u16 gNumberBuf;
+extern void *gSlotState;
 
-extern unsigned short D_800C34FC;
-extern unsigned short D_800C836E;
-extern unsigned short gNumberBuf;
-
-
-extern char gOrderState[];
-extern char gStreamState[];
-
+/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */
 void func_80062334(void) {
-    void *var_a0;
-    void *var_a1;
-    void *var_v0;
-    void *var_v1;
+    u16 v1;
+    u16 a0;
+    u16 a1;
+    char *slot;
 
-    var_v0 = gStreamState + 0x32F2;
-    var_v0 = *(void * *)(gStreamState + 0x32F2);
-    var_v1 = gStreamState + 0x324E;
-    var_v1 = (void *) D_800C34FC;
-    var_a0 = gStreamState + 0x80C0;
-    var_a0 = (void *) D_800C836E;
-    var_a1 = gOrderState + 0x87A0;
-    var_a1 = (void *) gNumberBuf;
-    *(s16 *)((char *)var_v0 + 0x1E) = (s16) var_v1;
-    *(s16 *)((char *)var_v0 + 0x20) = (s16) var_a0;
-    *(s16 *)((char *)var_v0 + 0x22) = (s16) var_a1;
+    slot = (char *)gSlotState;
+    v1 = D_800C34FC;
+    a0 = D_800C836E;
+    a1 = gNumberBuf;
+    *(s16 *)(slot + 0x1E) = v1;
+    *(s16 *)(slot + 0x20) = a0;
+    *(s16 *)(slot + 0x22) = a1;
 }

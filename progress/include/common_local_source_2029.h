@@ -33,7 +33,7 @@ typedef struct ALLink_s {
     struct ALLink_s *prev;
 } ALLink;
 void alUnlink(ALLink *element);
-void alLink(ALLink *element, ALLink *after);
+void al_link_push(ALLink *element, ALLink *after);
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
 void alCopy(void *src, void *dest, s32 len);
@@ -987,6 +987,7 @@ extern void _removeEvents(ALEventQueue *evtq, ALSoundState *state);
 extern s32 _DivS32ByF32 (s32 i, f32 f);
 
 void func_800A2170(ALBank*,s32,s32);u32 func_8009D220(u32);
+void func_800914E0(char *, char *, s32);
 #define OS_IM_NONE 1
 
 typedef u32 OSIntMask;u32 osSetIntMask(u32);

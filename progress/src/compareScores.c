@@ -1,12 +1,16 @@
 extern char gOrderState[];
-int compareScores(unsigned char *arg0, unsigned char *arg1)
+
+/* Sort comparator: returns nonzero when the score of entry *idxB is below the score of entry *idxA.
+ * Scores are 4-byte words in the table at gOrderState + 0x18B8, indexed by entry number. */
+int compareScores(unsigned char *idxA, unsigned char *idxB)
 {
-  char *new_var2;
-  char *new_var;
-  int pad;
-  int new_var3;
-  new_var = gOrderState + 0x18B8;
-  new_var3 = 4;
-  new_var2 = new_var + ((*arg0) * 4);
-  return (*((unsigned int *) (new_var + ((*arg1) * new_var3)))) < (pad = *((unsigned int *) new_var2));
+    char *table;
+    char *entryA;
+    int scoreA;
+    int stride;
+
+    table = gOrderState + 0x18B8;
+    stride = 4;
+    entryA = table + (*idxA) * 4;
+    return (*((unsigned int *)(table + (*idxB) * stride))) < (scoreA = *((unsigned int *)entryA));
 }

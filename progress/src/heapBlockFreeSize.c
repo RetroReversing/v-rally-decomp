@@ -16,13 +16,21 @@ s32 heapBlockFreeSize(u8 *block)
     if (block != NULL) {
       do {
         if (block[0xA] == 0) {
+#ifdef PORT
+          total += *(u8 **)block - block - 0x14;
+#else
           total += *(s32 *)block - (0x14 + (s32)block);
+#endif
         }
         block = *(u8 **)block;
       } while (block != NULL);
     }
   } else {
+#ifdef PORT
+    total = (*(u8 **)(payload - 0x14) - block) - 0x34;
+#else
     total = (*(s32 *)(payload - 0x14) - (s32)block) - 0x34;
+#endif
   }
   return total;
 }

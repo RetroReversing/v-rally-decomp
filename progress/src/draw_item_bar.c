@@ -1,5 +1,5 @@
-extern void *D_800A11B0;
-extern void *func_80022668(s32,s32);
+extern void *gStreamList;
+extern void *list_nth_node(void *,s32);
 extern s32 draw_shaded_bar(s32,void *,s16 *,s32,s32,s32,s32,s32,s32);
 /* Gets the bar of a list item: the item's node data holds a bar struct with
  * width at +6 and height at +8. */
@@ -11,7 +11,7 @@ extern s32 draw_shaded_bar(s32,void *,s16 *,s32,s32,s32,s32,s32,s32);
 void draw_item_bar(s32 ctx,u32 item_id,f32 scale,s32 tex,u8 colour) {
 s16 bounds[4]; void *item; u8 col; s32 temp_s2;
 col=colour; temp_s2=tex;
-item=func_80022668((s32)D_800A11B0,item_id&0xFFFF);
+item=list_nth_node(gStreamList,item_id&0xFFFF);
 if(item!=NULL) {
 bounds[0]=(s16)(s32)(-(s32)*(u16 *)((u8 *)*ITEM_BAR(item)+6)*scale*0.5f);
 bounds[1]=(s16)(s32)(-(s32)*(u16 *)((u8 *)*ITEM_BAR(item)+8)*scale*0.5f);

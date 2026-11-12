@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern u8 gOrderState[];
 extern u8 D_800A4E4C[];
 extern u8 D_800A4E50[];
@@ -8,7 +8,7 @@ void *find_object_by_id(s32);
 void *listAppendDefaultNode(void *, s32, void *);
 s32 strCmp(void *, void *);
 
-/* For each entry of the per-object list (count from the table at gStreamState), reads the entry's name
+/* For each entry of the per-object list (count from the table at stream_state), reads the entry's name
  * and stores the object's value into the matching slot (the "A" or "B" list, chosen by name), then
  * sends the update to the object found by id. obj is the object being updated. */
 void func_80048B38(u8 *obj)
@@ -25,7 +25,7 @@ void func_80048B38(u8 *obj)
 
     name_ptr = obj;
     slot = NULL;
-    count8 = *(u8 *)(*(u8 **)&gStreamState[0x32F2] + 0xF);
+    count8 = *(u8 *)(*(u8 **)&stream_state[0x32F2] + 0xF);
     entry = **(u8 ***)&gOrderState[0x6D94];
     idx = 1;
     if (count8 != 0) {

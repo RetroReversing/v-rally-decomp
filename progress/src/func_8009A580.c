@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-s32 func_8009A580(void) {
+/* Stub that always returns 0. Called by __kernel_standard. */ s32 func_8009A580(void) {
     return 0;
 }

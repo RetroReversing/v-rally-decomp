@@ -1,4 +1,4 @@
-extern u8 gStreamState[];
+extern u8 stream_state[];
 
 #define CAR_STRIDE       0x2C4
 #define CAR_FLAG_OFF     0x2140
@@ -15,8 +15,8 @@ void stream_refresh_car_flags(void) {
     s32 bit;
     u8 i;
 
-    cars = *(u8 **)(gStreamState + 0x103AA);
-    flags = *(*(u8 **)(gStreamState + 0x32F2) + 0x2F);
+    cars = *(u8 **)(stream_state + 0x103AA);
+    flags = *(*(u8 **)(stream_state + 0x32F2) + 0x2F);
 
     for (i = 0; i < 4; i++) {
         bit = 1 << i;

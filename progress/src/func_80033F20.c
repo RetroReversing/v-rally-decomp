@@ -1,5 +1,5 @@
 extern s32 D_800D065C;
-extern u8 gStreamState[];
+extern u8 stream_state[];
 extern s32 D_800B6164;
 extern s32 gSnapIndex;
 extern u8 D_8009EB90[];
@@ -100,7 +100,7 @@ void func_80033F20(A *a, B *b, C *c)
     {
       target = maxVal;
     }
-    *(s32 *)((gStreamState + 0x10000) + 0x3AE) = target;
+    *(s32 *)((stream_state + 0x10000) + 0x3AE) = target;
     D_800B6164 = b->limit;
     delta = target - __builtin_abs(speed);
     if (speed < threshold)

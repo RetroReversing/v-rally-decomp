@@ -67,7 +67,7 @@ void func_8003EFF8(void *);
 /* Draws the position sprite for each of the first few cars (sprite pack base_id+0x4C),
  * plus a flag sprite beside it for cars with CARFLAG set. Skipped in the late race state
  * when fewer than 3 cars are left. */
-void draw_race_position_sprites(s32 list, s32 base_id)
+void draw_race_position_sprites(void *list, s32 base_id)
 {
   u32 car_count;
   s32 dy;

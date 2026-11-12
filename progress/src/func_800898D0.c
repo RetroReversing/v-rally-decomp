@@ -21,7 +21,11 @@ s32 func_800898D0(u8 *voice, s32 program, s16 param1, s16 param2, s32 param3) {
     *(s16 *)(voice + 0xA8) = param2;
     *(s32 *)(voice + 0x40) = serial;
     *(s32 *)(voice + 0x44) = param3;
+#ifdef PORT
+    value = *(s32 *)((u8 *)table + program);
+#else
     value = *(s32 *)(program + (s32)table);
+#endif
     *(s32 *)(voice + 0x78) = value;
     *(s32 *)voice = value;
     return *(s32 *)(voice + 0x40);

@@ -3,7 +3,11 @@
 static inline void copy_record16(u32 *dst, u32 *src, u32 *src_end)
 {
   s32 i;
+#ifdef PORT
+  if ((dst < src_end) & (src < dst))
+#else
   if (((u32)dst < (u32)src_end) & ((u32)src < (u32)dst))
+#endif
   {
     u32 *s = src_end;
     u32 *d = dst + 4;

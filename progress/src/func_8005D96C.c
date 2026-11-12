@@ -39,16 +39,16 @@ extern Params D_800A5474;
 extern u8 gOrderState[];
 extern Root *gLeague;
 extern s32 gSelectStep;
-void func_80084AF4(void);
+void stub_noop_80084AF4(void);
 void func_80084AD8(void);
-s32 func_80084DD4(s32);
-void func_8005A338(s32, s32);
+s32 pad_port_disconnected(s32);
+void select_reset_text_default(s32, s32);
 void func_8002FB64(void);
-void func_8005E1B8(void);
+void select_begin_reset(void);
 s32 cont_port_is_connected(s32, s32);
-void func_8005E68C(void);
+void order_set_timeout(void);
 void func_8005E6AC(void);
-void func_8005E820(void);
+void select_touch_first_entry(void);
 
 /* Picks the attract/league state for the menu: sets the league state code, copies the
  * matching parameter block into the config and installs the menu callbacks. The
@@ -65,16 +65,16 @@ s32 func_8005D96C(s32 setup_a, s32 setup_b)
   void (*fn)(void);
   u8 temp;
   Root *root;
-  func_80084AF4();
+  stub_noop_80084AF4();
   func_80084AD8();
-  if ((func_80084DD4(0) == 0) || ((temp = gOrderState[0x7D50]) == 0))
+  if ((pad_port_disconnected(0) == 0) || ((temp = gOrderState[0x7D50]) == 0))
   {
     ;
     gLeague->p10->p4->state = 1;
     ;
     __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A5450, 11);
-    func_8005A338(setup_a, setup_b);
-    fn = func_8005E68C;
+    select_reset_text_default(setup_a, setup_b);
+    fn = order_set_timeout;
     gSelectState->f288 = fn;
     gSelectState->f28c = func_8005E6AC;
     goto done;
@@ -85,7 +85,7 @@ s32 func_8005D96C(s32 setup_a, s32 setup_b)
     gLeague->p10->p4->state = 2;
     ;
     __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A545C, 10);
-    func_8005A338(setup_a, setup_b);
+    select_reset_text_default(setup_a, setup_b);
     return 0;
   }
   all_ok = 1;
@@ -94,7 +94,7 @@ s32 func_8005D96C(s32 setup_a, s32 setup_b)
     gLeague->p10->p4->state = 3;
     ;
     __builtin_memcpy(((u8 *) gSelectState) + 0x1f8, &D_800A5468, 11);
-    func_8005A338(setup_a, setup_b);
+    select_reset_text_default(setup_a, setup_b);
     return 0;
   }
   i = 0;
@@ -104,7 +104,7 @@ s32 func_8005D96C(s32 setup_a, s32 setup_b)
     do
     {
       slot = i & 255;
-      if (func_80084DD4(slot))
+      if (pad_port_disconnected(slot))
       {
         all_ok &= -(cont_port_is_connected(slot, 2) != 0);
       }
@@ -114,19 +114,19 @@ s32 func_8005D96C(s32 setup_a, s32 setup_b)
   }
   if ((all_ok & 255) != 0)
   {
-    func_80084AF4();
+    stub_noop_80084AF4();
     func_80084AD8();
     func_8002FB64();
     gLeague->p10->p4->state = 5;
     root = gSelectState;
     __builtin_memcpy(((u8 *) root) + 0x1f8, &D_800A5474, 9);
-    func_8005A338(setup_a, setup_b);
-    func_8005E1B8();
+    select_reset_text_default(setup_a, setup_b);
+    select_begin_reset();
   }
   else
   {
-    func_8005A338(setup_a, setup_b);
-    gSelectState->f28c = func_8005E820;
+    select_reset_text_default(setup_a, setup_b);
+    gSelectState->f28c = select_touch_first_entry;
   }
 done:
   return 0;

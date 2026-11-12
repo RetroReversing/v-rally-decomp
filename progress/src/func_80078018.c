@@ -50,7 +50,7 @@ extern char D_800C7FF0[];
 extern Rec D_800B55FC[];
 extern s32 gRecordTimeScale;
 extern void memset(void *, s32, s32);
-extern void copyStringAligned(void *, void *);
+extern void strCpy(void *, void *);
 extern u8 func_80077FA8(u8);
 
 /* Builds the race results table from the finishing order in the node list:
@@ -71,7 +71,7 @@ void func_80078018(void)
     if (gResultsTable[k].node)
       k--;
     gResultsTable[k].node = node;
-    copyStringAligned(gResultsTable[k].name, gRecords->drivers[gRecords->slot[i]].name);
+    strCpy(gResultsTable[k].name, gRecords->drivers[gRecords->slot[i]].name);
     carId = gRecords->drivers[gRecords->slot[i]].car;
     gResultsTable[k].idx = i;
     gResultsTable[k].car = carId;
@@ -79,7 +79,11 @@ void func_80078018(void)
     u32 *lap = D_800B55FC->lap;
     u32 *dist = D_800B55FC->dist;
     RaceRecords *records = gRecords;
+#ifdef PORT
+#define TRACK_VAL(b) (*(u32 *)((u8 *)(b) + records->track * 4 + (s32)(i << 5)))
+#else
 #define TRACK_VAL(b) (*(u32 *)((u32)(b) + records->track * 4 + (s32)(i << 5)))
+#endif
     gResultsTable[k].time = TRACK_VAL(lap);
     TRACK_VAL(dist) /= 100;
     gResultsTable[k].speed = (TRACK_VAL(dist) * gRecordTimeScale * 3600) / (TRACK_VAL(lap) * 10);
@@ -99,7 +103,7 @@ void func_80078018(void)
       gResultsTable[(u8)n].diff = 0;
     }
   }
-  copyStringAligned(D_800C7FF0, D_800C3616 + gRecords->track * 64);
+  strCpy(D_800C7FF0, D_800C3616 + gRecords->track * 64);
   {
   u8 *raw = (u8 *)gRecords;
   D_800C7FF4 = *(s32 *)(D_800C3650 + ((*(u16 *)(raw + 0x1E) - 1) << 6));

@@ -1,5 +1,5 @@
-extern s32 gCarList;
-extern s32 gRecords;
+extern void *gCarList;
+extern u8 *gRecords;
 static inline u8 getRecordField44(u8 *rec)
 {
   return rec[0x44];
@@ -33,8 +33,8 @@ void func_8003ED94(void *arg0)
       car[0x92] = (car[0x91] = (car[0x90] = ff));
       if ((*((u16 *) (car + 0x76))) == (*((s32 *) ((*((u8 **) (((u8 *) other) + 0x6C))) + 8))))
       {
-        recBase = (u8 *) gRecords;
-        tmp = *((u8 *) ((((u32) recBase) + recIdx) + 0x32));
+        recBase = gRecords;
+        tmp = *((u8 *) (recBase + recIdx + 0x32));
         recBase += tmp * 40;
         recBase += *((u16 *) (car + 0x78));
         tmp = getRecordField44(recBase);

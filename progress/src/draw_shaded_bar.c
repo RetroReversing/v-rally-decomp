@@ -1,6 +1,6 @@
 void *view_get_ctx_id();
 s32 gfx_round_vtx_pos(void *);
-s32 func_800067FC(void *, s32, s16, s16);
+s32 vertex_record_set_xy(void *, s32, s16, s16);
 u16 gfx_add_quad_tris(void *);
 s32 gfx_set_quad_colors(void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 s32 func_80008770(void *, void *, u8, u16 *);
@@ -29,9 +29,15 @@ void draw_shaded_bar(void *ctx, void *bar, void *bounds, u8 tex, u8 col_a, u8 co
   dl = *(u32 **)((char *)g + 0x14);
   c0 = col_a;
   c1 = col_b;
+#ifdef PORT
+  *(u32 **)((char *)g + 0x14) = dl + 4;
+  ((uintptr_t *)dl)[0] = 0xDE000000;
+  ((uintptr_t *)dl)[1] = (uintptr_t)&D_800A11B8;
+#else
   *(u32 **)((char *)g + 0x14) = dl + 2;
   dl[0] = 0xDE000000;
   dl[1] = (u32)&D_800A11B8;
+#endif
   if (split == 0) n = *(u16 *)((char *)bar + 8);
   else n = *(u16 *)((char *)bar + 8) >> 1;
   scale = (f32)*(s16 *)((char *)bounds + 6) / (f32)n;
@@ -56,13 +62,13 @@ void draw_shaded_bar(void *ctx, void *bar, void *bounds, u8 tex, u8 col_a, u8 co
     v = gfx_add_quad_tris(g) & 0xFFFF;
     y0 = (f32)i * scale;
     v0 = v & 0xFFFF;
-    func_800067FC(g, v0, *(s16 *)((char *)bounds + 0), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + y0));
+    vertex_record_set_xy(g, v0, *(s16 *)((char *)bounds + 0), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + y0));
     v1 = (u16)(v + 1);
-    func_800067FC(g, v1, (s16)((u16)*(s16 *)((char *)bounds + 0) + *(u16 *)((char *)bounds + 4)), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + y0));
+    vertex_record_set_xy(g, v1, (s16)((u16)*(s16 *)((char *)bounds + 0) + *(u16 *)((char *)bounds + 4)), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + y0));
     v2 = (u16)(v + 2);
-    func_800067FC(g, v2, (s16)((u16)*(s16 *)((char *)bounds + 0) + *(u16 *)((char *)bounds + 4)), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + (f32)((s16)rect.h + i) * scale));
+    vertex_record_set_xy(g, v2, (s16)((u16)*(s16 *)((char *)bounds + 0) + *(u16 *)((char *)bounds + 4)), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + (f32)((s16)rect.h + i) * scale));
     v3 = (u16)(v + 3);
-    func_800067FC(g, v3, *(s16 *)((char *)bounds + 0), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + (f32)((s16)rect.h + i) * scale));
+    vertex_record_set_xy(g, v3, *(s16 *)((char *)bounds + 0), (s16)(s32)((f32)*(s16 *)((char *)bounds + 2) + (f32)((s16)rect.h + i) * scale));
     gfx_set_quad_colors(g, v0, 0xFF, 0xFF, 0xFF, c0, 0xFF, 0xFF, 0xFF, c1, 0xFF, 0xFF, 0xFF, c2, 0xFF, 0xFF, 0xFF, c3);
     func_80008C58(g, v0, rect.x, 0);
     func_80008C58(g, v1, rect.w - 1, 0);

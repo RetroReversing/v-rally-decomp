@@ -18,16 +18,16 @@ typedef struct {
   Sub sub[(0x2C4 - 0x2C) / 0x40];
   u8 pad[0x2C4 - 0x2C - ((0x2C4 - 0x2C) / 0x40) * 0x40];
 } Rec;
-extern char gStreamState[];
-#define G (*(u8 **)(gStreamState + 0x32F2))
+extern char stream_state[];
+#define G (*(u8 **)(stream_state + 0x32F2))
 typedef struct { Rec *p; } RP;
-#define RECS (((RP *)(gStreamState + 0x10386))->p)
+#define RECS (((RP *)(stream_state + 0x10386))->p)
 typedef struct { u16 n; } NR;
-#define NRECS (((NR *)(gStreamState + 0x10370))->n)
-#define ITEMS ((Item *)(gStreamState + 0x38A2))
+#define NRECS (((NR *)(stream_state + 0x10370))->n)
+#define ITEMS ((Item *)(stream_state + 0x38A2))
 s32 sort_split_times(Item *);
 s32 strCmp(char *, char *);
-s32 copyStringAligned(char *, void *);
+s32 strCpy(char *, void *);
 
 /* For each of the four players in the current session, totals the score and laps
  * of the records whose name matches the player's name (up to three entries per
@@ -55,7 +55,7 @@ char *__repair_addr;
   player = 0;
   tp = totals;
   for (; player < 4; player++) {
-    copyStringAligned(name, (u8 *)G + (player * 40 + 0x44));
+    strCpy(name, (u8 *)G + (player * 40 + 0x44));
     rec = RECS;
     tp[player] = 0;
     tp[player + 4] = 0;
@@ -107,7 +107,7 @@ __repair_addr = (char *)(G + (G + player)[0x32] * 40 + 0x4E);
 
         ITEMS[3].b4 = *(u16 *)(__repair_addr);
         ITEMS[3].b5 = *(u16 *)(G + 0x16);
-        copyStringAligned(ITEMS[3].name, (u8 *)G + (G[player + 0x32] * 40 + 0x44));
+        strCpy(ITEMS[3].name, (u8 *)G + (G[player + 0x32] * 40 + 0x44));
         ITEMS[3].laps = tp[player + 4] / 50;
         ITEMS[3].bB = 0;
         ITEMS[3].flag = 1;

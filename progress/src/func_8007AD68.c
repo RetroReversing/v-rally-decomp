@@ -4,9 +4,9 @@ typedef struct { s32 pad; Object *obj; s32 pad8; } Slot;
 typedef struct { u8 pad[8]; Slot *slots; u8 pad2[8]; } Team;
 typedef struct { u8 pad[3]; u8 current; u8 pad4[12]; Team *teams; } League;
 void func_800407D0(void);
-void func_800595EC(s32);
-s32 selectCopyEntryLabel(s32, s32);
-void func_8006F0E0(u8);
+void select_set_text_default(void *);
+s32 select_copy_entry_label(s32, s32);
+void glyph_record_pack(u8);
 void UpdateSelectedEntry(void);
 extern void *gSelectState;
 extern u8 D_800A5FB8[];
@@ -15,10 +15,10 @@ extern u8 D_800A5FD0[];
 extern u8 *gRecords;
 extern League *gLeague;
 extern void InitRaceHud(void);
-extern void func_80063790(void);
-extern void func_8006556C(void);
+extern void select_update_record_bars(void);
+extern void league_season_setup(void);
 extern void func_80065860(void);
-extern void func_80070C34(void);
+extern void finish_race_results(void);
 extern void best_times_select_update(void);
 extern void func_8007A29C(void);
 extern void func_8007A9A8(void);
@@ -38,14 +38,14 @@ s32 func_8007AD68(s32 stepParam, s32 slot) {
     UpdateSelectedEntry();
   recordStat = (char *) ((gRecords + ((gRecords + ((s8) ((u8 *)gSelectState)[0x228]))[0x32] * 0x28)) + 0x4E);
   *((s16 *) recordStat) = ((u8 *)gSelectState)[0x237];
-    func_8006F0E0((u8) (*(s8 *)((char *)(gSelectState) + 0x228)));
+    glyph_record_pack((u8) (*(s8 *)((char *)(gSelectState) + 0x228)));
     selected = (*(s8 *)((char *)(gSelectState) + 0x228));
     teamIdx = gLeague->current;
     if (selected >= ((*(u16 *)((char *)(gRecords) + 0xE)) - 1)) {
         goto block_11;
     }
     ++((u8 *)gSelectState)[0x228];
-    selectCopyEntryLabel(stepParam, slot);
+    select_copy_entry_label(stepParam, slot);
     { u8 *state = (u8 *)gSelectState; u8 *record = gRecords;
     *((Callback *)(state + 0x288)) = func_8007A29C;
     *((Callback *)(state + 0x28C)) = func_8007A9A8;
@@ -75,20 +75,20 @@ default: return 0;
 }
 block_19:
     gLeague->teams[teamIdx].slots[slot].obj->state = 2;
-    func_800595EC((s32)D_800A5FB8);
-    (*(Callback *)((char *)gSelectState + 0x288)) = &func_8006556C;
+    select_set_text_default(D_800A5FB8);
+    (*(Callback *)((char *)gSelectState + 0x288)) = &league_season_setup;
     (*(Callback *)((char *)gSelectState + 0x28C)) = &func_80065860;
     goto block_22;
 block_20:
     gLeague->teams[teamIdx].slots[slot].obj->state = 2;
-    func_800595EC((s32)D_800A5FC4);
+    select_set_text_default(D_800A5FC4);
     (*(Callback *)((char *)gSelectState + 0x288)) = &InitRaceHud;
-    (*(Callback *)((char *)gSelectState + 0x28C)) = &func_80063790;
+    (*(Callback *)((char *)gSelectState + 0x28C)) = &select_update_record_bars;
     goto block_22;
 block_21:
     gLeague->teams[teamIdx].slots[slot].obj->state = 3;
-    func_800595EC((s32)D_800A5FD0);
-    (*(Callback *)((char *)gSelectState + 0x288)) = &func_80070C34;
+    select_set_text_default(D_800A5FD0);
+    (*(Callback *)((char *)gSelectState + 0x288)) = &finish_race_results;
     (*(Callback *)((char *)gSelectState + 0x28C)) = &best_times_select_update;
     func_800407D0();
 block_22:

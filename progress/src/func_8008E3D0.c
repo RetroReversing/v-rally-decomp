@@ -12,6 +12,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8008E3D0(s32 *arg0) {
-    *arg0 = 0;
+/* Zeroes the s32 that word points to. */ void func_8008E3D0(s32 *word) {
+    *word = 0;
 }

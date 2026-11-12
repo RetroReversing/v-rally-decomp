@@ -12,8 +12,8 @@ extern char D_800A51E4[];
 extern char D_800A51EC[];
 extern int D_800ADF80;
 s32 view_get_ctx_id();
-void func_8000C22C(void *, s32, s32, s32, u8);
-s32 func_8000C244();
+void font_set_color(void *, s32, s32, s32, u8);
+s32 font_draw_text();
 
 /* Picks the menu label for option `index` (0-9) and shows it in the select view. */
 void func_80057334(s16 x, s16 y, s32 index) {
@@ -79,7 +79,11 @@ block_18:
     }
     label = &D_800A51EC;
 block_20:
-    func_8000C22C((void *)(*(s32 *)((char *)gSelectState + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
-    func_8000C244(*(s32 *)((char *)gSelectState + 0xE4), view_get_ctx_id(D_800ADF80), x, y, label, 0);
+    #ifdef PORT
+    font_set_color((void *)(uintptr_t)(*(s32 *)((char *)gSelectState + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
+#else
+    font_set_color((void *)(*(s32 *)((char *)gSelectState + 0xE4)), (s32)(0xFF), (s32)(0), (s32)(0), (u8)(0xFF));
+#endif
+    font_draw_text(*(s32 *)((char *)gSelectState + 0xE4), view_get_ctx_id(D_800ADF80), x, y, label, 0);
     return;
 }

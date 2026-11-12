@@ -2,7 +2,7 @@
 #define halfZ sv[2]
 u16 dl_reserve_vertices();
 void gfx_set_quad_pos();
-void func_80008B28();
+void gfx_set_quad_uv();
 typedef struct
 {
   u8 pad[0x14];
@@ -34,7 +34,7 @@ s32 func_80019C90(GfxCtx *ctx, u8 *obj, Rect3 *rect, u16 px, u16 py)
   halfZ = ((*((f32 *) (obj + 0x118))) * ((f32) rect->w)) * 0.5f;
   s1 = dl_reserve_vertices(ctx, 4) & 0xFFFF;
   gfx_set_quad_pos(ctx, s1, (s16) ((s32) (((f32) rect->x) - halfX)), rect->y, (s16) ((s32) (((f32) rect->z) - halfZ)), (s16) ((s32) (((f32) rect->x) - halfX)), (s16) (rect->y - rect->h), (s16) ((s32) (((f32) rect->z) - halfZ)), (s16) ((s32) (((f32) rect->x) + halfX)), (s16) (rect->y - rect->h), (s16) ((s32) (((f32) rect->z) + halfZ)), (s16) ((s32) (((f32) rect->x) + halfX)), rect->y, (s16) ((s32) (((f32) rect->z) + halfZ)));
-  func_80008B28(ctx, s1, px, py, px, 0, 0, 0, 0, py);
+  gfx_set_quad_uv(ctx, s1, px, py, px, 0, 0, 0, 0, py);
   {
     u32 *g = ctx->p;
     a1 = s1 & 0x1F;

@@ -48,14 +48,34 @@ void func_80023D64(u8 *src, u8 *dst)
         if (i < 4)
         {
             half = i >> 1;
+#ifdef PORT
+            *((s32 *) ((*((u8 **) (dst + 0x28))) + off)) = 0;
+#else
             *((s32 *) (off + (u32)(*((u8 **) (dst + 0x28))))) = 0;
+#endif
+#ifdef PORT
+            *((s32 *) ((*((u8 **) (dst + 0x28))) + off + 0x10)) = 0;
+#else
             *((s32 *) ((off + (u32)(*((u8 **) (dst + 0x28)))) + 0x10)) = 0;
+#endif
+#ifdef PORT
+            *((s32 *) ((*((u8 **) (dst + 0x80))) + off + 0x364)) = sp[half];
+#else
             *((s32 *) ((off + (u32)(*((u8 **) (dst + 0x80)))) + 0x364)) = sp[half];
+#endif
+#ifdef PORT
+            *((s32 *) ((*((u8 **) (dst + 0x80))) + off + 0x2E0)) = 0;
+#else
             *((s32 *) ((off + (u32)(*((u8 **) (dst + 0x80)))) + 0x2E0)) = 0;
+#endif
         }
         else
         {
+#ifdef PORT
+            *((s32 *) ((*((u8 **) (dst + 0x80))) + off + 0x2E0)) = one;
+#else
             *((s32 *) ((off + (u32)(*((u8 **) (dst + 0x80)))) + 0x2E0)) = one;
+#endif
         }
         off += 4;
     }

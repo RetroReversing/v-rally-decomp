@@ -1,11 +1,9 @@
-/* identical to func_80087FD8 in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to toLowerChar in V-RALLY (matched), with its names changed by decompdecomp */
-
-unsigned char toLowerChar(char arg0)
+/* Returns the lowercase form of an ASCII capital letter; any other character is returned unchanged. */
+unsigned char toLowerChar(char c)
 {
-  if (((unsigned char) (arg0 - 0x41)) < 0x1B)
+  if (((unsigned char) (c - 0x41)) < 0x1B)
   {
-    return arg0 + 0x20;
+    return c + 0x20;
   }
-  return arg0;
+  return c;
 }

@@ -13,6 +13,6 @@ typedef s32 M2C_UNK32;
 #define M2C_OVERFLOW(a) (0)
 #endif
 
-void func_8005D844(void) {
+/* Empty stub; does nothing. Called by select_league_setup. */ void func_8005D844(void) {
 
 }
