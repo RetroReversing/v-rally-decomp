@@ -13,7 +13,7 @@ extern void *alHeapDBAlloc(s32,s32,void*,s32,s32);
 void alFxNew(Fx *fx,Params *config,void *heap){
 s32 *table;u16 pi,zi,di;Delay *dly;Lowpass *lp; s16 half; s32 k;f64 f,ratio;
 alFilterNew(fx,0,func_80094F90,5);fx->pull=alFxPull;fx->handler=alFxParamHdl;
-switch(config->type){case 1:table=D_800A3710;break;case 2:table=D_800A3778;break;case 3:table=D_800A3800;break;case 4:table=D_800A3828;break;case 5:table=D_800A3850;break;case 6:table=config->params;break;default:table=D_800A3878;break;}
+switch(config->type){case 1:table=D_800A3710;break;case 2:table=D_800A3778;break;case 5:table=D_800A3800;break;case 3:table=D_800A3828;break;case 4:table=D_800A3850;break;case 6:table=config->params;break;default:table=D_800A3878;break;}
 fx->count=table[0];fx->length=table[1];fx->delay=alHeapDBAlloc(0,0,heap,fx->count,40);fx->base=alHeapDBAlloc(0,0,heap,fx->length,2);fx->write=fx->base;pi=2;
 for(zi=0;zi<fx->length;zi++)fx->base[zi]=0;
 for(di=0;di<fx->count;di++){dly=&fx->delay[di];dly->input=table[pi++];dly->output=table[pi++];dly->fb=table[pi++];dly->ff=table[pi++];dly->gain=table[pi++];

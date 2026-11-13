@@ -1,19 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
-<title id="title">2,092 / 2,097 functions matched (99.8%)</title>
+<title id="title">2,093 / 2,097 functions matched (99.8%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="450" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">n64</text>
-<text x="20" y="59" font-size="16">2,092 / 2,097 functions matched (99.8%)</text>
+<text x="20" y="59" font-size="16">2,093 / 2,097 functions matched (99.8%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="798.093" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="798.474" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 2,092</text>
+<text x="36" y="118" font-size="13">Matched: 2,093</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
-<text x="236" y="118" font-size="13">Attempt: 1</text>
+<text x="236" y="118" font-size="13">Attempt: 2</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 4</text>
+<text x="436" y="118" font-size="13">Open: 2</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
 <text x="636" y="118" font-size="13">Aside: 28</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
@@ -1682,8 +1682,8 @@
 <g><title>func_80024B28: {&#x27;matched&#x27;: 1}</title>
 <rect x="760.000" y="220" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80024D60: {&#x27;open&#x27;: 1}</title>
-<rect x="770.000" y="220" width="8.000" height="8" fill="#64748b"/>
+<g><title>func_80024D60: {&#x27;attempt&#x27;: 1}</title>
+<rect x="770.000" y="220" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>func_80026E3C: {&#x27;matched&#x27;: 1}</title>
 <rect x="780.000" y="220" width="8.000" height="8" fill="#238636"/>
@@ -3509,8 +3509,8 @@
 <g><title>func_8005A2D0: {&#x27;matched&#x27;: 1}</title>
 <rect x="450.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>selectStateReset: {&#x27;attempt&#x27;: 1}</title>
-<rect x="460.000" y="300" width="8.000" height="8" fill="#bf8700"/>
+<g><title>selectStateReset: {&#x27;matched&#x27;: 1}</title>
+<rect x="460.000" y="300" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>select_reset_text_default: {&#x27;matched&#x27;: 1}</title>
 <rect x="470.000" y="300" width="8.000" height="8" fill="#238636"/>
@@ -4109,7 +4109,7 @@
 <g><title>select_redraw_results: {&#x27;matched&#x27;: 1}</title>
 <rect x="50.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>SelectStateReset: {&#x27;matched&#x27;: 1}</title>
+<g><title>selectScreenReinit: {&#x27;matched&#x27;: 1}</title>
 <rect x="60.000" y="330" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_800671A0: {&#x27;matched&#x27;: 1}</title>
@@ -4646,8 +4646,8 @@
 <g><title>func_80078724: {&#x27;matched&#x27;: 1}</title>
 <rect x="240.000" y="350" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80078760: {&#x27;open&#x27;: 1}</title>
-<rect x="250.000" y="350" width="8.000" height="8" fill="#64748b"/>
+<g><title>func_80078760: {&#x27;attempt&#x27;: 1}</title>
+<rect x="250.000" y="350" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>results_screen_draw: {&#x27;matched&#x27;: 1}</title>
 <rect x="260.000" y="350" width="8.000" height="8" fill="#238636"/>
@@ -5312,7 +5312,7 @@
 <g><title>voice_clear: {&#x27;matched&#x27;: 1}</title>
 <rect x="60.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8008792C: {&#x27;matched&#x27;: 1}</title>
+<g><title>Fwave: {&#x27;matched&#x27;: 1}</title>
 <rect x="70.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>read_flag_and_copy_pos: {&#x27;matched&#x27;: 1}</title>
@@ -5378,7 +5378,7 @@
 <g><title>func_80087E9C: {&#x27;matched&#x27;: 1}</title>
 <rect x="280.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80087F4C: {&#x27;matched&#x27;: 1}</title>
+<g><title>Fwobble: {&#x27;matched&#x27;: 1}</title>
 <rect x="290.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80087F74: {&#x27;matched&#x27;: 1}</title>
@@ -5399,7 +5399,7 @@
 <g><title>func_80087FC4: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80087FCC: {&#x27;matched&#x27;: 1}</title>
+<g><title>Fdrums: {&#x27;matched&#x27;: 1}</title>
 <rect x="360.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80087FF4: {&#x27;matched&#x27;: 1}</title>
@@ -5429,7 +5429,7 @@
 <g><title>stream_op_read: {&#x27;matched&#x27;: 1}</title>
 <rect x="450.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_80088258: {&#x27;matched&#x27;: 1}</title>
+<g><title>Fbendrange: {&#x27;matched&#x27;: 1}</title>
 <rect x="460.000" y="380" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>func_80088294: {&#x27;matched&#x27;: 1}</title>

@@ -5,7 +5,7 @@ extern int D_800B6AFC;
 extern int D_800C34F4;
 extern int D_800B65F4;
 extern char gOrderState[];
-extern char stream_state[];
+extern char gStreamState[];
 /* Copies five words of an object (offsets 0x128, 0x90, 0xDC, 0x174, 0x1C0) into the D_800B65xx/D_800C34F4 globals. */ void func_8001CC54(void *obj)
 {
   s32 field174;

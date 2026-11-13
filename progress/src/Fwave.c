@@ -1,6 +1,6 @@
 /* Reads a variable-length 7-bit / 15-bit encoded value from `src` and stores it
  * into the 16-bit field at `dst + 0xA6`. Returns the advanced `src` pointer. */
-u8 *func_8008792C(u8 *dst, u8 *src) {
+u8 *Fwave(u8 *dst, u8 *src) {
     u32 val;
     u32 byte2;
 

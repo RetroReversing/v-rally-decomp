@@ -42,36 +42,36 @@ void track_edge_add_point(u8 *obj, s16 *point, s32 idx, s32 edge)
   z = W(idx_tab, (idx * 4) + 0x30);
   switch (edge)
   {
-    case -8:
+    case -1:
       first = (H(seg, 0x8a) * x) + z;
       second = first + 1;
       break;
-    case -7:
+    case -2:
       second = ((H(seg, 0x8a) * x) + z) + H(seg, 0x8a);
       first = second + 1;
       break;
-    case -6:
+    case -3:
       second = (H(seg, 0x8a) * x) + z;
       first = second + H(seg, 0x8a);
       break;
-    case -5:
+    case -4:
       first = ((H(seg, 0x8a) * x) + z) + 1;
       second = first + H(seg, 0x8a);
       break;
-    case -4:
+    case -5:
       { s32 base = H(seg, 0x8a) * x + z;
       first = base + 1;
       second = base + H(seg, 0x8a); }
       break;
-    case -3:
+    case -6:
       second = (H(seg, 0x8a) * x) + z;
       first = (second + H(seg, 0x8a)) + 1;
       break;
-    case -2:
+    case -7:
       first = (H(seg, 0x8a) * (x + 1)) + z;
       second = (first - H(seg, 0x8a)) + 1;
       break;
-    case -1:
+    case -8:
       first = (H(seg, 0x8a) * x) + z;
       second = (first + H(seg, 0x8a)) + 1;
       break;

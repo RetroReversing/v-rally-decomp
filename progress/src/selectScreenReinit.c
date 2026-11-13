@@ -13,7 +13,7 @@ static inline s8 *inline_fn(char *arg0)
 /* Resets the select screen state in gSelectState: clears the flag bytes at 0x245 and 0x24D,
  * sets the slot at 0x22B to -1 (no selection), and installs the init and update handlers
  * in the two callback slots at 0x288 and 0x28C. */
-s32 SelectStateReset(s32 arg0, s32 arg1)
+s32 selectScreenReinit(s32 arg0, s32 arg1)
 {
   char *base2;
   char *base;

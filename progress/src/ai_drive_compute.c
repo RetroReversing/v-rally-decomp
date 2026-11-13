@@ -66,14 +66,14 @@ target=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);
 if(delta>=128)delta=127;else if(delta< -127)delta=-127;out[0]=delta;
  phase+=(((unsigned)phase<<16)<<16);if(state==3)switch((u32)phase) {
  case 0:out[1]=64;phase++;break;
- case 1:out[1]=64;phase++;if(W(P(obj,0x50),0)!=1)phase=1;break;
- case 2:out[0]=-out[0];phase+=(u32)(angle-heading+299)<599;
+ case 2:out[1]=64;phase++;if(W(P(obj,0x50),0)!=1)phase=1;break;
+ case 3:out[0]=-out[0];phase+=(u32)(angle-heading+299)<599;
   if((u32)(speed+199)<399){timer++;if((u32)timer>=51){timer=0;phase=5;}}else timer=0;break;
- case 3:phase+=(u32)(speed+49)<99;break;
- case 4:out[1]=32;phase_tail:phase++;break;case 5:out[1]=0;goto phase_tail;
- case 6:out[1]=32;delta=W(P(obj,0x50),0);phase++;if(delta<2)phase=6;break;
- case 7:state=1;phase=0;break;
- case 8:state=1;phase=0;break;
+ case 4:phase+=(u32)(speed+49)<99;break;
+ case 5:out[1]=32;phase_tail:phase++;break;case 1:case 6:out[1]=0;goto phase_tail;
+ case 7:out[1]=32;delta=W(P(obj,0x50),0);phase++;if(delta<2)phase=6;break;
+ /* both arms are the same: the original's two copies (merged by cross-jumping) keep the register choice */
+ case 8:if(state){state=1;phase=0;break;}state=1;phase=0;break;
  }
  W(P(obj,0x60),0x160)=state;W(P(obj,0x60),0x158)=timer;W(P(obj,0x60),0x164)=phase;W(P(obj,0x60),0x168)=steer;W(P(obj,0x60),0x16c)=target;
  func_80033F20(obj,plan,out);if(forced)out[0]=0;func_80033C30(obj,out);

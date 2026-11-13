@@ -119,7 +119,7 @@ void func_8004E554(void *);
         out->v3 = 0;
         break;
 
-      case 17:
+      case 18:
         out->v1 = 2;
         out->v0 = 1;
         if ((gSnapIndex == 5) || (gSnapIndex == 1))
@@ -133,7 +133,7 @@ void func_8004E554(void *);
         out->v3 = 1;
         break;
 
-      case 18:
+      case 19:
         out->v1 = 1;
         out->v0 = 0;
         if (gSnapIndex == 5)
@@ -151,7 +151,7 @@ void func_8004E554(void *);
         out->v3 = 1;
         break;
 
-      case 19:
+      case 20:
         out->v1 = 1;
         out->v0 = 0;
         out->v3 = 2;
@@ -169,19 +169,19 @@ void func_8004E554(void *);
       }
         break;
 
-      case 20:
+      case 21:
         out->v1 = 1;
         out->v0 = 1;
         out->v3 = 1;
         break;
 
-      case 21:
+      case 22:
         out->v1 = 1;
         out->v0 = 2;
         out->v3 = 2;
         break;
 
-      case 22:
+      case 23:
         out->v1 = 2;
         out->v0 = 0;
         out->v3 = 0;
@@ -200,7 +200,7 @@ void func_8004E554(void *);
       }
         break;
 
-      case 23:
+      case 24:
         out->v1 = 1;
         out->v0 = 0;
         out->v3 = 0;
@@ -222,21 +222,19 @@ void func_8004E554(void *);
       }
         break;
 
-      case 24:
+      case 25:
         out->v1 = 1;
         out->v0 = 0;
         out->v3 = 2;
         break;
 
-      case 25:
+      case 28:
         out->v1 = 4;
         out->v0 = 4;
         out->v3 = 2;
         break;
 
-      case 26:
-
-      case 27:
+      case 29:
         out->v1 = 1;
         out->v0 = 0;
         out->v3 = 0;

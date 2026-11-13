@@ -9,7 +9,7 @@ extern M2C_UNK func_80066EBC;
 extern M2C_UNK select_advance_named_slot;
 extern M2C_UNK select_refresh_upper_slot;
 extern M2C_UNK select_flags_state_enter;
-extern M2C_UNK SelectStateReset;
+extern M2C_UNK selectScreenReinit;
 extern M2C_UNK func_800671A0;
 extern M2C_UNK func_80067248;
 extern M2C_UNK toggle_selected_record;
@@ -75,7 +75,7 @@ void func_80066634(void) {
     league_set_hook(gLeague, 9, 0x10, &func_800676A0);
     league_set_hook(gLeague, 9, 0x20, &func_800677E8);
     league_set_hook(gLeague, 0xB, 0x10, &func_8006786C);
-    league_set_hook(gLeague, 0xA, 0x10, &SelectStateReset);
+    league_set_hook(gLeague, 0xA, 0x10, &selectScreenReinit);
     var_s1 = 0;
     do {
         league_set_hook(gLeague, (temp_s0 = (u16)(var_s1 + 0x11)), 4, &func_80068C78);
@@ -92,10 +92,10 @@ void func_80066634(void) {
     league_set_hook(gLeague, 0xC, 8, &select_step_next_named_slot);
     league_set_hook(gLeague, 0xC, 0x10, &select_reset_group0);
     league_set_hook(gLeague, 0xD, 0x10, &func_80067474);
-    league_set_hook(gLeague, 0xE, 0x10, &SelectStateReset);
+    league_set_hook(gLeague, 0xE, 0x10, &selectScreenReinit);
     league_set_hook(gLeague, 0xF, 0x10, &select_clear_group0);
     league_set_hook(gLeague, 0x10, 0x10, &func_800684F4);
-    league_set_hook_entry(gLeague, 3, 0x20, &SelectStateReset);
+    league_set_hook_entry(gLeague, 3, 0x20, &selectScreenReinit);
     *(s8 *)((s8 *)gSelectState + 0x228) = 0;
     *(M2C_UNK **)((s8 *)gSelectState + 0x288) = &select_init_screen;
     *(M2C_UNK **)((s8 *)gSelectState + 0x28C) = &func_80066EBC;

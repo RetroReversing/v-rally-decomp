@@ -34,10 +34,10 @@ s32 hud_draw_track_panel(void);
 void order_next_entry_send(S1 *, S2 *);
 void memset(S2 *, s32, s32);
 
-/* Runs one car command. cmd selects the handler: 0 is the slot pick (empty
- * slots get a default input), 1 clears a pending flag, 2-6 call their own
- * handlers, 7-11 fall through to the shared follow-up, which fills the input
- * for the local player when the race is live. */
+/* Runs one car command. cmd selects the handler (labels follow jtbl_800A4980): 0 is the slot
+ * pick (empty slots get a default input), 3 clears a pending flag, 4, 6, 7, 9 and 10 call their
+ * own handlers, 11 falls through to the shared follow-up, which fills the input for the local
+ * player when the race is live; 1, 2, 5, 8 and any other cmd do nothing. */
 void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
 {
   unsigned short flag;
@@ -57,7 +57,7 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
     }
       return;
 
-    case 1:
+    case 3:
       flag = 0x80BE;
       func_800280AC(car, input);
       if (stream_state[flag] == 1)
@@ -67,37 +67,33 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
     }
       return;
 
-    case 2:
+    case 4:
       ai_drive_compute(car, input);
       return;
 
-    case 3:
+    case 6:
       func_800437B8(car, input);
       return;
 
-    case 4:
+    case 10:
       func_80043A78((struct Car *)car, (struct Pad *)input);
       return;
 
-    case 5:
+    case 9:
       func_80043150(car, input);
       return;
 
-    case 6:
+    case 7:
       func_800280EC(car, input);
       return;
-
-    case 7:
-
-    case 8:
-
-    case 9:
-
-    case 10:
 
     case 11:
       break;
 
+    case 1:
+    case 2:
+    case 5:
+    case 8:
     default:
       return;
 

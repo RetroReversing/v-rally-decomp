@@ -38,10 +38,10 @@ s32 alFxParamHdl(AlFxBank *bank, s32 id, s32 *src) {
     case 1:
         bank->params[id].end = val & ~7;
         break;
-    case 2:
+    case 3:
         bank->params[id].v8 = val;
         break;
-    case 3:
+    case 2:
         bank->params[id].vA = val;
         break;
     case 4:

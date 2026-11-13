@@ -265,7 +265,7 @@ void update_camera(Cam *cam) {
         break;
     case 2:
     case 3:
-    case 6:
+    case 4:
         {
         if (cam->unk68 & 1) { target_yaw = cam->unk60; } else {
             target_yaw = (func_8001FD14(car) + 0x800) + gCamPanOffset * D_800A4030;
@@ -327,7 +327,7 @@ void update_camera(Cam *cam) {
         cam->unk68 &= 0xFFFD;
         }
         break;
-    case 4:
+    case 5:
         D_8009BA38 = (D_8009BA38 + 20) & 0xFFF;
         g_camera->flags &= 0xFF77;
         off_x = sin_q12(D_8009BA38) * 3048 / 32768;
@@ -343,7 +343,7 @@ void update_camera(Cam *cam) {
         cam_data->F100 = 0.0f;
         cam_data->DC = 1.0f;
         break;
-    case 5:
+    case 6:
         entry = *tbl;
         target_yaw = (func_8001FD14(car) + 0x800) + gCamPanOffset * D_800A4038;
         entry += 4;

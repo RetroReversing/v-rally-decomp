@@ -22,9 +22,10 @@ typedef struct AlResample {
     s32 stopping;
 } AlResample;
 
-/* Sets one parameter on a resampler. Param 1 sets the child filter, 2 starts (clears state and
- * sends the child 4), 3 stops (sends the child 9), 4 sets the rate, 5 requests a flush, 6..9 do
- * nothing. Any other param is forwarded to the child's callback. Always returns 0. */
+/* Sets one parameter on a resampler. Param 1 sets the child filter, 4 resets (clears state and
+ * sends the child 4), 9 sends the child 9 after marking it stopping, 7 sets the rate, 8 requests a
+ * flush. Any other param (2, 3, 5, 6 included) is forwarded to the child's callback. Always
+ * returns 0. Case labels follow the original jump table (jtbl_800A7198). */
 #ifdef PORT
 typedef uintptr_t ParamWord;   /* a word that may hold an address (the child filter) */
 #else
@@ -39,7 +40,7 @@ s32 alResampleParam(AlResample *resample, s32 param, ParamWord value) {
     case 1:
         resample->child = (AlFilter *)value;
         return 0;
-    case 2:
+    case 4:
         self->pending = 0;
         self->active = 1;
         self->stopping = 0;
@@ -49,23 +50,18 @@ s32 alResampleParam(AlResample *resample, s32 param, ParamWord value) {
             node->cb(node, 4, 0);
         }
         return 0;
-    case 3:
+    case 9:
         self->stopping = 1;
         node = resample->child;
         if (node != NULL) {
             node->cb(node, 9, 0);
         }
         return 0;
-    case 4:
+    case 7:
         self->rate = value;
         return 0;
-    case 5:
-        self->flush = 1;
-        return 0;
-    case 6:
-    case 7:
     case 8:
-    case 9:
+        self->flush = 1;
         return 0;
     default:
         break;

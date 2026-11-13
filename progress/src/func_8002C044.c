@@ -79,20 +79,20 @@ int __repair_literal;
       {
         switch (result)
         {
-          case 1:
+          case 3:
           case 4:
-          case 5:
-          case 6:
-          case 7:
-          case 8:
             row = -1;
             col = -1;
             break;
           case 2:
+          case 5:
+          case 6:
             row = 0;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;
-          case 3:
+          case 1:
+          case 7:
+          case 8:
             row = U(g, 136) - 2;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;

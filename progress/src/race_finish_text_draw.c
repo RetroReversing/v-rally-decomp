@@ -109,11 +109,11 @@ void race_finish_text_draw(void) {
         if (!(D_800A18D0 & 4)) {
             func_8007C3E0(0x30, 2, 1, 0x30, 0x2000);
             switch (D_800B0556) {
-            case 0:
+            case 1:
                 W; PR(0x40, D_800A6018);
                 O; PR(0x4C, D_800A6030);
                 break;
-            case 1:
+            case 2:
                 W; PR(0x40, D_800A604C); PR(0x4C, D_800A605C);
                 O; PR(0x58, D_800A6068);
                 W; PR(0x64, D_800A6074);
@@ -121,25 +121,25 @@ void race_finish_text_draw(void) {
                 W; PR(0x7C, D_800A608C);
                 O; PR(0x88, D_800A60A0);
                 break;
-            case 2:
+            case 3:
                 W; PR(0x40, D_800A60AC);
                 O; PR(0x4C, D_800A60BC);
                 W; PR(0x58, D_800A60CC);
                 O; PR(0x64, D_800A60D8);
                 break;
-            case 3:
+            case 4:
                 func_8007C3E0(0x200, 0x100, 0x8000, 0xC000, 0x8000);
                 W; PR(0x40, D_800A60E4);
                 O; PR(0x4C, D_800A60F4); PR(0x58, D_800A6104); PR(0x64, D_800A6118); PR(0x70, D_800A6130); PR(0x7C, D_800A6144); PR(0x88, D_800A6154);
                 break;
-            case 4:
+            case 5:
                 func_8007C3E0(0x800, 0x400, 0x8000, 2, 1);
                 W; PR(0x40, D_800A6168);
                 O; PR(0x4C, D_800A6178); PR(0x58, D_800A6180); PR(0x64, D_800A618C); PR(0x70, D_800A6198); PR(0x7C, D_800A61A0); PR(0x88, D_800A61AC);
                 W; PR(0x94, D_800A61B4);
                 O; PR(0xA0, D_800A61C4);
                 break;
-            case 5:
+            case 6:
                 func_8007C3E0(0x20, 0x10, 0x2000, 0x4000, 4);
                 W; PR(0x40, D_800A61D0);
                 O; PR(0x4C, D_800A61DC);
@@ -148,55 +148,55 @@ void race_finish_text_draw(void) {
                 W; PR(0x7C, D_800A6204);
                 O; PR(0x88, D_800A620C); PR(0x94, D_800A6218); PR(0xA0, D_800A6228);
                 break;
-            case 6:
+            case 7:
                 func_8007C3E0(8, 4, 0x2000, 0x10, 2);
                 W; PR(0x40, D_800A6238);
                 O; PR(0x4C, D_800A6250); PR(0x58, D_800A6258); PR(0x64, D_800A6260); PR(0x70, D_800A626C); PR(0x7C, D_800A6278);
                 break;
-            case 7:
+            case 8:
                 func_8007C3E0(0x800, 8, 0x400, 4, 8);
                 PR(0x40, D_800A6284);
                 O; PR(0x4C, D_800A6298); PR(0x58, D_800A62A4); PR(0x64, D_800A62AC); PR(0x70, D_800A62B8); PR(0x7C, D_800A62C4); PR(0x88, D_800A62D0); PR(0x94, D_800A62D8);
                 break;
-            case 8:
+            case 9:
                 func_8007C3E0(0x800, 0x200, 4, 1, 0x10);
                 W; PR(0x40, D_800A62E4);
                 O; PR(0x4C, D_800A62FC); PR(0x58, D_800A6308); PR(0x64, D_800A6318); PR(0x70, D_800A6328);
                 break;
-            case 9:
+            case 10:
                 W; PR(0x40, D_800A6334);
                 O; PR(0x4C, D_800A6350); PR(0x58, D_800A635C); PR(0x64, D_800A6364); PR(0x70, D_800A6370);
                 break;
-            case 10:
+            case 11:
                 W; PR(0x40, D_800A637C);
                 O; PR(0x4C, D_800A6394); PR(0x58, D_800A63A0);
                 W; PR(0x64, D_800A63B0);
                 O; PR(0x70, D_800A63C8); PR(0x7C, D_800A63D4);
                 break;
-            case 11:
+            case 12:
                 W; PR(0x40, D_800A63E0);
                 O; PR(0x4C, D_800A63F0); PR(0x58, D_800A63F8); PR(0x64, D_800A6404); PR(0x70, D_800A6410); PR(0x7C, D_800A641C);
                 W; PR(0x88, D_800A6428);
                 O; PR(0x94, D_800A6440); PR(0xA0, D_800A644C); PR(0xAC, D_800A6458);
                 break;
-            case 12:
+            case 13:
                 W; PR(0x40, D_800A6468);
                 O; PR(0x4C, D_800A6474); PR(0x58, D_800A6484); PR(0x64, D_800A648C); PR(0x70, D_800A6498);
                 W; PR(0x7C, D_800A64A4);
                 O; PR(0x88, D_800A64B0); PR(0xA0, D_800A64BC); PR(0x94, D_800A64C8);
                 break;
-            case 13:
+            case 14:
                 W; PR(0x40, D_800A64D4);
                 O; PR(0x4C, D_800A64E4); PR(0x58, D_800A6508); PR(0x64, D_800A6528); PR(0x70, D_800A653C);
                 break;
-            case 14:
+            case 15:
                 W; PR1(0x40, D_800A655C);
                 O; PR1(0x4C, D_800A656C); PR1(0x58, D_800A6578);
                 W; PR1(0x64, D_800A658C);
                 O; PR1(0x70, D_800A6594);
                 W; PR(0x88, D_800A65B0);
                 break;
-            case 15:
+            case 0:
                 break;
             }
         } else {
