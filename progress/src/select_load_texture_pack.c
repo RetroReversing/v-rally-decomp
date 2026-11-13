@@ -1,8 +1,4 @@
-#ifdef PORT
-extern char *D_800D0658;
-#else
 extern int D_800D0658;
-#endif
 extern void *gSelectState;
 extern char D_800A5F9C[];
 extern char D_800A5FAC[];
