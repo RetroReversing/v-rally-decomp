@@ -69,3 +69,4 @@ str_len.c
 strchr.c
 viMgrMain.c
 viSetSwapBuffer.c
+__osSiRawStartDma.c
