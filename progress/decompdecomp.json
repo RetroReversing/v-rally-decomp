@@ -1360,6 +1360,20 @@
    "timeout": 20,
    "function": "func_80019314",
    "vram": 2147586836
+  },
+  "178112:2147658688": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "func_8002ABC0",
+   "vram": 2147658688
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1420,7 +1434,8 @@
   "code_80017B38": "common_code_80017B38.h",
   "code_8004BEB4": "common_code_8004BEB4.h",
   "code_8007E9D4": "common_code_8007E9D4.h",
-  "code_8007950C": "common_code_8007950C.h"
+  "code_8007950C": "common_code_8007950C.h",
+  "code_80026E3C": "common_code_80026E3C.h"
  },
  "functions": {
   "TransformUpdate": {
@@ -105125,14 +105140,6 @@
    "score_after": 1265
   },
   {
-   "function": "func_8002ABC0",
-   "text": "User's max tries reached (5/5); best attempt retained.",
-   "by": "codex-gpt-6.1-sol-low-1",
-   "created_at": 1793886889.31502,
-   "score_before": 21183,
-   "score_after": 6459
-  },
-  {
    "function": "strCmp",
    "text": "User's max tries reached (5/5); best attempt retained.",
    "by": "codex-gpt-5.6-luna-low-3",
@@ -106475,14 +106482,6 @@
    "created_at": 1793886893.2654688,
    "score_before": 820,
    "score_after": 820
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Clean parser rewrite improved21183->6459 (82.4%). Initial scan as straightforward while of bitwise whitespace pairs matches first block. Outer do-while token index s16; buffer72 atsp10; work2000 atsp58; Token size76 text68,number68,numeric72. memcpy dest explicitly buf+72+n*76 preserves bufbase lifetime vs only typedToken.text. Copy count etc s16; quoted flag s32 notu8. Work2000 still frame860 vs target850 and fewer saved constants; suspect original workspace length1976 and no padding. Last common memcpy-tail rewrite worse6904, best6459 retained. Header/table data local; no external code.",
-   "by": "codex-gpt-6.1-sol-low-1",
-   "created_at": 1793886893.270205,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "func_80040CF4",
@@ -125637,14 +125636,6 @@
    "score_after": 970
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Can't get closer without a full parser rewrite: target saves 9 regs (s0-s7,fp,ra) vs mine 8, and frame size vs work[] size trades off (1976->0x848, 2000->0x860; 0x850 shifts saved regs). Tried 1976/1984, both worse than 2000 (6459). Needs rethinking of loop structure (const 0x2F/0x23 held in a3/a0 across scan).",
-   "by": "cursor-cli-claude-sonnet-5-5-low-1",
-   "created_at": 1793886920.453032,
-   "score_before": 6459,
-   "score_after": 6459
-  },
-  {
    "function": "func_80086138",
    "text": "Best remains 1592 (m2c form). My struct-ish rewrite scored 1712/2072: prefix matches via s1=arg0*3; s2=s1*8; s1=(s1*4+arg0)*8+0x18C, but gcc allocates an extra s4 (copy of s2) and hoists the s1 computation before osPfsIsPlug (target computes it after). Target a2 (=D_800A1B70+s2) flows into osPfsIsPlug as 3rd arg untouched. Final if/else: bnez -> v1=3 branch reloads D_800A1B70 separately in each arm.",
    "by": "cursor-cli-claude-sonnet-5-5-low-1",
@@ -130275,14 +130266,6 @@
    "created_at": 1793886932.1286058,
    "score_before": 1280,
    "score_after": 1280
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Improved6459\u21925421. Important: block-scoped register s32 comma=44,cr=13,quote=34 initialized after initial scan encourages saved constants rather than rematerialization. Best5421 is original casts/work with1976 bytes and explicit register constants. Tried common memcpy goto tail7134, registers initialized before initialscan7731, workspace sizes1976/1984/1992, register typedToken workspace pointer6368. Later pointer+outer CR literal5520, quote literal5645 (first15insns exact/frame850 but worse loops). Exhausted10 no better. Need workspace base lifetime s4 and cmd s6 with constants s5/s7/fp; current compiler moves workspace to other registers/commonbufbase.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886932.148752,
-   "score_before": 6459,
-   "score_after": 4813
   },
   {
    "function": "func_8003F834",
@@ -135037,14 +135020,6 @@
    "score_after": 10161
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Improved5421->4838 by declaring work[1976] before buf[72]; first15 instructions now exact. Tried array sizes1968/1984, constant declaration permutations, u32 neg/hex, explicit quoted branch; all worse. Target cmd s6 versus candidate fp; remaining workspace base/register lifetime and parser control flow differences. Best retained.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886946.881671,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80046804",
    "text": "Full budget. Mask shift/literal narrowing, pad reduction, unsigned mask/counter, const table plus signedness family no improvement1336. Table hoist and multiply scheduling remain.",
    "by": "codex-gpt-6.1-sol-low-6",
@@ -137627,14 +137602,6 @@
    "created_at": 1793886950.474741,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Full budget baseline4838. Local repairs2 neutral. widened len10416,n14053; unsigned cmd/constants and aligned s32 workspace neutral. Also quoted byte, skip register, conditional negative pointer increment, signed neg/hex tested. Remaining parser control flow and saved constant/workspace lifetime.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886950.4926279,
-   "score_before": 4838,
-   "score_after": 4838
   },
   {
    "function": "func_800480B0",
@@ -143229,14 +143196,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "4838 unchanged. s6=cmd-1 local no compile benefit. Need cmd in s6 register, workspace at sp+0x58 in s4, char constants 0x2f/0x23 in a3/a0 across scan loop.",
-   "by": "cursor-cli-composer-2.5-1",
-   "created_at": 1793886956.263156,
-   "score_before": 4838,
-   "score_after": 4838
-  },
-  {
    "function": "func_80080DF8",
    "text": "Full budget plus nested early return tail probe. Initial four variants350 identical, nested tail tested. No untried local repairs. Cannot improve entry bnez vs bnel and redundant constant1,43 vs42 instructions with these equivalent forms.",
    "by": "codex-gpt-6.1-sol-low-6",
@@ -145781,14 +145740,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Improved4838->4813 replacing only negative-hex memcpy destination buf+72+n*76 with ((Token*)work)[n].text. Other four destinations independently worse. Skip-loop simplification worse6538; register flags, declaration order, equivalent expressions no gain. Workspace/constant lifetimes and parser flow remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886958.299221,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80020B04",
    "text": "Cannot fill the bnez delay from this C. A named pointer to quad is hoisted to entry and scores 1021. The 230 source matches every instruction except that delay: target has addiu a0,sp,0x10 there, ours has nop and the addiu after the 0x8C and 0x60 loads. Branch displacements are all +4 because of that one nop.",
    "by": "cursor-cli-grok-4.7-low-1",
@@ -146731,14 +146682,6 @@
    "created_at": 1793886959.074893,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Stopping: 368 instructions, best 4813, and hoisting the hex base 16 into a local did not change a single diff row. The unmatched part is callee-save lifetime (cmd in s6, workspace in s4, '#' and '/' held in a0/a3), not a wrong token formula. Next agent should start from revision a2ba3f37a1d307a732e6.",
-   "by": "cursor-cli-grok-4.7-low-1",
-   "created_at": 1793886959.0776,
-   "score_before": 4813,
-   "score_after": 4813
   },
   {
    "function": "hud_spawn_position_icons",
@@ -156411,14 +156354,6 @@
    "created_at": 1793886975.804505,
    "score_before": 810,
    "score_after": 500
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Improved 4813 to 4198: literal 13 in outer end test, literal 34 in quoted assignment, signed 16-bit quoted flag, and comma/quote/cr declaration order. Best revision 98e9bb20e48cd35068ea. Workspace location and register lifetimes remain; neg/hex width and workspace size variants regressed.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886975.884649,
-   "score_before": 4813,
-   "score_after": 2773
   },
   {
    "function": "select_draw_results_table",
@@ -169133,14 +169068,6 @@
    "score_after": 2259
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Compiled saved candidate; no immediate improvement, preserving best source for next agent.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886995.097276,
-   "score_before": 4198,
-   "score_after": 3503
-  },
-  {
    "function": "func_80067474",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -170091,14 +170018,6 @@
    "created_at": 1793886997.016288,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Full11 compiles retained4198. Local literal/source families and command/index widths, CR width, skip register, explicit flag increments and len/p update ordering tested; same except narrowCR worse5380. Remaining workspace base and saved constant/register lifetime, parser scheduling.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886997.019165,
-   "score_before": 4198,
-   "score_after": 4198
   },
   {
    "function": "car_set_sfx_params",
@@ -172603,14 +172522,6 @@
    "created_at": 1793886999.36923,
    "score_before": 120,
    "score_after": 120
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Retained 4198 after local repairs, record offset expressions, constant declaration permutations and explicit flag branches. Remaining workspace base, saved constant lifetimes and parser scheduling.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886999.38933,
-   "score_before": 4198,
-   "score_after": 4198
   },
   {
    "function": "func_8006F8E0",
@@ -176277,14 +176188,6 @@
    "score_after": 1155
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Retained 4198. Local repairs, workspace typed array and register declarations were neutral; rewriting initial scan as ordered early breaks worsened to 9373. Workspace base and saved-register lifetimes remain.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793887004.7441862,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80064F98",
    "text": "Retained 3240 after local repairs, counter types and row-address expression variants. Loop scheduling and address materialization remain.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -176749,14 +176652,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "No better bounded repair found; six compiled variants completed, best 3503. Remaining mismatch is parser control flow and register lifetimes.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887005.1593301,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80069A08",
    "text": "Retained 9210. Tested local signedness, declaration order, branches, lifetime merging, source lines and nonvolatile Gfx; no improvement. Remaining substantial register allocation and display-list scheduling differences.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -176777,14 +176672,6 @@
    "text": "Full budget valid150 source5ebb44fde8689d0842a9 fixes unsequenced new_var call and buffer end +10000. Source-line and three independent direct x/declaration variants tested; remaining s0/s1 vs s2/s3 lifetime and relocation operands. Preserve semantic correction.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793887005.1924102,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Retained 3503 after local signedness, ordering, array-index, source-line and quoted-width trials. Parser control flow, workspace base and saved-register lifetimes remain different.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793887005.195211,
    "score_before": 0,
    "score_after": 0
   },
@@ -184933,14 +184820,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Tested twelve parser branch, index width, signedness, ordering and constant variants; none beat 3503. Workspace base, parser control flow and register lifetimes still differ.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793887017.111646,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "car_fix_path_ends",
    "text": "Corrected uninitialized s3 conditional in revision 1889b3d2959c1a51bf84 (2715); historical 2435 has undefined read. Tried local branch, widths, signedness, declaration and literal repairs, with no gain; many register differences remain.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -185805,14 +185684,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Compiled multiple candidates; malformed transcription and minimal stubs regressed heavily. Existing best 2773 retained; parser control flow and workspace/register lifetimes remain.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887017.6614668,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "game_main",
    "text": "Twelve local repair variants and a mode cast did not improve 85. Remaining six relocation operands and five floating register differences; baseline preserved.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -185865,14 +185736,6 @@
    "text": "Full budget. Preserve semantic corrections revision52b28d5ff7ea581c6a17 score1217: p->sub=0 only zero-extra branch perAC1C; call062B8(handle,half+out) before06008 and do not overwrite fp perAD90-98. Baseline1067 invalid. Six local probes neutral except call_arity1817 (invalid, reject). Remaining stack cursor/register allocation and tail command scheduling. Duplicate static cleanup neutral.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793887017.681058,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Twelve local branch, signedness, declaration, indexing, line and constant variants did not improve 2773. Parser control flow, workspace base and register lifetimes remain mismatched.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793887017.683756,
    "score_before": 0,
    "score_after": 0
   },
@@ -197637,14 +197500,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-587",
-   "created_at": 1793887037.808409,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8003FD0C",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-820",
@@ -201661,14 +201516,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-587",
-   "created_at": 1793887037.808409,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80048D4C",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-936",
@@ -201825,14 +201672,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-1352",
    "created_at": 1793887037.805674,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-587",
-   "created_at": 1793887037.808409,
    "score_before": 0,
    "score_after": 0
   },
@@ -205369,14 +205208,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1059",
    "created_at": 1793887045.4083872,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
    "score_before": 0,
    "score_after": 0
   },
@@ -209029,14 +208860,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "view_write_fog_cmds",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-251",
@@ -209353,14 +209176,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1633",
    "created_at": 1793887045.8294332,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
    "score_before": 0,
    "score_after": 0
   },
@@ -212445,14 +212260,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80011058",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-183",
@@ -212657,14 +212464,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1137",
    "created_at": 1793887046.251712,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
    "score_before": 0,
    "score_after": 0
   },
@@ -218605,14 +218404,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800199DC",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-286",
@@ -219009,14 +218800,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1448",
    "created_at": 1793887046.69761,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887046.56607,
    "score_before": 0,
    "score_after": 0
   },
@@ -220131,14 +219914,6 @@
    "created_at": 1793887047.204319,
    "score_before": 3530,
    "score_after": 1768
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Tried Token work[26] array instead of u8 work[] casts: 2838 (worse, buf placed differently). Local repairs exhausted no gain. Best remains 2683; diffs are regalloc (command fp vs s6) and stack/buf placement. Probably needs permuter-level reshuffle; can't get closer by obvious edits.",
-   "by": "claude-opus-low-1",
-   "created_at": 1793887047.209568,
-   "score_before": 2683,
-   "score_after": 2683
   },
   {
    "function": "func_80030A0C",
@@ -222293,14 +222068,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Best 2683 (rev 1ab0363f). Target stack: buf(72)@sp+0x10, work(1976)@sp+0x58. Declaring buf first fixes layout but frame loses one saved reg (fp, no sw ra@0x84c) \u2192 3491; unused `register u8 *w=work` had no effect. Need a real use of work pointer in a saved reg (target s4=work, s1=buf, s6=cmd-1, s7=13, fp=0x22) with buf-first layout.",
-   "by": "claude-opus-low-2",
-   "created_at": 1793887048.552879,
-   "score_before": 2683,
-   "score_after": 2683
-  },
-  {
    "function": "glyph_record_pack",
    "text": "Best stays 70 (the saved candidate, 4 diff rows: entry sll/addu/sll t1 order, final sltiu v0 vs t1). This session: six local repairs gave equal or worse scores. Computing q = D_800C35A0 + index*40 before offset scored 445. Dropping the 'offset = index<3' temp scored 540. Keep the offset temp. What is left: entry scheduling and the register of the last sltiu.",
    "by": "W3.claude-sonnet-1",
@@ -223997,14 +223764,6 @@
    "score_after": 0
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Best remains 2683 (earlier permuter version); my struct version scores 4785 but has the right frame/prologue. Frame: struct{s8 buf[72]@sp+0x10; Token t[26]@sp+0x58}; register ptrs declared in block in order comma,t,cr,buf,quote give s5,s4,s7?,s1 prologue nearly matching (target quote=fp, cr=s7, command=s6; ours command=fp,cr=s6,quote=s7). Remaining: skip-loop shape (target reloads char into a2 with peeled first test, branch-likely bnel to exit; ours uses j to loop test), 20 fewer insns than target (target recomputes n*76 each use). Tried while/for/if-break forms: identical output.",
-   "by": "W3.claude-sonnet-5-5-low-1",
-   "created_at": 1793887049.4217222,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80037E28",
    "text": "Best stays 690 (rev f1bec43f). I tried an `f32 hundred = 100.0f` local set after vols=&D_800C35E4 and used it in the load calc and the g clamp. It moved the lui 0x42c8 into the prologue like the target, but the score went to 2345: the stack grew by 8 (an extra fs reg) and the order of the vols/pv address math changed (target: lui a2 ...+0x3336; addiu fp,a2,4). Dropping the unused fu local made no difference. None of the 6 local repairs beat 690. Next: keep hundred but lower float register pressure, or compute pv from vols before the loop.",
    "by": "claude-opus-low-2",
@@ -224529,14 +224288,6 @@
    "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: calls / arguments; first differing row 101; 114 differing rows.\nTarget: addiu $s4, $zero, 1\nCandidate: addiu $s3, $zero, 1\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
    "by": "manual-33329eff4dd14e83",
    "created_at": 1793887049.65463,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Best 2683 (old layout, bogus buf+72 dest). Cleaner rev ee63cbb2 (2925): buf[72] declared before Token work[26], all dests work[n].text \u2014 stack layout now matches target (buf sp+0x10, work sp+0x58). Remaining is regalloc: target end ptr in s3 (ours s2), cmd-1 in s6 (ours fp), n=1 const in s2, &work in s4. Removing register keywords: +5. Try Token *t = &work[n] per iteration or reorder local decls.",
-   "by": "claude-opus-low-1",
-   "created_at": 1793887049.657363,
    "score_before": 0,
    "score_after": 0
   },
@@ -226857,14 +226608,6 @@
    "text": "Deep permuter: score 30 \u2192 30; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 93s elapsed. Budget rotation: repeated function output without improvement.",
    "by": "W3.permuter-70",
    "created_at": 1793887050.889366,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Deep permuter: score 2030 \u2192 2030; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 52s elapsed. Budget rotation: repeated function output without improvement.",
-   "by": "W3.permuter-587",
-   "created_at": 1793887050.892467,
    "score_before": 0,
    "score_after": 0
   },
@@ -229253,14 +228996,6 @@
    "score_after": 330
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 15; 46 differing rows.\nTarget: addiu $s6, $a0, -1\nCandidate: addiu $fp, $a0, -1\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
-   "by": "W3.claude-opus-5-5-2",
-   "created_at": 1793887052.4605162,
-   "score_before": 2683,
-   "score_after": 2030
-  },
-  {
    "function": "guS2DInitBg",
    "text": "Matched already (score 0) under range flags -O2 without -g3.",
    "by": "W3.claude-opus-5-5-4",
@@ -231411,14 +231146,6 @@
    "created_at": 1793887063.322979,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Best stays 2030. Target quoted-string loop layout: `beqz quoted(a1 copy of a0)` -> unquoted test block; the quoted path (`*p != quote(fp)` -> copy; else buf[len]=0; p++ in the delay slot; j out) falls through. Flipping to `if (quoted) {if (*p==quote){...break;}} else if (...)` gives 2035, but gcc then adds an extra `beqz a0` before the loop (the first iteration's test gets threaded). `buf[len++] = *p++` is worse (2775/3595). Removing `i = (*p == comma)` in the quoted loop is worse (2905). quoted type s32/u8/u16 and `== quote` were all worse. Other remaining issues: callee-saved assignment (command should be s6, cr s7, quote fp, tok base s4, buf s1).",
-   "by": "claude-opus-8",
-   "created_at": 1793887063.335069,
-   "score_before": 2030,
-   "score_after": 2030
   },
   {
    "function": "draw_object_lod",
@@ -234157,14 +233884,6 @@
    "score_after": 390
   },
   {
-   "function": "func_8002ABC0",
-   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
-   "by": "claude-opus-3",
-   "created_at": 1793887066.530647,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8005E49C",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-4",
@@ -234225,14 +233944,6 @@
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "claude-opus-3",
    "created_at": 1793887066.673481,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
-   "by": "claude-opus-4",
-   "created_at": 1793887066.7236679,
    "score_before": 0,
    "score_after": 0
   },
@@ -234346,14 +234057,6 @@
    "by": "claude-opus-10",
    "created_at": 1793887067.0163462,
    "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_8002ABC0",
-   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 15; 8 differing rows (8 register; advisory).\nTarget: addiu $s6, $a0, -1\nCandidate: addiu $fp, $a0, -1\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
-   "by": "claude-opus-6",
-   "created_at": 1793887067.0193,
-   "score_before": 2030,
    "score_after": 0
   },
   {
@@ -264426,6 +264129,318 @@
    "by": "claude-haiku-medium-5",
    "created_at": 1794201677.324051,
    "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "User's max tries reached (5/5); best attempt retained.",
+   "by": "codex-gpt-6.1-sol-low-1",
+   "created_at": 1793886889.31502,
+   "score_before": 21183,
+   "score_after": 6459
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Clean parser rewrite improved21183->6459 (82.4%). Initial scan as straightforward while of bitwise whitespace pairs matches first block. Outer do-while token index s16; buffer72 atsp10; work2000 atsp58; Token size76 text68,number68,numeric72. memcpy dest explicitly buf+72+n*76 preserves bufbase lifetime vs only typedToken.text. Copy count etc s16; quoted flag s32 notu8. Work2000 still frame860 vs target850 and fewer saved constants; suspect original workspace length1976 and no padding. Last common memcpy-tail rewrite worse6904, best6459 retained. Header/table data local; no external code.",
+   "by": "codex-gpt-6.1-sol-low-1",
+   "created_at": 1793886893.270205,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Can't get closer without a full parser rewrite: target saves 9 regs (s0-s7,fp,ra) vs mine 8, and frame size vs work[] size trades off (1976->0x848, 2000->0x860; 0x850 shifts saved regs). Tried 1976/1984, both worse than 2000 (6459). Needs rethinking of loop structure (const 0x2F/0x23 held in a3/a0 across scan).",
+   "by": "cursor-cli-claude-sonnet-5-5-low-1",
+   "created_at": 1793886920.453032,
+   "score_before": 6459,
+   "score_after": 6459
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Improved6459\u21925421. Important: block-scoped register s32 comma=44,cr=13,quote=34 initialized after initial scan encourages saved constants rather than rematerialization. Best5421 is original casts/work with1976 bytes and explicit register constants. Tried common memcpy goto tail7134, registers initialized before initialscan7731, workspace sizes1976/1984/1992, register typedToken workspace pointer6368. Later pointer+outer CR literal5520, quote literal5645 (first15insns exact/frame850 but worse loops). Exhausted10 no better. Need workspace base lifetime s4 and cmd s6 with constants s5/s7/fp; current compiler moves workspace to other registers/commonbufbase.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886932.148752,
+   "score_before": 6459,
+   "score_after": 4813
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Improved5421->4838 by declaring work[1976] before buf[72]; first15 instructions now exact. Tried array sizes1968/1984, constant declaration permutations, u32 neg/hex, explicit quoted branch; all worse. Target cmd s6 versus candidate fp; remaining workspace base/register lifetime and parser control flow differences. Best retained.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886946.881671,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Full budget baseline4838. Local repairs2 neutral. widened len10416,n14053; unsigned cmd/constants and aligned s32 workspace neutral. Also quoted byte, skip register, conditional negative pointer increment, signed neg/hex tested. Remaining parser control flow and saved constant/workspace lifetime.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886950.4926279,
+   "score_before": 4838,
+   "score_after": 4838
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "4838 unchanged. s6=cmd-1 local no compile benefit. Need cmd in s6 register, workspace at sp+0x58 in s4, char constants 0x2f/0x23 in a3/a0 across scan loop.",
+   "by": "cursor-cli-composer-2.5-1",
+   "created_at": 1793886956.263156,
+   "score_before": 4838,
+   "score_after": 4838
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Improved4838->4813 replacing only negative-hex memcpy destination buf+72+n*76 with ((Token*)work)[n].text. Other four destinations independently worse. Skip-loop simplification worse6538; register flags, declaration order, equivalent expressions no gain. Workspace/constant lifetimes and parser flow remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886958.299221,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Stopping: 368 instructions, best 4813, and hoisting the hex base 16 into a local did not change a single diff row. The unmatched part is callee-save lifetime (cmd in s6, workspace in s4, '#' and '/' held in a0/a3), not a wrong token formula. Next agent should start from revision a2ba3f37a1d307a732e6.",
+   "by": "cursor-cli-grok-4.7-low-1",
+   "created_at": 1793886959.0776,
+   "score_before": 4813,
+   "score_after": 4813
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Improved 4813 to 4198: literal 13 in outer end test, literal 34 in quoted assignment, signed 16-bit quoted flag, and comma/quote/cr declaration order. Best revision 98e9bb20e48cd35068ea. Workspace location and register lifetimes remain; neg/hex width and workspace size variants regressed.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886975.884649,
+   "score_before": 4813,
+   "score_after": 2773
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Compiled saved candidate; no immediate improvement, preserving best source for next agent.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886995.097276,
+   "score_before": 4198,
+   "score_after": 3503
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Full11 compiles retained4198. Local literal/source families and command/index widths, CR width, skip register, explicit flag increments and len/p update ordering tested; same except narrowCR worse5380. Remaining workspace base and saved constant/register lifetime, parser scheduling.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886997.019165,
+   "score_before": 4198,
+   "score_after": 4198
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Retained 4198 after local repairs, record offset expressions, constant declaration permutations and explicit flag branches. Remaining workspace base, saved constant lifetimes and parser scheduling.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886999.38933,
+   "score_before": 4198,
+   "score_after": 4198
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Retained 4198. Local repairs, workspace typed array and register declarations were neutral; rewriting initial scan as ordered early breaks worsened to 9373. Workspace base and saved-register lifetimes remain.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793887004.7441862,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "No better bounded repair found; six compiled variants completed, best 3503. Remaining mismatch is parser control flow and register lifetimes.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887005.1593301,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Retained 3503 after local signedness, ordering, array-index, source-line and quoted-width trials. Parser control flow, workspace base and saved-register lifetimes remain different.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793887005.195211,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Tested twelve parser branch, index width, signedness, ordering and constant variants; none beat 3503. Workspace base, parser control flow and register lifetimes still differ.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793887017.111646,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Compiled multiple candidates; malformed transcription and minimal stubs regressed heavily. Existing best 2773 retained; parser control flow and workspace/register lifetimes remain.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887017.6614668,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Twelve local branch, signedness, declaration, indexing, line and constant variants did not improve 2773. Parser control flow, workspace base and register lifetimes remain mismatched.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793887017.683756,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-587",
+   "created_at": 1793887037.808409,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-587",
+   "created_at": 1793887037.808409,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-587",
+   "created_at": 1793887037.808409,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887046.56607,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Tried Token work[26] array instead of u8 work[] casts: 2838 (worse, buf placed differently). Local repairs exhausted no gain. Best remains 2683; diffs are regalloc (command fp vs s6) and stack/buf placement. Probably needs permuter-level reshuffle; can't get closer by obvious edits.",
+   "by": "claude-opus-low-1",
+   "created_at": 1793887047.209568,
+   "score_before": 2683,
+   "score_after": 2683
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Best 2683 (rev 1ab0363f). Target stack: buf(72)@sp+0x10, work(1976)@sp+0x58. Declaring buf first fixes layout but frame loses one saved reg (fp, no sw ra@0x84c) \u2192 3491; unused `register u8 *w=work` had no effect. Need a real use of work pointer in a saved reg (target s4=work, s1=buf, s6=cmd-1, s7=13, fp=0x22) with buf-first layout.",
+   "by": "claude-opus-low-2",
+   "created_at": 1793887048.552879,
+   "score_before": 2683,
+   "score_after": 2683
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Best remains 2683 (earlier permuter version); my struct version scores 4785 but has the right frame/prologue. Frame: struct{s8 buf[72]@sp+0x10; Token t[26]@sp+0x58}; register ptrs declared in block in order comma,t,cr,buf,quote give s5,s4,s7?,s1 prologue nearly matching (target quote=fp, cr=s7, command=s6; ours command=fp,cr=s6,quote=s7). Remaining: skip-loop shape (target reloads char into a2 with peeled first test, branch-likely bnel to exit; ours uses j to loop test), 20 fewer insns than target (target recomputes n*76 each use). Tried while/for/if-break forms: identical output.",
+   "by": "W3.claude-sonnet-5-5-low-1",
+   "created_at": 1793887049.4217222,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Best 2683 (old layout, bogus buf+72 dest). Cleaner rev ee63cbb2 (2925): buf[72] declared before Token work[26], all dests work[n].text \u2014 stack layout now matches target (buf sp+0x10, work sp+0x58). Remaining is regalloc: target end ptr in s3 (ours s2), cmd-1 in s6 (ours fp), n=1 const in s2, &work in s4. Removing register keywords: +5. Try Token *t = &work[n] per iteration or reorder local decls.",
+   "by": "claude-opus-low-1",
+   "created_at": 1793887049.657363,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Deep permuter: score 2030 \u2192 2030; 0 improvements; 33 candidates tested; 0 cached skips; 0 rejected; 52s elapsed. Budget rotation: repeated function output without improvement.",
+   "by": "W3.permuter-587",
+   "created_at": 1793887050.892467,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Low progress after 26 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 15; 46 differing rows.\nTarget: addiu $s6, $a0, -1\nCandidate: addiu $fp, $a0, -1\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
+   "by": "W3.claude-opus-5-5-2",
+   "created_at": 1793887052.4605162,
+   "score_before": 2683,
+   "score_after": 2030
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Best stays 2030. Target quoted-string loop layout: `beqz quoted(a1 copy of a0)` -> unquoted test block; the quoted path (`*p != quote(fp)` -> copy; else buf[len]=0; p++ in the delay slot; j out) falls through. Flipping to `if (quoted) {if (*p==quote){...break;}} else if (...)` gives 2035, but gcc then adds an extra `beqz a0` before the loop (the first iteration's test gets threaded). `buf[len++] = *p++` is worse (2775/3595). Removing `i = (*p == comma)` in the quoted loop is worse (2905). quoted type s32/u8/u16 and `== quote` were all worse. Other remaining issues: callee-saved assignment (command should be s6, cr s7, quote fp, tok base s4, buf s1).",
+   "by": "claude-opus-8",
+   "created_at": 1793887063.335069,
+   "score_before": 2030,
+   "score_after": 2030
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-3",
+   "created_at": 1793887066.530647,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "claude-opus-4",
+   "created_at": 1793887066.7236679,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_8002ABC0",
+   "text": "Low progress after 28 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: register allocation; first differing row 15; 8 differing rows (8 register; advisory).\nTarget: addiu $s6, $a0, -1\nCandidate: addiu $fp, $a0, -1\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
+   "by": "claude-opus-6",
+   "created_at": 1793887067.0193,
+   "score_before": 2030,
    "score_after": 0
   }
  ],
@@ -316161,10 +316176,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516101.178199,
-    "attempt_id": 4294972941,
-    "source_sha256": "ba3b614ba3a0f407aba318934f1bac408432f85adddf58c514a4406d178dae57",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794603025.9876962,
+    "attempt_id": 4294974500,
+    "source_sha256": "b692006a64f3d9b661b43261f01ef70663b9b3e600ac786cdc1adb305c9a5b78",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -316204,7 +316219,7 @@
       ],
       "timeout": 20
      },
-     "settings_source": "compile invocation snapshot",
+     "settings_source": "project configuration at recording; temporary compile overrides may differ",
      "gp": 0,
      "big_endian": true,
      "rom": {
@@ -316213,22 +316228,6 @@
       "region": "Europe",
       "byte_order": "z64"
      },
-     "effective_command": [
-      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
-      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
-      "-c",
-      "-G0",
-      "-mips3",
-      "-mgp32",
-      "-mfp32",
-      "-O2",
-      "-g3",
-      "-I{include}",
-      "{src}",
-      "-o",
-      "{obj}"
-     ],
-     "language": "c",
      "context_unit": "",
      "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
      "context_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55"
@@ -450684,7 +450683,8 @@
    "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n",
    "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395": "extern u8 stream_state[];\nextern s16 gSlotArgOffsets[][17];\nextern u16 gSlotMasks[][2];\ntypedef struct\n{\n  u8 *data;\n  u16 count;\n} SlotList;\nvoid func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);\n/* Runs each slot in the list whose bit is set in `mask` and that is not disabled\n   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The\n   slot's data is at list->data + i * 36. */\nvoid slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)\n{\n  s32 i;\n  s32 sel;\n  int slot_off;\n  s32 off;\n  for (i = 0; i < list->count; i++)\n  {\n    sel = stream_state[0x7678];\n    if (gSlotArgOffsets[sel][i] < 0)\n    {\n      continue;\n    }\n    if (!(mask & gSlotMasks[(sel * 17) + i][0]))\n    {\n      continue;\n    }\n    switch (i)\n    {\n      case 3: case 5:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)\n      {\n        continue;\n      }\n        break;\n\n      case 4: case 6:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)\n      {\n        continue;\n      }\n        break;\n\n      case 10:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)\n      {\n        continue;\n      }\n        break;\n\n      case 11:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)\n      {\n        continue;\n      }\n        break;\n\n      case 9:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)\n      {\n        continue;\n      }\n        break;\n\n      case 7:\n\n      case 8:\n        break;\n\n    }\n\n    slot_off = i * 36;\n    off = gSlotArgOffsets[stream_state[0x7678]][i];\n    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);\n  }\n\n}\n",
    "fefd87a723f04a7c644118891cf5a98ce85431cce76f0ebd3afe619d43faa9bb": "typedef struct E { u8 *text; u16 count; u8 pad[14]; u16 n; s32 *vals; } E;\ntypedef struct R { u8 a[14]; u16 n; s32 v; } R;\nextern u16 D_800ADFD0; extern u8 D_800A5028; extern s32 gSnapIndex; extern E *g_rec_val; extern s32 *D_800B0BCC,*D_800AFA60;\nextern E *func_800523EC(void); extern void format_to_buffer(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);\nextern void func_80052194(u16),func_80052224(u16),func_800522B0(u16),func_8005235C(u16),func_80052108(u16);\n\n/* Loads the text table for the current block: each 20-byte record's text is\n * parsed into its value (a leading '0' marks an entry whose count is\n * reduced by one), then an index table 0..count-1 is built. Finally, when the\n * mode is in range and the flag is set, the matching setup routine runs. */\nE *text_table_load(void)\n{\n  E *tbl;\n  u8 *line;\n  R *rec;\n  s32 i, stride;\n  u8 num[16];\n  stride = D_800ADFD0 * 13;\n  tbl = func_800523EC();\n  line = tbl->text;\n  rec = (R *)line;\n  for (i = 0; i < tbl->count; rec++, i++, line += 0x14)\n  {\n    if ((*line == '0') & (*line < ':'))\n    {\n      format_to_buffer(num, &D_800A5028, line + 2);\n      rec->n--;\n    }\n    else\n      format_to_buffer(num, &D_800A5028, line);\n    rec->v = getTexturePack(num, stride);\n    func_8001B730(line);\n  }\n  D_800B0BCC = (s32 *)tbl->text;\n  D_800AFA60 = poolAlloc(1, tbl->count * 2);\n  for (i = 0; i < tbl->count; i++)\n    ((u16 *)D_800AFA60)[i] = i;\n  if (g_rec_val->n == 1 && (u32)gSnapIndex < 8U)\n  {\n    switch (gSnapIndex)\n    {\n    case 1: func_80052194(tbl->count); break;\n    case 4: func_80052224(tbl->count); break;\n    case 5: func_800522B0(tbl->count); break;\n    case 6: func_8005235C(tbl->count); break;\n    case 0: case 2: case 3: case 7: func_80052108(tbl->count); break;\n    }\n  }\n  return tbl;\n}\n",
-   "31a94dfaadbbe863032f509f95d9213542c035ae3bda8047c7e950e8b4a02b2b": "void updateMaxExtent(void *list, s32 *n);\n\n/* Walks the object's command list: each entry adds its value to *extentX or *extentY (by\n * type), tracks the largest entry index into a count, and stores that count in obj+0xA\n * and adds it to *total. */\nvoid func_80019314(u8 *obj, s32 *extentX, s32 *extentY, s32 *total)\n{\n  struct { s32 n; s32 pad[2]; } local;\n#define maxIndex local.n\n  u8 *info;\n  s32 count;\n  s32 *list;\n  u16 *cmd;\n  s32 i;\n  if ((*((s16 *) (obj + 0x8))) != (-1))\n  {\n    info = *((u8 **) (obj + 0x18));\n    count = *((u16 *) (info + 0x10));\n    maxIndex = 0;\n    list = *((s32 **) (info + 0x14));\n    i = 0;\n    if (count != 0)\n    {\n      ;\n      do\n      {\n        /* port: the cases of the console's jump table (jtbl_800A41A0). The matched C had 0 and 1 here, which\n           compile to the same code but a different table: no slot got its vertex records. */\n        switch ((u32) (((u16 *) (((u8 *) list) + 4))[1] - 0x18))\n        {\n          case 11:\n            *extentY += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 2:\n          case 6:\n            *extentX += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 0:\n          case 4:\n            break;\n          default:\n            while (1)\n          {\n          }\n        }\n        updateMaxExtent(list, &maxIndex);\n        cmd += 4;\n        list += 2;\n      }\n      while ((++i) < count);\n    }\n    { s32 n = maxIndex + 1; maxIndex = n;\n      *((s16 *) (obj + 0xA)) = n;\n      *total += n;\n    }\n  }\n}\n"
+   "31a94dfaadbbe863032f509f95d9213542c035ae3bda8047c7e950e8b4a02b2b": "void updateMaxExtent(void *list, s32 *n);\n\n/* Walks the object's command list: each entry adds its value to *extentX or *extentY (by\n * type), tracks the largest entry index into a count, and stores that count in obj+0xA\n * and adds it to *total. */\nvoid func_80019314(u8 *obj, s32 *extentX, s32 *extentY, s32 *total)\n{\n  struct { s32 n; s32 pad[2]; } local;\n#define maxIndex local.n\n  u8 *info;\n  s32 count;\n  s32 *list;\n  u16 *cmd;\n  s32 i;\n  if ((*((s16 *) (obj + 0x8))) != (-1))\n  {\n    info = *((u8 **) (obj + 0x18));\n    count = *((u16 *) (info + 0x10));\n    maxIndex = 0;\n    list = *((s32 **) (info + 0x14));\n    i = 0;\n    if (count != 0)\n    {\n      ;\n      do\n      {\n        /* port: the cases of the console's jump table (jtbl_800A41A0). The matched C had 0 and 1 here, which\n           compile to the same code but a different table: no slot got its vertex records. */\n        switch ((u32) (((u16 *) (((u8 *) list) + 4))[1] - 0x18))\n        {\n          case 11:\n            *extentY += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 2:\n          case 6:\n            *extentX += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 0:\n          case 4:\n            break;\n          default:\n            while (1)\n          {\n          }\n        }\n        updateMaxExtent(list, &maxIndex);\n        cmd += 4;\n        list += 2;\n      }\n      while ((++i) < count);\n    }\n    { s32 n = maxIndex + 1; maxIndex = n;\n      *((s16 *) (obj + 0xA)) = n;\n      *total += n;\n    }\n  }\n}\n",
+   "b692006a64f3d9b661b43261f01ef70663b9b3e600ac786cdc1adb305c9a5b78": "extern void memcpy(void *, void *, s32);\nextern u8 D_8009CEE9[];\nextern u8 D_8009E260;\nextern void (*D_8009CEE4[])(void *);\ntypedef struct \n{\n  s8 text[68];\n  s32 number;\n  u8 numeric;\n  u8 pad[3];\n} Token;\ntypedef struct\n{\n  void (*fn)(void *);\n  u8 unk4;\n  u8 flags;\n  u8 pad[6];\n} CmdEntry;\n\n/* Where token n is written: the console's compiler kept tokens[] right after buf[] on its stack, and the matched\n * code reaches it from buf; a port's compiler lays its stack out its own way, so it writes tokens[n] itself. */\n#if defined(PORT) || defined(PORT_WASM)\n#define TOKEN_AT(n) ((s8 *) &tokens[n])\n#define TOKEN_AT_INT(n) ((s8 *) &tokens[n])\n#else\n#define TOKEN_AT(n) ((s8 *) (buf + (n) * 76) + 72)\n#define TOKEN_AT_INT(n) ((s8 *) (((n) * 76) + (s32) buf) + 72)\n#endif\n\n/* Parses one command line of script text starting at `text` (stops at `end`):\n * splits it into up to 26 comma/space separated tokens (numbers, hex 0x.. or\n * quoted strings, stored in tokens[1..]; tokens[0].number holds the count), then\n * calls the command's handler when its flag bit is set. cmd_id is the 1-based\n * command index. Always returns 1. */\ns32 func_8002ABC0(s32 cmd_id, s8 *text, s8 *end)\n{\n  s8 buf[72];\n  Token tokens[26];\n  s16 n;\n  s16 len;\n  u8 neg;\n  u8 hex;\n  s16 quoted;\n  u32 i;\n  s32 command;\n  cmd_id--;\n  command = cmd_id;\n  while (((((((*text) != 32) & ((*text) != 9)) && (((*text) != 44) & ((*text) != 13))) && ((*text) != 35)) && (!((((*text) == 47) && ((text + 1) < end)) && (text[1] == 47)))) && (text < end))\n  {\n    text++;\n  }\n\n  n = 1;\n  {\n    register s32 comma = 44;\n    register s32 quote = 34;\n    do\n    {\n      s8 *skip = text;\n      while ((((*skip) == 32) | ((*skip) == 9)) || ((*skip) == comma))\n      {\n        if (skip >= end)\n        {\n          break;\n        }\n        skip++;\n      }\n\n      text = skip;\n      if (((*text) == 35) || ((((*text) == 47) && ((text + 1) < end)) && (text[1] == 47)))\n      {\n        break;\n      }\n      if (((*text) == 13) | (text >= end))\n      {\n        break;\n      }\n      if ((((u8) ((*text) - 48)) < 10) || ((*text) == 45))\n      {\n        neg = (*text) == 45;\n        text += neg;\n        tokens[n].number = 0;\n        tokens[n].numeric = 1;\n        hex = 0;\n        if (((*text) == 48) && (text[1] == 88))\n        {\n          buf[0] = *text;\n          buf[1] = text[1];\n          hex = 1;\n          text += 2;\n        }\n        len = 0;\n        do\n        {\n          if (((((*text) == 13) || (((*text) == 32) | ((*text) == 9))) || (i = (*text) == comma)) || (!(text < end)))\n          {\n            if (hex)\n            {\n              buf[len + 2] = 0;\n            }\n            else\n            {\n              buf[len] = 0;\n            }\n            break;\n          }\n          if (hex)\n          {\n            if (((u8) ((*text) - 48)) >= 10)\n            {\n              tokens[n].number = ((tokens[n].number * 16) + (*text)) - 55;\n            }\n            else\n            {\n              tokens[n].number = ((tokens[n].number * 16) + (*text)) - 48;\n            }\n            buf[len + 2] = *text;\n          }\n          else\n          {\n            tokens[n].number = ((tokens[n].number * 10) + (*text)) - 48;\n            buf[len] = *text;\n          }\n          len++;\n          text++;\n        }\n        while (len < 11);\n        if (neg)\n        {\n          tokens[n].text[0] = 45;\n          tokens[n].number = -tokens[n].number;\n          if (hex)\n          {\n            #ifdef PORT\nmemcpy(TOKEN_AT(n), buf + 1, len + 4);\n#else\nmemcpy(TOKEN_AT_INT(n), buf + 1, len + 4);\n#endif\n          }\n          else\n          {\n            #ifdef PORT\nmemcpy(TOKEN_AT(n), buf + 1, len + 2);\n#else\nmemcpy(TOKEN_AT_INT(n), buf + 1, len + 2);\n#endif\n          }\n        }\n        else\n          if (hex)\n        {\n          #ifdef PORT\nmemcpy(TOKEN_AT(n), buf, len + 3);\n#else\nmemcpy(TOKEN_AT_INT(n), buf, len + 3);\n#endif\n        }\n        else\n        {\n#ifdef PORT\n          memcpy(TOKEN_AT(n), buf, len + 1);\n#else\n          memcpy(TOKEN_AT_INT(n), buf, len + 1);\n#endif\n        }\n      }\n      else\n      {\n        quoted = (*text) == 34;\n        text += quoted;\n        tokens[n].numeric = 0;\n        for (len = 0; len < 65; len++)\n        {\n          if (quoted)\n          {\n            if ((*text) == 34)\n            {\n              buf[len] = 0;\n              text++;\n              break;\n            }\n          }\n          else\n          {\n            if (((((*text) == 13) || (((*text) == 32) | ((*text) == 9))) || (i = (*text) == comma)) || (!(text < end)))\n            {\n              buf[len] = 0;\n              break;\n            }\n          }\n          buf[len] = *(text++);\n        }\n#ifdef PORT\n        memcpy(TOKEN_AT(n), buf, len + 1);\n#else\n        memcpy(TOKEN_AT_INT(n), buf, len + 1);\n#endif\n      }\n      n++;\n    }\n    while (n < 27);\n    tokens[0].number = n - 1;\n    if (D_8009CEE9[cmd_id * 12] & D_8009E260)\n    {\n      D_8009CEE4[cmd_id * 3](tokens);\n    }\n  }\n  return 1;\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",

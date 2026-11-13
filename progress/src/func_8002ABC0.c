@@ -17,6 +17,16 @@ typedef struct
   u8 pad[6];
 } CmdEntry;
 
+/* Where token n is written: the console's compiler kept tokens[] right after buf[] on its stack, and the matched
+ * code reaches it from buf; a port's compiler lays its stack out its own way, so it writes tokens[n] itself. */
+#if defined(PORT) || defined(PORT_WASM)
+#define TOKEN_AT(n) ((s8 *) &tokens[n])
+#define TOKEN_AT_INT(n) ((s8 *) &tokens[n])
+#else
+#define TOKEN_AT(n) ((s8 *) (buf + (n) * 76) + 72)
+#define TOKEN_AT_INT(n) ((s8 *) (((n) * 76) + (s32) buf) + 72)
+#endif
+
 /* Parses one command line of script text starting at `text` (stops at `end`):
  * splits it into up to 26 comma/space separated tokens (numbers, hex 0x.. or
  * quoted strings, stored in tokens[1..]; tokens[0].number holds the count), then
@@ -122,17 +132,17 @@ s32 func_8002ABC0(s32 cmd_id, s8 *text, s8 *end)
           if (hex)
           {
             #ifdef PORT
-memcpy((s8 *) (buf + n * 76) + 72, buf + 1, len + 4);
+memcpy(TOKEN_AT(n), buf + 1, len + 4);
 #else
-memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 4);
+memcpy(TOKEN_AT_INT(n), buf + 1, len + 4);
 #endif
           }
           else
           {
             #ifdef PORT
-memcpy((s8 *) (buf + n * 76) + 72, buf + 1, len + 2);
+memcpy(TOKEN_AT(n), buf + 1, len + 2);
 #else
-memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
+memcpy(TOKEN_AT_INT(n), buf + 1, len + 2);
 #endif
           }
         }
@@ -140,17 +150,17 @@ memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
           if (hex)
         {
           #ifdef PORT
-memcpy((s8 *) (buf + n * 76) + 72, buf, len + 3);
+memcpy(TOKEN_AT(n), buf, len + 3);
 #else
-memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
+memcpy(TOKEN_AT_INT(n), buf, len + 3);
 #endif
         }
         else
         {
 #ifdef PORT
-          memcpy((s8 *) (buf + n * 76) + 72, buf, len + 1);
+          memcpy(TOKEN_AT(n), buf, len + 1);
 #else
-          memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+          memcpy(TOKEN_AT_INT(n), buf, len + 1);
 #endif
         }
       }
@@ -181,9 +191,9 @@ memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
           buf[len] = *(text++);
         }
 #ifdef PORT
-        memcpy((s8 *) (buf + n * 76) + 72, buf, len + 1);
+        memcpy(TOKEN_AT(n), buf, len + 1);
 #else
-        memcpy((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+        memcpy(TOKEN_AT_INT(n), buf, len + 1);
 #endif
       }
       n++;
