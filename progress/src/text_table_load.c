@@ -39,14 +39,11 @@ E *text_table_load(void)
   {
     switch (gSnapIndex)
     {
-    case 0: func_80052194(tbl->count); break;
-    case 1: func_80052224(tbl->count); break;
-    case 2: func_800522B0(tbl->count); break;
-    case 3: func_8005235C(tbl->count); break;
-    case 4: func_80052108(tbl->count); break;
-    case 5:
-    case 6:
-    case 7: break;
+    case 1: func_80052194(tbl->count); break;
+    case 4: func_80052224(tbl->count); break;
+    case 5: func_800522B0(tbl->count); break;
+    case 6: func_8005235C(tbl->count); break;
+    case 0: case 2: case 3: case 7: func_80052108(tbl->count); break;
     }
   }
   return tbl;

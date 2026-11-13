@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794606644.999296,
- "revision": 21824,
+ "saved_at": 1794606666.4233348,
+ "revision": 21825,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1332,6 +1332,20 @@
    "timeout": 20,
    "function": "slot_update_list",
    "vram": 2147587592
+  },
+  "339992:2147820568": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "text_table_load",
+   "vram": 2147820568
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -33593,14 +33607,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886867.2222998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "track_edge_add_point",
    "text": "Released without a real attempt: 295 insns and needs struct layouts for arg0 (0x8C, 0x60, 0x334, 0x338) and arg1 (s16 at 0, 2, 4) first. Nothing about it can be matched by a stub. Start with guess_struct for arg0 and arg1, then the switch on arg3 (table D_800A49B0) and the 8 case bodies (u16 at s1+0x8A times t1 plus t2, with +1 or -1 variants). The one compile so far was a placeholder (score 29202) and does not count as an attempt.",
    "by": "claude-haiku-4",
@@ -46385,14 +46391,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.730154,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "video_mode_setup",
    "text": "This claim: best is still 360 (91.4%), 24 of 42 instructions match. Found: do-while (no entry test) with `end = src + 5`, copy `*dst = *src; src++; dst++;`, then after the loop `temp_a1 = (src - 1)->w3;` gives 360 with the prologue, copy loop and the func_8008F260 setup matching; the only extra is a reload `lw $a1,-4($a2)` after the loop where the ROM keeps the loop's own a1 (w3). Tried: while-loop version (430, adds an entry beq), temp_a1 = src->w3 read before the copy inside the do-while (560: GCC loads w3 into a1 first and reorders the copy). Remaining: GCC doesn't forward the copy's loaded w3 past the stores, and it puts the sb(D_800C02AE+0x5BA6) into jal func_8008F420's delay slot where the ROM has the sb before the jal and a nop in the slot. Next: a source form where the copy goes through a single 16-byte temp that GCC doesn't spill.",
    "by": "claude-haiku-8",
@@ -53797,14 +53795,6 @@
    "text": "Stuck at 125 (95%), the same diff as its sibling func_8002D2E4: FPU register choice only (ROM: cvt.s.d f12,f0 / cvt.d.s f12,f12, then mul.s f12,f0,f2 / trunc.w.s f0,f12; ours f0 for the first temp, f2 for the trunc) plus a trailing nop after mfc1 that gcc does not emit. This claim tried three shapes (f64 d then f32 s; call-result cast chain; separate f32 s then f64 product), all 125. -ffast-math also 125 on the sibling. Needs a different expression shape or a human check of the original source.",
    "by": "claude-haiku-5",
    "created_at": 1793886875.753087,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "text_table_load",
-   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886875.755834,
    "score_before": 0,
    "score_after": 0
   },
@@ -56865,14 +56855,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886867.2222998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "track_edge_add_point",
    "text": "Released without a real attempt: 295 insns and needs struct layouts for arg0 (0x8C, 0x60, 0x334, 0x338) and arg1 (s16 at 0, 2, 4) first. Nothing about it can be matched by a stub. Start with guess_struct for arg0 and arg1, then the switch on arg3 (table D_800A49B0) and the 8 case bodies (u16 at s1+0x8A times t1 plus t2, with +1 or -1 variants). The one compile so far was a placeholder (score 29202) and does not count as an attempt.",
    "by": "claude-haiku-4",
@@ -69657,14 +69639,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.730154,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "video_mode_setup",
    "text": "This claim: best is still 360 (91.4%), 24 of 42 instructions match. Found: do-while (no entry test) with `end = src + 5`, copy `*dst = *src; src++; dst++;`, then after the loop `temp_a1 = (src - 1)->w3;` gives 360 with the prologue, copy loop and the func_8008F260 setup matching; the only extra is a reload `lw $a1,-4($a2)` after the loop where the ROM keeps the loop's own a1 (w3). Tried: while-loop version (430, adds an entry beq), temp_a1 = src->w3 read before the copy inside the do-while (560: GCC loads w3 into a1 first and reorders the copy). Remaining: GCC doesn't forward the copy's loaded w3 past the stores, and it puts the sb(D_800C02AE+0x5BA6) into jal func_8008F420's delay slot where the ROM has the sb before the jal and a nop in the slot. Next: a source form where the copy goes through a single 16-byte temp that GCC doesn't spill.",
    "by": "claude-haiku-8",
@@ -77069,14 +77043,6 @@
    "text": "Stuck at 125 (95%), the same diff as its sibling func_8002D2E4: FPU register choice only (ROM: cvt.s.d f12,f0 / cvt.d.s f12,f12, then mul.s f12,f0,f2 / trunc.w.s f0,f12; ours f0 for the first temp, f2 for the trunc) plus a trailing nop after mfc1 that gcc does not emit. This claim tried three shapes (f64 d then f32 s; call-result cast chain; separate f32 s then f64 product), all 125. -ffast-math also 125 on the sibling. Needs a different expression shape or a human check of the original source.",
    "by": "claude-haiku-5",
    "created_at": 1793886875.753087,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "text_table_load",
-   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886875.755834,
    "score_before": 0,
    "score_after": 0
   },
@@ -80137,14 +80103,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886867.2222998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "track_edge_add_point",
    "text": "Released without a real attempt: 295 insns and needs struct layouts for arg0 (0x8C, 0x60, 0x334, 0x338) and arg1 (s16 at 0, 2, 4) first. Nothing about it can be matched by a stub. Start with guess_struct for arg0 and arg1, then the switch on arg3 (table D_800A49B0) and the 8 case bodies (u16 at s1+0x8A times t1 plus t2, with +1 or -1 variants). The one compile so far was a placeholder (score 29202) and does not count as an attempt.",
    "by": "claude-haiku-4",
@@ -92929,14 +92887,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.730154,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "video_mode_setup",
    "text": "This claim: best is still 360 (91.4%), 24 of 42 instructions match. Found: do-while (no entry test) with `end = src + 5`, copy `*dst = *src; src++; dst++;`, then after the loop `temp_a1 = (src - 1)->w3;` gives 360 with the prologue, copy loop and the func_8008F260 setup matching; the only extra is a reload `lw $a1,-4($a2)` after the loop where the ROM keeps the loop's own a1 (w3). Tried: while-loop version (430, adds an entry beq), temp_a1 = src->w3 read before the copy inside the do-while (560: GCC loads w3 into a1 first and reorders the copy). Remaining: GCC doesn't forward the copy's loaded w3 past the stores, and it puts the sb(D_800C02AE+0x5BA6) into jal func_8008F420's delay slot where the ROM has the sb before the jal and a nop in the slot. Next: a source form where the copy goes through a single 16-byte temp that GCC doesn't spill.",
    "by": "claude-haiku-8",
@@ -100341,14 +100291,6 @@
    "text": "Stuck at 125 (95%), the same diff as its sibling func_8002D2E4: FPU register choice only (ROM: cvt.s.d f12,f0 / cvt.d.s f12,f12, then mul.s f12,f0,f2 / trunc.w.s f0,f12; ours f0 for the first temp, f2 for the trunc) plus a trailing nop after mfc1 that gcc does not emit. This claim tried three shapes (f64 d then f32 s; call-result cast chain; separate f32 s then f64 product), all 125. -ffast-math also 125 on the sibling. Needs a different expression shape or a human check of the original source.",
    "by": "claude-haiku-5",
    "created_at": 1793886875.753087,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "text_table_load",
-   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886875.755834,
    "score_before": 0,
    "score_after": 0
   },
@@ -105719,14 +105661,6 @@
    "created_at": 1793886889.835634,
    "score_before": 1933,
    "score_after": 760
-  },
-  {
-   "function": "text_table_load",
-   "text": "User's max tries reached (5/5); best attempt retained.",
-   "by": "codex-gpt-5.6-luna-low-2",
-   "created_at": 1793886889.8462238,
-   "score_before": 2348,
-   "score_after": 1580
   },
   {
    "function": "PiRawStartDma",
@@ -120577,14 +120511,6 @@
    "score_after": 130
   },
   {
-   "function": "text_table_load",
-   "text": "Five compile attempts, best remains the prior 1580. Last 4018 attempt confirms chained if calls do not replicate the target's absolute jump-table dispatch. The target reads D_800A5030 then jr; switch/local pointer table references .rodata and mismatches. The C still allocates a 0x50 frame (s5 live), and record out pointer remains compiler-allocated wrongly. Further improvement needs a reliable ROM data symbol for the dispatch table and tighter representation of entry fields/pointer induction.",
-   "by": "codex-gpt-6-luna-3",
-   "created_at": 1793886913.846539,
-   "score_before": 1580,
-   "score_after": 1580
-  },
-  {
    "function": "func_80042DE0",
    "text": "Best 1195 (87 instructions vs target 88), six non-improving compiles reached threshold. Tested prior source and added shared table base, altered index type/increment. The only index variant that gives the best score uses u16 i; current 87-instruction candidate first diverges at the zeroing loop's index register (v1 vs target a0), then widespread register allocation. One target instruction is absent; remaining structure likely needs closer alignment of loop expressions/short-circuit body. Retained best score.",
    "by": "codex-gpt-6-luna-5",
@@ -129633,14 +129559,6 @@
    "score_after": 5
   },
   {
-   "function": "text_table_load",
-   "text": "Full budget. Baseline1630 profile (historical1580). Correct target digit check is (*p==0x30)&(*p<0x3a), not range; actual record store p+10, decrement p+e (baseline R pointer erroneous). Combined repair1943 due extra induction register. Probed callee declaration and argument, global E n at14hex vs baselineE n atEhex. Jump table rodata unresolved; frame and pointer induction remain.",
-   "by": "codex-gpt-6.1-sol-low-6",
-   "created_at": 1793886930.294373,
-   "score_before": 1580,
-   "score_after": 1580
-  },
-  {
    "function": "func_80020B04",
    "text": "Best 230/149 insns (was 2987). Prologue, s1 list, s0 payload then hi, s2=payload+4, s3=0xFFFF0000, and both calls match. Only real gap: addiu a0,sp,0x10 sits after the 0x8C/0x60 loads instead of in the bnez-hi delay, so one nop remains and branch displacements are +4. Do not hoist &quad into a local (it becomes an s-reg at function entry). Keep *(volatile s32 *) on the 0x60->0x28 word or GCC emits lh at +0x2A instead of lw/sll/sra. Nested gotos, not &&, for the half22/hi checks. u8 temps b8,b9,fl,b4,b5 in that order preload the lbu args.",
    "by": "cursor-cli-grok-4.7-low-1",
@@ -130911,14 +130829,6 @@
    "created_at": 1793886935.8056982,
    "score_before": 6095,
    "score_after": 6095
-  },
-  {
-   "function": "text_table_load",
-   "text": "Improved historical1580 to1215 with bitwise digit predicate (*p=='0') & (*p<':'). Correcting R base/decrement gives1500, no-arg523EC gives1335 and first15 exact. Local source_lines/constant no effect. Best1215 retains incorrect record offsets; switch rodata unresolved. Full budget used.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886935.82059,
-   "score_before": 1580,
-   "score_after": 1215
   },
   {
    "function": "func_8005A100",
@@ -226409,14 +226319,6 @@
    "score_after": 0
   },
   {
-   "function": "text_table_load",
-   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
-   "by": "W3.claude-haiku-4",
-   "created_at": 1793887050.31872,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "track_edge_add_point",
    "text": "Released without a real attempt: 295 insns and needs struct layouts for arg0 (0x8C, 0x60, 0x334, 0x338) and arg1 (s16 at 0, 2, 4) first. Nothing about it can be matched by a stub. Start with guess_struct for arg0 and arg1, then the switch on arg3 (table D_800A49B0) and the 8 case bodies (u16 at s1+0x8A times t1 plus t2, with +1 or -1 variants). The one compile so far was a placeholder (score 29202) and does not count as an attempt.",
    "by": "W3.claude-haiku-4",
@@ -264399,6 +264301,118 @@
    "created_at": 1793887063.41087,
    "score_before": 335,
    "score_after": 40
+  },
+  {
+   "function": "text_table_load",
+   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886867.2222998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.730154,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886875.755834,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886867.2222998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.730154,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886875.755834,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886867.2222998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "Can't reach 0 from here, for two reasons. (1) The switch: the ROM's jump table is read through the named data symbol D_800A5030 (lui at / addu / lw / jr), but a C switch makes its own .rodata table, so the link reports 'refers to .rodata+0x0'. No C here removes that; the table needs to be placed as data at D_800A5030. (2) Even with the switch, the induction pointers differ: target has one out pointer (s2 = e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in s4; ours keeps out in s4, 13*v in s5 and a separate e+0xE pointer for the decrement (2282 with every form tried: out-2, ((u16*)out)[-1], declaration order, s4 declared first). Check the data table placement before more compiles. Best source stays 2282.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.730154,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "claude-haiku-5-5: 2 compiles this claim, both 2282 (79.8%), saved best unchanged. Cannot get closer from C in this session. (1) The switch on D_8009EB80 makes its own .rodata jump table; the ROM reads its table through the named symbol D_800A5030 (lui at / addu / lw / jr with a sltiu 8 bounds check), so the link reports 'refers to .rodata+0x0'. The table must be placed as data at D_800A5030, or a non-switch form must be found. (2) Induction pointers: the ROM uses one out pointer in $s2 (= e+0x10, store at 0(s2), lhu/sh at -2(s2)) and 13*v in $s4; ours gives e+0xE in $s2 and e+0x10 in $s4 even with `*(u16*)(out-2)`. Frame: ROM saves ra at 0x44 and s0-s4 (frame 0x48); ours saves s5 (frame 0x40). Untried: `*(s32 *)(e + 0x10 + i*0x14)` index form, and moving `s4 = 13*v` after the func_800523EC call.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886875.755834,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "text_table_load",
+   "text": "User's max tries reached (5/5); best attempt retained.",
+   "by": "codex-gpt-5.6-luna-low-2",
+   "created_at": 1793886889.8462238,
+   "score_before": 2348,
+   "score_after": 1580
+  },
+  {
+   "function": "text_table_load",
+   "text": "Five compile attempts, best remains the prior 1580. Last 4018 attempt confirms chained if calls do not replicate the target's absolute jump-table dispatch. The target reads D_800A5030 then jr; switch/local pointer table references .rodata and mismatches. The C still allocates a 0x50 frame (s5 live), and record out pointer remains compiler-allocated wrongly. Further improvement needs a reliable ROM data symbol for the dispatch table and tighter representation of entry fields/pointer induction.",
+   "by": "codex-gpt-6-luna-3",
+   "created_at": 1793886913.846539,
+   "score_before": 1580,
+   "score_after": 1580
+  },
+  {
+   "function": "text_table_load",
+   "text": "Full budget. Baseline1630 profile (historical1580). Correct target digit check is (*p==0x30)&(*p<0x3a), not range; actual record store p+10, decrement p+e (baseline R pointer erroneous). Combined repair1943 due extra induction register. Probed callee declaration and argument, global E n at14hex vs baselineE n atEhex. Jump table rodata unresolved; frame and pointer induction remain.",
+   "by": "codex-gpt-6.1-sol-low-6",
+   "created_at": 1793886930.294373,
+   "score_before": 1580,
+   "score_after": 1580
+  },
+  {
+   "function": "text_table_load",
+   "text": "Improved historical1580 to1215 with bitwise digit predicate (*p=='0') & (*p<':'). Correcting R base/decrement gives1500, no-arg523EC gives1335 and first15 exact. Local source_lines/constant no effect. Best1215 retains incorrect record offsets; switch rodata unresolved. Full budget used.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886935.82059,
+   "score_before": 1580,
+   "score_after": 1215
+  },
+  {
+   "function": "text_table_load",
+   "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
+   "by": "W3.claude-haiku-4",
+   "created_at": 1793887050.31872,
+   "score_before": 0,
+   "score_after": 0
   }
  ],
  "set_aside": [
@@ -355409,10 +355423,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516186.762414,
-    "attempt_id": 4294973388,
-    "source_sha256": "452e4112863ccff05f170797bf98b2c4a49e7f69b6f8300eea5bba065699a7a8",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794602970.999423,
+    "attempt_id": 4294974498,
+    "source_sha256": "fefd87a723f04a7c644118891cf5a98ce85431cce76f0ebd3afe619d43faa9bb",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -355452,7 +355466,7 @@
       ],
       "timeout": 20
      },
-     "settings_source": "compile invocation snapshot",
+     "settings_source": "project configuration at recording; temporary compile overrides may differ",
      "gp": 0,
      "big_endian": true,
      "rom": {
@@ -355461,22 +355475,6 @@
       "region": "Europe",
       "byte_order": "z64"
      },
-     "effective_command": [
-      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
-      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
-      "-c",
-      "-G0",
-      "-mips3",
-      "-mgp32",
-      "-mfp32",
-      "-O2",
-      "-g3",
-      "-I{include}",
-      "{src}",
-      "-o",
-      "{obj}"
-     ],
-     "language": "c",
      "context_unit": "",
      "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
      "context_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55"
@@ -450686,7 +450684,8 @@
    "9397a5efb4d886d69a378dfd0b8e2da00b4a386d0a2bc837f066988b88bac21f": "extern char gOrderState[];\nvoid osSendMesg(char *a, int b, int c);\n/* Posts a zero-valued blocking message to the order state's message queue. */\nvoid order_post_wakeup(void) { osSendMesg(gOrderState + 0x87A8, 0, 0); }\n",
    "1008677efd6c98c7e817a3fbbf78fe089291c168dded1b4fe2c162d5bf033bee": "extern int D_800D0658;\nextern void *gSelectState;\nextern char D_800A5F9C[];\nextern char D_800A5FAC[];\ns32 getTexturePack();\ns32 func_8007A794();\ns32 resolve_path();\ns32 appendString();\n\n/* Takes the first 5 characters of the currently selected entry's name (entries are 0x2C4 bytes,\n * the selection index is at gSelectState+0x237), appends the suffix D_800A5FAC to it and stores the\n * texture pack id that results in gSelectState+0x1E4. */\nvoid select_load_texture_pack(void)\n{\n    char name[16];\n    char *namePtr;\n    u8 i;\n    char *entry;\n\n    func_8007A794();\n    resolve_path(D_800A5F9C);\n    entry = (char *)(D_800D0658 + *((u8 *)((char *)gSelectState + 0x237)) * 0x2C4);\n    i = 0;\n    do\n    {\n        name[i] = entry[i];\n        i++;\n    } while (i < 5);\n    namePtr = name;\n    namePtr[i] = 0;\n    appendString(namePtr, D_800A5FAC);\n    *((s32 *)((char *)gSelectState + 0x1E4)) = getTexturePack(namePtr, 0);\n}",
    "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n",
-   "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395": "extern u8 stream_state[];\nextern s16 gSlotArgOffsets[][17];\nextern u16 gSlotMasks[][2];\ntypedef struct\n{\n  u8 *data;\n  u16 count;\n} SlotList;\nvoid func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);\n/* Runs each slot in the list whose bit is set in `mask` and that is not disabled\n   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The\n   slot's data is at list->data + i * 36. */\nvoid slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)\n{\n  s32 i;\n  s32 sel;\n  int slot_off;\n  s32 off;\n  for (i = 0; i < list->count; i++)\n  {\n    sel = stream_state[0x7678];\n    if (gSlotArgOffsets[sel][i] < 0)\n    {\n      continue;\n    }\n    if (!(mask & gSlotMasks[(sel * 17) + i][0]))\n    {\n      continue;\n    }\n    switch (i)\n    {\n      case 3: case 5:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)\n      {\n        continue;\n      }\n        break;\n\n      case 4: case 6:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)\n      {\n        continue;\n      }\n        break;\n\n      case 10:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)\n      {\n        continue;\n      }\n        break;\n\n      case 11:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)\n      {\n        continue;\n      }\n        break;\n\n      case 9:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)\n      {\n        continue;\n      }\n        break;\n\n      case 7:\n\n      case 8:\n        break;\n\n    }\n\n    slot_off = i * 36;\n    off = gSlotArgOffsets[stream_state[0x7678]][i];\n    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);\n  }\n\n}\n"
+   "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395": "extern u8 stream_state[];\nextern s16 gSlotArgOffsets[][17];\nextern u16 gSlotMasks[][2];\ntypedef struct\n{\n  u8 *data;\n  u16 count;\n} SlotList;\nvoid func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);\n/* Runs each slot in the list whose bit is set in `mask` and that is not disabled\n   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The\n   slot's data is at list->data + i * 36. */\nvoid slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)\n{\n  s32 i;\n  s32 sel;\n  int slot_off;\n  s32 off;\n  for (i = 0; i < list->count; i++)\n  {\n    sel = stream_state[0x7678];\n    if (gSlotArgOffsets[sel][i] < 0)\n    {\n      continue;\n    }\n    if (!(mask & gSlotMasks[(sel * 17) + i][0]))\n    {\n      continue;\n    }\n    switch (i)\n    {\n      case 3: case 5:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)\n      {\n        continue;\n      }\n        break;\n\n      case 4: case 6:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)\n      {\n        continue;\n      }\n        break;\n\n      case 10:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)\n      {\n        continue;\n      }\n        break;\n\n      case 11:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)\n      {\n        continue;\n      }\n        break;\n\n      case 9:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)\n      {\n        continue;\n      }\n        break;\n\n      case 7:\n\n      case 8:\n        break;\n\n    }\n\n    slot_off = i * 36;\n    off = gSlotArgOffsets[stream_state[0x7678]][i];\n    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);\n  }\n\n}\n",
+   "fefd87a723f04a7c644118891cf5a98ce85431cce76f0ebd3afe619d43faa9bb": "typedef struct E { u8 *text; u16 count; u8 pad[14]; u16 n; s32 *vals; } E;\ntypedef struct R { u8 a[14]; u16 n; s32 v; } R;\nextern u16 D_800ADFD0; extern u8 D_800A5028; extern s32 gSnapIndex; extern E *g_rec_val; extern s32 *D_800B0BCC,*D_800AFA60;\nextern E *func_800523EC(void); extern void format_to_buffer(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);\nextern void func_80052194(u16),func_80052224(u16),func_800522B0(u16),func_8005235C(u16),func_80052108(u16);\n\n/* Loads the text table for the current block: each 20-byte record's text is\n * parsed into its value (a leading '0' marks an entry whose count is\n * reduced by one), then an index table 0..count-1 is built. Finally, when the\n * mode is in range and the flag is set, the matching setup routine runs. */\nE *text_table_load(void)\n{\n  E *tbl;\n  u8 *line;\n  R *rec;\n  s32 i, stride;\n  u8 num[16];\n  stride = D_800ADFD0 * 13;\n  tbl = func_800523EC();\n  line = tbl->text;\n  rec = (R *)line;\n  for (i = 0; i < tbl->count; rec++, i++, line += 0x14)\n  {\n    if ((*line == '0') & (*line < ':'))\n    {\n      format_to_buffer(num, &D_800A5028, line + 2);\n      rec->n--;\n    }\n    else\n      format_to_buffer(num, &D_800A5028, line);\n    rec->v = getTexturePack(num, stride);\n    func_8001B730(line);\n  }\n  D_800B0BCC = (s32 *)tbl->text;\n  D_800AFA60 = poolAlloc(1, tbl->count * 2);\n  for (i = 0; i < tbl->count; i++)\n    ((u16 *)D_800AFA60)[i] = i;\n  if (g_rec_val->n == 1 && (u32)gSnapIndex < 8U)\n  {\n    switch (gSnapIndex)\n    {\n    case 1: func_80052194(tbl->count); break;\n    case 4: func_80052224(tbl->count); break;\n    case 5: func_800522B0(tbl->count); break;\n    case 6: func_8005235C(tbl->count); break;\n    case 0: case 2: case 3: case 7: func_80052108(tbl->count); break;\n    }\n  }\n  return tbl;\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
