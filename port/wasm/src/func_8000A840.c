@@ -16,7 +16,7 @@ extern M2C_UNK D_8009B5D0;
 extern M2C_UNK D_800AE850;
 
 /* The object's texture descriptor at obj+0xC, re-read every time like the asm does. */
-#define TEX(obj)        M2C_FIELD(obj, u8 *, 0xC)
+#define TEX(obj)        M2C_FIELD(obj, u8 **, 0xC)
 #define TEX_FMT(t)      M2C_FIELD(t, u16 *, 0x4)
 #define TEX_STRIDE(t)   M2C_FIELD(t, u16 *, 0x6)
 #define TEX_HEIGHT(t)   M2C_FIELD(t, u8 *, 0x9)
