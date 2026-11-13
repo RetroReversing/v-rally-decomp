@@ -1262,6 +1262,20 @@
    "timeout": 20,
    "function": "func_80062334",
    "vram": 2147885876
+  },
+  "409188:2147889764": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "markStreamSlotsByTag",
+   "vram": 2147889764
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -7845,8 +7859,8 @@
   },
   "markStreamSlotsByTag": {
    "vram": 2147889764,
-   "matched_by": "restored",
-   "readable": true
+   "matched_by": "permuter",
+   "readable": false
   },
   "func_80063328": {
    "vram": 2147889960,
@@ -36065,14 +36079,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
-   "by": "claude-haiku-5",
-   "created_at": 1793886868.247328,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B924",
    "text": "Best 550 (88%, was 2905 autopilot). Source: u8 a2, u8 a3 locals; a3=0; a2=0; do { idx=a2*14; c0/c1/c2 from D+0x6E26/D+0x6E27 as sp[0..2] stores; a3++; if (c0==arg0[6] && c1==arg0[7] && c2==arg0[8]) return a2 (nested ifs); a2=a3; } while (a3<4); return 5. Structure matches. Remaining: (1) register allocation: target keeps arg0 in t0, counter in a3, index in a2; ours puts arg0 in a3 and the counter in t0 (or v1). (2) target's loop-bottom `andi a2,a3,0xff` is missing: with u8 a2 gcc drops the mask and emits move; with s32 a2 the allocation gets worse (1085). (3) one extra `move a3,zero` at entry. Untried: keep a2 u8 and write the index from a separate u8 copy; declare arg0 as a local copy used for the loads.",
    "by": "claude-haiku-10",
@@ -39801,14 +39807,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.9223602,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B664",
    "text": "Releasing at the session's claim quota. Best stays 765 (85%). Tried: if/else with `!= 0` / else 0x19 (765, prologue and first 17 insns match); reusing arg0 as the result variable (805, worse: it re-assigns the saved s0/s1 in the prologue). Remaining: the target keeps the result in $s0 with bnel/beql delay-slot 0xF/0x19 and a dead `j`; ours uses $a2 with beqz on the masked value. No declaration order found that puts the result in $s0 without breaking the prologue.",
    "by": "claude-haiku-2",
@@ -42241,14 +42239,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886870.970826,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80068D9C",
    "text": "Best stays 155 (permuter). Three rewrites this claim gave 160 (clean temps, s0-base from D_800A1468: 805, one-variable third arg: 160 again). Diff is all in the true branch: target loads P->0xC into $a2 and computes `addiu s0,a2,4` before `addiu a2,zero,1` (third arg of func_8008A0D8); ours loads into $a3, so the result move and later stores shift to a3, and we have one extra `move a0,s1` (target keeps arg0 in s1 from the top; that's why beqz is 4 bytes off). Next: keep arg0 in a local copied at entry (earlier notes say that breaks the a0 placement, so try it only together with the a2 load), or get the permuter to explore orderings of the two `temp_s0` assignments.",
    "by": "claude-haiku-14",
@@ -44501,14 +44491,6 @@
    "text": "Best 70 (99.1%, 69/78 insns), a big jump from 1020: the form that matched the rows as separate `temp_a1 = arg0[k]; temp_a1 *= arg1[0]; temp_a1 += ...` chains with var_v0 for the if (t>=0) t : t+0xFFF rounding, row1 kept in temp_a2 (stored to sp10[0] and to arg2[0] at the end), rows 2/3 in temp_a1 stored to sp10[1..2], then arg2[0..2] = temp_a2, sp10[1], sp10[2]. Remaining diff only in the tail: the ROM reloads sp10[2] into $v0 and does `move $v0,$s2` after the stores; ours does `move $v0,$s2` before the last load and uses $v1 for the reload. Tried with no change: return type void*, declaration order swaps, var_v0 reuse for the reload (worse, 115), reload via temp_a2 (a2 chosen instead of v0). Untried: a different form for the tail (e.g. storing through a second pointer, or an arg2 cast to u8* for the stores) to keep the return move after the stores.",
    "by": "claude-haiku-16",
    "created_at": 1793886871.951967,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.957213,
    "score_before": 0,
    "score_after": 0
   },
@@ -46917,14 +46899,6 @@
    "text": "Best stays 30 (99.3%, 46/46 insns; six first insns match). Best source: u16 locals a1/a2/a3 assigned from the args first (a1 = arg1; a2 = arg2; a3 = arg3), then stores in order w20=a1, w30=a2, w24=a3, w2C=a1+1, zeros, w28=a3+1, ... (30). Remaining diff: the ROM's andi order is a1,a2,a3 and it stores w24 (a3) before w20 (a1) with the a3+1 / a1+1 values stored later, but any statement order that puts w24 before w20 gives 45 (andi order flips to a3,a1,a2). Left: a register/schedule choice for the first three stores. Untried: a single `u16 *p = (u16 *)&buf.w24` pointer walk, or moving the b50 byte fills between the w24 and w20 stores.",
    "by": "claude-haiku-10",
    "created_at": 1793886872.9543319,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.9570959,
    "score_before": 0,
    "score_after": 0
   },
@@ -49445,14 +49419,6 @@
    "text": "Best 10 (39/52) kept. Remaining diff is two scan/fill regalloc lines: the scan char lives in $s0 (n is live) where the ROM uses $v0, and the fill loop loads s1->unk4 into $v0 instead of $v1 before the i<<2 shift. Separate scan temp fixes the scan but flips the fill load (20). Tried this claim, no better: struct S57810 with field access (20 with scan temp, 10 without), char-pointer walk, while(*q++) form (20). Untried: a table local declared before n, or a for loop with i declared after n.",
    "by": "claude-haiku-8",
    "created_at": 1793886873.958681,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886873.961777,
    "score_before": 0,
    "score_after": 0
   },
@@ -52093,14 +52059,6 @@
    "text": "Released with reason: the 131 form is the ceiling I can reach. All 50 instructions, stack offsets and operands match; only register numbering differs (ROM arg0 $s0, arg4..arg8 $s1..$s5, arg1 $s7, arg2 $fp, arg3 $s6). Four compiles this claim, none below 131: new_var = arg7 after the first call gives 200; earlier notes cover declaration order, explicit s32 copies, reversed copies, and arg0 placement. Needs a gcc register-ranking insight (use counts), not more statement reorders.",
    "by": "claude-haiku-16",
    "created_at": 1793886875.062881,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.065848,
    "score_before": 0,
    "score_after": 0
   },
@@ -54909,14 +54867,6 @@
    "text": "haiku-14: best stays the autopilot goto version (915). Six more shapes this claim, none better: nested if/else with var_a0 (2140), arg0 as the value (2140), goto-per-arm to one call (2670), else-first split on arg1 != 1 (2990), var_a0 = 0 with a shared `if (var_a0 != 0) call` (2860; the arms fall through to one tail, but GCC keeps bne/nop/j per arm and adds a frame move). Structure is confirmed (arg1==1: a0==a1->6, a0==0->2, a0==2->4; arg1==2: a0==1->5, a0==0->1, a0==a1->3; other: a0==6 & a1==8->0x12, a0==3->0; one jal). The gap is layout only: the ROM uses beql with the constant in the delay slot for the first test of each arm (`beql a0,a1` + `addiu a0,6`), and its non-call exits are `j` to the epilogue after the jal. Untried: keep the value in arg0 (the ROM does) and write each arm as `if (arg0 == N) { arg0 = M; goto call; }` after the arg1 split.",
    "by": "claude-haiku-14",
    "created_at": 1793886876.134964,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886876.137674,
    "score_before": 0,
    "score_after": 0
   },
@@ -59497,14 +59447,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
-   "by": "claude-haiku-5",
-   "created_at": 1793886868.247328,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B924",
    "text": "Best 550 (88%, was 2905 autopilot). Source: u8 a2, u8 a3 locals; a3=0; a2=0; do { idx=a2*14; c0/c1/c2 from D+0x6E26/D+0x6E27 as sp[0..2] stores; a3++; if (c0==arg0[6] && c1==arg0[7] && c2==arg0[8]) return a2 (nested ifs); a2=a3; } while (a3<4); return 5. Structure matches. Remaining: (1) register allocation: target keeps arg0 in t0, counter in a3, index in a2; ours puts arg0 in a3 and the counter in t0 (or v1). (2) target's loop-bottom `andi a2,a3,0xff` is missing: with u8 a2 gcc drops the mask and emits move; with s32 a2 the allocation gets worse (1085). (3) one extra `move a3,zero` at entry. Untried: keep a2 u8 and write the index from a separate u8 copy; declare arg0 as a local copy used for the loads.",
    "by": "claude-haiku-10",
@@ -63233,14 +63175,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.9223602,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B664",
    "text": "Releasing at the session's claim quota. Best stays 765 (85%). Tried: if/else with `!= 0` / else 0x19 (765, prologue and first 17 insns match); reusing arg0 as the result variable (805, worse: it re-assigns the saved s0/s1 in the prologue). Remaining: the target keeps the result in $s0 with bnel/beql delay-slot 0xF/0x19 and a dead `j`; ours uses $a2 with beqz on the masked value. No declaration order found that puts the result in $s0 without breaking the prologue.",
    "by": "claude-haiku-2",
@@ -65673,14 +65607,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886870.970826,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80068D9C",
    "text": "Best stays 155 (permuter). Three rewrites this claim gave 160 (clean temps, s0-base from D_800A1468: 805, one-variable third arg: 160 again). Diff is all in the true branch: target loads P->0xC into $a2 and computes `addiu s0,a2,4` before `addiu a2,zero,1` (third arg of func_8008A0D8); ours loads into $a3, so the result move and later stores shift to a3, and we have one extra `move a0,s1` (target keeps arg0 in s1 from the top; that's why beqz is 4 bytes off). Next: keep arg0 in a local copied at entry (earlier notes say that breaks the a0 placement, so try it only together with the a2 load), or get the permuter to explore orderings of the two `temp_s0` assignments.",
    "by": "claude-haiku-14",
@@ -67933,14 +67859,6 @@
    "text": "Best 70 (99.1%, 69/78 insns), a big jump from 1020: the form that matched the rows as separate `temp_a1 = arg0[k]; temp_a1 *= arg1[0]; temp_a1 += ...` chains with var_v0 for the if (t>=0) t : t+0xFFF rounding, row1 kept in temp_a2 (stored to sp10[0] and to arg2[0] at the end), rows 2/3 in temp_a1 stored to sp10[1..2], then arg2[0..2] = temp_a2, sp10[1], sp10[2]. Remaining diff only in the tail: the ROM reloads sp10[2] into $v0 and does `move $v0,$s2` after the stores; ours does `move $v0,$s2` before the last load and uses $v1 for the reload. Tried with no change: return type void*, declaration order swaps, var_v0 reuse for the reload (worse, 115), reload via temp_a2 (a2 chosen instead of v0). Untried: a different form for the tail (e.g. storing through a second pointer, or an arg2 cast to u8* for the stores) to keep the return move after the stores.",
    "by": "claude-haiku-16",
    "created_at": 1793886871.951967,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.957213,
    "score_before": 0,
    "score_after": 0
   },
@@ -70349,14 +70267,6 @@
    "text": "Best stays 30 (99.3%, 46/46 insns; six first insns match). Best source: u16 locals a1/a2/a3 assigned from the args first (a1 = arg1; a2 = arg2; a3 = arg3), then stores in order w20=a1, w30=a2, w24=a3, w2C=a1+1, zeros, w28=a3+1, ... (30). Remaining diff: the ROM's andi order is a1,a2,a3 and it stores w24 (a3) before w20 (a1) with the a3+1 / a1+1 values stored later, but any statement order that puts w24 before w20 gives 45 (andi order flips to a3,a1,a2). Left: a register/schedule choice for the first three stores. Untried: a single `u16 *p = (u16 *)&buf.w24` pointer walk, or moving the b50 byte fills between the w24 and w20 stores.",
    "by": "claude-haiku-10",
    "created_at": 1793886872.9543319,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.9570959,
    "score_before": 0,
    "score_after": 0
   },
@@ -72877,14 +72787,6 @@
    "text": "Best 10 (39/52) kept. Remaining diff is two scan/fill regalloc lines: the scan char lives in $s0 (n is live) where the ROM uses $v0, and the fill loop loads s1->unk4 into $v0 instead of $v1 before the i<<2 shift. Separate scan temp fixes the scan but flips the fill load (20). Tried this claim, no better: struct S57810 with field access (20 with scan temp, 10 without), char-pointer walk, while(*q++) form (20). Untried: a table local declared before n, or a for loop with i declared after n.",
    "by": "claude-haiku-8",
    "created_at": 1793886873.958681,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886873.961777,
    "score_before": 0,
    "score_after": 0
   },
@@ -75525,14 +75427,6 @@
    "text": "Released with reason: the 131 form is the ceiling I can reach. All 50 instructions, stack offsets and operands match; only register numbering differs (ROM arg0 $s0, arg4..arg8 $s1..$s5, arg1 $s7, arg2 $fp, arg3 $s6). Four compiles this claim, none below 131: new_var = arg7 after the first call gives 200; earlier notes cover declaration order, explicit s32 copies, reversed copies, and arg0 placement. Needs a gcc register-ranking insight (use counts), not more statement reorders.",
    "by": "claude-haiku-16",
    "created_at": 1793886875.062881,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.065848,
    "score_before": 0,
    "score_after": 0
   },
@@ -78341,14 +78235,6 @@
    "text": "haiku-14: best stays the autopilot goto version (915). Six more shapes this claim, none better: nested if/else with var_a0 (2140), arg0 as the value (2140), goto-per-arm to one call (2670), else-first split on arg1 != 1 (2990), var_a0 = 0 with a shared `if (var_a0 != 0) call` (2860; the arms fall through to one tail, but GCC keeps bne/nop/j per arm and adds a frame move). Structure is confirmed (arg1==1: a0==a1->6, a0==0->2, a0==2->4; arg1==2: a0==1->5, a0==0->1, a0==a1->3; other: a0==6 & a1==8->0x12, a0==3->0; one jal). The gap is layout only: the ROM uses beql with the constant in the delay slot for the first test of each arm (`beql a0,a1` + `addiu a0,6`), and its non-call exits are `j` to the epilogue after the jal. Untried: keep the value in arg0 (the ROM does) and write each arm as `if (arg0 == N) { arg0 = M; goto call; }` after the arg1 split.",
    "by": "claude-haiku-14",
    "created_at": 1793886876.134964,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886876.137674,
    "score_before": 0,
    "score_after": 0
   },
@@ -82929,14 +82815,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
-   "by": "claude-haiku-5",
-   "created_at": 1793886868.247328,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B924",
    "text": "Best 550 (88%, was 2905 autopilot). Source: u8 a2, u8 a3 locals; a3=0; a2=0; do { idx=a2*14; c0/c1/c2 from D+0x6E26/D+0x6E27 as sp[0..2] stores; a3++; if (c0==arg0[6] && c1==arg0[7] && c2==arg0[8]) return a2 (nested ifs); a2=a3; } while (a3<4); return 5. Structure matches. Remaining: (1) register allocation: target keeps arg0 in t0, counter in a3, index in a2; ours puts arg0 in a3 and the counter in t0 (or v1). (2) target's loop-bottom `andi a2,a3,0xff` is missing: with u8 a2 gcc drops the mask and emits move; with s32 a2 the allocation gets worse (1085). (3) one extra `move a3,zero` at entry. Untried: keep a2 u8 and write the index from a separate u8 copy; declare arg0 as a local copy used for the loads.",
    "by": "claude-haiku-10",
@@ -86665,14 +86543,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.9223602,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B664",
    "text": "Releasing at the session's claim quota. Best stays 765 (85%). Tried: if/else with `!= 0` / else 0x19 (765, prologue and first 17 insns match); reusing arg0 as the result variable (805, worse: it re-assigns the saved s0/s1 in the prologue). Remaining: the target keeps the result in $s0 with bnel/beql delay-slot 0xF/0x19 and a dead `j`; ours uses $a2 with beqz on the masked value. No declaration order found that puts the result in $s0 without breaking the prologue.",
    "by": "claude-haiku-2",
@@ -89105,14 +88975,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886870.970826,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80068D9C",
    "text": "Best stays 155 (permuter). Three rewrites this claim gave 160 (clean temps, s0-base from D_800A1468: 805, one-variable third arg: 160 again). Diff is all in the true branch: target loads P->0xC into $a2 and computes `addiu s0,a2,4` before `addiu a2,zero,1` (third arg of func_8008A0D8); ours loads into $a3, so the result move and later stores shift to a3, and we have one extra `move a0,s1` (target keeps arg0 in s1 from the top; that's why beqz is 4 bytes off). Next: keep arg0 in a local copied at entry (earlier notes say that breaks the a0 placement, so try it only together with the a2 load), or get the permuter to explore orderings of the two `temp_s0` assignments.",
    "by": "claude-haiku-14",
@@ -91365,14 +91227,6 @@
    "text": "Best 70 (99.1%, 69/78 insns), a big jump from 1020: the form that matched the rows as separate `temp_a1 = arg0[k]; temp_a1 *= arg1[0]; temp_a1 += ...` chains with var_v0 for the if (t>=0) t : t+0xFFF rounding, row1 kept in temp_a2 (stored to sp10[0] and to arg2[0] at the end), rows 2/3 in temp_a1 stored to sp10[1..2], then arg2[0..2] = temp_a2, sp10[1], sp10[2]. Remaining diff only in the tail: the ROM reloads sp10[2] into $v0 and does `move $v0,$s2` after the stores; ours does `move $v0,$s2` before the last load and uses $v1 for the reload. Tried with no change: return type void*, declaration order swaps, var_v0 reuse for the reload (worse, 115), reload via temp_a2 (a2 chosen instead of v0). Untried: a different form for the tail (e.g. storing through a second pointer, or an arg2 cast to u8* for the stores) to keep the return move after the stores.",
    "by": "claude-haiku-16",
    "created_at": 1793886871.951967,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.957213,
    "score_before": 0,
    "score_after": 0
   },
@@ -93781,14 +93635,6 @@
    "text": "Best stays 30 (99.3%, 46/46 insns; six first insns match). Best source: u16 locals a1/a2/a3 assigned from the args first (a1 = arg1; a2 = arg2; a3 = arg3), then stores in order w20=a1, w30=a2, w24=a3, w2C=a1+1, zeros, w28=a3+1, ... (30). Remaining diff: the ROM's andi order is a1,a2,a3 and it stores w24 (a3) before w20 (a1) with the a3+1 / a1+1 values stored later, but any statement order that puts w24 before w20 gives 45 (andi order flips to a3,a1,a2). Left: a register/schedule choice for the first three stores. Untried: a single `u16 *p = (u16 *)&buf.w24` pointer walk, or moving the b50 byte fills between the w24 and w20 stores.",
    "by": "claude-haiku-10",
    "created_at": 1793886872.9543319,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.9570959,
    "score_before": 0,
    "score_after": 0
   },
@@ -96309,14 +96155,6 @@
    "text": "Best 10 (39/52) kept. Remaining diff is two scan/fill regalloc lines: the scan char lives in $s0 (n is live) where the ROM uses $v0, and the fill loop loads s1->unk4 into $v0 instead of $v1 before the i<<2 shift. Separate scan temp fixes the scan but flips the fill load (20). Tried this claim, no better: struct S57810 with field access (20 with scan temp, 10 without), char-pointer walk, while(*q++) form (20). Untried: a table local declared before n, or a for loop with i declared after n.",
    "by": "claude-haiku-8",
    "created_at": 1793886873.958681,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886873.961777,
    "score_before": 0,
    "score_after": 0
   },
@@ -98957,14 +98795,6 @@
    "text": "Released with reason: the 131 form is the ceiling I can reach. All 50 instructions, stack offsets and operands match; only register numbering differs (ROM arg0 $s0, arg4..arg8 $s1..$s5, arg1 $s7, arg2 $fp, arg3 $s6). Four compiles this claim, none below 131: new_var = arg7 after the first call gives 200; earlier notes cover declaration order, explicit s32 copies, reversed copies, and arg0 placement. Needs a gcc register-ranking insight (use counts), not more statement reorders.",
    "by": "claude-haiku-16",
    "created_at": 1793886875.062881,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.065848,
    "score_before": 0,
    "score_after": 0
   },
@@ -101773,14 +101603,6 @@
    "text": "haiku-14: best stays the autopilot goto version (915). Six more shapes this claim, none better: nested if/else with var_a0 (2140), arg0 as the value (2140), goto-per-arm to one call (2670), else-first split on arg1 != 1 (2990), var_a0 = 0 with a shared `if (var_a0 != 0) call` (2860; the arms fall through to one tail, but GCC keeps bne/nop/j per arm and adds a frame move). Structure is confirmed (arg1==1: a0==a1->6, a0==0->2, a0==2->4; arg1==2: a0==1->5, a0==0->1, a0==a1->3; other: a0==6 & a1==8->0x12, a0==3->0; one jal). The gap is layout only: the ROM uses beql with the constant in the delay slot for the first test of each arm (`beql a0,a1` + `addiu a0,6`), and its non-call exits are `j` to the epilogue after the jal. Untried: keep the value in arg0 (the ROM does) and write each arm as `if (arg0 == N) { arg0 = M; goto call; }` after the arg1 split.",
    "by": "claude-haiku-14",
    "created_at": 1793886876.134964,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886876.137674,
    "score_before": 0,
    "score_after": 0
   },
@@ -107911,14 +107733,6 @@
    "created_at": 1793886893.825601,
    "score_before": 400,
    "score_after": 400
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "User's max tries reached (5/5); best attempt retained.",
-   "by": "codex-gpt-5.6-luna-low-1",
-   "created_at": 1793886893.8291998,
-   "score_before": 3020,
-   "score_after": 2015
   },
   {
    "function": "func_8003B7BC",
@@ -124017,14 +123831,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Best improved from 1975 to 1370 by replacing first outer test with logical `if ((u32)0 < (u16)*(u16 *)var_t0 && var_t1)` in the saved m2c candidate. Other variants of equivalent bitwise condition remained 1975. Clean rewrite with explicit zero variable scored 1850; changing to bitwise test scored 2265. Remaining mismatch is combined `sltu; and; beqz` condition and loop scheduling/register order. The target's D_800D061E/D_800D0634 symbol operand formatting differs from canonical names; byte addresses match.",
-   "by": "codex-gpt-6-sol-high-2",
-   "created_at": 1793886918.562697,
-   "score_before": 1975,
-   "score_after": 1370
-  },
-  {
    "function": "car_entries_refresh",
    "text": "Claim7 nine compiled variants full8 stagnation. Removed volatile from each global independently, removed unused register end, commuted selector pointer arithmetic, named ten-word aggregate, register lastval, unsigned long selector/source and typed mask; all score120 unchanged. Remaining exact200-insn differences are shared mask hoist and two copy-end pointer allocations.",
    "by": "codex-gpt-6.1-sol-medium-1",
@@ -127671,14 +127477,6 @@
    "created_at": 1793886923.355399,
    "score_before": 475,
    "score_after": 475
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Improved1370->1205 solely s32 var_t1 to u16. Parameter u16/s16 equal. signedness temp_a1/order/source_lines/address equal1370. Bitwise first test with var_a2 worse1720; literal zero bitwise1540. Best logical first test retained; missing zero temp and inner and/backedge scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886923.3701959,
-   "score_before": 1370,
-   "score_after": 1205
   },
   {
    "function": "func_8004CEB4",
@@ -132431,14 +132229,6 @@
    "created_at": 1793886938.7601411,
    "score_before": 13630,
    "score_after": 5440
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Cannot beat 1205. The rewrite that names zero, one, and the 0x2C4 record walk explicitly scores 1905 because flag=1 is no longer the first instruction and the count address is materialized before the lhu. The saved m2c with a u16 flag and the logical `0 < count && flag` test remains the best schedule for the sltu/and/beqz pair.",
-   "by": "cursor-cli-grok-4.7-low-1",
-   "created_at": 1793886938.776064,
-   "score_before": 1205,
-   "score_after": 1205
   },
   {
    "function": "update_part_scroll",
@@ -137233,14 +137023,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Full4 no-improvement budget: parameter_width u16, address_temporary, sum_shape, temp_a1 signedness and declaration ordering all1205, identical instructions. Best retained; combined sltu/and first condition and inner-backedge scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886948.86432,
-   "score_before": 1205,
-   "score_after": 1205
-  },
-  {
    "function": "func_800591E4",
    "text": "Cannot get closer under the project flags: the remaining diff is strength reduction of the outer 0x14 stride (biased pointer, extra saved reg, frame 0x30). The same source matches with -fno-strength-reduce, already suggested. Further C edits under -O2 reintroduce the bias or undo the 618 score.",
    "by": "cursor-cli-grok-4.7-low-1",
@@ -137591,14 +137373,6 @@
    "created_at": 1793886949.257428,
    "score_before": 25,
    "score_after": 25
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Full budget. Reversing logical initial operands worsens1590 vs1205; local repair variants tested. First sltu/and and loop scheduling remain unresolved.",
-   "by": "codex-gpt-6.1-sol-low-6",
-   "created_at": 1793886949.2731059,
-   "score_before": 1205,
-   "score_after": 1205
   },
   {
    "function": "func_80072984",
@@ -139553,14 +139327,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Asking again: 1205 is unchanged when temp_a1 is unsigned. The combined sltu/and/beqz on the outer count test is already the best schedule this compiler emits for `0 < half && flag`; the inner loop's bnel and the record-pointer update in its delay slot are the rest. A named zero temporary scored 1905 earlier because it moved flag=1 off the first instruction.",
-   "by": "cursor-cli-grok-4.7-low-1",
-   "created_at": 1793886952.284202,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "guRotate",
    "text": "Full budget no gain vs943. Local source/arity/scalar lifetime probes, pad sizes and sine/cosine declaration order. O3 profiles diagnosed separately. Main current flags math register allocation, and O3 needs frame reduction without allocation perturbation.",
    "by": "codex-gpt-6.1-sol-low-6",
@@ -140845,14 +140611,6 @@
    "text": "Cannot beat 11985: s7=D_800ADFE0 base and s2=a1 in delay slot; 666-insn UI builder needs shared tail merge not duplicated goto blocks.",
    "by": "cursor-cli-composer-2.5-1",
    "created_at": 1793886953.4332988,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Five compiled probes u8 inner/outer counters, u8 flag, bitwise comparison with flag!=0, unsigned record address all identical1205. Combined first test and inner backedge scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886953.436904,
    "score_before": 0,
    "score_after": 0
   },
@@ -142565,14 +142323,6 @@
    "text": "Full budget5055 retained. u32 opcode5075, volatile opcode identical; local typed temp5675/5130, constant local5195, source/address unchanged. One invalid label diagnostic compile discarded. Initial null beql/store and handler table addressing remain.",
    "by": "codex-gpt-6.1-sol-low-7",
    "created_at": 1793886955.032511,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Full budget retained1205. Bitwise initial count condition1540 then reverted. Six local parameter/signedness/declaration/source/sum/address variants identical1205. Remaining combined count/flag test and inner branch scheduling.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886955.035435,
    "score_before": 0,
    "score_after": 0
   },
@@ -145809,14 +145559,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Full budget retains1205. Parameter width, signedness, declaration/source-line repairs identical. Explicit initial counter bitwise test1720; baseline logical test remains best. Combined count/flag scheduling unresolved.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886957.456658,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8004A0A0",
    "text": "Cannot get closer from here. var_a1_11 signedness is a no-op at 9329, and that score is the invalid truncated-width candidate. The valid continuation is about 9559 with frame 0xE8 instead of 0xF0: var_a3 is hoisted into s5 and the required andi is gone. Padding the display buffers to force 0xF0 already scored worse, and flipping more scalar widths does not restore the mask. Needs a new layout of the display-list locals, which this claim will not reach.",
    "by": "cursor-cli-grok-4.7-low-1",
@@ -147801,14 +147543,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Full budget: six local repairs all1205; explicit initial var_a2 unsigned comparison bitwise flag1720 adds stack and extra branches. Best1205 retained; combined sltu/and initial condition and inner scheduling unresolved.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886959.168239,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "voicesSetIdleParams",
    "text": "Compiled register-saved baseline60 and six local repairs; no improvement on historical55. Remaining default/original/count register rotation and relocation operands. Signedness trials worsen255; address/constant/declaration trials unchanged.",
    "by": "codex-gpt-6.1-sol-low-5",
@@ -149129,14 +148863,6 @@
    "score_after": 1580
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Six compiled local trials parameter width u16, declaration order, source lines, address temp, sum shape and temp_a1 unsigned all identical1205. Full plateau. Combined sltu/and count and flag initial condition plus inner scheduling unresolved.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886959.9353468,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8005F5C4",
    "text": "Full plateau budget after improving VALID corrected table candidate6784->6304: u16 s0/s1 and u16 v best revision3c8dfdaa51acea6b9876. Historical6230 INVALID reads misaligned800C3B56 instead correct800C3B50, preserve correction. Many widths/order/padding/postincrement probes; frame48 vs50 and table lifetimes remain.",
    "by": "codex-gpt-6.1-sol-low-6",
@@ -150125,14 +149851,6 @@
    "text": "Seven compiles: declaration/signedness plus prefix loop increments unchanged340. Remaining argument/counter register coloring; bank/write call semantics preserved.",
    "by": "codex-gpt-6.1-sol-low-7",
    "created_at": 1793886960.620645,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Full4 plateau. Tried bitwise initial predicate with zero expressed var_t2-var_t2 (1540); parameter width/signedness/declaration/source variants same1540. Prior1205 better; initial combined predicate and inner scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-6",
-   "created_at": 1793886960.623414,
    "score_before": 0,
    "score_after": 0
   },
@@ -155049,14 +154767,6 @@
    "score_after": 250
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Initialized otherwise uninitialized var_t0; same score 400 because its increment is dead. Parameter width, signedness, declaration and address variants unchanged. Missing separate zero register and loop scheduling remain.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886966.397857,
-   "score_before": 400,
-   "score_after": 40
-  },
-  {
    "function": "func_8004CEB4",
    "text": "Address temporary and extra argument aliases did not change score 131. All 50 instructions present; saved-register ranking remains.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -156047,14 +155757,6 @@
    "created_at": 1793886969.4158149,
    "score_before": 1650,
    "score_after": 1650
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Initialized previously uninitialized unused var_t0 to base+0x14, compiled250 unchanged; revision4538d1475b014ba1c24e. Six local parameter width/signedness/declaration/source/sum trials all250. Remaining symbol relocation aliases, zero vs t5 comparison/assignment, outer increment scheduling.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886969.427101,
-   "score_before": 250,
-   "score_after": 0
   },
   {
    "function": "checkNearPoint",
@@ -163473,28 +163175,12 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Compiled six local repairs (parameter widths, signedness, declaration order, source line) all40. Initialized unused var_t0 to base+0x14 removes undefined pointer increment, also40 revision a4f378d895ffce9775f5. Remaining 3 relocation operands and 2 register operands.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886985.17758,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "skip_cr_run",
    "text": "Valid initialized candidate bea7b2a95ba2a58463c4 scores 25; only a2/v1 allocation differs. Historical score 5 reads uninitialized variable. Declaration order, constant reuse did not change instructions.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.1804411,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Initialized dead var_t0 to avoid undefined behavior; score 40 unchanged. Six local repairs unchanged. Remaining 3 symbol relocation operands and 2 zero-register allocation differences; preserve initialized revision 244bee10f2b3ea584642.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.183601,
-   "score_before": 40,
-   "score_after": 40
   },
   {
    "function": "func_80046530",
@@ -180681,14 +180367,6 @@
    "score_after": 0
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Candidate-quality review 2026-10-30 | wrong_value | retained pause: correction/validation needed | source 5ccf7c5a727f4916568d. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Initialized dead var_t0 to avoid undefined behavior; score 40 unchanged. Six local repairs unchanged. Remaining 3 symbol relocation operands and 2 zero-register allocation differences; preserve initialized revision 244bee10f2b3ea584642. This is a targeted quality review, not proof of full semantic equivalence.",
-   "by": "you",
-   "created_at": 1793887007.370521,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006B664",
    "text": "Candidate-quality review 2026-10-30 | wrong_value | retained pause: correction/validation needed | source 5951c549b595f3fe9ac0. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Verified target element uses original state+10, mode independent rec+1E. Correct a3222d3690cec4ad5ee3 score85; historical50 invalid wrong-object read. Six repairs equal85 except lifetime merge470. Remaining lh order and offset a2 vs s0. Preserve semantic fix. This is a targeted quality review, not proof of full semantic equivalence.",
    "by": "you",
@@ -181993,14 +181671,6 @@
    "score_after": 5
   },
   {
-   "function": "markStreamSlotsByTag",
-   "text": "Review selected corrective alternative attempt 159850; rejudged score 40, replacing reported source 5ccf7c5a727f4916568d. Selection is a reviewer decision, not an automatic semantic proof.",
-   "by": "candidate-review",
-   "created_at": 1793887013.14903,
-   "score_before": 40,
-   "score_after": 40
-  },
-  {
    "function": "func_8003D8F4",
    "text": "Review selected corrective alternative attempt 150349; rejudged score 45, replacing reported source 28bae2f537bf4caf1cf2. Selection is a reviewer decision, not an automatic semantic proof.",
    "by": "candidate-review",
@@ -182165,14 +181835,6 @@
    "text": "Compiled baseline 7606 and six bounded signedness/declaration variants; no improvement (8006/7861 worse). Remaining entry register allocation and interpolation scheduling.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793887013.2341871,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "markStreamSlotsByTag",
-   "text": "Six parameter width, signedness, declaration, source and address variants compiled unchanged at 40. Candidate already initializes dead var_t0. Remaining differences are symbol relocation operands and zero-register allocation.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793887013.236864,
    "score_before": 0,
    "score_after": 0
   },
@@ -264317,6 +263979,358 @@
    "text": "Tried a named rewrite (rec local, one store per line, gNumberBuf/stream_state externs): score 655. The target loads gSlotState (0x800C35A0) and not stream_state, and interleaves the three u16 loads with the stores, so the statement shape must differ. Left the matching m2c form. Next: check whether this record pointer is gSlotState+0x32F2 and try the original-order loads.",
    "by": "claude-haiku-medium-4",
    "created_at": 1794324767.079159,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
+   "by": "claude-haiku-5",
+   "created_at": 1793886868.247328,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.9223602,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886870.970826,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.957213,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.9570959,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886873.961777,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.065848,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886876.137674,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
+   "by": "claude-haiku-5",
+   "created_at": 1793886868.247328,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.9223602,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886870.970826,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.957213,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.9570959,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886873.961777,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.065848,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886876.137674,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Three more compiles, none beat 1800. Tried: bitwise `&` conditions (2005), and hoisting t0 = t3+0x14 out of the if with a variable `var_t5 = 0` in the first test (3005; the target's t0 path is fine but the register order is off). Best stays 1800. Still open: the target's `sltu` tests are unsigned (`(u32)`), which I've tried in the 2005 version only; the 1800 version uses signed `>`. Next idea: take 1800 and only change the first `count > 0` test to `(u32)0 < (u16)count`, leaving the rest alone. The symbol-name diffs on the lui/lhu of D_800D061E/D_800D0634 are naming and can be ignored when judging.",
+   "by": "claude-haiku-5",
+   "created_at": 1793886868.247328,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1600 (67%), from the 1800 base with the inner while cast to (u32)(var_a2&0xFF) < (u32)*(u16*)var_t0. Tried this session without improvement: bitwise `var_t1 & (...)` in the if and/or loop conditions (1705, 2005, 2175, 2375: gcc emits `andi v0,t1,1` and reorders the lhu/addiu t0), a local `var_t5 = 0` as the zero compare operand (2175), and the outer if using `(u32)0 < x` (2005). The target's shape is: `sltu v0,t5,v0; and v0,t1,v0; beqz` for the outer if (flag AND unsigned compare as a value, not a branch chain), and the inner back-edge `bnel` with `andi a1,a2,0xff` in its delay slot. None of my sources produced the `and` between the sltu and the branch. Still open: find a form where the flag is combined as a value (e.g. a u8/bool flag, or the flag folded into the count), and the t0 update before the outer compare. Symbol-name diffs on lui/lhu of D_800D061E/D_800D0634 are naming only.",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.9223602,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best 1400 (71%, saved: the 1600 base with the outer while as `var_t1 && (u32)(var_t2 & 0xFF) < (u32)D_800D061E`). Tried since, all worse: `var_t1 & (u32)(...)` bitwise forms (2345); s32 flag with `var_t1 & ((u32)0 < cnt)` outer if (1765); u8 var_t1 (2405, adds andi t1 tests). Remaining: the target computes the outer `if` as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`) with a zero local t5 and the lhu after the t0 update; ours is a branch chain. The lui/lhu symbol differences (D_800C02AE+0x1327e vs +0x10370) are data naming, ignore when judging. Untried: explicit `s32 var_t5 = 0` with `(u32)var_t5 < cnt` as the if test, and writing the flag test as `if (var_t1 == 1 && ...)`.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886870.970826,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Can't get closer from the C forms tried: the saved 1400 is the best. Reason: the target combines the flag and the unsigned compare as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`), and every bitwise/`&` source I tried (2005, 1705, 2175, 2375, 3005) makes GCC emit `andi v0,t1,1` at each test and reorder the lhu/addiu t0. The `&&` forms keep branch chains (1400). Untried, low odds: a u8 bool flag written as `(u8)(var_t1 & (...))` as a separate assignment before the if. Symbol-name offsets on the lui/lhu are naming only.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.957213,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "(claude-haiku-14) Releasing as-is: the best stays 1400 (earlier agents). My flag-as-value form scored 2755 (bitwise `&` on the outer test again reorders the t0 update and swaps the t1/t0 registers, same family as the forms already recorded as worse). No C form tried this session gives the ROM's `sltu; and; beqz` combined test without those reorders. Not solved.",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.9570959,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best stays 1400 (71%, the saved source). 4 compiles this claim, none better: `!= 0` forms 1400; bitwise (0<cnt)&flag in the first test 1565; zero local `(u32)zero < cnt` 1975; inlined var_a2 in place of temp_a1 1400 (no change). Key ROM shape: the outer/first test is computed as a value (`sltu v0,t5,v0; and v0,t1,v0; beqz`, t5 a zero register) and the t0 update sits between. Our versions always branch on t1 separately (beqz t1 + beql). Untried: u8 flag written as a separate statement before the if. Symbol-name diffs on the D_800C02AE+0x10370/0x10386 lui/lhu/lw are naming only. Keep the 1400 source.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886873.961777,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Final for this claim: best stays 1390 (saved: the 1400 source with `var_t5 = 0` and `(u32)var_t5 < *(u16 *)var_t0` as the first test). Last tries, all worse: u8 flag assigned from `var_t1 & (...)` before the if (1690: GCC emits `move v0,t1 / andi v0,v0,0xff` and a `j` to the loop head); `var_t1 & (...)` in the if (1390, no change). The target's outer test is one value `sltu v0,t5,v0; and v0,t1,v0; beqz`, which none of the forms tried reproduce without the extra andi; the inner back-edge bnel and the t0 update placement also differ. Symbol names on the lui/lhu (D_800C02AE+0x1327e vs +0x10370) are data naming only, ignore when judging.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.065848,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "claude-haiku (this claim): best now 1345 (72.5%), from the saved 1390 source with the outer test split into `s32 ok = var_t1 & ((u32)var_t5 < *(u16*)var_t0); if (ok) {...}`. Remaining diff: the ROM's outer test is `sltu v0,t5,v0; and v0,t1,v0; beqz` (the and on t1 after the sltu, no andi), ours still gets `andi v1,t1,1` + beql, and the inner while's `and` after the second sltu is missing (ROM: sltu; and; bnel). The ROM's t0 update (addiu t0,t0,0x2c4) sits in the delay-slot position after the inner loop, and the second lui/lhu of D_800D061E is before `addiu t2`. Try next: the `ok` form with the and operands swapped (`(u32)var_t5 < cnt` first), and the inner while as `while (var_t1 & ((u32)(var_a2 & 0xFF) < cnt))`. Symbol-name diffs on the lui/lhu/lw are data naming only.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886876.137674,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "User's max tries reached (5/5); best attempt retained.",
+   "by": "codex-gpt-5.6-luna-low-1",
+   "created_at": 1793886893.8291998,
+   "score_before": 3020,
+   "score_after": 2015
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Best improved from 1975 to 1370 by replacing first outer test with logical `if ((u32)0 < (u16)*(u16 *)var_t0 && var_t1)` in the saved m2c candidate. Other variants of equivalent bitwise condition remained 1975. Clean rewrite with explicit zero variable scored 1850; changing to bitwise test scored 2265. Remaining mismatch is combined `sltu; and; beqz` condition and loop scheduling/register order. The target's D_800D061E/D_800D0634 symbol operand formatting differs from canonical names; byte addresses match.",
+   "by": "codex-gpt-6-sol-high-2",
+   "created_at": 1793886918.562697,
+   "score_before": 1975,
+   "score_after": 1370
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Improved1370->1205 solely s32 var_t1 to u16. Parameter u16/s16 equal. signedness temp_a1/order/source_lines/address equal1370. Bitwise first test with var_a2 worse1720; literal zero bitwise1540. Best logical first test retained; missing zero temp and inner and/backedge scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886923.3701959,
+   "score_before": 1370,
+   "score_after": 1205
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Cannot beat 1205. The rewrite that names zero, one, and the 0x2C4 record walk explicitly scores 1905 because flag=1 is no longer the first instruction and the count address is materialized before the lhu. The saved m2c with a u16 flag and the logical `0 < count && flag` test remains the best schedule for the sltu/and/beqz pair.",
+   "by": "cursor-cli-grok-4.7-low-1",
+   "created_at": 1793886938.776064,
+   "score_before": 1205,
+   "score_after": 1205
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full4 no-improvement budget: parameter_width u16, address_temporary, sum_shape, temp_a1 signedness and declaration ordering all1205, identical instructions. Best retained; combined sltu/and first condition and inner-backedge scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886948.86432,
+   "score_before": 1205,
+   "score_after": 1205
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full budget. Reversing logical initial operands worsens1590 vs1205; local repair variants tested. First sltu/and and loop scheduling remain unresolved.",
+   "by": "codex-gpt-6.1-sol-low-6",
+   "created_at": 1793886949.2731059,
+   "score_before": 1205,
+   "score_after": 1205
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Asking again: 1205 is unchanged when temp_a1 is unsigned. The combined sltu/and/beqz on the outer count test is already the best schedule this compiler emits for `0 < half && flag`; the inner loop's bnel and the record-pointer update in its delay slot are the rest. A named zero temporary scored 1905 earlier because it moved flag=1 off the first instruction.",
+   "by": "cursor-cli-grok-4.7-low-1",
+   "created_at": 1793886952.284202,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Five compiled probes u8 inner/outer counters, u8 flag, bitwise comparison with flag!=0, unsigned record address all identical1205. Combined first test and inner backedge scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886953.436904,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full budget retained1205. Bitwise initial count condition1540 then reverted. Six local parameter/signedness/declaration/source/sum/address variants identical1205. Remaining combined count/flag test and inner branch scheduling.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886955.035435,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full budget retains1205. Parameter width, signedness, declaration/source-line repairs identical. Explicit initial counter bitwise test1720; baseline logical test remains best. Combined count/flag scheduling unresolved.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886957.456658,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full budget: six local repairs all1205; explicit initial var_a2 unsigned comparison bitwise flag1720 adds stack and extra branches. Best1205 retained; combined sltu/and initial condition and inner scheduling unresolved.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886959.168239,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Six compiled local trials parameter width u16, declaration order, source lines, address temp, sum shape and temp_a1 unsigned all identical1205. Full plateau. Combined sltu/and count and flag initial condition plus inner scheduling unresolved.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886959.9353468,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Full4 plateau. Tried bitwise initial predicate with zero expressed var_t2-var_t2 (1540); parameter width/signedness/declaration/source variants same1540. Prior1205 better; initial combined predicate and inner scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-6",
+   "created_at": 1793886960.623414,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Initialized otherwise uninitialized var_t0; same score 400 because its increment is dead. Parameter width, signedness, declaration and address variants unchanged. Missing separate zero register and loop scheduling remain.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886966.397857,
+   "score_before": 400,
+   "score_after": 40
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Initialized previously uninitialized unused var_t0 to base+0x14, compiled250 unchanged; revision4538d1475b014ba1c24e. Six local parameter width/signedness/declaration/source/sum trials all250. Remaining symbol relocation aliases, zero vs t5 comparison/assignment, outer increment scheduling.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886969.427101,
+   "score_before": 250,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Compiled six local repairs (parameter widths, signedness, declaration order, source line) all40. Initialized unused var_t0 to base+0x14 removes undefined pointer increment, also40 revision a4f378d895ffce9775f5. Remaining 3 relocation operands and 2 register operands.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886985.17758,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Initialized dead var_t0 to avoid undefined behavior; score 40 unchanged. Six local repairs unchanged. Remaining 3 symbol relocation operands and 2 zero-register allocation differences; preserve initialized revision 244bee10f2b3ea584642.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.183601,
+   "score_before": 40,
+   "score_after": 40
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Candidate-quality review 2026-10-30 | wrong_value | retained pause: correction/validation needed | source 5ccf7c5a727f4916568d. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Initialized dead var_t0 to avoid undefined behavior; score 40 unchanged. Six local repairs unchanged. Remaining 3 symbol relocation operands and 2 zero-register allocation differences; preserve initialized revision 244bee10f2b3ea584642. This is a targeted quality review, not proof of full semantic equivalence.",
+   "by": "you",
+   "created_at": 1793887007.370521,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Review selected corrective alternative attempt 159850; rejudged score 40, replacing reported source 5ccf7c5a727f4916568d. Selection is a reviewer decision, not an automatic semantic proof.",
+   "by": "candidate-review",
+   "created_at": 1793887013.14903,
+   "score_before": 40,
+   "score_after": 40
+  },
+  {
+   "function": "markStreamSlotsByTag",
+   "text": "Six parameter width, signedness, declaration, source and address variants compiled unchanged at 40. Candidate already initializes dead var_t0. Remaining differences are symbol relocation operands and zero-register allocation.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793887013.236864,
    "score_before": 0,
    "score_after": 0
   }
@@ -379275,10 +379289,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516239.343709,
-    "attempt_id": 4294973659,
-    "source_sha256": "dfe5e57f1be1f81a7b1055232221c428dd13b3d1ce41404e3cd11c8d46f4c018",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794604565.8978748,
+    "attempt_id": 4294974526,
+    "source_sha256": "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -450649,7 +450663,8 @@
    "4743bdcc0e94f9a3f9c0f1ff184c6e6068ef36cdfd258ab4b4275f6989a0af47": "extern char gOrderState[];\nextern void *gOrderPrevHook;\ns32 order_alloc_records(s32);\nvoid func_8001BD44(void);\n/* Sets up the order record block in gOrderState: two record buffers of 300 entries\n   each, and installs func_8001BD44 as the hook, keeping the previous hook in the state. */\nvoid func_8001BDA0(void)\n{\n  s32 *block = (s32 *) (gOrderState + 0x87D8);\n  s32 buf;\n  block[0] = order_alloc_records(0x12C);\n  buf = order_alloc_records(0x12C);\n  block[2] = block[0];\n  *((void **) (gOrderState + 0x6D9C)) = gOrderPrevHook;\n  block[4] = 0;\n  block[5] = 0x12C;\n  block[1] = buf;\n  block[3] = buf;\n  gOrderPrevHook = func_8001BD44;\n}\n",
    "aec3e88d818401f6cc7d4a4ed2fcbecdd6758061170d67502ae1c8d05bd797e2": "extern char stream_state[];\nvoid fill_leaderboard_entry(int a, char *b, int c);\n/* Fills the leaderboard entry for the given slot from the stream state's record table, with no offset. */\nvoid leaderboard_fill_slot0(int slot) { fill_leaderboard_entry(slot, stream_state + 0x10332, 0); }\n",
    "e234af3a8ad394d66353fdad91ac86b8eee206314d05395c02d8ddd6dc54f353": "extern unsigned short D_800C34FC;\nextern unsigned short D_800C836E;\nextern short gNumberBuf;\n\nextern char gOrderState[];\nextern char stream_state[];\n\n/* Copies three 16-bit fields of the current stream record (pointed to by stream_state + 0x32F2)\n * into the globals D_800C34FC, D_800C836E and gNumberBuf. */\nvoid func_80062304(void) {\n    u16 fieldA;\n    u16 fieldB;\n    void *rec;\n\n    rec = stream_state + 0x32F2;\n    rec = *(void **)(stream_state + 0x32F2);\n    fieldA = *(u16 *)((char *)rec + 0x1E);\n    fieldB = *(u16 *)((char *)rec + 0x20);\n    #ifdef PORT\n    gNumberBuf = (s16)*(u16 *)((char *)rec + 0x22);\n#else\n    rec = (void *)*(u16 *)((char *)rec + 0x22);\n#endif\n    D_800C34FC = fieldA;\n    D_800C836E = fieldB;\n    #ifndef PORT\n    gNumberBuf = (s16)rec;\n#endif\n}\n",
-   "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f": "extern u16 D_800C34FC;\nextern u16 D_800C836E;\nextern u16 gNumberBuf;\nextern void *gSlotState;\n\n/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */\nvoid func_80062334(void) {\n    u16 v1;\n    u16 a0;\n    u16 a1;\n    char *slot;\n\n    slot = (char *)gSlotState;\n    v1 = D_800C34FC;\n    a0 = D_800C836E;\n    a1 = gNumberBuf;\n    *(s16 *)(slot + 0x1E) = v1;\n    *(s16 *)(slot + 0x20) = a0;\n    *(s16 *)(slot + 0x22) = a1;\n}\n"
+   "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f": "extern u16 D_800C34FC;\nextern u16 D_800C836E;\nextern u16 gNumberBuf;\nextern void *gSlotState;\n\n/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */\nvoid func_80062334(void) {\n    u16 v1;\n    u16 a0;\n    u16 a1;\n    char *slot;\n\n    slot = (char *)gSlotState;\n    v1 = D_800C34FC;\n    a0 = D_800C836E;\n    a1 = gNumberBuf;\n    *(s16 *)(slot + 0x1E) = v1;\n    *(s16 *)(slot + 0x20) = a0;\n    *(s16 *)(slot + 0x22) = a1;\n}\n",
+   "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a": "extern char stream_state[];\n#define gStreamGroups (*(char **)(stream_state + 0x10386))\n#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))\nstatic inline int groupIdxInRange(s32 groupIdx)\n{\n  return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);\n}\n\nstatic inline int slotInGroup(s32 slot, char *group)\n{\n  return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));\n}\n\n/* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group\n * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group\n * mask table at stream_state+0x327E. Stops after the first match. */\nvoid markStreamSlotsByTag(s32 tag)\n{\n  s32 slot;\n  s32 slotIdx;\n  s32 zero;\n  u32 groupIdx;\n  u16 found;\n  s32 group;\n  char *groupBase;\n  char *groupPtr;\n\n  found = 1;\n  groupBase = gStreamGroups;\n  group = 0;\n  groupPtr = (char *)groupBase + 0x14;\n  if (gStreamGroupCount != 0)\n  {\n    zero = 0;\n    do\n    {\n      slot = 0;\n      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)\n      {\n        groupIdx = group & 0xFF;\n        do\n        {\n          slotIdx = slot & 0xFF;\n          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))\n          {\n            found = 0;\n            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);\n          }\n          slot += 1;\n        }\n        while (found & slotInGroup(slot, groupBase));\n      }\n      groupPtr += 0x2C4;\n      groupBase += 0x2C4;\n      group += 1;\n    }\n    while (found & groupIdxInRange(group));\n  }\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
