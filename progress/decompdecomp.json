@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794606440.471518,
- "revision": 21823,
+ "saved_at": 1794606644.999296,
+ "revision": 21824,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1318,6 +1318,20 @@
    "timeout": 20,
    "function": "record_slot_init",
    "vram": 2147826728
+  },
+  "107016:2147587592": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "slot_update_list",
+   "vram": 2147587592
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -33531,14 +33545,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886867.202998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80019314",
    "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
    "by": "claude-haiku-7",
@@ -45427,14 +45433,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.337038,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80012F7C",
    "text": "Best 2235 (78%) is kept: readable while-loops over the node list (node+0x5C = next, node+0x7C = slot, entry size 0x34, count u16 at *(cntp+0x18)+4). Helped: `cntp = D_800A73E0 + 0x6C0C` as a pointer local (ROM keeps t2 in a register), `entries = *(u8**)tbl` loaded once before the loop, and the if/else order `if (node->0x7C == NULL) node->0x7C = entry; else {...}` (ROM uses bnel on the non-null case). Tried without gain: loading mgr/tbl/head in another order (2455), s32 a3 with a for-loop outer (2635). Remaining diff is the entry-time load order: ROM does lw 0x8C(a0), then the tbl load, then lw 0x28 (head), then move a1 = head before the outer loop; ours loads head first. Also the ROM holds a3 in $t3 with `beql a1,0` at the outer top (a3=0 if node is NULL), which I did not reproduce. Next: find a way to make the head load come after the tbl load (e.g. read head from mgr inside the if (tbl != NULL) block).",
    "by": "claude-haiku-3",
@@ -48195,26 +48193,10 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.4447732,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfx_sync_render_state",
    "text": "Not matched, and I'm releasing early on purpose. Kept the previous best (2590, m2c-style goto version). My structured rewrite scored 6230 (34%): the ROM does `move $t0,$a1` at entry and keeps arg1 in $t0 for the mode==1 checks; it writes the two-word DL command in a shared tail (the 0x80008000 store into word 1 is after the flags-sign branch, shared by both arms); the `lw a0,0x84` reload sits after that tail. The bit-21 test uses `srl $a1,$a0,0x1f` as the sign, a separate live reg. Next: keep the goto layout of the best attempt and test the mode switch on its own (beql on mode==1 with lui in the delay slot, then slti/beqz for 0 and beq for 2, the 0x8000/0xC000 word in $v0, DL pointer loaded before the branch).",
    "by": "claude-haiku-9",
    "created_at": 1793886873.448125,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.45205,
    "score_before": 0,
    "score_after": 0
   },
@@ -50511,14 +50493,6 @@
    "text": "Best stays 305 (95.7%, source in the brief). 6 compiles this claim, none better. Tried: if/else-if chain instead of the switch (1075: target keeps the compare chain `addiu v0,1; beq; addiu v0,-0x87 in the delay slot; addiu v0,2; beq`); literal -0x87/-0x56 in the arms (325); the 0x128 load moved into the 0x18 store with no temp (925: the target stores 0x14 before loading 0x128 and keeps temp in v1, so the temp in the arg1 branch is needed); idx declared after var_v0 (305); var_v0 as s32 declared last (305); s16 var_v0 (325). Remaining diff is register only: target puts var_v0 (-0x87/0x2B) in $v0 and the switch value in $v1; ours puts var_v0 in $a1 (arg1 is dead after the branch) and the 0x128 temp in $a1. Untried: anything that keeps $a1 busy past the branch, or a form where -0x87 is loaded into the beq delay slot by source order alone.",
    "by": "claude-haiku-16",
    "created_at": 1793886874.437032,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886874.440856,
    "score_before": 0,
    "score_after": 0
   },
@@ -53255,14 +53229,6 @@
    "text": "Not matched; best stays 3805 (56.2%, goto mirror). This claim, 2 compiles, both 3805: the goto mirror as saved, and the same flow with the top test flipped (`if (v != 0) { ... } return end;`, which left the layout unchanged: ours still emits `bnez v0 -> 0x24` where the ROM has `beqz v0 -> return` with `move v0,a1` in the delay slot). The ROM's CR path also keeps a second `lb v0,(a0)` and tests `beq v0,a3` (ours folds the reload into a2). The remaining gap is the loop's top layout and the register roles ($a2 vs the ROM's $v1 for the first byte). Not closed from source shape here; the next agent should try writing the return as the last statement with the loop head as a for(;;) and check whether `move v0,a1` lands in the delay slot.",
    "by": "claude-haiku-13",
    "created_at": 1793886875.542101,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886875.54578,
    "score_before": 0,
    "score_after": 0
   },
@@ -56159,14 +56125,6 @@
    "text": "Best stays 4 (99.9%). Every instruction and stack-arg store (0x10..0x24) matches; only the frame differs: target addiu -0x30 / ra at 0x28, ours -0x38 / ra at 0x30. Tried this claim: s16 prototype for s4..s9 (4, no effect); 11-arg prototype with an extra dummy 0 arg (144: frame becomes -0x40, ra 0x38, and it adds a store at 0x28, so frame grows exactly 8 per extra arg). Earlier claims: locals/pads, prototype widths, void/s32 return, unprototyped, -g (303). Reading: for ours, frame = outgoing + 16 slack where the ROM has none (ROM 10 args = 0x28 out + ra -> 0x30; ours 0x38). So the compiler here reserves 16 bytes more than the 10-arg call needs. Untested: a prototype whose 4 register params are declared as a single struct/long long pair so the home area is counted differently; or check whether func_8000BA38 in the original takes its args through a pointer (one struct arg) rather than 10 scalars, which would give 0x30 naturally. A second model should look at the frame rule before more C tries. Matched sibling needed: none found by find_similar.",
    "by": "claude-haiku-4",
    "created_at": 1793886876.6039748,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.6067,
    "score_before": 0,
    "score_after": 0
   },
@@ -56859,14 +56817,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886867.202998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80019314",
    "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
    "by": "claude-haiku-7",
@@ -68755,14 +68705,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.337038,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80012F7C",
    "text": "Best 2235 (78%) is kept: readable while-loops over the node list (node+0x5C = next, node+0x7C = slot, entry size 0x34, count u16 at *(cntp+0x18)+4). Helped: `cntp = D_800A73E0 + 0x6C0C` as a pointer local (ROM keeps t2 in a register), `entries = *(u8**)tbl` loaded once before the loop, and the if/else order `if (node->0x7C == NULL) node->0x7C = entry; else {...}` (ROM uses bnel on the non-null case). Tried without gain: loading mgr/tbl/head in another order (2455), s32 a3 with a for-loop outer (2635). Remaining diff is the entry-time load order: ROM does lw 0x8C(a0), then the tbl load, then lw 0x28 (head), then move a1 = head before the outer loop; ours loads head first. Also the ROM holds a3 in $t3 with `beql a1,0` at the outer top (a3=0 if node is NULL), which I did not reproduce. Next: find a way to make the head load come after the tbl load (e.g. read head from mgr inside the if (tbl != NULL) block).",
    "by": "claude-haiku-3",
@@ -71523,26 +71465,10 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.4447732,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfx_sync_render_state",
    "text": "Not matched, and I'm releasing early on purpose. Kept the previous best (2590, m2c-style goto version). My structured rewrite scored 6230 (34%): the ROM does `move $t0,$a1` at entry and keeps arg1 in $t0 for the mode==1 checks; it writes the two-word DL command in a shared tail (the 0x80008000 store into word 1 is after the flags-sign branch, shared by both arms); the `lw a0,0x84` reload sits after that tail. The bit-21 test uses `srl $a1,$a0,0x1f` as the sign, a separate live reg. Next: keep the goto layout of the best attempt and test the mode switch on its own (beql on mode==1 with lui in the delay slot, then slti/beqz for 0 and beq for 2, the 0x8000/0xC000 word in $v0, DL pointer loaded before the branch).",
    "by": "claude-haiku-9",
    "created_at": 1793886873.448125,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.45205,
    "score_before": 0,
    "score_after": 0
   },
@@ -73839,14 +73765,6 @@
    "text": "Best stays 305 (95.7%, source in the brief). 6 compiles this claim, none better. Tried: if/else-if chain instead of the switch (1075: target keeps the compare chain `addiu v0,1; beq; addiu v0,-0x87 in the delay slot; addiu v0,2; beq`); literal -0x87/-0x56 in the arms (325); the 0x128 load moved into the 0x18 store with no temp (925: the target stores 0x14 before loading 0x128 and keeps temp in v1, so the temp in the arg1 branch is needed); idx declared after var_v0 (305); var_v0 as s32 declared last (305); s16 var_v0 (325). Remaining diff is register only: target puts var_v0 (-0x87/0x2B) in $v0 and the switch value in $v1; ours puts var_v0 in $a1 (arg1 is dead after the branch) and the 0x128 temp in $a1. Untried: anything that keeps $a1 busy past the branch, or a form where -0x87 is loaded into the beq delay slot by source order alone.",
    "by": "claude-haiku-16",
    "created_at": 1793886874.437032,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886874.440856,
    "score_before": 0,
    "score_after": 0
   },
@@ -76583,14 +76501,6 @@
    "text": "Not matched; best stays 3805 (56.2%, goto mirror). This claim, 2 compiles, both 3805: the goto mirror as saved, and the same flow with the top test flipped (`if (v != 0) { ... } return end;`, which left the layout unchanged: ours still emits `bnez v0 -> 0x24` where the ROM has `beqz v0 -> return` with `move v0,a1` in the delay slot). The ROM's CR path also keeps a second `lb v0,(a0)` and tests `beq v0,a3` (ours folds the reload into a2). The remaining gap is the loop's top layout and the register roles ($a2 vs the ROM's $v1 for the first byte). Not closed from source shape here; the next agent should try writing the return as the last statement with the loop head as a for(;;) and check whether `move v0,a1` lands in the delay slot.",
    "by": "claude-haiku-13",
    "created_at": 1793886875.542101,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886875.54578,
    "score_before": 0,
    "score_after": 0
   },
@@ -79487,14 +79397,6 @@
    "text": "Best stays 4 (99.9%). Every instruction and stack-arg store (0x10..0x24) matches; only the frame differs: target addiu -0x30 / ra at 0x28, ours -0x38 / ra at 0x30. Tried this claim: s16 prototype for s4..s9 (4, no effect); 11-arg prototype with an extra dummy 0 arg (144: frame becomes -0x40, ra 0x38, and it adds a store at 0x28, so frame grows exactly 8 per extra arg). Earlier claims: locals/pads, prototype widths, void/s32 return, unprototyped, -g (303). Reading: for ours, frame = outgoing + 16 slack where the ROM has none (ROM 10 args = 0x28 out + ra -> 0x30; ours 0x38). So the compiler here reserves 16 bytes more than the 10-arg call needs. Untested: a prototype whose 4 register params are declared as a single struct/long long pair so the home area is counted differently; or check whether func_8000BA38 in the original takes its args through a pointer (one struct arg) rather than 10 scalars, which would give 0x30 naturally. A second model should look at the frame rule before more C tries. Matched sibling needed: none found by find_similar.",
    "by": "claude-haiku-4",
    "created_at": 1793886876.6039748,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.6067,
    "score_before": 0,
    "score_after": 0
   },
@@ -80187,14 +80089,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886867.202998,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80019314",
    "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
    "by": "claude-haiku-7",
@@ -92083,14 +91977,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
-   "by": "claude-haiku-14",
-   "created_at": 1793886872.337038,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80012F7C",
    "text": "Best 2235 (78%) is kept: readable while-loops over the node list (node+0x5C = next, node+0x7C = slot, entry size 0x34, count u16 at *(cntp+0x18)+4). Helped: `cntp = D_800A73E0 + 0x6C0C` as a pointer local (ROM keeps t2 in a register), `entries = *(u8**)tbl` loaded once before the loop, and the if/else order `if (node->0x7C == NULL) node->0x7C = entry; else {...}` (ROM uses bnel on the non-null case). Tried without gain: loading mgr/tbl/head in another order (2455), s32 a3 with a for-loop outer (2635). Remaining diff is the entry-time load order: ROM does lw 0x8C(a0), then the tbl load, then lw 0x28 (head), then move a1 = head before the outer loop; ours loads head first. Also the ROM holds a3 in $t3 with `beql a1,0` at the outer top (a3=0 if node is NULL), which I did not reproduce. Next: find a way to make the head load come after the tbl load (e.g. read head from mgr inside the if (tbl != NULL) block).",
    "by": "claude-haiku-3",
@@ -94851,26 +94737,10 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.4447732,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfx_sync_render_state",
    "text": "Not matched, and I'm releasing early on purpose. Kept the previous best (2590, m2c-style goto version). My structured rewrite scored 6230 (34%): the ROM does `move $t0,$a1` at entry and keeps arg1 in $t0 for the mode==1 checks; it writes the two-word DL command in a shared tail (the 0x80008000 store into word 1 is after the flags-sign branch, shared by both arms); the `lw a0,0x84` reload sits after that tail. The bit-21 test uses `srl $a1,$a0,0x1f` as the sign, a separate live reg. Next: keep the goto layout of the best attempt and test the mode switch on its own (beql on mode==1 with lui in the delay slot, then slti/beqz for 0 and beq for 2, the 0x8000/0xC000 word in $v0, DL pointer loaded before the branch).",
    "by": "claude-haiku-9",
    "created_at": 1793886873.448125,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.45205,
    "score_before": 0,
    "score_after": 0
   },
@@ -97167,14 +97037,6 @@
    "text": "Best stays 305 (95.7%, source in the brief). 6 compiles this claim, none better. Tried: if/else-if chain instead of the switch (1075: target keeps the compare chain `addiu v0,1; beq; addiu v0,-0x87 in the delay slot; addiu v0,2; beq`); literal -0x87/-0x56 in the arms (325); the 0x128 load moved into the 0x18 store with no temp (925: the target stores 0x14 before loading 0x128 and keeps temp in v1, so the temp in the arg1 branch is needed); idx declared after var_v0 (305); var_v0 as s32 declared last (305); s16 var_v0 (325). Remaining diff is register only: target puts var_v0 (-0x87/0x2B) in $v0 and the switch value in $v1; ours puts var_v0 in $a1 (arg1 is dead after the branch) and the 0x128 temp in $a1. Untried: anything that keeps $a1 busy past the branch, or a form where -0x87 is loaded into the beq delay slot by source order alone.",
    "by": "claude-haiku-16",
    "created_at": 1793886874.437032,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886874.440856,
    "score_before": 0,
    "score_after": 0
   },
@@ -99911,14 +99773,6 @@
    "text": "Not matched; best stays 3805 (56.2%, goto mirror). This claim, 2 compiles, both 3805: the goto mirror as saved, and the same flow with the top test flipped (`if (v != 0) { ... } return end;`, which left the layout unchanged: ours still emits `bnez v0 -> 0x24` where the ROM has `beqz v0 -> return` with `move v0,a1` in the delay slot). The ROM's CR path also keeps a second `lb v0,(a0)` and tests `beq v0,a3` (ours folds the reload into a2). The remaining gap is the loop's top layout and the register roles ($a2 vs the ROM's $v1 for the first byte). Not closed from source shape here; the next agent should try writing the return as the last statement with the loop head as a for(;;) and check whether `move v0,a1` lands in the delay slot.",
    "by": "claude-haiku-13",
    "created_at": 1793886875.542101,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
-   "by": "claude-haiku-16",
-   "created_at": 1793886875.54578,
    "score_before": 0,
    "score_after": 0
   },
@@ -102815,14 +102669,6 @@
    "text": "Best stays 4 (99.9%). Every instruction and stack-arg store (0x10..0x24) matches; only the frame differs: target addiu -0x30 / ra at 0x28, ours -0x38 / ra at 0x30. Tried this claim: s16 prototype for s4..s9 (4, no effect); 11-arg prototype with an extra dummy 0 arg (144: frame becomes -0x40, ra 0x38, and it adds a store at 0x28, so frame grows exactly 8 per extra arg). Earlier claims: locals/pads, prototype widths, void/s32 return, unprototyped, -g (303). Reading: for ours, frame = outgoing + 16 slack where the ROM has none (ROM 10 args = 0x28 out + ra -> 0x30; ours 0x38). So the compiler here reserves 16 bytes more than the 10-arg call needs. Untested: a prototype whose 4 register params are declared as a single struct/long long pair so the home area is counted differently; or check whether func_8000BA38 in the original takes its args through a pointer (one struct arg) rather than 10 scalars, which would give 0x30 naturally. A second model should look at the frame rule before more C tries. Matched sibling needed: none found by find_similar.",
    "by": "claude-haiku-4",
    "created_at": 1793886876.6039748,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.6067,
    "score_before": 0,
    "score_after": 0
   },
@@ -109097,14 +108943,6 @@
    "created_at": 1793886895.160429,
    "score_before": 4820,
    "score_after": 3658
-  },
-  {
-   "function": "slot_update_list",
-   "text": "User's max tries reached (5/5); best attempt retained.",
-   "by": "codex-gpt-5.6-luna-low-1",
-   "created_at": 1793886895.164567,
-   "score_before": 840,
-   "score_after": 840
   },
   {
    "function": "func_80019130",
@@ -116081,14 +115919,6 @@
    "created_at": 1793886904.862294,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Best840->760 by replacing flags=0 switch result with per-case if(mask)goto next; common next label before off+=2, and arg4-first mask & operand. Target103 vs104; removed flags-init extra instruction. read_data D800A41D0 still unavailable; switch emits local .rodata and cannot link to ROM table. Tried row pointer/split address, scalar mask extern, case i instead of i-3, loop init reshaping, arg3 widths, decl order. Remaining prologue arg3/offset init scheduling, base addu order, mask address extra addiu, jump table. Full6 no-better exhausted.",
-   "by": "codex-gpt-6.1-sol-low-2",
-   "created_at": 1793886905.450956,
-   "score_before": 840,
-   "score_after": 760
   },
   {
    "function": "cos_q12",
@@ -129091,14 +128921,6 @@
    "score_after": 3060
   },
   {
-   "function": "slot_update_list",
-   "text": "Full budget local repairs: data pointer signedness same760; field declaration swap790; address temp775; merged initializers/constant local760; signed count1725; swapped k/off initialization tested. Table relocation remains unresolved, baseline retained.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886928.477907,
-   "score_before": 760,
-   "score_after": 760
-  },
-  {
    "function": "sortPartitionEntries",
    "text": "Improved14155->930 with correct34-byte align2 struct (s16 x[16],u16 key), global Rec* and u16* index. Struct assignment emits runtime alignment branch plus exact copy loops. Remove explicit lo/hi offset counters: compiler generates IVs itself, avoiding duplicate IVs (2455->1185). break then return right after loop fixes return scheduling (930). Remaining six missing multiply instructions at start of searches due compiler reusing generated IVs, register swaps t1/t3/t2/t4. Earlier uninitialized-hi diagnostic variant was invalid and superseded by valid930. Flags search no-strength-reduce closer on old source but no exact match.",
    "by": "codex-gpt-6.1-sol-low-7",
@@ -134563,14 +134385,6 @@
    "score_after": 7097
   },
   {
-   "function": "slot_update_list",
-   "text": "Full6 no-improvement budget. Local families unchanged; commuted table sum to address target operand order. Remaining external switch table relocation, prologue ordering and mask base rematerialization. Best760 retained.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886945.454615,
-   "score_before": 760,
-   "score_after": 760
-  },
-  {
    "function": "func_80037AA4",
    "text": "Full8 budget retained145. Local families, same-line result/call, reversed multiply, explicit scale/value, volatile scale and double multiply no gain. Remaining final FP f0/f2 allocation and result save scheduling.",
    "by": "codex-gpt-6.1-sol-low-5",
@@ -136481,14 +136295,6 @@
    "created_at": 1793886948.3327308,
    "score_before": 10555,
    "score_after": 9780
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Retested six local repair variants and removed unused flags declaration; full no-better budget, best760 unchanged. Remaining prologue order, mask addressing and external jump-table relocation.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886948.349747,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "func_80035B04",
@@ -138551,14 +138357,6 @@
    "text": "Full budget. Volatile entry, subtraction tail comparison, alternate return, and source line at inactive test fail to improve350. Entry likely bit and redundant constant remain.",
    "by": "codex-gpt-6.1-sol-low-6",
    "created_at": 1793886951.500801,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Seven compiles; baseline760 unchanged. Local address temporary775, field swap790, signed count1725; removed unused flags no change. External switch table relocation plus prologue and mask addressing remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886951.504245,
    "score_before": 0,
    "score_after": 0
   },
@@ -140783,14 +140581,6 @@
    "text": "Exhausted six consecutive nonimproving compiles. Narrow found/cur final probes; signed index335, declaration155 constant139; neutral others135. Cannot rotate a2/a3 via local changes; best preserved.",
    "by": "codex-gpt-6.1-sol-low-6",
    "created_at": 1793886953.763776,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Full budget six local repairs plus unused flags removal; best760 retained. External jump-table relocation and mask/prologue allocation remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886953.767445,
    "score_before": 0,
    "score_after": 0
   },
@@ -143271,14 +143061,6 @@
    "text": "Compiled semantically correct object-base source d2a81155bf66ffb0d10b score205. Historical40 source invalid: shifted loads at34/30/B4, halfword stores and D3 increment. Correct source loads all those from obj, destination slot from arg0+idx, halfword arrays obj+idx*2. Six local signedness/constant/sum/declaration/line/address variants all205. Missing initial a2=a0 and rotated base/slot registers remain. Prefer correct205 over invalid40.",
    "by": "codex-gpt-6.1-sol-low-5",
    "created_at": 1793886955.905396,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Full6 stagnation budget retained760. Local signedness/data, field order790, address staging775, signed count1725, constant and source lines neutral; removed unused flags also neutral. External switch .rodata relocation and remaining prologue/mask address scheduling unresolved.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886955.90814,
    "score_before": 0,
    "score_after": 0
   },
@@ -146515,14 +146297,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Full budget local repairs and unused flags removal. Best760 preserved; address staging775, field order790, signed count1725. Jump-table .rodata relocation and prologue/mask scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886958.459113,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80088008",
    "text": "Corrected invalid historical90 reversed byte order. Valid100 revision1fc8a8679f2681c81420 first/third bytes high, t1+=a2<<8;a2=t1. Six source/address trials identical100. Preserve valid semantics; remaining20 regalloc.",
    "by": "codex-gpt-6.1-sol-low-5",
@@ -149179,14 +148953,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Full budget retained760. Local layout swap790/address staging775, remaining line/type/constant trials neutral. Removed unused flags neutral; commuted address sum tested. External switch rodata relocation, prologue and mask address scheduling remain.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886960.3256378,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800821A4",
    "text": "Six compiled local trials all515: dst/n signedness, n/bytes declaration moves and joined setup lines. Saved len/global pointer and copy cursor register cascade unresolved; baseline retained.",
    "by": "codex-gpt-6.1-sol-low-5",
@@ -149721,14 +149487,6 @@
    "created_at": 1793886960.620645,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Full6 plateau. Six local probes retained760, unsigned switch discriminator same expression tested. External .rodata jump-table reference and prologue/mask scheduling unresolved.",
-   "by": "codex-gpt-6.1-sol-low-6",
-   "created_at": 1793886960.626135,
-   "score_before": 760,
-   "score_after": 760
   },
   {
    "function": "func_8003946C",
@@ -155073,14 +154831,6 @@
    "created_at": 1793886967.478863,
    "score_before": 610,
    "score_after": 475
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Local repairs and initialization-order trial did not improve 760; swapping counters worsened register allocation. Jump-table relocation, prologue and mask scheduling remain.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886967.497631,
-   "score_before": 760,
-   "score_after": 345
   },
   {
    "function": "func_8002B7D4",
@@ -168251,14 +168001,6 @@
    "score_after": 610
   },
   {
-   "function": "slot_update_list",
-   "text": "Compiled the saved candidate and preserved the strongest available result; no additional structural repair attempted in this short pass.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886990.287471,
-   "score_before": 760,
-   "score_after": 760
-  },
-  {
    "function": "func_8003B008",
    "text": "Retained 610 baseline after declaration ordering and six local repairs; sign-arm scheduling and four missing instructions remain as prior notes describe.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -169449,14 +169191,6 @@
    "created_at": 1793886994.318491,
    "score_before": 240,
    "score_after": 240
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Removed unused flags; score760 unchanged. Full local repair plateau; remaining switch external rodata relocation and prologue scheduling require original source switch shape.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886994.339463,
-   "score_before": 760,
-   "score_after": 335
   },
   {
    "function": "func_8005D4A4",
@@ -174475,14 +174209,6 @@
    "score_after": 355
   },
   {
-   "function": "slot_update_list",
-   "text": "Six local repair variants and switch discriminator trial retained 760; jump-table relocation and prologue/register scheduling remain.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793887001.623345,
-   "score_before": 760,
-   "score_after": 760
-  },
-  {
    "function": "atan2_angle4096",
    "text": "Retained best 220. Tested remaining local repairs, inline conversions, register declarations, and reversed addition; remaining mismatch is FP register allocation and mov.d in early branch delay slot.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -175919,14 +175645,6 @@
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793887003.798147,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Compiled saved candidate at score 760. Remaining differences are prologue ordering and external rodata relocation; prior agents exhausted local repairs, and current compile confirms plateau.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887003.7581959,
    "score_before": 0,
    "score_after": 0
   },
@@ -177665,14 +177383,6 @@
    "created_at": 1793887005.5719948,
    "score_before": 1515,
    "score_after": 1430
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Found semantic error in historical515: call path overwrites loop i with selector and indexes selector*18. Target keeps s0 loop index, reloads selector v1 and indexes selector*34 + off. Correct alternative3ecef020d4d98f129c4a scores2410. Six further local repairs neutral/worse. Preserve correction; reported candidate issue. Remaining prologue/register allocation and switch rodata relocation.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887005.60639,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "func_80012638",
@@ -180091,14 +179801,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Candidate-quality review 2026-10-30 | loop_mutation | retained pause: correction/validation needed | source 47761d01d0f1dee8c45c. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Saved candidate overwrites i with D_800C02AE[0x7678] on call path and uses it twice for table index. Target80019720-40 reloads selector in v1, uses independent byte offset s1, and80019764 increments original s0 once. Correct alternative preserves i and uses off plus selector*34. This is a targeted quality review, not proof of full semantic equivalence.",
-   "by": "you",
-   "created_at": 1793887008.6367989,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80069734",
    "text": "Candidate-quality review 2026-10-30 | wrong_value | retained pause: correction/validation needed | source 3e4732ad6c087f305713. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Historical 1690 candidate is semantically invalid: __repair_addr is computed before loop_9 and never updated as var_v0_2 changes. Corrected revision 165d79a66ef6c5821531 scores 1710; preserve it despite best-score retention. Six local repairs did not improve corrected source; global load and scan register allocation remain. This is a targeted quality review, not proof of full semantic equivalence.",
    "by": "you",
@@ -181859,14 +181561,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Improved515\u2192350 with semantically correct c9496d477148d68583f6: selector in base, val table index selector*34+off, preserve i. Six local trials equal/worse. Remaining prologue scheduling and generated switch .rodata relocation versus D800A41D0.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887013.5247612,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "league_season_setup",
    "text": "Tried twelve local branch, signedness, declaration, source line, call and width variants; none improved score 660. Remaining differences involve pointer registers and loop scheduling.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -182231,14 +181925,6 @@
    "text": "Compiled mutable unused (valid C)360, reordered count/table365, condition saved360, register unused360. Full plateau. Historical45 invalid const assignment remains under existing quality review; alternative320 still best valid known. No new correction report needed.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793887013.716923,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Tried switch layout, signedness, declaration order, source lines and constant staging; retained 345. Remaining jump table relocation and register/prologue scheduling.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793887013.7197351,
    "score_before": 0,
    "score_after": 0
   },
@@ -185447,14 +185133,6 @@
    "text": "Unable to improve after bounded repairs; release for later agent. Candidate score 2917; complex switch/control-flow typing remains.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793887017.064971,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Improved345\u2192335 with integer address addition: inline_fn returns (s16*)(arg0+((s32)arg1+arg2*arg3)); val load (s16*)(off+((s32)new_var2+base*34)). Forces both target s1-first additions. Six subsequent variants no improvement: switch385, data signed tie335, field order365, source/constant tie. Remaining prologue scheduling and switch rodata relocation.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887017.067967,
    "score_before": 0,
    "score_after": 0
   },
@@ -196699,14 +196377,6 @@
    "score_after": 1375
   },
   {
-   "function": "slot_update_list",
-   "text": "At 335 (96.7%). Only prologue save-order and the switch jump table relocation (local .rodata vs D_800A41D0) remain; no source variant (signedness, static fix) changes them.",
-   "by": "claude-sonnet-5-5-1",
-   "created_at": 1793887028.206933,
-   "score_before": 335,
-   "score_after": 335
-  },
-  {
    "function": "func_8000DD40",
    "text": "Stays at 90 (99.1%). gfx cursor gets a0 instead of target v1 (14 regalloc) + 2 relocation operands; declaration reorder no effect. Exhausted by many prior agents too.",
    "by": "claude-sonnet-5-5-1",
@@ -198947,14 +198617,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-283",
-   "created_at": 1793887037.221429,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80015780",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-243",
@@ -200627,14 +200289,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-283",
-   "created_at": 1793887037.221429,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "stream_fill_envelope",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-453",
@@ -200847,14 +200501,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W2.permuter-704",
    "created_at": 1793887037.218705,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W2.permuter-283",
-   "created_at": 1793887037.221429,
    "score_before": 0,
    "score_after": 0
   },
@@ -206127,14 +205773,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-723",
    "created_at": 1793887045.523574,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
    "score_before": 0,
    "score_after": 0
   },
@@ -210523,14 +210161,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800169DC",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-258",
@@ -210979,14 +210609,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "game_main",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-146",
@@ -211379,14 +211001,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8006CCD0",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1442",
@@ -211607,14 +211221,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1766",
    "created_at": 1793887045.740902,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
    "score_before": 0,
    "score_after": 0
   },
@@ -215419,14 +215025,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "render_state_apply",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-93",
@@ -215559,14 +215157,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-982",
    "created_at": 1793887045.330156,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
    "score_before": 0,
    "score_after": 0
   },
@@ -216587,14 +216177,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8008B5DC",
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-1865",
@@ -216911,14 +216493,6 @@
    "text": "Deep permutation turn ended; improvements shared.",
    "by": "W3.permuter-594",
    "created_at": 1793887045.5509279,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Deep permutation turn ended; improvements shared.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887045.5537028,
    "score_before": 0,
    "score_after": 0
   },
@@ -222563,14 +222137,6 @@
    "score_after": 390
   },
   {
-   "function": "slot_update_list",
-   "text": "Clean continue-style rewrite scored 1185 (worse than 335 goto-next version). Switch jump table: target uses D_800A41D0, mine emits local .rodata; prologue order differs. Keep 335 version. Can't get closer now.",
-   "by": "W3.claude-sonnet-5-5-low-4",
-   "created_at": 1793887048.286725,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "draw_select_screen_options",
    "text": "Deep run2494eebc4834: valid2281 ->2221 by replacing row_other empty do/while(0) with empty block. Later2031 is INVALID partial: random reuse stores 32-bit field40 pointer into u16 temp_s0_3. Do not use2031 as valid source. Full-width best2221 preserved at /Volumes/Data/Codex/tmp/f73b64/deep2281-best2221.c. Linked exact remains false.",
    "by": "you",
@@ -225371,14 +224937,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Low progress after 40 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 7; 32 differing rows.\nTarget: sw $ra, 0x3c($sp)\nCandidate: sw $s7, 0x34($sp)\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
-   "by": "W3.claude-sonnet-1",
-   "created_at": 1793887049.690149,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "route_interp_point",
    "text": "Tried a clean version with lo/hi index selected in branch and a/b u16* recomputed per component: 2505 (worse than 845). Target uses two separate branch-body index computations (a1/a3 computed after the branch, not shared), so the shared hoist differs. Remaining: register allocation (arg0->t2, arg3->t4) and branch layout. Only 1 compile this session.",
    "by": "W3.claude-sonnet-5-5-low-2",
@@ -226179,14 +225737,6 @@
    "score_after": 0
   },
   {
-   "function": "slot_update_list",
-   "text": "Deep permuter: score 335 \u2192 335; 0 improvements; 36 candidates tested; 0 cached skips; 0 rejected; 119s elapsed. Budget rotation: repeated function output without improvement.",
-   "by": "W3.permuter-283",
-   "created_at": 1793887050.03706,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80029AA8",
    "text": "Deep permuter: score 135 \u2192 135; 0 improvements; 300 candidates tested; 31 cached skips; 0 rejected; 572s elapsed. Variant limit reached.",
    "by": "W3.permuter-579",
@@ -226807,14 +226357,6 @@
    "text": "Best 230 (97.8%). Switch on a3, cases 0..6 are blocks, 7..11 break to the common tail (needed for the 0xC range), default returns. Everything matches except the flag byte at D_800C02AE+0x80BE in case 1: the target makes two separate address computations (lui v1 + lbu for the test, lui at + sb for the store, both with %hi(D_800C02AE+0x17cf3) / lo -0x7c94), while mine CSEs them into one lui a0 + addiu + lbu/sb. Tried: array index, pointer cast form, store-before/after-call order (store-first makes it worse, 580). Remaining suspicion: the original reaches that byte through a different base symbol (bss 0x800C7FA1 = D_800C02AE+0x7CF3 is the same region the tail reads). Not explored: a struct overlay at 0x800C7FA1 or a volatile-free second pointer. Not a boundary or flags issue as far as I can see.",
    "by": "W3.claude-haiku-3",
    "created_at": 1793887050.269124,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "slot_update_list",
-   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
-   "by": "W3.claude-haiku-1",
-   "created_at": 1793887050.2724328,
    "score_before": 0,
    "score_after": 0
   },
@@ -232265,14 +231807,6 @@
    "created_at": 1793887063.403327,
    "score_before": 975,
    "score_after": 975
-  },
-  {
-   "function": "slot_update_list",
-   "text": "A clean rewrite scores 40 (saved best). It uses `extern s16 D_8009CB34[][17]`, `extern u16 D_8009C4E6[][2]`, a plain `for (i...)` with `continue`s, and a `switch (i)` with cases 3-7 that test bits 0x8000/0x4000/0x800/0x2000/0x1000 of *(u16*)(D_800C02AE+0x767E), plus empty cases 8-11. The call is func_80019314(arg0->data + i*36, arg1+v, arg2+v, arg3). The only remaining diff: the two strength-reduced induction variables get swapped registers. The target has i*2 (table offset) in s1 and i*36 (data) in s2; mine has them the other way round. Already tried with no change: &data[i*36], (s32*)data + i*9, a 36-byte struct array &data[i], and rewriting the conditions as `if (a && b) {} else continue`. An explicit `k += 36` counter in the for increment was much worse (925: it creates bltzl/beql). Ideas not tried yet: an explicit `off += 2` byte-offset variable for the CB34 access (as the old 335 candidate did) combined with the clean structure; a pointer `s16 *row = D_8009CB34[sel]`; changing which expression mentions i first.",
-   "by": "claude-opus-10",
-   "created_at": 1793887063.41087,
-   "score_before": 335,
-   "score_after": 40
   },
   {
    "function": "gfx_set_render_mode",
@@ -264385,6 +263919,486 @@
    "created_at": 1793887050.3490949,
    "score_before": 0,
    "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886867.202998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.337038,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.4447732,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.45205,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886874.440856,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886875.54578,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.6067,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886867.202998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.337038,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.4447732,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.45205,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886874.440856,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886875.54578,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.6067,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886867.202998,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best now 840 (91.8%), up from 1700. Why it cannot get closer from C alone: the switch becomes its own .rodata jump table ('refers to .rodata+0x0 where the ROM's code has no address'), while the ROM loads the table from D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it). read_data cannot read D_800A41D0 (not in a loaded ROM part), so the table's symbol and contents are unknown and the jump can't line up. Changes that helped: the loop offset `off` (= 2*i, a char offset into D_8009CB34: `*(s16 *)((char *)D_8009CB34 + base * 2 + off)`) kept separate from i and k; nested ifs with `off += 2; k += 0x24;` at the single loop tail; declaration order i, off, k gives the ROM's roles ($s0=i, $s1=off, $s2=k). Remaining small diffs: prologue register set (ROM: arg0 $s3, arg1 $s5, arg2 $s6, arg3 $s7; ours arg0 $s2), and `and v0,t0,v0` operand order. Next step for whoever picks it up: find the bytes at D_800A41D0 (the case table) and check case order 0..4 vs 5..8 (5..8 go to the call path).",
+   "by": "claude-haiku-14",
+   "created_at": 1793886872.337038,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019608 matches with it. Match func_80019608 as usual; then try_compiler(\"func_80019608\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.4447732,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Releasing now, with the reason it can't get closer from C: the blocker is the switch's jump table. Our C makes a local .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"), while the ROM loads its table from external D_800A41D0 (`lui $fp,%hi(D_800A41D0)`; lw/jr through it), and that table is not in a loaded ROM part, so its contents can't be read here. Best stays 840 (91.8%). Secondary diffs (register set: arg3 in $s7, k in $s2; mask andi placement in the switch arms) can't be settled until the table question is. Whoever can confirm the bytes at D_800A41D0 should decide whether this can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.45205,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-5-5: can't get closer from C. The ROM's switch jumps through the table at D_800A41D0 (lui $fp / lw / jr), and a C switch makes its own .rodata table ('refers to .rodata+0x0'); no C form reproduces an external table. Best stays 840 (91.8%). Also noted: arg3 sits in $s7 in the ROM with the prologue order sw $ra/$fp/$s7/$s2, ours shifts it. Released on request with this reason; the table contents at D_800A41D0 would settle it.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886874.440856,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "claude-haiku-16: kept 840 (91.8%). Can't get closer from here: the switch becomes a local .rodata table (\"your code refers to .rodata+0x0\") while the ROM jumps through the external table at D_800A41D0, which read_data reports as not in a loaded part of the ROM, so its contents can't be read. Secondary diffs (prologue register set, arg3 in $s7, andi operand order in the switch arms) wait on that table question.",
+   "by": "claude-haiku-16",
+   "created_at": 1793886875.54578,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Compiled the best source once more: 840, unchanged. Blocked by the switch's jump table: the ROM jumps through the external table at D_800A41D0 (lui $fp / addiu / lw / jr), while a C switch emits its own .rodata table (\"your code refers to .rodata+0x0 where the ROM's code has no address\"). read_data says D_800A41D0 is not in a loaded part of the ROM, so its bytes (case order) can't be checked. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 gives the same 840, so flags aren't the cause. Secondary diffs (prologue regs: arg3 in $s7; `and` operand order; lui $t0 vs $at for D_8009C4E6) wait on the table. Retry if the table's bytes become readable.",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.6067,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "User's max tries reached (5/5); best attempt retained.",
+   "by": "codex-gpt-5.6-luna-low-1",
+   "created_at": 1793886895.164567,
+   "score_before": 840,
+   "score_after": 840
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best840->760 by replacing flags=0 switch result with per-case if(mask)goto next; common next label before off+=2, and arg4-first mask & operand. Target103 vs104; removed flags-init extra instruction. read_data D800A41D0 still unavailable; switch emits local .rodata and cannot link to ROM table. Tried row pointer/split address, scalar mask extern, case i instead of i-3, loop init reshaping, arg3 widths, decl order. Remaining prologue arg3/offset init scheduling, base addu order, mask address extra addiu, jump table. Full6 no-better exhausted.",
+   "by": "codex-gpt-6.1-sol-low-2",
+   "created_at": 1793886905.450956,
+   "score_before": 840,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full budget local repairs: data pointer signedness same760; field declaration swap790; address temp775; merged initializers/constant local760; signed count1725; swapped k/off initialization tested. Table relocation remains unresolved, baseline retained.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886928.477907,
+   "score_before": 760,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full6 no-improvement budget. Local families unchanged; commuted table sum to address target operand order. Remaining external switch table relocation, prologue ordering and mask base rematerialization. Best760 retained.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886945.454615,
+   "score_before": 760,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Retested six local repair variants and removed unused flags declaration; full no-better budget, best760 unchanged. Remaining prologue order, mask addressing and external jump-table relocation.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886948.349747,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Seven compiles; baseline760 unchanged. Local address temporary775, field swap790, signed count1725; removed unused flags no change. External switch table relocation plus prologue and mask addressing remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886951.504245,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full budget six local repairs plus unused flags removal; best760 retained. External jump-table relocation and mask/prologue allocation remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886953.767445,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full6 stagnation budget retained760. Local signedness/data, field order790, address staging775, signed count1725, constant and source lines neutral; removed unused flags also neutral. External switch .rodata relocation and remaining prologue/mask address scheduling unresolved.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886955.90814,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full budget local repairs and unused flags removal. Best760 preserved; address staging775, field order790, signed count1725. Jump-table .rodata relocation and prologue/mask scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886958.459113,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full budget retained760. Local layout swap790/address staging775, remaining line/type/constant trials neutral. Removed unused flags neutral; commuted address sum tested. External switch rodata relocation, prologue and mask address scheduling remain.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886960.3256378,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Full6 plateau. Six local probes retained760, unsigned switch discriminator same expression tested. External .rodata jump-table reference and prologue/mask scheduling unresolved.",
+   "by": "codex-gpt-6.1-sol-low-6",
+   "created_at": 1793886960.626135,
+   "score_before": 760,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Local repairs and initialization-order trial did not improve 760; swapping counters worsened register allocation. Jump-table relocation, prologue and mask scheduling remain.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886967.497631,
+   "score_before": 760,
+   "score_after": 345
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Compiled the saved candidate and preserved the strongest available result; no additional structural repair attempted in this short pass.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886990.287471,
+   "score_before": 760,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Removed unused flags; score760 unchanged. Full local repair plateau; remaining switch external rodata relocation and prologue scheduling require original source switch shape.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886994.339463,
+   "score_before": 760,
+   "score_after": 335
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Six local repair variants and switch discriminator trial retained 760; jump-table relocation and prologue/register scheduling remain.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793887001.623345,
+   "score_before": 760,
+   "score_after": 760
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Compiled saved candidate at score 760. Remaining differences are prologue ordering and external rodata relocation; prior agents exhausted local repairs, and current compile confirms plateau.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887003.7581959,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Found semantic error in historical515: call path overwrites loop i with selector and indexes selector*18. Target keeps s0 loop index, reloads selector v1 and indexes selector*34 + off. Correct alternative3ecef020d4d98f129c4a scores2410. Six further local repairs neutral/worse. Preserve correction; reported candidate issue. Remaining prologue/register allocation and switch rodata relocation.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887005.60639,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Candidate-quality review 2026-10-30 | loop_mutation | retained pause: correction/validation needed | source 47761d01d0f1dee8c45c. Retain pause: report identifies a current-source semantic concern or requires target-level validation. A recorded lower assembly score is insufficient to dismiss it. Saved candidate overwrites i with D_800C02AE[0x7678] on call path and uses it twice for table index. Target80019720-40 reloads selector in v1, uses independent byte offset s1, and80019764 increments original s0 once. Correct alternative preserves i and uses off plus selector*34. This is a targeted quality review, not proof of full semantic equivalence.",
+   "by": "you",
+   "created_at": 1793887008.6367989,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Improved515\u2192350 with semantically correct c9496d477148d68583f6: selector in base, val table index selector*34+off, preserve i. Six local trials equal/worse. Remaining prologue scheduling and generated switch .rodata relocation versus D800A41D0.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887013.5247612,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Tried switch layout, signedness, declaration order, source lines and constant staging; retained 345. Remaining jump table relocation and register/prologue scheduling.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793887013.7197351,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Improved345\u2192335 with integer address addition: inline_fn returns (s16*)(arg0+((s32)arg1+arg2*arg3)); val load (s16*)(off+((s32)new_var2+base*34)). Forces both target s1-first additions. Six subsequent variants no improvement: switch385, data signed tie335, field order365, source/constant tie. Remaining prologue scheduling and switch rodata relocation.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887017.067967,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "At 335 (96.7%). Only prologue save-order and the switch jump table relocation (local .rodata vs D_800A41D0) remain; no source variant (signedness, static fix) changes them.",
+   "by": "claude-sonnet-5-5-1",
+   "created_at": 1793887028.206933,
+   "score_before": 335,
+   "score_after": 335
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-283",
+   "created_at": 1793887037.221429,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-283",
+   "created_at": 1793887037.221429,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W2.permuter-283",
+   "created_at": 1793887037.221429,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permutation turn ended; improvements shared.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887045.5537028,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Clean continue-style rewrite scored 1185 (worse than 335 goto-next version). Switch jump table: target uses D_800A41D0, mine emits local .rodata; prologue order differs. Keep 335 version. Can't get closer now.",
+   "by": "W3.claude-sonnet-5-5-low-4",
+   "created_at": 1793887048.286725,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Low progress after 40 scored trials: at most 1% score reduction over the recent window. Best source retained. Next evidence: Mismatch focus: constants / addresses; first differing row 7; 32 differing rows.\nTarget: sw $ra, 0x3c($sp)\nCandidate: sw $s7, 0x34($sp)\nUse get_assembly(focus=\"mismatch\") for nearby instructions.",
+   "by": "W3.claude-sonnet-1",
+   "created_at": 1793887049.690149,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Deep permuter: score 335 \u2192 335; 0 improvements; 36 candidates tested; 0 cached skips; 0 rejected; 119s elapsed. Budget rotation: repeated function output without improvement.",
+   "by": "W3.permuter-283",
+   "created_at": 1793887050.03706,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "Best score 1700 (83%) by the struct version (see best attempt). Tried since: explicit cases 5..8 with the byte-offset mask index (no change, 1700), and a row-pointer version that hoists D_800C02AE[0x7678]*17 out of the loop (2605, worse; the compiler then reuses s0/s1 wrongly). Left: the target keeps the loop row offset in s1 (2*i) and k in s2, with the 2*i row address folded into one addu, and fp = the ROM's jump table D_800A41D0. My switch makes its own .rodata table, so the build reports 'refers to .rodata+0' and the table cannot line up with the ROM's. This needs the jump table's real contents (not readable here: D_800A41D0 is not in a loaded part of the ROM) and a loop shape that keeps i and 2*i separate. Suggest someone who can read D_800A41D0 check the case order first.",
+   "by": "W3.claude-haiku-1",
+   "created_at": 1793887050.2724328,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "slot_update_list",
+   "text": "A clean rewrite scores 40 (saved best). It uses `extern s16 D_8009CB34[][17]`, `extern u16 D_8009C4E6[][2]`, a plain `for (i...)` with `continue`s, and a `switch (i)` with cases 3-7 that test bits 0x8000/0x4000/0x800/0x2000/0x1000 of *(u16*)(D_800C02AE+0x767E), plus empty cases 8-11. The call is func_80019314(arg0->data + i*36, arg1+v, arg2+v, arg3). The only remaining diff: the two strength-reduced induction variables get swapped registers. The target has i*2 (table offset) in s1 and i*36 (data) in s2; mine has them the other way round. Already tried with no change: &data[i*36], (s32*)data + i*9, a 36-byte struct array &data[i], and rewriting the conditions as `if (a && b) {} else continue`. An explicit `k += 36` counter in the for increment was much worse (925: it creates bltzl/beql). Ideas not tried yet: an explicit `off += 2` byte-offset variable for the CB34 access (as the old 335 candidate did) combined with the clean structure; a pointer `s16 *row = D_8009CB34[sel]`; changing which expression mentions i first.",
+   "by": "claude-opus-10",
+   "created_at": 1793887063.41087,
+   "score_before": 335,
+   "score_after": 40
   }
  ],
  "set_aside": [
@@ -289490,10 +289504,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516047.0134668,
-    "attempt_id": 4294972637,
-    "source_sha256": "28ac6b9653553d4c8263bb6b33fd11ddae642ef476d1349f540b68845b10ddb6",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794602931.140374,
+    "attempt_id": 4294974497,
+    "source_sha256": "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -289533,7 +289547,7 @@
       ],
       "timeout": 20
      },
-     "settings_source": "compile invocation snapshot",
+     "settings_source": "project configuration at recording; temporary compile overrides may differ",
      "gp": 0,
      "big_endian": true,
      "rom": {
@@ -289542,22 +289556,6 @@
       "region": "Europe",
       "byte_order": "z64"
      },
-     "effective_command": [
-      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
-      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
-      "-c",
-      "-G0",
-      "-mips3",
-      "-mgp32",
-      "-mfp32",
-      "-O2",
-      "-g3",
-      "-I{include}",
-      "{src}",
-      "-o",
-      "{obj}"
-     ],
-     "language": "c",
      "context_unit": "",
      "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
      "context_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55"
@@ -450687,7 +450685,8 @@
    "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a": "extern char stream_state[];\n#define gStreamGroups (*(char **)(stream_state + 0x10386))\n#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))\nstatic inline int groupIdxInRange(s32 groupIdx)\n{\n  return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);\n}\n\nstatic inline int slotInGroup(s32 slot, char *group)\n{\n  return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));\n}\n\n/* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group\n * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group\n * mask table at stream_state+0x327E. Stops after the first match. */\nvoid markStreamSlotsByTag(s32 tag)\n{\n  s32 slot;\n  s32 slotIdx;\n  s32 zero;\n  u32 groupIdx;\n  u16 found;\n  s32 group;\n  char *groupBase;\n  char *groupPtr;\n\n  found = 1;\n  groupBase = gStreamGroups;\n  group = 0;\n  groupPtr = (char *)groupBase + 0x14;\n  if (gStreamGroupCount != 0)\n  {\n    zero = 0;\n    do\n    {\n      slot = 0;\n      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)\n      {\n        groupIdx = group & 0xFF;\n        do\n        {\n          slotIdx = slot & 0xFF;\n          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))\n          {\n            found = 0;\n            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);\n          }\n          slot += 1;\n        }\n        while (found & slotInGroup(slot, groupBase));\n      }\n      groupPtr += 0x2C4;\n      groupBase += 0x2C4;\n      group += 1;\n    }\n    while (found & groupIdxInRange(group));\n  }\n}\n",
    "9397a5efb4d886d69a378dfd0b8e2da00b4a386d0a2bc837f066988b88bac21f": "extern char gOrderState[];\nvoid osSendMesg(char *a, int b, int c);\n/* Posts a zero-valued blocking message to the order state's message queue. */\nvoid order_post_wakeup(void) { osSendMesg(gOrderState + 0x87A8, 0, 0); }\n",
    "1008677efd6c98c7e817a3fbbf78fe089291c168dded1b4fe2c162d5bf033bee": "extern int D_800D0658;\nextern void *gSelectState;\nextern char D_800A5F9C[];\nextern char D_800A5FAC[];\ns32 getTexturePack();\ns32 func_8007A794();\ns32 resolve_path();\ns32 appendString();\n\n/* Takes the first 5 characters of the currently selected entry's name (entries are 0x2C4 bytes,\n * the selection index is at gSelectState+0x237), appends the suffix D_800A5FAC to it and stores the\n * texture pack id that results in gSelectState+0x1E4. */\nvoid select_load_texture_pack(void)\n{\n    char name[16];\n    char *namePtr;\n    u8 i;\n    char *entry;\n\n    func_8007A794();\n    resolve_path(D_800A5F9C);\n    entry = (char *)(D_800D0658 + *((u8 *)((char *)gSelectState + 0x237)) * 0x2C4);\n    i = 0;\n    do\n    {\n        name[i] = entry[i];\n        i++;\n    } while (i < 5);\n    namePtr = name;\n    namePtr[i] = 0;\n    appendString(namePtr, D_800A5FAC);\n    *((s32 *)((char *)gSelectState + 0x1E4)) = getTexturePack(namePtr, 0);\n}",
-   "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n"
+   "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n",
+   "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395": "extern u8 stream_state[];\nextern s16 gSlotArgOffsets[][17];\nextern u16 gSlotMasks[][2];\ntypedef struct\n{\n  u8 *data;\n  u16 count;\n} SlotList;\nvoid func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);\n/* Runs each slot in the list whose bit is set in `mask` and that is not disabled\n   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The\n   slot's data is at list->data + i * 36. */\nvoid slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)\n{\n  s32 i;\n  s32 sel;\n  int slot_off;\n  s32 off;\n  for (i = 0; i < list->count; i++)\n  {\n    sel = stream_state[0x7678];\n    if (gSlotArgOffsets[sel][i] < 0)\n    {\n      continue;\n    }\n    if (!(mask & gSlotMasks[(sel * 17) + i][0]))\n    {\n      continue;\n    }\n    switch (i)\n    {\n      case 3: case 5:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)\n      {\n        continue;\n      }\n        break;\n\n      case 4: case 6:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)\n      {\n        continue;\n      }\n        break;\n\n      case 10:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)\n      {\n        continue;\n      }\n        break;\n\n      case 11:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)\n      {\n        continue;\n      }\n        break;\n\n      case 9:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)\n      {\n        continue;\n      }\n        break;\n\n      case 7:\n\n      case 8:\n        break;\n\n    }\n\n    slot_off = i * 36;\n    off = gSlotArgOffsets[stream_state[0x7678]][i];\n    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);\n  }\n\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",

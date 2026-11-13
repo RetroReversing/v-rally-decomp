@@ -8,7 +8,7 @@ typedef struct
 } SlotList;
 void func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);
 /* Runs each slot in the list whose bit is set in `mask` and that is not disabled
-   by the game flags at 0x767E (slots 3..7 each have their own bit there). The
+   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The
    slot's data is at list->data + i * 36. */
 void slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)
 {
@@ -29,48 +29,44 @@ void slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask
     }
     switch (i)
     {
-      case 3:
+      case 3: case 5:
         if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)
       {
         continue;
       }
         break;
 
-      case 4:
+      case 4: case 6:
         if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)
       {
         continue;
       }
         break;
 
-      case 5:
+      case 10:
         if ((*((u16 *) (stream_state + 0x767E))) & 0x800)
       {
         continue;
       }
         break;
 
-      case 6:
+      case 11:
         if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)
       {
         continue;
       }
         break;
 
-      case 7:
+      case 9:
         if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)
       {
         continue;
       }
         break;
 
+      case 7:
+
       case 8:
-
-      case 9:
-
-      case 10:
-
-      case 11:
         break;
 
     }
