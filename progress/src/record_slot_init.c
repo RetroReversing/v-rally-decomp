@@ -21,8 +21,8 @@ extern s32 D_800A50B0;
 extern u8 *gRecords;
 extern s32 strCmp(u8 *, u8 *);
 
-/* Sets the 0x44 field of record slot `slot` from a per-code constant (default
- * D_800A5074) and then checks the other slots' links; repeats with the next
+/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow
+ * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next
  * code until all four are consistent. */
 void record_slot_init(s32 slot, s32 code)
 {
@@ -81,7 +81,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 5:
+      case 6:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;
 #else
@@ -89,7 +89,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 6:
+      case 7:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;
 #else
@@ -97,7 +97,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 7:
+      case 8:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;
 #else
@@ -105,7 +105,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 8:
+      case 9:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;
 #else
@@ -113,7 +113,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 9:
+      case 10:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;
 #else
@@ -121,7 +121,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 10:
+      case 11:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;
 #else
@@ -129,7 +129,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 11:
+      case 12:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;
 #else
@@ -137,7 +137,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 12:
+      case 13:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;
 #else
@@ -145,7 +145,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 13:
+      case 14:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;
 #else
@@ -153,7 +153,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 14:
+      case 16:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;
 #else
@@ -161,7 +161,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 15:
+      case 17:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;
 #else
@@ -169,7 +169,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 16:
+      case 19:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;
 #else
@@ -177,7 +177,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 17:
+      case 20:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;
 #else
@@ -185,7 +185,7 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 18:
+      case 22:
 #ifdef PORT
         *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;
 #else
@@ -193,13 +193,13 @@ void record_slot_init(s32 slot, s32 code)
 #endif
         break;
 
-      case 19:
+      case 5:
 
-      case 20:
+      case 15:
+
+      case 18:
 
       case 21:
-
-      case 22:
 
       default:
 #ifdef PORT

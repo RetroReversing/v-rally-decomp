@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794606352.4034922,
- "revision": 21821,
+ "saved_at": 1794606440.471518,
+ "revision": 21823,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1304,6 +1304,20 @@
    "timeout": 20,
    "function": "select_load_texture_pack",
    "vram": 2147985104
+  },
+  "346152:2147826728": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "record_slot_init",
+   "vram": 2147826728
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -33605,14 +33619,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886867.233736,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "alEnvmixerPull",
    "text": "Best so far 30479 (10%). Not close, and I am releasing it because a real match needs far more rounds than this session has. What the asm shows: the outer loop walks a linked list at arg0+0x1C/0x3C (node type = lh 8(node), a switch of 17 cases via jump table D_800A7080 with sltiu 0x11), with a per-node length step (s2 = node+4 minus the previous value, clamped to [0, 0xA0] with two calls to func_800914E0 on out-of-range, strings D_800A7070/D_800A7074), and a float path (cvt.s.w / func_80093254 / trunc.w.s) when two node fields are compared. The arg0 struct is fn at +8, flag at +0x30/+0x38, value at +0x34, short fields +0x18..+0x2E, node pointer at +0x3C. My C has the loop shape and the outer prototype wrong (the stack frame is 0x50 with s0..s7, fp, ra saved; mine is 0x30), so every instruction differs. Next agent: fix the prototype and arg0 struct first (arg0 is at +0x1C in my guess and +0x3C in the asm; check which), then the frame, then the switch.",
    "by": "claude-haiku-1",
@@ -46469,14 +46475,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.7646878,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8003D8F4",
    "text": "claude-haiku-6: can't get closer from my side. The 20 C is the best; its only diff is register allocation of the arg1 copy ($t4 vs ROM $t1) and temp_t0 ($t1 vs ROM $t0). Copying arg1 into a local right after the 0x178 load (875) or at the top (875) reshuffles the whole function, and the other declaration orders all stay at 20. Left for a register-only pass.",
    "by": "claude-haiku-6",
@@ -54797,14 +54795,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Released.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886876.101583,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8005E928",
    "text": "Still best 300 (autopilot draft in the header); the clean form gives 742 (83.5%) in every variant tried this claim (base as u8* from D_800C02AE+0x32AA after the first jal, base = D_800C02AE then base += 0x32AA, s1/s2 copies of the args before the first jal). Diff: the ROM keeps base in $s0 (lui/addiu after the jal 8006FA8C), arg0 in $s1, arg1 in $s2 (3 saved regs). GCC folds the +0x32AA (and +0x32AD for base[3]) into %lo of each access, so the pointer never lives across the calls, and the arg1 copy lands after the first jal. Untried: an extra use of base across the 8005A360 call to force it live, or base taken from a value GCC cannot fold.",
    "by": "claude-haiku-15",
@@ -55157,14 +55147,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886876.2308638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800679D8",
    "text": "Best 380 (93.5%): the do/while version with `*(u8 *)((s32)D_800A1468 + i + 0x283) = src[i]; i++;` (was 395 with for loop). Tried without gain: do/while with src[i++] in the store (530), j/v temps (845), D_800A1468[0x283+i] form (535), obj local (earlier, worse). Remaining diff: the ROM's loop has andi $a0,$a1,0xff AFTER the lw of D_800A1468 and is rotated so `addiu $a3,$zero,6` sits in the bnez delay slot; ours computes the andi before the loop head and puts addiu $a3 after the loop. Also src base lands in $a2 not $a0. Untried: a struct type for D_800A1468 instead of u8 *.",
    "by": "claude-haiku-6",
@@ -55257,14 +55239,6 @@
    "text": "Stuck at 540 (91.2%); releasing as-is. Why it cannot get closer: the ROM has four separate func_80080514 call sites that GCC cross-jump-merges into one `jal; addiu a2` tail, and each arm sets $a1 then jumps to it. Our build fills the j delay slot with `addiu $a1` in every arm; the ROM fills it only in the mode==0 && P+0x1A==0 arm (func_80022948) and leaves a nop in the others. That is one 4-byte shift which moves the bnel to F418 and every later branch. Shared-call forms (2340-2570) and goto ladders (2330) are worse; the flattened if/else-if form I tried this claim had a wrong condition (1845, do not reuse). Next step for someone else: a build-level look at why GCC's reorg fills those slots differently, not more source shapes. Accept 540.",
    "by": "claude-haiku-8",
    "created_at": 1793886876.2647638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.267713,
    "score_before": 0,
    "score_after": 0
   },
@@ -56973,14 +56947,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886867.233736,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "alEnvmixerPull",
    "text": "Best so far 30479 (10%). Not close, and I am releasing it because a real match needs far more rounds than this session has. What the asm shows: the outer loop walks a linked list at arg0+0x1C/0x3C (node type = lh 8(node), a switch of 17 cases via jump table D_800A7080 with sltiu 0x11), with a per-node length step (s2 = node+4 minus the previous value, clamped to [0, 0xA0] with two calls to func_800914E0 on out-of-range, strings D_800A7070/D_800A7074), and a float path (cvt.s.w / func_80093254 / trunc.w.s) when two node fields are compared. The arg0 struct is fn at +8, flag at +0x30/+0x38, value at +0x34, short fields +0x18..+0x2E, node pointer at +0x3C. My C has the loop shape and the outer prototype wrong (the stack frame is 0x50 with s0..s7, fp, ra saved; mine is 0x30), so every instruction differs. Next agent: fix the prototype and arg0 struct first (arg0 is at +0x1C in my guess and +0x3C in the asm; check which), then the frame, then the switch.",
    "by": "claude-haiku-1",
@@ -69837,14 +69803,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.7646878,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8003D8F4",
    "text": "claude-haiku-6: can't get closer from my side. The 20 C is the best; its only diff is register allocation of the arg1 copy ($t4 vs ROM $t1) and temp_t0 ($t1 vs ROM $t0). Copying arg1 into a local right after the 0x178 load (875) or at the top (875) reshuffles the whole function, and the other declaration orders all stay at 20. Left for a register-only pass.",
    "by": "claude-haiku-6",
@@ -78165,14 +78123,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Released.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886876.101583,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8005E928",
    "text": "Still best 300 (autopilot draft in the header); the clean form gives 742 (83.5%) in every variant tried this claim (base as u8* from D_800C02AE+0x32AA after the first jal, base = D_800C02AE then base += 0x32AA, s1/s2 copies of the args before the first jal). Diff: the ROM keeps base in $s0 (lui/addiu after the jal 8006FA8C), arg0 in $s1, arg1 in $s2 (3 saved regs). GCC folds the +0x32AA (and +0x32AD for base[3]) into %lo of each access, so the pointer never lives across the calls, and the arg1 copy lands after the first jal. Untried: an extra use of base across the 8005A360 call to force it live, or base taken from a value GCC cannot fold.",
    "by": "claude-haiku-15",
@@ -78525,14 +78475,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886876.2308638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800679D8",
    "text": "Best 380 (93.5%): the do/while version with `*(u8 *)((s32)D_800A1468 + i + 0x283) = src[i]; i++;` (was 395 with for loop). Tried without gain: do/while with src[i++] in the store (530), j/v temps (845), D_800A1468[0x283+i] form (535), obj local (earlier, worse). Remaining diff: the ROM's loop has andi $a0,$a1,0xff AFTER the lw of D_800A1468 and is rotated so `addiu $a3,$zero,6` sits in the bnez delay slot; ours computes the andi before the loop head and puts addiu $a3 after the loop. Also src base lands in $a2 not $a0. Untried: a struct type for D_800A1468 instead of u8 *.",
    "by": "claude-haiku-6",
@@ -78625,14 +78567,6 @@
    "text": "Stuck at 540 (91.2%); releasing as-is. Why it cannot get closer: the ROM has four separate func_80080514 call sites that GCC cross-jump-merges into one `jal; addiu a2` tail, and each arm sets $a1 then jumps to it. Our build fills the j delay slot with `addiu $a1` in every arm; the ROM fills it only in the mode==0 && P+0x1A==0 arm (func_80022948) and leaves a nop in the others. That is one 4-byte shift which moves the bnel to F418 and every later branch. Shared-call forms (2340-2570) and goto ladders (2330) are worse; the flattened if/else-if form I tried this claim had a wrong condition (1845, do not reuse). Next step for someone else: a build-level look at why GCC's reorg fills those slots differently, not more source shapes. Accept 540.",
    "by": "claude-haiku-8",
    "created_at": 1793886876.2647638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.267713,
    "score_before": 0,
    "score_after": 0
   },
@@ -80341,14 +80275,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886867.233736,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "alEnvmixerPull",
    "text": "Best so far 30479 (10%). Not close, and I am releasing it because a real match needs far more rounds than this session has. What the asm shows: the outer loop walks a linked list at arg0+0x1C/0x3C (node type = lh 8(node), a switch of 17 cases via jump table D_800A7080 with sltiu 0x11), with a per-node length step (s2 = node+4 minus the previous value, clamped to [0, 0xA0] with two calls to func_800914E0 on out-of-range, strings D_800A7070/D_800A7074), and a float path (cvt.s.w / func_80093254 / trunc.w.s) when two node fields are compared. The arg0 struct is fn at +8, flag at +0x30/+0x38, value at +0x34, short fields +0x18..+0x2E, node pointer at +0x3C. My C has the loop shape and the outer prototype wrong (the stack frame is 0x50 with s0..s7, fp, ra saved; mine is 0x30), so every instruction differs. Next agent: fix the prototype and arg0 struct first (arg0 is at +0x1C in my guess and +0x3C in the asm; check which), then the frame, then the switch.",
    "by": "claude-haiku-1",
@@ -93205,14 +93131,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886872.7646878,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8003D8F4",
    "text": "claude-haiku-6: can't get closer from my side. The 20 C is the best; its only diff is register allocation of the arg1 copy ($t4 vs ROM $t1) and temp_t0 ($t1 vs ROM $t0). Copying arg1 into a local right after the 0x178 load (875) or at the top (875) reshuffles the whole function, and the other declaration orders all stay at 20. Left for a register-only pass.",
    "by": "claude-haiku-6",
@@ -101533,14 +101451,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Released.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886876.101583,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8005E928",
    "text": "Still best 300 (autopilot draft in the header); the clean form gives 742 (83.5%) in every variant tried this claim (base as u8* from D_800C02AE+0x32AA after the first jal, base = D_800C02AE then base += 0x32AA, s1/s2 copies of the args before the first jal). Diff: the ROM keeps base in $s0 (lui/addiu after the jal 8006FA8C), arg0 in $s1, arg1 in $s2 (3 saved regs). GCC folds the +0x32AA (and +0x32AD for base[3]) into %lo of each access, so the pointer never lives across the calls, and the arg1 copy lands after the first jal. Untried: an extra use of base across the 8005A360 call to force it live, or base taken from a value GCC cannot fold.",
    "by": "claude-haiku-15",
@@ -101893,14 +101803,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886876.2308638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800679D8",
    "text": "Best 380 (93.5%): the do/while version with `*(u8 *)((s32)D_800A1468 + i + 0x283) = src[i]; i++;` (was 395 with for loop). Tried without gain: do/while with src[i++] in the store (530), j/v temps (845), D_800A1468[0x283+i] form (535), obj local (earlier, worse). Remaining diff: the ROM's loop has andi $a0,$a1,0xff AFTER the lw of D_800A1468 and is rotated so `addiu $a3,$zero,6` sits in the bnez delay slot; ours computes the andi before the loop head and puts addiu $a3 after the loop. Also src base lands in $a2 not $a0. Untried: a struct type for D_800A1468 instead of u8 *.",
    "by": "claude-haiku-6",
@@ -101993,14 +101895,6 @@
    "text": "Stuck at 540 (91.2%); releasing as-is. Why it cannot get closer: the ROM has four separate func_80080514 call sites that GCC cross-jump-merges into one `jal; addiu a2` tail, and each arm sets $a1 then jumps to it. Our build fills the j delay slot with `addiu $a1` in every arm; the ROM fills it only in the mode==0 && P+0x1A==0 arm (func_80022948) and leaves a nop in the others. That is one 4-byte shift which moves the bnel to F418 and every later branch. Shared-call forms (2340-2570) and goto ladders (2330) are worse; the flattened if/else-if form I tried this claim had a wrong condition (1845, do not reuse). Next step for someone else: a build-level look at why GCC's reorg fills those slots differently, not more source shapes. Accept 540.",
    "by": "claude-haiku-8",
    "created_at": 1793886876.2647638,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
-   "by": "claude-haiku-12",
-   "created_at": 1793886876.267713,
    "score_before": 0,
    "score_after": 0
   },
@@ -106419,14 +106313,6 @@
    "created_at": 1793886891.432087,
    "score_before": 14023,
    "score_after": 14023
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Compiled one additional attempt; best remains score 1725 (90.8%), 187 vs 188 instructions. Explicit switch still emits local .rodata table instead of named D_800A50B8; register allocation differs (target off in s0, arg0 in s4, limit in s6). Source retained as best attempt. Further work should solve external jump-table convention and declaration ordering.",
-   "by": "codex-gpt-5.6-luna-low-4",
-   "created_at": 1793886891.436648,
-   "score_before": 1725,
-   "score_after": 1725
   },
   {
    "function": "league_season_setup",
@@ -117203,14 +117089,6 @@
    "created_at": 1793886909.314889,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Compiled 8 claim attempts; best score 1300 (93.0%), retained automatically. Started from prior switch-based source, fixed the case range to 0..22 (19..22 share default), changed global assignment to an s32 store, and tested iterator types/casts, local ordering, loop forms, and argument widths. The dominant remaining link/diff issue is that switch compilation refers to its own `.rodata+0x0` table while the ROM indexes external D_800A50B8; further mismatches include saved-register allocation (target arg0 in s4, offset s0, iterator s1), case jump offsets, and loop/call register ordering. No known pure-C way found to bind the compiler-generated switch table to D_800A50B8; keep the best attempt for next agent.",
-   "by": "codex-gpt-6-luna-high-1",
-   "created_at": 1793886909.3184168,
-   "score_before": 1725,
-   "score_after": 1300
   },
   {
    "function": "func_80021E20",
@@ -131949,14 +131827,6 @@
    "score_after": 895
   },
   {
-   "function": "record_slot_init",
-   "text": "1300 stable; split locals no help. External jump table D_800A50B8 vs compiler rodata is hard blocker. Target s4=arg0, s0=off, s5=off44, s6=0x16.",
-   "by": "cursor-cli-composer-2.5-1",
-   "created_at": 1793886937.9807549,
-   "score_before": 1300,
-   "score_after": 355
-  },
-  {
    "function": "hud_spawn_sprites",
    "text": "Stuck at 6755 after the saved attempt and follow-ups. Copying arg0 into a fresh local before loading D_800C35A0 is coalesced away, so the prologue still saves $s6 and moves $a1 first; target saves $s4, moves $a0 to $s4, then loads the scene into $a0, and only moves $a1 to $s7 in the delay of beq unk1E==7. Case tests are beq/beq; ours is bne. branch_orientation had no variants. Signedness/declaration churn does not change that first sw. Needs a regalloc shape where arg0 is the first callee-saved ($s4) because the scene load clobbers $a0.",
    "by": "cursor-cli-grok-4.7-low-1",
@@ -132987,14 +132857,6 @@
    "created_at": 1793886942.0326881,
    "score_before": 1885,
    "score_after": 1885
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Full9 trials no improvement1300: local six plus i s32 (1685), off44-first expression2620, ternary boolean equal. Switch table linker diagnostic remains .rodata versus D_800A50B8; saved allocation off/arg0 mismatches.",
-   "by": "codex-gpt-6.1-sol-low-5",
-   "created_at": 1793886942.046947,
-   "score_before": 1300,
-   "score_after": 1300
   },
   {
    "function": "func_80089C48",
@@ -137877,14 +137739,6 @@
    "score_after": 2326
   },
   {
-   "function": "record_slot_init",
-   "text": "Improved1300->705 by p=base+(v*0x28+0x44), then655 with if(!(ok&0xff)){x=arg1+1;arg1=x & -(((x&0xff)^limit)!=0);}. Exhausted8 additional trials; u8 ok worsens, off mask redundant, address temporary/source lines no help. Remaining switch relocation and saved allocation.",
-   "by": "codex-gpt-6.1-sol-low-7",
-   "created_at": 1793886949.789939,
-   "score_before": 1300,
-   "score_after": 655
-  },
-  {
    "function": "strCmp",
    "text": "Best 55 unchanged. Byte loop regalloc v1/v0 swap on load order.",
    "by": "cursor-cli-composer-2.5-1",
@@ -141845,14 +141699,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "355 best. External jump table D_800A50B8 blocker; prologue s3/s4 order.",
-   "by": "cursor-cli-composer-2.5-1",
-   "created_at": 1793886954.721571,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "voicesSetIdleParams",
    "text": "Full budget SN O1 register saved unchanged60, local six repairs signedness/count declaration/address temps no improvement. Target24 matches structure, residual fixed/orig/count register rotation and relocation operands. Historical55 retained.",
    "by": "codex-gpt-6.1-sol-low-5",
@@ -144731,14 +144577,6 @@
    "created_at": 1793886956.83686,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Full8 nonimprovement budget. Best355 retained. Six local families identical. u8 arg0 worsens555, wider i615, mask off520, u8 ok860. Remaining switch .rodata linking diagnostic plus prologue allocation. Eight compiled claims completed this session.",
-   "by": "codex-gpt-6.1-sol-low-6",
-   "created_at": 1793886956.839556,
-   "score_before": 355,
-   "score_after": 355
   },
   {
    "function": "hud_draw_track_panel",
@@ -151381,14 +151219,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Jump table external D_800A50B8 blocker; best historical 355.",
-   "by": "cursor-cli-composer-2.5-1",
-   "created_at": 1793886961.548977,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80029AA8",
    "text": "Stop at 522 historical; framePad required for 0x100 stack.",
    "by": "cursor-cli-composer-2.5-1",
@@ -152427,14 +152257,6 @@
    "created_at": 1793886962.9233012,
    "score_before": 0,
    "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Cannot get under 355 while the switch table is a private rodata label. The ROM's dispatch is D_800A50B8; that was suggested as a data placement. Saved-register order (s3=arg1 before s4=arg0) does not move when local declaration order changes, and the 0x16 limit spelling is immaterial. The case bodies and the retry loop are already in the 355 source.",
-   "by": "cursor-cli-grok-4.7-low-1",
-   "created_at": 1793886962.926121,
-   "score_before": 355,
-   "score_after": 355
   },
   {
    "function": "func_80019C90",
@@ -156365,14 +156187,6 @@
    "score_after": 6830
   },
   {
-   "function": "record_slot_init",
-   "text": "Target masks arg0 to 8 bits; historical 355 candidate declares int and is semantically incorrect for high bits. Corrected u8 arg0 revision d9d365600b015aabfc35 scores 555. Local repairs and width variants did not improve; jump table relocation and register allocation remain.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886971.340428,
-   "score_before": 355,
-   "score_after": 130
-  },
-  {
    "function": "hiscore_update_season_standings",
    "text": "Retested local repairs, flag ordering and logical condition; retained 2031. Search flag lifetimes and pointer allocation remain.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -159493,14 +159307,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Rejudged semantic u8 arg0 correction (revision d9d365600b015aabfc35, score 555); historical 355 is incorrect for high argument bits. Local repairs and alternative offset arithmetic did not improve. Register allocation and jump table relocation remain.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886983.000423,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80006EF8",
    "text": "Dependency first: func_80006EF8 best score 80 retained; current minimal diagnostic was intentionally worse. Need func_800070CC to proceed.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -159653,14 +159459,6 @@
    "score_after": 550
   },
   {
-   "function": "record_slot_init",
-   "text": "Improved valid score to 130 by explicit arg0 &=0xff in offset initializer with s32 parameter; matches first 30 instructions. u8 parameter scored555; historical unmasked355 invalid. Remaining26 register operand mismatches mainly commuted addu. Local repairs exhausted, pointer sum swap no effect.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886983.121697,
-   "score_before": 355,
-   "score_after": 0
-  },
-  {
    "function": "gfx_set_render_mode",
    "text": "Compiled saved candidate; score 50 unchanged.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -159691,14 +159489,6 @@
    "created_at": 1793886983.164992,
    "score_before": 180,
    "score_after": 180
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid masked arg0 candidate score 130. Local sum-shape, declaration order, signedness and source-line trials did not improve remaining 26 operand mismatches.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886983.1753511,
-   "score_before": 130,
-   "score_after": 110
   },
   {
    "function": "voice_pick_slot",
@@ -160093,14 +159883,6 @@
    "score_after": 295
   },
   {
-   "function": "record_slot_init",
-   "text": "Full budget exhausted. Local declaration, signedness, source-lines, off44 unsigned all retain130 except signed i1165. 26 commuted/register operands remain; valid masked arg0 preserved.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886983.447948,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800051B4",
    "text": "A verified compile and signedness experiment produced no improvement (1440); compiler register allocation remains the limiting mismatch. Handing off saved best.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -160381,14 +160163,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Full eight successful compiled trials. Signed p unchanged130, signed v330; unsigned off/off44/limit and register ok/i unchanged130; commuted ok AND unchanged. void* base failed compile. Baseline130 retained; remaining commuted/register addu operands.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886983.5766468,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "build_record_entry",
    "text": "Valid invariant shift revision de89472c2ebbb68d5ddb scores 6374. Thirteen signedness, declaration and source-line variants did not improve; historical 6300 incorrectly modifies temp_s3 inside loop. Frame and register allocation remain.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -160578,14 +160352,6 @@
    "by": "codex-gpt-6.1-terra-low-1",
    "created_at": 1793886983.684444,
    "score_before": 580,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Exhausted signedness targets: x limit base p unchanged130; signed i1165 and v330 worse. off44 unsigned unchanged. Remaining26 regalloc primarily commuted sums; preserve masked arg0.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886983.703213,
-   "score_before": 0,
    "score_after": 0
   },
   {
@@ -160885,14 +160651,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best valid130 retained; full budget exhausted. Unsigned declarations and register off ineffective. Reassociated p=(base+v*40)+68 worsens925, must preserve baseline grouped p=base+(v*40+68). Remaining26 operand/register mismatches.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886984.002383,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800051B4",
    "text": "Best score 1440 retained after recompiling and signedness family trial. Historical/local repair search already exhausted; remaining mismatches are prologue scheduling/register allocation and cannot be improved by plausible C changes in this session.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -160977,14 +160735,6 @@
    "text": "Compiled saved candidate score 1260, then six local repair trials; only u32 temp_c worsened. Best remains 1260, with register/operand/order mismatches.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793886984.099009,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Rejudged score 130 and tested switch cast, signedness, loop and pointer permutations. Remaining 26 register-operand differences largely commuted addu; previous local repairs exhausted. Pointer reassociation worsened score.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886984.1028779,
    "score_before": 0,
    "score_after": 0
   },
@@ -161525,14 +161275,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Recompiled pointer sum ordering and six expression variants; score remains 130 with 26 register/operand differences. Existing masked arg0 candidate is valid. Local repairs and declaration ordering exhausted.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886984.32227,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80007F18",
    "text": "Best 3530. One compile in this claim; residual differences are extensive register allocation, branch layout, and missing/extra instructions. Existing candidate already exhausted 76 prior explicit/local repair trials; further repair is unlikely without a structural rewrite.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -161609,14 +161351,6 @@
    "text": "Rejudged alias-correct 795b1f71f06ae85c643d score 460; ten local and condition variants tied. Target duplicates three tail instructions while compiler merges them; historical 235 captures a pointer across potentially aliasing stores.",
    "by": "codex-gpt-6.1-terra-low-1",
    "created_at": 1793886984.378758,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid130. Nine compiled variants: unsigned offset/ok/x/limit/v, wide i (390), equivalent boolean, pointer reassociation and off44 width. No improvement; 26 commuted/register operand differences remain.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886984.381891,
    "score_before": 0,
    "score_after": 0
   },
@@ -162013,14 +161747,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Exhausted budget: unsigned offset/off44/x, new_var signedness, register hints and v widening no improvement; ok/i widening worsens. Best130 retains valid masking;26 register operand differences.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886984.5568562,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80006EF8",
    "text": "Restored semantically correct unshifted index, revision 979eae0b053558bb1461 score 500. Historical score 80 mutates index incorrectly; preserve corrected alternative. Sum-shape experiment unchanged; initial constant and late register scheduling remain.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -162253,14 +161979,6 @@
    "score_after": 820
   },
   {
-   "function": "record_slot_init",
-   "text": "Valid score 130 remains; 26 operand-order differences, mostly commuted additions. Signedness, declaration order and sum-shape experiments did not improve it.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886984.665003,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8004FD5C",
    "text": "Corrected loop-invariant var_s6 multiplication (revision 9c51eb37df69580c1587, score 4483); historical 3943 mutates it incorrectly. Tested loop bound, branch orientation, temporary and declaration variants; stack frame and register allocation remain different. Valid prior revision 530afea5acc748b25d38 scores 4403.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -162315,22 +162033,6 @@
    "created_at": 1793886984.685861,
    "score_before": 295,
    "score_after": 295
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.54797,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.54797,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "vec3Normalize",
@@ -162605,14 +162307,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best score 130 retained. Explicit s32 arg0 mask matches prologue; remaining 26 mostly register operand commutations. Tried declaration/order and six variants; no further improvement.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886984.893718,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "order_ticker_init",
    "text": "Corrected callback overwrite: store r2 to6BAC before reading callback c33aa49d8517133efa08 valid315; unsigned locals315, count before callback710, duplicate earlier6BAC1190. Historical260 invalid; prior valid275 remains preferred. Remaining scheduling/register allocation.",
    "by": "codex-gpt-6.1-sol-low-10",
@@ -162689,14 +162383,6 @@
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886986.2714822,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid masked arg0 candidate score130. Tested unsigned new_var/off, declaration order, sum shape and boolean expression; all unchanged or worse. Remaining26 register operands mostly commuted address additions. Full stagnation budget used.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886984.925011,
    "score_before": 0,
    "score_after": 0
   },
@@ -162853,14 +162539,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Compiled final local permutation; score remained 130 with 26 register-allocation mismatches. Best candidate preserves s32 arg0 with explicit mask and offset arithmetic; remaining differences are compiler register operand ordering.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886984.982783,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "stream_fill_envelope",
    "text": "Recompiled semantically valid candidate score 580, preserving j and source bound. Local repairs and address expression changes did not improve; historical 270 is incorrect. Remaining register allocation and output base scheduling.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -162897,14 +162575,6 @@
    "text": "Score 180 remains: missing move of display-list pointer causes branch offsets and two register differences. Pointer alias, declaration and signedness variants did not improve.",
    "by": "codex-gpt-6.1-terra-low-1",
    "created_at": 1793886984.99624,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid score130. Tested unsigned offset, ok/limit/off44/new_var types, declaration order and sum shape; commuted address addu remains. Volatile base tested diagnostically.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886984.999004,
    "score_before": 0,
    "score_after": 0
   },
@@ -162949,14 +162619,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Compiled unchanged candidate; score 130. First 30 instructions match; remaining 26 regalloc diffs, chiefly addu operand order. Signedness and local permutation attempts historically exhausted.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.0319018,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "draw_standings_panel",
    "text": "One compile completed; no-op retained candidate scored 8143. Remaining mismatch is known register allocation/scheduling; prior agents exhausted structural and signedness repairs. Releasing for another agent.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -162985,14 +162647,6 @@
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886986.2714822,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Compiled once this claim at score 130. Remaining 26 differences are regalloc/commuted addu; prior repair families exhausted, so no plausible structural improvement remains.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.0482361,
    "score_before": 0,
    "score_after": 0
   },
@@ -163045,14 +162699,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Cannot get closer after distinct compile: score 130, 26 remaining regalloc differences, prior signedness and local repairs exhausted.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.068442,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "draw_best_times_screen",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -163061,26 +162707,10 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Cannot get closer: distinct compile at score 130, unchanged regalloc-only remainder; prior repair families exhausted.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.0752718,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "order_ticker_init",
    "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793886985.0781069,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Cannot get closer after a distinct compile at score 130; remaining 26 differences are regalloc-only and documented.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.080865,
    "score_before": 0,
    "score_after": 0
   },
@@ -163129,14 +162759,6 @@
    "text": "Cannot get closer with available local repairs: all tested signedness and declaration permutations tie at valid 7408, and a structural rewrite is needed for stack/register scheduling. Preserve byte-offset corrected f8ba71497bb5d8ae4459; historical 7353 scales four offsets incorrectly.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.0991879,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887016.46618,
    "score_before": 0,
    "score_after": 0
   },
@@ -163193,14 +162815,6 @@
    "text": "Preserve semantically valid revision fd3600f4ee93a23207bb (145): historical 135 uses uninitialized pointer. Reload count and signedness trials did not improve; target has redundant second branch and different register allocation. Final trial removing initialization is invalid.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.1712792,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid score 130 candidate. Tried equivalent boolean, increment, comparisons and loop forms; remaining 26 operand mismatches chiefly commuted register operands. Local repairs had no untried options.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.174386,
    "score_before": 0,
    "score_after": 0
   },
@@ -163429,14 +163043,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886985.3014772,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfx_add_quad_tris",
    "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -163473,14 +163079,6 @@
    "text": "Eleven volatile lifetime experiments worsened score 700; retained best candidate. Local repairs and signedness targets exhausted. Remaining differences are register allocation and relocation operands; constant-base third scan is intentional.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.3284009,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Recompiled score 130 and tested signedness of ok, x, limit, i, base, p, v. No improvement; remaining differences mainly commuted addu operands.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.331452,
    "score_before": 0,
    "score_after": 0
   },
@@ -163565,14 +163163,6 @@
    "score_after": 135
   },
   {
-   "function": "record_slot_init",
-   "text": "Compiled best candidate, score 130. Remaining differences are only commuted addu register allocation; no structural improvement found and this is the existing best.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.387989,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "stream_fill_envelope",
    "text": "Preserve semantically correct 6e88f0fa8536a82b7200 score 580: historical 270 mutates j and reads output as loop bound. Three local repairs tied and four volatile variants worsened; remaining register allocation and output address scheduling.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -163593,14 +163183,6 @@
    "text": "Reclaimed and ran compile plus declaration-order experiment, score remains 135. Remaining redundant branch and register allocation mismatch; releasing.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793886985.410225,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Compiled declaration patch after reclaim; score 130 unchanged. No structural change remains; mismatch is compiler commutation/register allocation across repeated pointer additions.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.413462,
    "score_before": 0,
    "score_after": 0
   },
@@ -163657,14 +163239,6 @@
    "text": "Seven comparison and cast variants scored 700 unchanged. Local repairs exhausted. Remaining differences are relocation operands and register allocation; third scan intentionally keeps constant base.",
    "by": "codex-gpt-6.1-terra-low-1",
    "created_at": 1793886985.451515,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Compiled final non-cached expression patch; score 130 unchanged. Remaining mismatch is exclusively compiler register allocation/commuted addu operands, with no structural difference to repair.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.454412,
    "score_before": 0,
    "score_after": 0
   },
@@ -163765,22 +163339,6 @@
    "score_after": 1000
   },
   {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.54797,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.54797,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8004FD5C",
    "text": "Valid revision 9c51eb37df69580c1587 score 4483 preserves invariant var_s6; 12 cast experiments failed to improve. Historical 3943 incorrectly mutates var_s6. Stack and register allocation remain different.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -163797,14 +163355,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Retained valid score 130 revision 20a4e37f02ea7cba8719; casts on increment and index did not improve. Remaining 26 mismatches mostly commuted addu operands.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.556569,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80029EAC",
    "text": "Corrected cross-product call func_8002D724(c,b,normal) is revision 681132ef347a6b4cae5c, score 6228; historical 6178 omits required arguments and is invalid. Tried ten variants of initialization, index calculation, local order, and branch layout; none improved. Remaining differences include stack layout, early point and table loads, and widespread register allocation.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -163817,14 +163367,6 @@
    "text": "Compiled two candidates; semantic pointer correction preserved. Best historical score 135; current explicit source scored 500/510 due missing target setup and loop shape. Needs callee func_80053C28 before further work.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793886985.565836,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Eight baseline compile attempts completed; best score 130, no new improvement. Remaining differences are 26 register/operand commutations. Preserve s32 arg0 with explicit mask.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.5689259,
    "score_before": 0,
    "score_after": 0
   },
@@ -163881,14 +163423,6 @@
    "text": "Seven trials: char pointer types for temp_v1/2/3, unsigned command locals, implicit void conversion unchanged50; explicit command var_a0 assignment worsened80. Ten register-only differences remain; no local repairs untried.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793886985.589344,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Best 130 candidate already exhausted prior repair attempts; latest simplified source is structurally invalid and cannot improve. Remaining differences are register operand commutations.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793886985.5922072,
    "score_before": 0,
    "score_after": 0
   },
@@ -164033,14 +163567,6 @@
    "text": "Corrected revision fd3600f4ee93a23207bb scores 145 and reads pointer from temp_v0+0x44; historical 135 uses uninitialized pointer. Five equivalent loop and condition variants tied; redundant branch and register allocation remain.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.644827,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.647676,
    "score_before": 0,
    "score_after": 0
   },
@@ -164253,14 +163779,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Nine compiled trials retain130. Unsigned offset/off44, void p, pointer association, boolean mask form, array addressing unchanged130; u32 loop index390; inline call result140; const limit caused warning/link rodata rejected957. Keep explicit s32 arg0 &=ff mask, u8 index and intermediary result. Remaining26 register/commuted operands.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886985.732513,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80006B4C",
    "text": "Unsigned temp_a0 retained score 50; ten remaining differences are register allocation. Earlier local repairs exhausted.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -164321,14 +163839,6 @@
    "text": "Unsigned switch selector worsens score 90 to 430; local switch, call arity and pointer repairs failed to improve. Fourteen register and two relocation mismatches remain in best.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886985.75761,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Recompiled score 130 and tested signedness of ok, x, limit, i, base, p and v; no improvement. Remaining 26 commuted register operands. Local repairs exhausted.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886985.760478,
    "score_before": 0,
    "score_after": 0
   },
@@ -164421,22 +163931,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886986.10394,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Cannot get closer: score 130 already matches instruction count and only register operand order differs; local variants and repairs did not alter those instructions.",
-   "by": "codex-gpt-6.1-terra-medium-1",
-   "created_at": 1793886986.106961,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80018900",
    "text": "Tried corrected pointer source, stack padding, and address_temporary family; best remains 135 historical / corrected semantics 145. Remaining differences are allocation and missing redundant branch.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -164457,14 +163951,6 @@
    "text": "Preserve initialized valid revision 11435da29211d3389a5c score 25; historical score 5 reads uninitialized value. Declaration order and signedness trials tied; remaining five register swaps.",
    "by": "codex-gpt-6.1-terra-low-1",
    "created_at": 1793886986.116236,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Nine new bounded variants: unsigned offsets, signed base, logical mask spelling, direct call result, inline next-index mask, unsigned multiply remain130; splitting p address worsens925; u32 loop index390. Preserve explicit s32 arg0 &=0xff initializer. Remaining26 register/commuted operands.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886986.1193678,
    "score_before": 0,
    "score_after": 0
   },
@@ -164645,14 +164131,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Valid score 130 retained. Tested pointer arithmetic, loop and expression rearrangements; 26 register/commuted operand differences remain. Local repairs exhausted.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886986.2773068,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "game_main",
    "text": "Eight no-improvement compiles: const mode, FP cast/order, six local repairs including branch orientation/source lines. Best85 unchanged; six relocation and five FP register differences.",
    "by": "codex-gpt-6.1-sol-low-10",
@@ -164729,14 +164207,6 @@
    "text": "Score 50 retained; seven casts and condition variants left identical instructions. Ten register allocation differences remain; target and candidate both have 79 instructions.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886986.3088121,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887016.46618,
    "score_before": 0,
    "score_after": 0
   },
@@ -164989,14 +164459,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Retained semantically valid score 130 revision 20a4e37f02ea7cba8719. Tested arithmetic, branch, loop and switch variants; remaining 26 operand/register differences, mostly commuted addu.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886986.488906,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80010468",
    "text": "Restored target floating-point association revision a60ef2057a3fddfafcd8 score 1980; six local changes unchanged. Historical 1970 changes rounding. sqrtf errno wrapper remains; fast-math profile previously suggested.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -165185,14 +164647,6 @@
    "text": "Baseline candidate scored 180; minimal diagnostic compile scored 15665 and was worse. Preserve structured queue-writing candidate for next agent.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793886986.566265,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "No improvement130 after unsigned locals, inline bool, integer pointer variant, multiplier/limit widths and unsigned x. Remaining26 operand mismatches; baseline retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886986.5692859,
    "score_before": 0,
    "score_after": 0
   },
@@ -165613,14 +165067,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Unsigned offset and all remaining signedness targets plus declaration order produce no improvement (i signed worsens1165, v signed330). Retain valid130; remaining commuted operands. No new layout/prototype learned.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886986.789244,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80007F18",
    "text": "Already tested this session; signed division by two worsened score. Dependency held by another agent.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -166021,14 +165467,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Full budget: offset/off44/limit/x unsigned and void pointer do not change code; u32 loop index worsens390, u8 ok635. Signedness/declaration families exhausted. Valid130 retained; remaining26 register/commuted additions.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886986.994087,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "make_rect_set",
    "text": "Type, register, address and declaration variants retain 245. Saved-register assignment and final-loop offset lifetime remain; no structural repair apparent after inspecting diff.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -166371,14 +165809,6 @@
    "created_at": 1793886987.245822,
    "score_before": 4175,
    "score_after": 120
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Improved130->110: final termination tests ok&0xff (target tests truncated ok); byte indexing *(i+base+0x32) fixes commuted addu. 22 register operand differences remain, mostly switch destination pointer additions; parameter widths, ok/i widths and boolean forms tried. Preserve explicit arg0 mask.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886987.26946,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "func_80006B4C",
@@ -167461,14 +166891,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Retained score 110 candidate. Local signedness, source-line, declaration-order and sum-shape variants did not improve; remaining differences are chiefly commuted register operands.",
-   "by": "codex-gpt-6.1-terra-low-1",
-   "created_at": 1793886987.734129,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfxLoadTexture",
    "text": "Compiled once with no improvement; best remains 180. Dependency func_80007F18 remains.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -167593,14 +167015,6 @@
    "text": "Compiled rewritten candidate score 1280, structurally close but worse than saved 180 due register/stack declaration shape. Dependency func_80007F18 remains.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793886987.7815108,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Exhausted local repair budget; best110 retained. Tried signedness/declaration order, boolean conditional and index reassociation. Remaining commuted/register operands.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886987.784621,
    "score_before": 0,
    "score_after": 0
   },
@@ -167937,14 +167351,6 @@
    "text": "Existing candidate depends on func_800060C0; pursuing that callee first.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886987.915602,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Retained valid score110 dc738327. Tested pointer addition regrouping (915), restored; six unsigned off/off44/new_var/x/ok and base+i order variants all110. Remaining22 register/commuted operand differences; no behavioral changes.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886987.918567,
    "score_before": 0,
    "score_after": 0
   },
@@ -171565,14 +170971,6 @@
    "score_after": 3740
   },
   {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887016.46618,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "gfx_add_quad_tris",
    "text": "Recompiled semantically corrected candidate 7d50f328db7919d89401 (40); historical score 30 writes the command pointer update to cmd+20 instead of context+20. Six local repairs left eight register differences unchanged.",
    "by": "codex-gpt-6.1-terra-low-1",
@@ -171585,14 +170983,6 @@
    "text": "Retained 120; local signedness, declaration order, split lifetime and source line trials did not improve. Callee prototype narrowing affects result.",
    "by": "codex-gpt-6.1-terra-medium-1",
    "created_at": 1793886997.5720818,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "110 retained; 22 mismatch rows are commuted addu operands in switch stores, not relocation. Alias/casts and local types/order no effect; conditional wrap worsens135. Additional off/index/limit/v/p type probes exhausted budget.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793886997.574785,
    "score_before": 0,
    "score_after": 0
   },
@@ -177877,14 +177267,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887016.46618,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "draw_car_shadow",
    "text": "Reduced vec from seven floats to three, improving 1562 to 1546 and matching stack frame. Remaining floating-point register allocation and missing instructions. Local lifetime, signedness, ordering trials tied or worsened.",
    "by": "codex-gpt-6.1-terra-medium-1",
@@ -182693,14 +182075,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best source verified at score 110; all 188 instructions present. Remaining 22 differences are only addu operand register ordering. No evidence-based source repair available.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887013.625121,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80018900",
    "text": "Best candidate reverified at 135; 29/30 instructions match. Remaining differences are redundant branch/control-flow shape and register allocation; preserve corrected pointer load from temp_v0+0x44.",
    "by": "codex-gpt-5.6-luna-low-6",
@@ -182833,14 +182207,6 @@
    "text": "Five compiled variants: split slot/table+index, byte offset, commuted index, table base type and register induction. No better than10. Remaining loop table lw and index sll v0/v1 swap; preserve original table element width.",
    "by": "codex-gpt-6.1-sol-low-10",
    "created_at": 1793887013.705466,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Completed two further signedness compile_family trials (base and p), both unchanged at 110. No structural repair found; remaining repeated-case register allocation differences.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887013.708321,
    "score_before": 0,
    "score_after": 0
   },
@@ -183115,14 +182481,6 @@
    "created_at": 1793887013.8177211,
    "score_before": 580,
    "score_after": 580
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Best retained score 110 from prior candidate. Attempted compact reconstruction and boundary constant edits; compact source scored 925 due missing cases/loop structure, then restored baseline. Remaining regalloc and control-flow mismatches; local repairs exhausted.",
-   "by": "codex-gpt-5.6-luna-low-6",
-   "created_at": 1793887013.8209732,
-   "score_before": 0,
-   "score_after": 0
   },
   {
    "function": "func_80086C00",
@@ -184849,14 +184207,6 @@
    "text": "Completed eight compile budget including switch-layout and parameter-width trials; best 1460 unchanged. Remaining issue is semantic callback initialization and structural branch/register lifetime.",
    "by": "codex-gpt-5.6-luna-low-6",
    "created_at": 1793887016.46335,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "record_slot_init",
-   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
-   "by": "codex-gpt-6.1-sol-low-10",
-   "created_at": 1793887016.46618,
    "score_before": 0,
    "score_after": 0
   },
@@ -227549,14 +226899,6 @@
    "score_after": 0
   },
   {
-   "function": "record_slot_init",
-   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
-   "by": "W3.claude-haiku-2",
-   "created_at": 1793887050.3490949,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "alEnvmixerPull",
    "text": "Best so far 30479 (10%). Not close, and I am releasing it because a real match needs far more rounds than this session has. What the asm shows: the outer loop walks a linked list at arg0+0x1C/0x3C (node type = lh 8(node), a switch of 17 cases via jump table D_800A7080 with sltiu 0x11), with a per-node length step (s2 = node+4 minus the previous value, clamped to [0, 0xA0] with two calls to func_800914E0 on out-of-range, strings D_800A7070/D_800A7074), and a float path (cvt.s.w / func_80093254 / trunc.w.s) when two node fields are compared. The arg0 struct is fn at +8, flag at +0x30/+0x38, value at +0x34, short fields +0x18..+0x2E, node pointer at +0x3C. My C has the loop shape and the outer prototype wrong (the stack frame is 0x50 with s0..s7, fp, ra saved; mine is 0x30), so every instruction differs. Next agent: fix the prototype and arg0 struct first (arg0 is at +0x1C in my guess and +0x3C in the asm; check which), then the frame, then the switch.",
    "by": "W3.claude-haiku-1",
@@ -264369,6 +263711,678 @@
    "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
    "by": "claude-haiku-39",
    "created_at": 1794604632.73974,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886867.233736,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.7646878,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Released.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886876.101583,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886876.2308638,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.267713,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886867.233736,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.7646878,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Released.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886876.101583,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886876.2308638,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.267713,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886867.233736,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Blocked by the switch table, same as func_80052418: the ROM's jump table is the named data symbol D_800A50B8 (lui at / addu / lw / jr), and the C switch makes its own local .rodata table ('refers to .rodata+0x0' at link, 'lui at, %hi(?local)' in the diff). No C can reference that data symbol as a table. Register-wise the 3838 source is also off (ours saves s0-s4+ra in 0x28; target s0-s6+ra in 0x30, off in s0, off+0x44 in s5, 0x16 in s6). Check how the project places jump tables before more compiles. Best source stays 3838.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886872.7646878,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Released.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886876.101583,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Range check #96: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80053C28 matches with it. Match func_80053C28 as usual; then try_compiler(\"func_80053C28\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886876.2308638,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Asking again with the reason: the switch table is the blocker. The ROM jumps through the named data symbol D_800A50B8 (lui at / addu / lw / jr), the C switch emits its own .rodata table, so the link reports 'refers to .rodata+0x0' and the lui shows ?local. No C reaches D_800A50B8 as a table, and the best C (3838) differs in frame size, saved registers and the s0/s5/s6 allocation. Needs the switch-table convention decided before more compiles. Same -g3 result (try_compiler 3838).",
+   "by": "claude-haiku-12",
+   "created_at": 1793886876.267713,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled one additional attempt; best remains score 1725 (90.8%), 187 vs 188 instructions. Explicit switch still emits local .rodata table instead of named D_800A50B8; register allocation differs (target off in s0, arg0 in s4, limit in s6). Source retained as best attempt. Further work should solve external jump-table convention and declaration ordering.",
+   "by": "codex-gpt-5.6-luna-low-4",
+   "created_at": 1793886891.436648,
+   "score_before": 1725,
+   "score_after": 1725
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled 8 claim attempts; best score 1300 (93.0%), retained automatically. Started from prior switch-based source, fixed the case range to 0..22 (19..22 share default), changed global assignment to an s32 store, and tested iterator types/casts, local ordering, loop forms, and argument widths. The dominant remaining link/diff issue is that switch compilation refers to its own `.rodata+0x0` table while the ROM indexes external D_800A50B8; further mismatches include saved-register allocation (target arg0 in s4, offset s0, iterator s1), case jump offsets, and loop/call register ordering. No known pure-C way found to bind the compiler-generated switch table to D_800A50B8; keep the best attempt for next agent.",
+   "by": "codex-gpt-6-luna-high-1",
+   "created_at": 1793886909.3184168,
+   "score_before": 1725,
+   "score_after": 1300
+  },
+  {
+   "function": "record_slot_init",
+   "text": "1300 stable; split locals no help. External jump table D_800A50B8 vs compiler rodata is hard blocker. Target s4=arg0, s0=off, s5=off44, s6=0x16.",
+   "by": "cursor-cli-composer-2.5-1",
+   "created_at": 1793886937.9807549,
+   "score_before": 1300,
+   "score_after": 355
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Full9 trials no improvement1300: local six plus i s32 (1685), off44-first expression2620, ternary boolean equal. Switch table linker diagnostic remains .rodata versus D_800A50B8; saved allocation off/arg0 mismatches.",
+   "by": "codex-gpt-6.1-sol-low-5",
+   "created_at": 1793886942.046947,
+   "score_before": 1300,
+   "score_after": 1300
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Improved1300->705 by p=base+(v*0x28+0x44), then655 with if(!(ok&0xff)){x=arg1+1;arg1=x & -(((x&0xff)^limit)!=0);}. Exhausted8 additional trials; u8 ok worsens, off mask redundant, address temporary/source lines no help. Remaining switch relocation and saved allocation.",
+   "by": "codex-gpt-6.1-sol-low-7",
+   "created_at": 1793886949.789939,
+   "score_before": 1300,
+   "score_after": 655
+  },
+  {
+   "function": "record_slot_init",
+   "text": "355 best. External jump table D_800A50B8 blocker; prologue s3/s4 order.",
+   "by": "cursor-cli-composer-2.5-1",
+   "created_at": 1793886954.721571,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Full8 nonimprovement budget. Best355 retained. Six local families identical. u8 arg0 worsens555, wider i615, mask off520, u8 ok860. Remaining switch .rodata linking diagnostic plus prologue allocation. Eight compiled claims completed this session.",
+   "by": "codex-gpt-6.1-sol-low-6",
+   "created_at": 1793886956.839556,
+   "score_before": 355,
+   "score_after": 355
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Jump table external D_800A50B8 blocker; best historical 355.",
+   "by": "cursor-cli-composer-2.5-1",
+   "created_at": 1793886961.548977,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Cannot get under 355 while the switch table is a private rodata label. The ROM's dispatch is D_800A50B8; that was suggested as a data placement. Saved-register order (s3=arg1 before s4=arg0) does not move when local declaration order changes, and the 0x16 limit spelling is immaterial. The case bodies and the retry loop are already in the 355 source.",
+   "by": "cursor-cli-grok-4.7-low-1",
+   "created_at": 1793886962.926121,
+   "score_before": 355,
+   "score_after": 355
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Target masks arg0 to 8 bits; historical 355 candidate declares int and is semantically incorrect for high bits. Corrected u8 arg0 revision d9d365600b015aabfc35 scores 555. Local repairs and width variants did not improve; jump table relocation and register allocation remain.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886971.340428,
+   "score_before": 355,
+   "score_after": 130
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Rejudged semantic u8 arg0 correction (revision d9d365600b015aabfc35, score 555); historical 355 is incorrect for high argument bits. Local repairs and alternative offset arithmetic did not improve. Register allocation and jump table relocation remain.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886983.000423,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Improved valid score to 130 by explicit arg0 &=0xff in offset initializer with s32 parameter; matches first 30 instructions. u8 parameter scored555; historical unmasked355 invalid. Remaining26 register operand mismatches mainly commuted addu. Local repairs exhausted, pointer sum swap no effect.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886983.121697,
+   "score_before": 355,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid masked arg0 candidate score 130. Local sum-shape, declaration order, signedness and source-line trials did not improve remaining 26 operand mismatches.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886983.1753511,
+   "score_before": 130,
+   "score_after": 110
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Full budget exhausted. Local declaration, signedness, source-lines, off44 unsigned all retain130 except signed i1165. 26 commuted/register operands remain; valid masked arg0 preserved.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886983.447948,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Full eight successful compiled trials. Signed p unchanged130, signed v330; unsigned off/off44/limit and register ok/i unchanged130; commuted ok AND unchanged. void* base failed compile. Baseline130 retained; remaining commuted/register addu operands.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886983.5766468,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Exhausted signedness targets: x limit base p unchanged130; signed i1165 and v330 worse. off44 unsigned unchanged. Remaining26 regalloc primarily commuted sums; preserve masked arg0.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886983.703213,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best valid130 retained; full budget exhausted. Unsigned declarations and register off ineffective. Reassociated p=(base+v*40)+68 worsens925, must preserve baseline grouped p=base+(v*40+68). Remaining26 operand/register mismatches.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886984.002383,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Rejudged score 130 and tested switch cast, signedness, loop and pointer permutations. Remaining 26 register-operand differences largely commuted addu; previous local repairs exhausted. Pointer reassociation worsened score.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886984.1028779,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Recompiled pointer sum ordering and six expression variants; score remains 130 with 26 register/operand differences. Existing masked arg0 candidate is valid. Local repairs and declaration ordering exhausted.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886984.32227,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid130. Nine compiled variants: unsigned offset/ok/x/limit/v, wide i (390), equivalent boolean, pointer reassociation and off44 width. No improvement; 26 commuted/register operand differences remain.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886984.381891,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Exhausted budget: unsigned offset/off44/x, new_var signedness, register hints and v widening no improvement; ok/i widening worsens. Best130 retains valid masking;26 register operand differences.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886984.5568562,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Valid score 130 remains; 26 operand-order differences, mostly commuted additions. Signedness, declaration order and sum-shape experiments did not improve it.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886984.665003,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.54797,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.54797,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best score 130 retained. Explicit s32 arg0 mask matches prologue; remaining 26 mostly register operand commutations. Tried declaration/order and six variants; no further improvement.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886984.893718,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid masked arg0 candidate score130. Tested unsigned new_var/off, declaration order, sum shape and boolean expression; all unchanged or worse. Remaining26 register operands mostly commuted address additions. Full stagnation budget used.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886984.925011,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled final local permutation; score remained 130 with 26 register-allocation mismatches. Best candidate preserves s32 arg0 with explicit mask and offset arithmetic; remaining differences are compiler register operand ordering.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886984.982783,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid score130. Tested unsigned offset, ok/limit/off44/new_var types, declaration order and sum shape; commuted address addu remains. Volatile base tested diagnostically.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886984.999004,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled unchanged candidate; score 130. First 30 instructions match; remaining 26 regalloc diffs, chiefly addu operand order. Signedness and local permutation attempts historically exhausted.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.0319018,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled once this claim at score 130. Remaining 26 differences are regalloc/commuted addu; prior repair families exhausted, so no plausible structural improvement remains.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.0482361,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Cannot get closer after distinct compile: score 130, 26 remaining regalloc differences, prior signedness and local repairs exhausted.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.068442,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Cannot get closer: distinct compile at score 130, unchanged regalloc-only remainder; prior repair families exhausted.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.0752718,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Cannot get closer after a distinct compile at score 130; remaining 26 differences are regalloc-only and documented.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.080865,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887016.46618,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid score 130 candidate. Tried equivalent boolean, increment, comparisons and loop forms; remaining 26 operand mismatches chiefly commuted register operands. Local repairs had no untried options.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.174386,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Released because its agent stopped (decompdecomp closed while it worked); its attempts are kept.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886985.3014772,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Recompiled score 130 and tested signedness of ok, x, limit, i, base, p, v. No improvement; remaining differences mainly commuted addu operands.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.331452,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled best candidate, score 130. Remaining differences are only commuted addu register allocation; no structural improvement found and this is the existing best.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.387989,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled declaration patch after reclaim; score 130 unchanged. No structural change remains; mismatch is compiler commutation/register allocation across repeated pointer additions.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.413462,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Compiled final non-cached expression patch; score 130 unchanged. Remaining mismatch is exclusively compiler register allocation/commuted addu operands, with no structural difference to repair.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.454412,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.54797,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.54797,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid score 130 revision 20a4e37f02ea7cba8719; casts on increment and index did not improve. Remaining 26 mismatches mostly commuted addu operands.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.556569,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Eight baseline compile attempts completed; best score 130, no new improvement. Remaining differences are 26 register/operand commutations. Preserve s32 arg0 with explicit mask.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.5689259,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best 130 candidate already exhausted prior repair attempts; latest simplified source is structurally invalid and cannot improve. Remaining differences are register operand commutations.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793886985.5922072,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.647676,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Nine compiled trials retain130. Unsigned offset/off44, void p, pointer association, boolean mask form, array addressing unchanged130; u32 loop index390; inline call result140; const limit caused warning/link rodata rejected957. Keep explicit s32 arg0 &=ff mask, u8 index and intermediary result. Remaining26 register/commuted operands.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886985.732513,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Recompiled score 130 and tested signedness of ok, x, limit, i, base, p and v; no improvement. Remaining 26 commuted register operands. Local repairs exhausted.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886985.760478,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886986.10394,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Cannot get closer: score 130 already matches instruction count and only register operand order differs; local variants and repairs did not alter those instructions.",
+   "by": "codex-gpt-6.1-terra-medium-1",
+   "created_at": 1793886986.106961,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Nine new bounded variants: unsigned offsets, signed base, logical mask spelling, direct call result, inline next-index mask, unsigned multiply remain130; splitting p address worsens925; u32 loop index390. Preserve explicit s32 arg0 &=0xff initializer. Remaining26 register/commuted operands.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886986.1193678,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Valid score 130 retained. Tested pointer arithmetic, loop and expression rearrangements; 26 register/commuted operand differences remain. Local repairs exhausted.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886986.2773068,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887016.46618,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained semantically valid score 130 revision 20a4e37f02ea7cba8719. Tested arithmetic, branch, loop and switch variants; remaining 26 operand/register differences, mostly commuted addu.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886986.488906,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "No improvement130 after unsigned locals, inline bool, integer pointer variant, multiplier/limit widths and unsigned x. Remaining26 operand mismatches; baseline retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886986.5692859,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Unsigned offset and all remaining signedness targets plus declaration order produce no improvement (i signed worsens1165, v signed330). Retain valid130; remaining commuted operands. No new layout/prototype learned.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886986.789244,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Full budget: offset/off44/limit/x unsigned and void pointer do not change code; u32 loop index worsens390, u8 ok635. Signedness/declaration families exhausted. Valid130 retained; remaining26 register/commuted additions.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886986.994087,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Improved130->110: final termination tests ok&0xff (target tests truncated ok); byte indexing *(i+base+0x32) fixes commuted addu. 22 register operand differences remain, mostly switch destination pointer additions; parameter widths, ok/i widths and boolean forms tried. Preserve explicit arg0 mask.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886987.26946,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained score 110 candidate. Local signedness, source-line, declaration-order and sum-shape variants did not improve; remaining differences are chiefly commuted register operands.",
+   "by": "codex-gpt-6.1-terra-low-1",
+   "created_at": 1793886987.734129,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Exhausted local repair budget; best110 retained. Tried signedness/declaration order, boolean conditional and index reassociation. Remaining commuted/register operands.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886987.784621,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Retained valid score110 dc738327. Tested pointer addition regrouping (915), restored; six unsigned off/off44/new_var/x/ok and base+i order variants all110. Remaining22 register/commuted operand differences; no behavioral changes.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886987.918567,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887016.46618,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "110 retained; 22 mismatch rows are commuted addu operands in switch stores, not relocation. Alias/casts and local types/order no effect; conditional wrap worsens135. Additional off/index/limit/v/p type probes exhausted budget.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793886997.574785,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887016.46618,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best source verified at score 110; all 188 instructions present. Remaining 22 differences are only addu operand register ordering. No evidence-based source repair available.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887013.625121,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Completed two further signedness compile_family trials (base and p), both unchanged at 110. No structural repair found; remaining repeated-case register allocation differences.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887013.708321,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best retained score 110 from prior candidate. Attempted compact reconstruction and boundary constant edits; compact source scored 925 due missing cases/loop structure, then restored baseline. Remaining regalloc and control-flow mismatches; local repairs exhausted.",
+   "by": "codex-gpt-5.6-luna-low-6",
+   "created_at": 1793887013.8209732,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Moved on after 8 trials returning previously seen scored instruction diffs. Best source retained.",
+   "by": "codex-gpt-6.1-sol-low-10",
+   "created_at": 1793887016.46618,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "record_slot_init",
+   "text": "Best 3838 (79.5%). Keys found: the switch is 23 entries (sltiu 0x17) with cases 19-22 going to the default block (D_800A5074), so case 19..22 must be written as fallthrough labels to default. Each case re-loads base = *(u8**)(D_800C02AE+0x32F2) inside the case (a macro SET_ENTRY does this), and the store is `*(s32*)(base+off+0x44) = D_800A50xx`; hoisting the base out of the switch changes the code (10848 vs 3838). What is left: register allocation. ROM keeps off in s0, off+0x44 in s5, the constant 0x16 in s6 (ours has off in s2, no s5/s6), and saves s0-s6 + ra in a 0x30 frame (ours 0x28). Tried: idx=arg0 local plus off44 variable (3911, worse). Next: get the ROM's variable set to match s0..s6 (maybe the 0x16 is a separate local `limit`, and off44 is a separate variable declared before off), then the loop block order.",
+   "by": "W3.claude-haiku-2",
+   "created_at": 1793887050.3490949,
    "score_before": 0,
    "score_after": 0
   }
@@ -357333,10 +357347,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516191.162171,
-    "attempt_id": 4294973410,
-    "source_sha256": "dd1bca188f2b08354ef532b299da30873ded8fdb77ec572baf2cd9b183d9d3ea",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794602885.39919,
+    "attempt_id": 4294974496,
+    "source_sha256": "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -357376,7 +357390,7 @@
       ],
       "timeout": 20
      },
-     "settings_source": "compile invocation snapshot",
+     "settings_source": "project configuration at recording; temporary compile overrides may differ",
      "gp": 0,
      "big_endian": true,
      "rom": {
@@ -357385,22 +357399,6 @@
       "region": "Europe",
       "byte_order": "z64"
      },
-     "effective_command": [
-      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
-      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
-      "-c",
-      "-G0",
-      "-mips3",
-      "-mgp32",
-      "-mfp32",
-      "-O2",
-      "-g3",
-      "-I{include}",
-      "{src}",
-      "-o",
-      "{obj}"
-     ],
-     "language": "c",
      "context_unit": "",
      "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
      "context_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55"
@@ -450688,7 +450686,8 @@
    "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f": "extern u16 D_800C34FC;\nextern u16 D_800C836E;\nextern u16 gNumberBuf;\nextern void *gSlotState;\n\n/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */\nvoid func_80062334(void) {\n    u16 v1;\n    u16 a0;\n    u16 a1;\n    char *slot;\n\n    slot = (char *)gSlotState;\n    v1 = D_800C34FC;\n    a0 = D_800C836E;\n    a1 = gNumberBuf;\n    *(s16 *)(slot + 0x1E) = v1;\n    *(s16 *)(slot + 0x20) = a0;\n    *(s16 *)(slot + 0x22) = a1;\n}\n",
    "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a": "extern char stream_state[];\n#define gStreamGroups (*(char **)(stream_state + 0x10386))\n#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))\nstatic inline int groupIdxInRange(s32 groupIdx)\n{\n  return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);\n}\n\nstatic inline int slotInGroup(s32 slot, char *group)\n{\n  return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));\n}\n\n/* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group\n * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group\n * mask table at stream_state+0x327E. Stops after the first match. */\nvoid markStreamSlotsByTag(s32 tag)\n{\n  s32 slot;\n  s32 slotIdx;\n  s32 zero;\n  u32 groupIdx;\n  u16 found;\n  s32 group;\n  char *groupBase;\n  char *groupPtr;\n\n  found = 1;\n  groupBase = gStreamGroups;\n  group = 0;\n  groupPtr = (char *)groupBase + 0x14;\n  if (gStreamGroupCount != 0)\n  {\n    zero = 0;\n    do\n    {\n      slot = 0;\n      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)\n      {\n        groupIdx = group & 0xFF;\n        do\n        {\n          slotIdx = slot & 0xFF;\n          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))\n          {\n            found = 0;\n            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);\n          }\n          slot += 1;\n        }\n        while (found & slotInGroup(slot, groupBase));\n      }\n      groupPtr += 0x2C4;\n      groupBase += 0x2C4;\n      group += 1;\n    }\n    while (found & groupIdxInRange(group));\n  }\n}\n",
    "9397a5efb4d886d69a378dfd0b8e2da00b4a386d0a2bc837f066988b88bac21f": "extern char gOrderState[];\nvoid osSendMesg(char *a, int b, int c);\n/* Posts a zero-valued blocking message to the order state's message queue. */\nvoid order_post_wakeup(void) { osSendMesg(gOrderState + 0x87A8, 0, 0); }\n",
-   "1008677efd6c98c7e817a3fbbf78fe089291c168dded1b4fe2c162d5bf033bee": "extern int D_800D0658;\nextern void *gSelectState;\nextern char D_800A5F9C[];\nextern char D_800A5FAC[];\ns32 getTexturePack();\ns32 func_8007A794();\ns32 resolve_path();\ns32 appendString();\n\n/* Takes the first 5 characters of the currently selected entry's name (entries are 0x2C4 bytes,\n * the selection index is at gSelectState+0x237), appends the suffix D_800A5FAC to it and stores the\n * texture pack id that results in gSelectState+0x1E4. */\nvoid select_load_texture_pack(void)\n{\n    char name[16];\n    char *namePtr;\n    u8 i;\n    char *entry;\n\n    func_8007A794();\n    resolve_path(D_800A5F9C);\n    entry = (char *)(D_800D0658 + *((u8 *)((char *)gSelectState + 0x237)) * 0x2C4);\n    i = 0;\n    do\n    {\n        name[i] = entry[i];\n        i++;\n    } while (i < 5);\n    namePtr = name;\n    namePtr[i] = 0;\n    appendString(namePtr, D_800A5FAC);\n    *((s32 *)((char *)gSelectState + 0x1E4)) = getTexturePack(namePtr, 0);\n}"
+   "1008677efd6c98c7e817a3fbbf78fe089291c168dded1b4fe2c162d5bf033bee": "extern int D_800D0658;\nextern void *gSelectState;\nextern char D_800A5F9C[];\nextern char D_800A5FAC[];\ns32 getTexturePack();\ns32 func_8007A794();\ns32 resolve_path();\ns32 appendString();\n\n/* Takes the first 5 characters of the currently selected entry's name (entries are 0x2C4 bytes,\n * the selection index is at gSelectState+0x237), appends the suffix D_800A5FAC to it and stores the\n * texture pack id that results in gSelectState+0x1E4. */\nvoid select_load_texture_pack(void)\n{\n    char name[16];\n    char *namePtr;\n    u8 i;\n    char *entry;\n\n    func_8007A794();\n    resolve_path(D_800A5F9C);\n    entry = (char *)(D_800D0658 + *((u8 *)((char *)gSelectState + 0x237)) * 0x2C4);\n    i = 0;\n    do\n    {\n        name[i] = entry[i];\n        i++;\n    } while (i < 5);\n    namePtr = name;\n    namePtr[i] = 0;\n    appendString(namePtr, D_800A5FAC);\n    *((s32 *)((char *)gSelectState + 0x1E4)) = getTexturePack(namePtr, 0);\n}",
+   "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
