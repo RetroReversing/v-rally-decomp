@@ -24,54 +24,25 @@ void func_80019314(u8 *obj, s32 *extentX, s32 *extentY, s32 *total)
       ;
       do
       {
+        /* port: the cases of the console's jump table (jtbl_800A41A0). The matched C had 0 and 1 here, which
+           compile to the same code but a different table: no slot got its vertex records. */
         switch ((u32) (((u16 *) (((u8 *) list) + 4))[1] - 0x18))
         {
-          case 0:
+          case 11:
             *extentY += ((u16 *) (((u8 *) list) + 4))[0];
             break;
-
-          case 1:
+          case 2:
+          case 6:
             *extentX += ((u16 *) (((u8 *) list) + 4))[0];
             break;
-
-          case 2:
-            break;
-
-          case 3:
-            break;
-
+          case 0:
           case 4:
             break;
-
-          case 5:
-            break;
-
-          case 6:
-            break;
-
-          case 7:
-            break;
-
-          case 8:
-            break;
-
-          case 9:
-            break;
-
-          case 10:
-            break;
-
-          case 11:
-            break;
-
           default:
             while (1)
           {
           }
-
-
         }
-
         updateMaxExtent(list, &maxIndex);
         cmd += 4;
         list += 2;

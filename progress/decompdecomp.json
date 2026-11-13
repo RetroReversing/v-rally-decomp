@@ -1346,6 +1346,20 @@
    "timeout": 20,
    "function": "text_table_load",
    "vram": 2147820568
+  },
+  "106260:2147586836": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "func_80019314",
+   "vram": 2147586836
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -33559,14 +33573,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886867.2057269,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8009A140",
    "text": "Looks hand-written assembly: it saves ra into $t5 around each `jal` (move $t5,$ra / jal / move $ra,$t5) with no stack frame, and does 64-bit negation by hand (xor with -1, addiu 1, sltiu carry into the high word). A compiled C version starts with addiu $sp and sw $ra, which can't match. Second half (from the `lui $t0, 0x8000` at the 2nd entry) is the same routine with the other branch set, so both halves are in one hand-written block. Only one C attempt tried (score 9355, structure unlike target).",
    "by": "claude-haiku-2",
@@ -38831,14 +38837,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.4116852,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "cos_q12",
    "text": "Best stays 125 (95.0%). Rechecked this session: project flags are as good as any (search_flags: -O3 and -fno-strength-reduce also 125; -g3 125; -G8 335). Source shape is right: `t = func((f32)((f64)(f32)((f64)arg0 * D_800A4A20) * D_800A4A28)); return (s32)(t * 4096.0f);`. Variants that all stay at 125: `4096.0f * t`; a separate f32 `x` for the first product; no-cast first step. Remaining: gcc puts the first f32 intermediate in $f0 (`cvt.s.d f0,f0; cvt.d.s f12,f0`) where the ROM has it in $f12 (`cvt.s.d f12,f0; cvt.d.s f12,f12`), so the post-call multiply is `mul.s f0,f0,f2; trunc.w.s f2,f0` where the ROM has `mul.s f12,f0,f2; trunc.w.s f0,f12`. The ROM's trailing `nop` after mfc1 is also missing. Untried: an f64 temporary that is the argument of the first cvt.s.d (so the f32 ends in f12 as an argument register).",
    "by": "claude-haiku-9",
@@ -42055,14 +42053,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886870.8736699,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80052194",
    "text": "Best score 5 (99.8%, 36 insns; one regalloc diff). Structure, frame, char pad[8], do-while, and the call all match. Source: `tag = (s32)D_800A5008` and `off = 0` inside `if (arg0 > 0)`, then `if (*(u8 *)(*(u8 **)(D_800AE850 + 0x237C) + off) == tag)`, with `n = k & 0xFFFF; k++;` before `func_800520D4(i & 0xFFFF, n)`, then `i++; off += 0x14;`. Remaining diff: target `addu $v0,$s1,$v0` (off + base), ours `addu $v0,$v0,$s1`. Tried, no change from 5: `off + *(u8**)...` spelling; `*(u32 *)` base; swapping the declaration order of off/k/i; for-loop (235, worse: adds a beqz guard); compare against D_800A5008 directly (65, the lui s4 gets ordered wrong). Note the `(s32)` cast on the tag is needed. Untried: a char-typed `off`, or a pointer-walk variant that keeps the add.",
    "by": "claude-haiku-1",
@@ -44379,14 +44369,6 @@
    "text": "haiku-5: best stays 950 (72%). Re-checked the 950 source: first 14 insns match. Remaining diff is the D_800A56A0 base register (ROM: lui $t0 / addiu $t0 once, then lw 0($t0), lw 4($t0), lb 8($t0) before the stores; ours folds each field to its own lui/lw and reorders the loads after the stores' order). Also `move $a0,$zero` sits after the loads in the ROM. A Buf8 copy form for the first 8 bytes went to 2577 (base kept in $s0). Same open problem as func_8007102C: no C shape yet makes gcc keep the &D_800A56A0 address in a register.",
    "by": "claude-haiku-8",
    "created_at": 1793886871.8710558,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.8745081,
    "score_before": 0,
    "score_after": 0
   },
@@ -47999,14 +47981,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886873.365472,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800316C4",
    "text": "Not matched. Best of mine 1021 (85%, 69 vs 68 insns); autopilot 435 still scores better, so it stays the saved best. Shape is right: v0=arg0->0x78, count=u16 at arg0+0x88 (loaded before the byte), s1=u8 v0[0x14] as s32 (s32 is needed: u8 gives andi on the (s16) arg), s5=(v0[0x17]-s1)/(s32)(count-1), if(count){ s4=s1*5; do {...} while((u32)(s3&0xFFFF) < (u16)arg0->0x88) } with the ROM's reload of 0x88 and 0x78 each iteration. Remaining diff is register allocation plus one structural thing: GCC hoists the loop-invariant s5*5 into a saved reg ($s6, extra prologue save), while the ROM computes sll/addu s5 inside the loop after the sh and adds it to s4. In the ROM, arg0 is in $s2 and the byte var in $s1 (ours swapped). Tried, no change: var_s1 declared first, temp_v0/temp_a1 decl order, s1 update before s4, block-local step, (temp<<2)+temp form, u16 vs s32 count, for-loop form (worse). Untried: anything that stops the hoist without changing the instruction order (e.g. making the 0x17 byte read or the divisor opaque to the optimiser), or an assignment through a different struct type for arg0 (the struct may fix the reg order).",
    "by": "claude-haiku-9",
@@ -48095,14 +48069,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.403459,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "mat3_mul_vec3",
    "text": "Blocked by compiler, not code: the saved C matches byte for byte with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 (try_compiler MATCHES; suggested for range 0x8002E3AC-0x8002E514, range check #70 running). With the project's -O2 it stays at 290 (two nops after the last mflo missing). Nothing left to change in the C; the flags are the fix.",
    "by": "claude-haiku-16",
@@ -48171,14 +48137,6 @@
    "text": "Best stays 1595 (81.2%). Last variants: `while (*(u8 *)q != 0)` in the scan gives 1811 (the table scan then has the right shape, `lb`/`bne t1`/`beqz` order, but the frame grows to 0x38 instead of the ROM's 0x28 and the prologue constant hoisting is still different: ROM t3=0x23, t2=0x2F, a3=sp, t1=sp+0x11, t0=a0+1). Declaring c/c0 as char, or moving buf last, does not change the frame. The ROM uses no callee-saved registers and only buf on the stack, so the extra 0x10 is spilled locals: find which local gcc spills. Also the ROM loads `lbu $v1,($a2)` right after `lb $v0,($a2)` before `bne $t1,$v0`, i.e. an unsigned read of *q is done unconditionally at the top of each scan iteration; no source tried reproduces that. `&&` form for the scan is wrong (2215).",
    "by": "claude-haiku-4",
    "created_at": 1793886873.434192,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.4376268,
    "score_before": 0,
    "score_after": 0
   },
@@ -50459,14 +50417,6 @@
    "text": "Range check #83: this function's C matches with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g, but its neighbours are built by the project's compiler (they say so). Look for C that matches with the project's compiler.",
    "by": "autopilot",
    "created_at": 1793886874.42324,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
-   "by": "claude-haiku-10",
-   "created_at": 1793886874.426631,
    "score_before": 0,
    "score_after": 0
   },
@@ -53187,14 +53137,6 @@
    "text": "claude-haiku-5-5, 7 compiles this claim; saved best stays 4 (99.9%). Every instruction, register and the six stack-arg stores (0x10..0x24) match; the only diff is the frame: ours `addiu $sp,-0x38` with ra at 0x30, ROM `-0x30` with ra at 0x28. Things that did NOT change the frame: an unused `s64 pad` local (still 0x38, so the extra 8 is not from locals), varargs callee prototype `void func_8000BA38()` (4), s32 return on the callee (4), s32 a1/a2 params (4), dropping new_var2 or merging temps (605, worse: regalloc breaks). Reasoning: outgoing area for 10 args is 0x28 (4 home + 6 stack) and ra makes 0x2C, which rounds to 0x30; ours gets 0x30 of outgoing-ish space. Untried: whether the call really needs 4 home words or whether the arguments are counted differently with a callee that has fewer register params (e.g. a callee declared with 6 params where the last 6 are stack); also a -O1 search_flags on this exact source to see if the frame differs. Needs a second model's eye on the frame rule before more C tries.",
    "by": "claude-haiku-7",
    "created_at": 1793886875.522145,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.526135,
    "score_before": 0,
    "score_after": 0
   },
@@ -56011,14 +55953,6 @@
    "text": "Claimed by claude-haiku-5. Kept the saved 135 permuter source as best. One hand compile this claim (plain Gfx2 dl-pointer form, flag test as `if (flag) {B} else {A}`): 5935, far worse. The ROM's flag-set path (B) is the out-of-line target of `bnez $v0` with `move $a3,$a2` in the delay slot; the flag-clear path (A) keeps arg0 in $a2 across its whole body; the B path's 0xE3000A01 / 0xE7000000 commands are stored separately, and the 0xFCFFFFFF / 0xFFFE793C pair goes to the shared tail. Hand Gfx forms from the notes (500, 1065) are closer than mine. Needs the permuter from the 135 or 500 source, not more hand compiles. Nothing else to add.",
    "by": "claude-haiku-10",
    "created_at": 1793886876.56592,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886876.5688598,
    "score_before": 0,
    "score_after": 0
   },
@@ -56807,14 +56741,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886867.2057269,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8009A140",
    "text": "Looks hand-written assembly: it saves ra into $t5 around each `jal` (move $t5,$ra / jal / move $ra,$t5) with no stack frame, and does 64-bit negation by hand (xor with -1, addiu 1, sltiu carry into the high word). A compiled C version starts with addiu $sp and sw $ra, which can't match. Second half (from the `lui $t0, 0x8000` at the 2nd entry) is the same routine with the other branch set, so both halves are in one hand-written block. Only one C attempt tried (score 9355, structure unlike target).",
    "by": "claude-haiku-2",
@@ -62079,14 +62005,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.4116852,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "cos_q12",
    "text": "Best stays 125 (95.0%). Rechecked this session: project flags are as good as any (search_flags: -O3 and -fno-strength-reduce also 125; -g3 125; -G8 335). Source shape is right: `t = func((f32)((f64)(f32)((f64)arg0 * D_800A4A20) * D_800A4A28)); return (s32)(t * 4096.0f);`. Variants that all stay at 125: `4096.0f * t`; a separate f32 `x` for the first product; no-cast first step. Remaining: gcc puts the first f32 intermediate in $f0 (`cvt.s.d f0,f0; cvt.d.s f12,f0`) where the ROM has it in $f12 (`cvt.s.d f12,f0; cvt.d.s f12,f12`), so the post-call multiply is `mul.s f0,f0,f2; trunc.w.s f2,f0` where the ROM has `mul.s f12,f0,f2; trunc.w.s f0,f12`. The ROM's trailing `nop` after mfc1 is also missing. Untried: an f64 temporary that is the argument of the first cvt.s.d (so the f32 ends in f12 as an argument register).",
    "by": "claude-haiku-9",
@@ -65303,14 +65221,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886870.8736699,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80052194",
    "text": "Best score 5 (99.8%, 36 insns; one regalloc diff). Structure, frame, char pad[8], do-while, and the call all match. Source: `tag = (s32)D_800A5008` and `off = 0` inside `if (arg0 > 0)`, then `if (*(u8 *)(*(u8 **)(D_800AE850 + 0x237C) + off) == tag)`, with `n = k & 0xFFFF; k++;` before `func_800520D4(i & 0xFFFF, n)`, then `i++; off += 0x14;`. Remaining diff: target `addu $v0,$s1,$v0` (off + base), ours `addu $v0,$v0,$s1`. Tried, no change from 5: `off + *(u8**)...` spelling; `*(u32 *)` base; swapping the declaration order of off/k/i; for-loop (235, worse: adds a beqz guard); compare against D_800A5008 directly (65, the lui s4 gets ordered wrong). Note the `(s32)` cast on the tag is needed. Untried: a char-typed `off`, or a pointer-walk variant that keeps the add.",
    "by": "claude-haiku-1",
@@ -67627,14 +67537,6 @@
    "text": "haiku-5: best stays 950 (72%). Re-checked the 950 source: first 14 insns match. Remaining diff is the D_800A56A0 base register (ROM: lui $t0 / addiu $t0 once, then lw 0($t0), lw 4($t0), lb 8($t0) before the stores; ours folds each field to its own lui/lw and reorders the loads after the stores' order). Also `move $a0,$zero` sits after the loads in the ROM. A Buf8 copy form for the first 8 bytes went to 2577 (base kept in $s0). Same open problem as func_8007102C: no C shape yet makes gcc keep the &D_800A56A0 address in a register.",
    "by": "claude-haiku-8",
    "created_at": 1793886871.8710558,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.8745081,
    "score_before": 0,
    "score_after": 0
   },
@@ -71247,14 +71149,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886873.365472,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800316C4",
    "text": "Not matched. Best of mine 1021 (85%, 69 vs 68 insns); autopilot 435 still scores better, so it stays the saved best. Shape is right: v0=arg0->0x78, count=u16 at arg0+0x88 (loaded before the byte), s1=u8 v0[0x14] as s32 (s32 is needed: u8 gives andi on the (s16) arg), s5=(v0[0x17]-s1)/(s32)(count-1), if(count){ s4=s1*5; do {...} while((u32)(s3&0xFFFF) < (u16)arg0->0x88) } with the ROM's reload of 0x88 and 0x78 each iteration. Remaining diff is register allocation plus one structural thing: GCC hoists the loop-invariant s5*5 into a saved reg ($s6, extra prologue save), while the ROM computes sll/addu s5 inside the loop after the sh and adds it to s4. In the ROM, arg0 is in $s2 and the byte var in $s1 (ours swapped). Tried, no change: var_s1 declared first, temp_v0/temp_a1 decl order, s1 update before s4, block-local step, (temp<<2)+temp form, u16 vs s32 count, for-loop form (worse). Untried: anything that stops the hoist without changing the instruction order (e.g. making the 0x17 byte read or the divisor opaque to the optimiser), or an assignment through a different struct type for arg0 (the struct may fix the reg order).",
    "by": "claude-haiku-9",
@@ -71343,14 +71237,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.403459,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "mat3_mul_vec3",
    "text": "Blocked by compiler, not code: the saved C matches byte for byte with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 (try_compiler MATCHES; suggested for range 0x8002E3AC-0x8002E514, range check #70 running). With the project's -O2 it stays at 290 (two nops after the last mflo missing). Nothing left to change in the C; the flags are the fix.",
    "by": "claude-haiku-16",
@@ -71419,14 +71305,6 @@
    "text": "Best stays 1595 (81.2%). Last variants: `while (*(u8 *)q != 0)` in the scan gives 1811 (the table scan then has the right shape, `lb`/`bne t1`/`beqz` order, but the frame grows to 0x38 instead of the ROM's 0x28 and the prologue constant hoisting is still different: ROM t3=0x23, t2=0x2F, a3=sp, t1=sp+0x11, t0=a0+1). Declaring c/c0 as char, or moving buf last, does not change the frame. The ROM uses no callee-saved registers and only buf on the stack, so the extra 0x10 is spilled locals: find which local gcc spills. Also the ROM loads `lbu $v1,($a2)` right after `lb $v0,($a2)` before `bne $t1,$v0`, i.e. an unsigned read of *q is done unconditionally at the top of each scan iteration; no source tried reproduces that. `&&` form for the scan is wrong (2215).",
    "by": "claude-haiku-4",
    "created_at": 1793886873.434192,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.4376268,
    "score_before": 0,
    "score_after": 0
   },
@@ -73707,14 +73585,6 @@
    "text": "Range check #83: this function's C matches with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g, but its neighbours are built by the project's compiler (they say so). Look for C that matches with the project's compiler.",
    "by": "autopilot",
    "created_at": 1793886874.42324,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
-   "by": "claude-haiku-10",
-   "created_at": 1793886874.426631,
    "score_before": 0,
    "score_after": 0
   },
@@ -76435,14 +76305,6 @@
    "text": "claude-haiku-5-5, 7 compiles this claim; saved best stays 4 (99.9%). Every instruction, register and the six stack-arg stores (0x10..0x24) match; the only diff is the frame: ours `addiu $sp,-0x38` with ra at 0x30, ROM `-0x30` with ra at 0x28. Things that did NOT change the frame: an unused `s64 pad` local (still 0x38, so the extra 8 is not from locals), varargs callee prototype `void func_8000BA38()` (4), s32 return on the callee (4), s32 a1/a2 params (4), dropping new_var2 or merging temps (605, worse: regalloc breaks). Reasoning: outgoing area for 10 args is 0x28 (4 home + 6 stack) and ra makes 0x2C, which rounds to 0x30; ours gets 0x30 of outgoing-ish space. Untried: whether the call really needs 4 home words or whether the arguments are counted differently with a callee that has fewer register params (e.g. a callee declared with 6 params where the last 6 are stack); also a -O1 search_flags on this exact source to see if the frame differs. Needs a second model's eye on the frame rule before more C tries.",
    "by": "claude-haiku-7",
    "created_at": 1793886875.522145,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.526135,
    "score_before": 0,
    "score_after": 0
   },
@@ -79259,14 +79121,6 @@
    "text": "Claimed by claude-haiku-5. Kept the saved 135 permuter source as best. One hand compile this claim (plain Gfx2 dl-pointer form, flag test as `if (flag) {B} else {A}`): 5935, far worse. The ROM's flag-set path (B) is the out-of-line target of `bnez $v0` with `move $a3,$a2` in the delay slot; the flag-clear path (A) keeps arg0 in $a2 across its whole body; the B path's 0xE3000A01 / 0xE7000000 commands are stored separately, and the 0xFCFFFFFF / 0xFFFE793C pair goes to the shared tail. Hand Gfx forms from the notes (500, 1065) are closer than mine. Needs the permuter from the 135 or 500 source, not more hand compiles. Nothing else to add.",
    "by": "claude-haiku-10",
    "created_at": 1793886876.56592,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886876.5688598,
    "score_before": 0,
    "score_after": 0
   },
@@ -80055,14 +79909,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
-   "by": "claude-haiku-7",
-   "created_at": 1793886867.2057269,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8009A140",
    "text": "Looks hand-written assembly: it saves ra into $t5 around each `jal` (move $t5,$ra / jal / move $ra,$t5) with no stack frame, and does 64-bit negation by hand (xor with -1, addiu 1, sltiu carry into the high word). A compiled C version starts with addiu $sp and sw $ra, which can't match. Second half (from the `lui $t0, 0x8000` at the 2nd entry) is the same routine with the other branch set, so both halves are in one hand-written block. Only one C attempt tried (score 9355, structure unlike target).",
    "by": "claude-haiku-2",
@@ -85327,14 +85173,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
-   "by": "claude-haiku-13",
-   "created_at": 1793886869.4116852,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "cos_q12",
    "text": "Best stays 125 (95.0%). Rechecked this session: project flags are as good as any (search_flags: -O3 and -fno-strength-reduce also 125; -g3 125; -G8 335). Source shape is right: `t = func((f32)((f64)(f32)((f64)arg0 * D_800A4A20) * D_800A4A28)); return (s32)(t * 4096.0f);`. Variants that all stay at 125: `4096.0f * t`; a separate f32 `x` for the first product; no-cast first step. Remaining: gcc puts the first f32 intermediate in $f0 (`cvt.s.d f0,f0; cvt.d.s f12,f0`) where the ROM has it in $f12 (`cvt.s.d f12,f0; cvt.d.s f12,f12`), so the post-call multiply is `mul.s f0,f0,f2; trunc.w.s f2,f0` where the ROM has `mul.s f12,f0,f2; trunc.w.s f0,f12`. The ROM's trailing `nop` after mfc1 is also missing. Untried: an f64 temporary that is the argument of the first cvt.s.d (so the f32 ends in f12 as an argument register).",
    "by": "claude-haiku-9",
@@ -88551,14 +88389,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
-   "by": "claude-haiku-2",
-   "created_at": 1793886870.8736699,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_80052194",
    "text": "Best score 5 (99.8%, 36 insns; one regalloc diff). Structure, frame, char pad[8], do-while, and the call all match. Source: `tag = (s32)D_800A5008` and `off = 0` inside `if (arg0 > 0)`, then `if (*(u8 *)(*(u8 **)(D_800AE850 + 0x237C) + off) == tag)`, with `n = k & 0xFFFF; k++;` before `func_800520D4(i & 0xFFFF, n)`, then `i++; off += 0x14;`. Remaining diff: target `addu $v0,$s1,$v0` (off + base), ours `addu $v0,$v0,$s1`. Tried, no change from 5: `off + *(u8**)...` spelling; `*(u32 *)` base; swapping the declaration order of off/k/i; for-loop (235, worse: adds a beqz guard); compare against D_800A5008 directly (65, the lui s4 gets ordered wrong). Note the `(s32)` cast on the tag is needed. Untried: a char-typed `off`, or a pointer-walk variant that keeps the add.",
    "by": "claude-haiku-1",
@@ -90875,14 +90705,6 @@
    "text": "haiku-5: best stays 950 (72%). Re-checked the 950 source: first 14 insns match. Remaining diff is the D_800A56A0 base register (ROM: lui $t0 / addiu $t0 once, then lw 0($t0), lw 4($t0), lb 8($t0) before the stores; ours folds each field to its own lui/lw and reorders the loads after the stores' order). Also `move $a0,$zero` sits after the loads in the ROM. A Buf8 copy form for the first 8 bytes went to 2577 (base kept in $s0). Same open problem as func_8007102C: no C shape yet makes gcc keep the &D_800A56A0 address in a register.",
    "by": "claude-haiku-8",
    "created_at": 1793886871.8710558,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
-   "by": "claude-haiku-4",
-   "created_at": 1793886871.8745081,
    "score_before": 0,
    "score_after": 0
   },
@@ -94495,14 +94317,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
-   "by": "claude-haiku-11",
-   "created_at": 1793886873.365472,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_800316C4",
    "text": "Not matched. Best of mine 1021 (85%, 69 vs 68 insns); autopilot 435 still scores better, so it stays the saved best. Shape is right: v0=arg0->0x78, count=u16 at arg0+0x88 (loaded before the byte), s1=u8 v0[0x14] as s32 (s32 is needed: u8 gives andi on the (s16) arg), s5=(v0[0x17]-s1)/(s32)(count-1), if(count){ s4=s1*5; do {...} while((u32)(s3&0xFFFF) < (u16)arg0->0x88) } with the ROM's reload of 0x88 and 0x78 each iteration. Remaining diff is register allocation plus one structural thing: GCC hoists the loop-invariant s5*5 into a saved reg ($s6, extra prologue save), while the ROM computes sll/addu s5 inside the loop after the sh and adds it to s4. In the ROM, arg0 is in $s2 and the byte var in $s1 (ours swapped). Tried, no change: var_s1 declared first, temp_v0/temp_a1 decl order, s1 update before s4, block-local step, (temp<<2)+temp form, u16 vs s32 count, for-loop form (worse). Untried: anything that stops the hoist without changing the instruction order (e.g. making the 0x17 byte read or the divisor opaque to the optimiser), or an assignment through a different struct type for arg0 (the struct may fix the reg order).",
    "by": "claude-haiku-9",
@@ -94591,14 +94405,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
-   "by": "autopilot",
-   "created_at": 1793886873.403459,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "mat3_mul_vec3",
    "text": "Blocked by compiler, not code: the saved C matches byte for byte with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 (try_compiler MATCHES; suggested for range 0x8002E3AC-0x8002E514, range check #70 running). With the project's -O2 it stays at 290 (two nops after the last mflo missing). Nothing left to change in the C; the flags are the fix.",
    "by": "claude-haiku-16",
@@ -94667,14 +94473,6 @@
    "text": "Best stays 1595 (81.2%). Last variants: `while (*(u8 *)q != 0)` in the scan gives 1811 (the table scan then has the right shape, `lb`/`bne t1`/`beqz` order, but the frame grows to 0x38 instead of the ROM's 0x28 and the prologue constant hoisting is still different: ROM t3=0x23, t2=0x2F, a3=sp, t1=sp+0x11, t0=a0+1). Declaring c/c0 as char, or moving buf last, does not change the frame. The ROM uses no callee-saved registers and only buf on the stack, so the extra 0x10 is spilled locals: find which local gcc spills. Also the ROM loads `lbu $v1,($a2)` right after `lb $v0,($a2)` before `bne $t1,$v0`, i.e. an unsigned read of *q is done unconditionally at the top of each scan iteration; no source tried reproduces that. `&&` form for the scan is wrong (2215).",
    "by": "claude-haiku-4",
    "created_at": 1793886873.434192,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
-   "by": "claude-haiku-6",
-   "created_at": 1793886873.4376268,
    "score_before": 0,
    "score_after": 0
   },
@@ -96955,14 +96753,6 @@
    "text": "Range check #83: this function's C matches with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g, but its neighbours are built by the project's compiler (they say so). Look for C that matches with the project's compiler.",
    "by": "autopilot",
    "created_at": 1793886874.42324,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
-   "by": "claude-haiku-10",
-   "created_at": 1793886874.426631,
    "score_before": 0,
    "score_after": 0
   },
@@ -99683,14 +99473,6 @@
    "text": "claude-haiku-5-5, 7 compiles this claim; saved best stays 4 (99.9%). Every instruction, register and the six stack-arg stores (0x10..0x24) match; the only diff is the frame: ours `addiu $sp,-0x38` with ra at 0x30, ROM `-0x30` with ra at 0x28. Things that did NOT change the frame: an unused `s64 pad` local (still 0x38, so the extra 8 is not from locals), varargs callee prototype `void func_8000BA38()` (4), s32 return on the callee (4), s32 a1/a2 params (4), dropping new_var2 or merging temps (605, worse: regalloc breaks). Reasoning: outgoing area for 10 args is 0x28 (4 home + 6 stack) and ra makes 0x2C, which rounds to 0x30; ours gets 0x30 of outgoing-ish space. Untried: whether the call really needs 4 home words or whether the arguments are counted differently with a callee that has fewer register params (e.g. a callee declared with 6 params where the last 6 are stack); also a -O1 search_flags on this exact source to see if the frame differs. Needs a second model's eye on the frame rule before more C tries.",
    "by": "claude-haiku-7",
    "created_at": 1793886875.522145,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-8",
-   "created_at": 1793886875.526135,
    "score_before": 0,
    "score_after": 0
   },
@@ -102507,14 +102289,6 @@
    "text": "Claimed by claude-haiku-5. Kept the saved 135 permuter source as best. One hand compile this claim (plain Gfx2 dl-pointer form, flag test as `if (flag) {B} else {A}`): 5935, far worse. The ROM's flag-set path (B) is the out-of-line target of `bnez $v0` with `move $a3,$a2` in the delay slot; the flag-clear path (A) keeps arg0 in $a2 across its whole body; the B path's 0xE3000A01 / 0xE7000000 commands are stored separately, and the 0xFCFFFFFF / 0xFFFE793C pair goes to the shared tail. Hand Gfx forms from the notes (500, 1065) are closer than mine. Needs the permuter from the 135 or 500 source, not more hand compiles. Nothing else to add.",
    "by": "claude-haiku-10",
    "created_at": 1793886876.56592,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
-   "function": "func_80019314",
-   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
-   "by": "claude-haiku-1",
-   "created_at": 1793886876.5688598,
    "score_before": 0,
    "score_after": 0
   },
@@ -108173,14 +107947,6 @@
    "created_at": 1793886894.41661,
    "score_before": 1215,
    "score_after": 893
-  },
-  {
-   "function": "func_80019314",
-   "text": "User's max tries reached (5/5); best attempt retained.",
-   "by": "codex-gpt-5.6-luna-low-2",
-   "created_at": 1793886894.438894,
-   "score_before": 14,
-   "score_after": 14
   },
   {
    "function": "func_8008188C",
@@ -226271,14 +226037,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
-   "by": "W3.claude-haiku-7",
-   "created_at": 1793887050.275964,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8009A140",
    "text": "Looks hand-written assembly: it saves ra into $t5 around each `jal` (move $t5,$ra / jal / move $ra,$t5) with no stack frame, and does 64-bit negation by hand (xor with -1, addiu 1, sltiu carry into the high word). A compiled C version starts with addiu $sp and sw $ra, which can't match. Second half (from the `lui $t0, 0x8000` at the 2nd entry) is the same routine with the other branch set, so both halves are in one hand-written block. Only one C attempt tried (score 9355, structure unlike target).",
    "by": "W3.claude-haiku-2",
@@ -257903,14 +257661,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80019314",
-   "text": "Renames blocked: rename_symbol of func_80019314 and list_max_entry (func_800561FC) was rejected because the caller slot_update_list (matched) declares arg3 as s32 while this definition takes s32*. Prototype clash between sources. Nothing changed. Next: resolve the caller's prototype (jointly), then rename and make_readable. Body: max-accumulates list entries into *a1/*a2, count into obj+0xA, adds to *a3.",
-   "by": "claude-haiku-medium-5",
-   "created_at": 1794201677.324051,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "voiceUpdatePitch",
    "text": "Not started. The current matching C is an m2c machine draft (M2C_FIELD macros, temp_ names) and needs a proper struct for the voice state (offsets 0x20..0xB2) before it can be made readable. Next step: add a VRALVoice struct to context.h and rewrite the body with field names.",
    "by": "claude-haiku-medium-1",
@@ -264411,6 +264161,270 @@
    "text": "Stuck at 2282 (79.8%) after 6 compiles; releasing with best. Not closer because of three things the C form does not reach: (1) GCC keeps two induction pointers (out = e+0x10 for the sw, and e+0xE for the u16 decrement) where the target has one (s2 = e+0x10, lhu/sh at -2(s2)); writing the decrement as ((u16*)out)[-1], *(u16*)(out-2), or with out as u8* all gave the same 2282. (2) 13*v is in s5 instead of s4, so the frame is 0x40 instead of 0x48. (3) the switch jump table: target loads it through the named symbol D_800A5030 (lui/addu/lw/jr), our switch emits its own .rodata table, so it reports 'refers to .rodata+0x0'. Suggest a human check the jump table's place in the ROM before more attempts. Ideas not tried: a struct for the 0x14 entry with a u16 at 0xE and s32 at 0x10, and a for-loop over the count with the guard shape.",
    "by": "W3.claude-haiku-4",
    "created_at": 1793887050.31872,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886867.2057269,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.4116852,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886870.8736699,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.8745081,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886873.365472,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.403459,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.4376268,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
+   "by": "claude-haiku-10",
+   "created_at": 1793886874.426631,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.526135,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886876.5688598,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886867.2057269,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.4116852,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886870.8736699,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.8745081,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886873.365472,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.403459,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.4376268,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
+   "by": "claude-haiku-10",
+   "created_at": 1793886874.426631,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.526135,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886876.5688598,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
+   "by": "claude-haiku-7",
+   "created_at": 1793886867.2057269,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 234 (96.8%; first 20 of 75 match; all registers now match). Learned: (1) each `case 2..11: break;` must be its own label (stacked labels merge into a range, GCC emits compares, not the jr table). (2) count must be s32 (u16 adds an andi and changes the register). (3) Frame: ROM is 0x48; `s32 pad[2]` (kept; unused scalars are dropped) gives 0x48, but n lands at sp+0x18 and the ROM has n at sp+0x10. Tried n in nested block, pad in nested block, pad first/last, char pad[8], f64 pad (dropped): n stays at 0x18. Still open. (4) Scheduling: ROM computes the table base (lui/addiu fp) before `addiu s0,s1,4`; ours after. (5) Link warning: ROM's table is D_800A41A0 (not in a loaded ROM part); ours is a local .rodata table. Not fixable from C alone. Next: try the n/pad order via a second local array, or check if the ROM's 0x10 slot is a pointer-typed var (e.g. a local `s32 *p` address that gets &n).",
+   "by": "claude-haiku-13",
+   "created_at": 1793886869.4116852,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, all registers match). Only diff: the stack slot of n. ROM keeps n at sp+0x10 (the &n passed to func_800561FC is sp+0x10); ours puts it at sp+0x18 with `s32 pad[2]` taking 0x10. Tried this claim: pad[2] first (14, same), pad[4] first (36: frame grows to 0x50, so the 0x48 frame is needed). Earlier agents: pad last, pad in nested block, char pad[8], f64 pad, n in nested block, all keep n at 0x18. Left: the original likely has an 8-byte local that isn't visible in this function, or n is typed so GCC allocates it below pad. The jump table is also a local .rodata table here, while the ROM uses D_800A41A0; that part cannot be fixed from C.",
+   "by": "claude-haiku-2",
+   "created_at": 1793886870.8736699,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C: best stays 14 (99.8%, all 75 insns and registers match). Two blockers. (1) Stack: ROM n at sp+0x10 with frame 0x48; ours n at 0x18. Declaring pad first/last, s32 pad[2]/[3], u64 pad[1] (dropped when unused, frame 0x40) all put n at 0x18 or change the frame. (2) Jump table: the ROM's jr goes through D_800A41A0 (external data, not in the ROM part we link), while ours emits a local .rodata table. Score stays above 0 even with the stack fixed. Keep cases 2..11 as separate `case N: break;` labels so GCC emits the table. Suggest: someone who knows where D_800A41A0 lives (or a way to point the table at it) should decide whether this can ever be byte-identical.",
+   "by": "claude-haiku-4",
+   "created_at": 1793886871.8745081,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 14 (99.8%, 75/75 insns, registers match). Cannot get closer from C: (1) stack: ROM's &n is sp+0x10 in a 0x48 frame; with s32 pad[2] n lands at sp+0x18. pad[3], u8 pad[12] and pad[4] give a 0x50 frame (score 36); pad before/after i/n, u32 n: no change. (2) The ROM's jr table is D_800A41A0, an external symbol outside the linked part; the switch here emits a local .rodata table (warning: .rodata+0x0), so the branch offsets differ (beqz 0xe0 vs 0xfc). Not fixable from C without pointing the table at the external address. Keep cases 2..11 as separate labels. Needs someone who knows the table layout or the frame's hidden local.",
+   "by": "claude-haiku-11",
+   "created_at": 1793886873.365472,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Range check #74: is this part of the game built by KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3? An agent's C for a function next to func_80019314 matches with it. Match func_80019314 as usual; then try_compiler(\"func_80019314\", \"gcc-2.7.2-kmc\", \"-G0 -mips3 -mgp32 -mfp32 -O2 -g3\"). Matching with KMC GCC 2.7.2 -G0 -mips3 -mgp32 -mfp32 -O2 -g3 and not with the project's compiler confirms the range; matching with the project's compiler only shows it was a quirk. Either answer helps.",
+   "by": "autopilot",
+   "created_at": 1793886873.403459,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%, 75/75 insns, registers match). try_compiler gcc-2.7.2-kmc with -G0 -mips3 -mgp32 -mfp32 -O2 -g3 on the best C also gives 14 (not a match): the diff is the same two things. (1) n at sp+0x18 vs the ROM's sp+0x10 (the &n passed to func_800561FC); the -g3 flag doesn't change it. (2) The switch's jump table: the ROM's jr goes through D_800A41A0, outside the linked part, so ours emits a local .rodata table and the branch offsets differ (beqz 0xfc vs 0xe0). Not closable from C with what's known; whoever can confirm where D_800A41A0 sits in the linked image can decide whether the table can match.",
+   "by": "claude-haiku-6",
+   "created_at": 1793886873.4376268,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best stays 14 (99.8%). Blockers, not fixable from C here: (1) n lands at sp+0x18 with s32 pad[2] (target sp+0x10) and every pad placement tried keeps it there; (2) the jr table is D_800A41A0, outside the linked part, so ours emits a local .rodata table and branches differ (beqz 0xfc vs 0xe0). try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14. Next: someone who can see the linked table at D_800A41A0 should decide whether the jump table can match at all.",
+   "by": "claude-haiku-10",
+   "created_at": 1793886874.426631,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Can't get closer from C in this session: best stays 14 (75/75 insns, registers match). Re-checked: the only diff is the stack slot of n (ROM sp+0x10, ours sp+0x18, s32 pad[2] takes 0x10-0x17) and the jump table, which the ROM reaches through external D_800A41A0 while ours emits a local .rodata table (beqz 0xfc vs 0xe0). Both were tried by earlier agents (pad first/last/nested, u8 pad[8], f64/u64 pad, n in nested block, pad[3]/pad[4] change the frame to 0x50). Needs someone who can see the linked table at D_800A41A0 or the hidden 8-byte local, to decide whether this can ever be byte-identical. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-8",
+   "created_at": 1793886875.526135,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Stays at 14 (99.8%). Two compiles this claim, both 14 (n-first and pad-first orders), so the rest is blocked by two things C can't reach from this side: (1) stack: ROM stores n at sp+0x10 (`sw $zero,0x10($sp)`, `addiu $a1,$sp,0x10`), ours at sp+0x18. GCC puts the s32 array at the low end of the locals and n above it in every order tried (also u8 pad[8], f64 pad, n in a nested block; pad[3]/pad[4] give frame 0x50, score 36). (2) Jump table: the ROM's `lui fp,%hi(D_800A41A0)` is an external table outside the linked part, ours emits a local .rodata table, so `beqz s5` is 0xfc vs ROM 0xe0 and the register set is otherwise identical. Cases 2..11 must stay separate labels or GCC emits compares. Worth more compiles only if someone can show where D_800A41A0 sits in the linked image or the hidden 8-byte slot at 0x14..0x1F. try_compiler gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3 also gives 14.",
+   "by": "claude-haiku-1",
+   "created_at": 1793886876.5688598,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "User's max tries reached (5/5); best attempt retained.",
+   "by": "codex-gpt-5.6-luna-low-2",
+   "created_at": 1793886894.438894,
+   "score_before": 14,
+   "score_after": 14
+  },
+  {
+   "function": "func_80019314",
+   "text": "Best 1340 (82%). Structure is right: `if (obj->id != -1) { info = obj->info; count = info->count(u16 @0x10); n=0; list = info->list(@0x14); if (count) { do { switch ... } while (++i < count); n++; obj->u16@0xA = n; *a3 += n; } }`, cmd = list+4 stepping +8 bytes with list stepping +8 too. Remaining diff: (1) the switch. Target is a real jump table (sltiu $v0,$v1,0xc; sll; addu fp; lw; jr) with 12 entries, case 0 (a2 += cmd[0]) and case 1 (a1 += cmd[0]) blocks, default = `while(1)`. Mine still gets a compare chain for cases 0/1 in front of the table, which means GCC sees the cases as too few for a pure table. Possibly the original's other 10 cases have distinct non-empty bodies or the switch is on a different value. (2) Frame is 0x48 with 11 saved regs in the target; mine is 0x40 (10 saved), so the target keeps one more value live (fp = jtbl base is a real pointer, not a constant). Tried: u32 cast, default while(1) vs none, local declaration reorder (no effect). Next: try an explicit jtbl-shaped switch with the table-base pointer kept live, or check the remaining cases' bodies.",
+   "by": "W3.claude-haiku-7",
+   "created_at": 1793887050.275964,
+   "score_before": 0,
+   "score_after": 0
+  },
+  {
+   "function": "func_80019314",
+   "text": "Renames blocked: rename_symbol of func_80019314 and list_max_entry (func_800561FC) was rejected because the caller slot_update_list (matched) declares arg3 as s32 while this definition takes s32*. Prototype clash between sources. Nothing changed. Next: resolve the caller's prototype (jointly), then rename and make_readable. Body: max-accumulates list entries into *a1/*a2, count into obj+0xA, adds to *a3.",
+   "by": "claude-haiku-medium-5",
+   "created_at": 1794201677.324051,
    "score_before": 0,
    "score_after": 0
   }
@@ -289254,10 +289268,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516046.504726,
-    "attempt_id": 4294972634,
-    "source_sha256": "5bdb42e82ca2d9105fe29206ac27c7465c5e0a0782861c3310107f757a446d9f",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794602977.889466,
+    "attempt_id": 4294974499,
+    "source_sha256": "31a94dfaadbbe863032f509f95d9213542c035ae3bda8047c7e950e8b4a02b2b",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -289297,7 +289311,7 @@
       ],
       "timeout": 20
      },
-     "settings_source": "compile invocation snapshot",
+     "settings_source": "project configuration at recording; temporary compile overrides may differ",
      "gp": 0,
      "big_endian": true,
      "rom": {
@@ -289306,22 +289320,6 @@
       "region": "Europe",
       "byte_order": "z64"
      },
-     "effective_command": [
-      "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
-      "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
-      "-c",
-      "-G0",
-      "-mips3",
-      "-mgp32",
-      "-mfp32",
-      "-O2",
-      "-g3",
-      "-I{include}",
-      "{src}",
-      "-o",
-      "{obj}"
-     ],
-     "language": "c",
      "context_unit": "",
      "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
      "context_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55"
@@ -450685,7 +450683,8 @@
    "1008677efd6c98c7e817a3fbbf78fe089291c168dded1b4fe2c162d5bf033bee": "extern int D_800D0658;\nextern void *gSelectState;\nextern char D_800A5F9C[];\nextern char D_800A5FAC[];\ns32 getTexturePack();\ns32 func_8007A794();\ns32 resolve_path();\ns32 appendString();\n\n/* Takes the first 5 characters of the currently selected entry's name (entries are 0x2C4 bytes,\n * the selection index is at gSelectState+0x237), appends the suffix D_800A5FAC to it and stores the\n * texture pack id that results in gSelectState+0x1E4. */\nvoid select_load_texture_pack(void)\n{\n    char name[16];\n    char *namePtr;\n    u8 i;\n    char *entry;\n\n    func_8007A794();\n    resolve_path(D_800A5F9C);\n    entry = (char *)(D_800D0658 + *((u8 *)((char *)gSelectState + 0x237)) * 0x2C4);\n    i = 0;\n    do\n    {\n        name[i] = entry[i];\n        i++;\n    } while (i < 5);\n    namePtr = name;\n    namePtr[i] = 0;\n    appendString(namePtr, D_800A5FAC);\n    *((s32 *)((char *)gSelectState + 0x1E4)) = getTexturePack(namePtr, 0);\n}",
    "36a9792f3f32c4433f518c58a746dac3cb43b972e113447d72bb8365917e6eff": "extern s32 D_800A5060;\nextern s32 D_800A5064;\nextern s32 D_800A5068;\nextern s32 D_800A506C;\nextern s32 D_800A5070;\nextern s32 D_800A5074;\nextern s32 D_800A5078;\nextern s32 D_800A507C;\nextern s32 D_800A5080;\nextern s32 D_800A5084;\nextern s32 D_800A5088;\nextern s32 D_800A508C;\nextern s32 D_800A5090;\nextern s32 D_800A5094;\nextern s32 D_800A5098;\nextern s32 D_800A50A0;\nextern s32 D_800A50A4;\nextern s32 D_800A50A8;\nextern s32 D_800A50AC;\nextern s32 D_800A50B0;\nextern u8 *gRecords;\nextern s32 strCmp(u8 *, u8 *);\n\n/* Sets the 0x44 field of record slot `slot` from a per-code constant (case labels follow\n * jtbl_800A50B8; codes 5, 15, 18, 21 and any other code use D_800A5074) and then checks the other slots' links; repeats with the next\n * code until all four are consistent. */\nvoid record_slot_init(s32 slot, s32 code)\n{\n  s32 off = (slot &= 0xff) * 0x28;\n  int new_var;\n  s32 off44 = off + 0x44;\n  s32 ok;\n  s32 x;\n  s32 limit;\n  u8 i;\n  u8 *base;\n  u8 *p;\n  u8 v;\n  limit = 0x16;\n  for (;;)\n  {\n    switch (code & 0xff)\n    {\n      case 0:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5060;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5060;\n#endif\n        break;\n\n      case 1:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5064;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5064;\n#endif\n        break;\n\n      case 2:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5068;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5068;\n#endif\n        break;\n\n      case 3:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A506C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A506C;\n#endif\n        break;\n\n      case 4:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5070;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5070;\n#endif\n        break;\n\n      case 6:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5078;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5078;\n#endif\n        break;\n\n      case 7:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A507C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A507C;\n#endif\n        break;\n\n      case 8:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5080;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5080;\n#endif\n        break;\n\n      case 9:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5084;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5084;\n#endif\n        break;\n\n      case 10:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5088;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5088;\n#endif\n        break;\n\n      case 11:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A508C;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A508C;\n#endif\n        break;\n\n      case 12:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5090;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5090;\n#endif\n        break;\n\n      case 13:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5094;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5094;\n#endif\n        break;\n\n      case 14:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5098;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5098;\n#endif\n        break;\n\n      case 16:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A0;\n#endif\n        break;\n\n      case 17:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A4;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A4;\n#endif\n        break;\n\n      case 19:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50A8;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50A8;\n#endif\n        break;\n\n      case 20:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50AC;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50AC;\n#endif\n        break;\n\n      case 22:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A50B0;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A50B0;\n#endif\n        break;\n\n      case 5:\n\n      case 15:\n\n      case 18:\n\n      case 21:\n\n      default:\n#ifdef PORT\n        *((s32 *) (((u8 *)gRecords + off) + 0x44)) = D_800A5074;\n#else\n        *((s32 *) (((u8 *)(off + (s32)gRecords)) + 0x44)) = D_800A5074;\n#endif\n        break;\n\n    }\n\n    ok = 1;\n    i = 0;\n    do\n    {\n      base = gRecords;\n      v = *(i + base + 0x32);\n      if (slot != v)\n      {\n        p = base + ((v * 0x28) + 0x44);\n        new_var = strCmp(base + off44, p);\n        x = new_var;\n        ok &= -(x != 0);\n      }\n      if (!(ok & 0xff))\n      {\n        x = code + 1;\n        new_var = -(((x & 0xff) ^ limit) != 0);\n        code = x & new_var;\n      }\n      i++;\n    }\n    while (i < 4);\n    if (ok & 0xff)\n    {\n      break;\n    }\n  }\n\n}\n",
    "3e4851969c66dc2361941a7f2d07cae3b40afc880896f70582a150cfa010a395": "extern u8 stream_state[];\nextern s16 gSlotArgOffsets[][17];\nextern u16 gSlotMasks[][2];\ntypedef struct\n{\n  u8 *data;\n  u16 count;\n} SlotList;\nvoid func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);\n/* Runs each slot in the list whose bit is set in `mask` and that is not disabled\n   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The\n   slot's data is at list->data + i * 36. */\nvoid slot_update_list(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)\n{\n  s32 i;\n  s32 sel;\n  int slot_off;\n  s32 off;\n  for (i = 0; i < list->count; i++)\n  {\n    sel = stream_state[0x7678];\n    if (gSlotArgOffsets[sel][i] < 0)\n    {\n      continue;\n    }\n    if (!(mask & gSlotMasks[(sel * 17) + i][0]))\n    {\n      continue;\n    }\n    switch (i)\n    {\n      case 3: case 5:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)\n      {\n        continue;\n      }\n        break;\n\n      case 4: case 6:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)\n      {\n        continue;\n      }\n        break;\n\n      case 10:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)\n      {\n        continue;\n      }\n        break;\n\n      case 11:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)\n      {\n        continue;\n      }\n        break;\n\n      case 9:\n        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)\n      {\n        continue;\n      }\n        break;\n\n      case 7:\n\n      case 8:\n        break;\n\n    }\n\n    slot_off = i * 36;\n    off = gSlotArgOffsets[stream_state[0x7678]][i];\n    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);\n  }\n\n}\n",
-   "fefd87a723f04a7c644118891cf5a98ce85431cce76f0ebd3afe619d43faa9bb": "typedef struct E { u8 *text; u16 count; u8 pad[14]; u16 n; s32 *vals; } E;\ntypedef struct R { u8 a[14]; u16 n; s32 v; } R;\nextern u16 D_800ADFD0; extern u8 D_800A5028; extern s32 gSnapIndex; extern E *g_rec_val; extern s32 *D_800B0BCC,*D_800AFA60;\nextern E *func_800523EC(void); extern void format_to_buffer(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);\nextern void func_80052194(u16),func_80052224(u16),func_800522B0(u16),func_8005235C(u16),func_80052108(u16);\n\n/* Loads the text table for the current block: each 20-byte record's text is\n * parsed into its value (a leading '0' marks an entry whose count is\n * reduced by one), then an index table 0..count-1 is built. Finally, when the\n * mode is in range and the flag is set, the matching setup routine runs. */\nE *text_table_load(void)\n{\n  E *tbl;\n  u8 *line;\n  R *rec;\n  s32 i, stride;\n  u8 num[16];\n  stride = D_800ADFD0 * 13;\n  tbl = func_800523EC();\n  line = tbl->text;\n  rec = (R *)line;\n  for (i = 0; i < tbl->count; rec++, i++, line += 0x14)\n  {\n    if ((*line == '0') & (*line < ':'))\n    {\n      format_to_buffer(num, &D_800A5028, line + 2);\n      rec->n--;\n    }\n    else\n      format_to_buffer(num, &D_800A5028, line);\n    rec->v = getTexturePack(num, stride);\n    func_8001B730(line);\n  }\n  D_800B0BCC = (s32 *)tbl->text;\n  D_800AFA60 = poolAlloc(1, tbl->count * 2);\n  for (i = 0; i < tbl->count; i++)\n    ((u16 *)D_800AFA60)[i] = i;\n  if (g_rec_val->n == 1 && (u32)gSnapIndex < 8U)\n  {\n    switch (gSnapIndex)\n    {\n    case 1: func_80052194(tbl->count); break;\n    case 4: func_80052224(tbl->count); break;\n    case 5: func_800522B0(tbl->count); break;\n    case 6: func_8005235C(tbl->count); break;\n    case 0: case 2: case 3: case 7: func_80052108(tbl->count); break;\n    }\n  }\n  return tbl;\n}\n"
+   "fefd87a723f04a7c644118891cf5a98ce85431cce76f0ebd3afe619d43faa9bb": "typedef struct E { u8 *text; u16 count; u8 pad[14]; u16 n; s32 *vals; } E;\ntypedef struct R { u8 a[14]; u16 n; s32 v; } R;\nextern u16 D_800ADFD0; extern u8 D_800A5028; extern s32 gSnapIndex; extern E *g_rec_val; extern s32 *D_800B0BCC,*D_800AFA60;\nextern E *func_800523EC(void); extern void format_to_buffer(u8*,u8*,u8*); extern s32 getTexturePack(u8*,s32); extern s32 func_8001B730(u8*); extern s32 *poolAlloc(s32,s32);\nextern void func_80052194(u16),func_80052224(u16),func_800522B0(u16),func_8005235C(u16),func_80052108(u16);\n\n/* Loads the text table for the current block: each 20-byte record's text is\n * parsed into its value (a leading '0' marks an entry whose count is\n * reduced by one), then an index table 0..count-1 is built. Finally, when the\n * mode is in range and the flag is set, the matching setup routine runs. */\nE *text_table_load(void)\n{\n  E *tbl;\n  u8 *line;\n  R *rec;\n  s32 i, stride;\n  u8 num[16];\n  stride = D_800ADFD0 * 13;\n  tbl = func_800523EC();\n  line = tbl->text;\n  rec = (R *)line;\n  for (i = 0; i < tbl->count; rec++, i++, line += 0x14)\n  {\n    if ((*line == '0') & (*line < ':'))\n    {\n      format_to_buffer(num, &D_800A5028, line + 2);\n      rec->n--;\n    }\n    else\n      format_to_buffer(num, &D_800A5028, line);\n    rec->v = getTexturePack(num, stride);\n    func_8001B730(line);\n  }\n  D_800B0BCC = (s32 *)tbl->text;\n  D_800AFA60 = poolAlloc(1, tbl->count * 2);\n  for (i = 0; i < tbl->count; i++)\n    ((u16 *)D_800AFA60)[i] = i;\n  if (g_rec_val->n == 1 && (u32)gSnapIndex < 8U)\n  {\n    switch (gSnapIndex)\n    {\n    case 1: func_80052194(tbl->count); break;\n    case 4: func_80052224(tbl->count); break;\n    case 5: func_800522B0(tbl->count); break;\n    case 6: func_8005235C(tbl->count); break;\n    case 0: case 2: case 3: case 7: func_80052108(tbl->count); break;\n    }\n  }\n  return tbl;\n}\n",
+   "31a94dfaadbbe863032f509f95d9213542c035ae3bda8047c7e950e8b4a02b2b": "void updateMaxExtent(void *list, s32 *n);\n\n/* Walks the object's command list: each entry adds its value to *extentX or *extentY (by\n * type), tracks the largest entry index into a count, and stores that count in obj+0xA\n * and adds it to *total. */\nvoid func_80019314(u8 *obj, s32 *extentX, s32 *extentY, s32 *total)\n{\n  struct { s32 n; s32 pad[2]; } local;\n#define maxIndex local.n\n  u8 *info;\n  s32 count;\n  s32 *list;\n  u16 *cmd;\n  s32 i;\n  if ((*((s16 *) (obj + 0x8))) != (-1))\n  {\n    info = *((u8 **) (obj + 0x18));\n    count = *((u16 *) (info + 0x10));\n    maxIndex = 0;\n    list = *((s32 **) (info + 0x14));\n    i = 0;\n    if (count != 0)\n    {\n      ;\n      do\n      {\n        /* port: the cases of the console's jump table (jtbl_800A41A0). The matched C had 0 and 1 here, which\n           compile to the same code but a different table: no slot got its vertex records. */\n        switch ((u32) (((u16 *) (((u8 *) list) + 4))[1] - 0x18))\n        {\n          case 11:\n            *extentY += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 2:\n          case 6:\n            *extentX += ((u16 *) (((u8 *) list) + 4))[0];\n            break;\n          case 0:\n          case 4:\n            break;\n          default:\n            while (1)\n          {\n          }\n        }\n        updateMaxExtent(list, &maxIndex);\n        cmd += 4;\n        list += 2;\n      }\n      while ((++i) < count);\n    }\n    { s32 n = maxIndex + 1; maxIndex = n;\n      *((s16 *) (obj + 0xA)) = n;\n      *total += n;\n    }\n  }\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
