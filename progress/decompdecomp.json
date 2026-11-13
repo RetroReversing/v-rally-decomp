@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794606226.1235788,
- "revision": 21818,
+ "saved_at": 1794606324.264216,
+ "revision": 21820,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1276,6 +1276,20 @@
    "timeout": 20,
    "function": "markStreamSlotsByTag",
    "vram": 2147889764
+  },
+  "611104:2148091680": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "order_post_wakeup",
+   "vram": 2148091680
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1334,7 +1348,8 @@
   "local_source_671": "common_local_source_671.h",
   "local_source_894": "common_local_source_894.h",
   "code_80017B38": "common_code_80017B38.h",
-  "code_8004BEB4": "common_code_8004BEB4.h"
+  "code_8004BEB4": "common_code_8004BEB4.h",
+  "code_8007E9D4": "common_code_8007E9D4.h"
  },
  "functions": {
   "TransformUpdate": {
@@ -264333,6 +264348,14 @@
    "created_at": 1793887013.236864,
    "score_before": 0,
    "score_after": 0
+  },
+  {
+   "function": "order_post_wakeup",
+   "text": "Released because its agent stopped (decompdecomp closed); its attempts are kept.",
+   "by": "claude-haiku-39",
+   "created_at": 1794604632.73974,
+   "score_before": 0,
+   "score_after": 0
   }
  ],
  "set_aside": [
@@ -440723,10 +440746,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516370.2042692,
-    "attempt_id": 4294974362,
-    "source_sha256": "26c731ff4781fbf41b8a855bf1bc68ef28b8fff05b69202a85611726a44fb936",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794605053.911888,
+    "attempt_id": 4294974543,
+    "source_sha256": "9397a5efb4d886d69a378dfd0b8e2da00b4a386d0a2bc837f066988b88bac21f",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -450664,7 +450687,8 @@
    "aec3e88d818401f6cc7d4a4ed2fcbecdd6758061170d67502ae1c8d05bd797e2": "extern char stream_state[];\nvoid fill_leaderboard_entry(int a, char *b, int c);\n/* Fills the leaderboard entry for the given slot from the stream state's record table, with no offset. */\nvoid leaderboard_fill_slot0(int slot) { fill_leaderboard_entry(slot, stream_state + 0x10332, 0); }\n",
    "e234af3a8ad394d66353fdad91ac86b8eee206314d05395c02d8ddd6dc54f353": "extern unsigned short D_800C34FC;\nextern unsigned short D_800C836E;\nextern short gNumberBuf;\n\nextern char gOrderState[];\nextern char stream_state[];\n\n/* Copies three 16-bit fields of the current stream record (pointed to by stream_state + 0x32F2)\n * into the globals D_800C34FC, D_800C836E and gNumberBuf. */\nvoid func_80062304(void) {\n    u16 fieldA;\n    u16 fieldB;\n    void *rec;\n\n    rec = stream_state + 0x32F2;\n    rec = *(void **)(stream_state + 0x32F2);\n    fieldA = *(u16 *)((char *)rec + 0x1E);\n    fieldB = *(u16 *)((char *)rec + 0x20);\n    #ifdef PORT\n    gNumberBuf = (s16)*(u16 *)((char *)rec + 0x22);\n#else\n    rec = (void *)*(u16 *)((char *)rec + 0x22);\n#endif\n    D_800C34FC = fieldA;\n    D_800C836E = fieldB;\n    #ifndef PORT\n    gNumberBuf = (s16)rec;\n#endif\n}\n",
    "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f": "extern u16 D_800C34FC;\nextern u16 D_800C836E;\nextern u16 gNumberBuf;\nextern void *gSlotState;\n\n/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */\nvoid func_80062334(void) {\n    u16 v1;\n    u16 a0;\n    u16 a1;\n    char *slot;\n\n    slot = (char *)gSlotState;\n    v1 = D_800C34FC;\n    a0 = D_800C836E;\n    a1 = gNumberBuf;\n    *(s16 *)(slot + 0x1E) = v1;\n    *(s16 *)(slot + 0x20) = a0;\n    *(s16 *)(slot + 0x22) = a1;\n}\n",
-   "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a": "extern char stream_state[];\n#define gStreamGroups (*(char **)(stream_state + 0x10386))\n#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))\nstatic inline int groupIdxInRange(s32 groupIdx)\n{\n  return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);\n}\n\nstatic inline int slotInGroup(s32 slot, char *group)\n{\n  return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));\n}\n\n/* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group\n * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group\n * mask table at stream_state+0x327E. Stops after the first match. */\nvoid markStreamSlotsByTag(s32 tag)\n{\n  s32 slot;\n  s32 slotIdx;\n  s32 zero;\n  u32 groupIdx;\n  u16 found;\n  s32 group;\n  char *groupBase;\n  char *groupPtr;\n\n  found = 1;\n  groupBase = gStreamGroups;\n  group = 0;\n  groupPtr = (char *)groupBase + 0x14;\n  if (gStreamGroupCount != 0)\n  {\n    zero = 0;\n    do\n    {\n      slot = 0;\n      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)\n      {\n        groupIdx = group & 0xFF;\n        do\n        {\n          slotIdx = slot & 0xFF;\n          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))\n          {\n            found = 0;\n            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);\n          }\n          slot += 1;\n        }\n        while (found & slotInGroup(slot, groupBase));\n      }\n      groupPtr += 0x2C4;\n      groupBase += 0x2C4;\n      group += 1;\n    }\n    while (found & groupIdxInRange(group));\n  }\n}\n"
+   "600b3afd515826878e7821980307a2dcd06d6adab0f218e2a24f9352e31b950a": "extern char stream_state[];\n#define gStreamGroups (*(char **)(stream_state + 0x10386))\n#define gStreamGroupCount (*(u16 *)(stream_state + 0x10370))\nstatic inline int groupIdxInRange(s32 groupIdx)\n{\n  return ((u32) (groupIdx & 0xFF)) < ((u16) gStreamGroupCount);\n}\n\nstatic inline int slotInGroup(s32 slot, char *group)\n{\n  return ((u32) (slot & 0xFF)) < ((u16) (*((u16 *) (group + 0x14))));\n}\n\n/* Walks the stream groups (0x2C4 bytes each, slot count at +0x14) and, in the first group\n * that has a slot whose tag byte at +0x37 equals `tag`, sets that slot's bit in the group\n * mask table at stream_state+0x327E. Stops after the first match. */\nvoid markStreamSlotsByTag(s32 tag)\n{\n  s32 slot;\n  s32 slotIdx;\n  s32 zero;\n  u32 groupIdx;\n  u16 found;\n  s32 group;\n  char *groupBase;\n  char *groupPtr;\n\n  found = 1;\n  groupBase = gStreamGroups;\n  group = 0;\n  groupPtr = (char *)groupBase + 0x14;\n  if (gStreamGroupCount != 0)\n  {\n    zero = 0;\n    do\n    {\n      slot = 0;\n      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)\n      {\n        groupIdx = group & 0xFF;\n        do\n        {\n          slotIdx = slot & 0xFF;\n          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))\n          {\n            found = 0;\n            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);\n          }\n          slot += 1;\n        }\n        while (found & slotInGroup(slot, groupBase));\n      }\n      groupPtr += 0x2C4;\n      groupBase += 0x2C4;\n      group += 1;\n    }\n    while (found & groupIdxInRange(group));\n  }\n}\n",
+   "9397a5efb4d886d69a378dfd0b8e2da00b4a386d0a2bc837f066988b88bac21f": "extern char gOrderState[];\nvoid osSendMesg(char *a, int b, int c);\n/* Posts a zero-valued blocking message to the order state's message queue. */\nvoid order_post_wakeup(void) { osSendMesg(gOrderState + 0x87A8, 0, 0); }\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
