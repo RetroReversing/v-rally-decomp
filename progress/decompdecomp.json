@@ -1,7 +1,7 @@
 {
  "format": 1,
- "saved_at": 1794606089.7054489,
- "revision": 21814,
+ "saved_at": 1794606226.1235788,
+ "revision": 21818,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1248,6 +1248,20 @@
    "timeout": 20,
    "function": "func_80062304",
    "vram": 2147885828
+  },
+  "405300:2147885876": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "func_80062334",
+   "vram": 2147885876
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -7766,7 +7780,7 @@
   },
   "func_80062334": {
    "vram": 2147885876,
-   "matched_by": "restored",
+   "matched_by": "permuter",
    "readable": false
   },
   "scene_node_update_h": {
@@ -261027,14 +261041,6 @@
    "score_after": 0
   },
   {
-   "function": "func_80062334",
-   "text": "Tried a named rewrite (rec local, one store per line, gNumberBuf/stream_state externs): score 655. The target loads gSlotState (0x800C35A0) and not stream_state, and interleaves the three u16 loads with the stores, so the statement shape must differ. Left the matching m2c form. Next: check whether this record pointer is gSlotState+0x32F2 and try the original-order loads.",
-   "by": "claude-haiku-medium-4",
-   "created_at": 1794324767.079159,
-   "score_before": 0,
-   "score_after": 0
-  },
-  {
    "function": "func_8001D908",
    "text": "Attempted comment polish and clean make_readable rewrite (plain C, same logic) but both refused with \"compiler context changed while polishing\". Function copies bytes at obj+0xDF/0x12B/0x177/0x1C3 and obj+0x4C into func_80042B84. Retry readable rewrite when context stable.\n\nReclaimed same function; readable-write tools still reporting compiler context changes in this environment. Skipping to allow others/progress. Needs stable context to polish/remove m2c defines and add comment.\n\nSame unreadable function returned again; skipping due to repeated claim and unstable readable-write tools.",
    "by": "opencode-iceman-contributor-free-1",
@@ -264304,6 +264310,14 @@
    "by": "you",
    "created_at": 1793887026.222433,
    "score_before": 665,
+   "score_after": 0
+  },
+  {
+   "function": "func_80062334",
+   "text": "Tried a named rewrite (rec local, one store per line, gNumberBuf/stream_state externs): score 655. The target loads gSlotState (0x800C35A0) and not stream_state, and interleaves the three u16 loads with the stores, so the statement shape must differ. Left the matching m2c form. Next: check whether this record pointer is gSlotState+0x32F2 and try the original-order loads.",
+   "by": "claude-haiku-medium-4",
+   "created_at": 1794324767.079159,
+   "score_before": 0,
    "score_after": 0
   }
  ],
@@ -378117,10 +378131,10 @@
      "platform": "n64",
      "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
     },
-    "symbols_sha256": "177e6623a55c8483d7f63f52fe4005015147c15417256e66a1f192c145cf6b69",
-    "recorded_at": 1794516236.7884538,
-    "attempt_id": 4294973646,
-    "source_sha256": "0b1b3627efa76ff1ed56b6a3710e42c8d16b19105a964f126eba179560df173f",
+    "symbols_sha256": "70e2f0598a3af9e2e38326ec899f25e3ee35dbcb2f171f7f0a4645ba42b8afe4",
+    "recorded_at": 1794604556.8750331,
+    "attempt_id": 4294974525,
+    "source_sha256": "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f",
     "header_sha256": "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55",
     "context_version": 57,
     "compiler": {
@@ -450634,7 +450648,8 @@
    "688488c97eff4e1ff9146228128ba70c3f50be963c483fbde63a525fde226ba6": "extern char *gRecords,*gAiCar;extern int gAiProgress;\nint func_8001FEDC(void *);int angle_atan2_thunk(int,int);int func_80033DB8(void *,int,int,void *);void func_80033E34(void *,int,void *);\nvoid func_80034134(void *,void *);void func_800344F0(void *,void *);void func_80033F20(void *,void *,void *);void func_80033C30(void *,void *);\n#define W(p,o) (((struct { char pad[o]; int v; } *)(p))->v)\n#define P(p,o) (((struct { char pad[o]; char *v; } *)(p))->v)\n#define H(p,o) (((struct { char pad[o]; s16 v; } *)(p))->v)\n#define U(p,o) (((struct { char pad[o]; u16 v; } *)(p))->v)\n/* Computes one frame of AI steering for obj: picks a target lane offset from the road plan and writes the steer and throttle bytes into out. */ void ai_drive_compute(void *obj,s8 *out) {\n struct { int data[56]; int plan[8]; } workspace;\n#define data workspace.data\n#define plan workspace.plan\n int angle,raw,forced,limit,progress,speed,state,timer,phase,steer,target,step;\n int i,nearest,index,delta,denom,other,heading;\n out[4]=0; out[5]=0; out[1]=0; out[0]=0;\n angle=angle_atan2_thunk(H(P(obj,0x5c),0x50),H(P(obj,0x5c),0x44));\n data[0]=W(P(obj,0x58),12);data[1]=W(P(obj,0x58),16);data[2]=W(P(obj,0x58),20);\n progress=W(P(obj,0x8c),0x2c);gAiCar=obj;gAiProgress=progress;raw=W(P(obj,0x60),0x2c);\n speed=func_8001FEDC(obj);state=W(P(obj,0x60),0x160);timer=W(P(obj,0x60),0x158);phase=W(P(obj,0x60),0x164);steer=W(P(obj,0x60),0x168);\ntarget=W(P(obj,0x60),0x16c);forced=W(P(obj,0x6c),0x34);\n if(state!=3) {\n  if((u32)(speed+199)<399 && !(W(obj,0x14)&16)) {\n  timer++;if((u32)timer>=51){timer=0;phase=0;state=3;}\n  } else timer=0;\n }\n state_done:\n progress=func_80033DB8(obj,progress,raw,&data[4]);\n limit=W(P(obj,0x60),0x17c)*10;if(forced)steer=limit-progress;\n func_80034134(&data[8],obj);func_800344F0(plan,obj);{int scan_nearest,scan_index;step=3;scan_nearest=65000;scan_index=0;\n for(i=0;i<data[41];i++){other=data[29+data[42+i]];if(other<scan_nearest){scan_index=i;scan_nearest=other;}}\n progress+=(((unsigned)scan_nearest<<16)<<16);if(plan[6]>=2) {\n  if(data[41]) {delta=data[33+data[42+scan_index]]*10;if(scan_nearest<3000){if(delta>=501)steer=delta-progress-390;else steer=delta-progress+390;step=2;}}\n }else if(data[41]) {\n  delta=data[33+data[42+scan_index]]*10;other=data[29+data[42+scan_index]];step=speed-data[25+data[42+scan_index]];\n if(step>1000){step=step/150;if(other<step*100)if(delta>=501)steer=delta-progress-300;else steer=delta-progress+300;}\n  else step=3;\n }\n if(step>8)step=8;}\n nearest=65000;\n if(data[41] && U(gRecords,0x16)!=2) {\n  index=0;\n  for(i=0;i<data[41];i++){if(W(P(*(char **)&data[37+data[42+i]],0x48),0)<4){other=data[29+data[42+i]];if(other<nearest){index=i;nearest=other;}}}\n  index+=(((unsigned)index<<16)<<16);delta=data[25+data[42+index]];other=speed-delta;{int saved_divisor=nearest;nearest=0;if(saved_divisor<0)saved_divisor+=127;saved_divisor>>=7;denom=(saved_divisor==0);saved_divisor+=denom;denom=delta<1800;other=other/saved_divisor;\n if(denom)delta=1800;}if(other>=56){plan[4]=delta;plan[7]=60;}\n }\n if(data[46]) {\n  if(limit<progress){for(i=0;i<data[46];i++)if(data[51+i]==0){delta=data[33+data[47+i]]*10;steer=delta-progress-250;break;}}\n  else if(progress<limit){for(i=0;i<data[46];i++)if(data[51+i]==1){delta=data[33+data[47+i]]*10;steer=delta-progress+250;break;}}\n }else {steer+=(u32)steer>>31;steer-=(steer>0);}\n if(plan[6]>=2) {\n  if(steer< -350)steer=-350;if(steer>350)steer=350;\n\n  denom=progress+steer;if(target<denom)target+=step;if(denom<target)target-=step; }else {\n  other=progress+steer;if(other<200){if(other<progress){other=progress;steer=0;}}\n  if(other>800){if(progress<other){other=progress;steer=0;}}target=other;\n }\n func_80033E34(obj,target,&data[4]);heading=angle_atan2_thunk(data[6]-data[2],data[4]-data[0]);\n if(heading< -1024 && angle>1024)heading+=4096;if((angle< -1024)&(heading>1024))angle+=4096;\n delta=angle-heading;\n if((u32)(delta+1024)>2048) {if(state==1)state=(limit>=501)?5:4;}\n else if((u32)(state-4)<2)state=1;\n if(state==4)delta=-127;if(state==5)delta=127;\n if(delta>=128)delta=127;else if(delta< -127)delta=-127;\n denom=speed;if(speed<4096)denom=4096;nearest=(speed>=3000)?5096:4096;denom=(((unsigned)denom<<16)<<16)|nearest;\n {int scaled=delta<<12;delta=scaled/denom;\n}\nif(delta>=128)delta=127;else if(delta< -127)delta=-127;out[0]=delta;\n phase+=(((unsigned)phase<<16)<<16);if(state==3)switch((u32)phase) {\n case 0:out[1]=64;phase++;break;\n case 2:out[1]=64;phase++;if(W(P(obj,0x50),0)!=1)phase=1;break;\n case 3:out[0]=-out[0];phase+=(u32)(angle-heading+299)<599;\n  if((u32)(speed+199)<399){timer++;if((u32)timer>=51){timer=0;phase=5;}}else timer=0;break;\n case 4:phase+=(u32)(speed+49)<99;break;\n case 5:out[1]=32;phase_tail:phase++;break;case 1:case 6:out[1]=0;goto phase_tail;\n case 7:out[1]=32;delta=W(P(obj,0x50),0);phase++;if(delta<2)phase=6;break;\n /* both arms are the same: the original's two copies (merged by cross-jumping) keep the register choice */\n case 8:if(state){state=1;phase=0;break;}state=1;phase=0;break;\n }\n W(P(obj,0x60),0x160)=state;W(P(obj,0x60),0x158)=timer;W(P(obj,0x60),0x164)=phase;W(P(obj,0x60),0x168)=steer;W(P(obj,0x60),0x16c)=target;\n func_80033F20(obj,plan,out);if(forced)out[0]=0;func_80033C30(obj,out);\n}\n",
    "4743bdcc0e94f9a3f9c0f1ff184c6e6068ef36cdfd258ab4b4275f6989a0af47": "extern char gOrderState[];\nextern void *gOrderPrevHook;\ns32 order_alloc_records(s32);\nvoid func_8001BD44(void);\n/* Sets up the order record block in gOrderState: two record buffers of 300 entries\n   each, and installs func_8001BD44 as the hook, keeping the previous hook in the state. */\nvoid func_8001BDA0(void)\n{\n  s32 *block = (s32 *) (gOrderState + 0x87D8);\n  s32 buf;\n  block[0] = order_alloc_records(0x12C);\n  buf = order_alloc_records(0x12C);\n  block[2] = block[0];\n  *((void **) (gOrderState + 0x6D9C)) = gOrderPrevHook;\n  block[4] = 0;\n  block[5] = 0x12C;\n  block[1] = buf;\n  block[3] = buf;\n  gOrderPrevHook = func_8001BD44;\n}\n",
    "aec3e88d818401f6cc7d4a4ed2fcbecdd6758061170d67502ae1c8d05bd797e2": "extern char stream_state[];\nvoid fill_leaderboard_entry(int a, char *b, int c);\n/* Fills the leaderboard entry for the given slot from the stream state's record table, with no offset. */\nvoid leaderboard_fill_slot0(int slot) { fill_leaderboard_entry(slot, stream_state + 0x10332, 0); }\n",
-   "e234af3a8ad394d66353fdad91ac86b8eee206314d05395c02d8ddd6dc54f353": "extern unsigned short D_800C34FC;\nextern unsigned short D_800C836E;\nextern short gNumberBuf;\n\nextern char gOrderState[];\nextern char stream_state[];\n\n/* Copies three 16-bit fields of the current stream record (pointed to by stream_state + 0x32F2)\n * into the globals D_800C34FC, D_800C836E and gNumberBuf. */\nvoid func_80062304(void) {\n    u16 fieldA;\n    u16 fieldB;\n    void *rec;\n\n    rec = stream_state + 0x32F2;\n    rec = *(void **)(stream_state + 0x32F2);\n    fieldA = *(u16 *)((char *)rec + 0x1E);\n    fieldB = *(u16 *)((char *)rec + 0x20);\n    #ifdef PORT\n    gNumberBuf = (s16)*(u16 *)((char *)rec + 0x22);\n#else\n    rec = (void *)*(u16 *)((char *)rec + 0x22);\n#endif\n    D_800C34FC = fieldA;\n    D_800C836E = fieldB;\n    #ifndef PORT\n    gNumberBuf = (s16)rec;\n#endif\n}\n"
+   "e234af3a8ad394d66353fdad91ac86b8eee206314d05395c02d8ddd6dc54f353": "extern unsigned short D_800C34FC;\nextern unsigned short D_800C836E;\nextern short gNumberBuf;\n\nextern char gOrderState[];\nextern char stream_state[];\n\n/* Copies three 16-bit fields of the current stream record (pointed to by stream_state + 0x32F2)\n * into the globals D_800C34FC, D_800C836E and gNumberBuf. */\nvoid func_80062304(void) {\n    u16 fieldA;\n    u16 fieldB;\n    void *rec;\n\n    rec = stream_state + 0x32F2;\n    rec = *(void **)(stream_state + 0x32F2);\n    fieldA = *(u16 *)((char *)rec + 0x1E);\n    fieldB = *(u16 *)((char *)rec + 0x20);\n    #ifdef PORT\n    gNumberBuf = (s16)*(u16 *)((char *)rec + 0x22);\n#else\n    rec = (void *)*(u16 *)((char *)rec + 0x22);\n#endif\n    D_800C34FC = fieldA;\n    D_800C836E = fieldB;\n    #ifndef PORT\n    gNumberBuf = (s16)rec;\n#endif\n}\n",
+   "dff02d310b657538ba15e9de4566334d6e37b2c689213184294098c76092240f": "extern u16 D_800C34FC;\nextern u16 D_800C836E;\nextern u16 gNumberBuf;\nextern void *gSlotState;\n\n/* Copies slot config halfwords (time/position/record values) from globals into the current slot record. */\nvoid func_80062334(void) {\n    u16 v1;\n    u16 a0;\n    u16 a1;\n    char *slot;\n\n    slot = (char *)gSlotState;\n    v1 = D_800C34FC;\n    a0 = D_800C836E;\n    a1 = gNumberBuf;\n    *(s16 *)(slot + 0x1E) = v1;\n    *(s16 *)(slot + 0x20) = a0;\n    *(s16 *)(slot + 0x22) = a1;\n}\n"
   },
   "headers": {
    "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",
