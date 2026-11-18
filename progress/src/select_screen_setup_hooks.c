@@ -2,7 +2,6 @@ extern u16 D_800D0628; extern s32 gRaceState;
 typedef struct Menu {u16 pad,state; u8 pad4[12]; u8 *entries;} Menu;
 typedef struct State {u8 pad[0x228]; u8 a228; u8 pad229[6]; u8 a22f; u8 pad230[0x15]; u8 a245; u8 pad246[0x42]; void *fn288,*fn28c,*fn290;} State;
 extern void *gRecords; extern Menu *gLeague;
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
@@ -15,16 +14,15 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-
-M2C_UNK order_recv_msg();                            /* extern */
-M2C_UNK streamOpenPath(void *, M2C_UNK *);           /* extern */
-M2C_UNK start_track_voices(void *);                      /* extern */
-M2C_UNK voicesSetIdleParams(M2C_UNK);                     /* extern */
-M2C_UNK voicesSetIdleValue(s32);                         /* extern */
-M2C_UNK record_set_byte9(void *, M2C_UNK, M2C_UNK);    /* extern */
-M2C_UNK func_8008A104(void *, M2C_UNK, M2C_UNK, M2C_UNK); /* extern */
-M2C_UNK league_set_hook(void *, s32, M2C_UNK, M2C_UNK *); /* extern */
-M2C_UNK league_set_hook_entry(void *, M2C_UNK, M2C_UNK, M2C_UNK *); /* extern */
+M2C_UNK order_recv_msg();
+M2C_UNK streamOpenPath(void *, M2C_UNK *);
+M2C_UNK start_track_voices(void *);
+M2C_UNK voicesSetIdleParams(M2C_UNK);
+M2C_UNK voicesSetIdleValue(s32);
+M2C_UNK record_set_byte9(void *, M2C_UNK, M2C_UNK);
+M2C_UNK func_8008A104(void *, M2C_UNK, M2C_UNK, M2C_UNK);
+M2C_UNK league_set_hook(void *, s32, M2C_UNK, M2C_UNK *);
+M2C_UNK league_set_hook_entry(void *, M2C_UNK, M2C_UNK, M2C_UNK *);
 extern s32 gRaceFlags;
 extern State *gSelectState;
 extern s8 gStreamPhase;
@@ -86,24 +84,25 @@ extern M2C_UNK func_8007ACE0;
 extern M2C_UNK func_8007AD68;
 extern M2C_UNK func_8007B0B8;
 
-/* Sets up the select screen: starts the track voices once, registers the league menu hooks, then picks the next select state from the race state. */ void select_screen_setup_hooks(void) {
+/* Sets up the select screen: starts the track voices once, registers the league menu hooks, then picks the next select state from the race state. */
+void select_screen_setup_hooks(void) {
     s32 pad[2];
-    M2C_UNK var_a2;
-    M2C_UNK var_a3;
-    u32 var_s0;
-    void *temp_a0;
-    void *temp_s0;
-    void *temp_v1;
-    void *temp_v1_2;
-    void *temp_v1_3;
+    M2C_UNK spare_a2;
+    M2C_UNK spare_a3;
+    u32 hook_idx;
+    void *stream_ctx;
+    void *entries_4;
+    void *entries_3;
+    void *entries_0;
+    void *entries_2;
 
     if (!(gRaceFlags & 0x40)) {
         gRaceFlags |= 0x40;
         voicesSetIdleParams(1);
         order_recv_msg();
-        temp_s0 = (char *)&gOrderState + 0x5558;
-        streamOpenPath(temp_s0, &D_800A5CD0);
-        start_track_voices(temp_s0);
+        stream_ctx = (char *)&gOrderState + 0x5558;
+        streamOpenPath(stream_ctx, &D_800A5CD0);
+        start_track_voices(stream_ctx);
         voicesSetIdleValue((s32) (M2C_FIELD(&stream_state, f32 *, 0x3332) * 112.0f));
     }
     { void *settings = gRecords; State *st=gSelectState;
@@ -126,16 +125,16 @@ extern M2C_UNK func_8007B0B8;
     league_set_hook_entry(gLeague, 1, 0x20, &InitSelectHandlers);
     league_set_hook_entry(gLeague, 2, 0x20, &func_80070BC8);
     if (M2C_FIELD(gRecords,u16 *,0x2c)&0x200) func_8008A104(gLeague,0x21,1,1); else func_8008A104(gLeague,0x21,0,0);
-    var_s0=0;
+    hook_idx=0;
     league_set_hook(gLeague, 0x21, 2, &func_80071978);
     league_set_hook(gLeague, 0x21, 1, &func_800718F4);
     league_set_hook(gLeague, 0x21, 0x10, &select_setup_handlers);
     league_set_hook(gLeague, 0x21, 0x20, &func_80071A0C);
     if (D_800D0628 != 0) {
         do {
-            league_set_hook(gLeague, (var_s0 + 0x15) & 0xFFFF, 0x10, &func_80071A48);
-            var_s0 += 1;
-        } while (var_s0 < (u16) D_800D0628);
+            league_set_hook(gLeague, (hook_idx + 0x15) & 0xFFFF, 0x10, &func_80071A48);
+            hook_idx += 1;
+        } while (hook_idx < (u16) D_800D0628);
     }
     league_set_hook(gLeague, 0x22, 0x10, &func_80070FE4);
     league_set_hook(gLeague, 0x23, 0x10, &select_state_reset_b);
@@ -181,9 +180,9 @@ extern M2C_UNK func_8007B0B8;
     league_set_hook_entry(gLeague, 7, 0x20, &func_8007A01C);
     gSelectState->a22f = 0;
     if (M2C_FIELD(&stream_state, u8 *, 0x5D56) == 4) {
-        temp_a0 = gLeague->entries;
+        entries_4 = gLeague->entries;
         gLeague->state = 1;
-        M2C_FIELD(temp_a0, u8 *, 0x22) = (u8) M2C_FIELD(temp_a0, u8 *, 0x21);
+        M2C_FIELD(entries_4, u8 *, 0x22) = (u8) M2C_FIELD(entries_4, u8 *, 0x21);
         gSelectState->fn288 = &select_refresh_entry;
         return;
     }
@@ -201,25 +200,25 @@ extern M2C_UNK func_8007B0B8;
         M2C_FIELD(settings,s16*,0x20)=val;
         st->fn288 = &func_800724A4;
         st->fn28c = &func_80072984;
-        temp_v1 = menu->entries;
+        entries_3 = menu->entries;
         menu->state = 5;
-        M2C_FIELD(temp_v1, u8 *, 0x72) = (u8) M2C_FIELD(temp_v1, u8 *, 0x71);
+        M2C_FIELD(entries_3, u8 *, 0x72) = (u8) M2C_FIELD(entries_3, u8 *, 0x71);
         } return;
     } else if(state==0) {
         gSelectState->fn288 = &func_80071B3C;
         gSelectState->fn290 = &func_80071E08;
         gSelectState->fn28c = &func_80072364;
-        temp_v1_2 = gLeague->entries;
+        entries_0 = gLeague->entries;
         gLeague->state = 4;
-        M2C_FIELD(temp_v1_2, u8 *, 0x5E) = (u8) M2C_FIELD(temp_v1_2, u8 *, 0x5D);
+        M2C_FIELD(entries_0, u8 *, 0x5E) = (u8) M2C_FIELD(entries_0, u8 *, 0x5D);
         gStreamPhase = 0;
         return;
     } else if(state==2) {
         gSelectState->fn288 = &finish_race_results;
         gSelectState->fn28c = &best_times_select_update;
-        temp_v1_3 = gLeague->entries;
+        entries_2 = gLeague->entries;
         gLeague->state = 3;
-        M2C_FIELD(temp_v1_3, u8 *, 0x4A) = (u8) M2C_FIELD(temp_v1_3, u8 *, 0x49);
+        M2C_FIELD(entries_2, u8 *, 0x4A) = (u8) M2C_FIELD(entries_2, u8 *, 0x49);
         return;
     } }
 }

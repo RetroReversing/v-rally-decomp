@@ -1,3 +1,5 @@
+/* identical to alSavePull in PENNY RACERS (local match library) (matched), with its names changed by decompdecomp */
+/* identical to alSavePull in V-RALLY-PAL (local match library) (matched), with its names changed by decompdecomp */
 /* identical to alSavePull in V-RALLY (matched), with its names changed by decompdecomp */
  
 
@@ -2974,7 +2976,7 @@ typedef struct ALLink_s {
 } ALLink;
 
 void    alUnlink(ALLink *element);
-void    al_link_push(ALLink *element, ALLink *after);
+void    alLink(ALLink *element, ALLink *after);
 
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 typedef ALDMAproc (*ALDMANew)(void *state);
@@ -5212,7 +5214,7 @@ extern void		osViExtendVStart(u32);
 extern void		osViSetSpecialFeatures(u32);
 extern void		osViSetMode(OSViMode *);
 extern void		osViSetEvent(OSMesgQueue *, OSMesg, u32);
-extern void		viSetSwapBuffer(void *);
+extern void		osViSwapBuffer(void *);
 extern void		osViBlack(u8);
 extern void		osViFade(u8, u16);
 extern void		osViRepeatLine(u8);
@@ -6782,7 +6784,7 @@ extern s32		osAfterPreNMI(void);
 
 extern s32 osEepromProbe(OSMesgQueue *);
 extern s32 osEepromRead(OSMesgQueue *, u8, u8 *);
-extern s32 osEepromWrite(OSMesgQueue *, u8, u8 *);
+extern s32 D_8009DD90(OSMesgQueue *, u8, u8 *);
 extern s32 osEepromLongRead(OSMesgQueue *, u8, u8 *, int);
 extern s32 osEepromLongWrite(OSMesgQueue *, u8, u8 *, int);
 
@@ -7481,23 +7483,19 @@ s32 alSaveParam(void *filter, s32 paramID, void *param);
 
 
 
-/* Pulls outCount samples through the save filter's source, then appends commands that interleave them and DMA the result out to f->dramout. Returns the next free command slot. */ Acmd *alSavePull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset,
-                 Acmd *p)
+/* Runs the source filter into outp, then appends the commands that interleave the output and save it to dramout. */ Acmd *alSavePull(void *filter, s16 *outp, s32 outCount, s32 sampleOffset, Acmd *p)
 {
-    Acmd        *ptr = p;
-    ALSave *f = (ALSave *)filter;
-    ALFilter    *source = f->filter.source;
+    Acmd *cmd = p;
+    ALSave *save = (ALSave *)filter;
+    ALFilter *source = save->filter.source;
 
+    ((save->filter.source) ? ((void)0) : func_800914E0("EX", "save.c", 34));
 
+    cmd = (*source->handler)(source, outp, outCount, sampleOffset, cmd);
 
-    (( f->filter.source )?((void)0):func_800914E0("EX", "/Volumes/Data/Codex/libultra-comparison/ultralib/src/audio/save.c", 34)) ;
-
-
-    ptr = (*source->handler)(source, outp, outCount, sampleOffset, ptr);
-
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   outCount<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 13  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = ((unsigned int) (((unsigned int)(   1088   ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   1408   ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |	((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   outCount<<2  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;	} ;
-    {	Acmd *_a = (Acmd *) ptr++ ;	_a->words.w0 = ((unsigned int) (((unsigned int)( 6  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;	_a->words.w1 = (unsigned int)(  f->dramout );	} ;
-    return ptr;
+    {   Acmd *_a = (Acmd *) cmd++; _a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |   ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   outCount<<1  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;   } ;
+    {   Acmd *_a = (Acmd *) cmd++; _a->words.w0 = ((unsigned int) (((unsigned int)( 13  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ; _a->words.w1 = ((unsigned int) (((unsigned int)(   1088   ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   1408   ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;   } ;
+    {   Acmd *_a = (Acmd *) cmd++; _a->words.w0 = (((unsigned int) (((unsigned int)( 8  ) & ((0x01 << (  8 )) - 1)) << (  24 )))  | ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  8 )) - 1)) << (  16 )))  |   ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ); _a->words.w1 = ((unsigned int) (((unsigned int)(   0  ) & ((0x01 << (  16 )) - 1)) << (  16 )))  | ((unsigned int) (((unsigned int)(   outCount<<2  ) & ((0x01 << (  16 )) - 1)) << (  0 ))) ;   } ;
+    {   Acmd *_a = (Acmd *) cmd++; _a->words.w0 = ((unsigned int) (((unsigned int)( 6  ) & ((0x01 << (  8 )) - 1)) << (  24 ))) ;   _a->words.w1 = (unsigned int)(  save->dramout );   } ;
+    return cmd;
 }

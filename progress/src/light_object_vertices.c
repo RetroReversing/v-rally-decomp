@@ -9,7 +9,7 @@ extern f32 sSavedCosY;
 extern u8 gGameState[];
 extern u8 gOrderState[];
 extern u8 stream_state[];
-void *func_8002DA98(void *arg0, void *arg1);
+void *mat3_copy_transposed(void *arg0, void *arg1);
 void *mtx3_transform_vec3(void *arg0, void *arg1, void *arg2);
 typedef struct { s32 b[3]; s32 c[3]; f32 t1; f32 t2; } LookS;
 #define G (*(LookS *)(stream_state + 0x5D32))
@@ -64,7 +64,7 @@ void light_object_vertices(void *owner, s32 mode)
     V16 *v;
     V24 *w;
 
-    func_8002DA98(gOrderState + 0x6E78, &m);
+    mat3_copy_transposed(gOrderState + 0x6E78, &m);
     p[0] = (u32)D_800A1860 - (u32)CAM(0);
     p[1] = (u32)D_800A1864 - (u32)CAM(1);
     p[2] = (u32)D_800A1868 - (u32)CAM(2);

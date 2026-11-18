@@ -72,10 +72,10 @@ void hud_build_dl(void)
   s16 temp_s0_3;
   s32 packed_word;
   s32 temp_s1_3;
-  short var_s3;
+  short bar_x;
   s32 __repair_var_s3_1;
   s16 saved_height;
-  s32 var_s6;
+  s32 off;
   char *temp_v0_15;
   void *new_var;
   char *temp_v0_4;
@@ -114,9 +114,9 @@ void hud_build_dl(void)
   s32 temp_v1_5;
   s32 temp_v1_6;
   s32 var_s3_3;
-  u32 temp_s7;
+  u32 count;
   u32 temp_v1_7;
-  u32 var_s2;
+  u32 i;
   void *temp_a0_2;
   void *temp_a0_3;
   void *temp_a0_4;
@@ -129,7 +129,7 @@ void hud_build_dl(void)
   void *temp_s1_2;
   void *temp_s4;
   void *temp_s5;
-  void *temp_v0;
+  void *dl;
   void *temp_v0_2;
   void *temp_v0_3;
   void *temp_v1_8;
@@ -143,17 +143,17 @@ void hud_build_dl(void)
   u32 loop0_fill,loop0_rect,loop0_sync,loop1_fill,loop1_rect,loop1_sync;
   char *text_buffer;
   ctx = view_get_ctx_id();
-  var_s3 = 0;
-  new_var=gfx_get_dl(ctx);bar0_x1=0;var_s6=0;saved_height=0;temp_v0=new_var;
-  temp_s7 = *((u32 *) (((char *) D_800B681C) + 4));
+  bar_x = 0;
+  new_var=gfx_get_dl(ctx);bar0_x1=0;off=0;saved_height=0;dl=new_var;
+  count = *((u32 *) (((char *) D_800B681C) + 4));
   D_800C351C = 0U;
-  var_s2 = 0;
-  if (temp_s7 != 0)
+  i = 0;
+  if (count != 0)
   {
     temp_s1 = D_800B56F0;
     do
     {
-      temp_s0 = var_s2 * 8;
+      temp_s0 = i * 8;
 #ifdef PORT
       temp_v0_2 = (char *) D_800B681C + temp_s0;
 #else
@@ -162,7 +162,7 @@ void hud_build_dl(void)
 #endif
       temp_a0 = *((s32 *) (((char *) temp_v0_2) + 0xD0));
       temp_a1 = *((s32 *) (((char *) temp_v0_2) + 0xD4));
-      var_s2 += 1;
+      i += 1;
       func_800131B4(temp_s1, (s16) (((u32) __udivdi3(*((u64 *) (((char *) temp_v0_2) + 0xD0)), 250)) + 0x28), 0xCC);
       new_var = temp_s1 + 8;
 #ifdef PORT
@@ -173,58 +173,58 @@ void hud_build_dl(void)
 #endif
       temp_s1 = new_var;
       temp_a1_2 = ((u32) __udivdi3(*((u64 *) (((char *) var_t0) + 0xF0)), 250)) + 0x28;
-      var_s3 = temp_a1_2;
+      bar_x = temp_a1_2;
       func_800131B4(temp_s1, temp_a1_2, 0xCE);
       temp_s1 = (char *) temp_s1;
       temp_s1 += (s32) 8;
     }
-    while (var_s2 < temp_s7);
+    while (i < count);
   }
-  temp_s7 = *((u32 *) (((char *) D_800B681C) + 0));
-  if ((((u32) D_800B55E8) < ((u32) ((s16) var_s3))) & (((s16) var_s3) < 0x140))
+  count = *((u32 *) (((char *) D_800B681C) + 0));
+  if ((((u32) D_800B55E8) < ((u32) ((s16) bar_x))) & (((s16) bar_x) < 0x140))
   {
-    D_800B55E8 = (u32) ((s16) var_s3);
+    D_800B55E8 = (u32) ((s16) bar_x);
   }
   D_800AFA4C = 0;
   D_800C81D8 = 0;
   D_800ADFAC = 0;
-  var_s2 = 0;
-  if (temp_s7 != 0)
+  i = 0;
+  if (count != 0)
   {
     var_s5 = D_800C7420;
     var_s4 = D_800B0120;
     do
     {
-      var_s6 = var_s2 * 8;
+      off = i * 8;
 #ifdef PORT
-      temp_s1_2 = (char *) D_800B681C + var_s6;
+      temp_s1_2 = (char *) D_800B681C + off;
 #else
-      temp_s1_2 = var_s6 + (s32)D_800B681C;
+      temp_s1_2 = off + (s32)D_800B681C;
 #endif
       temp_s0_3 = ((u32) __udivdi3(*((u64 *) (((char *) temp_s1_2) + 0x10)), 250)) + 0x28;
-      var_s3 = temp_s0_3;
+      bar_x = temp_s0_3;
       temp_s1_3 = ((u32) __udivdi3(*((u64 *) (((char *) temp_s1_2) + 0x90)), 250)) + 0x28;
       bar0_x1 = temp_s1_3;
       if (((s16) temp_s0_3) >= 0x141)
       {
-        var_s3 = 0x140;
+        bar_x = 0x140;
       }
-      temp_a0=__firstsetter(var_s4,var_s3);
+      temp_a0=__firstsetter(var_s4,bar_x);
       var_s4 += 8;
-      if(var_s2){func_800131B4(var_s4, temp_s1_3, 0xC0);}else{func_800131B4(var_s4, temp_s1_3, 0xC0);}
+      if(i){func_800131B4(var_s4, temp_s1_3, 0xC0);}else{func_800131B4(var_s4, temp_s1_3, 0xC0);}
       func_800131B4(var_s5,temp_a0,0xC5);
       var_s4 += 8;
       var_s5 += 8;
 #ifdef PORT
-      temp_v0_3 = (char *) D_800B681C + var_s6;
+      temp_v0_3 = (char *) D_800B681C + off;
 #else
-      temp_v0_3 = var_s6 + (s32)D_800B681C;
+      temp_v0_3 = off + (s32)D_800B681C;
 #endif
-      var_s2 += 1;
+      i += 1;
       {u64 quotient=__udivdi3(*((u64 *) (((char *) temp_v0_3) - (-0x50))), 250);temp_a1_3=(u32)quotient+40;if((u32)(quotient>>32)){saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}else{saved_height=temp_a1_3;func_800131B4(var_s5,temp_a1_3,199);}}
       var_s5 += 8;
     }
-    while (var_s2 < temp_s7);
+    while (i < count);
   }
   if ((((u32) D_800D066C) < ((u32) ((s16) ((u16) bar0_x1)))) & (((s16) ((u16) bar0_x1)) < 0x140))
   {
@@ -250,8 +250,8 @@ void hud_build_dl(void)
   {
     D_800B55E8 = (u32) (D_800B55E8 - 1);
   }
-  var_s2 = 0;
-  if (temp_s7 != 0)
+  i = 0;
+  if (count != 0)
   {
     if (stream_state)
     {
@@ -267,11 +267,11 @@ void hud_build_dl(void)
       u64 b=*((volatile u64 *)((char *)var_a1+16));
       u64 c=*((volatile u64 *)((char *)var_a1+80));
       u64 d=*((volatile u64 *)((char *)var_a1+16));
-      if(temp_s7){var_s2+=1;}else{var_s2+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(c-d);
+      if(count){i+=1;}else{i+=1;}D_800ADFAC+=(u32)(a-b);D_800C81D8+=(u32)(c-d);
       }
       var_a1 += 8;
     }
-    while (var_s2 < temp_s7);
+    while (i < count);
   }
   if (((u32) D_800D066C) >= 0x141U)
   {
@@ -298,156 +298,156 @@ void hud_build_dl(void)
   hud_bar_rects[1].x1 = (u32) D_800C351C;
   hud_bar_rects[2].x1 = (u32) D_800B55E8;
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE3000A01;
     g[1] = 0x300000;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE200001C;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xF7000000;
     g[1] = 0x84218421;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     {u32 x,y,xx,yy;y=*((volatile u32 *)&hud_bar_rects[0].y1);x=hud_bar_rects[0].x1;x&=1023;x=x*16384;yy=(y&1023)*4;yy|=0xF6000000;g[0]=x|yy;}
     g[1] = (s32) (((hud_bar_rects[0].x0 & 0x3FF) << 0xE) | ((hud_bar_rects[0].y0 & 0x3FF) * 4));
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xF7000000;
     g[1] = 0x84218421;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     {s32 x,y;x=hud_bar_rects[1].x1;y=hud_bar_rects[1].y1;x&=1023;x<<=14;y&=1023;y<<=2;y|=0xF6000000;g[0]=x|y;}
     packed_word = ((hud_bar_rects[1].x0 & 0x3FF) << 0xE) | ((hud_bar_rects[1].y0 & 0x3FF) * 4);
     g[1] = (s32) packed_word;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xF7000000;
     g[1] = 0x84218421;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     {s32 x,y;x=hud_bar_rects[2].x1;y=hud_bar_rects[2].y1;x&=1023;x<<=14;y&=1023;y<<=2;y|=0xF6000000;g[0]=x|y;}
     g[1] = (s32) (((hud_bar_rects[2].x0 & 0x3FF) << 0xE) | ((hud_bar_rects[2].y0 & 0x3FF) * 4));
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xF7000000;
     g[1] = -1;
   }
   __repair_var_s3_1 = 8;
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += 8;
+    u32 *g = (u32 *) dl;
+    dl += 8;
     g[0] = 0xF60A0370;
     g[1] = 0xA02D0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xF7000000;
     g[1] = -1;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xF61E0370;
     g[1] = 0x1E02D0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xF7000000;
     g[1] = -1;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xF6320370;
     g[1] = 0x3202D0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xE7000000;
     g[1] = 0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     g[0] = 0xF7000000;
     g[1] = -1;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     temp_a0=0;g[temp_a0]= 0xF6460370;
     g[1] = 0x4602D0;
   }
   {
-    u32 *g = (u32 *) temp_v0;
-    temp_v0 += __repair_var_s3_1;
+    u32 *g = (u32 *) dl;
+    dl += __repair_var_s3_1;
     temp_v1_6=0;g[temp_v1_6] = 0xE7000000;
     g[1] = 0;
   }
   var_a0 = D_800B681C;
-  temp_s7 = *((u32 *) (((char *) var_a0) + 4));
+  count = *((u32 *) (((char *) var_a0) + 4));
   combined_index3 = 0;
 
-  if (temp_s7 != 0)
+  if (count != 0)
   {loop0_fill=0xF7000000;loop0_rect=0xF6000000;loop0_sync=0xE7000000;
 
     var_t1 = &D_8009BB68;
@@ -456,11 +456,11 @@ void hud_build_dl(void)
     var_a3 = temp_v0_4 - 8;
     var_a2 = temp_v0_4 + 4;
     var_a1_2 = temp_v0_4;
-    var_a0 = temp_v0 - 4;
+    var_a0 = dl - 4;
     do
     {
       var_a0 += 8;
-      temp_v0 += 0x18;
+      dl += 0x18;
       *((s32 *) ((char *)var_a0 - 4)) = loop0_fill;
       temp_v0_5 = *((s32 *)var_t1);
       var_t1 += 4;
@@ -477,11 +477,11 @@ void hud_build_dl(void)
       *((s32 *) ((char *)var_a0 - 4)) = loop0_sync;
       *((s32 *)var_a0) = 0;
     }
-    while (combined_index3 < temp_s7);
+    while (combined_index3 < count);
   }
-  temp_s7 = *((u32 *) (((char *) D_800B681C) + 0));
-  var_s2 = 0;
-  if (temp_s7 != 0)
+  count = *((u32 *) (((char *) D_800B681C) + 0));
+  i = 0;
+  if (count != 0)
   {loop1_fill=0xF7000000;loop1_rect=0xF6000000;loop1_sync=0xE7000000;
 
     var_t6 = &D_8009BB48;
@@ -496,15 +496,15 @@ void hud_build_dl(void)
     var_a3 = temp_v0_9 - 8;
     var_a2 = temp_v0_9 + 4;
     var_a1_2 = temp_v0_9;
-    var_a0 = temp_v0 - 4;
+    var_a0 = dl - 4;
     do
     {
       var_a0 += 8;
-      temp_v0 += 0x30;
+      dl += 0x30;
       *((s32 *) ((char *)var_a0 - 4)) = loop1_fill;
       temp_v0_10 = *((s32 *)var_t5);
       var_t5 += 4;
-      var_s2 += 1;
+      i += 1;
       *((s32 *)var_a0) = temp_v0_10;
       var_a0 += 8;
       temp_v0_6 = *((s32 *)var_a1_2);
@@ -539,9 +539,9 @@ void hud_build_dl(void)
       *((s32 *) ((char *)var_a0 - 4)) = loop1_sync;
       *((s32 *)var_a0) = 0;
     }
-    while (var_s2 < temp_s7);
+    while (i < count);
   }
-  {u32 *g=(u32*)temp_v0;u32 opcode=0xE7000000;if(temp_s7){temp_v0+=8;g[0]=opcode;g[1]=0;}else{temp_v0+=8;g[0]=opcode;g[1]=0;}}
+  {u32 *g=(u32*)dl;u32 opcode=0xE7000000;if(count){dl+=8;g[0]=opcode;g[1]=0;}else{dl+=8;g[0]=opcode;g[1]=0;}}
   time_f = (f64) D_800B7010;
   if (D_800B7010 < 0)
   {
@@ -550,7 +550,7 @@ void hud_build_dl(void)
   ticks = func_8009A310(time_f * D_800A4148);
   temp_v1_7 = (u32) ticks;
   D_800C6F08 = (u32) __udivdi3(ticks << 6, 3000);
-  gfx_set_dl(ctx, temp_v0);
+  gfx_set_dl(ctx, dl);
   if (gSelectState == 0)
   {
     temp_s0_4 = hud_ident_mtx;
@@ -567,7 +567,7 @@ void hud_build_dl(void)
     combined_index3 = 0;
     gfx_push_mtx(ctx, temp_s0_5);
     font_set_color(*((void **) (((char *) gRaceCtx) + 4)), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-    if (temp_s7 != 0)
+    if (count != 0)
     {
       text_buffer=text_buf;
       var_s3_3 = 0x50;
@@ -584,7 +584,7 @@ void hud_build_dl(void)
         temp_a0_3 += 0x10;
         var_s0 += 0x10;
       }
-      while (combined_index3 < temp_s7);
+      while (combined_index3 < count);
     }
     format_to_buffer(&text_buf, &D_800A4120, __repair_var_s3_1);
     font_draw_text(*((s32 *) (((char *) gRaceCtx) + 4)), ctx, 0x14, (combined_index3 * 0xA) + 0x64, &text_buf, 0);

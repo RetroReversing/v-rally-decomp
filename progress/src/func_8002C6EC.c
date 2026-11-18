@@ -32,7 +32,7 @@
   oldCount = W(a, 0x100);
   otherCount = W(b, 0x334);
   rot=raw+0x40;
-  func_8002DA98(rot, &frame.mat);
+  mat3_copy_transposed(rot, &frame.mat);
   frame.bounds[2] = W(P(arg1, 0x80), 0xec) + 15;
   frame.bounds[3] = W(P(arg1, 0x80), 0xf0) + 15;
   frame.bounds[5] = W(P(arg1, 0x80), 0xf4) + 15;

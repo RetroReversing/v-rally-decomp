@@ -86,7 +86,7 @@ s32 save_race_to_pak();
 s32 taskOpen();
 s32 func_8007F634();
 s32 taskRecvMsg();
-s32 poolAllocHeadNode();
+s32 pool_alloc_cleared_node();
 s32 heapReleaseBlock();
 s32 cont_port_is_connected(s32, s32);
 s32 func_80089B70();
@@ -132,7 +132,7 @@ typedef struct { unsigned char pad_0[14]; unsigned short field_E; unsigned char 
 void func_8005A790(void)
 {
   f32 proj_mtx[4][4];
-  s32 *select_text;
+  s32 *summary_text;
   u8 any_left;
   u32 split_best;
   void *view_buf;
@@ -152,7 +152,7 @@ void func_8005A790(void)
   u16 split_slot;
   u32 race_state_now;
   s32 *step_ptr;
-  void *view;
+  void *view_obj;
   u8 port_state;
   void *split_base;
   #ifdef PORT
@@ -180,7 +180,7 @@ s32 view_field;
   s32 task_main;
   s32 task_timer;
   step_ptr = &gSelectStep;
-  select_text = NULL;
+  summary_text = NULL;
   if ((gRaceState != 5) & (gRaceState != 0))
   {
     if (((u32) (gRaceState - 2)) >= 2U)
@@ -211,7 +211,7 @@ s32 view_field;
     func_80015780(1, 0, 0xF, 0xB4, 1, 0);
     slot = 0;
     func_80089B70();
-    D_800B7040 = poolAllocHeadNode();
+    D_800B7040 = pool_alloc_cleared_node();
     func_8004C794();
     stream_arm_flush();
     streamOrderInit();
@@ -229,24 +229,24 @@ s32 view_field;
     D_800C5D2C = func_80041FF4(1, &D_800A528C);
     D_800C5D30 = func_80041FF4(0, &D_800A5294);
     cam_obj_0 = find_object_by_id(4);
-    view = ((ViewObject *)cam_obj_0)->field;
+    view_obj = ((ViewObject *)cam_obj_0)->field;
     g_camera = cam_obj_0;
-    D_800AFA88 = view;
+    D_800AFA88 = view_obj;
     cam_obj_1 = find_object_by_id(1);
-    view = ((ViewObject *)cam_obj_1)->field;
+    view_obj = ((ViewObject *)cam_obj_1)->field;
     g_camera = cam_obj_1;
-    D_800D05D8 = view;
+    D_800D05D8 = view_obj;
     cam_obj_2 = find_object_by_id(1);
     #ifdef PORT
-view = ((ViewObject *)cam_obj_2)->field;
+view_obj = ((ViewObject *)cam_obj_2)->field;
 #else
 view_tmp = ((ViewObject *)cam_obj_2)->field;
 #endif
     #ifndef PORT
-view = (void *) view_tmp;
+view_obj = (void *) view_tmp;
 #endif
     g_camera = cam_obj_2;
-    D_800ADF80 = view;
+    D_800ADF80 = view_obj;
     if (gSelectStep != 0)
     {
       step_arg = ((s32 *) (&D_800A14BC))[*step_ptr];
@@ -268,7 +268,7 @@ view = (void *) view_tmp;
     if ((gSelectResetPending != 0) || ((gSelectResetFlag | select_reset_requested) != 0))
     {
       D_800AFA5C = 0U;
-      select_text = &D_800A529C;
+      summary_text = &D_800A529C;
     }
     else
     {
@@ -277,11 +277,11 @@ view = (void *) view_tmp;
       {
         case 5:
           unpackAllRecords();
-          select_text = &D_800A52A8;
+          summary_text = &D_800A52A8;
           D_800AFA5C = 0U;
           if ((((__repair_record_D_800C35A0*)gRecords)->field_1E) == 7)
         {
-          select_text = &D_800A5268;
+          summary_text = &D_800A5268;
         }
           break;
 
@@ -290,18 +290,18 @@ view = (void *) view_tmp;
           if ((rec_mode != 0) & (rec_mode < 5U))
         {
           D_800AFA5C = 1U;
-          select_text = &D_800A52B4;
+          summary_text = &D_800A52B4;
         }
         else
           if (rec_mode == 5)
         {
           D_800AFA5C = 3U;
-          select_text = &D_800A52C0;
+          summary_text = &D_800A52C0;
         }
         else
           if (rec_mode == 7)
         {
-          select_text = &D_800A5268;
+          summary_text = &D_800A5268;
         }
           break;
 
@@ -312,7 +312,7 @@ view = (void *) view_tmp;
           func_8006ECB4();
           save_race_to_pak();
           D_800AFA5C = 1U;
-          select_text = &D_800A52CC;
+          summary_text = &D_800A52CC;
         }
         else
         {
@@ -386,7 +386,7 @@ view = (void *) view_tmp;
             }
           }
           D_800AFA5C = 3U;
-          select_text = &D_800A52D8;
+          summary_text = &D_800A52D8;
         }
           break;
 
@@ -395,7 +395,7 @@ view = (void *) view_tmp;
           if (rec_mode_c == 5)
         {
           D_800AFA5C = 3U;
-          select_text = &D_800A52E4;
+          summary_text = &D_800A52E4;
         }
         else
           if (rec_mode_c == 0)
@@ -408,7 +408,7 @@ view = (void *) view_tmp;
           build_glyph_lookup();
           save_race_to_pak();
           D_800AFA5C = 2U;
-          select_text = &D_800A5268;
+          summary_text = &D_800A5268;
         }
         else
           if ((rec_mode_c != 0) & (rec_mode_c < 5U))
@@ -416,12 +416,12 @@ view = (void *) view_tmp;
           pack_tile_rows();
           save_race_to_pak();
           D_800AFA5C = 1U;
-          select_text = &D_800A5268;
+          summary_text = &D_800A5268;
         }
         else
           if (rec_mode_c == 7)
         {
-          select_text = &D_800A52A8;
+          summary_text = &D_800A52A8;
         }
           break;
 
@@ -429,7 +429,7 @@ view = (void *) view_tmp;
 
     }
     strCpy(gSelectState + 0x2AD, (D_800AFA5C * 0x24) + ((u8 *) (&D_800A13C0)));
-    strCpy(gSelectState + 0x2A1, select_text);
+    strCpy(gSelectState + 0x2A1, summary_text);
     *((s8 *) (((char *) gSelectState) + 0x29E)) = 1;
     *((u8 *) (((char *) gSelectState) + 0x2A0)) = 0U;
     *((s8 *) (((char *) gSelectState) + 0x29F)) = 0;

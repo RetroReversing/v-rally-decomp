@@ -1,6 +1,6 @@
 s32 flag_test_bit0();
 s32 flag_set_bit0();
-s32 poolAllocHeadNode();
+s32 pool_alloc_cleared_node();
 s32 memset();
 extern char gOrderState[];
 
@@ -14,7 +14,7 @@ void order_state_init(void)
     flags = gOrderState + 0x7390;
     if (flag_test_bit0(flags) == 0) {
         memset(flags - 0x88, 0, 0xE8);
-        *(s32 *)(gOrderState + 0x2370) = poolAllocHeadNode();
+        *(s32 *)(gOrderState + 0x2370) = pool_alloc_cleared_node();
         flag_set_bit0(flags);
     }
 }

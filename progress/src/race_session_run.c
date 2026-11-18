@@ -8,7 +8,7 @@ extern unsigned char D_800C8324;
 extern int D_800AFA6C;
 extern unsigned short D_800C3630;
 extern unsigned char D_800C792F;
-extern int D_800C8370;
+extern int gPhysDt;
 extern int D_800B65EC;
 extern int D_800B65F0;
 extern int D_800B65F4;
@@ -83,7 +83,7 @@ s32 heapQueryFreeSize();
 s32 taskOpen();
 s32 func_8007F634();
 s32 taskRecvMsg();
-s32 poolAllocHeadNode();
+s32 pool_alloc_cleared_node();
 s32 func_80080514();
 s32 resolve_path();
 s32 order_state_reset();
@@ -121,7 +121,7 @@ typedef struct PNode { u8 pad0[4]; struct PNode *next; u8 pad8[0x40]; s32 *p48; 
 /* Runs one race session: sets up the scene, tasks and HUD, loops per frame until the race ends, then tears everything down. */
 void race_session_run(void)
 {
-  s32 *old_timer_cb;
+  s32 *prev_timer_cb;
   s32 init_flag;
   s32 task_render;
   s32 task_timer;
@@ -135,7 +135,7 @@ void race_session_run(void)
   u16 timer_tick;
   s32 car_index;
   s32 voice_key;
-  PNode *node;
+  PNode *cur_node;
   PNode *pad_node;
   void *track_ptr;
   void *cam_obj;
@@ -150,12 +150,12 @@ void race_session_run(void)
   if (D_800C792F == 2)
   {
     gRecordTimeScale = 0x19;
-    D_800C8370 = 0x10;
+    gPhysDt = 0x10;
   }
   else
   {
     gRecordTimeScale = 0x19;
-    D_800C8370 = 0x18;
+    gPhysDt = 0x18;
   }
   scene_switch(0, 0x2810);
   video_mode_setup(gSceneSlot2, 1);
@@ -170,7 +170,7 @@ void race_session_run(void)
     gSceneHeapBlock = poolAlloc(3, 0x54C70);
   }
   records_mode_update();
-  head_node = poolAllocHeadNode();
+  head_node = pool_alloc_cleared_node();
   D_800B65EC = -0x46;
   D_800B65F0 = 0;
   D_800B65F4 = 0x46;
@@ -207,12 +207,12 @@ void race_session_run(void)
   if (((u32) (gRecords->mode - 7)) < 2U)
   {
     order_list_clear_flags();
-    node = **((PNode ***) (gOrderState + 0x73F0));
-    gPadFlags = *node->p48;
-    *node->p48 = 0;
+    cur_node = **((PNode ***) (gOrderState + 0x73F0));
+    gPadFlags = *cur_node->p48;
+    *cur_node->p48 = 0;
     if ((gRecords->mode == 7) && (gRecords->e == 2))
     {
-      node = node->next; *node->p48 = 1;
+      cur_node = cur_node->next; *cur_node->p48 = 1;
     }
     if (gRecords->mode == 8)
     {
@@ -259,11 +259,11 @@ void race_session_run(void)
     func_80080514(D_800B5B4C, &func_80042A7C, 3);
     rect_hud_setup();
   }
-  old_timer_cb = D_800C8048;
+  prev_timer_cb = D_800C8048;
   overlay_frames = 0;
   D_800C8048 = &timerServiceTick;
   gTimerStarted = 0;
-  gTimerCallback = old_timer_cb;
+  gTimerCallback = prev_timer_cb;
   osViBlack(1);
   D_800C5E54 = 4;
   order_recv_msg();

@@ -33,9 +33,9 @@ extern u8 gSelectResetFlag;
 extern u8 select_reset_requested;
 extern void *gSelectState;
 extern u8 D_800A14D4;
-extern M2C_UNK D_800A5384;
-extern M2C_UNK D_800A538C;
-extern M2C_UNK D_800A5398;
+extern M2C_UNK sSelectDemoName;
+extern M2C_UNK sSelectChargeName;
+extern M2C_UNK sSelectMenuBinName;
 extern M2C_UNK gOrderState;
 extern M2C_UNK stream_state;
 void func_8005D844(void);
@@ -98,12 +98,12 @@ void toggle_slot_sel_bit4(void);
 void func_80060254(void);
 void func_800602A4(void);
 
-/* Sets up the league select screen: configures the timers and button hooks on gLeague, then either handles a pending reset or starts the select state machine. */ void select_league_setup(void) {
-    s32 var_a2;
-    s32 var_a2_2;
+/* Sets up the league select screen: configures the timers and button hooks on gLeague, then either handles a pending reset or starts the select state machine. */ /* Sets up the league select screen: configures the timers and button hooks on gLeague, then either handles a pending reset or starts the select state machine. */ void select_league_setup(void) {
+    s32 unused_a2;
+    s32 unused_a2_2;
     void *league_sub;
     void *unused_state;
-    void *stream_buf;
+    void *track_buf;
 
     *(s32*)0x800B6880 = 5;
     D_800C8118 = (s32) (gRecordTimeScale * 3);
@@ -206,26 +206,26 @@ void func_800602A4(void);
         return;
     }
     if (gSelectResetFlag != 0) {
-void *__branch_temp_a0;
-void *__branch_state;
+void *sel_state_ptr;
+void *league_obj;
 
-        __branch_state=gLeague;
-        __branch_temp_a0=gSelectState;
-        M2C_FIELD(__branch_state, s16 *, 2) = 7;
-        *(Copy5*)((u8*)__branch_temp_a0+0x2a1)=*(Copy5*)&D_800A5384;
+        league_obj=gLeague;
+        sel_state_ptr=gSelectState;
+        M2C_FIELD(league_obj, s16 *, 2) = 7;
+        *(Copy5*)((u8*)sel_state_ptr+0x2a1)=*(Copy5*)&sSelectDemoName;
         gSelectResetPending = 0;
         M2C_FIELD(gSelectState, M2C_UNK **, 0x288) = &func_8005D844;
         M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &func_8005D84C;
         return;
     }
     if (select_reset_requested != 0) {
-void *__branch_temp_a0_;
-void *__branch_state_;
+void *sel_state_ptr_2;
+void *league_obj_2;
 
-        __branch_state_=gLeague;
-        __branch_temp_a0_=gSelectState;
-        M2C_FIELD(__branch_state_, s16 *, 2) = 0xC;
-        *(Copy10*)((u8*)__branch_temp_a0_+0x2a1)=*(Copy10*)&D_800A538C;
+        league_obj_2=gLeague;
+        sel_state_ptr_2=gSelectState;
+        M2C_FIELD(league_obj_2, s16 *, 2) = 0xC;
+        *(Copy10*)((u8*)sel_state_ptr_2+0x2a1)=*(Copy10*)&sSelectChargeName;
         select_reset_requested = 0;
         M2C_FIELD(gSelectState, M2C_UNK **, 0x288) = &select_league_hud_setup;
         M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &results_draw_record_panel_entry;
@@ -247,9 +247,9 @@ void *__branch_state_;
         gRaceFlags |= 0x40;
         voicesSetIdleParams(1);
         order_recv_msg();
-        stream_buf = D_800B3DA8;
-        streamOpenPath(stream_buf, &D_800A5398);
-        start_track_voices(stream_buf);
+        track_buf = D_800B3DA8;
+        streamOpenPath(track_buf, &sSelectMenuBinName);
+        start_track_voices(track_buf);
         voicesSetIdleValue((s32) (gSpeedAccum * 112.0f));
     }
     league_sub = M2C_FIELD(gLeague, void **, 0x10);

@@ -1,6 +1,6 @@
 s32 flag_test_bit0();
 s32 flag_set_then_call();
-s32 poolAllocHeadNode();
+s32 pool_alloc_cleared_node();
 extern char gOrderState[];
 extern s32 asset_list_teardown;
 
@@ -16,7 +16,7 @@ s32 asset_list_init_once(void)
     if (flag_test_bit0(flags)) {
         did_init = 0;
     } else {
-        *((s32 *)(gOrderState + 0x6D94)) = poolAllocHeadNode();
+        *((s32 *)(gOrderState + 0x6D94)) = pool_alloc_cleared_node();
         flag_set_then_call(flags, &asset_list_teardown);
         did_init = 1;
     }

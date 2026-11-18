@@ -71,7 +71,7 @@ extern s8 D_8009E278[];
 extern s8 D_8009E279[];
 extern s8 D_8009E284[];
 extern s8 D_8009E285[];
-void func_8002DA98(void *, void *);
+void mat3_copy_transposed(void *, void *);
 void func_8002E530(void *, void *, void *);
 void func_8002E778(void *, void *);
 void func_8002D75C(int, int, int, int *);

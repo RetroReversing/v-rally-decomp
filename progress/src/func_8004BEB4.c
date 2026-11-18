@@ -3,7 +3,7 @@ void *gfx_get_dl(s32);
 void gfx_set_dl(s32, void *);
 void gfx_push_mtx(s32, s32);
 s32 mtx_pool_alloc(void);
-void func_8004A0A0(void);
+void hud_draw_race_panel(void);
 void menu_handle_input(void);
 void guMtxF2L(void *, s32);
 void guMtxIdent(void *);
@@ -38,6 +38,6 @@ void func_8004BEB4(void) {
     guOrthoF(ortho, (f32)*(s16 *)((char *)view + 8), (f32)*(s16 *)((char *)view + 0xC), (f32)*(s16 *)((char *)view + 0xE), (f32)*(s16 *)((char *)view + 0xA), -1.0f, 10.0f, 1.0f);
     guMtxF2L(ortho, proj_mtx);
     gfx_push_mtx(view_get_ctx_id(*(void **)((char *)g_camera + 0x178)), proj_mtx);
-    func_8004A0A0();
+    hud_draw_race_panel();
     menu_handle_input();
 }

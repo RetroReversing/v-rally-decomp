@@ -4,7 +4,7 @@
 #define H(p,o) (*(u16*)((u8*)(p)+(o)))
 extern void vec3_normalize_fixed(s32 *, s32 *);
 extern void func_8002E530(void *, void *, void *);
-extern void func_8002DA98(void *, void *);
+extern void mat3_copy_transposed(void *, void *);
 typedef struct 
 {
   s32 w[8];
@@ -108,7 +108,7 @@ void track_edge_add_point(u8 *obj, s16 *point, s32 idx, s32 edge)
   rel[1] = point[1] - ((u16 *) P(seg, 0x54))[(first * 3) + 1];
   rel[2] = point[2] - ((u16 *) P(seg, 0x54))[(first * 3) + 2];
   func_8002E530(&mat, rel, delta);
-  func_8002DA98(&mat, &inv);
+  mat3_copy_transposed(&mat, &inv);
   mat.m = inv;
   if ((off = delta[1] << 4) > 0)
     goto L8C0;

@@ -3,7 +3,7 @@ s32 view_get_ctx_id(s32);
 void *gfx_get_dl(s32);
 s32 gfx_set_dl(s32, s32);
 s32 gfx_push_mtx(s32, s32);
-void font_set_color(void *, s32, s32, s32, u8);
+s32 font_set_color(void *, s32, s32, s32, u8);
 s32 font_draw_text();
 s32 font_text_width(void *, void *, u8, f32, u8);
 u16 font_draw_string(void *, void *, s16, s16, void *, u8, f32, f32, u16, u8);
@@ -44,13 +44,13 @@ static __inline__ s32 read_handle(void)
 void draw_select_overlay(void *overlay)
 {
   u16 saved_field;
-  void *context_flag;
+  void *ctx_ptr;
   HWORD first_dl;
   s16 padding;
   s16 draw_x;
   s32 draw_one;
   f32 ortho_mtx[16];
-  s32 *var_v0_5;
+  s32 *str_item;
   s16 temp_s0_12;
   s16 temp_s0_13;
   s16 temp_s0_14;
@@ -61,7 +61,7 @@ void draw_select_overlay(void *overlay)
   s16 var_a3_2;
   s16 var_a3_4;
   s16 draw_y;
-  s16 fixed_draw_y;
+  s16 sep_y;
   s32 temp_s0_10;
   s32 temp_s0_11;
   s32 temp_s0_2;
@@ -69,7 +69,7 @@ void draw_select_overlay(void *overlay)
   s32 temp_s0_8;
   s32 temp_s2_2;
   s32 temp_s2_3;
-  s32 early_frame;
+  s32 in_intro;
   HWORD view_id;
   u16 var_a1;
   s32 var_a1_2;
@@ -101,9 +101,9 @@ void draw_select_overlay(void *overlay)
   void *var_a0;
   void *var_a0_2;
   void *var_a0_3;
-  early_frame = ((u32) overlay_frames) < 5U;
+  in_intro = ((u32) overlay_frames) < 5U;
   overlay_frames += 1;
-  if (early_frame == 0)
+  if (in_intro == 0)
   {
     temp_s0 = stream_state + 0x80D2;
     guMtxIdent(temp_s0);
@@ -239,17 +239,17 @@ void draw_select_overlay(void *overlay)
           {
             temp_s0_3 = overlay + 0x40;
             font_draw_string((void *)(temp_s0_3), (void *)(view_id), (s16)(-0x118), (s16)(5), (void *)(pool_get_item(read_handle(), 0xC1)), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
-            var_v0_5 = pool_get_item(read_handle(), 0xD2);
-            font_draw_string((void *)(temp_s0_3), (void *)(view_id), (s16)(-0x118), (s16)(0xF), (void *)(var_v0_5), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+            str_item = pool_get_item(read_handle(), 0xD2);
+            font_draw_string((void *)(temp_s0_3), (void *)(view_id), (s16)(-0x118), (s16)(0xF), (void *)(str_item), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
           }
           else
             {
-            var_v0_5 = pool_get_item(read_handle(), 0xC1);
-if (var_v0_5){
-            context_flag = (void *)(overlay + 0x40);}else{
-            context_flag = (void *)(overlay + 0x40);}
-            var_a0_2 = ((void *)context_flag); first_dl=view_id;
-            {s32 x;void *secondctx;HWORD seconddl;s32 secondx;s16 secondy;x=(s32)draw_x;x=-(s16)x;font_draw_string((void *)(var_a0_2),(void *)(first_dl),(s16)(x),(s16)(draw_y),(void *)(var_v0_5),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));secondctx=((void *)context_flag);seconddl=view_id;secondx=x;secondy=draw_y+10;font_draw_string((void *)(secondctx),(void *)(seconddl),(s16)(secondx),(s16)(secondy),(void *)(read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44)),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));}
+            str_item = pool_get_item(read_handle(), 0xC1);
+if (str_item){
+            ctx_ptr = (void *)(overlay + 0x40);}else{
+            ctx_ptr = (void *)(overlay + 0x40);}
+            var_a0_2 = ((void *)ctx_ptr); first_dl=view_id;
+            {s32 x;void *secondctx;HWORD seconddl;s32 secondx;s16 secondy;x=(s32)draw_x;x=-(s16)x;font_draw_string((void *)(var_a0_2),(void *)(first_dl),(s16)(x),(s16)(draw_y),(void *)(str_item),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));secondctx=((void *)ctx_ptr);seconddl=view_id;secondx=x;secondy=draw_y+10;font_draw_string((void *)(secondctx),(void *)(seconddl),(s16)(secondx),(s16)(secondy),(void *)(read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44)),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));}
           }
         }
         else
@@ -257,30 +257,30 @@ if (var_v0_5){
         {
           temp_s0_4 = overlay + 0x40;
           font_draw_string((void *)(temp_s0_4), (void *)(view_id), (s16)(0x1E), (s16)(5), (void *)(pool_get_item(read_handle(), 0xC1)), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
-          var_v0_5 = pool_get_item(read_handle(), 0xD2);
-          font_draw_string((void *)(temp_s0_4), (void *)(view_id), (s16)(0x1E), (s16)(0xF), (void *)(var_v0_5), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+          str_item = pool_get_item(read_handle(), 0xD2);
+          font_draw_string((void *)(temp_s0_4), (void *)(view_id), (s16)(0x1E), (s16)(0xF), (void *)(str_item), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
         }
         else
         {
-          var_v0_5 = pool_get_item(read_handle(), 0xC1);
-if (var_v0_5){
-          context_flag = (void *)(overlay + 0x40);}else{
-          context_flag = (void *)(overlay + 0x40);}
-          var_a0_2 = ((void *)context_flag); first_dl=view_id;
-          {s32 x;void *secondctx;HWORD seconddl;s32 secondx;s16 secondy;x=(s32)draw_x;x=(s16)x;font_draw_string((void *)(var_a0_2),(void *)(first_dl),(s16)(x),(s16)(draw_y),(void *)(var_v0_5),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));secondctx=((void *)context_flag);seconddl=view_id;secondx=x;secondy=draw_y+10;font_draw_string((void *)(secondctx),(void *)(seconddl),(s16)(secondx),(s16)(secondy),(void *)(read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44)),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));}
+          str_item = pool_get_item(read_handle(), 0xC1);
+if (str_item){
+          ctx_ptr = (void *)(overlay + 0x40);}else{
+          ctx_ptr = (void *)(overlay + 0x40);}
+          var_a0_2 = ((void *)ctx_ptr); first_dl=view_id;
+          {s32 x;void *secondctx;HWORD seconddl;s32 secondx;s16 secondy;x=(s32)draw_x;x=(s16)x;font_draw_string((void *)(var_a0_2),(void *)(first_dl),(s16)(x),(s16)(draw_y),(void *)(str_item),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));secondctx=((void *)ctx_ptr);seconddl=view_id;secondx=x;secondy=draw_y+10;font_draw_string((void *)(secondctx),(void *)(seconddl),(s16)(secondx),(s16)(secondy),(void *)(read_config()+((*((u8 *)(read_config()+0x32)))*40+0x44)),(u8)(1),(f32)(1.0f),(f32)(1.0f),(u16)(0),(u8)(1));}
         }
-        context_flag = (void *)(1);
+        ctx_ptr = (void *)(1);
         draw_x = 0x128;
-        if ((*((u16 *) (((char *) read_config()) + 0x12))) == ((HWORD)context_flag))
+        if ((*((u16 *) (((char *) read_config()) + 0x12))) == ((HWORD)ctx_ptr))
         {
           draw_x = 0x118;
           draw_y = 0x7D;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == ((HWORD)context_flag)))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((*((u16 *) (((char *) read_config()) + 0x1A))) == ((HWORD)ctx_ptr)))
           {
             temp_s0_6 = overlay + 0x40;
-            font_draw_string((void *)(temp_s0_6), (void *)(view_id), (s16)(-0x118), (s16)(0x7D), (void *)(pool_get_item(read_handle(), 0xC1)), (u8)(((HWORD)context_flag)), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(((HWORD)context_flag)));
-            var_v0_5 = pool_get_item(read_handle(), 0xD2);
-            font_draw_string((void *)(temp_s0_6), (void *)(view_id), (s16)(-0x118), (s16)(0x87), (void *)(var_v0_5), (u8)(((HWORD)context_flag)), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(((HWORD)context_flag)));
+            font_draw_string((void *)(temp_s0_6), (void *)(view_id), (s16)(-0x118), (s16)(0x7D), (void *)(pool_get_item(read_handle(), 0xC1)), (u8)(((HWORD)ctx_ptr)), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(((HWORD)ctx_ptr)));
+            str_item = pool_get_item(read_handle(), 0xD2);
+            font_draw_string((void *)(temp_s0_6), (void *)(view_id), (s16)(-0x118), (s16)(0x87), (void *)(str_item), (u8)(((HWORD)ctx_ptr)), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(((HWORD)ctx_ptr)));
           }
           else
           {
@@ -290,22 +290,22 @@ if (var_v0_5){
         else
         {
           draw_y = 5;
-          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == ((HWORD)context_flag))))
+          if (((*((u16 *) (((char *) read_config()) + 0x1E))) == 0) && ((temp_s1_2 = *((u16 *) (((char *) read_config()) + 0x1A)), temp_s1_2 == ((HWORD)ctx_ptr))))
           {
 saved_field=temp_s1_2;
             temp_s0_7 = overlay + 0x40;
             font_draw_string((void *)(temp_s0_7), (void *)(view_id), (s16)(-0x128), (s16)(5), (void *)(pool_get_item(read_handle(), 0xC1)), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
-            var_v0_5 = pool_get_item(read_handle(), 0xD2);
-            font_draw_string((void *)(temp_s0_7), (void *)(view_id), (s16)(-0x128), (s16)(0xF), (void *)(var_v0_5), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+            str_item = pool_get_item(read_handle(), 0xD2);
+            font_draw_string((void *)(temp_s0_7), (void *)(view_id), (s16)(-0x128), (s16)(0xF), (void *)(str_item), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
           }
           else
           {
             block_60:
-            var_v0_5 = pool_get_item(read_handle(), 0xC1);
+            str_item = pool_get_item(read_handle(), 0xC1);
 
             temp_s2 = overlay + 0x40;
             temp_s0_8 = ((s32) (-(((s32)draw_x) << 0x10))) >> 0x10;
-            font_draw_string((void *)(temp_s2), (void *)(view_id), (s16)(temp_s0_8), (s16)(draw_y), (void *)(var_v0_5), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+            font_draw_string((void *)(temp_s2), (void *)(view_id), (s16)(temp_s0_8), (s16)(draw_y), (void *)(str_item), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
             var_a0_3 = temp_s2;
             var_a2_2 = temp_s0_8;
             var_a3_2 = draw_y + 0xA;
@@ -342,10 +342,10 @@ saved_field=temp_s1_2;
         func_80073108(view_id, ((s16)draw_x), (s16) draw_y, *((s32 *) (stream_state + 0x103B6)), 0);
         draw_y += 2;
         temp_s0_9 = ((s16)draw_x) + panel_gap;
-        var_v0_5 = pool_get_item(read_handle(), 0xD7);
+        str_item = pool_get_item(read_handle(), 0xD7);
         var_a2_3 = temp_s0_9;
         var_a3_4 = draw_y;
-        font_draw_text(*((s32 *) (((char *) overlay) + 0x40)), view_id, var_a2_3, var_a3_4, var_v0_5, 1);
+        font_draw_text(*((s32 *) (((char *) overlay) + 0x40)), view_id, var_a2_3, var_a3_4, str_item, 1);
       }
       else
       {
@@ -390,18 +390,18 @@ saved_field=temp_s1_2;
         temp_s5 = overlay + 0x40;
         temp_s0_12 = ((s16)draw_x) + font_text_width((void *)(temp_s5), (void *)(&label_default), (u8)(1), (f32)(1.0f), (u8)(1));
         draw_y -= 2;
-        fixed_draw_y = draw_y;
-        func_80073108(view_id, temp_s0_12, fixed_draw_y, *((s32 *) (stream_state + 0x103B6)), 2);
+        sep_y = draw_y;
+        func_80073108(view_id, temp_s0_12, sep_y, *((s32 *) (stream_state + 0x103B6)), 2);
         temp_s0_13 = temp_s0_12 + panel_gap;
         draw_y += 2;
         font_draw_text(*((s32 *) (((char *) overlay) + 0x40)), view_id, temp_s0_13, (s16) draw_y, pool_get_item(read_handle(), 0xD3), 1);
         temp_s0_14 = temp_s0_13 + font_text_width((void *)(temp_s5), (void *)(pool_get_item(read_handle(), 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
-        func_80073108(view_id, temp_s0_14, fixed_draw_y, *((s32 *) (stream_state + 0x103B6)), 0);
+        func_80073108(view_id, temp_s0_14, sep_y, *((s32 *) (stream_state + 0x103B6)), 0);
         temp_s0_15 = temp_s0_14 + panel_gap;
-        var_v0_5 = pool_get_item(read_handle(), 0xD7);
+        str_item = pool_get_item(read_handle(), 0xD7);
         var_a2_3 = temp_s0_15;
         var_a3_4 = draw_y;
-        font_draw_text(*((s32 *) (((char *) overlay) + 0x40)), view_id, var_a2_3, var_a3_4, var_v0_5, 1);
+        font_draw_text(*((s32 *) (((char *) overlay) + 0x40)), view_id, var_a2_3, var_a3_4, str_item, 1);
       }
     }
   }

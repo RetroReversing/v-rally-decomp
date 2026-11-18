@@ -21,7 +21,7 @@ s32 order_recv_msg();
 s32 cacheHeapFreeSizes();
 s32 race_session_run();
 s32 timing_ring_push();
-s32 func_8001BBE4();
+s32 stream_state_init();
 s32 streamOpenPath();
 s32 stream_alloc_buffer();
 s32 func_800388CC();
@@ -101,7 +101,7 @@ void game_main(void) {
     stream_clear_table();
     func_80040770();
     func_800415EC();
-    func_8001BBE4();
+    stream_state_init();
     order_stream_init();
     gSceneHeapBlock = poolAlloc(3, 0x54C70);
     func_8000D9CC();

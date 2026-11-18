@@ -7,7 +7,7 @@ extern void *D_800C60D4;
 typedef struct { u8 pad[4]; void **data; } Res;
 typedef struct { u8 pad[0x10]; u8 obj[0x94]; Res *res; } Obj;
 typedef struct { u8 pad[0xC]; Obj *obj; s16 x; s16 y; u8 a; u8 b; u8 r; u8 g; u8 bl; } Spr;
-extern void *poolAllocHeadNode(void);
+extern void *pool_alloc_cleared_node(void);
 extern Spr *poolAllocNode(void *, s32);
 extern Res *getTexturePack(void *, s32);
 extern Obj *poolAlloc(s32, s32);
@@ -26,7 +26,7 @@ void func_80036C48(u8 *hud_data)
     tint_b = D_800A4A98;
     alpha_tbl = D_800A4AA0;
     rgb_tbl = D_800A4AA8;
-    D_800C60D4 = poolAllocHeadNode();
+    D_800C60D4 = pool_alloc_cleared_node();
 
     {
         Spr *spr;

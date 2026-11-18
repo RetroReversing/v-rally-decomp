@@ -63,19 +63,20 @@ typedef struct
   unsigned char pad[64];
   void *value;
 } __repair_field_40;
+/* Draws the select screen options panel: a title, five standings rows (name, two times and a value; the last row is the player's own), then the footer labels. */
 void draw_select_screen_options(void *menu, void *gfx)
 {
-  char sp40[0x78];
-  char spB8[0x18];
-  char spD0[0x18];
-  char spE8[0x18];
-  s16 sp106;
-  u16 sp10E;
-  s32 sp114;
+  char line_buf[0x78];
+  char name_buf[0x18];
+  char time_buf[0x18];
+  char extra_buf[0x18];
+  s16 start_x_s16;
+  u16 row_x;
+  s32 neg_right_x;
   s32 start_x;
   u16 tail_y;
   s32 var_a1_4;
-  char *new_var2;
+  char *cfg_ptr;
   s32 var_v0;
   s32 var_v0_2;
   s32 temp_s0_2;
@@ -84,10 +85,10 @@ void draw_select_screen_options(void *menu, void *gfx)
   u16 temp_s1_6;
   s16 temp_s1_7;
   u16 temp_s1_8;
-  u16 row_icon_y;
+  u16 icon_y;
   s32 temp_s3;
   u16 temp_s4;
-  u16 var_fp;
+  u16 text_y;
   u16 var_s0_2;
   s32 temp_a0;
   s32 temp_a0_2;
@@ -105,7 +106,7 @@ void draw_select_screen_options(void *menu, void *gfx)
   u16 temp_v0_2;
   void *temp_v0;
   s16 second_icon_y;
-  new_var2 = stream_state + 0x32F2;
+  cfg_ptr = stream_state + 0x32F2;
   {
     temp_v0 = gfx_get_dl(gfx);
     *((u32 *) temp_v0) = 0xDE000000;
@@ -123,108 +124,108 @@ void draw_select_screen_options(void *menu, void *gfx)
     gfx_set_quad_colors_shared_alpha(gfx, temp_s0 & 0xFFFF, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0xAA);
   }
   gfx_round_vtx_pos(gfx);
-  format_to_buffer(&sp40, &D_800A5D50);
-  sp10E = 0;
-  new_var = font_text_width((void *)(menu + 0x40), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));
+  format_to_buffer(&line_buf, &D_800A5D50);
+  row_x = 0;
+  new_var = font_text_width((void *)(menu + 0x40), (void *)(&line_buf), (u8)(1), (f32)(1.0f), (u8)(1));
   header_width = D_800A17EA;
   header_width += D_800A17E9;
   header_width += new_var;
-  sp114 = header_width & 0xFFFF;
-  temp_v0_2 = ((u32) sp114) >> 1;
+  neg_right_x = header_width & 0xFFFF;
+  temp_v0_2 = ((u32) neg_right_x) >> 1;
   temp_s0_2 = 0xA0 - temp_v0_2;
   temp_v0_2 += 0xA0;
   func_800735D0(menu, temp_s0_2);
   font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
   draw_panel_quad(gfx, (temp_s0_2 - 7) & 0xFFFF, 0x46, (unsigned short) (header_width + 0xD), 0x11);
-  var_fp = 0x5A;
-  sp106 = temp_s0_2;
+  text_y = 0x5A;
+  start_x_s16 = temp_s0_2;
   font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) (temp_s0_2 + 2), 0x48, pool_get_item(*((s32 *) (D_800C8200 + 0x128)), 0xCF), 1);
   font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-  sp114 = ((u32) (-((s32) temp_v0_2))) << 16;
+  neg_right_x = ((u32) (-((s32) temp_v0_2))) << 16;
   do
   {
-    if (sp10E == 4)
+    if (row_x == 4)
     {
-      var_v0 = sp10E * 2;
-      if ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5)
+      var_v0 = row_x * 2;
+      if ((*((u16 *) ((*((char **) cfg_ptr)) + 0x1E))) != 5)
       {
         special_width = font_text_width((void *)(menu + 0x40), (void *)(pool_get_item(*((s32 *) (D_800C8210 + 0x118)), 0xD1)), (u8)(1), (f32)(1.0f), (u8)(1));
         temp_s2 = special_width;
         font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
         temp_s2 = ((u32) (temp_s2 & 0xFFFF)) >> 1;
-        temp_s0_3 = var_fp + 0x1B;
+        temp_s0_3 = text_y + 0x1B;
         draw_panel_quad(gfx, (0x97 - temp_s2) & 0xFFFF, (temp_s0_3 - 2) & 0xFFFF, (special_width + 0xF) & 0xFFFF, 0x11);
-        var_fp = temp_s0_3;
-        var_fp = var_fp + 0x12;
+        text_y = temp_s0_3;
+        text_y = text_y + 0x12;
         font_draw_text(((__repair_field_40 *) menu)->value, gfx, 0xA0 - temp_s2, (s16) temp_s0_3, pool_get_item(*((s32 *) (D_800C8220 + 0x108)), 0xD1), 1);
         font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(255), (s32)(255), (s32)(255), (u8)(255));
-        var_v0 = sp10E * 2;
+        var_v0 = row_x * 2;
       }
     }
     else
     {
-      if ((gStandingsRows[sp10E].a == (*((s32 *) (stream_state + 0x7D46)))) && ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5))
+      if ((gStandingsRows[row_x].a == (*((s32 *) (stream_state + 0x7D46)))) && ((*((u16 *) ((*((char **) cfg_ptr)) + 0x1E))) != 5))
       {
         font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(220), (s32)(220), (s32)(16), (u8)(255));
       }
-      var_v0 = sp10E * 2;
+      var_v0 = row_x * 2;
     }
-    start_x = (u16)sp106;
-    temp_a0 = gStandingsRows[sp10E].a;
+    start_x = (u16)start_x_s16;
+    temp_a0 = gStandingsRows[row_x].a;
     if (temp_a0 != 0)
     {
-      func_80052E94(temp_a0, &spB8);
+      func_80052E94(temp_a0, &name_buf);
     }
     else
     {
-      format_to_buffer(&spB8, &D_800A5D70);
+      format_to_buffer(&name_buf, &D_800A5D70);
     }
-    temp_a0_2 = *((u32 *) ((stream_state + 0x7CEA) + (sp10E * 0x18)));
+    temp_a0_2 = *((u32 *) ((stream_state + 0x7CEA) + (row_x * 0x18)));
     if (temp_a0_2 != 0)
     {
-      func_80052E94(temp_a0_2, &spD0);
+      func_80052E94(temp_a0_2, &time_buf);
     }
     else
     {
-      format_to_buffer(&spD0, &D_800A5D70);
+      format_to_buffer(&time_buf, &D_800A5D70);
     }
-    temp_v1 = *((u32 *) ((stream_state + 0x7CEE) + (sp10E * 0x18)));
+    temp_v1 = *((u32 *) ((stream_state + 0x7CEE) + (row_x * 0x18)));
     if (temp_v1 != 0)
     {
       if (inline_fn(stream_state + 0x32F2) != 0)
       {
-        format_to_buffer(&spE8, &D_800A5D7C, ((u32) (temp_v1 * 0x9F00)) >> 0x10);
+        format_to_buffer(&extra_buf, &D_800A5D7C, ((u32) (temp_v1 * 0x9F00)) >> 0x10);
       }
       else
       {
-        format_to_buffer(&spE8, &D_800A5D84, temp_v1 & 0xFFFF);
+        format_to_buffer(&extra_buf, &D_800A5D84, temp_v1 & 0xFFFF);
       }
     }
     else
     {
-      format_to_buffer(&spE8, &D_800A5D8C);
+      format_to_buffer(&extra_buf, &D_800A5D8C);
     }
-    temp_s3 = sp10E;
+    temp_s3 = row_x;
     if (temp_s3 != 4)
     {
-      format_to_buffer(&sp40, &D_800A5D94, temp_s3 + 1, ((4 * temp_s3) * 6) + (stream_state + 0x7CE2));
+      format_to_buffer(&line_buf, &D_800A5D94, temp_s3 + 1, ((4 * temp_s3) * 6) + (stream_state + 0x7CE2));
     }
     else
     {
-      format_to_buffer(&sp40, &D_800A5D9C, (void *) (stream_state + 0x7D42));
+      format_to_buffer(&line_buf, &D_800A5D9C, (void *) (stream_state + 0x7D42));
     }
-    temp_s2 = sp10E;
+    temp_s2 = row_x;
     if (temp_s2 != 4)
     {
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) start_x, (s16) var_fp, sp40, 1);
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) start_x, (s16) text_y, line_buf, 1);
     }
     temp_s1 = start_x + D_800A17E9;
-    row_icon_y = --var_fp;
+    icon_y = --text_y;
     if ((((u32) (temp_s1 & 0xFFFF)) < 0x141U) & (temp_s2 != 4))
     {
-      func_80073108(gfx, temp_s1, row_icon_y, *((void **) (stream_state + 0x103B2)), (s32) (*((u8 *) ((stream_state + 0x7CF4) + (temp_s2 * 0x18)))));
+      func_80073108(gfx, temp_s1, icon_y, *((void **) (stream_state + 0x103B2)), (s32) (*((u8 *) ((stream_state + 0x7CF4) + (temp_s2 * 0x18)))));
     }
-    do { do { do { ++var_fp; temp_s1 = temp_s1 + D_800A17EA; } while (0); } while (0); } while (0); 
+    do { do { do { ++text_y; temp_s1 = temp_s1 + D_800A17EA; } while (0); } while (0); } while (0); 
     if (temp_s2 == 0)
     {
       goto row_zero;
@@ -233,21 +234,21 @@ void draw_select_screen_options(void *menu, void *gfx)
     {
       goto row_other;
     }
-    if ((*((u16 *) ((*((char **) new_var2)) + 0x1E))) != 5)
+    if ((*((u16 *) ((*((char **) cfg_ptr)) + 0x1E))) != 5)
     {
       temp_s2 = ((D_800A17E9 + 0xFFF1) + D_800A17EA) + font_text_width((void *)(menu + 0x40), (void *)(&D_800A5DA0), (u8)(1), (f32)(1.0f), (u8)(1));
       temp_s2 = ((s32)(0x140 - (temp_s2 & 0xFFFF))) / 2;
       temp_s4 = temp_s2 & 0xFFFF;
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, temp_s4, ((s16)var_fp), sp40, 1);
-      second_icon_y = --var_fp;
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, temp_s4, ((s16)text_y), line_buf, 1);
+      second_icon_y = --text_y;
       if (((u32) (temp_s1 & 0xFFFF)) < 0x141U)
       {
         func_80073108(gfx, (s16) (temp_s2 + (D_800A17E9 + 0xFFF1)), second_icon_y, *((void **) (stream_state + 0x103B2)), (s32) (*((u8 *) (stream_state + 0x7D54))));
       }
-      var_fp = row_icon_y + 1;
+      text_y = icon_y + 1;
       temp_s0_5 = 0xF;
-      format_to_buffer(sp40, &D_800A5DB4, (void *) (&spB8), &spE8);
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, ((temp_s4 - temp_s0_5) + D_800A17E9) + D_800A17EA, ((s16)var_fp), sp40, 1);
+      format_to_buffer(line_buf, &D_800A5DB4, (void *) (&name_buf), &extra_buf);
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, ((temp_s4 - temp_s0_5) + D_800A17E9) + D_800A17EA, ((s16)text_y), line_buf, 1);
     }
     goto row_done;
     row_zero:
@@ -258,9 +259,9 @@ void draw_select_screen_options(void *menu, void *gfx)
       void *second_dl;
       s16 second_x;
       s16 second_y;
-      local_y = (s16) ((s16)var_fp);
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1, local_y, spB8, 1);
-      font_draw_string((void *)(menu + 0x40), (void *)(gfx), (s16)(sp114 >> 16), (s16)(local_y), (void *)(&spE8), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+      local_y = (s16) ((s16)text_y);
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1, local_y, name_buf, 1);
+      font_draw_string((void *)(menu + 0x40), (void *)(gfx), (s16)(neg_right_x >> 16), (s16)(local_y), (void *)(&extra_buf), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
       goto row_done;
     }
 
@@ -272,12 +273,12 @@ void draw_select_screen_options(void *menu, void *gfx)
       void *second_dl;
       s16 second_x;
       s16 second_y;
-      format_to_buffer(&sp40, &D_800A5DBC, (void *) (&spB8), &spD0);
-      local_y = (s16) ((s16)var_fp);
+      format_to_buffer(&line_buf, &D_800A5DBC, (void *) (&name_buf), &time_buf);
+      local_y = (s16) ((s16)text_y);
       {
       }
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1, local_y, sp40, 1);
-      font_draw_string((void *)(menu + 0x40), (void *)(gfx), (s16)(sp114 >> 16), (s16)(local_y), (void *)(&spE8), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1, local_y, line_buf, 1);
+      font_draw_string((void *)(menu + 0x40), (void *)(gfx), (s16)(neg_right_x >> 16), (s16)(local_y), (void *)(&extra_buf), (u8)(1), (f32)(1.0f), (f32)(1.0f), (u16)(0), (u8)(1));
       goto row_done;
     }
 
@@ -293,10 +294,10 @@ void draw_select_screen_options(void *menu, void *gfx)
     {
     }
     font_set_color((void *)(((__repair_field_40 *) menu)->value), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-    sp10E += 1;
-    var_fp += 0xF;
+    row_x += 1;
+    text_y += 0xF;
   }
-  while (sp10E < 5U);
+  while (row_x < 5U);
   if (CFG(0x22) == ((*((u16 *) (((CFG(0x20) * 0x2c4) + (*((char **) (gSlotTableB + (CFG(0x1e) * 4))))) + 0x14))) - 1))
   {
     __repair_result_var_v0_2 = font_text_width((void *)(menu + 0x40), (void *)(pool_get_item(*((s32 *) (D_800C8230 + 0xF8)), 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
@@ -309,21 +310,21 @@ void draw_select_screen_options(void *menu, void *gfx)
   }
   temp_s1_5 = 0x140 - temp_a3;
   var_s0_2 = temp_s1_5;
-  var_fp = 0xDC;
-  if ((*((u16 *) inline_fn23(new_var2))) == 2)
+  text_y = 0xDC;
+  if ((*((u16 *) inline_fn23(cfg_ptr))) == 2)
   {
-    func_80073320(gfx, var_s0_2 & 0xFFFF, var_fp, (temp_a3 - 0x23) & 0xFFFF, 0x11);
+    func_80073320(gfx, var_s0_2 & 0xFFFF, text_y, (temp_a3 - 0x23) & 0xFFFF, 0x11);
     var_s0_2 = temp_s1_5 - 0xF;
   }
   else
   {
-    func_80073320(gfx, var_s0_2 & 0xFFFF, var_fp, temp_a3 & 0xFFFF, 0x11);
+    func_80073320(gfx, var_s0_2 & 0xFFFF, text_y, temp_a3 & 0xFFFF, 0x11);
   }
-  func_80073108(gfx, var_s0_2, var_fp, *((void **) (stream_state + 0x103B6)), 2);
+  func_80073108(gfx, var_s0_2, text_y, *((void **) (stream_state + 0x103B6)), 2);
   temp_s1_6 = var_s0_2 + panel_gap;
-  tail_y = (var_fp + 2) & 0x1FFFF;
-  var_fp = tail_y;
-  font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_6, ((s16)var_fp), pool_get_item(*((s32 *) (D_800C8220 + 0x108)), 0xD3), 1);
+  tail_y = (text_y + 2) & 0x1FFFF;
+  text_y = tail_y;
+  font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_6, ((s16)text_y), pool_get_item(*((s32 *) (D_800C8220 + 0x108)), 0xD3), 1);
   temp_s1_7 = temp_s1_6 + font_text_width((void *)(menu + 0x40), (void *)(pool_get_item(*((s32 *) (D_800C8230 + 0xF8)), 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
   func_80073108(gfx, temp_s1_7, (s16) (tail_y - 2), *((void **) (stream_state + 0x103B6)), 0);
   temp_s1_8 = temp_s1_7 + panel_gap;
@@ -332,13 +333,13 @@ void draw_select_screen_options(void *menu, void *gfx)
     var_a1_4 = 0xDF;
     do
     {
-      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_8, ((s16)var_fp), pool_get_item(*((s32 *) (D_800C8200 + 0x128)), var_a1_4), 1);
+      font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_8, ((s16)text_y), pool_get_item(*((s32 *) (D_800C8200 + 0x128)), var_a1_4), 1);
     }
     while (0);
   }
   else
   {
     var_a1_4 = 0xD4;
-    font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_8, ((s16)var_fp), pool_get_item(*((s32 *) (D_800C8210 + 0x118)), var_a1_4), 1);
+    font_draw_text(((__repair_field_40 *) menu)->value, gfx, (s16) temp_s1_8, ((s16)text_y), pool_get_item(*((s32 *) (D_800C8210 + 0x118)), var_a1_4), 1);
   }
 }

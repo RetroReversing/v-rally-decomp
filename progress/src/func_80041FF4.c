@@ -1,7 +1,7 @@
 void *find_entry_by_name(s32 *, s32);
 s32 find_object_by_id(s32);
 void *poolAllocNode(s32, s32);
-s32 poolAllocHeadNode();
+s32 pool_alloc_cleared_node();
 extern s32 D_800A0130;
 extern s32 stream_state;
 
@@ -20,7 +20,7 @@ void *func_80041FF4(s32 id, s32 name)
   new_var2 = object + 0x28;
   entry = find_entry_by_name(&D_800A0130, name);
   record = poolAllocNode(new_var2, 0x1C);
-  *((s32 *) (((char *) record) + 0x10)) = poolAllocHeadNode();
+  *((s32 *) (((char *) record) + 0x10)) = pool_alloc_cleared_node();
   *((s32 *) (((char *) record) + 0x14)) = (s32) (*((s32 *) (((char *) entry) + 0xC)));
   *((s32 *) (((char *) record) + 0x18)) = (s32) (*((s32 *) (((char *) entry) + 0x10)));
   *((void **) (((char *) record) + 0xC)) = entry;

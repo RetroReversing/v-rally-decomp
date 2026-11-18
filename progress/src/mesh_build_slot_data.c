@@ -35,7 +35,7 @@ extern s32 func_80006060(s32);
 extern void slot_update_list(void *, s32 *, s32 *, s32 *, s32);
 extern void func_800197A4(void *, VertRec **, void *, s32 *, s32, void **);
 extern void func_80056FE4(VertPacket *);
-extern void setCurrentOrderStateAndSort(void *, u16);
+extern void order_set_and_sort(void *, u16);
 extern void gfx_draw_item_list(s32, VertPacket *, void *);
 extern void heapFreeBlock(void *);
 
@@ -106,7 +106,7 @@ void mesh_build_slot_data(MeshSrc *mesh)
       packet.count = end[i] - start[i];
       packet.zero = 0;
       func_80056FE4(&packet);
-      setCurrentOrderStateAndSort(mesh->out->verts[i], mesh->out->nverts[i]);
+      order_set_and_sort(mesh->out->verts[i], mesh->out->nverts[i]);
       gfx_sync_render_state(h, 1);
       gfx_draw_item_list(h, &packet, buf);
       mesh->out->dur[i] = (func_80006060(h) - mesh->out->time[i]) >> 4;

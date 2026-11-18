@@ -25,7 +25,7 @@ void func_80027E8C(S1 *, s32, S2 *);
 void func_800280AC(S1 *, S2 *);
 void func_800280EC(S1 *, S2 *);
 void ai_drive_compute(S1 *, S2 *);
-void func_80043150(S1 *, S2 *);
+void race_update_car(S1 *, S2 *);
 void func_800437B8(S1 *, S2 *);
 struct Car; struct Pad;
 void func_80043A78(struct Car *, struct Pad *);
@@ -80,7 +80,7 @@ void car_dispatch_cmd(S1 *car, s32 slot, S2 *input, s32 cmd)
       return;
 
     case 9:
-      func_80043150(car, input);
+      race_update_car(car, input);
       return;
 
     case 7:

@@ -2,7 +2,7 @@ extern void *gRecords;
 extern char D_800B5B70;
 extern unsigned char D_800C81FC;
 extern unsigned char D_800C7FA0;
-extern int D_800B6B00;
+extern int gPhysFrameCount;
 extern short D_800B0D68;
 extern short D_800C5CE8;
 extern signed char D_800B0D6C;

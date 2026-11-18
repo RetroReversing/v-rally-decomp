@@ -48,14 +48,14 @@ extern void hiscore_update_season_standings(void);
 
 #define GROUP(p, j) ((Group *)((u8 *)(p) + ((j) * 0x40 + 0x2C)))
 
-/* Clears the given slot's entries from every record group and split table, then rebuilds the split times and saves the race record to the pak. */ void records_apply_slot(s32 slot)
+/* Clears the given slot's entries from every record group and split table, then rebuilds the split times and saves the race record to the pak. */ /* Clears the given slot's entries from every record group and split table, then rebuilds the split times and saves the race record to the pak. */ void records_apply_slot(s32 slot)
 {
     Record *r;
     Group *g;
     u8 i;
     u8 j;
     u8 *p;
-    u8 k;
+    u8 item_i;
     u8 mode;
     u8 sel;
     u8 sub;
@@ -66,10 +66,10 @@ extern void hiscore_update_season_standings(void);
     for (i = 0; i < 8; i++) {
         r = &gSlotTableB[0][i];
         for (j = 0; j < r->count; j++) {
-            k = 0;
+            item_i = 0;
             g = GROUP(r, j);
-            for (; k < 3; k++) {
-                record_item_match_clear(&g->item[k], (u8)slot);
+            for (; item_i < 3; item_i++) {
+                record_item_match_clear(&g->item[item_i], (u8)slot);
             }
             gRecords->mode = 0;
             gRecords->sel = i;
@@ -79,10 +79,10 @@ extern void hiscore_update_season_standings(void);
     }
     for (j = 0; j < 4; j++) {
         r = gSlotTableB[1];
-        k = 0;
+        item_i = 0;
         p = (u8 *)GROUP(r, j);
-        for (; k < 3; k++) {
-            record_item_match_clear(&((Group *)p)->item[k], (u8)slot);
+        for (; item_i < 3; item_i++) {
+            record_item_match_clear(&((Group *)p)->item[item_i], (u8)slot);
         }
         gRecords->mode = 1;
         gRecords->sel = 0;
@@ -91,10 +91,10 @@ extern void hiscore_update_season_standings(void);
     }
     for (j = 0; j < 5; j++) {
         r = gSlotTableB[2];
-        k = 0;
+        item_i = 0;
         p = (u8 *)GROUP(r, j);
-        for (; k < 3; k++) {
-            record_item_match_clear(&((Group *)p)->item[k], (u8)slot);
+        for (; item_i < 3; item_i++) {
+            record_item_match_clear(&((Group *)p)->item[item_i], (u8)slot);
         }
         gRecords->mode = 2;
         gRecords->sel = 0;
@@ -103,10 +103,10 @@ extern void hiscore_update_season_standings(void);
     }
     for (j = 0; j < 6; j++) {
         p = (u8 *)gSlotTableB[3];
-        k = 0;
+        item_i = 0;
         p = (u8 *)GROUP(p, j);
-        for (; k < 3; k++) {
-            record_item_match_clear(&((Group *)p)->item[k], (u8)slot);
+        for (; item_i < 3; item_i++) {
+            record_item_match_clear(&((Group *)p)->item[item_i], (u8)slot);
         }
         gRecords->mode = 3;
         gRecords->sel = 0;
@@ -115,10 +115,10 @@ extern void hiscore_update_season_standings(void);
     }
     for (j = 0; j < 3; j++) {
         p = (u8 *)gSlotTableB[4];
-        k = 0;
+        item_i = 0;
         p = (u8 *)GROUP(p, j);
-        for (; k < 3; k++) {
-            record_item_match_clear(&((Group *)p)->item[k], (u8)slot);
+        for (; item_i < 3; item_i++) {
+            record_item_match_clear(&((Group *)p)->item[item_i], (u8)slot);
         }
         gRecords->mode = 4;
         gRecords->sel = 0;
@@ -126,22 +126,22 @@ extern void hiscore_update_season_standings(void);
         pack_tile_rows();
     }
     for (i = 0; i < 12; i++) {
-        for (k = 0; k < 3; k++) {
-            record_item_match_clear(&g_split_times[i].item[k], (u8)slot);
+        for (item_i = 0; item_i < 3; item_i++) {
+            record_item_match_clear(&g_split_times[i].item[item_i], (u8)slot);
         }
         gRecords->sel = i;
         store_split_deltas();
     }
     for (i = 0; i < 4; i++) {
-        for (k = 0; k < 3; k++) {
-            record_item_match_clear(&D_800C3650[i].item[k], (u8)slot);
+        for (item_i = 0; item_i < 3; item_i++) {
+            record_item_match_clear(&D_800C3650[i].item[item_i], (u8)slot);
         }
         update_split_deltas();
     }
-    for (k = 0; k < 3; k++) {
-        record_item_match_clear(&D_800C3A50[k], (u8)slot);
+    for (item_i = 0; item_i < 3; item_i++) {
+        record_item_match_clear(&D_800C3A50[item_i], (u8)slot);
         func_8006CB9C();
-        record_item_match_clear(&D_800C3A50[k + 12], (u8)slot);
+        record_item_match_clear(&D_800C3A50[item_i + 12], (u8)slot);
         UpdateChannelDeltas();
     }
     gRecords->mode = mode;

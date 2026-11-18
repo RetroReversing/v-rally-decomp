@@ -7,7 +7,7 @@ extern s32 D_8009CE84;
 extern s32 D_8009CE88;
 extern u8 *g_camera;
 void mat3_mul_vec3_q12(void *, void *, void *);
-void func_8002DA98(void *, void *);
+void mat3_copy_transposed(void *, void *);
 void buildPoseMatrix(void *, void *);
 
 /* Scratch space for setupCameraView: the camera offset (camPos), the car
@@ -56,7 +56,7 @@ void setupCameraView(u8 *car, u8 *cam, s32 pathIdx)
     *((s32 *) (cam + 0xC0)) = D_8009CE88;
   }
   mat3_mul_vec3_q12(car, cam + 0xC0, scratch.offset);
-  func_8002DA98(car, scratch.rot);
+  mat3_copy_transposed(car, scratch.rot);
   scratch.offset[0] += *((s32 *) (car + 0x14));
   scratch.offset[1] += *((s32 *) (car + 0x18));
   scratch.offset[2] += *((s32 *) (car + 0x1C));

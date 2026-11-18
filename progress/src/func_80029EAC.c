@@ -34,7 +34,7 @@ void cross_product(int *, int *, int *);
 void func_8002D740(int *, int *, int *);
 void func_8002D75C(int, int, int, int *);
 void func_8002D7E4(int, int *);
-void *func_8002DA98(void *, void *);
+void *mat3_copy_transposed(void *, void *);
 int *func_8002E530(s16 *, s16 *, int *);
 int vec3_normalize_fixed(int *, int *);
 
@@ -170,7 +170,7 @@ int func_80029EAC(void *track, void *point, int index)
   delta[1] = (*(s16 *)((unsigned char *)point + 2)) - ((Vertex *) P(grid, 84))[corner].y;
   delta[2] = (*(s16 *)((unsigned char *)point + 4)) - ((Vertex *) P(grid, 84))[corner].z;
   func_8002E530(mat.h, delta, local);
-  func_8002DA98(&mat, &inv);
+  mat3_copy_transposed(&mat, &inv);
   mat = inv;
   { int depth;
   depth = (unsigned)local[1] * 16U;

@@ -67,25 +67,25 @@ extern M2C_UNK func_8007B0B8;
 
 extern s32 gLeague;
 extern u16 D_800D061E;
-/* Sets up the track-select screen: starts the order stream once, clears select-state flags and registers the league hook table that routes each menu event to its handler. */ void select_screen_init(void) {
-    u8 unused_buf[16];
-    u32 i;
-    u32 j;
-    void *stream_buf;
-    void *sel_state;
+/* Sets up the track-select screen: starts the order stream once, clears select-state flags and registers the league hook table that routes each menu event to its handler. */ /* Sets up the track-select screen: starts the order stream once, clears select-state flags and registers the league hook table that routes each menu event to its handler. */ void select_screen_init(void) {
+    u8 unused_pad[16];
+    u32 slot_i;
+    u32 slot_j;
+    void *order_stream;
+    void *sel;
 
     if (!(gRaceFlags & 0x40)) {
         gRaceFlags |= 0x40;
         voicesSetIdleParams(1);
         order_recv_msg();
-        stream_buf = gOrderState + 0x5558;
-        streamOpenPath(stream_buf, &D_800A5670);
-        start_track_voices(stream_buf);
+        order_stream = gOrderState + 0x5558;
+        streamOpenPath(order_stream, &D_800A5670);
+        start_track_voices(order_stream);
         voicesSetIdleValue((s32) (M2C_FIELD(stream_state, f32 *, 0x3332) * 112.0f));
     }
-    sel_state = gSelectState;
+    sel = gSelectState;
     M2C_FIELD(M2C_FIELD(stream_state, void **, 0x32F2), s16 *, 0x1E) = 0;
-    M2C_FIELD(sel_state, s8 *, 0x245) = 0;
+    M2C_FIELD(sel, s8 *, 0x245) = 0;
     M2C_FIELD(gSelectState, s8 *, 0x23B) = 0;
     M2C_FIELD(gSelectState, s8 *, 0x23A) = 0;
     M2C_FIELD(gSelectState, s8 *, 0x228) = 0;
@@ -98,23 +98,23 @@ extern u16 D_800D061E;
     league_set_hook(gLeague, 3, 4, &func_80062D6C);
     league_set_hook(gLeague, 5, 0x10, &select_menu_setup);
     league_set_hook_entry(gLeague, 0, 0x20, &select_menu_setup);
-    i = 0;
+    slot_i = 0;
     if (D_800D061E != 0) {
         do {
-            league_set_hook(gLeague, (i + 6) & 0xFFFF, 0x10, &select_setup_slot);
-            i += 1;
-        } while (i < (u16) D_800D061E);
+            league_set_hook(gLeague, (slot_i + 6) & 0xFFFF, 0x10, &select_setup_slot);
+            slot_i += 1;
+        } while (slot_i < (u16) D_800D061E);
     }
     league_set_hook(gLeague, 0xE, 2, &record_cycle_next_option);
     league_set_hook(gLeague, 0xE, 1, &func_80063C60);
     league_set_hook(gLeague, 0xE, 0x20, &select_state_reset);
     league_set_hook_entry(gLeague, 1, 0x20, &func_800631A4);
-    j = 0;
+    slot_j = 0;
     if (D_800D061E != 0) {
         do {
-            league_set_hook(gLeague, (j + 0xF) & 0xFFFF, 0x10, &select_setup_slot);
-            j += 1;
-        } while (j < (u16) D_800D061E);
+            league_set_hook(gLeague, (slot_j + 0xF) & 0xFFFF, 0x10, &select_setup_slot);
+            slot_j += 1;
+        } while (slot_j < (u16) D_800D061E);
     }
     league_set_hook(gLeague, 0x17, 2, &record_cycle_next_option);
     league_set_hook(gLeague, 0x17, 1, &func_80063C60);

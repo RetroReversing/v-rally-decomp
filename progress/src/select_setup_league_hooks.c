@@ -68,30 +68,30 @@ extern M2C_UNK func_8007B0B8;
 extern void *gLeague;
 extern void *gRecords;
 extern s32 gRaceState;
-void select_setup_league_hooks(void) {
-    M2C_UNK var_a2;
-    M2C_UNK var_a3;
-    u16 temp_v1;
-    void *temp_a0;
-    void *temp_s0;
-    void *temp_v1_2;
-    void *temp_v1_3;
-    void *manager;
-    void *manager0;
-    void *state;
-    void *config;
+/* Wires up the track-select screen: one-time voice and order init, the league menu hook table, and the per-race-state screen callbacks. */ void select_setup_league_hooks(void) {
+    M2C_UNK hook_a2;
+    M2C_UNK hook_a3;
+    u16 rec_mode;
+    void *league_entry_c;
+    void *order_stream;
+    void *league_entry;
+    void *league_entry_b;
+    void *league_ref;
+    void *league_ref_b;
+    void *sel_state;
+    void *records;
 
     if (!(gRaceFlags & 0x40)) {
         gRaceFlags |= 0x40;
         voicesSetIdleParams(1);
         order_recv_msg();
-        temp_s0 = (u8 *)&gOrderState + 0x5558;
-        streamOpenPath(temp_s0, &D_800A56B0);
-        start_track_voices(temp_s0);
+        order_stream = (u8 *)&gOrderState + 0x5558;
+        streamOpenPath(order_stream, &D_800A56B0);
+        start_track_voices(order_stream);
         voicesSetIdleValue((s32) (M2C_FIELD(&stream_state, f32 *, 0x3332) * 112.0f));
     }
-    temp_v1 = M2C_FIELD(gRecords, u16 *, 0x1E);
-    if (((temp_v1 >= 5U) | (temp_v1 == 0)) != 0) {
+    rec_mode = M2C_FIELD(gRecords, u16 *, 0x1E);
+    if (((rec_mode >= 5U) | (rec_mode == 0)) != 0) {
         M2C_FIELD(gRecords, u16 *, 0x1E) = 1U;
     }
     M2C_FIELD(gSelectState, s8 *, 0x245) = 0;
@@ -153,9 +153,9 @@ void select_setup_league_hooks(void) {
     league_set_hook_entry(gLeague, 5, 0x20, &func_8007A01C);
     M2C_FIELD(gSelectState, s8 *, 0x22F) = 0;
     if (M2C_FIELD(&stream_state, u8 *, 0x5D56) == 4) {
-        temp_v1_2 = M2C_FIELD(gLeague, void **, 0x10);
+        league_entry = M2C_FIELD(gLeague, void **, 0x10);
         M2C_FIELD(gLeague, s16 *, 2) = 0;
-        M2C_FIELD(temp_v1_2, u8 *, 0xE) = (u8) M2C_FIELD(temp_v1_2, u8 *, 0xD);
+        M2C_FIELD(league_entry, u8 *, 0xE) = (u8) M2C_FIELD(league_entry, u8 *, 0xD);
         M2C_FIELD(gSelectState, M2C_UNK **, 0x288) = &func_80064E48;
         M2C_FIELD(gSelectState, M2C_UNK **, 0x28C) = &hud_draw_counter_text;
         return;
@@ -166,24 +166,24 @@ void select_setup_league_hooks(void) {
         return;
     }
     if (gRaceState == 0) {
-        state = gSelectState;
-        manager0 = gLeague;
-        M2C_FIELD(state, M2C_UNK **, 0x288) = &init_stage_screen;
-        M2C_FIELD(state, M2C_UNK **, 0x28C) = &func_80066384;
-        M2C_FIELD(state, M2C_UNK **, 0x290) = &select_shutdown_pending_stub;
-        temp_v1_3 = M2C_FIELD(manager0, void **, 0x10);
-        M2C_FIELD(manager0, s16 *, 2) = 3;
-        M2C_FIELD(temp_v1_3, u8 *, 0x4A) = (u8) M2C_FIELD(temp_v1_3, u8 *, 0x49);
+        sel_state = gSelectState;
+        league_ref_b = gLeague;
+        M2C_FIELD(sel_state, M2C_UNK **, 0x288) = &init_stage_screen;
+        M2C_FIELD(sel_state, M2C_UNK **, 0x28C) = &func_80066384;
+        M2C_FIELD(sel_state, M2C_UNK **, 0x290) = &select_shutdown_pending_stub;
+        league_entry_b = M2C_FIELD(league_ref_b, void **, 0x10);
+        M2C_FIELD(league_ref_b, s16 *, 2) = 3;
+        M2C_FIELD(league_entry_b, u8 *, 0x4A) = (u8) M2C_FIELD(league_entry_b, u8 *, 0x49);
         return;
     } else if (gRaceState == 3) {
-        state = gSelectState;
-        manager = gLeague;
-        M2C_FIELD(state, M2C_UNK **, 0x288) = &league_season_setup;
-        M2C_FIELD(state, M2C_UNK **, 0x28C) = &func_80065860;
-        temp_a0 = M2C_FIELD(manager, void **, 0x10);
-        config = gRecords;
-        M2C_FIELD(manager, s16 *, 2) = 2;
-        M2C_FIELD(temp_a0, s8 *, 0x36) = (s8) (M2C_FIELD(temp_a0, u8 *, 0x35) + M2C_FIELD(config, u8 *, 0x21));
+        sel_state = gSelectState;
+        league_ref = gLeague;
+        M2C_FIELD(sel_state, M2C_UNK **, 0x288) = &league_season_setup;
+        M2C_FIELD(sel_state, M2C_UNK **, 0x28C) = &func_80065860;
+        league_entry_c = M2C_FIELD(league_ref, void **, 0x10);
+        records = gRecords;
+        M2C_FIELD(league_ref, s16 *, 2) = 2;
+        M2C_FIELD(league_entry_c, s8 *, 0x36) = (s8) (M2C_FIELD(league_entry_c, u8 *, 0x35) + M2C_FIELD(records, u8 *, 0x21));
         return;
     }
 }

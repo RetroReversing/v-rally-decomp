@@ -47,21 +47,21 @@ s32 hud_draw_track_panel(void)
   s32 list;
   s32 gfx;
   s32 *dl;
-  s32 mtx;
+  s32 proj_mtx;
   s32 buttons;
-  s32 width;
+  s32 text_w;
   s16 x;
-  s32 mode;
-  s16 x_str;
+  s32 panel_mode;
+  s16 str_x;
   s32 all_set;
   u8 i;
-  void *str;
+  void *label;
   f32 scale;
-  u16 *flags;
+  u16 *panel_flags;
 
-  flags = &D_800C820C.flags;
+  panel_flags = &D_800C820C.flags;
   all_set = 0;
-  if (*flags & 0x800)
+  if (*panel_flags & 0x800)
     goto end1;
   g_camera = find_object_by_id(4);
   view_gfx_setup(g_camera->gfx);
@@ -81,11 +81,11 @@ s32 hud_draw_track_panel(void)
     gfx_set_dl(gfx, d + 2);
 #endif
   }
-  mtx = mtx_pool_alloc();
+  proj_mtx = mtx_pool_alloc();
   guOrthoF(ortho, 0.0f, 320.0f, 240.0f, 0.0f, -1.0f, 10.0f, 1.0f);
   scale = 1.0f;
-  guMtxF2L(ortho, mtx);
-  gfx_push_mtx(gfx, mtx);
+  guMtxF2L(ortho, proj_mtx);
+  gfx_push_mtx(gfx, proj_mtx);
   dl = gfx_get_dl(gfx);
 #ifdef PORT
   ((uintptr_t *)dl)[0] = 0xDE000000;
@@ -112,19 +112,19 @@ s32 hud_draw_track_panel(void)
         }
       }
       func_80078724(gfx);
-      width = font_text_width((void *)(&D_800C820C), (void *)(&D_800A5EAC), (u8)(1), (f32)(1.0f), (u8)(1));
+      text_w = font_text_width((void *)(&D_800C820C), (void *)(&D_800A5EAC), (u8)(1), (f32)(1.0f), (u8)(1));
       list = D_800D0664;
-      x = 0x131 - (panel_gap + width);
+      x = 0x131 - (panel_gap + text_w);
       func_80073108(gfx, x, 0xDA, list, 0);
       font_draw_text(D_800C820C.a, gfx, x + panel_gap, 0xDC, &D_800A5EAC, 1);
       return 0;
     }
-    mode = D_800C81FD;
-    if (mode != 5) {
-      if ((mode ^ 2) == 0) {
-        width = panel_gap + font_text_width((void *)((char *)flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
+    panel_mode = D_800C81FD;
+    if (panel_mode != 5) {
+      if ((panel_mode ^ 2) == 0) {
+        text_w = panel_gap + font_text_width((void *)((char *)panel_flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
       } else {
-        width = panel_gap + font_text_width((void *)((char *)flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
+        text_w = panel_gap + font_text_width((void *)((char *)panel_flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
       }
     } else {
       all_set = 1;
@@ -142,30 +142,30 @@ s32 hud_draw_track_panel(void)
         } while ((i < 12) & ((all_set & 0xFF) != 0));
       }
       if (!(all_set & 0xFF))
-        str = pool_get_item(gSelectStepHandle, 0xD5);
+        label = pool_get_item(gSelectStepHandle, 0xD5);
       else
-        str = pool_get_item(gSelectStepHandle, 0xD7);
-      width = panel_gap + font_text_width((void *)(&D_800C820C), (void *)(str), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
+        label = pool_get_item(gSelectStepHandle, 0xD7);
+      text_w = panel_gap + font_text_width((void *)(&D_800C820C), (void *)(label), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
     }
     if (D_800A1814[gRecords->track] > D_800AFA6C) {
-      s32 xm, xs;
+      s32 box_x, text_x;
       list = D_800D0664;
-      xm = 0x140 - width;
-      func_80073108(gfx, xm, 0xDA, list, 0);
-      xs = xm + panel_gap;
-      x_str = xs;
-      mode = D_800C81FD;
-      if (mode != 5) {
-        if ((mode ^ 2) == 0)
-          str = pool_get_item(gSelectStepHandle, 0xD6);
+      box_x = 0x140 - text_w;
+      func_80073108(gfx, box_x, 0xDA, list, 0);
+      text_x = box_x + panel_gap;
+      str_x = text_x;
+      panel_mode = D_800C81FD;
+      if (panel_mode != 5) {
+        if ((panel_mode ^ 2) == 0)
+          label = pool_get_item(gSelectStepHandle, 0xD6);
         else
-          str = pool_get_item(gSelectStepHandle, 0xD7);
+          label = pool_get_item(gSelectStepHandle, 0xD7);
       } else if (!(all_set & 0xFF)) {
-        str = pool_get_item(gSelectStepHandle, 0xD5);
+        label = pool_get_item(gSelectStepHandle, 0xD5);
       } else {
-        str = pool_get_item(gSelectStepHandle, 0xD7);
+        label = pool_get_item(gSelectStepHandle, 0xD7);
       }
-      font_draw_text(D_800C820C.a, gfx, x_str, 0xDC, str, 1);
+      font_draw_text(D_800C820C.a, gfx, str_x, 0xDC, label, 1);
     }
     buttons = input_get_buttons(0);
     if (buttons & 0x8000) {
@@ -187,12 +187,12 @@ end1:
   if (D_800AFA6C < 25)
     return 0;
   func_80078724(gfx);
-  mode = D_800C81FD;
-  if (mode != 5) {
-    if ((mode ^ 2) == 0) {
-      width = panel_gap + font_text_width((void *)((char *)flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
+  panel_mode = D_800C81FD;
+  if (panel_mode != 5) {
+    if ((panel_mode ^ 2) == 0) {
+      text_w = panel_gap + font_text_width((void *)((char *)panel_flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD6)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
     } else {
-      width = panel_gap + font_text_width((void *)((char *)flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
+      text_w = panel_gap + font_text_width((void *)((char *)panel_flags - 0x34), (void *)(pool_get_item(gSelectStepHandle, 0xD7)), (u8)(1), (f32)(scale), (u8)(1)) + 0x15;
     }
   } else {
     all_set = 1;
@@ -210,31 +210,31 @@ end1:
       } while ((i < 12) & ((all_set & 0xFF) != 0));
     }
     if (!(all_set & 0xFF))
-      str = pool_get_item(gSelectStepHandle, 0xD5);
+      label = pool_get_item(gSelectStepHandle, 0xD5);
     else
-      str = pool_get_item(gSelectStepHandle, 0xD7);
-    width = panel_gap + font_text_width((void *)(&D_800C820C), (void *)(str), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
+      label = pool_get_item(gSelectStepHandle, 0xD7);
+    text_w = panel_gap + font_text_width((void *)(&D_800C820C), (void *)(label), (u8)(1), (f32)(1.0f), (u8)(1)) + 0x15;
   }
   {
-    s32 xm, xs;
+    s32 box_x, text_x;
     s32 d2 = D_800D0664;
-    xm = 0x140 - width;
-    func_80073108(gfx, xm, 0xDA, d2, 0);
-    xs = xm + panel_gap;
-    x_str = xs;
+    box_x = 0x140 - text_w;
+    func_80073108(gfx, box_x, 0xDA, d2, 0);
+    text_x = box_x + panel_gap;
+    str_x = text_x;
   }
-  mode = D_800C81FD;
-  if (mode != 5) {
-    if ((mode ^ 2) == 0)
-      str = pool_get_item(gSelectStepHandle, 0xD6);
+  panel_mode = D_800C81FD;
+  if (panel_mode != 5) {
+    if ((panel_mode ^ 2) == 0)
+      label = pool_get_item(gSelectStepHandle, 0xD6);
     else
-      str = pool_get_item(gSelectStepHandle, 0xD7);
+      label = pool_get_item(gSelectStepHandle, 0xD7);
   } else if (!(all_set & 0xFF)) {
-    str = pool_get_item(gSelectStepHandle, 0xD5);
+    label = pool_get_item(gSelectStepHandle, 0xD5);
   } else {
-    str = pool_get_item(gSelectStepHandle, 0xD7);
+    label = pool_get_item(gSelectStepHandle, 0xD7);
   }
-  font_draw_text(D_800C820C.a, gfx, x_str, 0xDC, str, 1);
+  font_draw_text(D_800C820C.a, gfx, str_x, 0xDC, label, 1);
   buttons = input_get_buttons(0);
   if (buttons & 0x8000) {
     input_clear_flags(0, buttons);

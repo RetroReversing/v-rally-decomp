@@ -77,3 +77,55 @@ void __osTimerServicesInit(void);
 typedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;
 typedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;
 typedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;
+
+/* Physics object layouts used by update_objects_physics. */
+typedef struct PhysParams { u8 unk_00[0x46]; s16 unk_46; s16 unk_48; u8 unk_4A[0xE]; s32 unk_58; } PhysParams;
+typedef struct PhysInfo { u8 unk_00[4]; s32 unk_04; } PhysInfo;
+typedef struct PhysModel { u8 unk_00[0x20]; s16 rot[9]; u8 unk_32[0x12]; s32 scale; } PhysModel;
+typedef struct PhysWheel { s16 height; u8 unk_02[0x12]; } PhysWheel;
+typedef struct PhysCar { u8 unk_00[0xB6]; PhysWheel wheel[4]; } PhysCar;
+typedef struct PhysBody {
+    u8 unk_00[0x0C];
+    s32 pos[3];          /* 0x0C */
+    u8 unk_18[0x08];
+    s32 vel[3];          /* 0x20 */
+    u8 unk_2C[0x08];
+    s32 accel[3];        /* 0x34 */
+    u8 unk_40[0x08];
+    s32 vec_a[3];        /* 0x48 */
+    u8 unk_54[0x08];
+    s32 vec_b[3];        /* 0x5C */
+    u8 unk_68[0x08];
+    s32 world_pos[3];    /* 0x70 */
+    u8 unk_7C[0x08];
+    s32 force[3];        /* 0x84 */
+    u8 unk_90[0x08];
+    s32 ang_acc[3];      /* 0x98 */
+    u8 unk_A4[0x08];
+    s32 out_vec[3];      /* 0xAC */
+    u8 unk_B8[0x08];
+    s32 axis0[3];        /* 0xC0; s16 halves at 0xC2, 0xC6, 0xCA */
+    u8 unk_CC[0x08];
+    s32 axis1[3];        /* 0xD4; s16 halves at 0xD6, 0xDA, 0xDE */
+    u8 unk_E0[0x08];
+    s32 accum[3];        /* 0xE8 */
+    u8 unk_F4[0x08];
+    s16 render_rot[9];   /* 0xFC */
+} PhysBody;
+typedef struct PhysXform { f32 m[4][4]; s16 rot[9]; u8 unk_52[2]; s32 pos[3]; } PhysXform;
+typedef struct PhysObject {
+    u8 unk_00[4];
+    struct PhysObject *next;  /* 0x04 */
+    u8 unk_08[0x0C];
+    s32 flags;                /* 0x14 */
+    u8 unk_18[0x18];
+    PhysParams *params;       /* 0x30 */
+    u8 unk_34[0x24];
+    PhysBody *body;           /* 0x58 */
+    PhysXform *xform;         /* 0x5C */
+    u8 unk_60[0x20];
+    PhysInfo *info;           /* 0x80 */
+    PhysModel *model;         /* 0x84 */
+    u8 unk_88[4];
+    PhysCar *car;             /* 0x8C */
+} PhysObject;

@@ -16,44 +16,44 @@ static inline int slotInGroup(s32 slot, char *group)
  * mask table at stream_state+0x327E. Stops after the first match. */
 void markStreamSlotsByTag(s32 tag)
 {
-  s32 slot;
-  s32 slotIdx;
+  s32 slot_no;
+  s32 slot_no_byte;
   s32 zero;
-  u32 groupIdx;
-  u16 found;
-  s32 group;
-  char *groupBase;
-  char *groupPtr;
+  u32 group_no_byte;
+  u16 searching;
+  s32 group_no;
+  char *group_base;
+  char *group_ptr;
 
-  found = 1;
-  groupBase = gStreamGroups;
-  group = 0;
-  groupPtr = (char *)groupBase + 0x14;
+  searching = 1;
+  group_base = gStreamGroups;
+  group_no = 0;
+  group_ptr = (char *)group_base + 0x14;
   if (gStreamGroupCount != 0)
   {
     zero = 0;
     do
     {
-      slot = 0;
-      if ((((u32) zero) < ((u16) (*((u16 *) (groupBase + 0x14))))) && found)
+      slot_no = 0;
+      if ((((u32) zero) < ((u16) (*((u16 *) (group_base + 0x14))))) && searching)
       {
-        groupIdx = group & 0xFF;
+        group_no_byte = group_no & 0xFF;
         do
         {
-          slotIdx = slot & 0xFF;
-          if ((*((u8 *) (((char *) (groupBase + (slotIdx << 6))) + 0x37))) == (tag & 0xFFFF))
+          slot_no_byte = slot_no & 0xFF;
+          if ((*((u8 *) (((char *) (group_base + (slot_no_byte << 6))) + 0x37))) == (tag & 0xFFFF))
           {
-            found = 0;
-            *((stream_state + 0x327E) + groupIdx) = (*((stream_state + 0x327E) + groupIdx)) | (1 << slotIdx);
+            searching = 0;
+            *((stream_state + 0x327E) + group_no_byte) = (*((stream_state + 0x327E) + group_no_byte)) | (1 << slot_no_byte);
           }
-          slot += 1;
+          slot_no += 1;
         }
-        while (found & slotInGroup(slot, groupBase));
+        while (searching & slotInGroup(slot_no, group_base));
       }
-      groupPtr += 0x2C4;
-      groupBase += 0x2C4;
-      group += 1;
+      group_ptr += 0x2C4;
+      group_base += 0x2C4;
+      group_no += 1;
     }
-    while (found & groupIdxInRange(group));
+    while (searching & groupIdxInRange(group_no));
   }
 }

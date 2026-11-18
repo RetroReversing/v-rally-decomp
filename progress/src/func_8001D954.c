@@ -1,22 +1,21 @@
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-
 extern char stream_state[];
 
-/* Copies field +0x44 of entries 1..10 (stride 0x4C, starting at base+0x4C) into the 16-bit table at stream_state+0x10370. */
-void func_8001D954(char *base) {
-    char *dst;
-    s32 temp_v0;
+/* Copies field +0x44 of entries 1..10 (0x4C bytes apart, starting at base + 0x4C) into the 16-bit table at stream_state + 0x10370. */
+void func_8001D954(char *base)
+{
+    char *table;
+    s32 value;
     s32 i;
-    char *src;
+    char *entry;
 
     i = 1;
-    dst = stream_state + 0x10370;
-    src = base + 0x4C;
+    table = stream_state + 0x10370;
+    entry = base + 0x4C;
     do {
-        temp_v0 = M2C_FIELD(src, s32 *, 0x44);
-        src += 0x4C;
+        value = *((s32 *) (entry + 0x44));
+        entry += 0x4C;
         i += 1;
-        *(s16 *)dst = (s16) temp_v0;
-        dst += 2;
+        *(s16 *)table = (s16) value;
+        table += 2;
     } while (i < 0xB);
 }

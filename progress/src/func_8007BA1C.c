@@ -9,7 +9,7 @@ extern f32 sSavedCosY;
 extern u8 gGameState[];
 extern u8 gOrderState[];
 extern u8 stream_state[];
-s32 func_8002DA98(u8 *arg0, s32 *arg1);
+s32 mat3_copy_transposed(u8 *arg0, s32 *arg1);
 void *mtx3_transform_vec3(void *, void *, void *);
 f32 sqrtf(f32);
 #define ORG(i) (((s32 *)(gOrderState + 0x6E8C))[i])
@@ -30,7 +30,7 @@ u8 func_8007BA1C(u8 *arg0)
   f32 relX, relY, relZ, len2, dot;
   s32 r;
 
-  func_8002DA98(gOrderState + 0x6E78, rot);
+  mat3_copy_transposed(gOrderState + 0x6E78, rot);
   lineA[0] = D_800A1860 - ORG(0);
   lineA[1] = D_800A1864 - ORG(1);
   lineA[2] = D_800A1868 - ORG(2);

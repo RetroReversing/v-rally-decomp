@@ -20,7 +20,7 @@ void func_8002D75C(s32, s32, s32, s32 *);
 void vec3_normalize_fixed(s32 *, s32 *);
 void func_8002D740(s32 *, s32 *, s32 *);
 void mat3_mul_vec3_q12(void *, void *, void *);
-void func_8002DA98(void *, void *);
+void mat3_copy_transposed(void *, void *);
 typedef struct Grid29
 {
   u8 pad0[0x54];
@@ -141,7 +141,7 @@ void func_80029AA8(Obj29 *obj, s32 *point, Vertex3 *sample, s32 idx)
   delta[one] = point[one] - (grid->verts[base].y * 16);
   delta[2] = point[2] - (grid->verts[base].z * 16);
   mat3_mul_vec3_q12(mat, delta, solved);
-  func_8002DA98(mat, inv);
+  mat3_copy_transposed(mat, inv);
   *((Inv4 *) mat) = *((Inv4 *) inv);
   *(matInv + one) = *(((Inv4 *) inv) + one);
   clamped = (solved[one] < one) ? (solved[one]) : (0);
