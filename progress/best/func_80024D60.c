@@ -743,9 +743,13 @@ block_91:
                         computed_wheel_force = ((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD)
                             - ((s32) (var_a0_7 * var_s3) >> 0xC) - var_a1_6;
                         if (((u32) (temp_a3_5 + 0x12B) < 0x257U) & (sp14C > 0)) {
-                            M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = 0;
-                            var_a3_2 = stack.stack_F0[2] / (s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC);
-                            var_a2_4 = -stack.stack_F0[2];
+                            void *wheel_drive = M2C_FIELD(var_s1, void **, 0x80);
+                            s32 force_z = stack.stack_F0[2];
+                            void *wheel_slip = M2C_FIELD(var_s1, void **, 0x54);
+                            s32 divider = M2C_FIELD(wheel_drive, s32 *, 0xC);
+                            M2C_FIELD(var_s5 + wheel_slip, s32 *, 0x10) = 0;
+                            var_a3_2 = force_z / divider;
+                            var_a2_4 = -force_z;
                         } else {
                             temp_v1_16 = ((s32) (temp_a3_5 * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) >> 0xC) - stack.stack_F0[2];
                             var_a2_4 = 0x190;
@@ -790,8 +794,13 @@ block_91:
                                 M2C_FIELD(temp_v1_18, s32 *, 0x10) = var_s0_2;
                             }
                         } else {
-                            M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = 0;
-                            var_a2_4 = (((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD) - ((s32) (((s32) (sp14C * stack.stack_F0[2]) >> 0xA) * var_s3) >> 0xC)) - (stack.stack_F0[2] >> 2);
+                            s32 vertical_speed = stack.stack_F0[2];
+                            s32 compression = sp14C * vertical_speed;
+                            s32 spring = sp13C * M2C_FIELD(var_s5 + sp1D4, s32 *, 0x108);
+                            s32 damping = (compression >> 10) * var_s3;
+                            s32 speed_term = vertical_speed >> 2;
+                            M2C_FIELD(var_s5 + M2C_FIELD(var_s1, void **, 0x54), s32 *, 0x10) = 0;
+                            var_a2_4 = (spring >> 13) - (damping >> 12) - speed_term;
                         }
                         temp_v1_19 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
                         M2C_FIELD(temp_v1_19, s32 *, 0) = (s32) ((s32) ((M2C_FIELD(temp_v1_19, s32 *, 0x10) + 0x1000) * stack.stack_F0[2]) >> 0xD);

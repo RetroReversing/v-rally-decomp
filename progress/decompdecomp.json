@@ -1468,20 +1468,6 @@
     "-O2",
     "-g3"
    ]
-  },
-  "496480:2147977056": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2",
-    "-g3"
-   ],
-   "timeout": 20,
-   "function": "func_80078760",
-   "vram": 2147977056
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1539,8 +1525,7 @@
   "local_source_2109": "common_local_source_2109.h",
   "local_source_599": "common_local_source_599.h",
   "local_source_671": "common_local_source_671.h",
-  "local_source_894": "common_local_source_894.h",
-  "code_80078760": "common_code_80078760.h"
+  "local_source_894": "common_local_source_894.h"
  },
  "functions": {
   "TransformUpdate": {
@@ -4310,8 +4295,8 @@
   },
   "func_80024D60": {
    "vram": 2147634528,
-   "best_score": 10886,
-   "best_by": "manual-c7c6668e39c642ff"
+   "best_score": 9983,
+   "best_by": "manual-e80ecadc235047de"
   },
   "func_80026E3C": {
    "vram": 2147642940,
