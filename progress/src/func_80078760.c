@@ -121,6 +121,7 @@ void func_80078760(s32 gfx)
         rect[0] = -4;
         rect[1] = -4;
         rect[2] = *(u16 *)(*(*images) + 6) - 4;
+        new_var = (void *)(gStreamState + 0x7F5E);
         camera = g_camera;
         rect[3] = *(u16 *)(*(*images) + 8);
         camera_arg = *(s32 *)(camera + 0x178);
@@ -128,7 +129,7 @@ void func_80078760(s32 gfx)
                       0, 0xAA, 0xAA, 0xAA, 0xAA, 0);
     }
   text_y = 0x5A;
-  font_set_color((void *)(*((void **) (gStreamState + 0x7F5E))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
+  font_set_color(*(void **)new_var, (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
   format_to_buffer(&line_buf, &D_800A5EB8);
   header_w = (D_800A17EA + D_800A17E9) + font_text_width((void *)(gStreamState + 0x7F5E), (void *)(&line_buf), (u8)(1), (f32)(1.0f), (u8)(1));
   header_half = ((u32)(header_w & 0xFFFF)) >> 1;

@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795137495.82006,
- "revision": 21974,
+ "saved_at": 1795137979.983538,
+ "revision": 21977,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1468,6 +1468,20 @@
     "-O2",
     "-g3"
    ]
+  },
+  "496480:2147977056": {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ],
+   "timeout": 20,
+   "function": "func_80078760",
+   "vram": 2147977056
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1525,7 +1539,8 @@
   "local_source_2109": "common_local_source_2109.h",
   "local_source_599": "common_local_source_599.h",
   "local_source_671": "common_local_source_671.h",
-  "local_source_894": "common_local_source_894.h"
+  "local_source_894": "common_local_source_894.h",
+  "code_80078760": "common_code_80078760.h"
  },
  "functions": {
   "TransformUpdate": {
@@ -9235,8 +9250,8 @@
   },
   "func_80078760": {
    "vram": 2147977056,
-   "best_score": 25,
-   "best_by": "manual-e9b4581a65bb46a0"
+   "matched_by": "manual-e9b4581a65bb46a0",
+   "readable": false
   },
   "results_screen_draw": {
    "vram": 2147980556,

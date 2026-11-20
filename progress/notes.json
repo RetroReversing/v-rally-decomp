@@ -227760,14 +227760,6 @@
   "score_after": null
  },
  {
-  "function": "func_80078760",
-  "text": "Stuck at score 25785 (70.5%, 523 diff rows) after several compiles; the candidate fails to compile cleanly as given (format_to_buffer arity fixed to variadic prototype, which only moved the revision to 9eac6e46af522fcd6664). Structural gaps: (1) target frame is 0x168 with s0-s7/fp/ra saved at 0x138-0x15c; ours is 0xa8, so the locals (sp40, spB8, spD0, spE8 text buffers, sp100.. shorts, sp114, sp134) need to be much larger/laid out differently. (2) Target reaches the 0x7CE6/0x7CEA/0x7CEE/0x7CF4 per-slot tables as %lo(D_800C81F8)-relative loads with stride 0x18 (24 %lo(D_800C81F8) lw's, 12 lui %hi), while the draft indexes &gStreamState+offset; the table is probably a separate global array D_800C81F8 of 0x18-byte records, not a gStreamState offset. (3) font_draw_text calls at lines ~234 and the (s32*)1 call need a 6-arg prototype. Next step: declare D_800C81F8 as a record array (stride 0x18) and rebuild the per-row block, then fix the frame layout.",
-  "by": "claude-haiku-37",
-  "created_at": 1794569255.632252,
-  "score_before": 25785,
-  "score_after": 25785
- },
- {
   "function": "func_8001E640",
   "text": "Not attempted in C yet. Machine draft failed: \"Unable to determine jump table for jr\" at func_8001E640.s line 32, so the switch's table must be identified first (look for the lui/addu/lw jump-table pattern in get_assembly and name it jtbl/jpt_). Function is 3628 bytes / 907 insns with a 0x50 frame and saves s0-s7/fp/ra. Start by reading get_assembly around line 32 to find the table address and its entry count, then write the first basic-block skeleton.",
   "by": "claude-haiku-37",
@@ -227800,14 +227792,6 @@
   "score_after": null
  },
  {
-  "function": "func_80078760",
-  "text": "Not matched. 875-instruction function (3500 bytes), too large for this session. The m2c draft does not compile as declared (too few args to format_to_buffer/font_draw_text/func_8004CEB4); fix the prototypes first. Asm findings: gStreamState must be a BYTE array (the draft's &gStreamState+N scales by 4 for s32). Offsets are byte offsets: *(void**)(gs+0x7F5E) is passed as the font value, but font_text_width takes &gs[0x7F5E]. D_800A1824 is an s32 table indexed by lhu(gs+0x7F88)*4. Pool = *(void**)(gs+0x807A). Prologue (gfx_get_dl, 0xDE000000 word, gfx_set_quad_pos args 0,0x140,0,0,0x140,0xF0,0,0,0xF0,0, and the colour call) is confirmed. Next attempt: read asm lines 240-908 and write the loop body with per-branch lifetimes.",
-  "by": "claude-haiku-37",
-  "created_at": 1794570240.079233,
-  "score_before": 25785,
-  "score_after": 25785
- },
- {
   "function": "func_8001E640",
   "text": "Not started in C. 907 instructions (3628 bytes) with a jump table at the jr on asm line 32 that m2c cannot resolve (\"Unable to determine jump table\"). Needs a hand-written dispatch: read the table data (jtbl/jpt_ symbol or the .rodata words after the function) and write the switch explicitly. No saved C exists, so start from get_assembly. Budget was not spent on compiles in this session.",
   "by": "claude-haiku-37",
@@ -227830,14 +227814,6 @@
   "created_at": 1794570327.667122,
   "score_before": 210160,
   "score_after": 210160
- },
- {
-  "function": "func_80078760",
-  "text": "Not matched. Best saved score 25785 (m2c-based draft, does not compile as-is: format_to_buffer/font_draw_text need prototypes with varargs; fix those first). My hand rewrite (candidate b13eb18f9d04cba2dce2, score 33179) is worse. Main gaps: target frame is 0x168 with s0-s7/fp/ra saved; my frame is 0xa8, so the locals (sp40, spB8, spD0, spE8 text buffers, sp100..sp10E rect array) need to be a larger layout with the rect array at 0x100 and text buffers at 0x40/0xB8/0xD0/0xE8 offsets. Target loads D_800C81F8 (gStreamState-relative 0x7F4A area) repeatedly; the global-base offsets are not yet pinned. Next steps: get the struct for gStreamState fields (0x7CE6/0x7CEA/0x7CEE stride 0x18 array of pointers, 0x7F4A ptr, 0x7F5E font item, 0x807A pool), declare them as typed fields, then fix the frame layout before tuning registers.",
-  "by": "claude-haiku-37",
-  "created_at": 1794571221.436525,
-  "score_before": 25785,
-  "score_after": 25785
  },
  {
   "function": "func_8001E640",
@@ -231118,5 +231094,29 @@
   "created_at": 1795137494.1729972,
   "score_before": 10886,
   "score_after": 10886
+ },
+ {
+  "function": "func_80078760",
+  "text": "Stuck at score 25785 (70.5%, 523 diff rows) after several compiles; the candidate fails to compile cleanly as given (format_to_buffer arity fixed to variadic prototype, which only moved the revision to 9eac6e46af522fcd6664). Structural gaps: (1) target frame is 0x168 with s0-s7/fp/ra saved at 0x138-0x15c; ours is 0xa8, so the locals (sp40, spB8, spD0, spE8 text buffers, sp100.. shorts, sp114, sp134) need to be much larger/laid out differently. (2) Target reaches the 0x7CE6/0x7CEA/0x7CEE/0x7CF4 per-slot tables as %lo(D_800C81F8)-relative loads with stride 0x18 (24 %lo(D_800C81F8) lw's, 12 lui %hi), while the draft indexes &gStreamState+offset; the table is probably a separate global array D_800C81F8 of 0x18-byte records, not a gStreamState offset. (3) font_draw_text calls at lines ~234 and the (s32*)1 call need a 6-arg prototype. Next step: declare D_800C81F8 as a record array (stride 0x18) and rebuild the per-row block, then fix the frame layout.",
+  "by": "claude-haiku-37",
+  "created_at": 1794569255.632252,
+  "score_before": 25785,
+  "score_after": 25785
+ },
+ {
+  "function": "func_80078760",
+  "text": "Not matched. 875-instruction function (3500 bytes), too large for this session. The m2c draft does not compile as declared (too few args to format_to_buffer/font_draw_text/func_8004CEB4); fix the prototypes first. Asm findings: gStreamState must be a BYTE array (the draft's &gStreamState+N scales by 4 for s32). Offsets are byte offsets: *(void**)(gs+0x7F5E) is passed as the font value, but font_text_width takes &gs[0x7F5E]. D_800A1824 is an s32 table indexed by lhu(gs+0x7F88)*4. Pool = *(void**)(gs+0x807A). Prologue (gfx_get_dl, 0xDE000000 word, gfx_set_quad_pos args 0,0x140,0,0,0x140,0xF0,0,0,0xF0,0, and the colour call) is confirmed. Next attempt: read asm lines 240-908 and write the loop body with per-branch lifetimes.",
+  "by": "claude-haiku-37",
+  "created_at": 1794570240.079233,
+  "score_before": 25785,
+  "score_after": 25785
+ },
+ {
+  "function": "func_80078760",
+  "text": "Not matched. Best saved score 25785 (m2c-based draft, does not compile as-is: format_to_buffer/font_draw_text need prototypes with varargs; fix those first). My hand rewrite (candidate b13eb18f9d04cba2dce2, score 33179) is worse. Main gaps: target frame is 0x168 with s0-s7/fp/ra saved; my frame is 0xa8, so the locals (sp40, spB8, spD0, spE8 text buffers, sp100..sp10E rect array) need to be a larger layout with the rect array at 0x100 and text buffers at 0x40/0xB8/0xD0/0xE8 offsets. Target loads D_800C81F8 (gStreamState-relative 0x7F4A area) repeatedly; the global-base offsets are not yet pinned. Next steps: get the struct for gStreamState fields (0x7CE6/0x7CEA/0x7CEE stride 0x18 array of pointers, 0x7F4A ptr, 0x7F5E font item, 0x807A pool), declare them as typed fields, then fix the frame layout before tuning registers.",
+  "by": "claude-haiku-37",
+  "created_at": 1794571221.436525,
+  "score_before": 25785,
+  "score_after": 25785
  }
 ]
