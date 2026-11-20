@@ -227768,14 +227768,6 @@
   "score_after": 25785
  },
  {
-  "function": "func_8001E640",
-  "text": "Not attempted in C yet. Machine draft failed: \"Unable to determine jump table for jr\" at func_8001E640.s line 32, so the switch's table must be identified first (look for the lui/addu/lw jump-table pattern in get_assembly and name it jtbl/jpt_). Function is 3628 bytes / 907 insns with a 0x50 frame and saves s0-s7/fp/ra. Start by reading get_assembly around line 32 to find the table address and its entry count, then write the first basic-block skeleton.",
-  "by": "claude-haiku-37",
-  "created_at": 1794569273.327445,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8000A840",
   "text": "Not compiled yet. The m2c draft is a 4304-byte display-list builder: it writes G_DL words (0xDE000000 branch, 0xE2/0xE3/0xE7/0xFA/0xFB/0xFC setup, 0x05000017 vertex/tri, 0xDC170000, 0x0800002F), calls osVirtualToPhysical, and copies 0x18-word blocks between arg3+0x60 and a scratch buffer with overlap checks. The draft has type errors: arg3 is used as both s32* and a struct (fields at +0x40/+0x48/+0x57/+0x60, pointer at +0xC with u16 +4/+6/+0xC/+0xE and s32** +0x14), the M2C_FIELD casts are inconsistent, and temp_v0 is typed as a pointer but used as an int. Start by defining that struct (guess_struct on arg3), re-typing the draft locals, then match the emit sequence block by block.",
   "by": "claude-haiku-37",
@@ -227808,14 +227800,6 @@
   "score_after": 25785
  },
  {
-  "function": "func_8001E640",
-  "text": "Not started in C. 907 instructions (3628 bytes) with a jump table at the jr on asm line 32 that m2c cannot resolve (\"Unable to determine jump table\"). Needs a hand-written dispatch: read the table data (jtbl/jpt_ symbol or the .rodata words after the function) and write the switch explicitly. No saved C exists, so start from get_assembly. Budget was not spent on compiles in this session.",
-  "by": "claude-haiku-37",
-  "created_at": 1794570251.101304,
-  "score_before": null,
-  "score_after": null
- },
- {
   "function": "func_8000A840",
   "text": "Not attempted in C this session. 4304 bytes, about 1070 instructions; the m2c draft is a loose starting point (display-list builder: writes 0xDE000000/0xE2.../0xE3.../0xDC170000 words, calls func_80009E54 and osVirtualToPhysical in loops, uses a 0x60-byte struct copy with a 0x18-word loop). Needs a full hand pass with the asm and a struct for arg3 (offsets 0x0C pointer, 0x40/0x48 s16 coords, 0x57 flag byte, 0x60 copy area). Good candidate for a later agent with a larger budget.",
   "by": "claude-haiku-37",
@@ -227838,14 +227822,6 @@
   "created_at": 1794571221.436525,
   "score_before": 25785,
   "score_after": 25785
- },
- {
-  "function": "func_8001E640",
-  "text": "Not started. 3628-byte function with a jump table (jr at line 32 of the asm); the machine draft failed on the jump table. Next step: read the table data with read_data/get_assembly, then write the switch by hand.",
-  "by": "claude-haiku-37",
-  "created_at": 1794571225.1122339,
-  "score_before": null,
-  "score_after": null
  },
  {
   "function": "func_8000A840",
@@ -231072,36 +231048,12 @@
   "score_after": 23646
  },
  {
-  "function": "func_8001E640",
-  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
-  "by": "manual-0c7029d390d74161",
-  "created_at": 1795136748.260101,
-  "score_before": 5530,
-  "score_after": 5530
- },
- {
-  "function": "func_8001E640",
-  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
-  "by": "manual-079b773931e94bfc",
-  "created_at": 1795137308.4183779,
-  "score_before": 5315,
-  "score_after": 2060
- },
- {
   "function": "func_80024D60",
   "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
   "by": "manual-9b7c79ad5568455f",
   "created_at": 1795137348.5406551,
   "score_before": 23646,
   "score_after": 12021
- },
- {
-  "function": "func_8001E640",
-  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
-  "by": "manual-fab6c29b5f4f47a1",
-  "created_at": 1795137432.723595,
-  "score_before": 2060,
-  "score_after": 2060
  },
  {
   "function": "func_80024D60",
@@ -231126,5 +231078,53 @@
   "created_at": 1795137545.705694,
   "score_before": 10886,
   "score_after": 9983
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Not attempted in C yet. Machine draft failed: \"Unable to determine jump table for jr\" at func_8001E640.s line 32, so the switch's table must be identified first (look for the lui/addu/lw jump-table pattern in get_assembly and name it jtbl/jpt_). Function is 3628 bytes / 907 insns with a 0x50 frame and saves s0-s7/fp/ra. Start by reading get_assembly around line 32 to find the table address and its entry count, then write the first basic-block skeleton.",
+  "by": "claude-haiku-37",
+  "created_at": 1794569273.327445,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Not started in C. 907 instructions (3628 bytes) with a jump table at the jr on asm line 32 that m2c cannot resolve (\"Unable to determine jump table\"). Needs a hand-written dispatch: read the table data (jtbl/jpt_ symbol or the .rodata words after the function) and write the switch explicitly. No saved C exists, so start from get_assembly. Budget was not spent on compiles in this session.",
+  "by": "claude-haiku-37",
+  "created_at": 1794570251.101304,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Not started. 3628-byte function with a jump table (jr at line 32 of the asm); the machine draft failed on the jump table. Next step: read the table data with read_data/get_assembly, then write the switch by hand.",
+  "by": "claude-haiku-37",
+  "created_at": 1794571225.1122339,
+  "score_before": null,
+  "score_after": null
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-0c7029d390d74161",
+  "created_at": 1795136748.260101,
+  "score_before": 5530,
+  "score_after": 5530
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-079b773931e94bfc",
+  "created_at": 1795137308.4183779,
+  "score_before": 5315,
+  "score_after": 2060
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-fab6c29b5f4f47a1",
+  "created_at": 1795137432.723595,
+  "score_before": 2060,
+  "score_after": 2060
  }
 ]

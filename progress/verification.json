@@ -183202,6 +183202,94 @@
    "vram": 2148116208,
    "unit": "code_8007E9D4",
    "mode": "rom"
+  },
+  "func_8001E640": {
+   "format": 1,
+   "verdict": "exact",
+   "abi": {
+    "arch": "mips",
+    "big_endian": true,
+    "gp": 0,
+    "platform": "n64",
+    "rom_sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64"
+   },
+   "symbols_sha256": "f4ba0e0eda4f2d40db78da77a70a87a7753849fb8945b18264dc4857e762e94b",
+   "recorded_at": 1795138259.873738,
+   "attempt_id": 21474838817,
+   "source_sha256": "4afe5b11c9e7013ce9821a585fc6c3ef7d9b0201321b1a90ef5d9d691eaebe8d",
+   "header_sha256": "e4df60a9d409958455db872b3d3bc69a346bbe36c3d877324dbcfec12b1ccc32",
+   "context_version": 13,
+   "compiler": {
+    "toolchain": "gcc-2.7.2-kmc",
+    "flags": [
+     "-G0",
+     "-mips3",
+     "-mgp32",
+     "-mfp32",
+     "-O2",
+     "-g3"
+    ],
+    "timeout": 20
+   },
+   "compiler_identity": {
+    "toolchain": "gcc-2.7.2-kmc",
+    "registry_sha256": "026375ea53729911b8696bf22d865f456ada3f5f0f046cf526de08e2657cbf40",
+    "install_sha256": "772a216413b0c9eb38c0208c7ff35f18c41ae97bea9e2a8437c36170a04717b6",
+    "executables": {
+     "gcc": "d5040a0455ea435101eb64d23cfc41cd8111c733a6945128d8f25fa6cddac814",
+     "cc1": "8bb09e09f15e44b8fe27c4d232770d999d18c927a07378bfc90f391a5f57ba1f",
+     "as": "4bf2c8fa4d91917186280914f53f3f28c44b49e7507298ed9f22a6e1fbbf0c21"
+    }
+   },
+   "settings": {
+    "mode": "rom",
+    "platform": "n64",
+    "compiler": {
+     "toolchain": "gcc-2.7.2-kmc",
+     "flags": [
+      "-G0",
+      "-mips3",
+      "-mgp32",
+      "-mfp32",
+      "-O2",
+      "-g3"
+     ],
+     "timeout": 20
+    },
+    "settings_source": "compile invocation snapshot",
+    "gp": 0,
+    "big_endian": true,
+    "rom": {
+     "sha1": "da3f262dfb86cff1376c9a1aa081212e5a7aad64",
+     "game_code": "NVLP",
+     "region": "Europe",
+     "byte_order": "v64"
+    },
+    "effective_command": [
+     "/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/gcc",
+     "-B/Users/a/Library/Application Support/decompnet/toolchains/gcc-2.7.2-kmc/",
+     "-c",
+     "-G0",
+     "-mips3",
+     "-mgp32",
+     "-mfp32",
+     "-O2",
+     "-g3",
+     "-I{include}",
+     "{src}",
+     "-o",
+     "{obj}"
+    ],
+    "language": "c",
+    "context_unit": "local_source_21474836915",
+    "scoring_revision": "15e8fb22810d7914188643b45b306dd8c980e892c87fc3b92ab66645816d394d",
+    "context_sha256": "e4df60a9d409958455db872b3d3bc69a346bbe36c3d877324dbcfec12b1ccc32"
+   },
+   "target_sha256": "2295b6954d9d606d4ddc57508bdaf1c222db77dc4d1c544d29fdb0d76b75d547",
+   "relocations_sha256": "e0a17b02689d2ee189769793500995b0733b08d342ddc3aed5e96e315432493c",
+   "vram": 2147608128,
+   "unit": "local_source_21474836915",
+   "mode": "rom"
   }
  },
  "sources": {
@@ -185299,7 +185387,8 @@
   "ed6b79affc5dae47db55be0d7c22deae7d686763f859706dd43d1b0e23214b69": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\nM2C_UNK debug_port_stub(M2C_UNK, s8);                 /* extern */\n\n/* Sends one character to the debug port at 0xFE00. */ void print_send_byte(s8 ch) {\n    debug_port_stub(0xFE00, ch);\n}\n",
   "c82d7126a7e8a5d44948181b88a3776a6005ef8eff15e7cdb50ab5e5b693623a": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\nM2C_UNK debug_port_stub(M2C_UNK);                     /* extern */\n\n/* Sends debug code 0xFE01 through the debug port stub. */ void debug_send_code_fe01(void) {\n    debug_port_stub(0xFE01);\n}\n",
   "2a4ecb863e42a974d1c0dcbe3e0d21373e7f0f4fc468425137f3b8f95acc4c22": "/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */\n#ifndef M2C_DEFINES\n#define M2C_DEFINES\ntypedef s32 M2C_UNK;\ntypedef s8 M2C_UNK8;\ntypedef s16 M2C_UNK16;\ntypedef s32 M2C_UNK32;\n#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))\n#define M2C_BITWISE(type, expr) ((type)(expr))\n#define M2C_ERROR(desc) (0)\n#define M2C_CARRY 0\n#define M2C_OVERFLOW(a) (0)\n#endif\n\nM2C_UNK debug_port_stub(M2C_UNK, s32);                /* extern */\n\n/* Sends a value to the debug port via the 0xFE02 command word. */ void debug_port_send(s32 value) {\n    debug_port_stub(0xFE02, value);\n}\n",
-  "533002365486ea9b733041204755cf6f4321823cf437ba24ba9724705dce0980": "/* Sends one character to the debug output port and returns it. */\nextern void print_send_byte(s32 c);\n\ns32 print_write_char(s32 c) {\n    print_send_byte(c);\n    return c;\n}\n"
+  "533002365486ea9b733041204755cf6f4321823cf437ba24ba9724705dce0980": "/* Sends one character to the debug output port and returns it. */\nextern void print_send_byte(s32 c);\n\ns32 print_write_char(s32 c) {\n    print_send_byte(c);\n    return c;\n}\n",
+  "4afe5b11c9e7013ce9821a585fc6c3ef7d9b0201321b1a90ef5d9d691eaebe8d": "typedef struct {\n    char name[0x90];\n    u32 time;\n    u8 pad94[0x48];\n    s32 rank;\n    u8 padE0[0x50];\n} VRSplitResult;\n\ntypedef struct {\n    u8 pad00[0x4C];\n    char code[0x90];\n    s32 flags;\n    u8 padE0[4];\n    VRSplitResult split[3];\n    char name[0x90];\n    s32 category;\n    u8 pad508[0x94];\n    u32 distance;\n} VRRaceResult;\n\ntypedef struct {\n    volatile u32 time;\n    u8 rank;\n    u8 pad05;\n    char name[4];\n    u8 speed;\n    u8 flags;\n    volatile u8 unused;\n    u8 padding[3];\n} VRRecord;\n\ntypedef struct {\n    u8 pad00[0x2C];\n    VRRecord split[8][4];\n    u32 distance[8];\n    char name[8][14];\n    u8 category[8];\n} VRTrackRecords;\n\nextern char gStreamState[];\nextern char gGameState[];\nextern char sNameSuffix[];\nextern s32 gRecordTimeScale;\nextern u8 D_800A16F0;\n\nextern VRRecord D_800C3650[4][4];\nextern VRRecord g_split_times[12][4];\nextern VRRecord D_800C3A50[1][4];\nextern VRRecord D_800C3A90[1][4];\nextern VRRecord D_800C3AD0[1][4];\nextern VRRecord D_800C3B50[1][4];\nextern VRRecord D_800C3B10[1][4];\n\nvoid strCpy(char *dst, const char *src);\nvoid str_ncat(char *dst, const char *src, s32 length);\ns32 str_len(const char *src);\n\n#define RECORD_GROUP ((VRTrackRecords **) (gStreamState + 0x10386))\n#define TIME_LOG ((u16 *) (gStreamState + 0x5A8A))\n#define GAME_TIMES ((u32 *) (gGameState + 0x6B50))\n#define RECORDS(offset) ((VRRecord (*)[4]) (gStreamState + (offset)))\n#define SPEED(distance, time) ((u32) ((f32)((distance) * gRecordTimeScale) * 3.6f / (f32)(time)))\n\n#define SPLIT(race, index) (((VRSplitResult *)((u32)((index) * sizeof(VRSplitResult)) + (u32)(race) + 0xE4))[0])\n\nvoid func_8001E640(VRRaceResult *race) {\n    char code[8];\n    s8 raw;\n    u16 group;\n    u16 track;\n    u16 slot;\n    u16 i;\n    u32 offset;\n    u8 flags;\n    u8 rank;\n    VRTrackRecords *records;\n    f32 splitTime;\n    u32 logTime;\n    u16 newIndex;\n    u8 logIndex;\n    u32 stored;\n\n    group = 0;\n    track = 0;\n    slot = 0;\n    strCpy(code, race->code);\n    switch ((s8)(code[0] - 'A')) {\n    case 'T' - 'A':\n        group = 0;\n        raw = code[1];\n        track = raw - '0';\n        raw = code[2];\n        slot = raw - '1';\n        break;\n    case 'A' - 'A':\n        track = 0;\n        group = (s8)code[3] - '0';\n        slot = (s8)code[6] - '1';\n        break;\n    case 'W' - 'A':\n    case 'X' - 'A':\n        slot = (s8)code[2] - '1';\n        group = 5;\n        if (code[5] == 'D') {\n            track = 8 * (code[0] == 'X');\n        } else if (code[5] == 'C') {\n            track = 1;\n        } else if (code[5] == 'T') {\n            track = 2;\n        } else if (code[5] == 'F') {\n            track = 3;\n            if (code[0] == 'X') {\n                track = 9;\n            }\n        } else if (code[5] == 'R') {\n            track = 4;\n        } else if (code[5] == 'L') {\n            track = 5;\n            if (code[0] == 'X') {\n                track = 10;\n            }\n        } else if (code[5] == 'N') {\n            track = 6;\n            if (code[0] == 'X') {\n                track = 11;\n            }\n        } else if (code[5] == 'E') {\n            track = 7;\n        }\n        break;\n    case 'H' - 'A':\n        switch (code[1]) {\n        case 'A':\n            group = 0;\n            track = (s8)code[2] - '1';\n            break;\n        case 'C':\n            group = 4;\n            track = (code[2] - '0') * 10 + ((s8)code[3] - '1');\n            break;\n        case 'T':\n            switch (code[2]) {\n            case '1':\n                group = 16;\n                track = 0;\n                break;\n            case '2':\n                group = 17;\n                track = 0;\n                break;\n            case '3':\n                group = 18;\n                track = 0;\n                break;\n            case '4':\n                group = 19;\n                track = 0;\n                break;\n            }\n            break;\n        }\n        break;\n    }\n    if (code[0] != 'H') {\n        records = &RECORD_GROUP[group][track];\n        stored = slot;\n        logIndex = D_800A16F0;\n        records->distance[slot] = race->distance;\n        logTime = race->split[0].time;\n        newIndex = logIndex + 1;\n        D_800A16F0 = newIndex;\n        TIME_LOG[logIndex] = logTime;\n        str_ncat(race->name, sNameSuffix, str_len(race->name));\n        strCpy(records->name[slot], race->name);\n        records->category[slot] = race->category;\n        for (i = 0; i < 3; i++) {\n            strCpy(records->split[slot][i].name, race->split[i].name);\n            records->split[slot][i].time = SPLIT(race, i).time;\n            records->split[slot][i].rank = SPLIT(race, i).rank;\n            splitTime = records->split[slot][i].time;\n            records->split[slot][i].speed = SPEED(records->distance[stored], splitTime);\n            records->split[slot][i].flags = race->flags;\n            records->split[slot][i].unused = 0;\n        }\n    } else {\n        GAME_TIMES[group + track] = race->split[0].time;\n        if (group < 4) {\n            for (i = 0; i < 3; i++) {\n                strCpy(D_800C3650[track][i].name, race->split[i].name);\n                D_800C3650[track][i].time = SPLIT(race, i).time;\n                D_800C3650[track][i].rank = SPLIT(race, i).rank;\n                splitTime = D_800C3650[track][i].time;\n                D_800C3650[track][i].speed = SPEED(race->distance, splitTime);\n                flags = *(volatile s32 *)&race->flags;\n                D_800C3650[track][i].unused = 0;\n                D_800C3650[track][i].flags = flags;\n            }\n        } else if (group < 16) {\n            for (i = 0; i < 3; i++) {\n                strCpy(g_split_times[track][i].name, race->split[i].name);\n                g_split_times[track][i].time = SPLIT(race, i).time;\n                g_split_times[track][i].rank = SPLIT(race, i).rank;\n                splitTime = g_split_times[track][i].time;\n                g_split_times[track][i].speed = SPEED(race->distance, splitTime);\n                flags = *(volatile s32 *)&race->flags;\n                g_split_times[track][i].unused = 0;\n                g_split_times[track][i].flags = flags;\n            }\n        } else if (group < 17) {\n            for (i = 0; (u16)i < 3; i++) {\n                strCpy(D_800C3A50[0][i].name, race->split[i].name);\n                D_800C3A50[0][i].time = SPLIT(race, i).time;\n                D_800C3A50[0][i].rank = SPLIT(race, i).rank;\n                splitTime = D_800C3A50[0][i].time;\n                D_800C3A50[0][i].speed = SPEED(race->distance, splitTime);\n                offset = i;\n                flags = *(volatile s32 *)&race->flags;\n                D_800C3A50[0][offset].unused = 0;\n                D_800C3A50[0][offset].flags = flags;\n            }\n        } else if (group < 18) {\n            for (i = 0; i < 3; i++) {\n                strCpy(D_800C3A90[0][i].name, race->split[i].name);\n                D_800C3A90[0][i].time = SPLIT(race, i).time;\n                D_800C3A90[0][i].rank = SPLIT(race, i).rank;\n                splitTime = D_800C3A90[0][i].time;\n                D_800C3A90[0][i].speed = SPEED(race->distance, splitTime);\n                D_800C3A90[0][i].unused = 0;\n                D_800C3A90[0][i].flags = race->flags;\n                strCpy(D_800C3B10[0][i].name, race->split[i].name);\n                D_800C3B10[0][i].time = SPLIT(race, i).time;\n                rank = *(volatile s32 *)&SPLIT(race, i).rank;\n                D_800C3B10[0][i].unused = 0;\n                D_800C3B10[0][i].rank = rank;\n            }\n        } else if (group < 19) {\n            for (i = 0; i < 3; i++) {\n                strCpy(D_800C3AD0[0][i].name, race->split[i].name);\n                D_800C3AD0[0][i].time = SPLIT(race, i).time;\n                D_800C3AD0[0][i].rank = SPLIT(race, i).rank;\n                splitTime = D_800C3AD0[0][i].time;\n                D_800C3AD0[0][i].speed = SPEED(race->distance, splitTime);\n                flags = *(volatile s32 *)&race->flags;\n                D_800C3AD0[0][i].unused = 0;\n                D_800C3AD0[0][i].flags = flags;\n                D_800C3B10[0][i].time += SPLIT(race, i).time;\n                rank = *(volatile s32 *)&SPLIT(race, i).rank;\n                D_800C3B10[0][i].unused = 0;\n                D_800C3B10[0][i].rank = rank;\n            }\n        } else if (group < 20) {\n            for (i = 0; (u16)i < 3; i++) {\n                strCpy(D_800C3B50[0][i].name, race->split[i].name);\n                D_800C3B50[0][i].time = SPLIT(race, i).time;\n                D_800C3B50[0][i].rank = SPLIT(race, i).rank;\n                splitTime = D_800C3B50[0][i].time;\n                D_800C3B50[0][i].speed = SPEED(race->distance, splitTime);\n                offset = i;\n                flags = *(volatile s32 *)&race->flags;\n                D_800C3B50[0][offset].unused = 0;\n                D_800C3B50[0][offset].flags = flags;\n            }\n        }\n    }\n}\n"
  },
  "headers": {
   "8bfa16339ea09aaa83f07488b3a60a6202cddd4a2e6e8a3aadd69fbd9ade7e55": "/* context.h for V-RALLY: shared by every function. Agents grow it with edit_context:\n * add a prototype or struct the moment you work one out, so the next function benefits. */\n\n#ifdef PORT\n#include <stdint.h>\n#include <stdarg.h>\n#endif\n\ntypedef signed char s8;\ntypedef unsigned char u8;\ntypedef signed short s16;\ntypedef unsigned short u16;\ntypedef signed int s32;\ntypedef unsigned int u32;\ntypedef signed long long s64;\ntypedef unsigned long long u64;\ntypedef float f32;\ntypedef double f64;\ntypedef volatile u8 vu8;\ntypedef volatile u16 vu16;\ntypedef volatile u32 vu32;\ntypedef volatile s32 vs32;\ntypedef int s32_bool;\n\n/* A word that holds an address: 32 bits on the console, pointer-sized on PC. */\n#ifdef PORT\ntypedef uintptr_t AddrWord;\n#else\ntypedef s32 AddrWord;\n#endif\n\n#define NULL ((void *)0)\n#define TRUE 1\n#define FALSE 0\n#define ARRAY_COUNT(arr) (s32)(sizeof(arr) / sizeof(arr[0]))\n\nf32 __cosf(f32);\n\ns32 func_800898D0(u8 *arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);\n\n/* Audio update queue and envelope state; offsets verified in alEnvmixerPull. */\n#ifdef PORT\ntypedef uintptr_t VRALValue;   /* holds an address for some events (a voice pointer) */\n#else\ntypedef s32 VRALValue;\n#endif\ntypedef struct VRALParam { struct VRALParam *next; s32 time; s16 type, reset; VRALValue value; s32 value2, value3, value4; } VRALParam;\ntypedef struct VRALEnv { struct VRALEnv *input; s32 pad4; s32 (*handler)(struct VRALEnv *, s32, s32); u8 padc[12]; s16 pan, volume, cvolL, cvolR; u16 dry, wet, rateL; s16 ratemL, targetL; u16 rateR; s16 ratemR, targetR; s32 delta, segEnd, first; VRALParam *ctrl, *tail; } VRALEnv;\n\n\n\n/* func_8001BE68 is declared locally until callers agree on its return type. */\n\nvoid func_800416EC();\nvoid func_80098A1C(u8 *arg0, s32 arg1, s32 arg2, s8 *arg3);\n\nvoid *func_80042078(void *, u16, s32, s32, u16);\n\n/* Field layout observed in func_80088D10. */\ntypedef struct S_func_80088D10_layout {\n    u8 unk_00[8]; s32 unk_08; u8 unk_0C[0x30]; s32 unk_3C; u8 unk_40[0x10];\n    s32 unk_50; f32 unk_54, unk_58, unk_5C; s32 unk_60; u8 unk_64[0x53];\n    u8 unk_B7, unk_B8, unk_B9, unk_BA, unk_BB, unk_BC, unk_BD, unk_BE, unk_BF, unk_C0;\n    u8 unk_C1[4]; u8 unk_C5;\n} S_func_80088D10_layout;\n\ntypedef struct S_func_80027CDC_arg1 {\n    s8 unk0;\n    u8 unk1, unk2, unk3, unk4, unk5;\n} S_func_80027CDC_arg1;\n\n/* Timer layout verified by __osTimerServicesInit. */\ntypedef struct VRTimer { struct VRTimer *next, *prev; u64 interval, value; void *mq; s32 msg; } VRTimer;\nvoid __osTimerServicesInit(void);\n\n/* Menu object layout verified by func_80068130. */\ntypedef struct VRMenuObject { struct VRMenuObject *next; u8 pad04[11]; u8 red, green, blue; u8 pad12[8]; u8 enabled; } VRMenuObject;\ntypedef struct VRMenuItem { u8 pad00[14]; u8 value; u8 pad0F[5]; } VRMenuItem;\ntypedef struct VRMenuManager { u8 pad00[2]; s16 count; u8 pad04[12]; VRMenuItem *items; } VRMenuManager;\n",

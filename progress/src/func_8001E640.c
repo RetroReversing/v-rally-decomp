@@ -52,7 +52,7 @@ extern VRRecord D_800C3B50[1][4];
 extern VRRecord D_800C3B10[1][4];
 
 void strCpy(char *dst, const char *src);
-void str_ncat(VRRaceResult *, char *dst, const char *src, s32 length);
+void str_ncat(char *dst, const char *src, s32 length);
 s32 str_len(const char *src);
 
 #define RECORD_GROUP ((VRTrackRecords **) (gStreamState + 0x10386))
@@ -65,19 +65,20 @@ s32 str_len(const char *src);
 
 void func_8001E640(VRRaceResult *race) {
     char code[8];
+    s8 raw;
     u16 group;
     u16 track;
     u16 slot;
     u16 i;
-    u16 idx;
-    u32 speed;
+    u32 offset;
     u8 flags;
     u8 rank;
     VRTrackRecords *records;
     f32 splitTime;
     u32 logTime;
+    u16 newIndex;
     u8 logIndex;
-    u32 *distance;
+    u32 stored;
 
     group = 0;
     track = 0;
@@ -86,8 +87,10 @@ void func_8001E640(VRRaceResult *race) {
     switch ((s8)(code[0] - 'A')) {
     case 'T' - 'A':
         group = 0;
-        track = (s8)code[1] - '0';
-        slot = (s8)code[2] - '1';
+        raw = code[1];
+        track = raw - '0';
+        raw = code[2];
+        slot = raw - '1';
         break;
     case 'A' - 'A':
         track = 0;
@@ -160,13 +163,14 @@ void func_8001E640(VRRaceResult *race) {
     }
     if (code[0] != 'H') {
         records = &RECORD_GROUP[group][track];
-        distance = &records->distance[slot];
+        stored = slot;
         logIndex = D_800A16F0;
-        *distance = race->distance;
+        records->distance[slot] = race->distance;
         logTime = race->split[0].time;
-        D_800A16F0 = logIndex + 1;
+        newIndex = logIndex + 1;
+        D_800A16F0 = newIndex;
         TIME_LOG[logIndex] = logTime;
-        str_ncat(race, race->name, sNameSuffix, str_len(race->name));
+        str_ncat(race->name, sNameSuffix, str_len(race->name));
         strCpy(records->name[slot], race->name);
         records->category[slot] = race->category;
         for (i = 0; i < 3; i++) {
@@ -174,10 +178,9 @@ void func_8001E640(VRRaceResult *race) {
             records->split[slot][i].time = SPLIT(race, i).time;
             records->split[slot][i].rank = SPLIT(race, i).rank;
             splitTime = records->split[slot][i].time;
-            records->split[slot][i].speed = SPEED(*distance, splitTime);
-            flags = *(volatile s32 *)&race->flags;
+            records->split[slot][i].speed = SPEED(records->distance[stored], splitTime);
+            records->split[slot][i].flags = race->flags;
             records->split[slot][i].unused = 0;
-            records->split[slot][i].flags = flags;
         }
     } else {
         GAME_TIMES[group + track] = race->split[0].time;
@@ -204,17 +207,16 @@ void func_8001E640(VRRaceResult *race) {
                 g_split_times[track][i].flags = flags;
             }
         } else if (group < 17) {
-            for (i = 0; i < 3;) {
+            for (i = 0; (u16)i < 3; i++) {
                 strCpy(D_800C3A50[0][i].name, race->split[i].name);
                 D_800C3A50[0][i].time = SPLIT(race, i).time;
                 D_800C3A50[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3A50[0][i].time;
-                idx = i++;
-                speed = SPEED(race->distance, splitTime);
-                D_800C3A50[0][idx].speed = speed;
+                D_800C3A50[0][i].speed = SPEED(race->distance, splitTime);
+                offset = i;
                 flags = *(volatile s32 *)&race->flags;
-                D_800C3A50[0][idx].unused = 0;
-                D_800C3A50[0][idx].flags = flags;
+                D_800C3A50[0][offset].unused = 0;
+                D_800C3A50[0][offset].flags = flags;
             }
         } else if (group < 18) {
             for (i = 0; i < 3; i++) {
@@ -247,17 +249,16 @@ void func_8001E640(VRRaceResult *race) {
                 D_800C3B10[0][i].rank = rank;
             }
         } else if (group < 20) {
-            for (i = 0; i < 3;) {
+            for (i = 0; (u16)i < 3; i++) {
                 strCpy(D_800C3B50[0][i].name, race->split[i].name);
                 D_800C3B50[0][i].time = SPLIT(race, i).time;
                 D_800C3B50[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3B50[0][i].time;
-                idx = i++;
-                speed = SPEED(race->distance, splitTime);
-                D_800C3B50[0][idx].speed = speed;
+                D_800C3B50[0][i].speed = SPEED(race->distance, splitTime);
+                offset = i;
                 flags = *(volatile s32 *)&race->flags;
-                D_800C3B50[0][idx].unused = 0;
-                D_800C3B50[0][idx].flags = flags;
+                D_800C3B50[0][offset].unused = 0;
+                D_800C3B50[0][offset].flags = flags;
             }
         }
     }
