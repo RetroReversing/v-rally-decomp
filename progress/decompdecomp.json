@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795043113.728617,
- "revision": 21909,
+ "saved_at": 1795137231.963768,
+ "revision": 21966,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -21,20 +21,6 @@
   "timeout": 20
  },
  "compiler_ranges": [
-  {
-   "start": 509468,
-   "end": 510256,
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2",
-    "-g3",
-    "-ffast-math"
-   ]
-  },
   {
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
@@ -498,22 +484,6 @@
     "-mgp32",
     "-mfp32",
     "-O2"
-   ]
-  },
-  {
-   "start": 2148027404,
-   "end": 2148027860,
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2",
-    "-ffast-math",
-    "-fno-schedule-insns",
-    "-fno-strength-reduce",
-    "-g3"
    ]
   },
   {
@@ -1374,6 +1344,130 @@
    "timeout": 20,
    "function": "func_8002ABC0",
    "vram": 2147658688
+  },
+  "546828:2148027404": {
+   "vram": 2148027404,
+   "function": "input_get_stick_axis",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ]
+  },
+  "508068:2147988644": {
+   "vram": 2147988644,
+   "function": "light_object_vertices",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3",
+    "-ffast-math"
+   ]
+  },
+  "447900:2147928476": {
+   "vram": 2147928476,
+   "function": "UpdateChannelDeltas",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-schedule-insns"
+   ]
+  },
+  "368100:2147848676": {
+   "vram": 2147848676,
+   "function": "func_800591E4",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G8",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-strength-reduce",
+    "-g3"
+   ]
+  },
+  "193160:2147673736": {
+   "vram": 2147673736,
+   "function": "vec3_normalize_fixed",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3",
+    "-ffast-math"
+   ]
+  },
+  "443972:2147924548": {
+   "vram": 2147924548,
+   "function": "build_record_entry",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ]
+  },
+  "188064:2147668640": {
+   "vram": 2147668640,
+   "function": "int_sqrt",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-schedule-insns"
+   ]
+  },
+  "584624:2148065200": {
+   "vram": 2148065200,
+   "function": "sqrtf",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-schedule-insns"
+   ]
+  },
+  "43736:2147524312": {
+   "vram": 2147524312,
+   "function": "order_ticker_init",
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
+    "-G0",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-g3"
+   ]
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1978,6 +2072,11 @@
    "vram": 2147526124,
    "matched_by": "you",
    "readable": true
+  },
+  "func_8000A840": {
+   "vram": 2147526720,
+   "matched_by": "you",
+   "readable": false
   },
   "updateRotatedTransform": {
    "vram": 2147531024,
@@ -3589,6 +3688,11 @@
    "matched_by": "restored",
    "readable": true
   },
+  "func_8001E640": {
+   "vram": 2147608128,
+   "best_score": 5315,
+   "best_by": "permuter-21474836915"
+  },
   "stream_copy_obj_ctrl": {
    "vram": 2147611756,
    "matched_by": "restored",
@@ -4191,8 +4295,8 @@
   },
   "func_80024D60": {
    "vram": 2147634528,
-   "best_score": 210160,
-   "best_by": "claude-haiku-37"
+   "best_score": 23646,
+   "best_by": "manual-f0fc13f0f8f84211"
   },
   "func_80026E3C": {
    "vram": 2147642940,
@@ -9131,8 +9235,8 @@
   },
   "func_80078760": {
    "vram": 2147977056,
-   "best_score": 25785,
-   "best_by": "autopilot"
+   "best_score": 3650,
+   "best_by": "manual-e9b4581a65bb46a0"
   },
   "results_screen_draw": {
    "vram": 2147980556,
@@ -23893,7 +23997,7 @@
    "name": "alFxNew",
    "vram": 2148081188,
    "size": 1176,
-   "status": "open"
+   "status": "asm"
   },
   {
    "name": "alEnvmixerNew",
@@ -33817,7 +33921,7 @@
     "alias_schema": 1,
     "fingerprint": "d3621407f56a2334d4caab0e97daa0e0b3d4adcc70e5ff2232d3789ab27d2853",
     "evidence": "Exact complete bytes of a verified self-contained handwritten SDK routine; no C coverage.",
-    "at": 1795027027.109055
+    "at": 1795122910.8013482
    },
    "asm_code": "Verified SDK assembly; excluded from C matching.",
    "not_c": {
@@ -33837,6 +33941,35 @@
      "t": 1793109874.7255738
     }
    }
+  },
+  {
+   "name": "alFxNew",
+   "vram": 2148081188,
+   "verified_assembly": {
+    "verified": true,
+    "kind": "sdk",
+    "from_c": true,
+    "alias_schema": 1,
+    "name": "alFxNew",
+    "names": [
+     "alFxNew"
+    ],
+    "corpus": "built in / decompals/ultralib e24c836796df",
+    "corpora": [
+     "built in / decompals/ultralib e24c836796df"
+    ],
+    "verification_method": "sdk-signature",
+    "signature": "92d20093ca5893b3d1c00bd692843c0b2d8de1e8",
+    "fingerprint": "f5fb12ba1395ec7e553954e9d54ff025f4edec942f4864508e6766995f6d3990",
+    "target_sha256": "b96d5502dce4813816109308f58179734313cd644d65443b507a7d33bccf6acf",
+    "evidence": "exact relocation-normalized SDK signature; set aside from C matching by this project's library setting. Bytes not linked against an SDK archive; not matching C.",
+    "at": 1795122912.9329002,
+    "port_source": {
+     "ultralib": "src/audio/drvrnew.c",
+     "build": "2.0I/libgultra"
+    }
+   },
+   "asm_code": "Library code found by library detection; set aside from C matching by this project's library setting."
   },
   {
    "name": "func_80094820",
@@ -33862,7 +33995,7 @@
     "alias_schema": 1,
     "fingerprint": "334a78ec2e51dd3abfd4d9950c11615a62bf04fa7ad720d717b918acb0dd09e5",
     "evidence": "Exact complete bytes of a verified self-contained handwritten SDK routine; no C coverage.",
-    "at": 1795027027.112107
+    "at": 1795122910.804676
    },
    "asm_code": "Verified SDK assembly; excluded from C matching.",
    "not_c": {

@@ -231038,5 +231038,45 @@
   "created_at": 1795043000.504569,
   "score_before": 0,
   "score_after": 0
+ },
+ {
+  "function": "func_8000A840",
+  "text": "First judged C baseline: 21,480 with gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3. Best 17,354 after using a common display-list cursor, reusing the order-record and slice locals, and emitting commands through the cursor in the physical-address loops. The caller passes six arguments, with x/y in a1/a2 and the record in a3. The order allocator takes no arguments, and the overlap-safe copy moves 24 words with a four-byte stride. Combining the copy sites into a pre/post-increment macro scored 34,509. Remaining diff includes the stack frame, saved registers and instruction scheduling. The candidate is unverified at runtime.",
+  "by": "you",
+  "created_at": 1795123191.856645,
+  "score_before": 21480,
+  "score_after": 17354
+ },
+ {
+  "function": "func_80024D60",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-ac75e2efcadf47a3",
+  "created_at": 1795136485.34976,
+  "score_before": 210160,
+  "score_after": 30117
+ },
+ {
+  "function": "func_80024D60",
+  "text": "Recovered and corrected the machine draft, including callee arities, byte-stride global lookups, matrices and vectors in the stack frame, and the wheel and material-table loops. This is one linked-list update from 80024D60 through 80026E38, with one prologue and epilogue. The best candidate was checked with the configured GCC 2.7.2 KMC at -G0 -mips3 -mgp32 -mfp32 -O2 -g3. It still emits a 0x220 frame versus 0x228, and 2,069 instructions versus 2,103. The volatile collision-record stride restores several spill offsets. Remaining gaps include saved-register allocation and instruction scheduling around the wheel and collision loops.",
+  "by": "manual-f0fc13f0f8f84211",
+  "created_at": 1795136705.782387,
+  "score_before": 30117,
+  "score_after": 23646
+ },
+ {
+  "function": "func_80024D60",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-f0fc13f0f8f84211",
+  "created_at": 1795136705.7886121,
+  "score_before": 23646,
+  "score_after": 23646
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-0c7029d390d74161",
+  "created_at": 1795136748.260101,
+  "score_before": 5530,
+  "score_after": 5530
  }
 ]

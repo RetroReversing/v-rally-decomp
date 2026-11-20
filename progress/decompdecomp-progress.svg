@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="840" height="450" viewBox="0 0 840 450" role="img" aria-labelledby="title desc">
-<title id="title">2,092 / 2,097 functions matched (99.8%)</title>
+<title id="title">2,093 / 2,096 functions matched (99.9%)</title>
 <desc id="desc">Completion excludes set-aside functions. Green: matched; gold: attempted; grey: open; red: set aside.</desc>
 <rect width="840" height="450" rx="12" fill="#0f172a"/>
 <g font-family="sans-serif" fill="#f1f5f9">
 <text x="20" y="32" font-size="20">Decompilation progress</text>
 <text x="820" y="32" text-anchor="end" font-size="16">n64</text>
-<text x="20" y="59" font-size="16">2,092 / 2,097 functions matched (99.8%)</text>
+<text x="20" y="59" font-size="16">2,093 / 2,096 functions matched (99.9%)</text>
 <rect x="20" y="74" width="800" height="18" rx="4" fill="#334155"/>
-<rect x="20" y="74" width="798.093" height="18" rx="4" fill="#238636"/>
+<rect x="20" y="74" width="798.855" height="18" rx="4" fill="#238636"/>
 <rect x="20" y="108" width="10" height="10" fill="#238636"/>
-<text x="36" y="118" font-size="13">Matched: 2,092</text>
+<text x="36" y="118" font-size="13">Matched: 2,093</text>
 <rect x="220" y="108" width="10" height="10" fill="#bf8700"/>
 <text x="236" y="118" font-size="13">Attempt: 3</text>
 <rect x="420" y="108" width="10" height="10" fill="#64748b"/>
-<text x="436" y="118" font-size="13">Open: 2</text>
+<text x="436" y="118" font-size="13">Open: 0</text>
 <rect x="620" y="108" width="10" height="10" fill="#b54747"/>
-<text x="636" y="118" font-size="13">Aside: 28</text>
+<text x="636" y="118" font-size="13">Aside: 29</text>
 <text x="20" y="144" font-size="12">Function map: up to 1 function(s) per tile</text>
 <g><title>func_80005098: {&#x27;aside&#x27;: 1}</title>
 <rect x="20.000" y="160" width="8.000" height="8" fill="#b54747"/>
@@ -350,8 +350,8 @@
 <g><title>func_8000A5EC: {&#x27;matched&#x27;: 1}</title>
 <rect x="320.000" y="170" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8000A840: {&#x27;open&#x27;: 1}</title>
-<rect x="330.000" y="170" width="8.000" height="8" fill="#64748b"/>
+<g><title>func_8000A840: {&#x27;matched&#x27;: 1}</title>
+<rect x="330.000" y="170" width="8.000" height="8" fill="#238636"/>
 </g>
 <g><title>updateRotatedTransform: {&#x27;matched&#x27;: 1}</title>
 <rect x="340.000" y="170" width="8.000" height="8" fill="#238636"/>
@@ -1319,8 +1319,8 @@
 <g><title>game_store_obj_mode: {&#x27;matched&#x27;: 1}</title>
 <rect x="350.000" y="210" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>func_8001E640: {&#x27;open&#x27;: 1}</title>
-<rect x="360.000" y="210" width="8.000" height="8" fill="#64748b"/>
+<g><title>func_8001E640: {&#x27;attempt&#x27;: 1}</title>
+<rect x="360.000" y="210" width="8.000" height="8" fill="#bf8700"/>
 </g>
 <g><title>stream_copy_obj_ctrl: {&#x27;matched&#x27;: 1}</title>
 <rect x="370.000" y="210" width="8.000" height="8" fill="#238636"/>
@@ -6002,8 +6002,8 @@
 <g><title>alFxFillDecay: {&#x27;matched&#x27;: 1}</title>
 <rect x="760.000" y="400" width="8.000" height="8" fill="#238636"/>
 </g>
-<g><title>alFxNew: {&#x27;attempt&#x27;: 1}</title>
-<rect x="770.000" y="400" width="8.000" height="8" fill="#bf8700"/>
+<g><title>alFxNew: {&#x27;aside&#x27;: 1}</title>
+<rect x="770.000" y="400" width="8.000" height="8" fill="#b54747"/>
 </g>
 <g><title>alEnvmixerNew: {&#x27;matched&#x27;: 1}</title>
 <rect x="780.000" y="400" width="8.000" height="8" fill="#238636"/>
