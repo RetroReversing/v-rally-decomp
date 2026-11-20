@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795137231.963768,
- "revision": 21966,
+ "saved_at": 1795137495.82006,
+ "revision": 21974,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -3690,8 +3690,8 @@
   },
   "func_8001E640": {
    "vram": 2147608128,
-   "best_score": 5315,
-   "best_by": "permuter-21474836915"
+   "best_score": 2060,
+   "best_by": "manual-079b773931e94bfc"
   },
   "stream_copy_obj_ctrl": {
    "vram": 2147611756,
@@ -4295,8 +4295,8 @@
   },
   "func_80024D60": {
    "vram": 2147634528,
-   "best_score": 23646,
-   "best_by": "manual-f0fc13f0f8f84211"
+   "best_score": 10886,
+   "best_by": "manual-c7c6668e39c642ff"
   },
   "func_80026E3C": {
    "vram": 2147642940,
@@ -9235,7 +9235,7 @@
   },
   "func_80078760": {
    "vram": 2147977056,
-   "best_score": 3650,
+   "best_score": 25,
    "best_by": "manual-e9b4581a65bb46a0"
   },
   "results_screen_draw": {

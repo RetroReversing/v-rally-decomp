@@ -51,6 +51,8 @@ extern s32 D_800A1824[];
 void func_8004CEB4();
 extern char D_800A5F54[];
 extern char gStreamState[];
+extern s32 D_800C8328;
+extern u8 D_800C7FA0;
 extern u8 *g_camera;
 extern void *D_800C820C;
 /* Draws the results screen: a title, five result rows (name, two times and an extra value; the
@@ -97,6 +99,8 @@ void func_80078760(s32 gfx)
   void *footer_font;
   void *str, *str2;
   s32 fx, fy, w;
+  u8 *flag;
+  int id, handle;
   void *dl;
   u32 identity_zero;
   dl = gfx_get_dl(gfx);
@@ -109,14 +113,17 @@ void func_80078760(s32 gfx)
   gfx_round_vtx_pos(gfx);
     {
         extern void *D_800C81F8;
-        int camera_arg;
+        u32 camera_arg;
+        u8 *camera;
+        u8 *image;
         void *view = D_800C81F8;
         u8 **volatile *images = (u8 **volatile *)((u8 *)view + 4);
         rect[0] = -4;
         rect[1] = -4;
-        rect[2] = *(u16 *)((*(*images) + 6)) - 4;
-        rect[3] = *(u16 *)((*(*images) + 8));
-        camera_arg = *(s32 *)(g_camera + 0x178);
+        rect[2] = *(u16 *)(*(*images) + 6) - 4;
+        camera = g_camera;
+        rect[3] = *(u16 *)(*(*images) + 8);
+        camera_arg = *(s32 *)(camera + 0x178);
         func_8004CEB4(camera_arg, *(*images), rect,
                       0, 0xAA, 0xAA, 0xAA, 0xAA, 0);
     }
@@ -160,7 +167,7 @@ void func_80078760(s32 gfx)
 
     }
 row_color_done:
-    first_val = gResultsTable[(row & 0xFFFF)].first;
+    do { do { do { do { first_val = gResultsTable[(row & 0xFFFF)].first; } while (0); } while (0); } while (0); } while (0);
     if (first_val != 0)
     {
       func_80052E94(first_val, &name_buf);
@@ -171,7 +178,7 @@ row_color_done:
       format_to_buffer(&name_buf, &D_800A5EE0);
 
     }
-    second_val = gResultsTable[(row & 0xFFFF)].second;
+    do { do { do { do { do { do { do { do { do { do { do { do { do { do { do { do { do { do { second_val = gResultsTable[(row & 0xFFFF)].second; } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0); } while (0);
     if (gResultsTable[( 0xFFFF & row   )].second != 0)
     {
       func_80052E94(second_val, &first_buf);
@@ -231,8 +238,8 @@ row_color_done:
     {
        do { font_draw_text(*((s32 *) (gStreamState + 0x7F5E)), gfx, (s16) text_x, text_y, line_buf, 1 ) ; } while ( 0 );
     }
-    icon_x = text_x + D_800A17E9;
-    icon_y = text_y -  one ;
+do {     icon_x = text_x + D_800A17E9;
+    do { do { icon_y = text_y -  one ; } while (0); } while (0);
     if ((((u32) (icon_x & 0xFFFF)) < 0x141U) & ((row & 0xFFFF) != 4))
     {
       func_80073108(gfx, icon_x, icon_y, *((s32 *) (gStreamState - (-0x103B2))), (s32) gResultsTable[(row & 0xFFFF)].icon);
@@ -242,6 +249,7 @@ row_color_done:
     text_y = line_y ^ gfx; text_y ^= gfx;
     
 
+ } while (0);
     if ((row & 0xFFFF) == 0) goto zero_row;
     if ((row & 0xFFFF) != 4) goto normal_row;
     {
@@ -305,53 +313,77 @@ normal_row_done:
   while ((u16)row < 5U);
 
     font_set_color(SS_PTR(0x7F62), 0xDC, 0xDC, 0x10, 0xFF);
-    if (ROW_FLAG(0) < 4) {
-        format_to_buffer(line_buf, D_800A5ED8, pool_get_item(POOL, 0xD8), ROW_NAME(0));
+    flag = &D_800C7FA0;
+    if (*flag < 4) {
+        format_to_buffer(line_buf, D_800A5ED8, pool_get_item(POOL, 0xD8), flag - 0x10);
         w = font_text_width(FONT_B, line_buf, 1, 1.0f, 0);
         font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w & 0xFFFF) >> 1), 0x14, line_buf, 0);
-        w = font_text_width(FONT_B, pool_get_item(POOL, 0xE3), 1, 1.0f, 0);
-        font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w & 0xFFFF) >> 1), 0x23, pool_get_item(POOL, 0xE3), 0);
-        w = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
-        str = pool_get_item(POOL, TITLE_TEXT_ID);
-        fx = 0xA0 - ((u32)(w & 0xFFFF) >> 1);
-        fy = 0x32;
+        w16 = font_text_width(FONT_B, pool_get_item(POOL, 0xE3), 1, 1.0f, 0);
+        font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w16 & 0xFFFF) >> 1), 0x23, pool_get_item(POOL, 0xE3), 0);
+        w16 = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
+        font_draw_text(SS_WORD(0x7F62), gfx, 0xA0 - ((u32)(w16 & 0xFFFF) >> 1), 0x32, pool_get_item(POOL, TITLE_TEXT_ID), 0);
+        goto color_end;
     } else if ((text_y = 0x14, SS_WORD(0x32AA) == 3)) {
         text_y = 0x23;
-        w = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
-        font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w & 0xFFFF) >> 1), 0x14, pool_get_item(POOL, TITLE_TEXT_ID), 0);
+        w16 = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
+        font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w16 & 0xFFFF) >> 1), 0x14, pool_get_item(POOL, TITLE_TEXT_ID), 0);
         if (ROW_FLAG(1) < 4) {
-            str2 = pool_get_item(POOL, 0xDC);
-            str = pool_get_item(POOL, 0xC6);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC6);
+            format_to_buffer(line_buf, D_800A5ED8, prefix,msg);
         } else if (ROW_FLAG(2) < 4) {
-            str2 = pool_get_item(POOL, 0xDC);
-            str = pool_get_item(POOL, 0xC7);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC7);
+            format_to_buffer(line_buf, D_800A5ED8, prefix,msg);
         } else {
-            str2 = pool_get_item(POOL, 0xDC);
-            str = pool_get_item(POOL, 0xC8);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC8);
+            format_to_buffer(line_buf, D_800A5ED8, prefix,msg);
         }
-        format_to_buffer(line_buf, D_800A5ED8, str2, str);
         w = font_text_width(FONT_B, line_buf, 1, 1.0f, 0);
-        str = line_buf;
-        fx = 0xA0 - ((u32)(w & 0xFFFF) >> 1);
-        fy = (s16)text_y;
+        font_draw_text(SS_WORD(0x7F62), gfx, 0xA0 - ((u32)(w & 0xFFFF) >> 1), text_y, line_buf, 0);
+        goto color_end;
     } else {
         void *s1;
-        s1 = pool_get_item(POOL, 0xDC);
         if (ROW_FLAG(1) < 4) {
-            str2 = pool_get_item(POOL, 0xC6);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC6);
+            format_to_buffer(line_buf, D_800A5F38, prefix,msg, pool_get_item(POOL,0xE0));
         } else if (ROW_FLAG(2) < 4) {
-            str2 = pool_get_item(POOL, 0xC7);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC7);
+            format_to_buffer(line_buf, D_800A5F38, prefix,msg, pool_get_item(POOL,0xE0));
         } else {
-            str2 = pool_get_item(POOL, 0xC8);
+            void *prefix;
+            void *msg;
+            s32 handle;
+            prefix = pool_get_item(POOL, 0xDC);
+            msg = pool_get_item(POOL, 0xC8);
+            format_to_buffer(line_buf, D_800A5F38, prefix,msg, pool_get_item(POOL,0xE0));
         }
-        format_to_buffer(line_buf, D_800A5F38, s1, str2, pool_get_item(POOL, 0xE0));
         w = font_text_width(FONT_B, line_buf, 1, 1.0f, 0);
         font_draw_text(SS_PTR(0x7F62), gfx, 0xA0 - ((u32)(w & 0xFFFF) >> 1), (s16)text_y, line_buf, 0);
-        w = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
+        w16 = font_text_width(FONT_B, pool_get_item(POOL, TITLE_TEXT_ID), 1, 1.0f, 0);
         str = pool_get_item(POOL, TITLE_TEXT_ID);
-        fx = 0xA0 - ((u32)(w & 0xFFFF) >> 1);
+        fx = 0xA0 - ((u32)(w16 & 0xFFFF) >> 1);
         fy = (s16)(text_y + 0xF);
     }
     font_draw_text(SS_PTR(0x7F62), gfx, fx, fy, str, 0);
+color_end:
     font_set_color(SS_PTR(0x7F62), 0xFF, 0xFF, 0xFF, 0xFF);
 }

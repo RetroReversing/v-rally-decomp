@@ -746,7 +746,16 @@
     "src/code_8004BEB4/func_800529F0.c": "1019081a11c4641f62b93585cbd01a51b4d35fa31315d95cce66a6fc6761dc5a",
     "include/func_800529F0-context.h": "dbba70193bdbe4bf36bd3dea87145596d4b5b0679f13793d34b74728e3b3f212",
     "src/code_80026E3C/func_80029EAC.c": "d02bff2d84097ee5e03db7bda4cf7cfdebaec0f3001c620eb01732d4f5998a02",
-    "src/code_80026E3C/func_8003E6D8.c": "6d1e611a8feaad3a3af22e147106e725a3b3c2380efaec21881a8af9c4d3e5d2"
+    "src/code_80026E3C/func_8003E6D8.c": "6d1e611a8feaad3a3af22e147106e725a3b3c2380efaec21881a8af9c4d3e5d2",
+    "src/code_8004BEB4/func_8006E394.c": "1d91cb603a7e5864190ae9ef03200e68b871edce6866b1139bd27d3745e15900",
+    "src/code_8004BEB4/func_8006BA44.c": "8fdd424dd65c6c964a1ab9b3a05de083ef052b757481e6de39912850e500d306",
+    "src/code_8004BEB4/func_8006D10C.c": "b0d115e7dafea5656ba8c38d9850aa094a63c33195c176c824271883b1fc5690",
+    "src/code_8004BEB4/func_8006C024.c": "d974c91c6508f1b071d03f2ddd4a2bc7ae9461fe3096390ef89d2606c0052fdd",
+    "src/code_80026E3C/func_80030180.c": "d06d8149b9d7e4c7e9efb6b3df8342c6a6a88e45352c5d2b8de831ff492e7d0d",
+    "src/code_8000A840/func_8000A840.c": "2b25234048eec55ade0ee82d8d03d786aabcd0a220ee3dfd0e57271c29094c60",
+    "src/code_80026E3C/func_8002FFA4.c": "12e9e499836d69019a560163040152618909b491576cb0a692dcb3f1d8f8b93f",
+    "src/code_8004BEB4/func_8006603C.c": "2e1f240e8b873069edf74939cb75fb8bb910cd823cdfaa472e22719f10fae24e",
+    "src/code_8007950C/func_8007A29C.c": "8be0e2e0dca315cd1926395d26e13a84bb1df1828d5bced3ec49caf88ca033ef"
   },
   "accepted": [
     "MusInitialize",
@@ -761,7 +770,10 @@
     "_pullSubFrame",
     "alFxPull",
     "atan2_angle4096",
+    "build_record_entry",
+    "build_record_entry_alt",
     "contInitControllers",
+    "decodePacketSlots",
     "func_800051B4",
     "func_80005500",
     "func_800060C0",
@@ -779,6 +791,7 @@
     "func_80009ED8",
     "func_8000A2C4",
     "func_8000A5EC",
+    "func_8000A840",
     "func_8000BF2C",
     "func_8000C22C",
     "func_8000C244",
@@ -872,6 +885,7 @@
     "func_8002FB64",
     "func_8002FBD4",
     "func_8002FD68",
+    "func_8002FFA4",
     "func_8003035C",
     "func_80030A0C",
     "func_800316C4",
@@ -1145,6 +1159,7 @@
     "func_800783A8",
     "func_8007950C",
     "func_8007A01C",
+    "func_8007A29C",
     "func_8007A688",
     "func_8007A7D0",
     "func_8007A9A8",
@@ -1217,30 +1232,40 @@
     "guS2DInitBg",
     "huft_build",
     "inflate_codes",
-    "inflate_dynamic"
+    "inflate_dynamic",
+    "init_stage_screen",
+    "pack_tile_rows",
+    "route_interp_point"
   ],
   "skipped": [],
   "verified_build": true,
-  "matched_app": 2080,
+  "matched_app": 2093,
   "last_verification": {
     "bytes": 12582912,
     "sha256": "d510b5ccf5a0513ce0a3776f045f7ef9a4983a07e0d00a31f0b1ae5d3eb2d4a7",
     "added": [
-      "func_8003E6D8"
+      "build_record_entry",
+      "build_record_entry_alt",
+      "decodePacketSlots",
+      "func_8000A840",
+      "func_8002FFA4",
+      "func_8007A29C",
+      "init_stage_screen",
+      "pack_tile_rows",
+      "route_interp_point"
     ],
-    "note": "Ordinary live app judge, independent build.py check, and complete cartridge comparison passed. All earlier selected sources and compiler profiles retained; complete portable progress saved through app API."
+    "note": "Each newly selected function passed its independent linked check. The complete cartridge rebuilt byte for byte."
   },
   "not_integrated_after_checkpoint": [],
   "pending_app_verification": [],
   "last_live_reconciliation": {
-    "matched": 2079,
+    "matched": 2093,
     "all_function_addresses_integrated": true,
-    "corrected_source_hashes_confirmed": [
-      "func_80029EAC",
-      "func_8002C044"
+    "portable_revision": 21974,
+    "standalone_only": [
+      "func_80091E24"
     ],
-    "portable_revision": 19190,
-    "note": "Final post-sync read-only audit confirms both accepted sources and original profiles remain matched; portable C equals live C, with no focal/caller claims. Full private cartridge rebuild passed before publication."
+    "note": "The portable save records alFxNew as assembly. Its previously verified standalone C remains selected."
   },
   "live_source_variants_retained_in_progress": [
     "func_80005EB0",
@@ -1406,26 +1431,25 @@
     "note": "Normal app judge retained reviewed drafts; no new exact C. Fresh complete portable save and full cartridge equality. Prior750 causal alternative retained separately."
   },
   "last_match": {
-    "date": "2026-11-07",
-    "function": "func_8003E6D8",
-    "source_sha256": "91d362c45a0e233abd5a934bf875a002a3218f8f0b501ea69893c4c2517ba6e8",
-    "size": 1580,
-    "instructions": 395,
-    "selected_c": 2080,
+    "date": "2026-11-20",
+    "function": "func_8000A840",
+    "source_sha256": "7211c5458ecc02d4ead0b69610f76ae35a98db7fce1dbbf9e653a5fc1c707f57",
+    "size": 4304,
+    "instructions": 1076,
+    "selected_c": 2094,
     "standalone_functions": 2124,
-    "assembly_entries": 44,
-    "app_matched": 2080,
-    "app_open": 13,
-    "app_assembly": 28,
+    "assembly_entries": 30,
     "compiler": "gcc-2.7.2-kmc",
-    "flags": "-G0 -mips3 -mgp32 -mfp32 -O2 -g3",
-    "all_prior_selections_and_profiles_preserved": true
+    "flags": "-G0 -mips3 -mgp32 -mfp32 -O2 -g3"
   },
   "previous_live_reconciliation": {
-    "matched": 2078,
+    "matched": 2079,
     "all_function_addresses_integrated": true,
-    "corrected_source_hashes_confirmed": true,
-    "portable_revision": 19171,
-    "note": "Normal live judge accepted same source; automatic claim release verified. Fresh full portable progress save."
+    "corrected_source_hashes_confirmed": [
+      "func_80029EAC",
+      "func_8002C044"
+    ],
+    "portable_revision": 19190,
+    "note": "Final post-sync read-only audit confirms both accepted sources and original profiles remain matched; portable C equals live C, with no focal/caller claims. Full private cartridge rebuild passed before publication."
   }
 }

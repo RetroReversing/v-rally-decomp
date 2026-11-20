@@ -20,6 +20,22 @@
   {
    "toolchain": "gcc-2.7.2-kmc",
    "flags": [
+    "-G8",
+    "-mips3",
+    "-mgp32",
+    "-mfp32",
+    "-O2",
+    "-ffast-math",
+    "-fno-strength-reduce",
+    "-g3"
+   ],
+   "timeout": 20,
+   "start": 2147924548,
+   "end": 2147924549
+  },
+  {
+   "toolchain": "gcc-2.7.2-kmc",
+   "flags": [
     "-G0",
     "-mips3",
     "-mgp32",
@@ -13648,7 +13664,9 @@
    "seg": "code_8000A840",
    "vram": 2147526720,
    "rom": 46144,
-   "asm": "asm/nonmatchings/code_8000A840/func_8000A840.s"
+   "asm": "asm/nonmatchings/code_8000A840/func_8000A840.s",
+   "c": "src/code_8000A840/func_8000A840.c",
+   "own": {}
   },
   {
    "name": "func_8000B910",
@@ -18712,14 +18730,18 @@
    "seg": "code_80026E3C",
    "vram": 2147680164,
    "rom": 199588,
-   "asm": "asm/nonmatchings/code_80026E3C/func_8002FFA4.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_8002FFA4.s",
+   "c": "src/code_80026E3C/func_8002FFA4.c",
+   "own": {}
   },
   {
    "name": "func_80030180",
    "seg": "code_80026E3C",
    "vram": 2147680640,
    "rom": 200064,
-   "asm": "asm/nonmatchings/code_80026E3C/func_80030180.s"
+   "asm": "asm/nonmatchings/code_80026E3C/func_80030180.s",
+   "c": "src/code_80026E3C/func_80030180.c",
+   "own": {}
   },
   {
    "name": "func_8003035C",
@@ -24762,7 +24784,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147901500,
    "rom": 420924,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006603C.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006603C.s",
+   "c": "src/code_8004BEB4/func_8006603C.c",
+   "own": {}
   },
   {
    "name": "func_800662A8",
@@ -25585,7 +25609,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147924548,
    "rom": 443972,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006BA44.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006BA44.s",
+   "c": "src/code_8004BEB4/func_8006BA44.c",
+   "own": {}
   },
   {
    "name": "func_8006BE50",
@@ -25612,7 +25638,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147926052,
    "rom": 445476,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006C024.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006C024.s",
+   "c": "src/code_8004BEB4/func_8006C024.c",
+   "own": {}
   },
   {
    "name": "func_8006C3E4",
@@ -25691,7 +25719,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147930380,
    "rom": 449804,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006D10C.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006D10C.s",
+   "c": "src/code_8004BEB4/func_8006D10C.c",
+   "own": {}
   },
   {
    "name": "func_8006D564",
@@ -25752,7 +25782,9 @@
    "seg": "code_8004BEB4",
    "vram": 2147935124,
    "rom": 454548,
-   "asm": "asm/nonmatchings/code_8004BEB4/func_8006E394.s"
+   "asm": "asm/nonmatchings/code_8004BEB4/func_8006E394.s",
+   "c": "src/code_8004BEB4/func_8006E394.c",
+   "own": {}
   },
   {
    "name": "func_8006E8A0",
@@ -26603,7 +26635,9 @@
    "seg": "code_8007950C",
    "vram": 2147984028,
    "rom": 503452,
-   "asm": "asm/nonmatchings/code_8007950C/func_8007A29C.s"
+   "asm": "asm/nonmatchings/code_8007950C/func_8007A29C.s",
+   "c": "src/code_8007950C/func_8007A29C.c",
+   "own": {}
   },
   {
    "name": "func_8007A688",
@@ -35229,7 +35263,38 @@
   "atan2_angle4096": 2148105100,
   "MusInitialize": 2148033784,
   "memset": 2148105776,
-  "func_8000A840": 2147526720
+  "func_8000A840": 2147526720,
+  "view_get_ctx_id": 2147505916,
+  "gfx_get_dl": 2147508232,
+  "gfx_set_dl": 2147508244,
+  "gOrderState": 2148198480,
+  "gSlotTableB": 2148337204,
+  "league_set_hook_entry": 2148049552,
+  "setRecordSlotValue": 2148049520,
+  "gSelectState": 2148144232,
+  "hud_setup_stage_results": 2147877812,
+  "gStreamPhase": 2148144852,
+  "stage_stub_return_true": 2147918412,
+  "stream_state_update": 2147918428,
+  "gLeague": 2148283656,
+  "record_set_byte9": 2148049112,
+  "select_get_entry": 2147848876,
+  "select_propagate_values": 2147860712,
+  "gRecords": 2148283808,
+  "gRecordTimeScale": 2148128064,
+  "gRecordGlyphs": 2148298964,
+  "record_put_glyphs": 2147925808,
+  "stream_state": 2148270766,
+  "gRecordPackets": 2148299294,
+  "build_record_entry": 2147924548,
+  "record_slot_init": 2147826728,
+  "gDecodeBlk": 2148230656,
+  "gSlotState": 2148283808,
+  "select_clear_slots": 2147859552,
+  "stream_free_all_blocks": 2147799836,
+  "textObjGet": 2147848912,
+  "resolve_path": 2148013376,
+  "heapFreeBlock": 2148003484
  },
  "data_mappings": [
   {

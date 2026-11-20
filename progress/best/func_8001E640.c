@@ -25,7 +25,7 @@ typedef struct {
     char name[4];
     u8 speed;
     u8 flags;
-    u8 unused;
+    volatile u8 unused;
     u8 padding[3];
 } VRRecord;
 
@@ -52,7 +52,7 @@ extern VRRecord D_800C3B50[1][4];
 extern VRRecord D_800C3B10[1][4];
 
 void strCpy(char *dst, const char *src);
-void str_ncat(char *dst, const char *src, s32 length);
+void str_ncat(VRRaceResult *, char *dst, const char *src, s32 length);
 s32 str_len(const char *src);
 
 #define RECORD_GROUP ((VRTrackRecords **) (gStreamState + 0x10386))
@@ -61,19 +61,28 @@ s32 str_len(const char *src);
 #define RECORDS(offset) ((VRRecord (*)[4]) (gStreamState + (offset)))
 #define SPEED(distance, time) ((u32) ((f32)((distance) * gRecordTimeScale) * 3.6f / (f32)(time)))
 
+#define SPLIT(race, index) (((VRSplitResult *)((u32)((index) * sizeof(VRSplitResult)) + (u32)(race) + 0xE4))[0])
+
 void func_8001E640(VRRaceResult *race) {
     char code[8];
     u16 group;
     u16 track;
     u16 slot;
     u16 i;
+    u16 idx;
+    u32 speed;
+    u8 flags;
+    u8 rank;
     VRTrackRecords *records;
     f32 splitTime;
+    u32 logTime;
+    u8 logIndex;
+    u32 *distance;
 
     group = 0;
-    strCpy(code, race->code);
-    slot = 0;
     track = 0;
+    slot = 0;
+    strCpy(code, race->code);
     switch ((s8)(code[0] - 'A')) {
     case 'T' - 'A':
         group = 0;
@@ -151,88 +160,104 @@ void func_8001E640(VRRaceResult *race) {
     }
     if (code[0] != 'H') {
         records = &RECORD_GROUP[group][track];
-        records->distance[slot] = race->distance;
-        TIME_LOG[D_800A16F0++] = race->split[0].time;
-        str_ncat(race->name, sNameSuffix, str_len(race->name));
+        distance = &records->distance[slot];
+        logIndex = D_800A16F0;
+        *distance = race->distance;
+        logTime = race->split[0].time;
+        D_800A16F0 = logIndex + 1;
+        TIME_LOG[logIndex] = logTime;
+        str_ncat(race, race->name, sNameSuffix, str_len(race->name));
         strCpy(records->name[slot], race->name);
         records->category[slot] = race->category;
         for (i = 0; i < 3; i++) {
             strCpy(records->split[slot][i].name, race->split[i].name);
-            records->split[slot][i].time = race->split[i].time;
-            records->split[slot][i].rank = race->split[i].rank;
+            records->split[slot][i].time = SPLIT(race, i).time;
+            records->split[slot][i].rank = SPLIT(race, i).rank;
             splitTime = records->split[slot][i].time;
-            records->split[slot][i].speed = SPEED(records->distance[slot], splitTime);
+            records->split[slot][i].speed = SPEED(*distance, splitTime);
+            flags = *(volatile s32 *)&race->flags;
             records->split[slot][i].unused = 0;
-            records->split[slot][i].flags = race->flags;
+            records->split[slot][i].flags = flags;
         }
     } else {
         GAME_TIMES[group + track] = race->split[0].time;
         if (group < 4) {
             for (i = 0; i < 3; i++) {
                 strCpy(D_800C3650[track][i].name, race->split[i].name);
-                D_800C3650[track][i].time = race->split[i].time;
-                D_800C3650[track][i].rank = race->split[i].rank;
+                D_800C3650[track][i].time = SPLIT(race, i).time;
+                D_800C3650[track][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3650[track][i].time;
                 D_800C3650[track][i].speed = SPEED(race->distance, splitTime);
+                flags = *(volatile s32 *)&race->flags;
                 D_800C3650[track][i].unused = 0;
-                D_800C3650[track][i].flags = race->flags;
+                D_800C3650[track][i].flags = flags;
             }
         } else if (group < 16) {
             for (i = 0; i < 3; i++) {
                 strCpy(g_split_times[track][i].name, race->split[i].name);
-                g_split_times[track][i].time = race->split[i].time;
-                g_split_times[track][i].rank = race->split[i].rank;
+                g_split_times[track][i].time = SPLIT(race, i).time;
+                g_split_times[track][i].rank = SPLIT(race, i).rank;
                 splitTime = g_split_times[track][i].time;
                 g_split_times[track][i].speed = SPEED(race->distance, splitTime);
+                flags = *(volatile s32 *)&race->flags;
                 g_split_times[track][i].unused = 0;
-                g_split_times[track][i].flags = race->flags;
+                g_split_times[track][i].flags = flags;
             }
         } else if (group < 17) {
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 3;) {
                 strCpy(D_800C3A50[0][i].name, race->split[i].name);
-                D_800C3A50[0][i].time = race->split[i].time;
-                D_800C3A50[0][i].rank = race->split[i].rank;
+                D_800C3A50[0][i].time = SPLIT(race, i).time;
+                D_800C3A50[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3A50[0][i].time;
-                D_800C3A50[0][i].speed = SPEED(race->distance, splitTime);
-                D_800C3A50[0][i].unused = 0;
-                D_800C3A50[0][i].flags = race->flags;
+                idx = i++;
+                speed = SPEED(race->distance, splitTime);
+                D_800C3A50[0][idx].speed = speed;
+                flags = *(volatile s32 *)&race->flags;
+                D_800C3A50[0][idx].unused = 0;
+                D_800C3A50[0][idx].flags = flags;
             }
         } else if (group < 18) {
             for (i = 0; i < 3; i++) {
                 strCpy(D_800C3A90[0][i].name, race->split[i].name);
-                D_800C3A90[0][i].time = race->split[i].time;
-                D_800C3A90[0][i].rank = race->split[i].rank;
+                D_800C3A90[0][i].time = SPLIT(race, i).time;
+                D_800C3A90[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3A90[0][i].time;
                 D_800C3A90[0][i].speed = SPEED(race->distance, splitTime);
                 D_800C3A90[0][i].unused = 0;
                 D_800C3A90[0][i].flags = race->flags;
                 strCpy(D_800C3B10[0][i].name, race->split[i].name);
+                D_800C3B10[0][i].time = SPLIT(race, i).time;
+                rank = *(volatile s32 *)&SPLIT(race, i).rank;
                 D_800C3B10[0][i].unused = 0;
-                D_800C3B10[0][i].time = race->split[i].time;
-                D_800C3B10[0][i].rank = race->split[i].rank;
+                D_800C3B10[0][i].rank = rank;
             }
         } else if (group < 19) {
             for (i = 0; i < 3; i++) {
                 strCpy(D_800C3AD0[0][i].name, race->split[i].name);
-                D_800C3AD0[0][i].time = race->split[i].time;
-                D_800C3AD0[0][i].rank = race->split[i].rank;
+                D_800C3AD0[0][i].time = SPLIT(race, i).time;
+                D_800C3AD0[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3AD0[0][i].time;
                 D_800C3AD0[0][i].speed = SPEED(race->distance, splitTime);
-                D_800C3AD0[0][i].flags = race->flags;
+                flags = *(volatile s32 *)&race->flags;
                 D_800C3AD0[0][i].unused = 0;
-                D_800C3B10[0][i].time += race->split[i].time;
+                D_800C3AD0[0][i].flags = flags;
+                D_800C3B10[0][i].time += SPLIT(race, i).time;
+                rank = *(volatile s32 *)&SPLIT(race, i).rank;
                 D_800C3B10[0][i].unused = 0;
-                D_800C3B10[0][i].rank = race->split[i].rank;
+                D_800C3B10[0][i].rank = rank;
             }
         } else if (group < 20) {
-            for (i = 0; i < 3; i++) {
+            for (i = 0; i < 3;) {
                 strCpy(D_800C3B50[0][i].name, race->split[i].name);
-                D_800C3B50[0][i].time = race->split[i].time;
-                D_800C3B50[0][i].rank = race->split[i].rank;
+                D_800C3B50[0][i].time = SPLIT(race, i).time;
+                D_800C3B50[0][i].rank = SPLIT(race, i).rank;
                 splitTime = D_800C3B50[0][i].time;
-                D_800C3B50[0][i].speed = SPEED(race->distance, splitTime);
-                D_800C3B50[0][i].unused = 0;
-                D_800C3B50[0][i].flags = race->flags;
+                idx = i++;
+                speed = SPEED(race->distance, splitTime);
+                D_800C3B50[0][idx].speed = speed;
+                flags = *(volatile s32 *)&race->flags;
+                D_800C3B50[0][idx].unused = 0;
+                D_800C3B50[0][idx].flags = flags;
             }
         }
     }

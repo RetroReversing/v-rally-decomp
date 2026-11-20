@@ -231078,5 +231078,45 @@
   "created_at": 1795136748.260101,
   "score_before": 5530,
   "score_after": 5530
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-079b773931e94bfc",
+  "created_at": 1795137308.4183779,
+  "score_before": 5315,
+  "score_after": 2060
+ },
+ {
+  "function": "func_80024D60",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-9b7c79ad5568455f",
+  "created_at": 1795137348.5406551,
+  "score_before": 23646,
+  "score_after": 12021
+ },
+ {
+  "function": "func_8001E640",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-fab6c29b5f4f47a1",
+  "created_at": 1795137432.723595,
+  "score_before": 2060,
+  "score_after": 2060
+ },
+ {
+  "function": "func_80024D60",
+  "text": "This pass restored the five signed upper-bound compares, the two Case 2 shift/copy sequences, and more of the wheel and contact loops. First remaining stack difference is a 0x220 candidate frame versus 0x228 target. Some earlier spill slots moved even when frame size improved. The candidate emits 8,420 bytes for the 8,412-byte target. Remaining substantive gaps include the wheel-loop cursor stores and the late contact force/stride spills and delay slots. Keeping a pointer through the contact-count check removed redundant loads; allocating the spills as explicit aggregate fields made the overall output worse. Compiler and shared header are unchanged.",
+  "by": "manual-c7c6668e39c642ff",
+  "created_at": 1795137494.136236,
+  "score_before": 12021,
+  "score_after": 10886
+ },
+ {
+  "function": "func_80024D60",
+  "text": "Released because its agent stopped (its manual MCP connection was revoked); its attempts are kept.",
+  "by": "manual-c7c6668e39c642ff",
+  "created_at": 1795137494.1729972,
+  "score_before": 10886,
+  "score_after": 10886
  }
 ]

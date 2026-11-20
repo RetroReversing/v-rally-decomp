@@ -20,6 +20,12 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Display-list builder and full progress sync — 20 November 2026
+
+`func_8000A840` now matches all **1,076 instructions (4,304 bytes)** using KMC GCC 2.7.2 with `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. Its C builds the display list, copies overlapping sprite records and calculates texture slice coordinates.
+
+All nine new standalone selections passed their individual linked-byte checks. The complete **12,582,912-byte cartridge** also rebuilt byte for byte. The standalone build selects **2,094 of 2,124 functions as C**, leaving **30 assembly entries**. The portable snapshot contains **2,093 matches**. It marks `alFxNew` as assembly, while the standalone build retains its previously verified C.
+
 ### All app progress — 8 November 2026
 
 This checkpoint integrates five newly matched functions: `func_80040CF4`,
