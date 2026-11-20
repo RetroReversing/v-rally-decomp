@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
     s32 base;
@@ -21,11 +21,19 @@ typedef struct {
 } MusPtrBank;
 
 extern f64 D_800A6DB8;
-void func_8008989C(s32 *p, s32 a, s32 n);
+void fix_up_offsets(s32 *p, s32 a, s32 n);
 void osWritebackDCacheAll(void);
 
-#define WAVE(o) (*(MusWave **)((o) + ptr->wave_list))
+#ifdef PORT
+#define ADDR_OF(x) ((uintptr_t)(x))
+#else
+#define ADDR_OF(x) (x)
+#endif
+#define WAVE(o) (*(MusWave **)ADDR_OF((o) + ptr->wave_list))
 
+/* Relocates a sound bank loaded at pptr: turns its stored offsets into pointers,
+ * converts detune/basenote bytes into float pitch offsets, and fixes up each
+ * wave's base, loop and book addresses. wptr is the wave data base. */
 void func_80089704(s32 pptr, s32 wptr) {
     MusWave *wave;
     MusPtrBank *ptr;
@@ -36,12 +44,12 @@ void func_80089704(s32 pptr, s32 wptr) {
     f32 f;
     u8 unused[8];
 
-    ptr = (MusPtrBank *)pptr;
+    ptr = (MusPtrBank *)ADDR_OF(pptr);
     if (ptr->flags & 0x80000000)
         return;
     ptr->flags |= 0x80000000;
-    func_8008989C((s32 *)&ptr->basenote, pptr, 3);
-    func_8008989C((s32 *)ptr->wave_list, pptr, ptr->count);
+    fix_up_offsets((s32 *)&ptr->basenote, pptr, 3);
+    fix_up_offsets((s32 *)ADDR_OF(ptr->wave_list), pptr, ptr->count);
     i = 0;
     if (ptr->count > 0) {
     scale = D_800A6DB8;

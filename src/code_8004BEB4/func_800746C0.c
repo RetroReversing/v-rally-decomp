@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct RRec { s32 time; u8 c4; u8 pad5; char name[4]; u8 cA; char padB[0x40 - 0xB]; } RRec;
 typedef struct RData { char pad0[0x2C]; RRec recs[8]; s32 vals[8]; } RData;
@@ -9,11 +9,16 @@ typedef struct RName { char name[10]; u16 v; char pad[0x28 - 12]; } RName;
 typedef struct RCfg { char pad0[0xE]; u16 mode; char pad10[0x1A - 0x10]; u16 flag1A; char pad1C[0x22 - 0x1C]; u16 sel; char pad24[0x32 - 0x24]; u8 order[0x12]; RName names[4]; } RCfg;
 
 extern void func_80041564(void);
-extern void func_80098290(char *, char *);
-extern RCar **D_800B5C40;
-extern RCfg *D_800C35A0;
-extern REntry D_800C7F90[7];
+extern void strCpy(char *, char *);
+extern RCar **gCarList;
+extern RCfg *gRecords;
+extern REntry gResultsTable[7];
+s32 abs(s32);
 
+/* Fills the race results table (gResultsTable) for the current car's result
+ * screen. Mode 1 lists six rows from the car's times/rates; mode 2 lists three
+ * rows from this car and three from the next car; the final entry is the
+ * player's own record. A time of 15000 means "no time" and is zeroed. */
 void func_800746C0(void) {
     RCar *car;
     s32 *times;
@@ -22,25 +27,25 @@ void func_800746C0(void) {
     u8 i;
     u32 n;
 
-    car = *D_800B5C40;
+    car = *gCarList;
     func_80041564();
-    switch (D_800C35A0->mode) {
+    switch (gRecords->mode) {
     case 1:
         i = 0;
         times = car->res->times;
         vals = car->res->vals;
         do {
-            D_800C7F90[i].obj = car;
-            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
-            D_800C7F90[i].rate = vals[i];
-            D_800C7F90[i].total = times[i];
-            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            gResultsTable[i].obj = car;
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
+            gResultsTable[i].rate = vals[i];
+            gResultsTable[i].total = times[i];
+            gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
             data = car->res->data;
-            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
-            if (D_800C7F90[i].total == 15000) {
-                D_800C7F90[i].total = 0;
-                D_800C7F90[i].rate = 0;
-                D_800C7F90[i].diff = 0;
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
+            if (gResultsTable[i].total == 15000) {
+                gResultsTable[i].total = 0;
+                gResultsTable[i].rate = 0;
+                gResultsTable[i].diff = 0;
             }
             i++;
         } while ((n = i) < 6);
@@ -50,38 +55,38 @@ void func_800746C0(void) {
         times = car->res->times;
         vals = car->res->vals;
         do {
-            D_800C7F90[i].obj = car;
-            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[0]].name);
-            D_800C7F90[i].rate = vals[i];
-            D_800C7F90[i].total = times[i];
-            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[0]].v;
+            gResultsTable[i].obj = car;
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[0]].name);
+            gResultsTable[i].rate = vals[i];
+            gResultsTable[i].total = times[i];
+            gResultsTable[i].b = gRecords->names[gRecords->order[0]].v;
             data = car->res->data;
-            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
-            D_800C7F90[4].b = data->recs[D_800C35A0->sel].c4;
-            if (D_800C7F90[i].total == 15000) {
-                D_800C7F90[i].total = 0;
-                D_800C7F90[i].rate = 0;
-                D_800C7F90[i].diff = 0;
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
+            gResultsTable[4].b = data->recs[gRecords->sel].c4;
+            if (gResultsTable[i].total == 15000) {
+                gResultsTable[i].total = 0;
+                gResultsTable[i].rate = 0;
+                gResultsTable[i].diff = 0;
             }
             i++;
         } while (i < 3);
-        if (D_800C35A0->flag1A) car = car->next;
+        if (gRecords->flag1A) car = car->next;
         car = car->next;
         i = 3;
         times = car->res->times;
         vals = car->res->vals;
         do {
-            D_800C7F90[i].obj = car;
-            func_80098290(D_800C7F90[i].name, D_800C35A0->names[D_800C35A0->order[1]].name);
-            D_800C7F90[i].rate = vals[i - 3];
-            D_800C7F90[i].total = times[i - 3];
-            D_800C7F90[i].b = D_800C35A0->names[D_800C35A0->order[1]].v;
+            gResultsTable[i].obj = car;
+            strCpy(gResultsTable[i].name, gRecords->names[gRecords->order[1]].name);
+            gResultsTable[i].rate = vals[i - 3];
+            gResultsTable[i].total = times[i - 3];
+            gResultsTable[i].b = gRecords->names[gRecords->order[1]].v;
             data = car->res->data;
-            D_800C7F90[i].diff = abs(D_800C7F90[i].total - data->recs[D_800C35A0->sel].time);
-            if (D_800C7F90[i].total == 15000) {
-                D_800C7F90[i].total = 0;
-                D_800C7F90[i].rate = 0;
-                D_800C7F90[i].diff = 0;
+            gResultsTable[i].diff = abs(gResultsTable[i].total - data->recs[gRecords->sel].time);
+            if (gResultsTable[i].total == 15000) {
+                gResultsTable[i].total = 0;
+                gResultsTable[i].rate = 0;
+                gResultsTable[i].diff = 0;
             }
             i++;
         } while ((n = i) < 6);
@@ -89,10 +94,10 @@ void func_800746C0(void) {
     default:
         return;
     }
-    func_80098290(D_800C7F90[n].name, data->recs[D_800C35A0->sel].name);
-    D_800C7F90[n].obj = car;
-    D_800C7F90[n].total = data->recs[D_800C35A0->sel].time;
-    D_800C7F90[n].rate = data->recs[D_800C35A0->sel].cA;
-    D_800C7F90[n].b = data->recs[D_800C35A0->sel].c4;
+    strCpy(gResultsTable[n].name, data->recs[gRecords->sel].name);
+    gResultsTable[n].obj = car;
+    gResultsTable[n].total = data->recs[gRecords->sel].time;
+    gResultsTable[n].rate = data->recs[gRecords->sel].cA;
+    gResultsTable[n].b = data->recs[gRecords->sel].c4;
 }
 

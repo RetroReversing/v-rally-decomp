@@ -1,8 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-void *func_800592AC(u32);
-extern char D_800C02AE[];
-void func_8005946C(s32 arg0, s32 arg1)
+void *select_get_entry(u32);
+extern char stream_state[];
+
+/* Flags the sub-item at index `selected` of the active select entry as active, clears the rest. */
+void func_8005946C(s32 slot, s32 selected)
 {
     char *p;
     char *base;
@@ -10,15 +12,15 @@ void func_8005946C(s32 arg0, s32 arg1)
     char *cur;
     u32 i;
     u8 n;
-    p = *(char **)(D_800C02AE + 0x325A);
+    p = *(char **)(stream_state + 0x325A);
     base = *(char **)(p + 0x10);
-    obj = func_800592AC(arg0 - *(u8 *)(base + *(s16 *)(p + 2) * 0x14 + 0xD));
+    obj = select_get_entry(slot - *(u8 *)(base + *(s16 *)(p + 2) * 0x14 + 0xD));
     n = *(u8 *)(obj + 0x4D);
     cur = *(char **)(obj + 0x28);
     i = 0;
     if (n != 0) {
         do {
-            if ((i & 0xFF) == arg1) {
+            if ((i & 0xFF) == selected) {
                 *(s8 *)(cur + 0x1B) = 1;
             } else {
                 *(s8 *)(cur + 0x1B) = 0;

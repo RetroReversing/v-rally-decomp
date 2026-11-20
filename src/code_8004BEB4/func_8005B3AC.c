@@ -1,7 +1,7 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 #define H(p,n) (*(u16*)((p)+(n)))
-extern u8 D_800C02AE;
+extern u8 stream_state;
 extern u8 D_800A5260;
 extern u8 D_800A52F0;
 extern u8 D_800A52FC;
@@ -21,19 +21,22 @@ extern u16 D_800D0628;
 extern u16 D_800B5B52;
 extern s32 D_800B6658[];
 extern s32 D_800B55FC[];
-extern u8 *D_800C35A0;
-void func_80081540(void *);
+extern u8 *gRecords;
+void resolve_path(void *);
 s32 func_80081664(s32, void *);
-s32 func_80034FF0(void *, s32);
+s32 getTexturePack(void *, s32);
 void func_800407D0();
 void func_80052844(void *);
-void func_800857A0(s32);
+void input_set_all_flags(s32);
 void memset(void *, s32, s32);
 static inline s32 inline_fn(s32 *arg0, u8 arg1)
 {
   return arg0[arg1];
 }
 
+/* Called when the record/mode state changes: sets up the per-mode objects,
+ * then clears or validates the stored record table for the new mode (gRecords
+ * field 30 = mode, field 34 = record count). Ends by refreshing the four slots. */
 void func_8005B3AC(void)
 {
   u8 i;
@@ -41,15 +44,15 @@ void func_8005B3AC(void)
   s32 ok;
   u16 *count;
   u8 *p;
-  func_80081540(&D_800A5260);
+  resolve_path(&D_800A5260);
   D_800D0668 = func_80081664(6, &D_800A52F0);
   D_800B5B48 = func_80081664(6, &D_800A52FC);
-  func_80081540(&D_800A5308);
-  D_800D0660 = func_80034FF0(&D_800A5318, 0);
-  func_80081540(&D_800A5328);
-  D_800D0664 = func_80034FF0(&D_800A5338, 0);
-  *((&D_800C02AE) + 0x805A) = 0;
-  p = D_800C35A0;
+  resolve_path(&D_800A5308);
+  D_800D0660 = getTexturePack(&D_800A5318, 0);
+  resolve_path(&D_800A5328);
+  D_800D0664 = getTexturePack(&D_800A5338, 0);
+  *((&stream_state) + 0x805A) = 0;
+  p = gRecords;
   if (H(p, 14) == 1)
   {
     H(p, 54) = 3;
@@ -58,7 +61,7 @@ void func_8005B3AC(void)
   {
     H(p, 54) = 0;
   }
-  switch (H(D_800C35A0, 30))
+  switch (H(gRecords, 30))
   {
     case 0:
       func_800407D0();
@@ -67,9 +70,9 @@ void func_8005B3AC(void)
       break;
 
     case 5:
-      if (H(D_800C35A0, 34) == 0)
+      if (H(gRecords, 34) == 0)
     {
-      func_80052844(D_800C35A0);
+      func_80052844(gRecords);
     }
       ok = 1;
       {
@@ -105,12 +108,12 @@ void func_8005B3AC(void)
     case 3:
 
     case 4:
-      if (H(D_800C35A0, 34) == 0)
+      if (H(gRecords, 34) == 0)
     {
       u8 *q;
       D_800C72D4 = 0;
       func_800407D0();
-      q = D_800C35A0;
+      q = gRecords;
       for (i = 0; i < 4; i++)
       {
         for (j = 0; j < 4; j++)
@@ -126,7 +129,7 @@ void func_8005B3AC(void)
 
     }
     else
-      if (D_800C72D4 != (H(D_800C35A0, 34) - 1))
+      if (D_800C72D4 != (H(gRecords, 34) - 1))
     {
       func_800407D0();
     }
@@ -134,15 +137,15 @@ void func_8005B3AC(void)
     {
       D_800C72D4++;
     }
-      H(D_800C35A0, 32) = 0;
-      D_800B5B52 = H(D_800C35A0, 30);
+      H(gRecords, 32) = 0;
+      D_800B5B52 = H(gRecords, 30);
       break;
 
   }
 
   for (i = 0; i < 4; i++)
   {
-    func_800857A0(i);
+    input_set_all_flags(i);
   }
 
 }

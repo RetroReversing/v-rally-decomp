@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Info {
     u8 pad00[8];
@@ -35,88 +35,91 @@ typedef struct Game {
     u8 pad00[0x1E];
     u16 state;
 } Game;
-extern Game *D_800C35A0;
-extern Node **D_800B5C40;
-extern s32 D_8009D538;
-extern u8 D_8009FE24[];
-extern void func_8003AC30(s32, u8 *);
+extern Game *gRecords;
+extern Node **gCarList;
+extern s32 gPadFlags;
+extern u8 gTimeText[];
+extern void formatRecordTime(s32, u8 *);
 
+/* Writes the HUD digit for one position cell: finds the car it shows (or the owner's car in
+   the single-player/attract state), formats its score or time into gTimeText, and sets the
+   cell colour and blink from the result. */
 void func_8003B310(void *object) {
-    Hud * h = object;
-    Node *n;
-    s32 v;
-    u8 c;
-    u32 d;
-    s32 id;
+    Hud *hud = object;
+    Node *car;
+    s32 score;
+    u8 ch;
+    u32 idx;
+    s32 carId;
 
-    if (D_800C35A0->state == 0) {
-        n = h->owner->node;
-        if (*n->p70 == 1) {
-            n = NULL;
-            h->flags |= 4;
+    if (gRecords->state == 0) {
+        car = hud->owner->node;
+        if (*car->p70 == 1) {
+            car = NULL;
+            hud->flags |= 4;
         }
     } else {
-        for (n = *D_800B5C40; n != NULL; n = n->next) {
-            if (h->id == n->info->id) {
+        for (car = *gCarList; car != NULL; car = car->next) {
+            if (hud->id == car->info->id) {
                 break;
             }
         }
     }
-    if (n != NULL) {
-        v = n->info->score;
-        if (D_800C35A0->state == 0 && (v & 0xFF000000)) {
-            v = -v;
+    if (car != NULL) {
+        score = car->info->score;
+        if (gRecords->state == 0 && (score & 0xFF000000)) {
+            score = -score;
         }
-        if (h->digit == 0) {
-            func_8003AC30(v, D_8009FE24);
-            c = D_8009FE24[h->digit];
-            h->flags &= ~4;
-            h->blink = 0;
-            h->val = c - '0';
+        if (hud->digit == 0) {
+            formatRecordTime(score, gTimeText);
+            ch = gTimeText[hud->digit];
+            hud->flags &= ~4;
+            hud->blink = 0;
+            hud->val = ch - '0';
         } else {
-            h->flags &= ~4;
-            if (D_800C35A0->state == 0) {
-                if ((u32)(v - 30001) < 29999) {
-                    h->blink = 1;
+            hud->flags &= ~4;
+            if (gRecords->state == 0) {
+                if ((u32)(score - 30001) < 29999) {
+                    hud->blink = 1;
                 } else {
-                    h->blink = 0;
+                    hud->blink = 0;
                 }
-                d = h->digit;
+                idx = hud->digit;
             } else {
-                d = h->digit;
-                h->blink = 0;
+                idx = hud->digit;
+                hud->blink = 0;
             }
-            h->val = D_8009FE24[d] - '0';
+            hud->val = gTimeText[idx] - '0';
         }
-        if (n != NULL) {
-            if (n->info->score != 0 && D_800C35A0->state == 0) {
-                if (n->info->score > 0) {
-                    h->r = 10;
-                    h->g = 200;
-                    h->b = 10;
-                    h->a = 255;
-                    if (!(D_8009D538 & 2)) {
-                        h->blink--;
+        if (car != NULL) {
+            if (car->info->score != 0 && gRecords->state == 0) {
+                if (car->info->score > 0) {
+                    hud->r = 10;
+                    hud->g = 200;
+                    hud->b = 10;
+                    hud->a = 255;
+                    if (!(gPadFlags & 2)) {
+                        hud->blink--;
                     }
                     return;
                 }
-                h->r = 250;
-                h->g = 50;
-                h->b = 10;
-                h->a = 255;
-            } else if (n->info->done == 0) {
-                n = h->owner->node;
-                id = n->info->id;
-                if (id == h->id) {
-                    h->r = 254;
-                    h->g = 213;
-                    h->b = 30;
-                    h->a = 255;
+                hud->r = 250;
+                hud->g = 50;
+                hud->b = 10;
+                hud->a = 255;
+            } else if (car->info->done == 0) {
+                car = hud->owner->node;
+                carId = car->info->id;
+                if (carId == hud->id) {
+                    hud->r = 254;
+                    hud->g = 213;
+                    hud->b = 30;
+                    hud->a = 255;
                 } else {
-                    h->r = 255;
-                    h->g = 255;
-                    h->b = 255;
-                    h->a = 255;
+                    hud->r = 255;
+                    hud->g = 255;
+                    hud->b = 255;
+                    hud->a = 255;
                 }
             }
         }

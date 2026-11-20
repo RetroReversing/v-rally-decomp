@@ -1,7 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800A73E0[];
-extern char D_800AE850[];
+extern char gGameState[];
+extern char gOrderState[];
+
+/* Rebuilds the five-slot table of list entries, then walks slot 4 down to slot 0,
+   adding each entry's weight into the running total of the entry it links to. */
 void func_80042DE0(void)
 {
   void *slot[5];
@@ -26,11 +29,11 @@ void func_80042DE0(void)
     i++;
   }
   while (i < 5);
-  list = *((s32 **) (D_800AE850 + 0x73F0));
+  list = *((s32 **) (gOrderState + 0x73F0));
   node = *((char **) list);
   if (node != NULL)
   {
-    tbl = D_800A73E0 + 0x6C00;
+    tbl = gGameState + 0x6C00;
     do
     {
       ent = *((char **) (node + 0x6C));
@@ -49,7 +52,7 @@ void func_80042DE0(void)
   {
     t1 = 4;
     five = 5;
-    tbl2 = D_800A73E0 + 0x6C00;
+    tbl2 = gGameState + 0x6C00;
     one = 1;
     do
     {

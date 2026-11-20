@@ -20,6 +20,21 @@ An unfinished matching decompilation of the European revision 0 release (`NVLP`)
 
 ## Verified checkpoint
 
+### Results panel and full progress sync — 20 November 2026
+
+`func_80078760` matches all **875 instructions (3,500 bytes)** under the unchanged
+KMC GCC 2.7.2 profile. Capturing the font address in a pointer local before the
+camera load, then reusing that local later for the results table, recovered the
+last five register operands. The live judge and independent standalone check
+both accepted score zero.
+
+The complete **12,582,912-byte cartridge** rebuilt byte for byte. The standalone
+build selects **2,095 of 2,124 entries as C**,
+leaving **29 assembly entries**. The refreshed
+portable snapshot preserves **2,095 app matches and 2 best drafts**,
+including their names, headers and compiler profiles. See `decompdecomp-sync.json`
+for app and standalone differences.
+
 ### Display-list builder and full progress sync — 20 November 2026
 
 `func_8000A840` now matches all **1,076 instructions (4,304 bytes)** using KMC GCC 2.7.2 with `-G0 -mips3 -mgp32 -mfp32 -O2 -g3`. Its C builds the display list, copies overlapping sprite records and calculates texture slice coordinates.

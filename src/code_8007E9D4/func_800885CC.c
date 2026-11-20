@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
 s32 f0;
@@ -47,19 +47,22 @@ u8 fCB;
 } Obj;
 extern s32 D_800B68EC;
 extern s32 D_800C34D4;
-void func_800885CC(u8 *arg)
+/* Resets one voice block to its default state: zeroes the whole block (0x134
+   bytes) and then sets the default levels, rates and timing, keeping the
+   block's fC1 byte across the reset. */
+void func_800885CC(u8 *voice)
 {
   Obj *p;
   u8 save;
   u32 i;
   s16 v;
   s32 t;
-  p = (Obj *)arg;
+  p = (Obj *)voice;
   save = p->fC1;
   p->f0 = 0;
   for (i = 0; i < 0x134; i++)
   {
-    *(arg++) = 0;
+    *(voice++) = 0;
   }
 
  p->f98 = 0xFFFF;

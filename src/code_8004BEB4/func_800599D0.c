@@ -1,18 +1,31 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800C02AE[];
-s32 func_80057918();
-s32 func_80059618();
-void func_800596F4(void *, s16, s16, void *);
+typedef struct SelectEntry {
+    u8 pad00[4];
+    u16 id;
+    s16 x;
+    s16 y;
+    u8 group;
+    u8 r, g, b, a;
+} SelectEntry;
 
-void func_800599D0(u8 *arg0, s32 arg1) {
-    if (*(u16 *)(arg0 + 4) != 0x1C7) {
-        if (arg1 & 0xFF) {
-            func_80059618(arg0, 0xDC, 0xDC, 0xE, 0xFF);
+extern char stream_state[];
+void *pool_get_item(s32 pool, u16 id);
+void group_set_color(void *owner, u8 r, u8 g, u8 b, u8 a);
+void draw_palette_sprite(void *, s16, s16, void *);
+
+/* Draws one select-screen entry at its position. Entry 0x1C7 is never drawn.
+ * When highlight is set the group is drawn in the highlight colour, otherwise
+ * in the entry's own colour. */
+void func_800599D0(SelectEntry *entry, s32 highlight) {
+    if (entry->id != 0x1C7) {
+        if (highlight & 0xFF) {
+            group_set_color(entry, 0xDC, 0xDC, 0xE, 0xFF);
         } else {
-            func_80059618(arg0, arg0[0xB], arg0[0xC], arg0[0xD], arg0[0xE]);
+            group_set_color(entry, entry->r, entry->g, entry->b, entry->a);
         }
-        func_800596F4((void *)(arg0), (s16)(*(s16 *)(arg0 + 6)), (s16)(*(s16 *)(arg0 + 8)), (void *)(func_80057918(*(s32 *)(D_800C02AE + 0x807A), *(u16 *)(arg0 + 4))));
+        draw_palette_sprite(entry, entry->x, entry->y,
+                      pool_get_item(*(s32 *)(stream_state + 0x807A), entry->id));
     }
 }
 

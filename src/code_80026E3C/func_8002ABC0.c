@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern void func_8008E13C(void *, void *, s32);
+extern void memcpy(void *, void *, s32);
 extern u8 D_8009CEE9[];
 extern u8 D_8009E260;
 extern void (*D_8009CEE4[])(void *);
@@ -18,10 +18,26 @@ typedef struct
   u8 flags;
   u8 pad[6];
 } CmdEntry;
-s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
+
+/* Where token n is written: the console's compiler kept tokens[] right after buf[] on its stack, and the matched
+ * code reaches it from buf; a port's compiler lays its stack out its own way, so it writes tokens[n] itself. */
+#if defined(PORT) || defined(PORT_WASM)
+#define TOKEN_AT(n) ((s8 *) &tokens[n])
+#define TOKEN_AT_INT(n) ((s8 *) &tokens[n])
+#else
+#define TOKEN_AT(n) ((s8 *) (buf + (n) * 76) + 72)
+#define TOKEN_AT_INT(n) ((s8 *) (((n) * 76) + (s32) buf) + 72)
+#endif
+
+/* Parses one command line of script text starting at `text` (stops at `end`):
+ * splits it into up to 26 comma/space separated tokens (numbers, hex 0x.. or
+ * quoted strings, stored in tokens[1..]; tokens[0].number holds the count), then
+ * calls the command's handler when its flag bit is set. cmd_id is the 1-based
+ * command index. Always returns 1. */
+s32 func_8002ABC0(s32 cmd_id, s8 *text, s8 *end)
 {
   s8 buf[72];
-  Token tok[26];
+  Token tokens[26];
   s16 n;
   s16 len;
   u8 neg;
@@ -29,11 +45,11 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
   s16 quoted;
   u32 i;
   s32 command;
-  cmd--;
-  command = cmd;
-  while (((((((*p) != 32) & ((*p) != 9)) && (((*p) != 44) & ((*p) != 13))) && ((*p) != 35)) && (!((((*p) == 47) && ((p + 1) < end)) && (p[1] == 47)))) && (p < end))
+  cmd_id--;
+  command = cmd_id;
+  while (((((((*text) != 32) & ((*text) != 9)) && (((*text) != 44) & ((*text) != 13))) && ((*text) != 35)) && (!((((*text) == 47) && ((text + 1) < end)) && (text[1] == 47)))) && (text < end))
   {
-    p++;
+    text++;
   }
 
   n = 1;
@@ -42,7 +58,7 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
     register s32 quote = 34;
     do
     {
-      s8 *skip = p;
+      s8 *skip = text;
       while ((((*skip) == 32) | ((*skip) == 9)) || ((*skip) == comma))
       {
         if (skip >= end)
@@ -52,33 +68,33 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
         skip++;
       }
 
-      p = skip;
-      if (((*p) == 35) || ((((*p) == 47) && ((p + 1) < end)) && (p[1] == 47)))
+      text = skip;
+      if (((*text) == 35) || ((((*text) == 47) && ((text + 1) < end)) && (text[1] == 47)))
       {
         break;
       }
-      if (((*p) == 13) | (p >= end))
+      if (((*text) == 13) | (text >= end))
       {
         break;
       }
-      if ((((u8) ((*p) - 48)) < 10) || ((*p) == 45))
+      if ((((u8) ((*text) - 48)) < 10) || ((*text) == 45))
       {
-        neg = (*p) == 45;
-        p += neg;
-        tok[n].number = 0;
-        tok[n].numeric = 1;
+        neg = (*text) == 45;
+        text += neg;
+        tokens[n].number = 0;
+        tokens[n].numeric = 1;
         hex = 0;
-        if (((*p) == 48) && (p[1] == 88))
+        if (((*text) == 48) && (text[1] == 88))
         {
-          buf[0] = *p;
-          buf[1] = p[1];
+          buf[0] = *text;
+          buf[1] = text[1];
           hex = 1;
-          p += 2;
+          text += 2;
         }
         len = 0;
         do
         {
-          if (((((*p) == 13) || (((*p) == 32) | ((*p) == 9))) || (i = (*p) == comma)) || (!(p < end)))
+          if (((((*text) == 13) || (((*text) == 32) | ((*text) == 9))) || (i = (*text) == comma)) || (!(text < end)))
           {
             if (hex)
             {
@@ -92,83 +108,103 @@ s32 func_8002ABC0(s32 cmd, s8 *p, s8 *end)
           }
           if (hex)
           {
-            if (((u8) ((*p) - 48)) >= 10)
+            if (((u8) ((*text) - 48)) >= 10)
             {
-              tok[n].number = ((tok[n].number * 16) + (*p)) - 55;
+              tokens[n].number = ((tokens[n].number * 16) + (*text)) - 55;
             }
             else
             {
-              tok[n].number = ((tok[n].number * 16) + (*p)) - 48;
+              tokens[n].number = ((tokens[n].number * 16) + (*text)) - 48;
             }
-            buf[len + 2] = *p;
+            buf[len + 2] = *text;
           }
           else
           {
-            tok[n].number = ((tok[n].number * 10) + (*p)) - 48;
-            buf[len] = *p;
+            tokens[n].number = ((tokens[n].number * 10) + (*text)) - 48;
+            buf[len] = *text;
           }
           len++;
-          p++;
+          text++;
         }
         while (len < 11);
         if (neg)
         {
-          tok[n].text[0] = 45;
-          tok[n].number = -tok[n].number;
+          tokens[n].text[0] = 45;
+          tokens[n].number = -tokens[n].number;
           if (hex)
           {
-            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 4);
+            #ifdef PORT
+memcpy(TOKEN_AT(n), buf + 1, len + 4);
+#else
+memcpy(TOKEN_AT_INT(n), buf + 1, len + 4);
+#endif
           }
           else
           {
-            func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf + 1, len + 2);
+            #ifdef PORT
+memcpy(TOKEN_AT(n), buf + 1, len + 2);
+#else
+memcpy(TOKEN_AT_INT(n), buf + 1, len + 2);
+#endif
           }
         }
         else
           if (hex)
         {
-          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 3);
+          #ifdef PORT
+memcpy(TOKEN_AT(n), buf, len + 3);
+#else
+memcpy(TOKEN_AT_INT(n), buf, len + 3);
+#endif
         }
         else
         {
-          func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#ifdef PORT
+          memcpy(TOKEN_AT(n), buf, len + 1);
+#else
+          memcpy(TOKEN_AT_INT(n), buf, len + 1);
+#endif
         }
       }
       else
       {
-        quoted = (*p) == 34;
-        p += quoted;
-        tok[n].numeric = 0;
+        quoted = (*text) == 34;
+        text += quoted;
+        tokens[n].numeric = 0;
         for (len = 0; len < 65; len++)
         {
           if (quoted)
           {
-            if ((*p) == 34)
+            if ((*text) == 34)
             {
               buf[len] = 0;
-              p++;
+              text++;
               break;
             }
           }
           else
           {
-            if (((((*p) == 13) || (((*p) == 32) | ((*p) == 9))) || (i = (*p) == comma)) || (!(p < end)))
+            if (((((*text) == 13) || (((*text) == 32) | ((*text) == 9))) || (i = (*text) == comma)) || (!(text < end)))
             {
               buf[len] = 0;
               break;
             }
           }
-          buf[len] = *(p++);
+          buf[len] = *(text++);
         }
-        func_8008E13C((s8 *) ((n * 76) + (s32) buf) + 72, buf, len + 1);
+#ifdef PORT
+        memcpy(TOKEN_AT(n), buf, len + 1);
+#else
+        memcpy(TOKEN_AT_INT(n), buf, len + 1);
+#endif
       }
       n++;
     }
     while (n < 27);
-    tok[0].number = n - 1;
-    if (D_8009CEE9[cmd * 12] & D_8009E260)
+    tokens[0].number = n - 1;
+    if (D_8009CEE9[cmd_id * 12] & D_8009E260)
     {
-      D_8009CEE4[cmd * 3](tok);
+      D_8009CEE4[cmd_id * 3](tokens);
     }
   }
   return 1;

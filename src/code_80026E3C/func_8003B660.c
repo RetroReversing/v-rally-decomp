@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { char pad[0x14]; s32 flags; char pad18[0x54]; char *def; } Node; /* def at 0x6C */
 typedef struct { char pad[0x24]; Node *node; } Link;
@@ -16,13 +16,16 @@ typedef struct {
     Link *link;   /* 0xA8 */
 } Obj;
 
-void func_8003A6D4(Obj *, u8 *);
-void func_8003AB38(u32, u8 *, s32);
+void set_display_color(Obj *, u8 *);
+void format_time_text(u32, u8 *, s32);
 extern s32 D_8009D534;
 extern u8 D_8009D544;
 extern u8 D_8009FE00[];
 extern u32 D_800AFA6C;
 
+/* Timer display update: reads the linked time value, flashes the display when the
+   value changes and it is not a special node, refreshes the text buffer when the
+   display is on its first slot, then sets the colour and the current digit. */
 void func_8003B660(void *object) {
     Obj * o = object;
     u8 col[4];
@@ -42,9 +45,9 @@ void func_8003B660(void *object) {
             o->last = c;
             if (o->idx == 0) {
                 if (D_8009D544 == 0) {
-                    func_8003AB38((u32)(c * 2) / 3, D_8009FE00, c);
+                    format_time_text((u32)(c * 2) / 3, D_8009FE00, c);
                 } else {
-                    func_8003AB38(c, D_8009FE00, c);
+                    format_time_text(c, D_8009FE00, c);
                 }
             }
             if (o->blink != 0 && !((D_800AFA6C >> 3) & 1)) {
@@ -60,7 +63,7 @@ void func_8003B660(void *object) {
     col[1] = 200;
     col[2] = 10;
     col[3] = 255;
-    func_8003A6D4(o, col);
+    set_display_color(o, col);
     o->digit = D_8009FE00[o->idx] - 48;
 }
 

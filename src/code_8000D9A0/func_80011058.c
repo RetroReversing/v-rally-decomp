@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern s32 D_8009CE8C;
 extern s32 D_8009CE90;
@@ -6,68 +6,77 @@ extern s32 D_8009CE94;
 extern s32 D_8009CE98;
 extern s32 D_8009CE9C;
 extern s32 D_8009CEA0;
-extern char D_800C02AE[];
-void func_80011058(void *arg0, s32 arg1, s32 arg2)
+extern char stream_state[];
+/* Fills in the state block obj from entry 'index' of the 0x4C-byte table (or from fixed defaults when table is NULL), then sets the per-mode volume globals from obj's mode field at +0xE. */
+#ifdef PORT
+void func_80011058(void *obj, char *table, s32 index)
+#else
+void func_80011058(void *obj, s32 table, s32 index)
+#endif
 {
-  s32 var_v0;
-  s32 temp_v1;
+  s32 value;
+  s32 v;
   s32 idx;
   char *temp;
-  idx = arg2 & 0xFFFF;
+  idx = index & 0xFFFF;
   do
   {
-    if (arg1 != 0)
+    if (table != 0)
     {
-      temp = (char *) (((arg2 & 0xFFFF) * 0x4C) + arg1);
-      *((s32 *) (((char *) arg0) + 0x10)) = *((s32 *) (temp + 0x90));
-      *((s32 *) (((char *) arg0) + 0x14)) = *((s32 *) (temp + 0xDC));
-      temp_v1 = *((s32 *) (temp + 0x128));
-      *((s16 *) (((char *) arg0) + 0x6A)) = 0x1000;
-      *((s32 *) (((char *) arg0) + 0x30)) = 2;
-      *((s32 *) (((char *) arg0) + 0x18)) = temp_v1;
+#ifdef PORT
+      temp = table + ((index & 0xFFFF) * 0x4C);
+#else
+      temp = (char *) (((index & 0xFFFF) * 0x4C) + table);
+#endif
+      *((s32 *) (((char *) obj) + 0x10)) = *((s32 *) (temp + 0x90));
+      *((s32 *) (((char *) obj) + 0x14)) = *((s32 *) (temp + 0xDC));
+      v = *((s32 *) (temp + 0x128));
+      *((s16 *) (((char *) obj) + 0x6A)) = 0x1000;
+      *((s32 *) (((char *) obj) + 0x30)) = 2;
+      *((s32 *) (((char *) obj) + 0x18)) = v;
     }
     else
     {
-      *((s32 *) (((char *) arg0) + 0x10)) = 0x80;
-      *((s32 *) (((char *) arg0) + 0x14)) = 0x14;
-      *((s32 *) (((char *) arg0) + 0x18)) = 5;
-      *((s16 *) (((char *) arg0) + 0x6A)) = 0x1000;
-      *((s32 *) (((char *) arg0) + 0x30)) = 2;
+      *((s32 *) (((char *) obj) + 0x10)) = 0x80;
+      *((s32 *) (((char *) obj) + 0x14)) = 0x14;
+      *((s32 *) (((char *) obj) + 0x18)) = 5;
+      *((s16 *) (((char *) obj) + 0x6A)) = 0x1000;
+      *((s32 *) (((char *) obj) + 0x30)) = 2;
     }
-    arg0 = *((void **) (D_800C02AE + 0x32F2));
+    obj = *((void **) (stream_state + 0x32F2));
   }
   while (0);
-  temp_v1 = *((u16 *) (((char *) arg0) + 0xE));
-  switch (temp_v1)
+  v = *((u16 *) (((char *) obj) + 0xE));
+  switch (v)
   {
     case 1:
-      var_v0 = -0x87;
-      D_8009CE90 = var_v0;
+      value = -0x87;
+      D_8009CE90 = value;
       D_8009CE8C = 0;
-      var_v0 = 0x2B;
+      value = 0x2B;
       break;
     case 2:
-      if ((*((u16 *) (((char *) arg0) + 0x12))) & 1)
+      if ((*((u16 *) (((char *) obj) + 0x12))) & 1)
       {
-        var_v0 = -0x56;
-        D_8009CE9C = var_v0;
-        D_8009CE90 = var_v0;
-        var_v0 = 0x34;
+        value = -0x56;
+        D_8009CE9C = value;
+        D_8009CE90 = value;
+        value = 0x34;
       }
       else
       {
-        var_v0 = -0x87;
-        D_8009CE9C = var_v0;
-        D_8009CE90 = var_v0;
-        var_v0 = 0x2B;
+        value = -0x87;
+        D_8009CE9C = value;
+        D_8009CE90 = value;
+        value = 0x2B;
       }
       D_8009CE98 = 0;
       D_8009CE8C = 0;
-      D_8009CEA0 = var_v0;
+      D_8009CEA0 = value;
       break;
     default: return;
   }
 
-  D_8009CE94 = var_v0;
+  D_8009CE94 = value;
 }
 

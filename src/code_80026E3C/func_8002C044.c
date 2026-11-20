@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 #define W(p,o) (*(int*)((char*)(p)+(o)))
 #define U(p,o) (*(u16*)((char*)(p)+(o)))
@@ -12,12 +12,12 @@ typedef struct
 typedef struct { s32 v[3]; s32 pad[2]; } E20;
 typedef struct { s32 x, y, z; } V3;
 typedef struct { u8 pad[0x10]; E20 s[12]; E20 d[12]; E20 o[12]; } Blk20;
-extern char *D_800B5C40;
-void func_8002D8A0(void *, void *, void *);
+extern char *gCarList;
+void mat3_mul_vec3_q12(void *, void *, void *);
 int func_80028E94(void *, void *, int);
-char *func_80028D74(void *, void *);
+char *find_zone_at_pos(void *, void *);
 void func_80029AA8(void *, void *, void *, int);
-void func_8002A4C4(void *, void *, int, int);
+void track_edge_add_point(void *, void *, int, int);
 int func_80029EAC(void *, void *, int);
 void func_8002D7E4(int, int *);
 void func_8002E778(void *, void *);
@@ -52,7 +52,7 @@ int __repair_literal;
   int k;
   for (i = 0; i < 12; i++)
   {
-    func_8002D8A0(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
+    mat3_mul_vec3_q12(P(a, 0x5c) + 64, &((Blk20 *) P(a, 0x80))->s[i], &((Blk20 *) P(a, 0x80))->d[i]);
     vadd(&((Blk20 *) P(a, 0x80))->o[i], &((Blk20 *) P(a, 0x80))->d[i], (int *) (P(a, 0x58) + 12));
   }
   old = 0;
@@ -76,25 +76,25 @@ int __repair_literal;
       oldrow = ((int *) P(a, 0x60))[i];
       save = pos;
       __repair_literal = result;
-      g = func_80028D74(old = g, v);
+      g = find_zone_at_pos(old = g, v);
       if (g != old)
       {
         switch (result)
         {
-          case 1:
+          case 3:
           case 4:
-          case 5:
-          case 6:
-          case 7:
-          case 8:
             row = -1;
             col = -1;
             break;
           case 2:
+          case 5:
+          case 6:
             row = 0;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;
-          case 3:
+          case 1:
+          case 7:
+          case 8:
             row = U(g, 136) - 2;
             col = oldcol - (W(old, 76) - W(g, 76));
             break;
@@ -123,7 +123,11 @@ int __repair_literal;
         {
           W(P(a, 96), (i * 4) + 48) = oldcol + oldcol - oldcol;
           W(P(a, 96), i * 4) = oldrow;
+          #ifdef PORT
+          g = old;
+#else
           g = (char *)((int)old + (int)old - (int)old);
+#endif
           P(P(a, 140), i * 4) = g;
           pos = save;
           result = -__repair_literal;
@@ -136,7 +140,7 @@ int __repair_literal;
     }
     if (i < 4)
     {
-      func_8002D8A0(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);
+      mat3_mul_vec3_q12(P(a, 88) + 252, (P(a, 128) + 16) + (i * 20), v);
       v[0] <<= 2;
       v[1] <<= 2;
       v[2] <<= 2;
@@ -167,8 +171,16 @@ int __repair_literal;
         {
           int k = shift[0] * 4;
           W(P(a, 96), (i * 4) + 48) = W(P(a, 96), k + 48);
+          #ifdef PORT
+          W(P(a, 96), i * 4) = *(int *)(P(a, 96) + k);
+#else
           W(P(a, 96), i * 4) = *(int *)(k + (int)P(a, 96));
+#endif
+          #ifdef PORT
+          P(P(a, 140), i * 4) = *(char **)(P(a, 140) + k);
+#else
           P(P(a, 140), i * 4) = *(char **)(k + (int)P(a, 140));
+#endif
         }
         func_80029AA8(a, q, &pos, i);
       }
@@ -177,7 +189,7 @@ int __repair_literal;
     }
     else if (result < 0)
     {
-      func_8002A4C4(a, &pos, i, result);
+      track_edge_add_point(a, &pos, i, result);
     }
     else
     {
@@ -185,7 +197,7 @@ int __repair_literal;
     }
   }
 
-  for (b = P(D_800B5C40, 0); b; b = P(b, 4))
+  for (b = P(gCarList, 0); b; b = P(b, 4))
   {
     if (((b == a) || (W(b, 20) & 64)) || (W(a, 20) & 64))
     {

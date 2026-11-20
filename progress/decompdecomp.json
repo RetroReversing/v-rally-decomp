@@ -1,7 +1,7 @@
 {
  "format": 2,
- "saved_at": 1795138260.5258229,
- "revision": 21980,
+ "saved_at": 1795138623.4738078,
+ "revision": 21982,
  "title": "V-RALLY-PAL",
  "platform": "n64",
  "game": {
@@ -1468,20 +1468,6 @@
     "-O2",
     "-g3"
    ]
-  },
-  "127552:2147608128": {
-   "toolchain": "gcc-2.7.2-kmc",
-   "flags": [
-    "-G0",
-    "-mips3",
-    "-mgp32",
-    "-mfp32",
-    "-O2",
-    "-g3"
-   ],
-   "timeout": 20,
-   "function": "func_8001E640",
-   "vram": 2147608128
   }
  },
  "instructions": "Try your best, doesn\u2019t matter how big the function or how hard you can do this! Just improve the functions score as much as you can!",
@@ -1537,10 +1523,10 @@
   "local_source_1975": "common_local_source_1975.h",
   "local_source_2029": "common_local_source_2029.h",
   "local_source_2109": "common_local_source_2109.h",
+  "local_source_21474836915": "common_local_source_21474836915.h",
   "local_source_599": "common_local_source_599.h",
   "local_source_671": "common_local_source_671.h",
-  "local_source_894": "common_local_source_894.h",
-  "local_source_21474836915": "common_local_source_21474836915.h"
+  "local_source_894": "common_local_source_894.h"
  },
  "functions": {
   "TransformUpdate": {
@@ -4310,8 +4296,8 @@
   },
   "func_80024D60": {
    "vram": 2147634528,
-   "best_score": 9983,
-   "best_by": "manual-e80ecadc235047de"
+   "best_score": 4675,
+   "best_by": "manual-f1c742ab0b8d4375"
   },
   "func_80026E3C": {
    "vram": 2147642940,
@@ -12030,6 +12016,7 @@
   }
  },
  "function_headers": {
+  "func_8001E640": "local_source_21474836915",
   "func_8002C6EC": "local_source_599",
   "func_8002FFA4": "local_source_671",
   "car_update_ranking": "local_source_894",

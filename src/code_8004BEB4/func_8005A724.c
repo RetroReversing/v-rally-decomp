@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
@@ -13,9 +13,9 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592AC(u32);                              /* extern */
+void *select_get_entry(u32);                              /* extern */
 
-void func_8005A724(u32 index) {
-    M2C_FIELD(func_800592AC(index), s8 *, 0x41) = 0;
+/* Clears the byte at offset 0x41 of the select entry at entryIndex. */ void func_8005A724(u32 entryIndex) {
+    M2C_FIELD(select_get_entry(entryIndex), s8 *, 0x41) = 0;
 }
 

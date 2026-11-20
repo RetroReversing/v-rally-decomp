@@ -1,26 +1,28 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Ent89 { u32 mask; s8 type; u8 pad5[3]; s32 val; } Ent89;
 typedef struct Node89 { u32 pad0; Ent89 *subs; u8 count; u8 active; u8 padA[2]; } Node89;
 typedef struct Obj89 { u8 pad0[8]; Node89 *nodes; u8 padC; u8 base; u8 cur; } Obj89;
 typedef struct Res89 { u8 pad0[0x14]; u8 f14; } Res89;
 
-void func_80038E9C(void);
+void sound_voice_request_default(void);
 void func_80038ED4(void);
 void func_80038F0C(void);
 
-s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *flag, Res89 *res, s32 arg7)
+/* Walks the entry table for the events in `mask`: runs the matching callbacks,
+ * follows the node chain for type-1 entries, and records the first usable value
+ * in *out. Sets *flag when a result is ready. Returns the selected value, or -1. */
+s16 func_80089C48(Obj89 *obj, Ent89 *e, u32 mask, u8 count, s16 *out, u8 *flag, Res89 *res, s32 arg7)
 {
-    u8 x27 = 0;
-    u8 x2f = 0;
-    u8 x37 = 0;
-    u8 x3f = 0;
+    u8 gotCamera = 0;
+    u8 gotCameraAlt = 0;
+    u8 gotValue = 0;
+    u8 gotValueAlt = 0;
     s32 ret = -1;
     u8 done;
     u8 called;
     u8 c;
     u8 k;
-#define e list
     Ent89 *p;
     Node89 *node;
     s32 (*fn)(s32, s32);
@@ -32,7 +34,6 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
     *out = ret;
     *flag = 0;
     res->f14 = 0;
-    e = list;
     done = 0;
     called = 0;
     for (c = 0; c < count; c++, e++) {
@@ -43,7 +44,7 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
         if (!called) {
             if (e->mask == 1) {
                 called = 1;
-                func_80038E9C();
+                sound_voice_request_default();
             } else if (e->mask == 2) {
                 called = 1;
                 func_80038ED4();
@@ -54,12 +55,16 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
         }
         type = e->type;
         if (type == 0 && !done) {
+#ifdef PORT
+            fn = (s32 (*)(s32, s32))(uintptr_t)e->val;
+#else
             fn = (s32 (*)(s32, s32))e->val;
+#endif
             v = -1;
             if (fn != 0) {
-                if (x27) {
+                if (gotCamera) {
                     v = fn(-2, 0);
-                } else if (x2f) {
+                } else if (gotCameraAlt) {
                     v = fn(-1, 0);
                 } else {
                     v = fn(arg7, arg7 - obj->base);
@@ -77,7 +82,7 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
                 if (node->active) {
                     if (node != &obj->nodes[obj->cur - obj->base]) {
                         ret = p->val;
-                        x3f = 1;
+                        gotValueAlt = 1;
                     } else {
                         done = 1;
                         *flag = 0;
@@ -96,13 +101,13 @@ s16 func_80089C48(Obj89 *obj, Ent89 *list, u32 mask, u8 count, s16 *out, u8 *fla
                 }
                 p = &node->subs[k];
             }
-        } else if (e->type == 2 && !(z = x3f | (e->val == -1)) && !x37) {
+        } else if (e->type == 2 && !(z = gotValueAlt | (e->val == -1)) && !gotValue) {
             if (e->mask & 0x10000) {
-                x2f = 1;
+                gotCameraAlt = 1;
             } else if (e->mask & 0x20) {
-                x27 = 1;
+                gotCamera = 1;
             }
-            x37 = 1;
+            gotValue = 1;
             *out = e->val;
         }
     }

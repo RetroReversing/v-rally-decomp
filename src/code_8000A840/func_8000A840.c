@@ -1,5 +1,5 @@
-#include "common.h"
-
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
+#line 1 "func.c"
 typedef struct Texture { u8 pad0[4]; u16 format, stride; u8 pad8, height, padA[2]; u16 rows, slices; u8 pad10[4]; s32 *pixels; } Texture;
 typedef struct { u8 pad0[12]; Texture *tex; u8 pad10[28]; s32 image; u8 pad30[4]; s16 limit; u8 pad36[2]; s32 other; u8 pad3c[4]; s16 x; u8 pad42[6]; s16 y; u8 pad4a[2]; s16 scale; u8 pad4e[9]; s8 flags; void *list; u8 pad5c[4]; } Order;
 typedef struct {u8 r,g,b,a;} Color;
@@ -707,3 +707,4 @@ sptr = (u32 *)arg3; dptr = (u32 *)var_s2; words=24; do { *dptr++ = *sptr++; } wh
     gfx_packet_25[1] = 0;
     gfx_set_dl(temp_v0, var_s3_4);
 }
+

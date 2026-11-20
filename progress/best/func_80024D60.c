@@ -33,6 +33,13 @@ extern s32 gPadFlags;
 extern s32 gSnapIndex;
 extern u8 gStreamState[];
 
+static inline s32 wheel_bound(s32 value, s32 bound)
+{
+    if (bound < value) return bound;
+    if (value < -bound) return -bound;
+    return value;
+}
+
 static inline s32 force_under_limit(s32 low, s32 high)
 {
     return low < high;
@@ -69,6 +76,17 @@ static inline u8 lookup(const u8 *base, s32 y, s32 x) { return (base + y * 0x81)
 
 static inline s32 wheel_diff(s32 value) { return value >> 4; }
 
+static inline s32 weighted_history(s32 weight, const s32 *record) { return weight * ((s32) ((u32) record[2] << 4)); }
+
+static inline void *offset_pointer(s32 offset, void *base) { return (void *) ((AddrWord) offset + (AddrWord) base); }
+
+static inline s16 normalize_halfword(s32 value)
+{
+    value = (u32)value << 16;
+    value = (s32)value >> 16;
+    return value;
+}
+
 void func_80024D60(void *arg0) {
     struct {
         s16 sp18[16];
@@ -92,7 +110,6 @@ void func_80024D60(void *arg0) {
     s32 sp144;
     s32 sp14C;
     s32 sp154;
-    volatile s32 late_force;
     s32 sp15C;
     s32 sp164;
     u8 *late_points;
@@ -111,12 +128,7 @@ void func_80024D60(void *arg0) {
     s32 *sp1C4;
     s32 *sp1CC;
     u8 *sp1D4;
-    volatile s32 sp1EC;
-    s32 sp1F4;
-    s32 sp1FC;
-    u8 *temp_s4_2;
     u8 *var_a0_2;
-    u8 *var_a1_2;
     u8 *var_v1;
     u8 *var_v1_2;
     u8 *var_v1_3;
@@ -149,11 +161,8 @@ void func_80024D60(void *arg0) {
     s32 scaled_wheel_force;
     s32 temp_a3_6;
     s32 temp_lo;
-    s32 temp_s0_2;
     s32 temp_s0_3;
-    s32 temp_s0_4;
     s32 temp_s2_2;
-    s32 temp_s3;
     s32 temp_s3_3;
     s32 temp_s7;
     s32 temp_t0;
@@ -197,21 +206,16 @@ void func_80024D60(void *arg0) {
     s32 var_a1_5;
     s32 var_a1_6;
     s32 var_a1_7;
-    s32 var_a2;
+    union { s32 sum; void *profile; } var_a2;
     s32 var_a2_2;
     s32 var_a2_4;
     s32 var_a3;
-    s32 var_a3_2;
     s32 var_s0;
     s32 var_s0_2;
-    s32 var_s0_3;
-    s32 var_s0_4;
     s32 var_s2;
     s32 var_s2_2;
-    s32 var_s2_3;
     s32 var_s2_4;
     s32 var_s3;
-    s32 var_s3_2;
     s32 var_s4;
     s32 var_s5;
     s32 var_s5_2;
@@ -228,7 +232,6 @@ void func_80024D60(void *arg0) {
     s32 var_v0_9;
     u32 temp_s0;
     u8 temp_a1_2;
-    u8 temp_s3_2;
     void *temp_a0;
     void *temp_a0_10;
     void *temp_a0_11;
@@ -242,10 +245,9 @@ void func_80024D60(void *arg0) {
     void *temp_a0_8;
     void *temp_a0_9;
     void *temp_a1_4;
-    void *temp_a2_4;
     void *temp_s0_5;
     union { s32 difference; void *ptr; } temp_s2;
-    void *temp_s4;
+    union { u8 *record; s32 offset; } wheel_context;
     void *temp_s6;
     void *temp_s6_2;
     void *temp_t1;
@@ -271,7 +273,7 @@ void func_80024D60(void *arg0) {
     void *temp_v1_4;
     void *temp_v1_8;
     void *var_a0;
-    void *var_a1;
+    u8 *var_a1;
     void *var_s1;
 
 
@@ -288,7 +290,7 @@ void func_80024D60(void *arg0) {
         sp1B4 = stack.stack_F0;
         sp1C4 = stack.stack_B0;
         sp1BC = stack.stack_E0;
-        var_a2 = 0;
+        var_a2.sum = 0;
         do {
             var_s7 = 0;
             var_a1 = M2C_FIELD(var_s1, void **, 0x80);
@@ -300,9 +302,9 @@ void func_80024D60(void *arg0) {
                 var_a0 += 0x14;
                 var_s7 += 1;
                 temp_s2.difference = temp_v0 - temp_v1;
-                var_a2 += temp_s2.difference;
+                var_a2.sum += temp_s2.difference;
             } while (var_s7 < 4);
-            if (var_a2 / 4 >= 0x3E9) {
+            if (var_a2.sum / 4 >= 0x3E9) {
                 func_80024B28(var_s1);
             }
             if (M2C_FIELD(gStreamState, s32 *, 0x8112) != 0) {
@@ -436,34 +438,37 @@ void func_80024D60(void *arg0) {
 block_59:
                 var_s7 = 0;
             }
-            var_a1_2 = sp1D4;
+            var_a1 = sp1D4;
             do {
-                temp_a0_3 = M2C_FIELD(var_a1_2, s32 *, 0x108);
+                temp_a0_3 = M2C_FIELD(var_a1, s32 *, 0x108);
                 if (temp_a0_3 != 0) {
                     temp_v1_5 = var_s7 * 4;
-                    var_a3 += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, temp_v1_5);
+                    var_a3 += *(s32 *) offset_pointer(temp_v1_5, M2C_FIELD(var_s1, void **, 0x54));
                 } else {
                     temp_v1_5 = var_s7 * 4;
                 }
                 var_s7 += 1;
-                M2C_FIELD((temp_v1_5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x354) = temp_a0_3;
-                var_a1_2 += 4;
+                M2C_FIELD(offset_pointer(temp_v1_5, M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x354) = temp_a0_3;
+                var_a1 += 4;
             } while (var_s7 < 4);
-            temp_a2_4 = M2C_FIELD(var_s1, void **, 0x50);
-            var_a1_3 = M2C_FIELD(temp_a2_4, s32 *, 0);
-            temp_s3 = (s32) (((s32) (M2C_FIELD(temp_t2, s32 *, var_a1_3 * 4) * (0x84 - (M2C_FIELD(temp_a2_4, s32 *, 0xC) * 8))) >> 7) * 0x130) >> 8;
+            var_a2.profile = M2C_FIELD(var_s1, void **, 0x50);
+            var_a1_3 = M2C_FIELD(var_a2.profile, s32 *, 0);
+            var_s3 = (s32) (((s32) (M2C_FIELD(temp_t2, s32 *, var_a1_3 * 4) * (0x84 - (M2C_FIELD(var_a2.profile, s32 *, 0xC) * 8))) >> 7) * 0x130) >> 8;
             var_a3 >>= sp18C;
-            if ((var_a1_3 != 1) && (M2C_FIELD(temp_a2_4, s32 *, 8) < 6)) {
+            if ((var_a1_3 != 1) && (M2C_FIELD(var_a2.profile, s32 *, 8) < 6)) {
                 var_a1_3 = M2C_FIELD(temp_s2.ptr, s32 *, 0x18);
                 if (var_a1_3 == 0) {
-                    var_t0 = (s32) (var_a3 * temp_s3) >> 7;
+                    var_t0 = (s32) (var_a3 * var_s3) >> 7;
                 } else {
-                    temp_lo = (0xFF - var_a1_3) * (var_t0 - ((s32) (var_a3 * temp_s3) >> 7));
-                    var_t0 += ((s32) (((((M2C_FIELD(temp_t1, s32 *, 8) * 0x10) * var_a1_3)) - ((s32) (temp_lo & ((s32) ~temp_lo >> 0x1F)) >> 3)) - 0x32) >> 8);
+                    temp_lo = (0xFF - var_a1_3) * (var_t0 - ((s32) (var_a3 * var_s3) >> 7));
+                    var_t0 += ((s32) (((weighted_history(var_a1_3, temp_t1)) - ((s32) (temp_lo & ((s32) ~temp_lo >> 0x1F)) >> 3)) - 0x32) >> 8);
                 }
             } else {
-                var_t0 -= 0x32;
-                var_t0 += M2C_FIELD(temp_t1, s32 *, 8) * 0x10;
+                {
+                    s32 raw = M2C_FIELD(temp_t1, s32 *, 8);
+                    s32 adjusted = var_t0 - 0x32;
+                    var_t0 = adjusted + raw * 0x10;
+                }
             }
             if ((var_t0 == 0) && (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0) < 0x12C) && ((u16) M2C_FIELD(M2C_FIELD(gStreamState, void **, 0x32F2), u16 *, 0x16) >= 2U)) {
                 M2C_FIELD(M2C_FIELD(var_s1, void **, 0x4C), s32 *, 0) = 0;
@@ -480,9 +485,10 @@ block_59:
             temp_t1_2 = M2C_FIELD(temp_t1, s32 *, 8);
             sp134 = temp_t1_2;
             temp_v1_8 = M2C_FIELD(var_s1, void **, 0x4C);
-            M2C_FIELD(temp_v1_8, s32 *, 4) = (s32) (var_t0 & -(M2C_FIELD(temp_v1_8, s32 *, 0) >= 2));
+            var_t0 &= -(M2C_FIELD(temp_v1_8, s32 *, 0) >= 2);
+            M2C_FIELD(temp_v1_8, s32 *, 4) = var_t0;
             stack.stack_angles[0] = 0;
-            sp134 = (s32) (temp_t1_2 * temp_s3 * 0x1B) >> 0xD;
+            sp134 = (s32) (temp_t1_2 * var_s3 * 0x1B) >> 0xD;
             if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x48), s32 *, 0) == 5) {
                 temp_a0_5 = M2C_FIELD(temp_s2.ptr, s32 *, 0x14);
                 if (temp_a0_5 > 0) {
@@ -492,7 +498,7 @@ block_59:
                     goto block_91;
                 }
             } else {
-                if ((u32) (getCounterValue(var_s1) & 0xFFFF) < 0x3CU) {
+                if ((u32) ((u16)normalize_halfword(getCounterValue(var_s1))) < 0x3CU) {
                     temp_v1_9 = M2C_FIELD(temp_s2.ptr, s32 *, 0x14);
                     var_v0_3 = temp_v1_9;
                     if (temp_v1_9 < 0) {
@@ -517,7 +523,7 @@ block_88:
                     }
                 }
 block_91:
-                stack.stack_angles[1] = (s16) var_v0_2;
+                stack.stack_angles[1] = normalize_halfword(var_v0_2);
             }
             M2C_FIELD(M2C_FIELD(var_s1, void **, 0x88), s32 *, 0x70) = (s32) stack.stack_angles[1];
             stack.stack_angles[2] = 0;
@@ -540,423 +546,429 @@ block_91:
             *(RallyVec3 *) stack.stack_D0 = M2C_FIELD(temp_v0_10, RallyVec3 *, 0x48);
             stack.stack_D0[2] = 0;
             func_80026E3C(var_s1, sp19C, sp1A4);
-            sp1F4 = 0;
-            var_s7 = 0;
-            var_s5 = 0;
-            sp1FC = 0;
-            sp194 = (s32) M2C_FIELD(((M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, 0x50) * 0x2C4) + M2C_FIELD(gStreamState, u8 **, 0x103AA)), u16 *, 0x14);
-            do {
-                temp_v1_10 = M2C_FIELD(var_s1, void **, 0x80);
-                temp_s4 = M2C_FIELD(var_s1, void **, 0x88) + (sp1F4 + 0x18);
-                temp_v1_11 = M2C_FIELD(temp_v1_10, s32 *, 4) + ((s32) M2C_FIELD((var_s5 + temp_v1_10), s32 *, 0x310) >> 4);
-                M2C_FIELD(temp_s4, s32 *, 4) = temp_v1_11;
-                temp_v0_11 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 8);
-                if (temp_v1_11 < temp_v0_11) {
-                    M2C_FIELD(temp_s4, s32 *, 4) = temp_v0_11;
-                }
-                arg0 = M2C_FIELD(var_s1, void **, 0x8C) + ((var_s7 << 5) + 0x30);
-                mat3_copy_transposed(arg0, sp1AC);
-                stack.stack_A0[0] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x100) * 0x32) >> 0xA;
-                stack.stack_A0[1] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x104) * 0x32) >> 0xA;
-                stack.stack_A0[2] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x108) * 0x32) >> 0xA;
-                cross_product(M2C_FIELD(var_s1, void **, 0x58) + 0xAC, stack.stack_A0, sp1B4);
-                stack.stack_F0[0] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x20);
-                stack.stack_F0[1] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x24);
-                stack.stack_F0[2] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x28);
-                temp_v1_12 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
-                sp13C = sp134;
-                if (M2C_FIELD(temp_v1_12, s32 *, 0x310) < -0x1F4) {
-                    M2C_FIELD(temp_v1_12, s32 *, 0x310) = -0x1F4;
-                }
-                temp_v0_12 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
-                sp154 = (s32) -(M2C_FIELD(temp_v0_12, s32 *, 0x310) * M2C_FIELD(temp_v0_12, s32 *, 0x330)) >> 6;
-                mat3_mul_vec3_q12(sp1AC, sp1B4, sp19C);
-                var_s2 = stack.stack_D0[1];
-                mat3_mul_vec3_q12(stack.sp18, sp1B4, sp19C);
-                temp_v1_13 = M2C_FIELD(var_s1, void **, 0x64);
-                temp_s3_2 = M2C_FIELD(temp_v1_13, u8 *, 0xB);
-                temp_s0 = (u32) M2C_FIELD(temp_v1_13, u32 *, 4) >> 1;
-                if (var_s7 < 2) {
-                    mat3_mul_vec3_q12(stack.sp58, sp19C, sp1B4);
-                    stack.stack_E0[0] = -(temp_s0 & 0xFF);
-                    temp_s0_2 = temp_s3_2 & 0xFF;
-                    stack.stack_E0[2] = 0;
-                    stack.stack_E0[1] = M2C_FIELD(temp_s4, s32 *, 4) + temp_s0_2;
-                    mat3_mul_vec3_q12(stack.sp38, stack.stack_E0, M2C_FIELD(var_s1, void **, 0x64) + (sp1FC + 0x8C));
-                    temp_v1_14 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_v1_14, s32 *, 0xA0) = (s32) -M2C_FIELD(temp_v1_14, s32 *, 0x8C);
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA4) = (s32) (M2C_FIELD(temp_s4, s32 *, 4) + temp_s0_2);
-                    temp_v1_15 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_v1_15, s32 *, 0xA8) = (s32) -M2C_FIELD(temp_v1_15, s32 *, 0x94);
-                    temp_a0_8 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_a0_8, s32 *, 0x8C) = (s32) (M2C_FIELD(temp_a0_8, s32 *, 0x8C) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10));
-                    temp_a0_9 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_a0_9, s32 *, 0x94) = (s32) (M2C_FIELD(temp_a0_9, s32 *, 0x94) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18));
-                    temp_a0_10 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_a0_10, s32 *, 0xA0) = (s32) (M2C_FIELD(temp_a0_10, s32 *, 0xA0) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10));
-                    temp_a0_11 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
-                    M2C_FIELD(temp_a0_11, s32 *, 0xA8) = (s32) (M2C_FIELD(temp_a0_11, s32 *, 0xA8) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18));
-                } else {
-                    *(RallyVec3 *) stack.stack_F0 = *(RallyVec3 *) stack.stack_D0;
-                    temp_a1_3 = temp_s0 & 0xFF;
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x8C) = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) - temp_a1_3);
-                    temp_a0_12 = temp_s3_2 & 0xFF;
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x90) = (s32) (M2C_FIELD(temp_s4, s32 *, 4) + temp_a0_12);
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x94) = (s32) M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18);
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA0) = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) + temp_a1_3);
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA4) = (s32) (M2C_FIELD(temp_s4, s32 *, 4) + temp_a0_12);
-                    M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA8) = (s32) M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18);
-                }
-                *(RallyVec3 *) stack.stack_110 = *(RallyVec3 *) stack.stack_F0;
-                stack.stack_100[0] = 0x1000;
-                stack.stack_100[1] = 0;
-                stack.stack_100[2] = 0;
-                stack.stack_F0[0] = stack.stack_F0[0] >> 4;
-                stack.stack_F0[1] = stack.stack_F0[1] >> 4;
-                stack.stack_F0[2] = stack.stack_F0[2] >> 4;
-                if (var_s7 < 2) {
-                    mat3_mul_vec3_q12(stack.sp38, stack.stack_100, stack.stack_D0);
-                } else {
-                    *(RallyVec3 *) stack.stack_D0 = *(RallyVec3 *) stack.stack_100;
-                }
-                mat3_mul_vec3_q12(M2C_FIELD(var_s1, void **, 0x5C) + 0x40, sp19C, sp1BC);
-                mat3_mul_vec3_q12(stack.sp78, sp1BC, sp19C);
-                stack.stack_D0[1] = 0;
-                mat3_mul_vec3_q12(arg0, sp19C, sp1BC);
-                mat3_mul_vec3_q12(stack.sp18, sp1BC, sp19C);
-                stack.stack_D0[2] = 0;
-                vec3_normalize_fixed(sp19C, stack.stack_100);
-                if (M2C_FIELD(M2C_FIELD(gStreamState, void **, 0x32F2), u16 *, 0x50) != 0) {
-                    M2C_FIELD(M2C_FIELD(var_s1, void **, 0x5C), s32 *, 0x64) = (s32) ((s32) (stack.stack_F0[2] * 0x27C) >> 0xA);
-                } else {
-                    M2C_FIELD(M2C_FIELD(var_s1, void **, 0x5C), s32 *, 0x64) = stack.stack_F0[2];
-                }
-                temp_a0_13 = M2C_FIELD(var_s1, void **, 0x5C);
-                M2C_FIELD(temp_a0_13, s32 *, 0x68) = (s32) ((s32) (M2C_FIELD(temp_a0_13, s32 *, 0x64) * 0x12) >> 0xA);
-                M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0) = stack.stack_F0[2];
-                if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x7C), s32 *, 0x2C) != 0) {
-                    var_s3 = (var_s7 >= 2) << 0xC;
-                } else {
-                    var_s3 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x364);
-                }
-                temp_a1_4 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
-                if (M2C_FIELD(temp_a1_4, s32 *, 0x310) < 0) {
-                    if (sp194 != 0) {
-                        temp_s6 = ((RallyRoadMaterial *) D_8009DC80) + 2 * (M2C_FIELD(temp_a1_4, s32 *, 0x320) + D_8009E230) + M2C_FIELD(temp_a1_4, s32 *, 0x2E0);
-                    } else {
-                        temp_s6 = ((RallyRoadMaterial *) D_8009D6D0) + 2 * (M2C_FIELD(temp_a1_4, s32 *, 0x320) + D_8009E230) + M2C_FIELD(temp_a1_4, s32 *, 0x2E0);
+            {
+                s32 sp1F4;
+                s32 sp1FC;
+                var_s7 = 0;
+                sp1F4 = 0;
+                var_s5 = 0;
+                sp1FC = 0;
+                sp194 = (s32) M2C_FIELD(((M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, 0x50) * 0x2C4) + M2C_FIELD(gStreamState, u8 **, 0x103AA)), u16 *, 0x14);
+                do {
+                    temp_v1_10 = M2C_FIELD(var_s1, void **, 0x80);
+                    wheel_context.record = M2C_FIELD(var_s1, void **, 0x88) + (sp1F4 + 0x18);
+                    temp_v1_11 = M2C_FIELD(temp_v1_10, s32 *, 4) + ((s32) M2C_FIELD((var_s5 + temp_v1_10), s32 *, 0x310) >> 4);
+                    M2C_FIELD(wheel_context.record, s32 *, 4) = temp_v1_11;
+                    temp_v0_11 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 8);
+                    if (temp_v1_11 < temp_v0_11) {
+                        M2C_FIELD(wheel_context.record, s32 *, 4) = temp_v0_11;
                     }
-                    stack.stack_B0[0] = M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) << 5;
-                    stack.stack_B0[2] = M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18) << 5;
-                    if (var_s2 < 0) {
-                        var_s2 = sp154 - ((s32) (var_s2 * M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x340)) >> 0xA);
-                    } else {
-                        var_s2 = sp154 - ((s32) (var_s2 * (M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x340) * 3)) >> 0xC);
+                    arg0 = M2C_FIELD(var_s1, void **, 0x8C) + ((var_s7 << 5) + 0x30);
+                    mat3_copy_transposed(arg0, sp1AC);
+                    stack.stack_A0[0] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x100) * 0x32) >> 0xA;
+                    stack.stack_A0[1] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x104) * 0x32) >> 0xA;
+                    stack.stack_A0[2] = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x108) * 0x32) >> 0xA;
+                    cross_product(M2C_FIELD(var_s1, void **, 0x58) + 0xAC, stack.stack_A0, sp1B4);
+                    stack.stack_F0[0] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x20);
+                    stack.stack_F0[1] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x24);
+                    stack.stack_F0[2] += M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x28);
+                    temp_v1_12 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
+                    sp13C = sp134;
+                    if (M2C_FIELD(temp_v1_12, s32 *, 0x310) < -0x1F4) {
+                        M2C_FIELD(temp_v1_12, s32 *, 0x310) = -0x1F4;
                     }
-                    stack.stack_E0[0] = (s32) M2C_FIELD(arg0, s16 *, 2);
-                    stack.stack_E0[1] = (s32) M2C_FIELD(arg0, s16 *, 8);
-                    stack.stack_E0[2] = (s32) M2C_FIELD(arg0, s16 *, 0xE);
-                    mat3_mul_vec3_q12(stack.sp18, stack.stack_E0, stack.stack_D0);
-                    scale_floor_q12(stack.stack_C0, stack.stack_D0, var_s2);
-                    var_s2 = -angle_atan2_thunk(stack.stack_D0[1], stack.stack_D0[0]);
-                    if ((u32) (var_s2 - 0x300) >= 0x201U) {
-                        var_s0 = 0;
-                        stack.stack_B0[1] = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x4C);
+                    temp_v0_12 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
+                    sp154 = (s32) -(M2C_FIELD(temp_v0_12, s32 *, 0x310) * M2C_FIELD(temp_v0_12, s32 *, 0x330)) >> 6;
+                    mat3_mul_vec3_q12(sp1AC, sp1B4, sp19C);
+                    var_s2 = stack.stack_D0[1];
+                    mat3_mul_vec3_q12(stack.sp18, sp1B4, sp19C);
+                    temp_v1_13 = M2C_FIELD(var_s1, void **, 0x64);
+                    var_s3 = M2C_FIELD(temp_v1_13, u8 *, 0xB);
+                    temp_s0 = (u32) M2C_FIELD(temp_v1_13, u32 *, 4) >> 1;
+                    if (var_s7 < 2) {
+                        mat3_mul_vec3_q12(stack.sp58, sp19C, sp1B4);
+                        stack.stack_E0[0] = -(temp_s0 & 0xFF);
+                        var_s0 = var_s3 & 0xFF;
+                        stack.stack_E0[2] = 0;
+                        stack.stack_E0[1] = M2C_FIELD(wheel_context.record, s32 *, 4) + var_s0;
+                        mat3_mul_vec3_q12(stack.sp38, stack.stack_E0, M2C_FIELD(var_s1, void **, 0x64) + (sp1FC + 0x8C));
+                        temp_v1_14 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_v1_14, s32 *, 0xA0) = (s32) -M2C_FIELD(temp_v1_14, s32 *, 0x8C);
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA4) = (s32) (M2C_FIELD(wheel_context.record, s32 *, 4) + var_s0);
+                        temp_v1_15 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_v1_15, s32 *, 0xA8) = (s32) -M2C_FIELD(temp_v1_15, s32 *, 0x94);
+                        temp_a0_8 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_a0_8, s32 *, 0x8C) = (s32) (M2C_FIELD(temp_a0_8, s32 *, 0x8C) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10));
+                        temp_a0_9 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_a0_9, s32 *, 0x94) = (s32) (M2C_FIELD(temp_a0_9, s32 *, 0x94) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18));
+                        temp_a0_10 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_a0_10, s32 *, 0xA0) = (s32) (M2C_FIELD(temp_a0_10, s32 *, 0xA0) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10));
+                        temp_a0_11 = sp1FC + M2C_FIELD(var_s1, void **, 0x64);
+                        M2C_FIELD(temp_a0_11, s32 *, 0xA8) = (s32) (M2C_FIELD(temp_a0_11, s32 *, 0xA8) + M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18));
                     } else {
-                        temp_s0_3 = (s32) (cos_q12((var_s2 - 0x400) * 4) * (((RallyRoadMaterial *) temp_s6)->friction + M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x30))) >> 0xC;
-                        var_s2 = angle_atan2_thunk(stack.stack_110[0], stack.stack_110[2]);
-                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x40) = var_s2;
-                        stack.stack_B0[1] = M2C_FIELD(temp_s4, s32 *, 4) << 5;
-                        var_a2_2 = var_s2;
-                        if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x48), s32 *, 0) == 5) {
-                            var_a1_4 = ((RallyRoadMaterial *) temp_s6)->steering_limit;
-                            temp_a3_3 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10);
+                        *(RallyVec3 *) stack.stack_F0 = *(RallyVec3 *) stack.stack_D0;
+                        temp_a1_3 = normalize_halfword(temp_s0) & 0xFF;
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x8C) = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) - temp_a1_3);
+                        temp_a0_12 = var_s3 & 0xFF;
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x90) = (s32) (M2C_FIELD(wheel_context.record, s32 *, 4) + temp_a0_12);
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x94) = (s32) M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18);
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA0) = (s32) (M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) + temp_a1_3);
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA4) = (s32) (M2C_FIELD(wheel_context.record, s32 *, 4) + temp_a0_12);
+                        M2C_FIELD((sp1FC + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0xA8) = (s32) M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18);
+                    }
+                    *(RallyVec3 *) stack.stack_110 = *(RallyVec3 *) stack.stack_F0;
+                    stack.stack_100[0] = 0x1000;
+                    stack.stack_100[1] = 0;
+                    stack.stack_100[2] = 0;
+                    stack.stack_F0[0] = stack.stack_F0[0] >> 4;
+                    stack.stack_F0[1] = stack.stack_F0[1] >> 4;
+                    stack.stack_F0[2] = stack.stack_F0[2] >> 4;
+                    if (var_s7 < 2) {
+                        mat3_mul_vec3_q12(stack.sp38, stack.stack_100, stack.stack_D0);
+                    } else {
+                        *(RallyVec3 *) stack.stack_D0 = *(RallyVec3 *) stack.stack_100;
+                    }
+                    mat3_mul_vec3_q12(M2C_FIELD(var_s1, void **, 0x5C) + 0x40, sp19C, sp1BC);
+                    mat3_mul_vec3_q12(stack.sp78, sp1BC, sp19C);
+                    stack.stack_D0[1] = 0;
+                    mat3_mul_vec3_q12(arg0, sp19C, sp1BC);
+                    mat3_mul_vec3_q12(stack.sp18, sp1BC, sp19C);
+                    stack.stack_D0[2] = 0;
+                    vec3_normalize_fixed(sp19C, stack.stack_100);
+                    if (M2C_FIELD(M2C_FIELD(gStreamState, void **, 0x32F2), u16 *, 0x50) != 0) {
+                        M2C_FIELD(M2C_FIELD(var_s1, void **, 0x5C), s32 *, 0x64) = (s32) ((s32) (stack.stack_F0[2] * 0x27C) >> 0xA);
+                    } else {
+                        M2C_FIELD(M2C_FIELD(var_s1, void **, 0x5C), s32 *, 0x64) = stack.stack_F0[2];
+                    }
+                    temp_a0_13 = M2C_FIELD(var_s1, void **, 0x5C);
+                    M2C_FIELD(temp_a0_13, s32 *, 0x68) = (s32) ((s32) (M2C_FIELD(temp_a0_13, s32 *, 0x64) * 0x12) >> 0xA);
+                    M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0) = stack.stack_F0[2];
+                    if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x7C), s32 *, 0x2C) != 0) {
+                        var_s3 = (var_s7 >= 2) << 0xC;
+                    } else {
+                        var_s3 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x364);
+                    }
+                    temp_a1_4 = var_s5 + M2C_FIELD(var_s1, void **, 0x80);
+                    if (M2C_FIELD(temp_a1_4, s32 *, 0x310) < 0) {
+                        if (sp194 != 0) {
+                            temp_s6 = ((RallyRoadMaterial *) D_8009DC80) + 2 * (M2C_FIELD(temp_a1_4, s32 *, 0x320) + D_8009E230) + M2C_FIELD(temp_a1_4, s32 *, 0x2E0);
+                        } else {
+                            temp_s6 = ((RallyRoadMaterial *) D_8009D6D0) + 2 * (M2C_FIELD(temp_a1_4, s32 *, 0x320) + D_8009E230) + M2C_FIELD(temp_a1_4, s32 *, 0x2E0);
+                        }
+                        stack.stack_B0[0] = M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) << 5;
+                        stack.stack_B0[2] = M2C_FIELD((sp1F4 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18) << 5;
+                        if (var_s2 < 0) {
+                            var_s2 = sp154 - ((s32) (var_s2 * M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x340)) >> 0xA);
+                        } else {
+                            var_s2 = sp154 - ((s32) (var_s2 * (M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x340) * 3)) >> 0xC);
+                        }
+                        stack.stack_E0[0] = (s32) M2C_FIELD(arg0, s16 *, 2);
+                        stack.stack_E0[1] = (s32) M2C_FIELD(arg0, s16 *, 8);
+                        stack.stack_E0[2] = (s32) M2C_FIELD(arg0, s16 *, 0xE);
+                        mat3_mul_vec3_q12(stack.sp18, stack.stack_E0, stack.stack_D0);
+                        scale_floor_q12(stack.stack_C0, stack.stack_D0, var_s2);
+                        var_s2 = -angle_atan2_thunk(stack.stack_D0[1], stack.stack_D0[0]);
+                        if ((u32) (var_s2 - 0x300) >= 0x201U) {
+                            var_s0 = 0;
+                            stack.stack_B0[1] = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x4C);
+                        } else {
+                            temp_s0_3 = (s32) (cos_q12((var_s2 - 0x400) * 4) * (((RallyRoadMaterial *) temp_s6)->friction + M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x30))) >> 0xC;
+                            var_s2 = angle_atan2_thunk(stack.stack_110[0], stack.stack_110[2]);
+                            M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x40) = var_s2;
+                            stack.stack_B0[1] = M2C_FIELD(wheel_context.record, s32 *, 4) << 5;
+                            var_a2_2 = var_s2;
+                            if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x48), s32 *, 0) == 5) {
+                                var_a1_4 = ((RallyRoadMaterial *) temp_s6)->steering_limit;
+                                temp_a3_3 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10);
+                                var_a0_4 = temp_s0_3;
+                                if (var_s2 >= 0x401) {
+                                    var_a2_2 = 0x800 - var_s2;
+                                }
+                                if (var_s2 < -0x400) {
+                                    var_a2_2 = -0x800 - var_s2;
+                                }
+                                if ((var_a1_4 < var_a2_2) || (var_a1_4 = -var_a1_4, ((var_a2_2 < var_a1_4) != 0))) {
+                                    var_a2_2 = var_a1_4;
+                                }
+                                temp_v0_13 = temp_a3_3 >> 5;
+                                if (temp_a3_3 > 0) {
+                                    var_a0_4 += temp_v0_13;
+                                } else {
+                                    var_a0_4 -= temp_v0_13;
+                                }
+                                var_a0_5 = var_a0_4 + (sp154 >> 4);
+                                if (((u32) (stack.stack_F0[2] + 0x257) < 0x4AFU) && ((u32) (stack.stack_F0[0] + 0x257) < 0x4AFU)) {
+                                    goto block_149;
+                                }
+                                goto block_150;
+                            }
+                            var_a1_5 = ((RallyRoadMaterial *) temp_s6)->steering_limit;
+                            temp_a3_4 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) * 2;
+                            var_a0_6 = temp_s0_3;
                             if (var_s2 >= 0x401) {
                                 var_a2_2 = 0x800 - var_s2;
                             }
                             if (var_s2 < -0x400) {
                                 var_a2_2 = -0x800 - var_s2;
                             }
-                            if ((var_a1_4 < var_a2_2) || (var_a1_4 = -var_a1_4, ((var_a2_2 < var_a1_4) != 0))) {
-                                var_a2_2 = var_a1_4;
+                            if ((var_a1_5 < var_a2_2) || (var_a1_5 = -var_a1_5, ((var_a2_2 < var_a1_5) != 0))) {
+                                var_a2_2 = var_a1_5;
                             }
-                            temp_v0_13 = temp_a3_3 >> 5;
-                            if (temp_a3_3 > 0) {
-                                var_a0_4 = temp_s0_3 + temp_v0_13;
+                            temp_v0_14 = temp_a3_4 >> 5;
+                            if (temp_a3_4 > 0) {
+                                var_a0_6 += temp_v0_14;
                             } else {
-                                var_a0_4 = temp_s0_3 - temp_v0_13;
+                                var_a0_6 -= temp_v0_14;
                             }
-                            var_a0_5 = var_a0_4 + (sp154 >> 4);
+                            var_a0_5 = var_a0_6 + (sp154 >> 4);
                             if (((u32) (stack.stack_F0[2] + 0x257) < 0x4AFU) && ((u32) (stack.stack_F0[0] + 0x257) < 0x4AFU)) {
-                                goto block_149;
+        block_149:
+                                var_v0_5 = (s32) (stack.stack_F0[0] * var_a0_5) >> 8;
+                            } else {
+        block_150:
+                                var_v0_5 = (s32) (sp154 * var_a0_5 * var_a2_2) >> 0x10;
                             }
-                            goto block_150;
+                            var_s0 = var_v0_5;
                         }
-                        var_a1_5 = ((RallyRoadMaterial *) temp_s6)->steering_limit;
-                        temp_a3_4 = M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) * 2;
-                        if (var_s2 >= 0x401) {
-                            var_a2_2 = 0x800 - var_s2;
-                        }
-                        if (var_s2 < -0x400) {
-                            var_a2_2 = -0x800 - var_s2;
-                        }
-                        if ((var_a1_5 < var_a2_2) || (var_a1_5 = -var_a1_5, ((var_a2_2 < var_a1_5) != 0))) {
-                            var_a2_2 = var_a1_5;
-                        }
-                        temp_v0_14 = temp_a3_4 >> 5;
-                        if (temp_a3_4 > 0) {
-                            var_a0_6 = temp_s0_3 + temp_v0_14;
-                        } else {
-                            var_a0_6 = temp_s0_3 - temp_v0_14;
-                        }
-                        var_a0_5 = var_a0_6 + (sp154 >> 4);
-                        if (((u32) (stack.stack_F0[2] + 0x257) < 0x4AFU) && ((u32) (stack.stack_F0[0] + 0x257) < 0x4AFU)) {
-    block_149:
-                            var_v0_5 = (s32) (stack.stack_F0[0] * var_a0_5) >> 8;
-                        } else {
-    block_150:
-                            var_v0_5 = (s32) (sp154 * var_a0_5 * var_a2_2) >> 0x10;
-                        }
-                        var_s0 = var_v0_5;
-                    }
-                    func_80026E3C(var_s1, sp1C4, sp1A4);
-                    scale_floor_q12(stack.stack_D0, stack.stack_100, var_s0);
-                    if (var_s7 < 2) {
-                        mat3_mul_vec3_q12(stack.sp38, stack.stack_D0, sp1A4);
                         func_80026E3C(var_s1, sp1C4, sp1A4);
-                    } else {
-                        func_80026E3C(var_s1, sp1C4, stack.stack_D0);
-                    }
-                    if (stack.stack_F0[2] < 0) {
-                        temp_a3_5 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5);
-                        var_a1_6 = temp_a3_5 >> 6;
-                        if (temp_a3_5 > 0) {
-                            var_a0_7 = sp14C;
+                        scale_floor_q12(stack.stack_D0, stack.stack_100, var_s0);
+                        if (var_s7 < 2) {
+                            mat3_mul_vec3_q12(stack.sp38, stack.stack_D0, sp1A4);
+                            func_80026E3C(var_s1, sp1C4, sp1A4);
                         } else {
-                            var_a0_7 = -sp14C;
+                            func_80026E3C(var_s1, sp1C4, stack.stack_D0);
                         }
-                        if (force_under_limit(0xA, var_a1_6)) {
-                            var_a1_6 = 0xA;
-                        } else if (var_a1_6 < -0xA) {
-                            var_a1_6 = -0xA;
-                        }
-                        computed_wheel_force = ((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD)
-                            - ((s32) (var_a0_7 * var_s3) >> 0xC) - var_a1_6;
-                        if (((u32) (temp_a3_5 + 0x12B) < 0x257U) & (sp14C > 0)) {
-                            void *wheel_drive = M2C_FIELD(var_s1, void **, 0x80);
-                            s32 force_z = stack.stack_F0[2];
-                            void *wheel_slip = M2C_FIELD(var_s1, void **, 0x54);
-                            s32 divider = M2C_FIELD(wheel_drive, s32 *, 0xC);
-                            M2C_FIELD(var_s5 + wheel_slip, s32 *, 0x10) = 0;
-                            var_a3_2 = force_z / divider;
-                            var_a2_4 = -force_z;
-                        } else {
-                            temp_v1_16 = ((s32) (temp_a3_5 * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) >> 0xC) - stack.stack_F0[2];
-                            var_a2_4 = 0x190;
-                            if (!force_under_limit(0x190, temp_v1_16)) {
-                                var_a2_4 = temp_v1_16;
-                                if (var_a2_4 < -0x190) {
-                                    var_a2_4 = -0x190;
+                        if (stack.stack_F0[2] < 0) {
+                            temp_a3_5 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5);
+                            var_a1_6 = temp_a3_5 >> 6;
+                            if (temp_a3_5 > 0) {
+                                var_a0_7 = sp14C;
+                            } else {
+                                var_a0_7 = -sp14C;
+                            }
+                            var_a1_6 = wheel_bound(var_a1_6, 0xA);
+                            computed_wheel_force = ((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD)
+                                - ((s32) (var_a0_7 * var_s3) >> 0xC) - var_a1_6;
+                            if (((u32) (temp_a3_5 + 0x12B) < 0x257U) & (sp14C > 0)) {
+                                void *wheel_drive = M2C_FIELD(var_s1, void **, 0x80);
+                                s32 force_z = stack.stack_F0[2];
+                                void *wheel_slip = M2C_FIELD(var_s1, void **, 0x54);
+                                s32 divider = M2C_FIELD(wheel_drive, s32 *, 0xC);
+                                M2C_FIELD(var_s5 + wheel_slip, s32 *, 0x10) = 0;
+                                var_a3 = force_z / divider;
+                                var_a2_4 = -force_z;
+                            } else {
+                                temp_v1_16 = ((s32) (temp_a3_5 * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) >> 0xC) - stack.stack_F0[2];
+                                var_a2_4 = wheel_bound(temp_v1_16, 0x190);
+                                scaled_wheel_force = (computed_wheel_force - var_a2_4) * M2C_FIELD(gStreamState, s32 *, 0x80C2);
+                                M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = (s32) (var_a2_4 * 2);
+                                var_a3 = temp_a3_5 + (scaled_wheel_force >> 4);
+                            }
+                            if (force_under_limit(0x800, var_a3)) {
+                                var_a0_8 = 0x800;
+                            } else {
+                                var_a0_8 = var_a3;
+                                if (var_a0_8 < -0x800) {
+                                    var_a0_8 = -0x800;
                                 }
                             }
-                            scaled_wheel_force = (computed_wheel_force - var_a2_4) * M2C_FIELD(gStreamState, s32 *, 0x80C2);
-                            M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = (s32) (var_a2_4 * 2);
-                            var_a3_2 = temp_a3_5 + (scaled_wheel_force >> 4);
-                        }
-                        var_a0_8 = 0x800;
-                        if (!force_under_limit(0x800, var_a3_2)) {
-                            var_a0_8 = var_a3_2;
-                            if (var_a0_8 < -0x800) {
-                                var_a0_8 = -0x800;
-                            }
-                        }
-                        M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) = var_a0_8;
-                    } else {
-                        if (stack.stack_F0[2] >= 0x12D) {
-                            var_s3_2 = 0;
-                            temp_s0_4 = (((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD) - ((s32) (sp14C * var_s3) >> 0xC)) - 0xA;
-                            do {
-                                var_a2_4 = applyDeadZoneScale(((RallyRoadMaterial *) temp_s6)->dead_zone, sp154, ((RallyRoadMaterial *) temp_s6)->friction * 2, var_s2, M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10));
-                                temp_a0_14 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                                var_s3_2 += 1;
-                                M2C_FIELD(temp_a0_14, s32 *, 0x10) = (s32) (M2C_FIELD(temp_a0_14, s32 *, 0x10) + ((s32) ((temp_s0_4 - var_a2_4) * M2C_FIELD(gStreamState, s32 *, 0x80C2)) >> 6));
-                            } while (var_s3_2 < 4);
-                            temp_v1_17 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                            if (M2C_FIELD(temp_v1_17, s32 *, 0x10) < -0x1000) {
-                                M2C_FIELD(temp_v1_17, s32 *, 0x10) = -0x1000;
-                            }
-                            var_s0_2 = 0x1000;
-                            if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x48), s32 *, 0) != 5) {
-                                var_s0_2 = M2C_FIELD(((gSnapIndex * 4) + M2C_FIELD(var_s1, s32 *, 0x28)), s32 *, 0xA8);
-                            }
-                            temp_v1_18 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                            if (var_s0_2 < M2C_FIELD(temp_v1_18, s32 *, 0x10)) {
-                                M2C_FIELD(temp_v1_18, s32 *, 0x10) = var_s0_2;
-                            }
+                            M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) = var_a0_8;
                         } else {
-                            s32 vertical_speed = stack.stack_F0[2];
-                            s32 compression = sp14C * vertical_speed;
-                            s32 spring = sp13C * M2C_FIELD(var_s5 + sp1D4, s32 *, 0x108);
-                            s32 damping = (compression >> 10) * var_s3;
-                            s32 speed_term = vertical_speed >> 2;
-                            M2C_FIELD(var_s5 + M2C_FIELD(var_s1, void **, 0x54), s32 *, 0x10) = 0;
-                            var_a2_4 = (spring >> 13) - (damping >> 12) - speed_term;
+                            if (stack.stack_F0[2] >= 0x12D) {
+                                wheel_context.offset = var_s5;
+                                var_s0 = (((s32) (sp13C * M2C_FIELD((var_s5 + sp1D4), s32 *, 0x108)) >> 0xD) - ((s32) (sp14C * var_s3) >> 0xC)) - 0xA;
+                                var_s3 = 0;
+                                do {
+                                    var_a2_4 = applyDeadZoneScale(((RallyRoadMaterial *) temp_s6)->dead_zone, sp154, ((RallyRoadMaterial *) temp_s6)->friction * 2, var_s2, M2C_FIELD((wheel_context.offset + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10));
+                                    temp_a0_14 = wheel_context.offset + M2C_FIELD(var_s1, void **, 0x54);
+                                    var_s3 += 1;
+                                    M2C_FIELD(temp_a0_14, s32 *, 0x10) = (s32) (M2C_FIELD(temp_a0_14, s32 *, 0x10) + ((s32) ((var_s0 - var_a2_4) * M2C_FIELD(gStreamState, s32 *, 0x80C2)) >> 6));
+                                } while (var_s3 < 4);
+                                temp_v1_17 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                                if (M2C_FIELD(temp_v1_17, s32 *, 0x10) < -0x1000) {
+                                    M2C_FIELD(temp_v1_17, s32 *, 0x10) = -0x1000;
+                                }
+                                var_s0_2 = 0x1000;
+                                if (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x48), s32 *, 0) != 5) {
+                                    var_s0_2 = M2C_FIELD(((gSnapIndex * 4) + M2C_FIELD(var_s1, s32 *, 0x28)), s32 *, 0xA8);
+                                }
+                                temp_v1_18 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                                if (var_s0_2 < M2C_FIELD(temp_v1_18, s32 *, 0x10)) {
+                                    M2C_FIELD(temp_v1_18, s32 *, 0x10) = var_s0_2;
+                                }
+                            } else {
+                                s32 vertical_speed = stack.stack_F0[2];
+                                s32 compression = sp14C * vertical_speed;
+                                s32 spring = sp13C * M2C_FIELD(var_s5 + sp1D4, s32 *, 0x108);
+                                s32 damping = (compression >> 10) * var_s3;
+                                s32 speed_term = vertical_speed >> 2;
+                                M2C_FIELD(var_s5 + M2C_FIELD(var_s1, void **, 0x54), s32 *, 0x10) = 0;
+                                var_a2_4 = (spring >> 13) - (damping >> 12) - speed_term;
+                            }
+                            temp_v1_19 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                            M2C_FIELD(temp_v1_19, s32 *, 0) = (s32) ((s32) ((M2C_FIELD(temp_v1_19, s32 *, 0x10) + 0x1000) * stack.stack_F0[2]) >> 0xD);
                         }
-                        temp_v1_19 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                        M2C_FIELD(temp_v1_19, s32 *, 0) = (s32) ((s32) ((M2C_FIELD(temp_v1_19, s32 *, 0x10) + 0x1000) * stack.stack_F0[2]) >> 0xD);
-                    }
-                    stack.stack_C0[0] = 0;
-                    stack.stack_C0[1] = 0;
-                    stack.stack_C0[2] = ((s32) (sp154 * ((RallyRoadMaterial *) temp_s6)->lateral_force * stack.stack_F0[2]) >> 0x13) + var_a2_4;
-                    var_v0_6 = var_s7 < 2;
-                    if (M2C_FIELD(var_s1, s32 *, 0x14) & 0x10) {
-                        M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) = 0;
-                        var_v0_6 = var_s7 < 2;
-                    }
-                    if (var_v0_6 != 0) {
-                        mat3_mul_vec3_q12(stack.sp38, stack.stack_C0, sp19C);
-                        func_80026E3C(var_s1, stack.stack_B0, sp19C);
-                    } else {
-                        func_80026E3C(var_s1, stack.stack_B0, stack.stack_C0);
-                    }
-                    M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1CC) = stack.stack_F0[0];
-                    sp16C += 1;
-                    M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1DC) = (s32) (((s32) (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) >> 0xC) - stack.stack_F0[2]);
-                } else {
-                    temp_v1_20 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5);
-                    if (temp_v1_20 < 0) {
-                        var_a1_7 = -0xA;
-                        if (temp_v1_20 < -0x32) {
-                            var_a0_9 = -sp14C;
-                        } else {
-                            var_v0_7 = sp14C * temp_v1_20;
-                            var_a1_7 = temp_v1_20 >> 2;
-                            goto block_199;
-                        }
-                    } else {
-                        var_a1_7 = temp_v1_20 >> 2;
-                        if (temp_v1_20 >= 0x33) {
-                            var_a0_9 = sp14C;
-                            var_a1_7 = 0xA;
-                        } else {
-                            var_v0_7 = sp14C * temp_v1_20;
-    block_199:
-                            var_a0_9 = var_v0_7 >> 6;
-                        }
-                    }
-                    temp_v1_21 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                    {
-                        s32 spring_rate = sp13C * M2C_FIELD(var_s5 + sp1D4, s32 *, 0x108);
-                        s32 compression = var_a0_9 * var_s3;
-                        s32 time_step = M2C_FIELD(gStreamState, s32 *, 0x80C2);
-                        var_s0 = (spring_rate >> 13) - (compression >> 12) - var_a1_7;
-                        *temp_v1_21 += (var_s0 * time_step) >> 6;
-                    }
-                    if (stack.stack_F0[2] != 0) {
-                        temp_a0_15 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                        M2C_FIELD(temp_a0_15, s32 *, 0x10) = (s32) (((s32) (M2C_FIELD(temp_a0_15, s32 *, 0) * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) / stack.stack_F0[2]) - 0x1000);
-                    } else {
-                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = 0;
-                    }
-                    temp_v1_22 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                    if (M2C_FIELD(temp_v1_22, s32 *, 0x10) < -0x1000) {
-                        M2C_FIELD(temp_v1_22, s32 *, 0x10) = -0x1000;
-                    }
-                    temp_v1_23 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
-                    if (M2C_FIELD(temp_v1_23, s32 *, 0x10) > 0x7FFF) {
-                        M2C_FIELD(temp_v1_23, s32 *, 0x10) = 0x7FFF;
-                    }
-                    M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1CC) = 0;
-                    M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1DC) = 0;
-                }
-                var_s5 += 4;
-                var_s7 += 1;
-                sp1F4 += 0x14;
-                sp1FC += 0x28;
-            } while (var_s7 < 4);
-            sp164 = 0;
-            var_s5_2 = 0;
-            var_s7 = 0;
-            sp15C = 0;
-            late_contacts = M2C_FIELD(var_s1, void **, 0x8C);
-            if (M2C_FIELD(late_contacts, s32 *, 0x334) > 0) {
-                sp1EC = 0x338;
-                do {
-                    temp_s4_2 = late_contacts + sp1EC;
-                    temp_s3_3 = M2C_FIELD(temp_s4_2, s32 *, 0x24);
-                    arg0 = (M2C_UNK *)temp_s4_2;
-                    mat3_copy_transposed(arg0, stack.sp78);
-                    temp_v0_15 = temp_s3_3 * 4;
-                    if (sp194 != 0) {
-                        temp_s6_2 = D_8009DC80 + M2C_FIELD(temp_s4_2, s32 *, 0x2C) * 0x38 + M2C_FIELD((temp_v0_15 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x2E0) * 0x1C;
-                    } else {
-                        temp_s6_2 = D_8009D6D0 + M2C_FIELD(temp_s4_2, s32 *, 0x2C) * 0x38 + M2C_FIELD((temp_v0_15 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x2E0) * 0x1C;
-                    }
-                    temp_a0_16 = temp_s3_3 * 0x14;
-                    stack.stack_A0[0] = M2C_FIELD((temp_a0_16 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x100) * 0xC;
-                    stack.stack_A0[1] = M2C_FIELD((temp_a0_16 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x104) * 0xC;
-                    stack.stack_A0[2] = M2C_FIELD((temp_a0_16 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x108) * 0xC;
-                    func_8002D740(M2C_FIELD(var_s1, void **, 0x58) + 0xAC, stack.stack_A0, sp1B4);
-                    temp_a0_17 = stack.stack_F0[0] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x20) >> 4);
-                    stack.stack_F0[0] = temp_a0_17;
-                    temp_a1_5 = stack.stack_F0[1] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x24) >> 4);
-                    stack.stack_F0[1] = temp_a1_5;
-                    temp_v1_24 = stack.stack_F0[2] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x28) >> 4);
-                    stack.stack_F0[2] = temp_v1_24;
-                    temp_v0_16 = M2C_FIELD(temp_s4_2, void **, 0x20);
-                    if (temp_v0_16 != NULL) {
-                        stack.stack_F0[0] = temp_a0_17 - ((s32) M2C_FIELD(M2C_FIELD(temp_v0_16, void **, 0x58), s32 *, 0x20) >> 4);
-                        stack.stack_F0[1] = temp_a1_5 - ((s32) M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s4_2, void **, 0x20), void **, 0x58), s32 *, 0x24) >> 4);
-                        stack.stack_F0[2] = temp_v1_24 - ((s32) M2C_FIELD(M2C_FIELD(M2C_FIELD(temp_s4_2, void **, 0x20), void **, 0x58), s32 *, 0x28) >> 4);
-                    }
-                    if (M2C_FIELD(temp_s4_2, s32 *, 0x28) < -0x1F4) {
-                        M2C_FIELD(temp_s4_2, s32 *, 0x28) = -0x1F4;
-                    }
-                    late_force = (s32) -(M2C_FIELD(temp_s4_2, s32 *, 0x28) * M2C_FIELD(temp_s6_2, s32 *, 0)) >> 6;
-                    mat3_mul_vec3_q12(stack.sp78, sp1B4, stack.stack_D0);
-                    if (((u32) (stack.stack_D0[2] + 0x12B) < 0x257U) && ((u32) (stack.stack_D0[0] + 0x12B) < 0x257U)) {
-                        var_s0_3 = M2C_FIELD(temp_s6_2, s32 *, 0xC) << 5;
-                    } else {
-                        var_s0_3 = (s32) (late_force * M2C_FIELD(temp_s6_2, s32 *, 0xC)) >> 4;
-                    }
-                    if (stack.stack_D0[1] < 0) {
-                        var_s2_3 = late_force - ((stack.stack_D0[1] >> 6) * M2C_FIELD(temp_s6_2, s32 *, 4));
-                    } else {
-                        var_s2_3 = late_force - ((stack.stack_D0[1] >> 8) * M2C_FIELD(temp_s6_2, s32 *, 4) * 3);
-                    }
-                    stack.stack_E0[0] = (s32) M2C_FIELD(arg0, s16 *, 2);
-                    stack.stack_E0[1] = (s32) M2C_FIELD(arg0, s16 *, 8);
-                    var_s5_2 -= stack.stack_D0[1];
-                    stack.stack_E0[2] = (s32) M2C_FIELD(arg0, s16 *, 0xE);
-                    mat3_mul_vec3_q12(stack.sp18, sp1BC, sp1A4);
-                    scale_floor_q12(stack.stack_C0, stack.stack_C0, var_s2_3);
-                    if (M2C_FIELD(temp_s4_2, s32 *, 0x2C) == 0) {
+                        stack.stack_C0[0] = 0;
                         stack.stack_C0[1] = 0;
-                    }
-                    temp_v1_25 = temp_s3_3 * 0x14;
-                    stack.stack_B0[0] = M2C_FIELD((temp_v1_25 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x10) << 5;
-                    stack.stack_B0[1] = M2C_FIELD((temp_v1_25 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x14) << 5;
-                    stack.stack_B0[2] = M2C_FIELD((temp_v1_25 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18) << 5;
-                    if (M2C_FIELD(temp_s4_2, s32 *, 0x2C) == 0) {
-                        stack.stack_B0[1] = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x4C);
-                    }
-                    func_80026E3C(var_s1, sp1C4, sp1A4);
-                    stack.stack_D0[1] = 0;
-                    stack.stack_E0[1] = 0;
-                    stack.stack_E0[0] = (s32) (var_s0_3 * stack.stack_D0[0]) >> 0xC;
-                    stack.stack_E0[2] = (s32) (var_s0_3 * stack.stack_D0[2]) >> 0xC;
-                    mat3_mul_vec3_q12(arg0, sp1BC, sp1A4);
-                    mat3_mul_vec3_q12(stack.sp18, sp1A4, sp19C);
-                    func_80026E3C(var_s1, sp1C4, sp19C);
-                    if (temp_s3_3 & 1) {
-                        sp164 += 1;
+                        stack.stack_C0[2] = ((s32) (sp154 * ((RallyRoadMaterial *) temp_s6)->lateral_force * stack.stack_F0[2]) >> 0x13) + var_a2_4;
+                        var_v0_6 = var_s7 < 2;
+                        if (M2C_FIELD(var_s1, s32 *, 0x14) & 0x10) {
+                            M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) = 0;
+                            var_v0_6 = var_s7 < 2;
+                        }
+                        if (var_v0_6 != 0) {
+                            mat3_mul_vec3_q12(stack.sp38, stack.stack_C0, sp19C);
+                            func_80026E3C(var_s1, stack.stack_B0, sp19C);
+                        } else {
+                            func_80026E3C(var_s1, stack.stack_B0, stack.stack_C0);
+                        }
+                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1CC) = stack.stack_F0[0];
+                        sp16C += 1;
+                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1DC) = (s32) (((s32) (M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5) * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) >> 0xC) - stack.stack_F0[2]);
                     } else {
-                        sp15C += 1;
+                        temp_v1_20 = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x54), s32 *, var_s5);
+                        if (temp_v1_20 < 0) {
+                            var_a1_7 = -0xA;
+                            if (temp_v1_20 < -0x32) {
+                                var_a0_9 = -sp14C;
+                            } else {
+                                var_v0_7 = sp14C * temp_v1_20;
+                                var_a1_7 = temp_v1_20 >> 2;
+                                goto block_199;
+                            }
+                        } else {
+                            var_a1_7 = temp_v1_20 >> 2;
+                            if (temp_v1_20 >= 0x33) {
+                                var_a0_9 = sp14C;
+                                var_a1_7 = 0xA;
+                            } else {
+                                var_v0_7 = sp14C * temp_v1_20;
+        block_199:
+                                var_a0_9 = var_v0_7 >> 6;
+                            }
+                        }
+                        temp_v1_21 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                        {
+                            s32 spring_rate = sp13C * M2C_FIELD(var_s5 + sp1D4, s32 *, 0x108);
+                            s32 compression = var_a0_9 * var_s3;
+                            s32 time_step = M2C_FIELD(gStreamState, s32 *, 0x80C2);
+                            var_s0 = (spring_rate >> 13) - (compression >> 12) - var_a1_7;
+                            *temp_v1_21 += (var_s0 * time_step) >> 6;
+                        }
+                        if (stack.stack_F0[2] != 0) {
+                            temp_a0_15 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                            M2C_FIELD(temp_a0_15, s32 *, 0x10) = (s32) (((s32) (M2C_FIELD(temp_a0_15, s32 *, 0) * M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0xC)) / stack.stack_F0[2]) - 0x1000);
+                        } else {
+                            M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x54)), s32 *, 0x10) = 0;
+                        }
+                        temp_v1_22 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                        if (M2C_FIELD(temp_v1_22, s32 *, 0x10) < -0x1000) {
+                            M2C_FIELD(temp_v1_22, s32 *, 0x10) = -0x1000;
+                        }
+                        temp_v1_23 = var_s5 + M2C_FIELD(var_s1, void **, 0x54);
+                        if (M2C_FIELD(temp_v1_23, s32 *, 0x10) > 0x7FFF) {
+                            M2C_FIELD(temp_v1_23, s32 *, 0x10) = 0x7FFF;
+                        }
+                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1CC) = 0;
+                        M2C_FIELD((var_s5 + M2C_FIELD(var_s1, void **, 0x64)), s32 *, 0x1DC) = 0;
                     }
+                    var_s5 += 4;
                     var_s7 += 1;
-                    sp1EC += 0x30;
-                    late_contacts = M2C_FIELD(var_s1, void **, 0x8C);
-                } while (var_s7 < M2C_FIELD(late_contacts, s32 *, 0x334));
+                    sp1F4 += 0x14;
+                    sp1FC += 0x28;
+                } while (var_s7 < 4);
+                sp164 = 0;
+                var_s5_2 = 0;
+                var_s7 = 0;
+                sp15C = 0;
+                late_contacts = M2C_FIELD(var_s1, void **, 0x8C);
+                if (M2C_FIELD(late_contacts, s32 *, 0x334) > 0) {
+                    sp1F4 = 0x338;
+                    do {
+                        wheel_context.record = late_contacts + sp1F4;
+                        temp_s3_3 = M2C_FIELD(wheel_context.record, s32 *, 0x24);
+                        arg0 = (M2C_UNK *)wheel_context.record;
+                        mat3_copy_transposed(arg0, stack.sp78);
+                        temp_v0_15 = temp_s3_3 * 4;
+                        if (sp194 != 0) {
+                            temp_s6_2 = D_8009DC80 + M2C_FIELD(wheel_context.record, s32 *, 0x2C) * 0x38 + M2C_FIELD((temp_v0_15 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x2E0) * 0x1C;
+                        } else {
+                            temp_s6_2 = D_8009D6D0 + M2C_FIELD(wheel_context.record, s32 *, 0x2C) * 0x38 + M2C_FIELD((temp_v0_15 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x2E0) * 0x1C;
+                        }
+                        {
+                            void *late_state;
+                            late_state = M2C_FIELD(var_s1, void **, 0x80);
+                            temp_a0_16 = temp_s3_3 * 0x14;
+                            stack.stack_A0[0] = M2C_FIELD((temp_a0_16 + late_state), s32 *, 0x100) * 0xC;
+                        }
+                        stack.stack_A0[1] = M2C_FIELD((temp_a0_16 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x104) * 0xC;
+                        stack.stack_A0[2] = M2C_FIELD((temp_a0_16 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x108) * 0xC;
+                        func_8002D740(M2C_FIELD(var_s1, void **, 0x58) + 0xAC, stack.stack_A0, sp1B4);
+                        temp_a0_17 = stack.stack_F0[0] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x20) >> 4);
+                        stack.stack_F0[0] = temp_a0_17;
+                        temp_a1_5 = stack.stack_F0[1] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x24) >> 4);
+                        stack.stack_F0[1] = temp_a1_5;
+                        temp_v1_24 = stack.stack_F0[2] + ((s32) M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x28) >> 4);
+                        stack.stack_F0[2] = temp_v1_24;
+                        temp_v0_16 = M2C_FIELD(wheel_context.record, void **, 0x20);
+                        if (temp_v0_16 != NULL) {
+                            stack.stack_F0[0] = temp_a0_17 - ((s32) M2C_FIELD(M2C_FIELD(temp_v0_16, void **, 0x58), s32 *, 0x20) >> 4);
+                            stack.stack_F0[1] = temp_a1_5 - ((s32) M2C_FIELD(M2C_FIELD(M2C_FIELD(wheel_context.record, void **, 0x20), void **, 0x58), s32 *, 0x24) >> 4);
+                            stack.stack_F0[2] = temp_v1_24 - ((s32) M2C_FIELD(M2C_FIELD(M2C_FIELD(wheel_context.record, void **, 0x20), void **, 0x58), s32 *, 0x28) >> 4);
+                        }
+                        if (M2C_FIELD(wheel_context.record, s32 *, 0x28) < -0x1F4) {
+                            M2C_FIELD(wheel_context.record, s32 *, 0x28) = -0x1F4;
+                        }
+                        sp154 = (s32) -(M2C_FIELD(wheel_context.record, s32 *, 0x28) * M2C_FIELD(temp_s6_2, s32 *, 0)) >> 6;
+                        mat3_mul_vec3_q12(stack.sp78, sp1B4, stack.stack_D0);
+                        if (((u32) (stack.stack_D0[2] + 0x12B) < 0x257U) && ((u32) (stack.stack_D0[0] + 0x12B) < 0x257U)) {
+                            var_s0 = M2C_FIELD(temp_s6_2, s32 *, 0xC) << 5;
+                        } else {
+                            var_s0 = (s32) (sp154 * M2C_FIELD(temp_s6_2, s32 *, 0xC)) >> 4;
+                        }
+                        if (stack.stack_D0[1] < 0) {
+                            var_s2 = sp154 - ((stack.stack_D0[1] >> 6) * M2C_FIELD(temp_s6_2, s32 *, 4));
+                        } else {
+                            var_s2 = sp154 - ((stack.stack_D0[1] >> 8) * M2C_FIELD(temp_s6_2, s32 *, 4) * 3);
+                        }
+                        stack.stack_E0[0] = (s32) M2C_FIELD(arg0, s16 *, 2);
+                        stack.stack_E0[1] = (s32) M2C_FIELD(arg0, s16 *, 8);
+                        var_s5_2 -= stack.stack_D0[1];
+                        stack.stack_E0[2] = (s32) M2C_FIELD(arg0, s16 *, 0xE);
+                        mat3_mul_vec3_q12(stack.sp18, sp1BC, sp1A4);
+                        scale_floor_q12(stack.stack_C0, stack.stack_C0, var_s2);
+                        if (M2C_FIELD(wheel_context.record, s32 *, 0x2C) == 0) {
+                            stack.stack_C0[1] = 0;
+                        }
+                        {
+                            void *late_wheel_state;
+                            late_wheel_state = M2C_FIELD(var_s1, void **, 0x80);
+                            temp_v1_25 = temp_s3_3 * 0x14;
+                            stack.stack_B0[0] = M2C_FIELD((temp_v1_25 + late_wheel_state), s32 *, 0x10) << 5;
+                        }
+                        stack.stack_B0[1] = M2C_FIELD((temp_v1_25 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x14) << 5;
+                        stack.stack_B0[2] = M2C_FIELD((temp_v1_25 + M2C_FIELD(var_s1, void **, 0x80)), s32 *, 0x18) << 5;
+                        if (M2C_FIELD(wheel_context.record, s32 *, 0x2C) == 0) {
+                            stack.stack_B0[1] = M2C_FIELD(M2C_FIELD(var_s1, void **, 0x58), s32 *, 0x4C);
+                        }
+                        func_80026E3C(var_s1, sp1C4, sp1A4);
+                        stack.stack_D0[1] = 0;
+                        stack.stack_E0[1] = 0;
+                        stack.stack_E0[0] = (s32) (var_s0 * stack.stack_D0[0]) >> 0xC;
+                        stack.stack_E0[2] = (s32) (var_s0 * stack.stack_D0[2]) >> 0xC;
+                        mat3_mul_vec3_q12(arg0, sp1BC, sp1A4);
+                        mat3_mul_vec3_q12(stack.sp18, sp1A4, sp19C);
+                        func_80026E3C(var_s1, sp1C4, sp19C);
+                        if (temp_s3_3 & 1) {
+                            sp164 += 1;
+                        } else {
+                            sp15C += 1;
+                        }
+                        var_s7 += 1;
+                        sp1F4 += 0x30;
+                        late_contacts = M2C_FIELD(var_s1, void **, 0x8C);
+                    } while (var_s7 < M2C_FIELD(late_contacts, s32 *, 0x334));
+                }
             }
             M2C_FIELD(M2C_FIELD(var_s1, void **, 0x8C), s32 *, 0x334) = 0;
             var_s7 = 0;
@@ -998,15 +1010,15 @@ block_91:
                     }
                     sp154 = (s32) -(M2C_FIELD(temp_s0_5, s32 *, 0x30) * M2C_FIELD(temp_s6, s32 *, 0)) >> 6;
                     if (((u32) (stack.stack_D0[2] + 0x12B) < 0x257U) && ((u32) (stack.stack_D0[0] + 0x12B) < 0x257U)) {
-                        var_s0_4 = M2C_FIELD(temp_s6, s32 *, 0xC) * 4;
+                        var_s0 = M2C_FIELD(temp_s6, s32 *, 0xC) * 4;
                     } else {
-                        var_s0_4 = (s32) (sp154 * M2C_FIELD(temp_s6, s32 *, 0xC)) >> 4;
+                        var_s0 = (s32) (sp154 * M2C_FIELD(temp_s6, s32 *, 0xC)) >> 4;
                     }
                     if (stack.stack_D0[1] < 0) {
-                        var_s2_3 = sp154 - ((stack.stack_D0[1] >> 6) * M2C_FIELD(temp_s6, s32 *, 4));
+                        var_s2 = sp154 - ((stack.stack_D0[1] >> 6) * M2C_FIELD(temp_s6, s32 *, 4));
                     } else {
-                        var_s0_4 = 0;
-                        var_s2_3 = sp154 - ((stack.stack_D0[1] >> 8) * M2C_FIELD(temp_s6, s32 *, 4) * 3);
+                        var_s0 = 0;
+                        var_s2 = sp154 - ((stack.stack_D0[1] >> 8) * M2C_FIELD(temp_s6, s32 *, 4) * 3);
                     }
                     temp_v0_19 = M2C_FIELD(arg0, s16 *, 2);
                     stack.stack_E0[0] = (s32) temp_v0_19;
@@ -1014,16 +1026,16 @@ block_91:
                     stack.stack_E0[1] = (s32) temp_v0_20;
                     temp_v0_21 = M2C_FIELD(arg0, s16 *, 0xE);
                     stack.stack_E0[2] = (s32) temp_v0_21;
-                    stack.stack_E0[0] = (s32) (var_s2_3 * temp_v0_19) >> 0xC;
-                    temp_a3_6 = (s32) (var_s2_3 * temp_v0_20) >> 0xC;
+                    stack.stack_E0[0] = (s32) (var_s2 * temp_v0_19) >> 0xC;
+                    temp_a3_6 = (s32) (var_s2 * temp_v0_20) >> 0xC;
                     stack.stack_E0[1] = temp_a3_6;
-                    stack.stack_E0[2] = (s32) (var_s2_3 * temp_v0_21) >> 0xC;
+                    stack.stack_E0[2] = (s32) (var_s2 * temp_v0_21) >> 0xC;
                     mat3_mul_vec3_q12(stack.sp18, sp1BC, sp1A4);
                     func_80026E3C(var_s1, stack.stack_B0, sp1A4);
                     stack.stack_D0[1] = 0;
                     stack.stack_E0[1] = 0;
-                    stack.stack_E0[0] = (s32) (var_s0_4 * stack.stack_D0[0]) >> 0xC;
-                    stack.stack_E0[2] = (s32) (var_s0_4 * stack.stack_D0[2]) >> 0xC;
+                    stack.stack_E0[0] = (s32) (var_s0 * stack.stack_D0[0]) >> 0xC;
+                    stack.stack_E0[2] = (s32) (var_s0 * stack.stack_D0[2]) >> 0xC;
                     mat3_mul_vec3_q12(arg0, sp1BC, sp1A4);
                     mat3_mul_vec3_q12(stack.sp18, sp1A4, stack.stack_D0);
                     var_s7 += 1;
@@ -1060,7 +1072,7 @@ block_91:
             }
             M2C_FIELD(M2C_FIELD(var_s1, void **, 0x80), s32 *, 0x39C) = sp16C;
             var_s1 = M2C_FIELD(var_s1, void **, 4);
-            var_a2 = 0;
+            var_a2.sum = 0;
         } while (var_s1 != NULL);
     }
 }

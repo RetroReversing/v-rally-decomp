@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { s32 x, y, z; } Vec3i;
 extern int D_800AFA6C;
@@ -7,20 +7,25 @@ extern unsigned short D_800C8202;
 extern unsigned char D_800C8200;
 extern unsigned char D_800C81FC;
 extern unsigned short D_800C8240;
-void *func_80012B74();
-s32 func_80042290();
-s32 func_80084BF0();
-s32 func_80085778();
+void *find_named_node();
+s32 streamSetCurrent();
+s32 input_get_buttons();
+s32 input_clear_flags();
 extern u16 D_8009BAA0[8][5];
 extern s32 D_8009BAF0[];
 extern char D_800A1814[];
-extern char D_800A73E0[];
-extern char D_800AE850[];
-extern char D_800C02AE[];
-extern void *D_800C35A0;
-#define CAM (*((char **) (D_800C02AE + 0x7CD6)))
-#define TRK (*((char **) (D_800A73E0 + 0x6C24)))
-void func_80012CA8(char *arg0)
+extern char gGameState[];
+extern char gOrderState[];
+extern char stream_state[];
+extern void *gRecords;
+#define CAM (*((char **) (stream_state + 0x7CD6)))
+#define TRK (*((char **) (gGameState + 0x6C24)))
+
+/* Per-frame camera follow for the car at car: when the race's lap/checkpoint
+ * index has changed, updates the camera position from the car's track node,
+ * refreshes the node cache (D_8009BAA0/D_8009BAF0 ring), and copies the
+ * target into the camera block. */
+void func_80012CA8(char *car)
 {
   Vec3i vec;
   s32 pad[1];
@@ -32,7 +37,7 @@ void func_80012CA8(char *arg0)
   char *temp_a1_2;
   char *var_s2;
   char *var_s3;
-  if (D_800AFA6C != (((u16 *) D_800A1814)[*((u16 *) (((char *) D_800C35A0) + 0x22))] - 1))
+  if (D_800AFA6C != (((u16 *) D_800A1814)[*((u16 *) (((char *) gRecords) + 0x22))] - 1))
   {
     *((s32 *) (CAM + 0x130)) = 0;
     *((f32 *) (CAM + 0x134)) = 100.0f;
@@ -45,25 +50,25 @@ void func_80012CA8(char *arg0)
       {
         var_s3 = *((char **) (var_s3 + 4));
       }
-      var_s2 = *((char **) (arg0 + 0x8C));
+      var_s2 = *((char **) (car + 0x8C));
       if (var_s2 == NULL)
       {
-        *((void **) (arg0 + 0x8C)) = func_80012B74(D_8009BAF0[0]);
+        *((void **) (car + 0x8C)) = find_named_node(D_8009BAF0[0]);
       }
       {
         u16 *counter = &D_800C8202;
         temp_a1 = *counter;
         *counter = (u16) (temp_a1 + 1);
       }
-      if (((u16) D_8009BAA0[*((u16 *) (((char *) D_800C35A0) + 0x22))][D_800C8200]) < temp_a1)
+      if (((u16) D_8009BAA0[*((u16 *) (((char *) gRecords) + 0x22))][D_800C8200]) < temp_a1)
       {
         temp_v0 = D_800C8200 + 1;
         D_800C8200 = temp_v0;
         temp_v0 &= 0xFF;
         {
-          void *r = func_80012B74(D_8009BAF0[temp_v0]);
-          char *p = D_800C35A0;
-          *((void **) (arg0 + 0x8C)) = r;
+          void *r = find_named_node(D_8009BAF0[temp_v0]);
+          char *p = gRecords;
+          *((void **) (car + 0x8C)) = r;
           temp_v0 = D_8009BAA0[*((u16 *) (p + 0x22))][D_800C8200];
         }
         if (temp_v0 == 0)
@@ -72,7 +77,7 @@ void func_80012CA8(char *arg0)
           D_800C8200 = temp_v0_2;
           do
           {
-            *((void **) (arg0 + 0x8C)) = func_80012B74(D_8009BAF0[temp_v0_2 & 0xFF]);
+            *((void **) (car + 0x8C)) = find_named_node(D_8009BAF0[temp_v0_2 & 0xFF]);
           }
           while (0);
         }
@@ -83,8 +88,8 @@ void func_80012CA8(char *arg0)
       }
       if (D_800C8240 & 0x800)
       {
-        var_s0 = func_80084BF0(0);
-        func_80085778(0, var_s0);
+        var_s0 = input_get_buttons(0);
+        input_clear_flags(0, var_s0);
         if (var_s0 & 8)
         {
           var_s2 += 0x34;
@@ -94,14 +99,14 @@ void func_80012CA8(char *arg0)
           {
             var_s2 = temp_a1_2;
           }
-          *((void **) (arg0 + 0x8C)) = var_s2;
+          *((void **) (car + 0x8C)) = var_s2;
         }
       }
       {
         char *c = CAM;
-        *((f32 *) (c + 0x118)) = (f32) (*((s32 *) ((*((char **) (arg0 + 0x8C))) + 0xC)));
-        *((f32 *) (c + 0x11C)) = (f32) (*((s32 *) ((*((char **) (arg0 + 0x8C))) + 0x10)));
-        *((f32 *) (c + 0x120)) = (f32) (*((s32 *) ((*((char **) (arg0 + 0x8C))) + 0x14)));
+        *((f32 *) (c + 0x118)) = (f32) (*((s32 *) ((*((char **) (car + 0x8C))) + 0xC)));
+        *((f32 *) (c + 0x11C)) = (f32) (*((s32 *) ((*((char **) (car + 0x8C))) + 0x10)));
+        *((f32 *) (c + 0x120)) = (f32) (*((s32 *) ((*((char **) (car + 0x8C))) + 0x14)));
         vec = *(Vec3i *) (*((char **) (var_s3 + 0x58)) + 0xC);
         *((f32 *) (c + 0x124)) = (f32) vec.x;
         *((f32 *) (c + 0x128)) = (f32) vec.y;
@@ -109,7 +114,7 @@ void func_80012CA8(char *arg0)
         *((s32 *) (c + 0x108)) = 0;
       }
     }
-    func_80042290(CAM);
+    streamSetCurrent(CAM);
   }
 }
 

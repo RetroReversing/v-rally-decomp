@@ -1,26 +1,32 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800C02AE[];
-void func_80023B7C(char *arg0, char *arg1)
+extern char stream_state[];
+
+/* Builds the split-time buffer for one record. Words 0-3 of the buffer come from
+   the record's header fields; the remaining words hold the per-split times, which
+   are nudged up or down 10% by the difficulty setting. The owner's result block
+   then gets the total time and fixed flags. */
+void func_80023B7C(char *rec, char *owner)
 {
   s32 *out;
-  s32 *t3;
+  s32 *result;
   u32 i;
-  int new_var;
-  s32 q;
-  u32 a1;
-  s32 v;
-  char *cur;
-  s32 *new_var2;
-  char *tab;
+  s32 split_count;
+  u32 split_time;
+  char *settings;
+  s32 *prev_out;
   s32 saved;
-  out = *((s32 **) (arg1 + 0x78));
-  t3 = *((s32 **) (arg1 + 0x20));
-  *((s32 *) (((char *) out) + 0x60)) = *((s32 *) (arg0 + 0x90));
-  out[0] = *((s32 *) (arg0 + 0xDC));
-  out[1] = *((s32 *) (arg0 + 0x128));
-  out[2] = (*((s32 *) (arg0 + 0x174))) >> 2;
-  out[3] = *((s32 *) (arg0 + 0x1C0));
+  s32 q;
+  int unused_stride;
+  char *cur;
+
+  out = *((s32 **) (owner + 0x78));
+  result = *((s32 **) (owner + 0x20));
+  *((s32 *) (((char *) out) + 0x60)) = *((s32 *) (rec + 0x90));
+  out[0] = *((s32 *) (rec + 0xDC));
+  out[1] = *((s32 *) (rec + 0x128));
+  out[2] = (*((s32 *) (rec + 0x174))) >> 2;
+  out[3] = *((s32 *) (rec + 0x1C0));
   for (i = 4; i < 0x18; i++)
   {
     out[i] = 0;
@@ -30,45 +36,45 @@ void func_80023B7C(char *arg0, char *arg1)
   ;
   if (((out[1] - out[0]) / 1000) != 0)
   {
-    tab = *((char **) (D_800C02AE + 0x32F2));
-    cur = arg0 + 0x4C;
-    new_var = 0x1C0;
+    settings = *((char **) (stream_state + 0x32F2));
+    cur = rec + 0x4C;
+    unused_stride = 0x1C0;
     do
     {
-      new_var2 = out;
-      a1 = ((struct { u32 v; char pad[0x48]; } *)(arg0 + 0x90))[i + 4].v;
+      prev_out = out;
+      split_time = ((struct { u32 v; char pad[0x48]; } *)(rec + 0x90))[i + 4].v;
       if (i >= 5)
       {
         {
-          v = *((u16 *) (tab + 0x16));
-          switch (v)
+          split_count = *((u16 *) (settings + 0x16));
+          switch (split_count)
           {
             case 0:
-              a1 -= a1 / 10;
+              split_time -= split_time / 10;
               break;
 
             case 1:
               break;
 
             case 2:
-              a1 += a1 / 10;
+              split_time += split_time / 10;
               break;
 
           }
 
         }
       }
-      out[i + 4] = a1;
+      out[i + 4] = split_time;
       cur += 0x4C;
       i++;
-      q = (out[1] - new_var2[0]) / 1000;
+      q = (out[1] - prev_out[0]) / 1000;
     }
     while (((u32) ((out[1] - out[0]) / 1000)) >= i);
   }
   saved = out[0];
-  t3[0] = 0;
-  t3[2] = 0;
-  t3[5] = 0x10;
-  t3[1] = saved;
+  result[0] = 0;
+  result[2] = 0;
+  result[5] = 0x10;
+  result[1] = saved;
 }
 

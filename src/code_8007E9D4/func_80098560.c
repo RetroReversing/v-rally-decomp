@@ -1,5 +1,8 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
+/* Copies the NUL-terminated string src to dst and returns dst. Copies a word
+ * at a time once both pointers are aligned, and stops at the first zero byte
+ * (the bytes of the last word are checked, so the terminator is not overrun). */
 char *func_80098560(char *dst, char *src, u32 n)
 {
     char *d = dst;
@@ -16,7 +19,11 @@ bytes:
         return dst;
     }
     w = n >> 2;
+#ifdef PORT
+    if ((uintptr_t)d & 3) {
+#else
     if ((u32)d & 3) {
+#endif
         do {
             if (n-- == 0) {
                 return dst;
@@ -24,7 +31,11 @@ bytes:
             if ((*d++ = *src++) == 0) {
                 return dst;
             }
+#ifdef PORT
+        } while ((uintptr_t)d & 3);
+#else
         } while ((u32)d & 3);
+#endif
         w = n >> 2;
     }
     while (w-- != 0) {

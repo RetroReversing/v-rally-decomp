@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { u8 start; u8 count; } Group;
 typedef struct {
@@ -11,15 +11,16 @@ typedef struct {
     s8 group;
 } GroupOwner;
 
-void func_8000C22C(void *, s32, s32, s32, u8);
-extern GroupTable *D_800A1468;
+void font_set_color(void *item, s32 r, s32 g, s32 b, u8 a);
+extern GroupTable *gSelectState;
 
-void func_80059618(GroupOwner *arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4) {
+/* Sets the colour of every item in the owner's group. */
+void func_80059618(GroupOwner *owner, u8 r, u8 g, u8 b, u8 a) {
     u8 i;
 
-    for (i = D_800A1468->groups[arg0->group].start;
-         i < D_800A1468->groups[arg0->group].start + D_800A1468->groups[arg0->group].count; i++) {
-        func_8000C22C((void *)(D_800A1468->items[i]), (s32)((u8)(arg1)), (s32)((u8)(arg2)), (s32)((u8)(arg3)), (u8)(arg4));
+    for (i = gSelectState->groups[owner->group].start;
+         i < gSelectState->groups[owner->group].start + gSelectState->groups[owner->group].count; i++) {
+        font_set_color((void *)(gSelectState->items[i]), (s32)((u8)(r)), (s32)((u8)(g)), (s32)((u8)(b)), (u8)(a));
     }
 }
 

@@ -1,33 +1,44 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-u32 *func_80006008(void *);
-void func_80006014(void *, u32 *);
+u32 *gfx_get_dl(void *);
+void gfx_set_dl(void *, u32 *);
 extern char D_8009C030[];
 extern char D_8009C068[];
 extern char D_8009C0A8[];
 extern char D_8009C0E8[];
 
-#define gCmd(pkt, a, b) { u32 *_g = (u32 *)(pkt); _g[0] = (a); _g[1] = (u32)(b); }
+#ifdef PORT
+#define GFX_DL_CALL(pkt, addr) { uintptr_t *_g = (uintptr_t *)(pkt); _g[0] = 0xDE000000; _g[1] = (uintptr_t)(addr); }
+#else
+#define GFX_DL_CALL(pkt, addr) { u32 *_g = (u32 *)(pkt); _g[0] = 0xDE000000; _g[1] = (u32)(addr); }
+#endif
 
+/* Adds a display-list call to the list for view r: first the common list
+ * D_8009C030, then the list for the mode (0-3, modes 2 and 3 share one). */
 void func_80016910(void *r, s32 mode)
 {
+#ifdef PORT
+  struct { uintptr_t w0, w1; } *gfx;
+#else
   struct { u32 w0, w1; } *gfx;
+#endif
 
-  gfx = func_80006008(r);
-  gCmd(gfx++, 0xDE000000, D_8009C030);
+  gfx = gfx_get_dl(r);
+  GFX_DL_CALL(gfx++, D_8009C030);
   switch (mode) {
   case 0:
-    gCmd(gfx++, 0xDE000000, D_8009C068);
+    GFX_DL_CALL(gfx++, D_8009C068);
     break;
   case 1:
-    gCmd(gfx++, 0xDE000000, D_8009C0A8);
+    GFX_DL_CALL(gfx++, D_8009C0A8);
     break;
   case 2:
-    gCmd(gfx++, 0xDE000000, D_8009C0E8);
+    GFX_DL_CALL(gfx++, D_8009C0E8);
     break;
   case 3:
-    gCmd(gfx++, 0xDE000000, D_8009C0E8);
+    GFX_DL_CALL(gfx++, D_8009C0E8);
     break;
   }
-  func_80006014(r, gfx);
+  gfx_set_dl(r, gfx);
 }
+

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
     u8 *ptr;
@@ -16,25 +16,25 @@ struct huft {
         struct huft *t;
     } v;
 };
-extern InflState D_800C333C;
-extern u16 D_800A19F0[];
-extern u32 D_800A1A20[];
-extern u16 D_800A1A6C[];
-extern u16 D_800A1AAC[];
-extern u16 D_800A1AEC[];
-extern u16 D_800A1B28[];
-extern s32 D_800A1B64;
-extern s32 D_800A1B68;
-s32 func_80082094(void);
+extern InflState inflateState;
+extern u16 mask_bits[];
+extern u32 border_order[];
+extern u16 cplens[];
+extern u16 cplext[];
+extern u16 cpdist[];
+extern u16 cpdext[];
+extern s32 lbits;
+extern s32 dbits;
+s32 order_stream_next_byte(void);
 s32 huft_build(u32 *, u32, u32, u16 *, u16 *, struct huft **, s32 *);
 s32 huft_free(struct huft *);
 s32 inflate_codes(struct huft *, struct huft *, s32, s32);
 
-#define NEXTBYTE() (--D_800C333C.cnt >= 0 ? *D_800C333C.ptr++ : func_80082094())
+#define NEXTBYTE() (--inflateState.cnt >= 0 ? *inflateState.ptr++ : order_stream_next_byte())
 #define NEEDBITS(n) while (k < (n)) { c = NEXTBYTE(); if (c == -1) return 1; b |= (u32)c << k; k += 8; }
 #define DUMPBITS(n) { b >>= (n); k -= (n); }
 
-s32 func_8008328C(void)
+/* Reads the dynamic Huffman block header (inflate type 2), builds the literal and distance tables, and decodes them. */ s32 func_8008328C(void)
 {
     s32 i;
     u32 j;
@@ -43,44 +43,44 @@ s32 func_8008328C(void)
     u32 n;
     struct huft *tl;
     struct huft *td;
-    s32 bl;
-    s32 bd;
-    u32 nb;
-    u32 nl;
-    u32 nd;
+    s32 litBits;
+    s32 distBits;
+    u32 numCodeLen;
+    u32 numLitLen;
+    u32 numDist;
     u32 ll[320];
     u32 b;
     u32 k;
     s32 c;
 
-    b = D_800C333C.bb;
-    k = D_800C333C.bk;
+    b = inflateState.bb;
+    k = inflateState.bk;
 
     NEEDBITS(5)
-    nl = 257 + (b & 0x1f);
+    numLitLen = 257 + (b & 0x1f);
     DUMPBITS(5)
     NEEDBITS(5)
-    nd = 1 + (b & 0x1f);
+    numDist = 1 + (b & 0x1f);
     DUMPBITS(5)
     NEEDBITS(4)
-    nb = 4 + (b & 0xf);
+    numCodeLen = 4 + (b & 0xf);
     DUMPBITS(4)
-    if (nl > 288 || nd > 32) {
+    if (numLitLen > 288 || numDist > 32) {
         return 1;
     }
 
-    for (j = 0; j < nb; j++) {
+    for (j = 0; j < numCodeLen; j++) {
         NEEDBITS(3)
-        ll[D_800A1A20[j]] = b & 7;
+        ll[border_order[j]] = b & 7;
         DUMPBITS(3)
     }
     for (; j < 19; j++) {
-        ll[D_800A1A20[j]] = 0;
+        ll[border_order[j]] = 0;
     }
 
-    bl = 7;
-    i = huft_build(ll, 19, 19, NULL, NULL, &tl, &bl);
-    if (bl == 0) {
+    litBits = 7;
+    i = huft_build(ll, 19, 19, NULL, NULL, &tl, &litBits);
+    if (litBits == 0) {
         i = 1;
     }
     if (i != 0) {
@@ -90,11 +90,11 @@ s32 func_8008328C(void)
         return i;
     }
 
-    n = nl + nd;
-    m = D_800A19F0[bl];
+    n = numLitLen + numDist;
+    m = mask_bits[litBits];
     i = l = 0;
     while ((u32)i < n) {
-        NEEDBITS((u32)bl)
+        NEEDBITS((u32)litBits)
         j = (td = tl + (b & m))->b;
         DUMPBITS(j)
         j = td->v.n;
@@ -137,12 +137,12 @@ s32 func_8008328C(void)
 
     huft_free(tl);
 
-    D_800C333C.bb = b;
-    D_800C333C.bk = k;
+    inflateState.bb = b;
+    inflateState.bk = k;
 
-    bl = D_800A1B64;
-    i = huft_build(ll, nl, 257, D_800A1A6C, D_800A1AAC, &tl, &bl);
-    if (bl == 0) {
+    litBits = lbits;
+    i = huft_build(ll, numLitLen, 257, cplens, cplext, &tl, &litBits);
+    if (litBits == 0) {
         i = 1;
     }
     if (i != 0) {
@@ -151,9 +151,9 @@ s32 func_8008328C(void)
         }
         return i;
     }
-    bd = D_800A1B68;
-    i = huft_build(ll + nl, nd, 0, D_800A1AEC, D_800A1B28, &td, &bd);
-    if (bd == 0 && nl > 257) {
+    distBits = dbits;
+    i = huft_build(ll + numLitLen, numDist, 0, cpdist, cpdext, &td, &distBits);
+    if (distBits == 0 && numLitLen > 257) {
         huft_free(tl);
         return 1;
     }
@@ -165,7 +165,7 @@ s32 func_8008328C(void)
         return i;
     }
 
-    if (inflate_codes(tl, td, bl, bd)) {
+    if (inflate_codes(tl, td, litBits, distBits)) {
         return 1;
     }
 

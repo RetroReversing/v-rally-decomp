@@ -1,19 +1,19 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern int D_800C7F84;
+extern int g_camera;
 s32 func_8003C968();
-s32 func_8003CD18();
-s32 func_8003D780();
+s32 layout_slot_buttons();
+s32 hudAddLabels();
 s32 func_8003D8F4();
 s32 func_8003D9C8();
 s32 func_8003E1BC();
 s32 func_8003E3E0();
-s32 func_8003E4A8();
-s32 func_8004240C();
-extern void *D_800C35A0;
+s32 add_gray_label_rows();
+s32 find_object_by_id();
+extern void *gRecords;
 static inline static static static static static static static char *inline_fn(s32 arg0)
 {
-  return (char *) (D_800C35A0 + arg0);
+  return (char *) (gRecords + arg0);
 }
 
 static inline static static char *inline_fn2(char *arg0, int arg1)
@@ -21,39 +21,39 @@ static inline static static char *inline_fn2(char *arg0, int arg1)
   return arg0 + arg1;
 }
 
-void func_8003DDBC(s32 arg0, s32 arg1)
+/* Draws the HUD for every slot of the current record block: slots 1..mode each get their labels, buttons and digits according to the flag bits of their record entry. */ void func_8003DDBC(s32 arg0, s32 arg1)
 {
-  int new_var5;
-  s32 temp_a2;
-  s32 temp_s0;
-  s32 var_s0;
-  s32 var_s3;
-  void *new_var3;
-  int new_var7;
-  u16 temp_s5;
-  int new_var;
-  u16 temp_v1;
-  void *temp_s4;
-  char *new_var6;
-  void *new_var4;
-  void *new_var2;
-  s32 temp_v0;
-  temp_s4 = D_800C35A0;
-  if ((*((u16 *) inline_fn2((char *) temp_s4, 0x1E))) != 7)
+  int mask4;
+  s32 slot_u16;
+  s32 slot_masked;
+  s32 slot_idx;
+  s32 slot;
+  void *entry_b;
+  int entry_off;
+  u16 n_slots;
+  int kind_off;
+  u16 state;
+  void *rec;
+  char *entry_ptr;
+  void *rec_b;
+  void *entry;
+  s32 obj;
+  rec = gRecords;
+  if ((*((u16 *) inline_fn2((char *) rec, 0x1E))) != 7)
   {
-    temp_s5 = *((u16 *) inline_fn2((char *) temp_s4, 0xE));
-    if (temp_s5 != 0)
+    n_slots = *((u16 *) inline_fn2((char *) rec, 0xE));
+    if (n_slots != 0)
     {
-      var_s3 = (temp_s5 | 1) & 1;
-      var_s0 = (u16) var_s3;
+      slot = (n_slots | 1) & 1;
+      slot_idx = (u16) slot;
       do
       {
-        temp_v0 = func_8004240C(((var_s0 - 1) * 2) | 1);
-        temp_v1 = *((u16 *) inline_fn2((char *) temp_s4, 0x1E));
-        D_800C7F84 = temp_v0;
-        if (temp_v1 == 0)
+        obj = find_object_by_id(((slot_idx - 1) * 2) | 1);
+        state = *((u16 *) inline_fn2((char *) rec, 0x1E));
+        g_camera = obj;
+        if (state == 0)
         {
-          if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(var_s0), 0x31))) * 0x28), 0x48))) & 4)
+          if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(slot_idx), 0x31))) * 0x28), 0x48))) & 4)
           {
             do
             {
@@ -63,57 +63,57 @@ void func_8003DDBC(s32 arg0, s32 arg1)
           }
           goto block_8;
         }
-        new_var2 = inline_fn2(D_800C35A0, (4 * (*((u8 *) inline_fn2(inline_fn(var_s0), 0x31)))) * 10);
-        if ((*((u8 *) inline_fn2((char *) new_var2, 0x48))) & 1)
+        entry = inline_fn2(gRecords, (4 * (*((u8 *) inline_fn2(inline_fn(slot_idx), 0x31)))) * 10);
+        if ((*((u8 *) inline_fn2((char *) entry, 0x48))) & 1)
         {
           block_7:
-          func_8003D780(arg0, arg1, var_s0);
+          hudAddLabels(arg0, arg1, slot_idx);
 
           block_8:
-          temp_a2 = var_s3 & 0xFFFF;
+          slot_u16 = slot & 0xFFFF;
 
-          new_var7 = (8 * (*((u8 *) inline_fn2(inline_fn(temp_a2), 0x31)))) * 5;
-          if ((*((u8 *) inline_fn2((char *) inline_fn2(D_800C35A0, new_var7), 0x48))) & 1)
+          entry_off = (8 * (*((u8 *) inline_fn2(inline_fn(slot_u16), 0x31)))) * 5;
+          if ((*((u8 *) inline_fn2((char *) inline_fn2(gRecords, entry_off), 0x48))) & 1)
           {
-            func_8003D8F4(arg0, arg1, temp_a2);
+            func_8003D8F4(arg0, arg1, slot_u16);
           }
         }
-        temp_s0 = var_s3;
-        temp_s0 = temp_s0 & 0xFFFF;
-        new_var4 = temp_s4;
-        new_var6 = inline_fn(temp_s0);
-        new_var3 = inline_fn2(D_800C35A0, (*((u8 *) inline_fn2(new_var6, 0x31))) * 0x28);
-        new_var5 = 4;
-        if ((*((u8 *) inline_fn2((char *) new_var3, 0x48))) & new_var5)
+        slot_masked = slot;
+        slot_masked = slot_masked & 0xFFFF;
+        rec_b = rec;
+        entry_ptr = inline_fn(slot_masked);
+        entry_b = inline_fn2(gRecords, (*((u8 *) inline_fn2(entry_ptr, 0x31))) * 0x28);
+        mask4 = 4;
+        if ((*((u8 *) inline_fn2((char *) entry_b, 0x48))) & mask4)
         {
-          func_8003D9C8(arg0, arg1, temp_s0);
+          func_8003D9C8(arg0, arg1, slot_masked);
         }
-        if ((*((u8 *) inline_fn2((char *) inline_fn2(D_800C35A0, (*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))) * 0x28), 0x48))) & 1)
+        if ((*((u8 *) inline_fn2((char *) inline_fn2(gRecords, (*((u8 *) inline_fn2(inline_fn(slot_masked), 0x31))) * 0x28), 0x48))) & 1)
         {
-          func_8003CD18(arg0, arg1, temp_s0);
+          layout_slot_buttons(arg0, arg1, slot_masked);
         }
-        new_var = 0x31;
-        if ((*((u8 *) inline_fn2((char *) (D_800C35A0 - (-((*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))) * 0x28))), 0x48))) & 4)
+        kind_off = 0x31;
+        if ((*((u8 *) inline_fn2((char *) (gRecords - (-((*((u8 *) inline_fn2(inline_fn(slot_masked), 0x31))) * 0x28))), 0x48))) & 4)
         {
-          func_8003E4A8(arg0, arg1, temp_s0);
+          add_gray_label_rows(arg0, arg1, slot_masked);
         }
-        if ((*((u8 *) inline_fn2(inline_fn(10 * (4 * (*((u8 *) inline_fn2(inline_fn(temp_s0), 0x31))))), 0x48))) & 1)
+        if ((*((u8 *) inline_fn2(inline_fn(10 * (4 * (*((u8 *) inline_fn2(inline_fn(slot_masked), 0x31))))), 0x48))) & 1)
         {
-          func_8003E3E0(arg0, arg1, temp_s0);
+          func_8003E3E0(arg0, arg1, slot_masked);
         }
-        if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(temp_s0), new_var))) * 0x28), 0x48))) & 4)
+        if ((*((u8 *) inline_fn2(inline_fn((*((u8 *) inline_fn2(inline_fn(slot_masked), kind_off))) * 0x28), 0x48))) & 4)
         {
-          func_8003E1BC(arg0, arg1, temp_s0);
+          func_8003E1BC(arg0, arg1, slot_masked);
         }
-        temp_v1 = *((u16 *) inline_fn2((char *) new_var4, 0x1E));
-        if ((temp_v1 != 5) & (temp_v1 != 0))
+        state = *((u16 *) inline_fn2((char *) rec_b, 0x1E));
+        if ((state != 5) & (state != 0))
         {
-          func_8003C968(arg0, arg1, temp_s0);
+          func_8003C968(arg0, arg1, slot_masked);
         }
-        var_s3 += 1;
-        var_s0 = (s32) ((u16) var_s3);
+        slot += 1;
+        slot_idx = (s32) ((u16) slot);
       }
-      while (temp_s5 >= ((u32) (var_s3 & 0xFFFF)));
+      while (n_slots >= ((u32) (slot & 0xFFFF)));
     }
   }
 }

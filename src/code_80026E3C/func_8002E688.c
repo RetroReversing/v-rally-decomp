@@ -1,15 +1,17 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-s32 func_8002E688(s32 *arg0, s32 *arg1)
+/* Normalizes the integer vector src to 4096 units of length in dst, and returns the
+ * rounded-down length (1 if the input is zero or shorter than 1). */
+s32 func_8002E688(s32 *src, s32 *dst)
 {
   f32 v[3];
   f32 len;
   f32 fn;
   f32 s;
   s32 n;
-  v[0] = (f32) arg0[0];
-  v[1] = (f32) arg0[1];
-  v[2] = (f32) arg0[2];
+  v[0] = (f32) src[0];
+  v[1] = (f32) src[1];
+  v[2] = (f32) src[2];
   len = ((v[0] * v[0]) + (v[1] * v[1])) + (v[2] * v[2]);
   if (len != 0.0f)
   {
@@ -23,9 +25,10 @@ s32 func_8002E688(s32 *arg0, s32 *arg1)
   {
     n = 1;
   }
-  s = 4096.0f; arg1[0] = (s32) ((((f32) arg0[0]) / ((f32) n)) * s);
-  arg1[1] = (s32) ((((f32) arg0[1]) / ((f32) n)) * s);
-  s = (((f32) arg0[2]) / ((f32) n)) * s;
-  arg1[2] = (s32) s;
+  s = 4096.0f; dst[0] = (s32) ((((f32) src[0]) / ((f32) n)) * s);
+  dst[1] = (s32) ((((f32) src[1]) / ((f32) n)) * s);
+  s = (((f32) src[2]) / ((f32) n)) * s;
+  dst[2] = (s32) s;
   return n;
 }
+

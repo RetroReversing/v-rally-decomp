@@ -1,12 +1,12 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Track {
     s32 count;
-    s32 *a;
-    s32 *b;
-    s32 *c;
+    s32 *level;
+    s32 *pan;
+    s32 *rate;
 } Track;
-typedef struct Ent {
+typedef struct Voice {
     s32 x0;
     u8 pad04[0x2C];
     s32 x30;
@@ -21,41 +21,47 @@ typedef struct Ent {
     s32 x80;
     s32 x84;
     u8 pad88[0x134 - 0x88];
-} Ent;
+} Voice;
 extern s32 D_800B0100;
-extern Ent *D_800B68F0;
-extern void func_8008989C(void *, void *, s32);
-extern void func_800885CC(Ent *);
-extern s32 func_80089554(Track *, s32);
+extern Voice *gVoices;
+extern void fix_up_offsets(void *, void *, s32);
+extern void voice_reset(Voice *);
+extern s32 voice_pick_slot(Track *, s32);
 
-s32 func_80086854(Track *t)
+/* Starts a track: on first use, turns its stored offsets into pointers, then claims
+   a voice for each entry with a nonzero level and copies its pan and rate into it.
+   Returns this start's stamp, a serial number bumped on every call. */
+s32 func_80086854(Track *track)
 {
-    s32 n;
+    s32 count;
     s32 i;
     s32 stamp;
-    Ent *e;
-    s32 n2;
+    Voice *voice;
+    s32 level;
 
-    n = t->count;
-    if ((u32)t->a < 0x400) {
-        func_8008989C(&t->a, t, 5);
-        func_8008989C(t->a, t, n);
-        func_8008989C(t->b, t, n);
-        func_8008989C(t->c, t, n);
+    count = track->count;
+#ifdef PORT
+    if ((uintptr_t)track->level < 0x400) {
+#else
+    if ((u32)track->level < 0x400) {
+#endif
+        fix_up_offsets(&track->level, track, 5);
+        fix_up_offsets(track->level, track, count);
+        fix_up_offsets(track->pan, track, count);
+        fix_up_offsets(track->rate, track, count);
     }
     stamp = D_800B0100++;
-    for (i = 0; i < n; i++) {
-        if (t->a[i] != 0) {
-            e = &D_800B68F0[func_80089554(t, i)];
-            func_800885CC(e);
-            e->owner = t;
-            e->x34 = e->x84 = t->b[i];
-            e->x30 = e->x80 = t->c[i];
-            n2 = t->a[i];
-            e->x40 = stamp;
-            e->x0 = e->x78 = n2;
+    for (i = 0; i < count; i++) {
+        if (track->level[i] != 0) {
+            voice = &gVoices[voice_pick_slot(track, i)];
+            voice_reset(voice);
+            voice->owner = track;
+            voice->x34 = voice->x84 = track->pan[i];
+            voice->x30 = voice->x80 = track->rate[i];
+            level = track->level[i];
+            voice->x40 = stamp;
+            voice->x0 = voice->x78 = level;
         }
     }
     return stamp;
 }
-

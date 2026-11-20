@@ -1,34 +1,39 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern unsigned char D_800B6818;
-extern int D_800C3508;void *func_800592AC(u32);
-s32 func_800592F4();
-void func_8005C0E8(s32, u32, u32);
-s32 func_8008A0D8();
-extern void *D_800A1468;
-extern u8 D_800A1700;
-extern char D_800AE850[];
-extern char D_800C02AE[];
+extern int gLeague;void *select_get_entry(u32);
+s32 slotSetSelected();
+void select_propagate_values(s32, u32, u32);
+s32 record_set_byte9();
+extern void *gSelectState;
+extern u8 gSelectMode;
+extern char gOrderState[];
+extern char stream_state[];
+
+/* Refreshes the select-screen entry for the current stream. If gSelectMode is 2, or the stream
+ * record's byte at +0xE is 2, sets D_800B6818, takes 0x20 off the entry's count and sends
+ * select_propagate_values the value at gSelectState+0x14. Then it writes the flag to the entry at +0x41
+ * and calls record_set_byte9 for the league. */
 void func_80070A34(void)
 {
-  s8 var_s0;
-  void *temp_s1;
-  void *temp_v1;
-  s32 *new_var2;
-  int new_var;
-  temp_s1 = func_800592AC(2);
-  new_var = 0;
-  if ((D_800A1700 == 2) || ((var_s0 = 1, (*((u16 *) (((char *) (*((void **) (D_800C02AE + 0x32F2)))) + 0xE))) == 2)))
+  s8 flag;
+  void *entry;
+  void *entryData;
+  s32 *selectVal;
+  int zero;
+  entry = select_get_entry(2);
+  zero = 0;
+  if ((gSelectMode == 2) || ((flag = 1, (*((u16 *) (((char *) (*((void **) (stream_state + 0x32F2)))) + 0xE))) == 2)))
   {
     D_800B6818 = 1U;
-    new_var2 = (s32 *) (((char *) D_800A1468) + 0x14);
-    temp_v1 = *((void **) (((char *) temp_s1) + 0));
-    var_s0 = new_var;
-    *((u16 *) (((char *) temp_v1) + 0xC)) -= 0x20;
-    func_8005C0E8(2, 1, *new_var2);
+    selectVal = (s32 *) (((char *) gSelectState) + 0x14);
+    entryData = *((void **) (((char *) entry) + 0));
+    flag = zero;
+    *((u16 *) (((char *) entryData) + 0xC)) -= 0x20;
+    select_propagate_values(2, 1, *selectVal);
   }
-  func_800592F4(7, D_800B6818 == 1);
-  *((s8 *) (((char *) temp_s1) + 0x41)) = var_s0;
-  func_8008A0D8(D_800C3508, 7, var_s0);
+  slotSetSelected(7, D_800B6818 == 1);
+  *((s8 *) (((char *) entry) + 0x41)) = flag;
+  record_set_byte9(gLeague, 7, flag);
 }
 

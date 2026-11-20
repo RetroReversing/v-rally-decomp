@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct Cfg3E {
@@ -21,27 +21,29 @@ typedef struct Game3E {
     u16 state;
 } Game3E;
 
-extern View3E *D_800C7F84;
-extern Game3E *D_800C35A0;
-void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);
+extern View3E *g_camera;
+extern Game3E *gRecords;
+void add_label_sprites(void *, s32, s32, SpriteHook, u8 *, u16, u8 *);
 void func_8003B7BC(void *);
 
-void func_8003E4A8(void *arg0, s32 arg1)
+/* Adds four grey label rows above the HUD anchor while the record screen is in
+ * its idle state (mode 1, state 0). Each row is brighter than the one before. */
+void func_8003E4A8(void *sprite_list, u8 *tex_table)
 {
     u8 col[4];
-    u32 i;
+    u32 row;
     s32 x;
     s32 y;
     s32 h;
-    Cfg3E *cfg = D_800C7F84->cfg;
+    Cfg3E *cfg = g_camera->cfg;
 
     x = cfg->x + 0x14;
     y = cfg->y + 6;
     h = cfg->h;
-    if (D_800C35A0->mode == 1 && D_800C35A0->state == 0) {
+    if (gRecords->mode == 1 && gRecords->state == 0) {
         h -= 8;
-        for (i = 0; i < 4; i++) {
-            switch (i) {
+        for (row = 0; row < 4; row++) {
+            switch (row) {
             case 0:
                 col[0] = 0x78;
                 col[1] = 0x78;
@@ -67,7 +69,7 @@ void func_8003E4A8(void *arg0, s32 arg1)
                 col[3] = 0xFF;
                 break;
             }
-            func_8003A794((s32)(arg0), x, y + h - (6 - i) * 10 + 2, func_8003B7BC, (u8 *)(arg1), i, col);
+            add_label_sprites(sprite_list, x, y + h - (6 - row) * 10 + 2, func_8003B7BC, tex_table, row, col);
         }
     }
 }

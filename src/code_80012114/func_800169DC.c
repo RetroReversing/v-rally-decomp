@@ -1,17 +1,29 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
+#ifdef PORT
+typedef unsigned long gfx_word_t;
+typedef struct { gfx_word_t w0, w1; } Gfx16;
+#else
 typedef struct { u32 w0, w1; } Gfx16;
-Gfx16 *func_80006008();
-s32 func_80006014();
+#endif
+Gfx16 *gfx_get_dl();
+s32 gfx_set_dl();
 extern char D_8009C068[];
 extern char D_8009C0A8[];
 extern char D_8009C0E8[];
+#ifdef PORT
+#define GW(pkt, a, b) { Gfx16 *_g = (Gfx16 *)(pkt); _g->w0 = (a); _g->w1 = (gfx_word_t)(b); }
+#else
 #define GW(pkt, a, b) { Gfx16 *_g = (Gfx16 *)(pkt); _g->w0 = (a); _g->w1 = (u32)(b); }
-void func_800169DC(s32 arg0, s32 arg1)
+#endif
+
+/* Appends the RDP state commands for render mode `mode` to the current display list,
+   then hands the list back to gfx_set_dl. */
+void func_800169DC(s32 dl_ctx, s32 mode)
 {
   Gfx16 *gfx;
-  gfx = func_80006008();
-  switch (arg1)
+  gfx = gfx_get_dl();
+  switch (mode)
   {
     case 0:
       GW(gfx++, 0xDE000000, D_8009C068);
@@ -30,6 +42,6 @@ void func_800169DC(s32 arg0, s32 arg1)
       GW(gfx++, 0xFC30D3FF, -0x1C8);
       break;
   }
-  func_80006014(arg0, gfx);
+  gfx_set_dl(dl_ctx, gfx);
 }
 

@@ -1,22 +1,18 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
+#ifdef PORT
+extern u8 *gSelectState;
+#else
+extern s32 gSelectState;
 #endif
-void *func_800592D0(u32);                              /* extern */
-extern s32 D_800A1468;
+void *textObjGet(u32 index);
 
+/* Returns the state word for object index: its slot (byte 0xA, scaled by 4) indexes the select state table at +0xE4. */
 s32 func_8005A654(u32 index) {
-    return M2C_FIELD(((M2C_FIELD(func_800592D0(index), s8 *, 0xA) * 4) + D_800A1468), s32 *, 0xE4);
+    #ifdef PORT
+    return *(s32 *)(gSelectState + (*(s8 *)((s8 *)textObjGet(index) + 0xA) * 4) + 0xE4);
+#else
+    return *(s32 *)((s8 *)((*(s8 *)((s8 *)textObjGet(index) + 0xA) * 4) + gSelectState) + 0xE4);
+#endif
 }
 

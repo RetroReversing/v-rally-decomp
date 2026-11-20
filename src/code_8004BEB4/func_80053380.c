@@ -1,82 +1,83 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-#define G533 D_800C35A0
-extern u8 D_800C02AE[];
-extern u8 D_800AE850[];
-extern s32 D_8009D540;
-void func_800535F4(void *);
-void func_80098290(void *, void *);
-extern u8 *D_800C35A0;
+extern u8 stream_state[];
+extern u8 gOrderState[];
+extern s32 gRecordTimeScale;
+void sort_split_times(void *);
+void strCpy(void *, void *);
+extern u8 *gRecords;
+
+/* Refreshes each record in gRecords (the count is the u16 at +14): copies its table slot,
+ * scales its timer by gRecordTimeScale, and updates its flag bits and per-entry values. */
 void func_80053380(void)
 {
-  char *__repair_addr;
-  u8 *a;
-  u8 *base;
-  u8 *b2;
-  u8 *s;
-  u8 *t;
-  u32 *p;
-  u32 v;
+  char *rec_addr;
+  u8 *hdr;
+  u8 *tab;
+  u8 *tab2;
+  u8 *slot;
+  u8 *entry;
+  u32 val;
   s32 i;
   s32 n;
   s32 off;
   u16 mode;
   s32 idx;
-  
-  u8 pi;
-  a = G533;
+  u8 ent_index;
+
+  hdr = gRecords;
   i = 0;
-  if (*((u16 *) (a + 14)))
+  if (*((u16 *) (hdr + 14)))
   {
-    base = D_800AE850 + 0x6dac;
-    b2 = base + 16;
+    tab = gOrderState + 0x6dac;
+    tab2 = tab + 16;
     do
     {
-      mode = *((u16 *) (a + 30));
+      mode = *((u16 *) (hdr + 30));
       n = i & 255;
       off = n << 5;
-      s = (D_800C02AE + 0x3392) + (mode << 6);
-      *((s32 *) s) = *((s32 *) ((base + (mode * 4)) + off));
-      t = a + n;
-      pi = t[0x32];
-      __repair_addr = (char *) ((a + (pi * 40)) + 78);
-      s[4] = *((u16 *) __repair_addr);
-      s[5] = *((u16 *) (G533 + 22));
-      func_80098290(s + 6, G533 + ((*(G533 + n + 50) * 40) + 68));
+      slot = (stream_state + 0x3392) + (mode << 6);
+      *((s32 *) slot) = *((s32 *) ((tab + (mode * 4)) + off));
+      entry = hdr + n;
+      ent_index = entry[0x32];
+      rec_addr = (char *) ((hdr + (ent_index * 40)) + 78);
+      slot[4] = *((u16 *) rec_addr);
+      slot[5] = *((u16 *) (gRecords + 22));
+      strCpy(slot + 6, gRecords + ((*(gRecords + n + 50) * 40) + 68));
       {
-      u8 *g = G533;
- do { *(u32 *) ((((*((u16 *) (g + 30))) * 4) + b2) + off) /= 100; v = *((u32 *) ((((*((u16 *) (g + 30))) * 4) + b2) + off)); v = ((s32) v) * D_8009D540; idx = *((s32 *) s); s[10] = ((u32) (v * 3600)) / ((u32) (5 * (idx * 2))); } while (0);
+      u8 *g = gRecords;
+ do { *(u32 *) ((((*((u16 *) (g + 30))) * 4) + tab2) + off) /= 100; val = *((u32 *) ((((*((u16 *) (g + 30))) * 4) + tab2) + off)); val = ((s32) val) * gRecordTimeScale; idx = *((s32 *) slot); slot[10] = ((u32) (val * 3600)) / ((u32) (5 * (idx * 2))); } while (0);
       }
-      *(u32 *) ((((*((u16 *) (G533 + 30))) * 4) + b2) + off) *= 100;
-      s[11] = 0;
-      s[12] = 1;
-      if ((*((u16 *) (G533 + 44))) & 0x4000)
+      *(u32 *) ((((*((u16 *) (gRecords + 30))) * 4) + tab2) + off) *= 100;
+      slot[11] = 0;
+      slot[12] = 1;
+      if ((*((u16 *) (gRecords + 44))) & 0x4000)
       {
-        s32 idx;
-        u32 v;
-        idx = ((*((u16 *) (G533 + 30))) - 1) << 6;
-        if (*((u8 *) ((D_800C02AE + 0x33ae) + idx)))
+        s32 prev_off;
+        u32 prev_val;
+        prev_off = ((*((u16 *) (gRecords + 30))) - 1) << 6;
+        if (*((u8 *) ((stream_state + 0x33ae) + prev_off)))
         {
-          v = *((u32 *) ((D_800C02AE + 0x33a2) + idx));
-          if (v >= 11)
+          prev_val = *((u32 *) ((stream_state + 0x33a2) + prev_off));
+          if (prev_val >= 11)
           {
-            *((s32 *) s) = v - 3;
+            *((s32 *) slot) = prev_val - 3;
           }
         }
         else
         {
-          v = *((u32 *) ((D_800C02AE + 0x33a2) + idx));
-          if (v >= 31)
+          prev_val = *((u32 *) ((stream_state + 0x33a2) + prev_off));
+          if (prev_val >= 31)
           {
-            *((s32 *) s) = v - 10;
+            *((s32 *) slot) = prev_val - 10;
           }
         }
       }
-      func_800535F4((D_800C02AE + 0x3362) + ((*((u16 *) (G533 + 30))) << 6));
-      a = G533;
+      sort_split_times((stream_state + 0x3362) + ((*((u16 *) (gRecords + 30))) << 6));
+      hdr = gRecords;
       i++;
     }
-    while (((u32) (i & 255)) < (*((u16 *) (a + 14))));
+    while (((u32) (i & 255)) < (*((u16 *) (hdr + 14))));
   }
 }
 

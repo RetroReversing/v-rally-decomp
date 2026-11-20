@@ -1,9 +1,9 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Obj
 {
-  s32 x0;
-  s32 x4;
+  s32 unk_00;
+  s32 unk_04;
 } Obj;
 typedef struct Entry
 {
@@ -11,40 +11,45 @@ typedef struct Entry
   void (*handler)(Obj *, u8 *, s32);
   s32 value;
 } Entry;
-extern Entry D_8009FE40[];
-extern s32 func_80098180(u8 *, char *);
+extern Entry gNameHandlers[];
+extern s32 strCmp(u8 *, char *);
 extern s32 func_80040084(Obj *, u8 *, s32);
-s32 func_8003FFB4(Obj *a, u8 *b)
+
+/* Looks up the record's name (at +0x4C) in gNameHandlers. On a match it runs that
+ * handler and returns the object's second word if the handler changed it, else 0.
+ * With no match it falls back to func_80040084 to create the sprite. */
+s32 func_8003FFB4(Obj *obj, u8 *record)
 {
-  Entry *e;
+  Entry *entry;
   s32 result;
-  u8 done;
-  result = (done = 0);
-  e = D_8009FE40;
+  u8 handled;
+
+  result = (handled = 0);
+  entry = gNameHandlers;
   loop:
   {
-    if (e->handler == NULL)
+    if (entry->handler == NULL)
     {
       goto end;
     }
     do
     {
-      if (func_80098180(b + 0x4C, e->key) == 0)
+      if (strCmp(record + 0x4C, entry->key) == 0)
       {
-        result = a->x4;
-        e->handler(a, b, e->value);
-        if (a->x4 != result)
+        result = obj->unk_04;
+        entry->handler(obj, record, entry->value);
+        if (obj->unk_04 != result)
         {
-          result = a->x4;
+          result = obj->unk_04;
         }
         else
         {
           result = 0;
         }
-        done = 1;
+        handled = 1;
       }
-      e++;
-      if (!done)
+      entry++;
+      if (!handled)
       {
         goto loop;
       }
@@ -53,19 +58,18 @@ s32 func_8003FFB4(Obj *a, u8 *b)
   }
 
   end:
-  if (!done)
+  if (!handled)
   {
-    if (e)
+    if (entry)
     {
-      result = func_80040084(a, b, 0);
+      result = func_80040084(obj, record, 0);
     }
     else
     {
-      result = func_80040084(a, b, 0);
+      result = func_80040084(obj, record, 0);
     }
   }
 
   return result;
 }
-
 

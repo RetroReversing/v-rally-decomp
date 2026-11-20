@@ -1,11 +1,17 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-static inline void cpy16(u32 *dst, u32 *src, u32 *se)
+/* Copies 4 words (one 16-byte record). Copies backwards when the ranges overlap
+   with dst above src, so the copy is safe either way. */
+static inline void copy_record16(u32 *dst, u32 *src, u32 *src_end)
 {
   s32 i;
-  if (((u32)dst < (u32)se) & ((u32)src < (u32)dst))
+#ifdef PORT
+  if ((dst < src_end) & (src < dst))
+#else
+  if (((u32)dst < (u32)src_end) & ((u32)src < (u32)dst))
+#endif
   {
-    u32 *s = se;
+    u32 *s = src_end;
     u32 *d = dst + 4;
     for (i = 4; i != 0; --i) { s--; d--; *d = *s; }
   }
@@ -17,35 +23,37 @@ static inline void cpy16(u32 *dst, u32 *src, u32 *se)
   }
 }
 
-void func_800535F4(void *arg0)
+/* Bubble-sorts the four 16-byte records at times+0x00..0x3F by their first word,
+   ascending. Byte 0xB is copied to byte 0x3B first. */
+void func_800535F4(void *times)
 {
-  u8 *p = arg0;
-  u32 *t0, *a3;
-  s32 t1;
-  u8 t2;
-  u32 temp[4];
-  u32 *t3 = temp + 4;
-  p[0x3b] = p[0xb];
-  t2 = 0;
+  u8 *base = times;
+  u32 *cur, *prev;
+  s32 i;
+  u8 swapped;
+  u32 tmp[4];
+  u32 *tmp_end = tmp + 4;
+  base[0x3b] = base[0xb];
+  swapped = 0;
   do
   {
-    t2 = 0;
-    t1 = 3;
+    swapped = 0;
+    i = 3;
     do
     {
-      u32 off = (t1 & 255) << 4;
-      t0 = (u32 *)(p + off);
+      u32 off = (i & 255) << 4;
+      cur = (u32 *)(base + off);
       off -= 16;
-      a3 = (u32 *)(p + off);
-      if (*t0 < *a3)
+      prev = (u32 *)(base + off);
+      if (*cur < *prev)
       {
-        t2 = 1;
-        cpy16(temp, a3, a3 + 4);
-        cpy16(a3, t0, t0 + 4);
-        cpy16(t0, temp, t3);
+        swapped = 1;
+        copy_record16(tmp, prev, prev + 4);
+        copy_record16(prev, cur, cur + 4);
+        copy_record16(cur, tmp, tmp_end);
       }
-      t1--;
-    } while ((t1 & 255) != 0);
-  } while ((t2 & 255) != 0);
+      i--;
+    } while ((i & 255) != 0);
+  } while ((swapped & 255) != 0);
 }
 

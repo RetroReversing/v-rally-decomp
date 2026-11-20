@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct S_func_80087AB8_arg0
 {
@@ -22,34 +22,38 @@ typedef struct Rec
   u8 padA2[0x134 - 0xA2];
 } Rec;
 extern s32 D_800B68EC;
-extern Rec *D_800B68F0;
-extern s32 D_800C782C;
-u8 *func_80087AB8(S_func_80087AB8_arg0 *arg0, u8 *arg1)
+extern Rec *gVoices;
+extern s32 gVoiceCount;
+
+/* Reads one parameter byte from cur and applies it to the group grp: a scaled value
+ * goes to the group itself when its flag f9E is set, or else to every voice in
+ * gVoices that belongs to the group. Returns the byte after the parameter. */
+u8 *func_80087AB8(S_func_80087AB8_arg0 *grp, u8 *cur)
 {
   s32 pad[1];
-  s32 q;
-  s32 s;
+  s32 value;
+  s32 scaled;
   s32 i;
   Rec *p;
-  q = ((*arg1 * 0x6000) / 120) / D_800B68EC;
-  s = (q * arg0->f90) >> 7;
-  arg1++;
-  if (arg0->f9E != 0)
+  value = ((*cur * 0x6000) / 120) / D_800B68EC;
+  scaled = (value * grp->f90) >> 7;
+  cur++;
+  if (grp->f9E != 0)
   {
-    arg0->f94 = q;
+    grp->f94 = value;
   }
   else
   {
-    p = D_800B68F0;
-    for (i = 0; i < D_800C782C; i++, p++)
+    p = gVoices;
+    for (i = 0; i < gVoiceCount; i++, p++)
     {
-      if (p->f70 == arg0->f70)
+      if (p->f70 == grp->f70)
       {
-        p->fA0 = q;
-        p->f94 = s;
+        p->fA0 = value;
+        p->f94 = scaled;
       }
     }
   }
-  return arg1;
+  return cur;
 }
 

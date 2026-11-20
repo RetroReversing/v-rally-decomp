@@ -1,224 +1,227 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct { u8 flags; u8 pad[0x27]; } GEntry;
 typedef struct {
     u8 pad0[0xE]; u16 count; u8 pad10[2]; u16 flags12; u8 pad14[0xA]; u16 mode; u8 pad20[0x11]; u8 sel[0x17]; GEntry entries[1];
 } GState;
-extern GState *D_800C35A0;
+extern GState *gRecords;
 typedef struct { s16 pad[4]; s16 x, y, w, h; } Rect;
 typedef struct Node { u8 pad0[0xC]; s32 kind; u8 pad10[0x168]; Rect *rect; } Node;
-extern Node *D_800C7F84;
+extern Node *g_camera;
 typedef struct Obj { u8 pad0[0x76]; s16 unk76, unk78, unk7A; u8 pad7C[0x10]; struct Obj *unk8C; u8 pad90[0x14]; void *unkA4; Node *unkA8; } Obj;
-extern u8 D_800ADFE0;
+extern u8 gCurCount;
 extern u8 D_800ADFE1;
 typedef void (*Cb)();
-Node *func_8004240C(s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-void *func_80034FF0(s32, s32);
-void func_8003B614(void *);
-void func_8003B884(void *);
-void func_8003CC50(void *);
-void func_8003CC98(void *);
+Node *find_object_by_id(s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+void *getTexturePack(s32, s32);
+void objUpdateNeighborFlag(void *);
+void obj_update_layout_flags(void *);
+void objUpdateNeighborFlagByCount(void *);
+void obj_update_flag_vs_count(void *);
 
-void func_80039A00(s32 ctx, s32 menu)
+/* Lays out the sprite buttons for every slot in the record list. The layout
+ * depends on each slot's mode, its object kind and the selection flags, and
+ * the buttons are created with the slot's texture pack at slotInfo+0x4C. */
+void func_80039A00(void *layer, s32 slotInfo)
 {
-    GState *g = D_800C35A0;
-    u32 i;
-    s32 yy, ww, hh;
-    u32 count;
-    s32 off;
-    s32 x;
+    GState *rec = gRecords;
+    u32 slotIdx;
+    s32 innerTop, innerW, innerH;
+    u32 slotCount;
+    s32 kindOff;
+    s32 left;
     Node *node;
-    Rect *r;
-    Obj *obj, *obj2;
-    s32 y, w, ix, by;
-    s16 px, py;
+    Rect *rect;
+    Obj *btn, *btn2;
+    s32 top, width, innerX, bottomY;
+    s16 btnX, btnY;
 
-    if (g->mode == 7)
+    if (rec->mode == 7)
         return;
-    off = 0;
-    i = 1;
-    count = g->count;
-    if (count == 0)
+    kindOff = 0;
+    slotIdx = 1;
+    slotCount = rec->count;
+    if (slotCount == 0)
         return;
-#define base (menu + 0x4C)
+#define slotTex (slotInfo + 0x4C)
     do {
-        node = func_8004240C(((i - 1) * 2) | 1);
-        r = node->rect;
-        x = r->x;
-        y = r->y;
-        D_800C7F84 = node;
-        ix = x + 20;
-        yy = y + 6;
-        w = r->w;
-        ww = w - 16;
-        hh = r->h - 8;
-        g = D_800C35A0;
-        switch (g->count) {
+        node = find_object_by_id(((slotIdx - 1) * 2) | 1);
+        rect = node->rect;
+        left = rect->x;
+        top = rect->y;
+        g_camera = node;
+        innerX = left + 20;
+        innerTop = top + 6;
+        width = rect->w;
+        innerW = width - 16;
+        innerH = rect->h - 8;
+        rec = gRecords;
+        switch (rec->count) {
         case 1:
-            if (g->mode == 0) {
-                if (D_800ADFE0 >= 2) {
-                    if (!(g->entries[g->sel[1]].flags & 1)) goto flags4; {
-                        px = w - 0x47;
-                        py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC50, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unk7A = 5;
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unkA8 = D_800C7F84;
+            if (rec->mode == 0) {
+                if (gCurCount >= 2) {
+                    if (!(rec->entries[rec->sel[1]].flags & 1)) goto flags4; {
+                        btnX = width - 0x47;
+                        btnY = top + 0x11;
+                        btn = ((Obj *)sprite_create((void *)(layer), btnX, btnY, (s16)(5), objUpdateNeighborFlagByCount, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), btnX, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unk7A = 5;
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), width - 0x31, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unkA8 = g_camera;
                     }
                 }
-                g = D_800C35A0;
-                {s32 index=((volatile GState*)g)->sel[1]; index=index*5; index <<=3; g=(GState*)((u8*)g+index); if(g->entries[0].flags & 1) {
-                    py = y + 7;
-                    obj = ((Obj *)func_80040260((void *)(ctx), (u16)ww + (u16)-0x4D, py, (s16)(5), (SpriteHook)(NULL), 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj = ((Obj *)func_80040260((void *)(ctx), w - 0x74, py, (s16)(5), (SpriteHook)(NULL), 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj->unk7A = 1;
-                    obj = ((Obj *)func_80040260((void *)(ctx), x + 0x32, py, (s16)(5), (SpriteHook)(NULL), 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj->unk7A = 1;
+                rec = gRecords;
+                {s32 index=((volatile GState*)rec)->sel[1]; index=index*5; index <<=3; rec=(GState*)((u8*)rec+index); if(rec->entries[0].flags & 1) {
+                    btnY = top + 7;
+                    btn = ((Obj *)sprite_create((void *)(layer), (u16)innerW + (u16)-0x4D, btnY, (s16)(5), (SpriteHook)(NULL), 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn = ((Obj *)sprite_create((void *)(layer), width - 0x74, btnY, (s16)(5), (SpriteHook)(NULL), 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn->unk7A = 1;
+                    btn = ((Obj *)sprite_create((void *)(layer), left + 0x32, btnY, (s16)(5), (SpriteHook)(NULL), 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn->unk7A = 1;
                 }}
 flags4:
-                g = D_800C35A0;
-                {s32 index=((volatile GState*)g)->sel[1]; index=index*5; index <<=3; g=(GState*)((u8*)g+index); if(g->entries[0].flags & 4) {
-                    by = yy + hh;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix, by - 0x12, (s16)(5), func_8003B884, 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj->unk76 = 4;
-                    obj->unkA8 = D_800C7F84;
-                    obj2 = ((Obj *)func_80040260((void *)(ctx), ix + 0x14, by - 0x44, (s16)(5), (SpriteHook)(NULL), 1));
-                    obj2->unkA4 = func_80034FF0(base, 0);
-                    obj2->unk7A = 4;
-                    obj2->unkA8 = D_800C7F84;
-                    obj->unk8C = obj2;
+                rec = gRecords;
+                {s32 index=((volatile GState*)rec)->sel[1]; index=index*5; index <<=3; rec=(GState*)((u8*)rec+index); if(rec->entries[0].flags & 4) {
+                    bottomY = innerTop + innerH;
+                    btn = ((Obj *)sprite_create((void *)(layer), innerX, bottomY - 0x12, (s16)(5), obj_update_layout_flags, 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn->unk76 = 4;
+                    btn->unkA8 = g_camera;
+                    btn2 = ((Obj *)sprite_create((void *)(layer), innerX + 0x14, bottomY - 0x44, (s16)(5), (SpriteHook)(NULL), 1));
+                    btn2->unkA4 = getTexturePack(slotTex, 0);
+                    btn2->unk7A = 4;
+                    btn2->unkA8 = g_camera;
+                    btn->unk8C = btn2;
                 }}
             } else {
-                if (g->entries[g->sel[1]].flags & 1) {
+                if (rec->entries[rec->sel[1]].flags & 1) {
                     if (D_800ADFE1) {
-                        px = w - 0x47;
-                        py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unk7A = 5;
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x31, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), px, py, (s16)(5), func_8003CC50, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unkA8 = D_800C7F84;
+                        btnX = width - 0x47;
+                        btnY = top + 0x11;
+                        btn = ((Obj *)sprite_create((void *)(layer), btnX, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unk7A = 5;
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), width - 0x31, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), btnX, btnY, (s16)(5), objUpdateNeighborFlagByCount, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unkA8 = g_camera;
                     } else {
-                        obj = ((Obj *)func_80040260((void *)(ctx), w - 0x47, y + 0x11, (s16)(5), (SpriteHook)(NULL), 1));
-                        obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
-                        obj->unkA8 = D_800C7F84;
+                        btn = ((Obj *)sprite_create((void *)(layer), width - 0x47, top + 0x11, (s16)(5), (SpriteHook)(NULL), 1));
+                        btn->unkA4 = getTexturePack(slotInfo + 0x4C, 0);
+                        btn->unkA8 = g_camera;
                     }
-                    py = (u16)(yy + hh) + (u16)-0x17;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0xA, py, (s16)(5), func_8003B614, 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj->unk7A = 1;
-                    obj->unkA8 = D_800C7F84;
-                    obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x21, py, (s16)(5), func_8003B614, 1));
-                    obj->unkA4 = func_80034FF0(base, 0);
-                    obj->unkA8 = D_800C7F84;
+                    btnY = (u16)(innerTop + innerH) + (u16)-0x17;
+                    btn = ((Obj *)sprite_create((void *)(layer), innerX + 0xA, btnY, (s16)(5), objUpdateNeighborFlag, 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn->unk7A = 1;
+                    btn->unkA8 = g_camera;
+                    btn = ((Obj *)sprite_create((void *)(layer), innerX + 0x21, btnY, (s16)(5), objUpdateNeighborFlag, 1));
+                    btn->unkA4 = getTexturePack(slotTex, 0);
+                    btn->unkA8 = g_camera;
                 }
             }
             break;
         case 2:
-            if (g->mode == 0) {
-                if (g->flags12 & 1) {
-                    ix = x;
-                    if (g->entries[g->sel[i]].flags & 1) {
-                        py = y + 0x11;
-                        obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unk7A = 5;
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), func_8003CC98, 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unkA8 = D_800C7F84;
-                        obj = ((Obj *)func_80040260((void *)(ctx), ix - off, y + 7, (s16)(5), (SpriteHook)(NULL), 1));
-                        obj->unkA4 = func_80034FF0(base, 0);
-                        obj->unk7A = 1;
+            if (rec->mode == 0) {
+                if (rec->flags12 & 1) {
+                    innerX = left;
+                    if (rec->entries[rec->sel[slotIdx]].flags & 1) {
+                        btnY = top + 0x11;
+                        btn = ((Obj *)sprite_create((void *)(layer), innerX, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unk7A = 5;
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), innerX + 0x17, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unkA8 = g_camera;
+                        btn = ((Obj *)sprite_create((void *)(layer), innerX - kindOff, top + 7, (s16)(5), (SpriteHook)(NULL), 1));
+                        btn->unkA4 = getTexturePack(slotTex, 0);
+                        btn->unk7A = 1;
                     }
                 } else {
-                    if (g->entries[g->sel[i]].flags & 1) {
-                        off = (node->kind == 3) ? 14 : 0;
+                    if (rec->entries[rec->sel[slotIdx]].flags & 1) {
+                        kindOff = (node->kind == 3) ? 14 : 0;
                         switch(node->kind){case 3:{
                             if (D_800ADFE1) {
-                                s32 sx = ix + ww;
-                                py = y + 0x11;
-                                obj = ((Obj *)func_80040260((void *)(ctx), sx - 0x46, py, (s16)(5), func_8003CC98, 1));
-                                obj->unkA4 = func_80034FF0(base, 0);
-                                obj->unk7A = 5;
-                                obj->unkA8 = D_800C7F84;
-                                obj = ((Obj *)func_80040260((void *)(ctx), (u16)sx + (u16)-0x2F, py, (s16)(5), func_8003CC98, 1));
-                                obj->unkA4 = func_80034FF0(base, 0);
-                                obj->unkA8 = D_800C7F84;
+                                s32 sx = innerX + innerW;
+                                btnY = top + 0x11;
+                                btn = ((Obj *)sprite_create((void *)(layer), sx - 0x46, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                                btn->unkA4 = getTexturePack(slotTex, 0);
+                                btn->unk7A = 5;
+                                btn->unkA8 = g_camera;
+                                btn = ((Obj *)sprite_create((void *)(layer), (u16)sx + (u16)-0x2F, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                                btn->unkA4 = getTexturePack(slotTex, 0);
+                                btn->unkA8 = g_camera;
                             }
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix + ww - 0x5E, y + 7, (s16)(5), (SpriteHook)(NULL), 1));
-                            obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
-                            obj->unk7A = 1;
+                            btn = ((Obj *)sprite_create((void *)(layer), innerX + innerW - 0x5E, top + 7, (s16)(5), (SpriteHook)(NULL), 1));
+                            btn->unkA4 = getTexturePack(slotInfo + 0x4C, 0);
+                            btn->unk7A = 1;
                         }break;default:{
                             if (D_800ADFE1) {
-                                py = y + 0x11;
-                                obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
-                                obj->unkA4 = func_80034FF0(base, 0);
-                                obj->unkA8 = D_800C7F84;
-                                obj->unk7A = 5;
-                                obj = ((Obj *)func_80040260((void *)(ctx), x + 0x2B, py, (s16)(5), func_8003CC98, 1));
-                                obj->unkA4 = func_80034FF0(base, 0);
-                                obj->unkA8 = D_800C7F84;
+                                btnY = top + 0x11;
+                                btn = ((Obj *)sprite_create((void *)(layer), innerX, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                                btn->unkA4 = getTexturePack(slotTex, 0);
+                                btn->unkA8 = g_camera;
+                                btn->unk7A = 5;
+                                btn = ((Obj *)sprite_create((void *)(layer), left + 0x2B, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                                btn->unkA4 = getTexturePack(slotTex, 0);
+                                btn->unkA8 = g_camera;
                             }
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix, y + 7, (s16)(5), (SpriteHook)(NULL), 1));
-                            obj->unkA4 = func_80034FF0(menu + 0x4C, 0);
-                            obj->unk7A = 1;
+                            btn = ((Obj *)sprite_create((void *)(layer), innerX, top + 7, (s16)(5), (SpriteHook)(NULL), 1));
+                            btn->unkA4 = getTexturePack(slotInfo + 0x4C, 0);
+                            btn->unk7A = 1;
                         }break;}
                     }
                 }
             } else {
-                if (g->flags12 & 1) {
-                    if (g->entries[g->sel[i]].flags & 1) {
+                if (rec->flags12 & 1) {
+                    if (rec->entries[rec->sel[slotIdx]].flags & 1) {
                         if (node->kind == 1)
-                            yy = y + 8;
+                            innerTop = top + 8;
                         if (D_800ADFE1) {
-                            py = yy + hh - 0x15;
-                            obj = ((Obj *)func_80040260((void *)(ctx), x, py, (s16)(5), func_8003CC98, 1));
-                            obj->unkA4 = func_80034FF0(base, 0);
-                            obj->unkA8 = D_800C7F84;
-                            obj->unk7A = 5;
-                            obj = ((Obj *)func_80040260((void *)(ctx), x + 0x17, py, (s16)(5), func_8003CC98, 1));
-                            obj->unkA4 = func_80034FF0(base, 0);
-                            obj->unkA8 = D_800C7F84;
+                            btnY = innerTop + innerH - 0x15;
+                            btn = ((Obj *)sprite_create((void *)(layer), left, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                            btn->unkA4 = getTexturePack(slotTex, 0);
+                            btn->unkA8 = g_camera;
+                            btn->unk7A = 5;
+                            btn = ((Obj *)sprite_create((void *)(layer), left + 0x17, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                            btn->unkA4 = getTexturePack(slotTex, 0);
+                            btn->unkA8 = g_camera;
                         }
                     }
                 } else {
-                    if (g->entries[g->sel[i]].flags & 1) {
+                    if (rec->entries[rec->sel[slotIdx]].flags & 1) {
                         if (node->kind == 3)
-                            ix = x + 6;
+                            innerX = left + 6;
                         if (D_800ADFE1) {
-                            py = (u16)hh + (u16)-0x1D;
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix, py, (s16)(5), func_8003CC98, 1));
-                            obj->unkA4 = func_80034FF0(base, 0);
-                            obj->unk7A = 5;
-                            obj->unkA8 = D_800C7F84;
-                            obj = ((Obj *)func_80040260((void *)(ctx), ix + 0x17, py, (s16)(5), func_8003CC98, 1));
-                            obj->unkA4 = func_80034FF0(base, 0);
-                            obj->unkA8 = D_800C7F84;
+                            btnY = (u16)innerH + (u16)-0x1D;
+                            btn = ((Obj *)sprite_create((void *)(layer), innerX, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                            btn->unkA4 = getTexturePack(slotTex, 0);
+                            btn->unk7A = 5;
+                            btn->unkA8 = g_camera;
+                            btn = ((Obj *)sprite_create((void *)(layer), innerX + 0x17, btnY, (s16)(5), obj_update_flag_vs_count, 1));
+                            btn->unkA4 = getTexturePack(slotTex, 0);
+                            btn->unkA8 = g_camera;
                         }
                     }
                 }
             }
             break;
         }
-        i++;
-    } while (i <= count);
+        slotIdx++;
+    } while (slotIdx <= slotCount);
 }
 

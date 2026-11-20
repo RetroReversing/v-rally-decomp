@@ -1,31 +1,35 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { u8 b; u8 pad[0x17]; } E18;
 extern E18 D_800C7FA1[];
 extern u8 D_800C81FC;
-extern u8 D_800A16D4;
-extern u8 *D_800A1468;
-extern char D_800C02AE[];
-void func_8005C198(void);
-void func_8005E470(s32, s32);
-void func_8005E28C(s32, s32);
+extern u8 gStreamPhase;
+extern u8 *gSelectState;
+extern char stream_state[];
+void select_arm_if_clear(void);
+void select_reset_all(s32, s32);
+void select_request_reset(s32, s32);
 
+/* Starts a new select round: resets the select state, and when the current
+   stream header has flag 0x800 set, sets up the 4-entry slot table from the low
+   two bits of its byte 0x23 and clears the header's timer word. Then marks the
+   state as 1 and returns 0. */
 s32 func_800643F0(s32 arg0, s32 arg1)
 {
-  u8 *p;
-  u8 *q;
+  u8 *header;
+  u8 *header2;
   u8 i;
   u32 v;
   u16 t;
 
-  func_8005C198();
-  func_8005E470(arg0, arg1);
+  select_arm_if_clear();
+  select_reset_all(arg0, arg1);
   i = 1;
-  D_800A1468[0x2BD] = 1;
-  p = *(u8 **)(D_800C02AE + 0x32F2);
-  if (*(u16 *)(p + 0x2C) & 0x800) {
-    *(s16 *)(p + 0x1E) = 8;
-    v = p[0x23] & 3;
+  gSelectState[0x2BD] = 1;
+  header = *(u8 **)(stream_state + 0x32F2);
+  if (*(u16 *)(header + 0x2C) & 0x800) {
+    *(s16 *)(header + 0x1E) = 8;
+    v = header[0x23] & 3;
     D_800C7FA1[0].b = v;
     if (v == 0) { D_800C81FC = i; } else { D_800C81FC = 0; }
     v &= 0xFF;
@@ -38,12 +42,13 @@ s32 func_800643F0(s32 arg0, s32 arg1)
         i++;
       }
     } while (i < 4);
-    q = *(u8 **)(D_800C02AE + 0x32F2);
-    t = *(u16 *)(q + 0x20);
-    *(u16 *)(q + 0x20) = 0;
-    *(u16 *)(q + 0x22) = t;
+    header2 = *(u8 **)(stream_state + 0x32F2);
+    t = *(u16 *)(header2 + 0x20);
+    *(u16 *)(header2 + 0x20) = 0;
+    *(u16 *)(header2 + 0x22) = t;
   }
-  D_800A16D4 = 1;
-  func_8005E28C(0, 0);
+  gStreamPhase = 1;
+  select_request_reset(0, 0);
   return 0;
 }
+

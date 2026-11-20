@@ -1,8 +1,11 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern s32 D_8009B5A8;
-extern s32 func_80005C48(s32);
-extern void func_80014564(s32, s32, s16, s32);
+extern s32 gSceneSlot1;
+extern s32 obj_get_owner(s32);
+extern void draw_screen_pixel(s32, s32, s16, s32);
+#define PACK_RGB5551(r, g, b) (((((r) << 8) & 0xF800) | (((g) << 3) & 0x7C0) | (((b) >> 2) & 0x3E)) | 1)
+/* Draws a Gouraud-shaded line from (x0,y0) to (x1,y1) with Bresenham stepping.
+ * The colour is interpolated from (r0,g0,b0) to (r1,g1,b1) and packed to RGB5551. */
 void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u8 g1, u8 b1)
 {
   s32 color;
@@ -19,7 +22,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
   u8 dr;
   u8 dg;
   u8 db;
-  color = func_80005C48(D_8009B5A8);
+  color = obj_get_owner(gSceneSlot1);
   dx = x1 - x0;
   dy = y1 - y0;
   dx = __builtin_abs(dx);
@@ -45,7 +48,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     err = 2 * dy - dx;
     eadd2 = 2 * dy;
     eadd = 2 * (dy - dx);
-    func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
+    draw_screen_pixel(x0, y0, PACK_RGB5551(red, green, blue), color);
     red = r0 + dr;
     green = g0 + dg;
     blue = b0 + db;
@@ -60,7 +63,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
         err += eadd;
         y0 += step;
       }
-      func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
+      draw_screen_pixel(x0, y0, PACK_RGB5551(red, green, blue), color);
       red += dr;
       green += dg;
       blue += db;
@@ -85,7 +88,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
     err = 2 * dx - dy;
     eadd2 = 2 * dx;
     eadd = 2 * (dx - dy);
-    func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
+    draw_screen_pixel(x0, y0, PACK_RGB5551(red, green, blue), color);
     red = r0 + dr;
     green = g0 + dg;
     blue = b0 + db;
@@ -100,7 +103,7 @@ void func_8001477C(s32 x0, s32 y0, s32 x1, s32 y1, u8 r0, u8 g0, u8 b0, u8 r1, u
         err += eadd;
         x0 += step;
       }
-      func_80014564(x0, y0, ((((red << 8) & 0xF800) | ((green << 3) & 0x7C0)) | ((blue >> 2) & 0x3E)) | 1, color);
+      draw_screen_pixel(x0, y0, PACK_RGB5551(red, green, blue), color);
       red += dr;
       green += dg;
       blue += db;

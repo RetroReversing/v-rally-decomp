@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Obj
 {
@@ -7,17 +7,19 @@ typedef struct Obj
   u8 pad12[0x2C4 - 0x12];
 } Obj;
 
-Obj *func_800415A8(Obj *arr, s32 n)
+/* Scans pool[0..count) for the first object whose flags bit 0 is clear, sets that
+ * bit to reserve it and returns it. Returns NULL if every object is already reserved. */
+Obj *func_800415A8(Obj *pool, s32 count)
 {
-  while (n != 0)
+  while (count != 0)
   {
-    if (!(arr->flags & 1))
+    if (!(pool->flags & 1))
     {
-      arr->flags |= 1;
-      return arr;
+      pool->flags |= 1;
+      return pool;
     }
-    arr++;
-    n--;
+    pool++;
+    count--;
   }
   return 0;
 }

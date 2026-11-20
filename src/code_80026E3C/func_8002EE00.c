@@ -1,6 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
+#ifdef PORT
+typedef struct { uintptr_t w0, w1; } Gfx;
+#else
 typedef struct { u32 w0, w1; } Gfx;
+#endif
 typedef struct { char pad[0x14]; Gfx *gfx; } DLBuf;
 typedef struct { char pad[0x38]; char mtx[0xE0]; f32 x, y, z; } Camera; /* x at 0x118 */
 typedef struct { char pad[4]; u16 mode; } Config;
@@ -23,17 +27,20 @@ typedef struct { char pad[0x54]; s32 x, y, z; } Pos;
 typedef struct { char pad[0x5C]; Pos *pos; } Obj;
 typedef struct { s8 a; s8 b; s16 c; s16 d; u16 e; u16 f; u16 g; } Draw;
 
-Gfx *func_80006008(DLBuf *);
-void func_80006014(DLBuf *, Gfx *);
-void *func_8001BD1C(void);
+#ifdef PORT
+int abs(int);
+#endif
+Gfx *gfx_get_dl(DLBuf *);
+void gfx_set_dl(DLBuf *, Gfx *);
+void *mtx_pool_alloc(void);
 void guMtxIdentF(f32 (*)[4]);
-void func_80010BFC(void *, void *, f32 (*)[4]);
-void func_800061FC(DLBuf *, void *);
-void func_800075BC(DLBuf *, Tex *, s32);
+void obj_mtx_visible(void *, void *, f32 (*)[4]);
+void gfx_push_mtx(DLBuf *, void *);
+void texture_build_dl(DLBuf *, Tex *, s32);
 void func_80019C90(DLBuf *, void *, Draw *, u16, u16);
 extern char D_8009EAB0[];
-extern Config *D_800C811C;
-extern Camera *D_800C7F84;
+extern Config *g_ent_list;
+extern Camera *g_camera;
 extern u16 D_800ADFC6[3];
 extern const f64 D_800A4A50;
 extern const f64 D_800A4A58;
@@ -42,6 +49,12 @@ extern s32 D_800AFA8C;
 #define CLMP(v) ((v) >= 256 ? 255 : (v))
 #define GCMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
 
+/* Draws a list of sprite entries for one object. `count` entries are walked
+ * (every second one when `twice` is set). The first active entry opens the
+ * display list and sets the tint from the colour table D_800ADFC6 (doubled,
+ * clamped to 255) according to the config mode. Then, if the object is within
+ * range of the camera, its transform is loaded once, and each active entry is
+ * drawn with its texture and size. */
 void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice)
 {
     f32 mf[4][4];
@@ -65,10 +78,14 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
     while (count--) {
         if (e->active != 0) {
             if (!started) {
-                dl = func_80006008(buf);
+                dl = gfx_get_dl(buf);
                 started = 1;
+                #ifdef PORT
+                GCMD(dl++, 0xDE000000, (uintptr_t)D_8009EAB0);
+#else
                 GCMD(dl++, 0xDE000000, (u32)D_8009EAB0);
-                switch (D_800C811C->mode) {
+#endif
+                switch (g_ent_list->mode) {
                 case 2:
                     GCMD(dl++, 0xFA000000, -1);
                     GCMD(dl++, 0xFB000000,
@@ -95,25 +112,25 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
                     GCMD(dl++, 0xFA000000, -1);
                     break;
                 }
-                func_80006014(buf, dl);
+                gfx_set_dl(buf, dl);
             }
             if (!done) {
                 done = 1;
-                m = func_8001BD1C();
+                m = mtx_pool_alloc();
                 guMtxIdentF(mf);
                 x = obj->pos->x;
-                if (!(abs((s32)(x - D_800C7F84->x)) < D_800A4A50)) return;
-                if (!(abs((s32)((f32)obj->pos->y - D_800C7F84->y)) < D_800A4A58)) return;
-                if (!(abs((s32)((f32)obj->pos->z - D_800C7F84->z)) < D_800A4A50)) return;
+                if (!(abs((s32)(x - g_camera->x)) < D_800A4A50)) return;
+                if (!(abs((s32)((f32)obj->pos->y - g_camera->y)) < D_800A4A58)) return;
+                if (!(abs((s32)((f32)obj->pos->z - g_camera->z)) < D_800A4A50)) return;
                 mf[3][0] = x;
                 mf[3][1] = obj->pos->y;
                 mf[3][2] = obj->pos->z;
-                func_80010BFC(m, D_800C7F84->mtx, mf);
-                func_800061FC(buf, m);
+                obj_mtx_visible(m, g_camera->mtx, mf);
+                gfx_push_mtx(buf, m);
             }
             if (done == 1) {
                 D_800AFA8C++;
-                func_800075BC(buf, e->model->tex[e->texIdx], 0);
+                texture_build_dl(buf, e->model->tex[e->texIdx], 0);
                 draw.a = 3;
                 draw.b = 0;
                 draw.c = e->size * 2;
@@ -121,7 +138,7 @@ void func_8002EE00(Obj *obj, Entry *e, s32 count, DLBuf *buf, s32 arg4, u8 twice
                 draw.e = e->c4;
                 draw.f = e->c6;
                 draw.g = e->c8;
-                func_80019C90(buf, D_800C7F84->mtx, &draw, e->model->tex[0]->w, e->model->tex[0]->h);
+                func_80019C90(buf, g_camera->mtx, &draw, e->model->tex[0]->w, e->model->tex[0]->h);
             }
         }
         e++;

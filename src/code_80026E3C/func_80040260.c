@@ -1,37 +1,39 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern u32 D_8000A840;
-void *func_800802A0(void *, s32);
+void *poolAllocListNode(void *, s32);
 typedef void (*SpriteHook)(void *);
 typedef struct { u8 r; u8 g; u8 b; u8 a; } Color4;
 
-void *func_80040260(void *arg0, s16 arg1, s16 arg2, s32 arg3, SpriteHook arg4, s32 unused_mode) {
-    s16 layer = arg3;
-    Color4 col;
-    u8 *temp_v0;
+/* Allocates a 0xB0-byte sprite under parent and sets its defaults: active, position
+ * (x, y), layer, unit scale (0x400), a half-alpha white tint and the per-frame hook. */
+void *func_80040260(void *parent, s16 x, s16 y, s32 layerFlags, SpriteHook hook, s32 unused_mode) {
+    s16 layer = layerFlags;
+    Color4 tint;
+    u8 *sprite;
 
-    temp_v0 = func_800802A0(arg0, 0xB0);
-    col.r = 0xFF;
-    col.g = 0xFF;
-    col.b = 0xFF;
-    col.a = 0x80;
-    *(s32 *)(temp_v0 + 0x80) = 1;
-    *(s16 *)(temp_v0 + 0x7E) = -1;
-    *(s16 *)(temp_v0 + 0x7C) = -1;
-    *(s16 *)(temp_v0 + 0x7A) = 0;
-    *(s16 *)(temp_v0 + 0x74) = layer;
-    *(s16 *)(temp_v0 + 0xC) = arg1;
-    *(s16 *)(temp_v0 + 0xE) = arg2;
-    *(s32 *)(temp_v0 + 0x8C) = 0;
-    *(s16 *)(temp_v0 + 0x78) = 0;
-    *(s16 *)(temp_v0 + 0x70) = 0;
-    *(s16 *)(temp_v0 + 0x72) = 0;
-    *(s16 *)(temp_v0 + 0x98) = 0x400;
-    *(s16 *)(temp_v0 + 0x9A) = 0x400;
-    *(SpriteHook *)(temp_v0 + 0x84) = arg4;
-    *(Color4 *)(temp_v0 + 0x90) = col;
-    *(s32 *)(temp_v0 + 0xA0) = 1;
-    *(u32 **)(temp_v0 + 0x88) = &D_8000A840;
-    return temp_v0;
+    sprite = poolAllocListNode(parent, 0xB0);
+    tint.r = 0xFF;
+    tint.g = 0xFF;
+    tint.b = 0xFF;
+    tint.a = 0x80;
+    *(s32 *)(sprite + 0x80) = 1;
+    *(s16 *)(sprite + 0x7E) = -1;
+    *(s16 *)(sprite + 0x7C) = -1;
+    *(s16 *)(sprite + 0x7A) = 0;
+    *(s16 *)(sprite + 0x74) = layer;
+    *(s16 *)(sprite + 0xC) = x;
+    *(s16 *)(sprite + 0xE) = y;
+    *(s32 *)(sprite + 0x8C) = 0;
+    *(s16 *)(sprite + 0x78) = 0;
+    *(s16 *)(sprite + 0x70) = 0;
+    *(s16 *)(sprite + 0x72) = 0;
+    *(s16 *)(sprite + 0x98) = 0x400;
+    *(s16 *)(sprite + 0x9A) = 0x400;
+    *(SpriteHook *)(sprite + 0x84) = hook;
+    *(Color4 *)(sprite + 0x90) = tint;
+    *(s32 *)(sprite + 0xA0) = 1;
+    *(u32 **)(sprite + 0x88) = &D_8000A840;
+    return sprite;
 }
 

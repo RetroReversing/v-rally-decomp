@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { u16 x; u16 y; u16 z; } V303;
 typedef struct { s16 x; s16 y; s16 z; s16 pad; } SV303;
@@ -11,41 +11,46 @@ typedef struct
   u8 pad58[0x32];
   u16 stride;
 } O303;
-s32 func_8002D2A0(s32);
-s32 func_8003035C(void *o, s32 row, void *pos)
+s32 int_sqrt(s32);
+
+/* Returns where pos lies along the track row of obj, as a value in 0..1000
+ * (500 is on the row's point). The neighbouring row on the side pos is on is
+ * used for the segment; the distance ratio gives the position within it. */
+s32 func_8003035C(void *obj, s32 row, void *pos)
 {
-  SV303 a;
-  SV303 b;
-  SV303 c;
-  s32 n;
-  s32 d;
-  s32 e;
-  n = row * (*(u16 *)((u8 *)o + 0x8A)) + (*(s32 *)((u8 *)o + 0x4C));
-  c.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-  c.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-  a.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-  a.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-  if (c.x * a.x + c.z * a.z > 0)
+  SV303 seg;
+  SV303 toPos;
+  SV303 prevEdge;
+  s32 idx;
+  s32 dist;
+  s32 distPos;
+  idx = row * (*(u16 *)((u8 *)obj + 0x8A)) + (*(s32 *)((u8 *)obj + 0x4C));
+  prevEdge.x = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+  prevEdge.z = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+  seg.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+  seg.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+  if (prevEdge.x * seg.x + prevEdge.z * seg.z > 0)
   {
-    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-    d = func_8002D2A0(a.x * a.x + a.z * a.z);
-    e = func_8002D2A0(b.x * b.x + b.z * b.z);
-    d = e * 1000 / d;
-    d = 500 - d / 2;
+    seg.x = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx - 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+    seg.z = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx - 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+    toPos.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+    toPos.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+    dist = int_sqrt(seg.x * seg.x + seg.z * seg.z);
+    distPos = int_sqrt(toPos.x * toPos.x + toPos.z * toPos.z);
+    dist = distPos * 1000 / dist;
+    dist = 500 - dist / 2;
   }
   else
   {
-    a.x = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-    a.z = (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n + 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-    b.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 0));
-    b.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)o + 0x54) + (n) * 6 + 4));
-    d = func_8002D2A0(a.x * a.x + a.z * a.z);
-    e = func_8002D2A0(b.x * b.x + b.z * b.z);
-    d = e * 1000 / d;
-    d = d / 2 + 500;
+    seg.x = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx + 2) * 6 + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+    seg.z = (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx + 2) * 6 + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+    toPos.x = (*(u16 *)((u8 *)pos + 0)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 0));
+    toPos.z = (*(u16 *)((u8 *)pos + 4)) - (*(u16 *)(*(u8 **)((u8 *)obj + 0x54) + (idx) * 6 + 4));
+    dist = int_sqrt(seg.x * seg.x + seg.z * seg.z);
+    distPos = int_sqrt(toPos.x * toPos.x + toPos.z * toPos.z);
+    dist = distPos * 1000 / dist;
+    dist = dist / 2 + 500;
   }
-  return d;
+  return dist;
 }
+

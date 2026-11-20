@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 #define U(p,o) (*(u16 *)((u8 *)(p)+(o)))
 #define H(p,o) (*(s16 *)((u8 *)(p)+(o)))
@@ -9,63 +9,66 @@ typedef struct Blob
   s32 w[175];
   u8 tab[8];
 } Blob;
-extern u8 *D_800C3508;
-extern u8 *D_800C35A0;
-extern u8 *D_800A1468;
-extern u8 *D_800A14D0;
+extern u8 *gLeague;
+extern u8 *gRecords;
+extern u8 *gSelectState;
+extern u8 *gSelectBuffer;
 extern Blob *D_800D0648;
-extern s32 *D_800A11B0;
+extern s32 *gStreamList;
 extern s32 D_800B0548;
 extern s32 D_800D05D8;
 extern const f64 D_800A5D10;
 extern void func_8005937C(s32, s32);
-extern void func_8005C198(void);
+extern void select_arm_if_clear(void);
 extern void func_80061740(Blob);
-extern void func_80062184(Blob, s32);void *func_800592AC(u32);
-extern void func_8006185C(s32, s32);
-extern void func_800710F0(void);
+extern void menu_draw_text_objs(Blob, s32);void *select_get_entry(u32);
+extern void func_8006185C(void *, s32);
+extern void draw_best_times_screen(void);
 extern void func_8004D08C(s32, s32, s16, s16, f32, f32, u8, u8);
+
+/* Best-times screen tick: picks the selected entry's scene from the entry
+ * table, updates the cursor and draws the scene's icons when the row is idle. */
 void func_8007159C(void)
 {
-  u8 *p = A(D_800C3508, 16) + H(D_800C3508, 2) * 20;
-  s32 sel = p[14];
-  Blob blob;
-  u8 i;
-  if (sel < 34)
+  u8 *entry = A(gLeague, 16) + H(gLeague, 2) * 20;
+  s32 selected = entry[14];
+  Blob scene;
+  u8 idx;
+  if (selected < 34)
   {
-    if (D_800A1468[0x245] == 0)
+    if (gSelectState[0x245] == 0)
     {
-      sel -= p[13];
-      U(D_800C35A0, 32) = sel;
-      func_8005937C(p[14], U(&D_800D0648[sel], 20));
-      if (sel != D_800B0548)
+      selected -= entry[13];
+      U(gRecords, 32) = selected;
+      func_8005937C(entry[14], U(&D_800D0648[selected], 20));
+      if (selected != D_800B0548)
       {
-        if (*D_800A11B0)
+        if (*gStreamList)
         {
-          func_8005C198();
+          select_arm_if_clear();
         }
-        if (D_800A1468[0x2be] == 0)
+        if (gSelectState[0x2be] == 0)
         {
-          func_80061740(D_800D0648[U(D_800C35A0, 32)]);
-          D_800B0548 = sel;
+          func_80061740(D_800D0648[U(gRecords, 32)]);
+          D_800B0548 = selected;
         }
       }
     }
     else
     {
-      func_8006185C((s32)func_800592AC(U(D_800C35A0, 32)), 0);
+      func_8006185C(select_get_entry(U(gRecords, 32)), 0);
     }
-    if (H(D_800C3508, 2) == 2)
+    if (H(gLeague, 2) == 2)
     {
-      func_800710F0();
+      draw_best_times_screen();
     }
-    blob = D_800D0648[U(D_800C35A0, 32)];
-    func_80062184(blob, 0);
-    if (D_800A1468[0x24d] == 0 && D_800A1468[0x2be] == 0)
+    scene = D_800D0648[U(gRecords, 32)];
+    menu_draw_text_objs(scene, 0);
+    if (gSelectState[0x24d] == 0 && gSelectState[0x2be] == 0)
     {
-      for (i = 0; i < U(&blob, 20); i++)
+      for (idx = 0; idx < U(&scene, 20); idx++)
       {
-        func_8004D08C(D_800D05D8, i, H(D_800A14D0, 0), U(D_800A14D0, 2) + i * D_800A14D0[8], F(D_800A14D0, 4) - D_800A5D10, F(D_800A14D0, 4), blob.tab[i], 255);
+        func_8004D08C(D_800D05D8, idx, H(gSelectBuffer, 0), U(gSelectBuffer, 2) + idx * gSelectBuffer[8], F(gSelectBuffer, 4) - D_800A5D10, F(gSelectBuffer, 4), scene.tab[idx], 255);
       }
     }
   }

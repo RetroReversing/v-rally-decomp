@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-#define U2F(x) (dv = (x), (x) < 0 ? dv += big : 0, (f32)dv)
+#define U2F(x) (dv = (x), (x) < 0 ? dv += u2fBias : 0, (f32)dv)
 typedef struct 
 {
   s32 a;
@@ -48,147 +48,147 @@ typedef struct Car
   char pad90[4];
   s32 *kind;
 } Car;
-s32 func_8001FEE8(Car *);
-Cam *func_8004240C(s32);
-void func_80086AD8(Snd *, s32);
-void func_80086B34(Snd *);
-s32 func_80086D34(Snd *);
-void func_80086D90(Snd *, s32);
+s32 getCounterValue(Car *);
+Cam *find_object_by_id(s32);
+void voicesSetParamsByKey(Snd *, s32);
+void voice_alloc_request(Snd *);
+s32 voiceKeyIsFree(Snd *);
+void voiceSetVolumeByKey(Snd *, s32);
 void func_80086E8C(Snd *, f32);
-extern s32 D_8009F640;
+extern s32 gRaceFlags;
 extern const f64 D_800A4AC8;
 extern const f64 D_800A4AD0;
 extern const f64 D_800A4AD8;
-extern char D_800AE850[];
-extern State *D_800C35A0;
-extern f32 D_800C35E4;
-extern f32 D_800C35E8;
-extern f32 D_800C35E0;
-extern u8 D_800C35C8;
-extern Snd *D_800C81D4;
-extern Cam *D_800C7F84;
+extern char gOrderState[];
+extern State *gRecords;
+extern f32 gEngineVolume;
+extern f32 gSfxVolumeScale;
+extern f32 gSpeedAccum;
+extern u8 gEngineVoice;
+extern Snd *gSoundState;
+extern Cam *g_camera;
 extern u8 D_800B6818;
 
+/* Per-frame audio update for the car list: sets the engine, gear shift, tyre squeal and
+ * surface voices of each car from its rpm, speed, load and wheel slip. */
 void func_80037E28(void)
 {
   Car *car;
   Audio *audio;
-  Snd *snd;
+  Snd *voices;
   union { Snd *sound; u32 gear; } scratch;
-  f32 *vols;
-  f32 *pv;
-  u16 new_var;
-  f32 f;
-  f32 g;
-  f32 t;
-  f32 fu;
+  f32 *engineVolPtr;
+  f32 *sfxScalePtr;
+  u16 modeCopy;
+  f32 throttle;
+  f32 counter;
+  f32 pitch;
   f64 dv;
-  int new_var2;
-  f64 big;
- f32 hundred;
+  int rpmStep;
+  f64 u2fBias;
+  f32 hundred;
   s32 rpm;
   s32 kind;
-  s32 spd;
-  s32 k;
-  s32 u;
-  u32 sum;
-  u16 mode;
-  int new_var3;
-  u8 ok;
-  u8 i;
-  ok = 0;
-  if (!(D_8009F640 & 1))
+  s32 speed;
+  s32 step;
+  s32 level;
+  u32 wheelSum;
+  int speedBoost;
+  u8 audioOn;
+  u8 w;
+  audioOn = 0;
+  if (!(gRaceFlags & 1))
   {
-    ok = 1;
+    audioOn = 1;
   }
   else
-    if ((D_800C35A0->players == 2) && (!(D_8009F640 & 2)))
+    if ((gRecords->players == 2) && (!(gRaceFlags & 2)))
   {
-    ok = 1;
+    audioOn = 1;
   }
-  if (!ok)
+  if (!audioOn)
   {
     return;
   }
-  car = *(*((Car ***) (D_800AE850 + 0x73F0)));
+  car = *(*((Car ***) (gOrderState + 0x73F0)));
   if (car == NULL)
   {
     return;
   }
-  hundred=100.0f; vols=&D_800C35E4; pv=(f32 *)((char *)vols+4); big=D_800A4AC8;
+  hundred=100.0f; engineVolPtr=&gEngineVolume; sfxScalePtr=(f32 *)((char *)engineVolPtr+4); u2fBias=D_800A4AC8;
   do
   {
     audio = car->audio;
     rpm = car->eng->rpm;
-    snd = audio->snd;
+    voices = audio->snd;
     kind = (*car).kind[1];
-    spd = car->speed[3] / 5;
+    speed = car->speed[3] / 5;
     switch (car->eng->type)
     {
       case 0:
         break;
 
       case 1:
-        if (((kind == 1) && (!(D_8009F640 & 4))) && func_80086D34(&snd[4]))
+        if (((kind == 1) && (!(gRaceFlags & 4))) && voiceKeyIsFree(&voices[4]))
       {
-        D_8009F640 |= 4;
-        func_80086B34(&snd[4]);
-        func_80086D90(&snd[4], D_800C35E8 * 150.0f);
+        gRaceFlags |= 4;
+        voice_alloc_request(&voices[4]);
+        voiceSetVolumeByKey(&voices[4], gSfxVolumeScale * 150.0f);
       }
         break;
 
       case 2:
-        f = audio->load;
-        if (f > 12000.0f)
+        throttle = audio->load;
+        if (throttle > 12000.0f)
       {
-        f = 12000.0f;
+        throttle = 12000.0f;
       }
         ;
-        f = (hundred - (f * 0.008333334f)) * 0.01f;
-        if ((D_800C35A0->mode == 6) || (D_800C35A0->mode == 7))
+        throttle = (hundred - (throttle * 0.008333334f)) * 0.01f;
+        if ((gRecords->mode == 6) || (gRecords->mode == 7))
       {
-        *vols = 0.0f;
-        if (D_800C35C8 != 0xFF)
+        *engineVolPtr = 0.0f;
+        if (gEngineVoice != 0xFF)
         {
-          func_80086D90(&D_800C81D4[D_800C35C8], 0);
+          voiceSetVolumeByKey(&gSoundState[gEngineVoice], 0);
         }
       }
       else
       {
-        k = kind;
-        if (k != 1)
+        step = kind;
+        if (step != 1)
         {
-          if (((D_800C35A0->mode == 5) && (D_800B6818 == 0)) || ((D_800C35A0->players == 2) && ((D_800C35A0->mode == 5) || ((D_800C35A0->mode != 0) & (D_800C35A0->mode < 5)))))
+          if (((gRecords->mode == 5) && (D_800B6818 == 0)) || ((gRecords->players == 2) && ((gRecords->mode == 5) || ((gRecords->mode != 0) & (gRecords->mode < 5)))))
           {
-            f = 0.0f;
+            throttle = 0.0f;
           }
         }
         if (kind == 1)
         {
-          g = func_8001FEE8(car);
-          if (g < 0.0f)
+          counter = getCounterValue(car);
+          if (counter < 0.0f)
           {
-            g = -g;
+            counter = -counter;
           }
-          if (g > hundred)
+          if (counter > hundred)
           {
-            g = hundred;
+            counter = hundred;
           }
-          D_800C35E4 = D_800C35E0 * ((1.0f - (g * 0.004f)) * 112.0f);
-          D_800C7F84 = func_8004240C(1);
-          if (D_800C7F84->flags & 0x880000)
+          gEngineVolume = gSpeedAccum * ((1.0f - (counter * 0.004f)) * 112.0f);
+          g_camera = find_object_by_id(1);
+          if (g_camera->flags & 0x880000)
           {
-            D_800C35E4 *= 0.6666667f;
+            gEngineVolume *= 0.6666667f;
           }
-          if (D_800C35C8 != 0xFF)
+          if (gEngineVoice != 0xFF)
           {
-            if ((new_var = D_800C35A0->mode) || spd)
+            if ((modeCopy = gRecords->mode) || speed)
             {
-              func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
+              voiceSetVolumeByKey(&gSoundState[gEngineVoice], gEngineVolume);
             }
             else
             {
-              func_80086D90(&D_800C81D4[D_800C35C8], D_800C35E4);
+              voiceSetVolumeByKey(&gSoundState[gEngineVoice], gEngineVolume);
             }
           }
         }
@@ -197,45 +197,45 @@ void func_80037E28(void)
       {
         break;
       }
-        if (func_80086D34(&snd[4]) && ((D_800C35A0->players != 2) | (kind == 1)))
+        if (voiceKeyIsFree(&voices[4]) && ((gRecords->players != 2) | (kind == 1)))
       {
-        if (func_80086D34(&snd[0]))
+        if (voiceKeyIsFree(&voices[0]))
         {
-          func_80086B34(&snd[0]);
+          voice_alloc_request(&voices[0]);
         }
-        if (func_80086D34(&snd[1]))
+        if (voiceKeyIsFree(&voices[1]))
         {
-          func_80086B34(&snd[1]);
+          voice_alloc_request(&voices[1]);
         }
       }
-        if (snd[0].b == 0)
+        if (voices[0].b == 0)
       {
         break;
       }
-        t = ((rpm * 12) * D_800A4AD0) - D_800A4AD8;
-        do { func_80086E8C(&snd[0], t); } while(0);
-        scratch.sound = &snd[1];
-        func_80086E8C(scratch.sound, t);
+        pitch = ((rpm * 12) * D_800A4AD0) - D_800A4AD8;
+        do { func_80086E8C(&voices[0], pitch); } while(0);
+        scratch.sound = &voices[1];
+        func_80086E8C(scratch.sound, pitch);
         if (rpm < 4000)
       {
-        func_80086D90(&snd[0], f * ((*pv) * 120.0f));
-        u = spd + 30;
-        func_80086D90(scratch.sound, (U2F(u) * f) * (*pv));
+        voiceSetVolumeByKey(&voices[0], throttle * ((*sfxScalePtr) * 120.0f));
+        level = speed + 30;
+        voiceSetVolumeByKey(scratch.sound, (U2F(level) * throttle) * (*sfxScalePtr));
       }
       else
         if (rpm < 5500)
       {
-        k = (new_var2 = ((rpm - 4000) * 40) / 1500);
-        func_80086D90(&snd[0], ((f32)(120 - k) * f) * (*pv));
-        new_var3 = spd + 30;
-        k = k + new_var3;
-        func_80086D90(scratch.sound, (U2F(k) * f) * (*pv));
+        step = (rpmStep = ((rpm - 4000) * 40) / 1500);
+        voiceSetVolumeByKey(&voices[0], ((f32)(120 - step) * throttle) * (*sfxScalePtr));
+        speedBoost = speed + 30;
+        step = step + speedBoost;
+        voiceSetVolumeByKey(scratch.sound, (U2F(step) * throttle) * (*sfxScalePtr));
       }
       else
       {
-        func_80086D90(&snd[0], f * ((*pv) * 80.0f));
-        u = spd + 80;
-        func_80086D90(scratch.sound, (U2F(u) * f) * (*pv));
+        voiceSetVolumeByKey(&voices[0], throttle * ((*sfxScalePtr) * 80.0f));
+        level = speed + 80;
+        voiceSetVolumeByKey(scratch.sound, (U2F(level) * throttle) * (*sfxScalePtr));
       }
         if (kind != 1)
       {
@@ -248,57 +248,57 @@ void func_80037E28(void)
         {
           scratch.gear = 2;
         }
-        if (func_80086D34(&snd[5]))
+        if (voiceKeyIsFree(&voices[5]))
         {
-          func_80086B34(&snd[5]);
-          func_80086D90(&snd[5], ((f32)(u8)scratch.gear) * (D_800C35E8 * 56.0f));
+          voice_alloc_request(&voices[5]);
+          voiceSetVolumeByKey(&voices[5], ((f32)(u8)scratch.gear) * (gSfxVolumeScale * 56.0f));
         }
       }
         if (audio->last != (*car->surface))
       {
         audio->last = *car->surface;
-        func_80086B34(&snd[3]);
-        func_80086D90(&snd[3], *pv);
-        func_80086D90(&snd[0], (*pv) * 80.0f);
-        func_80086D90(&snd[1], (*pv) * 80.0f);
+        voice_alloc_request(&voices[3]);
+        voiceSetVolumeByKey(&voices[3], *sfxScalePtr);
+        voiceSetVolumeByKey(&voices[0], (*sfxScalePtr) * 80.0f);
+        voiceSetVolumeByKey(&voices[1], (*sfxScalePtr) * 80.0f);
       }
-        sum = 0;
-        for (i = 0; i < 4; i++)
+        wheelSum = 0;
+        for (w = 0; w < 4; w++)
       {
-        if ((*((s32 *) ((car->wheels + (i * 4)) + 0x310))) < 0)
+        if ((*((s32 *) ((car->wheels + (w * 4)) + 0x310))) < 0)
         {
-          sum += car->audio->w[i];
+          wheelSum += car->audio->w[w];
         }
       }
 
-        if (sum > 2000)
+        if (wheelSum > 2000)
       {
-        if (func_80086D34(&snd[2]))
+        if (voiceKeyIsFree(&voices[2]))
         {
-          func_80086B34(&snd[2]);
+          voice_alloc_request(&voices[2]);
         }
-        if (sum > 8000)
+        if (wheelSum > 8000)
         {
-          func_80086D90(&snd[2], D_800C35E8 * 140.0f);
-        }
-        else
-          if (sum > 6000)
-        {
-          func_80086D90(&snd[2], D_800C35E8 * 120.0f);
+          voiceSetVolumeByKey(&voices[2], gSfxVolumeScale * 140.0f);
         }
         else
-          if (sum > 4000)
+          if (wheelSum > 6000)
         {
-          func_80086D90(&snd[2], D_800C35E8 * hundred);
+          voiceSetVolumeByKey(&voices[2], gSfxVolumeScale * 120.0f);
+        }
+        else
+          if (wheelSum > 4000)
+        {
+          voiceSetVolumeByKey(&voices[2], gSfxVolumeScale * hundred);
         }
         else
         {
-          func_80086D90(&snd[2], D_800C35E8 * 80.0f);
+          voiceSetVolumeByKey(&voices[2], gSfxVolumeScale * 80.0f);
         }
       }
       else
       {
-        func_80086AD8(&snd[2], 1);
+        voicesSetParamsByKey(&voices[2], 1);
       }
         break;
 
@@ -308,5 +308,4 @@ void func_80037E28(void)
   }
   while (car != NULL);
 }
-
 

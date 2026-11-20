@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Item
 {
@@ -19,32 +19,37 @@ typedef struct Tbl
   u8 pad[0x15A];
   u16 v;
 } Tbl;
-extern Game *D_800C35A0;
-extern Group D_800C3750[];
-extern s32 D_800ADF40[];
-extern u8 D_800C7124[];
+extern Game *gRecords;
+extern Group g_split_times[];
+extern s32 gSplitBaseTimes[];
+extern u8 gSplitRecordIds[];
 extern u8 func_8006B924(Item *);
+
+/* For the selected record, computes the three split results against the base
+   times and stores them as 16-bit words in gSplitRecordIds: the value is the
+   time delta (sign in bit 0), capped at 0x3FFE, with the split result in bits 14-15.
+   A split with result 5 is stored as 0xFFFF. */
 void func_8006C640(void)
 {
   u8 idx;
   u8 i;
-  u8 *new_var2;
+  u8 *record_ids;
   u8 r;
-  u8 new_var;
+  u8 slot_i;
   s32 d;
-  new_var2 = D_800C7124;
-  idx = D_800C35A0->sel;
+  record_ids = gSplitRecordIds;
+  idx = gRecords->sel;
   for (i = 0; i < 3; i++)
   {
-    r = func_8006B924(&D_800C3750[idx].item[i]);
-    new_var = i;
+    r = func_8006B924(&g_split_times[idx].item[i]);
+    slot_i = i;
     if (r == 5)
     {
-      ((Tbl *) (new_var2 + (((idx * 3) + new_var) * 2)))->v = 0xFFFF;
+      ((Tbl *) (record_ids + (((idx * 3) + slot_i) * 2)))->v = 0xFFFF;
     }
     else
     {
-      d = D_800ADF40[idx] - D_800C3750[idx].item[new_var].x;
+      d = gSplitBaseTimes[idx] - g_split_times[idx].item[slot_i].x;
       if (d >= 0)
       {
         if (d >= 0x4000)
@@ -62,10 +67,9 @@ void func_8006C640(void)
         }
         d |= 1;
       }
-      ((Tbl *) (new_var2 + (((idx * 3) + i) * 2)))->v = d | (r << 14);
+      ((Tbl *) (record_ids + (((idx * 3) + i) * 2)))->v = d | (r << 14);
     }
   }
 
 }
-
 

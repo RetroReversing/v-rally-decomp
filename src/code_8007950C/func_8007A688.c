@@ -1,23 +1,17 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592AC(u32);                            /* extern */
-void *func_8005A744(u32, void *);                       /* extern */
-extern void *D_800A1468;
+void *select_get_entry(u32);
+void *list_advance(u32, void *);
+extern void *gSelectState;
 
+/* Sets the select state's byte at +0x237 to byte +0x22 of the list entry picked
+ * by list_advance(state+0x239, entry(state+0x238)->+0x28). */
 void func_8007A688(void) {
-    M2C_FIELD(D_800A1468, u8 *, 0x237) = (u8) M2C_FIELD(func_8005A744(M2C_FIELD(D_800A1468, u8 *, 0x239), (void *)(M2C_FIELD(func_800592AC((u8)(M2C_FIELD(D_800A1468, u8 *, 0x238))), void **, 0x28))), u8 *, 0x22);
+    M2C_FIELD(gSelectState, u8 *, 0x237) = (u8) M2C_FIELD(list_advance(M2C_FIELD(gSelectState, u8 *, 0x239), (void *)(M2C_FIELD(select_get_entry((u8)(M2C_FIELD(gSelectState, u8 *, 0x238))), void **, 0x28))), u8 *, 0x22);
 }
 

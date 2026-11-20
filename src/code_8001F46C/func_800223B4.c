@@ -1,40 +1,30 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2 -g3, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
+/* Entry in a named list: next link, name pointer at +0xC, id at +0x10, two values after it. */
+typedef struct NamedEntry { struct NamedEntry *next; u8 pad04[8]; u8 *name; s32 id; s32 value; s32 value2; } NamedEntry;
 
-void *func_80022318(void **, u8 *);
-void *func_800801D0();
-s32 func_80080440();
+void *list_find_node(void **list, u8 *name);
+void *poolAllocNode(void **pool, s32 size);
+s32 pool_alloc_cleared_node(void);
 
-s32 func_800223B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    void *temp_s0;
-    void *temp_v0;
+/* Returns the id of the entry called name. Unless force_new is set, an existing entry with
+ * that name is reused. Otherwise a new entry is allocated from the pool, given a fresh id, and
+ * linked to name. */
+s32 func_800223B4(void **pool, s32 arg1, s32 arg2, u8 *name, s32 force_new) {
+    NamedEntry *entry;
+    void *found;
 
-    if (arg4 == 0) {
-        temp_v0 = func_80022318((void **)(arg0), (u8 *)(arg3));
-        if (temp_v0 != NULL) {
-            return M2C_FIELD(temp_v0, s32 *, 0x10);
+    if (force_new == 0) {
+        found = list_find_node(pool, name);
+        if (found != NULL) {
+            return ((NamedEntry *)found)->id;
         }
-        goto block_4;
     }
-block_4:
-    temp_s0 = func_800801D0(arg0, 0x1C);
-    M2C_FIELD(temp_s0, s32 *, 0x10) = func_80080440();
-    M2C_FIELD(temp_s0, s32 *, 0x14) = arg1;
-    M2C_FIELD(temp_s0, s32 *, 0x18) = arg2;
-    M2C_FIELD(temp_s0, s32 *, 0xC) = arg3;
-    return M2C_FIELD(temp_s0, s32 *, 0x10);
+    entry = poolAllocNode(pool, 0x1C);
+    entry->id = pool_alloc_cleared_node();
+    entry->value = arg1;
+    entry->value2 = arg2;
+    entry->name = name;
+    return entry->id;
 }
 

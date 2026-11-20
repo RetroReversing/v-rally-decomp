@@ -1,34 +1,38 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800A73E0[], D_800AE850[], D_800A3D50[], D_800A3D64[], D_800A3E10[], D_800A3D76, jtbl_800A72C0[];
-int func_8008E118(char *);
-void *func_8008E13C(void *,void *,int);
-int func_800987C0(int);
-char *func_80098884(u32,int);
+extern char gGameState[], gOrderState[], digits_lower[], digits_upper[], char_class_tbl[], exp_char, null_str[];
+int str_len(char *);
+void *memcpy(void *,void *,int);
+int print_flush_buffer(int);
+char *format_uint_reverse(u32,int);
 char *func_800988C8(u64,int);
 char *func_80098E88(double,int,int *,int *);
-char *func_80098B7C(double,int,int *,int *);
+char *ecvt_digits(double,int,int *,int *);
 char *func_80098F34(double,int,char *);
-void func_80098290(char *,char *);
-extern int D_800ADEF0; extern char *D_800ADEF8, *D_800ADF00; extern char D_800ADF04;
-#define CNT D_800ADEF0
-#define OUT D_800ADEF8
-#define DIG D_800ADF00
-#define ALT D_800ADF04
-#define PUT(c) (--CNT == 0 ? func_800987C0(c) : (*OUT++=(c)))
-#define ARG(t,n) (*(t *)((ap=(char *)(((u32)ap+(n)-1)&-(n))+(n))-(n)))
-int func_8009912C(int unused, const char *fmt, char *ap) {
- char c; int len;
- char *str;
- int prec, flags, fprec, width, prefix, total=0;
- int issigned, base, isfloat, dec, sign, dec2, sign2, i;
-char *digits, *p;
- u32 val; u64 wide; double f; double gf;
+void strCpy(char *,char *);
+extern int fmt_buf_left; extern char *fmt_buf_pos, *gDigitChars; extern char fmt_alt_form;
+#define CNT fmt_buf_left
+#define OUT fmt_buf_pos
+#define DIG gDigitChars
+#define ALT fmt_alt_form
+#define PUT(c) (--CNT == 0 ? print_flush_buffer(c) : (*OUT++=(c)))
+#ifdef PORT
+#define ARG(t,n) (*(t *)((args=(char *)(((uintptr_t)args+(n)-1)&-(uintptr_t)(n))+(n))-(n)))
+#else
+#define ARG(t,n) (*(t *)((args=(char *)(((u32)args+(n)-1)&-(n))+(n))-(n)))
+#endif
+/* printf core: parses flags, width, precision and length, then conversions (%d %i %u %x %X %o %c %s %f %e %g %n %p), writing each character through PUT into the output buffer; returns the character count. */ int func_8009912C(int ctx, const char *fmt, char *args) {
+ char c; int out_len;
+ char *out_str;
+ int prec, flags, frac_prec, width, prefix, count=0;
+ int is_signed, radix, is_float, dec_pos, is_neg, exp_pos, exp_neg, i;
+char *digits, *out;
+ u32 val32; u64 val64; double fval; double gval;
  for (;;) {
   if ((c=*fmt++)!='%') {
-   if (!(signed char)c) { ALT=0; return total; }
-   if (D_800A3E10[(u8)c]&0x80) { PUT(c); total++; c=*fmt++; }
-   PUT(c); total++; continue;
+   if (!(signed char)c) { ALT=0; return count; }
+   if (char_class_tbl[(u8)c]&0x80) { PUT(c); count++; c=*fmt++; }
+   PUT(c); count++; continue;
   }
   flags=0; ALT=0;
  flag_loop:
@@ -40,99 +44,97 @@ char *digits, *p;
    case '#': ALT=1; goto flag_loop;
   }
   if ((signed char)c=='*') { width=ARG(int,4); if(width<0) { flags|=1; width=-width; } c=*fmt++; }
-  else { width=0; while(D_800A3E10[(u8)c]&8) { width=width*10+((signed char)c-48); c=*fmt++; } }
-  prec=0; fprec=6;
+  else { width=0; while(char_class_tbl[(u8)c]&8) { width=width*10+((signed char)c-48); c=*fmt++; } }
+  prec=0; frac_prec=6;
   if ((signed char)c=='.') {
    if ((c=*fmt++)=='*') { prec=ARG(int,4); c=*fmt++; }
-   else { while(D_800A3E10[(u8)c]&8) { prec=prec*10+((signed char)c-48); c=*fmt++; } }
-   fprec=prec;
+   else { while(char_class_tbl[(u8)c]&8) { prec=prec*10+((signed char)c-48); c=*fmt++; } }
+   frac_prec=prec;
   }
-  isfloat=0; issigned=0; DIG=D_800A3D50; base=10;
+  is_float=0; is_signed=0; DIG=digits_lower; radix=10;
  convert:
   switch ((signed char)c) {
-  case 'd': case 'i': issigned=1; goto integer;
-  case 'o': base=8; goto clearflags;
-  case 'X': DIG=D_800A3D64;
-  case 'x': base=16;
+  case 'd': case 'i': is_signed=1; goto integer;
+  case 'o': radix=8; goto clearflags;
+  case 'X': DIG=digits_upper;
+  case 'x': radix=16;
  clearflags: flags&=~10; goto integer;
   case 'u': goto integer;
-  case 'c': str=D_800AE850+0x86A0; *str=ARG(int,4); len=1; goto emit;
-  case 's': str=ARG(char *,4); if (!str) str=jtbl_800A72C0; len=func_8008E118(str); if(prec!=0 && prec<len) len=prec; goto emit;
+  case 'c': out_str=gOrderState+0x86A0; *out_str=ARG(int,4); out_len=1; goto emit;
+  case 's': out_str=ARG(char *,4); if (!out_str) out_str=null_str; out_len=str_len(out_str); if(prec!=0 && prec<out_len) out_len=prec; goto emit;
   case 'f':
-   f=ARG(double,8); digits=func_80098E88(f,fprec,&dec,&sign); if(sign) flags|=0x100;
-   str=D_800AE850+0x86A1; p=str;
-   if (dec==0x7fffffff) func_80098290(str,digits);
-   else if(dec<=0) {
-    *p++='0'; *p++='.'; i=0;
-    while(dec) { *p++='0'; i++; dec++; if(i==fprec) break; }
-    while(i!=fprec) { *p++=*digits++; i++; }
-    *p=0;
+   fval=ARG(double,8); digits=func_80098E88(fval,frac_prec,&dec_pos,&is_neg); if(is_neg) flags|=0x100;
+   out_str=gOrderState+0x86A1; out=out_str;
+   if (dec_pos==0x7fffffff) strCpy(out_str,digits);
+   else if(dec_pos<=0) {
+    *out++='0'; *out++='.'; i=0;
+    while(dec_pos) { *out++='0'; i++; dec_pos++; if(i==frac_prec) break; }
+    while(i!=frac_prec) { *out++=*digits++; i++; }
+    *out=0;
    } else {
-    if(dec+fprec<40) {
-     func_8008E13C(p,digits,dec); digits+=dec; p+=dec;
-     if(fprec) { *p++='.'; func_8008E13C(p,digits,fprec); }
-     else if(ALT) *p++='.';
-     p[fprec]=0;
-    } else if(dec+fprec<255) {
-     __builtin_memcpy(p,digits,40);
-     if(dec<=40) p+=dec; else { p+=40; i=dec-40; do { *p++='0'; } while(--i); }
-     if(fprec) { *p++='.'; i=fprec; do { *p++='0'; } while(--i); } else if(ALT) *p++='.';
-     *p=0;
-    } else { fprec=20; c='e'; goto exponential; }
+    if(dec_pos+frac_prec<40) {
+     memcpy(out,digits,dec_pos); digits+=dec_pos; out+=dec_pos;
+     if(frac_prec) { *out++='.'; memcpy(out,digits,frac_prec); }
+     else if(ALT) *out++='.';
+     out[frac_prec]=0;
+    } else if(dec_pos+frac_prec<255) {
+     __builtin_memcpy(out,digits,40);
+     if(dec_pos<=40) out+=dec_pos; else { out+=40; i=dec_pos-40; do { *out++='0'; } while(--i); }
+     if(frac_prec) { *out++='.'; i=frac_prec; do { *out++='0'; } while(--i); } else if(ALT) *out++='.';
+     *out=0;
+    } else { frac_prec=20; c='e'; goto exponential; }
    }
-   len=func_8008E118(str); prec=0; isfloat=1; goto pad;
+   out_len=str_len(out_str); prec=0; is_float=1; goto pad;
   case 'e': case 'E':
-   f=ARG(double,8);
+   fval=ARG(double,8);
  exponential:
-   { char *s=func_80098B7C(f,fprec,&dec2,&sign2); str=D_800AE850+0x86A1; if(sign2) flags|=0x100;
-     if(dec2==0x7fffffff) func_80098290(str,s); else { D_800A3D76=c; func_80098A1C((u8 *)s,fprec,dec2-1,(s8 *)str); D_800A3D76='e'; }
-   } len=func_8008E118(str); prec=0; isfloat=1; goto pad;
+   { char *s=ecvt_digits(fval,frac_prec,&exp_pos,&exp_neg); out_str=gOrderState+0x86A1; if(exp_neg) flags|=0x100;
+     if(exp_pos==0x7fffffff) strCpy(out_str,s); else { exp_char=c; func_80098A1C((u8 *)s,frac_prec,exp_pos-1,(s8 *)out_str); exp_char='e'; }
+   } out_len=str_len(out_str); prec=0; is_float=1; goto pad;
   case 'g': case 'G':
-   gf=ARG(double,8); if(gf<0.0) { flags|=0x100; gf=-gf; }
-   D_800A3D76=c-2; str=func_80098F34(gf,fprec,D_800AE850+0x86A1); D_800A3D76='e';
-   len=func_8008E118(str); prec=0; isfloat=1; goto pad;
-  case 'n': *ARG(int *,4)=total; continue;
-  case 'p': flags=0; prec=8; DIG=D_800A3D64; base=16; goto integer;
+   gval=ARG(double,8); if(gval<0.0) { flags|=0x100; gval=-gval; }
+   exp_char=c-2; out_str=func_80098F34(gval,frac_prec,gOrderState+0x86A1); exp_char='e';
+   out_len=str_len(out_str); prec=0; is_float=1; goto pad;
+  case 'n': *ARG(int *,4)=count; continue;
+  case 'p': flags=0; prec=8; DIG=digits_upper; radix=16; goto integer;
   case 'h': flags|=0x40; c=*fmt++; goto convert;
   case 'l': if ((c=*fmt++)=='l') { flags|=0x20; c=*fmt++; } goto convert;
   case 'L': flags|=0x80; c=*fmt++; goto convert;
-  default: PUT(c); total++; continue;
+  default: PUT(c); count++; continue;
   }
  integer:
   if(prec) flags&=~4;
-  if(flags&0x20) { wide=ARG(u64,8); if(issigned) if((s64)wide<0) { wide=-wide; flags|=0x100; } str=func_800988C8(wide,base); }
-  else { val=ARG(u32,4); if(flags&0x40) { if(issigned) val=(s16)val; else val=(u16)val; }
-   if(issigned) if((s32)val<0) { val=-val; flags|=0x100; } str=func_80098884(val,base);
+  if(flags&0x20) { val64=ARG(u64,8); if(is_signed) if((s64)val64<0) { val64=-val64; flags|=0x100; } out_str=func_800988C8(val64,radix); }
+  else { val32=ARG(u32,4); if(flags&0x40) { if(is_signed) val32=(s16)val32; else val32=(u16)val32; }
+   if(is_signed) if((s32)val32<0) { val32=-val32; flags|=0x100; } out_str=format_uint_reverse(val32,radix);
   }
-  len=(D_800AE850+0x87A0)-str;
+  out_len=(gOrderState+0x87A0)-out_str;
  pad:
   prefix=0;
-  if(ALT && base!=10 && !issigned && *str!='0') { prefix=1; if(base==16) prefix=2; }
+  if(ALT && radix!=10 && !is_signed && *out_str!='0') { prefix=1; if(radix==16) prefix=2; }
   if((flags&5)==4) prec=width;
   if(prec) {
    if(flags&0x10A) {
     prec--;
-    if(isfloat) {
-     width--; total++;
+    if(is_float) {
+     width--; count++;
      if(flags&0x100) { PUT('-'); }
-     else if(--CNT==0) func_800987C0((flags&2)?'+':' '); else *OUT++=(flags&2)?'+':' ';
+     else if(--CNT==0) print_flush_buffer((flags&2)?'+':' '); else *OUT++=(flags&2)?'+':' ';
      flags&=~0x10A;
     }
    }
    prec-=prefix;
-   while(len<prec) {
-    if(isfloat) { PUT('0'); width--; total++; prec--; }
-    else { *--str='0'; len++; }
+   while(out_len<prec) {
+    if(is_float) { PUT('0'); width--; count++; prec--; }
+    else { *--out_str='0'; out_len++; }
    }
   }
-  if(prefix) { if(prefix==2) *--str=DIG[16]; *--str='0'; len+=prefix; }
-  if(flags&0x10A) { len++; --str; if(flags&0x100) *str='-'; else *str=(flags&2)?'+':' '; }
+  if(prefix) { if(prefix==2) *--out_str=DIG[16]; *--out_str='0'; out_len+=prefix; }
+  if(flags&0x10A) { out_len++; --out_str; if(flags&0x100) *out_str='-'; else *out_str=(flags&2)?'+':' '; }
  emit:
-  if(!(flags&1)) { while(len<width) { PUT(' '); width--; total++; } }
-  width-=len; total+=len;
-  while(len-- !=0) { PUT(*str++); }
-  while(width>0) { PUT(' '); width--; total++; }
+  if(!(flags&1)) { while(out_len<width) { PUT(' '); width--; count++; } }
+  width-=out_len; count+=out_len;
+  while(out_len-- !=0) { PUT(*out_str++); }
+  while(width>0) { PUT(' '); width--; count++; }
  }
 }
-
-

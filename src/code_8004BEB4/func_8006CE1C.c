@@ -1,11 +1,14 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { s32 v; s32 pad[3]; } Sample;
 extern Sample D_800C3650[4][4];
 extern s32 D_800ADF30[4];
-extern u16 D_800C7206[12];
+extern u16 g_split_deltas[12];
 u8 func_8006B924(Sample *);
 
+/* For each of the 4 players and 3 splits, stores the time difference from the reference
+   split time as a u16: magnitude in the low 14 bits, sign in bit 0, the lookup code in
+   bits 14-15. A code of 5 means no entry matched, and the delta is set to 0xFFFF. */
 void func_8006CE1C(void)
 {
   u16 *out;
@@ -14,7 +17,7 @@ void func_8006CE1C(void)
   u8 code;
   s32 d;
 
-  out = D_800C7206;
+  out = g_split_deltas;
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 3; j++) {
       code = func_8006B924(&D_800C3650[i][j]);
@@ -35,3 +38,4 @@ void func_8006CE1C(void)
     }
   }
 }
+

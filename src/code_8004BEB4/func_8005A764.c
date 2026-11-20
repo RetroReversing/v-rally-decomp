@@ -1,5 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-void *func_800592AC(u32);
-void func_8005A764(char arg0, int arg1, int arg2) { ((u8 *)func_800592AC(arg2))[0x42] = arg0; }
+void *select_get_entry(u32);
+
+/* Stores value into the byte at offset 0x42 of the select entry for index. */
+void func_8005A764(char value, int unused, int index)
+{
+  ((u8 *)select_get_entry(index))[0x42] = value;
+}
 

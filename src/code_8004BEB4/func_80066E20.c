@@ -1,36 +1,27 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-void *func_800592AC(u32);                       /* extern */
-M2C_UNK func_8005BB5C();                            /* extern */
-M2C_UNK func_8005BC60();                            /* extern */
-void func_8005C0E8(s32, u32, u32);       /* extern */
-M2C_UNK func_8008A0D8(s32, M2C_UNK, M2C_UNK);       /* extern */
-extern void *D_800A1468;
-extern M2C_UNK D_800C02AE;
+extern s8 *gSelectState;
+extern char stream_state[];
 
+void select_clear_slots(void);
+void func_8005BB5C(void);
+s32 record_set_byte9(s32, s32, s8);
+void *select_get_entry(u32);
+void select_propagate_values(s32, u32, u32);
+
+/* Select-screen setup: clears the slot table, fills the four slot names, and when the
+ * stream's mode word at +0xE is below 2, primes the first entry before resetting the
+ * screen flags in gSelectState. */
 void func_80066E20(void) {
-    func_8005BC60();
+    select_clear_slots();
     func_8005BB5C();
-    if ((u16) M2C_FIELD(M2C_FIELD(&D_800C02AE, void **, 0x32F2), u16 *, 0xE) < 2U) {
-        func_8008A0D8(M2C_FIELD(&D_800C02AE, s32 *, 0x325A), 1, 0);
-        M2C_FIELD(func_800592AC(1), s8 *, 0x41) = 0;
-        func_8005C0E8(1, 1, M2C_FIELD(D_800A1468, s32 *, 0x14));
+    if (*(u16 *)(*(u8 **)(stream_state + 0x32F2) + 0xE) < 2U) {
+        record_set_byte9(*(s32 *)(stream_state + 0x325A), 1, 0);
+        ((s8 *)select_get_entry(1))[0x41] = 0;
+        select_propagate_values(1, 1, *(u32 *)(gSelectState + 0x14));
     }
-    M2C_FIELD(D_800A1468, s8 *, 0x245) = 0;
-    M2C_FIELD(D_800A1468, s8 *, 0x228) = 0;
-    M2C_FIELD(D_800A1468, s8 *, 0x22B) = -1;
+    gSelectState[0x245] = 0;
+    gSelectState[0x228] = 0;
+    gSelectState[0x22B] = -1;
 }
 

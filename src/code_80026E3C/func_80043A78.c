@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Pad
 {
@@ -78,72 +78,78 @@ typedef struct Game
   u8 pad10[0x1E - 0x10];
   u16 state;
 } Game;
-extern Game *D_800C35A0;
+extern Game *gRecords;
 extern Snd **D_800B5B4C;
-extern Car **D_800B5C40;
-extern s32 D_800B6880; extern u8 D_800AE850[];
-extern Slot44 *D_800A1234;
+extern Car **gCarList;
+extern s32 gRaceState; extern u8 gOrderState[];
+extern Slot44 *gCarEntryTable;
 extern u8 D_800A4DFC[];
-extern s32 func_8001FEE8(void *);
-extern s32 func_80022374(void **, u8 *, s32);
-extern void func_800347A4(void *, s8 *);
-extern void func_80042F40(void);
-extern void func_80085778(s32, s32);
+extern s32 getCounterValue(void *);
+extern s32 named_entry_set_value(void **, u8 *, s32);
+extern void ai_drive_compute(void *, s8 *);
+extern void race_reset(void);
+extern void input_clear_flags(s32, s32);
+s32 abs(s32);
 static __inline__ void expired(s32 *st,u32 *timer) {s32 v=*st;if(!(v&8)){if(v&4){*st=(v|2)&~4;}else{*st=(v|4)&~2;} *timer=50; *st|=8;return;}*st=v|0x20;}
+
+/* Per-car control for the race start and finish: while the car's control
+ * state has bit 0x20 set, it runs the countdown and steering assist; once the
+ * state clears, the finish check runs for the local players and ends the race
+ * when every remaining car has finished. */
 void func_80043A78(Car *car, Pad *pad)
 {
   Ctl *ctl;
-  s32 *st;
+  s32 *state;
   u32 *timer;
   Trk *trk;
-  u32 pos;
+  u32 track_pos;
   s32 speed;
-  s32 v;
-  s32 d;
-  u32 q;
-  Snd *s;
+  s32 old_state;
+  s32 timer_class;
+  u32 lap_gap;
+  Snd *snd;
   union { s32 player; Car *node; } n;
-  s16 cnt;
-  s16 k;
-  s32 all;
-  u8 t;
+  s16 racers_left;
+  s16 finished;
+  s32 all_done;
+  u8 steer;
   ctl = car->ctl;
   speed = 0;
   trk = car->x8C->trk;
-  pos = car->body->x58;
-  st = &ctl->state;
-  if (!((*st) & 0x20))
+  track_pos = car->body->x58;
+  state = &ctl->state;
+  if (!((*state) & 0x20))
   {
     timer = &ctl->timer;
-    speed = func_8001FEE8(car);
+    speed = getCounterValue(car);
     if (!(car->flags & 0x80))
     {
       if ((*car->player) < 4)
       {
-        for (s = *D_800B5B4C; s != NULL; s = s->next)
+        for (snd = *D_800B5B4C; snd != NULL; snd = snd->next)
         {
-          if (s->car == car)
+          if (snd->car == car)
           {
             break;
           }
         }
 
-        func_80022374((void **)((u8*)s + 0x28), D_800A4DFC, 2);
+        named_entry_set_value((void **)((u8*)snd + 0x28), D_800A4DFC, 2);
       }
       car->flags |= 0x80;
-      d = car->info->x8;
+      timer_class = car->info->x8;
       *timer = 250;
-      if (d == 2)
+      if (timer_class == 2)
       {
         *timer = 238;
       }
       else
-        if (d == 3)
+        if (timer_class == 3)
       {
         *timer = 225;
       }
       else
-        if (d == 4)
+        if (timer_class == 4)
       {
         *timer = 210;
       }
@@ -157,62 +163,62 @@ void func_80043A78(Car *car, Pad *pad)
         if ((*timer) == 200)
         {
           *timer = 12;
-          v = *st;
-          *st = v | 1;
-          if (pos < ((u32)trk->x4C - 1U))
+          old_state = *state;
+          *state = old_state | 1;
+          if (track_pos < ((u32)trk->x4C - 1U))
           {
-            *st = v | 5;
+            *state = old_state | 5;
           }
           else
           {
-            *st = v | 3;
+            *state = old_state | 3;
           }
         }
         else
         {
-          func_800347A4(car, (s8*)pad);
+          ai_drive_compute(car, (s8*)pad);
         }
       }
       else
       {
-        if ((*st) & 4)
+        if ((*state) & 4)
         {
           pad->x = 127;
         }
-        if ((*st) & 2)
+        if ((*state) & 2)
         {
           pad->x = -127;
         }
         pad->b4 = 0;
-        v = *st;
-        if (v & 8)
+        old_state = *state;
+        if (old_state & 8)
         {
-          *st = v | 1;
+          *state = old_state | 1;
         }
         else
-          if (v & 0x10)
+          if (old_state & 0x10)
         {
-          q = 4 - abs(trk->x4C - pos);
-          if (q != 0)
+          lap_gap = 4 - abs(trk->x4C - track_pos);
+          if (lap_gap != 0)
           {
-            t = ((u32)speed + 27U) / q;
+            steer = ((u32)speed + 27U) / lap_gap;
           }
           else
           {
-            t = 0;
+            steer = 0;
           }
           if (pad->x > 0)
           {
-            pad->x = t;
+            pad->x = steer;
           }
           else
           {
-            pad->x = -t;
+            pad->x = -steer;
           }
           pad->b4 = 0xFF;
           if (speed >= 0x79)
           {
-            *st &= ~0x10;
+            *state &= ~0x10;
           }
         }
       }
@@ -220,9 +226,9 @@ void func_80043A78(Car *car, Pad *pad)
     }
     else
     {
-expired(st,timer);
+expired(state,timer);
     }
-    if (!((*st) & 0x20))
+    if (!((*state) & 0x20))
     {
       goto end;
     }
@@ -233,34 +239,34 @@ expired(st,timer);
     pad->b5 = 0;
     pad->b2 = 0xFF;
     pad->b3 = pad->b1;
-    if ((D_800C35A0->state != 0) & (D_800C35A0->state != 5))
+    if ((gRecords->state != 0) & (gRecords->state != 5))
     {
       n.player = *car->player;
-      { Slot44 *slot = D_800A1234 + n.player; slot->hA = 2; }
-      cnt = D_800C35A0->players;
-      k = 0;
-      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
+      { Slot44 *slot = gCarEntryTable + n.player; slot->hA = 2; }
+      racers_left = gRecords->players;
+      finished = 0;
+      for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
       {
         if ((*n.node->player) < 4)
         {
-          st = &n.node->ctl->state;
+          state = &n.node->ctl->state;
           if (n.node->flags & 0x100)
           {
             if (n.node->ctl->state & 0x20)
             {
-              cnt--;
+              racers_left--;
             }
           }
           else
             if ((((speed >= (-5)) && (speed <= 5)) && (n.node->info->x10 == 0)) && (n.node->flags & 0x200))
           {
-            k++;
-            cnt--;
+            finished++;
+            racers_left--;
           }
         }
       }
 
-      if ((cnt == 0) && (k != D_800C35A0->players))
+      if ((racers_left == 0) && (finished != gRecords->players))
       {
         goto finish;
       }
@@ -269,38 +275,37 @@ expired(st,timer);
     {
       if ((*car->player) < 4)
       {
-        { Slot44 *slot=D_800A1234; slot += *car->player; slot->hA=2; }
+        { Slot44 *slot=gCarEntryTable; slot += *car->player; slot->hA=2; }
       }
-      cnt = 1;
-      for (n.node = *D_800B5C40; n.node != NULL; n.node = n.node->next)
+      racers_left = 1;
+      for (n.node = *gCarList; n.node != NULL; n.node = n.node->next)
       {
         if ((*n.node->player) < 4)
         {
-          all = -((n.node->flags & 0x100) != 0);
-          cnt &= all;
+          all_done = -((n.node->flags & 0x100) != 0);
+          racers_left &= all_done;
         }
       }
 
-      if (cnt)
+      if (racers_left)
       {
         finish:
-        *(s32 *)(D_800AE850 + 0x8030) = 0;
+        *(s32 *)(gOrderState + 0x8030) = 0;
 
-        func_80042F40();
-        func_80085778(0, 0x1000);
-        func_80085778(0, 0x8000);
+        race_reset();
+        input_clear_flags(0, 0x1000);
+        input_clear_flags(0, 0x8000);
       }
     }
   }
   end:
-  if ((*st) & 1)
+  if ((*state) & 1)
   {
     pad->b1 |= 0x10;
   }
 
-  t = (pad->b2 | (~pad->b1)) | 0x10;
-  pad->b2 = t;
-  pad->b3 = pad->b1 & t;
+  steer = (pad->b2 | (~pad->b1)) | 0x10;
+  pad->b2 = steer;
+  pad->b3 = pad->b1 & steer;
 }
-
 

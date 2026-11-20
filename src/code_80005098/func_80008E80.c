@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -9,18 +9,24 @@ typedef struct
   s16 *items;
   u8 p74[6];
   u16 count;
-} O;
+} VtxPool;
 typedef struct 
 {
   s16 a;
   s16 b;
   s16 c;
-} E;
+} VtxIn;
 extern s32 osVirtualToPhysical(void *);
-extern void func_80008C8C(void *, s32);
-void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
+extern void vtx_pool_set_flags(void *, s32);
+
+/* Maps n input vertices (verts) to slots in the pool's vertex buffer: an
+ * existing slot is reused when the same vertex is already present, otherwise
+ * the vertex is appended. Writes each slot index to indices (0xFFFF = none
+ * yet), and emits a G_VTX load into the pool's display list when a 32-vertex
+ * block is started. */
+void func_80008E80(VtxPool *pool, VtxIn *verts, s32 n, u16 *indices)
 {
-  O *o = arg0;
+  VtxPool *o = pool;
   s32 remaining = n;
   s32 i;
   s32 j;
@@ -32,7 +38,7 @@ void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
   {
     do
     {
-      out[j] = 0xffff;
+      indices[j] = 0xffff;
       j++;
     }
     while (j < new_var);
@@ -40,17 +46,21 @@ void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
   start = o->count >> 5;
   for (i = 0; i < new_var; i++)
   {
-    E *src;
+    VtxIn *src;
     u16 *dst;
     j = start * 32;
     if (j < o->count)
     {
       do
       {
-        E *p = (E *) (((j << 2) << 2) + ((s32) o->items));
-        if (((p->a == (in + i)->a) && (p->b == (in + i)->b)) && (p->c == (in + i)->c))
+        #ifdef PORT
+        VtxIn *p = (VtxIn *)((u8 *)o->items + ((j << 2) << 2));
+#else
+        VtxIn *p = (VtxIn *) (((j << 2) << 2) + ((s32) o->items));
+#endif
+        if (((p->a == (verts + i)->a) && (p->b == (verts + i)->b)) && (p->c == (verts + i)->c))
         {
-          *(out + i) = j;
+          *(indices + i) = j;
           remaining--;
         }
         j++;
@@ -67,7 +77,7 @@ void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
     o->cmd = cmd + 2;
     cmd[0] = 0x01020040;
     cmd[1] = osVirtualToPhysical(((u8 *) o->items) + (o->count << 4));
-    func_80008C8C(((u8 *) o->items) + (o->count << 4), 32);
+    vtx_pool_set_flags(((u8 *) o->items) + (o->count << 4), 32);
   }
   {
     u16 count = o->count;
@@ -76,13 +86,20 @@ void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
     {
       for (i = 0; i < new_var; i++)
       {
-        if (out[i] == 0xffff)
+        if (indices[i] == 0xffff)
         {
           unsigned int k = o->count++;
-          ((E *) ((k << 4) + ((s32) o->items)))->a = in[i].a;
-          ((E *) ((k << 4) + ((s32) o->items)))->b = in[i].b;
-          ((E *) ((k << 4) + ((s32) o->items)))->c = in[i].c;
-          out[i] = k;
+#ifdef PORT
+          VtxIn *dv = (VtxIn *)((u8 *)o->items + (k << 4));
+          dv->a = verts[i].a;
+          dv->b = verts[i].b;
+          dv->c = verts[i].c;
+#else
+          ((VtxIn *) ((k << 4) + ((s32) o->items)))->a = verts[i].a;
+          ((VtxIn *) ((k << 4) + ((s32) o->items)))->b = verts[i].b;
+          ((VtxIn *) ((k << 4) + ((s32) o->items)))->c = verts[i].c;
+#endif
+          indices[i] = k;
         }
       }
 
@@ -98,14 +115,21 @@ void func_80008E80(O *arg0, E *in, s32 n, u16 *out)
       cmd[1] = osVirtualToPhysical(((u8 *) o->items) + (count << 9));
       count <<= 5;
       o->count = count;
-      func_80008C8C(((u8 *) o->items) + ((count & 0xffe0) << 4), 32);
+      vtx_pool_set_flags(((u8 *) o->items) + ((count & 0xffe0) << 4), 32);
       for (i = 0; i < new_var; i++)
       {
         unsigned int k = o->count++;
-        ((E *) ((k << 4) + ((s32) o->items)))->a = in[i].a;
-        ((E *) ((k << 4) + ((s32) o->items)))->b = in[i].b;
-        ((E *) ((k << 4) + ((s32) o->items)))->c = in[i].c;
-        out[i] = k;
+#ifdef PORT
+        VtxIn *dv = (VtxIn *)((u8 *)o->items + (k << 4));
+        dv->a = verts[i].a;
+        dv->b = verts[i].b;
+        dv->c = verts[i].c;
+#else
+        ((VtxIn *) ((k << 4) + ((s32) o->items)))->a = verts[i].a;
+        ((VtxIn *) ((k << 4) + ((s32) o->items)))->b = verts[i].b;
+        ((VtxIn *) ((k << 4) + ((s32) o->items)))->c = verts[i].c;
+#endif
+        indices[i] = k;
       }
 
     }

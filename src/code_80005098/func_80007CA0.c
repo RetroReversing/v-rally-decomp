@@ -1,11 +1,12 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-typedef struct 
+typedef struct
 {
   u8 pad[0x14];
   s32 *p;
 } GfxState;
-typedef struct 
+
+typedef struct
 {
   u8 pad0[6];
   u16 w;
@@ -13,61 +14,42 @@ typedef struct
   u8 padA[10];
   s32 *tbl;
 } Tex;
+
 s32 osVirtualToPhysical(s32);
+
+/* Appends one 64-bit display-list command (two words) to the state. */
+#define GFX_EMIT(g, w0v, w1v) { s32 *p = (g)->p; (g)->p = p + 2; p[0] = (w0v); p[1] = (w1v); }
+
+/* Emits the RDP commands that load texture idx of tex (from its address table)
+ * into TMEM and set its tile size, mask and clamp state. Returns 0. */
 s32 func_80007CA0(GfxState *g, Tex *t, s32 idx)
 {
   GfxState *new_var;
   GfxState *s1;
   s32 *q;
-  s32 x;
-  s32 y;
-  s32 z;
-  u16 w;
-  u16 h;
+  s32 num;
+  s32 den;
+  s32 lines;
+  u16 width;
+  u16 height;
   new_var = g;
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xD7000002;
-    p[1] = 0x80008000;
-  }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xE3001201;
-    p[1] = 0x2000;
-  }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xE3000C00;
-    p[1] = 0x80000;
-  }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xFC119623;
-    p[1] = 0xFF2FFFFF;
-  }
+  GFX_EMIT(new_var, 0xD7000002, 0x80008000);
+  GFX_EMIT(new_var, 0xE3001201, 0x2000);
+  GFX_EMIT(new_var, 0xE3000C00, 0x80000);
+  GFX_EMIT(new_var, 0xFC119623, 0xFF2FFFFF);
   {
     s32 *p = new_var->p;
     new_var->p = p + 2;
     p[0] = 0xFD700000;
     q = p;
+#ifdef PORT
+    q[1] = osVirtualToPhysical(*((s32 *) ((u8 *) t->tbl + (255 & idx) * 4)));
+#else
     q[1] = osVirtualToPhysical(*((s32 *) (((u32) ((255 & idx) * 4)) + ((u32) t->tbl))));
+#endif
   }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xF5700000;
-    p[1] = 0x7000000;
-  }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xE6000000;
-    p[1] = 0;
-  }
+  GFX_EMIT(new_var, 0xF5700000, 0x7000000);
+  GFX_EMIT(new_var, 0xE6000000, 0);
   {
     s32 *v = *(s32 *volatile *)&new_var->p;
     s32 *p;
@@ -75,48 +57,38 @@ s32 func_80007CA0(GfxState *g, Tex *t, s32 idx)
     p = v;
     v = 0;
     p[0] = 0xF3000000;
-    w = t->w;
-    y = w >> 4;
-    x = 0x800;
-    if (y)
+    width = t->w;
+    den = width >> 4;
+    num = 0x800;
+    if (den)
     {
-      x = y + 0x7ff;
+      num = den + 0x7ff;
     }
-    h = t->h;
-    z = (((w * h) + 3) >> 2) - 1;
-    if (z >= 0x800)
+    height = t->h;
+    lines = (((width * height) + 3) >> 2) - 1;
+    if (lines >= 0x800)
     {
-      z = 0x7ff;
+      lines = 0x7ff;
     }
-    p[1] = (((z & 0xfff) << 12) | 0x7000000) | (((y) ? (x / y) : (x)) & 0xfff);
+    p[1] = (((lines & 0xfff) << 12) | 0x7000000) | (((den) ? (num / den) : (num)) & 0xfff);
   }
+  GFX_EMIT(new_var, 0xE7000000, 0);
   {
     s32 *p = new_var->p;
     new_var->p = p + 2;
-    p[0] = 0xE7000000;
-    p[1] = 0;
-  }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    w = t->w;
-    p[0] = 0xF5600000 | (((((w >> 1) + 7) >> 3) & 0x1ff) << 9);
+    width = t->w;
+    p[0] = 0xF5600000 | (((((width >> 1) + 7) >> 3) & 0x1ff) << 9);
     p[1] = 0;
   }
   {
     s32 *p = new_var->p;
     new_var->p = p + 2;
     p[0] = 0xF2000000;
-    w = t->w;
-    h = t->h;
-    p[1] = ((((w - 1) * 4) & 0xfff) << 12) | (((h - 1) * 4) & 0xfff);
+    width = t->w;
+    height = t->h;
+    p[1] = ((((width - 1) * 4) & 0xfff) << 12) | (((height - 1) * 4) & 0xfff);
   }
-  {
-    s32 *p = new_var->p;
-    new_var->p = p + 2;
-    p[0] = 0xE3001001;
-    p[1] = 0xc000;
-    return 0;
-  }
+  GFX_EMIT(new_var, 0xE3001001, 0xc000);
+  return 0;
 }
 

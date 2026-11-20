@@ -1,35 +1,38 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
-s32 func_80034FF0();
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-extern char D_800C02AE[];
-extern s32 func_8003FC80;
+s32 getTexturePack();
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+extern char stream_state[];
+extern s32 sprite_hook_find_record;
 
-void func_8003FB48(s32 arg0, s32 arg1)
+/* Spawns a row of four sprites above the HUD slot of the local car, when its flag bit 4 is
+ * set and its state is neither 0 nor 7 and its mode is 1. Each sprite gets a value from
+ * getTexturePack (base + 0x4C) and an index 1..4. */
+void func_8003FB48(void *owner, s32 base)
 {
-    u8 *obj;
-    u8 *temp_v0;
+    u8 *car;
+    u8 *info;
     u32 i;
     s32 y;
     s32 x;
-    void *temp_s0;
-    s32 new_var;
-    u32 off;
+    void *sprite;
+    s32 value;
+    u32 slotOff;
 
-    obj = *(u8 **)(D_800C02AE + 0x32F2);
-    off = obj[0x32] * 0x28;
-    if (*(u8 *)(obj + off + 0x48) & 4) {
-        if ((*(u16 *)(obj + 0x1E) != 0) & (*(u16 *)(obj + 0x1E) != 7)) {
-            if (*(u16 *)(obj + 0xE) == 1) {
-                temp_v0 = *(u8 **)(*(u8 **)(D_800C02AE + 0x7CD6) + 0x178);
-                y = *(u16 *)(temp_v0 + 0xA) + 6;
-                x = (*(u16 *)(temp_v0 + 0x8) + 0x36) << 16;
+    car = *(u8 **)(stream_state + 0x32F2);
+    slotOff = car[0x32] * 0x28;
+    if (*(u8 *)(car + slotOff + 0x48) & 4) {
+        if ((*(u16 *)(car + 0x1E) != 0) & (*(u16 *)(car + 0x1E) != 7)) {
+            if (*(u16 *)(car + 0xE) == 1) {
+                info = *(u8 **)(*(u8 **)(stream_state + 0x7CD6) + 0x178);
+                y = *(u16 *)(info + 0xA) + 6;
+                x = (*(u16 *)(info + 0x8) + 0x36) << 16;
                 for (i = 0; i < 4; i++) {
-                    temp_s0 = ((void *)func_80040260((void *)(arg0), x >> 16, (s16)(y + i * 11 - 2), 5, &func_8003FC80, 1));
-                    new_var = func_80034FF0(arg1 + 0x4C, 0);
-                    *(s32 *)((u8 *)temp_s0 + 0xA4) = new_var;
-                    *(u16 *)((u8 *)temp_s0 + 0x78) = i + 1;
+                    sprite = ((void *)sprite_create(owner, x >> 16, (s16)(y + i * 11 - 2), 5, &sprite_hook_find_record, 1));
+                    value = getTexturePack(base + 0x4C, 0);
+                    *(s32 *)((u8 *)sprite + 0xA4) = value;
+                    *(u16 *)((u8 *)sprite + 0x78) = i + 1;
                 }
             }
         }

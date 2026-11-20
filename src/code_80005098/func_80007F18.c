@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 #define _SHIFTL(v, s, w) ((u32)(((u32)(v) & ((1 << (w)) - 1)) << (s)))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -17,11 +17,16 @@ typedef struct
   u32 w0;
   u32 w1;
 } Gfx;
-Gfx *func_80007F18(Gfx *gfx, s32 timg, s32 fmt, s32 siz, s32 width, s32 a5, s32 a6, s32 row, s32 a8, s32 height, s32 pal, s32 cms, s32 cmt, s32 masks, s32 maskt, s32 shifts, s32 shiftt)
-{
-  s32 img = timg;
 
-  switch (siz)
+/* Emits the RDP command list that loads one texture: sets the texture image
+ * (address advanced by row offset, scaled to the texel size from `size`:
+ * 1 = 4-bit, 2 = 8-bit (16-bit via pixel pairs), 3 = 16-bit), then the load
+ * tile, the load block and the render tile, and returns the next free command. */
+Gfx *func_80007F18(Gfx *gfx, s32 tex_image, s32 fmt, s32 size, s32 width, s32 a5, s32 a6, s32 row, s32 a8, s32 height, s32 pal, s32 cms, s32 cmt, s32 masks, s32 maskt, s32 shifts, s32 shiftt)
+{
+  s32 img = tex_image;
+
+  switch (size)
   {
     case 1:
       img += row * width;

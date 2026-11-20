@@ -1,41 +1,44 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-void *func_800592AC(u32);
+void *select_get_entry(u32);
 s32 func_8005937C();
 s32 func_8006185C();
-s32 func_80069A08();
-s32 func_8007A688();
+s32 select_screen_draw();
+s32 UpdateSelectedEntry();
 s32 func_8007A7D0();
-extern void *D_800A1468;
-extern char D_800C02AE[];
+extern void *gSelectState;
+extern char stream_state[];
 
+/* Refreshes the select state from the current stream entry: in mode 0 it takes the
+   entry's range and the selected record's flag, otherwise it runs the alternate
+   handler, then passes the state's flag to func_8007A7D0. */
 void func_8007A9A8(void)
 {
-    void *temp_s;
-    u8 *temp_a1;
-    u8 *temp_a0_2;
-    u8 *base;
-    void *temp_v0;
-    s32 temp_a0;
-    void *d;
+    void *stream;
+    u8 *entry;
+    u8 *entry2;
+    u8 *records;
+    void *rec;
+    s32 mode;
+    void *sel;
 
-    temp_s = *(void **)(D_800C02AE + 0x325A);
-    temp_a1 = *(u8 **)((u8 *)temp_s + 0x10) + *(s16 *)((u8 *)temp_s + 2) * 0x14;
-    d = D_800A1468;
-    temp_a0 = *((u8 *)d + 0x245);
-    if (temp_a0 == 0) {
-        *((u8 *)D_800A1468 + 0x238) = temp_a1[0xE] - temp_a1[0xD];
-        func_8005937C(temp_a1[0xE], *((u8 *)D_800A1468 + *((u8 *)D_800A1468 + 0x238) + 0x23D), d);
-        base = *(u8 **)(D_800C02AE + 0x32F2);
-        temp_a0_2 = base + *(u8 *)(base + *(s8 *)((u8 *)D_800A1468 + 0x228) + 0x32) * 0x28;
-        temp_v0 = D_800A1468;
-        *((u8 *)temp_v0 + 0x237) = *(u16 *)(temp_a0_2 + 0x4E);
-        func_80069A08(temp_a0_2, temp_v0);
+    stream = *(void **)(stream_state + 0x325A);
+    entry = *(u8 **)((u8 *)stream + 0x10) + *(s16 *)((u8 *)stream + 2) * 0x14;
+    sel = gSelectState;
+    mode = *((u8 *)sel + 0x245);
+    if (mode == 0) {
+        *((u8 *)gSelectState + 0x238) = entry[0xE] - entry[0xD];
+        func_8005937C(entry[0xE], *((u8 *)gSelectState + *((u8 *)gSelectState + 0x238) + 0x23D), sel);
+        records = *(u8 **)(stream_state + 0x32F2);
+        entry2 = records + *(u8 *)(records + *(s8 *)((u8 *)gSelectState + 0x228) + 0x32) * 0x28;
+        rec = gSelectState;
+        *((u8 *)rec + 0x237) = *(u16 *)(entry2 + 0x4E);
+        select_screen_draw(entry2, rec);
     } else {
-        func_8007A688(temp_a0, temp_a1, D_800A1468);
-        func_80069A08();
-        func_8006185C((s32)func_800592AC(*((u8 *)D_800A1468 + 0x238)), 1);
+        UpdateSelectedEntry(mode, entry, gSelectState);
+        select_screen_draw();
+        func_8006185C(select_get_entry(*((u8 *)gSelectState + 0x238)), 1);
     }
-    func_8007A7D0(*((u8 *)D_800A1468 + 0x237));
+    func_8007A7D0(*((u8 *)gSelectState + 0x237));
 }
 

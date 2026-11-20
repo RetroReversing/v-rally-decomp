@@ -1,6 +1,10 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { u32 w0; u32 w1; } Gfx;
+
+/* Emits the RDP command sequence that loads a texture image (timg, fmt, siz,
+ * width x height) into TMEM and sets up its tile descriptor. Appends to the
+ * display list at g and returns the new end pointer. */
 Gfx *func_80008500(Gfx *g, s32 timg, s32 fmt, s32 width, s32 arg4, s32 arg5, s32 siz, s32 arg7, s32 height, s32 pal, s32 cms, s32 cmt, s32 masks, s32 maskt, s32 shifts, s32 shiftt)
 {
   {
@@ -45,3 +49,4 @@ Gfx *func_80008500(Gfx *g, s32 timg, s32 fmt, s32 width, s32 arg4, s32 arg5, s32
   }
   return g;
 }
+

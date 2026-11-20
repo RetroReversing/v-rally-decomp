@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
   u32 score;
@@ -20,96 +20,102 @@ typedef struct {
   Sub sub[(0x2C4 - 0x2C) / 0x40];
   u8 pad[0x2C4 - 0x2C - ((0x2C4 - 0x2C) / 0x40) * 0x40];
 } Rec;
-extern char D_800C02AE[];
-#define G (*(u8 **)(D_800C02AE + 0x32F2))
+extern char stream_state[];
+#define G (*(u8 **)(stream_state + 0x32F2))
 typedef struct { Rec *p; } RP;
-#define RECS (((RP *)(D_800C02AE + 0x10386))->p)
+#define RECS (((RP *)(stream_state + 0x10386))->p)
 typedef struct { u16 n; } NR;
-#define NRECS (((NR *)(D_800C02AE + 0x10370))->n)
-#define ITEMS ((Item *)(D_800C02AE + 0x38A2))
-s32 func_800535F4(Item *);
-s32 func_80098180(char *, char *);
-s32 func_80098290(char *, void *);
+#define NRECS (((NR *)(stream_state + 0x10370))->n)
+#define ITEMS ((Item *)(stream_state + 0x38A2))
+s32 sort_split_times(Item *);
+s32 strCmp(char *, char *);
+s32 strCpy(char *, void *);
+
+/* For each of the four players in the current session, totals the score and laps
+ * of the records whose name matches the player's name (up to three entries per
+ * record). If the player is the top scorer it is written into the high-score
+ * slot at ITEMS[3] and the table is re-sorted. */
 void func_800548A0(void)
 {
 char *__repair_addr;
 
-  u32 tot[8];
+  u32 totals[8];
   char name[8];
-  u8 i;
-  u32 *t;
-  u32 *pt;
+  u8 player;
+  u32 *tp;
+  u32 *pp;
   Rec *rec;
   u16 *cp;
-  u8 j;
-  u8 k;
-  u8 m;
-  u8 ok;
+  u8 r;
+  u8 s;
+  u8 it;
+  u8 found;
   s32 srch;
-  u8 c;
-  u8 good;
+  u8 cond;
+  u8 match;
 
-  i = 0;
-  t = tot;
-  for (; i < 4; i++) {
-    func_80098290(name, (u8 *)G + (i * 40 + 0x44));
+  player = 0;
+  tp = totals;
+  for (; player < 4; player++) {
+    strCpy(name, (u8 *)G + (player * 40 + 0x44));
     rec = RECS;
-    t[i] = 0;
-    t[i + 4] = 0;
-    ok = 1;
-    j = 0;
+    tp[player] = 0;
+    tp[player + 4] = 0;
+    found = 1;
+    r = 0;
     if (NRECS != 0) {
-      pt = &t[i];
+      pp = &tp[player];
       cp = &rec->cnt;
       do {
-        c = *cp != 0;
-        k = 0;
-        if (ok & c) {
+        cond = *cp != 0;
+        s = 0;
+        if (found & cond) {
           do {
-            ok = 0;
+            found = 0;
             srch = 1;
-            m = 0;
+            it = 0;
             do {
-              if (rec->sub[k].item[m].flag == 1 && func_80098180(name, rec->sub[k].item[m].name) == 0) {
-                pt[0] += rec->sub[k].item[m].score;
-                ok = 1;
-                pt[4] += rec->sub[k].item[m].laps;
+              if (rec->sub[s].item[it].flag == 1 && strCmp(name, rec->sub[s].item[it].name) == 0) {
+                pp[0] += rec->sub[s].item[it].score;
+                found = 1;
+                pp[4] += rec->sub[s].item[it].laps;
                 srch = 0;
                 break;
               }
-              m++;
-              c = m < 3;
-            } while (srch & c);
-            k++;
-            c = k < *cp;
-          } while (ok & c);
+              it++;
+              cond = it < 3;
+            } while (srch & cond);
+            s++;
+            cond = s < *cp;
+          } while (found & cond);
         }
         cp = (u16 *)((u8 *)cp + sizeof(Rec));
         rec++;
-        j++;
-        c = j < NRECS;
-      } while (ok & c);
+        r++;
+        cond = r < NRECS;
+      } while (found & cond);
     }
-    if (ok) {
-      good = 1;
-      for (m = 0; m < 3; m++) {
-        if (func_80098180(name, ITEMS[m].name) == 0) {
-          c = -(*(u32 *)((u8 *)ITEMS + (m << 4)) != t[i]);
-          good &= c;
+    if (found) {
+      match = 1;
+      for (it = 0; it < 3; it++) {
+        if (strCmp(name, ITEMS[it].name) == 0) {
+          cond = -(*(u32 *)((u8 *)ITEMS + (it << 4)) != tp[player]);
+          match &= cond;
         }
       }
-      if (good) {
-        ITEMS[3].score = t[i];
-__repair_addr = (char *)(G + (G + i)[0x32] * 40 + 0x4E);
+      if (match) {
+        ITEMS[3].score = tp[player];
+__repair_addr = (char *)(G + (G + player)[0x32] * 40 + 0x4E);
 
         ITEMS[3].b4 = *(u16 *)(__repair_addr);
         ITEMS[3].b5 = *(u16 *)(G + 0x16);
-        func_80098290(ITEMS[3].name, (u8 *)G + (G[i + 0x32] * 40 + 0x44));
-        ITEMS[3].laps = t[i + 4] / 50;
+        strCpy(ITEMS[3].name, (u8 *)G + (G[player + 0x32] * 40 + 0x44));
+        ITEMS[3].laps = tp[player + 4] / 50;
         ITEMS[3].bB = 0;
         ITEMS[3].flag = 1;
-        func_800535F4(ITEMS);
+        sort_split_times(ITEMS);
       }
     }
   }
 }
+

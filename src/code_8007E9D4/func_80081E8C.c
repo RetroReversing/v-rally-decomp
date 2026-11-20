@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -8,22 +8,26 @@ typedef struct
   s32 d;
   s32 e;
 } Five81;
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
+extern u8 gOrderState[];
+extern u8 stream_state[];
 extern s32 D_800B7300;
-void func_80081040(s32, void *, s32, s32, Five81);
-void func_8008E13C(void *, void *, u32);
+void dmaCopyChunks(s32, void *, s32, s32, Five81);
+void memcpy(void *, void *, u32);
+
+/* Copies len bytes from the streamed read buffer into dst. When the current chunk (8 KB) is
+ * used up, it is refilled first. Word-aligned blocks are copied a word at a time, backwards if
+ * the ranges overlap; the rest goes through memcpy. Returns len. */
 u32 func_80081E8C(u8 *dst, u32 len)
 {
-  u32 rem = len;
+  u32 remaining = len;
   u32 n;
   u32 words;
   u32 tail;
   u32 count;
-  s32 *size;
-  s32 *ptr;
+  s32 *chunk_left;
+  s32 *src_pos;
   u32 *s;
-  int new_var2;
+  int src_off;
   u32 *d;
   u32 *e;
   s32 *new_var;
@@ -31,36 +35,44 @@ u32 func_80081E8C(u8 *dst, u32 len)
   int new_var3;
   if (len)
   {
-    five = (Five81 *) (D_800AE850 + 0x235c);
-    size = (s32 *) (D_800C02AE + 0x3092);
-    ptr = size - 1;
+    five = (Five81 *) (gOrderState + 0x235c);
+    chunk_left = (s32 *) (stream_state + 0x3092);
+    src_pos = chunk_left - 1;
     do
     {
-      if ((*size) <= 0)
+      if ((*chunk_left) <= 0)
       {
-        func_80081040(((*((s32 *) 0x800B7300)) + size[5]) + 8192, (void *) size[-2], 8192, ((s32 *) five)[-1], *five);
-        *size = 8192;
-        size[5] += 8192;
-        size[-1] = size[-2];
+#ifdef PORT
+        dmaCopyChunks(((*((s32 *) 0x800B7300)) + chunk_left[5]) + 8192, (void *)(uintptr_t) chunk_left[-2], 8192, ((s32 *) five)[-1], *five);
+#else
+        dmaCopyChunks(((*((s32 *) 0x800B7300)) + chunk_left[5]) + 8192, (void *) chunk_left[-2], 8192, ((s32 *) five)[-1], *five);
+#endif
+        *chunk_left = 8192;
+        chunk_left[5] += 8192;
+        chunk_left[-1] = chunk_left[-2];
       }
-      n = rem;
-      if (n >= ((u32) (*size)))
+      n = remaining;
+      if (n >= ((u32) (*chunk_left)))
       {
-        n = *size;
+        n = *chunk_left;
       }
       new_var3 = 0x308E;
-      if ((((u32) dst) & 3) || ((*((u32 *) (D_800C02AE + new_var3))) & 3))
+#ifdef PORT
+      if ((((uintptr_t) dst) & 3) || ((*((u32 *) (stream_state + new_var3))) & 3))
+#else
+      if ((((u32) dst) & 3) || ((*((u32 *) (stream_state + new_var3))) & 3))
+#endif
       {
-        func_8008E13C(dst, *((void **) (D_800C02AE + 0x308E)), n);
+        memcpy(dst, *((void **) (stream_state + 0x308E)), n);
         dst += n;
-        *ptr += n;
+        *src_pos += n;
       }
       else
       {
         u8 *src;
         u32 bytes;
         words = n >> 2;
-        src = *((u8 **) (D_800C02AE + 0x308E));
+        src = *((u8 **) (stream_state + 0x308E));
         bytes = words << 2;
         ;
         if ((dst < (src + bytes)) & (src < dst))
@@ -92,18 +104,17 @@ u32 func_80081E8C(u8 *dst, u32 len)
 
         }
         dst += words * 4;
-        *ptr += words * 4;
+        *src_pos += words * 4;
         tail = n & 3;
-        func_8008E13C(dst, *((void **) (D_800C02AE + 0x308E)), tail);
+        memcpy(dst, *((void **) (stream_state + 0x308E)), tail);
         dst += tail;
-        *ptr += tail;
+        *src_pos += tail;
       }
-      rem -= n;
-      *(new_var = size) -= n;
+      remaining -= n;
+      *(new_var = chunk_left) -= n;
     }
-    while (rem);
+    while (remaining);
   }
   return len;
 }
-
 

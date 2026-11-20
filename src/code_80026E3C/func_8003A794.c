@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct
 {
@@ -12,61 +12,65 @@ typedef struct
   s32 tex;
   void *owner;
 } Spr;
-extern void *D_800C7F84;
-s32 func_80034FF0(void *, s32);
-void *func_80040260(void *, s16, s16, s32, void (*)(void *), s32);
+extern void *g_camera;
+s32 getTexturePack(void *, s32);
+void *sprite_create(void *, s16, s16, s32, void (*)(void *), s32);
 extern void func_8003A73C(void *);
-void func_8003A794(s32 arg0, s32 x, s32 y, void (*fn)(void *), u8 *arg4, u16 n, u8 *col)
+
+/* Adds the five-part sprite row for one label at (x, y) into sprite_list. Part 0
+ * gets a 0xD sub-sprite after it, part 2 a 0xC one; every sprite copies the
+ * colour when col is given. */
+void func_8003A794(void *sprite_list, s32 x, s32 y, void (*hook)(void *), u8 *tex_table, u16 n, u8 *col)
 {
-  Spr *s;
+  Spr *spr;
   u32 i;
   void *tex;
-  tex = (void *) (arg4 + 0x4C);
+  tex = (void *) (tex_table + 0x4C);
   for (i = 0; i < 5; i++)
   {
-    s = func_80040260((void *)arg0, x, y, 2, fn, 0);
-    s->part = i;
+    spr = sprite_create((void *)sprite_list, x, y, 2, hook, 0);
+    spr->part = i;
     x += 7;
-    s->tex = func_80034FF0(tex, 0);
-    s->n = n;
-    s->owner = D_800C7F84;
+    spr->tex = getTexturePack(tex, 0);
+    spr->n = n;
+    spr->owner = g_camera;
     if (col != 0)
     {
-      s->col[0] = col[0];
-      s->col[1] = col[1];
-      s->col[2] = col[2];
-      s->col[3] = col[3];
+      spr->col[0] = col[0];
+      spr->col[1] = col[1];
+      spr->col[2] = col[2];
+      spr->col[3] = col[3];
     }
     if (i == 0)
     {
-      s = func_80040260((void *)arg0, x, y, 2, func_8003A73C, 0);
+      spr = sprite_create((void *)sprite_list, x, y, 2, func_8003A73C, 0);
       x += 4;
-      s->tex = func_80034FF0(tex, 0);
-      s->n = n;
-      s->sub = 0xD;
-      s->owner = D_800C7F84;
+      spr->tex = getTexturePack(tex, 0);
+      spr->n = n;
+      spr->sub = 0xD;
+      spr->owner = g_camera;
       if (col != 0)
       {
-        s->col[0] = col[0];
-        s->col[1] = col[1];
-        s->col[2] = col[2];
-        s->col[3] = col[3];
+        spr->col[0] = col[0];
+        spr->col[1] = col[1];
+        spr->col[2] = col[2];
+        spr->col[3] = col[3];
       }
     }
     if (i == 2)
     {
-      s = func_80040260((void *)arg0, x, y, 2, func_8003A73C, 0);
+      spr = sprite_create((void *)sprite_list, x, y, 2, func_8003A73C, 0);
       x += 5;
-      s->tex = func_80034FF0((void *) (arg4 + 0x4C), 0);
-      s->n = n;
-      s->sub = 0xC;
-      s->owner = D_800C7F84;
+      spr->tex = getTexturePack((void *) (tex_table + 0x4C), 0);
+      spr->n = n;
+      spr->sub = 0xC;
+      spr->owner = g_camera;
       if (col != 0)
       {
-        s->col[0] = col[0];
-        s->col[1] = col[1];
-        s->col[2] = col[2];
-        s->col[3] = col[3];
+        spr->col[0] = col[0];
+        spr->col[1] = col[1];
+        spr->col[2] = col[2];
+        spr->col[3] = col[3];
       }
     }
   }

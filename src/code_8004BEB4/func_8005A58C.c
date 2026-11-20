@@ -1,26 +1,20 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
 #define M2C_DEFINES
 typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
 #define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592AC(u32);                              /* extern */
+void *select_get_entry(u32);
 
-void func_8005A58C(s32 arg0, s8 arg1, s8 arg2, s8 arg3) {
-    void *temp_v0;
+/* Stores three bytes into the select-list entry at index: arg1 at +0xF, arg2 at
+ * +0x10 and arg3 at +0x11. */
+void func_8005A58C(s32 index, s8 b0, s8 b1, s8 b2) {
+    void *entry;
 
-    temp_v0 = func_800592AC(arg0);
-    M2C_FIELD(temp_v0, s8 *, 0xF) = arg1;
-    M2C_FIELD(temp_v0, s8 *, 0x10) = arg2;
-    M2C_FIELD(temp_v0, s8 *, 0x11) = arg3;
+    entry = select_get_entry(index);
+    M2C_FIELD(entry, s8 *, 0xF) = b0;
+    M2C_FIELD(entry, s8 *, 0x10) = b1;
+    M2C_FIELD(entry, s8 *, 0x11) = b2;
 }
 

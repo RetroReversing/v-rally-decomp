@@ -1,61 +1,67 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-void func_8002DB18();
-s16 *func_8002DE00(s16 *arg0, s16 *arg1)
-{
-  s16 sp10[16];
-  s16 sp30[16];
-  s16 sp50[16];
-  s16 sp70[16];
-  s16 *var_s6;
-  s16 s5;
-  s16 s2;
-  s16 s3;
-  s16 s1;
-  s16 s0;
-  s16 last;
-  var_s6 = arg1;
-  s2 = arg0[0];
-  s5 = func_8002D2E4(s2);
-  s2 = func_8002D348(arg0[0]);
-  s3 = func_8002D2E4(arg0[1]);
-  s1 = func_8002D348(arg0[1]);
-  s0 = func_8002D2E4(arg0[2]);
-  last = func_8002D348(arg0[2]);
-  sp10[0] = s3;
-  sp10[1] = 0;
-  {
-    s16 positive = s1;
-    ;
-    sp10[2] = positive;
-  }
-  sp10[3] = 0;
-  sp10[4] = 0x1000;
-  sp10[5] = 0;
-  sp10[6] = -s1;
-  sp10[7] = 0;
-  sp10[8] = s3;
-  sp30[0] = 0x1000;
-  sp30[1] = 0;
-  sp30[2] = 0;
-  sp30[3] = 0;
-  sp30[4] = s5;
-  sp30[5] = -s2;
-  sp30[6] = 0;
-  sp30[7] = s2;
-  sp30[8] = s5;
-  sp50[0] = s0;
-  sp50[1] = -last;
-  sp50[2] = 0;
-  sp50[3] = last;
-  sp50[4] = s0;
-  sp50[5] = 0;
-  sp50[6] = 0;
-  sp50[7] = 0;
-  sp50[8] = 0x1000;
-  func_8002DB18(sp10, sp30, sp70);
-  func_8002DB18(sp70, sp50, var_s6);
-  return var_s6;
-}
+void mat3x3MulQ12();
+s32 cos_q12();
+s32 sin_q12();
 
+/* Builds a 3x3 rotation matrix (Q12 fixed point) from three s16 Euler angles in angles[0..2].
+ * The matrix is rot_y(angles[1]) * rot_x(angles[0]) * rot_z(angles[2]); it is written to out.
+ * cos_q12 returns the cosine and sin_q12 the sine of an s16 angle, both in Q12. */
+s16 *func_8002DE00(s16 *angles, s16 *out)
+{
+  s16 rot_y[16];
+  s16 rot_x[16];
+  s16 rot_z[16];
+  s16 rot_yx[16];
+  s16 *dst;
+  s16 cos0;
+  s16 sin0;
+  s16 cos1;
+  s16 sin1;
+  s16 cos2;
+  s16 sin2;
+
+  dst = out;
+  sin0 = angles[0];
+  cos0 = cos_q12(sin0);
+  sin0 = sin_q12(angles[0]);
+  cos1 = cos_q12(angles[1]);
+  sin1 = sin_q12(angles[1]);
+  cos2 = cos_q12(angles[2]);
+  sin2 = sin_q12(angles[2]);
+  rot_y[0] = cos1;
+  rot_y[1] = 0;
+  {
+    s16 positive = sin1;
+    ;
+    rot_y[2] = positive;
+  }
+  rot_y[3] = 0;
+  rot_y[4] = 0x1000;
+  rot_y[5] = 0;
+  rot_y[6] = -sin1;
+  rot_y[7] = 0;
+  rot_y[8] = cos1;
+  rot_x[0] = 0x1000;
+  rot_x[1] = 0;
+  rot_x[2] = 0;
+  rot_x[3] = 0;
+  rot_x[4] = cos0;
+  rot_x[5] = -sin0;
+  rot_x[6] = 0;
+  rot_x[7] = sin0;
+  rot_x[8] = cos0;
+  rot_z[0] = cos2;
+  rot_z[1] = -sin2;
+  rot_z[2] = 0;
+  rot_z[3] = sin2;
+  rot_z[4] = cos2;
+  rot_z[5] = 0;
+  rot_z[6] = 0;
+  rot_z[7] = 0;
+  rot_z[8] = 0x1000;
+  mat3x3MulQ12(rot_y, rot_x, rot_yx);
+  mat3x3MulQ12(rot_yx, rot_z, dst);
+  return dst;
+}
 

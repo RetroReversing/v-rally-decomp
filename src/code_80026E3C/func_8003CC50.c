@@ -1,6 +1,15 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern unsigned char D_800ADFE0;
+extern unsigned char gCurCount;
+
+/* Compares the neighbour's count (the word at its +0x70 record, plus one) with gCurCount: bit 4 of the object's flags at +0x80 is cleared when gCurCount is above it, set otherwise. */
 void func_8003CC50(void *object) {
-    char * arg0 = object; unsigned int t = **(unsigned int **)(*(char **)(*(char **)(arg0 + 0xA8) + 0x24) + 0x70) + 1; if (t != D_800ADFE0 && D_800ADFE0 >= t) { *(int *)(arg0 + 0x80) &= ~4; } else { *(int *)(arg0 + 0x80) |= 4; } }
+    char * obj = object;
+    unsigned int count = **(unsigned int **)(*(char **)(*(char **)(obj + 0xA8) + 0x24) + 0x70) + 1;
+    if (count != gCurCount && gCurCount >= count) {
+        *(int *)(obj + 0x80) &= ~4;
+    } else {
+        *(int *)(obj + 0x80) |= 4;
+    }
+}
 

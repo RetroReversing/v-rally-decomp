@@ -1,124 +1,114 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
-#ifndef M2C_DEFINES
-#define M2C_DEFINES
-typedef s32 M2C_UNK;
-typedef s8 M2C_UNK8;
-typedef s16 M2C_UNK16;
-typedef s32 M2C_UNK32;
-#define M2C_FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
-#define M2C_BITWISE(type, expr) ((type)(expr))
-#define M2C_ERROR(desc) (0)
-#define M2C_CARRY 0
-#define M2C_OVERFLOW(a) (0)
-#endif
-
-M2C_UNK *func_8007EAA0(M2C_UNK, M2C_UNK);           /* extern */
-extern void *D_800A1468;
+#define FIELD(expr, type_ptr, offset) (*(type_ptr)((s8 *)(expr) + (offset)))
+s32 *poolAlloc(s32, s32);
+extern void *gSelectState;
 extern f64 D_800A5238;
 
-void func_80058250(void *arg0) {
-    void *temp_v1_4;
-    void *temp_v0;
-    void *temp_v0_4;
-    s32 var_a0;
-    s32 temp_v1;
-    s8 temp_v1_3;
-    u8 var_v0;
-    void *temp_v0_2;
-    void *temp_v0_3;
-    void *temp_v1_2;
-    void *temp_v1_5;
+/* Adds a HUD entry for one car: fills a 0x24-byte entry from the car's data (position,
+ * colour and kind; the 'S' and 'R' kinds get a scale), then links it into the active list
+ * in gSelectState (the sub-list at +0x1F0 when present, otherwise the main list). */
+void func_80058250(void *car) {
+    void *next;
+    void *entry;
+    void *head;
+    s32 i;
+    s32 flag;
+    s8 kind;
+    u8 alpha;
+    void *cur;
+    void *sub;
+    void *slot;
+    void *list;
 
-    temp_v0 = func_8007EAA0(1, 0x24);
-    M2C_FIELD(temp_v0, s16 *, 4) = (s16) M2C_FIELD(arg0, s32 *, 0x90);
-    M2C_FIELD(temp_v0, s16 *, 6) = (s16) M2C_FIELD(arg0, s32 *, 0xDC);
-    M2C_FIELD(temp_v0, s16 *, 8) = (s16) M2C_FIELD(arg0, s32 *, 0x128);
-    var_a0 = 0;
-    M2C_FIELD(temp_v0, s8 *, 0xA) = (s8) M2C_FIELD(arg0, s32 *, 0x174);
+    entry = poolAlloc(1, 0x24);
+    FIELD(entry, s16 *, 4) = (s16) FIELD(car, s32 *, 0x90);
+    FIELD(entry, s16 *, 6) = (s16) FIELD(car, s32 *, 0xDC);
+    FIELD(entry, s16 *, 8) = (s16) FIELD(car, s32 *, 0x128);
+    i = 0;
+    FIELD(entry, s8 *, 0xA) = (s8) FIELD(car, s32 *, 0x174);
     do {
-        temp_v1 = var_a0 & 0xFF;
-        var_a0 += 1;
-        temp_v1_2 = (u8 *)temp_v0 + (temp_v1 * 2);
-        temp_v1 = M2C_FIELD(arg0, s32 *, 0x1C0) == 1;
-        M2C_FIELD(temp_v1_2, s8 *, 0x1B) = 0;
-        M2C_FIELD(temp_v1_2, s8 *, 0x1A) = temp_v1;
-    } while ((u32) (var_a0 & 0xFF) < 4U);
-    if (M2C_FIELD(arg0, s32 *, 0x44) >= 6) {
-        M2C_FIELD(temp_v0, u8 *, 0xB) = (u8) M2C_FIELD(arg0, s32 *, 0x20C);
-        M2C_FIELD(temp_v0, u8 *, 0xC) = (u8) M2C_FIELD(arg0, s32 *, 0x258);
-        M2C_FIELD(temp_v0, u8 *, 0xD) = (u8) M2C_FIELD(arg0, s32 *, 0x2A4);
-        if (M2C_FIELD(arg0, s32 *, 0x44) >= 9) {
-            M2C_FIELD(temp_v0, u8 *, 0xE) = (u8) M2C_FIELD(arg0, s32 *, 0x2F0);
-            if (M2C_FIELD(arg0, s32 *, 0x44) >= 0xA) {
-                temp_v1_3 = M2C_FIELD(arg0, s8 *, 0x2F8);
-                if (temp_v1_3 == 0x53) {
-                    M2C_FIELD(temp_v0, f32 *, 0x10) = (f32) ((f64) M2C_FIELD(arg0, s32 *, 0x388) * D_800A5238);
-                    M2C_FIELD(temp_v0, f32 *, 0x14) = (f32) ((f64) M2C_FIELD(arg0, s32 *, 0x3D4) * D_800A5238);
-                    if (M2C_FIELD(arg0, s32 *, 0x44) == 0xD) {
-                        M2C_FIELD(temp_v0, s16 *, 0x18) = (s16) M2C_FIELD(arg0, s32 *, 0x420);
+        flag = i & 0xFF;
+        i += 1;
+        slot = (u8 *)entry + (flag * 2);
+        flag = FIELD(car, s32 *, 0x1C0) == 1;
+        FIELD(slot, s8 *, 0x1B) = 0;
+        FIELD(slot, s8 *, 0x1A) = flag;
+    } while ((u32)(i & 0xFF) < 4U);
+    if (FIELD(car, s32 *, 0x44) >= 6) {
+        FIELD(entry, u8 *, 0xB) = (u8) FIELD(car, s32 *, 0x20C);
+        FIELD(entry, u8 *, 0xC) = (u8) FIELD(car, s32 *, 0x258);
+        FIELD(entry, u8 *, 0xD) = (u8) FIELD(car, s32 *, 0x2A4);
+        if (FIELD(car, s32 *, 0x44) >= 9) {
+            FIELD(entry, u8 *, 0xE) = (u8) FIELD(car, s32 *, 0x2F0);
+            if (FIELD(car, s32 *, 0x44) >= 0xA) {
+                kind = FIELD(car, s8 *, 0x2F8);
+                if (kind == 0x53) {
+                    FIELD(entry, f32 *, 0x10) = (f32) ((f64) FIELD(car, s32 *, 0x388) * D_800A5238);
+                    FIELD(entry, f32 *, 0x14) = (f32) ((f64) FIELD(car, s32 *, 0x3D4) * D_800A5238);
+                    if (FIELD(car, s32 *, 0x44) == 0xD) {
+                        FIELD(entry, s16 *, 0x18) = (s16) FIELD(car, s32 *, 0x420);
                         goto finished;
                     } else {
-                        M2C_FIELD(temp_v0, s16 *, 0x18) = 0;
+                        FIELD(entry, s16 *, 0x18) = 0;
                         goto finished;
                     }
-                } else if (temp_v1_3 == 0x52) {
-                    M2C_FIELD(temp_v0, s16 *, 0x18) = (s16) M2C_FIELD(arg0, s32 *, 0x388);
-                    M2C_FIELD(temp_v0, f32 *, 0x10) = 1.0f;
-                    M2C_FIELD(temp_v0, f32 *, 0x14) = 1.0f;
+                } else if (kind == 0x52) {
+                    FIELD(entry, s16 *, 0x18) = (s16) FIELD(car, s32 *, 0x388);
+                    FIELD(entry, f32 *, 0x10) = 1.0f;
+                    FIELD(entry, f32 *, 0x14) = 1.0f;
                 }
             } else {
                 goto block_17;
             }
         } else {
-            M2C_FIELD(temp_v0, s16 *, 0x18) = 0;
-            M2C_FIELD(temp_v0, u8 *, 0xE) = 0xFFU;
-            M2C_FIELD(temp_v0, f32 *, 0x10) = 1.0f;
-            M2C_FIELD(temp_v0, f32 *, 0x14) = 1.0f;
+            FIELD(entry, s16 *, 0x18) = 0;
+            FIELD(entry, u8 *, 0xE) = 0xFFU;
+            FIELD(entry, f32 *, 0x10) = 1.0f;
+            FIELD(entry, f32 *, 0x14) = 1.0f;
         }
     } else {
-        temp_v0_2 = M2C_FIELD(D_800A1468, void **, 0x1F0);
-        if (temp_v0_2 == NULL) {
-            M2C_FIELD(temp_v0, u8 *, 0xB) = 0xC8U;
-            M2C_FIELD(temp_v0, u8 *, 0xC) = 0xC8U;
-            M2C_FIELD(temp_v0, u8 *, 0xD) = 0xC8U;
-            M2C_FIELD(temp_v0, u8 *, 0xE) = 0xFF;
+        cur = FIELD(gSelectState, void **, 0x1F0);
+        if (cur == NULL) {
+            FIELD(entry, u8 *, 0xB) = 0xC8U;
+            FIELD(entry, u8 *, 0xC) = 0xC8U;
+            FIELD(entry, u8 *, 0xD) = 0xC8U;
+            FIELD(entry, u8 *, 0xE) = 0xFF;
             goto block_17;
         } else {
-            M2C_FIELD(temp_v0, u8 *, 0xB) = (u8) M2C_FIELD(temp_v0_2, u8 *, 0xF);
-            M2C_FIELD(temp_v0, u8 *, 0xC) = (u8) M2C_FIELD(M2C_FIELD(D_800A1468, void **, 0x1F0), u8 *, 0x10);
-            M2C_FIELD(temp_v0, u8 *, 0xD) = (u8) M2C_FIELD(M2C_FIELD(D_800A1468, void **, 0x1F0), u8 *, 0x11);
-            var_v0 = M2C_FIELD(M2C_FIELD(D_800A1468, void **, 0x1F0), u8 *, 0x12);
+            FIELD(entry, u8 *, 0xB) = (u8) FIELD(cur, u8 *, 0xF);
+            FIELD(entry, u8 *, 0xC) = (u8) FIELD(FIELD(gSelectState, void **, 0x1F0), u8 *, 0x10);
+            FIELD(entry, u8 *, 0xD) = (u8) FIELD(FIELD(gSelectState, void **, 0x1F0), u8 *, 0x11);
+            alpha = FIELD(FIELD(gSelectState, void **, 0x1F0), u8 *, 0x12);
         }
-        M2C_FIELD(temp_v0, u8 *, 0xE) = var_v0;
+        FIELD(entry, u8 *, 0xE) = alpha;
 block_17:
-        M2C_FIELD(temp_v0, s16 *, 0x18) = 0;
+        FIELD(entry, s16 *, 0x18) = 0;
 block_18:
-        M2C_FIELD(temp_v0, f32 *, 0x10) = 1.0f;
-        M2C_FIELD(temp_v0, f32 *, 0x14) = 1.0f;
+        FIELD(entry, f32 *, 0x10) = 1.0f;
+        FIELD(entry, f32 *, 0x14) = 1.0f;
     }
 finished:
-    temp_v0_3 = M2C_FIELD(D_800A1468, void **, 0x1F0);
-    if (temp_v0_3 != NULL) {
-        temp_v1_4 = M2C_FIELD(temp_v0_3, void **, 0x2C);
-        if (temp_v1_4 != NULL) {
-            *(void **)temp_v1_4 = temp_v0;
+    sub = FIELD(gSelectState, void **, 0x1F0);
+    if (sub != NULL) {
+        next = FIELD(sub, void **, 0x2C);
+        if (next != NULL) {
+            *(void **)next = entry;
         } else {
-            M2C_FIELD(temp_v0_3, void **, 0x28) = temp_v0;
+            FIELD(sub, void **, 0x28) = entry;
         }
-        M2C_FIELD(M2C_FIELD(D_800A1468, void **, 0x1F0), void **, 0x2C) = temp_v0;
-        temp_v1_5 = M2C_FIELD(D_800A1468, void **, 0x1F0);
-        M2C_FIELD(temp_v1_5, u8 *, 0x4C) = (u8) (M2C_FIELD(temp_v1_5, u8 *, 0x4C) + 1);
+        FIELD(FIELD(gSelectState, void **, 0x1F0), void **, 0x2C) = entry;
+        list = FIELD(gSelectState, void **, 0x1F0);
+        FIELD(list, u8 *, 0x4C) = (u8) (FIELD(list, u8 *, 0x4C) + 1);
         return;
     }
-    temp_v0_4 = M2C_FIELD(D_800A1468, void **, 4);
-    if (temp_v0_4 != NULL) {
-        *(void **)temp_v0_4 = temp_v0;
+    head = FIELD(gSelectState, void **, 4);
+    if (head != NULL) {
+        *(void **)head = entry;
     } else {
-        M2C_FIELD(D_800A1468, void **, 0) = temp_v0;
+        FIELD(gSelectState, void **, 0) = entry;
     }
-    M2C_FIELD(D_800A1468, void **, 4) = temp_v0;
-    M2C_FIELD(D_800A1468, s32 *, 8) = (s32) (M2C_FIELD(D_800A1468, s32 *, 8) + 1);
+    FIELD(gSelectState, void **, 4) = entry;
+    FIELD(gSelectState, s32 *, 8) = (s32) (FIELD(gSelectState, s32 *, 8) + 1);
 }
 

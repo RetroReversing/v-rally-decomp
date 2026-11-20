@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -14,13 +14,13 @@ typedef struct
 } State;
 typedef void (*Handler)();
 extern s32 D_800A19B4;
-extern u8 D_800AE850[];
+extern u8 gOrderState[];
 extern Handler D_800C8038[];
-extern void func_8007F394(void *, s32);
+extern void msg_list_send_all(void *, s32);
 extern s32 func_8007F73C(s32, s32);
-extern void func_8007F7DC(s32, s32, s32);
+extern void order_mq_send(s32, s32, s32);
 extern void func_8008DD00(void *);
-extern void func_8008DF40(void);
+extern void sp_clear_signal(void);
 extern s32 osRecvMesg(void *, void **, s32);
 extern s32 osSendMesg(void *, void *, s32);
 extern void osSpTaskStartGo(void *);
@@ -31,10 +31,13 @@ static inline s16 *inline_fn(void *arg0, int arg1)
   return (s16 *) (((u8 *) arg0) + arg1);
 }
 
+/* Graphics task thread. Waits on the message queue at obj+0x14 for a task,
+ * runs the previous task's yield/restart logic, dispatches the handler for
+ * obj->kind, starts the RSP task and replies on the state's queue. */
 void func_8007FC44(Arg *self)
 {
   Arg *obj = self;
-  State *state = (State *) (D_800AE850 + 0x1D10);
+  State *state = (State *) (gOrderState + 0x1D10);
   s32 mode2 = 2;
   s32 mode1 = 1;
   Handler *table = D_800C8038;
@@ -57,7 +60,7 @@ void func_8007FC44(Arg *self)
       }
       else
       {
-        func_8008DF40();
+        sp_clear_signal();
         result = func_8007F73C(0x22, 2);
         if (osSpTaskYielded(old))
         {
@@ -69,10 +72,10 @@ void func_8007FC44(Arg *self)
         }
       }
     }
-    func_8007F394(obj, 0);
+    msg_list_send_all(obj, 0);
     ((s32 (*)(void))table[obj->kind])();
     state->task = msg;
-    *((void **) (((u8 *) msg) + 0x40)) = D_800AE850 + 0x6728;
+    *((void **) (((u8 *) msg) + 0x40)) = gOrderState + 0x6728;
     func_8008DD00(msg); osSpTaskStartGo(msg);
     result = func_8007F73C(0x22, 2);
     ((void (*)(void *))table[0x90 / 4])(msg);
@@ -90,11 +93,10 @@ void func_8007FC44(Arg *self)
     else
       if (action == mode2)
     {
-      func_8007F7DC(0x22, 2, result);
+      order_mq_send(0x22, 2, result);
     }
     osSendMesg(*((void **) (((u8 *) msg) + 0x40)), *((void **) (((u8 *) msg) + 0x44)), 1);
   }
 
 }
-
 

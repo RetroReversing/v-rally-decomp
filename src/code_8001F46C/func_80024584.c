@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { s32 state; s32 pos; s32 out; s32 c; s32 d; s32 vol; s32 timer; } Snd;
 typedef struct { s32 start; s32 p4; s32 base; s32 k; s32 tbl[1]; } Curve;
@@ -15,6 +15,10 @@ typedef struct Node {
   Curve *curve;
 } Node;
 
+/* For each engine-sound node: moves the voice from its start state (1) into
+ * playback (2) after a 25-tick delay when the throttle is up, interpolates the
+ * curve table at the playback position, and writes the resulting pitch (c, d)
+ * and output volume (out). Low gear/throttle thresholds come from cfg. */
 void func_80024584(Node **list)
 {
   Node *n;
@@ -69,3 +73,4 @@ void func_80024584(Node **list)
     } while (n != NULL);
   }
 }
+

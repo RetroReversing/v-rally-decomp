@@ -1,7 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* adapted from similar verified C in func_8005B0C8 in V-RALLY (matched), with its names changed by decompdecomp */
-/* adapted from similar verified C in func_8005A388 in V-RALLY (matched), with its names changed by decompdecomp */
-void *func_800592AC(u32); void func_80098290(char *a, int b); void func_800595EC(char *a);
-int func_8005A388(int arg0, int arg1) { char buf[16]; func_80098290(buf, (int)func_800592AC(arg1) + 48); func_800595EC(buf); return 0; }
+void *select_get_entry(u32 index); void strCpy(char *dst, char *src); void select_set_text_default(char *text);
+/* Copy the label of select entry entry_index into the select text buffer. */
+int func_8005A388(int unused, int entry_index) { char label[16]; strCpy(label, (char *)select_get_entry(entry_index) + 48); select_set_text_default(label); return 0; }
 

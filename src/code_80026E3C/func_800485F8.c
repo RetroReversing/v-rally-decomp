@@ -1,26 +1,30 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-typedef struct 
+typedef struct
 {
   u8 r;
   u8 g;
   u8 b;
   u8 a;
 } Color4;
-typedef struct 
+
+typedef struct
 {
   s16 x0;
   s16 y0;
   s16 x1;
   s16 y1;
 } Rect;
-typedef struct 
+
+/* Panel being drawn: its screen rect and fill colour. */
+typedef struct
 {
   u8 pad0[0x2C];
   Rect *rect;
   Color4 col;
-} Arg2;
-typedef struct 
+} Panel;
+
+typedef struct
 {
   u8 pad0[8];
   s16 x0;
@@ -28,46 +32,54 @@ typedef struct
   s16 x1;
   s16 y1;
 } Box;
-typedef struct 
+
+/* Camera viewport: its box is the screen area in view. */
+typedef struct
 {
   u8 pad0[0x178];
   Box *box;
-} Arg3;
-typedef struct 
+} Viewport;
+
+typedef struct
 {
   u32 w0;
   u32 w1;
 } Gfx;
-extern Arg3 *D_800C7F84;
-extern s32 func_800056FC(void *);
-extern Gfx *func_80006008(s32);
-extern void func_80006014(s32, Gfx *);
-#define CMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
-void func_800485F8(s32 arg0, s32 arg1, Arg2 *arg2, Arg3 *arg3)
+
+extern Viewport *g_camera;
+extern s32 view_get_ctx_id(void *);
+extern Gfx *gfx_get_dl(s32);
+extern void gfx_set_dl(s32, Gfx *);
+
+/* Appends the RDP commands that fill a panel's rect with its colour, scissored to
+ * the camera box, to the display list. Skipped when the rect is off screen. */
+#define DL_CMD(pkt, a, b) { Gfx *_g = (Gfx *)(pkt); _g->w0 = (a); _g->w1 = (b); }
+#define PACK_RGBA16(c) ((((c)->r << 8) & 0xF800) | (((c)->g << 3) & 0x7C0) | (((c)->b >> 2) & 0x3E) | 1)
+
+void func_800485F8(s32 y, s32 height, Panel *panel, Viewport *vp)
 {
   Color4 c;
   Gfx *g;
   s32 h;
   u32 col;
-  if ((arg1 > 0) && (arg0 < (D_800C7F84->box->y0 + D_800C7F84->box->y1)))
+  if ((height > 0) && (y < (g_camera->box->y0 + g_camera->box->y1)))
   {
-    arg2->rect->x0 = arg3->box->x0;
-    arg2->rect->y0 = arg0;
-    arg2->rect->x1 = arg3->box->x0 + arg3->box->x1;
-    arg2->rect->y1 = arg0 + arg1;
-    c = arg2->col;
-    h = func_800056FC(D_800C7F84->box);
-    g = func_80006008(h);
-    CMD(g++, 0xE7000000, 0);
-    CMD(g++, 0xE3000A01, 0x300000);
-    CMD(g++, (0xED000000 | ((((s32) (D_800C7F84->box->x0 * 4.0f)) & 0xFFF) << 12)) | (((s32) (D_800C7F84->box->y0 * 4.0f)) & 0xFFF),
-        ((((s32) (D_800C7F84->box->x1 * 4.0f)) & 0xFFF) << 12) | (((s32) (D_800C7F84->box->y1 * 4.0f)) & 0xFFF));
-#define C16 ((((arg2->col.r << 8) & 0xF800) | ((arg2->col.g << 3) & 0x7C0)) | ((arg2->col.b >> 2) & 0x3E) | 1)
-    CMD(g++, 0xF7000000, (C16 << 16) | C16);
-    CMD(g++, (0xF6000000 | (((arg2->rect->x1 - 1) & 0x3FF) << 14)) | (((arg2->rect->y1 - 1) & 0x3FF) << 2),
-        ((arg2->rect->x0 & 0x3FF) << 14) | ((arg2->rect->y0 & 0x3FF) << 2));
-    CMD(g++, 0xE7000000, 0);
-    func_80006014(h, g);
+    panel->rect->x0 = vp->box->x0;
+    panel->rect->y0 = y;
+    panel->rect->x1 = vp->box->x0 + vp->box->x1;
+    panel->rect->y1 = y + height;
+    c = panel->col;
+    h = view_get_ctx_id(g_camera->box);
+    g = gfx_get_dl(h);
+    DL_CMD(g++, 0xE7000000, 0);
+    DL_CMD(g++, 0xE3000A01, 0x300000);
+    DL_CMD(g++, (0xED000000 | ((((s32) (g_camera->box->x0 * 4.0f)) & 0xFFF) << 12)) | (((s32) (g_camera->box->y0 * 4.0f)) & 0xFFF),
+        ((((s32) (g_camera->box->x1 * 4.0f)) & 0xFFF) << 12) | (((s32) (g_camera->box->y1 * 4.0f)) & 0xFFF));
+    DL_CMD(g++, 0xF7000000, (PACK_RGBA16(&panel->col) << 16) | PACK_RGBA16(&panel->col));
+    DL_CMD(g++, (0xF6000000 | (((panel->rect->x1 - 1) & 0x3FF) << 14)) | (((panel->rect->y1 - 1) & 0x3FF) << 2),
+        ((panel->rect->x0 & 0x3FF) << 14) | ((panel->rect->y0 & 0x3FF) << 2));
+    DL_CMD(g++, 0xE7000000, 0);
+    gfx_set_dl(h, g);
   }
 }
 

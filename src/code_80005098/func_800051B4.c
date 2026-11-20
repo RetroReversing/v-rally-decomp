@@ -1,6 +1,9 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct { u16 x, y, w, h; } Rect8;
+
+/* Object created by func_800051B4: two rects (r0 current, r1 saved), handles
+ * h20/h24, a 4-word array at p1C and float tuning values. */
 typedef struct {
   Rect8 r0;
   Rect8 r1;
@@ -19,17 +22,22 @@ typedef struct {
   f32 f40;
   f32 f44;
 } Obj51B4;
+
 s32 func_800056F4(void *, s32);
 s32 func_80005744(void *);
 s32 func_80005CB8(s32, s32, s32, s32, s32);
-s32 func_80005E3C(s32);
-void *func_8007EAA0(s32, s32);
+s32 streamFreeObject(s32);
+void *poolAlloc(s32, s32);
 s32 *func_8007ED48(s32, s32, s32);
-s32 func_8007EE9C(void *);
+s32 heapFreeBlock(void *);
 extern f32 D_8009BB94;
 extern f32 D_8009BB98;
 extern f32 D_8009BB9C;
 extern f32 D_8009BBA0;
+
+/* Allocates and sets up an Obj51B4 from rect. arg2 != 0 acquires one handle
+ * (two when flags & 2) through func_80005CB8; on any failure the handles and
+ * the object are released. Returns the object, or NULL. */
 Obj51B4 *func_800051B4(Rect8 *rect, u16 id, s32 arg2, s32 arg3, u16 flags)
 {
   Obj51B4 *obj;
@@ -38,7 +46,7 @@ Obj51B4 *func_800051B4(Rect8 *rect, u16 id, s32 arg2, s32 arg3, u16 flags)
   s32 *p;
   s32 i;
 
-  obj = func_8007EAA0(6, sizeof(Obj51B4));
+  obj = poolAlloc(6, sizeof(Obj51B4));
   if (obj != NULL) {
     if (arg2 != 0) {
       h1 = func_80005CB8(id, arg2, arg3, 1, 6);
@@ -50,15 +58,15 @@ Obj51B4 *func_800051B4(Rect8 *rect, u16 id, s32 arg2, s32 arg3, u16 flags)
             obj->h24 = h2;
             ret = obj;
           } else {
-            func_80005E3C(h1);
-            func_8007EE9C(obj);
+            streamFreeObject(h1);
+            heapFreeBlock(obj);
           }
         } else {
           obj->h24 = 0;
           ret = obj;
         }
       } else {
-        func_8007EE9C(obj);
+        heapFreeBlock(obj);
       }
     } else {
       obj->h20 = 0;

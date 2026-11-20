@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern void *D_800B7334;
+extern void *gStreamSeekPos;
 extern s32 D_800B7320;
 extern s32 D_800B731C;
 
@@ -16,10 +16,10 @@ typedef struct VRTransferArgs
   s32 f;
 } VRTransferArgs;
 extern VRTransferArgs D_800B0BA8;
-void func_80081040(s32, s32, u32, VRTransferArgs);
-s32 func_800817A0(void *, s32);
+void dmaCopyChunks(s32, s32, u32, VRTransferArgs);
+void *order_table_search(void *, s32);
 s32 func_80081C30(void);
-s32 func_80081D50(s32);
+s32 allocate_stream_entry(s32);
 typedef struct VRLoadState
 {
   s32 x0;
@@ -59,16 +59,19 @@ static inline static VRLoadState *getState(void *q)
   return p;
 }
 
-s32 func_8008188C(s32 arg0, s32 arg1)
+/* Looks up the entry for index, copies its timing/position fields into the load
+ * state, queues the transfer for the entry's data, then starts the load with
+ * flags. Returns the state's x60 field. */
+s32 func_8008188C(s32 index, s32 flags)
 {
   VREntry *e;
   VRLoadState *s;
   s32 *new_var;
-  e = (VREntry *)func_800817A0(*((void **) 0x800B7308), arg0);
+  e = (VREntry *)order_table_search(*((void **) 0x800B7308), index);
   s = getState(e);
   do
   {
-    func_80081040((*((s32 *) 0x800B7300)) + e->x1C, D_800C3338[0].x0, 0x2000, D_800B0BA8);
+    dmaCopyChunks((*((s32 *) 0x800B7300)) + e->x1C, D_800C3338[0].x0, 0x2000, D_800B0BA8);
     s = getState(e);
     s->x38 = e->x10;
     s->x34 = e->x14;
@@ -91,14 +94,12 @@ s32 func_8008188C(s32 arg0, s32 arg1)
   while (0);
   do
   {
-    ((s32 *) D_800B7334)[1] = e->x14;
+    ((s32 *) gStreamSeekPos)[1] = e->x14;
     *((s32 *) 0x800B7320) = e->x10;
   }
   while (0);
   s->x1C = e->x1C;
-  func_80081D50(arg1);
+  allocate_stream_entry(flags);
   func_80081C30();
   return s->x60;
 }
-
-

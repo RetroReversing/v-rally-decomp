@@ -1,45 +1,51 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern u8 D_800C02AE[];
+extern u8 stream_state[];
 extern f64 D_800A4008;
 void guMtxCatF(void *, void *, void *);
 void guMtxF2L(void *, s32);
-void func_8001C358(void *, void *);
-void func_8001C108(void *, s32, s32, s32, void *, void *, void *);
-s32 func_80010BFC(s32 arg0, u8 *arg1, u8 *arg2)
+void transposeMatrix4x4(void *, void *);
+void vec3_transform_mtx3(void *, s32, s32, s32, void *, void *, void *);
+
+/* Builds object obj's world matrix (its local matrix times parent_mtx), picks its
+ * scale from the render config (0.5 or 1.0, times 1.328 in one mode, times the
+ * object's own scale), and returns 1 when the object's three test values are all
+ * under the limit (visible). When out_mtx is set, the fixed-point matrix is written there. */
+s32 func_80010BFC(s32 out_mtx, u8 *obj, u8 *parent_mtx)
 {
-  s32 sp20[0x10];
-  u8 *temp_v1;
+  s32 fixed_mtx[0x10];
+  u8 *cfg;
   f64 lim;
   s32 v;
-  guMtxCatF(arg1 + 0x40, arg1, arg1 + 0x80);
-  guMtxCatF(arg2, arg1 + 0x80, arg1 + 0x80);
-  temp_v1 = *((u8 **) (&D_800C02AE[0x32F2]));
-  *((s32 *) (arg1 + 0x108)) = 0;
-  if (((*((u16 *) (temp_v1 + 0xE))) != 1) && ((*((u16 *) (temp_v1 + 0x12))) != 1))
+  guMtxCatF(obj + 0x40, obj, obj + 0x80);
+  guMtxCatF(parent_mtx, obj + 0x80, obj + 0x80);
+  cfg = *((u8 **) (&stream_state[0x32F2]));
+  *((s32 *) (obj + 0x108)) = 0;
+  if (((*((u16 *) (cfg + 0xE))) != 1) && ((*((u16 *) (cfg + 0x12))) != 1))
   {
-    *((f32 *) (arg1 + 0x104)) = 0.5f;
+    *((f32 *) (obj + 0x104)) = 0.5f;
   }
   else
   {
-    *((f32 *) (arg1 + 0x104)) = 1.0f;
+    *((f32 *) (obj + 0x104)) = 1.0f;
   }
-  if ((*((u16 *) (&D_800C02AE[0x32A8]))) == 1)
+  if ((*((u16 *) (&stream_state[0x32A8]))) == 1)
   {
-    *((f32 *) (arg1 + 0x104)) = (*((f32 *) (arg1 + 0x104))) * 1.328f;
+    *((f32 *) (obj + 0x104)) = (*((f32 *) (obj + 0x104))) * 1.328f;
   }
-  *((f32 *) (arg1 + 0x104)) = (*((f32 *) (arg1 + 0x104))) * (*((f32 *) (arg1 + 0xDC)));
-  *((s32 *) (arg1 + 0x10C)) = 0;
-  func_8001C358(arg1 + 0x80, sp20);
-  func_8001C108(sp20, *((s32 *) (arg1 + 0x104)), *((s32 *) (arg1 + 0x108)), *((s32 *) (arg1 + 0x10C)), arg1 + 0x110, arg1 + 0x114, arg1 + 0x118);
+  *((f32 *) (obj + 0x104)) = (*((f32 *) (obj + 0x104))) * (*((f32 *) (obj + 0xDC)));
+  *((s32 *) (obj + 0x10C)) = 0;
+  transposeMatrix4x4(obj + 0x80, fixed_mtx);
+  vec3_transform_mtx3(fixed_mtx, *((s32 *) (obj + 0x104)), *((s32 *) (obj + 0x108)), *((s32 *) (obj + 0x10C)), obj + 0x110, obj + 0x114, obj + 0x118);
   lim = D_800A4008;
-  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB0)))) < lim) {
-  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB4)))) < lim) {
-  if ((f64) __builtin_abs((s32) (*((f32 *) (arg1 + 0xB8)))) < lim) {
-  if (arg0 != 0)
+  if ((f64) __builtin_abs((s32) (*((f32 *) (obj + 0xB0)))) < lim) {
+  if ((f64) __builtin_abs((s32) (*((f32 *) (obj + 0xB4)))) < lim) {
+  if ((f64) __builtin_abs((s32) (*((f32 *) (obj + 0xB8)))) < lim) {
+  if (out_mtx != 0)
   {
-    guMtxF2L(arg1 + 0x80, arg0);
+    guMtxF2L(obj + 0x80, out_mtx);
   }
   return 1; } } }
   return 0;
 }
+

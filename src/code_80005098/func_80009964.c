@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
   u32 w0;
@@ -26,60 +26,65 @@ typedef struct {
   RFlags f;
 } RState;
 #define CMD(st, a, b) { DLGfx *_g = (st)->dl; (st)->dl = _g + 1; _g->w0 = (a); _g->w1 = (b); }
-s32 func_80009964(RState *arg0, u8 force)
+
+/* Emits the RDP state commands for the fields in rs->f whose value differs from
+ * the cached copy (the ca..ce bits); force_all re-emits every state and resets
+ * the x7C/x80 counters. Returns 1. */
+s32 func_80009964(RState *rs, u8 force_all)
 {
-  if (force == 1)
+  if (force_all == 1)
   {
-    arg0->x7C = 0;
-    arg0->x80 = 0;
+    rs->x7C = 0;
+    rs->x80 = 0;
   }
-  if ((arg0->f.ca != arg0->f.a) | (force == 1))
+  if ((rs->f.ca != rs->f.a) | (force_all == 1))
   {
-    arg0->f.ca = arg0->f.a;
-    if (arg0->f.a)
-      CMD(arg0, 0xD7000002, 0x80008000)
+    rs->f.ca = rs->f.a;
+    if (rs->f.a)
+      CMD(rs, 0xD7000002, 0x80008000)
     else
-      CMD(arg0, 0xD7000000, 0x80008000)
+      CMD(rs, 0xD7000000, 0x80008000)
   }
-  if ((arg0->f.cb != arg0->f.b) | (force == 1))
+  if ((rs->f.cb != rs->f.b) | (force_all == 1))
   {
-    arg0->f.cb = arg0->f.b;
-    if ((u8)arg0->f.b == 0)
-      CMD(arg0, 0xE3001201, 0)
+    rs->f.cb = rs->f.b;
+    if ((u8)rs->f.b == 0)
+      CMD(rs, 0xE3001201, 0)
     else
-      CMD(arg0, 0xE3001201, 0x2000)
+      CMD(rs, 0xE3001201, 0x2000)
   }
-  if ((arg0->f.cc != arg0->f.c) | (force == 1))
+  if ((rs->f.cc != rs->f.c) | (force_all == 1))
   {
-    arg0->f.cc = arg0->f.c;
-    if (arg0->f.c)
-      CMD(arg0, 0xE3000C00, 0x80000)
+    rs->f.cc = rs->f.c;
+    if (rs->f.c)
+      CMD(rs, 0xE3000C00, 0x80000)
     else
-      CMD(arg0, 0xE3000C00, 0)
+      CMD(rs, 0xE3000C00, 0)
   }
-  if ((arg0->f.cd != arg0->f.d) | (force == 1))
+  if ((rs->f.cd != rs->f.d) | (force_all == 1))
   {
-    arg0->f.cd = arg0->f.d;
-    switch (arg0->f.d)
+    rs->f.cd = rs->f.d;
+    switch (rs->f.d)
     {
       case 0:
-        CMD(arg0, 0xE3001001, 0)
+        CMD(rs, 0xE3001001, 0)
         break;
       case 1:
-        CMD(arg0, 0xE3001001, 0x8000)
+        CMD(rs, 0xE3001001, 0x8000)
         break;
       case 2:
-        CMD(arg0, 0xE3001001, 0xC000)
+        CMD(rs, 0xE3001001, 0xC000)
         break;
     }
   }
-  if ((arg0->f.ce != arg0->f.e) | (force == 1))
+  if ((rs->f.ce != rs->f.e) | (force_all == 1))
   {
-    arg0->f.ce = arg0->f.e;
-    if ((u8)arg0->f.e == 0)
-      CMD(arg0, 0xD9DFFFFF, 0)
+    rs->f.ce = rs->f.e;
+    if ((u8)rs->f.e == 0)
+      CMD(rs, 0xD9DFFFFF, 0)
     else
-      CMD(arg0, 0xD9FFFFFF, 0x200000)
+      CMD(rs, 0xD9FFFFFF, 0x200000)
   }
   return 1;
 }
+

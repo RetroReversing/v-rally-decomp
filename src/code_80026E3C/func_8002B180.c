@@ -1,5 +1,7 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
+/* Skips blank space (spaces, tabs, commas) and comment lines in a text buffer. A line
+   starts a comment with '#' or '//'. Returns the first token position, or end. */
 char *func_8002B180(char *p, char *end)
 {
     s32 c;

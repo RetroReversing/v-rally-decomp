@@ -1,67 +1,83 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern s32 D_800A18E0[];
-extern s32 D_800AE850[];
+extern s32 gOrderState[];
 extern s32 D_800B0BA0;
 extern u8 D_800B4174[];
-extern s32 D_800C02AE[];
-extern void func_8007F270(void);
-extern s32 func_80080430(void *);
+extern s32 stream_state[];
+extern void stream_callback_stub(void);
+extern s32 pool_node_clear(void *);
 extern s32 osCreateMesgQueue(void *, void *, s32);
-extern s32 func_8008BA40(s32);
+extern s32 stream_slot_queue_or_default(s32);
 extern s32 osSetEventMesg(s32, void *, s32);
-s32 func_8007F278(void)
+
+/* Initialises the 56 stream slots (0x5C bytes each, from gOrderState+0x5910): clears the
+ * slot array, gives each slot a message queue and id, points each stream callback at
+ * stream_callback_stub, then registers the event messages listed in D_800A18E0 (0-terminated pairs). */
+/* Clears the 56 stream slots, gives each a message queue and index, points stream callbacks at stream_callback_stub, then registers the event messages in D_800A18E0. */ s32 func_8007F278(void)
 {
-  volatile u16 *new_var;
-  {
-    s32 *v1;
-    s32 v0;
-    v1 = (s32 *) (((u8 *) D_800AE850) + 0x5910);
-    v0 = 0xE;
-    do
-    {
-      *v1 = 0;
-      v0 = v0 - 1;
-      v1 = v1 + 1;
-    }
-    while (v0 != 0);
-  }
-  {
-    u32 s1;
-    u8 *s0;
-    s32 *s2;
-    u32 s3;
-    s1 = 0;
-    s3 = (u32) (&func_8007F270);
-    s0 = ((u8 *) D_800AE850) + 0x5910;
-    s2 = (s32 *) (((u8 *) D_800C02AE) + 0x7D8A);
-    do
-    {
-      *s2 = (s32) s3;
-      func_80080430(s0);
-      osCreateMesgQueue(s0 + 0x14, s0 + 0x2C, 0xC);
-      new_var = (volatile u16 *) (s0 + 0xE);
-      *new_var = (u16) s1;
-      *((volatile u16 *) (s0 + 0xC)) = 0;
-      s0 = s0 + 0x5C;
-      s1 = s1 + 1;
-      s2 = s2 + 1;
-    }
-    while (s1 < 0x38);
-  }
+  volatile u16 *flagPtr;
   {
     s32 *p;
-    D_800B0BA0 = func_8008BA40(0);
+    s32 remaining;
+    p = (s32 *) (((u8 *) gOrderState) + 0x5910);
+    remaining = 0xE;
+    do
+    {
+      *p = 0;
+      remaining = remaining - 1;
+      p = p + 1;
+    }
+    while (remaining != 0);
+  }
+  {
+    u32 slotIndex;
+    u8 *slotPtr;
+    s32 *cbSlot;
+#ifdef PORT
+    uintptr_t cbFn;
+#else
+    u32 cbFn;
+#endif
+    slotIndex = 0;
+#ifdef PORT
+    cbFn = (uintptr_t) (&stream_callback_stub);
+#else
+    cbFn = (u32) (&stream_callback_stub);
+#endif
+    slotPtr = ((u8 *) gOrderState) + 0x5910;
+    cbSlot = (s32 *) (((u8 *) stream_state) + 0x7D8A);
+    do
+    {
+      *cbSlot = (s32) cbFn;
+      pool_node_clear(slotPtr);
+      osCreateMesgQueue(slotPtr + 0x14, slotPtr + 0x2C, 0xC);
+      flagPtr = (volatile u16 *) (slotPtr + 0xE);
+      *flagPtr = (u16) slotIndex;
+      *((volatile u16 *) (slotPtr + 0xC)) = 0;
+      slotPtr = slotPtr + 0x5C;
+      slotIndex = slotIndex + 1;
+      cbSlot = cbSlot + 1;
+    }
+    while (slotIndex < 0x38);
+  }
+  {
+    s32 *evList;
+    D_800B0BA0 = stream_slot_queue_or_default(0);
     if (D_800A18E0[0] != 0)
     {
       u8 *base = D_800B4174;
-      p = D_800A18E0;
+      evList = D_800A18E0;
       do
       {
-        s32 idx = *p++;
-        s32 ev = *p++;
-        osSetEventMesg(ev, (void *) ((idx * 0x5C) + (u32) base), 0);
-      } while (*p != 0);
+        s32 slotIdx = *evList++;
+        s32 eventMsg = *evList++;
+#ifdef PORT
+        osSetEventMesg(eventMsg, (void *) (base + (slotIdx * 0x5C)), 0);
+#else
+        osSetEventMesg(eventMsg, (void *) ((slotIdx * 0x5C) + (u32) base), 0);
+#endif
+      } while (*evList != 0);
     }
     return 1;
   }

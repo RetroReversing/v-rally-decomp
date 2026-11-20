@@ -1,12 +1,12 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
-extern u8 *D_800C35A0;
-extern u8 *D_800C7F84;
-extern s32 func_80034FF0(s32, s32);
-extern void func_8003C6D8(s32, s32, s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-extern void *func_8004240C(s32);
+extern u8 *gRecords;
+extern u8 *g_camera;
+extern s32 getTexturePack(s32, s32);
+extern void func_8003C6D8(void *, s32, s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+extern void *find_object_by_id(s32);
 extern void func_8003BA58(void *);
 extern void func_8003BADC(void *);
 typedef struct 
@@ -29,10 +29,14 @@ typedef struct
   s16 unkC;
   s16 unkE;
 } Rect;
-void func_80039134(s32 arg0, s32 arg1)
+
+/* Spawns the HUD sprites for the current screen mode: mode 1 adds one pair of
+ * marker sprites, mode 2 adds a pair per player (1..N) whose flag at 0x48 is set,
+ * each pair being a draw sprite plus its clear hook. Does nothing on screen 7. */
+void func_80039134(void *arg0, s32 arg1)
 {
   s32 mode;
-  u8 *g = D_800C35A0;
+  u8 *g = gRecords;
   u32 i;
   s32 k;
   int new_var;
@@ -60,42 +64,42 @@ void func_80039134(s32 arg0, s32 arg1)
       Rect *r1;
       s32 cx;
       s32 cy;
-      t1 = func_8004240C(1);
+      t1 = find_object_by_id(1);
       r1 = *((Rect **) (t1 + 0x178));
-      D_800C7F84 = t1;
+      g_camera = t1;
       sx = r1->unkC;
       cy = r1->unkE;
       y = sx - 0x66;
       x = cy - 0x54;
-      o = ((void *)func_80040260((void *)(arg0), y, x, 5, (SpriteHook)(0), mode));
-      o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+      o = ((void *)sprite_create(arg0, y, x, 5, (SpriteHook)(0), mode));
+      o->unkA4 = getTexturePack(arg1 + 0x4C, 0);
       o->unk7A = 0xC;
       o->unkA0 = 2;
-      o->unkA8 = D_800C7F84;
+      o->unkA8 = g_camera;
       o->unk93 = 0x64;
       func_8003C6D8(arg0, arg1, 0);
-      o = ((void *)func_80040260((void *)(arg0), y, x, 5, func_8003BADC, mode));
+      o = ((void *)sprite_create(arg0, y, x, 5, func_8003BADC, mode));
       o->unk78 = 0;
-      o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+      o->unkA4 = getTexturePack(arg1 + 0x4C, 0);
       o->unk7A = 8;
-      o->unkA8 = D_800C7F84;
+      o->unkA8 = g_camera;
     }
       break;
 
     case 2:
-      for (i = 1, k = 1; i <= (*((u16 *) (D_800C35A0 + 0xE))); i++, k += 2)
+      for (i = 1, k = 1; i <= (*((u16 *) (gRecords + 0xE))); i++, k += 2)
     {
-      g = D_800C35A0;
+      g = gRecords;
       g += (g + i)[0x31] * 0x28;
       if (g[0x48] & 2)
       {
-        t = func_8004240C(i * 2 - 1);
+        t = find_object_by_id(i * 2 - 1);
         r = *((Rect **) (t + 0x178));
-        D_800C7F84 = t;
+        g_camera = t;
         add = 0;
         sx = r->unk8 + r->unkC;
         sy = r->unkA + r->unkE;
-        if (!((*((u16 *) (D_800C35A0 + 0x12))) & 1))
+        if (!((*((u16 *) (gRecords + 0x12))) & 1))
         {
           sx -= 0x10;
           new_var2 = t + 0xC;
@@ -103,17 +107,17 @@ void func_80039134(s32 arg0, s32 arg1)
         }
         x = (u16)sx + (u16)-0x39 + add;
         y = sy - 0x38;
-        o = ((void *)func_80040260((void *)(arg0), x, y, 5, func_8003BA58, 1));
-        o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+        o = ((void *)sprite_create(arg0, x, y, 5, func_8003BA58, 1));
+        o->unkA4 = getTexturePack(arg1 + 0x4C, 0);
         o->unk7A = 0xD;
         o->unkA0 = 2;
-        o->unkA8 = D_800C7F84;
+        o->unkA8 = g_camera;
         func_8003C6D8(arg0, arg1, i);
-        o = ((void *)func_80040260((void *)(arg0), x, y, 5, func_8003BADC, 1));
+        o = ((void *)sprite_create(arg0, x, y, 5, func_8003BADC, 1));
         o->unk78 = 0;
-        o->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+        o->unkA4 = getTexturePack(arg1 + 0x4C, 0);
         o->unk7A = 0xA;
-        o->unkA8 = D_800C7F84;
+        o->unkA8 = g_camera;
       }
     }
 
@@ -122,5 +126,4 @@ void func_80039134(s32 arg0, s32 arg1)
   }
 
 }
-
 

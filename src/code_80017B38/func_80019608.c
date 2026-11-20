@@ -1,84 +1,82 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern u8 D_800C02AE[];
-extern s16 D_8009CB34[][17];
-extern u16 D_8009C4E6[][2];
-typedef struct 
+extern u8 stream_state[];
+extern s16 gSlotArgOffsets[][17];
+extern u16 gSlotMasks[][2];
+typedef struct
 {
   u8 *data;
   u16 count;
-} S_func_80019608_arg0;
+} SlotList;
 void func_80019314(u8 *arg0, s32 *arg1, s32 *arg2, s32 arg3);
-void func_80019608(S_func_80019608_arg0 *arg0, s32 *arg1, s32 *arg2, s32 arg3, s32 arg4)
+/* Runs each slot in the list whose bit is set in `mask` and that is not disabled
+   by the game flags at 0x767E (slots 3-6 and 9-11 have bits there; labels follow jtbl_800A41D0). The
+   slot's data is at list->data + i * 36. */
+void func_80019608(SlotList *list, s32 *src_a, s32 *src_b, s32 arg3, s32 mask)
 {
   s32 i;
   s32 sel;
-  int new_var;
-  s32 v;
-  for (i = 0; i < arg0->count; i++)
+  int slot_off;
+  s32 off;
+  for (i = 0; i < list->count; i++)
   {
-    sel = D_800C02AE[0x7678];
-    if (D_8009CB34[sel][i] < 0)
+    sel = stream_state[0x7678];
+    if (gSlotArgOffsets[sel][i] < 0)
     {
       continue;
     }
-    if (!(arg4 & D_8009C4E6[(sel * 17) + i][0]))
+    if (!(mask & gSlotMasks[(sel * 17) + i][0]))
     {
       continue;
     }
     switch (i)
     {
-      case 3:
-        if ((*((u16 *) (D_800C02AE + 0x767E))) & 0x8000)
+      case 3: case 5:
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x8000)
       {
         continue;
       }
         break;
 
-      case 4:
-        if ((*((u16 *) (D_800C02AE + 0x767E))) & 0x4000)
+      case 4: case 6:
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x4000)
       {
         continue;
       }
         break;
 
-      case 5:
-        if ((*((u16 *) (D_800C02AE + 0x767E))) & 0x800)
+      case 10:
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x800)
       {
         continue;
       }
         break;
 
-      case 6:
-        if ((*((u16 *) (D_800C02AE + 0x767E))) & 0x2000)
+      case 11:
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x2000)
+      {
+        continue;
+      }
+        break;
+
+      case 9:
+        if ((*((u16 *) (stream_state + 0x767E))) & 0x1000)
       {
         continue;
       }
         break;
 
       case 7:
-        if ((*((u16 *) (D_800C02AE + 0x767E))) & 0x1000)
-      {
-        continue;
-      }
-        break;
 
       case 8:
-
-      case 9:
-
-      case 10:
-
-      case 11:
         break;
 
     }
 
-    new_var = i * 36;
-    v = D_8009CB34[D_800C02AE[0x7678]][i];
-    func_80019314(arg0->data + new_var, arg1 + v, arg2 + v, arg3);
+    slot_off = i * 36;
+    off = gSlotArgOffsets[stream_state[0x7678]][i];
+    func_80019314(list->data + slot_off, src_a + off, src_b + off, arg3);
   }
 
 }
-
 

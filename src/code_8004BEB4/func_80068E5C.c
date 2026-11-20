@@ -1,30 +1,35 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern u8 *D_800C35A0;
-extern void *D_800C3508;
-extern u8 *D_800A1468;void *func_800592AC(u32);
-void func_800592F4();
+extern u8 *gRecords;
+extern void *gLeague;
+extern u8 *gSelectState;
+void *select_get_entry(u32);
+void slotSetSelected();
 void func_80068D9C();
-void func_8008A0D8();
+void record_set_byte9();
 
-s32 func_80068E5C(s32 arg0) {
-    u8 *temp_a0;
-    u8 temp_v1;
-    u8 *temp_v0;
+/* Marks the selected record (0x28 bytes each, index at gSelectState+0x22A) as pending by
+ * setting its 0x10 flag. If the flag was already set, hands over to func_80068D9C.
+ * Otherwise sends event 0x17, writes three 0x50 bytes into select entry 6 and selects the
+ * slot. Returns 0. */
+s32 func_80068E5C(s32 slot) {
+    u8 *rec;
+    u8 flags;
+    u8 *entry;
 
-    temp_a0 = D_800C35A0 + (*(s8 *)(D_800A1468 + 0x22A)) * 0x28;
-    temp_v1 = temp_a0[0x48];
-    if (temp_v1 & 0x10) {
-        func_80068D9C(arg0);
+    rec = gRecords + (*(s8 *)(gSelectState + 0x22A)) * 0x28;
+    flags = rec[0x48];
+    if (flags & 0x10) {
+        func_80068D9C(slot);
         return 0;
     }
-    temp_a0[0x48] = temp_v1 | 0x10;
-    func_8008A0D8(D_800C3508, 0x17, 0);
-    temp_v0 = func_800592AC(6);
-    temp_v0[0xF] = 0x50;
-    temp_v0[0x10] = 0x50;
-    temp_v0[0x11] = 0x50;
-    func_800592F4(arg0, 1);
+    rec[0x48] = flags | 0x10;
+    record_set_byte9(gLeague, 0x17, 0);
+    entry = select_get_entry(6);
+    entry[0xF] = 0x50;
+    entry[0x10] = 0x50;
+    entry[0x11] = 0x50;
+    slotSetSelected(slot, 1);
     return 0;
 }
 

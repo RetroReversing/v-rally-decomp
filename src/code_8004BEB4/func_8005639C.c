@@ -1,15 +1,19 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern f32 D_8009CEC0[3];
-extern f32 D_8009CEC4;
-extern s32 D_8009FF30;
-extern u8 D_800C7926;
+extern f32 vtx_scale[3];
+extern f32 uv_scale;
+extern s32 gShadeMode;
+extern u8 g_dark_mode;
 typedef struct { u16 idx; u16 c; u16 a; u16 b; } Vtx8;
 typedef struct { Vtx8 *v; u16 count; u16 type; } Ent;
 typedef struct { u8 r, g, b, a; s16 x, y, z; u8 pad[0x12 - 0xA]; u16 c; s16 a2; s16 b2; } Out;
 typedef struct { u8 pad[0xC]; s16 *pos; u8 pad2[0x14 - 0x10]; Ent *ents; } Mdl;
 typedef struct { u8 pad[0x10]; s16 *ys; u8 *cols; Mdl *mdl; u16 n; } Obj;
-void func_8005639C(Out **out, Obj *arg)
+
+/* Writes the vertices of every type-0x23 entity in obj's model into the output buffer at *out,
+ * scaled by vtx_scale and uv_scale, then advances *out past them. Colours come from obj->cols,
+ * or from a fixed shade when the colour mode is 2. */
+void func_8005639C(Out **out, Obj *obj)
 {
   s32 n;
   s32 i;
@@ -17,10 +21,10 @@ void func_8005639C(Out **out, Obj *arg)
   u8 c;
   Ent *e;
   Vtx8 *p;
-  n = arg->n;
-  e = arg->mdl->ents;
+  n = obj->n;
+  e = obj->mdl->ents;
   color = 0x8c;
-  if (D_800C7926 == 0)
+  if (g_dark_mode == 0)
     color = 0x32;
   if (n != 0) {
     for (i = 0; i < n; e++, i++) {
@@ -28,11 +32,11 @@ void func_8005639C(Out **out, Obj *arg)
         n = e->count;
         p = e->v;
         for (i = 0; i < n; p++, i++) {
-          (*out)->x = arg->mdl->pos[p->idx * 2] * D_8009CEC0[0];
-          (*out)->z = arg->mdl->pos[p->idx * 2 + 1] * D_8009CEC0[2];
-          (*out)->y = arg->ys[p->idx] * D_8009CEC0[1];
-          if (D_8009FF30 != 2) {
-            u8 t = arg->cols[p->idx];
+          (*out)->x = obj->mdl->pos[p->idx * 2] * vtx_scale[0];
+          (*out)->z = obj->mdl->pos[p->idx * 2 + 1] * vtx_scale[2];
+          (*out)->y = obj->ys[p->idx] * vtx_scale[1];
+          if (gShadeMode != 2) {
+            u8 t = obj->cols[p->idx];
             c = t;
           } else
             c = color;
@@ -40,8 +44,8 @@ void func_8005639C(Out **out, Obj *arg)
           (*out)->g = c;
           (*out)->b = c;
           (*out)->a = 15;
-          (*out)->a2 = (u32)(p->a * D_8009CEC0[0]);
-          (*out)->b2 = (u32)(p->b * D_8009CEC4);
+          (*out)->a2 = (u32)(p->a * vtx_scale[0]);
+          (*out)->b2 = (u32)(p->b * uv_scale);
           (*out)->c = p->c;
           (*out)++;
         }
@@ -49,3 +53,4 @@ void func_8005639C(Out **out, Obj *arg)
     }
   }
 }
+

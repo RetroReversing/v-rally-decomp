@@ -1,5 +1,9 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern unsigned char *func_80098290(unsigned char *, unsigned char *);
-void func_800424A4(void *item, void *label) { func_80098290((unsigned char *)item + 0x10, label); }
+void strCpy();
+
+/* Copy a label string into the item's label field at offset 0x10. */
+void func_800424A4(void *item_ptr, void *src_label) {
+    strCpy((unsigned char *)item_ptr + 0x10, src_label);
+}
 

@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
     u8 pad0[0x14];
@@ -11,45 +11,52 @@ typedef struct {
     s16 cur;
 } St;
 extern u8 D_800C352C[];
-extern St *D_800C35A0;
-extern Obj *D_800D0634;
-void func_8005946C(s32, u16);
+extern St *gRecords;
+extern Obj *gSlotTableB;
+void select_set_active_sub(s32, u16);
 
-s32 func_80063D9C(s32 arg0)
+/* Moves the current record's option to the next bit (wrapping) whose flag is set in
+ * D_800C352C for its id, giving up after one full pass. If one is found, stores it as
+ * cur and calls select_set_active_sub with it. Returns 0. */
+s32 func_80063D9C(s32 owner)
 {
-    St *st;
-    s8 found = -1;
-    s8 bit;
-    s8 tries;
-    s32 mask;
-    u16 id;
-    s32 off;
-    Obj *base = D_800D0634;
+    St *rec;
+    s8 chosen = -1;
+    s8 bitIdx;
+    s8 attempts;
+    s32 bitMask;
+    u16 optId;
+    s32 offset;
+    Obj *slotTable = gSlotTableB;
 
-    bit = ((u8 *)D_800C35A0)[0x23];
-    tries = 0;
-    if (base[D_800C35A0->id].count - 1 > 0) {
-        st = D_800C35A0;
-        off = st->id * sizeof(Obj);
+    bitIdx = ((u8 *)gRecords)[0x23];
+    attempts = 0;
+    if (slotTable[gRecords->id].count - 1 > 0) {
+        rec = gRecords;
+        offset = rec->id * sizeof(Obj);
         do {
-            if (bit < ((Obj *)(off + (s32)base))->count - 1) {
-                bit++;
+#ifdef PORT
+            if (bitIdx < ((Obj *)((char *)slotTable + offset))->count - 1) {
+#else
+            if (bitIdx < ((Obj *)(offset + (s32)slotTable))->count - 1) {
+#endif
+                bitIdx++;
             } else {
-                bit = 0;
+                bitIdx = 0;
             }
-            id = st->id;
-            mask = 1 << bit;
-            if ((D_800C352C[id] & mask) == mask) {
-                found = bit;
+            optId = rec->id;
+            bitMask = 1 << bitIdx;
+            if ((D_800C352C[optId] & bitMask) == bitMask) {
+                chosen = bitIdx;
                 break;
             }
-            tries++;
-            base = D_800D0634;
-        } while (tries < base[id].count - 1);
+            attempts++;
+            slotTable = gSlotTableB;
+        } while (attempts < slotTable[optId].count - 1);
     }
-    if (found != -1) {
-        D_800C35A0->cur = found;
-        func_8005946C(arg0, found);
+    if (chosen != -1) {
+        gRecords->cur = chosen;
+        select_set_active_sub(owner, chosen);
     }
     return 0;
 }

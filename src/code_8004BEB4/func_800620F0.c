@@ -1,32 +1,37 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800C02AE[];
-extern void *D_800A1468;void *func_8005A744(u32, void *);
+extern char stream_state[];
+extern void *gSelectState;
+void *list_advance(u32, void *);
+
+/* Sets the highlight colour (RGB 50,50,50 with alpha 100) on the sub-entry at index arg0 of the
+ * selected menu item's entry list. Does nothing if no entry has that index. */
 void func_800620F0(s32 arg0)
 {
-  u8 *a1;
-  u8 *a3;
-  u32 a2;
-  a3 = func_8005A744(*((u16 *) ((*((u8 **) (D_800C02AE + 0x32F2))) + 0x20)), (void *)(*((void **) (((char *) D_800A1468) + 0xC))));
-  a1 = *((u8 **) (a3 + 0x28));
-  a2 = 0;
-  if (a3[0x4C] != a2)
+  u8 *entry;
+  u8 *item;
+  u32 index;
+
+  item = list_advance(*((u16 *) ((*((u8 **) (stream_state + 0x32F2))) + 0x20)), (void *)(*((void **) (((char *) gSelectState) + 0xC))));
+  entry = *((u8 **) (item + 0x28));
+  index = 0;
+  if (item[0x4C] != index)
   {
-    a2 = a2;
+    index = index;
     do
     {
-      if ((a2 & 0xFF) == (arg0 & 0xFF))
+      if ((index & 0xFF) == (arg0 & 0xFF))
       {
-        a1[0xB] = 0x32;
-        a1[0xC] = 0x32;
-        a1[0xD] = 0x32;
-        a1[0xE] = 0x64;
+        entry[0xB] = 0x32;
+        entry[0xC] = 0x32;
+        entry[0xD] = 0x32;
+        entry[0xE] = 0x64;
         return;
       }
-      a1 = *((u8 **) a1);
-      a2++;
+      entry = *((u8 **) entry);
+      index++;
     }
-    while ((a2 & 0xFF) < a3[0x4C]);
+    while ((index & 0xFF) < item[0x4C]);
   }
 }
 

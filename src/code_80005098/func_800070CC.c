@@ -1,31 +1,46 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-s32 func_8000665C(void *, s32);
+s32 dl_reserve_vertices(void *, s32);
 typedef struct { u32 w0; u32 w1; } GfxW;
-typedef struct { u8 pad0[0x14]; GfxW *dl; u8 pad1[0x70 - 0x18]; s32 base; } ObjQ;
+typedef struct { u8 pad0[0x14]; GfxW *dl; u8 pad1[0x70 - 0x14 - sizeof(GfxW *)];
+#ifdef PORT
+    char *base;
+#else
+    s32 base;
+#endif
+} GfxBuf;
 #define SHL(v,s,w) ((u32)(((u32)(v) & ((0x01 << (w)) - 1)) << (s)))
 #define TRIW(a,b,c) (SHL((a)*2,16,8)|SHL((b)*2,8,8)|SHL((c)*2,0,8))
+#ifdef PORT
+#define VB(b,o) ((char *)(b)->base + (o))
+#else
+#define VB(b,o) ((char *)((o) + (b)->base))
+#endif
 
-s32 func_800070CC(ObjQ *arg0) {
-    s32 temp_a0;
-    s32 temp_v0;
+/* Reserves four vertices in the buffer, clears their position and colour fields
+   (alpha 0xFF), and adds a two-triangle quad as one F3DEX tri word pair.
+   Returns the first vertex index. */
+s32 func_800070CC(GfxBuf *buf) {
+    s32 firstVtx;
+    s32 vtxOffset;
     s32 i;
 
-    temp_v0 = (u16)func_8000665C(arg0, 4);
-    temp_a0 = temp_v0 * 0x10;
-    *(s16 *)((char *)(temp_a0 + arg0->base) + 6) = 0;
-    *(s16 *)((char *)(temp_a0 + arg0->base) + 0x16) = 0;
-    *(s16 *)((char *)(temp_a0 + arg0->base) + 0x26) = 0;
-    *(s16 *)((char *)(temp_a0 + arg0->base) + 0x36) = 0;
-    *(u8 *)((char *)(temp_a0 + arg0->base) + 0xF) = 0xFF;
-    *(u8 *)((char *)(temp_a0 + arg0->base) + 0x1F) = 0xFF;
-    *(u8 *)((char *)(temp_a0 + arg0->base) + 0x2F) = 0xFF;
-    *(u8 *)((char *)(temp_a0 + arg0->base) + 0x3F) = 0xFF;
-    i = temp_v0 & 0x1F;
+    firstVtx = (u16)dl_reserve_vertices(buf, 4);
+    vtxOffset = firstVtx * 0x10;
+    *(s16 *)(VB(buf, vtxOffset) + 6) = 0;
+    *(s16 *)(VB(buf, vtxOffset) + 0x16) = 0;
+    *(s16 *)(VB(buf, vtxOffset) + 0x26) = 0;
+    *(s16 *)(VB(buf, vtxOffset) + 0x36) = 0;
+    *(u8 *)(VB(buf, vtxOffset) + 0xF) = 0xFF;
+    *(u8 *)(VB(buf, vtxOffset) + 0x1F) = 0xFF;
+    *(u8 *)(VB(buf, vtxOffset) + 0x2F) = 0xFF;
+    *(u8 *)(VB(buf, vtxOffset) + 0x3F) = 0xFF;
+    i = firstVtx & 0x1F;
     {
-        GfxW *_g = (GfxW *)(arg0->dl++);
+        GfxW *_g = (GfxW *)(buf->dl++);
         _g->w0 = SHL(7, 24, 8) | TRIW(i, i + 1, i + 2);
         _g->w1 = TRIW(i, i + 2, i + 3);
     }
-    return temp_v0;
+    return firstVtx;
 }
+

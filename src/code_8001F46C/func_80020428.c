@@ -1,5 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
+/* Object state: buffer pointers f0, f18, f24, f28 and the per-object counters. */
 typedef struct Sub80020428
 {
   s32 *f0;
@@ -32,82 +33,86 @@ typedef struct Res80020428
   u8 pad[0x12];
   u16 f12;
 } Res80020428;
-extern u8 D_800ADFE0;
+extern u8 gCurCount;
 extern u16 D_800ADFE4;
-extern Cfg80020428 *D_800C35A0;
+extern Cfg80020428 *gRecords;
 extern s32 D_8009D534;
 Res80020428 *func_80041564(void);
-s32 *func_8007EAA0(s32, s32);
-void func_80020428(Obj80020428 *arg0)
+s32 *poolAlloc(s32, s32);
+
+/* Sets up obj's state: allocates the buffers (sized from gRecords' mode and flags) and
+ * zeroes the counters, then fills the first buffer and the mode-sized pair with defaults. */
+void func_80020428(Obj80020428 *obj)
 {
   Res80020428 *res;
-  s32 *a;
-  s32 *b;
-  s32 n;
+  s32 *pa;
+  s32 *pb;
+  s32 count;
   u32 i;
   res = func_80041564();
-  if (D_800C35A0->f1E != 0)
-    arg0->f40->f0 = func_8007EAA0(1, (D_800ADFE0 + 1) * 4);
+  if (gRecords->f1E != 0)
+    obj->f40->f0 = poolAlloc(1, (gCurCount + 1) * 4);
   else
-    arg0->f40->f0 = func_8007EAA0(1, 0x10);
-  switch (D_800C35A0->mode)
+    obj->f40->f0 = poolAlloc(1, 0x10);
+  switch (gRecords->mode)
   {
   case 1:
-    arg0->f40->f24 = func_8007EAA0(1, 0x1C);
-    arg0->f40->f28 = func_8007EAA0(1, 0x1C);
+    obj->f40->f24 = poolAlloc(1, 0x1C);
+    obj->f40->f28 = poolAlloc(1, 0x1C);
     break;
   case 2:
-    arg0->f40->f24 = func_8007EAA0(1, 0x10);
-    arg0->f40->f28 = func_8007EAA0(1, 0x10);
+    obj->f40->f24 = poolAlloc(1, 0x10);
+    obj->f40->f28 = poolAlloc(1, 0x10);
     break;
   case 3:
   case 4:
-    arg0->f40->f24 = func_8007EAA0(1, 4);
-    arg0->f40->f28 = func_8007EAA0(1, 4);
+    obj->f40->f24 = poolAlloc(1, 4);
+    obj->f40->f28 = poolAlloc(1, 4);
     break;
   }
-  arg0->f40->f2C = 0;
-  arg0->f40->f14 = res;
-  arg0->f40->f4 = 0;
-  arg0->f40->f8 = 1;
-  arg0->f40->fC = 0;
-  arg0->f40->f10 = D_800ADFE4;
-  arg0->f40->f20 = 0;
+  obj->f40->f2C = 0;
+  obj->f40->f14 = res;
+  obj->f40->f4 = 0;
+  obj->f40->f8 = 1;
+  obj->f40->fC = 0;
+  obj->f40->f10 = D_800ADFE4;
+  obj->f40->f20 = 0;
   if (res->f12 == 0)
-    arg0->f40->f18 = func_8007EAA0(1, 4);
+    obj->f40->f18 = poolAlloc(1, 4);
   else
-    arg0->f40->f18 = func_8007EAA0(1, res->f12 * 4);
-  a = arg0->f40->f24;
-  b = arg0->f40->f28;
-  n = 0;
-  switch (D_800C35A0->mode)
+    obj->f40->f18 = poolAlloc(1, res->f12 * 4);
+  pa = obj->f40->f24;
+  pb = obj->f40->f28;
+  count = 0;
+  switch (gRecords->mode)
   {
   case 1:
-    n = 6;
+    count = 6;
     break;
   case 2:
-    n = 3;
+    count = 3;
     break;
   case 3:
   case 4:
-    n = 1;
+    count = 1;
     break;
   }
-  while (n--)
+  while (count--)
   {
-    *a++ = D_8009D534;
-    *b++ = 0;
+    *pa++ = D_8009D534;
+    *pb++ = 0;
   }
-  a = arg0->f40->f0;
-  if (D_800C35A0->f1E != 0)
+  pa = obj->f40->f0;
+  if (gRecords->f1E != 0)
   {
-    u8 *bp = &D_800ADFE0;
-    for (n = 0; n < (u32)(*bp + 1); n++)
-      *a++ = 0;
+    u8 *bp = &gCurCount;
+    for (count = 0; count < (u32)(*bp + 1); count++)
+      *pa++ = 0;
   }
   else
   {
-    for (n = 0; n < 4U; n++)
-      *a++ = 0;
+    for (count = 0; count < 4U; count++)
+      *pa++ = 0;
   }
 }
+

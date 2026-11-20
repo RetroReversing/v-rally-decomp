@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
     s16 x, y, z;
@@ -29,53 +29,58 @@ typedef struct {
     f32 z;
 } Car;
 
-extern s32 func_8002D2C8(s32, s32);
-extern void func_8002E148(s16 *, s32 *);
-void *func_8002E514(void *, void *, void *);
-extern s32 func_80098090(void);
-extern SmokeTable *D_800C811C;
-extern Car *D_800C7F84;
+extern s32 angle_atan2_thunk(s32, s32);
+extern void mat3x3_from_euler(s16 *, s32 *);
+void *mtx3_transform_vec3(void *, void *, void *);
+extern s32 rand_next15(void);
+extern SmokeTable *g_ent_list;
+extern Car *g_camera;
+s32 abs(s32);
 
-void func_8003647C(Particle *p, u8 idx)
+/* Moves one smoke/dust particle per emitter position. Each particle drifts with
+ * the car (the offset from the car to the emitter, clamped if far off) and rises;
+ * a particle at the spawn marker (y == 1001) is re-seeded at a random angle
+ * around the car's heading. */
+void func_8003647C(Particle *part, u8 idx)
 {
 s32 __repair_call_arithmetic;
     s16 vec[4];
     s16 rot[4];
     s32 mtx[8];
-    f32 dx, dz;
-    s32 angle;
-    s32 n;
+    f32 relX, relZ;
+    s32 heading;
+    s32 left;
     s32 r;
 
-    dx = (s16)(s32)(D_800C811C->pos[idx].x - D_800C7F84->x);
-    dz = (s16)(s32)(D_800C811C->pos[idx].z - D_800C7F84->z);
-    if (abs((s32)dx) > 1000 || abs((s32)dz) > 1000) {
-        dx = dz = 0.0f;
+    relX = (s16)(s32)(g_ent_list->pos[idx].x - g_camera->x);
+    relZ = (s16)(s32)(g_ent_list->pos[idx].z - g_camera->z);
+    if (abs((s32)relX) > 1000 || abs((s32)relZ) > 1000) {
+        relX = relZ = 0.0f;
     }
-    dx += 4.0f;
-    dz += 2.0f;
-    angle = -func_8002D2C8((s32)(D_800C7F84->vz * 4096.0f), (s32)(D_800C7F84->vx * -4096.0f));
+    relX += 4.0f;
+    relZ += 2.0f;
+    heading = -angle_atan2_thunk((s32)(g_camera->vz * 4096.0f), (s32)(g_camera->vx * -4096.0f));
     rot[0] = 0;
     rot[2] = 0;
     vec[2] = 0;
-    n = D_800C811C->count;
-    while (n-- != 0) {
-        if (p->y == 1001) {
-            vec[0] = func_80098090() % 4095 + 0x200;
-            vec[1] = -(func_80098090() % 511);
-__repair_call_arithmetic = angle - 0x200;
+    left = g_ent_list->count;
+    while (left-- != 0) {
+        if (part->y == 1001) {
+            vec[0] = rand_next15() % 4095 + 0x200;
+            vec[1] = -(rand_next15() % 511);
+__repair_call_arithmetic = heading - 0x200;
 
-            rot[1] = __repair_call_arithmetic + func_80098090() % 1023;
-            func_8002E148(rot, mtx);
-            func_8002E514(mtx, vec, p);
+            rot[1] = __repair_call_arithmetic + rand_next15() % 1023;
+            mat3x3_from_euler(rot, mtx);
+            mtx3_transform_vec3(mtx, vec, part);
         }
-        p->px = p->x;
-        p->pz = p->z;
-        p->x = p->x + dx;
-        p->y += 0x41;
-        p->z = p->z + dz;
-        p->py = p->y - p->decay;
-        p++;
+        part->px = part->x;
+        part->pz = part->z;
+        part->x = part->x + relX;
+        part->y += 0x41;
+        part->z = part->z + relZ;
+        part->py = part->y - part->decay;
+        part++;
     }
 }
 

@@ -1,39 +1,40 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
-s32 func_80034FF0();
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-s32 func_80098680();
+s32 getTexturePack();
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+s32 str_ncasecmp();
 void func_8003FD04(void *);
-void func_8004C04C(void *);
+void spriteInitHook(void *);
 extern char D_800A4C00[];
 extern char D_800A4C08[];
-extern char D_800C02AE[];
+extern char stream_state[];
 
-void *func_80040084(s32 arg0, s32 arg1, s32 arg2) {
+/* Creates the sprite for a named object at arg1 (its name sits at +0x4C) and stores the name id at sprite+0xA4. Objects of the special kind (type 7) are matched against a second tag table. Returns NULL when no tag matches. */
+void *func_80040084(void *parent, s32 record, s32 flags) {
+    void *sprite;
+    s32 nameId;
     s32 temp_s0;
-    s32 temp_v;
-    void *var_s1;
 
-    var_s1 = NULL;
-    if (*(u16 *)(*(char **)(D_800C02AE + 0x32F2) + 0x1E) != 7) {
-        if (func_80098680(D_800A4C00, arg1 + 0x4C, 4) == 0) {
-            var_s1 = ((void *)func_80040260((void *)(arg0), 0, 0, arg2 & 0xFFFF, func_8004C04C, 1));
+    sprite = NULL;
+    if (*(u16 *)(*(char **)(stream_state + 0x32F2) + 0x1E) != 7) {
+        if (str_ncasecmp(D_800A4C00, record + 0x4C, 4) == 0) {
+            sprite = ((void *)sprite_create(parent, 0, 0, flags & 0xFFFF, spriteInitHook, 1));
         } else {
-            var_s1 = ((void *)func_80040260((void *)(arg0), 0, 0, arg2 & 0xFFFF, (SpriteHook)(0), 1));
+            sprite = ((void *)sprite_create(parent, 0, 0, flags & 0xFFFF, (SpriteHook)(0), 1));
         }
-        *(s32 *)((char *)var_s1 + 0xA4) = func_80034FF0(arg1 + 0x4C, 0);
+        *(s32 *)((char *)sprite + 0xA4) = getTexturePack(record + 0x4C, 0);
     } else {
-        temp_s0 = arg1 + 0x4C;
-        if (func_80098680(D_800A4C00, temp_s0, 4) == 0) {
-            var_s1 = ((void *)func_80040260((void *)(arg0), 0, 0, arg2 & 0xFFFF, func_8004C04C, 1));
-            *(s32 *)((char *)var_s1 + 0xA4) = func_80034FF0(temp_s0, 0);
-        } else if (func_80098680(D_800A4C08, temp_s0, 4) == 0) {
-            temp_v = func_80034FF0(temp_s0, 0);
-            var_s1 = ((void *)func_80040260((void *)(arg0), 0, 0, arg2 & 0xFFFF, func_8003FD04, 1));
-            *(s32 *)((char *)var_s1 + 0xA4) = temp_v;
+        temp_s0 = record + 0x4C;
+        if (str_ncasecmp(D_800A4C00, temp_s0, 4) == 0) {
+            sprite = ((void *)sprite_create(parent, 0, 0, flags & 0xFFFF, spriteInitHook, 1));
+            *(s32 *)((char *)sprite + 0xA4) = getTexturePack(temp_s0, 0);
+        } else if (str_ncasecmp(D_800A4C08, temp_s0, 4) == 0) {
+            nameId = getTexturePack(temp_s0, 0);
+            sprite = ((void *)sprite_create(parent, 0, 0, flags & 0xFFFF, func_8003FD04, 1));
+            *(s32 *)((char *)sprite + 0xA4) = nameId;
         }
     }
-    return var_s1;
+    return sprite;
 }
 

@@ -1,22 +1,28 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-s32 func_80082094(void);
+s32 order_stream_next_byte(void);
 void func_800821A4(u8 *, s32, s32);
 typedef struct {
-    u8 *ptr;
-    s32 cnt;
+    u8 *in_ptr;
+    s32 in_left;
     u8 pad[0x74];
-    u32 wp;
-    u32 bb;
-    u32 bk;
+    u32 win_pos;
+    u32 bit_buf;
+    u32 bit_cnt;
 } InflState;
-extern InflState D_800C333C;
-extern u8 D_800AE850[];
+extern InflState inflateState;
+extern u8 gOrderState[];
 
-#define NEXTBYTE() (--D_800C333C.cnt >= 0 ? *D_800C333C.ptr++ : func_80082094())
+#define INFL_WINDOW (gOrderState + 0x8AE8)
+#define WINDOW_SIZE 0x8000
+#define NEXTBYTE() (--inflateState.in_left >= 0 ? *inflateState.in_ptr++ : order_stream_next_byte())
 #define NEEDBITS(n) while (k < (n)) { c = NEXTBYTE(); if (c == -1) return 1; b |= (u32)c << k; k += 8; }
 #define DUMPBITS(n) { b >>= (n); k -= (n); }
 
+/* Inflate a stored (uncompressed) block. Skips to a byte boundary, reads LEN and its
+ * complement NLEN (returns 1 if they do not match), then copies LEN bytes into the
+ * 32 KB window. The window is flushed through func_800821A4 each time it fills. Returns 0 on
+ * success. The bit buffer and window position are kept in inflateState between calls. */
 s32 func_80082EB8(void) {
     u32 n;
     u32 w;
@@ -24,9 +30,9 @@ s32 func_80082EB8(void) {
     u32 k;
     s32 c;
 
-    b = D_800C333C.bb;
-    k = D_800C333C.bk;
-    w = D_800C333C.wp;
+    b = inflateState.bit_buf;
+    k = inflateState.bit_cnt;
+    w = inflateState.win_pos;
     n = k & 7;
     DUMPBITS(n);
     NEEDBITS(16);
@@ -37,16 +43,16 @@ s32 func_80082EB8(void) {
     DUMPBITS(16);
     while (n--) {
         NEEDBITS(8);
-        (D_800AE850 + 0x8AE8)[w++] = (u8)b;
-        if (w == 0x8000) {
-            func_800821A4(D_800AE850 + 0x8AE8, 0x8000, 0);
+        (INFL_WINDOW)[w++] = (u8)b;
+        if (w == WINDOW_SIZE) {
+            func_800821A4(INFL_WINDOW, WINDOW_SIZE, 0);
             w = 0;
         }
         DUMPBITS(8);
     }
-    D_800C333C.wp = w;
-    D_800C333C.bb = b;
-    D_800C333C.bk = k;
+    inflateState.win_pos = w;
+    inflateState.bit_buf = b;
+    inflateState.bit_cnt = k;
     return 0;
 }
 

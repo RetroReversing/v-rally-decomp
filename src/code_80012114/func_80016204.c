@@ -1,14 +1,16 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern char D_800AE850[];
-extern u16 D_8009BBB6;
-s32 func_80015460();
+extern char gOrderState[];
+extern u16 g_obj_state_copy;
+s32 add_pos_bias_words();
 static inline char **inline_fn(char *arg0)
 {
   return (char **) (arg0 + 0x50);
 }
 
-void *func_80016204(char *arg0)
+/* Adds a per-frame offset to the entries of each sub-object (0x6C bytes each) and to the
+   six-byte records of the list at obj->base, scaling by the float at +0x48. Returns obj. */
+void *func_80016204(char *obj)
 {
   s32 pad[4];
   s32 i;
@@ -25,11 +27,11 @@ void *func_80016204(char *arg0)
   char *base;
   char *p;
   char *s4;
-  func_80015460(arg0, 1);
-  s4 = arg0;
-  base = *((char **) arg0);
+  add_pos_bias_words(obj, 1);
+  s4 = obj;
+  base = *((char **) obj);
   i = 0;
-  cnt = *((u16 *) (arg0 + 4));
+  cnt = *((u16 *) (obj + 4));
   if (cnt > 0)
   {
     off1 = 0;
@@ -39,7 +41,7 @@ void *func_80016204(char *arg0)
       {
         p = base - (-off1);
         off = *((u16 *) (p + 0x64));
-        count = *((s32 *) (D_800AE850 + 0x6E9C));
+        count = *((s32 *) (gOrderState + 0x6E9C));
         t = (*((s32 *) (p + 0x68)));
         t += count;
         b = (*((s32 *) (p + 0x50))) + count;
@@ -49,7 +51,7 @@ void *func_80016204(char *arg0)
       }
       while (0);
       *((s32 *) (p + 0x68)) = t;
-      func_80015460(t, off, count);
+      add_pos_bias_words(t, off, count);
       i += 1;
       off1 += 0x6C;
     }
@@ -64,19 +66,26 @@ void *func_80016204(char *arg0)
       off = 0;
       b = *((s32 *)0x800B6AFC);
       e = (u32) b >> 31;
-      t = D_8009BBB6;
+      t = g_obj_state_copy;
       add = t + ((b + e) >> 1);
     }
     while (0);
     do
     {
+#ifdef PORT
+      *((u16 *) (*inline_fn(base) + off + 2)) += add;
+#else
       *((u16 *) ((char *)(off + (s32)(*inline_fn(base))) + 2)) += add;
+#endif
+#ifdef PORT
+      *((s16 *) (*inline_fn(base) + off + 4)) = (s16) ((s32) (((f32) (h = (short) (*((s16 *) (*inline_fn(base) + off + 4))))) + (*(new_var = &(*((f32 *) (base + 0x48)))))));
+#else
       *((s16 *) ((char *)(off + (s32)(*inline_fn(base))) + 4)) = (s16) ((s32) (((f32) (h = (short) (*((s16 *) ((char *)(off + (s32)(*inline_fn(base))) + 4))))) + (*(new_var = &(*((f32 *) (base + 0x48)))))));
+#endif
       i += 1;
       off += 6;
     }
     while (i < ((s32) count));
   }
-  return arg0;
+  return obj;
 }
-

@@ -1,5 +1,5 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-s32 *func_8002E288(s16 *, s16 *, s32 *);
-s32 *func_8002E530(s16 *a, s16 *b, s32 *c) { return func_8002E288(a,b,c); }
+s32 *mat3_transform_vec(s16 *, s16 *, s32 *);
+/* Thin wrapper: transforms a vector by a 3x3 matrix via mat3_transform_vec. */ s32 *func_8002E530(s16 *matrix, s16 *vec, s32 *out) { return mat3_transform_vec(matrix,vec,out); }
 

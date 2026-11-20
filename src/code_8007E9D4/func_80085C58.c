@@ -1,57 +1,61 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern s32 func_800863B0(s32, s32);
+extern s32 motor_pak_reset(s32, s32);
 extern s32 osMotorInit(void *, void *, s32);
-extern void *D_800A1B70;
-extern u8 D_800AE850;
+extern void *gControllerInputContext;
+extern u8 gOrderState;
+
+/* Initialises the rumble pak on each controller that reports one (bit 4 of its
+ * status word, and bit 0 of the flag byte). A slot whose pak fails to init is
+ * marked as having no pak; a slot with no pak attached is cleared. */
 void func_80085C58(void)
 {
-  unsigned char var_s0;
-  s32 var_s2;
-  void *temp_a0;
-  void *temp_a2;
-  void *temp_v1;
-  unsigned char new_var;
-  void *temp_v1_2;
-  void *temp_v1_3;
-  temp_a2 = D_800A1B70;
-  var_s2 = 0;
-  if ((*((s32 *) (((u8 *) temp_a2) + 4))) > 0)
+  unsigned char slot;
+  s32 i;
+  void *ctx;
+  void *pad;
+  void *slot_ctx;
+  void *slot_ctx2;
+  void *slot_ctx3;
+  unsigned char tmp;
+
+  ctx = gControllerInputContext;
+  i = 0;
+  if ((*((s32 *)(((u8 *)ctx) + 4))) > 0)
   {
     do
     {
-      var_s0 = var_s2 & 0xFF;
-      temp_v1 = ((u8 *) temp_a2) + (var_s0 * 4);
-      if (((*((u16 *) (((u8 *) temp_v1) + 0xC))) & 4) && ((*((u8 *) (((u8 *) temp_v1) + 0xE))) & 1))
+      slot = i & 0xFF;
+      pad = ((u8 *)ctx) + (slot * 4);
+      if (((*((u16 *)(((u8 *)pad) + 0xC))) & 4) && ((*((u8 *)(((u8 *)pad) + 0xE))) & 1))
       {
-        if ((osMotorInit((&D_800AE850) + 0x5A38, ((u8 *) temp_a2) + ((var_s0 * 0x68) + 0x18C), var_s0) & 0xFF) == 0)
+        if ((osMotorInit((&gOrderState) + 0x5A38, ((u8 *)ctx) + ((slot * 0x68) + 0x18C), slot) & 0xFF) == 0)
         {
-          func_800863B0(var_s0, 0);
-          temp_v1_2 = ((u8 *) D_800A1B70) + (var_s0 * 0x18);
-          *((s32 *) (((u8 *) temp_v1_2) + 0x330)) = 1;
-          *((volatile s32 *) (((u8 *) temp_v1_2) + 0x334)) = 0;
+          motor_pak_reset(slot, 0);
+          slot_ctx2 = ((u8 *)gControllerInputContext) + (slot * 0x18);
+          *((s32 *)(((u8 *)slot_ctx2) + 0x330)) = 1;
+          *((volatile s32 *)(((u8 *)slot_ctx2) + 0x334)) = 0;
         }
         else
         {
-          temp_v1_3 = ((u8 *) D_800A1B70) + (var_s0 * 0x18);
-          *((s32 *) (((u8 *) temp_v1_3) + 0x330)) = 0;
-          var_s0 = var_s2 & 0xFF;
-          *((volatile s32 *) (((u8 *) temp_v1_3) + 0x334)) = 0;
+          slot_ctx3 = ((u8 *)gControllerInputContext) + (slot * 0x18);
+          *((s32 *)(((u8 *)slot_ctx3) + 0x330)) = 0;
+          slot = i & 0xFF;
+          *((volatile s32 *)(((u8 *)slot_ctx3) + 0x334)) = 0;
         }
       }
       else
       {
-        temp_a0 = (char *) ((u8 *) D_800A1B70);
-        temp_a0 += (s32) ((var_s2 & 0xFF) * 0x18);
-        *((s32 *) (((u8 *) temp_a0) + 0x330)) = 0;
-        *((s32 *) (((u8 *) temp_a0) + 0x334)) = 0;
+        slot_ctx = (char *)((u8 *)gControllerInputContext);
+        slot_ctx += (s32)((i & 0xFF) * 0x18);
+        *((s32 *)(((u8 *)slot_ctx) + 0x330)) = 0;
+        *((s32 *)(((u8 *)slot_ctx) + 0x334)) = 0;
       }
-      temp_a2 = D_800A1B70;
-      var_s2 += 1;
-      var_s0 = (new_var = var_s2 & 0xFF);
+      ctx = gControllerInputContext;
+      i += 1;
+      slot = (tmp = i & 0xFF);
     }
-    while ((var_s2 & 0xFF) < (*((s32 *) (((u8 *) D_800A1B70) + 4))));
+    while ((i & 0xFF) < (*((s32 *)(((u8 *)gControllerInputContext) + 4))));
   }
 }
-
 

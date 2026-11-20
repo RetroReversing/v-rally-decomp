@@ -13884,10 +13884,10 @@
       "name": "code_80078760/func_80078760",
       "target_path": "build/asm/nonmatchings/code_80078760/func_80078760.o",
       "metadata": {
-        "complete": false,
-        "source_path": "asm/nonmatchings/code_80078760/func_80078760.s"
+        "complete": true,
+        "source_path": "src/code_80078760/func_80078760.c"
       },
-      "base_path": "build/progress/empty.o"
+      "base_path": "build/src/code_80078760/func_80078760.o"
     },
     {
       "name": "code_8007950C/func_8007950C",

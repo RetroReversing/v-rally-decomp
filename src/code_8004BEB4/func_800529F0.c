@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct ChRec
 {
@@ -23,10 +23,16 @@ typedef struct ChTable
   s32 laps[5][4];
   u32 total[4];
 } ChTable;
-extern ChCfg *D_800C35A0;
+extern ChCfg *gRecords;
 extern ChRec *D_800D0648;
-extern ChTable D_800B6600;
+extern ChTable gDecodeBlk;
 extern u8 D_800C81FC;
+
+/* At the end of a race (mode 5): for the current event (cfg->idx), sums each of
+ * four drivers' lap times into sums[][] and total[], ranks the drivers by that
+ * sum, stores the rank, and adds championship points (4/2/1/0 for ranks 0..3).
+ * D_800C81FC is set to 1 for the leading driver when their slot is below cfg->count,
+ * otherwise 0. */
 void func_800529F0(void)
 {
   ChCfg *cfg;
@@ -40,11 +46,11 @@ void func_800529F0(void)
   u32 pts;
   u8 *new_var;
   u8 *flag;
-  if (D_800C35A0->mode == 5)
+  if (gRecords->mode == 5)
   {
-    cfg = D_800C35A0;
+    cfg = gRecords;
     rec = &D_800D0648[cfg->idx];
-    t = &D_800B6600;
+    t = &gDecodeBlk;
     new_var = &D_800C81FC;
     for (i = 0; i < 4; i++)
     {
@@ -84,17 +90,17 @@ void func_800529F0(void)
       rank = 0;
       for (j = 0; j < 4; j++)
       {
-        rank += t->sums[D_800C35A0->idx][j] < t->sums[D_800C35A0->idx][m];
+        rank += t->sums[gRecords->idx][j] < t->sums[gRecords->idx][m];
       }
 
-      t->rank[D_800C35A0->idx][m] = rank;
+      t->rank[gRecords->idx][m] = rank;
       if (rank == one) goto rank_one;
       if (rank == 0) goto rank_zero;
       if (rank == two) goto rank_two;
       if (rank == three) goto rank_three;
       goto rank_done;
 rank_zero:
-      if (m < D_800C35A0->count) {
+      if (m < gRecords->count) {
         *flag = 1;
       } else {
         *flag = 0;
@@ -116,5 +122,4 @@ rank_done:
 
   }
 }
-
 

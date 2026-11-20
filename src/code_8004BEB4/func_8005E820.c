@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 /* machine draft (m2c) for gcc-2.7.2-kmc -G0 -mips3 -mgp32 -mfp32 -O2, tried by autopilot */
 #ifndef M2C_DEFINES
@@ -13,9 +13,13 @@ typedef s32 M2C_UNK32;
 #define M2C_CARRY 0
 #define M2C_OVERFLOW(a) (0)
 #endif
-void *func_800592D0(u32);                     /* extern */
+void *textObjGet(u32);                     /* extern */
 
-void func_8005E820(void) {
-    (M2C_UNK)func_800592D0(0);
+/* Looks up the first entry of the current select list and discards it. */ void func_8005E820(void) {
+#ifdef PORT
+    (void)textObjGet(0);
+#else
+    (M2C_UNK)textObjGet(0);
+#endif
 }
 

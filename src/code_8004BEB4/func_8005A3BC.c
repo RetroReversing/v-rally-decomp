@@ -1,7 +1,15 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-/* identical to func_8005B0FC in V-RALLY (matched), with its names changed by decompdecomp */
-/* identical to func_8005A3BC in V-RALLY (matched), with its names changed by decompdecomp */
-void func_8005A6E0(u32);void func_8005A6BC(u32);
-void func_8005A3BC(int arg0, int arg1, int arg2) { int i; for (i = 0; i < arg1; i++) { func_8005A6E0(arg0 + i); } func_8005A6BC(arg0 + arg2); }
+void text_obj_set_disabled(u32);
+void text_obj_set_enabled(u32);
+
+/* Clears the text objects first..first+count-1 (through text_obj_set_disabled), then
+ * calls text_obj_set_enabled for the object at first+offset. */
+void func_8005A3BC(int first, int count, int offset) {
+    int i;
+    for (i = 0; i < count; i++) {
+        text_obj_set_disabled(first + i);
+    }
+    text_obj_set_enabled(first + offset);
+}
 

@@ -1,86 +1,91 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern s8 D_800A16D4;
-extern u8 D_800AE850[];
-extern u8 D_800C02AE[];
-extern u8 *D_800C3508;
-extern void *D_800C35A0;
-extern void func_80057B40();void *func_800592AC(u32);
-extern void func_8005937C(s32, u16);void func_8005A6BC(u32);void func_8005A6E0(u32);
+extern s8 gStreamPhase;
+extern u8 gOrderState[];
+extern u8 stream_state[];
+extern u8 *gLeague;
+extern void *gRecords;
+extern void func_80057B40();void *select_get_entry(u32);
+extern void func_8005937C(s32, u16);void text_obj_set_enabled(u32);void text_obj_set_disabled(u32);
 extern void func_8005BB5C();
-extern void func_8005BC60();
+extern void select_clear_slots();
 typedef struct 
 {
   u32 w[177];
 } CarRecord;
 extern void func_80061740(CarRecord);
 extern void func_80062304(void);
-extern void func_8008A0D8(void *, u16, s32);
+extern void record_set_byte9(void *, u16, s32);
 extern void func_8008A104(void *, u16, s32, s32);
+
+/* Finishes the race results screen. Each car gets its row label (the player's
+   row uses the highlight set) and a colour from the standings. The leader index
+   is picked from the cars that are not finished, then the result message is
+   shown and that car's record is handed to the results panel. */
 void func_80070C34(void)
 {
   int __repair_literal;
   CarRecord record;
   s32 s3;
-  s32 s0;
-  s32 s7 = 3;
-  s32 s6;
-  s32 s2;
-  s32 s5;
-  s32 s1;
+  s32 car;
+  s32 kind = 3;
+  s32 color;
+  s32 lbl_hi;
+  s32 car_off;
+  s32 lbl_lo;
   char *new_var;
-  s32 s4;
+  s32 car_stride;
   s32 result;
-  func_8005BC60();
+  select_clear_slots();
   s3 = -1;
   func_8005BB5C();
-  s0 = 0;
+  car = 0;
   __repair_literal = 0;
-  s7 = __repair_literal;
-  if (((s32) (*((u16 *) (D_800C02AE + 0x1037a)))) > s7)
+  kind = __repair_literal;
+  if (((s32) (*((u16 *) (stream_state + 0x1037a)))) > kind)
   {
-    s7 = 3;
-    s6 = 0x50;
-    s2 = 0x15;
-    s5 = 0;
-    s1 = 9;
-    s4 = 0;
+    kind = 3;
+    color = 0x50;
+    lbl_hi = 0x15;
+    car_off = 0;
+    lbl_lo = 9;
+    car_stride = 0;
     do
     {
-      if ((*((s16 *) (D_800C3508 + 2))) == s7)
+      if ((*((s16 *) (gLeague + 2))) == kind)
       {
-        func_8005937C(s2, *(u16 *)((u8 *)&(*((CarRecord **) (D_800C02AE + 0x1039a)))[s0] + 0x14));
+        func_8005937C(lbl_hi, *(u16 *)((u8 *)&(*((CarRecord **) (stream_state + 0x1039a)))[car] + 0x14));
       }
       else
       {
-        func_8005937C(s1, *(u16 *)((u8 *)&(*((CarRecord **) (D_800C02AE + 0x1039a)))[s0] + 0x14));
+        func_8005937C(lbl_lo, *(u16 *)((u8 *)&(*((CarRecord **) (stream_state + 0x1039a)))[car] + 0x14));
       }
-      if ((*((s16 *) (D_800C3508 + 2))) == 2)
+      if ((*((s16 *) (gLeague + 2))) == 2)
       {
-        func_8008A104(D_800C3508, s1, 1, 1);
+        func_8008A104(gLeague, lbl_lo, 1, 1);
       }
-      if ((((*((u16 *) (D_800C35A0 + 0x20))) >= 8) & (s0 < 8)) || ((s0 >= 8) && ((*((u16 *) (D_800C35A0 + 0x20))) < 8)))
+      if ((((*((u16 *) (gRecords + 0x20))) >= 8) & (car < 8)) || ((car >= 8) && ((*((u16 *) (gRecords + 0x20))) < 8)))
       {
-        func_8008A104(D_800C3508, ((*((s16 *) (D_800C3508 + 2))) == s7) ? (s2) : (s1), 0, 0);
-        ((u8 *) func_800592AC(s0))[0x41] = 0;
+        func_8008A104(gLeague, ((*((s16 *) (gLeague + 2))) == kind) ? (lbl_hi) : (lbl_lo), 0, 0);
+        ((u8 *) select_get_entry(car))[0x41] = 0;
       }
       else
-        if ((*((s16 *) (D_800C3508 + 2))) == s7)
+        if ((*((s16 *) (gLeague + 2))) == kind)
       {
-        if (*((u16 *) ((D_800AE850 + 0x7dc0) + s5)))
+        if (*((u16 *) ((gOrderState + 0x7dc0) + car_off)))
         {
-          func_8008A0D8(D_800C3508, s2, 0);
+          record_set_byte9(gLeague, lbl_hi, 0);
           {
-            u8 *q = func_800592AC(s0);
-            q[0xf] = s6;
-            q[0x10] = s6;
-            q[0x11] = s6;
+            u8 *q = select_get_entry(car);
+            q[0xf] = color;
+            q[0x10] = color;
+            q[0x11] = color;
           }
         }
         else
           if (s3 < 0)
         {
-          s3 = s0;
+          s3 = car;
         }
         else
         {
@@ -88,53 +93,53 @@ void func_80070C34(void)
       }
       else
       {
-        s3 = (((*((u16 *) (D_800C35A0 + 0x20))) < 8) ^ 1) << 3;
+        s3 = (((*((u16 *) (gRecords + 0x20))) < 8) ^ 1) << 3;
       }
-      s2++;
-      s5 += 2;
-      s1++;
-      s0++;
-      s4 += 0x2c4;
+      lbl_hi++;
+      car_off += 2;
+      lbl_lo++;
+      car++;
+      car_stride += 0x2c4;
     }
-    while (s0 < ((s32) (*((u16 *) (D_800C02AE + 0x1037a)))));
+    while (car < ((s32) (*((u16 *) (stream_state + 0x1037a)))));
   }
   {
-    u8 *p = D_800C3508;
+    u8 *p = gLeague;
     u8 *q;
-    ((*((u8 **) (D_800C3508 + 0x10))) + ((*((s16 *) (p + 2))) * 0x14))[0xe] = ((*((u8 **) (D_800C3508 + 0x10))) + ((*((s16 *) (p + 2))) * 0x14))[0xd] + s3;
-    if ((*((s16 *) (D_800C3508 + 2))) == 2)
+    ((*((u8 **) (gLeague + 0x10))) + ((*((s16 *) (p + 2))) * 0x14))[0xe] = ((*((u8 **) (gLeague + 0x10))) + ((*((s16 *) (p + 2))) * 0x14))[0xd] + s3;
+    if ((*((s16 *) (gLeague + 2))) == 2)
     {
       func_80062304();
       if (!s3)
       {
-        func_8005A6E0(0x1c);
+        text_obj_set_disabled(0x1c);
         result = 0x1b;
       }
       else
       {
-        func_8005A6E0(0x1b);
+        text_obj_set_disabled(0x1b);
         result = 0x1c;
       }
     }
     else
       if (!s3)
     {
-      func_8005A6E0(0x13);
+      text_obj_set_disabled(0x13);
       result = 0x12;
     }
     else
     {
-      func_8005A6E0(0x12);
+      text_obj_set_disabled(0x12);
       result = 0x13;
     }
   }
-  func_8005A6BC(result);
-  *((s32 *) (D_800AE850 + 0x1cf8)) = s3;
-  record = *((CarRecord *) (((char *) (*((u8 **) (D_800C02AE + 0x1039a)))) + (s3 * 0x2c4)));
+  text_obj_set_enabled(result);
+  *((s32 *) (gOrderState + 0x1cf8)) = s3;
+  record = *((CarRecord *) (((char *) (*((u8 **) (stream_state + 0x1039a)))) + (s3 * 0x2c4)));
   func_80061740(record);
-  if ((*((s16 *) (D_800C3508 + 2))) == 3)
+  if ((*((s16 *) (gLeague + 2))) == 3)
   {
-    D_800A16D4 = 0;
+    gStreamPhase = 0;
     func_80057B40(0x22, 3, 0, 0);
   }
 }

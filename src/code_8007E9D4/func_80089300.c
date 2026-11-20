@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern f64 D_800A6D48;
 extern f64 D_800A6D50;
@@ -14,6 +14,8 @@ extern f64 D_800A6D98;
 extern f64 D_800A6DA0;
 extern f64 D_800A6DA8;
 extern f64 D_800A6DB0;
+/* Approximates a special function of x with polynomials: returns 1 at x == 0, a degree-6 polynomial
+ * in x for x > 0, and 1 / (degree-6 polynomial in |x|) for x < 0. */
 f32 func_80089300(f32 x)
 {
   f32 x4;
@@ -34,3 +36,4 @@ f32 func_80089300(f32 x)
   return D_800A6D68 / (x * D_800A6D48 + D_800A6D68 + x2 * D_800A6D50 + (x2 * x) * D_800A6D58
          + x4 * D_800A6D60 + (x4 * x) * D_800A6D70 + (x4 * x2) * D_800A6D78);
 }
+

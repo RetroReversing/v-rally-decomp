@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct 
 {
@@ -12,13 +12,13 @@ typedef struct
 typedef struct 
 {
   u8 pad[0xE];
-  u8 b;
-  u8 a;
+  u8 keyB;
+  u8 keyA;
   u8 pad10[4];
-  u8 v0;
-  u8 va;
-  u8 vb;
-  u8 vend;
+  u8 startVal;
+  u8 valA;
+  u8 valB;
+  u8 endVal;
   u8 pad18[4];
   PEnt *tbl;
 } PDef;
@@ -41,116 +41,118 @@ static inline s32 lerp(s32 to, s32 from, s32 num, s32 den)
   s32 q = (((s16) (to - from)) * num) / den;
   return q + from;
 }
-void func_800317D4(PObj *o)
+/* Fills the per-point table of a track path: linear ramps between the keyed
+ * points A and B, then holds and ramps out to the last point. */
+void func_800317D4(PObj *obj)
 {
-  u16 p0[3];
-  u16 p1[3];
+  u16 ptA[3];
+  u16 ptB[3];
   u16 cur[3];
-  s32 a;
-  s32 b;
-  s32 va;
-  s32 vb;
-  s32 v0;
-  s32 vend;
-  s32 t;
-  u16 i;
-  s32 d;
-  a = o->def->a;
-  b = o->def->b;
-  va = o->def->va;
-  vb = o->def->vb;
-  v0 = o->def->v0;
-  vend = o->def->vend;
-  i = 0;
-  if (((s32) b) < ((s32) a))
+  s32 keyA;
+  s32 keyB;
+  s32 valA;
+  s32 valB;
+  s32 startVal;
+  s32 endVal;
+  s32 tmp;
+  u16 idx;
+  s32 span;
+  keyA = obj->def->keyA;
+  keyB = obj->def->keyB;
+  valA = obj->def->valA;
+  valB = obj->def->valB;
+  startVal = obj->def->startVal;
+  endVal = obj->def->endVal;
+  idx = 0;
+  if (((s32) keyB) < ((s32) keyA))
   {
-    t = a;
-    a = b;
-    b = t;
-    i = va;
-    va = vb;
-    vb = i;
+    tmp = keyA;
+    keyA = keyB;
+    keyB = tmp;
+    idx = valA;
+    valA = valB;
+    valB = idx;
   }
-  if (a != 0)
+  if (keyA != 0)
   {
-    func_8002FFA4(o, 0, v0, &p0);
-    func_8002FFA4(o, a, va, &p1);
-    for (i = 0; i < a; i++)
+    func_8002FFA4(obj, 0, startVal, &ptA);
+    func_8002FFA4(obj, keyA, valA, &ptB);
+    for (idx = 0; idx < keyA; idx++)
     {
-      cur[0] = lerp(p1[0], p0[0], i, a);
-      cur[1] = lerp(p1[1], p0[1], i, a);
-      cur[2] = lerp(p1[2], p0[2], i, a);
-      o->def->tbl[i].x = cur[0];
-      o->def->tbl[i].y = cur[1];
-      o->def->tbl[i].z = cur[2];
-      o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
+      cur[0] = lerp(ptB[0], ptA[0], idx, keyA);
+      cur[1] = lerp(ptB[1], ptA[1], idx, keyA);
+      cur[2] = lerp(ptB[2], ptA[2], idx, keyA);
+      obj->def->tbl[idx].x = cur[0];
+      obj->def->tbl[idx].y = cur[1];
+      obj->def->tbl[idx].z = cur[2];
+      obj->def->tbl[idx].h = (s16) func_8003035C(obj, idx, &cur);
     }
 
   }
   else
   {
-    va = v0;
+    valA = startVal;
   }
-  if (b != 0)
+  if (keyB != 0)
   {
-    func_8002FFA4(o, a, va, &p0);
-    func_8002FFA4(o, b, (s16) vb, &p1);
-    if (a == b)
+    func_8002FFA4(obj, keyA, valA, &ptA);
+    func_8002FFA4(obj, keyB, (s16) valB, &ptB);
+    if (keyA == keyB)
     {
-      o->def->tbl[i].x = p1[0];
-      o->def->tbl[i].y = p1[1];
-      o->def->tbl[i].z = p1[2];
-      o->def->tbl[i].h = (s16) func_8003035C(o, b, &p1);
+      obj->def->tbl[idx].x = ptB[0];
+      obj->def->tbl[idx].y = ptB[1];
+      obj->def->tbl[idx].z = ptB[2];
+      obj->def->tbl[idx].h = (s16) func_8003035C(obj, keyB, &ptB);
     }
     else
     {
-      d = b - a;
-      for (i = a; i < b; i++)
+      span = keyB - keyA;
+      for (idx = keyA; idx < keyB; idx++)
       {
-        cur[0] = lerp(p1[0], p0[0], i - a, d);
-        cur[1] = lerp(p1[1], p0[1], i - a, d);
-        cur[2] = lerp(p1[2], p0[2], i - a, d);
-        o->def->tbl[i].x = cur[0];
-        o->def->tbl[i].y = cur[1];
-        o->def->tbl[i].z = cur[2];
-        o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
+        cur[0] = lerp(ptB[0], ptA[0], idx - keyA, span);
+        cur[1] = lerp(ptB[1], ptA[1], idx - keyA, span);
+        cur[2] = lerp(ptB[2], ptA[2], idx - keyA, span);
+        obj->def->tbl[idx].x = cur[0];
+        obj->def->tbl[idx].y = cur[1];
+        obj->def->tbl[idx].z = cur[2];
+        obj->def->tbl[idx].h = (s16) func_8003035C(obj, idx, &cur);
       }
 
     }
   }
   else
   {
-    vb = va;
-    b = a;
+    valB = valA;
+    keyB = keyA;
   }
-  func_8002FFA4(o, b, (s16) vb, &p0);
-  func_8002FFA4(o, o->n - 1, vend, &p1);
-  if (b == (o->n - 1))
+  func_8002FFA4(obj, keyB, (s16) valB, &ptA);
+  func_8002FFA4(obj, obj->n - 1, endVal, &ptB);
+  if (keyB == (obj->n - 1))
   {
-    o->def->tbl[i].x = p1[0];
-    o->def->tbl[i].y = p1[1];
-    o->def->tbl[i].z = p1[2];
-    o->def->tbl[i].h = vend * 10;
+    obj->def->tbl[idx].x = ptB[0];
+    obj->def->tbl[idx].y = ptB[1];
+    obj->def->tbl[idx].z = ptB[2];
+    obj->def->tbl[idx].h = endVal * 10;
     return;
   }
-  i = b;
+  idx = keyB;
   {
-  s32 b1 = b + 1;
-  for (; i <= (o->n - 1); i++)
+  s32 nextKey = keyB + 1;
+  for (; idx <= (obj->n - 1); idx++)
   {
-    cur[0] = p1[0] - p0[0];
-    cur[0] = lerp(cur[0], 0, i - b, o->n - b1);
-    cur[0] += p0[0];
-    cur[1] = p1[1] - p0[1];
-    cur[1] = lerp(cur[1], 0, i - b, o->n - b1);
-    cur[1] += p0[1];
-    cur[2] = p1[2] - p0[2];
-    cur[2] = lerp(cur[2], 0, i - b, o->n - b1);
-    cur[2] += p0[2];
-    o->def->tbl[i].x = cur[0];
-    o->def->tbl[i].y = cur[1];
-    o->def->tbl[i].z = cur[2];
-    o->def->tbl[i].h = (s16) func_8003035C(o, i, &cur);
+    cur[0] = ptB[0] - ptA[0];
+    cur[0] = lerp(cur[0], 0, idx - keyB, obj->n - nextKey);
+    cur[0] += ptA[0];
+    cur[1] = ptB[1] - ptA[1];
+    cur[1] = lerp(cur[1], 0, idx - keyB, obj->n - nextKey);
+    cur[1] += ptA[1];
+    cur[2] = ptB[2] - ptA[2];
+    cur[2] = lerp(cur[2], 0, idx - keyB, obj->n - nextKey);
+    cur[2] += ptA[2];
+    obj->def->tbl[idx].x = cur[0];
+    obj->def->tbl[idx].y = cur[1];
+    obj->def->tbl[idx].z = cur[2];
+    obj->def->tbl[idx].h = (s16) func_8003035C(obj, idx, &cur);
   }
   }
 }

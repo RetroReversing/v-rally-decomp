@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern u8 *D_800A1468;
-void *func_8005A744(u32,void *);
-void *func_800592D0(u32 index) { return func_8005A744(index, *(void **)D_800A1468); }
+extern u8 *gSelectState;
+void *list_advance(u32,void *);
+/* Returns the index-th node of the list whose head is stored at the start of gSelectState. */ void *func_800592D0(u32 index) { return list_advance(index, *(void **)gSelectState); }
 

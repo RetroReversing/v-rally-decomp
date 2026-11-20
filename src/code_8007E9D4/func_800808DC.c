@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Header
 {
@@ -11,15 +11,23 @@ typedef struct Header
   s32 tag;
   s32 value;
 } Header;
-void func_8007F828(void *, s32);
-void func_80097DC4(void *, void *, s32);
-extern u8 *D_800B5B40;
-extern void (*D_800C8090)(void *);
+void heapInitBlock(void *, s32);
+void mem_move(void *, void *, s32);
+extern u8 *gHeapCallerRa;
+extern void (*heapPanicFn)(void *);
 extern u32 D_800C33D0[];
 static inline s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
 {
+  #ifdef PORT
+  u32 i = ((u32) ((uintptr_t) p - 0x80000000)) >> shift;
+#else
   u32 i = ((u32) (p - 0x80000000)) >> shift;
+#endif
+  #ifdef PORT
+  u32 end = ((u32) ((uintptr_t) (p + size) - 0x80000000)) >> shift;
+#else
   u32 end = ((u32) ((p + size) - 0x80000000)) >> shift;
+#endif
   for (; i <= end; i++)
   {
     if (D_800C33D0[i] & mask)
@@ -31,7 +39,7 @@ static inline s8 range_free(u8 *p, s32 size, s32 shift, s32 mask)
   return 1;
 }
 
-static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
+static inline u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s32 mask, s32 *mode)
 {
   u8 *start = (u8 *) (h + 1);
   u32 gran;
@@ -53,7 +61,11 @@ static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s
   n = 0;
   if (gran < ((u32) avail))
   {
+    #ifdef PORT
+    base = (u8 *) ((uintptr_t) start & (-gran));
+#else
     base = (u8 *) (((s32) start) & (-gran));
+#endif
     for (;;)
     {
       n++;
@@ -64,12 +76,20 @@ static inline static static u8 *fit(Header *h, s32 avail, s32 size, s32 shift, s
     }
 
     *mode = 3;
+    #ifdef PORT
+    return ((u8 *) ((uintptr_t) start & (-gran))) + (gran * n);
+#else
     return ((u8 *) (((s32) start) & (-gran))) + (gran * n);
+#endif
   }
   *mode = 0;
   return NULL;
 }
 
+/* First-fit/best-fit heap allocator. Blocks are chained by Header; a block
+ * with used == 0 is free. Returns a pointer to 'size' bytes aligned to 'align',
+ * placed so the range avoids granules whose bits in D_800C33D0 overlap 'mask'
+ * (granule = 1 << shift). Splits the chosen free block around the result. */
 void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
 {
   Header *first;
@@ -85,9 +105,9 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   s32 mode;
   u32 bestMode;
   u32 i;
-  int new_var;
+  int zero;
   u32 e;
-  u8 *new_var2;
+  u8 *pm1;
   s32 k;
   u32 *t;
   u32 m;
@@ -96,7 +116,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   size = (size + (align - 1)) & (-align);
   if (size == 0)
   {
-    D_800C8090(D_800B5B40 - 4);
+    heapPanicFn(gHeapCallerRa - 4);
     for (;;)
     {
     }
@@ -104,8 +124,8 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   bestH = NULL;
   res = NULL;
-  new_var = 0;
-  bestMode = new_var;
+  zero = 0;
+  bestMode = zero;
   if (first->init == 0)
   {
     e = ((u8 *) first->next) - ((u8 *) (first + 1));
@@ -113,7 +133,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
     {
       first->init = 1;
       h = first + 1;
-      func_8007F828(h, e);
+      heapInitBlock(h, e);
     }
     else
     {
@@ -142,8 +162,16 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
     {
       if ((h->used != 0) && (h->next != NULL))
       {
-        i = ((u32) (((u8 *) (h + 1)) - 0x80000000)) >> shift;
-        m = ((u32) (((u8 *) h->next) - 0x80000000)) >> shift;
+        #ifdef PORT
+          i = ((u32) ((uintptr_t) (h + 1) - 0x80000000)) >> shift;
+#else
+          i = ((u32) (((u8 *) (h + 1)) - 0x80000000)) >> shift;
+#endif
+        #ifdef PORT
+          m = ((u32) ((uintptr_t) h->next - 0x80000000)) >> shift;
+#else
+          m = ((u32) (((u8 *) h->next) - 0x80000000)) >> shift;
+#endif
         for (; i <= m; i++)
         {
           D_800C33D0[i] |= 1 << h->tag;
@@ -157,7 +185,11 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   {
     if (h->used == 0)
     {
-      avail = ((((s32) h->next) & (-align)) - ((((s32) h) + (align + 0x13)) & (-align))) & (-align);
+      #ifdef PORT
+       avail = ((((uintptr_t) h->next) & (-align)) - ((((uintptr_t) h) + (align + 0x13)) & (-align))) & (-align);
+#else
+       avail = ((((s32) h->next) & (-align)) - ((((s32) h) + (align + 0x13)) & (-align))) & (-align);
+#endif
       if (avail >= size)
       {
         p = fit(h, avail, size, shift, mask, &mode);
@@ -167,11 +199,19 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
           bestH = h;
           if (mode != 2)
           {
-            res = (u8 *) (((s32) ((new_var2 = p - 1) + align)) & (-align));
+            #ifdef PORT
+            res = (u8 *) ((uintptr_t) ((pm1 = p - 1) + align) & (-align));
+#else
+            res = (u8 *) (((s32) ((pm1 = p - 1) + align)) & (-align));
+#endif
           }
           else
           {
+            #ifdef PORT
+            res = (u8 *) ((uintptr_t) p & (-align));
+#else
             res = (u8 *) (((s32) p) & (-align));
+#endif
           }
           bestMode = mode;
         }
@@ -188,7 +228,7 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
         nh = ((Header *) res) - 1;
         if (bestH != nh)
       {
-        func_80097DC4(nh, bestH, 0x14);
+        mem_move(nh, bestH, 0x14);
         bestH = nh;
         nh = 0;
         if (bestH->prev != NULL)
@@ -259,5 +299,4 @@ void *func_800808DC(Header *arg0, s32 size, s32 align, s32 shift, s32 mask)
   }
   return res;
 }
-
 

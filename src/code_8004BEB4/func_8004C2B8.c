@@ -1,61 +1,64 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct 
 {
   s32 pad10[4];
-  s32 w20;
-  s32 w24;
-  s32 w28;
-  s32 w2C;
-  s32 w30;
-  s32 w34;
-  s32 w38;
-  s32 w3C;
-  s32 w40;
-  s32 w44;
-  s32 w48;
-  s32 w4C;
-  u8 b50[12];
-  u8 b5C[4];
+  s32 vx0;
+  s32 vx1;
+  s32 vx2;
+  s32 vx3;
+  s32 vy0;
+  s32 vy1;
+  s32 vy2;
+  s32 vy3;
+  s32 col0;
+  s32 col1;
+  s32 col2;
+  s32 col3;
+  u8 rgb[12];
+  u8 alpha[4];
   s32 pad60[2];
-} FuncBuf;
-void func_8004C370(s32, FuncBuf *, s32, s32);
-void func_8004C2B8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, u8 arg5)
-{
-  FuncBuf buf;
-  u16 a1 = arg1;
-  u16 a2 = arg2;
-  u16 a3 = arg3;
-  u16 v1 = arg4;
-  buf.w20 = a1;
-buf.w40 = 0;
-  buf.w30 = a2;
-  buf.w24 = a3;
-  buf.w44 = 0;
-  buf.w28 = a3 + 1;
-  buf.w2C = a1 + 1;
-  buf.w48 = 0;
-  buf.w3C = a2 + 1;
-  buf.w4C = 0;
-  buf.b50[0] = 0xFF;
-  buf.b50[4] = 0xFF;
-  buf.b50[8] = 0xFF;
-  buf.b50[1] = 0xFF;
-  buf.b50[5] = 0xFF;
-  buf.b50[9] = 0xFF;
-  buf.b50[2] = 0xFF;
-  buf.b50[6] = 0xFF;
-  buf.b50[10] = 0xFF;
-  buf.b50[3] = 0xFF;
-  buf.b50[7] = 0xFF;
-  buf.b50[11] = 0xFF;
-  buf.w34 = v1;
-  buf.w38 = v1 + 1;
-  buf.b5C[0] = arg5;
-  buf.b5C[1] = arg5;
-  buf.b5C[2] = arg5;
-  buf.b5C[3] = arg5;
-  func_8004C370(arg0, &buf, a2 + 1, a3 + 1);
-}
+} EdgeQuad;
+void func_8004C370(s32, EdgeQuad *, s32, s32);
 
+/* Builds a 4-vertex quad that covers the edge from (x0, y0) to (x1, y1),
+ * with each far corner one pixel larger, all vertices white with the given
+ * alpha, and sends it to the display list through func_8004C370. */
+void func_8004C2B8(s32 unused, s32 x0, s32 y0, s32 x1, u16 y1, u8 alpha)
+{
+  EdgeQuad quad;
+  u16 sx0 = x0;
+  u16 sy0 = y0;
+  u16 sx1 = x1;
+  u16 sy1 = y1;
+  quad.vx0 = sx0;
+  quad.col0 = 0;
+  quad.vy0 = sy0;
+  quad.vx1 = sx1;
+  quad.col1 = 0;
+  quad.vx2 = sx1 + 1;
+  quad.vx3 = sx0 + 1;
+  quad.col2 = 0;
+  quad.vy3 = sy0 + 1;
+  quad.col3 = 0;
+  quad.rgb[0] = 0xFF;
+  quad.rgb[4] = 0xFF;
+  quad.rgb[8] = 0xFF;
+  quad.rgb[1] = 0xFF;
+  quad.rgb[5] = 0xFF;
+  quad.rgb[9] = 0xFF;
+  quad.rgb[2] = 0xFF;
+  quad.rgb[6] = 0xFF;
+  quad.rgb[10] = 0xFF;
+  quad.rgb[3] = 0xFF;
+  quad.rgb[7] = 0xFF;
+  quad.rgb[11] = 0xFF;
+  quad.vy1 = sy1;
+  quad.vy2 = sy1 + 1;
+  quad.alpha[0] = alpha;
+  quad.alpha[1] = alpha;
+  quad.alpha[2] = alpha;
+  quad.alpha[3] = alpha;
+  func_8004C370(unused, &quad, sy0 + 1, sx1 + 1);
+}
 

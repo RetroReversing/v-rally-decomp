@@ -1,27 +1,38 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-void *func_800592AC(u32);
-extern char D_800C02AE[];
+void *select_get_entry(u32);
+extern char stream_state[];
 
-void func_800593FC(s32 arg0, s32 arg1)
+/* Copies the stored state of entry src (word at +0x28, flag byte at +0x4D) to
+ * entry dst, with both indices shifted by the stream table's base offset. Sets
+ * the flag byte at +0x4E on dst. */
+void func_800593FC(s32 src, s32 dst)
 {
-    void *temp_v0;
-    s32 temp_a2;
-    s32 temp_t;
-    s32 temp_x;
-    void *temp_s0;
-    void *temp_v0_2;
-    u8 temp_b;
+    void *select_state;
+#ifdef PORT
+    u8 *table_base;
+#else
+    s32 table_base;
+#endif
+    s32 base_offset;
+    s32 dst_index;
+    void *src_entry;
+    void *dst_entry;
+    u8 flag;
 
-    temp_v0 = *((void **) (D_800C02AE + 0x325A));
-    temp_a2 = *((s32 *) (((char *) temp_v0) + 0x10));
-    temp_t = *((u8 *) ((temp_a2 + ((*((s16 *) (((char *) temp_v0) + 2))) * 0x14)) + 0xD));
-    temp_x = arg1 - temp_t;
-    temp_s0 = func_800592AC(arg0 - temp_t);
-    temp_v0_2 = func_800592AC(temp_x);
-    *((s32 *) (((char *) temp_v0_2) + 0x28)) = *((s32 *) (((char *) temp_s0) + 0x28));
-    temp_b = *((u8 *) (((char *) temp_s0) + 0x4D));
-    *((u8 *) (((char *) temp_v0_2) + 0x4E)) = 1;
-    *((u8 *) (((char *) temp_v0_2) + 0x4D)) = temp_b;
+    select_state = *((void **) (stream_state + 0x325A));
+#ifdef PORT
+    table_base = *((u8 **) (((char *) select_state) + 0x10));
+#else
+    table_base = *((s32 *) (((char *) select_state) + 0x10));
+#endif
+    base_offset = *((u8 *) ((table_base + ((*((s16 *) (((char *) select_state) + 2))) * 0x14)) + 0xD));
+    dst_index = dst - base_offset;
+    src_entry = select_get_entry(src - base_offset);
+    dst_entry = select_get_entry(dst_index);
+    *((s32 *) (((char *) dst_entry) + 0x28)) = *((s32 *) (((char *) src_entry) + 0x28));
+    flag = *((u8 *) (((char *) src_entry) + 0x4D));
+    *((u8 *) (((char *) dst_entry) + 0x4E)) = 1;
+    *((u8 *) (((char *) dst_entry) + 0x4D)) = flag;
 }
 

@@ -1,45 +1,50 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-typedef struct { char pad[8]; void (*cb)(s32, void *); s32 a, b; } Entry;
+typedef struct { char pad[8]; void (*cb)(s32, void *); s32 a, b; } CameraEntry;
 typedef struct {
   u8 pad[0x90];
   s32 slot;
   u8 pad94[4];
   u8 name[0x174 - 0x98];
   s32 extra;
-} Obj41;
+} CameraSlot;
 extern char D_800A0130[];
-extern u8 *D_800C35A0;
-extern u8 *D_800C7F84;
-u8 *func_8004240C(s32);
-Entry *func_8002255C(void *, void *);
-s32 func_800223B4(void *, s32, s32, Entry *, s32);
+extern u8 *gRecords;
+extern u8 *g_camera;
+u8 *find_object_by_id(s32);
+CameraEntry *find_entry_by_name(void *, void *);
+s32 named_entry_find_or_add(void *, s32, s32, CameraEntry *, s32);
 
-s32 func_80041F24(Obj41 *arg0, u8 player)
+/* Works out which object this slot's camera should follow (slot 3 uses the
+ * current mode, other non-zero slots are relative to the player), makes it
+ * the camera object, then runs the camera entry for the slot's name and
+ * calls its callback if it has one. */
+s32 func_80041F24(CameraSlot *slot_obj, u8 player)
 {
   s32 slot;
   u8 idx;
   u8 *node;
-  u8 *p28;
-  Entry *entry;
+  u8 *target_pos;
+  CameraEntry *entry;
   s32 result;
   u16 mode;
 
-  slot = arg0->slot;
+  slot = slot_obj->slot;
   idx = slot;
-  mode = *(u16 *)(D_800C35A0 + 0xE);
+  mode = *(u16 *)(gRecords + 0xE);
   if ((u8)idx == 3) {
     idx = (mode * 2) | 1;
   } else if ((u8)idx != 0) {
     idx = player * 2 - slot;
   }
-  node = func_8004240C(idx);
-  p28 = node + 0x28;
-  D_800C7F84 = node;
-  entry = func_8002255C(D_800A0130, arg0->name);
-  result = func_800223B4(p28, entry->a, entry->b, entry, arg0->extra);
+  node = find_object_by_id(idx);
+  target_pos = node + 0x28;
+  g_camera = node;
+  entry = find_entry_by_name(D_800A0130, slot_obj->name);
+  result = named_entry_find_or_add(target_pos, entry->a, entry->b, entry, slot_obj->extra);
   if (entry->cb) {
-    entry->cb(result, arg0);
+    entry->cb(result, slot_obj);
   }
   return result;
 }
+

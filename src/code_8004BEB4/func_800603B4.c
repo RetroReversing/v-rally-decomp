@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Info
 {
@@ -51,13 +51,13 @@ extern struct
 {
   u8 pad[0x1300];
   CarInfo cars[16];
-} D_800AE850;
-extern Sel *D_800C35A0;
-extern Hdr *D_800C3508;
-extern Stage *D_800D0634[];
-extern u8 D_800C832C[];
+} gOrderState;
+extern Sel *gRecords;
+extern Hdr *gLeague;
+extern Stage *gSlotTableB[];
+extern u8 gFlagMasks[];
 extern u8 D_800A1530[];
-extern u8 D_800A1548[];
+extern u8 gMaskSlot[];
 extern u16 D_800A1504[];
 extern u16 D_800A150C[];
 extern u16 D_800A1514[];
@@ -65,12 +65,16 @@ extern u16 D_800A1520[];
 extern u16 D_800A1528;
 extern u16 D_800A152A;
 extern u16 D_800A152C;
-extern s8 *D_800A1468;
+extern s8 *gSelectState;
 extern u8 D_800A14D5;
 extern volatile u32 D_800A14DC;
-void func_800584D4(void);void *func_800592D0(u32);
-void func_8005A05C(s32);
-u8 func_800602F4(Info *);
+void select_flush_pending(void);void *textObjGet(u32);
+void list_set_flag2_at_index(s32);
+u8 classifyStreamCode(Info *);
+
+/* Fills the stage result HUD: the stage's rank, the car's stat bars (a, b, c)
+ * and speed class, and the average of the three best split times (D_800A14DC).
+ * Sets two flags in gSelectState that the HUD reads. */
 void func_800603B4(void)
 {
   u8 n;
@@ -82,21 +86,21 @@ void func_800603B4(void)
   Stage *q;
   short new_var;
   Item *it;
-  n = func_800602F4(&((Stage **) 0x800D0634)[D_800C35A0->mode][D_800C35A0->course].info[D_800C35A0->stage]);
-  func_800584D4();
-  D_800A1468[0x233] = -1;
-  ((Item *)func_800592D0(5))->val = D_800A1504[D_800A1530[n]];
-  ((Item *)func_800592D0(13))->val = D_800A150C[D_800AE850.cars[D_800C35A0->car].a];
-  ((Item *)func_800592D0(9))->val = D_800A1514[D_800AE850.cars[D_800C35A0->car].b];
-  ((Item *)func_800592D0(7))->val = D_800A1520[D_800AE850.cars[D_800C35A0->car].c];
-  it = func_800592D0(11);
+  n = classifyStreamCode(&((Stage **) 0x800D0634)[gRecords->mode][gRecords->course].info[gRecords->stage]);
+  select_flush_pending();
+  gSelectState[0x233] = -1;
+  ((Item *)textObjGet(5))->val = D_800A1504[D_800A1530[n]];
+  ((Item *)textObjGet(13))->val = D_800A150C[gOrderState.cars[gRecords->car].a];
+  ((Item *)textObjGet(9))->val = D_800A1514[gOrderState.cars[gRecords->car].b];
+  ((Item *)textObjGet(7))->val = D_800A1520[gOrderState.cars[gRecords->car].c];
+  it = textObjGet(11);
   {
-    if (D_800AE850.cars[D_800C35A0->car].speed <= 118.0f)
+    if (gOrderState.cars[gRecords->car].speed <= 118.0f)
     {
       it->val = D_800A1528;
     }
     else
-      if (D_800AE850.cars[D_800C35A0->car].speed <= 132.0f)
+      if (gOrderState.cars[gRecords->car].speed <= 132.0f)
     {
       it->val = D_800A152A;
     }
@@ -105,8 +109,8 @@ void func_800603B4(void)
       it->val = D_800A152C;
     }
   }
-  mode = D_800C35A0->mode;
-  if (((((u32) (mode - 1)) < 2) || (((u32) (mode - 3)) < 2)) || ((D_800C35A0->course < 8) && ((((u8 *) 0x800C832C)[D_800C35A0->course] & (1 << D_800C35A0->stage)) != (1 << D_800C35A0->stage))))
+  mode = gRecords->mode;
+  if (((((u32) (mode - 1)) < 2) || (((u32) (mode - 3)) < 2)) || ((gRecords->course < 8) && ((((u8 *) 0x800C832C)[gRecords->course] & (1 << gRecords->stage)) != (1 << gRecords->stage))))
   {
     D_800A14D5 = 1;
   }
@@ -114,7 +118,7 @@ void func_800603B4(void)
   {
     D_800A14D5 = 0;
   }
-  sel = D_800C35A0;
+  sel = gRecords;
   base0 = *((Stage **) 0x800D0634);
   D_800A14DC = 0;
   mode = sel->mode;
@@ -128,7 +132,11 @@ void func_800603B4(void)
       }
       else
       {
-        q = (Stage *) (D_800A1548[sel->course] * sizeof(Stage) + (u32) base0);
+        #ifdef PORT
+        q = (Stage *) ((u8 *) base0 + gMaskSlot[sel->course] * sizeof(Stage));
+#else
+        q = (Stage *) (gMaskSlot[sel->course] * sizeof(Stage) + (u32) base0);
+#endif
         {
           s32 st = sel->stage - 2;
           new_var = i;
@@ -138,19 +146,18 @@ void func_800603B4(void)
     }
     else
     {
-      D_800A14DC += D_800D0634[mode][sel->course].rec[sel->stage][i].time;
+      D_800A14DC += gSlotTableB[mode][sel->course].rec[sel->stage][i].time;
     }
   }
 
-  if ((D_800C35A0->mode != 5) || (D_800A14D5 == 0))
+  if ((gRecords->mode != 5) || (D_800A14D5 == 0))
   {
     D_800A14DC /= 3;
   }
-  if ((D_800C3508->type == 4) && (D_800C35A0->stage == 0))
+  if ((gLeague->type == 4) && (gRecords->stage == 0))
   {
-    func_8005A05C(1);
+    list_set_flag2_at_index(1);
   }
-  D_800A1468[0x22B] = -1;
+  gSelectState[0x22B] = -1;
 }
-
 

@@ -1,41 +1,44 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-s32 func_8001FEE8(s32);
-void func_80099DF8(u8 *, void *, s32);
+s32 getCounterValue(s32);
+void format_to_buffer(u8 *, void *, s32);
 extern u8 D_800A4B3C[];
 
-void func_8003C254(void *object) {
-    u8 * arg0 = object;
-    u8 buf[4];
-    s32 temp_a0;
-    s32 temp_v0;
-    u8 *temp_v1;
-    u8 *temp_a0_2;
+/* Shows the counter's value (clamped at 0) on its digit sprites. The object
+   is the ones digit; its children at +0x8C are the tens and hundreds digits.
+   Leading-zero digits are hidden (flag bit 4 in +0x80). */
+void func_8003C254(void *counter) {
+    u8 *obj = counter;
+    u8 digits[4];
+    s32 src;
+    s32 value;
+    u8 *tens;
+    u8 *hundreds;
 
-    temp_a0 = *(s32 *)(*(u8 **)(arg0 + 0xA8) + 0x24);
-    if (temp_a0 != 0) {
-        if (*(u16 *)(arg0 + 0x78) == 0) {
-            temp_v0 = func_8001FEE8(temp_a0);
-            temp_v0 &= ~temp_v0 >> 31;
-            func_80099DF8(buf, D_800A4B3C, temp_v0 & 0xFFFF);
-            temp_v1 = *(u8 **)(arg0 + 0x8C);
-            *(s16 *)(arg0 + 0x7A) = buf[0] - 0x30;
-            temp_a0_2 = *(u8 **)(temp_v1 + 0x8C);
-            if (buf[1] != 0) {
-                *(s32 *)(temp_v1 + 0x80) &= -5;
-                *(s16 *)(arg0 + 0x7A) = buf[1] - 0x30;
-                *(s16 *)(temp_v1 + 0x7A) = buf[0] - 0x30;
-                if (buf[2] != 0) {
-                    *(s32 *)(temp_a0_2 + 0x80) &= -5;
-                    *(s16 *)(arg0 + 0x7A) = buf[2] - 0x30;
-                    *(s16 *)(temp_v1 + 0x7A) = buf[1] - 0x30;
-                    *(s16 *)(temp_a0_2 + 0x7A) = buf[0] - 0x30;
+    src = *(s32 *)(*(u8 **)(obj + 0xA8) + 0x24);
+    if (src != 0) {
+        if (*(u16 *)(obj + 0x78) == 0) {
+            value = getCounterValue(src);
+            value &= ~value >> 31;
+            format_to_buffer(digits, D_800A4B3C, value & 0xFFFF);
+            tens = *(u8 **)(obj + 0x8C);
+            *(s16 *)(obj + 0x7A) = digits[0] - 0x30;
+            hundreds = *(u8 **)(tens + 0x8C);
+            if (digits[1] != 0) {
+                *(s32 *)(tens + 0x80) &= -5;
+                *(s16 *)(obj + 0x7A) = digits[1] - 0x30;
+                *(s16 *)(tens + 0x7A) = digits[0] - 0x30;
+                if (digits[2] != 0) {
+                    *(s32 *)(hundreds + 0x80) &= -5;
+                    *(s16 *)(obj + 0x7A) = digits[2] - 0x30;
+                    *(s16 *)(tens + 0x7A) = digits[1] - 0x30;
+                    *(s16 *)(hundreds + 0x7A) = digits[0] - 0x30;
                     return;
                 }
             } else {
-                *(s32 *)(temp_v1 + 0x80) |= 4;
+                *(s32 *)(tens + 0x80) |= 4;
             }
-            *(s32 *)(temp_a0_2 + 0x80) |= 4;
+            *(s32 *)(hundreds + 0x80) |= 4;
         }
     }
 }

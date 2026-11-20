@@ -1,73 +1,76 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
-void func_8003A794(s32,s32,s32,SpriteHook,u8*,u16,u8*);
-extern char D_800C02AE[];
+void add_label_sprites(s32,s32,s32,SpriteHook,u8*,u16,u8*);
+extern char stream_state[];
 void func_8003AD18(void *);
 
-void func_8003D780(s32 arg0, s32 arg1)
+/* Adds the position label sprites for the HUD of one view (arg0), using the view's text
+ * block (arg1). The layout depends on the HUD mode (1 or 2) and whether the label is
+ * shown with its value (hud + 0x1E != 0). */
+void func_8003D780(s32 view, u8 *text)
 {
     u8 col[4];
-    u8 *g;
-    u8 *a3;
-    s32 t1;
-    s32 t2;
-    s32 t4;
-    s32 t5;
-    s32 a1;
-    s32 a2;
+    u8 *car;
+    u8 *hud;
+    s32 x;
+    s32 xr;
+    s32 y;
+    s32 yr;
+    s32 xl;
+    s32 yl;
     s32 mode;
 
-    g = *(u8 **)(D_800C02AE + 0x7CD6);
-    t1 = *(s16 *)(*(u8 **)(g + 0x178) + 8);
-    t4 = *(s16 *)(*(u8 **)(g + 0x178) + 0xA);
-    t5 = *(s16 *)(*(u8 **)(g + 0x178) + 0xC);
-    t2 = *(s16 *)(*(u8 **)(g + 0x178) + 0xE);
+    car = *(u8 **)(stream_state + 0x7CD6);
+    x = *(s16 *)(*(u8 **)(car + 0x178) + 8);
+    y = *(s16 *)(*(u8 **)(car + 0x178) + 0xA);
+    yr = *(s16 *)(*(u8 **)(car + 0x178) + 0xC);
+    xr = *(s16 *)(*(u8 **)(car + 0x178) + 0xE);
     col[0] = 0xFE;
     col[1] = 0xD5;
     col[2] = 0x1E;
     col[3] = 0xFF;
-    a3 = *(u8 **)(D_800C02AE + 0x32F2);
-    mode = *(u16 *)(a3 + 0xE);
-    a1 = t1 + 0x14;
-    a2 = t4 + 6;
+    hud = *(u8 **)(stream_state + 0x32F2);
+    mode = *(u16 *)(hud + 0xE);
+    xl = x + 0x14;
+    yl = y + 6;
     switch (mode) {
     case 1:
-        if (*(u16 *)(a3 + 0x1E) == 0) {
-            a2 = *(s16 *)(*(u8 **)(g + 0x178) + 0xA) + t2 - 0x12;
-            func_8003A794((s32)(arg0), a1, a2, &func_8003AD18, (u8 *)(arg1), 0, col);
+        if (*(u16 *)(hud + 0x1E) == 0) {
+            yl = *(s16 *)(*(u8 **)(car + 0x178) + 0xA) + xr - 0x12;
+            add_label_sprites((s32)(view), xl, yl, &func_8003AD18, (u8 *)(text), 0, col);
         } else {
-            func_8003A794((s32)(arg0), t5 - 0x4A, a2, &func_8003AD18, (u8 *)(arg1), 0, 0);
+            add_label_sprites((s32)(view), yr - 0x4A, yl, &func_8003AD18, (u8 *)(text), 0, 0);
         }
         break;
     case 2:
-        if (*(u16 *)(a3 + 0x1E) == 0) {
-            a2 = *(s16 *)(*(u8 **)(g + 0x178) + 0xA) + 2;
-            if (*(u16 *)(a3 + 0x12) & 1) {
-                a1 = t1 + 0x14;
-            } else if (*(s32 *)(g + 0xC) == 3) {
-                a1 = t1 + 0x18;
+        if (*(u16 *)(hud + 0x1E) == 0) {
+            yl = *(s16 *)(*(u8 **)(car + 0x178) + 0xA) + 2;
+            if (*(u16 *)(hud + 0x12) & 1) {
+                xl = x + 0x14;
+            } else if (*(s32 *)(car + 0xC) == 3) {
+                xl = x + 0x18;
             } else {
-                a1 = t1 + 0x28;
+                xl = x + 0x28;
             }
-            a1 -= 0x14;
-            a2 = a2 + t2 - 0x14;
-            func_8003A794((s32)(arg0), a1, a2, &func_8003AD18, (u8 *)(arg1), 0, col);
+            xl -= 0x14;
+            yl = yl + xr - 0x14;
+            add_label_sprites((s32)(view), xl, yl, &func_8003AD18, (u8 *)(text), 0, col);
         } else {
-            if (*(u16 *)(a3 + 0x12) & 1) {
-                if (*(s32 *)(g + 0xC) == 3) {
-                    a2 = t4 + 4;
+            if (*(u16 *)(hud + 0x12) & 1) {
+                if (*(s32 *)(car + 0xC) == 3) {
+                    yl = y + 4;
                 }
-                a1 = t1;
-                a2 += t2;
-                a2 -= 0x11;
+                xl = x;
+                yl += xr;
+                yl -= 0x11;
             } else {
-                if (*(s32 *)(g + 0xC) == 3) {
-                    a1 = t1 + 6;
+                if (*(s32 *)(car + 0xC) == 3) {
+                    xl = x + 6;
                 }
-                a2 = t2 - 0x1C;
+                yl = xr - 0x1C;
             }
-            func_8003A794((s32)(arg0), a1, a2, &func_8003AD18, (u8 *)(arg1), 0, 0);
+            add_label_sprites((s32)(view), xl, yl, &func_8003AD18, (u8 *)(text), 0, 0);
         }
         break;
     }

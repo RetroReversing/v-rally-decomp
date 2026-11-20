@@ -1,27 +1,27 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 extern u32 D_800C7F9C[];
-extern char D_800C7F90[];
-extern s32 D_800C8328;
+extern char gResultsTable[];
+extern s32 gSelectStepHandle;
 extern s32 D_800D0660;
 extern s32 D_800D0664;
-void *func_80006008();
-void func_80006014();
-void func_80006298();
-volatile unsigned long long func_800068C0();
+void *gfx_get_dl();
+void gfx_set_dl();
+void gfx_round_vtx_pos();
+volatile unsigned long long gfx_set_quad_pos();
 int func_80006B4C();
-void func_800072F4();
-void func_8000C22C(void *, s32, s32, s32, u8);
-void func_8000C244();
-s32 func_8000C9B0(void *, void *, u8, f32, u8);
+void gfx_set_quad_colors_shared_alpha();
+void font_set_color(void *, s32, s32, s32, u8);
+void font_draw_text();
+s32 font_text_width(void *, void *, u8, f32, u8);
 void func_80052E94();
-char *func_80057918();
+char *pool_get_item();
 void func_80073108();
 void func_80073320();
-void func_8007347C();
-int func_80099DF8(void *, void *, ...);
+void draw_panel_quad();
+int format_to_buffer(void *, void *, ...);
 extern char D_800A1798[];
-extern u8 D_800A17E8;
+extern u8 panel_gap;
 extern u8 D_800A17EA;
 extern char D_800A5D70[];
 extern char D_800A5D7C[];
@@ -35,11 +35,11 @@ extern char D_800A5DF4[];
 extern char D_800A5DFC[];
 extern char D_800A5E0C[];
 extern char D_800A5E10[];
-extern char D_800A73E0[];
-extern char D_800C02AE[];
+extern char gGameState[];
+extern char stream_state[];
 static inline static char *inline_fn(int arg0, s32 arg1)
 {
-  return (D_800C02AE + arg0) + (arg1 * 0x18);
+  return (stream_state + arg0) + (arg1 * 0x18);
 }
 
 static inline static static int inline_fn2(s16 arg0, u8 arg1)
@@ -47,154 +47,166 @@ static inline static static int inline_fn2(s16 arg0, u8 arg1)
   return arg0 + arg1;
 }
 
-void func_80074BF8(void *arg0, void *arg1)
+/* Draws the results panel: title bar, the seven result rows with times and names, and the footer reward strings. */ void func_80074BF8(void *panel_ctx, void *gfx)
 {
-  s32 * dp74;
-s32 temp_s0_3; s32 base74; s32 width74;
-char sp40[0x78];
-  char spB8[0x18];
-  char spD0[0x18];
-  char spE8[0x18];
-  char *text;
-  u16 sp106;
-  s32 *temp_s3;
-  s32 sp10C;
-  u16 temp_s0_5;
-  s16 temp_s1_4;
-  s16 temp_s1_5;
-  s16 temp_s1_6;
-  s32 temp_s0;
-  s32 temp_s0_10;
-  char (*new_var3)[];
-  s32 temp_s0_2;
-  
-  s32 temp_s0_7;
-  s32 temp_s0_8;
-  s32 temp_s0_9;
-  s32 temp_s1;
-  s32 temp_s1_2;
-  u16 temp_s1_3;
-  s32 temp_v0_2;
-  s32 var_s6;
-  s32 var_v0;
-  s32 var_v0_3;
-  s32 var_v0_4;
-  s32 var_v1;
-  u32 temp_a2;
-  int new_var;
-  u32 temp_s0_4;
-  int new_var2;
-  u32 temp_s0_6;
-  u32 temp_v1;
-  u32 var_v0_2;
-  void *temp_s3_2;
-  void *temp_s4;
-  void *temp_v0;
-  dp74=(s32 *)&D_800D0660;
-temp_v0 = func_80006008(arg1);
-  *((u32 *) temp_v0) = 0xDE000000;
-  *((void **) (((char *) temp_v0) + 4)) = &D_800A1798;
-  func_80006014(arg1, temp_v0 + 8);
-  temp_s0 = func_80006B4C(arg1, 0) & 0xFFFF;
-  func_800068C0(arg1, temp_s0, 0, 0, 0, 0x140, 0, 0, 0x140, 0xF0, 0, 0, 0xF0, 0);
-  func_800072F4(arg1, temp_s0, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0xAA);
-  func_80006298(arg1);
-  func_80099DF8(&sp40, &D_800A5DC8);
-  temp_s4 = arg0 + 0x40;
-  temp_s3 = D_800C7F90;
-  temp_s1 = func_8000C9B0((void *)(temp_s4), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1));
-  sp106 = 0x4B;
-  text = spE8;
-  temp_s0_2 = 0xA0 - (((u32) (temp_s1 & 0xFFFF)) >> 1);
-  var_s6 = 0;
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  text = (char *) (((u32) text) ^ ((u32) arg0));
-  sp10C = func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1));
-  new_var = 5;
-  temp_s0_3 = func_8000C9B0((void *)(temp_s4), (void *)(func_80057918(D_800C8328, 0xD0)), (u8)(1), (f32)(1.0f), (u8)(1));
-  base74=D_800A17EA+sp10C;temp_s0_8=(base74+temp_s0_3);
-  func_8007347C(arg1, (temp_s0_2 - 7) & 0xFFFF, 0x3A, (temp_s1 + 0xD) & 0xFFFF, 0x11);
-  func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
-  temp_s0_4 = ((u32) (temp_s0_8 & 0xFFFF)) >> 1;
-  temp_s1_2 = temp_s0_4 & 0xFFFF;
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s1_2, 0x3C, temp_s3, 1);
-  func_80073108(arg1, (s16) (func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1)) - (temp_s0_4 - 0xA0)), 0x3B, *((s32 *)dp74), (s32) (*((u8 *) (D_800C02AE + 0x7CF4))));
-  func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (func_8000C9B0((void *)(temp_s4), (void *)(temp_s3), (u8)(1), (f32)(1.0f), (u8)(1)) + (0xA0 - temp_s1_2)) + D_800A17EA, 0x3C, func_80057918(D_800C8328, 0xD0), 1);
-  func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
+  s32 * score_ptr;
+  s32 pool_w; s32 left_w; s32 spare_w;
+  char line_buf[0x78];
+  char name_a[0x18];
+  char name_b[0x18];
+  char value_buf[0x18];
+  char *value_text;
+  u16 row_y;
+  s32 *header_text;
+  s32 label_w;
+  u16 spare16;
+  s16 spare_a;
+  s16 spare_b;
+  s16 spare_c;
+  s32 quad_vtx;
+  s32 footer_w;
+  char (*row_fmt)[];
+  s32 title_x;
+  s32 entry_off;
+  s32 cur;
+  s32 footer_w1;
+  s32 title_w;
+  s32 half_w16;
+  u16 row16;
+  s32 pool_w1;
+  s32 row;
+  s32 spare_v0;
+  s32 row_idx;
+  s32 idx;
+  u32 time_val;
+  int sep_w;
+  u32 half_w;
+  int spare_i;
+  u32 pool_half;
+  u32 time_raw;
+  u32 rank_val;
+  void *font_ref;
+  void *font_slot;
+  void *dl;
+
+  score_ptr=(s32 *)&D_800D0660;
+  dl = gfx_get_dl(gfx);
+  *((u32 *) dl) = 0xDE000000;
+  *((void **) (((char *) dl) + 4)) = &D_800A1798;
+  gfx_set_dl(gfx, dl + 8);
+  quad_vtx = func_80006B4C(gfx, 0) & 0xFFFF;
+  gfx_set_quad_pos(gfx, quad_vtx, 0, 0, 0, 0x140, 0, 0, 0x140, 0xF0, 0, 0, 0xF0, 0);
+  gfx_set_quad_colors_shared_alpha(gfx, quad_vtx, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0x1E, 0x32, 0x94, 0xAA);
+  gfx_round_vtx_pos(gfx);
+  format_to_buffer(&line_buf, &D_800A5DC8);
+  font_slot = panel_ctx + 0x40;
+  header_text = gResultsTable;
+  title_w = font_text_width((void *)(font_slot), (void *)(&line_buf), (u8)(1), (f32)(1.0f), (u8)(1));
+  row_y = 0x4B;
+  value_text = value_buf;
+  title_x = 0xA0 - (((u32) (title_w & 0xFFFF)) >> 1);
+  row = 0;
+#ifdef PORT
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+  value_text = (char *) (((uintptr_t) value_text) ^ ((uintptr_t) panel_ctx));
+#else
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+  value_text = (char *) (((u32) value_text) ^ ((u32) panel_ctx));
+#endif
+  label_w = font_text_width((void *)(font_slot), (void *)(header_text), (u8)(1), (f32)(1.0f), (u8)(1));
+  sep_w = 5;
+  pool_w = font_text_width((void *)(font_slot), (void *)(pool_get_item(gSelectStepHandle, 0xD0)), (u8)(1), (f32)(1.0f), (u8)(1));
+  left_w = D_800A17EA + label_w;
+  cur = (left_w + pool_w);
+  draw_panel_quad(gfx, (title_x - 7) & 0xFFFF, 0x3A, (title_w + 0xD) & 0xFFFF, 0x11);
+  font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
+  half_w = ((u32) (cur & 0xFFFF)) >> 1;
+  half_w16 = half_w & 0xFFFF;
+  font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, 0xA0 - half_w16, 0x3C, header_text, 1);
+  func_80073108(gfx, (s16) (font_text_width((void *)(font_slot), (void *)(header_text), (u8)(1), (f32)(1.0f), (u8)(1)) - (half_w - 0xA0)), 0x3B, *((s32 *)score_ptr), (s32) (*((u8 *) (stream_state + 0x7CF4))));
+  font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, (font_text_width((void *)(font_slot), (void *)(header_text), (u8)(1), (f32)(1.0f), (u8)(1)) + (0xA0 - half_w16)) + D_800A17EA, 0x3C, pool_get_item(gSelectStepHandle, 0xD0), 1);
+  font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
   do
   {
-    temp_s1_3 = var_s6 & 0xFFFF;
-    new_var3 = &D_800A5DF0;
-    if (temp_s1_3 == 6)
+    row16 = row & 0xFFFF;
+    row_fmt = &D_800A5DF0;
+    if (row16 == 6)
     {
-      temp_v0_2 = func_8000C9B0((void *)(arg0 + 0x40), (void *)(func_80057918(D_800C8328, 0xD1)), (u8)(1), (f32)(1.0f), (u8)(1));
-      temp_s0_6 = ((u32) (temp_v0_2 & 0xFFFF)) >> 1;
-      func_8007347C(arg1, (0x97 - temp_s0_6) & 0xFFFF, 0xBC, (temp_v0_2 + 0xF) & 0xFFFF, 0x11);
-      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
-      sp106 = 0xCD;
-      func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - temp_s0_6, 0xBE, func_80057918(D_800C8328, 0xD1), 1);
-      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-      var_v0 = temp_s1_3 * 2;
+      pool_w1 = font_text_width((void *)(panel_ctx + 0x40), (void *)(pool_get_item(gSelectStepHandle, 0xD1)), (u8)(1), (f32)(1.0f), (u8)(1));
+      pool_half = ((u32) (pool_w1 & 0xFFFF)) >> 1;
+      draw_panel_quad(gfx, (0x97 - pool_half) & 0xFFFF, 0xBC, (pool_w1 + 0xF) & 0xFFFF, 0x11);
+      font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x80), (u8)(0xFF));
+      row_y = 0xCD;
+      font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, 0xA0 - pool_half, 0xBE, pool_get_item(gSelectStepHandle, 0xD1), 1);
+      font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
+      spare_v0 = row16 * 2;
     }
-    temp_s0_7 = temp_s1_3 * 24;
-    if (((*((u32 *) ((D_800C02AE + 0x7CE6) + temp_s0_7))) == (*((s32 *) (D_800C02AE + 0x7D76)))) & (temp_s1_3 != 6))
+    entry_off = row16 * 24;
+    if (((*((u32 *) ((stream_state + 0x7CE6) + entry_off))) == (*((s32 *) (stream_state + 0x7D76)))) & (row16 != 6))
     {
-      func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
+      font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xDC), (s32)(0xDC), (s32)(0x10), (u8)(0xFF));
     }
-    func_80052E94(*((u32 *) ((D_800C02AE + 0x7CE6) + temp_s0_7)), &spB8);
-    func_80052E94(*((u32 *) ((D_800C02AE + 0x7CEA) + temp_s0_7)), &spD0);
-    if ((*((u16 *) ((*((char **) (D_800C02AE + 0x32F2))) + 0x50))) != 0)
+    func_80052E94(*((u32 *) ((stream_state + 0x7CE6) + entry_off)), &name_a);
+    func_80052E94(*((u32 *) ((stream_state + 0x7CEA) + entry_off)), &name_b);
+    if ((*((u16 *) ((*((char **) (stream_state + 0x32F2))) + 0x50))) != 0)
     {
-      temp_v1 = *((u32 *) ((D_800C02AE + 0x7CEE) + temp_s0_7));
-      if (temp_v1 >= 0x12DU)
+      time_raw = *((u32 *) ((stream_state + 0x7CEE) + entry_off));
+      if (time_raw >= 0x12DU)
       {
-        func_80099DF8(spE8, &D_800A5DE8);
-        var_v1 = 0xFFFF;
-        var_v1 = var_s6 & var_v1;
+        format_to_buffer(value_buf, &D_800A5DE8);
+        idx = 0xFFFF;
+        idx = row & idx;
       }
       else
       {
-        func_80099DF8(spE8, &D_800A5D7C, ((u32) (temp_v1 * 0x9F00)) >> 0x10);
-        var_v1 = var_s6 & 0xFFFF;
+        format_to_buffer(value_buf, &D_800A5D7C, ((u32) (time_raw * 0x9F00)) >> 0x10);
+        idx = row & 0xFFFF;
       }
-      var_v0_2 = ((u32) ((*((u32 *) ((D_800C02AE + 0x7CEE) + (var_v1 * 0x18)))) * 0x27C)) >> 0xA;
+      rank_val = ((u32) ((*((u32 *) ((stream_state + 0x7CEE) + (idx * 0x18)))) * 0x27C)) >> 0xA;
     }
     else
     {
-      temp_a2 = *((u32 *) ((D_800C02AE + 0x7CEE) + temp_s0_7));
-      if (temp_a2 >= 0x12DU)
+      time_val = *((u32 *) ((stream_state + 0x7CEE) + entry_off));
+      if (time_val >= 0x12DU)
       {
-        func_80099DF8(spE8, &D_800A5DF4);
-        
+        format_to_buffer(value_buf, &D_800A5DF4);
       }
       else
       {
-        func_80099DF8(spE8, &D_800A5D84, temp_a2 & 0xFFFF);
-        
+        format_to_buffer(value_buf, &D_800A5D84, time_val & 0xFFFF);
       }
-      {s32 idx74;do {do {idx74=var_s6 & 0xFFFF;}while(0);}while(0);idx74=D_800C7F9C[idx74*6];var_v0_2=idx74;}
+      {s32 idx74;do {do {idx74=row & 0xFFFF;}while(0);}while(0);idx74=D_800C7F9C[idx74*6];rank_val=idx74;}
     }
-    if (var_v0_2 < 0x64U)
+    if (rank_val < 0x64U)
     {
-      func_80099DF8(&sp40, new_var3, (u32) text);
-      func_80099DF8(text, &D_800A5D9C, (u32) (&sp40));
+#ifdef PORT
+      format_to_buffer(&line_buf, row_fmt, (uintptr_t) value_text);
+      format_to_buffer(value_text, &D_800A5D9C, (uintptr_t) (&line_buf));
+#else
+      format_to_buffer(&line_buf, row_fmt, (u32) value_text);
+      format_to_buffer(value_text, &D_800A5D9C, (u32) (&line_buf));
+#endif
     }
-    temp_s0_8 = var_s6 & 0xFFFF;
-    if (temp_s0_8 != 6)
+    cur = row & 0xFFFF;
+    if (cur != 6)
     {
-      if (temp_s0_8 >= ((*((u8 *) (D_800A73E0 + 0x6C00))) - 1))
+      if (cur >= ((*((u8 *) (gGameState + 0x6C00))) - 1))
       {
-        if ((*((u8 *) (D_800A73E0 + 0x6C00))) == 0)
+        if ((*((u8 *) (gGameState + 0x6C00))) == 0)
         {
-          if ((*((u32 *) ((D_800C02AE + 0x7CE6) + (temp_s0_8 * 0x18)))) == 0)
+          if ((*((u32 *) ((stream_state + 0x7CE6) + (cur * 0x18)))) == 0)
           {
-            func_80099DF8(spB8, D_800A5D70);
-            func_80099DF8(spD0, D_800A5D70);
-            func_80099DF8(spE8, D_800A5D8C);
+            format_to_buffer(name_a, D_800A5D70);
+            format_to_buffer(name_b, D_800A5D70);
+            format_to_buffer(value_buf, D_800A5D8C);
           }
         }
         else
@@ -202,48 +214,47 @@ temp_v0 = func_80006008(arg1);
           goto e0c;
         }
       }
-      func_80099DF8(sp40, D_800A5DFC, temp_s0_8 + 1, spB8, spD0, text);
+      format_to_buffer(line_buf, D_800A5DFC, cur + 1, name_a, name_b, value_text);
       goto done;
       e0c:
       {
-        char *f = D_800A5E0C;
-        func_80099DF8(sp40, f);
-        func_80099DF8(spE8, f);
+        char *label_fmt = D_800A5E0C;
+        format_to_buffer(line_buf, label_fmt);
+        format_to_buffer(value_buf, label_fmt);
       }
 
     }
     else
     {
-      func_80099DF8(sp40, D_800A5E10, D_800C02AE + 0x7D72, spB8, text);
-      func_80099DF8(text, D_800A5E0C);
+      format_to_buffer(line_buf, D_800A5E10, stream_state + 0x7D72, name_a, value_text);
+      format_to_buffer(value_text, D_800A5E0C);
     }
     done:
-    var_v0_4 = var_s6 & 0xFFFF;
+    row_idx = row & 0xFFFF;
 
-    if ((*((u32 *) inline_fn(0x7CE6, var_v0_4))) != 0)
+    if ((*((u32 *) inline_fn(0x7CE6, row_idx))) != 0)
     {
-      func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, 0xA0 - (((u32) (func_8000C9B0((void *)(arg0 + 0x40), (void *)(&sp40), (u8)(1), (f32)(1.0f), (u8)(1)) & 0xFFFF)) >> 1), (s16) sp106, &sp40, 1);
+      font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, 0xA0 - (((u32) (font_text_width((void *)(panel_ctx + 0x40), (void *)(&line_buf), (u8)(1), (f32)(1.0f), (u8)(1)) & 0xFFFF)) >> 1), (s16) row_y, &line_buf, 1);
     }
-    func_8000C22C((void *)(*((s32 *) (((char *) arg0) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
-    var_s6 += 1;
-    sp106 += 0xF;
+    font_set_color((void *)(*((void **) (((char *) panel_ctx) + 0x40))), (s32)(0xFF), (s32)(0xFF), (s32)(0xFF), (u8)(0xFF));
+    row += 1;
+    row_y += 0xF;
   }
-  while (((u32) (var_s6 & 0xFFFF)) < 7U);
-  temp_s3_2 = arg0 + 0x40;
-  temp_s0_9 = func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
-  temp_s0_10 = (((D_800A17E8 + temp_s0_9) + (D_800A17E8 + new_var)) + func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD7)), (u8)(1), (f32)(1.0f), (u8)(1))) + 0x10;
+  while (((u32) (row & 0xFFFF)) < 7U);
+  font_ref = panel_ctx + 0x40;
+  footer_w1 = font_text_width((void *)(font_ref), (void *)(pool_get_item(gSelectStepHandle, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
+  footer_w = (((panel_gap + footer_w1) + (panel_gap + sep_w)) + font_text_width((void *)(font_ref), (void *)(pool_get_item(gSelectStepHandle, 0xD7)), (u8)(1), (f32)(1.0f), (u8)(1))) + 0x10;
   {
-    u16 xx = 0x140 - temp_s0_10;
-    s32 *pp = &D_800D0664;
-    func_80073320(arg1, xx & 0xFFFF, 0xDC, temp_s0_10 & 0xFFFF, 0x11);
-    func_80073108(arg1, (s16) xx, 0xDC, *pp, 2);
-    xx += D_800A17E8;
-    func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD3), 1);
-    xx += func_8000C9B0((void *)(temp_s3_2), (void *)(func_80057918(D_800C8328, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
-    func_80073108(arg1, (s16) xx, 0xDC, *pp, 0);
-    xx += D_800A17E8;
-    func_8000C244(*((s32 *) (((char *) arg0) + 0x40)), arg1, (s16) xx, 0xDE, func_80057918(D_800C8328, 0xD7), 1);
+    u16 cursor_x = 0x140 - footer_w;
+    s32 *reward_ptr = &D_800D0664;
+    func_80073320(gfx, cursor_x & 0xFFFF, 0xDC, footer_w & 0xFFFF, 0x11);
+    func_80073108(gfx, (s16) cursor_x, 0xDC, *reward_ptr, 2);
+    cursor_x += panel_gap;
+    font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, (s16) cursor_x, 0xDE, pool_get_item(gSelectStepHandle, 0xD3), 1);
+    cursor_x += font_text_width((void *)(font_ref), (void *)(pool_get_item(gSelectStepHandle, 0xD3)), (u8)(1), (f32)(1.0f), (u8)(1));
+    func_80073108(gfx, (s16) cursor_x, 0xDC, *reward_ptr, 0);
+    cursor_x += panel_gap;
+    font_draw_text(*((s32 *) (((char *) panel_ctx) + 0x40)), gfx, (s16) cursor_x, 0xDE, pool_get_item(gSelectStepHandle, 0xD7), 1);
   }
 }
-
 

@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern s32 D_800B56EC;
+extern s32 g_pos_bias;
 typedef struct 
 {
   u32 pad : 27;
@@ -55,18 +55,18 @@ void func_80017FA4(Seg *);
 void func_80028740(Seg *);
 void func_800307C8(Seg *);
 void func_80030A0C(Seg *);
-void func_80033370(Seg *);
-s32 func_8007EAA0(s32, s32);
+void car_update_list(Seg *);
+s32 poolAlloc(s32, s32);
 void memset(s32, s32, s32);
-void func_80015460(void *, s32);
-extern Seg *volatile D_8009C230;
+void add_pos_bias_words(void *, s32);
+extern Seg *volatile gMirrorListHead;
 extern void (*D_8009C234[])(void *);
-extern f32 D_8009CEC0[];
-extern u8 D_800A73E0[];
-extern char D_800AE850[];
+extern f32 vtx_scale[];
+extern u8 gGameState[];
+extern char gOrderState[];
 extern s32 D_800C3510;
-extern Info *D_800C7F80;
-Track *func_800180FC(Track *t0)
+extern Info *g_rec_val;
+/* Fixes up the track's segment table after load: resolves segment links to pointers, applies the position bias to vertex and command pointers, scales the vertex data, and picks the start segment. */ Track *func_800180FC(Track *track)
 {
   char *c;
   Seg *segs;
@@ -77,47 +77,79 @@ Track *func_800180FC(Track *t0)
   s32 j;
   s32 n;
   s32 old;
-  if (t0->n == 0)
+  if (track->n == 0)
   {
-    return t0;
+    return track;
   }
-  func_80015460(t0, 1);
-  segs = t0->segs;
-  D_800A73E0[0x6C01] = 1;
-  t = t0;
+  add_pos_bias_words(track, 1);
+  segs = track->segs;
+  gGameState[0x6C01] = 1;
+  t = track;
   for (i = 0; i < t->n; i++)
   {
     s = &segs[i];
-    if (((s32) s->s5C) != (-1))
+    #ifdef PORT
+if ((*(s32 *)&s->s5C) != (-1))
+#else
+if (((s32) s->s5C) != (-1))
+#endif
     {
-      s->s5C = segs + ((s32) s->s5C);
+      #ifdef PORT
+s->s5C = segs + (*(s32 *)&s->s5C);
+#else
+s->s5C = segs + ((s32) s->s5C);
+#endif
     }
     else
     {
       s->s5C = 0;
-      D_800A73E0[0x6C01] = 0;
+      gGameState[0x6C01] = 0;
     }
-    if (((s32) segs[i].s58) != (-1))
+    #ifdef PORT
+if ((*(s32 *)&segs[i].s58) != (-1))
+#else
+if (((s32) segs[i].s58) != (-1))
+#endif
     {
-      segs[i].s58 = segs + ((s32) segs[i].s58);
+      #ifdef PORT
+segs[i].s58 = segs + (*(s32 *)&segs[i].s58);
+#else
+segs[i].s58 = segs + ((s32) segs[i].s58);
+#endif
     }
     else
     {
       segs[i].s58 = 0;
-      D_800A73E0[0x6C01] = 0;
+      gGameState[0x6C01] = 0;
     }
-    if (((s32) segs[i].s64) != (-1))
+    #ifdef PORT
+if ((*(s32 *)&segs[i].s64) != (-1))
+#else
+if (((s32) segs[i].s64) != (-1))
+#endif
     {
-      segs[i].s64 = segs + ((s32) segs[i].s64);
+      #ifdef PORT
+segs[i].s64 = segs + (*(s32 *)&segs[i].s64);
+#else
+segs[i].s64 = segs + ((s32) segs[i].s64);
+#endif
     }
     else
     {
       segs[i].s64 = 0;
     }
     {
+      #ifdef PORT
+      s32 vv = *(s32 *)&segs[i].verts;
+#else
       s32 vv = (s32) segs[i].verts;
-      s32 base = D_800B56EC;
+#endif
+      s32 base = g_pos_bias;
+#ifdef PORT
+      segs[i].verts = (s16 *)(uintptr_t)(vv + base);
+#else
       segs[i].verts = (s16 *) (vv + base);
+#endif
       segs[i].off70 += base;
       if (segs[i].off6C)
       {
@@ -126,34 +158,34 @@ Track *func_800180FC(Track *t0)
     }
   }
 
-  if (D_800A73E0[0x6C02] == 0)
+  if (gGameState[0x6C02] == 0)
   {
     for (i = 0; i < t->n; i++)
     {
-      D_8009C230 = &segs[i];
-      if (segs[i].f.b0 && ((&segs[i]) != (&segs[D_800C7F80->cur])))
+      gMirrorListHead = &segs[i];
+      if (segs[i].f.b0 && ((&segs[i]) != (&segs[g_rec_val->cur])))
       {
         break;
       }
     }
 
     D_800C3510 = i;
-    D_8009C230 = &segs[D_800C7F80->cur];
+    gMirrorListHead = &segs[g_rec_val->cur];
   }
   else
   {
     for (i = 0; i < t->n; i++)
     {
-      D_8009C230 = &segs[i];
-      if (segs[i].f.b0 && ((&segs[i]) != (&segs[D_800C7F80->cur])))
+      gMirrorListHead = &segs[i];
+      if (segs[i].f.b0 && ((&segs[i]) != (&segs[g_rec_val->cur])))
       {
         break;
       }
     }
 
-    old = D_800C7F80->cur;
-    D_800C7F80->cur = i;
-    *(Seg **) &D_8009C230 = &segs[D_800C7F80->cur];
+    old = g_rec_val->cur;
+    g_rec_val->cur = i;
+    *(Seg **) &gMirrorListHead = &segs[g_rec_val->cur];
     D_800C3510 = old;
     for (i = 0; i < t->n; i++)
     {
@@ -165,14 +197,14 @@ Track *func_800180FC(Track *t0)
     }
 
   }
-  if (D_800A73E0[0x6C01] == 1)
+  if (gGameState[0x6C01] == 1)
   {
     segs[D_800C3510].f.b1 = 0;
     segs[D_800C3510].f.b0 = 0;
     segs[D_800C3510].f.b4 = 0;
-    segs[D_800C7F80->cur].f.b1 = 0;
-    segs[D_800C7F80->cur].f.b0 = 1;
-    segs[D_800C7F80->cur].f.b4 = 1;
+    segs[g_rec_val->cur].f.b1 = 0;
+    segs[g_rec_val->cur].f.b0 = 1;
+    segs[g_rec_val->cur].f.b4 = 1;
   }
   else
   {
@@ -180,14 +212,14 @@ Track *func_800180FC(Track *t0)
     segs[D_800C3510].f.b0 = 0;
     segs[D_800C3510].f.b2 = 0;
     segs[D_800C3510].f.b4 = 1;
-    segs[D_800C7F80->cur].f.b1 = 0;
-    segs[D_800C7F80->cur].f.b0 = 1;
-    segs[D_800C7F80->cur].f.b2 = 1;
-    segs[D_800C7F80->cur].f.b4 = 1;
+    segs[g_rec_val->cur].f.b1 = 0;
+    segs[g_rec_val->cur].f.b0 = 1;
+    segs[g_rec_val->cur].f.b2 = 1;
+    segs[g_rec_val->cur].f.b4 = 1;
   }
-  if (D_800A73E0[0x6C01] == 0)
+  if (gGameState[0x6C01] == 0)
   {
-    segs[D_800C7F80->cur].f.b2 = 1;
+    segs[g_rec_val->cur].f.b2 = 1;
   }
   for (i = 0; i < t->n; i++)
   {
@@ -199,8 +231,8 @@ Track *func_800180FC(Track *t0)
     q = &segs[i];
     if (q->cmds)
     {
-      c = q->cmds += D_800B56EC;
-      func_80015460(c, q->count50);
+      c = q->cmds += g_pos_bias;
+      add_pos_bias_words(c, q->count50);
       c = q->cmds;
       if (c)
       {
@@ -221,7 +253,7 @@ Track *func_800180FC(Track *t0)
         }
       }
     }
-    q->alloc = func_8007EAA0(1, 0x28);
+    q->alloc = poolAlloc(1, 0x28);
     memset(q->alloc, 0, 0x28);
     q->z7C = 0;
     q->x0 -= 400;
@@ -230,36 +262,36 @@ Track *func_800180FC(Track *t0)
     q->x1 += 400;
     q->y1 += 400;
     q->x3 += 400;
-    q->x0 = q->x0 * D_8009CEC0[0];
-    q->y0 = q->y0 * D_8009CEC0[1];
-    q->x2 = q->x2 * D_8009CEC0[2];
-    q->x1 = q->x1 * D_8009CEC0[0];
-    q->y1 = q->y1 * D_8009CEC0[1];
-    q->x3 = q->x3 * D_8009CEC0[2];
-    q->b24 = q->b24 * D_8009CEC0[0];
-    q->b28 = q->b28 * D_8009CEC0[1];
-    q->b2C = q->b2C * D_8009CEC0[2];
+    q->x0 = q->x0 * vtx_scale[0];
+    q->y0 = q->y0 * vtx_scale[1];
+    q->x2 = q->x2 * vtx_scale[2];
+    q->x1 = q->x1 * vtx_scale[0];
+    q->y1 = q->y1 * vtx_scale[1];
+    q->x3 = q->x3 * vtx_scale[2];
+    q->b24 = q->b24 * vtx_scale[0];
+    q->b28 = q->b28 * vtx_scale[1];
+    q->b2C = q->b2C * vtx_scale[2];
     n = q->h * q->w;
     {
       s16 *v = q->verts;
       for (j = 0; j < n; j++)
       {
-        v[(j * 3) + 0] = v[(j * 3) + 0] * D_8009CEC0[0];
-        v[(j * 3) + 1] = v[(j * 3) + 1] * D_8009CEC0[1];
-        v[(j * 3) + 2] = v[(j * 3) + 2] * D_8009CEC0[2];
+        v[(j * 3) + 0] = v[(j * 3) + 0] * vtx_scale[0];
+        v[(j * 3) + 1] = v[(j * 3) + 1] * vtx_scale[1];
+        v[(j * 3) + 2] = v[(j * 3) + 2] * vtx_scale[2];
       }
 
     }
   }
 
-  func_80028740(D_8009C230);
+  func_80028740(gMirrorListHead);
   for (i = 0; i < t->n; i++)
   {
     func_800307C8(&segs[i]);
   }
 
-  func_80030A0C(D_8009C230);
-  func_80033370(D_8009C230);
-  return t0;
+  func_80030A0C(gMirrorListHead);
+  car_update_list(gMirrorListHead);
+  return track;
 }
 

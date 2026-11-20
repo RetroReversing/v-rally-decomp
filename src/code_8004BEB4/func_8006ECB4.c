@@ -1,6 +1,6 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern u8 D_800C02AE[];
+extern u8 stream_state[];
 typedef struct
 {
   u16 b15 : 1;
@@ -24,28 +24,32 @@ typedef struct
   u32 f24 : 4;
   u32 lo : 24;
 } Word;
-void func_8006FA8C(void);
-#define WD (*(Word *)(D_800C02AE + 0x6E76))
-#define OBJ (*(u8 **)(D_800C02AE + 0x32F2))
+void stream_refresh_car_flags(void);
+#define WD (*(Word *)(stream_state + 0x6E76))
+#define OBJ (*(u8 **)(stream_state + 0x32F2))
+
+/* Copies the current object and scale-float state into the packed State record and the Word
+ * register, then calls stream_refresh_car_flags to apply it. Float values are scaled by 8 and truncated. */
 void func_8006ECB4(void)
 {
   f32 scale = 8.0f;
-  State *s = (State *)(D_800C02AE + 0x6E5E);
-  Word w = WD;
-  w.f24 = (s32)(*(f32 *)(D_800C02AE + 0x3332) * scale);
-  s->f.b4 = (s32)(*(f32 *)(D_800C02AE + 0x333A) * scale);
-  s->f.b0 = (s32)(*(f32 *)(D_800C02AE + 0x332E) * scale);
-  WD = w;
-  s->f.b12 = *(u16 *)(OBJ + 0x50);
-  s->h2 = *(u16 *)(OBJ + 0x2A);
+  State *state = (State *)(stream_state + 0x6E5E);
+  Word word = WD;
+  word.f24 = (s32)(*(f32 *)(stream_state + 0x3332) * scale);
+  state->f.b4 = (s32)(*(f32 *)(stream_state + 0x333A) * scale);
+  state->f.b0 = (s32)(*(f32 *)(stream_state + 0x332E) * scale);
+  WD = word;
+  state->f.b12 = *(u16 *)(OBJ + 0x50);
+  state->h2 = *(u16 *)(OBJ + 0x2A);
   if (*(u16 *)(OBJ + 0x38))
-    s->f.b15 = 1;
+    state->f.b15 = 1;
   else
-    s->f.b15 = 0;
-  s->h4 = OBJ[0x2F];
-  s->f.b14 = *(u16 *)(D_800C02AE + 0x32A8);
-  s->f.b13 = *(u16 *)(OBJ + 0x12);
-  s->f.b10 = *(u16 *)(OBJ + 0x16);
-  s->f.b8 = *(u32 *)(D_800C02AE + 0x32AA);
-  func_8006FA8C();
+    state->f.b15 = 0;
+  state->h4 = OBJ[0x2F];
+  state->f.b14 = *(u16 *)(stream_state + 0x32A8);
+  state->f.b13 = *(u16 *)(OBJ + 0x12);
+  state->f.b10 = *(u16 *)(OBJ + 0x16);
+  state->f.b8 = *(u32 *)(stream_state + 0x32AA);
+  stream_refresh_car_flags();
 }
+

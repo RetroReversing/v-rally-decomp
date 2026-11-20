@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Trk {
     u8 pad00[0x30];
@@ -28,95 +28,21 @@ typedef struct Trk {
     u8 b12E[5];
 } Trk;
 
-u8 *func_80087DE4(Trk *t, u8 *p)
+/* Pushes the current track state onto the track's save stack (one slot per
+ * depth level), then returns the read position advanced by one byte. */
+u8 *func_80087DE4(Trk *track, u8 *pos)
 {
-    s32 idx = t->depth;
+    s32 level = track->depth;
 
-    t->b124[idx] = *p++;
-    t->ret[idx] = p;
-    t->e8[idx] = t->x34;
-    t->fc[idx] = t->x30;
-    t->b129[idx] = t->bB4;
-    t->b12E[idx] = t->f6C;
-    t->h110[idx] = t->h9A;
-    t->h11A[idx] = t->h9C;
-    t->depth++;
-    return p;
+    track->b124[level] = *pos++;
+    track->ret[level] = pos;
+    track->e8[level] = track->x34;
+    track->fc[level] = track->x30;
+    track->b129[level] = track->bB4;
+    track->b12E[level] = track->f6C;
+    track->h110[level] = track->h9A;
+    track->h11A[level] = track->h9C;
+    track->depth++;
+    return pos;
 }
-
-typedef struct Ent {
-    s32 active;
-    u8 pad04[0x9A];
-    u16 h9E;
-    u8 padA0[0x134 - 0xA0];
-} Ent;
-extern s32 D_800C782C;
-extern Ent *D_800B68F0;
-
-s32 func_800869B8(s32 arg0)
-;
-          
-             
-           
-
-          
-             
-                   
-                                           
-                             
-                              
-                               
-                           
-                 
-                    
-                               
-                           
-                 
-             
-         
-     
-                
- 
-
-extern s32 D_800A19B0;
-extern s32 D_800B5B40;
-extern s32 *D_800C5BB0[];
-extern void (*D_800C8090)(s32);
-extern void (*D_800C80A8)(s32);
-
-s32 func_8007EE9C(void *arg0)
-;
-                   
-
-                          
-                                   
-     
-                   
-                                                  
-                    
-                                                                                  
-            
-                                   
-     
-                   
-                  
- 
-
-s32 func_80088008(Trk *t, u8 *p)
-;
-          
-          
-          
-          
-
-             
-             
-             
-             
-               
-                                     
-               
-                                           
-                                   
- 
 

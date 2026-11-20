@@ -1,4 +1,4 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef void (*SpriteHook)(void *);
 typedef struct {
@@ -18,14 +18,17 @@ typedef struct { char pad[8]; s16 x; s16 y; s16 w; s16 h; } Rect;
 typedef struct { char pad[0xC]; s32 unkC; char pad10[0x168]; Rect *rect; } Owner;
 typedef struct { char pad[0xE]; u16 mode; char pad10[2]; u16 flags; } Cfg;
 
-s32 func_80034FF0(s32, s32);
-void *func_80040260(void *, s16, s16, s32, SpriteHook, s32);
-Owner *func_8004240C(s32);
-void func_8003C254(void *);
-extern Cfg *D_800C35A0;
-extern Owner *D_800C7F84;
+s32 getTexturePack(s32, s32);
+void *sprite_create(void *, s16, s16, s32, SpriteHook, s32);
+Owner *find_object_by_id(s32);
+void updateCounterDigits(void *);
+extern Cfg *gRecords;
+extern Owner *g_camera;
 
-void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
+/* Spawns the HUD sprite group for one panel (arg2 picks the owner object).
+ * Mode 1 and mode 2 each build a chain of three sprites, linked through unk8C,
+ * laid out from the panel rect; arg1 is the source block for unkA4. */
+void func_8003C354(void *arg0, s32 arg1, u16 arg2)
 {
   Owner *o;
   Rect *r;
@@ -36,67 +39,67 @@ void func_8003C354(s32 arg0, s32 arg1, u16 arg2)
   s16 sy;
   s32 off;
 
-  o = func_8004240C(((arg2 - 1) * 2) | 1);
+  o = find_object_by_id(((arg2 - 1) * 2) | 1);
   r = o->rect;
-  D_800C7F84 = o;
+  g_camera = o;
   x = r->x + 20;
   y = r->y + 6;
   w = r->w;
   h = r->h;
   w2 = w - 16;
   h2 = h - 8;
-  switch (D_800C35A0->mode) {
+  switch (gRecords->mode) {
   case 1:
     sy = h - 20;
-    a = ((Sprite *)func_80040260((void *)(arg0), w - 82, sy, (s16)(3), func_8003C254, 0));
+    a = ((Sprite *)sprite_create(arg0, w - 82, sy, (s16)(3), updateCounterDigits, 0));
     a->unk7A = 0;
     a->unk78 = 1;
-    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
-    a->unkA8 = D_800C7F84;
-    b = ((Sprite *)func_80040260((void *)(arg0), w - 73, sy, (s16)(3), func_8003C254, 0));
+    a->unkA4 = getTexturePack(arg1 + 0x4C, 0);
+    a->unkA8 = g_camera;
+    b = ((Sprite *)sprite_create(arg0, w - 73, sy, (s16)(3), updateCounterDigits, 0));
     b->unk7A = 0;
     b->unk78 = 1;
     b->unk8C = a;
-    b->unkA8 = D_800C7F84;
-    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
-    a = ((Sprite *)func_80040260((void *)(arg0), w - 64, sy, (s16)(3), func_8003C254, 0));
+    b->unkA8 = g_camera;
+    b->unkA4 = getTexturePack(arg1 + 0x4C, 0);
+    a = ((Sprite *)sprite_create(arg0, w - 64, sy, (s16)(3), updateCounterDigits, 0));
     a->unk7A = 0;
     a->unk78 = 0;
     a->unk8C = b;
-    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
-    a->unkA8 = D_800C7F84;
+    a->unkA4 = getTexturePack(arg1 + 0x4C, 0);
+    a->unkA8 = g_camera;
     break;
   case 2:
     off = 0;
-    if (!(D_800C35A0->flags & 1)) {
+    if (!(gRecords->flags & 1)) {
       x = r->x + 4;
       off = -(o->unkC == 1) & 20;
     }
     sx = x + w2;
     sy = y + h2 - 14;
-    a = ((Sprite *)func_80040260((void *)(arg0), (s32)(sx + 0xFFCCU) + off, sy, (s16)(3), func_8003C254, 0));
+    a = ((Sprite *)sprite_create(arg0, (s32)(sx + 0xFFCCU) + off, sy, (s16)(3), updateCounterDigits, 0));
     a->unk7A = 0;
     a->unk78 = 1;
-    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    a->unkA4 = getTexturePack(arg1 + 0x4C, 0);
     a->unk98 = 0x600;
     a->unk9A = 0x600;
-    a->unkA8 = D_800C7F84;
-    b = ((Sprite *)func_80040260((void *)(arg0), (s32)(sx + 0xFFD5U) + off, sy, (s16)(3), func_8003C254, 0));
+    a->unkA8 = g_camera;
+    b = ((Sprite *)sprite_create(arg0, (s32)(sx + 0xFFD5U) + off, sy, (s16)(3), updateCounterDigits, 0));
     b->unk7A = 0;
     b->unk78 = 1;
     b->unk8C = a;
-    b->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    b->unkA4 = getTexturePack(arg1 + 0x4C, 0);
     b->unk98 = 0x600;
     b->unk9A = 0x600;
-    b->unkA8 = D_800C7F84;
-    a = ((Sprite *)func_80040260((void *)(arg0), (s32)(sx + 0xFFDEU) + off, sy, (s16)(3), func_8003C254, 0));
+    b->unkA8 = g_camera;
+    a = ((Sprite *)sprite_create(arg0, (s32)(sx + 0xFFDEU) + off, sy, (s16)(3), updateCounterDigits, 0));
     a->unk7A = 0;
     a->unk78 = 0;
     a->unk8C = b;
-    a->unkA4 = func_80034FF0(arg1 + 0x4C, 0);
+    a->unkA4 = getTexturePack(arg1 + 0x4C, 0);
     a->unk98 = 0x600;
     a->unk9A = 0x600;
-    a->unkA8 = D_800C7F84;
+    a->unkA8 = g_camera;
     break;
   }
 }

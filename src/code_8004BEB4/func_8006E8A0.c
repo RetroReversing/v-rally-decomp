@@ -1,26 +1,23 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct {
-    u16 f15 : 1;
-    u16 f14 : 1;
-    u16 f13 : 1;
+    u16 flagB : 1;
+    u16 flagC : 1;
+    u16 flagA : 1;
     u16 pad : 3;
-    u16 f8 : 2;
-    u16 f4 : 4;
-    u16 f0 : 4;
-    u16 g12 : 4;
-    u16 g8 : 4;
-    u8 b3;
-    u8 b4;
-    u8 b5;
-    u8 b6;
-    u8 b7;
-    u8 b8;
-    u8 b9;
+    u16 mode : 2;
+    u16 sel0 : 4;
+    u16 sel1 : 4;
+    u16 sel2 : 4;
+    u16 sel3 : 4;
+    u8 countA[3];
+    u8 countB[3];
+    u8 activeBits;
     s16 sums[4];
     u8 pad12[0x1BA - 0x12];
     s8 code;
-} Packet;
+} LinkPacket;
+
 typedef struct {
     u8 pad0[0xA];
     union {
@@ -28,7 +25,8 @@ typedef struct {
         u8 b[2];
     } v;
     u8 pad0C[0x28 - 0xC];
-} Entry;
+} RecordEntry;
+
 typedef struct {
     u8 pad0[0xE];
     u16 mode;
@@ -38,22 +36,25 @@ typedef struct {
     u8 sel2;
     u8 sel3;
     u8 pad36[0x44 - 0x36];
-    Entry e[1];
-} Game;
-typedef struct { u8 a; u8 b; u8 c; } Flags3;
-extern Packet D_800C7112;
-extern Game *D_800C35A0;
-extern Flags3 D_800B6818;
+    RecordEntry e[1];
+} GameRecords;
+
+typedef struct { u8 a; u8 b; u8 c; } LinkFlags;
+
+extern LinkPacket D_800C7112;
+extern GameRecords *gRecords;
+extern LinkFlags D_800B6818;
 extern u16 D_800B6610[];
 extern u8 D_800B6628[][4];
 extern s32 D_800B6768;
 extern s32 D_800B676C;
 
+/* Fills gLinkPacket from the link flags, the selected records and the per-slot tables. */
 void func_8006E8A0(void)
 {
-    Packet *p;
-    u8 n;
-    u8 base;
+    LinkPacket *pkt;
+    u8 slotCount;
+    u8 slotBase;
     u8 i;
     u8 j;
     s8 bits;
@@ -61,59 +62,59 @@ void func_8006E8A0(void)
 
     if (D_800B6818.b != 0)
     {
-        n = 4;
-        base = 8;
+        slotCount = 4;
+        slotBase = 8;
     }
     else
     {
-        n = 8;
-        base = 0;
+        slotCount = 8;
+        slotBase = 0;
     }
-    p = &D_800C7112;
-    p->f14 = D_800B6818.c;
-    p->f13 = D_800B6818.a;
-    p->f15 = D_800B6818.b;
-    p->f8 = D_800C35A0->mode;
-    p->f4 = D_800C35A0->sel0;
-    D_800C7112.code = D_800C35A0->e[D_800C35A0->sel0].v.b[1] & 0xF;
-    if (D_800C35A0->mode == 2)
+    pkt = &D_800C7112;
+    pkt->flagC = D_800B6818.c;
+    pkt->flagA = D_800B6818.a;
+    pkt->flagB = D_800B6818.b;
+    pkt->mode = gRecords->mode;
+    pkt->sel0 = gRecords->sel0;
+    D_800C7112.code = gRecords->e[gRecords->sel0].v.b[1] & 0xF;
+    if (gRecords->mode == 2)
     {
-        p->f0 = D_800C35A0->sel1;
-        D_800C7112.code += (D_800C35A0->e[D_800C35A0->sel1].v.b[1] & 0xF) << 4;
+        pkt->sel1 = gRecords->sel1;
+        D_800C7112.code += (gRecords->e[gRecords->sel1].v.b[1] & 0xF) << 4;
     }
     else
     {
-        p->f0 = D_800C35A0->e[D_800C35A0->sel1].v.w;
+        pkt->sel1 = gRecords->e[gRecords->sel1].v.w;
     }
-    p->g12 = D_800C35A0->e[D_800C35A0->sel2].v.w & 0xF;
-    p->g8 = D_800C35A0->e[D_800C35A0->sel3].v.w;
+    pkt->sel2 = gRecords->e[gRecords->sel2].v.w & 0xF;
+    pkt->sel3 = gRecords->e[gRecords->sel3].v.w;
     bits = 0;
-    for (i = 0; i < n; i++)
+    for (i = 0; i < slotCount; i++)
     {
-        if (D_800B6610[base + i] == 1)
+        if (D_800B6610[slotBase + i] == 1)
         {
             bits |= 1 << i;
         }
     }
-    p->b9 = bits;
+    pkt->activeBits = bits;
     for (j = 0; j < 4; j++)
     {
         sum = 0;
-        for (i = 0; i < n; i++)
+        for (i = 0; i < slotCount; i++)
         {
-            sum += D_800B6628[base + i][j] << (i * 2);
+            sum += D_800B6628[slotBase + i][j] << (i * 2);
         }
-        p->sums[j] = sum;
+        pkt->sums[j] = sum;
     }
     {
         s32 t = D_800B6768;
-        p->b3 = t;
-        p->b5 = t >> 16;
-        p->b4 = t >> 8;
+        pkt->countA[0] = t;
+        pkt->countA[2] = t >> 16;
+        pkt->countA[1] = t >> 8;
         t = D_800B676C;
-        p->b8 = t >> 16;
-        p->b7 = t >> 8;
-        p->b6 = t;
+        pkt->countB[2] = t >> 16;
+        pkt->countB[1] = t >> 8;
+        pkt->countB[0] = t;
     }
 }
 

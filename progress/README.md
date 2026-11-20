@@ -10,8 +10,8 @@ judge accepted them as matches.
 - **Platform:** n64
 - **Compiler:** gcc-2.7.2-kmc
 <!-- decompdecomp:progress:start -->
-- **Progress:** 2094 matching function(s), 3 best attempt(s)
-- **Completion:** 2,094 / 2,096 functions (99.9%). 29 set aside, excluded from completion.
+- **Progress:** 2095 matching function(s), 2 best attempt(s)
+- **Completion:** 2,095 / 2,096 functions (100.0%). 29 set aside, excluded from completion.
 <!-- decompdecomp:progress:end -->
 
 ## What's in this folder

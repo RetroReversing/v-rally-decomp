@@ -1,20 +1,25 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
-extern unsigned char D_800B0D94;
-extern unsigned char D_800B0D95;void *func_800592D0(u32);
-s32 func_80059618();
-void func_800596F4(void *, s16, s16, void *);
-s32 func_80099DF8();
+extern u8 D_800B0D94;
+extern u8 D_800B0D95;
 extern char D_800A56BC[];
-extern char D_800AE850[];
+void *textObjGet(u32);
+s32 group_set_color();
+void draw_palette_sprite(void *, s16, s16, void *);
+s32 format_to_buffer();
+
+/* Draws the counter text object 5: sets its colour from bytes +0xB..+0xE, formats the
+ * sum of two counter bytes into a 4-character buffer, then draws the object at its
+ * position (+6, +8) with that buffer. */
 void func_80064E50(void)
 {
-  s8 sp18[5];
-  void *temp_v0;
-  temp_v0 = func_800592D0(5);
-  func_80059618(temp_v0, *((u8 *) (((char *) temp_v0) + 0xB)), *((u8 *) (((char *) temp_v0) + 0xC)), *((u8 *) (((char *) temp_v0) + 0xD)), (s32) (*((u8 *) (((char *) temp_v0) + 0xE))));
-  sp18[4] = 0;
-  func_80099DF8(sp18, &D_800A56BC, D_800B0D94 + D_800B0D95);
-  func_800596F4((void *)(temp_v0), (s16)(*((s16 *) (((char *) temp_v0) + 6))), (s16)(*((s16 *) (((char *) temp_v0) + 8))), (void *)(sp18));
+    s8 buf[5];
+    void *text;
+
+    text = textObjGet(5);
+    group_set_color(text, *((u8 *)(((char *)text) + 0xB)), *((u8 *)(((char *)text) + 0xC)), *((u8 *)(((char *)text) + 0xD)), (s32)(*((u8 *)(((char *)text) + 0xE))));
+    buf[4] = 0;
+    format_to_buffer(buf, &D_800A56BC, D_800B0D94 + D_800B0D95);
+    draw_palette_sprite((void *)(text), (s16)(*((s16 *)(((char *)text) + 6))), (s16)(*((s16 *)(((char *)text) + 8))), (void *)(buf));
 }
 

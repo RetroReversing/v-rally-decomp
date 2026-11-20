@@ -1,56 +1,58 @@
-#include "decompdecomp_sync_dbba70193bdbe4bf36bd.h"
+#include "decompdecomp_sync_e4df60a9d409958455db.h"
 #line 1 "func.c"
 typedef struct Part { s16 x; s16 t; s16 z; s16 w; } Part;
 typedef struct Ent { f32 x; f32 y; f32 z; } Ent;
 typedef struct EntList { char pad0[8]; s32 count; char padC[0x18 - 0xC]; Ent ents[1]; } EntList;
 typedef struct Cam { char pad0[0xD8]; f32 dirx; char padDC[4]; f32 dirz; char padE4[0x118 - 0xE4]; f32 x; f32 y; f32 z; } Cam;
 
-extern s32 func_8002D2C8(s32, s32);
-extern void func_8002E148(s16 *, s32 *);
-void *func_8002E514(void *, void *, void *);
+extern s32 angle_atan2_thunk(s32, s32);
+extern void mat3x3_from_euler(s16 *, s32 *);
+void *mtx3_transform_vec3(void *, void *, void *);
 extern u64 osGetTime(void);
-extern s32 func_80098090(void);
-extern void func_800980C4(u32);
-extern Cam *D_800C7F84;
-extern EntList *D_800C811C;
+extern s32 rand_next15(void);
+extern void rand_seed(u32);
+extern Cam *g_camera;
+extern EntList *g_ent_list;
 
-void func_80035C4C(Part *p, u8 idx) {
-    s16 vec[4];
-    s16 rot[4];
+/* Scrolls every track part by the camera-relative offset of entity ent_idx.
+ * Parts with t == 1001 are respawned at random positions in front of the camera
+ * (position and yaw from the random generator). Every part ages by 20 each call. */
+void func_80035C4C(Part *part, u8 ent_idx) {
+    s16 pos[4];
+    s16 angles[4];
     s32 mtx[8];
-    f32 fdx;
-    f32 fdz;
-    s32 ang;
-    s32 n;
-    s32 r;
-    Ent *e;
+    f32 dx;
+    f32 dz;
+    s32 cam_yaw;
+    s32 count;
+    s32 base_angle;
     Cam *cam;
 
-    fdx = (s16)(D_800C811C->ents[idx].x - D_800C7F84->x);
-    fdz = (s16)(D_800C811C->ents[idx].z - D_800C7F84->z);
-    cam = D_800C7F84;
-    if ((fdx > 1000.0f) & (fdz > 1000.0f)) {
-        fdx = fdz = 0.0f;
+    dx = (s16)(g_ent_list->ents[ent_idx].x - g_camera->x);
+    dz = (s16)(g_ent_list->ents[ent_idx].z - g_camera->z);
+    cam = g_camera;
+    if ((dx > 1000.0f) & (dz > 1000.0f)) {
+        dx = dz = 0.0f;
     }
-    ang = -func_8002D2C8(cam->dirz * 4096.0f, cam->dirx * -4096.0f);
-    rot[0] = 0;
-    rot[2] = 0;
-    vec[2] = 0;
-    n = D_800C811C->count;
-    func_800980C4(osGetTime());
-    while (n-- != 0) {
-        if (p->t == 1001) {
-            vec[0] = func_80098090() % 4095 + 0x200;
-            vec[1] = -(func_80098090() % 511);
-            r = ang - 0x200;
-            rot[1] = r + func_80098090() % 1023;
-            func_8002E148(rot, mtx);
-            func_8002E514(mtx, vec, p);
+    cam_yaw = -angle_atan2_thunk(cam->dirz * 4096.0f, cam->dirx * -4096.0f);
+    angles[0] = 0;
+    angles[2] = 0;
+    pos[2] = 0;
+    count = g_ent_list->count;
+    rand_seed(osGetTime());
+    while (count-- != 0) {
+        if (part->t == 1001) {
+            pos[0] = rand_next15() % 4095 + 0x200;
+            pos[1] = -(rand_next15() % 511);
+            base_angle = cam_yaw - 0x200;
+            angles[1] = base_angle + rand_next15() % 1023;
+            mat3x3_from_euler(angles, mtx);
+            mtx3_transform_vec3(mtx, pos, part);
         }
-        p->x = p->x + fdx;
-        p->t += 20;
-        p->z = p->z + fdz;
-        p++;
+        part->x = part->x + dx;
+        part->t += 20;
+        part->z = part->z + dz;
+        part++;
     }
 }
 
